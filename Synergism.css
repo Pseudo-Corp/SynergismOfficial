@@ -863,6 +863,109 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     overflow: auto;
 }
 
+#infoAlertWrapper {
+    height: 100%;
+    display: none;
+}
+
+#confirmationBox.infoConfirmation {
+    box-sizing: border-box;
+    width: min(42em, calc(100vw - 2em));
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    max-height: calc(100dvh - 2em);
+    overflow: auto;
+}
+
+#infoAlert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75em;
+}
+
+#infoAlertTitle {
+    margin: 0;
+    color: gold;
+    font-weight: bold;
+    text-align: center;
+}
+
+#infoAlertBody {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#infoAlertBody p {
+    margin: 0 0 0.5em;
+    text-align: center;
+}
+
+#ok_infoAlert {
+    min-width: 8em;
+    border: 1px solid gold;
+}
+
+#infoAlertSections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+#infoAlertSections > button {
+    padding: 2px 10px;
+    border: 2px solid gray;
+}
+
+#infoAlertSections > button[aria-pressed="true"] {
+    border-color: gold;
+    color: gold;
+}
+
+.freeUpgradeInfoSummary {
+    color: orange;
+}
+
+.freeUpgradeInfoMaxed {
+    color: var(--green-text-color);
+}
+
+.freeUpgradeInfoTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+}
+
+.freeUpgradeInfoTable th,
+.freeUpgradeInfoTable td {
+    padding: 2px 6px;
+    text-align: right;
+}
+
+.freeUpgradeInfoTable th:first-child,
+.freeUpgradeInfoTable td:first-child {
+    text-align: left;
+}
+
+.freeUpgradeInfoTable th {
+    color: gold;
+    border-bottom: 1px solid gold;
+}
+
+.freeUpgradeInfoTable td[colspan] {
+    padding-left: 1.5em;
+    text-align: left;
+    font-size: 0.9em;
+    color: lightblue;
+}
+
+.freeUpgradeInfoInactive,
+.freeUpgradeInfoTable .freeUpgradeInfoInactive td {
+    color: gray;
+}
+
 #purchasePrompt {
     display: flex;
     flex-direction: column;
@@ -7173,14 +7276,37 @@ header #obtainiumDisplay { color: pink; }
     min-width: 15em;
 }
 
-#toggleMaxedOcteractUpgrades {
+#actualSingularityUpgradeContainer {
+    position: relative;
+    padding-bottom: 2.5em;
+}
+
+.freeUpgradeInfoButton {
     position: absolute;
     z-index: 3;
     bottom: 0;
-    left: 0;
-    min-width: 0;
+    right: 0;
     padding: 5px;
     margin: 2px;
+    border: 2px solid gold;
+}
+
+#octeractUpgradeFooter {
+    /* width: 0 keeps the footer out of the container's fit-content width; min-width fills the row */
+    width: 0;
+    min-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+#octeractUpgradeFooter > button {
+    position: static;
+    min-width: 0;
+    padding: 5px;
+    margin: 0;
 }
 
 .upgradeHiddenByMaxLevel {

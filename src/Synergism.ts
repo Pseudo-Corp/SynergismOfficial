@@ -210,7 +210,7 @@ import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { handleLogin } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
-import { blankOcteractLevelObject, setOcteractUpgradeLevels } from './Octeracts'
+import { blankOcteractLevelObject, clampOcteractFreeLevelsToCaps, setOcteractUpgradeLevels } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache } from './PseudoCoinUpgrades'
@@ -242,7 +242,12 @@ import { blankPurpleReactorUpgradeObject, setPurpleReactorUpgradeLevels } from '
 import { generatePurpleUpgradeTabHTML } from './PurpleUpgradeTab'
 import { getShopUpgradeEffects, type ShopUpgradeNames, shopUpgrades, updateShopLevels } from './Shop'
 import { generateShopTabHTML } from './ShopTab'
-import { blankGQLevelObject, calculateMaxSingularityLookahead, setGQUpgradeLevels } from './singularity'
+import {
+  blankGQLevelObject,
+  calculateMaxSingularityLookahead,
+  clampGQFreeLevelsToCaps,
+  setGQUpgradeLevels
+} from './singularity'
 import {
   getSingularityChallengeEffect,
   SingularityChallenge,
@@ -4850,6 +4855,8 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   setRedAmbrosiaUpgradeLevels()
   setPurpleAmbrosiaUpgradeLevels()
   setPurpleReactorUpgradeLevels()
+  clampGQFreeLevelsToCaps()
+  clampOcteractFreeLevelsToCaps()
 
   updateAchievementPoints(true)
   if (player.talismans !== undefined) {

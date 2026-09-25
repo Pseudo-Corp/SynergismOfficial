@@ -71,7 +71,6 @@ import { showLockedSacrifice, showSacrifice } from './Features/Ants/HTML/updates
 import { autoAntSacrificeModeDescHTML } from './Features/Ants/HTML/updates/toggles/sacrifice-mode'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
-import { promocodesInfoText } from './ImportExport'
 import {
   calculateAcceleratorHypercubeBlessing,
   calculateAntELOHypercubeBlessing,
@@ -84,6 +83,7 @@ import {
   calculateRuneEffectivenessHypercubeBlessing,
   calculateSalvageHypercubeBlessing
 } from './Hypercubes'
+import { promocodesInfoText } from './ImportExport'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
 import {
   getOcteractUpgradeCostTNL,

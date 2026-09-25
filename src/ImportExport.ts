@@ -12,10 +12,8 @@ import { version } from './Config'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { addTimers, runPurpleReactor } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
-import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
-import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { awardDailyOcteractFreeUpgrades } from './Octeracts'
 import { getQuarkBonus, quarkHandler } from './Quark'
-import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { isResearchMaxed } from './Research'
 import { Seed, seededBetween, seededRandom } from './RNG'
 import { resetRuneBlessings } from './RuneBlessings'
@@ -24,8 +22,12 @@ import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { flushSaveStorage, getStoredSave, queueSave } from './saves/SaveStorage'
 import { getShopUpgradeEffects } from './Shop'
-import { getGQUpgradeEffect, goldenQuarkUpgrades } from './singularity'
-import { getSingularityChallengeEffect } from './SingularityChallenges'
+import {
+  awardAddCodeFreeUpgrades,
+  awardDailyFreeUpgrades,
+  getGQUpgradeEffect,
+  goldenQuarkUpgrades
+} from './singularity'
 import {
   allAddCodeCapacityMultiplierStats,
   allAddCodeCapacityStats,
@@ -549,132 +551,11 @@ export const promocodes = async (input: string | null, amount?: number) => {
     await Alert(rewardMessage)
 
     if (player.highestSingularityCount > 0) {
-      const upgradeDistribution = {
-        goldenQuarks3: { value: 0.2, pdf: (x: number) => 0 <= x && x <= 1 },
-        goldenQuarks2: { value: 0.2, pdf: (x: number) => 1 <= x && x <= 3 },
-        goldenQuarks1: { value: 0.2, pdf: (x: number) => 3 <= x && x <= 10 },
-        singCubes3: { value: 0.25, pdf: (x: number) => 10 < x && x <= 15 },
-        singObtainium3: { value: 0.25, pdf: (x: number) => 15 < x && x <= 20 },
-        singOfferings3: { value: 0.25, pdf: (x: number) => 20 < x && x <= 25 },
-        singCubes2: { value: 0.5, pdf: (x: number) => 25 < x && x <= 80 },
-        singObtainium2: { value: 0.5, pdf: (x: number) => 80 < x && x <= 140 },
-        singOfferings2: { value: 0.5, pdf: (x: number) => 140 < x && x <= 200 },
-        singCubes1: { value: 1, pdf: (x: number) => 200 < x && x <= 400 },
-        singObtainium1: { value: 1, pdf: (x: number) => 400 < x && x <= 600 },
-        singOfferings1: { value: 1, pdf: (x: number) => 600 < x && x <= 800 },
-        ascensions: { value: 1, pdf: (x: number) => 800 < x && x <= 1000 }
-      }
-      let rolls = 3 * Math.sqrt(player.highestSingularityCount)
-      rolls += getOcteractUpgradeEffect('octeractImprovedDaily', 'extraGoldenQuarks')
-      rolls += getShopUpgradeEffects('shopImprovedDaily2', 'freeSingularityUpgrades')
-      rolls += getShopUpgradeEffects('shopImprovedDaily3', 'freeSingularityUpgrades')
-      rolls += getShopUpgradeEffects('shopImprovedDaily4', 'freeSingularityUpgrades')
-      rolls += getGQUpgradeEffect('platonicPhi', 'dailyCodes')
-      rolls += getOcteractUpgradeEffect('octeractImprovedDaily3', 'extraGoldenQuarks')
-      rolls += getSingularityChallengeEffect('sadisticPrequel', 'extraFree')
-      rolls *= getOcteractUpgradeEffect('octeractImprovedDaily2', 'goldenQuarkMult')
-      rolls *= getOcteractUpgradeEffect('octeractImprovedDaily3', 'goldenQuarkMult')
-      rolls *= getSingularityChallengeEffect('sadisticPrequel', 'freeUpgradeMult')
-      if (player.highestSingularityCount >= 200) {
-        rolls *= 2
-      }
-
-      rolls *= PCoinUpgradeEffects.FREE_UPGRADE_PROMOCODE_BUFF
-
-      rolls = Math.floor(rolls)
-
-      const keys = Object.keys(goldenQuarkUpgrades).filter(
-        (key) => key in upgradeDistribution
-      ) as (keyof typeof upgradeDistribution)[]
-
       rewardMessage = i18next.t('importexport.promocodes.daily.message2')
       // The same upgrade can be drawn several times, so we save the sum of the levels gained, to display them only once at the end
-      const freeLevels: Record<string, number> = {}
-      for (let i = 0; i < rolls; i++) {
-        const num = 1000 * seededRandom(Seed.PromoCodes)
-        for (const key of keys) {
-          if (upgradeDistribution[key].pdf(num)) {
-            player.goldenQuarkUpgrades[key].freeLevel += upgradeDistribution[key].value
-            if (freeLevels[key]) {
-              freeLevels[key] += upgradeDistribution[key].value
-            } else {
-              freeLevels[key] = upgradeDistribution[key].value
-            }
-          }
-        }
-      }
+      const freeLevels: Record<string, number> = awardDailyFreeUpgrades()
 
-      if (player.highestSingularityCount >= 20) {
-        player.goldenQuarkUpgrades.goldenQuarks1.freeLevel += 0.2
-        if (freeLevels.goldenQuarks1) {
-          freeLevels.goldenQuarks1 += 0.2
-        } else {
-          freeLevels.goldenQuarks1 = 0.2
-        }
-        player.goldenQuarkUpgrades.goldenQuarks2.freeLevel += 0.2
-        if (freeLevels.goldenQuarks2) {
-          freeLevels.goldenQuarks2 += 0.2
-        } else {
-          freeLevels.goldenQuarks2 = 0.2
-        }
-        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 1
-        if (freeLevels.goldenQuarks3) {
-          freeLevels.goldenQuarks3 += 1
-        } else {
-          freeLevels.goldenQuarks3 = 1
-        }
-      }
-
-      if (player.highestSingularityCount >= 200 && player.highestSingularityCount < 205) {
-        const freeLevelOct1 = Math.max(
-          octeractUpgrades.octeractGain.level / 100,
-          Math.pow(
-            octeractUpgrades.octeractGain.level * player.octUpgrades.octeractGain.freeLevel / 1000,
-            0.5
-          )
-        )
-        player.octUpgrades.octeractGain.freeLevel += freeLevelOct1
-        freeLevels.octeractGain = freeLevelOct1
-      } else if (player.highestSingularityCount >= 205) {
-        const freeLevelOct1 = Math.max(
-          octeractUpgrades.octeractGain.level / 100,
-          Math.pow(
-            octeractUpgrades.octeractGain.level * player.octUpgrades.octeractGain.freeLevel / 640,
-            0.5
-          )
-        )
-        const freeLevelOct2 = Math.max(
-          octeractUpgrades.octeractGain2.level / 100,
-          Math.pow(
-            Math.pow(octeractUpgrades.octeractGain2.level, 2) * player.octUpgrades.octeractGain2.freeLevel
-              / 125000,
-            0.333
-          )
-        )
-
-        player.octUpgrades.octeractGain.freeLevel += freeLevelOct1
-        player.octUpgrades.octeractGain2.freeLevel += freeLevelOct2
-        freeLevels.octeractGain = freeLevelOct1
-        freeLevels.octeractGain2 = freeLevelOct2
-      }
-
-      const digitalOcteractAccumulatorCap = 1
-        + getRedAmbrosiaUpgradeEffects('redAmbrosiaFreeAccumulator', 'freeAccumulatorLevelCapIncrease')
-      const digitalOcteractFreeLevels = getRedAmbrosiaUpgradeEffects(
-        'redAmbrosiaFreeAccumulator',
-        'freeAccumulatorLevels'
-      )
-      const previousDigitalOcteractFreeLevel = player.octUpgrades.octeractAscensionsOcteractGain.freeLevel
-      player.octUpgrades.octeractAscensionsOcteractGain.freeLevel = Math.min(
-        digitalOcteractAccumulatorCap,
-        previousDigitalOcteractFreeLevel + digitalOcteractFreeLevels
-      )
-      const digitalOcteractFreeLevelsGained = player.octUpgrades.octeractAscensionsOcteractGain.freeLevel
-        - previousDigitalOcteractFreeLevel
-
-      if (digitalOcteractFreeLevelsGained > 0) {
-        freeLevels.octeractAscensionsOcteractGain = digitalOcteractFreeLevelsGained
-      }
+      Object.assign(freeLevels, awardDailyOcteractFreeUpgrades())
 
       for (const key of Object.keys(freeLevels)) {
         rewardMessage += dailyCodeFormatFreeLevelMessage(key, freeLevels[key])
@@ -770,14 +651,6 @@ export const promocodes = async (input: string | null, amount?: number) => {
       })
       : ''
 
-    // Midas' Millenium-Aged Gold perk
-    const freeLevelsText = player.highestSingularityCount >= 150
-      ? i18next.t('importexport.promocodes.add.freeLevel', {
-        x: format(0.01 * realAttemptsUsed, 2),
-        y: format(0.05 * realAttemptsUsed, 2)
-      })
-      : ''
-
     // Calculator Maxed: you don't need to insert anything!
     if (getShopUpgradeEffects('calculator', 'autoFill')) {
       player.stats.totalAddCodesUsed += realAttemptsUsed
@@ -787,11 +660,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
       runPurpleReactor(blueberryTime, 0, 0)
-
-      if (player.highestSingularityCount >= 150) {
-        player.goldenQuarkUpgrades.goldenQuarks1.freeLevel += 0.01 * realAttemptsUsed
-        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 0.05 * realAttemptsUsed
-      }
+      const freeLevelsText = addCodeFreeLevelsText(awardAddCodeFreeUpgrades(realAttemptsUsed))
 
       player.rngCode = v
       if (amount) {
@@ -845,6 +714,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
       runPurpleReactor(blueberryTime, 0, 0)
+      const freeLevelsText = addCodeFreeLevelsText(awardAddCodeFreeUpgrades(realAttemptsUsed))
 
       await Alert(
         i18next.t('importexport.promocodes.add.reward', {
@@ -853,7 +723,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
           c: gqTimerText,
           d: octeractTimeText,
           e: remaining,
-          f: timeToNext.toLocaleString(navigator.language)
+          f: timeToNext.toLocaleString(navigator.language),
+          g: freeLevelsText,
+          h: blueberryTimeText
         })
       )
     } else {
@@ -1114,6 +986,15 @@ const timeCodeRewardMultiplier = (): number => {
     (Date.now() - player.promoCodeTiming.time) / (1000 * 3600)
   )
 }
+
+// Midas' Millenium-Aged Gold perk
+const addCodeFreeLevelsText = (gained: ReturnType<typeof awardAddCodeFreeUpgrades>) =>
+  gained.goldenQuarks1 > 0 || gained.goldenQuarks3 > 0
+    ? i18next.t('importexport.promocodes.add.freeLevel', {
+      x: format(gained.goldenQuarks1, 2),
+      y: format(gained.goldenQuarks3, 2)
+    })
+    : ''
 
 const dailyCodeFormatFreeLevelMessage = (
   upgradeKey: string,

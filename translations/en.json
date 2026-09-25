@@ -3668,7 +3668,7 @@
       "72": "[Cx22] For each Talisman Rarity, multiply Offering gain by num:((1.04)).",
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
       "74": "[Cx24] Add +num:((0.30)) to all Corruption Multiplier values.",
-      "75": "[Cx25] Each level adds +num:((0.3))% effectiveness to free Golden Quark upgrades per level! (additive with all other boosts)",
+      "75": "[Cx25] Each level adds +num:((0.3))% effectiveness to most free Golden Quark upgrades per level! (additive with all other boosts; Hourglass upgrades are unaffected)",
       "76": "[Cx26] Each level gives <<lightblue|+2% Ambrosia Bar Points>> and <<red|+2% Red Bar Points>>!",
       "77": "[Cx27] Each level adds <<green | +2 +num:((0.1))% Ambrosia Luck>>!",
       "78": "[Cx28] Each level adds +num:((0.3))% effectiveness to free Octeract Upgrades per level!",
@@ -4002,7 +4002,7 @@
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +2 permanent Ambrosia Luck, per level.",
       "shopSingularitySpeedup": "You know all those time-gated Singularity Perks and Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
-      "shopSingularityPotency": "You know all those free Golden Quark Upgrades? They are now 266% more effective (so, each is worth the equivalent to num:((3.66)) levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
+      "shopSingularityPotency": "You know all those free Golden Quark Upgrades? Most of them (not the Hourglasses) are now 266% more effective (so, each is worth the equivalent to num:((3.66)) levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by num:((0.1))% per level additive (Max -30%)!",
@@ -4115,7 +4115,7 @@
       "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}>>",
       "shopAmbrosiaUltra": "Gain <<lime|+{{amount}} Ambrosia Luck>> from your EXALT completions!",
       "shopSingularitySpeedup": "Singularity Perks and Upgrades that are based on Singularity timer grow in strength <<gray|{{amount}}>> times faster!",
-      "shopSingularityPotency": "Free Golden Quark Upgrades are as if you had <<gray|{{amount}}>> of them.",
+      "shopSingularityPotency": "Most free Golden Quark Upgrades (not the Hourglasses) are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Upgrades are increased by <<white|{{amount}}>>.",
       "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage)",
@@ -4535,6 +4535,45 @@
       "noMinimum": "No minimal Singularity to purchase required",
       "costNextLevel": "Cost for next level: {{amount}} Golden Quarks",
       "spentGQ": "Golden Quarks Spent: {{spent}}"
+    },
+    "freeUpgradeInfo": {
+      "button": "Free Upgrades Info",
+      "title": "Free Golden Quark Upgrade Levels",
+      "upgrade": "Upgrade",
+      "freeLevels": "Free Levels",
+      "locked": "Locked",
+      "daily": {
+        "section": "Code 'daily'",
+        "rolls": "Code 'daily': {{rolls}} Rolls ({{additive}} Additive × {{multiplier}} Mult)",
+        "allMaxed": "All upgrades have reached their free level cap. Code 'daily' will not roll for free upgrades.",
+        "perRoll": "Per Roll",
+        "chance": "Chance",
+        "capped": "Capped",
+        "flatBonus": "↳ +{{amount}} free levels guaranteed",
+        "requirements": {
+          "noAmbrosiaUpgrades1": "↳ Requirement: 'No Ambrosia Upgrades' EXALT Tier 1 Completed",
+          "limitedTime1": "↳ Requirement: 'The Grand Singularity Speedrun!' EXALT Tier 1 Completed",
+          "sadisticPrequel1": "↳ Requirement: 'SADISTIC EXALT III - The Prequel' EXALT Tier 1 Completed",
+          "taxmanLastStand1": "↳ Requirement: 'The Taxman's Last Stand' EXALT Tier 1 Completed"
+        }
+      },
+      "add": {
+        "section": "Code 'add'",
+        "uses": "Code 'add': {{uses}} / {{max}} uses available",
+        "requirement": "Requirement: Reach Singularity {{singularity}}",
+        "perAdd": "Per Add",
+        "fromAvailable": "From Available Adds"
+      },
+      "milestones": {
+        "section": "Milestones",
+        "summary": "Granted once, the first time you reach each Singularity.",
+        "milestone": "Milestone",
+        "singularity": "Singularity {{singularity}}",
+        "reward": "Reward",
+        "status": "Status",
+        "obtained": "Obtained",
+        "notObtained": "Not Yet"
+      }
     },
     "data": {
       "goldenQuarks1": {
@@ -5075,6 +5114,7 @@
     "softCapped": "(Softcapped)",
     "maxed": "(Maxed)",
     "maxedUpgradesShow": "Maxed Upgrades: SHOW",
+    "fullyCapped": "Max level and free level cap reached",
     "maxedUpgradesHide": "Maxed Upgrades: HIDE",
     "affordable": "(Affordable)",
     "enabled": "(Enabled)",
@@ -6033,6 +6073,25 @@
     "constantHover": "Select an icon for a description of the upgrade."
   },
   "octeract": {
+    "freeUpgradeInfo": {
+      "button": "Free Upgrades Info",
+      "title": "Free Octeract Upgrade Levels",
+      "summary": "Octeract upgrades gain free levels from code 'daily'.",
+      "upgrade": "Upgrade",
+      "nextDaily": "Next 'daily'",
+      "freeLevels": "Free Levels",
+      "locked": "Locked",
+      "capped": "Capped",
+      "requirements": {
+        "singularity": "↳ Requirement: Reach Singularity {{singularity}}",
+        "redAmbrosiaFreeAccumulator": "↳ Requirement: Purchase 'Red Digital Octeract Accumulator Accumulator'"
+      },
+      "formulas": {
+        "octeractGain": "↳ max(Level / 100, (Level × Free Levels / {{divisor}})^0.5)",
+        "octeractGain2": "↳ max(Level / 100, (Level² × Free Levels / 125,000)^0.333)",
+        "octeractAscensionsOcteractGain": "↳ Set by 'Red Digital Octeract Accumulator Accumulator', which also raises the cap"
+      }
+    },
     "buyLevel": {
       "buyPrompt": "How many levels would you like to buy? You can buy up to {{n}} levels! Type -1 to use max!",
       "cancelPurchase": "Purchase cancelled!",
@@ -8352,7 +8411,7 @@
         "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} {{i}} You have {{j}} uses of Add. You will gain 1 in {{k}} seconds.",
         "freeLevel": "Moreover, gain {{x}} free levels of GQ1 and {{y}} free levels of GQ3!!!",
         "cancelled": "No worries, you didn't lose any of your uses! Come back later!",
-        "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
+        "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} {{g}} {{h}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
         "wrong": "You guessed {{w}}, but the answer was {{x}}. You have {{y}} uses of Add. You will gain 1 in {{z}} seconds."
       },
       "sub": {

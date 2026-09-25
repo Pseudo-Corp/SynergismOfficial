@@ -1113,6 +1113,7 @@ export const Confirm = async (text: string) =>
     DOMCacheGetOrSet('alertWrapper').style.display = 'none'
     DOMCacheGetOrSet('promptWrapper').style.display = 'none'
     DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('infoAlertWrapper').style.display = 'none'
 
     conf.style.display = 'block'
     confWrap.style.display = 'block'
@@ -1165,6 +1166,7 @@ export const Alert = (text: string): Promise<void> =>
     DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
     DOMCacheGetOrSet('promptWrapper').style.display = 'none'
     DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('infoAlertWrapper').style.display = 'none'
 
     conf.style.display = 'block'
     alertWrap.style.display = 'block'
@@ -1192,6 +1194,98 @@ export const Alert = (text: string): Promise<void> =>
     return p.promise
   })
 
+export interface InfoAlertSection {
+  label: string
+  html: () => string
+}
+
+export const infoAlertTableHTML = (headers: string[], rowsHTML: string) =>
+  `<table class="freeUpgradeInfoTable">
+    <thead><tr>${headers.map((header) => `<th>${header}</th>`).join('')}</tr></thead>
+    <tbody>${rowsHTML}</tbody>
+  </table>`
+
+export const infoAlertInactiveHTML = (text: string) => `<span class="freeUpgradeInfoInactive">${text}</span>`
+
+export const InfoAlert = (title: string, content: string | InfoAlertSection[]): Promise<void> =>
+  queue.enqueue(() => {
+    const conf = DOMCacheGetOrSet('confirmationBox')
+    const infoWrap = DOMCacheGetOrSet('infoAlertWrapper')
+    const overlay = DOMCacheGetOrSet('transparentBG')
+    const popup = DOMCacheGetOrSet('infoAlert')
+    const ok = DOMCacheGetOrSet('ok_infoAlert')
+    const sectionBar = DOMCacheGetOrSet('infoAlertSections')
+    const body = DOMCacheGetOrSet('infoAlertBody')
+
+    DOMCacheGetOrSet('alertWrapper').style.display = 'none'
+    DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
+    DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
+
+    const sections = typeof content === 'string' ? [] : content
+    const selectSection = (index: number) => {
+      body.innerHTML = sections[index].html()
+      sectionBar.querySelectorAll('button').forEach((button, i) => {
+        button.setAttribute('aria-pressed', `${i === index}`)
+      })
+    }
+
+    sectionBar.innerHTML = sections.map((section, i) =>
+      `<button type="button" data-section="${i}" aria-pressed="false">${section.label}</button>`
+    ).join('')
+    sectionBar.style.display = sections.length > 0 ? '' : 'none'
+
+    if (typeof content === 'string') {
+      body.innerHTML = content
+    } else {
+      selectSection(0)
+    }
+
+    conf.classList.add('infoConfirmation')
+    conf.style.display = 'block'
+    infoWrap.style.display = 'block'
+    overlay.style.display = 'block'
+    DOMCacheGetOrSet('infoAlertTitle').textContent = title
+    popup.focus()
+
+    const p = createDeferredPromise<void>()
+
+    const sectionListener = (e: MouseEvent) => {
+      const button = e.target instanceof Element ? e.target.closest('button') : null
+      if (button?.dataset.section !== undefined) {
+        selectSection(Number(button.dataset.section))
+      }
+    }
+
+    const listener = () => {
+      ok.removeEventListener('click', listener)
+      popup.removeEventListener('keyup', kbListener)
+      sectionBar.removeEventListener('click', sectionListener)
+
+      conf.style.display = 'none'
+      infoWrap.style.display = 'none'
+      overlay.style.display = 'none'
+      conf.classList.remove('infoConfirmation')
+      sectionBar.innerHTML = ''
+      p.resolve()
+    }
+
+    const kbListener = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' && e.target instanceof Node && sectionBar.contains(e.target)) {
+        return
+      }
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
+        listener()
+      }
+    }
+
+    ok.addEventListener('click', listener, { once: true })
+    popup.addEventListener('keyup', kbListener)
+    sectionBar.addEventListener('click', sectionListener)
+
+    return p.promise
+  })
+
 export const Prompt = (text: string, defaultValue?: string): Promise<string | null> =>
   queue.enqueue(() => {
     const conf = DOMCacheGetOrSet('confirmationBox')
@@ -1204,6 +1298,7 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
     DOMCacheGetOrSet('alertWrapper').style.display = 'none'
     DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
     DOMCacheGetOrSet('purchasePromptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('infoAlertWrapper').style.display = 'none'
 
     conf.style.display = 'block'
     confWrap.style.display = 'block'
@@ -1274,6 +1369,7 @@ export const PurchasePrompt = (
     DOMCacheGetOrSet('alertWrapper').style.display = 'none'
     DOMCacheGetOrSet('confirmWrapper').style.display = 'none'
     DOMCacheGetOrSet('promptWrapper').style.display = 'none'
+    DOMCacheGetOrSet('infoAlertWrapper').style.display = 'none'
 
     conf.classList.add('purchaseConfirmation')
     conf.style.display = 'block'

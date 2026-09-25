@@ -1033,6 +1033,10 @@ export const confirmReply = (confirm = true) => {
     ;(DOMCacheGetOrSet(confirm ? 'ok_purchasePrompt' : 'cancel_purchasePrompt') as HTMLButtonElement).click()
     return
   }
+  if (DOMCacheGetOrSet('infoAlertWrapper').style.display === 'block') {
+    ;(DOMCacheGetOrSet('ok_infoAlert') as HTMLButtonElement).click()
+    return
+  }
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
     ;(DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
   }

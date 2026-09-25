@@ -96,6 +96,7 @@ import { exitFastForward, getLotusTimeExpiresAt, getOwnedLotus, getTips, sendToW
 import {
   buyOcteractUpgradeLevel,
   octeractUpgradeNames,
+  showOcteractFreeUpgradeInfo,
   toggleMaxedOcteractUpgrades,
   upgradeOcteractToString
 } from './Octeracts'
@@ -134,6 +135,7 @@ import {
   calculateMaxSingularityLookahead,
   goldenQuarkUpgradeNames,
   initializeSingularityPerkTree,
+  showFreeUpgradeInfo,
   singularityPerkModalHTML,
   singularityPerks,
   teleportToSingularity,
@@ -1823,6 +1825,7 @@ TODO: Fix this entire tab it's utter shit
   })
 
   DOMCacheGetOrSet('toggleMaxedGoldenQuarkUpgrades').addEventListener('click', toggleMaxedGoldenQuarkUpgrades)
+  DOMCacheGetOrSet('freeUpgradeInfoButton').addEventListener('click', showFreeUpgradeInfo)
 
   for (const key of goldenQuarkUpgradeNames) {
     if (key === 'offeringAutomatic') {
@@ -1907,6 +1910,7 @@ TODO: Fix this entire tab it's utter shit
 
   // Octeract Upgrades
   DOMCacheGetOrSet('toggleMaxedOcteractUpgrades').addEventListener('click', toggleMaxedOcteractUpgrades)
+  DOMCacheGetOrSet('octeractFreeUpgradeInfoButton').addEventListener('click', showOcteractFreeUpgradeInfo)
 
   for (const key of octeractUpgradeNames) {
     registerPurchasableModal({

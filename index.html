@@ -73,6 +73,14 @@
                 <button id="cancel_prompt" i18n="general.Cancel"></button>
             </div>
         </div>
+        <div id="infoAlertWrapper">
+            <div id="infoAlert" tabindex="-1" role="dialog" aria-labelledby="infoAlertTitle">
+                <p id="infoAlertTitle"></p>
+                <div id="infoAlertSections"></div>
+                <div id="infoAlertBody" class="scrollbar"></div>
+                <button id="ok_infoAlert" i18n="general.OK"></button>
+            </div>
+        </div>
         <div id="purchasePromptWrapper">
             <div id="purchasePrompt" role="dialog" aria-labelledby="purchasePromptTitle">
                 <div class="purchasePromptHeading">
@@ -3020,6 +3028,7 @@
                         <button class="toggleMaxedUpgrades" id="toggleMaxedGoldenQuarkUpgrades" aria-pressed="false" i18n="general.maxedUpgradesShow"></button>
                     </div>
                     <div class="boxColor" id="actualSingularityUpgradeContainer">
+                        <button class="freeUpgradeInfoButton" id="freeUpgradeInfoButton" i18n="singularity.freeUpgradeInfo.button"></button>
                         <button class="singularityUpgrade" id="goldenQuarks1" i18n-aria-label="singularity.data.goldenQuarks1.description">
                             <img alt="goldenQuarks1" src="Pictures/Default/SingularityCurrency1.png" loading="lazy">
                         </button>
@@ -3295,7 +3304,10 @@
                         </div>
                     </div>
                     <div class="boxColor" id="octeractUpgradeContainer">
-                        <button class="toggleMaxedUpgrades" id="toggleMaxedOcteractUpgrades" aria-pressed="false" i18n="general.maxedUpgradesShow"></button>
+                        <div id="octeractUpgradeFooter">
+                            <button class="toggleMaxedUpgrades" id="toggleMaxedOcteractUpgrades" aria-pressed="false" i18n="general.maxedUpgradesShow"></button>
+                            <button class="freeUpgradeInfoButton" id="octeractFreeUpgradeInfoButton" i18n="octeract.freeUpgradeInfo.button"></button>
+                        </div>
                         <button class="octeractUpgrade" id="octeractStarter" i18n-aria-label="octeract.data.octeractStarter.description">
                             <img id="octeractStarterImage" src="Pictures/img_transparent.png" style="cursor: pointer">
                         </button>

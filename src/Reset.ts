@@ -58,7 +58,12 @@ import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { getShopUpgradeEffects } from './Shop'
-import { calculateMaxSingularityLookahead, calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
+import {
+  awardSingularityMilestoneFreeUpgrades,
+  calculateMaxSingularityLookahead,
+  calculateSingularityDebuff,
+  getGQUpgradeEffect
+} from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility } from './Tabs'
@@ -1094,12 +1099,7 @@ export const singularity = (setSingNumber = -1) => {
 
     if (incrementHighestSing) {
       player.highestSingularityCount++
-      if (player.highestSingularityCount === 5) {
-        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 1
-      }
-      if (player.highestSingularityCount === 10) {
-        player.goldenQuarkUpgrades.goldenQuarks3.freeLevel += 2
-      }
+      awardSingularityMilestoneFreeUpgrades(player.highestSingularityCount)
     }
   } else {
     const incrementHighestSing = player.singularityCount === player.highestSingularityCount
@@ -1107,6 +1107,7 @@ export const singularity = (setSingNumber = -1) => {
     player.singularityCount = setSingNumber
     if (incrementHighestSing) {
       player.highestSingularityCount++
+      awardSingularityMilestoneFreeUpgrades(player.highestSingularityCount)
     }
   }
 
