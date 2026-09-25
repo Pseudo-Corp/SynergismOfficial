@@ -14,22 +14,34 @@
     "recoveryImport": "Load from file"
   },
   "ambrosia": {
+    "upgradeAP": "Red & Purple Ambrosia Upgrade AP: <<gold|{{current}}/{{max}}>>",
     "ambrosia": "Ambrosia",
     "upgradeUnlockHints": {
       "red": "Unlock more upgrades by completing EXALT <<red|$t(singularityChallenge.data.noAmbrosiaUpgrades.name), Tier 1>>.",
       "purple": "Unlock more upgrades by completing EXALT <<var(--purple-text-color)|$t(singularityChallenge.data.taxmanLastStand.name), Tier 1>>."
     },
     "ledger": {
-      "blueberries": "Blueberries",
       "balance": "<span class='ambrosiaLedgerCurrent'>{{current}}</span> <span class='ambrosiaLedgerTotal'>/ {{total}}</span>",
       "balanceDescription": "{{current}} available out of {{total}} earned over your lifetime",
       "blueberryBalanceDescription": "{{current}} unspent out of {{total}} total Blueberries",
+      "upgradeAmbrosia": "{{amount}} Ambrosia available",
+      "upgradeRedAmbrosia": "{{amount}} Red Ambrosia available",
+      "upgradePurpleAmbrosia": "{{amount}} Purple Ambrosia available",
       "perFill": "<<var(--amber-text-color)|+{{guaranteed}}>> Ambrosia on fill (<<var(--amber-text-color)|{{extraChance}}%>> chance for 1 more)",
       "redPerFill": "<<red|+{{guaranteed}}>> Red Ambrosia on fill (<<red|{{extraChance}}%>> chance for 1 more)",
-      "luck": "<<lime|{{luck}}>> Ambrosia Luck [<<var(--amber-text-color)|{{base}} + {{percent}}%>>]",
-      "luckTwoMind": "<<lime|{{luck}}>> Ambrosia Luck for Ambrosia [<<var(--amber-text-color)|{{unmodifiedLuck}}>> for everything else]",
+      "luck": "<<lime|{{luck}}>> Ambrosia Luck",
       "redLuck": "<<red|{{luck}}>> Red Luck",
-      "redLuckTwoMind": "<<red|{{luck}}>> Red Luck for Red Ambrosia [<<red|{{unmodifiedLuck}}>> for everything else]",
+      "luckModifiers": "<<var(--amber-text-color)|{{base}}>> base + <<var(--amber-text-color)|{{percent}}%>>",
+      "twoMindModifier": "TWO MIND: <<var(--amber-text-color)|{{unmodifiedLuck}}>> for everything else",
+      "redTwoMindModifier": "TWO MIND: <<red|{{unmodifiedLuck}}>> for everything else",
+      "luckExplanation": "Every <<lime|100>> Luck guarantees 1 Ambrosia per fill.",
+      "noAmbrosiaUpgradesBonus": "<<red|$t(singularityChallenge.data.noAmbrosiaUpgrades.name)>>: <<var(--amber-text-color)|+{{amount}}>> Ambrosia on Bar Fill",
+      "redLuckExplanation": "Every <<red|100>> Red Luck guarantees 1 Red Ambrosia per fill.",
+      "luckTitle": "Ambrosia Luck",
+      "redLuckTitle": "Red Luck",
+      "noBonuses": "<<gray|No bonuses yet.>>",
+      "fillGain": "+{{amount}}",
+      "fillGainRange": "+{{min}}-{{max}}",
       "ambrosiaProgress": "Ambrosia generation progress",
       "redAmbrosiaProgress": "Red Ambrosia generation progress",
       "progress": "{{current}} / {{required}} (+{{rate}}/s)",
@@ -41,15 +53,9 @@
       "honeyBonus": "Base Purple Honey per extraction <<var(--purple-text-color)|+{{honey}}>>",
       "barBonus": "Bar Points <<lightblue|+{{percent}}>>"
     },
-    "amount": "Ambrosia: <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Current | <<var(--lightgoldenrodyellow-text-color)|{{lifetimeAmbrosia}}>> Lifetime",
-    "blueberryAmount": "Blueberries: <<lightblue | {{unspentBlueberries}}>> Unspent | <<lightblue | {{blueberries}}>> Total",
-    "blueberryGeneration": "Each second, gain <<var(--amber-text-color)|{{chance}}>> Ambrosia Bar Points.",
-    "perGen": "Currently gaining <<var(--amber-text-color)|{{guaranteed}}>> Ambrosia with a <<var(--amber-text-color)|{{extraChance}}%>> chance of another. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>] {{extra}}",
-    "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Generating Ambrosia when <<blue|{{thresholdTimer}}>> is accumulated.",
     "generatedCubeBonus": "Cubes <<yellow|+{{cubeBonus}}>>",
     "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}>>",
     "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>",
-    "generatedBlueberryBonus": "Ambrosia Bar Point Gain <<blue|+{{blueberryBonus}}>>",
     "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}>>",
     "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}>>",
     "prerequisite": "Prerequisites:",
@@ -61,8 +67,6 @@
     "blueberryCost": "Blueberries (To Activate):",
     "prereqNotMetAlert": "You do not have the necessary prerequisites to purchase this upgrade.",
     "notEnoughBlueberries": "You do not have enough Blueberries to activate this module.",
-    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} Ambrosia Luck>>!",
-    "ambrosiaBuyPrompt": "How many Ambrosia would you like to spend? You have {{amount}} Ambrosia. Type -1 to use max!",
     "refund": "You have refunded all spent Blueberries and Ambrosia.",
     "refundWord": "Refund",
     "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
@@ -389,8 +393,8 @@
       },
       "freeLevelsRow3": {
         "name": "More Blueberry Resource and Utility Module Levels!",
-        "description": "Add one effective level per level to all Blueberry Modules in rows 5 and 6, excluding the first column and Singularity Stabilizer modules.",
-        "effect": "This upgrade increases the effective level of Blueberry Modules in rows 5 and 6, excluding the first column and Singularity Stabilizer modules by <<pink|{{amount}}>>!"
+        "description": "Add one effective level per level to all Blueberry Modules in rows 5 and 6, excluding the first column, the RNG-based Offerings Booster, and Singularity Stabilizer modules.",
+        "effect": "This upgrade increases the effective level of Blueberry Modules in rows 5 and 6, excluding the first column, the RNG-based Offerings Booster, and Singularity Stabilizer modules by <<pink|{{amount}}>>!"
       },
       "freeLevelsRow4": {
         "name": "More Blueberry Cube Module Levels!",
@@ -2733,6 +2737,7 @@
       "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/num:((1e100)) Coins || TIME SPENT: {{timeSpent}} Seconds.",
       "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/num:((1e300)) Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
       "acceleratorBoost": "Reset Coin Producers/Upgrades, Crystals and Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
+      "acceleratorBoostNoReset": "Spend Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
       "transcensionChallenge": {
         "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
         "out": "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!"
@@ -3640,7 +3645,7 @@
       "48": "[5x8] Your Worker Ant at the start of Ascensions can now generate crumbs, even without having Challenge 8 cleared!",
       "49": "[5x9] Immortal ELO is now automatically gained, without having to Sacrifice your ants!",
       "50": "[5x10] What doesn't this boost? +num:((0.01))% Accelerators, Multipliers, Accelerator Boosts, +num:((0.02))% Obtainium, +num:((0.02))% Offerings, num:((0.00066))% Tax reduction per level. Every num:((10000)) levels grant +num:((0.6))% Talisman Power!",
-      "51": "[Cx1] Wow! Bakery is open!!! Immediately unlock all automations in the Wow! Cubes tab, and Research as well.",
+      "51": "[Cx1] Wow! Bakery is open!!! Immediately max out all Cube Researches in the Research tab (6x12, 6x13, 7x2, 7x3, 7x17, 7x18, 8x7, 8x8, 8x17, 8x22, 8x23).",
       "52": "[Cx2] These sugar cookies sure boost your blood sugar. Gain +1% Global Speed per level.",
       "53": "[Cx3] What a hearty snack. Gain +num:((0.1))% Quarks per level.",
       "54": "[Cx4] Pretty dry, but they suffice. Gain +1% Offerings per level.",
@@ -3664,7 +3669,7 @@
       "72": "[Cx22] For each Talisman Rarity, multiply Offering gain by num:((1.04)).",
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
       "74": "[Cx24] Add +num:((0.30)) to all Corruption Multiplier values.",
-      "75": "[Cx25] Each level adds +num:((0.3))% effectiveness to free Golden Quark upgrades per level! (additive with all other boosts)",
+      "75": "[Cx25] Each level adds +num:((0.3))% effectiveness to most free Golden Quark upgrades per level! (additive with all other boosts; Hourglass upgrades are unaffected)",
       "76": "[Cx26] Each level gives <<lightblue|+2% Ambrosia Bar Points>> and <<red|+2% Red Bar Points>>!",
       "77": "[Cx27] Each level adds <<green | +2 +num:((0.1))% Ambrosia Luck>>!",
       "78": "[Cx28] Each level adds +num:((0.3))% effectiveness to free Octeract Upgrades per level!",
@@ -3912,7 +3917,9 @@
     "hoverToBuyOn": "Hover-to-Buy [ON]",
     "hoverToBuyOff": "Hover-to-Buy [OFF]",
     "hover": "Hover over the grid to get details about Research!",
-    "resets": "Resets upon the next reset tier.",
+    "resets": "Resets upon the next Reset Tier.",
+    "resetsOnAscension": "Resets upon <<orange|Ascension>>.",
+    "resetsOnSingularity": "Resets upon <span class=\"rainbowText\">Singularity</span>.",
     "doesNotReset": "NEVER resets!"
   },
   "shop": {
@@ -3996,7 +4003,7 @@
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +2 permanent Ambrosia Luck, per level.",
       "shopSingularitySpeedup": "You know all those time-gated Singularity Perks and Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
-      "shopSingularityPotency": "You know all those free Golden Quark Upgrades? They are now 266% more effective (so, each is worth the equivalent to num:((3.66)) levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
+      "shopSingularityPotency": "You know all those free Golden Quark Upgrades? Most of them (not the Hourglasses) are now 266% more effective (so, each is worth the equivalent to num:((3.66)) levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage) by num:((0.1))% per level additive (Max -30%)!",
@@ -4109,7 +4116,7 @@
       "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}>>",
       "shopAmbrosiaUltra": "Gain <<lime|+{{amount}} Ambrosia Luck>> from your EXALT completions!",
       "shopSingularitySpeedup": "Singularity Perks and Upgrades that are based on Singularity timer grow in strength <<gray|{{amount}}>> times faster!",
-      "shopSingularityPotency": "Free Golden Quark Upgrades are as if you had <<gray|{{amount}}>> of them.",
+      "shopSingularityPotency": "Most free Golden Quark Upgrades (not the Hourglasses) are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Upgrades are increased by <<white|{{amount}}>>.",
       "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage)",
@@ -4254,6 +4261,7 @@
       "ascensionReset": "You have succumbed to the cult. Your ascension progress was reset as a one-time precaution...",
       "multiBuyPurchased": "Purchased {{levels}} levels, thanks to Multi Buy!"
     },
+    "goldenQuarkUpgradeAP": "Golden Quark Upgrade AP: <<gold|{{current}}/{{max}}>>",
     "perks": {
       "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "previewInfo": "Unlocks at Singularity <<gold|{{singularity}}>>",
@@ -4345,11 +4353,11 @@
       },
       "superStart": {
         "name": "Super Start",
-        "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, num:((2.22e2222)) Particles and 500 Obtainium",
-        "hasLevel3": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, num:((1e100)) Particles and 500 Obtainium",
-        "hasLevel2": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos, num:((1e16)) Particles and 500 Obtainium",
-        "hasLevel1": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1001 Mythos and 10 Particles",
-        "default": "You start each Ascension with 1 Transcension and 1001 Mythos"
+        "hasLevel4": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1 Worker, 1001 Mythos, num:((2.22e2222)) Particles, 500 Obtainium and Reincarnation upgrades 1-5 unlocked",
+        "hasLevel3": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1 Worker, 1001 Mythos, num:((1e100)) Particles, 500 Obtainium and Reincarnation upgrades 1-5 unlocked",
+        "hasLevel2": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1 Worker, 1001 Mythos, num:((1e16)) Particles, 500 Obtainium and Reincarnation upgrades 1-5 unlocked",
+        "hasLevel1": "You start each Ascension with 1 Transcension, 1 Reincarnation, 1 Worker, 1001 Mythos, 10 Particles and Reincarnation upgrades 1-5 unlocked",
+        "default": "You start each Ascension with 1 Transcension, 1 Worker and 1001 Mythos"
       },
       "notSoChallenging": {
         "name": "Not So Challenging",
@@ -4408,8 +4416,7 @@
       },
       "coolQOLCubes": {
         "name": "Cool QoL Cubes",
-        "hasLevel1": "Keep all Cube Opening Researches AND gain the ability to automatically open a percentage of your cubes each Ascension!",
-        "default": "Researches related to opening cubes will no longer reset on Ascension"
+        "default": "Gain the ability to automatically open a percentage of your cubes each Ascension!"
       },
       "irishAnt": {
         "name": "Irish Ants",
@@ -4529,7 +4536,48 @@
       "minimum": "Minimum Singularity: {{minSingularity}}",
       "noMinimum": "No minimal Singularity to purchase required",
       "costNextLevel": "Cost for next level: {{amount}} Golden Quarks",
-      "spentGQ": "Golden Quarks Spent: {{spent}}"
+      "spentGQ": "Golden Quarks Spent: {{spent}}",
+      "overclockLevels": "Max Level is increased by {{levels}} (Overclock)",
+      "upgradeAPMaxOverclock": "You get <<gold|+{{amount}}>> AP for reaching level {{level}}! {{check}}"
+    },
+    "freeUpgradeInfo": {
+      "button": "Free Upgrades Info",
+      "title": "Free Golden Quark Upgrade Levels",
+      "upgrade": "Upgrade",
+      "freeLevels": "Free Levels",
+      "locked": "Locked",
+      "daily": {
+        "section": "Code 'daily'",
+        "rolls": "Code 'daily': {{rolls}} Rolls ({{additive}} Additive × {{multiplier}} Mult)",
+        "allMaxed": "All upgrades have reached their free level cap. Code 'daily' will not roll for free upgrades.",
+        "perRoll": "Per Roll",
+        "chance": "Chance",
+        "capped": "Capped",
+        "flatBonus": "↳ +{{amount}} free levels guaranteed",
+        "requirements": {
+          "noAmbrosiaUpgrades1": "↳ Requirement: 'No Ambrosia Upgrades' EXALT Tier 1 Completed",
+          "limitedTime1": "↳ Requirement: 'The Grand Singularity Speedrun!' EXALT Tier 1 Completed",
+          "sadisticPrequel1": "↳ Requirement: 'SADISTIC EXALT III - The Prequel' EXALT Tier 1 Completed",
+          "taxmanLastStand1": "↳ Requirement: 'The Taxman's Last Stand' EXALT Tier 1 Completed"
+        }
+      },
+      "add": {
+        "section": "Code 'add'",
+        "uses": "Code 'add': {{uses}} / {{max}} uses available",
+        "requirement": "Requirement: Reach Singularity {{singularity}}",
+        "perAdd": "Per Add",
+        "fromAvailable": "From Available Adds"
+      },
+      "milestones": {
+        "section": "Milestones",
+        "summary": "Granted once, the first time you reach each Singularity.",
+        "milestone": "Milestone",
+        "singularity": "Singularity {{singularity}}",
+        "reward": "Reward",
+        "status": "Status",
+        "obtained": "Obtained",
+        "notObtained": "Not Yet"
+      }
     },
     "data": {
       "goldenQuarks1": {
@@ -5022,6 +5070,27 @@
     }
   },
   "general": {
+    "purchasePrompt": {
+      "levels": "Levels to buy",
+      "resource": {
+        "goldenQuarks": "Golden Quarks to spend",
+        "octeracts": "Octeracts to spend",
+        "ambrosia": "Ambrosia to spend",
+        "redAmbrosia": "Red Ambrosia to spend",
+        "purpleAmbrosia": "Purple Ambrosia to spend"
+      },
+      "hint": "Enter levels or a resource budget.",
+      "hint2": "Type -1 in either box to buy MAX.",
+      "summary": {
+        "goldenQuarks": "Buy {{levels}} levels for {{cost}} Golden Quarks.",
+        "octeracts": "Buy {{levels}} levels for {{cost}} Octeracts.",
+        "ambrosia": "Buy {{levels}} levels for {{cost}} Ambrosia.",
+        "redAmbrosia": "Buy {{levels}} levels for {{cost}} Red Ambrosia.",
+        "purpleAmbrosia": "Buy {{levels}} levels for {{cost}} Purple Ambrosia."
+      },
+      "invalid": "Enter a positive whole number, or -1 to buy MAX!",
+      "unavailable": "You can't purchase any levels with selected levels or budget."
+    },
     "youAreInThe": "You are in the <<gold|{{number}} Singularity>>",
     "validation": {
       "finite": "Value must be a finite number!",
@@ -5049,6 +5118,9 @@
     "softCapped": "(Softcapped)",
     "maxed": "(Maxed)",
     "maxedUpgradesShow": "Maxed Upgrades: SHOW",
+    "fullyCapped": "Max level and free level cap reached",
+    "upgradeAPMax": "You get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
+    "upgradeAPFreeLevelCap": "You get <<gold|+{{amount}}>> AP for capping this upgrade's free levels! {{check}}",
     "maxedUpgradesHide": "Maxed Upgrades: HIDE",
     "affordable": "(Affordable)",
     "enabled": "(Enabled)",
@@ -5141,7 +5213,7 @@
       "43": "Multiply coin production by num:((1.01)) per Transcension (Max: num:((1e30))x).",
       "44": "Multiply Mythos gain on Transcend by num:((1.01)) per Transcension (Max: num:((1e6))x).",
       "45": "Gain free Accelerators based on Mythos Shards.",
-      "46": "Accelerator Boosts are 5% stronger and do not reset Prestige features.",
+      "46": "Accelerator Boosts are 5% stronger.",
       "47": "Multiply Mythos Shard production based on your AP.",
       "48": "Multiply production based on owned Accelerators and Multipliers.",
       "49": "Gain free Multipliers based on unspent Mythos.",
@@ -5183,7 +5255,7 @@
       "85": "Automatically buy Alchemies if affordable.",
       "86": "Automatically buy Accelerators if affordable.",
       "87": "Automatically buy Multipliers if affordable.",
-      "88": "Automatically buy Accelerator Boosts if affordable. (For now, this does not work unless you also have the 6th Mythos upgrade purchased)",
+      "88": "Automatically buy Accelerator Boosts if affordable. Accelerator Boosts no longer reset Prestige features.",
       "89": "Unlock Automatic Transcensions.",
       "90": "Automatically buy from the Generator Shop.",
       "91": "Automatically buy Coin Upgrades.",
@@ -5309,7 +5381,7 @@
       "43": "Effect: Multiply all coin production by {{x}}!",
       "44": "Effect: Multiply Mythos gained in Transcension by {{x}}!",
       "45": "Effect: +{{x}} Accelerators!",
-      "46": "Effect: It's kinda self-evident, ain't it?",
+      "46": "Effect: Accelerator Boosts are 5% stronger!",
       "47": "Effect: Mythos-tier producers production x{{x}}",
       "48": "Effect: Multiply coin production by a factor of {{x}}!",
       "49": "Effect: +{{x}} Multipliers through magic!",
@@ -5885,7 +5957,7 @@
       "finishTranscension": "If you are unable to finish a Transcension challenge, press the hotkey listed above OR click on the purple Challenge \"C\" button on the reset buttons on top.",
       "leaveReincarnation": "To leave a reincarnation challenge, press the grey Challenge \"C\" instead!"
     },
-    "research": "Welcome to the future! Obtainium is gained through <<var(--green-text-color);|Reincarnations>>. I'd recommend studying the <<limegreen;|green-bordered>> Researches first. The <<var(--crimson-text-color);|red-bordered>> Researches are never reset whereas the <<white;|white-bordered>> Researches will reset upon the next reset tier!"
+    "research": "Welcome to the future! Not sure what to study? Try the <<limegreen;|green-bordered>> Researches first."
   },
   "buildings": {
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> Total Ever: <<gold | {{totalGenerated}}>>",
@@ -5921,6 +5993,7 @@
     "acceleratorPower": "Acceleration Power: {{power}}% <br> Acceleration Multiplier: {{mult}}x",
     "multiplierPower": "Multiplier Power: {{power}}x <br> Multiplier: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add {{amount}}% Acceleration Power and {{accelsPerBoost}} free Accelerators.",
+    "acceleratorBoostNoReset": "Spend Diamonds to add {{amount}}% Acceleration Power and {{accelsPerBoost}} free Accelerators.",
     "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
     "buy": "Buy",
     "enableAllAutomation": "Enable all autobuyers",
@@ -6006,6 +6079,26 @@
     "constantHover": "Select an icon for a description of the upgrade."
   },
   "octeract": {
+    "octeractUpgradeAP": "Octeract Upgrade AP: <<gold|{{current}}/{{max}}>>",
+    "freeUpgradeInfo": {
+      "button": "Free Upgrades Info",
+      "title": "Free Octeract Upgrade Levels",
+      "summary": "Octeract upgrades gain free levels from code 'daily'.",
+      "upgrade": "Upgrade",
+      "nextDaily": "Next 'daily'",
+      "freeLevels": "Free Levels",
+      "locked": "Locked",
+      "capped": "Capped",
+      "requirements": {
+        "singularity": "↳ Requirement: Reach Singularity {{singularity}}",
+        "redAmbrosiaFreeAccumulator": "↳ Requirement: Purchase 'Red Digital Octeract Accumulator Accumulator'"
+      },
+      "formulas": {
+        "octeractGain": "↳ max(Level / 100, (Level × Free Levels / {{divisor}})^0.5)",
+        "octeractGain2": "↳ max(Level / 100, (Level² × Free Levels / 125,000)^0.333)",
+        "octeractAscensionsOcteractGain": "↳ Set by 'Red Digital Octeract Accumulator Accumulator', which also raises the cap"
+      }
+    },
     "buyLevel": {
       "buyPrompt": "How many levels would you like to buy? You can buy up to {{n}} levels! Type -1 to use max!",
       "cancelPurchase": "Purchase cancelled!",
@@ -6811,7 +6904,7 @@
         "barIntro2": "Gain more time depending on your Luck! (+1s per 10,000 Ambrosia Luck / 2,000 Red Luck)",
         "barMod1": "<<var(--blueberry-text-color)|Ambrosia Bar: +{{secs}} seconds of Global Time>> (Requirement is fixed at <<var(--blueberry-text-color)|{{req}} ABP>>)",
         "barMod2": "<<red|Red Bar: +{{secs}} second of Ascension Time>> (Requirement is fixed at <<red|{{req}} RABP>>)",
-        "barMod3": "<<var(--purple-text-color)|Purple Bar: Immediately fill both bars>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
+        "barMod3": "<<var(--purple-text-color)|Purple Bar: Grants the effect of both bars once per 100 Purple Honey Luck, with remaining Luck giving a chance at +1>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
         "ScalingReward1": "<<var(--purple-text-color)|Purple Ambrosia Synthesis>> costs -5%",
         "ScalingReward2": "+1 <<var(--blueberry-text-color)|Blueberry>>. Yes, really.",
         "UniqueReward1": "1st - <<var(--purple-text-color)|+50 Purple Honey Luck>>. This will be changed, one day.",
@@ -7152,6 +7245,7 @@
       "ModuleQuarkCube1": "Ambrosia - Quark-Cube Hybrid Module I:",
       "ModuleCubes2": "Ambrosia - Cube Module II:",
       "ModuleCubes3": "Ambrosia - Cube Module III:",
+      "ModuleCubes4": "Ambrosia - Cube^4:",
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "RedAmbrosia": "Cubes \"made\" of Red Ambrosia:",
       "CashGrabUltra": "Cash Grab ULTIMATE:",
@@ -8324,7 +8418,7 @@
         "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} {{i}} You have {{j}} uses of Add. You will gain 1 in {{k}} seconds.",
         "freeLevel": "Moreover, gain {{x}} free levels of GQ1 and {{y}} free levels of GQ3!!!",
         "cancelled": "No worries, you didn't lose any of your uses! Come back later!",
-        "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
+        "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} {{g}} {{h}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
         "wrong": "You guessed {{w}}, but the answer was {{x}}. You have {{y}} uses of Add. You will gain 1 in {{z}} seconds."
       },
       "sub": {

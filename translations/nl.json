@@ -11,18 +11,12 @@
   },
   "ambrosia": {
     "ambrosia": "Ambrosia",
-    "amount": "Je hebt <<var(--lightgoldenrodyellow-text-color)|{{ambrosia}}>> Ambrosia!",
-    "blueberryGeneration": "Elke seconde krijg <<var(--amber-text-color)|{{chance}}>> seconden van Bosbessentijd.",
-    "perGen": "Je maakt op het moment <<var(--amber-text-color)|{{guaranteed}}>> met een <<var(--amber-text-color)|{{extraChance}}%>> kans op nog een. [<<var(--lime-text-color)|Luck: ☘ {{ambrosiaLuck}}>>]",
-    "blueberrySecond": "You currently have <<var(--amber-text-color)|{{blueberrySecond}}>> accumulated Blueberry Seconds! Blueberry Second generation chance <<var(--amber-text-color)|x{{RNG}}>> (Guaranteed at 10,000 Blueberry Seconds)",
     "prerequisite": "Vereisten:",
     "prereqNotMet": " (Niet Voldaan!)",
     "blueberryCost": "Bosbessen (Om te Activeren):",
     "prereqNotMetAlert": "Je hebt niet de benodigde vereisten om deze upgrade te kopen.",
     "notEnoughBlueberries": "Je heeft niet genoeg Bosbessen om deze module te activeren.",
     "cubeUpgradeThresholds": "Your Blueberry Time requirements have been doubled <<cyan | {{threshold}}>> times due to lifetime Ambrosia. <<cyan | Blueberry Generation Speed +{{percent}}%>>!",
-    "cubeUpgradeRedBarFills": "Your Red Bar has filled <<maroon | {{amount}}>> times while Cookie Upgrade 29 is purchased, giving <<green | +{{luck}} &#9752 Ambrosia Luck>>!",
-    "ambrosiaBuyPrompt": "Hoeveel Ambrosia wil je uitgeven? Je hebt {{amount}} Ambrosia. Typ -1 om max te gebruiken!",
     "refund": "U heeft alle bestede Bosbessen en Ambrosia terugbetaald.",
     "refundWord": "Terugbetaling",
     "data": {
