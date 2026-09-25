@@ -367,7 +367,7 @@ const tabInfo: Record<Tabs, TabInfo> = {
   },
   [Tabs.Purchase]: {
     panelID: 'pseudoCoins',
-    tabSwitcher: initializeCart,
+    tabSwitcher: () => initializeCart(),
     visualUpdater: () => visualUpdatePurchase(),
     subtabIndex: 0,
     subTabList: [
