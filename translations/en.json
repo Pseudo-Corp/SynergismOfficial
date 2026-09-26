@@ -5088,6 +5088,13 @@
         "redAmbrosia": "Buy {{levels}} levels for {{cost}} Red Ambrosia.",
         "purpleAmbrosia": "Buy {{levels}} levels for {{cost}} Purple Ambrosia."
       },
+      "affordable": {
+        "goldenQuarks": "You can afford {{levels}} levels for {{cost}} Golden Quarks.",
+        "octeracts": "You can afford {{levels}} levels for {{cost}} Octeracts.",
+        "ambrosia": "You can afford {{levels}} levels for {{cost}} Ambrosia.",
+        "redAmbrosia": "You can afford {{levels}} levels for {{cost}} Red Ambrosia.",
+        "purpleAmbrosia": "You can afford {{levels}} levels for {{cost}} Purple Ambrosia."
+      },
       "invalid": "Enter a positive whole number, or -1 to buy MAX!",
       "unavailable": "You can't purchase any levels with selected levels or budget."
     },

@@ -208,11 +208,7 @@ import {
   openIframeOverlay,
   Prompt
 } from './UpdateHTML'
-import {
-  cycleCorruptionScoreTarget,
-  selectCorruptionScoreTarget,
-  visualUpdatePurple
-} from './UpdateVisuals'
+import { cycleCorruptionScoreTarget, selectCorruptionScoreTarget, visualUpdatePurple } from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,

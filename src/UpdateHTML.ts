@@ -1391,7 +1391,7 @@ export const PurchasePrompt = (
     const onInput = (event?: Event) => {
       const field = event?.target as HTMLInputElement | undefined
       const input = field === cost ? 'cost' : 'levels'
-      const value = field?.value.trim() ?? '1'
+      const value = field?.value.trim() ?? ''
       const amount = value === '' ? Number.NaN : Number(value)
       quote = calculateSingularityUpgradePurchase(options, amount, input)
       ok.disabled = quote === null || quote.levels === 0
@@ -1400,7 +1400,13 @@ export const PurchasePrompt = (
       if (field !== cost) cost.value = quote === null ? '' : format(quote.cost, 2, true)
 
       if (value === '') {
-        summary.textContent = ''
+        const affordable = calculateSingularityUpgradePurchase(options, -1, 'levels')
+        summary.textContent = affordable === null
+          ? ''
+          : i18next.t(`general.purchasePrompt.affordable.${options.resource}`, {
+            levels: format(affordable.levels, 0, true),
+            cost: format(affordable.cost, 2, true)
+          })
       } else if (quote === null) {
         summary.textContent = i18next.t('general.purchasePrompt.invalid')
       } else if (quote.levels === 0) {
