@@ -736,7 +736,6 @@ export interface GlobalVariables {
   historyCountMax: number
 
   isEvent: boolean
-  shopEnhanceVision: boolean
 
   purpleReactorTimer: number
   TIME_PER_AMBROSIA: number
