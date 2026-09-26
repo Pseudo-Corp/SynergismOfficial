@@ -211,7 +211,6 @@ import {
 import {
   cycleCorruptionScoreTarget,
   selectCorruptionScoreTarget,
-  shopMouseover,
   visualUpdatePurple
 } from './UpdateVisuals'
 import {
@@ -1838,14 +1837,6 @@ TODO: Fix this entire tab it's utter shit
       buy: (event, action) => buyGQUpgradeLevel(key, event, action === 'max')
     })
   }
-  DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener(
-    'mouseover',
-    () => shopMouseover(true)
-  )
-  DOMCacheGetOrSet('actualSingularityUpgradeContainer').addEventListener(
-    'mouseout',
-    () => shopMouseover(false)
-  )
 
   initializeSingularityPerkTree()
   for (const perk of singularityPerks) {
@@ -1920,15 +1911,6 @@ TODO: Fix this entire tab it's utter shit
       buy: (event, action) => buyOcteractUpgradeLevel(key, event, action === 'max')
     })
   }
-
-  DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener(
-    'mouseover',
-    () => shopMouseover(true)
-  )
-  DOMCacheGetOrSet('octeractUpgradeContainer').addEventListener(
-    'mouseout',
-    () => shopMouseover(false)
-  )
 
   // EXALT
   const singularityChallenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]

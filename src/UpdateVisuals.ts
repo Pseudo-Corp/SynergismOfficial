@@ -126,7 +126,6 @@ import { updateShopTab } from './ShopTab'
 import {
   calculateGQUpgradeAP,
   computeGQUpgradeFreeLevelSoftcap,
-  computeGQUpgradeMaxLevel,
   getGoldenQuarkCost,
   getGQUpgradeCostTNL,
   getGQUpgradeEffect,
@@ -1975,69 +1974,44 @@ export const visualUpdateSingularity = () => {
       })
     )
 
-    const val = G.shopEnhanceVision
-
     for (const key of goldenQuarkUpgradeNames) {
       if (key === 'offeringAutomatic') {
         continue
       }
       const singItem = goldenQuarkUpgrades[key]
       const el = DOMCacheGetOrSet(key)
-      if (updateGoldenQuarkUpgradeVisibility(key, el)) {
-        el.style.filter = val ? 'brightness(.9)' : 'none'
-      } else if (
-        player.highestSingularityCount < singItem.minimumSingularity
-        || getGQUpgradeCostTNL(key) > player.goldenQuarks
-      ) {
-        el.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
-      } else if (
-        goldenQuarkUpgrades[key].level < computeGQUpgradeMaxLevel(key)
-      ) {
-        if (computeGQUpgradeFreeLevelSoftcap(key) > goldenQuarkUpgrades[key].level) {
-          el.style.filter = val ? 'blur(1px) invert(.9) saturate(200%)' : 'none'
-        } else {
-          el.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none'
-        }
-      }
+
+      const isMaxed = updateGoldenQuarkUpgradeVisibility(key, el)
+      const isUnlocked = player.highestSingularityCount >= singItem.minimumSingularity
+      const isAffordable = !isMaxed && isUnlocked && getGQUpgradeCostTNL(key) <= player.goldenQuarks
+      const isSoftcapped = computeGQUpgradeFreeLevelSoftcap(key) > goldenQuarkUpgrades[key].level
+
+      el.classList.toggle('singularityUpgradeAffordable', isAffordable)
+      el.classList.toggle('singularityUpgradeMaxed', isMaxed)
+      el.classList.toggle('singularityUpgradeSoftcap', isSoftcapped)
     }
   } else if (activeSubTab === 3) {
     visualUpdateOcteracts()
 
-    const val = G.shopEnhanceVision
-
     for (const key of octeractUpgradeNames) {
       const octItem = octeractUpgrades[key]
       const el = DOMCacheGetOrSet(key)
+      el.dataset.octeractLevel = format(octItem.level)
+
       const isMaxed = updateOcteractUpgradeVisibility(key, el)
       const isAffordable = !isMaxed && getOcteractUpgradeCostTNL(key) <= player.wowOcteracts
+      const isSoftcapped = player.octUpgrades[key].freeLevel > octeractUpgrades[key].level
 
-      el.dataset.octeractLevel = format(octItem.level)
       el.classList.toggle('octeractUpgradeAffordable', isAffordable)
       el.classList.toggle('octeractUpgradeMaxed', isMaxed)
       el.classList.toggle('octeractUpgradeFreeLevels', player.octUpgrades[key].freeLevel > 0)
-
-      const img = DOMCacheGetOrSet(`${key}Image`)
-      if (isMaxed) {
-        img.style.filter = val ? 'brightness(.9)' : 'none'
-      } else if (!isAffordable) {
-        img.style.filter = val ? 'grayscale(.9) brightness(.8)' : 'none'
-      } else if (octeractUpgrades[key].level < octItem.maxLevel) {
-        if (player.octUpgrades[key].freeLevel > octeractUpgrades[key].level) {
-          img.style.filter = val ? 'blur(2px) invert(.9) saturate(200%)' : 'none'
-        } else {
-          img.style.filter = val ? 'invert(.9) brightness(1.1)' : 'none'
-        }
-      }
+      el.classList.toggle('octeractUpgradeSoftcap', isSoftcapped)
     }
   } else if (activeSubTab === 4) {
     visualUpdateAmbrosia()
   } else if (activeSubTab === 5) {
     visualUpdatePurple()
   }
-}
-
-export const shopMouseover = (value: boolean) => {
-  G.shopEnhanceVision = value
 }
 
 export const visualUpdateOcteracts = () => {

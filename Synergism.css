@@ -7007,6 +7007,33 @@ header #obtainiumDisplay { color: pink; }
     gap: 4px;
 }
 
+#actualSingularityUpgradeContainer:hover .singularityUpgradeAffordable {
+    /* Apply 'invert(.9) brightness(1.1)' to background color */
+    background: rgb(
+        from var(--button-color)
+        calc(252.45 - 0.88 * r) /* Simplifying 'calc((r * 0.1 + (255 - r) * 0.9) * 1.1)' */
+        calc(252.45 - 0.88 * g)
+        calc(252.45 - 0.88 * b)
+        / alpha
+    );
+}
+
+#actualSingularityUpgradeContainer:hover .singularityUpgrade > img {
+    filter: invert(.9) brightness(1.1);
+}
+
+#actualSingularityUpgradeContainer:hover .singularityUpgradeSoftcap > img {
+    filter: blur(1px) invert(.9) saturate(200%);
+}
+
+#actualSingularityUpgradeContainer:hover :not(.singularityUpgradeAffordable) > img {
+    filter: grayscale(.9) brightness(.8);
+}
+
+#actualSingularityUpgradeContainer:hover .singularityUpgradeMaxed > img {
+    filter: brightness(.9);
+}
+
 #octeractUpgradeContainer {
     --octeract-line-color: lightseagreen;
     --octeract-icon-size: 46px;
@@ -7215,6 +7242,33 @@ header #obtainiumDisplay { color: pink; }
 
 #octeractUpgradeContainer .octeractUpgrade:active {
     transform: translateY(0) scale(0.98);
+}
+
+#octeractUpgradeContainer:hover .octeractUpgradeAffordable {
+    /* Apply 'invert(.9) brightness(1.1)' to background color */
+    background: rgb(
+        from var(--button-color)
+        calc(252.45 - 0.88 * r) /* Simplifying calc((r * 0.1 + (255 - r) * 0.9) * 1.1) */
+        calc(252.45 - 0.88 * g)
+        calc(252.45 - 0.88 * b)
+        / alpha
+    );
+}
+
+#octeractUpgradeContainer:hover .octeractUpgrade > img {
+    filter: invert(.9) brightness(1.1);
+}
+
+#octeractUpgradeContainer:hover .octeractUpgradeSoftcap > img {
+    filter: blur(2px) invert(.9) saturate(200%);
+}
+
+#octeractUpgradeContainer:hover :not(.octeractUpgradeAffordable) > img {
+    filter: grayscale(.9) brightness(.8);
+}
+
+#octeractUpgradeContainer:hover .octeractUpgradeMaxed > img {
+    filter: brightness(.9);
 }
 
 .octeractUpgradeTrack:not(:has(.octeractUpgrade:not(.upgradeHiddenByMaxLevel))) {
