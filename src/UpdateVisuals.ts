@@ -1985,8 +1985,6 @@ export const visualUpdateSingularity = () => {
       const isUnlocked = player.highestSingularityCount >= singItem.minimumSingularity
       const isAffordable = !isMaxed && isUnlocked && getGQUpgradeCostTNL(key) <= player.goldenQuarks
       const isSoftcapped = computeGQUpgradeFreeLevelSoftcap(key) > goldenQuarkUpgrades[key].level
-      if (key === 'singOfferings1')
-        console.log(`Cost: ${getGQUpgradeCostTNL(key)}; GQ: ${player.goldenQuarks}`)
 
       el.classList.toggle('singularityUpgradeAffordable', isAffordable)
       el.classList.toggle('singularityUpgradeMaxed', isMaxed)
