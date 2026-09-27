@@ -134,6 +134,7 @@ import {
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
   AutoResetModes,
+  buyAmountNames,
   initializeMonospaceFont,
   setAutoAscendResetActiveText,
   setAutoAscendResetModeText,
@@ -1501,53 +1502,13 @@ const loadSynergy = (saveString: string): boolean => {
       updatePlatonicUpgradeBG(j)
     }
 
-    for (let j = 0; j <= 5; j++) {
-      for (let k = 0; k < 6; k++) {
-        let d = ''
-        if (k === 0) {
-          d = 'one'
-        }
-        if (k === 1) {
-          d = 'ten'
-        }
-        if (k === 2) {
-          d = 'hundred'
-        }
-        if (k === 3) {
-          d = 'thousand'
-        }
-        if (k === 4) {
-          d = '10k'
-        }
-        if (k === 5) {
-          d = '100k'
-        }
-        const e = `${buyAmountTypes[j]}${d}`
-        DOMCacheGetOrSet(e).style.backgroundColor = ''
+    for (let buyAmountType of buyAmountTypes) {
+      for (let buyAmountName of buyAmountNames) {
+        DOMCacheGetOrSet(`${buyAmountType}${buyAmountName}`).classList.remove('toggled')
       }
-      let c = ''
-      const curBuyAmount = player[`${buyAmountTypes[j]}buyamount` as const]
-      if (curBuyAmount === 1) {
-        c = 'one'
-      }
-      if (curBuyAmount === 10) {
-        c = 'ten'
-      }
-      if (curBuyAmount === 100) {
-        c = 'hundred'
-      }
-      if (curBuyAmount === 1000) {
-        c = 'thousand'
-      }
-      if (curBuyAmount === 10000) {
-        c = '10k'
-      }
-      if (curBuyAmount === 100000) {
-        c = '100k'
-      }
-
-      const b = `${buyAmountTypes[j]}${c}`
-      DOMCacheGetOrSet(b).style.backgroundColor = 'green'
+      const curBuyAmount = player[`${buyAmountType}buyamount` as const]
+      const curName = buyAmountNames[curBuyAmount.toString().length - 1]
+      DOMCacheGetOrSet(`${buyAmountType}${curName}`).classList.add('toggled')
     }
 
     player.roombaResearchIndex = 0

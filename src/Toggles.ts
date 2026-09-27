@@ -33,7 +33,7 @@ import { Globals as G } from './Variables'
 
 type ToggleBuy = 'coin' | 'crystal' | 'mythos' | 'particle' | 'offering' | 'tesseract'
 
-const buyAmountNames = ['one', 'ten', 'hundred', 'thousand', '10k', '100k']
+export const buyAmountNames = ['one', 'ten', 'hundred', 'thousand', '10k', '100k']
 const MONOSPACE_FONT_STORAGE_KEY = 'monospaceFont'
 
 const applyMonospaceFont = (enabled: boolean) => {
@@ -170,28 +170,12 @@ export const toggleChallenges = (i: number, auto = false) => {
 }
 
 export const toggleBuyAmount = (quantity: BuyAmount, type: ToggleBuy) => {
+  const prevQuantity = player[`${type}buyamount` as const]
+  const prev = buyAmountNames[prevQuantity.toString().length - 1]
+  const cur = buyAmountNames[quantity.toString().length - 1]
+  DOMCacheGetOrSet(`${type}${prev}`).classList.remove('toggled')
+  DOMCacheGetOrSet(`${type}${cur}`).classList.add('toggled')
   player[`${type}buyamount` as const] = quantity
-  const a = buyAmountNames[quantity.toString().length - 1]
-
-  DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = 'Green'
-  if (quantity !== 1) {
-    DOMCacheGetOrSet(`${type}one`).style.backgroundColor = ''
-  }
-  if (quantity !== 10) {
-    DOMCacheGetOrSet(`${type}ten`).style.backgroundColor = ''
-  }
-  if (quantity !== 100) {
-    DOMCacheGetOrSet(`${type}hundred`).style.backgroundColor = ''
-  }
-  if (quantity !== 1000) {
-    DOMCacheGetOrSet(`${type}thousand`).style.backgroundColor = ''
-  }
-  if (quantity !== 10000) {
-    DOMCacheGetOrSet(`${type}10k`).style.backgroundColor = ''
-  }
-  if (quantity !== 100000) {
-    DOMCacheGetOrSet(`${type}100k`).style.backgroundColor = ''
-  }
 }
 
 export type upgradeAutos = 'coin' | 'prestige' | 'transcend' | 'generators' | 'reincarnate'
