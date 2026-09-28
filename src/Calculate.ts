@@ -3,7 +3,14 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { campaignTokenBonuses } from './Campaign'
 import { CalcECC, useChallenge13Modifiers } from './Challenges'
+import {
+  corruptionCubeScoreMultiplier,
+  corruptionTierEffect,
+  corruptionTierScoreMultiplier,
+  isCorruptionCubeUnlocked
+} from './Corruptions'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
@@ -239,7 +246,7 @@ export const calculateObtainium = (timeMultUsed = true, baseObtainium = calculat
   const immaculate = calculateObtainiumDRIgnoreMult()
 
   // Illiteracy Effect
-  const DR = player.corruptions.used.corruptionEffects('illiteracy')
+  const DR = corruptionTierEffect(player.corruptions.used, 'illiteracy')
 
   // Reincarnation Timer Effects (Including HALF MIND)
   const timeMultiplier = timeMultUsed
@@ -1309,7 +1316,7 @@ const computeAscensionScoreBonusMultiplier = () => {
   let multiplier = 1
   multiplier *= G.challenge15Rewards.score.value
   multiplier *= calculateAscensionScorePlatonicBlessing()
-  multiplier *= player.campaigns.ascensionScoreMultiplier
+  multiplier *= campaignTokenBonuses.ascensionScore()
   multiplier *= getRuneEffects('finiteDescent', 'ascensionScore')
   if (player.cubeUpgrades[21] > 0) {
     multiplier *= 1 + 0.05 * player.cubeUpgrades[21]
@@ -1329,13 +1336,14 @@ const computeAscensionScoreBonusMultiplier = () => {
   return multiplier
 }
 
+const applyAscensionScoreSoftcap = (score: number) => {
+  const softcappedScore = score > 1e23 ? Math.pow(score, 0.5) * Math.pow(1e23, 0.5) : score
+  return softcappedScore * getGQUpgradeEffect('expertPack', 'ascensionScoreMult')
+}
+
 export const calculateAscensionScore = () => {
   let baseScore = 0
-  const corruptionMultiplier = player.corruptions.used.totalCorruptionAscensionMultiplier
-  let effectiveScore = 0
-
-  // let bonusLevel = getGQUpgradeEffect('corruptionFifteen')
-  // bonusLevel += +player.singularityChallenges.oneChallengeCap.rewards.freeCorruptionLevel
+  const corruptionMultiplier = corruptionTierScoreMultiplier(player.corruptions.used)
 
   // Init Arrays with challenge values :)
   const challengeScoreArrays1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
@@ -1383,27 +1391,16 @@ export const calculateAscensionScore = () => {
       + 0.0025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10]),
     player.highestchallengecompletions[10]
   )
-  // Corruption Multiplier is the product of all Corruption Score multipliers based on used corruptions
-  // let bonusVal = getGQUpgradeEffect('advancedPack')
-  //   ? 0.33
-  //   : 0
-  // bonusVal += +player.singularityChallenges.oneChallengeCap.rewards.corrScoreIncrease
-  // bonusVal += 0.3 * player.cubeUpgrades[74]
 
   const bonusMultiplier = computeAscensionScoreBonusMultiplier()
-
-  effectiveScore = baseScore * corruptionMultiplier * bonusMultiplier
-  if (effectiveScore > 1e23) {
-    effectiveScore = Math.pow(effectiveScore, 0.5) * Math.pow(1e23, 0.5)
-  }
-
-  effectiveScore *= getGQUpgradeEffect('expertPack', 'ascensionScoreMult')
+  const rawScore = baseScore * corruptionMultiplier * bonusMultiplier
 
   return {
     baseScore,
     corruptionMultiplier,
     bonusMultiplier,
-    effectiveScore
+    effectiveScore: applyAscensionScoreSoftcap(rawScore),
+    cubeScore: applyAscensionScoreSoftcap(rawScore * corruptionCubeScoreMultiplier(player.corruptions.used))
   }
 }
 
@@ -1414,30 +1411,28 @@ export const CalcCorruptionStuff = () => {
   const corruptionMultiplier = scores.corruptionMultiplier
   const bonusMultiplier = scores.bonusMultiplier
   const effectiveScore = scores.effectiveScore
+  const cubeScore = scores.cubeScore
 
   // Calculation of Cubes :)
   const cubeGain = calculateCubeMultiplierWithTau()
 
   // Calculation of Tesseracts :))
   let tesseractGain = 1
-  if (effectiveScore >= 100000) {
+  if (cubeScore >= 100000) {
     tesseractGain += 0.5
   }
   tesseractGain *= calculateTesseractMultiplier()
 
   // Calculation of Hypercubes :)))
-  let hypercubeGain = effectiveScore >= 1e9 ? 1 : 0
+  let hypercubeGain = isCorruptionCubeUnlocked(player.corruptions.used, 'hypercubes') ? 1 : 0
   hypercubeGain *= calculateHypercubeMultiplier()
 
   // Calculation of Platonic Cubes :))))
-  let platonicGain = effectiveScore >= 2.666e12 ? 1 : 0
+  let platonicGain = isCorruptionCubeUnlocked(player.corruptions.used, 'platonics') ? 1 : 0
   platonicGain *= calculatePlatonicMultiplier()
 
   // Calculation of Hepteracts :)))))
-  let hepteractGain = G.challenge15Rewards.hepteractsUnlocked.value
-      && effectiveScore >= 1.666e17
-    ? 1
-    : 0
+  let hepteractGain = isCorruptionCubeUnlocked(player.corruptions.used, 'hepteracts') ? 1 : 0
   hepteractGain *= calculateHepteractMultiplier()
 
   return {
@@ -1449,7 +1444,8 @@ export const CalcCorruptionStuff = () => {
     baseScore: Math.floor(baseScore),
     bonusMultiplier: bonusMultiplier,
     corruptionMultiplier: corruptionMultiplier,
-    effectiveScore: Math.floor(effectiveScore)
+    effectiveScore: Math.floor(effectiveScore),
+    cubeScore: Math.floor(cubeScore)
   }
   /*return [
     // WTF IS THIS...

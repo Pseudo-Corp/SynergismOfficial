@@ -5,6 +5,7 @@ import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
+import { corruptionTierEffect } from './Corruptions'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
@@ -171,7 +172,7 @@ const upgradetexts = [
     format(
       Decimal.min(
         Decimal.pow(10, 1e33),
-        Decimal.pow(G.acceleratorEffect, player.corruptions.used.corruptionEffects('deflation') / 3)
+        Decimal.pow(G.acceleratorEffect, corruptionTierEffect(player.corruptions.used, 'deflation') / 3)
       ),
       2
     ),

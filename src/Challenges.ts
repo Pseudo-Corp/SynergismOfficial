@@ -1,6 +1,8 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { campaignTokenBonuses } from './Campaign'
+import { corruptionTierEffect } from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -452,7 +454,7 @@ const calculateChallengeRequirementMultiplier = (
   completions: number,
   special = 0
 ) => {
-  let requirementMultiplier = player.corruptions.used.corruptionEffects('hyperchallenge')
+  let requirementMultiplier = corruptionTierEffect(player.corruptions.used, 'hyperchallenge')
   if (type === 'ascension') {
     // Normalize back to 1 if looking at ascension challenges in particular.
     requirementMultiplier = 1
@@ -806,7 +808,7 @@ const challenge15AutoExponentCheck = () => {
 
 export const challenge15ScoreMultiplier = () => {
   return (
-    player.campaigns.c15Bonus // Campaign Bonus to c15
+    campaignTokenBonuses.c15() // Campaign Bonus to c15
     * (1 + 5 / 10000 * hepteractEffective('challenge')) // Challenge Hepteract
     * (1 + 0.25 * player.platonicUpgrades[15]) // Omega Upgrade
   )

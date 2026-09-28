@@ -1,5 +1,5 @@
 import { displayProperLoadoutCount } from './BlueberryUpgrades'
-import { corruptionLoadoutTableCreate, updateCorruptionLoadoutNames } from './Corruptions'
+import { corruptionPresetTableCreate } from './Corruptions'
 import { CartTab } from './purchases/CartTab'
 
 export type PseudoCoinUpgradeNames =
@@ -118,8 +118,7 @@ const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) => {
       break
     case 'CORRUPTION_LOADOUT_SLOT_QOL':
       PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL = level
-      corruptionLoadoutTableCreate()
-      updateCorruptionLoadoutNames()
+      corruptionPresetTableCreate()
       break
     case 'AMBROSIA_LOADOUT_SLOT_QOL':
       PCoinUpgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL = level

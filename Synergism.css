@@ -208,7 +208,6 @@ html[data-legacyicons="true"] {
     color: #fff0ff;
 }
 
-#corrCampaignsBtn.active-subtab,
 #corrStatsBtn.active-subtab,
 #corrLoadoutsBtn.active-subtab {
     background-color: dodgerblue;
@@ -5785,37 +5784,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: white;
 }
 
-#campaigns {
-    contain: inline-size;
-    margin-top: 10px;
-}
-
-#campaignsMain {
-    contain: inline-size;
-    min-width: 0;
-    row-gap: 10px;
-    line-height: 1.2;
-    margin-top: 10px;
-}
-
-#campaignsIcons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-items: center;
-}
-
-#campaignIconGrid {
-    display: grid;
-    grid-template-columns: repeat(10, minmax(0, 48px));
-    grid-template-rows: repeat(5, minmax(0, 48px));
-    column-gap: 2px;
-    row-gap: 2px;
-    justify-content: center;
-}
-
 /* Credit: gwabo_ */
-.campaignIcon:not(.green-background),
 .tieredAchievementType img:not(.green-background),
 .progressiveAchievementType img:not(.green-background) {
     --pct: 0;
@@ -5829,93 +5798,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
             green calc(round(var(--pct) * 100%, 1px)),
             transparent calc(round(var(--pct) * 100%, 1px))
         );
-}
-
-#campaignsIcons h3 {
-    text-align: center;
-}
-
-#campaignsIcons img {
-    box-sizing: content-box;
-    width: 100%;
-    max-width: 48px;
-    height: auto;
-    font-size: 0;
-    cursor: pointer;
-}
-
-#campaignsIcons img:hover {
-    background-color: var(--hover-color);
-}
-
-#campaignsDescriptions {
-    border: 2px solid red;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    min-height: 300px;
-}
-
-#campaignsDescriptions h3 {
-    margin-top: 1px;
-    margin-bottom: 1px;
-}
-
-#campaignsDescriptions h5 {
-    margin-top: 1px;
-    margin-bottom: 1px;
-}
-
-#campaignCorruptionInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.campaignCorrDisplay {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    text-align: left;
-}
-
-.campaignCorrDisplay img {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
-    font-size: 0;
-}
-
-.campaignCorrDisplay p {
-    margin: 0;
-}
-
-#campaignCorruptions {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-#campaignCorruptionStats {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-#campaignCorruptionStats p {
-    margin: 0;
-}
-
-#campaignCorruptionStats button {
-    align-self: flex-end;
-    width: 100%;
-    border: 1px solid gold;
-    font-size: 1.2em;
 }
 
 #campaignsTokensInfo {
@@ -5994,14 +5876,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 #corruptionMain {
     min-width: 43.75rem;
     max-width: 75rem;
-}
-
-#corruptionMain.campaigns-active > :not(#campaignsMain) {
-    visibility: hidden;
-    block-size: 0;
-    min-block-size: 0;
-    margin-block: 0;
-    overflow: hidden;
 }
 
 #corruptionIntroduction {
@@ -6215,7 +6089,6 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
     text-align: center;
 }
 
-#corrCampaignsBtn,
 #corrStatsBtn,
 #corrLoadoutsBtn {
     min-width: 120px;
@@ -6357,8 +6230,29 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
 }
 
 #corruptionLoadoutTable tbody th {
-    font-size: 0;
     padding: 0;
+}
+
+.corrTierBtn {
+    min-width: 60px;
+    margin: 2px;
+    border: 1px solid orange;
+}
+
+.corrTierBtn.selected {
+    background-color: dodgerblue;
+}
+
+#corruptionLevelControls {
+    gap: 4px;
+    margin: 6px 0;
+}
+
+#corruptionLevelInput {
+    width: 5em;
+    border: 1px solid orange;
+    color: gold;
+    background-color: var(--blackbtn-color);
 }
 
 img.small {
@@ -12187,17 +12081,6 @@ html[data-mobile="true"] .hideOnMobile {
         min-height: unset;
     }
 
-    /* Campaigns */
-    #campaignsIcons {
-        width: unset;
-    }
-
-    #campaignIconGrid {
-        grid-template-columns: repeat(5, 48px);
-        column-gap: unset;
-        row-gap: unset;
-    }
-
     #campaignsTokensInfo {
         width: unset;
     }
@@ -12227,11 +12110,10 @@ html[data-mobile="true"] .hideOnMobile {
         min-width: unset;
     }
 
-    .corruptionStatRow > button {
+    #corruptionLevelControls > button {
         min-width: 44px;
     }
 
-    #campaignsMain,
     #corruptionMain {
         min-width: unset;
     }
@@ -12903,11 +12785,6 @@ html[data-mobile="true"] .hideOnMobile {
     /* Cubes */
     #cubeTab6 {
         flex-direction: column;
-    }
-
-    /* Campaigns */
-    #campaignsDescriptions {
-        width: unset;
     }
 
     /* Dialogs */

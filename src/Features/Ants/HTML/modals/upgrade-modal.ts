@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import { corruptionIntensity, corruptionTierEffect } from '../../../../Corruptions'
 import { AntSacrificeTiers } from '../../../../Reset'
 import { format, player } from '../../../../Synergism'
 import { antUpgradeData } from '../../AntUpgrades/data/data'
@@ -27,11 +28,11 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
   }
 
   let extinctionHTML = ''
-  if (player.corruptions.used.extinction > 0 && !upgradeData.exemptFromCorruption) {
+  if (corruptionIntensity(player.corruptions.used, 'extinction') > 0 && !upgradeData.exemptFromCorruption) {
     extinctionHTML = `<br><span style="color: #00DDFF">${
       i18next.t('ants.corruptionDivisor', {
-        x: format(player.corruptions.used.extinction, 0, true),
-        y: format(player.corruptions.used.corruptionEffects('extinction'), 2, true)
+        x: format(corruptionIntensity(player.corruptions.used, 'extinction'), 2, true),
+        y: format(corruptionTierEffect(player.corruptions.used, 'extinction'), 2, true)
       })
     }</span>`
   }

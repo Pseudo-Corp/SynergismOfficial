@@ -66,18 +66,18 @@ import {
   isOfflineDialogOpen
 } from './Calculate'
 import {
+  c15CorruptionState,
   corruptionButtonsAdd,
-  corruptionLoadLoadout,
-  CorruptionLoadout,
-  corruptionLoadoutTableCreate,
-  corruptionLoadoutTableUpdate,
-  CorruptionSaves,
-  corruptionsSchema,
+  corruptionIntensity,
+  corruptionPresetTableCreate,
+  corruptionPresetTableUpdate,
   corruptionStatsUpdate,
-  getUnlockedCorruptionLoadoutCount,
-  isCorruptionLoadoutUnlocked,
-  updateCorruptionLoadoutNames,
-  updateUndefinedLoadouts
+  corruptionTierEffect,
+  createDefaultCorruptionPresets,
+  isCorruptionPresetUnlocked,
+  loadCorruptionPreset,
+  normalizeCorruptionTierState,
+  resetNextCorruptions
 } from './Corruptions'
 import { calculateAcceleratorCubeBlessing, calculateMultiplierCubeBlessing, updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
@@ -180,10 +180,7 @@ import {
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  campaignIconHTMLUpdates,
-  CampaignManager,
   campaignTokenRewardHTMLUpdate,
-  createCampaignIconHTMLS,
   createCampaignTokenRewardEventHandlers,
   updateMaxTokens,
   updateTokens
@@ -1000,29 +997,12 @@ export const player: Player = {
   },
 
   corruptions: {
-    next: new CorruptionLoadout(corruptionsSchema.parse({})),
-    used: new CorruptionLoadout(corruptionsSchema.parse({})),
-    saves: new CorruptionSaves({
-      'Loadout 1': corruptionsSchema.parse({}),
-      'Loadout 2': corruptionsSchema.parse({}),
-      'Loadout 3': corruptionsSchema.parse({}),
-      'Loadout 4': corruptionsSchema.parse({}),
-      'Loadout 5': corruptionsSchema.parse({}),
-      'Loadout 6': corruptionsSchema.parse({}),
-      'Loadout 7': corruptionsSchema.parse({}),
-      'Loadout 8': corruptionsSchema.parse({}),
-      'Loadout 9': corruptionsSchema.parse({}),
-      'Loadout 10': corruptionsSchema.parse({}),
-      'Loadout 11': corruptionsSchema.parse({}),
-      'Loadout 12': corruptionsSchema.parse({}),
-      'Loadout 13': corruptionsSchema.parse({}),
-      'Loadout 14': corruptionsSchema.parse({}),
-      'Loadout 15': corruptionsSchema.parse({}),
-      'Loadout 16': corruptionsSchema.parse({})
-    })
+    next: { tier: 0, level: 0 },
+    used: { tier: 0, level: 0 },
+    presets: createDefaultCorruptionPresets(),
+    tokenProgress: { tier: 0, level: 0 }
   },
 
-  campaigns: new CampaignManager(),
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   history: { ants: [], ascend: [], reset: [], singularity: [] },
   historyShowPerSecond: false,
@@ -1228,9 +1208,6 @@ export const deepClone = () =>
       [WowTesseracts, (o: WowTesseracts) => new WowTesseracts(o.valueOf())],
       [WowHypercubes, (o: WowHypercubes) => new WowHypercubes(o.valueOf())],
       [WowPlatonicCubes, (o: WowPlatonicCubes) => new WowPlatonicCubes(o.valueOf())],
-      [CorruptionLoadout, (o: CorruptionLoadout) => new CorruptionLoadout(o.loadout)],
-      [CorruptionSaves, (o: CorruptionSaves) => new CorruptionSaves(o.corrSaveData)],
-      [CampaignManager, (o: CampaignManager) => new CampaignManager(o.campaignManagerData)],
       [SingularityChallenge, (o: SingularityChallenge) => new SingularityChallenge(o.valueOf(), o.key())]
     ]
   })
@@ -1569,17 +1546,9 @@ const loadSynergy = (saveString: string): boolean => {
     }
 
     corruptionStatsUpdate()
-    updateUndefinedLoadouts() // Monetization update added more corruption loadout slots
     updateBlueberryLoadoutCount() // Monetization update also added more Blueberry loadout slots
 
-    const corrs = 1 + getUnlockedCorruptionLoadoutCount()
-    // const corrs = Math.min(8, Object.keys(player.corruptionLoadouts).length) + 1
-    for (let i = 0; i < corrs; i++) {
-      corruptionLoadoutTableUpdate(true, i)
-      corruptionLoadoutTableUpdate(false, i)
-    }
-
-    updateCorruptionLoadoutNames()
+    corruptionPresetTableUpdate()
 
     // For blueberry upgrades!
     displayProperLoadoutCount()
@@ -2444,18 +2413,11 @@ export const updateAllTick = (): void => {
 
   calculateAcceleratorMultiplier()
   a *= G.acceleratorMultiplier
-  a = Math.pow(a, player.corruptions.used.corruptionEffects('viscosity'))
+  a = Math.pow(a, corruptionTierEffect(player.corruptions.used, 'viscosity'))
   a += getHepteractEffects('accelerator').accelerators
   a *= G.challenge15Rewards.accelerator.value
   a *= getHepteractEffects('accelerator').acceleratorMultiplier
   a = Math.floor(Math.min(1e100, a))
-
-  if (player.corruptions.used.viscosity >= 15) {
-    a = Math.pow(a, 0.2)
-  }
-  if (player.corruptions.used.viscosity >= 16) {
-    a = 1
-  }
 
   G.freeAccelerator = a
   G.totalAccelerator += G.freeAccelerator
@@ -2611,18 +2573,11 @@ export const updateAllMultiplier = (): void => {
   ) {
     a *= 1.25
   }
-  a = Math.pow(a, player.corruptions.used.corruptionEffects('viscosity'))
+  a = Math.pow(a, corruptionTierEffect(player.corruptions.used, 'viscosity'))
   a += getHepteractEffects('multiplier').multiplier
   a *= G.challenge15Rewards.multiplier.value
   a *= getHepteractEffects('multiplier').multiplierMultiplier
   a = Math.floor(Math.min(1e100, a))
-
-  if (player.corruptions.used.viscosity >= 15) {
-    a = Math.pow(a, 0.2)
-  }
-  if (player.corruptions.used.viscosity >= 16) {
-    a = 1
-  }
 
   G.freeMultiplier = a
   G.totalMultiplier = G.freeMultiplier + player.multiplierBought
@@ -2832,7 +2787,7 @@ export const multipliers = (): void => {
       lol,
       1
         + ((1 / 20)
-            * player.corruptions.used.recession
+            * corruptionIntensity(player.corruptions.used, 'recession')
             * Decimal.log(player.coins.add(1), 10))
           / (1e7 + Decimal.log(player.coins.add(1), 10))
     )
@@ -2847,7 +2802,7 @@ export const multipliers = (): void => {
   G.globalCoinMultiplier = lol
   G.globalCoinMultiplier = Decimal.pow(
     G.globalCoinMultiplier,
-    player.corruptions.used.corruptionEffects('recession')
+    corruptionTierEffect(player.corruptions.used, 'recession')
   )
 
   if (player.upgrades[1] > 0.5) {
@@ -3428,7 +3383,7 @@ export const resetCurrency = (): void => {
     prestigePow = 1e-4
     transcendPow = 0.001
   }
-  prestigePow *= player.corruptions.used.corruptionEffects('deflation')
+  prestigePow *= corruptionTierEffect(player.corruptions.used, 'deflation')
   // Prestige Point Formulae
   G.prestigePointGain = Decimal.floor(
     Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow)
@@ -3443,7 +3398,7 @@ export const resetCurrency = (): void => {
         Decimal.pow(10, 1e33),
         Decimal.pow(
           G.acceleratorEffect,
-          (1 / 3) * player.corruptions.used.corruptionEffects('deflation')
+          (1 / 3) * corruptionTierEffect(player.corruptions.used, 'deflation')
         )
       )
     )
@@ -4326,7 +4281,6 @@ export const constantIntervals = (): void => {
       fastUpdates()
     }
   }, fastUpdateInterval)
-  setInterval(campaignIconHTMLUpdates, 15000)
   setInterval(() => {
     if (!G.timeWarp) {
       updateTalismanRarities()
@@ -4628,22 +4582,22 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       num = -1
     }
     if (player.challengecompletions[11] > 0 && !isNaN(num)) {
-      if (isCorruptionLoadoutUnlocked(num)) {
+      if (isCorruptionPresetUnlocked(num)) {
         if (player.toggles[41]) {
           void Notification(
             i18next.t('main.corruptionLoadoutApplied', {
               x: num + 1,
-              y: player.corruptions.saves.saves[num].name
+              y: player.corruptions.presets[num].name
             }),
             5000
           )
         }
-        corruptionLoadLoadout(num)
+        loadCorruptionPreset(num)
       } else {
         if (player.toggles[41]) {
           void Notification(i18next.t('main.allCorruptionsZero'), 5000)
         }
-        player.corruptions.next.resetCorruptions(true)
+        resetNextCorruptions()
       }
       event.preventDefault()
     }
@@ -4851,10 +4805,12 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     }
   }
 
-  // Probably want to remove Corruptions from Player Object...
-  player.corruptions.used = new CorruptionLoadout(player.corruptions.used.loadout)
-  // This is needed to fix saves that had issues with not resetting corruption at the singularity
-  player.corruptions.used.setCorruptionLevelsWithChallengeRequirement(player.corruptions.used.loadout)
+  player.corruptions.used = player.currentChallenge.ascension === 15
+    ? { ...c15CorruptionState }
+    : normalizeCorruptionTierState(player.corruptions.used)
+  player.corruptions.next = normalizeCorruptionTierState(player.corruptions.next)
+  corruptionStatsUpdate()
+  corruptionPresetTableUpdate()
 
   updateTokens()
   updateMaxTokens()
@@ -4919,7 +4875,6 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
         1000 * 60 * 5
       )
     })
-  campaignIconHTMLUpdates()
   campaignTokenRewardHTMLUpdate()
   updateAllUngroupedAchievementProgress()
   updateAllGroupedAchievementProgress()
@@ -5061,8 +5016,7 @@ window.addEventListener('load', async () => {
   initializeSynthesis()
   generateEventHandlers()
   corruptionButtonsAdd()
-  corruptionLoadoutTableCreate()
-  createCampaignIconHTMLS()
+  corruptionPresetTableCreate()
   createCampaignTokenRewardEventHandlers()
   generateAchievementHTMLs()
   generateLevelRewardHTMLs()

@@ -31,7 +31,15 @@ import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
-import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
+import {
+  changeNextCorruptionLevel,
+  cleanseCorruptions,
+  corruptionCleanseConfirm,
+  corruptionDisplay,
+  maxNextCorruptionLevel,
+  openCorruptionDetailsModal,
+  setNextCorruptionLevel
+} from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
@@ -386,6 +394,12 @@ const getSubTabI18nKey = (button: HTMLButtonElement) =>
 const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
 const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
 const shopPotionKeys = ['offeringPotion', 'obtainiumPotion'] as const
+const corruptionLevelSteps = [
+  ['corruptionLevelDown10', -10],
+  ['corruptionLevelDown1', -1],
+  ['corruptionLevelUp1', 1],
+  ['corruptionLevelUp10', 10]
+] as const
 
 const registerIframeOverlayLink = (id: string, url: string) => {
   DOMCacheGetOrSet(id).addEventListener('click', (event) => {
@@ -1613,9 +1627,13 @@ export const generateEventHandlers = () => {
     corruptionDisplay('exit')
   })
   DOMCacheGetOrSet('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
-  DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => {
-    player.corruptions.used.resetCorruptions()
-    player.corruptions.next.resetCorruptions()
+  DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => cleanseCorruptions())
+  for (const [id, delta] of corruptionLevelSteps) {
+    DOMCacheGetOrSet(id).addEventListener('click', () => changeNextCorruptionLevel(delta))
+  }
+  DOMCacheGetOrSet('corruptionLevelMax').addEventListener('click', () => maxNextCorruptionLevel())
+  DOMCacheGetOrSet('corruptionLevelInput').addEventListener('change', (event) => {
+    setNextCorruptionLevel(Number((event.target as HTMLInputElement).value))
   })
   DOMCacheGetOrSet('corruptionScoreProgress').addEventListener('click', cycleCorruptionScoreTarget)
   const corruptionScoreTargetButtons = [

@@ -1,8 +1,6 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
-import { CampaignManager, type ICampaignManagerData } from '../Campaign'
-import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
@@ -233,15 +231,13 @@ const newHepteractCraftSchema = z.object({
   AUTO: z.boolean()
 })
 
-const optionalCorruptionSchema = z.object({
-  viscosity: z.number().optional().default(0),
-  drought: z.number().optional().default(0),
-  deflation: z.number().optional().default(0),
-  extinction: z.number().optional().default(0),
-  illiteracy: z.number().optional().default(0),
-  recession: z.number().optional().default(0),
-  dilation: z.number().optional().default(0),
-  hyperchallenge: z.number().optional().default(0)
+const corruptionTierStateSchema = z.object({
+  tier: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
+  level: z.number()
+})
+
+const corruptionPresetSchema = corruptionTierStateSchema.extend({
+  name: z.string()
 })
 
 const talismanFragmentSchema = z.object({
@@ -308,25 +304,16 @@ const synthesisUpgradesSchema = z.object({
 })
 
 const playerCorruptionSchema = z.object({
-  used: optionalCorruptionSchema.transform((value) => {
-    return new CorruptionLoadout(value)
-  }),
-  next: optionalCorruptionSchema.transform((value) => {
-    return new CorruptionLoadout(value)
-  }),
-  saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
-    return new CorruptionSaves(value)
-  })
-}).prefault(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
-
-const campaignSchema = z.object({
-  currentCampaign: z.string().optional(),
-  campaigns: z.record(z.string(), z.number()).optional()
-})
-
-const playerCampaignSchema = campaignSchema.transform((campaignData) => {
-  return new CampaignManager(campaignData as ICampaignManagerData)
-}).prefault(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
+  used: corruptionTierStateSchema.catch(() => ({ ...blankSave.corruptions.used })),
+  next: corruptionTierStateSchema.catch(() => ({ ...blankSave.corruptions.next })),
+  presets: z.unknown().array().catch(() => []).transform((presets) =>
+    blankSave.corruptions.presets.map((preset, index) => {
+      const parsed = corruptionPresetSchema.safeParse(presets[index])
+      return parsed.success ? parsed.data : { ...preset }
+    })
+  ),
+  tokenProgress: corruptionTierStateSchema.catch(() => ({ ...blankSave.corruptions.tokenProgress }))
+}).prefault(() => deepClone()(blankSave.corruptions))
 
 export const playerSchema = z.object({
   firstPlayed: z.iso.datetime().optional().default(() => new Date().toISOString()),
@@ -870,15 +857,7 @@ export const playerSchema = z.object({
   roombaResearchIndex: z.number().default(() => blankSave.roombaResearchIndex),
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
 
-  campaigns: playerCampaignSchema,
-
   corruptions: playerCorruptionSchema,
-
-  prototypeCorruptions: z.number().array().optional(),
-  usedCorruptions: z.number().array().optional(),
-  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).optional(),
-
-  corruptionLoadoutNames: z.string().array().optional(),
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,

@@ -17,18 +17,15 @@ import {
   calculateOfferings,
   calculatePowderConversion
 } from './Calculate'
-import {
-  campaignCorruptionStatsHTMLReset,
-  campaignDatas,
-  campaignIconHTMLUpdate,
-  campaignIconHTMLUpdates,
-  type CampaignKeys,
-  campaignTokenRewardHTMLUpdate,
-  updateMaxTokens,
-  updateTokens
-} from './Campaign'
+import { campaignTokenRewardHTMLUpdate, earnCampaignTokens } from './Campaign'
 import { CalcECC, challengeRequirement, resetChallengeSweep } from './Challenges'
-import { c15Corruptions, CorruptionLoadout, corruptionStatsUpdate, type SavedCorruption } from './Corruptions'
+import {
+  c15CorruptionState,
+  corruptionPresetTableUpdate,
+  corruptionStatsUpdate,
+  isCorruptionTierStateAtLeast,
+  normalizeCorruptionTierState
+} from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import {
   autoBuyCubeUpgrades,
@@ -332,7 +329,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         seconds: player.ascensionCounter,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
-        usedCorruptions: player.corruptions.used.loadout,
+        usedCorruptions: { tier: player.corruptions.used.tier, level: player.corruptions.used.level },
         corruptionScore: corruptionMetaData.effectiveScore,
         wowCubes: corruptionMetaData.wowCubes,
         wowTesseracts: corruptionMetaData.wowTesseracts,
@@ -524,7 +521,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   }
 
   if (input === 'reincarnation' || input === 'reincarnationChallenge') {
-    if (player.corruptions.used.deflation > 10 && player.platonicUpgrades[11] > 0) {
+    if (isCorruptionTierStateAtLeast(player.corruptions.used, 4, 100) && player.platonicUpgrades[11] > 0) {
       player.prestigePoints = player.prestigePoints.add(G.reincarnationPointGain)
     }
   }
@@ -741,34 +738,15 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       }
     }
 
-    if (player.highestSingularityCount >= 4) {
-      const currCorruptionDifficulty = player.corruptions.used.totalCorruptionDifficultyScore
-      for (const campaign of Object.keys(player.campaigns.allCampaigns)) {
-        const campaignName = campaign as CampaignKeys
-        const campaignDifficulty =
-          player.campaigns.getCampaign(campaignName).usableLoadout.totalCorruptionDifficultyScore
-        if (!campaignDatas[campaignName].unlockRequirement()) {
-          continue
-        }
-
-        if (campaignDifficulty <= currCorruptionDifficulty) {
-          player.campaigns.setC10ToArbitrary(campaignName, c10Completions)
-        }
-        campaignIconHTMLUpdate(campaignName)
-      }
-      updateTokens()
-      updateMaxTokens()
-      campaignTokenRewardHTMLUpdate()
+    if (c10Completions > 0) {
+      earnCampaignTokens(player.corruptions.used)
     }
 
-    if (player.campaigns.current) {
-      player.campaigns.resetCampaign(c10Completions)
-    }
-    player.corruptions.used = new CorruptionLoadout(player.corruptions.next.loadout)
+    player.corruptions.used = normalizeCorruptionTierState(player.corruptions.next)
 
     // fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
     if (player.currentChallenge.ascension === 15 && (input === 'ascension' || input === 'ascensionChallenge')) {
-      player.corruptions.used = new CorruptionLoadout(c15Corruptions)
+      player.corruptions.used = { ...c15CorruptionState }
     }
 
     corruptionStatsUpdate()
@@ -1168,11 +1146,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
-  hold.corruptions.saves = Object.fromEntries(
-    player.corruptions.saves.saves.map((save: SavedCorruption) => {
-      return [save.name, save.loadout.loadout]
-    })
-  )
+  hold.corruptions.presets = player.corruptions.presets.map((preset) => ({ ...preset }))
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
   hold.resetToggleModes = player.resetToggleModes
@@ -1302,10 +1276,9 @@ export const singularity = (setSingNumber = -1) => {
   player.rngCode = Date.now()
   player.promoCodeTiming.time = Date.now()
 
-  // Campaign HTML updates
-  campaignIconHTMLUpdates()
-  campaignCorruptionStatsHTMLReset()
   campaignTokenRewardHTMLUpdate()
+  corruptionStatsUpdate()
+  corruptionPresetTableUpdate()
 
   // Save again at the end of singularity reset
   saveSynergy()
@@ -1419,7 +1392,7 @@ export const applyChallengeInitialModifiers = (
         player.obtainium = new Decimal()
       }
       if (chalNum === 15) {
-        player.corruptions.used = new CorruptionLoadout(c15Corruptions)
+        player.corruptions.used = { ...c15CorruptionState }
       }
     }
   }

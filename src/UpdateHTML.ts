@@ -997,18 +997,7 @@ export const updateChallengeLevel = (k: number) => {
 } */
 
 export const showCorruptionStatsLoadouts = (subTabID: string) => {
-  const campaignsShown = subTabID === 'campaigns'
-
-  DOMCacheGetOrSet('campaigns').style.display = campaignsShown ? 'block' : 'none'
-  DOMCacheGetOrSet('corruptionDisplays').style.display = campaignsShown ? 'none' : ''
-  DOMCacheGetOrSet('corruptionMain').classList.toggle('campaigns-active', campaignsShown)
-  DOMCacheGetOrSet('campaignsMain').style.display = campaignsShown ? 'flex' : 'none'
-
-  if (campaignsShown) {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'none'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    DOMCacheGetOrSet('corrClickInfo').style.display = 'none'
-  } else if (subTabID === 'true') {
+  if (subTabID === 'true') {
     DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
     DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
     DOMCacheGetOrSet('corrClickInfo').style.display = 'block'

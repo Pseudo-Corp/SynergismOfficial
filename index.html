@@ -2175,69 +2175,49 @@
         <div id="traits" class="tab">
             <div id="corruptionStatsLoadouts" class="flex column">
                 <span id="corrButtonRow" class="flex row center">
-                    <button id="corrCampaignsBtn" i18n="corruptions.corrCampaignsBtn"></button>
                     <button id="corrStatsBtn" class="active-subtab" i18n="corruptions.corrStatsBtn"></button>
                     <button id="corrLoadoutsBtn" i18n="corruptions.corrLoadoutsBtn"></button>
                 </span>
                 <p id="corrClickInfo" i18n="corruptions.clickInfo"></p>
-                <div id="campaigns" style="display: none;">
-                    <div id="campaignsIcons" aria-live="polite">
-                        <h3 i18n="campaigns.pickNow"></h3>
-                        <div id="campaignIconGrid">
-                        </div>
-                        <h3 id="currentCampaignText"></h3>
-                    </div>
-                </div>
                 <div id="corruptionStats" class="corruptionContainer">
-                    <span class="corruptionStatRow chal11Corruption">
+                    <div id="corruptionTierSelect" class="flex row center"></div>
+                    <div id="corruptionLevelControls" class="flex row center">
+                        <button id="corruptionLevelDown10" class="corruptionReset">-10</button>
+                        <button id="corruptionLevelDown1" class="corruptionDown">-1</button>
+                        <input id="corruptionLevelInput" type="number" min="0" step="1" i18n-aria-label="corruptions.tiers.levelInput">
+                        <button id="corruptionLevelUp1" class="corruptionUp">+1</button>
+                        <button id="corruptionLevelUp10" class="corruptionMax">+10</button>
+                        <button id="corruptionLevelMax" class="corruptionMax" i18n="corruptions.max"></button>
+                    </div>
+                    <p id="corruptionTierCurrent" class="corrDesc"></p>
+                    <p id="corruptionTierNext" class="corrDesc"></p>
+                    <span class="corruptionStatRow">
                     </span>
-                    <span class="corruptionStatRow chal11Corruption">
+                    <span class="corruptionStatRow">
                     </span>
-                    <span class="corruptionStatRow chal12Corruption">
+                    <span class="corruptionStatRow">
                     </span>
-                    <span class="corruptionStatRow chal12Corruption">
+                    <span class="corruptionStatRow">
                     </span>
-                    <span class="corruptionStatRow chal13Corruption">
+                    <span class="corruptionStatRow">
                     </span>
-                    <span class="corruptionStatRow chal13Corruption">
+                    <span class="corruptionStatRow">
                     </span>
-                    <span class="corruptionStatRow chal14Corruption">
+                    <span class="corruptionStatRow">
                     </span>
-                    <span class="corruptionStatRow chal14Corruption">
+                    <span class="corruptionStatRow">
                     </span>
-                    <!-- TODO: <script>corruptionButtonsAdd()</script> -->
                 </div>
                 <div id="corruptionLoadouts" style="display: none">
                     <table id="corruptionLoadoutTable">
                         <tr>
                             <th class="corrLoadoutNameCol"></th>
-                            <th>
-                                <img src="Pictures/Default/CorruptViscosity.png" class="corruptionImg small" title="Viscosity" loading="lazy">
-                            </th>
-                            <th>
-                                <img src="Pictures/Default/CorruptDrought.png" class="corruptionImg small" title="Drought" loading="lazy">
-                            </th>
-                            <th>
-                                <img src="Pictures/Default/CorruptDeflation.png" class="corruptionImg small" title="Deflation" loading="lazy">
-                            </th>
-                            <th>
-                                <img src="Pictures/Default/CorruptExtinction.png" class="corruptionImg small" title="Extinction" loading="lazy">
-                            </th>
-                            <th>
-                                <img src="Pictures/Default/CorruptIlliteracy.png" class="corruptionImg small" title="Illiteracy" loading="lazy">
-                            </th>
-                            <th>
-                                <img src="Pictures/Default/CorruptRecession.png" class="corruptionImg small" title="Recession" loading="lazy">
-                            </th>
-                            <th>
-                                <img src="Pictures/Default/CorruptDilation.png" class="corruptionImg small" title="Dilation" loading="lazy">
-                            </th>
-                            <th>
-                                <img src="Pictures/Default/CorruptHyperchallenge.png" class="corruptionImg small" title="Hyperchallenge" loading="lazy">
-                            </th>
+                            <th i18n="corruptions.loadoutTable.tier"></th>
+                            <th i18n="corruptions.loadoutTable.level"></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </table>
-                    <!-- TODO: <script>corruptionLoadoutTableCreate()</script> -->
                 </div>
                 <div id="corruptionDisplays" class="flex row center">
                     <img src="Pictures/Default/CorruptExit.png" class="corruptionImg" loading="lazy">
@@ -2258,10 +2238,8 @@
                     <p id="corruptionLevelPlanned" class="tightText"></p>
                     <p id="corruptionFreeLevels" class="tightText" style="color: orchid"></p>
                     <p id="corruptionMultiplierContribution" class="tightText"></p>
-                    <p id="corruptionDifficultyContribution" class="tightText"></p>
                 </div>
                 <p id="corruptionMultiplierTotal" class="tightText"></p>
-                <p id="corruptionDifficultyTotal" class="tightText"></p>
                 <p id="corruptionSpiritTotal" class="chal12 tightText" style="color: gold"></p>
                 <p id="corruptionScore" class="tightText" style="color: white"></p>
                 <p id="corruptionScoreDR" class="tightText" style="color: red" i18n="corruptions.corruptionScoreDR"></p>
@@ -2306,43 +2284,25 @@
                     <input id="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1">
                     <p id="autoAscend" class="ascendunlock tightText"></p>
                 </div>
-                <div id="campaignsMain" class="flex column" style="display: none;">
-                    <div id="campaignsFlavor" class="flex column">
-                        <h2 id="campaignsIntroduction" class="tightText" i18n="campaigns.intro" style="color: red"></h2>
-                        <h4 id="campaignsInfo1" class="tightText" i18n="campaigns.campaignInfo" style="color: orange"></h4>
+                <div id="campaignsTokensInfo" aria-live="polite">
+                    <h2 id="campaignTokenCount"></h2>
+                    <div id="campaignTokenRewardIcons">
+                        <img id="campaignTokenRewardIcon-tutorial" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-cube" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-obtainium" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-offering" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-ascensionScore" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-quark" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-tax" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-c15" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-rune6" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-goldenQuark" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-octeract" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-ambrosiaLuck" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-blueberrySpeed" src="Pictures/img_transparent.png" alt="" hidden>
+                        <img id="campaignTokenRewardIcon-sum" src="Pictures/img_transparent.png" alt="" hidden>
                     </div>
-                    <div id="campaignsDescriptions" aria-live="polite">
-                        <h3 id="campaignName"></h3>
-                        <h5 id="campaignDesc"></h5>
-
-                        <div id="campaignCorruptionInfo">
-                            <div id="campaignCorruptions">
-                            </div>
-                            <div id="campaignCorruptionStats">
-                            </div>
-                        </div>
-
-                    </div>
-                    <div id="campaignsTokensInfo" aria-live="polite">
-                        <h2 id="campaignTokenCount"></h2>
-                        <div id="campaignTokenRewardIcons">
-                            <img id="campaignTokenRewardIcon-tutorial" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-cube" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-obtainium" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-offering" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-ascensionScore" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-quark" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-tax" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-c15" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-rune6" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-goldenQuark" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-octeract" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-ambrosiaLuck" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-blueberrySpeed" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-sum" src="Pictures/img_transparent.png" alt="" hidden>
-                        </div>
-                        <h4 id="campaignTokenRewardText"></h4>
-                    </div>
+                    <h4 id="campaignTokenRewardText"></h4>
                 </div>
             </div>
         </div>

@@ -1,9 +1,8 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
-import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
-import type { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
+import type { CorruptionPreset, CorruptionTierState } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
@@ -421,12 +420,11 @@ export interface Player {
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 
-  campaigns: CampaignManager
-
   corruptions: {
-    next: CorruptionLoadout
-    used: CorruptionLoadout
-    saves: CorruptionSaves
+    next: CorruptionTierState
+    used: CorruptionTierState
+    presets: CorruptionPreset[]
+    tokenProgress: CorruptionTierState
   }
 
   constantUpgrades: ArrayStartingWithNull<number>
