@@ -3,6 +3,7 @@ import i18next from 'i18next'
 import { awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
+import { corruptionTierSpiritMultiplier } from './Corruptions'
 import { resetTiers } from './Reset'
 import { type RuneBlessingKeys, runeBlessings } from './RuneBlessings'
 import { type RuneKeys, runes } from './Runes'
@@ -42,7 +43,7 @@ const otherSpiritMultipliers = () => {
     * (1 + 0.15 * Decimal.log(player.legendaryFragments.add(1), 10) * player.researches[189])
     * (1 + (2 * player.researches[194]) / 100)
     * G.challenge15Rewards.spiritBonus.value
-    * player.corruptions.used.totalCorruptionDifficultyMultiplier
+    * corruptionTierSpiritMultiplier(player.corruptions.used)
 }
 
 const spiritMultiplier = (key: RuneKeys) => {

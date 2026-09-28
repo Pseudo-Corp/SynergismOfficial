@@ -2,7 +2,13 @@ import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { applyCorruptions, convertInputToCorruption, type Corruptions } from './Corruptions'
+import {
+  convertInputToCorruption,
+  type Corruptions,
+  corruptionTierList,
+  type CorruptionTierState,
+  setNextCorruptions
+} from './Corruptions'
 import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
@@ -52,7 +58,7 @@ export type ResetHistoryEntryReincarnate = ResetHistoryEntryBase & {
 
 export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
   c10Completions: number
-  usedCorruptions: Corruptions | number[]
+  usedCorruptions: Corruptions | number[] | CorruptionTierState
   corruptionScore: number
   wowCubes: number
   wowTesseracts: number
@@ -508,9 +514,9 @@ const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HT
 }
 
 function clickHandlerForLoadCorruptionsButton (btn: HTMLElement) {
-  const corruptions = btn.getAttribute('data-corr')
-  if (corruptions) {
-    applyCorruptions(corruptions)
+  const tier = corruptionTierList.find((value) => value === Number(btn.getAttribute('data-tier')))
+  if (tier !== undefined) {
+    setNextCorruptions({ tier, level: Number(btn.getAttribute('data-level')) })
     void Notification(i18next.t('corruptions.loadoutApplied'), 5000)
   }
 }
@@ -535,19 +541,18 @@ export const resetHistoryTogglePerSecond = () => {
   button.style.borderColor = player.historyShowPerSecond ? 'green' : 'red'
 }
 
-// Helper function to format the corruption display in the ascension table.
-const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string, string] => {
-  let score = `Score: ${format(data.corruptionScore, 0, false)}`
+const isCorruptionTierState = (
+  corruptions: ResetHistoryEntryAscend['usedCorruptions']
+): corruptions is CorruptionTierState => {
+  return !Array.isArray(corruptions) && 'tier' in corruptions
+}
+
+const resetHistoryFormatLegacyCorruptions = (usedCorruptions: Corruptions | number[]) => {
   let corruptions = ''
-  let loadout = ''
   let corrs = 0
-  let corrToLoad: Corruptions
-  // Support old format (which is bad)
-  if (Array.isArray(data.usedCorruptions)) {
-    corrToLoad = convertInputToCorruption(data.usedCorruptions.slice(2, 10))
-  } else {
-    corrToLoad = data.usedCorruptions
-  }
+  const corrToLoad = Array.isArray(usedCorruptions)
+    ? convertInputToCorruption(usedCorruptions.slice(2, 10))
+    : usedCorruptions
 
   for (const corruption in corrToLoad) {
     const corrKey = corruption as keyof Corruptions
@@ -559,11 +564,26 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
     corrs++
   }
 
-  const corrStr = JSON.stringify(corrToLoad)
+  return corruptions
+}
 
-  if (corruptions) {
-    loadout += `<button class="corrLoad ascendHistoryLoadCorruptions" data-corr='${corrStr}'>Load</button>`
+// Helper function to format the corruption display in the ascension table.
+const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string, string] => {
+  let score = `Score: ${format(data.corruptionScore, 0, false)}`
+  let corruptions = ''
+  let loadout = ''
+
+  if (!isCorruptionTierState(data.usedCorruptions)) {
+    corruptions = resetHistoryFormatLegacyCorruptions(data.usedCorruptions)
+  } else if (data.usedCorruptions.tier > 0) {
+    corruptions = i18next.t('corruptions.tiers.summary', {
+      tier: data.usedCorruptions.tier,
+      level: format(data.usedCorruptions.level)
+    })
+    loadout =
+      `<button class="corrLoad ascendHistoryLoadCorruptions" data-tier="${data.usedCorruptions.tier}" data-level="${data.usedCorruptions.level}">Load</button>`
   }
+
   if (data.currentChallenge !== undefined) {
     score += ` / C${data.currentChallenge}`
   }

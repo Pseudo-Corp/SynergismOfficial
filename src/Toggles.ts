@@ -7,7 +7,6 @@ import {
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { type AutoChallengeStates, getChallengeConditions, resetChallengeSweep } from './Challenges'
-import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions, corruptionStatsUpdate } from './Corruptions'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { initializeMessages } from './Messages'
 import { initializeOcteractUpgradeMap } from './Octeracts'
@@ -959,13 +958,6 @@ export const toggleAutoTesseracts = (i: number) => {
 
   player.autoTesseracts[i] = !player.autoTesseracts[i]
   updateBuildingAutomationButtons()
-}
-
-export const toggleCorruptionLevel = (corr: keyof Corruptions, value: number) => {
-  player.corruptions.next.incrementDecrementLevel(corr, value)
-  corruptionStatsUpdate(corr)
-  corruptionDisplay(corr)
-  corruptionLoadoutTableUpdate(true, 0)
 }
 
 export const toggleAscStatPerSecond = (id: number) => {

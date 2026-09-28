@@ -86,7 +86,15 @@ import {
   calculateTotalSalvage,
   derpsmithCornucopiaBonus
 } from './Calculate'
+import { campaignTokenBonuses } from './Campaign'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
+import {
+  corruptionIntensity,
+  corruptionTierEffect,
+  corruptionTotalLevels,
+  effectiveCorruptionLevel,
+  isCorruptionCubeUnlocked
+} from './Corruptions'
 import {
   calculateAntELOCubeBlessing,
   calculateAntSacrificeCubeBlessing,
@@ -269,11 +277,11 @@ export const allCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CampaignTutorial',
-      stat: () => player.campaigns.tutorialBonus.cubeBonus
+      stat: () => campaignTokenBonuses.tutorial().cubeBonus
     },
     {
       i18n: 'Campaign',
-      stat: () => player.campaigns.cubeBonus
+      stat: () => campaignTokenBonuses.cube()
     },
     {
       i18n: 'Challenge15',
@@ -475,7 +483,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AscensionScore',
-      stat: () => Math.pow(calculateAscensionScore().effectiveScore / 3000, 1 / 4.1)
+      stat: () => Math.pow(calculateAscensionScore().cubeScore / 3000, 1 / 4.1)
     },
     {
       i18n: 'GlobalCube',
@@ -547,7 +555,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
       stat: () =>
         1
         + 0.00009
-          * player.corruptions.used.totalLevels
+          * corruptionTotalLevels(player.corruptions.used)
           * player.platonicUpgrades[1]
     },
     {
@@ -580,7 +588,7 @@ export const allTesseractStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'AscensionScore',
-      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1e5) / 1e4, 0.35)
+      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().cubeScore - 1e5) / 1e4, 0.35)
     },
     {
       i18n: 'GlobalCube',
@@ -613,7 +621,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CubeUpgrade4x8',
-      stat: () => 1 + (1 / 200) * player.cubeUpgrades[38] * player.corruptions.used.totalLevels
+      stat: () => 1 + (1 / 200) * player.cubeUpgrades[38] * corruptionTotalLevels(player.corruptions.used)
     },
     {
       i18n: 'PlatonicCube',
@@ -621,7 +629,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x2',
-      stat: () => 1 + 0.00018 * player.corruptions.used.totalLevels * player.platonicUpgrades[2]
+      stat: () => 1 + 0.00018 * corruptionTotalLevels(player.corruptions.used) * player.platonicUpgrades[2]
     }
   ]
 }
@@ -632,7 +640,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'AscensionScore',
-      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1e9) / 1e8, 0.5)
+      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().cubeScore - 1e9) / 1e8, 0.5)
     },
     {
       i18n: 'GlobalCube',
@@ -661,7 +669,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x3',
-      stat: () => 1 + 0.00054 * player.corruptions.used.totalLevels * player.platonicUpgrades[3]
+      stat: () => 1 + 0.00054 * corruptionTotalLevels(player.corruptions.used) * player.platonicUpgrades[3]
     },
     {
       i18n: 'HyperrealHepteract',
@@ -676,7 +684,7 @@ export const allPlatonicCubeStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'AscensionScore',
-      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 2.666e12) / 2.666e11, 0.75)
+      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().cubeScore - 2.666e12) / 2.666e11, 0.75)
     },
     {
       i18n: 'GlobalCube',
@@ -716,7 +724,7 @@ export const allHepteractCubeStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'AscensionScore',
-      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().effectiveScore - 1.666e16) / 3.33e16, 0.85)
+      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().cubeScore - 1.666e16) / 3.33e16, 0.85)
     },
     {
       i18n: 'GlobalCube',
@@ -753,9 +761,9 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     {
       i18n: 'AscensionScore',
       stat: () => {
-        const SCOREREQ = 1e23
-        const currentScore = calculateAscensionScore().effectiveScore
-        return currentScore >= SCOREREQ ? currentScore / SCOREREQ : 0
+        return isCorruptionCubeUnlocked(player.corruptions.used, 'octeracts')
+          ? Math.max(1, calculateAscensionScore().cubeScore / 1e23)
+          : 0
       }
     },
     {
@@ -771,7 +779,7 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Campaign',
-      stat: () => player.campaigns.octeractBonus
+      stat: () => campaignTokenBonuses.octeract()
     },
     {
       i18n: 'SeasonPass3',
@@ -796,8 +804,8 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     {
       i18n: 'CookieUpgrade20',
       stat: () => {
-        if (player.cubeUpgrades[70] > 0) {
-          return Math.pow(1.016, player.corruptions.used.totalLevels + 8 * player.corruptions.used.bonusLevels)
+        if (player.cubeUpgrades[70] > 0 && player.corruptions.used.tier === 4) {
+          return Math.pow(1.025, Math.max(0, effectiveCorruptionLevel(player.corruptions.used) - 150))
         } else {
           return 1
         }
@@ -1102,11 +1110,11 @@ export const allOfferingStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'TutorialBonus',
-      stat: () => player.campaigns.tutorialBonus.offeringBonus // Tutorial Offering Bonus
+      stat: () => campaignTokenBonuses.tutorial().offeringBonus // Tutorial Offering Bonus
     },
     {
       i18n: 'CampaignBonus',
-      stat: () => player.campaigns.offeringBonus // Campaign Offering Bonus
+      stat: () => campaignTokenBonuses.offering() // Campaign Offering Bonus
     },
     {
       i18n: 'Challenge12',
@@ -1376,7 +1384,7 @@ export const allQuarkStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CampaignBonus',
-      stat: () => player.campaigns.quarkBonus
+      stat: () => campaignTokenBonuses.quark()
     },
     {
       i18n: 'InfiniteAscent',
@@ -1593,11 +1601,11 @@ export const allObtainiumIgnoreDRStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'TutorialBonus',
-      stat: () => player.campaigns.tutorialBonus.obtainiumBonus // Campaign Tutorial Bonus
+      stat: () => campaignTokenBonuses.tutorial().obtainiumBonus // Campaign Tutorial Bonus
     },
     {
       i18n: 'CampaignBonus',
-      stat: () => player.campaigns.obtainiumBonus // Campaign Obtainium Bonus
+      stat: () => campaignTokenBonuses.obtainium() // Campaign Obtainium Bonus
     },
     {
       i18n: 'ChallengeBonus',
@@ -1851,7 +1859,7 @@ const obtainiumDR: DecimalStatLineCategory = {
   lines: [
     {
       i18n: 'ObtainiumDR',
-      stat: () => player.corruptions.used.corruptionEffects('illiteracy'),
+      stat: () => corruptionTierEffect(player.corruptions.used, 'illiteracy'),
       color: 'orange'
     },
     {
@@ -2068,7 +2076,7 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'SpacialDilation',
-      stat: () => player.corruptions.used.corruptionEffects('dilation'), // Spacial Dilation
+      stat: () => corruptionTierEffect(player.corruptions.used, 'dilation'), // Spacial Dilation
       color: 'red'
     },
     {
@@ -2128,7 +2136,7 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'PlatonicOMEGA',
-      stat: () => 1 + 0.002 * player.corruptions.used.totalLevels * player.platonicUpgrades[15] // Platonic Omega
+      stat: () => 1 + 0.002 * corruptionTotalLevels(player.corruptions.used) * player.platonicUpgrades[15] // Platonic Omega
     },
     {
       i18n: 'Challenge15',
@@ -2293,7 +2301,7 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Campaign',
-      stat: () => player.campaigns.ambrosiaLuckBonus // Campaign Bonus
+      stat: () => campaignTokenBonuses.ambrosiaLuck() // Campaign Bonus
     },
     {
       i18n: 'SingularityMilestones',
@@ -2487,7 +2495,7 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Campaign',
-      stat: () => player.campaigns.blueberrySpeedBonus // Campaign Bonus
+      stat: () => campaignTokenBonuses.blueberrySpeed() // Campaign Bonus
     },
     {
       i18n: 'ShopUpgrade1',
@@ -2624,7 +2632,7 @@ export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Campaign',
-      stat: () => player.campaigns.goldenQuarkBonus // Golden Quark Bonus from Campaigns
+      stat: () => campaignTokenBonuses.goldenQuark() // Golden Quark Bonus from Campaigns
     },
     {
       i18n: 'Challenge15',
@@ -3318,7 +3326,7 @@ export const negativeSalvageStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'DroughtCorruption',
-      stat: () => player.corruptions.used.corruptionEffects('drought'),
+      stat: () => corruptionTierEffect(player.corruptions.used, 'drought'),
       color: 'red',
       acc: 0
     },
@@ -3614,7 +3622,7 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'PlatonicUpgrade12',
-      stat: () => (1 / 200) * player.platonicUpgrades[12] * player.corruptions.used.extinction
+      stat: () => (1 / 200) * player.platonicUpgrades[12] * corruptionIntensity(player.corruptions.used, 'extinction')
     },
     {
       i18n: 'SingularityDebuff',

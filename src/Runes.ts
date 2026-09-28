@@ -7,6 +7,7 @@ import i18next from 'i18next'
 import { awardAchievementGroup, getAchievementReward, updateProgressiveCache } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { campaignTokenBonuses } from './Campaign'
 import { CalcECC } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
@@ -170,7 +171,7 @@ const bonusRuneLevelsIA = () => {
   return (
     (PCoinUpgradeEffects.INSTANT_UNLOCK_2 ? 6 : 0)
     + player.cubeUpgrades[73]
-    + player.campaigns.bonusRune6
+    + campaignTokenBonuses.rune6()
     + getRuneBonusFromAllTalismans('infiniteAscent')
     + getRuneEffects('finiteDescent', 'infiniteAscentFreeLevel')
   )

@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { boostAccelerator, buyBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { exitCampaign } from './Campaign'
+import { cleanseCorruptions } from './Corruptions'
 import { confirmAntSacrifice } from './Features/Ants/AntSacrifice/sacrifice'
 import { promocodes } from './ImportExport'
 import { initializeMobileHotkeyPanel } from './mobile/hotkey-panel'
@@ -126,10 +126,7 @@ const defaultHotkeys = new Map<string, Hotkey>([
     'SHIFT+C',
     {
       name: 'hotkeys.names.cleanseCorruptions',
-      action: () => {
-        player.corruptions.used.resetCorruptions()
-        player.corruptions.next.resetCorruptions()
-      },
+      action: () => cleanseCorruptions(),
       unlocked: () => player.challengecompletions[11] > 0
     }
   ],
@@ -173,15 +170,7 @@ const defaultHotkeys = new Map<string, Hotkey>([
       unlocked: () => runes.antiquities.level > 0 || player.highestSingularityCount > 0
     }
   ],
-  ['CTRL+B', { name: 'hotkeys.names.unhideTabs', action: () => tabRow.reappend(), hiddenOnMobile: true }],
-  [
-    'SHIFT+X',
-    {
-      name: 'hotkeys.names.exitCampaign',
-      action: () => void exitCampaign(),
-      unlocked: () => player.campaigns.current !== undefined
-    }
-  ]
+  ['CTRL+B', { name: 'hotkeys.names.unhideTabs', action: () => tabRow.reappend(), hiddenOnMobile: true }]
 ])
 
 let hotkeysEnabled = false

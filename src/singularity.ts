@@ -1114,12 +1114,9 @@ export const goldenQuarkUpgrades: {
         if (n === 0) {
           return 1
         } else {
-          const corruptions = player.corruptions.used
-          const octMult = Object.values(corruptions.loadout).reduce(
-            (acc, curr) => acc * (curr === 16 ? 1.4 : (curr === 15 ? 1.3 : (curr === 14 ? 1.25 : 1))),
-            1
-          )
-          return octMult
+          const level = player.corruptions.used.tier === 4 ? player.corruptions.used.level : 0
+          const perCorruption = level >= 225 ? 1.4 : level >= 200 ? 1.3 : level >= 175 ? 1.25 : 1
+          return Math.pow(perCorruption, 8)
         }
       } else {
         return n > 0 ? 0.1 : 0 // packQuarkAdd

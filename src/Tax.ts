@@ -4,6 +4,7 @@ import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
+import { campaignTokenBonuses } from './Campaign'
 import { CalcECC, useChallenge13Modifiers } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
@@ -104,7 +105,7 @@ export const calculatetax = () => {
   exponent *= 1 - 0.666 * player.researches[200] / 100000
   exponent *= 1 - 0.666 * player.cubeUpgrades[50] / 100000
   exponent *= G.challenge15Rewards.taxes.value
-  exponent *= player.campaigns.taxMultiplier
+  exponent *= campaignTokenBonuses.tax()
   exponent /= getPurpleAmbrosiaUpgradeEffects('taurus', 'taxDivisor')
   if (player.upgrades[121] > 0) {
     exponent *= 0.5

@@ -951,21 +951,6 @@ const updateIconsFromSpriteSheet = (sheet: SpriteSheet, folderUsed: string) => {
   probe.src = requestedSrc
 }
 
-export const spriteIconStyle = (elementName: string) => {
-  for (const sheet of spriteSheets) {
-    const iconIndex = sheet.elementNames.indexOf(elementName)
-    if (iconIndex !== -1) {
-      const x = (iconIndex % sheet.columns) / Math.max(sheet.columns - 1, 1) * 100
-      const y = Math.floor(iconIndex / sheet.columns) / Math.max(sheet.rows - 1, 1) * 100
-      return `background-image: url('${activeSpriteSheetSources.get(sheet.name)}'); background-size: ${
-        sheet.columns * 100
-      }% ${sheet.rows * 100}%; background-position: ${x}% ${y}%; background-repeat: no-repeat`
-    }
-  }
-
-  return undefined
-}
-
 export const updateIconsFromSprites = (folderUsed: string) => {
   for (const sheet of spriteSheets) {
     updateIconsFromSpriteSheet(sheet, folderUsed)

@@ -1,13 +1,12 @@
 import Decimal from 'break_infinity.js'
+import * as z from 'zod'
 import type { AmbrosiaUpgradeNames } from '../BlueberryUpgrades'
-import { CorruptionLoadout, type Corruptions, CorruptionSaves } from '../Corruptions'
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import type { HepteractKeys } from '../Hepteracts'
 import { octeractUpgradeNames, type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
 import { getGQUpgradeCumulativeCost, goldenQuarkUpgradeNames, type SingularityDataKeys } from '../singularity'
 import { updateResourcePredefinedLevel } from '../Talismans'
-import { convertArrayToCorruption } from './PlayerJsonSchema'
 import { playerSchema } from './PlayerSchema'
 
 const getLegacyOcteractsInvested = (
@@ -28,31 +27,39 @@ const getLegacyGoldenQuarksInvested = (
     : getGQUpgradeCumulativeCost(key, upgrade.level)
 }
 
-export const playerUpdateVarSchema = playerSchema.transform((player) => {
-  if (player.usedCorruptions !== undefined) {
-    const corrLoadout = convertArrayToCorruption(player.usedCorruptions)
-    player.corruptions.used = new CorruptionLoadout(corrLoadout)
+const legacyCorruptionKeys = ['usedCorruptions', 'prototypeCorruptions', 'corruptionLoadouts', 'corruptionLoadoutNames']
+
+const isRecord = (value: unknown): value is Record<string, unknown> => {
+  return typeof value === 'object' && value !== null
+}
+
+const hasLegacyCorruptions = (data: Record<string, unknown>) => {
+  if (legacyCorruptionKeys.some((key) => data[key] !== undefined)) {
+    return true
   }
 
-  if (player.prototypeCorruptions !== undefined) {
-    const corrLoadout = convertArrayToCorruption(player.prototypeCorruptions)
-    player.corruptions.next = new CorruptionLoadout(corrLoadout)
+  return isRecord(data.corruptions) && isRecord(data.corruptions.used) && !('tier' in data.corruptions.used)
+}
+
+const cleanseLegacyCorruptions = (data: unknown) => {
+  if (!isRecord(data) || !hasLegacyCorruptions(data)) {
+    return data
   }
 
-  if (player.corruptionLoadouts !== undefined && player.corruptionLoadoutNames !== undefined) {
-    const corruptionSaveStuff = player.corruptionLoadoutNames.reduce(
-      (map, key, index) => {
-        if (player.corruptionLoadouts?.[index + 1]) {
-          map[key] = convertArrayToCorruption(player.corruptionLoadouts[index + 1] ?? Array(100).fill(0))
-        }
-        return map
-      },
-      {} as Record<string, Corruptions>
-    )
-
-    player.corruptions.saves = new CorruptionSaves(corruptionSaveStuff)
+  const cleansed: Record<string, unknown> = { ...data }
+  Reflect.deleteProperty(cleansed, 'corruptions')
+  for (const key of legacyCorruptionKeys) {
+    Reflect.deleteProperty(cleansed, key)
   }
 
+  if (isRecord(data.currentChallenge) && data.currentChallenge.ascension === 15) {
+    cleansed.currentChallenge = { ...data.currentChallenge, ascension: 0 }
+  }
+
+  return cleansed
+}
+
+export const playerUpdateVarSchema = z.preprocess(cleanseLegacyCorruptions, playerSchema).transform((player) => {
   if (player.ultimatePixels !== undefined || player.cubeUpgradeRedBarFilled !== undefined) {
     // One-time conversion for red bar filled and ultimate pixels (to a lesser degree)
 
