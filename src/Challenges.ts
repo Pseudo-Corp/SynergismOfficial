@@ -452,10 +452,7 @@ const calculateChallengeRequirementMultiplier = (
   completions: number,
   special = 0
 ) => {
-  let requirementMultiplier = Math.max(
-    1,
-    G.hyperchallengeMultiplier[player.corruptions.used.hyperchallenge] / (1 + player.platonicUpgrades[8] / 2.5)
-  )
+  let requirementMultiplier = player.corruptions.used.corruptionEffects('hyperchallenge')
   if (type === 'ascension') {
     // Normalize back to 1 if looking at ascension challenges in particular.
     requirementMultiplier = 1

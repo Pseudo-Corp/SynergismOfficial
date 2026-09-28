@@ -2444,14 +2444,7 @@ export const updateAllTick = (): void => {
 
   calculateAcceleratorMultiplier()
   a *= G.acceleratorMultiplier
-  a = Math.pow(
-    a,
-    Math.min(
-      1,
-      (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.corruptions.used.viscosity]
-    )
-  )
+  a = Math.pow(a, player.corruptions.used.corruptionEffects('viscosity'))
   a += getHepteractEffects('accelerator').accelerators
   a *= G.challenge15Rewards.accelerator.value
   a *= getHepteractEffects('accelerator').acceleratorMultiplier
@@ -2618,14 +2611,7 @@ export const updateAllMultiplier = (): void => {
   ) {
     a *= 1.25
   }
-  a = Math.pow(
-    a,
-    Math.min(
-      1,
-      (1 + player.platonicUpgrades[6] / 30)
-        * G.viscosityPower[player.corruptions.used.viscosity]
-    )
-  )
+  a = Math.pow(a, player.corruptions.used.corruptionEffects('viscosity'))
   a += getHepteractEffects('multiplier').multiplier
   a *= G.challenge15Rewards.multiplier.value
   a *= getHepteractEffects('multiplier').multiplierMultiplier
@@ -2861,7 +2847,7 @@ export const multipliers = (): void => {
   G.globalCoinMultiplier = lol
   G.globalCoinMultiplier = Decimal.pow(
     G.globalCoinMultiplier,
-    G.recessionPower[player.corruptions.used.recession]
+    player.corruptions.used.corruptionEffects('recession')
   )
 
   if (player.upgrades[1] > 0.5) {
@@ -3442,7 +3428,7 @@ export const resetCurrency = (): void => {
     prestigePow = 1e-4
     transcendPow = 0.001
   }
-  prestigePow *= G.deflationMultiplier[player.corruptions.used.deflation]
+  prestigePow *= player.corruptions.used.corruptionEffects('deflation')
   // Prestige Point Formulae
   G.prestigePointGain = Decimal.floor(
     Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow)
@@ -3457,7 +3443,7 @@ export const resetCurrency = (): void => {
         Decimal.pow(10, 1e33),
         Decimal.pow(
           G.acceleratorEffect,
-          (1 / 3) * G.deflationMultiplier[player.corruptions.used.deflation]
+          (1 / 3) * player.corruptions.used.corruptionEffects('deflation')
         )
       )
     )

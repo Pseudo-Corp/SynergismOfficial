@@ -171,7 +171,7 @@ const upgradetexts = [
     format(
       Decimal.min(
         Decimal.pow(10, 1e33),
-        Decimal.pow(G.acceleratorEffect, G.deflationMultiplier[player.corruptions.used.deflation] / 3)
+        Decimal.pow(G.acceleratorEffect, player.corruptions.used.corruptionEffects('deflation') / 3)
       ),
       2
     ),

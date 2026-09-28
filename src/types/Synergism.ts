@@ -698,15 +698,6 @@ export interface GlobalVariables {
   autoOfferingCounter: number
   MAX_AUTO_SACRIFICE_RUNE: number
 
-  viscosityPower: number[]
-  dilationMultiplier: number[]
-  hyperchallengeMultiplier: number[]
-  illiteracyPower: number[]
-  deflationMultiplier: number[]
-  extinctionDivisor: number[]
-  droughtSalvage: number[]
-  recessionPower: number[]
-
   ascendBuildingProduction: {
     first: Decimal
     second: Decimal
