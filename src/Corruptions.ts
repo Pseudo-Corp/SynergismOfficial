@@ -85,6 +85,89 @@ export const c15Corruptions: Corruptions = {
   hyperchallenge: 11
 }
 
+const corruptionEffectTables: Record<keyof Corruptions, number[]> = {
+  viscosity: [1, 0.87, 0.80, 0.75, 0.70, 0.6, 0.54, 0.45, 0.39, 0.33, 0.3, 0.2, 0.1, 0.05, 0, 0, 0],
+  drought: [
+    0,
+    -25,
+    -50,
+    -75,
+    -100,
+    -200,
+    -300,
+    -400,
+    -600,
+    -800,
+    -1_000,
+    -1_250,
+    -2_000,
+    -4_000,
+    -8_000,
+    -12_000,
+    -16_000
+  ],
+  deflation: [
+    1,
+    0.3,
+    0.1,
+    0.03,
+    0.01,
+    1 / 1e6,
+    1 / 1e8,
+    1 / 1e10,
+    1 / 1e12,
+    1 / 1e15,
+    1 / 1e18,
+    1 / 1e25,
+    1 / 1e35,
+    1 / 1e50,
+    1 / 1e77,
+    0,
+    0
+  ],
+  extinction: [1, 1.25, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+  illiteracy: [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.45, 0.4, 0.35, 0.3, 0.25, 0.20, 0.15, 0.10, 0.08, 0.06, 0.04],
+  recession: [
+    1,
+    0.9,
+    0.7,
+    0.6,
+    0.5,
+    0.37,
+    0.30,
+    0.23,
+    0.18,
+    0.15,
+    0.12,
+    0.09,
+    0.03,
+    0.01,
+    0.007,
+    0.0007,
+    0.00007
+  ],
+  dilation: [
+    1,
+    1 / 3,
+    1 / 10,
+    1 / 40,
+    1 / 200,
+    1 / 3e4,
+    1 / 3e6,
+    1 / 3e9,
+    1 / 3e12,
+    1 / 1e15,
+    1 / 1e19,
+    1 / 1e24,
+    1 / 1e34,
+    1 / 1e48,
+    1 / 1e65,
+    1 / 1e80,
+    1 / 1e100
+  ],
+  hyperchallenge: [1, 1.2, 1.5, 1.7, 3, 5, 8, 13, 21, 34, 55, 100, 400, 1600, 7777, 18888, 88888]
+}
+
 export class CorruptionLoadout {
   #totalScoreMult = 1
   #corruptionScoreMults = [1, 3, 4, 5, 6, 7, 7.75, 8.5, 9.25, 10, 10.75, 11.5, 12.25, 13, 16, 20, 25, 33, 35]
@@ -177,13 +260,13 @@ export class CorruptionLoadout {
   }
 
   #viscosityEffect () {
-    const base = G.viscosityPower[this.#levels.viscosity]
+    const base = corruptionEffectTables.viscosity[this.#levels.viscosity]
     const multiplier = 1 + player.platonicUpgrades[6] / 30
     return Math.min(base * multiplier, 1)
   }
 
   #droughtEffect () {
-    let baseSalvageReduction = G.droughtSalvage[this.#levels.drought]
+    let baseSalvageReduction = corruptionEffectTables.drought[this.#levels.drought]
     if (player.platonicUpgrades[13] > 0) {
       baseSalvageReduction *= 0.5
     }
@@ -191,15 +274,15 @@ export class CorruptionLoadout {
   }
 
   #deflationEffect () {
-    return G.deflationMultiplier[this.#levels.deflation]
+    return corruptionEffectTables.deflation[this.#levels.deflation]
   }
 
   #extinctionEffect () {
-    return G.extinctionDivisor[this.#levels.extinction]
+    return corruptionEffectTables.extinction[this.#levels.extinction]
   }
 
   #illiteracyEffect () {
-    const base = G.illiteracyPower[this.#levels.illiteracy]
+    const base = corruptionEffectTables.illiteracy[this.#levels.illiteracy]
     const multiplier = (player.obtainium.gte(G.dOne))
       ? 1 + (1 / 100) * player.platonicUpgrades[9] * Math.min(100, Decimal.log10(player.obtainium))
       : 1
@@ -207,15 +290,15 @@ export class CorruptionLoadout {
   }
 
   #recessionEffect () {
-    return G.recessionPower[this.#levels.recession]
+    return corruptionEffectTables.recession[this.#levels.recession]
   }
 
   #dilationEffect () {
-    return G.dilationMultiplier[this.#levels.dilation]
+    return corruptionEffectTables.dilation[this.#levels.dilation]
   }
 
   #hyperchallengeEffect () {
-    const baseEffect = G.hyperchallengeMultiplier[this.#levels.hyperchallenge]
+    const baseEffect = corruptionEffectTables.hyperchallenge[this.#levels.hyperchallenge]
     let divisor = 1
     divisor *= 1 + 2 / 5 * player.platonicUpgrades[8]
     return Math.max(1, baseEffect / divisor)
