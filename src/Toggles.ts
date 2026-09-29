@@ -378,10 +378,10 @@ export const toggleAutoResearchMode = () => {
     player.autoResearchMode = 'cheapest'
     el.textContent = i18next.t('researches.autoModeCheapest')
   }
-  setResearchRoombaHighlight(0)
 
   if (player.autoResearchToggle && roombaResearchEnabled() && player.autoResearchMode === 'cheapest') {
     player.autoResearch = researchOrderByCost[player.roombaResearchIndex]
+    setResearchRoombaHighlight(0)
   }
 }
 

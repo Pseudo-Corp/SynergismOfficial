@@ -317,16 +317,6 @@ export const setResearchRoombaHighlight = (index: number) => {
   roombaHighlightIndex = index
 }
 
-export const syncResearchRoombaHighlight = (previous: number) => {
-  const current = player.autoResearch || 1
-
-  if (previous !== current) {
-    DOMCacheGetOrSet(`res${previous}`).classList.remove('researchRoomba')
-  }
-
-  DOMCacheGetOrSet(`res${current}`).classList.add('researchRoomba')
-}
-
 // For mode 'manual'
 export const updateResearchAuto = (index: number) => {
   setResearchRoombaHighlight(index)
@@ -348,11 +338,15 @@ export const advanceResearchRoomba = () => {
   const maxIndex = researchOrderByCost.length - 1
   player.roombaResearchIndex = player.roombaResearchIndex % maxIndex + 1
   const checkedResearch = researchOrderByCost[player.roombaResearchIndex]
+  if (player.autoResearch === checkedResearch) {
+    return false
+  }
   if (!isResearchMaxed(checkedResearch) && isResearchUnlocked(checkedResearch)) {
     player.autoResearch = checkedResearch
+    setResearchRoombaHighlight(player.autoResearch)
+    return true
   }
-
-  setResearchRoombaHighlight(player.autoResearch)
+  return false
 }
 
 /**
@@ -479,6 +473,9 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean, buyMax
   const maxLevel = researchData[index].maxLevel
 
   let levelToBuy = getBuyableResearchLevel(index)
+  if (levelToBuy <= player.researches[index]) {
+    return
+  }
   levelToBuy = Math.min(maxLevel, levelToBuy, player.researches[index] + buyAmount)
 
   const researchCost = getCostForResearchLevels(index, levelToBuy)
@@ -508,8 +505,6 @@ export const buyResearch = (index: number, auto: boolean, hover: boolean, buyMax
       updateChallengeDisplay()
     }
   }
-
-  return
 }
 
 export const isResearchMaxed = (index: number) => player.researches[index] >= researchData[index].maxLevel
