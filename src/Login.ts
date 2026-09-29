@@ -957,11 +957,12 @@ async function finishTimeSkipPurchase (consumable: string, id: string) {
       } else {
         const reader = response.body!.pipeThrough(new TextDecoderStream()).getReader()
         let buffered = ''
+        let failed = false
 
-        while (timeSkip === undefined) {
+        while (timeSkip === undefined && !failed) {
           const { done, value } = await reader.read()
 
-          if (done) break
+          if (done) throw new Error('Time skip purchase ended without a result')
 
           const lines = (buffered + value).split('\n')
           buffered = lines.pop()!
@@ -973,6 +974,9 @@ async function finishTimeSkipPurchase (consumable: string, id: string) {
 
             if (data.type === 'warn') {
               Notification(data.message, 5_000)
+            } else if (data.type === 'error') {
+              Notification(data.message, 5_000)
+              failed = true
             } else if (data.type === 'time-skip') {
               timeSkip = data
             }

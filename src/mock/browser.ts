@@ -174,7 +174,7 @@ const POSTHandlers = [
         instanceId,
         purchaseConsumable(consumable)
           ? messages.timeSkip(consumable, id, Number(length))
-          : messages.warn(`${name} wasn't purchased!`)
+          : messages.error(`${name} wasn't purchased!`)
       )
     }
 
