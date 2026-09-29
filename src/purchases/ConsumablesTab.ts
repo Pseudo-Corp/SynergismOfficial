@@ -1,8 +1,7 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
 import { buyTimeSkip, getOwnedLotus, getUsedLotus, isLotusInventoryLoaded, sendToWebsocket } from '../Login'
-import { format, player } from '../Synergism'
-import { IconSets } from '../Themes'
+import { format } from '../Synergism'
 import { Alert, Confirm } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { setLotusBalance, setLotusBalanceLoading } from './PseudoCoinBalances'
@@ -10,21 +9,16 @@ import { updatePseudoCoins } from './UpgradesSubtab'
 
 interface ConsumableListItems {
   name: string
+  html?: {
+    description: string
+    buyNote: string
+  }
   internalName: string
   length: string
   cost: number
 }
 
 const timeSkipCategories = ['GLOBAL', 'ASCENSION', 'AMBROSIA'] as const
-
-const bellRewards = [
-  { icon: 'Quark', bonus: 25 },
-  { icon: 'WowCube', bonus: 50 },
-  { icon: 'Obtainium', bonus: 50 },
-  { icon: 'Offering', bonus: 50 },
-  { icon: 'Ambrosia', bonus: 10 },
-  { icon: 'BlueberryLuck', bonus: 10 }
-] as const
 
 type TimeSkipCategories = typeof timeSkipCategories[number]
 
@@ -90,25 +84,11 @@ const createBellHTML = (bell: ConsumableListItems) => `
     <img class="consumableIcon" src="Pictures/PseudoShop/${bell.internalName}.png" alt="">
     <div class="consumableText">
       <p class="consumableName gradientText bellGradient">${bell.name}</p>
-      <div class="consumableDescription">
-        <p>${i18next.t('pseudoCoins.consumables.bellIntro')}</p>
-        <table class="consumableRewards">
-          ${
-  bellRewards.map(({ icon, bonus }) => `
-            <tr>
-              <td><img src="Pictures/${IconSets[player.iconSet][0]}/${icon}.png" alt=""></td>
-              <td>${i18next.t(`pseudoCoins.consumables.bellRewards.${icon}`)}</td>
-              <td>+${bonus}%</td>
-            </tr>
-          `).join('')
-}
-        </table>
-        <p>${i18next.t('pseudoCoins.consumables.bellStacking')}</p>
-        <p>${i18next.t('pseudoCoins.consumables.bellTips')}</p>
-      </div>
+      <div class="consumableDescription">${bell.html?.description}</div>
     </div>
     <div class="consumableBuy">
       ${createBuyButtonHTML(bell, i18next.t('pseudoCoins.consumables.activate'))}
+      <p class="consumableBuyNote">${bell.html?.buyNote}</p>
     </div>
   </div>
 `

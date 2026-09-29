@@ -8665,17 +8665,6 @@
       "cancelled": "Puchase has been cancelled.",
       "activate": "Activate",
       "cost": "<<gold|{{cost}} PseudoCoins>>",
-      "bellIntro": "When you activate a Happy Hour Bell, trigger an event for 60 minutes, giving all players:",
-      "bellRewards": {
-        "Quark": "Quarks",
-        "WowCube": "Cubes",
-        "Obtainium": "Obtainium",
-        "Offering": "Offerings",
-        "Ambrosia": "Ambrosia Bar Points",
-        "BlueberryLuck": "Ambrosia Luck"
-      },
-      "bellStacking": "Bells stack! Each additional active bell adds +2.5% Quarks, +5% Cubes, Obtainium and Offerings, and +1% Ambrosia Bar Points and Ambrosia Luck.",
-      "bellTips": "If you activate this consumable, you will receive 12 hours of Offline Time, in the form of tips. Each tip can be redeemed in the Events tab for 1 minute of Offline Time! If other bells are already active, you and each of their ringers also receive 60 bonus tips, plus 15 more per active bell.",
       "currentAmountNone": "Current Amount: <<#8f8|No active consumable>>",
       "currentAmountSome": "Current Amount: <<#8f8|{{amount}}>>",
       "currentTimersNone": "Ends At: <<#8f8|--:--:-->>",

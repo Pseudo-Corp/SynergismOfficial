@@ -10771,11 +10771,14 @@ html[data-mobile="false"] .pseudoCoinButton {
     padding: 0 12px 0 0;
 }
 
-.consumableRewards td:last-child {
-    padding-right: 0;
+.consumableRewards td:nth-child(3) {
     color: #8f8;
     text-align: right;
     font-variant-numeric: tabular-nums;
+}
+
+.consumableRewards td:last-child {
+    padding-right: 0;
 }
 
 #consumablesSection .consumableRewards img {
@@ -10798,8 +10801,15 @@ html[data-mobile="false"] .pseudoCoinButton {
     gap: 6px;
 }
 
-.consumableBuy > :only-child {
+.bellConsumable .consumableBuy > * {
     grid-column: 1 / -1;
+}
+
+.consumableBuyNote {
+    contain: inline-size;
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.35;
 }
 
 .consumableBuyButton {
