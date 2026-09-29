@@ -8663,6 +8663,8 @@
       "applyTipsPrompt": "How many tips would you like to use? Each tip gives 1 minute of Offline Time. You have {{tips}} tip(s). You may only use up to num:((1440)) tips at a time.",
       "confirmActivation": "You are about to activate a {{name}} for {{cost}} PseudoCoins. Continue?",
       "cancelled": "Puchase has been cancelled.",
+      "activate": "Activate",
+      "cost": "<<gold|{{cost}} PseudoCoins>>",
       "currentAmountNone": "Current Amount: <<#8f8|No active consumable>>",
       "currentAmountSome": "Current Amount: <<#8f8|{{amount}}>>",
       "currentTimersNone": "Ends At: <<#8f8|--:--:-->>",
@@ -8685,7 +8687,7 @@
         "title": "Ambrosia Time Skips",
         "description": "Fast-forward real-life time on your Ambrosia and Red Bar Points!"
       },
-      "purchaseBtn": "+{{time}} hours [<<gold|{{cost}} PseudoCoins>>]",
+      "duration": "+{{time}} hours",
       "warning": "<<gold | ⚠>> Takes a few seconds to apply after purchase! <<gold | ⚠>>",
       "connectionLost": "Lost connection while buying your time skip. It will finish the next time you load the game."
     },
@@ -8701,7 +8703,7 @@
       "useLotus": "Use Lotus!",
       "collapseSection": "Collapse Lotus section",
       "expandSection": "Expand Lotus section",
-      "purchaseBtn": "+{{amount}} Lotus [<<gold|{{cost}} PseudoCoins>>]",
+      "amount": "+{{amount}} Lotus",
       "buyConfirm": "You are about to buy a {{name}} for {{cost}} PseudoCoins. Continue?",
       "useConfirm": "You are about to use a Lotus of Rejuvenation. This will consume one of your Loti and activate its effect for 5 minutes, granting you Reborn ELO without having to wait. Continue?",
       "useConfirmMulti": "Since you have this effect active, consuming a Lotus will add 5 minutes to the remaining time.",
