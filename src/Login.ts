@@ -950,8 +950,10 @@ async function finishTimeSkipPurchase (consumable: string, id: string) {
         body: JSON.stringify({ consumable, id })
       })
 
-      if (!response.ok) {
+      if (response.status === 400) {
         Notification(await response.text(), 5_000)
+      } else if (!response.ok) {
+        continue
       } else {
         const reader = response.body!.pipeThrough(new TextDecoderStream()).getReader()
         let buffered = ''
