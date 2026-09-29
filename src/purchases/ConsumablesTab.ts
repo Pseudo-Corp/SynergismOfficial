@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import { getOwnedLotus, getUsedLotus, isLotusInventoryLoaded, sendToWebsocket } from '../Login'
+import { buyTimeSkip, getOwnedLotus, getUsedLotus, isLotusInventoryLoaded, sendToWebsocket } from '../Login'
 import { format } from '../Synergism'
 import { Alert, Confirm } from '../UpdateHTML'
 import { memoize } from '../Utility'
@@ -74,7 +74,9 @@ const initializeConsumablesTab = memoize(() => {
               cost
             }))
             if (!alert) return Alert(i18next.t('pseudoCoins.consumables.cancelled'))
-            else {
+            else if (key.includes('TIMESKIP')) {
+              buyTimeSkip(key)
+            } else {
               sendToWebsocket(JSON.stringify({
                 type: 'consume',
                 consumable: key,

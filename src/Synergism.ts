@@ -208,7 +208,7 @@ import {
 import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
-import { handleLogin } from './Login'
+import { handleLogin, resumePendingTimeSkips } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
 import { blankOcteractLevelObject, clampOcteractFreeLevelsToCaps, setOcteractUpgradeLevels } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
@@ -5092,6 +5092,7 @@ window.addEventListener('load', async () => {
 
   // Which endpoint announcements come from depends on the login state, so wait for it to settle
   loginResolved.then(initializeAnnouncements).catch(console.error)
+  loginResolved.then(resumePendingTimeSkips).catch(console.error)
 
   if (TESTING || !PROD) {
     Object.defineProperties(window, {

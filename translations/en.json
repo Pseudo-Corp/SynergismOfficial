@@ -8686,7 +8686,8 @@
         "description": "Fast-forward real-life time on your Ambrosia and Red Bar Points!"
       },
       "purchaseBtn": "+{{time}} hours [<<gold|{{cost}} PseudoCoins>>]",
-      "warning": "<<gold | ⚠>> Takes a few seconds to apply after purchase! <<gold | ⚠>>"
+      "warning": "<<gold | ⚠>> Takes a few seconds to apply after purchase! <<gold | ⚠>>",
+      "connectionLost": "Lost connection while buying your time skip. It will finish the next time you load the game."
     },
     "lotus": {
       "name": "Loti of Rejuvenation",

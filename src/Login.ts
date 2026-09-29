@@ -14,6 +14,7 @@ import {
 } from './Calculate'
 import { isSynergismCC } from './Config'
 import { updateGlobalsIsEvent } from './Event'
+import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { updateLotusDisplay } from './purchases/ConsumablesTab'
@@ -21,7 +22,7 @@ import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
-import { getStoredSave } from './saves/SaveStorage'
+import { flushSaveStorage, getStoredSave } from './saves/SaveStorage'
 import { format, player, saveSynergy } from './Synergism'
 import { Alert, Confirm, Notification, Prompt } from './UpdateHTML'
 import { assert, btoa, displayHTMLError, isomorphicDecode, memoize } from './Utility'
@@ -44,6 +45,12 @@ interface Consumable {
   ends: number[]
   amount: number
   displayName: string
+}
+
+interface PendingTimeSkip {
+  consumable: string
+  id: string
+  createdAt: number
 }
 
 interface Save {
@@ -906,6 +913,97 @@ export function sendToWebsocket (message: string) {
   ws.send(message)
 }
 
+export async function buyTimeSkip (consumable: string) {
+  const id = crypto.randomUUID()
+  const pending = JSON.parse(storageGetItem('pendingTimeSkips') ?? '[]') as PendingTimeSkip[]
+
+  pending.push({ consumable, id, createdAt: Date.now() })
+  storageSetItem('pendingTimeSkips', JSON.stringify(pending))
+
+  await finishTimeSkipPurchase(consumable, id)
+}
+
+export async function resumePendingTimeSkips () {
+  if (!isLoggedIn()) return
+
+  const pending = (JSON.parse(storageGetItem('pendingTimeSkips') ?? '[]') as PendingTimeSkip[])
+    .filter(({ createdAt }) => Date.now() - createdAt < 12 * 60 * 60 * 1000)
+
+  storageSetItem('pendingTimeSkips', JSON.stringify(pending))
+
+  for (const { consumable, id } of pending) {
+    await finishTimeSkipPurchase(consumable, id)
+  }
+}
+
+async function finishTimeSkipPurchase (consumable: string, id: string) {
+  for (const delay of [0, ...exponentialBackoff]) {
+    await new Promise((resolve) => setTimeout(resolve, delay))
+
+    let timeSkip: { consumableName: string; amount: number } | undefined
+
+    try {
+      const response = await fetch('https://synergism.cc/consumables/buy', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ consumable, id })
+      })
+
+      if (!response.ok) {
+        Notification(await response.text(), 5_000)
+      } else {
+        const reader = response.body!.pipeThrough(new TextDecoderStream()).getReader()
+        let buffered = ''
+
+        while (timeSkip === undefined) {
+          const { done, value } = await reader.read()
+
+          if (done) break
+
+          const lines = (buffered + value).split('\n')
+          buffered = lines.pop()!
+
+          for (const line of lines) {
+            const { success, data } = messageSchema.safeParse(line)
+
+            if (!success || data === 'pong') continue
+
+            if (data.type === 'warn') {
+              Notification(data.message, 5_000)
+            } else if (data.type === 'time-skip') {
+              timeSkip = data
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.error(e)
+      continue
+    }
+
+    if (timeSkip !== undefined) {
+      await afterOfflineProgress()
+      activateTimeSkip(timeSkip.consumableName as PseudoCoinTimeskipNames, timeSkip.amount)
+      saveSynergy()
+      await flushSaveStorage()
+      updatePseudoCoins()
+    }
+
+    storageSetItem(
+      'pendingTimeSkips',
+      JSON.stringify(
+        (JSON.parse(storageGetItem('pendingTimeSkips') ?? '[]') as PendingTimeSkip[]).filter((pending) =>
+          pending.id !== id
+        )
+      )
+    )
+    return
+  }
+
+  Notification(i18next.t('pseudoCoins.timeSkips.connectionLost'))
+}
+
 async function logout () {
   const confirmed = await Confirm(i18next.t('account.logoutConfirm'))
   if (!confirmed) {
@@ -926,6 +1024,7 @@ async function logout () {
   ws?.close()
   ws = undefined
   resetWebSocket()
+  storageRemoveItem('pendingTimeSkips')
   await Alert(i18next.t('account.logout'))
 }
 

@@ -1,11 +1,13 @@
 import { bypass, delay, http, HttpResponse, passthrough } from 'msw'
 import { setupWorker } from 'msw/browser'
+import * as z from 'zod'
 import { getSubMetadata, setSubMetadata } from '../Login'
 import { cloudSaveHandlers } from './handlers/CloudSaveHandlers'
 import { messageHandlers } from './handlers/MessageHandlers'
 import { paymentHandlers } from './handlers/PaymentHandlers'
 import { subscriptionHandlers } from './handlers/SubscriptionHandlers'
 import { xsollaHandlers } from './handlers/XsollaHandlers'
+import { messages } from './util/messages'
 import { createConsumeHandlers } from './websocket'
 
 interface PseudoCoinUpgrade {
@@ -56,6 +58,23 @@ const purchaseConsumable = (internalName: string) => {
   pseudoCoinBalance -= consumable.cost
   return true
 }
+
+const timeSkipPurchases = new Map<string, string>()
+
+const buySchema = z.object({
+  consumable: z.enum([
+    'SMALL_GLOBAL_TIMESKIP',
+    'LARGE_GLOBAL_TIMESKIP',
+    'JUMBO_GLOBAL_TIMESKIP',
+    'SMALL_ASCENSION_TIMESKIP',
+    'LARGE_ASCENSION_TIMESKIP',
+    'JUMBO_ASCENSION_TIMESKIP',
+    'SMALL_AMBROSIA_TIMESKIP',
+    'LARGE_AMBROSIA_TIMESKIP',
+    'JUMBO_AMBROSIA_TIMESKIP'
+  ]),
+  id: z.uuid()
+})
 
 const GETHandlers = [
   http.get('https://synergism.cc/api/v1/quark-bonus', async () => {
@@ -129,6 +148,52 @@ const PUTHandlers = [
   })
 ]
 
+const POSTHandlers = [
+  http.post('https://synergism.cc/consumables/buy', async ({ request }) => {
+    let body: unknown
+
+    try {
+      body = await request.json()
+    } catch {
+      return HttpResponse.text('Invalid JSON', { status: 400 })
+    }
+
+    const purchase = buySchema.safeParse(body)
+
+    if (!purchase.success) {
+      return HttpResponse.text('Invalid purchase', { status: 400 })
+    }
+
+    const { consumable, id } = purchase.data
+    const instanceId = `${consumable}-buy-${id}`
+
+    if (!timeSkipPurchases.has(instanceId)) {
+      const { name, length } = consumables.find(({ internalName }) => internalName === consumable)!
+
+      timeSkipPurchases.set(
+        instanceId,
+        purchaseConsumable(consumable)
+          ? messages.timeSkip(consumable, id, Number(length))
+          : messages.warn(`${name} wasn't purchased!`)
+      )
+    }
+
+    const encoder = new TextEncoder()
+
+    return new HttpResponse(
+      new ReadableStream({
+        async start (controller) {
+          controller.enqueue(encoder.encode(`${messages.warn('Activating now, it may take a minute!')}\n`))
+          await delay(2500)
+          controller.enqueue(encoder.encode(`${timeSkipPurchases.get(instanceId)}\n`))
+          controller.close()
+        }
+      }),
+      { headers: { 'Content-Type': 'application/x-ndjson' } }
+    )
+  })
+]
+
 const seedEndDate = new Date()
 seedEndDate.setMonth(seedEndDate.getMonth() + 1)
 
@@ -185,6 +250,7 @@ export const worker = setupWorker(
   }),
   ...GETHandlers,
   ...PUTHandlers,
+  ...POSTHandlers,
   ...createConsumeHandlers(purchaseConsumable),
   ...cloudSaveHandlers,
   ...messageHandlers,
