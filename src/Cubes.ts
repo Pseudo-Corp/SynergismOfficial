@@ -139,7 +139,7 @@ export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
 export const cubeUpgradeModalHTML = (
   i: number,
   buyMax = player.cubeUpgradesBuyMaxToggle,
-  imageSrc?: string
+  iconStyle?: string
 ) => {
   const metaData = getCubeCost(i, buyMax)
   const maxLevel = getCubeMax(i)
@@ -153,8 +153,8 @@ export const cubeUpgradeModalHTML = (
     })
   const costClass = maxed ? 'maxed' : canAfford ? 'affordable' : 'unaffordable'
   const levelClass = maxed ? 'maxed' : ''
-  const imageHTML = imageSrc
-    ? `<img src="${imageSrc}" alt="" class="cubeUpgradeModalIcon" data-modal-preserve="children">`
+  const imageHTML = iconStyle
+    ? `<img src="Pictures/img_transparent.png" alt="" class="cubeUpgradeModalIcon" style='${iconStyle}' data-modal-preserve="children">`
     : ''
 
   return `<div class="cubeUpgradeModal">

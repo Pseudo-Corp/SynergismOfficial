@@ -1416,7 +1416,7 @@ export const generateEventHandlers = () => {
     const image = cubeUpgrade.querySelector('img')
 
     Modal(
-      () => cubeUpgradeModalHTML(index, player.cubeUpgradesBuyMaxToggle, image?.src),
+      () => cubeUpgradeModalHTML(index, player.cubeUpgradesBuyMaxToggle, image?.style.cssText),
       x,
       y,
       cubeUpgradeModalStyle,
@@ -1431,7 +1431,7 @@ export const generateEventHandlers = () => {
     const image = cubeUpgrade.querySelector('img')
 
     Modal(
-      () => `${cubeUpgradeModalHTML(index, buyMaxOverride, image?.src)}${modalBuyButtonsHTML()}`,
+      () => `${cubeUpgradeModalHTML(index, buyMaxOverride, image?.style.cssText)}${modalBuyButtonsHTML()}`,
       event.clientX,
       event.clientY,
       cubeUpgradeModalStyle,
