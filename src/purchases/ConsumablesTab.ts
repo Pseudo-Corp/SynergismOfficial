@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
 import { buyTimeSkip, getOwnedLotus, getUsedLotus, isLotusInventoryLoaded, sendToWebsocket } from '../Login'
 import { format } from '../Synergism'
+import { changeTab, Tabs } from '../Tabs'
 import { Alert, Confirm } from '../UpdateHTML'
 import { memoize } from '../Utility'
 import { setLotusBalance, setLotusBalanceLoading } from './PseudoCoinBalances'
@@ -68,6 +69,8 @@ const initializeConsumablesTab = memoize(() => {
         })
       })
 
+      DOMCacheGetOrSet('consumableUseTips').addEventListener('click', () => changeTab(Tabs.Event))
+
       updateLotusDisplay()
     })
 })
@@ -89,6 +92,7 @@ const createBellHTML = (bell: ConsumableListItems) => `
     <div class="consumableBuy">
       ${createBuyButtonHTML(bell, i18next.t('pseudoCoins.consumables.activate'))}
       <p class="consumableBuyNote">${bell.html?.buyNote}</p>
+      <button id="consumableUseTips" class="consumableTipsButton">${i18next.t('pseudoCoins.consumables.applyTips')}</button>
     </div>
   </div>
 `

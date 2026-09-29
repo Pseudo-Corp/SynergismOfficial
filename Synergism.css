@@ -10812,7 +10812,8 @@ html[data-mobile="false"] .pseudoCoinButton {
     line-height: 1.35;
 }
 
-.consumableBuyButton {
+.consumableBuyButton,
+.consumableTipsButton {
     display: flex;
     flex-direction: column;
     align-items: center;
