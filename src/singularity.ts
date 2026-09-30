@@ -90,7 +90,7 @@ type GoldenQuarkUpgradeRewards = {
   }
   masterPack: {
     packQuarkAdd: number
-    ascensionScoreMult: number
+    freeCorruptionLevels: number
   }
   divinePack: {
     packQuarkAdd: number
@@ -1063,7 +1063,7 @@ export const goldenQuarkUpgrades: {
       if (key === 'addCodeAscensionTimeMult') {
         return n > 0 ? 1.2 : 1
       } else if (key === 'ascensionScoreMult') {
-        return n > 0 ? 1.5 : 1
+        return n > 0 ? 1.2 : 1
       } else {
         return n > 0 ? 0.06 : 0 // packQuarkAdd
       }
@@ -1086,16 +1086,16 @@ export const goldenQuarkUpgrades: {
     minimumSingularity: 25,
     specialCostForm: 'Default',
     effect: (n, key) => {
-      if (key === 'ascensionScoreMult') {
-        return n > 0 ? 2 : 1
+      if (key === 'freeCorruptionLevels') {
+        return n > 0 ? 5 : 0
       } else {
         return n > 0 ? 0.08 : 0 // packQuarkAdd
       }
     },
     effectDescription: () => {
-      const ascensionScoreMult = getGQUpgradeEffect('masterPack', 'ascensionScoreMult')
+      const freeCorruptionLevels = getGQUpgradeEffect('masterPack', 'freeCorruptionLevels')
       return i18next.t(
-        `singularity.data.masterPack.effect${ascensionScoreMult > 1 ? 'Have' : 'HaveNot'}`
+        `singularity.data.masterPack.effect${freeCorruptionLevels > 0 ? 'Have' : 'HaveNot'}`
       )
     },
     name: () => i18next.t('singularity.data.masterPack.name'),
@@ -1114,7 +1114,7 @@ export const goldenQuarkUpgrades: {
         if (n === 0) {
           return 1
         } else {
-          const level = player.corruptions.used.tier === 4 ? player.corruptions.used.level : 0
+          const level = player.corruptions.used
           const perCorruption = level >= 225 ? 1.4 : level >= 200 ? 1.3 : level >= 175 ? 1.25 : 1
           return Math.pow(perCorruption, 8)
         }
@@ -1950,7 +1950,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const firstCompletionBonusTokens = getGQUpgradeEffect('singBonusTokens1', 'firstCompletionBonusTokens')
       return i18next.t('singularity.data.singBonusTokens1.effect', {
-        n: format(firstCompletionBonusTokens)
+        n: format(2 * firstCompletionBonusTokens)
       })
     },
     name: () => i18next.t('singularity.data.singBonusTokens1.name'),
@@ -1990,7 +1990,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const lastCompletionBonusTokens = getGQUpgradeEffect('singBonusTokens3', 'lastCompletionBonusTokens')
       return i18next.t('singularity.data.singBonusTokens3.effect', {
-        n: format(lastCompletionBonusTokens)
+        n: format(2 * lastCompletionBonusTokens)
       })
     },
     name: () => i18next.t('singularity.data.singBonusTokens3.name'),
@@ -3292,14 +3292,6 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'notSoChallenging'
   },
   {
-    name: 'singularity.perks.autoCampaigns.name',
-    levels: [4],
-    description: () => {
-      return i18next.t('singularity.perks.autoCampaigns.default')
-    },
-    ID: 'autoCampaigns'
-  },
-  {
     name: 'singularity.perks.automationUpgrades.name',
     levels: [5, 10, 15, 25, 30, 100],
     description: (n: number, levels: number[]) => {
@@ -3864,8 +3856,7 @@ const yPrime = (k: number) => (k + 0.25) * yScale
 const SINGULARITY_PERK_TREE_PLACEMENTS: Record<string, SingularityPerkTreePlacement> = {
   welcometoSingularity: { parentID: null, x: -1, y: 0 },
   tokenInheritance: { parentID: 'welcometoSingularity', x: -3, y: -2, independentChildConnections: true },
-  autoCampaigns: { parentID: 'tokenInheritance', x: -4, y: -3 },
-  bonusTokens: { parentID: 'autoCampaigns', x: -5, y: -3 },
+  bonusTokens: { parentID: 'tokenInheritance', x: -4, y: -3 },
   firstClearTokens: { parentID: 'tokenInheritance', x: -4, y: -2 },
   lastClearTokens: { parentID: 'firstClearTokens', x: -5, y: -2 },
   sweepomatic: { parentID: 'welcometoSingularity', x: -3, y: 0 },

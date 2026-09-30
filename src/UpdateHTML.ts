@@ -996,16 +996,18 @@ export const updateChallengeLevel = (k: number) => {
   }
 } */
 
+const corruptionSubtabPanels = {
+  stats: 'corruptionStats',
+  tokens: 'corruptionTokens',
+  presets: 'corruptionLoadouts'
+} as const
+
 export const showCorruptionStatsLoadouts = (subTabID: string) => {
-  if (subTabID === 'true') {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    DOMCacheGetOrSet('corrClickInfo').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'none'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
-    DOMCacheGetOrSet('corrClickInfo').style.display = 'none'
+  for (const [id, panel] of Object.entries(corruptionSubtabPanels)) {
+    DOMCacheGetOrSet(panel).style.display = id === subTabID ? 'flex' : 'none'
   }
+  DOMCacheGetOrSet('corrClickInfo').style.display = subTabID === 'stats' ? 'block' : 'none'
+  DOMCacheGetOrSet('corruptionTierSelected').style.display = subTabID === 'presets' ? 'none' : 'flex'
 }
 
 const updateAscensionStats = () => {

@@ -35,10 +35,11 @@ import {
   changeNextCorruptionLevel,
   cleanseCorruptions,
   corruptionCleanseConfirm,
-  corruptionDisplay,
   maxNextCorruptionLevel,
-  openCorruptionDetailsModal,
-  setNextCorruptionLevel
+  registerCorruptionDetailsModal,
+  setNextCorruptionLevel,
+  toggleCorruptionAutoIncrease,
+  toggleCorruptionCleanseToHighest
 } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
@@ -216,7 +217,7 @@ import {
   openIframeOverlay,
   Prompt
 } from './UpdateHTML'
-import { cycleCorruptionScoreTarget, selectCorruptionScoreTarget, visualUpdatePurple } from './UpdateVisuals'
+import { visualUpdatePurple } from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
@@ -421,21 +422,9 @@ const modalBuyButtonsHTML = (buttons = defaultModalBuyButtons()) =>
 
 const resetDetailsModalHTML = (input: resetNames, element: HTMLElement, label: string) => {
   const details = getResetDetails(input)
-  const rewards = [
-    details.offeringVisible
-      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${
-        IconSets[player.iconSet][0]
-      }/Offering.png">${details.offeringText}</span>`
-      : '',
-    details.currencyVisible
-      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="${details.currencySrc}">${details.currencyText}</span>`
-      : '',
-    details.obtainiumVisible
-      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${
-        IconSets[player.iconSet][0]
-      }/Obtainium.png">${details.obtainiumText}</span>`
-      : ''
-  ].filter(Boolean).join('')
+  const rewards = details.rewards.map(({ src, text }) =>
+    `<span class="resetModalReward" data-modal-preserve="children"><img src="${src}">${text}</span>`
+  ).join('')
 
   return `<div class="resetModal" data-modal-preserve="children">
     <div class="resetModalTitle" data-modal-preserve="children">
@@ -1612,22 +1601,14 @@ export const generateEventHandlers = () => {
 
   // CORRUPTION TAB
   // Part 1: Displays
-  const corruptionDisplays = DOMCacheGetOrSet('corruptionDisplays')
-  corruptionDisplays.addEventListener('click', (event) => {
-    if (isMobile) {
-      const target = event.target instanceof Element ? event.target : null
-      if (target?.closest('button')) {
-        return
-      }
-
-      openCorruptionDetailsModal('exit', event, corruptionDisplays)
-      return
-    }
-
-    corruptionDisplay('exit')
-  })
+  registerCorruptionDetailsModal(DOMCacheGetOrSet('corruptionExitIcon'), 'exit')
   DOMCacheGetOrSet('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
   DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => cleanseCorruptions())
+  DOMCacheGetOrSet('corruptionAutoIncreaseToggle').addEventListener('change', () => toggleCorruptionAutoIncrease())
+  DOMCacheGetOrSet('corruptionCleanseToHighestToggle').addEventListener(
+    'change',
+    () => toggleCorruptionCleanseToHighest()
+  )
   for (const [id, delta] of corruptionLevelSteps) {
     DOMCacheGetOrSet(id).addEventListener('click', () => changeNextCorruptionLevel(delta))
   }
@@ -1635,16 +1616,6 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('corruptionLevelInput').addEventListener('change', (event) => {
     setNextCorruptionLevel(Number((event.target as HTMLInputElement).value))
   })
-  DOMCacheGetOrSet('corruptionScoreProgress').addEventListener('click', cycleCorruptionScoreTarget)
-  const corruptionScoreTargetButtons = [
-    'corruptionTesseracts',
-    'corruptionHypercubes',
-    'corruptionPlatonicCubes',
-    'corruptionHepteracts'
-  ] as const
-  for (const [index, id] of corruptionScoreTargetButtons.entries()) {
-    DOMCacheGetOrSet(id).addEventListener('click', () => selectCorruptionScoreTarget(index))
-  }
 
   // Extra toggle
   DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscendResetActive())

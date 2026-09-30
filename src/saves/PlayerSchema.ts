@@ -231,13 +231,11 @@ const newHepteractCraftSchema = z.object({
   AUTO: z.boolean()
 })
 
-const corruptionTierStateSchema = z.object({
-  tier: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4)]),
-  level: z.number()
-})
+const corruptionLevelSchema = z.number().int().min(0)
 
-const corruptionPresetSchema = corruptionTierStateSchema.extend({
-  name: z.string()
+const corruptionPresetSchema = z.object({
+  name: z.string(),
+  level: corruptionLevelSchema
 })
 
 const talismanFragmentSchema = z.object({
@@ -304,16 +302,25 @@ const synthesisUpgradesSchema = z.object({
 })
 
 const playerCorruptionSchema = z.object({
-  used: corruptionTierStateSchema.catch(() => ({ ...blankSave.corruptions.used })),
-  next: corruptionTierStateSchema.catch(() => ({ ...blankSave.corruptions.next })),
+  used: corruptionLevelSchema.catch(() => blankSave.corruptions.used),
+  next: corruptionLevelSchema.catch(() => blankSave.corruptions.next),
   presets: z.unknown().array().catch(() => []).transform((presets) =>
     blankSave.corruptions.presets.map((preset, index) => {
       const parsed = corruptionPresetSchema.safeParse(presets[index])
       return parsed.success ? parsed.data : { ...preset }
     })
   ),
-  tokenProgress: corruptionTierStateSchema.catch(() => ({ ...blankSave.corruptions.tokenProgress }))
-}).prefault(() => deepClone()(blankSave.corruptions))
+  tokenCompletions: z.number().int().min(0).catch(0).array().catch(() => []).transform((completions) =>
+    blankSave.corruptions.tokenCompletions.map((_, level) => completions[level] ?? 0)
+  ),
+  highestCleared: z.number().int().min(0).optional().catch(undefined),
+  autoIncrease: z.boolean().catch(() => blankSave.corruptions.autoIncrease),
+  cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest)
+}).transform(({ highestCleared, ...corruptions }) => ({
+  ...corruptions,
+  highestCleared: highestCleared
+    ?? Math.max(corruptions.used, corruptions.tokenCompletions.findLastIndex((completions) => completions > 0))
+})).prefault(() => deepClone()(blankSave.corruptions))
 
 export const playerSchema = z.object({
   firstPlayed: z.iso.datetime().optional().default(() => new Date().toISOString()),

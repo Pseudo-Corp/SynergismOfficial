@@ -17,14 +17,14 @@ import {
   calculateOfferings,
   calculatePowderConversion
 } from './Calculate'
-import { campaignTokenRewardHTMLUpdate, earnCampaignTokens } from './Campaign'
+import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateMaxTokens, updateTokens } from './Campaign'
 import { CalcECC, challengeRequirement, resetChallengeSweep } from './Challenges'
 import {
-  c15CorruptionState,
+  c15CorruptionLevel,
+  clearCorruptionLevel,
   corruptionPresetTableUpdate,
   corruptionStatsUpdate,
-  isCorruptionTierStateAtLeast,
-  normalizeCorruptionTierState
+  normalizeCorruptionLevel
 } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
 import {
@@ -74,16 +74,56 @@ import { updateClassList } from './Utility'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
+type ResetReward = {
+  src: string
+  text: string
+}
+
 type ResetDetailsView = {
-  offeringVisible: boolean
-  offeringText: string
-  currencyVisible: boolean
-  currencySrc: string
-  currencyText: string
-  obtainiumVisible: boolean
-  obtainiumText: string
+  rewards: ResetReward[]
   infoText: string
   infoColor: string
+}
+
+type AscensionRewardAmounts = ReturnType<typeof CalcCorruptionStuff>
+
+const ascensionRewardDisplays: Array<{
+  icon: string
+  amount: (rewards: AscensionRewardAmounts) => number
+  unlocked: () => boolean
+}> = [
+  { icon: 'WowCube.png', amount: (rewards) => rewards.wowCubes, unlocked: () => true },
+  { icon: 'WowTessaract.png', amount: (rewards) => rewards.wowTesseracts, unlocked: () => true },
+  {
+    icon: 'WowHypercube.png',
+    amount: (rewards) => rewards.wowHypercubes,
+    unlocked: () => player.highestchallengecompletions[13] > 0
+  },
+  {
+    icon: 'PlatonicCube.png',
+    amount: (rewards) => rewards.wowPlatonicCubes,
+    unlocked: () => player.highestchallengecompletions[14] > 0
+  },
+  {
+    icon: 'Hepteract.png',
+    amount: (rewards) => rewards.wowHepteracts,
+    unlocked: () => player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+  }
+]
+
+const ascensionResetRewards = (iconSet: string): ResetReward[] => {
+  const ascensionRewards = CalcCorruptionStuff()
+  const rewards = ascensionRewardDisplays
+    .filter(({ unlocked }) => unlocked())
+    .map(({ icon, amount }) => ({
+      src: `Pictures/${iconSet}/${icon}`,
+      text: `+${format(amount(ascensionRewards), 0)}`
+    }))
+  const ascensionCount = calculateAscensionCount()
+  if (ascensionCount > 1) {
+    rewards.push({ src: `Pictures/${iconSet}/Ascension.png`, text: `+${format(ascensionCount, 0)}` })
+  }
+  return rewards
 }
 
 const resetTypes = new Set([
@@ -118,24 +158,20 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
   const offering = calculateOfferings()
   const iconSet = IconSets[player.iconSet][0]
   const resetDetails: ResetDetailsView = {
-    offeringVisible: input !== 'ascensionChallenge' && input !== 'ascension' && input !== 'singularity',
-    offeringText: `+${format(offering)}`,
-    currencyVisible: false,
-    currencySrc: `Pictures/${iconSet}/Diamond.png`,
-    currencyText: '',
-    obtainiumVisible: input === 'reincarnation',
-    obtainiumText: input === 'reincarnation'
-      ? format(Decimal.floor(calculateObtainium()))
-      : '',
+    rewards: [],
     infoText: '',
     infoColor: 'white'
+  }
+  const addCurrencyReward = (icon: string, text: string) => {
+    resetDetails.rewards.push({ src: `Pictures/${iconSet}/${icon}`, text })
+  }
+  if (input !== 'ascensionChallenge' && input !== 'ascension' && input !== 'singularity') {
+    addCurrencyReward('Offering.png', `+${format(offering)}`)
   }
 
   switch (input) {
     case 'prestige':
-      resetDetails.currencyVisible = true
-      resetDetails.currencySrc = `Pictures/${iconSet}/Diamond.png`
-      resetDetails.currencyText = `+${format(G.prestigePointGain)}`
+      addCurrencyReward('Diamond.png', `+${format(G.prestigePointGain)}`)
       resetDetails.infoText = i18next.t('reset.details.prestige', {
         amount: format(player.coinsThisPrestige),
         timeSpent: format(player.prestigecounter)
@@ -143,9 +179,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.infoColor = 'turquoise'
       break
     case 'transcension':
-      resetDetails.currencyVisible = true
-      resetDetails.currencySrc = `Pictures/${iconSet}/Mythos.png`
-      resetDetails.currencyText = `+${format(G.transcendPointGain)}`
+      addCurrencyReward('Mythos.png', `+${format(G.transcendPointGain)}`)
       resetDetails.infoText = i18next.t('reset.details.transcension', {
         amount: format(player.coinsThisTranscension),
         timeSpent: format(player.transcendcounter)
@@ -153,9 +187,8 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.infoColor = 'var(--orchid-text-color)'
       break
     case 'reincarnation':
-      resetDetails.currencyVisible = true
-      resetDetails.currencySrc = `Pictures/${iconSet}/Particle.png`
-      resetDetails.currencyText = `+${format(G.reincarnationPointGain)}`
+      addCurrencyReward('Particle.png', `+${format(G.reincarnationPointGain)}`)
+      addCurrencyReward('Obtainium.png', format(Decimal.floor(calculateObtainium())))
       resetDetails.infoText = i18next.t('reset.details.reincarnation', {
         amount: format(player.transcendShards),
         timeSpent: format(player.reincarnationcounter)
@@ -163,9 +196,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.infoColor = 'limegreen'
       break
     case 'acceleratorBoost':
-      resetDetails.currencyVisible = true
-      resetDetails.currencySrc = `Pictures/${iconSet}/Diamond.png`
-      resetDetails.currencyText = `-${format(player.acceleratorBoostCost)}`
+      addCurrencyReward('Diamond.png', `-${format(player.acceleratorBoostCost)}`)
       resetDetails.infoText = i18next.t(
         player.upgrades[88] === 1 ? 'reset.details.acceleratorBoostNoReset' : 'reset.details.acceleratorBoost',
         {
@@ -218,9 +249,8 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.infoColor = 'gold'
       break
     case 'ascension':
-      const ascensionRewards = CalcCorruptionStuff()
+      resetDetails.rewards.push(...ascensionResetRewards(iconSet))
       resetDetails.infoText = i18next.t('reset.details.ascension', {
-        cubeAmount: format(ascensionRewards.wowCubes, 0, true),
         timeSpent: format(player.ascensionCounter, 0, false),
         realTimeSpent: format(player.ascensionCounterRealReal, 0, false)
       })
@@ -329,8 +359,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         seconds: player.ascensionCounter,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
-        usedCorruptions: { tier: player.corruptions.used.tier, level: player.corruptions.used.level },
-        corruptionScore: corruptionMetaData.effectiveScore,
+        usedCorruptions: player.corruptions.used,
         wowCubes: corruptionMetaData.wowCubes,
         wowTesseracts: corruptionMetaData.wowTesseracts,
         wowHypercubes: corruptionMetaData.wowHypercubes,
@@ -521,7 +550,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   }
 
   if (input === 'reincarnation' || input === 'reincarnationChallenge') {
-    if (isCorruptionTierStateAtLeast(player.corruptions.used, 4, 100) && player.platonicUpgrades[11] > 0) {
+    if (player.corruptions.used >= 100 && player.platonicUpgrades[11] > 0) {
       player.prestigePoints = player.prestigePoints.add(G.reincarnationPointGain)
     }
   }
@@ -739,14 +768,17 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     }
 
     if (c10Completions > 0) {
-      earnCampaignTokens(player.corruptions.used)
+      earnCampaignTokens(player.corruptions.used, c10Completions)
+      if (player.currentChallenge.ascension !== 15) {
+        clearCorruptionLevel(player.corruptions.used)
+      }
     }
 
-    player.corruptions.used = normalizeCorruptionTierState(player.corruptions.next)
+    player.corruptions.used = normalizeCorruptionLevel(player.corruptions.next)
 
     // fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
     if (player.currentChallenge.ascension === 15 && (input === 'ascension' || input === 'ascensionChallenge')) {
-      player.corruptions.used = { ...c15CorruptionState }
+      player.corruptions.used = c15CorruptionLevel
     }
 
     corruptionStatsUpdate()
@@ -1147,6 +1179,8 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
   hold.corruptions.presets = player.corruptions.presets.map((preset) => ({ ...preset }))
+  hold.corruptions.autoIncrease = player.corruptions.autoIncrease
+  hold.corruptions.cleanseToHighest = player.corruptions.cleanseToHighest
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
   hold.resetToggleModes = player.resetToggleModes
@@ -1276,6 +1310,8 @@ export const singularity = (setSingNumber = -1) => {
   player.rngCode = Date.now()
   player.promoCodeTiming.time = Date.now()
 
+  updateTokens()
+  updateMaxTokens()
   campaignTokenRewardHTMLUpdate()
   corruptionStatsUpdate()
   corruptionPresetTableUpdate()
@@ -1392,7 +1428,7 @@ export const applyChallengeInitialModifiers = (
         player.obtainium = new Decimal()
       }
       if (chalNum === 15) {
-        player.corruptions.used = { ...c15CorruptionState }
+        player.corruptions.used = c15CorruptionLevel
       }
     }
   }

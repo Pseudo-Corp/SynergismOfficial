@@ -209,6 +209,7 @@ html[data-legacyicons="true"] {
 }
 
 #corrStatsBtn.active-subtab,
+#corrTokensBtn.active-subtab,
 #corrLoadoutsBtn.active-subtab {
     background-color: dodgerblue;
 }
@@ -5866,202 +5867,62 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #traits {
     display: flex;
-    justify-content: center;
-    align-items: start;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 
     /* Hopefully prevent some elements from overlapping with the tab buttons */
     margin-top: 10px;
 }
 
-#corruptionMain {
-    min-width: 43.75rem;
-    max-width: 75rem;
-}
-
 #corruptionIntroduction {
     font-size: 1.2em;
     color: var(--darkorchid-text-color);
+    text-align: center;
 }
 
 #corruptionInfo1 {
     color: yellow;
-}
-
-#corruptionSelected {
-    width: 70px;
-    height: 70px;
-    margin-top: 15px;
-}
-
-#corruptionSelectedPic {
-    height: 100%;
-    object-fit: contain;
-}
-
-#corruptionDetails {
-    display: flex;
-    min-height: 9em;
-    visibility: hidden;
-}
-
-#corruptionName {
-    font-size: 1.2em;
-}
-
-#corruptionDescription {
-    color: darkviolet;
-}
-
-#corruptionLevelCurrent {
-    color: var(--orchid-text-color);
-}
-
-#corruptionLevelPlanned {
-    color: lime;
-}
-
-#corruptionSpiritContribution {
-    color: gold;
-}
-
-#corruptionRewards {
-    width: min(100%, 800px);
-    margin: 5px auto 0;
     text-align: center;
 }
 
-#corruptionRewardsHeading {
-    margin: 0 0 10px;
-    color: white;
-    font-size: 1.25em;
+
+
+
+
+
+#corruptionAscensionControls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2em;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #fff2;
 }
 
-#corruptionRewardGrid {
+.corruptionControlGroup {
     display: flex;
-    justify-content: center;
-    align-items: end;
-    gap: clamp(6px, 2vw, 28px);
-}
-
-.corruptionReward {
-    display: flex;
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 105px;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
-button.corruptionRewardSelector {
-    min-height: 0;
-    font-size: inherit;
-    color: inherit;
-    background-color: transparent;
+.corruptionControlGroup > .corruptionTierHeading {
+    margin: 0 0 2px;
 }
 
-body button.corruptionRewardSelector:hover:not(:disabled):not(.disable-hover-color),
-body button.corruptionRewardSelector:active:not(:disabled):not(.disable-hover-color) {
-    background-color: transparent;
-}
-
-#corruptionTesseracts {
-    --corruption-reward-color: var(--tesseract-color);
-}
-
-#corruptionHypercubes {
-    --corruption-reward-color: var(--hypercube-color);
-}
-
-#corruptionPlatonicCubes {
-    --corruption-reward-color: var(--platonic-color);
-}
-
-#corruptionHepteracts {
-    --corruption-reward-color: var(--hepteract-color);
-}
-
-.corruptionRewardSelector.selected > img,
-.corruptionRewardSelector:focus-visible > img {
-    outline: 2px solid var(--corruption-reward-color);
-    outline-offset: 3px;
-}
-
-html[data-chal13="true"] .corruptionReward.chal13,
-html[data-chal14="true"] .corruptionReward.chal14,
-html[data-hepteracts="true"] .corruptionReward.hepteracts {
+#ascensionAutomationButtons {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
 }
 
-.corruptionReward > img {
-    width: clamp(40px, 6vw, 64px);
-    height: clamp(40px, 6vw, 64px);
-    object-fit: contain;
-}
-
-.corruptionAscensionIcon {
-    width: clamp(40px, 6vw, 64px);
-    height: clamp(40px, 6vw, 64px);
-    display: grid;
-    place-items: center;
-}
-
-.corruptionAscensionIcon > img {
-    width: 75%;
-    height: 75%;
-    object-fit: contain;
-}
-
-.corruptionRewardValue {
-    max-width: 100%;
-    font-size: clamp(0.75em, 2vw, 1.25em);
-    line-height: 1.1;
-    white-space: nowrap;
-}
-
-#corruptionAscensionCount {
-    color: darkorange;
-}
-
-#corruptionScoreProgress {
-    --corruption-progress-color: var(--tesseract-color);
-
-    width: min(calc(100% - 80px), 650px);
-    height: 24px;
-    min-height: 24px;
-    position: relative;
-    margin: 16px auto 0;
-    overflow: hidden;
-    border-radius: 12px;
-    color: var(--corruption-progress-color);
-    background-color: var(--blessings-hover-color);
-    font-size: 1.05em;
-    isolation: isolate;
-}
-
-#corruptionScoreProgress:focus-visible {
-    outline: 2px solid var(--corruption-progress-color);
-    outline-offset: 3px;
-}
-
-#corruptionScoreProgressFill {
-    width: 0;
-    position: absolute;
-    inset: 0 auto 0 0;
-    z-index: 0;
-    background-color: var(--corruption-progress-color);
-    transition: width var(--transition-extra);
-}
-
-#corruptionScoreProgressText {
-    position: relative;
-    z-index: 1;
-    color: black;
-    font-weight: bold;
-}
-
-#ascensionAutomation {
-    margin-top: 10px;
+#autoAscend {
+    max-width: 28em;
+    margin: 0;
+    line-height: 1.2em;
+    text-align: center;
 }
 
 #ascensionAmount,
@@ -6070,6 +5931,7 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
     width: 12em;
     min-width: 150px;
     min-height: auto;
+    margin: 0;
 }
 
 #ascensionAmount {
@@ -6079,17 +5941,33 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
 }
 
 #corruptionStatsLoadouts {
-    min-width: 500px;
-    max-width: 600px;
-    margin: 10px;
-    padding: 30px 10px;
-    border: 1px solid orange;
+    position: relative;
+    box-sizing: border-box;
+    width: fit-content;
+    max-width: calc(100% - 20px);
+    margin: 0 10px;
+    padding: 12px 24px;
     color: white;
     background-color: var(--box-color);
     text-align: center;
 }
 
+#corruptionStatsLoadouts::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(135deg, #ff4d4d, #8b0000 30%, #ff1f5a 55%, #b30000 80%, #ff6a3d);
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    pointer-events: none;
+}
+
+#corrClickInfo {
+    margin: 6px 0 0;
+}
+
 #corrStatsBtn,
+#corrTokensBtn,
 #corrLoadoutsBtn {
     min-width: 120px;
     max-width: 100%;
@@ -6152,8 +6030,69 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
     color: var(--red-text-color);
 }
 
-.corruptionDetailsModalFree {
+.corruptionDetailsModalFormula {
     color: orchid;
+}
+
+.corruptionFormulaActive {
+    color: #ffc4f0;
+}
+
+.corruptionBreakdown {
+    margin: 0 auto;
+    border-collapse: collapse;
+    color: white;
+    font-size: 0.9em;
+}
+
+.corruptionBreakdown th {
+    padding: 2px 8px;
+    color: var(--orchid-text-color);
+    font-weight: normal;
+}
+
+.corruptionBreakdown td {
+    padding: 2px 8px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.corruptionBreakdown td:first-child {
+    text-align: left;
+}
+
+.corruptionBreakdown tr:last-child td {
+    border-top: 1px solid gray;
+    color: gold;
+}
+
+.corruptionBreakdownNote {
+    color: silver;
+    font-size: 0.9em;
+}
+
+.corruptionFormulaTable {
+    display: grid;
+    grid-template-columns: auto auto minmax(0, max-content) auto;
+    justify-content: center;
+    gap: 3px 14px;
+    max-width: 100%;
+    margin-top: 4px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.corruptionFormulaExpression {
+    white-space: normal;
+}
+
+.corruptionFormulaCurrent {
+    color: gold;
+    text-align: right;
+}
+
+.corruptionFormulaNext {
+    color: white;
 }
 
 .corrDesc {
@@ -6204,19 +6143,28 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
     width: 3.5em;
 }
 
-#corruptionStats,
-#corruptionLoadouts {
+#corruptionStats {
     font-size: min(1em, 20px);
-    min-height: 350px;
     z-index: 1;
 }
 
 #corruptionLoadouts {
+    min-height: 350px;
     margin-top: 10px;
+    font-size: min(1em, 20px);
+    z-index: 1;
+}
+
+#corruptionDisplays > #corruptionExitIcon {
+    width: 44px;
+    height: 44px;
 }
 
 #corruptionDisplays {
-    margin-top: 5%;
+    position: relative;
+    align-items: center;
+    gap: 20px;
+    margin-top: 4px;
 }
 
 .corrLoadoutName {
@@ -6233,19 +6181,113 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
     padding: 0;
 }
 
-.corrTierBtn {
-    min-width: 60px;
-    margin: 2px;
-    border: 1px solid orange;
+#corruptionTierSelected {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 4px 0;
+    color: white;
 }
 
-.corrTierBtn.selected {
-    background-color: dodgerblue;
+.corruptionTierHeading {
+    margin-top: 10px;
+    color: var(--orchid-text-color);
+}
+
+.corruptionTierRows {
+    display: grid;
+    grid-template-columns: auto auto 10em;
+    align-items: center;
+    gap: 2px 8px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.corruptionTierRows .corruptionStatRow {
+    display: contents;
+}
+
+#corruptionTierGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2em;
+}
+
+.corruptionTierHalf {
+    grid-template-rows: auto;
+    grid-auto-rows: minmax(28px, auto);
+    column-gap: 8px;
+    row-gap: 2px;
+    align-content: start;
+}
+
+.corruptionTierHalf > .corruptionTierHeading {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+#corruptionTierEffects,
+#corruptionTierCubeRows {
+    display: contents;
+}
+
+#corruptionTierGrid .corruptionTierHalf:first-child {
+    grid-template-columns: auto auto 10em;
+}
+
+#corruptionTierGrid .corruptionTierHalf:last-child {
+    grid-template-columns: auto auto 14em;
+}
+
+#corruptionTierGrid #corruptionRewardFreeLevels {
+    grid-column: 1 / -1;
+    max-width: 24em;
+    margin: 6px auto 0;
+    line-height: 1.2em;
+    text-align: center;
+}
+
+#corruptionTokens {
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.corruptionTierRows .corruptionStatValue {
+    white-space: nowrap;
+}
+
+.corruptionTierRows .corrDesc {
+    min-width: unset;
+    margin: 0;
+    text-align: left;
+}
+
+#corruptionTierCubeRows .corruptionStatRow > img,
+#corruptionTierEffects .corruptionStatRow > img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+.corruptionTierRows .corruptionStatRow > img,
+#corruptionExitIcon {
+    cursor: help;
+}
+
+#corruptionLevelCap {
+    max-width: 34em;
+    line-height: 1.2em;
+}
+
+#corruptionTierLevel {
+    margin: 2px auto;
+    font-size: 1.75em;
+    line-height: 1.2em;
 }
 
 #corruptionLevelControls {
     gap: 4px;
-    margin: 6px 0;
+    margin: 2px 0;
 }
 
 #corruptionLevelInput {
@@ -6288,14 +6330,32 @@ img.corruptionImg.small {
 #corruptionCleanse {
     width: 8em;
     min-width: 150px;
-    margin: auto 20px;
+    margin: 0;
     border: 2px solid darkmagenta;
     z-index: 2;
 }
 
+.corruptionToggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.corruptionToggle > input {
+    margin: 0;
+    cursor: pointer;
+    transform: scale(1.4);
+}
+
 #corruptionCleanseConfirm {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 12px);
     width: 100px;
-    margin: auto;
+    margin: 0;
+    transform: translateY(-50%);
     border: 2px solid green;
     visibility: hidden;
 }
@@ -11093,7 +11153,8 @@ html[data-spirit-unlock="false"] .spiritUnlock {
     display: none;
 }
 
-html[data-chal12="false"] .chal12 {
+html[data-chal12="false"] .chal12,
+html[data-chal12="false"] #corruptionSpiritValueRow {
     display: none;
 }
 
@@ -12085,10 +12146,6 @@ html[data-mobile="true"] .hideOnMobile {
         width: unset;
     }
 
-    #traits {
-        flex-direction: column;
-    }
-
     #corruptionStatsLoadouts {
         width: 100%;
         min-width: 0;
@@ -12114,8 +12171,16 @@ html[data-mobile="true"] .hideOnMobile {
         min-width: 44px;
     }
 
-    #corruptionMain {
-        min-width: unset;
+    #corruptionTierGrid,
+    #corruptionAscensionControls {
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+    }
+
+    #corruptionTierGrid .corruptionTierHalf:first-child,
+    #corruptionTierGrid .corruptionTierHalf:last-child {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        width: 100%;
     }
 
     #elevatorLockToggle,

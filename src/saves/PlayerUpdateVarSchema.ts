@@ -38,7 +38,7 @@ const hasLegacyCorruptions = (data: Record<string, unknown>) => {
     return true
   }
 
-  return isRecord(data.corruptions) && isRecord(data.corruptions.used) && !('tier' in data.corruptions.used)
+  return isRecord(data.corruptions) && isRecord(data.corruptions.used)
 }
 
 const cleanseLegacyCorruptions = (data: unknown) => {

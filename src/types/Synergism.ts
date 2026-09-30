@@ -2,7 +2,7 @@ import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
-import type { CorruptionPreset, CorruptionTierState } from '../Corruptions'
+import type { CorruptionPreset } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
@@ -421,10 +421,13 @@ export interface Player {
   ascStatToggles: Record<number, boolean>
 
   corruptions: {
-    next: CorruptionTierState
-    used: CorruptionTierState
+    next: number
+    used: number
     presets: CorruptionPreset[]
-    tokenProgress: CorruptionTierState
+    tokenCompletions: number[]
+    highestCleared: number
+    autoIncrease: boolean
+    cleanseToHighest: boolean
   }
 
   constantUpgrades: ArrayStartingWithNull<number>

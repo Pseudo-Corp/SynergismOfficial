@@ -2,13 +2,7 @@ import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import {
-  convertInputToCorruption,
-  type Corruptions,
-  corruptionTierList,
-  type CorruptionTierState,
-  setNextCorruptions
-} from './Corruptions'
+import { convertInputToCorruption, type Corruptions, setNextCorruptionLevel } from './Corruptions'
 import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
@@ -56,10 +50,15 @@ export type ResetHistoryEntryReincarnate = ResetHistoryEntryBase & {
   kind: 'reincarnate'
 }
 
+type LegacyCorruptionTierState = {
+  tier: number
+  level: number
+}
+
 export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
   c10Completions: number
-  usedCorruptions: Corruptions | number[] | CorruptionTierState
-  corruptionScore: number
+  usedCorruptions: Corruptions | number[] | LegacyCorruptionTierState | number
+  corruptionScore?: number
   wowCubes: number
   wowTesseracts: number
   wowHypercubes: number
@@ -514,11 +513,8 @@ const resetHistoryRenderFullTable = (categoryToRender: Category, targetTable: HT
 }
 
 function clickHandlerForLoadCorruptionsButton (btn: HTMLElement) {
-  const tier = corruptionTierList.find((value) => value === Number(btn.getAttribute('data-tier')))
-  if (tier !== undefined) {
-    setNextCorruptions({ tier, level: Number(btn.getAttribute('data-level')) })
-    void Notification(i18next.t('corruptions.loadoutApplied'), 5000)
-  }
+  setNextCorruptionLevel(Number(btn.getAttribute('data-level')))
+  void Notification(i18next.t('corruptions.loadoutApplied'), 5000)
 }
 
 // Render every category into their associated table.
@@ -541,10 +537,10 @@ export const resetHistoryTogglePerSecond = () => {
   button.style.borderColor = player.historyShowPerSecond ? 'green' : 'red'
 }
 
-const isCorruptionTierState = (
+const isLegacyCorruptionTierState = (
   corruptions: ResetHistoryEntryAscend['usedCorruptions']
-): corruptions is CorruptionTierState => {
-  return !Array.isArray(corruptions) && 'tier' in corruptions
+): corruptions is LegacyCorruptionTierState => {
+  return typeof corruptions === 'object' && !Array.isArray(corruptions) && 'tier' in corruptions
 }
 
 const resetHistoryFormatLegacyCorruptions = (usedCorruptions: Corruptions | number[]) => {
@@ -569,24 +565,27 @@ const resetHistoryFormatLegacyCorruptions = (usedCorruptions: Corruptions | numb
 
 // Helper function to format the corruption display in the ascension table.
 const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string, string] => {
-  let score = `Score: ${format(data.corruptionScore, 0, false)}`
   let corruptions = ''
   let loadout = ''
 
-  if (!isCorruptionTierState(data.usedCorruptions)) {
+  if (typeof data.usedCorruptions === 'number') {
+    if (data.usedCorruptions > 0) {
+      corruptions = i18next.t('corruptions.tiers.summary', { level: format(data.usedCorruptions) })
+      loadout =
+        `<button class="corrLoad ascendHistoryLoadCorruptions" data-level="${data.usedCorruptions}">Load</button>`
+    }
+  } else if (isLegacyCorruptionTierState(data.usedCorruptions)) {
+    if (data.usedCorruptions.tier > 0) {
+      corruptions = i18next.t('corruptions.tiers.legacySummary', {
+        tier: data.usedCorruptions.tier,
+        level: format(data.usedCorruptions.level)
+      })
+    }
+  } else {
     corruptions = resetHistoryFormatLegacyCorruptions(data.usedCorruptions)
-  } else if (data.usedCorruptions.tier > 0) {
-    corruptions = i18next.t('corruptions.tiers.summary', {
-      tier: data.usedCorruptions.tier,
-      level: format(data.usedCorruptions.level)
-    })
-    loadout =
-      `<button class="corrLoad ascendHistoryLoadCorruptions" data-tier="${data.usedCorruptions.tier}" data-level="${data.usedCorruptions.level}">Load</button>`
   }
 
-  if (data.currentChallenge !== undefined) {
-    score += ` / C${data.currentChallenge}`
-  }
+  const challenge = data.currentChallenge === undefined ? '' : `C${data.currentChallenge}`
 
-  return [score, corruptions, loadout]
+  return [challenge, corruptions, loadout]
 }

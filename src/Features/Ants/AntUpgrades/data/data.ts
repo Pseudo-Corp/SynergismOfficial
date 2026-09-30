@@ -407,21 +407,15 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.ascensionScore.intro'),
     description: () => i18next.t('ants.upgrades.ascensionScore.description'),
     effect: (n: number) => {
-      const ascensionScoreBase = 100000 * (1 - Math.pow(0.999, n))
       const bankedCubes = 3 * Math.min(200, n) + 2500 * (1 - Math.pow(1 - 1 / 2750, n))
         + 96900 * (1 - Math.pow(1 - 1 / 969000, n))
       return {
-        cubesBanked: bankedCubes,
-        ascensionScoreBase: ascensionScoreBase
+        cubesBanked: bankedCubes
       }
     },
     effectDescription: () => {
       const effects = getAntUpgradeEffect(AntUpgrades.AscensionScore)
-      const effect1 = i18next.t('ants.upgrades.ascensionScore.effect', {
-        x: format(effects.ascensionScoreBase, 0, true)
-      })
-      const effect2 = i18next.t('ants.upgrades.ascensionScore.effect2', { x: format(effects.cubesBanked, 2, true) })
-      return `${effect1}<br>${effect2}`
+      return i18next.t('ants.upgrades.ascensionScore.effect2', { x: format(effects.cubesBanked, 2, true) })
     },
     lockedAutoDescription: () => i18next.t('ants.upgrades.ascensionScore.lockedAutomation')
   },

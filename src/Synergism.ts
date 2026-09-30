@@ -66,17 +66,17 @@ import {
   isOfflineDialogOpen
 } from './Calculate'
 import {
-  c15CorruptionState,
-  corruptionButtonsAdd,
-  corruptionIntensity,
+  c15CorruptionLevel,
+  corruptionEffect,
+  corruptionLevelStrength,
+  corruptionPanelCreate,
   corruptionPresetTableCreate,
   corruptionPresetTableUpdate,
   corruptionStatsUpdate,
-  corruptionTierEffect,
   createDefaultCorruptionPresets,
   isCorruptionPresetUnlocked,
   loadCorruptionPreset,
-  normalizeCorruptionTierState,
+  normalizeCorruptionLevel,
   resetNextCorruptions
 } from './Corruptions'
 import { calculateAcceleratorCubeBlessing, calculateMultiplierCubeBlessing, updateCubeUpgradeBG } from './Cubes'
@@ -997,10 +997,13 @@ export const player: Player = {
   },
 
   corruptions: {
-    next: { tier: 0, level: 0 },
-    used: { tier: 0, level: 0 },
+    next: 0,
+    used: 0,
     presets: createDefaultCorruptionPresets(),
-    tokenProgress: { tier: 0, level: 0 }
+    tokenCompletions: Array.from({ length: 226 }, () => 0),
+    highestCleared: 0,
+    autoIncrease: false,
+    cleanseToHighest: false
   },
 
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -2413,7 +2416,7 @@ export const updateAllTick = (): void => {
 
   calculateAcceleratorMultiplier()
   a *= G.acceleratorMultiplier
-  a = Math.pow(a, corruptionTierEffect(player.corruptions.used, 'viscosity'))
+  a = Math.pow(a, corruptionEffect(player.corruptions.used, 'viscosity'))
   a += getHepteractEffects('accelerator').accelerators
   a *= G.challenge15Rewards.accelerator.value
   a *= getHepteractEffects('accelerator').acceleratorMultiplier
@@ -2573,7 +2576,7 @@ export const updateAllMultiplier = (): void => {
   ) {
     a *= 1.25
   }
-  a = Math.pow(a, corruptionTierEffect(player.corruptions.used, 'viscosity'))
+  a = Math.pow(a, corruptionEffect(player.corruptions.used, 'viscosity'))
   a += getHepteractEffects('multiplier').multiplier
   a *= G.challenge15Rewards.multiplier.value
   a *= getHepteractEffects('multiplier').multiplierMultiplier
@@ -2787,7 +2790,7 @@ export const multipliers = (): void => {
       lol,
       1
         + ((1 / 20)
-            * corruptionIntensity(player.corruptions.used, 'recession')
+            * corruptionLevelStrength(player.corruptions.used)
             * Decimal.log(player.coins.add(1), 10))
           / (1e7 + Decimal.log(player.coins.add(1), 10))
     )
@@ -2802,7 +2805,7 @@ export const multipliers = (): void => {
   G.globalCoinMultiplier = lol
   G.globalCoinMultiplier = Decimal.pow(
     G.globalCoinMultiplier,
-    corruptionTierEffect(player.corruptions.used, 'recession')
+    corruptionEffect(player.corruptions.used, 'recession')
   )
 
   if (player.upgrades[1] > 0.5) {
@@ -3383,7 +3386,7 @@ export const resetCurrency = (): void => {
     prestigePow = 1e-4
     transcendPow = 0.001
   }
-  prestigePow *= corruptionTierEffect(player.corruptions.used, 'deflation')
+  prestigePow *= corruptionEffect(player.corruptions.used, 'deflation')
   // Prestige Point Formulae
   G.prestigePointGain = Decimal.floor(
     Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow)
@@ -3398,7 +3401,7 @@ export const resetCurrency = (): void => {
         Decimal.pow(10, 1e33),
         Decimal.pow(
           G.acceleratorEffect,
-          (1 / 3) * corruptionTierEffect(player.corruptions.used, 'deflation')
+          (1 / 3) * corruptionEffect(player.corruptions.used, 'deflation')
         )
       )
     )
@@ -4806,9 +4809,9 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   }
 
   player.corruptions.used = player.currentChallenge.ascension === 15
-    ? { ...c15CorruptionState }
-    : normalizeCorruptionTierState(player.corruptions.used)
-  player.corruptions.next = normalizeCorruptionTierState(player.corruptions.next)
+    ? c15CorruptionLevel
+    : normalizeCorruptionLevel(player.corruptions.used)
+  player.corruptions.next = normalizeCorruptionLevel(player.corruptions.next)
   corruptionStatsUpdate()
   corruptionPresetTableUpdate()
 
@@ -5015,7 +5018,7 @@ window.addEventListener('load', async () => {
   generatePurpleUpgradeTabHTML()
   initializeSynthesis()
   generateEventHandlers()
-  corruptionButtonsAdd()
+  corruptionPanelCreate()
   corruptionPresetTableCreate()
   createCampaignTokenRewardEventHandlers()
   generateAchievementHTMLs()

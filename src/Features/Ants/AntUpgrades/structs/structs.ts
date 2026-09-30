@@ -55,7 +55,6 @@ export type AntUpgradeTypeMap = {
   }
   [AntUpgrades.AscensionScore]: {
     cubesBanked: number
-    ascensionScoreBase: number
   }
   [AntUpgrades.WowCubes]: {
     wowCubes: number

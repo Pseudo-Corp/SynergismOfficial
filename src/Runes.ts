@@ -687,9 +687,9 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     levelsPerOOMIncrease: () => 0,
     effects: (n, key) => {
       if (key === 'ascensionScore') {
-        return n >= 1 ? 1.04 + 0.96 * (n - 1) / (n + 25) : 1
+        return n >= 1 ? Math.pow(1.04 + 0.96 * (n - 1) / (n + 25), 0.4) : 1
       } else if (key === 'corruptionFreeLevels') {
-        return n >= 1 ? 0.01 + 0.14 * (n - 1) / (n + 16) : 0
+        return n >= 1 ? (1 + 14 * (n - 1) / (n + 16)) / 15 : 0
       } else {
         return Math.floor(n / 2) // infiniteAscentFreeLevel
       }

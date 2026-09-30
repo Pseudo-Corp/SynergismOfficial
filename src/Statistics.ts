@@ -18,7 +18,6 @@ import {
   calculateAmbrosiaQuarkMult,
   calculateAntSacrificeMultiplier,
   calculateAscensionCount,
-  calculateAscensionScore,
   calculateAscensionSpeedExponentSpread,
   calculateAscensionSpeedMult,
   calculateBaseGoldenQuarks,
@@ -26,13 +25,16 @@ import {
   calculateBaseOfferings,
   calculateBlueberryInventory,
   calculateCookieUpgrade29Luck,
+  calculateCubeBank,
   calculateCubeMultFromPowder,
   calculateCubeMultiplier,
   calculateCubeMultiplierWithTau,
+  calculateCubeUpgradeCubeGain,
   calculateDilatedFiveLeafBonus,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
   calculateEventBuff,
+  calculateEventCubeGain,
   calculateExalt3Penalty,
   calculateExalt6Penalty,
   calculateFreeShopInfinityUpgrades,
@@ -89,9 +91,10 @@ import {
 import { campaignTokenBonuses } from './Campaign'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
 import {
-  corruptionIntensity,
-  corruptionTierEffect,
-  corruptionTotalLevels,
+  corruptionCubeRate,
+  type CorruptionCubeType,
+  corruptionEffect,
+  corruptionLevelStrength,
   effectiveCorruptionLevel,
   isCorruptionCubeUnlocked
 } from './Corruptions'
@@ -135,6 +138,7 @@ import {
 import { getLevelMilestone, getLevelReward } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import {
+  calculateAscensionScorePlatonicBlessing,
   calculateCubeMultiplierPlatonicBlessing,
   calculateGlobalSpeedPlatonicBlessing,
   calculateHypercubeMultiplierPlatonicBlessing,
@@ -249,10 +253,64 @@ export const displayStatLine = (type: StatLineTypes, num: number | Decimal, altD
   }
 }
 
+const challenge15CubeRewards = {
+  cubes: 'cube1',
+  tesseracts: 'cube2',
+  hypercubes: 'cube3',
+  platonics: 'cube4',
+  hepteracts: 'cube5',
+  octeracts: 'score'
+} as const satisfies Record<CorruptionCubeType, Challenge15Rewards>
+
+const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
+  {
+    i18n: 'CubeBank',
+    stat: () => calculateCubeBank()
+  },
+  {
+    i18n: 'Corruption',
+    stat: () =>
+      isCorruptionCubeUnlocked(player.corruptions.used, cube) ? corruptionCubeRate(cube, player.corruptions.used) : 0
+  },
+  {
+    i18n: 'Challenge15Bonus',
+    stat: () => G.challenge15Rewards[challenge15CubeRewards[cube]].value
+  }
+]
+
+const cubeGainSourceLines = [
+  {
+    i18n: 'PlatonicBlessing',
+    stat: () => calculateAscensionScorePlatonicBlessing()
+  },
+  {
+    i18n: 'FiniteDescent',
+    stat: () => getRuneEffects('finiteDescent', 'ascensionScore')
+  },
+  {
+    i18n: 'CubeUpgrades',
+    stat: () => calculateCubeUpgradeCubeGain()
+  },
+  {
+    i18n: 'CorruptionAchievements',
+    stat: () => +getAchievementReward('ascensionScore')
+  },
+  {
+    i18n: 'ExpertPack',
+    stat: () => getGQUpgradeEffect('expertPack', 'ascensionScoreMult')
+  },
+  {
+    i18n: 'EventCubeGain',
+    stat: () => calculateEventCubeGain(),
+    color: 'lime'
+  }
+]
+
 export const allCubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
   lines: [
+    ...cubeGainSourceLines,
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.CUBE_BUFF,
@@ -282,15 +340,6 @@ export const allCubeStats: NumberStatLineCategory = {
     {
       i18n: 'Campaign',
       stat: () => campaignTokenBonuses.cube()
-    },
-    {
-      i18n: 'Challenge15',
-      stat: () =>
-        G.challenge15Rewards.cube1.value
-        * G.challenge15Rewards.cube2.value
-        * G.challenge15Rewards.cube3.value
-        * G.challenge15Rewards.cube4.value
-        * G.challenge15Rewards.cube5.value
     },
     {
       i18n: 'InfiniteAscent',
@@ -466,25 +515,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
   lines: [
-    {
-      i18n: 'CubeBank',
-      stat: () => {
-        let cubeBank = 0
-        // Award Cubes for Challenges
-        for (let i = 1; i <= 10; i++) {
-          // Reward more for Reincarnation Challenges (c6-10)
-          const valuePerChallenge = i >= 6 ? 2 : 1
-          cubeBank += valuePerChallenge * player.challengecompletions[i]
-        }
-        // Award Cubes for Ant Upgrade
-        cubeBank += getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked
-        return cubeBank
-      }
-    },
-    {
-      i18n: 'AscensionScore',
-      stat: () => Math.pow(calculateAscensionScore().cubeScore / 3000, 1 / 4.1)
-    },
+    ...corruptionCubeStatLines('cubes'),
     {
       i18n: 'GlobalCube',
       stat: () => calculateAllCubeMultiplier()
@@ -555,7 +586,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
       stat: () =>
         1
         + 0.00009
-          * corruptionTotalLevels(player.corruptions.used)
+          * player.corruptions.used
           * player.platonicUpgrades[1]
     },
     {
@@ -586,10 +617,7 @@ export const allTesseractStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
   lines: [
-    {
-      i18n: 'AscensionScore',
-      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().cubeScore - 1e5) / 1e4, 0.35)
-    },
+    ...corruptionCubeStatLines('tesseracts'),
     {
       i18n: 'GlobalCube',
       stat: () => calculateAllCubeMultiplier()
@@ -621,7 +649,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CubeUpgrade4x8',
-      stat: () => 1 + (1 / 200) * player.cubeUpgrades[38] * corruptionTotalLevels(player.corruptions.used)
+      stat: () => 1 + (1 / 400) * player.cubeUpgrades[38] * player.corruptions.used
     },
     {
       i18n: 'PlatonicCube',
@@ -629,7 +657,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x2',
-      stat: () => 1 + 0.00018 * corruptionTotalLevels(player.corruptions.used) * player.platonicUpgrades[2]
+      stat: () => 1 + 0.00018 * player.corruptions.used * player.platonicUpgrades[2]
     }
   ]
 }
@@ -638,10 +666,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
   lines: [
-    {
-      i18n: 'AscensionScore',
-      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().cubeScore - 1e9) / 1e8, 0.5)
-    },
+    ...corruptionCubeStatLines('hypercubes'),
     {
       i18n: 'GlobalCube',
       stat: () => calculateAllCubeMultiplier()
@@ -669,7 +694,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x3',
-      stat: () => 1 + 0.00054 * corruptionTotalLevels(player.corruptions.used) * player.platonicUpgrades[3]
+      stat: () => 1 + 0.00054 * player.corruptions.used * player.platonicUpgrades[3]
     },
     {
       i18n: 'HyperrealHepteract',
@@ -682,10 +707,7 @@ export const allPlatonicCubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
   lines: [
-    {
-      i18n: 'AscensionScore',
-      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().cubeScore - 2.666e12) / 2.666e11, 0.75)
-    },
+    ...corruptionCubeStatLines('platonics'),
     {
       i18n: 'GlobalCube',
       stat: () => calculateAllCubeMultiplier()
@@ -722,10 +744,7 @@ export const allHepteractCubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
   lines: [
-    {
-      i18n: 'AscensionScore',
-      stat: () => Math.pow(1 + Math.max(0, calculateAscensionScore().cubeScore - 1.666e16) / 3.33e16, 0.85)
-    },
+    ...corruptionCubeStatLines('hepteracts'),
     {
       i18n: 'GlobalCube',
       stat: () => calculateAllCubeMultiplier()
@@ -758,14 +777,8 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
       i18n: 'BasePerSecond',
       stat: () => 1 / (24 * 3600 * 365 * 1e15)
     },
-    {
-      i18n: 'AscensionScore',
-      stat: () => {
-        return isCorruptionCubeUnlocked(player.corruptions.used, 'octeracts')
-          ? Math.max(1, calculateAscensionScore().cubeScore / 1e23)
-          : 0
-      }
-    },
+    ...corruptionCubeStatLines('octeracts'),
+    ...cubeGainSourceLines,
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.CUBE_BUFF,
@@ -804,8 +817,8 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     {
       i18n: 'CookieUpgrade20',
       stat: () => {
-        if (player.cubeUpgrades[70] > 0 && player.corruptions.used.tier === 4) {
-          return Math.pow(1.025, Math.max(0, effectiveCorruptionLevel(player.corruptions.used) - 150))
+        if (player.cubeUpgrades[70] > 0) {
+          return Math.pow(1.025, Math.max(0, effectiveCorruptionLevel(player.corruptions.used) - 175))
         } else {
           return 1
         }
@@ -951,6 +964,46 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
       }
     }
   ]
+}
+
+const corruptionCubeStatCategories: Record<CorruptionCubeType, NumberStatLineCategory> = {
+  cubes: allWowCubeStats,
+  tesseracts: allTesseractStats,
+  hypercubes: allHypercubeStats,
+  platonics: allPlatonicCubeStats,
+  hepteracts: allHepteractCubeStats,
+  octeracts: allOcteractCubeStats
+}
+
+const cubeGainBaseStatKeys = new Set(['CubeBank', 'Corruption', 'BasePerSecond', 'AscensionTime'])
+const cubeGainGlobalStatLines = new Set<StatLine<number>>(cubeGainSourceLines)
+
+const displayedStatProduct = (lines: StatLine<number>[]) => {
+  let product = 1
+  for (const line of lines) {
+    if (!cubeGainBaseStatKeys.has(line.i18n)) {
+      product *= line.stat()
+    }
+  }
+  return product
+}
+
+export const calculateCorruptionCubeMultiplierParts = (cube: CorruptionCubeType) => {
+  let global = 1
+  let specific = 1
+  for (const line of corruptionCubeStatCategories[cube].lines) {
+    if (cubeGainBaseStatKeys.has(line.i18n)) {
+      continue
+    }
+    if (line.i18n === 'GlobalCube') {
+      global *= displayedStatProduct(allCubeStats.lines)
+    } else if (cubeGainGlobalStatLines.has(line)) {
+      global *= line.stat()
+    } else {
+      specific *= line.stat()
+    }
+  }
+  return { global: Math.min(1e300, global), specific: Math.min(1e300, specific) }
 }
 
 export const allBaseOfferingStats: NumberStatLineCategory = {
@@ -1859,7 +1912,7 @@ const obtainiumDR: DecimalStatLineCategory = {
   lines: [
     {
       i18n: 'ObtainiumDR',
-      stat: () => corruptionTierEffect(player.corruptions.used, 'illiteracy'),
+      stat: () => corruptionEffect(player.corruptions.used, 'illiteracy'),
       color: 'orange'
     },
     {
@@ -2076,7 +2129,7 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'SpacialDilation',
-      stat: () => corruptionTierEffect(player.corruptions.used, 'dilation'), // Spacial Dilation
+      stat: () => corruptionEffect(player.corruptions.used, 'dilation'), // Spacial Dilation
       color: 'red'
     },
     {
@@ -2136,7 +2189,7 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'PlatonicOMEGA',
-      stat: () => 1 + 0.002 * corruptionTotalLevels(player.corruptions.used) * player.platonicUpgrades[15] // Platonic Omega
+      stat: () => 1 + 0.002 * player.corruptions.used * player.platonicUpgrades[15] // Platonic Omega
     },
     {
       i18n: 'Challenge15',
@@ -3326,7 +3379,7 @@ export const negativeSalvageStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'DroughtCorruption',
-      stat: () => corruptionTierEffect(player.corruptions.used, 'drought'),
+      stat: () => corruptionEffect(player.corruptions.used, 'drought'),
       color: 'red',
       acc: 0
     },
@@ -3622,7 +3675,7 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'PlatonicUpgrade12',
-      stat: () => (1 / 200) * player.platonicUpgrades[12] * corruptionIntensity(player.corruptions.used, 'extinction')
+      stat: () => (1 / 200) * player.platonicUpgrades[12] * corruptionLevelStrength(player.corruptions.used)
     },
     {
       i18n: 'SingularityDebuff',
@@ -4957,7 +5010,11 @@ export const updateDisplayC15Rewards = () => {
     if (player.challenge15Exponent >= requirement) {
       elm.style.display = player.challenge15Exponent >= requirement ? 'block' : 'none'
       elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
-        amount: doNotUsePercentage ? format(value, 0, true) : formatAsPercentIncrease(value, 2)
+        amount: v.displayAsMultiplier
+          ? format(value, 2, true)
+          : doNotUsePercentage
+          ? format(value, 0, true)
+          : formatAsPercentIncrease(value, 2)
       })
     } else {
       elm.style.display = 'none'

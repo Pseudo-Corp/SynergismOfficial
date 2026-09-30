@@ -1,15 +1,18 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { getOcteractUpgradeEffect } from './Octeracts'
+import { calculateCubeBank, calculateCubeBankSources } from './Calculate'
+import { corruptionLevelTokenInfo } from './Campaign'
+import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getRuneEffects } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
+import { calculateCorruptionCubeMultiplierParts } from './Statistics'
 import { format, player } from './Synergism'
 import { getTalismanEffects } from './Talismans'
 import { IconSets } from './Themes'
-import { Alert, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, Prompt } from './UpdateHTML'
+import { Alert, CloseModal, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, Prompt } from './UpdateHTML'
 import { assert, getElementById, isMobile, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -48,32 +51,23 @@ export type Corruptions = {
   hyperchallenge: number
 }
 
-export type CorruptionTier = 0 | 1 | 2 | 3 | 4
+type CorruptionBand = 0 | 1 | 2 | 3 | 4
 
-type ActiveCorruptionTier = Exclude<CorruptionTier, 0>
+type ActiveCorruptionBand = Exclude<CorruptionBand, 0>
 
-export type CorruptionTierState = {
-  tier: CorruptionTier
-  level: number
-}
-
-export type CorruptionPreset = CorruptionTierState & {
+export type CorruptionPreset = {
   name: string
+  level: number
 }
 
 export type CorruptionCubeType = 'cubes' | 'tesseracts' | 'hypercubes' | 'platonics' | 'hepteracts' | 'octeracts'
 
-type CorruptionTierData = {
+type CorruptionBandData = {
   unlockChallenge: number
-  levelCap: number
-  anchorLevel: number
-  anchorIntensity: number
-  anchorScore: number
-  scoreExponent: number
+  lastLevel: number
 }
 
 type CorruptionCubeUnlock = {
-  tier: CorruptionTier
   level: number
   requiresChallenge15: boolean
 }
@@ -94,66 +88,134 @@ export const isCorruptionPresetUnlocked = (presetNum: number) => {
 export const createDefaultCorruptionPresets = (): CorruptionPreset[] => {
   return Array.from({ length: MAX_CORRUPTION_PRESET_COUNT }, (_, index) => ({
     name: `Preset ${index + 1}`,
-    tier: 0,
     level: 0
   }))
 }
 
-export const c15CorruptionState: CorruptionTierState = { tier: 4, level: 100 }
+export const c15CorruptionLevel = 100
+const c14LevelCap = 100
+const levelCapPerIncrease = 25
+const fastClimbSingularity = 2
+const fastClimbStep = 10
 
-export const corruptionTierList: CorruptionTier[] = [0, 1, 2, 3, 4]
+const corruptionBands: Record<ActiveCorruptionBand, CorruptionBandData> = {
+  1: { unlockChallenge: 11, lastLevel: 20 },
+  2: { unlockChallenge: 12, lastLevel: 40 },
+  3: { unlockChallenge: 13, lastLevel: 70 },
+  4: { unlockChallenge: 14, lastLevel: Number.POSITIVE_INFINITY }
+}
 
-const corruptionTiers: Record<ActiveCorruptionTier, CorruptionTierData> = {
-  1: { unlockChallenge: 11, levelCap: 20, anchorLevel: 20, anchorIntensity: 5, anchorScore: 49, scoreExponent: 2 },
-  2: { unlockChallenge: 12, levelCap: 40, anchorLevel: 40, anchorIntensity: 7, anchorScore: 5220, scoreExponent: 2.75 },
-  3: { unlockChallenge: 13, levelCap: 75, anchorLevel: 70, anchorIntensity: 9, anchorScore: 1e6, scoreExponent: 3.5 },
-  4: {
-    unlockChallenge: 14,
-    levelCap: Number.POSITIVE_INFINITY,
-    anchorLevel: 100,
-    anchorIntensity: 11,
-    anchorScore: 3.06e8,
-    scoreExponent: 4.25
+type CorruptionScaling = 'linear' | 'exponential' | 'formula'
+
+const corruptionScalings: Record<keyof Corruptions, CorruptionScaling> = {
+  viscosity: 'linear',
+  drought: 'linear',
+  deflation: 'formula',
+  extinction: 'linear',
+  illiteracy: 'linear',
+  recession: 'linear',
+  dilation: 'formula',
+  hyperchallenge: 'exponential'
+}
+
+export const corruptionKeys = Object.keys(corruptionScalings) as Array<keyof Corruptions>
+
+const corruptionCubeUnlocks: Record<CorruptionCubeType, CorruptionCubeUnlock> = {
+  cubes: { level: 0, requiresChallenge15: false },
+  tesseracts: { level: 0, requiresChallenge15: false },
+  hypercubes: { level: 41, requiresChallenge15: false },
+  platonics: { level: 71, requiresChallenge15: false },
+  hepteracts: { level: 100, requiresChallenge15: true },
+  octeracts: { level: 175, requiresChallenge15: false }
+}
+
+type CorruptionCubeRate = {
+  anchors: Array<[number, number]>
+  growth: number
+}
+
+const corruptionCubeRates: Record<CorruptionCubeType, CorruptionCubeRate> = {
+  cubes: {
+    anchors: [[0, 1.602], [20, 2.984], [40, 9.565], [70, 43.27], [100, 140.5], [150, 1955], [225, 3335], [300, 7650]],
+    growth: 1.01113
+  },
+  tesseracts: {
+    anchors: [[0, 1.824e-3], [50, 0.01696], [100, 1.729], [150, 11.66], [225, 30.66], [300, 135.8]],
+    growth: 1.02004
+  },
+  hypercubes: {
+    anchors: [[41, 5.032e-4], [70, 7.79e-3], [100, 0.1326], [150, 5.893], [225, 22.04], [300, 166.3]],
+    growth: 1.02731
+  },
+  platonics: {
+    anchors: [[71, 7.135e-4], [100, 0.01103], [150, 1.238], [225, 10.04], [300, 208]],
+    growth: 1.04124
+  },
+  hepteracts: {
+    anchors: [[100, 1.33e-5], [150, 5.708e-5], [225, 5.078e-4], [300, 0.0139]],
+    growth: 1.04511
+  },
+  octeracts: {
+    anchors: [[175, 8.587e-7], [225, 2.474e-6], [300, 1.084e-4]],
+    growth: 1.05169
   }
 }
 
-export const corruptionUnlockTier: Record<keyof Corruptions, ActiveCorruptionTier> = {
-  viscosity: 1,
-  drought: 1,
-  deflation: 2,
-  extinction: 2,
-  illiteracy: 3,
-  recession: 3,
-  dilation: 4,
-  hyperchallenge: 4
+const c10FreeLevelsPerCompletion = 0.5
+
+const corruptionCubeIcons: Record<CorruptionCubeType, string> = {
+  cubes: '/WowCube.png',
+  tesseracts: '/WowTessaract.png',
+  hypercubes: '/WowHypercube.png',
+  platonics: '/PlatonicCube.png',
+  hepteracts: '/Hepteract.png',
+  octeracts: '/Octeract.png'
 }
 
-export const corruptionKeys = Object.keys(corruptionUnlockTier) as Array<keyof Corruptions>
+const corruptionCubeTypes = Object.keys(corruptionCubeIcons) as CorruptionCubeType[]
 
-const corruptionCubeUnlocks: Record<CorruptionCubeType, CorruptionCubeUnlock> = {
-  cubes: { tier: 0, level: 0, requiresChallenge15: false },
-  tesseracts: { tier: 0, level: 0, requiresChallenge15: false },
-  hypercubes: { tier: 3, level: 0, requiresChallenge15: false },
-  platonics: { tier: 4, level: 0, requiresChallenge15: false },
-  hepteracts: { tier: 4, level: 100, requiresChallenge15: true },
-  octeracts: { tier: 4, level: 150, requiresChallenge15: false }
-}
-
-const levelsPerIntensityPastFinalAnchor = 25
+const endgameLevel = 225
+const deflationZeroLevel = 200
 const goldenRatio = (1 + Math.sqrt(5)) / 2
 
-const corruptionIntensityEffects: Record<keyof Corruptions, (intensity: number) => number> = {
-  viscosity: (e) => e >= 15.6 ? 0 : Math.pow(1 - e / 15.6, 4 / 3),
-  drought: (e) => 0 - 10 * e * e,
-  deflation: (e) => e >= 15 ? 0 : Math.pow(10, -0.2 * e * e),
-  extinction: (e) => 1 + e * e / (e + 2.5),
-  illiteracy: (e) => Math.pow(2, -e / 5),
-  recession: (e) => Math.pow(0.81, e),
-  dilation: (e) => Math.max(1e-300, Math.pow(10, -0.2 * e * e)),
-  hyperchallenge: (e) => (1 + Math.pow(goldenRatio, e)) / 2
+const c15CorruptionEffects: Record<keyof Corruptions, number> = {
+  viscosity: 0.2,
+  drought: -1250,
+  deflation: 1e-25,
+  extinction: 10,
+  illiteracy: 0.2,
+  recession: 0.09,
+  dilation: 1e-24,
+  hyperchallenge: 100
 }
 
-const previousCorruptionTier = (tier: ActiveCorruptionTier) => (tier - 1) as ActiveCorruptionTier
+const baseCorruptionEffects: Record<keyof Corruptions, number> = {
+  viscosity: 1,
+  drought: 0,
+  deflation: 1,
+  extinction: 1,
+  illiteracy: 1,
+  recession: 1,
+  dilation: 1,
+  hyperchallenge: 1
+}
+
+export const corruptionLevelStrength = (level: number) => Math.min(0.11 * level, 0.04 * level + 7)
+
+const endgameScaledStrength = (level: number, slope: number) => {
+  return 0.04 * Math.min(level, endgameLevel) + 7 + slope * Math.max(0, level - endgameLevel)
+}
+
+const corruptionLevelEffects: Record<keyof Corruptions, (level: number) => number> = {
+  viscosity: () => 0,
+  drought: (l) => -10 * Math.pow(0.04 * l + 7, 2),
+  deflation: (l) => l >= deflationZeroLevel ? 0 : Math.pow(10, -25 * Math.pow(corruptionLevelStrength(l) / 11, 2)),
+  extinction: (l) => 1 + Math.pow(0.04 * l + 7, 2) / (0.04 * l + 9.5),
+  illiteracy: (l) => Math.pow(2, -(0.04 * l + 7) / 5),
+  recession: (l) => Math.pow(0.81, endgameScaledStrength(l, 1)),
+  dilation: (l) => Math.max(1e-300, Math.pow(10, -24 * Math.pow(corruptionLevelStrength(l) / 11, 2))),
+  hyperchallenge: (l) => Math.min(1e300, (1 + Math.pow(goldenRatio, endgameScaledStrength(l, 1.6))) / 2)
+}
 
 const adjustCorruptionEffect = (corr: keyof Corruptions, base: number) => {
   switch (corr) {
@@ -174,168 +236,212 @@ const adjustCorruptionEffect = (corr: keyof Corruptions, base: number) => {
   }
 }
 
-export const isCorruptionTierUnlocked = (tier: CorruptionTier) => {
-  return tier === 0
-    || player.challengecompletions[corruptionTiers[tier].unlockChallenge] > 0
+export const isCorruptionBandUnlocked = (band: CorruptionBand) => {
+  return band === 0
+    || player.challengecompletions[corruptionBands[band].unlockChallenge] > 0
     || getGQUpgradeEffect('platonicTau', 'unlocked')
 }
 
-export const corruptionLevelCap = (tier: CorruptionTier) => {
-  return tier === 0 ? 0 : corruptionTiers[tier].levelCap
-}
-
-export const normalizeCorruptionTierState = (state: CorruptionTierState): CorruptionTierState => {
-  let tier = state.tier
-  while (!isCorruptionTierUnlocked(tier)) {
-    tier = (tier - 1) as CorruptionTier
+const corruptionBandOf = (level: number): CorruptionBand => {
+  if (level <= 0) {
+    return 0
   }
-
-  const level = tier !== 0 && validateNonnegativeInteger(state.level)
-    ? Math.min(Math.max(0, state.level), corruptionLevelCap(tier))
-    : 0
-
-  return { tier, level }
+  for (const band of [1, 2, 3] as const) {
+    if (level <= corruptionBands[band].lastLevel) {
+      return band
+    }
+  }
+  return 4
 }
 
-export const compareCorruptionTierStates = (a: CorruptionTierState, b: CorruptionTierState) => {
-  return a.tier === b.tier ? a.level - b.level : a.tier - b.tier
+const corruptionLevelCapIncrease = () => {
+  return (player.platonicUpgrades[5] > 0 ? levelCapPerIncrease : 0)
+    + (player.platonicUpgrades[10] > 0 ? levelCapPerIncrease : 0)
+    + (getGQUpgradeEffect('corruptionFourteen', 'unlocked') ? levelCapPerIncrease : 0)
+    + levelCapPerIncrease * getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
 }
 
-export const isCorruptionTierStateAtLeast = (state: CorruptionTierState, tier: CorruptionTier, level: number) => {
-  return state.tier > tier || (state.tier === tier && state.level >= level)
+const isCorruptionLevelCapMaxed = () => {
+  return player.platonicUpgrades[5] > 0
+    && player.platonicUpgrades[10] > 0
+    && getGQUpgradeEffect('corruptionFourteen', 'unlocked')
+    && getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
+      >= octeractUpgrades.octeractCorruption.maxLevel
 }
 
-export const corruptionTierFreeLevels = (tier: ActiveCorruptionTier) => {
+const corruptionLevelCap = () => {
+  if (getGQUpgradeEffect('platonicTau', 'unlocked')) {
+    return Number.POSITIVE_INFINITY
+  }
+  if (isCorruptionBandUnlocked(4)) {
+    return c14LevelCap + corruptionLevelCapIncrease()
+  }
+  for (const band of [3, 2, 1] as const) {
+    if (isCorruptionBandUnlocked(band)) {
+      return corruptionBands[band].lastLevel
+    }
+  }
+  return 0
+}
+
+const corruptionClimbStep = () => {
+  return player.highestSingularityCount >= fastClimbSingularity ? fastClimbStep : 1
+}
+
+export const maxCorruptionLevel = () => {
+  return Math.min(corruptionLevelCap(), player.corruptions.highestCleared + corruptionClimbStep())
+}
+
+export const clearCorruptionLevel = (level: number) => {
+  if (level <= player.corruptions.highestCleared || level > player.corruptions.highestCleared + corruptionClimbStep()) {
+    return
+  }
+  player.corruptions.highestCleared = level
+  if (player.corruptions.autoIncrease) {
+    player.corruptions.next = Math.max(player.corruptions.next, maxCorruptionLevel())
+  }
+}
+
+export const normalizeCorruptionLevel = (level: number) => {
+  return validateNonnegativeInteger(level) ? Math.min(level, maxCorruptionLevel()) : 0
+}
+
+export const corruptionFreeLevels = () => {
   let freeLevels = 2 * getGQUpgradeEffect('corruptionFifteen', 'freeCorruptionLevel')
   freeLevels += 3 * getSingularityChallengeEffect('oneChallengeCap', 'freeCorruptionLevel')
-  freeLevels += 20 * getTalismanEffects('cookieGrandma').freeCorruptionLevel
-  freeLevels += getRuneEffects('finiteDescent', 'corruptionFreeLevels') / 0.15
+  freeLevels += getTalismanEffects('cookieGrandma').freeCorruptionLevel
+  freeLevels += getRuneEffects('finiteDescent', 'corruptionFreeLevels')
   freeLevels += getGQUpgradeEffect('corruptionFourteen', 'unlocked') ? 1 : 0
   freeLevels += getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
   freeLevels += player.platonicUpgrades[5] > 0 ? 1 : 0
   freeLevels += player.platonicUpgrades[10] > 0 ? 1 : 0
-  freeLevels += getGQUpgradeEffect('advancedPack', 'corruptionScoreIncrease') > 0 ? 0.5 * tier : 0
-  freeLevels += getSingularityChallengeEffect('oneChallengeCap', 'corrScoreIncrease') * tier
-  freeLevels += 0.5 * tier * player.cubeUpgrades[74]
+  freeLevels += getGQUpgradeEffect('masterPack', 'freeCorruptionLevels')
+  freeLevels += getGQUpgradeEffect('advancedPack', 'corruptionScoreIncrease') > 0 ? 2 : 0
+  freeLevels += 4 * getSingularityChallengeEffect('oneChallengeCap', 'corrScoreIncrease')
+  freeLevels += 2 * player.cubeUpgrades[74]
+  freeLevels += player.platonicUpgrades[17]
+  freeLevels += challengeTenFreeLevels()
   return freeLevels
 }
 
-export const corruptionFreeLevels = (state: CorruptionTierState) => {
-  return state.tier === 0 ? 0 : corruptionTierFreeLevels(state.tier)
+export const challengeTenGivesFreeLevels = () => {
+  return player.challengecompletions[11] > 0
 }
 
-export const effectiveCorruptionLevel = (state: CorruptionTierState) => {
-  return state.level + corruptionFreeLevels(state)
+export const challengeTenFreeLevelsPerCompletion = () => {
+  return c10FreeLevelsPerCompletion + 0.05 * player.cubeUpgrades[39]
+    + 0.025 * (player.platonicUpgrades[5] + player.platonicUpgrades[10])
 }
 
-export const corruptionIntensity = (state: CorruptionTierState, corr: keyof Corruptions): number => {
-  const unlockTier = corruptionUnlockTier[corr]
-  if (state.tier === 0 || state.tier < unlockTier) {
-    return 0
+const challengeTenFreeLevels = () => {
+  return challengeTenGivesFreeLevels()
+    ? challengeTenFreeLevelsPerCompletion() * player.highestchallengecompletions[10]
+    : 0
+}
+
+export const effectiveCorruptionLevel = (level: number) => {
+  return level + corruptionFreeLevels()
+}
+
+const corruptionSegments = (corr: keyof Corruptions) => {
+  return [
+    { from: 0, to: c15CorruptionLevel, start: baseCorruptionEffects[corr], end: c15CorruptionEffects[corr] },
+    {
+      from: c15CorruptionLevel,
+      to: endgameLevel,
+      start: c15CorruptionEffects[corr],
+      end: corruptionLevelEffects[corr](endgameLevel)
+    }
+  ]
+}
+
+const scaledCorruptionValue = (corr: keyof Corruptions, level: number) => {
+  const scaling = corruptionScalings[corr]
+  if (scaling === 'formula' || level > endgameLevel) {
+    return corruptionLevelEffects[corr](level)
   }
 
-  const tierData = corruptionTiers[state.tier]
-  if (state.level > tierData.anchorLevel && !Number.isFinite(tierData.levelCap)) {
-    return tierData.anchorIntensity + (state.level - tierData.anchorLevel) / levelsPerIntensityPastFinalAnchor
-  }
-
-  if (state.tier === unlockTier) {
-    return tierData.anchorIntensity * state.level / tierData.anchorLevel
-  }
-
-  const previousTier = previousCorruptionTier(state.tier)
-  const start = corruptionIntensity({ tier: previousTier, level: corruptionTiers[previousTier].levelCap }, corr)
-  return start + (tierData.anchorIntensity - start) * state.level / tierData.anchorLevel
+  const { from, to, start, end } = corruptionSegments(corr)[level <= c15CorruptionLevel ? 0 : 1]
+  const progress = (level - from) / (to - from)
+  return scaling === 'linear' ? start + (end - start) * progress : start * Math.pow(end / start, progress)
 }
 
-export const corruptionTierEffect = (state: CorruptionTierState, corr: keyof Corruptions) => {
-  return adjustCorruptionEffect(corr, corruptionIntensityEffects[corr](corruptionIntensity(state, corr)))
+export const corruptionEffect = (level: number, corr: keyof Corruptions) => {
+  return adjustCorruptionEffect(corr, scaledCorruptionValue(corr, level))
 }
 
-const baseCorruptionTierScore = (tier: ActiveCorruptionTier, level: number): number => {
-  const tierData = corruptionTiers[tier]
-  let floor = 1
-  if (tier !== 1) {
-    const previousTier = previousCorruptionTier(tier)
-    floor = baseCorruptionTierScore(previousTier, corruptionTiers[previousTier].levelCap)
+export const corruptionCubeRate = (cube: CorruptionCubeType, level: number) => {
+  const { anchors, growth } = corruptionCubeRates[cube]
+  const effectiveLevel = effectiveCorruptionLevel(level)
+  const [lastLevel, lastRate] = anchors[anchors.length - 1]
+  if (effectiveLevel >= lastLevel) {
+    return lastRate * Math.pow(growth, effectiveLevel - lastLevel)
   }
-  return floor + (tierData.anchorScore - floor) * Math.pow(level / tierData.anchorLevel, tierData.scoreExponent)
+  if (effectiveLevel <= anchors[0][0]) {
+    return anchors[0][1]
+  }
+  let i = 1
+  while (effectiveLevel > anchors[i][0]) {
+    i++
+  }
+  const [startLevel, startRate] = anchors[i - 1]
+  const [endLevel, endRate] = anchors[i]
+  return startRate * Math.pow(endRate / startRate, (effectiveLevel - startLevel) / (endLevel - startLevel))
 }
 
-export const corruptionTierScoreMultiplier = (state: CorruptionTierState) => {
-  if (state.tier === 0) {
+export const corruptionSpiritMultiplier = (level: number) => {
+  if (level === 0) {
     return 1
   }
 
-  const score = baseCorruptionTierScore(state.tier, effectiveCorruptionLevel(state))
-  return state.tier === 4 ? Math.pow(score, 1 + 0.0175 * player.platonicUpgrades[17]) : score
+  return 1 + 0.04 * corruptionKeys.length * Math.pow(corruptionLevelStrength(effectiveCorruptionLevel(level)), 2)
 }
 
-export const corruptionCubeScoreMultiplier = (state: CorruptionTierState) => {
-  if (state.tier !== 4) {
-    return 1
-  }
-
-  const level = effectiveCorruptionLevel(state)
-  const growth = Math.min(2500, Math.pow(1.12, Math.max(0, level - 150)))
-  const dip = 1 - 0.35 * Math.max(0, 1 - Math.abs(level - 150) / 50)
-  return growth * dip
-}
-
-export const corruptionTierSpiritMultiplier = (state: CorruptionTierState) => {
-  if (state.tier === 0) {
-    return 1
-  }
-
-  const effectiveState = { tier: state.tier, level: effectiveCorruptionLevel(state) }
-  return 1
-    + 0.04 * corruptionKeys.reduce((sum, corr) => sum + Math.pow(corruptionIntensity(effectiveState, corr), 2), 0)
-}
-
-export const corruptionTotalLevels = (state: CorruptionTierState) => {
-  return state.tier * state.level / 4
-}
-
-export const isCorruptionCubeUnlocked = (state: CorruptionTierState, cube: CorruptionCubeType) => {
+const meetsCorruptionCubeLevel = (level: number, cube: CorruptionCubeType) => {
   const unlock = corruptionCubeUnlocks[cube]
-  if (state.tier < unlock.tier) {
-    return false
-  }
-
-  if (unlock.level > 0 && effectiveCorruptionLevel(state) < unlock.level) {
-    return false
-  }
-
-  return !unlock.requiresChallenge15 || G.challenge15Rewards.hepteractsUnlocked.value > 0
+  return effectiveCorruptionLevel(level) >= unlock.level
 }
 
-export const setNextCorruptions = (state: CorruptionTierState) => {
-  player.corruptions.next = normalizeCorruptionTierState(state)
+const corruptionCubeUnlockLevel = (cube: CorruptionCubeType) => {
+  const level = Math.max(0, Math.floor(corruptionCubeUnlocks[cube].level - corruptionFreeLevels()))
+  return meetsCorruptionCubeLevel(level, cube) ? level : level + 1
+}
+
+export const isCorruptionCubeUnlocked = (level: number, cube: CorruptionCubeType) => {
+  return meetsCorruptionCubeLevel(level, cube)
+    && (!corruptionCubeUnlocks[cube].requiresChallenge15 || G.challenge15Rewards.hepteractsUnlocked.value > 0)
+}
+
+export const setNextCorruptionLevel = (level: number) => {
+  player.corruptions.next = normalizeCorruptionLevel(Math.floor(level))
   corruptionStatsUpdate()
   corruptionPresetTableUpdate()
 }
 
-export const setNextCorruptionTier = (tier: CorruptionTier) => {
-  setNextCorruptions({ tier, level: player.corruptions.next.level })
-}
-
-export const setNextCorruptionLevel = (level: number) => {
-  setNextCorruptions({ tier: player.corruptions.next.tier, level: Math.floor(level) })
-}
-
 export const changeNextCorruptionLevel = (delta: number) => {
-  setNextCorruptionLevel(Math.max(0, player.corruptions.next.level + delta))
+  setNextCorruptionLevel(Math.max(0, player.corruptions.next + delta))
 }
 
 export const maxNextCorruptionLevel = () => {
-  const cap = corruptionLevelCap(player.corruptions.next.tier)
-  if (Number.isFinite(cap)) {
-    setNextCorruptionLevel(cap)
-  }
+  setNextCorruptionLevel(maxCorruptionLevel())
 }
 
 export const resetNextCorruptions = () => {
-  setNextCorruptions({ tier: 0, level: 0 })
+  setNextCorruptionLevel(0)
+}
+
+const corruptionCleanseLevel = () => {
+  return Math.min(player.corruptions.highestCleared, maxCorruptionLevel())
+}
+
+export const toggleCorruptionAutoIncrease = () => {
+  player.corruptions.autoIncrease = !player.corruptions.autoIncrease
+  corruptionStatsUpdate()
+}
+
+export const toggleCorruptionCleanseToHighest = () => {
+  player.corruptions.cleanseToHighest = !player.corruptions.cleanseToHighest
+  corruptionStatsUpdate()
 }
 
 export const cleanseCorruptions = () => {
@@ -344,9 +450,9 @@ export const cleanseCorruptions = () => {
     return
   }
 
-  player.corruptions.used = { tier: 0, level: 0 }
-  resetNextCorruptions()
-  corruptionDisplay('exit')
+  const level = player.corruptions.cleanseToHighest ? corruptionCleanseLevel() : 0
+  player.corruptions.used = Math.min(player.corruptions.used, level)
+  setNextCorruptionLevel(level)
   DOMCacheGetOrSet('corruptionCleanseConfirm').style.visibility = 'hidden'
 }
 
@@ -361,79 +467,313 @@ export const corrIcons: Record<keyof Corruptions, string> = {
   hyperchallenge: '/CorruptHyperchallenge.png'
 }
 
-const corruptionDisplayDetails = (corr: keyof Corruptions | 'exit') => {
-  if (corr === 'exit') {
-    return {
-      name: i18next.t('corruptions.exitCorruption.name'),
-      description: i18next.t('corruptions.exitCorruption.description'),
-      current: i18next.t('corruptions.exitCorruption.current'),
-      planned: i18next.t('corruptions.exitCorruption.planned'),
-      note: i18next.t('corruptions.exitCorruption.multiplier'),
-      freeLevels: '',
-      image: `Pictures/${IconSets[player.iconSet][0]}/CorruptExit.png`
-    }
-  }
+const formatCoefficient = (value: number, digits = 4) => {
+  const rounded = String(Number(Math.abs(value).toPrecision(digits)))
+  return value < 0 ? `−${rounded}` : rounded
+}
 
-  return {
-    name: i18next.t(`corruptions.names.${corr}`),
-    description: i18next.t(`corruptions.descriptions.${corr}`),
-    current: i18next.t(`corruptions.currentLevel.${corr}`, {
-      intensity: format(corruptionIntensity(player.corruptions.used, corr), 2, true),
-      effect: format(corruptionTierEffect(player.corruptions.used, corr), 3, true)
-    }),
-    planned: i18next.t(`corruptions.prototypeLevel.${corr}`, {
-      intensity: format(corruptionIntensity(player.corruptions.next, corr), 2, true),
-      effect: format(corruptionTierEffect(player.corruptions.next, corr), 3, true)
-    }),
-    note: '',
-    freeLevels: i18next.t('corruptions.freeLevels', {
-      curr: format(corruptionFreeLevels(player.corruptions.used), 2, true)
-    }),
-    image: `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
+const corruptionFormulaSegment = (
+  corr: keyof Corruptions,
+  { from, to, start, end }: ReturnType<typeof corruptionSegments>[number]
+) => {
+  const range = from === 0
+    ? i18next.t('corruptions.modal.firstRange', { to })
+    : i18next.t('corruptions.modal.range', { from, to })
+  const slope = formatCoefficient(Math.abs(end - start) / (to - from))
+  const sign = end < start ? '−' : '+'
+  let formula: string
+  if (corruptionScalings[corr] === 'exponential') {
+    formula = from === 0
+      ? i18next.t('corruptions.modal.exponentialFromOne', { end: formatCoefficient(end), to })
+      : i18next.t('corruptions.modal.exponential', {
+        start: formatCoefficient(start),
+        ratio: formatCoefficient(Math.pow(end / start, 1 / (to - from)), 6),
+        from
+      })
+  } else if (from === 0) {
+    formula = start === 0
+      ? i18next.t('corruptions.modal.linearNoStart', { sign: sign === '−' ? sign : '', slope })
+      : i18next.t('corruptions.modal.linearFromZero', { start: formatCoefficient(start), sign, slope })
+  } else {
+    formula = i18next.t('corruptions.modal.linear', { start: formatCoefficient(start), sign, slope, from })
+  }
+  return { range, formula }
+}
+
+const corruptionFormulaBranch = (corr: keyof Corruptions, level: number) => {
+  if (level <= c15CorruptionLevel) {
+    return 0
+  }
+  switch (corr) {
+    case 'deflation':
+      return level < deflationZeroLevel ? 1 : 2
+    case 'dilation':
+      return 1
+    default:
+      return level <= endgameLevel ? 1 : 2
   }
 }
 
-const corruptionDetailsModalHTML = (corr: keyof Corruptions | 'exit') => {
-  const text = corruptionDisplayDetails(corr)
+type CorruptionFormulaRow = { range: string; formula: string }
 
+const corruptionFormulaRanges: Partial<Record<keyof Corruptions, Array<{ formula: string; range: () => string }>>> = {
+  deflation: [
+    { formula: 'low', range: () => i18next.t('corruptions.modal.firstRange', { to: c15CorruptionLevel }) },
+    {
+      formula: 'mid',
+      range: () => i18next.t('corruptions.modal.openRange', { from: c15CorruptionLevel, to: deflationZeroLevel })
+    },
+    { formula: 'zero', range: () => i18next.t('corruptions.modal.atLeast', { from: deflationZeroLevel }) }
+  ],
+  dilation: [
+    { formula: 'low', range: () => i18next.t('corruptions.modal.firstRange', { to: c15CorruptionLevel }) },
+    { formula: 'high', range: () => i18next.t('corruptions.modal.lastRange', { from: c15CorruptionLevel }) }
+  ]
+}
+
+const corruptionFormulaTableHTML = (rows: CorruptionFormulaRow[], current: number, next: number) => {
+  const cells = rows.map(({ range, formula }, i) => {
+    const active = i === current ? ' corruptionFormulaActive' : ''
+    const currentMarker = i === current
+      ? i18next.t('corruptions.modal.currentMarker', { level: format(player.corruptions.used) })
+      : ''
+    const nextMarker = i === next
+      ? i18next.t('corruptions.modal.nextMarker', { level: format(player.corruptions.next) })
+      : ''
+    return `<span class="corruptionFormulaCurrent">${currentMarker}</span>
+      <span class="corruptionFormulaRange${active}">${range}</span>
+      <span class="corruptionFormulaExpression${active}">${formula}</span>
+      <span class="corruptionFormulaNext">${nextMarker}</span>`
+  }).join('')
+  return `<div class="corruptionFormulaTable">${cells}</div>`
+}
+
+const corruptionLevelFormulaHTML = (corr: keyof Corruptions) => {
+  const ranges = corruptionFormulaRanges[corr]
+  const rows = ranges === undefined
+    ? [
+      ...corruptionSegments(corr).map((segment) => corruptionFormulaSegment(corr, segment)),
+      {
+        range: i18next.t('corruptions.modal.lastRange', { from: endgameLevel }),
+        formula: i18next.t(`corruptions.levelFormulas.${corr}`)
+      }
+    ]
+    : ranges.map(({ formula, range }) => ({
+      range: range(),
+      formula: i18next.t(`corruptions.levelFormulas.${corr}.${formula}`)
+    }))
+  return `<div>${i18next.t('corruptions.modal.levelFormula')}</div>${
+    corruptionFormulaTableHTML(
+      rows,
+      corruptionFormulaBranch(corr, player.corruptions.used),
+      corruptionFormulaBranch(corr, player.corruptions.next)
+    )
+  }`
+}
+
+type CorruptionPanelTarget = CorruptionCubeType | 'cubeBank' | 'spirit'
+
+type CorruptionModalTarget = keyof Corruptions | 'exit' | CorruptionPanelTarget
+
+const corruptionPanelIcons: Record<Exclude<CorruptionPanelTarget, CorruptionCubeType>, string> = {
+  cubeBank: '/Challenge.png',
+  spirit: '/perkinvigoratedSpirits.png'
+}
+
+const corruptionModalShell = (icon: string, title: string, body: string) => {
   return `<div class="corruptionDetailsModal" data-modal-preserve="children">
     <div class="corruptionDetailsModalTitle" data-modal-preserve="children">
-      <img src="${text.image}" alt="" class="corruptionImg" data-modal-preserve="children">
-      <span>${text.name}</span>
+      <img src="Pictures/${
+    IconSets[player.iconSet][0]
+  }${icon}" alt="" class="corruptionImg" data-modal-preserve="children">
+      <span>${title}</span>
     </div>
-    <div class="corruptionDetailsModalDescription">${text.description}</div>
-    <div class="corruptionDetailsModalCurrent">${text.current}</div>
-    <div class="corruptionDetailsModalPlanned">${text.planned}</div>
-    ${text.freeLevels ? `<div class="corruptionDetailsModalFree">${text.freeLevels}</div>` : ''}
-    ${text.note ? `<div class="corruptionDetailsModalMultiplier">${text.note}</div>` : ''}
+    ${body}
   </div>`
 }
 
-export const corruptionDisplay = (corr: keyof Corruptions | 'exit') => {
-  if (DOMCacheGetOrSet('corruptionDetails').style.visibility !== 'visible') {
-    DOMCacheGetOrSet('corruptionDetails').style.visibility = 'visible'
-  }
-  if (DOMCacheGetOrSet('corruptionSelectedPic').style.visibility !== 'visible') {
-    DOMCacheGetOrSet('corruptionSelectedPic').style.visibility = 'visible'
-  }
-
-  const text = corruptionDisplayDetails(corr)
-
-  DOMCacheGetOrSet('corruptionName').textContent = text.name
-  DOMCacheGetOrSet('corruptionDescription').innerHTML = text.description
-  DOMCacheGetOrSet('corruptionLevelCurrent').textContent = text.current
-  DOMCacheGetOrSet('corruptionLevelPlanned').textContent = text.planned
-  DOMCacheGetOrSet('corruptionMultiplierContribution').textContent = text.note
-  DOMCacheGetOrSet('corruptionFreeLevels').textContent = text.freeLevels
-  DOMCacheGetOrSet('corruptionSelectedPic').setAttribute('src', text.image)
+const corruptionBreakdownTable = (headers: string[], rows: string[][]) => {
+  const head = headers.map((header) => `<th>${header}</th>`).join('')
+  const body = rows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join('')}</tr>`).join('')
+  return `<table class="corruptionBreakdown"><tr>${head}</tr>${body}</table>`
 }
 
-export const openCorruptionDetailsModal = (
-  corr: keyof Corruptions | 'exit',
+const corruptionLevelHeaders = () => {
+  return [
+    '',
+    i18next.t('corruptions.breakdown.current', { level: format(player.corruptions.used) }),
+    i18next.t('corruptions.breakdown.next', { level: format(player.corruptions.next) })
+  ]
+}
+
+const corruptionLevelRow = (label: string, value: (level: number) => string) => {
+  return [label, value(player.corruptions.used), value(player.corruptions.next)]
+}
+
+const formatTimes = (value: number) => `x${format(value, 3)}`
+
+const corruptionCubeModalHTML = (cube: CorruptionCubeType) => {
+  const { global, specific } = calculateCorruptionCubeMultiplierParts(cube)
+  const locked = (level: number) => !isCorruptionCubeUnlocked(level, cube)
+  const lockedText = i18next.t('corruptions.breakdown.locked')
+  const unlock = corruptionCubeUnlocks[cube]
+
+  const rows = [
+    corruptionLevelRow(
+      i18next.t('corruptions.breakdown.effectiveLevel'),
+      (level) => format(effectiveCorruptionLevel(level), 2, true)
+    ),
+    corruptionLevelRow(
+      i18next.t('corruptions.breakdown.rate'),
+      (level) => locked(level) ? lockedText : formatTimes(corruptionCubeRate(cube, level))
+    ),
+    corruptionLevelRow(i18next.t(`corruptions.breakdown.global.${cube}`), () => formatTimes(global)),
+    corruptionLevelRow(i18next.t(`corruptions.breakdown.specific.${cube}`), () => formatTimes(specific)),
+    corruptionLevelRow(
+      i18next.t('corruptions.breakdown.total'),
+      (level) => locked(level) ? lockedText : formatTimes(corruptionCubeRate(cube, level) * global * specific)
+    )
+  ]
+
+  return corruptionModalShell(
+    corruptionCubeIcons[cube],
+    i18next.t(`corruptions.tiers.cubes.${cube}`),
+    `<div class="corruptionDetailsModalDescription">${i18next.t(`corruptions.breakdown.cubeFormula.${cube}`)}</div>
+    ${corruptionBreakdownTable(corruptionLevelHeaders(), rows)}
+    ${
+      locked(player.corruptions.next)
+        ? `<div class="corruptionDetailsModalFormula">${
+          i18next.t(unlock.requiresChallenge15 ? 'corruptions.breakdown.unlockC15' : 'corruptions.breakdown.unlock', {
+            level: corruptionCubeUnlockLevel(cube),
+            base: unlock.level
+          })
+        }</div>`
+        : ''
+    }
+    <div class="corruptionBreakdownNote">${i18next.t('corruptions.breakdown.otherMultipliers')}</div>`
+  )
+}
+
+const corruptionCubeBankModalHTML = () => {
+  const sources = calculateCubeBankSources()
+  const bank = calculateCubeBank()
+  let fromChallenges = 0
+  const rows = Object.entries(sources).map(([source, { completions, perCompletion }]) => {
+    fromChallenges += completions * perCompletion
+    const perCompletionText = source === 'challengeTen' && challengeTenGivesFreeLevels()
+      ? i18next.t('corruptions.breakdown.freeLevelsPerCompletion', {
+        free: format(challengeTenFreeLevelsPerCompletion(), 3, true)
+      })
+      : format(perCompletion, 2, true)
+    return [
+      i18next.t(`corruptions.breakdown.bankSources.${source}`),
+      format(completions),
+      perCompletionText,
+      format(completions * perCompletion, 1, true)
+    ]
+  })
+  rows.push(
+    [i18next.t('corruptions.breakdown.bankSources.ants'), '', '', format(bank - fromChallenges, 1, true)],
+    [i18next.t('corruptions.breakdown.total'), '', '', format(bank, 1, true)]
+  )
+
+  return corruptionModalShell(
+    corruptionPanelIcons.cubeBank,
+    i18next.t('corruptions.tiers.cubeBank'),
+    `<div class="corruptionDetailsModalDescription">${i18next.t('corruptions.breakdown.cubeBankDescription')}</div>
+    ${
+      corruptionBreakdownTable([
+        i18next.t('corruptions.breakdown.source'),
+        i18next.t('corruptions.breakdown.completions'),
+        i18next.t('corruptions.breakdown.perCompletion'),
+        i18next.t('corruptions.breakdown.amount')
+      ], rows)
+    }`
+  )
+}
+
+const corruptionSpiritModalHTML = () => {
+  const rows = [
+    corruptionLevelRow(
+      i18next.t('corruptions.breakdown.effectiveLevel'),
+      (level) => format(effectiveCorruptionLevel(level), 2, true)
+    ),
+    corruptionLevelRow(
+      i18next.t('corruptions.breakdown.strength'),
+      (level) => format(corruptionLevelStrength(effectiveCorruptionLevel(level)), 3, true)
+    ),
+    corruptionLevelRow(
+      i18next.t('corruptions.breakdown.spiritMultiplier'),
+      (level) => formatTimes(corruptionSpiritMultiplier(level))
+    )
+  ]
+
+  return corruptionModalShell(
+    corruptionPanelIcons.spirit,
+    i18next.t('corruptions.tiers.spiritPower'),
+    `<div class="corruptionDetailsModalDescription">${i18next.t('corruptions.breakdown.spiritDescription')}</div>
+    <div class="corruptionDetailsModalFormula">${i18next.t('corruptions.breakdown.spiritFormula')}</div>
+    ${corruptionBreakdownTable(corruptionLevelHeaders(), rows)}`
+  )
+}
+
+const corruptionPanelModalHTML = (target: CorruptionPanelTarget) => {
+  switch (target) {
+    case 'cubeBank':
+      return corruptionCubeBankModalHTML()
+    case 'spirit':
+      return corruptionSpiritModalHTML()
+    default:
+      return corruptionCubeModalHTML(target)
+  }
+}
+
+const isCorruptionKey = (target: CorruptionModalTarget): target is keyof Corruptions => {
+  return target in corrIcons
+}
+
+const corruptionDetailsModalHTML = (target: CorruptionModalTarget) => {
+  if (target !== 'exit' && !isCorruptionKey(target)) {
+    return corruptionPanelModalHTML(target)
+  }
+  const corr = target
+
+  if (corr === 'exit') {
+    return `<div class="corruptionDetailsModal" data-modal-preserve="children">
+    <div class="corruptionDetailsModalTitle" data-modal-preserve="children">
+      <img src="Pictures/${
+      IconSets[player.iconSet][0]
+    }/CorruptExit.png" alt="" class="corruptionImg" data-modal-preserve="children">
+      <span>${i18next.t('corruptions.exitCorruption.name')}</span>
+    </div>
+    <div class="corruptionDetailsModalDescription">${i18next.t('corruptions.exitCorruption.description')}</div>
+    <div class="corruptionDetailsModalCurrent">${
+      player.corruptions.cleanseToHighest
+        ? i18next.t('corruptions.exitCorruption.currentHighest', { level: format(corruptionCleanseLevel()) })
+        : i18next.t('corruptions.exitCorruption.current')
+    }</div>
+    <div class="corruptionDetailsModalPlanned">${i18next.t('corruptions.exitCorruption.planned')}</div>
+    <div class="corruptionDetailsModalFormula">${i18next.t('corruptions.exitCorruption.multiplier')}</div>
+  </div>`
+  }
+
+  return `<div class="corruptionDetailsModal" data-modal-preserve="children">
+    <div class="corruptionDetailsModalTitle" data-modal-preserve="children">
+      <img src="Pictures/${IconSets[player.iconSet][0]}${
+    corrIcons[corr]
+  }" alt="" class="corruptionImg" data-modal-preserve="children">
+      <span>${i18next.t(`corruptions.names.${corr}`)}</span>
+    </div>
+    <div class="corruptionDetailsModalDescription">${i18next.t(`corruptions.descriptions.${corr}`)}</div>
+    <div class="corruptionDetailsModalFormula">${corruptionLevelFormulaHTML(corr)}</div>
+  </div>`
+}
+
+const openCorruptionDetailsModal = (
+  corr: CorruptionModalTarget,
   event: MouseEvent,
   targetElement: HTMLElement
 ) => {
-  corruptionDisplay(corr)
   Modal(
     () => corruptionDetailsModalHTML(corr),
     event.clientX,
@@ -444,94 +784,263 @@ export const openCorruptionDetailsModal = (
   )
 }
 
-export const corruptionStatsUpdate = () => {
-  for (const tier of corruptionTierList) {
-    DOMCacheGetOrSet(`corruptionTier${tier}`).classList.toggle('selected', tier === player.corruptions.next.tier)
+export const registerCorruptionDetailsModal = (element: HTMLElement, corr: CorruptionModalTarget) => {
+  if (isMobile) {
+    element.addEventListener('click', (event) => {
+      event.stopPropagation()
+      openCorruptionDetailsModal(corr, event, element)
+    })
+    return
   }
 
-  DOMCacheGetOrSet('corruptionTierCurrent').textContent = i18next.t('corruptions.tiers.current', {
-    tier: player.corruptions.used.tier,
-    level: format(player.corruptions.used.level)
-  })
-  DOMCacheGetOrSet('corruptionTierNext').textContent = i18next.t('corruptions.tiers.next', {
-    tier: player.corruptions.next.tier,
-    level: format(player.corruptions.next.level)
-  })
+  element.addEventListener('mousemove', (event) => openCorruptionDetailsModal(corr, event, element))
+  element.addEventListener('mouseout', CloseModal)
+}
 
-  const levelInput = getElementById<HTMLInputElement>('corruptionLevelInput')
-  levelInput.value = `${player.corruptions.next.level}`
-  levelInput.disabled = player.corruptions.next.tier === 0
-  DOMCacheGetOrSet('corruptionLevelMax').style.display = Number.isFinite(
-      corruptionLevelCap(player.corruptions.next.tier)
-    )
-    ? ''
-    : 'none'
+const createCorruptionIcon = (corr: keyof Corruptions) => {
+  const icon = document.createElement('img')
+  icon.className = 'corruptionImg'
+  icon.src = `Pictures/${IconSets[player.iconSet][0]}${corrIcons[corr]}`
+  icon.alt = ''
+  icon.loading = 'lazy'
+  return icon
+}
 
-  for (const corr of corruptionKeys) {
-    DOMCacheGetOrSet(`corrCurrent${corr}`).textContent = format(
-      corruptionIntensity(player.corruptions.used, corr),
-      2,
-      true
-    )
-    DOMCacheGetOrSet(`corrNext${corr}`).textContent = format(
-      corruptionIntensity(player.corruptions.next, corr),
-      2,
-      true
-    )
+const createCorruptionTextRow = (
+  id: string,
+  nameKey: string,
+  target: Exclude<CorruptionPanelTarget, CorruptionCubeType>
+) => {
+  const row = document.createElement('div')
+  row.id = `${id}Row`
+  row.className = 'corruptionStatRow'
+
+  const icon = document.createElement('img')
+  icon.className = 'corruptionImg'
+  icon.src = `Pictures/${IconSets[player.iconSet][0]}${corruptionPanelIcons[target]}`
+  icon.alt = ''
+  icon.loading = 'lazy'
+  registerCorruptionDetailsModal(icon, target)
+  row.appendChild(icon)
+
+  const name = document.createElement('span')
+  name.className = 'corrDesc'
+  name.innerHTML = i18next.t(nameKey)
+  row.appendChild(name)
+
+  const value = document.createElement('span')
+  value.id = id
+  value.className = 'corrDesc corruptionStatValue'
+  row.appendChild(value)
+
+  return row
+}
+
+const corruptionCubeLockedText = (level: number, cube: CorruptionCubeType) => {
+  return meetsCorruptionCubeLevel(level, cube)
+    ? i18next.t('corruptions.tiers.cubeLocked.challenge15')
+    : i18next.t('corruptions.tiers.cubeLocked.level', { level: corruptionCubeUnlockLevel(cube) })
+}
+
+const corruptionCubeMultiplierText = (cube: CorruptionCubeType) => {
+  if (!isCorruptionCubeUnlocked(player.corruptions.next, cube)) {
+    return corruptionCubeLockedText(player.corruptions.next, cube)
+  }
+
+  const { global, specific } = calculateCorruptionCubeMultiplierParts(cube)
+  const next = format(corruptionCubeRate(cube, player.corruptions.next) * global * specific, 3)
+  if (!isCorruptionCubeUnlocked(player.corruptions.used, cube)) {
+    return i18next.t('corruptions.tiers.cubeMultiplierNew', { next })
+  }
+
+  return corruptionMultiplierChangeText(
+    format(corruptionCubeRate(cube, player.corruptions.used) * global * specific, 3),
+    next
+  )
+}
+
+const isCorruptionLevelChanging = () => player.corruptions.used !== player.corruptions.next
+
+export const corruptionMultiplierChangeText = (curr: string, next: string) => {
+  return isCorruptionLevelChanging()
+    ? i18next.t('corruptions.tiers.cubeMultiplier', { curr, next })
+    : i18next.t('corruptions.tiers.cubeMultiplierSame', { value: next })
+}
+
+const corruptionLevelTitle = () => {
+  const { used, next } = player.corruptions
+  if (used !== next) {
+    return i18next.t('corruptions.tiers.levelChange', { old: format(used), new: format(next) })
+  }
+  return used === 0
+    ? i18next.t('corruptions.tiers.notCorrupted')
+    : i18next.t('corruptions.tiers.level', { level: format(used) })
+}
+
+const createCorruptionCubeRow = (cube: CorruptionCubeType) => {
+  const row = document.createElement('div')
+  row.id = `corruptionCubeRow${cube}`
+  row.className = 'corruptionStatRow'
+
+  const icon = document.createElement('img')
+  icon.src = `Pictures/${IconSets[player.iconSet][0]}${corruptionCubeIcons[cube]}`
+  icon.alt = ''
+  icon.loading = 'lazy'
+  registerCorruptionDetailsModal(icon, cube)
+  row.appendChild(icon)
+
+  const name = document.createElement('span')
+  name.className = 'corrDesc corruptionCubeName'
+  name.innerHTML = i18next.t(`corruptions.tiers.cubes.${cube}`)
+  row.appendChild(name)
+
+  const value = document.createElement('span')
+  value.id = `corruptionCubeValue${cube}`
+  value.className = 'corrDesc corruptionStatValue'
+  row.appendChild(value)
+
+  return row
+}
+
+const corruptionTokenBlankLines = ['&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;']
+
+const corruptionTokenBonusLine = (key: 'first' | 'last', amount: number, earned: boolean) => {
+  return i18next.t(`corruptions.tiers.tokens.${key}${earned ? 'Earned' : ''}`, { amount: format(amount) })
+}
+
+const corruptionTokenUpdate = (level: number) => {
+  if (level === 0) {
+    DOMCacheGetOrSet('corruptionTierTokens').innerHTML = [
+      i18next.t('corruptions.tiers.tokens.selectLevel'),
+      ...corruptionTokenBlankLines
+    ].join('<br>')
+    return
+  }
+  const info = corruptionLevelTokenInfo(level)
+  const lines = [
+    i18next.t(
+      info.earnable > 0 && info.earned >= info.earnable
+        ? 'corruptions.tiers.tokens.levelComplete'
+        : 'corruptions.tiers.tokens.level',
+      { level: format(level), earned: format(info.earned), earnable: format(info.earnable) }
+    ),
+    i18next.t('corruptions.tiers.tokens.completions', {
+      completions: format(info.completions),
+      cap: format(info.cap),
+      tokens: format(info.completions)
+    }),
+    corruptionTokenBonusLine('first', info.first, info.firstEarned),
+    corruptionTokenBonusLine('last', info.last, info.lastEarned),
+    info.earlier > 0 ? i18next.t('corruptions.tiers.tokens.earlier', { tokens: format(info.earlier) }) : '&nbsp;'
+  ]
+  DOMCacheGetOrSet('corruptionTierTokens').innerHTML = lines.join('<br>')
+}
+
+export const corruptionLevelScoreUpdate = () => {
+  const next = player.corruptions.next
+  const changing = isCorruptionLevelChanging()
+  DOMCacheGetOrSet('corruptionTierLevel').innerHTML = corruptionLevelTitle()
+  DOMCacheGetOrSet('corruptionTierEffectsHeading').innerHTML = i18next.t(
+    changing ? 'corruptions.tiers.effectsHeading' : 'corruptions.tiers.effectsHeadingSame'
+  )
+  DOMCacheGetOrSet('corruptionTierCubeHeading').innerHTML = i18next.t(
+    changing ? 'corruptions.tiers.cubeMultipliersHeading' : 'corruptions.tiers.cubeMultipliersHeadingSame'
+  )
+  const freeLevels = corruptionFreeLevels()
+  DOMCacheGetOrSet('corruptionRewardFreeLevels').innerHTML = freeLevels > 0
+    ? i18next.t('corruptions.tiers.freeLevels', { free: format(freeLevels, 2, true) })
+    : '&nbsp;'
+
+  corruptionTokenUpdate(next)
+
+  for (const cube of corruptionCubeTypes) {
+    const shown = cube !== 'octeracts' || getGQUpgradeEffect('octeractUnlock', 'unlocked')
+    DOMCacheGetOrSet(`corruptionCubeRow${cube}`).style.display = shown ? '' : 'none'
+    if (shown) {
+      DOMCacheGetOrSet(`corruptionCubeValue${cube}`).innerHTML = corruptionCubeMultiplierText(cube)
+    }
   }
 }
 
-export const corruptionButtonsAdd = () => {
-  const tierSelect = DOMCacheGetOrSet('corruptionTierSelect')
-  tierSelect.replaceChildren()
-
-  for (const tier of corruptionTierList) {
-    const btn = document.createElement('button')
-    btn.id = `corruptionTier${tier}`
-    btn.className = 'corrTierBtn'
-    btn.textContent = i18next.t('corruptions.tiers.button', { tier })
-    btn.addEventListener('click', () => setNextCorruptionTier(tier))
-    tierSelect.appendChild(btn)
-  }
-
-  const rows = document.getElementsByClassName('corruptionStatRow') as HTMLCollectionOf<HTMLElement>
-
-  for (let i = 0; i < rows.length; i++) {
-    const row = rows[i]
-    const key = corruptionKeys[i]
-    row.replaceChildren()
-
-    const icon = document.createElement('img')
-    icon.className = 'corruptionImg'
-    icon.src = `Pictures/${IconSets[player.iconSet][0]}${corrIcons[key]}`
-    icon.loading = 'lazy'
-    icon.title = i18next.t(`corruptions.names.${key}`)
-    row.appendChild(icon)
-
-    const p = document.createElement('p')
-    p.className = 'corrDesc'
-    p.appendChild(document.createTextNode(i18next.t('corruptions.current')))
-
-    let span = document.createElement('span')
-    span.id = `corrCurrent${key}`
-    p.appendChild(span)
-
-    p.appendChild(document.createTextNode(i18next.t('corruptions.next')))
-
-    span = document.createElement('span')
-    span.id = `corrNext${key}`
-    p.appendChild(span)
-    row.appendChild(p)
-
-    row.addEventListener('click', (event) => {
-      if (isMobile) {
-        openCorruptionDetailsModal(key, event, row)
-        return
-      }
-
-      corruptionDisplay(key)
+const corruptionLevelCapText = (cap: number) => {
+  if (!isCorruptionBandUnlocked(4)) {
+    return i18next.t('corruptions.tiers.levelCap', {
+      cap,
+      challenge: corruptionBands[(corruptionBandOf(cap) + 1) as ActiveCorruptionBand].unlockChallenge
     })
   }
+  return isCorruptionLevelCapMaxed()
+    ? i18next.t('corruptions.tiers.levelCapFinal', { cap })
+    : i18next.t('corruptions.tiers.levelCapIncreasable', { cap })
+}
+
+const corruptionLevelCapUpdate = () => {
+  const cap = corruptionLevelCap()
+  const highest = player.corruptions.highestCleared
+  DOMCacheGetOrSet('corruptionHighestCleared').innerHTML = i18next.t('corruptions.tiers.highestCleared', {
+    level: format(highest)
+  })
+  const step = corruptionClimbStep()
+  DOMCacheGetOrSet('corruptionLevelCap').innerHTML = highest + step >= cap
+    ? corruptionLevelCapText(cap)
+    : step === 1
+    ? i18next.t('corruptions.tiers.nextUnlock', { level: format(highest + 1), unlock: format(highest + 2) })
+    : i18next.t('corruptions.tiers.nextUnlockRange', { level: format(highest + step), step })
+  getElementById<HTMLInputElement>('corruptionAutoIncreaseToggle').checked = player.corruptions.autoIncrease
+  getElementById<HTMLInputElement>('corruptionCleanseToHighestToggle').checked = player.corruptions.cleanseToHighest
+}
+
+export const corruptionStatsUpdate = () => {
+  corruptionLevelCapUpdate()
+
+  DOMCacheGetOrSet('corruptionLevelControls').style.display = maxCorruptionLevel() === 0 ? 'none' : ''
+  getElementById<HTMLInputElement>('corruptionLevelInput').value = `${player.corruptions.next}`
+
+  const changing = isCorruptionLevelChanging()
+  for (const corr of corruptionKeys) {
+    const next = format(corruptionEffect(player.corruptions.next, corr), 3, true)
+    DOMCacheGetOrSet(`corrEffect${corr}`).innerHTML = changing
+      ? i18next.t(`corruptions.effectSummary.${corr}.change`, {
+        curr: format(corruptionEffect(player.corruptions.used, corr), 3, true),
+        next
+      })
+      : i18next.t(`corruptions.effectSummary.${corr}.same`, { value: next })
+  }
+
+  corruptionLevelScoreUpdate()
+}
+
+export const corruptionPanelCreate = () => {
+  DOMCacheGetOrSet('corruptionTierCubeRows').replaceChildren(
+    ...corruptionCubeTypes.map(createCorruptionCubeRow),
+    createCorruptionTextRow('corruptionCubeBank', 'corruptions.tiers.cubeBank', 'cubeBank')
+  )
+
+  const effects = DOMCacheGetOrSet('corruptionTierEffects')
+  effects.replaceChildren()
+
+  for (const corr of corruptionKeys) {
+    const row = document.createElement('div')
+    row.id = `corruptionEffectRow${corr}`
+    row.className = 'corruptionStatRow'
+
+    const icon = createCorruptionIcon(corr)
+    registerCorruptionDetailsModal(icon, corr)
+    row.appendChild(icon)
+
+    const name = document.createElement('span')
+    name.className = 'corrDesc corruptionEffectName'
+    name.innerHTML = i18next.t(`corruptions.effectNames.${corr}`)
+    row.appendChild(name)
+
+    const text = document.createElement('span')
+    text.id = `corrEffect${corr}`
+    text.className = 'corrDesc corruptionStatValue'
+    row.appendChild(text)
+
+    effects.appendChild(row)
+  }
+  effects.appendChild(createCorruptionTextRow('corruptionSpiritValue', 'corruptions.tiers.spiritPower', 'spirit'))
 
   corruptionStatsUpdate()
 }
@@ -547,7 +1056,6 @@ export const corruptionPresetTableCreate = () => {
   const nextCell = nextRow.insertCell()
   nextCell.className = 'testTitle'
   nextCell.textContent = i18next.t('corruptions.loadoutTable.next')
-  nextRow.insertCell()
   nextRow.insertCell()
 
   const zeroCell = nextRow.insertCell()
@@ -567,7 +1075,6 @@ export const corruptionPresetTableCreate = () => {
     titleCell.title = i18next.t('corruptions.loadoutTable.otherRowTitle', { value: i + 1 })
     titleCell.addEventListener('click', () => void corruptionPresetGetNewName(i))
 
-    row.insertCell()
     row.insertCell()
 
     let cell = row.insertCell()
@@ -595,14 +1102,12 @@ export const corruptionPresetTableUpdate = () => {
     return
   }
 
-  rows[1].cells[1].textContent = `${player.corruptions.next.tier}`
-  rows[1].cells[2].textContent = format(player.corruptions.next.level)
+  rows[1].cells[1].textContent = format(player.corruptions.next)
 
   for (let i = 0; i < getUnlockedCorruptionPresetCount() && i + 2 < rows.length; i++) {
     const cells = rows[i + 2].cells
     cells[0].textContent = `${player.corruptions.presets[i].name}:`
-    cells[1].textContent = `${player.corruptions.presets[i].tier}`
-    cells[2].textContent = format(player.corruptions.presets[i].level)
+    cells[1].textContent = format(player.corruptions.presets[i].level)
   }
 }
 
@@ -613,8 +1118,7 @@ const saveCorruptionPreset = (presetNum: number) => {
 
   player.corruptions.presets[presetNum] = {
     name: player.corruptions.presets[presetNum].name,
-    tier: player.corruptions.next.tier,
-    level: player.corruptions.next.level
+    level: player.corruptions.next
   }
   corruptionPresetTableUpdate()
 }
@@ -624,7 +1128,7 @@ export const loadCorruptionPreset = (presetNum: number) => {
     return
   }
 
-  setNextCorruptions(player.corruptions.presets[presetNum])
+  setNextCorruptionLevel(player.corruptions.presets[presetNum].level)
 }
 
 async function corruptionPresetGetNewName (presetNum: number) {
@@ -661,12 +1165,5 @@ export const corruptionCleanseConfirm = () => {
 }
 
 export const revealCorruptions = () => {
-  const rows = document.getElementsByClassName('corruptionStatRow') as HTMLCollectionOf<HTMLElement>
-  for (let i = 0; i < rows.length; i++) {
-    rows[i].style.display = isCorruptionTierUnlocked(corruptionUnlockTier[corruptionKeys[i]]) ? 'flex' : 'none'
-  }
-
-  for (const tier of corruptionTierList) {
-    DOMCacheGetOrSet(`corruptionTier${tier}`).style.display = isCorruptionTierUnlocked(tier) ? '' : 'none'
-  }
+  corruptionLevelCapUpdate()
 }

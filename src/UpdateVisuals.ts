@@ -4,7 +4,6 @@ import { achievementLevel, achievementPoints, getAchievementReward, toNextAchiev
 import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  CalcCorruptionStuff,
   calculateActualAntSpeedMult,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
@@ -13,9 +12,9 @@ import {
   calculateAmbrosiaLuckRaw,
   calculateAmbrosiaQuarkMult,
   calculateAmbrosiaRewardLuck,
-  calculateAscensionCount,
   calculateBlueberryInventory,
   calculateCookieUpgrade29Luck,
+  calculateCubeBank,
   calculateCubeQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
@@ -49,13 +48,7 @@ import {
 } from './Calculate'
 import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
-import {
-  type CorruptionCubeType,
-  corruptionTierScoreMultiplier,
-  corruptionTierSpiritMultiplier,
-  effectiveCorruptionLevel,
-  isCorruptionCubeUnlocked
-} from './Corruptions'
+import { corruptionLevelScoreUpdate, corruptionMultiplierChangeText, corruptionSpiritMultiplier } from './Corruptions'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -1675,100 +1668,10 @@ const UpdateHeptGridValues = (hept: HepteractKeys) => {
   }
 }
 
-type CorruptionRewardTarget =
-  | { kind: 'score'; score: number; color: string }
-  | { kind: 'unlock'; cube: CorruptionCubeType; tier: number; level: number; color: string }
-
-const corruptionScoreTargets: CorruptionRewardTarget[] = [
-  { kind: 'score', score: 1e5, color: 'var(--tesseract-color)' },
-  { kind: 'unlock', cube: 'hypercubes', tier: 3, level: 0, color: 'var(--hypercube-color)' },
-  { kind: 'unlock', cube: 'platonics', tier: 4, level: 0, color: 'var(--platonic-color)' },
-  { kind: 'unlock', cube: 'hepteracts', tier: 4, level: 100, color: 'var(--hepteract-color)' }
-]
-
-const corruptionScoreTargetRewardIds = [
-  'corruptionTesseracts',
-  'corruptionHypercubes',
-  'corruptionPlatonicCubes',
-  'corruptionHepteracts'
-] as const
-
-let corruptionScoreTargetIndex: number | null = null
-
-const updateCorruptionReward = (
-  containerId: string,
-  valueId: string,
-  translationKey: string,
-  amount: number
-) => {
-  const formattedAmount = format(amount, 0)
-  const label = i18next.t(translationKey, { amount: formattedAmount })
-  const container = DOMCacheGetOrSet(containerId)
-
-  DOMCacheGetOrSet(valueId).textContent = formattedAmount
-  container.setAttribute('aria-label', label)
-  container.title = label
-}
-
-const corruptionRewardTargetProgress = (target: CorruptionRewardTarget, cubeScore: number) => {
-  if (target.kind === 'score') {
-    return Math.min(100, Math.max(cubeScore ? 0.2 : 0, 100 * cubeScore / target.score))
-  }
-
-  if (isCorruptionCubeUnlocked(player.corruptions.used, target.cube)) {
-    return 100
-  }
-
-  if (player.corruptions.used.tier !== target.tier || target.level === 0) {
-    return 0
-  }
-
-  return Math.min(100, 100 * effectiveCorruptionLevel(player.corruptions.used) / target.level)
-}
-
-const corruptionRewardTargetText = (target: CorruptionRewardTarget) => {
-  if (target.kind === 'score') {
-    return i18next.t('corruptions.rewards.moreTesseracts', { score: format(target.score, 3, true) })
-  }
-
-  return target.level === 0
-    ? i18next.t('corruptions.rewards.tierRequirement', { tier: target.tier })
-    : i18next.t('corruptions.rewards.tierLevelRequirement', { tier: target.tier, level: target.level })
-}
-
-const updateCorruptionScoreProgress = (cubeScore: number) => {
-  if (corruptionScoreTargetIndex === null) {
-    const firstUnmetTarget = corruptionScoreTargets.findIndex((target) =>
-      corruptionRewardTargetProgress(target, cubeScore) < 100
-    )
-    corruptionScoreTargetIndex = firstUnmetTarget === -1
-      ? corruptionScoreTargets.length - 1
-      : firstUnmetTarget
-  }
-
-  const target = corruptionScoreTargets[corruptionScoreTargetIndex]
-  const progress = corruptionRewardTargetProgress(target, cubeScore)
-  const progressButton = DOMCacheGetOrSet('corruptionScoreProgress')
-
-  progressButton.style.setProperty('--corruption-progress-color', target.color)
-  DOMCacheGetOrSet('corruptionScoreProgressFill').style.width = `${progress}%`
-  DOMCacheGetOrSet('corruptionScoreProgressText').textContent = corruptionRewardTargetText(target)
-
-  for (const [index, rewardId] of corruptionScoreTargetRewardIds.entries()) {
-    const reward = DOMCacheGetOrSet(rewardId)
-    const isSelected = index === corruptionScoreTargetIndex
-    reward.setAttribute('aria-pressed', `${isSelected}`)
-    reward.classList.toggle('selected', isSelected)
-  }
-}
-
 export const visualUpdateCorruptions = () => {
   if (G.currentTab !== Tabs.Corruption) {
     return
   }
-
-  const ascensionRewards = CalcCorruptionStuff()
-  const ascCount = calculateAscensionCount()
 
   const autoAscendDOM = DOMCacheGetOrSet('autoAscend')
   if (player.autoAscendMode === AutoAscensionResetModes.c10Completions) {
@@ -1783,84 +1686,15 @@ export const visualUpdateCorruptions = () => {
     })
   }
 
-  DOMCacheGetOrSet('corruptionScore').innerHTML = i18next.t(
-    'corruptions.corruptionScore',
-    {
-      ascScore: format(ascensionRewards.baseScore, 1, true),
-      corrMult: format(ascensionRewards.corruptionMultiplier, 1, true),
-      bonusMult: format(ascensionRewards.bonusMultiplier, 2, true),
-      totalScore: format(ascensionRewards.effectiveScore, 1, true)
-    }
-  )
-
-  if (ascensionRewards.effectiveScore > 1e23 || ascensionRewards.cubeScore > 1e23) {
-    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'visible'
-  } else {
-    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'hidden'
-  }
-
-  updateCorruptionReward(
-    'corruptionCubes',
-    'corruptionCubesValue',
-    'corruptions.rewards.cube',
-    ascensionRewards.wowCubes
-  )
-  updateCorruptionReward(
-    'corruptionTesseracts',
-    'corruptionTesseractsValue',
-    'corruptions.rewards.tesseract',
-    ascensionRewards.wowTesseracts
-  )
-  updateCorruptionReward(
-    'corruptionHypercubes',
-    'corruptionHypercubesValue',
-    'corruptions.rewards.hypercube',
-    ascensionRewards.wowHypercubes
-  )
-  updateCorruptionReward(
-    'corruptionPlatonicCubes',
-    'corruptionPlatonicCubesValue',
-    'corruptions.rewards.platonic',
-    ascensionRewards.wowPlatonicCubes
-  )
-  updateCorruptionReward(
-    'corruptionHepteracts',
-    'corruptionHepteractsValue',
-    'corruptions.rewards.hepteract',
-    ascensionRewards.wowHepteracts
-  )
-  updateCorruptionScoreProgress(ascensionRewards.cubeScore)
-  DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
-    curr: format(corruptionTierScoreMultiplier(player.corruptions.used), 2, true),
-    next: format(corruptionTierScoreMultiplier(player.corruptions.next), 2, true)
-  })
-  DOMCacheGetOrSet('corruptionSpiritTotal').textContent = i18next.t('corruptions.totalSpiritContribution', {
-    curr: format(corruptionTierSpiritMultiplier(player.corruptions.used), 2, true),
-    next: format(corruptionTierSpiritMultiplier(player.corruptions.next), 2, true)
+  DOMCacheGetOrSet('corruptionCubeBank').innerHTML = i18next.t('corruptions.cubeBank', {
+    value: format(calculateCubeBank(), 1, true)
   })
 
-  DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'flex' : 'none'
-
-  if (ascCount > 1) {
-    updateCorruptionReward(
-      'corruptionAscensionCount',
-      'corruptionAscensionCountValue',
-      'corruptions.rewards.ascensionCount',
-      ascCount
-    )
-  }
-}
-
-export const cycleCorruptionScoreTarget = () => {
-  corruptionScoreTargetIndex = ((corruptionScoreTargetIndex ?? -1) + 1) % corruptionScoreTargets.length
-}
-
-export const selectCorruptionScoreTarget = (index: number) => {
-  if (index < 0 || index >= corruptionScoreTargets.length) {
-    return
-  }
-
-  corruptionScoreTargetIndex = index
+  corruptionLevelScoreUpdate()
+  DOMCacheGetOrSet('corruptionSpiritValue').innerHTML = corruptionMultiplierChangeText(
+    format(corruptionSpiritMultiplier(player.corruptions.used), 2, true),
+    format(corruptionSpiritMultiplier(player.corruptions.next), 2, true)
+  )
 }
 
 export const visualUpdateSettings = () => {
