@@ -363,7 +363,7 @@ export const spriteSheets: SpriteSheet[] = [
       'campaignTokenRewardIcon-cube',
       'campaignTokenRewardIcon-obtainium',
       'campaignTokenRewardIcon-offering',
-      'campaignTokenRewardIcon-ascensionScore',
+      null,
       null,
       'campaignTokenRewardIcon-quark',
       'campaignTokenRewardIcon-tax',

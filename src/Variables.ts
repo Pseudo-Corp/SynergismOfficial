@@ -10,6 +10,13 @@ export enum Upgrade {
   reincarnation = 'reincarnationPoints'
 }
 
+const challenge15CubeRewardSoftcap = 1e20
+
+const challenge15CubeReward = (e: number, scale: number, power: number) => {
+  return 1 + Math.pow(Math.min(e, challenge15CubeRewardSoftcap) / scale, power)
+      * Math.pow(Math.max(e, challenge15CubeRewardSoftcap) / challenge15CubeRewardSoftcap, power / 6)
+}
+
 export const Globals: GlobalVariables = {
   // this shows the logarithm of costs. ex: upgrade one will cost 1e+6 coins, upgrade 2 1e+7, etc.
   // dprint-ignore
@@ -143,7 +150,7 @@ export const Globals: GlobalVariables = {
   globalConstantMult: new Decimal('1'),
 
   c15RewardFormulae: {
-    cube1: (e: number) => 1 + ((1 / 50) * Math.log2(e / 175)),
+    cube1: (e: number) => challenge15CubeReward(e, 3e15, 0.24),
     ascensions: (e: number) => 1 + ((1 / 20) * Math.log2(e / 375)),
     coinExponent: (e: number) => 1 + ((1 / 150) * Math.log2(e / 750)),
     taxes: (e: number) => Math.pow(0.98, Math.log(e / 1.25e3) / Math.log(2)),
@@ -153,27 +160,24 @@ export const Globals: GlobalVariables = {
     multiplier: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2),
     runeExp: (e: number) => 1 + Math.pow(e / 2e4, 1.5),
     runeBonus: (e: number) => 1 + ((1 / 33) * Math.log(e / 1e4)) / Math.log(2),
-    cube2: (e: number) => 1 + ((1 / 100) * Math.log(e / 1.5e4)) / Math.log(2),
+    cube2: (e: number) => challenge15CubeReward(e, 3e15, 0.24),
     transcendChallengeReduction: (e: number) => Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2)),
     reincarnationChallengeReduction: (e: number) => Math.pow(0.98, Math.log(e / 2.5e4) / Math.log(2)),
     antSpeed: (e: number) => Math.pow(1 + Math.log(e / 2e5) / Math.log(2), 4),
     bonusAntLevel: (e: number) => 1 + ((1 / 20) * Math.log(e / 1.5e5)) / Math.log(2),
     achievementUnlock: (e: number) => e >= 666666 ? 1 : 0,
-    cube3: (e: number) => 1 + ((1 / 150) * Math.log(e / 2.5e5)) / Math.log(2),
+    cube3: (e: number) => challenge15CubeReward(e, 3e15, 0.47),
     talismanBonus: (e: number) => (e >= 7.5e5) ? 1 + 0.02 + ((1 / 1000) * Math.log(e / 7.5e5)) / Math.log(2) : 1,
     globalSpeed: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e6)) / Math.log(2),
     blessingBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 3e7, 1 / 4),
     constantBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 1e8, 2 / 3),
-    cube4: (e: number) => 1 + ((1 / 200) * Math.log(e / 1.25e8)) / Math.log(2),
+    cube4: (e: number) => challenge15CubeReward(e, 3e14, 0.74),
     spiritBonus: (e: number) => 1 + (1 / 5) * Math.pow(e / 2e9, 1 / 4),
-    score: (e: number) =>
-      (e >= 1e20)
-        ? 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 8) * Math.pow(1e10, 1 / 8)
-        : 1 + (1 / 4) * Math.pow(e / 1e10, 1 / 4),
+    score: (e: number) => challenge15CubeReward(e, 1e17, 0.63),
     quarks: (e: number) => 1 + (3 / 400) * Math.log2(e * 32 / 1e11),
     hepteractsUnlocked: (e: number) => e >= 1e15 ? 1 : 0,
     challengeHepteractUnlocked: (e: number) => e >= 2e15 ? 1 : 0,
-    cube5: (e: number) => 1 + (1 / 300) * Math.log2(e / (4e15 / 1024)),
+    cube5: (e: number) => challenge15CubeReward(e, 1e14, 0.89),
     powder: (e: number) => 1 + (1 / 50) * Math.log2(e / (7e15 / 32)),
     abyssHepteractUnlocked: (e: number) => e >= 1e16 ? 1 : 0,
     exponent: (e: number) => calculateSigmoid(1.05, e, 1e18),
@@ -188,7 +192,32 @@ export const Globals: GlobalVariables = {
     cube1: {
       value: 1,
       baseValue: 1,
-      requirement: 750
+      requirement: 0,
+      displayAsMultiplier: true
+    },
+    cube2: {
+      value: 1,
+      baseValue: 1,
+      requirement: 0,
+      displayAsMultiplier: true
+    },
+    cube3: {
+      value: 1,
+      baseValue: 1,
+      requirement: 0,
+      displayAsMultiplier: true
+    },
+    cube4: {
+      value: 1,
+      baseValue: 1,
+      requirement: 0,
+      displayAsMultiplier: true
+    },
+    score: {
+      value: 1,
+      baseValue: 1,
+      requirement: 0,
+      displayAsMultiplier: true
     },
     ascensions: {
       value: 1,
@@ -235,11 +264,6 @@ export const Globals: GlobalVariables = {
       baseValue: 1,
       requirement: 40000
     },
-    cube2: {
-      value: 1,
-      baseValue: 1,
-      requirement: 60000
-    },
     transcendChallengeReduction: {
       value: 1,
       baseValue: 1,
@@ -265,11 +289,6 @@ export const Globals: GlobalVariables = {
       baseValue: 0,
       requirement: 666666
     },
-    cube3: {
-      value: 1,
-      baseValue: 1,
-      requirement: 1000000
-    },
     talismanBonus: {
       value: 1,
       baseValue: 1,
@@ -290,20 +309,10 @@ export const Globals: GlobalVariables = {
       baseValue: 1,
       requirement: 1e8
     },
-    cube4: {
-      value: 1,
-      baseValue: 1,
-      requirement: 5e8
-    },
     spiritBonus: {
       value: 1,
       baseValue: 1,
       requirement: 2e9
-    },
-    score: {
-      value: 1,
-      baseValue: 1,
-      requirement: 1e10
     },
     quarks: {
       value: 1,
@@ -326,7 +335,8 @@ export const Globals: GlobalVariables = {
     cube5: {
       value: 1,
       baseValue: 1,
-      requirement: 4e15
+      requirement: 1e15,
+      displayAsMultiplier: true
     },
     powder: {
       value: 1,

@@ -77,7 +77,7 @@ export const calculateTaxPlatonicBlessing = () => {
   }*/
 }
 
-export const calculateAscensionScorePlatonicBlessing = () => {
+const ascensionScorePlatonicBlessingBase = () => {
   const DR1 = 1 / 4
   const DR2 = 1 / 8
   const limit1 = 1e4
@@ -95,6 +95,10 @@ export const calculateAscensionScorePlatonicBlessing = () => {
     const limitMult2 = Math.pow(limit2, DR1 - DR2)
     return 1 + effectPerBlessing * limitMult1 * limitMult2 * Math.pow(player.platonicBlessings.globalSpeed, DR2)
   }
+}
+
+export const calculateAscensionScorePlatonicBlessing = () => {
+  return Math.pow(ascensionScorePlatonicBlessingBase(), 0.25)
 }
 
 export const calculateGlobalSpeedPlatonicBlessing = () => {

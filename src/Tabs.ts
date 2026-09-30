@@ -305,12 +305,17 @@ const tabInfo: Record<Tabs, TabInfo> = {
     subtabIndex: 0,
     subTabList: [
       {
-        subTabID: 'true',
+        subTabID: 'stats',
         unlocked: () => true,
         buttonID: 'corrStatsBtn'
       },
       {
-        subTabID: 'false',
+        subTabID: 'tokens',
+        unlocked: () => true,
+        buttonID: 'corrTokensBtn'
+      },
+      {
+        subTabID: 'presets',
         unlocked: () => true,
         buttonID: 'corrLoadoutsBtn'
       }

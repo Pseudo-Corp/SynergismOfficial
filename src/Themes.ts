@@ -80,14 +80,12 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     DOMCacheGetOrSet('actualShop').style.backgroundColor = ''
     DOMCacheGetOrSet('actualShop').style.borderColor = ''
     DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = ''
-    DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = ''
     DOMCacheGetOrSet('heptGrid').style.backgroundColor = ''
     DOMCacheGetOrSet('heptGrid').style.borderColor = ''
     DOMCacheGetOrSet('exportgame').style.backgroundColor = ''
     DOMCacheGetOrSet('importFileButton').style.backgroundColor = ''
     DOMCacheGetOrSet('switchTheme2').style.borderColor = 'darkslategray'
 
-    DOMCacheGetOrSet('corruptionDescription').style.color = 'darkviolet'
     DOMCacheGetOrSet('versionnumber').style.color = 'fuchsia'
     DOMCacheGetOrSet('singularitytab').style.color = 'red'
     DOMCacheGetOrSet('traitstab').style.color = 'red'
@@ -137,7 +135,6 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     body.style.setProperty('--hepteract-bar-red', 'darkred')
     body.style.setProperty('--hepteract-bar-yellow', '#997a00')
     body.style.setProperty('--hepteract-bar-green', 'darkgreen')
-    DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#dd8f00'
     DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
     DOMCacheGetOrSet('exportgame').style.backgroundColor = 'black' // Special cases
     DOMCacheGetOrSet('importFileButton').style.backgroundColor = 'black'
@@ -161,7 +158,6 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     body.style.setProperty('--tab-color', '#101828')
     body.style.setProperty('--hoversing-color', '#005')
     body.style.setProperty('--hepteract-bar-empty', '#535064')
-    DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#ffa500'
     DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
     DOMCacheGetOrSet('actualShop').style.backgroundColor = '#0c0c0f' // Special cases
     DOMCacheGetOrSet('actualShop').style.borderColor = '#d487d4'
@@ -192,7 +188,6 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     body.style.setProperty('--hepteract-bar-red', '#ea1741')
     body.style.setProperty('--hepteract-bar-yellow', '#cc0')
     body.style.setProperty('--hepteract-bar-green', 'limegreen')
-    DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#dd8f00'
     DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
     DOMCacheGetOrSet('switchTheme2').style.borderColor = '#284242' // Special Cases
     body.style.setProperty('--green-text-color', 'limegreen')
@@ -205,7 +200,6 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     body.style.setProperty('--lightseagreen-text-color', 'limegreen')
     body.style.setProperty('--orangered-text-color', '#f74')
     body.style.setProperty('--gray-text-color', '#a5a5a5')
-    DOMCacheGetOrSet('corruptionDescription').style.color = '#d272ff'
     DOMCacheGetOrSet('antwelcome').style.color = '#b1b1b1'
     DOMCacheGetOrSet('versionnumber').style.color = '#ff5aff'
     DOMCacheGetOrSet('singularitytab').style.color = '#ff5252'
@@ -262,10 +256,8 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     DOMCacheGetOrSet('actualShop').style.backgroundColor = '#11111b'
     DOMCacheGetOrSet('actualShop').style.borderColor = '#038ba8'
     DOMCacheGetOrSet('corruptionStatsLoadouts').style.backgroundColor = '#0a0a11'
-    DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#04d481'
     DOMCacheGetOrSet('heptGrid').style.backgroundColor = '#11111b'
     DOMCacheGetOrSet('heptGrid').style.borderColor = '#9b7306'
-    DOMCacheGetOrSet('corruptionDescription').style.color = '#c205ff'
     DOMCacheGetOrSet('confirmationToggleTitle').style.color = '#eb0000'
     DOMCacheGetOrSet('specialActionsTitle').style.color = '#eb0000'
     DOMCacheGetOrSet('themesTitle').style.color = '#eb0000'
@@ -299,7 +291,6 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     body.style.setProperty('--hepteract-bar-red', 'darkred')
     body.style.setProperty('--hepteract-bar-yellow', '#997a00')
     body.style.setProperty('--hepteract-bar-green', 'darkgreen')
-    DOMCacheGetOrSet('corruptionStatsLoadouts').style.borderColor = '#dd8f00'
     DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
     DOMCacheGetOrSet('exportgame').style.backgroundColor = '#000000' // Special cases
     DOMCacheGetOrSet('importFileButton').style.backgroundColor = '#000000'

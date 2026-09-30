@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokenBonuses } from './Campaign'
-import { corruptionTierEffect } from './Corruptions'
+import { challengeTenFreeLevelsPerCompletion, challengeTenGivesFreeLevels, corruptionEffect } from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -55,14 +55,10 @@ export type Challenge15RewardsInformation = {
   requirement: number
   HTMLColor?: string
   doNotUsePercentage?: boolean
+  displayAsMultiplier?: boolean
 }
 
 export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15RewardsInformation>
-
-const challengeScoreArray1 = [0, 8, 10, 12, 15, 20, 60, 80, 120, 180, 300]
-const challengeScoreArray2 = [0, 10, 12, 15, 20, 30, 80, 120, 180, 300, 450]
-const challengeScoreArray3 = [0, 20, 30, 50, 100, 200, 250, 300, 400, 500, 750]
-const challengeScoreArray4 = [0, 10000, 10000, 10000, 10000, 10000, 2000, 3000, 4000, 5000, 7500]
 
 export const getMaxChallenges = (i: number) => {
   let maxChallenge = 0
@@ -327,27 +323,6 @@ export const challengeDisplay = (i: number) => {
     d.textContent = i18next.t('challenges.15.noGoal')
   }
 
-  let scoreDisplay = 0
-  if (i <= 5) {
-    if (player.highestchallengecompletions[i] >= 9000) {
-      scoreDisplay = challengeScoreArray4[i]
-    } else if (player.highestchallengecompletions[i] >= 750) {
-      scoreDisplay = challengeScoreArray3[i]
-    } else if (player.highestchallengecompletions[i] >= 75) {
-      scoreDisplay = challengeScoreArray2[i]
-    } else {
-      scoreDisplay = challengeScoreArray1[i]
-    }
-  }
-  if (i > 5 && i <= 10) {
-    if (player.highestchallengecompletions[i] >= 60) {
-      scoreDisplay = challengeScoreArray3[i]
-    } else if (player.highestchallengecompletions[i] >= 25) {
-      scoreDisplay = challengeScoreArray2[i]
-    } else {
-      scoreDisplay = challengeScoreArray1[i]
-    }
-  }
   if (isFocused) {
     j.textContent = ''
   }
@@ -371,10 +346,15 @@ export const challengeDisplay = (i: number) => {
     && player.highestchallengecompletions[i] < maxChallenges && isFocused && player.ascensionCount >= 1
     && i <= 10
   ) {
-    j.textContent = i18next.t('challenges.ascensionBankAdd', {
-      x: i > 5 ? 2 : 1,
-      y: scoreDisplay
-    })
+    if (i === 10 && challengeTenGivesFreeLevels()) {
+      j.textContent = i18next.t('challenges.freeCorruptionLevelAdd', {
+        x: format(challengeTenFreeLevelsPerCompletion(), 3, true)
+      })
+    } else {
+      j.textContent = i18next.t('challenges.ascensionBankAdd', {
+        x: format(i > 5 ? 2 : 1 + 0.05 * player.cubeUpgrades[56], 2, true)
+      })
+    }
   }
   if (
     player.challengecompletions[i] >= player.highestchallengecompletions[i]
@@ -454,7 +434,7 @@ const calculateChallengeRequirementMultiplier = (
   completions: number,
   special = 0
 ) => {
-  let requirementMultiplier = corruptionTierEffect(player.corruptions.used, 'hyperchallenge')
+  let requirementMultiplier = corruptionEffect(player.corruptions.used, 'hyperchallenge')
   if (type === 'ascension') {
     // Normalize back to 1 if looking at ascension challenges in particular.
     requirementMultiplier = 1

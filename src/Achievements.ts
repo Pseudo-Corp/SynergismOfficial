@@ -2,9 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateAscensionScore } from './Calculate'
 import { campaignTokens } from './Campaign'
-import { isCorruptionTierStateAtLeast } from './Corruptions'
 import { calculateLeaderboardValue } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { displayLevelStuff } from './Levels'
@@ -138,7 +136,7 @@ export const challengeAchievementCheck = (i: number) => {
       break
     case 11:
       awardAchievementGroup('challenge11')
-      if (player.challengecompletions[10] > 50 && isCorruptionTierStateAtLeast(player.corruptions.used, 2, 30)) {
+      if (player.challengecompletions[10] > 50 && player.corruptions.used >= 35) {
         awardUngroupedAchievement('extraChallenging')
       }
       break
@@ -1545,7 +1543,7 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.ascensionCount >= 1000,
     group: 'ascensionCount',
     reward: {
-      ascensionCountMultiplier: () => Math.log10(calculateAscensionScore().effectiveScore + 100) - 1
+      ascensionCountMultiplier: () => 1 + 0.16 * player.corruptions.used
     }
   },
   {
@@ -1744,38 +1742,38 @@ const achievements: Achievement[] = [
   { pointValue: 70, unlockCondition: () => player.challengecompletions[14] >= 30, group: 'challenge14' },
   {
     pointValue: 5,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 1, 20),
+    unlockCondition: () => player.corruptions.used >= 20,
     group: 'ascensionScore',
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_1'
   },
   {
     pointValue: 10,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 2, 20),
+    unlockCondition: () => player.corruptions.used >= 30,
     group: 'ascensionScore'
   },
   {
     pointValue: 15,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 2, 40),
+    unlockCondition: () => player.corruptions.used >= 40,
     group: 'ascensionScore'
   },
   {
     pointValue: 20,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 3, 20),
+    unlockCondition: () => player.corruptions.used >= 50,
     group: 'ascensionScore'
   },
   {
     pointValue: 25,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 3, 40),
+    unlockCondition: () => player.corruptions.used >= 60,
     group: 'ascensionScore'
   },
   {
     pointValue: 30,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 3, 70),
+    unlockCondition: () => player.corruptions.used >= 70,
     group: 'ascensionScore'
   },
   {
     pointValue: 35,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 4, 20),
+    unlockCondition: () => player.corruptions.used >= 80,
     group: 'ascensionScore'
   },
   { pointValue: 10, unlockCondition: () => runeBlessings.speed.level >= 20, group: 'speedBlessing' },
@@ -1859,45 +1857,45 @@ const achievements: Achievement[] = [
   },
   {
     pointValue: 40,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 4, 40),
+    unlockCondition: () => player.corruptions.used >= 90,
     group: 'ascensionScore',
     reward: { wowHypercubeGain: () => 1.1 }
   },
   {
     pointValue: 45,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 4, 70),
+    unlockCondition: () => player.corruptions.used >= 100,
     group: 'ascensionScore',
     reward: { wowCubeGain: () => 1.1 }
   },
   {
     pointValue: 50,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 4, 100),
+    unlockCondition: () => player.corruptions.used >= 125,
     group: 'ascensionScore',
     reward: { wowTesseractGain: () => 1.1 }
   },
   {
     pointValue: 55,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 4, 150),
+    unlockCondition: () => player.corruptions.used >= 150,
     group: 'ascensionScore',
     reward: { wowPlatonicGain: () => 1.1, overfluxConversionRate: () => 1.05 }
   },
   {
     pointValue: 60,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 4, 175),
+    unlockCondition: () => player.corruptions.used >= 175,
     group: 'ascensionScore',
     reward: { overfluxConversionRate: () => 1.05 }
   },
   {
     pointValue: 65,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 4, 200),
+    unlockCondition: () => player.corruptions.used >= 200,
     group: 'ascensionScore',
     reward: { wowHepteractGain: () => 1.1 }
   },
   {
     pointValue: 70,
-    unlockCondition: () => isCorruptionTierStateAtLeast(player.corruptions.used, 4, 225),
+    unlockCondition: () => player.corruptions.used >= 225,
     group: 'ascensionScore',
-    reward: { ascensionScore: () => Math.pow(1.01, player.hepteracts.abyss.TIMES_CAP_EXTENDED) },
+    reward: { ascensionScore: () => Math.pow(1.004, player.hepteracts.abyss.TIMES_CAP_EXTENDED) },
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_2'
   },
   {
@@ -1942,7 +1940,7 @@ const achievements: Achievement[] = [
     pointValue: 40,
     unlockCondition: () => player.ascendShards.gte(G.d1e1000),
     group: 'constant',
-    reward: { ascensionScore: () => 1 + Math.min(Decimal.log(player.ascendShards.add(1), 10) / 1e5, 1) }
+    reward: { ascensionScore: () => Math.pow(1 + Math.min(Decimal.log(player.ascendShards.add(1), 10) / 1e5, 1), 0.4) }
   },
   { pointValue: 45, unlockCondition: () => player.ascendShards.gte(G.d1e5000), group: 'constant' },
   { pointValue: 50, unlockCondition: () => player.ascendShards.gte(G.d1e15000), group: 'constant' },
