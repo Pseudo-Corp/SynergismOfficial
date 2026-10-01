@@ -1006,6 +1006,7 @@ export const player: Player = {
     tokenCompletions: Array.from({ length: 46 }, () => 0),
     highestCleared: 0,
     autoIncrease: false,
+    autoClimb: 0,
     cleanseToHighest: false
   },
 

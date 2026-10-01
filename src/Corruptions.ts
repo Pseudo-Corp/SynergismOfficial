@@ -1,7 +1,13 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateCubeBank, calculateCubeBankSources } from './Calculate'
+import {
+  calculateCubeBank,
+  calculateCubeBankSources,
+  challengeTenCubeBankMultiplier,
+  reincarnationChallengeCubeBankPerCompletion,
+  transcensionChallengeCubeBankPerCompletion
+} from './Calculate'
 import { campaignTokenRewardHTMLUpdate, corruptionLevelTokenInfo, updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -130,38 +136,22 @@ const corruptionCubeUnlocks: Record<CorruptionCubeType, CorruptionCubeUnlock> = 
 }
 
 type CorruptionCubeRate = {
-  anchors: Array<[number, number]>
+  base: number
+  earlyGrowth: number
   growth: number
+  endgameGrowth: number
 }
 
 const corruptionCubeRates: Record<CorruptionCubeType, CorruptionCubeRate> = {
-  cubes: {
-    anchors: [[0, 1.602], [4, 2.984], [8, 9.565], [14, 43.27], [20, 140.5], [30, 1955], [45, 3335], [60, 7650]],
-    growth: 1.0569
-  },
-  tesseracts: {
-    anchors: [[0, 1.824e-3], [10, 0.01696], [20, 1.729], [30, 11.66], [45, 30.66], [60, 135.8]],
-    growth: 1.1043
-  },
-  hypercubes: {
-    anchors: [[8, 5.032e-4], [14, 7.79e-3], [20, 0.1326], [30, 5.893], [45, 22.04], [60, 166.3]],
-    growth: 1.14421
-  },
-  platonics: {
-    anchors: [[14, 7.135e-4], [20, 0.01103], [30, 1.238], [45, 10.04], [60, 208]],
-    growth: 1.22392
-  },
-  hepteracts: {
-    anchors: [[20, 1.33e-5], [30, 5.708e-5], [45, 5.078e-4], [60, 0.0139]],
-    growth: 1.24684
-  },
-  octeracts: {
-    anchors: [[35, 8.587e-7], [45, 2.474e-6], [60, 1.084e-4]],
-    growth: 1.28659
-  }
+  cubes: { base: 1.602, earlyGrowth: 1.35, growth: 1.25, endgameGrowth: 1.1 },
+  tesseracts: { base: 1.824e-3, earlyGrowth: 1.35, growth: 1.3, endgameGrowth: 1.15 },
+  hypercubes: { base: 5.032e-4, earlyGrowth: 1.6, growth: 1.4, endgameGrowth: 1.2 },
+  platonics: { base: 7.135e-4, earlyGrowth: 1.6, growth: 1.4, endgameGrowth: 1.2 },
+  hepteracts: { base: 1.33e-5, earlyGrowth: 1.3, growth: 1.2, endgameGrowth: 1.1 },
+  octeracts: { base: 8.587e-7, earlyGrowth: 1.2, growth: 1.1, endgameGrowth: 1.1 }
 }
 
-const c10FreeLevelsPerCompletion = 0.1
+const corruptionCubeEarlyLevels = 10
 
 const corruptionCubeIcons: Record<CorruptionCubeType, string> = {
   cubes: '/WowCube.png',
@@ -289,7 +279,21 @@ const corruptionClimbStep = () => {
 }
 
 export const maxCorruptionLevel = () => {
-  return Math.min(corruptionLevelCap(), player.corruptions.highestCleared + corruptionClimbStep())
+  const highest = player.corruptions.highestCleared
+  return Math.max(highest, Math.min(corruptionLevelCap(), highest + corruptionClimbStep()))
+}
+
+export const autoClimbCorruptionLevel = () => {
+  if (player.corruptions.autoClimb <= 0) {
+    return
+  }
+  const target = Math.min(maxCorruptionLevel(), player.corruptions.used + player.corruptions.autoClimb)
+  player.corruptions.next = Math.max(player.corruptions.next, target)
+}
+
+export const setCorruptionAutoClimb = (amount: number) => {
+  player.corruptions.autoClimb = validateNonnegativeInteger(amount) ? amount : 0
+  corruptionStatsUpdate()
 }
 
 export const clearCorruptionLevel = (level: number) => {
@@ -322,23 +326,7 @@ export const corruptionFreeLevels = () => {
   freeLevels += 0.8 * getSingularityChallengeEffect('oneChallengeCap', 'corrScoreIncrease')
   freeLevels += 0.4 * player.cubeUpgrades[74]
   freeLevels += 0.2 * player.platonicUpgrades[17]
-  freeLevels += challengeTenFreeLevels()
   return freeLevels
-}
-
-export const challengeTenGivesFreeLevels = () => {
-  return player.challengecompletions[11] > 0
-}
-
-export const challengeTenFreeLevelsPerCompletion = () => {
-  return c10FreeLevelsPerCompletion + 0.01 * player.cubeUpgrades[39]
-    + 0.005 * (player.platonicUpgrades[5] + player.platonicUpgrades[10])
-}
-
-const challengeTenFreeLevels = () => {
-  return challengeTenGivesFreeLevels()
-    ? challengeTenFreeLevelsPerCompletion() * player.highestchallengecompletions[10]
-    : 0
 }
 
 export const effectiveCorruptionLevel = (level: number) => {
@@ -373,22 +361,14 @@ export const corruptionEffect = (level: number, corr: keyof Corruptions) => {
 }
 
 export const corruptionCubeRate = (cube: CorruptionCubeType, level: number) => {
-  const { anchors, growth } = corruptionCubeRates[cube]
+  const { base, earlyGrowth, growth, endgameGrowth } = corruptionCubeRates[cube]
   const effectiveLevel = effectiveCorruptionLevel(level)
-  const [lastLevel, lastRate] = anchors[anchors.length - 1]
-  if (effectiveLevel >= lastLevel) {
-    return lastRate * Math.pow(growth, effectiveLevel - lastLevel)
-  }
-  if (effectiveLevel <= anchors[0][0]) {
-    return anchors[0][1]
-  }
-  let i = 1
-  while (effectiveLevel > anchors[i][0]) {
-    i++
-  }
-  const [startLevel, startRate] = anchors[i - 1]
-  const [endLevel, endRate] = anchors[i]
-  return startRate * Math.pow(endRate / startRate, (effectiveLevel - startLevel) / (endLevel - startLevel))
+  const levelsPastUnlock = Math.max(0, Math.min(effectiveLevel, endgameLevel) - corruptionCubeUnlocks[cube].level)
+  const earlyLevels = Math.min(levelsPastUnlock, corruptionCubeEarlyLevels)
+  return base
+    * Math.pow(earlyGrowth, earlyLevels)
+    * Math.pow(growth, levelsPastUnlock - earlyLevels)
+    * Math.pow(endgameGrowth, Math.max(0, effectiveLevel - endgameLevel))
 }
 
 export const corruptionSpiritMultiplier = (level: number) => {
@@ -679,27 +659,29 @@ const corruptionCubeModalHTML = (cube: CorruptionCubeType) => {
 }
 
 const corruptionCubeBankModalHTML = () => {
-  const sources = calculateCubeBankSources()
-  const bank = calculateCubeBank()
-  let fromChallenges = 0
-  const rows = Object.entries(sources).map(([source, { completions, perCompletion }]) => {
-    fromChallenges += completions * perCompletion
-    const perCompletionText = source === 'challengeTen' && challengeTenGivesFreeLevels()
-      ? i18next.t('corruptions.breakdown.freeLevelsPerCompletion', {
-        free: format(challengeTenFreeLevelsPerCompletion(), 3, true)
-      })
-      : format(perCompletion, 2, true)
-    return [
-      i18next.t(`corruptions.breakdown.bankSources.${source}`),
-      format(completions),
-      perCompletionText,
-      format(completions * perCompletion, 1, true)
-    ]
-  })
-  rows.push(
-    [i18next.t('corruptions.breakdown.bankSources.ants'), '', '', format(bank - fromChallenges, 1, true)],
-    [i18next.t('corruptions.breakdown.total'), '', '', format(bank, 1, true)]
-  )
+  const { transcensionChallenges, ants, reincarnationChallenges, challengeTen } = calculateCubeBankSources()
+  const rows = [
+    [
+      i18next.t('corruptions.breakdown.bankSources.transcensionChallenges'),
+      format(transcensionChallenges.completions),
+      `+${format(transcensionChallengeCubeBankPerCompletion(), 2, true)}`,
+      `+${format(transcensionChallenges.amount, 1, true)}`
+    ],
+    [i18next.t('corruptions.breakdown.bankSources.ants'), '', '', `+${format(ants, 1, true)}`],
+    [
+      i18next.t('corruptions.breakdown.bankSources.reincarnationChallenges'),
+      format(reincarnationChallenges.completions),
+      `+${format(100 * reincarnationChallengeCubeBankPerCompletion, 0, true)}%`,
+      formatTimes(reincarnationChallenges.multiplier)
+    ],
+    [
+      i18next.t('corruptions.breakdown.bankSources.challengeTen'),
+      format(challengeTen.completions),
+      formatTimes(challengeTenCubeBankMultiplier()),
+      formatTimes(challengeTen.multiplier)
+    ],
+    [i18next.t('corruptions.breakdown.total'), '', '', format(calculateCubeBank(), 1, true)]
+  ]
 
   return corruptionModalShell(
     corruptionPanelIcons.cubeBank,
@@ -1013,13 +995,16 @@ const corruptionLevelCapUpdate = () => {
     level: format(highest)
   })
   const step = corruptionClimbStep()
-  DOMCacheGetOrSet('corruptionLevelCap').innerHTML = highest + step >= cap
+  DOMCacheGetOrSet('corruptionLevelCap').innerHTML = highest > cap
+    ? i18next.t('corruptions.tiers.levelCapBelowHighest', { highest: format(highest), cap: format(cap) })
+    : highest + step >= cap
     ? corruptionLevelCapText(cap)
     : step === 1
     ? i18next.t('corruptions.tiers.nextUnlock', { level: format(highest + 1), unlock: format(highest + 2) })
     : i18next.t('corruptions.tiers.nextUnlockRange', { level: format(highest + step), step })
   getElementById<HTMLInputElement>('corruptionAutoIncreaseToggle').checked = player.corruptions.autoIncrease
   getElementById<HTMLInputElement>('corruptionCleanseToHighestToggle').checked = player.corruptions.cleanseToHighest
+  getElementById<HTMLInputElement>('corruptionAutoClimbInput').value = `${player.corruptions.autoClimb}`
 }
 
 export const corruptionEffectsUpdate = () => {

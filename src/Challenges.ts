@@ -1,8 +1,13 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import {
+  challengeTenCubeBankMultiplier,
+  reincarnationChallengeCubeBankPerCompletion,
+  transcensionChallengeCubeBankPerCompletion
+} from './Calculate'
 import { campaignTokenBonuses } from './Campaign'
-import { challengeTenFreeLevelsPerCompletion, challengeTenGivesFreeLevels, corruptionEffect } from './Corruptions'
+import { corruptionEffect } from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -346,13 +351,17 @@ export const challengeDisplay = (i: number) => {
     && player.highestchallengecompletions[i] < maxChallenges && isFocused && player.ascensionCount >= 1
     && i <= 10
   ) {
-    if (i === 10 && challengeTenGivesFreeLevels()) {
-      j.textContent = i18next.t('challenges.freeCorruptionLevelAdd', {
-        x: format(challengeTenFreeLevelsPerCompletion(), 3, true)
+    if (i === 10) {
+      j.textContent = i18next.t('challenges.ascensionBankMultiply', {
+        x: format(challengeTenCubeBankMultiplier(), 3, true)
+      })
+    } else if (i > 5) {
+      j.textContent = i18next.t('challenges.ascensionBankPercent', {
+        x: format(100 * reincarnationChallengeCubeBankPerCompletion, 0, true)
       })
     } else {
       j.textContent = i18next.t('challenges.ascensionBankAdd', {
-        x: format(i > 5 ? 2 : 1 + 0.05 * player.cubeUpgrades[56], 2, true)
+        x: format(transcensionChallengeCubeBankPerCompletion(), 2, true)
       })
     }
   }
