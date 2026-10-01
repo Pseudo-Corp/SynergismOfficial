@@ -427,6 +427,7 @@ export interface Player {
     tokenCompletions: number[]
     highestCleared: number
     autoIncrease: boolean
+    autoClimb: number
     cleanseToHighest: boolean
   }
 

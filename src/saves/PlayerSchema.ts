@@ -315,6 +315,7 @@ const playerCorruptionSchema = z.object({
   ),
   highestCleared: z.number().int().min(0).optional().catch(undefined),
   autoIncrease: z.boolean().catch(() => blankSave.corruptions.autoIncrease),
+  autoClimb: z.number().int().min(0).catch(() => blankSave.corruptions.autoClimb),
   cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest)
 }).transform(({ highestCleared, ...corruptions }) => ({
   ...corruptions,

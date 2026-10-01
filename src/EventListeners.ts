@@ -38,6 +38,7 @@ import {
   maxNextCorruptionLevel,
   registerCorruptionDetailsModal,
   resetCorruptionProgress,
+  setCorruptionAutoClimb,
   setNextCorruptionLevel,
   toggleCorruptionAutoIncrease,
   toggleCorruptionCleanseToHighest
@@ -1625,6 +1626,9 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('corruptionLevelMax').addEventListener('click', () => maxNextCorruptionLevel())
   DOMCacheGetOrSet('corruptionLevelInput').addEventListener('change', (event) => {
     setNextCorruptionLevel(Number((event.target as HTMLInputElement).value))
+  })
+  DOMCacheGetOrSet('corruptionAutoClimbInput').addEventListener('change', (event) => {
+    setCorruptionAutoClimb(Number((event.target as HTMLInputElement).value))
   })
 
   // Extra toggle

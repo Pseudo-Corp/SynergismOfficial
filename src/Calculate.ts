@@ -4,7 +4,7 @@ import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC, useChallenge13Modifiers } from './Challenges'
-import { challengeTenGivesFreeLevels, corruptionEffect, isCorruptionCubeUnlocked } from './Corruptions'
+import { corruptionEffect, isCorruptionCubeUnlocked } from './Corruptions'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
@@ -1294,26 +1294,35 @@ const sumChallengeCompletions = (from: number, to: number) => {
   return completions
 }
 
+export const transcensionChallengeCubeBankPerCompletion = () => 1 + 0.05 * player.cubeUpgrades[56]
+
+export const reincarnationChallengeCubeBankPerCompletion = 0.01
+
+export const challengeTenCubeBankMultiplier = () => 1.02 + 0.005 * player.cubeUpgrades[39]
+
 export const calculateCubeBankSources = () => {
+  const transcensionCompletions = sumChallengeCompletions(1, 5)
+  const reincarnationCompletions = sumChallengeCompletions(6, 9)
   return {
     transcensionChallenges: {
-      completions: sumChallengeCompletions(1, 5),
-      perCompletion: 1 + 0.05 * player.cubeUpgrades[56]
+      completions: transcensionCompletions,
+      amount: transcensionCompletions * transcensionChallengeCubeBankPerCompletion()
     },
-    reincarnationChallenges: { completions: sumChallengeCompletions(6, 9), perCompletion: 2 },
+    ants: getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked,
+    reincarnationChallenges: {
+      completions: reincarnationCompletions,
+      multiplier: 1 + reincarnationChallengeCubeBankPerCompletion * reincarnationCompletions
+    },
     challengeTen: {
       completions: player.challengecompletions[10],
-      perCompletion: challengeTenGivesFreeLevels() ? 0 : 2
+      multiplier: Math.pow(challengeTenCubeBankMultiplier(), player.challengecompletions[10])
     }
   }
 }
 
 export const calculateCubeBank = () => {
-  let cubeBank = 0
-  for (const { completions, perCompletion } of Object.values(calculateCubeBankSources())) {
-    cubeBank += completions * perCompletion
-  }
-  return cubeBank + getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked
+  const { transcensionChallenges, ants, reincarnationChallenges, challengeTen } = calculateCubeBankSources()
+  return (transcensionChallenges.amount + ants) * reincarnationChallenges.multiplier * challengeTen.multiplier
 }
 
 export const CalcCorruptionStuff = () => {
