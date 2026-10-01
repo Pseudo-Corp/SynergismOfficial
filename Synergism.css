@@ -685,15 +685,6 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     animation-fill-mode: forwards;
 }
 
-.iconAndNameContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-}
-
 .notification-item > p {
     position: absolute;
     top: 50%;
@@ -10694,68 +10685,152 @@ html[data-mobile="false"] .pseudoCoinButton {
     width: 70%;
 }
 
-.purchaseConsumableContainer {
-    border: 2px solid var(--amber-text-color);
-    padding: 5px;
-    width: 50%;
-    display: flex;
-}
-
-.consumablePurchaseBtn {
-    align-items: center;
-    white-space: pre;
-    padding: 0 5px;
-    border: 2px solid var(--amber-text-color);
-    margin: 5px auto 0;
-}
-
-.timeSkipSet {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+#consumablesGrid {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 14px;
     width: 100%;
+    overflow: hidden;
+    border: 2px solid var(--darkgold-color);
+    border-radius: 7px;
+    box-shadow:
+        inset 0 0 22px rgb(0 0 0 / 78%),
+        0 0 0 1px rgb(0 0 0 / 80%);
 }
 
-.timeSkipContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.consumableRow {
+    --consumable-accent: var(--amber-text-color);
+
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    row-gap: 8px;
     align-items: center;
-    width: 33.333%;
-    height: 30%;
+    padding: 10px 12px;
 }
 
-.timeSkipOptions {
+.consumableRow + .consumableRow,
+.consumableFootnote {
+    border-top: 1px solid #333;
+}
+
+.bellConsumable {
+    --consumable-accent: #ffd700;
+}
+
+.lotusConsumable {
+    --consumable-accent: #9a438f;
+}
+
+#consumablesSection .consumableIcon {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+}
+
+.consumableText {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 4px;
+    text-align: left;
+}
+
+.consumableText > p {
     margin: 0;
-    padding: 0;
 }
 
-#topRowConsumables {
+.consumableName {
+    font-size: 1.15em;
+    font-weight: bold;
+}
+
+.timeSkipConsumable .consumableName {
+    color: var(--consumable-accent);
+}
+
+.consumableDescription {
+    line-height: 1.35;
+}
+
+.bellConsumable .consumableDescription {
     display: flex;
-    flex-direction: row;
-    width: 100%;
+    flex-direction: column;
+    gap: 6px;
 }
 
-.lotusHeaderText {
+.bellConsumable .consumableDescription > p {
+    margin: 0;
+}
+
+.consumableRewards {
+    align-self: center;
+    border-collapse: collapse;
+}
+
+.consumableRewards td {
+    padding: 0 12px 0 0;
+}
+
+.consumableRewards td:nth-child(3) {
+    color: #8f8;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.consumableRewards td:last-child {
+    padding-right: 0;
+}
+
+#consumablesSection .consumableRewards img {
+    display: block;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+}
+
+.lotusCounts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 16px;
+    color: pink;
+}
+
+.consumableBuy {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.bellConsumable .consumableBuy > * {
+    grid-column: 1 / -1;
+}
+
+.consumableBuyNote {
+    contain: inline-size;
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.35;
+}
+
+.consumableBuyButton,
+.consumableTipsButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 10px;
+    font-size: 0.9em;
+    white-space: nowrap;
+    border: 2px solid var(--consumable-accent);
+    border-radius: 4px;
+}
+
+.consumableFootnote {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 8px 12px;
     text-align: center;
-}
-
-.lotusHeaderText p {
-    margin: 0;
-}
-
-.lotusContainer {
-    border: 2px solid pink !important;
-}
-
-/* Cost text */
-#consumablesGrid > div > button > :nth-child(2) {
-    color: var(--amber-text-color);
 }
 
 #upgradeGrid {
@@ -12429,37 +12504,16 @@ html[data-mobile="true"] .hideOnMobile {
         padding-bottom: 15px;
     }
 
-    .timeSkipSet {
-        align-items: stretch;
-        flex-wrap: wrap;
+    #consumablesGrid {
+        grid-template-columns: auto minmax(0, 1fr);
     }
 
-    .timeSkipContainer {
-        height: auto;
-        justify-content: space-between;
-        font-size: 0.75rem;
-        overflow: hidden; /* TODO */
+    .consumableBuy {
+        grid-column: 1 / -1;
     }
 
-    .lotusOptions {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    *[data-lotus="true"] *:not(span) {
-        width: 80%;
-        margin: 0 auto;
-    }
-
-    .consumablePurchaseBtn {
-        white-space: unset;
-        width: 80%;
-    }
-
-    #topRowConsumables > .purchaseConsumableContainer {
-        display: flex;
-        flex-direction: column;
+    .consumableBuyButton {
+        white-space: normal;
     }
 
     #event {
@@ -12940,13 +12994,9 @@ html[data-mobile="true"] .hideOnMobile {
         width: 95%;
     }
 
-    #topRowConsumables {
-        flex-wrap: wrap;
-    }
-
-    .purchaseConsumableContainer {
-        min-width: 0;
-        flex: 1 1 auto;
+    #consumablesSection .consumableIcon {
+        width: 32px;
+        height: 32px;
     }
 
     #manage-subscription-holder {
