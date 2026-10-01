@@ -1087,7 +1087,7 @@ export const goldenQuarkUpgrades: {
     specialCostForm: 'Default',
     effect: (n, key) => {
       if (key === 'freeCorruptionLevels') {
-        return n > 0 ? 5 : 0
+        return n > 0 ? 1 : 0
       } else {
         return n > 0 ? 0.08 : 0 // packQuarkAdd
       }
@@ -1115,7 +1115,7 @@ export const goldenQuarkUpgrades: {
           return 1
         } else {
           const level = player.corruptions.used
-          const perCorruption = level >= 225 ? 1.4 : level >= 200 ? 1.3 : level >= 175 ? 1.25 : 1
+          const perCorruption = level >= 45 ? 1.4 : level >= 40 ? 1.3 : level >= 35 ? 1.25 : 1
           return Math.pow(perCorruption, 8)
         }
       } else {

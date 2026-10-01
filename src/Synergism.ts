@@ -67,6 +67,7 @@ import {
 } from './Calculate'
 import {
   c15CorruptionLevel,
+  clearCorruptionLevel,
   corruptionEffect,
   corruptionLevelStrength,
   corruptionPanelCreate,
@@ -1000,7 +1001,7 @@ export const player: Player = {
     next: 0,
     used: 0,
     presets: createDefaultCorruptionPresets(),
-    tokenCompletions: Array.from({ length: 226 }, () => 0),
+    tokenCompletions: Array.from({ length: 46 }, () => 0),
     highestCleared: 0,
     autoIncrease: false,
     cleanseToHighest: false
@@ -3584,6 +3585,9 @@ export const resetCheck = async (
       }
     }
     challengeAchievementCheck(q)
+    if (q === 10 && player.challengecompletions[10] > 0 && player.currentChallenge.ascension !== 15) {
+      clearCorruptionLevel(player.corruptions.used)
+    }
     if (player.highestchallengecompletions[8] > 0) {
       player.unlocks.anthill = true
     }

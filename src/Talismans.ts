@@ -296,7 +296,7 @@ const plasticInscriptValues = [1, 1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.04, 1
 const wowSquareInscriptValues = [1, 1.025, 1.05, 1.075, 1.1, 1.125, 1.15, 1.2, 1.225, 1.25, 1.30]
 const achievementEffectInscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.006, 0.008, .01, .015, .02, .03]
 const purpleGemInscriptValues = [0, 1, 2, 3, 4, 5, 6, 10, 20, 30, 40]
-const cookieGrandmaInscriptValues = [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2]
+const cookieGrandmaInscriptValues = [0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36, 0.4]
 const horseShoeInscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.007, 0.01, 0.012, 0.015, 0.02]
 
 export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
@@ -755,7 +755,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     inscriptionDesc: (n) => {
       return i18next.t('runes.talismans.cookieGrandma.inscription', {
-        val: format(cookieGrandmaInscriptValues[n] ?? 0, 1)
+        val: format(cookieGrandmaInscriptValues[n] ?? 0, 2)
       })
     },
     signatureDesc: () => i18next.t('runes.talismans.cookieGrandma.signature'),

@@ -48,7 +48,12 @@ import {
 } from './Calculate'
 import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
-import { corruptionLevelScoreUpdate, corruptionMultiplierChangeText, corruptionSpiritMultiplier } from './Corruptions'
+import {
+  corruptionEffectsUpdate,
+  corruptionLevelScoreUpdate,
+  corruptionMultiplierChangeText,
+  corruptionSpiritMultiplier
+} from './Corruptions'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -1686,10 +1691,15 @@ export const visualUpdateCorruptions = () => {
     })
   }
 
+  if (getActiveSubTab() !== 0) {
+    return
+  }
+
   DOMCacheGetOrSet('corruptionCubeBank').innerHTML = i18next.t('corruptions.cubeBank', {
     value: format(calculateCubeBank(), 1, true)
   })
 
+  corruptionEffectsUpdate()
   corruptionLevelScoreUpdate()
   DOMCacheGetOrSet('corruptionSpiritValue').innerHTML = corruptionMultiplierChangeText(
     format(corruptionSpiritMultiplier(player.corruptions.used), 2, true),

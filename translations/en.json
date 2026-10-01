@@ -1144,13 +1144,13 @@
       "222": "It's like: Clear 'No Research' ten times.",
       "223": "It's: Clear 'No Research' twenty times.",
       "224": "It: Clear 'No Research' thirty times.",
-      "225": "Pretty Corrupt: Clear an Ascension at Corruption level 20 or higher.",
-      "226": "Bought out: Clear an Ascension at Corruption level 30 or higher.",
-      "227": "Utterly Corrupt: Clear an Ascension at Corruption level 40 or higher.",
-      "228": "Antitrust: Clear an Ascension at Corruption level 50 or higher.",
-      "229": "Ant-i-trust: Clear an Ascension at Corruption level 60 or higher.",
-      "230": "This is pretty unfair: Clear an Ascension at Corruption level 70 or higher.",
-      "231": "Antichrist: Clear an Ascension at Corruption level 80 or higher.",
+      "225": "Pretty Corrupt: Clear an Ascension at Corruption level 4 or higher.",
+      "226": "Bought out: Clear an Ascension at Corruption level 6 or higher.",
+      "227": "Utterly Corrupt: Clear an Ascension at Corruption level 8 or higher.",
+      "228": "Antitrust: Clear an Ascension at Corruption level 10 or higher.",
+      "229": "Ant-i-trust: Clear an Ascension at Corruption level 12 or higher.",
+      "230": "This is pretty unfair: Clear an Ascension at Corruption level 14 or higher.",
+      "231": "Antichrist: Clear an Ascension at Corruption level 16 or higher.",
       "232": "Highly Blessed: Level your Speed Rune Blessing to 20.",
       "233": "Divine Blessing: Level your Speed Rune Blessing to 40.",
       "234": "Blessing III: Level your Speed Rune Blessing to 80.",
@@ -1172,13 +1172,13 @@
       "250": "The Thousand Moons: [Hint: You need to fully research into becoming GOD]",
       "251": "The Thousand Suns: [Hint: You may need to cube yourself up]",
       "252": "Ultimate: [Hint: a good enough score from the second Sadistic challenge shall do]",
-      "253": "Platonicism: Clear an Ascension at Corruption level 90 or higher.",
-      "254": "That's a handful!: Clear an Ascension at Corruption level 100 or higher.",
-      "255": "The game where everything is made up: Clear an Ascension at Corruption level 125 or higher.",
-      "256": "... and the points don't matter: Clear an Ascension at Corruption level 150 or higher.",
-      "257": "Arguably moral: Clear an Ascension at Corruption level 175 or higher.",
-      "258": "Khafra's Personal Best: Clear an Ascension at Corruption level 200 or higher.",
-      "259": "100 million million million!: Clear an Ascension at Corruption level 225 or higher.",
+      "253": "Platonicism: Clear an Ascension at Corruption level 18 or higher.",
+      "254": "That's a handful!: Clear an Ascension at Corruption level 20 or higher.",
+      "255": "The game where everything is made up: Clear an Ascension at Corruption level 25 or higher.",
+      "256": "... and the points don't matter: Clear an Ascension at Corruption level 30 or higher.",
+      "257": "Arguably moral: Clear an Ascension at Corruption level 35 or higher.",
+      "258": "Khafra's Personal Best: Clear an Ascension at Corruption level 40 or higher.",
+      "259": "100 million million million!: Clear an Ascension at Corruption level 45 or higher.",
       "260": "Highly Dimensional Being: Ascend a total of 10 million times.",
       "261": "Ant God's upheaval: Ascend a total of 100 million times.",
       "262": "Did you forget about Ant God?: Ascend a total of 2 billion times.",
@@ -1345,16 +1345,16 @@
       "423": "Simulated Tithe XIII: Obtain num:((50000)) free levels of the Speed Rune.",
       "424": "Simulated Tithe XIV: Obtain num:((75000)) free levels of the Speed Rune.",
       "425": "God needs better names: Obtain num:((100000)) free levels of the Speed Rune.",
-      "426": "Proof of Work: Have 10 Campaign Tokens.",
-      "427": "Insert tokens: Have 20 Campaign Tokens.",
-      "428": "Novice Corruptor: Have 40 Campaign Tokens.",
-      "429": "A Roll of Campaign Tokens: Have 80 Campaign Tokens.",
-      "430": "Relative Campaign Expert: Have 160 Campaign Tokens.",
-      "431": "Five Stacks: Have 320 Campaign Tokens.",
-      "432": "Thousandaire: Have num:((1000)) Campaign Tokens.",
-      "433": "Question 6 of a possible 15: Have num:((2000)) Campaign Tokens.",
-      "434": "Platonic Campaigns: Have num:((4000)) Campaign Tokens.",
-      "435": "Campaign Master: Have num:((9000)) Campaign Tokens.",
+      "426": "Proof of Work: Have 10 Corruption Tokens.",
+      "427": "Insert tokens: Have 20 Corruption Tokens.",
+      "428": "Novice Corruptor: Have 40 Corruption Tokens.",
+      "429": "A Roll of Corruption Tokens: Have 80 Corruption Tokens.",
+      "430": "Relative Corruption Expert: Have 160 Corruption Tokens.",
+      "431": "Five Stacks: Have 320 Corruption Tokens.",
+      "432": "Thousandaire: Have num:((1000)) Corruption Tokens.",
+      "433": "Question 6 of a possible 15: Have num:((2000)) Corruption Tokens.",
+      "434": "Platonic Corruptions: Have num:((4000)) Corruption Tokens.",
+      "435": "Corruption Master: Have num:((9000)) Corruption Tokens.",
       "436": "Baby's first Prestige: Prestige for the first time.",
       "437": "Ten Reputation: Prestige 10 times.",
       "438": "Duplicating yourself: Prestige 100 times.",
@@ -1823,7 +1823,7 @@
         "wowSquareTalisman": "Unlock the Wow Square Talisman!"
       },
       "187": {
-        "ascensionCountMultiplier": "Gain more Ascension Count based on Corruption level [+16% per level]",
+        "ascensionCountMultiplier": "Gain more Ascension Count based on Corruption level [+80% per level]",
         "multiplicativeOffering": "Offerings multiplier based on Ascension Count"
       },
       "188": {
@@ -2351,7 +2351,7 @@
       "singularityCount": "Singularities",
       "runeLevel": "Rune Levels",
       "runeFreeLevel": "Free Rune Levels",
-      "campaignTokens": "Campaign Tokens",
+      "campaignTokens": "Corruption Tokens",
       "prestigeCount": "Times Prestiged",
       "transcensionCount": "Times Transcended",
       "reincarnationCount": "Times Reincarnated",
@@ -3386,7 +3386,7 @@
         "2": "Ant Speed x(num:((1e5)))^completions! Current: ",
         "3": "+1 to the Rune Level Coefficient of the first five runes! Current: "
       },
-      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to 'Corrupt' your game with Corruption levels 1–20!",
+      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to 'Corrupt' your game with Corruption levels 1–4!",
       "start": "Start <[(Reduced Ants)]>",
       "current": {
         "1": "+{{value}} free ant levels",
@@ -3405,7 +3405,7 @@
         "2": "+12% Offerings! Current: ",
         "3": "+20% more Reincarnation Count on Reincarnation! Current: "
       },
-      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Also unlocks Corruption levels up to 40!",
+      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Also unlocks Corruption levels up to 8!",
       "start": "Start <[(No Reincarnation)]>",
       "current": {
         "1": "+{{value}}% Obtainium",
@@ -3424,7 +3424,7 @@
         "2": "+6 maximum to Talisman Level Cap! Current: ",
         "3": "+3% Spirit Power effectiveness! Current: "
       },
-      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Also unlocks Corruption levels up to 70!",
+      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Also unlocks Corruption levels up to 14!",
       "start": "Start <[(Tax+++)]>",
       "current": {
         "1": "-{{value}}% Tax Burden",
@@ -3455,7 +3455,7 @@
       "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
       "progressName": "SADISTIC CHALLENGE II",
       "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-      "restrictions": "Ascend and reach the goal but you're stuck at Corruption level 100. <br> ☆ Ant Speed <<gold|^num:((0.5))>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|num:((0.0001))>> <br> ☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>>",
+      "restrictions": "Ascend and reach the goal but you're stuck at Corruption level 20. <br> ☆ Ant Speed <<gold|^num:((0.5))>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|num:((0.0001))>> <br> ☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>>",
       "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
       "per": {
         "1": "Folly of mankind: ",
@@ -3623,8 +3623,8 @@
       "35": "[4x5] Aphrodite increases the fertility of your coins. The effect of Aphrodite Tributes is raised to the power of (1 + level / 100).",
       "36": "[4x6] Raise Building Power to (1 + num:((0.05)) * Level) once more.",
       "37": "[4x7] For Thrift and Superior Intellect runes, add +1 to the Rune Level Coefficient per level!",
-      "38": "[4x8] Gain +num:((0.25))% more Tesseracts on Ascension per Corruption level.",
-      "39": "[4x9] Once Challenge 11 is beaten, each Challenge 10 completion gives +num:((0.05)) more free Corruption levels!",
+      "38": "[4x8] Gain +num:((1.25))% more Tesseracts on Ascension per Corruption level.",
+      "39": "[4x9] Once Challenge 11 is beaten, each Challenge 10 completion gives +num:((0.01)) more free Corruption levels!",
       "40": "[4x10] Athena is very smart. The effect of Athena Tributes is raised to the power of (1 + level / 100).",
       "41": "[5x1] Yeah yeah yeah, +2% of every cube type per level. Isn't it enough?",
       "42": "[5x2] You now gain +4% Immaculate Obtainium per level, which is not dependent on corruptions!",
@@ -3655,11 +3655,11 @@
       "67": "[Cx17] What the hell are in these??? Anyway, Metaphysics Talisman level cap is increased by num:((1337)).",
       "68": "[Cx18] What the heck! These aren't even cookies. +num:((0.01))% Quarks per level purchased of this upgrade. +5% more at level num:((1000))!",
       "69": "[Cx19] Cookies that you'll never remember again. +12% Golden Quarks this Singularity.",
-      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. For each Corruption level above 175, including free levels, gain num:((1.025))x the Octeracts per second!",
+      "70": "[Cx20] The pinnacle of baking. Nothing you'll eat will taste better than this. For each Corruption level above 35, including free levels, gain num:((1.131))x the Octeracts per second!",
       "71": "[Cx21] For each Talisman Rarity, multiply Obtainium gain by num:((1.04)).",
       "72": "[Cx22] For each Talisman Rarity, multiply Offering gain by num:((1.04)).",
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
-      "74": "[Cx24] Gain +2 free Corruption levels.",
+      "74": "[Cx24] Gain +num:((0.4)) free Corruption levels.",
       "75": "[Cx25] Each level adds +num:((0.3))% effectiveness to most free Golden Quark upgrades per level! (additive with all other boosts; Hourglass upgrades are unaffected)",
       "76": "[Cx26] Each level gives <<lightblue|+2% Ambrosia Bar Points>> and <<red|+2% Red Bar Points>>!",
       "77": "[Cx27] Each level adds <<green | +2 +num:((0.1))% Ambrosia Luck>>!",
@@ -4289,19 +4289,19 @@
       },
       "tokenInheritance": {
         "name": "Token Inheritance",
-        "default": "At the start of a Singularity, gain {{amount}} additional Campaign Tokens for absolutely nothing!"
+        "default": "At the start of a Singularity, gain {{amount}} additional Corruption Tokens for absolutely nothing!"
       },
       "firstClearTokens": {
         "name": "First to the Slaughter",
         "default": "Every Corruption level's First completion bonus is increased by 10% of that level's base Challenge 10 completion cap!"
       },
       "lastClearTokens": {
-        "name": "The Blessing of Finality, Campaigns",
+        "name": "The Blessing of Finality, Corruptions",
         "default": "Every Corruption level's Last completion bonus is increased by 20% of that level's base Challenge 10 completion cap!"
       },
       "bonusTokens": {
         "name": "More Tokens!",
-        "default": "Every Corruption level's Challenge 10 completion cap is +{{amount}}% higher, earning you more Campaign Tokens!"
+        "default": "Every Corruption level's Challenge 10 completion cap is +{{amount}}% higher, earning you more Corruption Tokens!"
       },
       "cubeToQuark": {
         "name": "Cube to Quark Corner",
@@ -4631,15 +4631,15 @@
       },
       "corruptionFourteen": {
         "name": "Level Fourteen Corruptions",
-        "description": "Buy this to gain one free Corruption level. :)",
-        "effectHave": "You have gained a free Corruption level. {{m}}",
-        "effectHaveNot": "You have not gained a free Corruption level. {{m}}"
+        "description": "Buy this to gain num:((0.2)) free Corruption levels. :)",
+        "effectHave": "You have gained num:((0.2)) free Corruption levels. {{m}}",
+        "effectHaveNot": "You have not gained num:((0.2)) free Corruption levels. {{m}}"
       },
       "corruptionFifteen": {
         "name": "Level Fifteen Corruptions",
-        "description": "This doesn't *really* raise the Corruption limit. Rather, it adds two FREE Corruption levels, no matter what (can exceed caps). :)",
-        "effectHave": "You have gained 2 free Corruption levels. {{m}}",
-        "effectHaveNot": "You have not gained 2 free Corruption levels. {{m}}"
+        "description": "This doesn't *really* raise the Corruption limit. Rather, it adds num:((0.4)) FREE Corruption levels, no matter what (can exceed caps). :)",
+        "effectHave": "You have gained num:((0.4)) free Corruption levels. {{m}}",
+        "effectHaveNot": "You have not gained num:((0.4)) free Corruption levels. {{m}}"
       },
       "singOfferings1": {
         "name": "Offering Charge",
@@ -4720,7 +4720,7 @@
       },
       "advancedPack": {
         "name": "Advanced Pack",
-        "description": "Now we're cooking with kerosene! Gain +4% Quarks, additive with intermediate pack, and +2 free Corruption levels!",
+        "description": "Now we're cooking with kerosene! Gain +4% Quarks, additive with intermediate pack, and +num:((0.4)) free Corruption levels!",
         "effectHave": "You have bought our advanced package.",
         "effectHaveNot": "You have not bought our advanced package."
       },
@@ -4732,13 +4732,13 @@
       },
       "masterPack": {
         "name": "Master Pack",
-        "description": "A tad insane. Gain +8% Quarks, additive with other packs, and +5 free Corruption levels. Wow!",
+        "description": "A tad insane. Gain +8% Quarks, additive with other packs, and +1 free Corruption level. Wow!",
         "effectHave": "You have mastered your inner chakras.",
         "effectHaveNot": "You have not mastered your inner chakras."
       },
       "divinePack": {
         "name": "Divine Pack",
-        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.25)) per Corruption at Corruption level 175 or higher (num:((1.3)) from level 200 and num:((1.4)) from level 225)!",
+        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.25)) per Corruption at Corruption level 35 or higher (num:((1.3)) from level 40 and num:((1.4)) from level 45)!",
         "effectHave": "You have found the reason for existence. Current Octeract Bonus: +{{n}}",
         "effectHaveNot": "You have not found the reason for existence."
       },
@@ -4951,12 +4951,12 @@
       },
       "singBonusTokens1": {
         "name": "Spare Change on the Sofa Cushion",
-        "description": "Thanks to your perceptive eyes, you find more Campaign Tokens! Every Corruption level's First completion bonus is increased by 2% of its base Challenge 10 completion cap per level.",
+        "description": "Thanks to your perceptive eyes, you find more Corruption Tokens! Every Corruption level's First completion bonus is increased by 2% of its base Challenge 10 completion cap per level.",
         "effect": "First completion bonus +{{n}}% of each level's base completion cap!"
       },
       "singBonusTokens2": {
         "name": "Spare Change in the creases of the Sofa Cushions",
-        "description": "Thanks to your more perceptive eyes, you find even more Campaign Tokens! Every Corruption level's Challenge 10 completion cap is +1% higher per level.",
+        "description": "Thanks to your more perceptive eyes, you find even more Corruption Tokens! Every Corruption level's Challenge 10 completion cap is +1% higher per level.",
         "effect": "Challenge 10 completion caps +{{n}}!"
       },
       "singBonusTokens3": {
@@ -5560,7 +5560,7 @@
     "tokens": {
       "count": "You have {{ count }} / {{ maxCount }} tokens!",
       "rewardTexts": {
-        "tutorial": "For earning your first Campaign Tokens, get {{cube}} more Cubes, <<pink | {{obtainium}}>> more Obtainium, and <<orange | {{offering}}>> more Offerings!",
+        "tutorial": "For earning your first Corruption Tokens, get {{cube}} more Cubes, <<pink | {{obtainium}}>> more Obtainium, and <<orange | {{offering}}>> more Offerings!",
         "cube": "Increase Cube gain by {{ reward }}",
         "obtainium": "Increase Obtainium gain by <<pink | {{ reward }}>>",
         "offering": "Increase Offering gain by <<orange | {{ reward }}>>",
@@ -5614,20 +5614,20 @@
     },
     "levelFormulas": {
       "viscosity": "0",
-      "drought": "−10 × (0.04 × L + 7)²",
+      "drought": "−10 × (0.2 × L + 7)²",
       "deflation": {
-        "low": "10^(−L² ÷ 400)",
-        "mid": "10^(−25 × ((0.04 × L + 7) ÷ 11)²)",
+        "low": "10^(−L² ÷ 16)",
+        "mid": "10^(−25 × ((0.2 × L + 7) ÷ 11)²)",
         "zero": "0"
       },
-      "extinction": "1 + (0.04 × L + 7)² ÷ (0.04 × L + 9.5)",
-      "illiteracy": "2^(−(0.04 × L + 7) ÷ 5)",
-      "recession": "0.81^(16 + (L − 225))",
+      "extinction": "1 + (0.2 × L + 7)² ÷ (0.2 × L + 9.5)",
+      "illiteracy": "2^(−(0.2 × L + 7) ÷ 5)",
+      "recession": "0.81^(16 + 5 × (L − 45))",
       "dilation": {
-        "low": "10^(−0.0024 × L²)",
-        "high": "10^(−24 × ((0.04 × L + 7) ÷ 11)²), minimum 10^−300"
+        "low": "10^(−0.06 × L²)",
+        "high": "10^(−24 × ((0.2 × L + 7) ÷ 11)²), minimum 10^−300"
       },
-      "hyperchallenge": "(1 + 1.618^(16 + 1.6 × (L − 225))) ÷ 2, maximum 10^300"
+      "hyperchallenge": "(1 + 1.618^(16 + 8 × (L − 45))) ÷ 2, maximum 10^300"
     },
     "breakdown": {
       "current": "This Ascension<br>L = {{level}}",
@@ -5676,7 +5676,7 @@
         "ants": "Ants"
       },
       "spiritDescription": "Multiplies Rune Spirit power. Free levels count.",
-      "spiritFormula": "1 + 0.32 × S², where S = min(0.11 × L, 0.04 × L + 7) and L = level + free levels. Level 0 always gives x1.",
+      "spiritFormula": "1 + 0.32 × S², where S = min(0.55 × L, 0.2 × L + 7) and L = level + free levels. Level 0 always gives x1.",
       "strength": "S",
       "spiritMultiplier": "Spirit Power multiplier"
     },
@@ -5756,7 +5756,7 @@
       "nextUnlock": "Complete Challenge 10 at level {{level}} to unlock level {{unlock}}.",
       "nextUnlockRange": "You can climb up to {{step}} levels past your highest cleared level (up to level {{level}}).",
       "levelCap": "Maximum level: {{cap}}. Complete Challenge {{challenge}} to raise it.",
-      "levelCapIncreasable": "Maximum level: {{cap}}. Platonic Alpha, Platonic Beta, Level Fourteen Corruptions and EXTRA CHONKY Corruptions each raise it by 25.",
+      "levelCapIncreasable": "Maximum level: {{cap}}. Platonic Alpha, Platonic Beta, Level Fourteen Corruptions and EXTRA CHONKY Corruptions each raise it by 5.",
       "levelCapFinal": "Maximum level: {{cap}}.",
       "cubeBank": "Cube Bank",
       "spiritPower": "Spirit Power multiplier",
@@ -5769,6 +5769,7 @@
       "cubeMultiplierNew": "<<silver|Locked →>> <<gold|x{{next}}>>",
       "cubeLocked": {
         "level": "<<gray|Unlocks at level {{level}}>>",
+        "levelFree": "<<gray|Unlocks at level {{level}} ({{base}} − {{free}} Free Levels)>>",
         "challenge15": "<<gray|Needs C15 Hepteract reward>>"
       },
       "cubes": {
@@ -5806,6 +5807,11 @@
     "cleanse": "Cleanse",
     "confirm": "Confirm",
     "resetCorruptionsError": "You cannot cleanse your Corruptions while in Challenge 15!",
+    "resetProgress": {
+      "button": "Reset Corruption Progress [TESTING ONLY]",
+      "confirm": "Reset your Corruption progress? Your current and next level, highest cleared level and all Corruption Tokens earned from levels go back to 0. Presets are kept.",
+      "done": "Corruption progress has been reset."
+    },
     "intro": "The most rewarding ventures are those few would dare to embark.",
     "traitInfo": "Select the Corruption level you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
     "cubeBank": "<<goldenrod|{{value}}>>",
@@ -6033,7 +6039,7 @@
       },
       "octeractCorruption": {
         "name": "EXTRA CHONKY Corruptions",
-        "description": "Adds one free Corruption level per level. Derpsmith approves.",
+        "description": "Adds num:((0.2)) free Corruption levels per level. Derpsmith approves.",
         "effect": "Free Corruption levels +{{n}}"
       },
       "octeractGQCostReduce": {
@@ -6349,10 +6355,10 @@
       "name": "Finite Descent",
       "description": "That shopkeep told me it was an Ascent. That <i>liar</i>!",
       "lockedDescription": "This rune is locked! Honestly, I have no idea how you unlock this.",
-      "corruptionLevels": "<<lightgray | +{{val}} Free Corruption Levels>> (up to +1)",
+      "corruptionLevels": "<<lightgray | +{{val}} Free Corruption Levels>> (up to +num:((0.2)))",
       "ascensionScore": "<<orange | +{{val}} gain of every cube type>> (up to +32%)",
       "infiniteAscentLevels": "<<lightgoldenrodyellow | +{{val}} Free Infinite Ascent levels>> (+1 every 2 Power)",
-      "values": "Gain up to num:((1.32))x more of every cube type for your current Ascension, gain up to 1 free Corruption level, and tack on +1 free Infinite Ascent level every two levels. Shweet!",
+      "values": "Gain up to num:((1.32))x more of every cube type for your current Ascension, gain up to num:((0.2)) free Corruption levels, and tack on +1 free Infinite Ascent level every two levels. Shweet!",
       "effect": "This Ascension, gain +{{val}} of every cube type, {{val2}} free Corruption levels, and +{{val3}} Infinite Ascent levels."
     },
     "topHat": {
@@ -6693,11 +6699,11 @@
       "oneChallengeCap": {
         "name": "One Challenge Caps",
         "description": "Beat the target Singularity, but the first 14 Challenges have a cap of only 1!",
-        "ScalingReward1": "+num:((0.2)) free <<var(--red-text-color)|Corruption Levels>>",
+        "ScalingReward1": "+num:((0.04)) free <<var(--red-text-color)|Corruption Levels>>",
         "ScalingReward2": "+num:((1.66))% <<var(--blueberry-box-color)|Ambrosia Bar Points>> gained",
         "ScalingReward3": "15 Achievement Points!",
         "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
-        "UniqueReward2": "12th - +3 Free <<var(--red-text-color)|Corruption Levels>>",
+        "UniqueReward2": "12th - +num:((0.6)) Free <<var(--red-text-color)|Corruption Levels>>",
         "UniqueReward3": "12th - A new <<orchid|Quark>> upgrade!",
         "UniqueReward4": "15th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
       },
@@ -6962,8 +6968,8 @@
       "EventCubeGain": "Event - Bonus Cube Gain:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "AscensionTime": "Ascension Time Multiplier:",
-      "CampaignTutorial": "Campaign Tokens - First Token Bonus:",
-      "Campaign": "Campaign Tokens - Cube Bonus:",
+      "CampaignTutorial": "Corruption Tokens - First Token Bonus:",
+      "Campaign": "Corruption Tokens - Cube Bonus:",
       "SunMoon": "Sun & Moon Achievement Multiplier:",
       "SpeedAchievement": "Speed Achievement:",
       "InfiniteAscent": "Infinite Ascent Rune:",
@@ -7123,7 +7129,7 @@
       "ExpertPack": "Golden Quark Upgrade - Expert Pack:",
       "EventCubeGain": "Event - Bonus Cube Gain:",
       "PseudoCoins": "PseudoCoin Upgrade:",
-      "Campaign": "Campaign Tokens: Octeract Bonus:",
+      "Campaign": "Corruption Tokens: Octeract Bonus:",
       "SeasonPass3": "Season Pass 3:",
       "SeasonPassY": "Season Pass Y:",
       "SeasonPassZ": "Season Pass Z:",
@@ -7206,8 +7212,8 @@
       "ConstantUpgrade3": "Constant Upgrade 3:",
       "Research5x19": "Research 5x19:",
       "ResearchTalismans": "Research 6x24 & 8x4:",
-      "TutorialBonus": "Campaign Tokens - First Token Bonus:",
-      "CampaignBonus": "Campaign Tokens - Offering Bonus:",
+      "TutorialBonus": "Corruption Tokens - First Token Bonus:",
+      "CampaignBonus": "Corruption Tokens - Offering Bonus:",
       "Challenge12": "Challenge 12:",
       "ThriftSpirit": "Thrift Spirit Bonus:",
       "Research8x25": "Research 8x25:",
@@ -7282,7 +7288,7 @@
       "PlatonicOMEGA": "Platonic OMEGA Bonus:",
       "Jack": "The Jack of all Trades:",
       "Challenge15": "Challenge 15 Reward:",
-      "CampaignBonus": "Campaign Token Bonus:",
+      "CampaignBonus": "Corruption Token Bonus:",
       "InfiniteAscent": "Infinite Ascent Rune Bonus:",
       "QuarkHepteract": "Quark Hepteract Bonus:",
       "Powder": "Overflux Powder Bonus:",
@@ -7336,8 +7342,8 @@
       "Base": "Base Obtainium:",
       "CubeUpgrade4x2": "Cube Upgrade 4x2:",
       "CubeUpgrade4x3": "Cube Upgrade 4x3:",
-      "TutorialBonus": "Campaign Tokens - First Token Bonus:",
-      "CampaignBonus": "Campaign Tokens - Obtainium Bonus:",
+      "TutorialBonus": "Corruption Tokens - First Token Bonus:",
+      "CampaignBonus": "Corruption Tokens - Obtainium Bonus:",
       "ChallengeBonus": "Challenge 15 - Obtainium Bonus:",
       "PlatonicALPHA": "Platonic ALPHA:",
       "PlatonicUpgrade9": "Platonic Upgrade 9:",
@@ -7532,7 +7538,7 @@
       "Base": "Base Value:",
       "SynergismLevel": "Synergism Level Reward:",
       "PseudoCoins": "PseudoCoin Upgrade:",
-      "Campaign": "Campaign Token Bonus:",
+      "Campaign": "Corruption Token Bonus:",
       "SingularityMilestones": "Singularity Milestones:",
       "ShopUpgrade1": "Quark Upgrade - Ambrosia Luck I:",
       "ShopUpgrade2": "Quark Upgrade - Ambrosia Luck II:",
@@ -7577,7 +7583,7 @@
       "title": "Ambrosia Bar Points",
       "Default": "Default Per Second:",
       "PseudoCoins": "PseudoCoin Upgrade:",
-      "Campaign": "Campaign Token Bonus:",
+      "Campaign": "Corruption Token Bonus:",
       "ShopUpgrade1": "Quark Upgrade - Ambrosia Generation I:",
       "ShopUpgrade2": "Quark Upgrade - Ambrosia Generation II:",
       "ShopUpgrade3": "Quark Upgrade - Ambrosia Generation III:",
@@ -7615,7 +7621,7 @@
       "title": "Golden Quarks",
       "Base": "Base Value:",
       "PseudoCoins": "PseudoCoin Upgrade:",
-      "Campaign": "Campaign Token Bonus:",
+      "Campaign": "Corruption Token Bonus:",
       "Challenge15": "Challenge 15 Exponent:",
       "GoldenQuarks1": "Golden Quark Upgrade - Golden Quarks I:",
       "CookieUpgrade19": "Cookie Upgrade 19:",
@@ -8147,23 +8153,23 @@
         "platonicCanBuyMaxed": "===Maxed==="
       },
       "descriptions": {
-        "1": "+num:((0.0090))% Cubes per level for every Corruption level!",
-        "2": "+num:((0.018))% Tesseracts per level for every Corruption level!",
-        "3": "+num:((0.054))% Hypercubes per level for every Corruption level!",
+        "1": "+num:((0.045))% Cubes per level for every Corruption level!",
+        "2": "+num:((0.09))% Tesseracts per level for every Corruption level!",
+        "3": "+num:((0.27))% Hypercubes per level for every Corruption level!",
         "4": "Gain +num:((2.4))% Platonic Cubes per level! It is that simple.",
-        "5": "+num:((0.025)) free Corruption levels per Challenge 10 completion, Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +1 free Corruption level!",
+        "5": "+num:((0.005)) free Corruption levels per Challenge 10 completion, Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +num:((0.2)) free Corruption levels!",
         "6": "Viscosity's exponent is multiplied by 1+(level/30), capped at ^1.",
         "7": "Global speed below 1x is raised to ^1-(level/30), ignoring Immaculate multipliers.",
         "8": "The Hyperchallenge Cube's effect is divided by 1+(level*num:((0.4))), with a minimum of 1x.",
         "9": "Gain num:((2.5))x Immaculate Obtainium and multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at num:((1e100)) Obtainium.",
-        "10": "+num:((0.025)) free Corruption levels per Challenge 10 completion, Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, +1 free Corruption level again!",
-        "11": "If you are at Corruption level 100 or higher, Reincarnations will also give Diamonds based on Particle gain!",
-        "12": "Gain +num:((0.055))% more Ant ELO per Corruption level up to 100, then +num:((0.02))% per level beyond, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
+        "10": "+num:((0.005)) free Corruption levels per Challenge 10 completion, Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, +num:((0.2)) free Corruption levels again!",
+        "11": "If you are at Corruption level 20 or higher, Reincarnations will also give Diamonds based on Particle gain!",
+        "12": "Gain +num:((0.275))% more Ant ELO per Corruption level up to 20, then +num:((0.1))% per level beyond, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
         "13": "'Less Fruitful Harvests' reduces your <<green|Salvage>> by 50% less!",
         "14": "Multiply Great Depression II's coin exponent by num:((1.55)), but only in Challenge 15.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +num:((0.2))% per Corruption level (+20% at level 100, uncapped), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
+        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level (+20% at level 20, uncapped), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to num:((100000)). This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
-        "17": "If this is bought, gain +1 free Corruption level per level (up to +20).",
+        "17": "If this is bought, gain +num:((0.2)) free Corruption levels per level (up to +4).",
         "18": "Raise the base percentage of Constant Upgrade 1 by num:((0.1))% and increase the base percentage cap of Constant Upgrade 2 by num:((0.3))% per level!",
         "19": "The Chronos Hepteract's diminishing return exponent is increased by level/750 (roughly num:((0.00133))). (Base: 1/6)",
         "20": "You know, maybe some things should be left unbought."

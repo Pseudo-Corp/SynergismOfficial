@@ -136,7 +136,7 @@ export const challengeAchievementCheck = (i: number) => {
       break
     case 11:
       awardAchievementGroup('challenge11')
-      if (player.challengecompletions[10] > 50 && player.corruptions.used >= 35) {
+      if (player.challengecompletions[10] > 50 && player.corruptions.used >= 7) {
         awardUngroupedAchievement('extraChallenging')
       }
       break
@@ -1543,7 +1543,7 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.ascensionCount >= 1000,
     group: 'ascensionCount',
     reward: {
-      ascensionCountMultiplier: () => 1 + 0.16 * player.corruptions.used
+      ascensionCountMultiplier: () => 1 + 0.8 * player.corruptions.used
     }
   },
   {
@@ -1742,38 +1742,38 @@ const achievements: Achievement[] = [
   { pointValue: 70, unlockCondition: () => player.challengecompletions[14] >= 30, group: 'challenge14' },
   {
     pointValue: 5,
-    unlockCondition: () => player.corruptions.used >= 20,
+    unlockCondition: () => player.corruptions.used >= 4,
     group: 'ascensionScore',
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_1'
   },
   {
     pointValue: 10,
-    unlockCondition: () => player.corruptions.used >= 30,
+    unlockCondition: () => player.corruptions.used >= 6,
     group: 'ascensionScore'
   },
   {
     pointValue: 15,
-    unlockCondition: () => player.corruptions.used >= 40,
+    unlockCondition: () => player.corruptions.used >= 8,
     group: 'ascensionScore'
   },
   {
     pointValue: 20,
-    unlockCondition: () => player.corruptions.used >= 50,
+    unlockCondition: () => player.corruptions.used >= 10,
     group: 'ascensionScore'
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.corruptions.used >= 60,
+    unlockCondition: () => player.corruptions.used >= 12,
     group: 'ascensionScore'
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.corruptions.used >= 70,
+    unlockCondition: () => player.corruptions.used >= 14,
     group: 'ascensionScore'
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.corruptions.used >= 80,
+    unlockCondition: () => player.corruptions.used >= 16,
     group: 'ascensionScore'
   },
   { pointValue: 10, unlockCondition: () => runeBlessings.speed.level >= 20, group: 'speedBlessing' },
@@ -1857,43 +1857,43 @@ const achievements: Achievement[] = [
   },
   {
     pointValue: 40,
-    unlockCondition: () => player.corruptions.used >= 90,
+    unlockCondition: () => player.corruptions.used >= 18,
     group: 'ascensionScore',
     reward: { wowHypercubeGain: () => 1.1 }
   },
   {
     pointValue: 45,
-    unlockCondition: () => player.corruptions.used >= 100,
+    unlockCondition: () => player.corruptions.used >= 20,
     group: 'ascensionScore',
     reward: { wowCubeGain: () => 1.1 }
   },
   {
     pointValue: 50,
-    unlockCondition: () => player.corruptions.used >= 125,
+    unlockCondition: () => player.corruptions.used >= 25,
     group: 'ascensionScore',
     reward: { wowTesseractGain: () => 1.1 }
   },
   {
     pointValue: 55,
-    unlockCondition: () => player.corruptions.used >= 150,
+    unlockCondition: () => player.corruptions.used >= 30,
     group: 'ascensionScore',
     reward: { wowPlatonicGain: () => 1.1, overfluxConversionRate: () => 1.05 }
   },
   {
     pointValue: 60,
-    unlockCondition: () => player.corruptions.used >= 175,
+    unlockCondition: () => player.corruptions.used >= 35,
     group: 'ascensionScore',
     reward: { overfluxConversionRate: () => 1.05 }
   },
   {
     pointValue: 65,
-    unlockCondition: () => player.corruptions.used >= 200,
+    unlockCondition: () => player.corruptions.used >= 40,
     group: 'ascensionScore',
     reward: { wowHepteractGain: () => 1.1 }
   },
   {
     pointValue: 70,
-    unlockCondition: () => player.corruptions.used >= 225,
+    unlockCondition: () => player.corruptions.used >= 45,
     group: 'ascensionScore',
     reward: { ascensionScore: () => Math.pow(1.004, player.hepteracts.abyss.TIMES_CAP_EXTENDED) },
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_2'
