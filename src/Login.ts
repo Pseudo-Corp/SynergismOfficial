@@ -962,10 +962,11 @@ async function finishTimeSkipPurchase (consumable: string, id: string) {
         while (timeSkip === undefined && !failed) {
           const { done, value } = await reader.read()
 
-          if (done) throw new Error('Time skip purchase ended without a result')
+          if (done && buffered === '') throw new Error('Time skip purchase ended without a result')
 
-          const lines = (buffered + value).split('\n')
-          buffered = lines.pop()!
+          // Android's CapacitorHttp drops the body's trailing newline, so the last line can arrive unterminated
+          const lines = (buffered + (value ?? '')).split('\n')
+          buffered = done ? '' : lines.pop()!
 
           for (const line of lines) {
             const { success, data } = messageSchema.safeParse(line)
