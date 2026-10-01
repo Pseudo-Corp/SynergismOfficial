@@ -550,7 +550,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   }
 
   if (input === 'reincarnation' || input === 'reincarnationChallenge') {
-    if (player.corruptions.used >= 100 && player.platonicUpgrades[11] > 0) {
+    if (player.corruptions.used >= c15CorruptionLevel && player.platonicUpgrades[11] > 0) {
       player.prestigePoints = player.prestigePoints.add(G.reincarnationPointGain)
     }
   }

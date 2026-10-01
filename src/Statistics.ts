@@ -585,7 +585,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
       i18n: 'Platonic1x1',
       stat: () =>
         1
-        + 0.00009
+        + 0.00045
           * player.corruptions.used
           * player.platonicUpgrades[1]
     },
@@ -649,7 +649,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CubeUpgrade4x8',
-      stat: () => 1 + (1 / 400) * player.cubeUpgrades[38] * player.corruptions.used
+      stat: () => 1 + (1 / 80) * player.cubeUpgrades[38] * player.corruptions.used
     },
     {
       i18n: 'PlatonicCube',
@@ -657,7 +657,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x2',
-      stat: () => 1 + 0.00018 * player.corruptions.used * player.platonicUpgrades[2]
+      stat: () => 1 + 0.0009 * player.corruptions.used * player.platonicUpgrades[2]
     }
   ]
 }
@@ -694,7 +694,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x3',
-      stat: () => 1 + 0.00054 * player.corruptions.used * player.platonicUpgrades[3]
+      stat: () => 1 + 0.0027 * player.corruptions.used * player.platonicUpgrades[3]
     },
     {
       i18n: 'HyperrealHepteract',
@@ -818,7 +818,7 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
       i18n: 'CookieUpgrade20',
       stat: () => {
         if (player.cubeUpgrades[70] > 0) {
-          return Math.pow(1.025, Math.max(0, effectiveCorruptionLevel(player.corruptions.used) - 175))
+          return Math.pow(1.13141, Math.max(0, effectiveCorruptionLevel(player.corruptions.used) - 35))
         } else {
           return 1
         }
@@ -2189,7 +2189,7 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'PlatonicOMEGA',
-      stat: () => 1 + 0.002 * player.corruptions.used * player.platonicUpgrades[15] // Platonic Omega
+      stat: () => 1 + 0.01 * player.corruptions.used * player.platonicUpgrades[15] // Platonic Omega
     },
     {
       i18n: 'Challenge15',
@@ -5007,8 +5007,10 @@ export const updateDisplayC15Rewards = () => {
     }
 
     const elm = DOMCacheGetOrSet(`c15Reward${key}`)
-    if (player.challenge15Exponent >= requirement) {
-      elm.style.display = player.challenge15Exponent >= requirement ? 'block' : 'none'
+    if (key === 'score' && !getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
+      elm.style.display = 'none'
+    } else if (player.challenge15Exponent >= requirement) {
+      elm.style.display = 'block'
       elm.innerHTML = i18next.t(`wowCubes.platonicUpgrades.c15Rewards.${key}`, {
         amount: v.displayAsMultiplier
           ? format(value, 2, true)

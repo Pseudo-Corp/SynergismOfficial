@@ -689,7 +689,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       if (key === 'ascensionScore') {
         return n >= 1 ? Math.pow(1.04 + 0.96 * (n - 1) / (n + 25), 0.4) : 1
       } else if (key === 'corruptionFreeLevels') {
-        return n >= 1 ? (1 + 14 * (n - 1) / (n + 16)) / 15 : 0
+        return n >= 1 ? (1 + 14 * (n - 1) / (n + 16)) / 75 : 0
       } else {
         return Math.floor(n / 2) // infiniteAscentFreeLevel
       }

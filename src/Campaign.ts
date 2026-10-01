@@ -36,15 +36,17 @@ type CampaignTokenRewardDisplay = {
 const bonusRune6ThresholdReqs = [500, 750, 1000, 1250, 1500, 1750, 2000, 3000, 4000, 6000, 8000, 10000]
 
 const corruptionLevelTokens: Array<[lastLevel: number, tokensPerLevel: number]> = [
-  [20, 10],
-  [40, 15],
-  [70, 20],
-  [100, 25],
-  [200, 35],
-  [225, 50]
+  [4, 10],
+  [8, 15],
+  [14, 20],
+  [20, 25],
+  [40, 35],
+  [45, 50]
 ]
 
-export const maxCampaignTokenLevel = 225
+export const maxCampaignTokenLevel = 45
+
+const tokensPerCompletion = 5
 
 const completionBonusPerPoint = 0.02
 
@@ -95,8 +97,8 @@ const levelTokenTerms = () => {
   const lastFactor = completionBonusPerPoint * lastCompletionBonusPoints()
   return (level: number) => ({
     cap: levelShare(level, capMultiplier),
-    first: levelShare(level, firstFactor),
-    last: levelShare(level, lastFactor)
+    first: tokensPerCompletion * levelShare(level, firstFactor),
+    last: tokensPerCompletion * levelShare(level, lastFactor)
   })
 }
 
@@ -104,7 +106,9 @@ const levelTokensFromCompletions = (
   { cap, first, last }: { cap: number; first: number; last: number },
   completions: number
 ) => {
-  return Math.min(completions, cap) + (completions >= 1 ? first : 0) + (cap > 0 && completions >= cap ? last : 0)
+  return tokensPerCompletion * Math.min(completions, cap)
+    + (completions >= 1 ? first : 0)
+    + (cap > 0 && completions >= cap ? last : 0)
 }
 
 export const corruptionLevelTokenInfo = (level: number) => {
@@ -120,6 +124,7 @@ export const corruptionLevelTokenInfo = (level: number) => {
   return {
     ...levelTerms,
     completions: Math.min(completions, levelTerms.cap),
+    completionTokens: tokensPerCompletion * Math.min(completions, levelTerms.cap),
     earned: levelTokensFromCompletions(levelTerms, completions),
     earnable: levelTokensFromCompletions(levelTerms, levelTerms.cap),
     firstEarned: completions >= 1 && levelTerms.cap > 0,
