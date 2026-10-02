@@ -76,7 +76,7 @@ import {
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { Alert, Prompt } from './UpdateHTML'
-import { findInsertionIndex, memoize } from './Utility'
+import { findInsertionIndex, memoize, DateNow, PerformanceNow } from './Utility'
 import { Globals as G } from './Variables'
 
 // dprint-ignore
@@ -831,7 +831,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
       * PCoinUpgradeEffects.OFFLINE_TIMER_CAP_BUFF
     : 1e100 // If someone exceeds this, we will be very rich aha!
 
-  const updatedTime = Date.now()
+  const updatedTime = DateNow()
   const timeAdd = Math.min(
     maximumTimer,
     Math.max(forceTime, (updatedTime - player.offlinetick) / 1000)
@@ -851,7 +851,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
 
   const offlineDialog = player.offlinetick > 0
 
-  player.offlinetick = player.offlinetick < 1.5e12 ? Date.now() : player.offlinetick
+  player.offlinetick = player.offlinetick < 1.5e12 ? DateNow() : player.offlinetick
 
   G.timeMultiplier = calculateGlobalSpeedMult()
 
@@ -910,10 +910,9 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   resetAddDisplay.reincarnation = player.reincarnationCount - resetAddDisplay.reincarnation
 
   // 200 simulated all ticks [July 12, 2021]
-  let sliceStart = performance.now()
+  let sliceStart = PerformanceNow()
   while (resourceTicks > 0) {
-    if (performance.now() - sliceStart > offlineSliceBudgetMs) {
-      // eslint-disable-next-line no-await-in-loop
+    if (PerformanceNow() - sliceStart > offlineSliceBudgetMs) {
       await new Promise((resolve) => setTimeout(resolve, 0))
 
       // A reload/import may have replaced the save while we yielded
@@ -922,7 +921,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
         return
       }
 
-      sliceStart = performance.now()
+      sliceStart = PerformanceNow()
     }
 
     G.timeMultiplier = calculateGlobalSpeedMult()
@@ -1065,7 +1064,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     'calculate.offlineEarnings'
   )
 
-  player.offlinetick = updatedTime
+  player.offlinetick = Math.max(player.offlinetick, updatedTime)
 
   saveSynergy()
 

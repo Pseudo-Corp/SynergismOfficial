@@ -175,6 +175,9 @@ export const formatS = (s: number) => {
   return formatMS(1000 * s)
 }
 
+export const PerformanceNow = performance.now.bind(performance)
+export const DateNow = Date.now.bind(Date)
+
 const addLeadingZero = (n: number): string => {
   return n < 10 ? `0${n}` : String(n)
 }
@@ -364,7 +367,6 @@ export async function retry<T> (
 ) {
   const reject: unknown[] = []
 
-  /* eslint-disable no-await-in-loop */
   for (let i = 0; i < times; i++) {
     try {
       return await operation()
@@ -383,7 +385,6 @@ export async function retry<T> (
       }
     }
   }
-  /* eslint-enable no-await-in-loop */
 
   throw new AggregateError(reject, `Failed after ${times} retries`)
 }

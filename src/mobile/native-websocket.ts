@@ -103,7 +103,6 @@ class NativeWebSocketAdapter extends EventTarget {
     const handles = this.handles
     this.handles = []
     for (const handle of handles) {
-      // eslint-disable-next-line no-await-in-loop
       await handle.then((h) => h.remove()).catch(() => {})
     }
   }
