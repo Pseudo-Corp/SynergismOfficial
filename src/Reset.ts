@@ -74,7 +74,7 @@ import type { OneToFive, resetNames, ZeroToFour } from './types/Synergism'
 import { Alert, challengeExit, revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { upgradeupdate } from './Upgrades'
 import { updateClassList } from './Utility'
-import { sumContents } from './Utility'
+import { DateNow, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 type ResetDetailsView = {
@@ -1214,6 +1214,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.exporttest = typeof player.exporttest === 'boolean' ? player.exporttest : player.exporttest === 'YES!'
   hold.dayTimer = player.dayTimer
   hold.dayCheck = player.dayCheck?.toISOString() ?? null
+  hold.offlinetick = player.offlinetick
   hold.ascStatToggles = player.ascStatToggles
   hold.hepteractAutoCraftPercentage = player.hepteractAutoCraftPercentage
   hold.autoWarpCheck = player.autoWarpCheck
@@ -1282,6 +1283,8 @@ export const singularity = (setSingNumber = -1) => {
   const saveCode46 = player.codes.get(46) ?? false
   const saveCode47 = player.codes.get(47) ?? false
   const saveCode48 = player.codes.get(48) ?? false
+  const saveRngCode = player.rngCode
+  const savePromoCodeTime = player.promoCodeTiming.time
 
   importSynergism(btoa(JSON.stringify(hold)), true)
   // Techically possible to import game during reset. But that will only "hurt" that imported save
@@ -1299,8 +1302,8 @@ export const singularity = (setSingNumber = -1) => {
   player.codes.set(48, saveCode48)
   updateSingularityMilestoneAwards()
 
-  player.rngCode = Date.now()
-  player.promoCodeTiming.time = Date.now()
+  player.rngCode = Math.max(saveRngCode, DateNow())
+  player.promoCodeTiming.time = Math.max(savePromoCodeTime, DateNow())
 
   // Campaign HTML updates
   campaignIconHTMLUpdates()

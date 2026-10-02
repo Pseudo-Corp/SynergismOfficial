@@ -39,7 +39,7 @@ import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from '.
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs } from './Tabs'
 import { resetTalismanData } from './Talismans'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { cleanString, DateNow, getElementById } from './Utility'
+import { cleanString, DateNow, getElementById, PerformanceNow } from './Utility'
 import { btoa } from './Utility'
 
 const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
@@ -600,7 +600,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const actualQuarks = Math.floor(addEffects.quarks * realAttemptsUsed)
     const [first, second] = window.crypto.getRandomValues(new Uint8Array(2))
 
-    const now = Date.now()
+    const now = DateNow()
 
     // Normalize both timestamps to whole milliseconds on the earned side of the
     // boundary. Fractional intervals can otherwise make Math.floor report one fewer
@@ -754,6 +754,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       return Alert(i18next.t('importexport.promocodes.time.wait'))
     }
 
+    const now = DateNow()
     const rewardMult = timeCodeRewardMultiplier()
 
     const random = 6000 + seededRandom(Seed.PromoCodes) * 15000 // random time within 15 seconds
@@ -783,7 +784,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       return Alert(i18next.t('importexport.promocodes.time.cancelled'))
     }
 
-    const start = Date.now()
+    const start = PerformanceNow()
     await Alert(
       i18next.t('importexport.promocodes.time.confirm', {
         start: format(Math.max(0, random - tolerance) / 1000, 2, true),
@@ -791,9 +792,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
       })
     )
 
-    const end = Date.now()
+    const end = PerformanceNow()
     const diff = Math.abs(end - (start + random))
-    player.promoCodeTiming.time = Date.now()
+    player.promoCodeTiming.time = now
 
     if (diff <= tolerance || player.cubeUpgrades[61] === 100) {
       let blueberryTime = 0
@@ -898,14 +899,14 @@ export const addCodeAvailableUses = (): number => {
   const timeInterval = addCodeInterval()
   const maxUses = addCodeMaxUses()
   // rngCode is in milliseconds
-  const currentUses = Math.floor((Date.now() - player.rngCode) / (1000 * timeInterval))
+  const currentUses = Math.floor((DateNow() - player.rngCode) / (1000 * timeInterval))
 
   return Math.min(maxUses, currentUses)
 }
 
 export const addCodeTimeToNextUse = (): number => {
   const interval = addCodeInterval() * 1000 // ms
-  const timeToFirst = Math.floor(interval + player.rngCode - Date.now()) / 1000
+  const timeToFirst = Math.floor(interval + player.rngCode - DateNow()) / 1000
 
   if (timeToFirst > 0) {
     return timeToFirst
@@ -915,7 +916,7 @@ export const addCodeTimeToNextUse = (): number => {
     if (availableUses === maxUses) {
       return 0
     } else {
-      const addTimerElapsedTime = Date.now() - player.rngCode
+      const addTimerElapsedTime = DateNow() - player.rngCode
       const remainder = addTimerElapsedTime - interval * availableUses
 
       return Math.floor(interval - remainder) / 1000
@@ -968,17 +969,17 @@ export const addCodeBonuses = () => {
 }
 
 const timeCodeAvailableUses = (): number => {
-  return (Date.now() - player.promoCodeTiming.time) / 1000 < 900 ? 0 : 1
+  return (DateNow() - player.promoCodeTiming.time) / 1000 < 900 ? 0 : 1
 }
 
 const timeCodeTimeToNextUse = (): number => {
-  return 900 - (Date.now() - player.promoCodeTiming.time) / 1000
+  return 900 - (DateNow() - player.promoCodeTiming.time) / 1000
 }
 
 const timeCodeRewardMultiplier = (): number => {
   return Math.min(
     24,
-    (Date.now() - player.promoCodeTiming.time) / (1000 * 3600)
+    (DateNow() - player.promoCodeTiming.time) / (1000 * 3600)
   )
 }
 

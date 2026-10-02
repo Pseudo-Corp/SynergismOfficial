@@ -76,7 +76,7 @@ import {
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { Alert, Prompt } from './UpdateHTML'
-import { findInsertionIndex, memoize, DateNow } from './Utility'
+import { findInsertionIndex, memoize, DateNow, PerformanceNow } from './Utility'
 import { Globals as G } from './Variables'
 
 // dprint-ignore
@@ -910,9 +910,9 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   resetAddDisplay.reincarnation = player.reincarnationCount - resetAddDisplay.reincarnation
 
   // 200 simulated all ticks [July 12, 2021]
-  let sliceStart = performance.now()
+  let sliceStart = PerformanceNow()
   while (resourceTicks > 0) {
-    if (performance.now() - sliceStart > offlineSliceBudgetMs) {
+    if (PerformanceNow() - sliceStart > offlineSliceBudgetMs) {
       await new Promise((resolve) => setTimeout(resolve, 0))
 
       // A reload/import may have replaced the save while we yielded
@@ -921,7 +921,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
         return
       }
 
-      sliceStart = performance.now()
+      sliceStart = PerformanceNow()
     }
 
     G.timeMultiplier = calculateGlobalSpeedMult()
