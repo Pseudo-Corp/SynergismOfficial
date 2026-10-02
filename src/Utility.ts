@@ -175,6 +175,9 @@ export const formatS = (s: number) => {
   return formatMS(1000 * s)
 }
 
+export const PerformanceNow = performance.now.bind(performance)
+export const DateNow = Date.now.bind(Date)
+
 const addLeadingZero = (n: number): string => {
   return n < 10 ? `0${n}` : String(n)
 }

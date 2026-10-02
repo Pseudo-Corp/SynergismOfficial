@@ -19,7 +19,7 @@ import {
   tickChallengeSweep,
   useChallenge13Modifiers
 } from './Challenges'
-import { btoa, isMobile, memoize } from './Utility'
+import { btoa, isMobile, memoize, DateNow, PerformanceNow } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {
@@ -1242,7 +1242,7 @@ export const saveSynergy = (button?: boolean) => {
     return false
   }
 
-  player.offlinetick = Date.now()
+  player.offlinetick = Math.max(player.offlinetick, DateNow())
 
   player.talismans = Object.fromEntries(
     Object.keys(player.talismans).map((key) => {
@@ -4353,14 +4353,14 @@ export const constantIntervals = (): void => {
 }
 
 let lastUpdate = 0
-let lastTickWallClock = Date.now()
+let lastTickWallClock = DateNow()
 let tickGeneration = 0
 
 const tickIntervalMs = 1000 / ticksPerSecond
 
 export const createTimer = (): void => {
-  lastUpdate = performance.now()
-  lastTickWallClock = Date.now()
+  lastUpdate = PerformanceNow()
+  lastTickWallClock = DateNow()
   tickGeneration += 1
   scheduleTick(tickGeneration)
 }
@@ -4384,14 +4384,14 @@ const filterStrength = 20
 let deltaMean = 0
 
 const loadingDate = new Date()
-const loadingBasePerfTick = performance.now()
+const loadingBasePerfTick = PerformanceNow()
 
 // performance.now() doesn't always reset on reload, so we capture a "base value"
 // to keep things stable
 // The returned time is pinned to when the page itself was loaded to remain
 // resilient against changed system clocks
 export const getTimePinnedToLoadDate = () => {
-  return loadingDate.getTime() + (performance.now() - loadingBasePerfTick)
+  return loadingDate.getTime() + (PerformanceNow() - loadingBasePerfTick)
 }
 
 const tickBudgetMs = PLATFORM === 'mobile' ? 10 : 30
@@ -4399,10 +4399,10 @@ const tickBudgetMs = PLATFORM === 'mobile' ? 10 : 30
 const resumeOfflineGapMs = 60_000
 
 const tick = () => {
-  const now = performance.now()
+  const now = PerformanceNow()
 
   if (PLATFORM === 'mobile') {
-    const wallNow = Date.now()
+    const wallNow = DateNow()
     const wallGap = wallNow - lastTickWallClock
 
     if (wallGap > resumeOfflineGapMs) {
@@ -4441,7 +4441,7 @@ const tick = () => {
     tack(dtEffective / 1000)
     lastUpdate += dtEffective
     delta -= dtEffective
-    if (performance.now() - now > tickBudgetMs) {
+    if (PerformanceNow() - now > tickBudgetMs) {
       break
     }
   }

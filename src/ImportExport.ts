@@ -39,7 +39,7 @@ import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from '.
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs } from './Tabs'
 import { resetTalismanData } from './Talismans'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { cleanString, getElementById } from './Utility'
+import { cleanString, DateNow, getElementById } from './Utility'
 import { btoa } from './Utility'
 
 const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
@@ -245,34 +245,29 @@ export const exportData = async (text: string, fileName: string) => {
   setTimeout(() => (DOMCacheGetOrSet('exportinfo').textContent = ''), 15_000)
 }
 
-export const exportSynergism = async (
-  shouldSetLastSaveSoWeStopFuckingBotheringPeople = true
-) => {
-  player.offlinetick = Date.now()
+export const exportSynergism = async () => {
+  player.offlinetick = Math.max(player.offlinetick, DateNow())
+  player.lastExportedSave = Date.now()
 
-  if (shouldSetLastSaveSoWeStopFuckingBotheringPeople) {
-    player.lastExportedSave = Date.now()
+  const quarkData = quarkHandler()
 
-    const quarkData = quarkHandler()
+  let bonusGQMultiplier = 1
+  bonusGQMultiplier *= 1 + getQuarkBonus() / 100
+  bonusGQMultiplier *= player.highestSingularityCount >= 100
+    ? 1 + player.highestSingularityCount / 50
+    : 1
 
-    let bonusGQMultiplier = 1
-    bonusGQMultiplier *= 1 + getQuarkBonus() / 100
-    bonusGQMultiplier *= player.highestSingularityCount >= 100
-      ? 1 + player.highestSingularityCount / 50
-      : 1
-
-    const gqPerHour = getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
-    if (gqPerHour > 0) {
-      player.goldenQuarks += Math.floor(
-        player.goldenQuarksTimer / (3600 / gqPerHour)
-      ) * bonusGQMultiplier
-      player.goldenQuarksTimer = player.goldenQuarksTimer
-        % (3600 / gqPerHour)
-    }
-    if (quarkData.gain >= 1) {
-      player.worlds.add(quarkData.gain, true, true)
-      player.quarkstimer = player.quarkstimer % (3600 / quarkData.perHour)
-    }
+  const gqPerHour = getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
+  if (gqPerHour > 0) {
+    player.goldenQuarks += Math.floor(
+      player.goldenQuarksTimer / (3600 / gqPerHour)
+    ) * bonusGQMultiplier
+    player.goldenQuarksTimer = player.goldenQuarksTimer
+      % (3600 / gqPerHour)
+  }
+  if (quarkData.gain >= 1) {
+    player.worlds.add(quarkData.gain, true, true)
+    player.quarkstimer = player.quarkstimer % (3600 / quarkData.perHour)
   }
 
   if (!saveSynergy()) {
