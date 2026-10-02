@@ -4360,7 +4360,7 @@ const tickIntervalMs = 1000 / ticksPerSecond
 
 export const createTimer = (): void => {
   lastUpdate = PerformanceNow()
-  lastTickWallClock = DateNow()
+  lastTickWallClock = Math.max(player.offlinetick, DateNow())
   tickGeneration += 1
   scheduleTick(tickGeneration)
 }
@@ -4421,7 +4421,7 @@ const tick = () => {
       lastUpdate = now
       return
     } else {
-      lastTickWallClock = wallNow
+      lastTickWallClock = Math.max(lastTickWallClock, wallNow)
     }
   }
 
