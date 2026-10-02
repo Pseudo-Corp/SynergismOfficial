@@ -392,7 +392,6 @@ async function exponentialPseudoCoinBalanceCheck () {
   const delays = [15_000, 30_000, 60_000, 120_000, 180_000, 240_000, 300_000]
   const lastCoinAmount = await updatePseudoCoins()
 
-  /* eslint-disable no-await-in-loop */
   for (const delay of delays) {
     await sleep(delay)
 
@@ -400,5 +399,4 @@ async function exponentialPseudoCoinBalanceCheck () {
       break
     }
   }
-  /* eslint-enable no-await-in-loop */
 }

@@ -367,7 +367,6 @@ export async function retry<T> (
 ) {
   const reject: unknown[] = []
 
-  /* eslint-disable no-await-in-loop */
   for (let i = 0; i < times; i++) {
     try {
       return await operation()
@@ -386,7 +385,6 @@ export async function retry<T> (
       }
     }
   }
-  /* eslint-enable no-await-in-loop */
 
   throw new AggregateError(reject, `Failed after ${times} retries`)
 }

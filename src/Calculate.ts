@@ -913,7 +913,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   let sliceStart = performance.now()
   while (resourceTicks > 0) {
     if (performance.now() - sliceStart > offlineSliceBudgetMs) {
-      // eslint-disable-next-line no-await-in-loop
       await new Promise((resolve) => setTimeout(resolve, 0))
 
       // A reload/import may have replaced the save while we yielded

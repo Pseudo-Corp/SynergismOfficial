@@ -13,6 +13,7 @@
   "rules": {
     "no-non-null-assertion": "off",
     "no-param-reassign": "off",
+    "no-await-in-loop": "off",
 
     // Type-aware rules
     "typescript/no-misused-promises": "off",
