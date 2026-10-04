@@ -495,6 +495,7 @@ export interface Player {
   singularityElevatorLocked: boolean
   goldenQuarks: number
   quarksThisSingularity: number
+  goldenQuarksGainedFromConversion: number
   totalQuarksEver: number
   hotkeys: Record<number, string[]>
   iconSet: number
