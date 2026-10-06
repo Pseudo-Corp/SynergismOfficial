@@ -384,6 +384,7 @@ const mobileStatsIconConfig: Record<string, string> = {
   kRedAmbrosiaLuck: 'Pictures/Stats for Nerds Icons/Categories/RedLuck.png',
   kRedAmbrosiaGenMult: 'Pictures/Stats for Nerds Icons/Categories/RedBarPoints.png',
   kShopVouchers: 'Pictures/Stats for Nerds Icons/Categories/ShopVouchers.png',
+  kTaxes: 'Pictures/Default/perktaxReduction.png',
   kPurpleHoneyEfficiency: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleEfficiency1.png',
   kPurpleHalfLife: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png',
   kPurpleReactantCapacity: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleCapacityExpander1.png',

@@ -89,7 +89,7 @@ import {
   derpsmithCornucopiaBonus
 } from './Calculate'
 import { campaignTokenBonuses } from './Campaign'
-import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier } from './Challenges'
+import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier, useChallenge13Modifiers } from './Challenges'
 import {
   corruptionCubeRate,
   type CorruptionCubeType,
@@ -143,6 +143,7 @@ import {
   calculateGlobalSpeedPlatonicBlessing,
   calculateHypercubeMultiplierPlatonicBlessing,
   calculatePlatonicMultiplierPlatonicBlessing,
+  calculateTaxPlatonicBlessing,
   calculateTesseractMultiplierPlatonicBlessing
 } from './PlatonicCubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -169,6 +170,7 @@ import {
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
+import { calculateFlatTaxCapIncrease, calculateTaxExponent, challenge13EffectiveCompletions } from './Tax'
 import type { GlobalVariables } from './types/Synergism'
 import { MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
 import { isMobile, sumContents } from './Utility'
@@ -4134,6 +4136,147 @@ const allMiscStats: NumberStatLineCategory = {
   ]
 }
 
+export const allTaxExponentStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'DuplicationRune',
+      stat: () => getRuneEffects('duplication', 'taxReduction')
+    },
+    {
+      i18n: 'ThriftRune',
+      stat: () => getRuneEffects('thrift', 'taxReduction')
+    },
+    {
+      i18n: 'ExemptionTalisman',
+      stat: () => 1 + getTalismanEffects('exemption').taxReduction
+    },
+    {
+      i18n: 'Challenge6Active',
+      stat: () =>
+        player.currentChallenge.reincarnation === 6
+          ? 3 * Math.pow(1 + player.challengecompletions[6] / 25, 2)
+          : 1
+    },
+    {
+      i18n: 'Challenge9Active',
+      stat: () => player.currentChallenge.reincarnation === 9 ? 0.005 : 1
+    },
+    {
+      i18n: 'Challenge13Active',
+      stat: () =>
+        useChallenge13Modifiers()
+          ? 400 * (1 + 1 / 6 * player.challengecompletions[13]) * Math.pow(1.05, challenge13EffectiveCompletions())
+          : 1
+    },
+    {
+      i18n: 'Challenge15Active',
+      stat: () => player.currentChallenge.ascension === 15 ? 0.000005 : 1
+    },
+    {
+      i18n: 'Challenge6FirstCompletion',
+      stat: () => player.challengecompletions[6] > 0 ? 1 / 1.075 : 1
+    },
+    {
+      i18n: 'Challenge6',
+      stat: () => Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6]))
+    },
+    {
+      i18n: 'Challenge13',
+      stat: () => Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13]))
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.taxes.value
+    },
+    {
+      i18n: 'Researches',
+      stat: () =>
+        (1 - 0.06 * player.researches[51])
+        * (1 - 0.05 * player.researches[52])
+        * (1 - 0.05 * player.researches[53])
+        * (1 - 0.05 * player.researches[54])
+        * (1 - 0.05 * player.researches[55])
+    },
+    {
+      i18n: 'Research7x9',
+      stat: () => Math.pow(0.98, 3 / 5 * Decimal.log(player.rareFragments.add(1), 10) * player.researches[159])
+    },
+    {
+      i18n: 'Research8x25',
+      stat: () => 1 - 0.666 * player.researches[200] / 100000
+    },
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.Taxes).taxReduction
+    },
+    {
+      i18n: 'Constant',
+      stat: () =>
+        1 / Math.pow(
+          1 + Decimal.log(player.ascendShards.add(1), 10),
+          1 + 1 / 300 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5]
+            + 0.2 * player.platonicUpgrades[10] + calculateTaxPlatonicBlessing()
+        )
+    },
+    {
+      i18n: 'CoinUpgrade21',
+      stat: () => player.upgrades[121] > 0 ? 0.5 : 1
+    },
+    {
+      i18n: 'CubeUpgrade5x10',
+      stat: () => 1 - 0.666 * player.cubeUpgrades[50] / 100000
+    },
+    {
+      i18n: 'Achievements',
+      stat: () => +getAchievementReward('taxReduction')
+    },
+    {
+      i18n: 'Campaign',
+      stat: () => campaignTokenBonuses.tax()
+    },
+    {
+      i18n: 'Taurus',
+      stat: () => 1 / getPurpleAmbrosiaUpgradeEffects('taurus', 'taxDivisor')
+    },
+    {
+      i18n: 'SingularityPerk',
+      stat: () => player.highestSingularityCount >= 281 ? 0.5 : 1
+    },
+    {
+      i18n: 'TaxmanLastStand',
+      stat: () =>
+        player.singularityChallenges.taxmanLastStand.enabled
+          ? (player.unlocks.ascensions ? 4 : 1) * (player.highestchallengecompletions[14] > 0 ? 5 : 1)
+          : 1
+    }
+  ]
+}
+
+const allTaxCapStats: DecimalStatLineCategory = {
+  kind: 'decimal',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'MaxExponent',
+      stat: () => G.maxexponent
+    },
+    {
+      i18n: 'FlatCapIncrease',
+      stat: () => calculateFlatTaxCapIncrease()
+    },
+    {
+      i18n: 'ProductionExponent',
+      stat: () => Decimal.log10(G.produceTotal.add(1))
+    },
+    {
+      i18n: 'TaxDivisor',
+      stat: () => G.taxdivisor
+    }
+  ]
+}
+
 const LOADED_STATS_HTMLS = {
   challenge15: false
 }
@@ -4181,7 +4324,8 @@ const associated = new Map<string, string>([
   ['kPurpleReactantCapacity', 'purpleReactantCapacityStats'],
   ['kPurpleHoneyLuck', 'purpleHoneyLuckStats'],
   ['kPurpleHoneyProgressRequirement', 'purpleHoneyProgressRequirementStats'],
-  ['kShopVouchers', 'shopVoucherStats']
+  ['kShopVouchers', 'shopVoucherStats'],
+  ['kTaxes', 'taxStats']
 ])
 
 const mobileStatsModalHTML = (statsId: string) => {
@@ -4366,6 +4510,9 @@ export const loadStatisticsUpdate = (statsId?: string) => {
         break
       case 'shopVoucherStats':
         loadShopVoucherStats()
+        break
+      case 'taxStats':
+        loadTaxStats()
         break
     }
   }
@@ -4831,6 +4978,11 @@ const loadShopVoucherStats = () => {
     'ShopVoucherStat2',
     calculateFreeShopInfinityUpgrades
   )
+}
+
+const loadTaxStats = () => {
+  loadStatistics(allTaxExponentStats, 'taxStats', 'statTax', 'TaxStat', calculateTaxExponent)
+  loadStatistics(allTaxCapStats, 'taxStats', 'statTax2', 'TaxStat2', () => 0, '', false)
 }
 
 const loadMiscellaneousStats = () => {

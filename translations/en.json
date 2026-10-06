@@ -517,7 +517,6 @@
     }
   },
   "purpleAmbrosia": {
-    "taurusTaxReduction": "Taurus: Tax scaling ÷<<gold|{{divisor}}>>.",
     "cancerBarFillBonus": "Cancer: <<var(--purple-text-color)|+{{points}}>> per Ambrosia/Red Bar Fill",
     "purpleAmbrosiaCost": "Cost for next level: <<var(--purple-text-color)|{{amount}}>> Purple Ambrosia",
     "purpleAmbrosiaSpent": "Purple Ambrosia spent: <<var(--purple-text-color)|{{current}}/{{max}}>>",
@@ -6958,6 +6957,7 @@
       "purpleHoneyLuck": "Purple Honey Luck",
       "purpleHoneyProgressRequirement": "Purple Bar Points Required",
       "shopVouchers": "Shop Vouchers",
+      "taxes": "Tax Exponent",
       "generate": "Generate Savefile Stats Summary"
     },
     "globalCubeMultiplierStats": {
@@ -7485,6 +7485,37 @@
       "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Global Speed Multiplier:",
       "Total2": "Final Global Speed Multiplier:"
+    },
+    "taxStats": {
+      "title": "Tax Reduction",
+      "DuplicationRune": "Duplication Rune:",
+      "ThriftRune": "Thrift Rune:",
+      "ExemptionTalisman": "Exemption Talisman:",
+      "Challenge6Active": "In Challenge 6:",
+      "Challenge9Active": "In Challenge 9:",
+      "Challenge13Active": "In Challenge 13:",
+      "Challenge15Active": "In Challenge 15:",
+      "Challenge6FirstCompletion": "Challenge 6 First Completion:",
+      "Challenge6": "Challenge 6 Completions:",
+      "Challenge13": "Challenge 13 Completions:",
+      "Challenge15": "Challenge 15 Reward:",
+      "Researches": "Researches 3x1 - 3x5:",
+      "Research7x9": "Research 7x9 (Rare Fragments):",
+      "Research8x25": "Research 8x25:",
+      "AntUpgrade": "Ants - Tributum Formicidae:",
+      "Constant": "Constant (Ascension):",
+      "CoinUpgrade21": "Coin Upgrade 21:",
+      "CubeUpgrade5x10": "Cube Upgrade 5x10:",
+      "Achievements": "Achievements:",
+      "Campaign": "Campaign Tokens:",
+      "Taurus": "Purple Ambrosia - Taurus:",
+      "SingularityPerk": "Singularity Perk - Accountants Clicking at Your Desktop:",
+      "TaxmanLastStand": "EXALT - Taxman's Last Stand:",
+      "Total": "Total Tax Multiplier:",
+      "MaxExponent": "Tax Cap (log10 of production):",
+      "FlatCapIncrease": "Tax-exempt Cap Increase (Ants + Building Power):",
+      "ProductionExponent": "Current Production (log10):",
+      "TaxDivisor": "Current Tax Divisor:"
     },
     "ascensionSpeedMultiplierStats": {
       "title": "Ascension Speed Multiplier",
