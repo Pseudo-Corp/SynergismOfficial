@@ -69,7 +69,6 @@ import {
   c15CorruptionLevel,
   clearCorruptionLevel,
   corruptionEffect,
-  corruptionLevelStrength,
   corruptionPanelCreate,
   corruptionPresetTableCreate,
   corruptionPresetTableUpdate,
@@ -114,7 +113,7 @@ import {
   sumOfRuneLevels,
   updateAllRuneLevelsFromEXP
 } from './Runes'
-import { c15RewardUpdate } from './Statistics'
+import { allCoinExponentStats, allCoinMultiplierStats, c15RewardUpdate, calculateTotalStat } from './Statistics'
 import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
@@ -2484,13 +2483,6 @@ export const updateAllTick = (): void => {
   if (player.currentChallenge.reincarnation === 10) {
     G.acceleratorEffect = new Decimal(1)
   }
-  G.generatorPower = new Decimal(1)
-  if (
-    player.upgrades[11] > 0.5
-    && player.currentChallenge.reincarnation !== 7
-  ) {
-    G.generatorPower = Decimal.pow(1.02, G.totalAccelerator)
-  }
 }
 
 export const updateAllMultiplier = (): void => {
@@ -2673,6 +2665,30 @@ export const calculateBuildingPowerCoinMultiplier = (power?: number): Decimal =>
   return Decimal.pow(buildingPower, totalOwnedCoin)
 }
 
+const refineryAlchemyExponents = [0.1, 0.15, 0.25, 0.25, 0.25]
+
+export const calculateRefineryAlchemyExponent = (): number => {
+  let exponent = 0
+  for (let i = 0; i < refineryAlchemyExponents.length; i++) {
+    if (player.upgrades[106 + i] > 0.5) {
+      exponent += refineryAlchemyExponents[i]
+    }
+  }
+  return exponent * (1 + +getAchievementReward('conversionExponent'))
+}
+
+export const calculateRefineryAlchemyMultiplier = (): Decimal => {
+  return Decimal.pow(
+    player.firstGeneratedDiamonds.add(player.firstOwnedDiamonds).add(1),
+    calculateRefineryAlchemyExponent()
+  )
+}
+
+export const calculateFirstSixCoinUpgradeMultiplier = (): Decimal => {
+  const totalCoinOwned = calculateTotalCoinOwned()
+  return new Decimal(totalCoinOwned + 1).times(Decimal.min(1e30, Decimal.pow(1.008, totalCoinOwned)))
+}
+
 export const crystalUpgrade4MaxExponent = (): number => {
   let exponent = 10
   exponent += 0.05 * player.researches[129] * Decimal.log(player.commonFragments.add(1), 4)
@@ -2722,92 +2738,13 @@ export const crystalUpgrade3CrystalMultiplier = (base?: number): Decimal => {
 }
 
 export const multipliers = (): void => {
-  const crystalMult = calculateCrystalCoinMultiplier()
-
   const buildingPower = calculateBuildingPower()
   const buildingPowerMult = calculateBuildingPowerCoinMultiplier(buildingPower)
+  const first6CoinUp = calculateFirstSixCoinUpgradeMultiplier()
 
-  let s = new Decimal(G.multiplierEffect)
-  s = s.times(G.acceleratorEffect)
-  s = s.times(crystalMult)
-  s = s.times(buildingPowerMult)
-  s = s.times(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier)
-
-  const totalCoinOwned = calculateTotalCoinOwned()
-  const first6CoinUp = new Decimal(totalCoinOwned + 1).times(
-    Decimal.min(1e30, Decimal.pow(1.008, totalCoinOwned))
-  )
-
-  if (player.highestSingularityCount > 0) {
-    s = s.times(
-      Math.pow(player.goldenQuarks + 1, 1.5)
-        * Math.pow(player.highestSingularityCount + 1, 2)
-    )
-  }
-  if (player.upgrades[6] > 0.5) {
-    s = s.times(first6CoinUp)
-  }
-  if (player.upgrades[12] > 0.5) {
-    s = s.times(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)))
-  }
-  if (player.upgrades[20] > 0.5) {
-    // PLAT - check
-    s = s.times(Decimal.pow(totalCoinOwned / 4 + 1, 10))
-  }
-  if (player.upgrades[41] > 0.5) {
-    s = s.times(
-      Decimal.min(1e30, Decimal.pow(player.transcendPoints.add(4), 1 / 2))
-    )
-  }
-  if (player.upgrades[43] > 0.5) {
-    s = s.times(Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)))
-  }
-  if (player.upgrades[48] > 0.5) {
-    s = s.times(
-      Decimal.pow((G.totalMultiplier * G.totalAccelerator) / 1000 + 1, 8)
-    )
-  }
-  if (player.currentChallenge.reincarnation === 6) {
-    s = s.dividedBy(1e250)
-  }
-  if (player.currentChallenge.reincarnation === 7) {
-    s = s.dividedBy('1e1250')
-  }
-  if (player.currentChallenge.reincarnation === 9) {
-    s = s.dividedBy('1e2000000')
-  }
-  let c = Decimal.pow(s, 1 + 0.001 * player.researches[17])
-  let lol = Decimal.pow(c, 1 + 0.025 * player.upgrades[123])
-  if (
-    player.currentChallenge.ascension === 15
-    && player.platonicUpgrades[5] > 0
-  ) {
-    lol = Decimal.pow(lol, 1.1)
-  }
-  if (
-    player.currentChallenge.ascension === 15
-    && player.platonicUpgrades[14] > 0
-  ) {
-    lol = Decimal.pow(
-      lol,
-      1
-        + ((1 / 20)
-            * corruptionLevelStrength(player.corruptions.used)
-            * Decimal.log(player.coins.add(1), 10))
-          / (1e7 + Decimal.log(player.coins.add(1), 10))
-    )
-  }
-  if (
-    player.currentChallenge.ascension === 15
-    && player.platonicUpgrades[15] > 0
-  ) {
-    lol = Decimal.pow(lol, 1.1)
-  }
-  lol = Decimal.pow(lol, G.challenge15Rewards.coinExponent.value)
-  G.globalCoinMultiplier = lol
   G.globalCoinMultiplier = Decimal.pow(
-    G.globalCoinMultiplier,
-    corruptionEffect(player.corruptions.used, 'recession')
+    calculateTotalStat(allCoinMultiplierStats),
+    calculateTotalStat(allCoinExponentStats)
   )
 
   if (player.upgrades[1] > 0.5) {
@@ -2854,6 +2791,9 @@ export const multipliers = (): void => {
   } else {
     G.coinThreeMulti = Decimal.fromNumber(1)
   }
+  if (player.upgrades[14] > 0.5) {
+    G.coinThreeMulti = G.coinThreeMulti.times(Decimal.pow(1.15, G.freeAccelerator).times(1e5))
+  }
   if (player.upgrades[18] > 0.5) {
     G.coinThreeMulti = G.coinThreeMulti.times(
       Decimal.min(1e125, player.transcendShards.add(1))
@@ -2868,6 +2808,9 @@ export const multipliers = (): void => {
   } else {
     G.coinFourMulti = Decimal.fromNumber(1)
   }
+  if (player.upgrades[15] > 0.5) {
+    G.coinFourMulti = G.coinFourMulti.times(Decimal.pow(1.15, G.freeAccelerator).times(1e5))
+  }
   if (player.upgrades[17] > 0.5) {
     G.coinFourMulti = G.coinFourMulti.times(1e100)
   }
@@ -2880,6 +2823,7 @@ export const multipliers = (): void => {
   } else {
     G.coinFiveMulti = Decimal.fromNumber(1)
   }
+  G.coinFiveMulti = G.coinFiveMulti.times(calculateRefineryAlchemyMultiplier())
   if (player.upgrades[60] > 0.5) {
     G.coinFiveMulti = G.coinFiveMulti.times('1e35000')
   }
@@ -3857,13 +3801,6 @@ export const updateAll = (): void => {
     )
   }
 
-  const upgradeFourteenMultiplier = player.upgrades[14] > 0.5
-    ? Decimal.pow(1.15, G.freeAccelerator).times(1e5)
-    : 1
-  const upgradeFifteenMultiplier = player.upgrades[15] > 0.5
-    ? Decimal.pow(1.15, G.freeAccelerator).times(1e5)
-    : 1
-
   let shouldReveal = false
 
   if (!player.unlocks.coinone && player.coins.gte(G.d500)) {
@@ -4039,30 +3976,24 @@ export const updateAll = (): void => {
     player.fourthGeneratedCoin = player.fourthGeneratedCoin.add(
       player.fifthGeneratedCoin
         .add(player.fifthOwnedCoin)
-        .times(upgradeFifteenMultiplier)
-        .times(G.generatorPower)
     )
   }
   if (player.upgrades[102] > 0.5) {
     player.thirdGeneratedCoin = player.thirdGeneratedCoin.add(
       player.fourthGeneratedCoin
         .add(player.fourthOwnedCoin)
-        .times(upgradeFourteenMultiplier)
-        .times(G.generatorPower)
     )
   }
   if (player.upgrades[103] > 0.5) {
     player.secondGeneratedCoin = player.secondGeneratedCoin.add(
       player.thirdGeneratedCoin
         .add(player.thirdOwnedCoin)
-        .times(G.generatorPower)
     )
   }
   if (player.upgrades[104] > 0.5) {
     player.firstGeneratedCoin = player.firstGeneratedCoin.add(
       player.secondGeneratedCoin
         .add(player.secondOwnedCoin)
-        .times(G.generatorPower)
     )
   }
   if (player.upgrades[105] > 0.5) {
@@ -4072,24 +4003,6 @@ export const updateAll = (): void => {
   }
   let p = 1
   p += +getAchievementReward('conversionExponent')
-
-  let a = 0
-  if (player.upgrades[106] > 0.5) {
-    a += 0.1
-  }
-  if (player.upgrades[107] > 0.5) {
-    a += 0.15
-  }
-  if (player.upgrades[108] > 0.5) {
-    a += 0.25
-  }
-  if (player.upgrades[109] > 0.5) {
-    a += 0.25
-  }
-  if (player.upgrades[110] > 0.5) {
-    a += 0.25
-  }
-  a *= p
 
   let b = 0
   if (player.upgrades[111] > 0.5) {
@@ -4127,14 +4040,6 @@ export const updateAll = (): void => {
   }
   c *= p
 
-  if (a !== 0) {
-    player.fifthGeneratedCoin = player.fifthGeneratedCoin.add(
-      Decimal.pow(
-        player.firstGeneratedDiamonds.add(player.firstOwnedDiamonds).add(1),
-        a
-      )
-    )
-  }
   if (b !== 0) {
     player.fifthGeneratedDiamonds = player.fifthGeneratedDiamonds.add(
       Decimal.pow(

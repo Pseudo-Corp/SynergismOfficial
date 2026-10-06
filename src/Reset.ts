@@ -495,8 +495,6 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   player.prestigecounter = 0
   G.autoResetTimers.prestige = 0
 
-  G.generatorPower = Decimal.fromString('1')
-
   if (resetTypes.has(input)) {
     resetUpgrades(2)
     player.coinsThisTranscension = Decimal.fromString('100')

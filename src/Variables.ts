@@ -42,7 +42,6 @@ export const Globals: GlobalVariables = {
   totalAcceleratorBoost: 0,
   acceleratorPower: 1.10,
   acceleratorEffect: new Decimal(1),
-  generatorPower: new Decimal(1),
 
   freeMultiplier: 0,
   totalMultiplier: 0,

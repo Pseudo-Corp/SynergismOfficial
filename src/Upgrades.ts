@@ -156,7 +156,7 @@ const upgradetexts = [
   () => format(Math.floor(player.multiplierBought / 7), 0, true),
   () => format(Math.floor(player.acceleratorBought / 10), 0, true),
   () => format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
-  () => format(Decimal.pow(1.02, G.freeAccelerator), 2),
+  () => format(Decimal.pow(1.02, G.totalAccelerator), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
   () =>
     format(
