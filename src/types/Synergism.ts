@@ -620,7 +620,6 @@ export interface GlobalVariables {
   totalAcceleratorBoost: number
   acceleratorPower: number
   acceleratorEffect: Decimal
-  generatorPower: Decimal
 
   freeMultiplier: number
   totalMultiplier: number

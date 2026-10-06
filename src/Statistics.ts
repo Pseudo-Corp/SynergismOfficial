@@ -81,6 +81,7 @@ import {
   calculateSingularityPurpleBarSizeMultiplier,
   calculateSingularityQuarkMilestoneMultiplier,
   calculateTesseractMultiplier,
+  calculateTotalCoinOwned,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
@@ -168,7 +169,16 @@ import {
   goldenQuarkUpgrades
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { format, formatAsPercentIncrease, player } from './Synergism'
+import {
+  calculateBuildingPowerCoinMultiplier,
+  calculateCrystalCoinMultiplier,
+  calculateFirstSixCoinUpgradeMultiplier,
+  calculateRefineryAlchemyExponent,
+  calculateRefineryAlchemyMultiplier,
+  format,
+  formatAsPercentIncrease,
+  player
+} from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
 import { calculateFlatTaxCapIncrease, calculateTaxExponent, challenge13EffectiveCompletions } from './Tax'
 import type { GlobalVariables } from './types/Synergism'
@@ -4277,6 +4287,207 @@ const allTaxCapStats: DecimalStatLineCategory = {
   ]
 }
 
+const challenge6CoinPenalty = new Decimal('1e-250')
+const challenge7CoinPenalty = new Decimal('1e-1250')
+const challenge9CoinPenalty = new Decimal('1e-2000000')
+
+const formatExponent = (stat: number | Decimal) => `^${format(stat, 4, true)}`
+
+export const allCoinMultiplierStats: DecimalStatLineCategory = {
+  kind: 'decimal',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Multipliers',
+      stat: () => G.multiplierEffect
+    },
+    {
+      i18n: 'Accelerators',
+      stat: () => G.acceleratorEffect
+    },
+    {
+      i18n: 'Crystals',
+      stat: () => calculateCrystalCoinMultiplier()
+    },
+    {
+      i18n: 'BuildingPower',
+      stat: () => calculateBuildingPowerCoinMultiplier()
+    },
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier
+    },
+    {
+      i18n: 'Singularity',
+      stat: () =>
+        player.highestSingularityCount > 0
+          ? Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.highestSingularityCount + 1, 2)
+          : 1
+    },
+    {
+      i18n: 'CoinUpgrade6',
+      stat: () => player.upgrades[6] > 0.5 ? calculateFirstSixCoinUpgradeMultiplier() : 1
+    },
+    {
+      i18n: 'CoinUpgrade11',
+      stat: () =>
+        player.upgrades[11] > 0.5 && player.currentChallenge.reincarnation !== 7
+          ? Decimal.pow(1.02, G.totalAccelerator)
+          : 1
+    },
+    {
+      i18n: 'CoinUpgrade12',
+      stat: () => player.upgrades[12] > 0.5 ? Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)) : 1
+    },
+    {
+      i18n: 'CoinUpgrade20',
+      stat: () => player.upgrades[20] > 0.5 ? Decimal.pow(calculateTotalCoinOwned() / 4 + 1, 10) : 1
+    },
+    {
+      i18n: 'MythosUpgrade1',
+      stat: () =>
+        player.upgrades[41] > 0.5
+          ? Decimal.min(1e30, Decimal.pow(player.transcendPoints.add(4), 1 / 2))
+          : 1
+    },
+    {
+      i18n: 'MythosUpgrade3',
+      stat: () => player.upgrades[43] > 0.5 ? Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)) : 1
+    },
+    {
+      i18n: 'MythosUpgrade8',
+      stat: () =>
+        player.upgrades[48] > 0.5
+          ? Decimal.pow((G.totalMultiplier * G.totalAccelerator) / 1000 + 1, 8)
+          : 1
+    },
+    {
+      i18n: 'Challenge6Active',
+      stat: () => player.currentChallenge.reincarnation === 6 ? challenge6CoinPenalty : 1
+    },
+    {
+      i18n: 'Challenge7Active',
+      stat: () => player.currentChallenge.reincarnation === 7 ? challenge7CoinPenalty : 1
+    },
+    {
+      i18n: 'Challenge9Active',
+      stat: () => player.currentChallenge.reincarnation === 9 ? challenge9CoinPenalty : 1
+    }
+  ]
+}
+
+export const allCoinExponentStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Research1x17',
+      stat: () => 1 + 0.001 * player.researches[17],
+      format: formatExponent
+    },
+    {
+      i18n: 'CoinUpgrade23',
+      stat: () => 1 + 0.025 * player.upgrades[123],
+      format: formatExponent
+    },
+    {
+      i18n: 'PlatonicUpgrade5',
+      stat: () => player.currentChallenge.ascension === 15 && player.platonicUpgrades[5] > 0 ? 1.1 : 1,
+      format: formatExponent
+    },
+    {
+      i18n: 'PlatonicUpgrade14',
+      stat: () =>
+        player.currentChallenge.ascension === 15 && player.platonicUpgrades[14] > 0
+          ? 1
+            + ((1 / 20) * corruptionLevelStrength(player.corruptions.used) * Decimal.log(player.coins.add(1), 10))
+              / (1e7 + Decimal.log(player.coins.add(1), 10))
+          : 1,
+      format: formatExponent
+    },
+    {
+      i18n: 'PlatonicUpgrade15',
+      stat: () => player.currentChallenge.ascension === 15 && player.platonicUpgrades[15] > 0 ? 1.1 : 1,
+      format: formatExponent
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () => G.challenge15Rewards.coinExponent.value,
+      format: formatExponent
+    },
+    {
+      i18n: 'Recession',
+      stat: () => corruptionEffect(player.corruptions.used, 'recession'),
+      format: formatExponent
+    }
+  ]
+}
+
+const allCoinProductionStats: DecimalStatLineCategory = {
+  kind: 'decimal',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'Producer1',
+      stat: () => G.coinOneMulti
+    },
+    {
+      i18n: 'Producer1Total',
+      stat: () => G.globalCoinMultiplier.times(G.coinOneMulti)
+    },
+    {
+      i18n: 'Producer2',
+      stat: () => G.coinTwoMulti
+    },
+    {
+      i18n: 'Producer2Total',
+      stat: () => G.globalCoinMultiplier.times(G.coinTwoMulti)
+    },
+    {
+      i18n: 'Producer3',
+      stat: () => G.coinThreeMulti
+    },
+    {
+      i18n: 'Producer3Total',
+      stat: () => G.globalCoinMultiplier.times(G.coinThreeMulti)
+    },
+    {
+      i18n: 'Producer4',
+      stat: () => G.coinFourMulti
+    },
+    {
+      i18n: 'Producer4Total',
+      stat: () => G.globalCoinMultiplier.times(G.coinFourMulti)
+    },
+    {
+      i18n: 'RefineryAlchemy',
+      stat: () => calculateRefineryAlchemyMultiplier(),
+      format: (stat) => `${format(stat, 3, true)} (^${format(calculateRefineryAlchemyExponent(), 3, true)})`,
+      displayCriterion: () => calculateRefineryAlchemyExponent() > 0
+    },
+    {
+      i18n: 'Producer5',
+      stat: () => G.coinFiveMulti
+    },
+    {
+      i18n: 'Producer5Total',
+      stat: () => G.globalCoinMultiplier.times(G.coinFiveMulti)
+    },
+    {
+      i18n: 'GrossPerSecond',
+      stat: () => G.producePerSecond
+    },
+    {
+      i18n: 'TaxDivisor',
+      stat: () => G.taxdivisor
+    },
+    {
+      i18n: 'NetPerSecond',
+      stat: () => G.producePerSecond.dividedBy(G.taxdivisor)
+    }
+  ]
+}
+
 const LOADED_STATS_HTMLS = {
   challenge15: false
 }
@@ -4325,7 +4536,8 @@ const associated = new Map<string, string>([
   ['kPurpleHoneyLuck', 'purpleHoneyLuckStats'],
   ['kPurpleHoneyProgressRequirement', 'purpleHoneyProgressRequirementStats'],
   ['kShopVouchers', 'shopVoucherStats'],
-  ['kTaxes', 'taxStats']
+  ['kTaxes', 'taxStats'],
+  ['kCoins', 'coinStats']
 ])
 
 const mobileStatsModalHTML = (statsId: string) => {
@@ -4513,6 +4725,9 @@ export const loadStatisticsUpdate = (statsId?: string) => {
         break
       case 'taxStats':
         loadTaxStats()
+        break
+      case 'coinStats':
+        loadCoinStats()
         break
     }
   }
@@ -4983,6 +5198,25 @@ const loadShopVoucherStats = () => {
 const loadTaxStats = () => {
   loadStatistics(allTaxExponentStats, 'taxStats', 'statTax', 'TaxStat', calculateTaxExponent)
   loadStatistics(allTaxCapStats, 'taxStats', 'statTax2', 'TaxStat2', () => 0, '', false)
+}
+
+const loadCoinStats = () => {
+  loadStatistics(
+    allCoinMultiplierStats,
+    'coinStats',
+    'statCoin',
+    'CoinStat',
+    () => calculateTotalStat(allCoinMultiplierStats)
+  )
+  loadStatistics(
+    allCoinExponentStats,
+    'coinStats',
+    'statCoin2',
+    'CoinStat2',
+    () => calculateTotalStat(allCoinExponentStats),
+    'Total2'
+  )
+  loadStatistics(allCoinProductionStats, 'coinStats', 'statCoin3', 'CoinStat3', () => 0, '', false)
 }
 
 const loadMiscellaneousStats = () => {
