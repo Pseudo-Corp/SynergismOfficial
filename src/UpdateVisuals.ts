@@ -603,12 +603,6 @@ export const visualUpdateBuildings = () => {
         warning
       }
     )
-    const taurusTaxDivisor = getPurpleAmbrosiaUpgradeEffects('taurus', 'taxDivisor')
-    if (taurusTaxDivisor > 1) {
-      DOMCacheGetOrSet('taxinfo').innerHTML += `<br>${
-        i18next.t('purpleAmbrosia.taurusTaxReduction', { divisor: format(taurusTaxDivisor, 1, true) })
-      }`
-    }
   } else if (G.buildingSubTab === 'diamond') {
     const crystalExponent = calculateCrystalExponent()
     const crystalCoinMult = calculateCrystalCoinMultiplier(crystalExponent)
