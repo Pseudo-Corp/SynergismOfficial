@@ -710,6 +710,7 @@ export interface GlobalVariables {
   talismanResourceOfferingCosts: number[]
 
   timeWarp: boolean
+  testingDtMultiplier: number
 
   triggerChallenge: number
 

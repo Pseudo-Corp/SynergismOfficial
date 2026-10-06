@@ -123,6 +123,7 @@ export const Globals: GlobalVariables = {
   talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
 
   timeWarp: false,
+  testingDtMultiplier: 1,
 
   triggerChallenge: 0,
 
