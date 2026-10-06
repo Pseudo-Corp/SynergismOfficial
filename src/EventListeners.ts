@@ -1678,6 +1678,14 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet(player.iconSet + 1))
   DOMCacheGetOrSet('monospaceFont').addEventListener('click', () => toggleMonospaceFont())
   DOMCacheGetOrSet('statSymbols').addEventListener('click', () => toggleStatSymbol())
+  const testingDtMultiplierSlider = DOMCacheGetOrSet('testingDtMultiplierSlider') as HTMLInputElement
+  testingDtMultiplierSlider.addEventListener('input', () => {
+    const requested = testingDtMultiplierSlider.valueAsNumber
+    G.testingDtMultiplier = Number.isFinite(requested) ? Math.min(10, Math.max(0.1, requested)) : 1
+    DOMCacheGetOrSet('testingDtMultiplierValue').textContent = i18next.t('settings.testingDtMultiplierValue', {
+      x: G.testingDtMultiplier.toFixed(1)
+    })
+  })
 
   saveStringInput.addEventListener('mousemove', (e) => Modal(() => saveStringHTML(), e.clientX, e.clientY))
   saveStringInput.addEventListener('focus', () => {

@@ -3454,7 +3454,7 @@
       "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
       "progressName": "SADISTIC CHALLENGE II",
       "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-      "restrictions": "Ascend and reach the goal but you're stuck at Corruption level 20. <br> ☆ Ant Speed <<gold|^num:((0.5))>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|num:((0.0001))>> <br> ☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>>",
+      "restrictions": "Ascend and reach the goal but you're stuck at Corruption level 20. <br> ☆ Ant Speed <<gold|^num:((0.5))>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|num:((0.0001))>> <br> ☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>> <br> ☆ Viscosity no longer divides free Accelerators and Multipliers. Instead, they are raised to <<gold|^num:((0.2))>> (improved by Platonic Upgrade 6)",
       "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
       "per": {
         "1": "Folly of mankind: ",
@@ -5613,7 +5613,9 @@
       "atLeast": "L ≥ {{from}}"
     },
     "levelFormulas": {
-      "viscosity": "0",
+      "viscosity": {
+        "all": "(2 − 0.04 × Platonic Upgrade 6 level)^L"
+      },
       "drought": "−10 × (0.2 × L + 7)²",
       "deflation": {
         "low": "10^(−L² ÷ 16)",
@@ -5681,8 +5683,9 @@
     },
     "effectSummary": {
       "viscosity": {
-        "change": "<<silver|^{{curr}} →>> <<gold|^{{next}}>>",
-        "same": "<<gold|^{{value}}>>"
+        "change": "<<silver|÷{{curr}} →>> <<gold|÷{{next}}>>",
+        "same": "<<gold|÷{{value}}>>",
+        "c15": "<<gold|÷1, ^{{value}} (Challenge 15)>>"
       },
       "drought": {
         "change": "<<silver|{{curr}} →>> <<gold|{{next}}>>",
@@ -6864,6 +6867,8 @@
       "monotonous": "Monotonous"
     },
     "statSymbol": "Stat Symbols",
+    "testingDtMultiplier": "[TESTING] Game Speed",
+    "testingDtMultiplierValue": "{{x}}x",
     "statSymbols": {
       "enabled": "Enabled (♻ / Ɑ / ☇ etc.)",
       "disabled": "Disabled (No symbols by stats)"
@@ -8234,7 +8239,7 @@
         "3": "+num:((0.27))% Hypercubes per level for every Corruption level!",
         "4": "Gain +num:((2.4))% Platonic Cubes per level! It is that simple.",
         "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +num:((0.2)) free Corruption levels!",
-        "6": "Viscosity's exponent is multiplied by 1+(level/30), capped at ^1.",
+        "6": "Viscosity's divisor base is reduced by num:((0.04)) per level (2^L → 1.6^L at max level). In Challenge 15, Viscosity's exponent is multiplied by 1+(level/30), capped at ^1.",
         "7": "Global speed below 1x is raised to ^1-(level/30), ignoring Immaculate multipliers.",
         "8": "The Hyperchallenge Cube's effect is divided by 1+(level*num:((0.4))), with a minimum of 1x.",
         "9": "Gain num:((2.5))x Immaculate Obtainium and multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at num:((1e100)) Obtainium.",

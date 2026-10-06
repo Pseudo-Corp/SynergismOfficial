@@ -67,6 +67,7 @@ import {
 } from './Calculate'
 import {
   c15CorruptionLevel,
+  c15ViscosityExponent,
   clearCorruptionLevel,
   corruptionEffect,
   corruptionPanelCreate,
@@ -2417,7 +2418,8 @@ export const updateAllTick = (): void => {
 
   calculateAcceleratorMultiplier()
   a *= G.acceleratorMultiplier
-  a = Math.pow(a, corruptionEffect(player.corruptions.used, 'viscosity'))
+  a /= corruptionEffect(player.corruptions.used, 'viscosity')
+  a = Math.pow(a, c15ViscosityExponent(player.corruptions.used))
   a += getHepteractEffects('accelerator').accelerators
   a *= G.challenge15Rewards.accelerator.value
   a *= getHepteractEffects('accelerator').acceleratorMultiplier
@@ -2570,7 +2572,8 @@ export const updateAllMultiplier = (): void => {
   ) {
     a *= 1.25
   }
-  a = Math.pow(a, corruptionEffect(player.corruptions.used, 'viscosity'))
+  a /= corruptionEffect(player.corruptions.used, 'viscosity')
+  a = Math.pow(a, c15ViscosityExponent(player.corruptions.used))
   a += getHepteractEffects('multiplier').multiplier
   a *= G.challenge15Rewards.multiplier.value
   a *= getHepteractEffects('multiplier').multiplierMultiplier
@@ -4291,7 +4294,7 @@ const tick = () => {
     // compute at max delta ms to avoid negative delta
     dtEffective = Math.min(delta, dtEffective)
     // run tack and record timings
-    tack(dtEffective / 1000)
+    tack(dtEffective / 1000 * G.testingDtMultiplier)
     lastUpdate += dtEffective
     delta -= dtEffective
     if (performance.now() - now > tickBudgetMs) {
