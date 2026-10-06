@@ -1,7 +1,10 @@
+import i18next from 'i18next'
+import { DOMCacheGetOrSet } from './Cache/DOM'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
+import { refreshQuarkBonus } from './Quark'
 import { getGQUpgradeEffect } from './singularity'
 import { getTimePinnedToLoadDate, player } from './Synergism'
-import { revealStuff } from './UpdateHTML'
+import { openIframeOverlay, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
 export enum BuffType {
@@ -46,6 +49,58 @@ interface GameEvent {
 let nowEvent: GameEvent | null = null
 export const getEvent = () => nowEvent
 
+let eventPageUrl: string | null = null
+
+const openEventPage = (url: string) => {
+  eventPageUrl = url
+  openIframeOverlay(url)
+}
+
+const renderEventPages = () => {
+  const container = DOMCacheGetOrSet('globalEventPages')
+  container.replaceChildren()
+
+  if (nowEvent === null) {
+    return
+  }
+
+  for (const [i, url] of nowEvent.url.entries()) {
+    if (url !== '') {
+      const { hostname } = new URL(url)
+      const button = document.createElement('button')
+      button.textContent = i18next.t('pseudoCoins.consumables.globalEventPage', { name: nowEvent.name[i] })
+      button.addEventListener('click', () => {
+        if (hostname === 'synergism.cc' || hostname.endsWith('.synergism.cc')) {
+          openEventPage(url)
+        } else {
+          window.open(url, '_blank')
+        }
+      })
+      container.appendChild(button)
+    }
+  }
+}
+
+export const eventPageMessageHandler = async (event: MessageEvent<{ type?: string } | null>) => {
+  if (eventPageUrl === null || event.origin !== new URL(eventPageUrl).origin) {
+    return
+  }
+
+  if (event.data?.type === 'synergism:token-request') {
+    const response = await fetch('https://synergism.cc/events/token', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: eventPageUrl })
+    })
+    const token = response.ok ? (await response.json() as { token: string }).token : null
+
+    event.ports[0].postMessage({ token })
+  } else if (event.data?.type === 'synergism:bonus-updated') {
+    await refreshQuarkBonus()
+  }
+}
+
 export const eventCheck = async () => {
   if (!player.dayCheck) {
     return
@@ -65,6 +120,8 @@ export const eventCheck = async () => {
   if (now >= apiEvents.start && now <= apiEvents.end && apiEvents.name.length) {
     nowEvent = apiEvents
   }
+
+  renderEventPages()
 
   const updateIsEventCheck = G.isEvent
 

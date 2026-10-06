@@ -8672,6 +8672,7 @@
       "globalEvent": "Global Event",
       "globalEventActive": "Global Event: {{events}}",
       "globalEventNone": "Timer Remaining: <<#8f8|--:--:-->>",
+      "globalEventPage": "Open {{name}}",
       "globalEventSome": "Timer Remaining: <<#8f8|{{time}}>>"
     },
     "timeSkips": {

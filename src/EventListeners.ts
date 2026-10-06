@@ -33,6 +33,7 @@ import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
 import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
+import { eventPageMessageHandler } from './Event'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { buyAllAntMasteries, buyAntMastery } from './Features/Ants/AntMasteries/lib/buy-mastery'
 import { antProducerData } from './Features/Ants/AntProducers/data/data'
@@ -2279,4 +2280,5 @@ TODO: Fix this entire tab it's utter shit
 
   // Window
   window.addEventListener('error', imgErrorHandler, { capture: true })
+  window.addEventListener('message', eventPageMessageHandler)
 }

@@ -8924,6 +8924,13 @@ header #obtainiumDisplay { color: pink; }
     color: #8f8;
 }
 
+#globalEventPages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
 .temporaryBuffContainer {
     display: flex;
     flex-direction: row;
