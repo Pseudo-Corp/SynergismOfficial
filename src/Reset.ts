@@ -6,7 +6,14 @@ import {
   challengeAchievementCheck,
   getAchievementReward
 } from './Achievements'
-import { buyTesseractBuilding, calculateTessBuildingsInBudget, getCost } from './Buy'
+import {
+  buyTesseractBuilding,
+  calculateTessBuildingsInBudget,
+  getBuildingCost,
+  getCost,
+  grantCurveBuildings,
+  syncCurveBuildings
+} from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -197,12 +204,12 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.infoColor = 'limegreen'
       break
     case 'acceleratorBoost':
-      addCurrencyReward('Diamond.png', `-${format(player.acceleratorBoostCost)}`)
+      addCurrencyReward('Diamond.png', `-${format(getBuildingCost('acceleratorBoost'))}`)
       resetDetails.infoText = i18next.t(
         player.upgrades[88] === 1 ? 'reset.details.acceleratorBoostNoReset' : 'reset.details.acceleratorBoost',
         {
           amount: format(player.prestigePoints),
-          required: format(player.acceleratorBoostCost)
+          required: format(getBuildingCost('acceleratorBoost'))
         }
       )
       resetDetails.infoColor = 'cyan'
@@ -437,28 +444,29 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   player.coinsThisPrestige = Decimal.fromString('100')
   player.firstOwnedCoin = 0
   player.firstGeneratedCoin = new Decimal()
-  player.firstCostCoin = Decimal.fromString('100')
+  player.firstPaidCoin = new Decimal()
   player.secondOwnedCoin = 0
   player.secondGeneratedCoin = new Decimal()
-  player.secondCostCoin = Decimal.fromString('1e3')
+  player.secondPaidCoin = new Decimal()
   player.thirdOwnedCoin = 0
   player.thirdGeneratedCoin = new Decimal()
-  player.thirdCostCoin = Decimal.fromString('2e4')
+  player.thirdPaidCoin = new Decimal()
   player.fourthOwnedCoin = 0
   player.fourthGeneratedCoin = new Decimal()
-  player.fourthCostCoin = Decimal.fromString('4e5')
+  player.fourthPaidCoin = new Decimal()
   player.fifthOwnedCoin = 0
   player.fifthGeneratedCoin = new Decimal()
-  player.fifthCostCoin = Decimal.fromString('8e6')
+  player.fifthPaidCoin = new Decimal()
   player.firstGeneratedDiamonds = new Decimal()
   player.secondGeneratedDiamonds = new Decimal()
   player.thirdGeneratedDiamonds = new Decimal()
   player.fourthGeneratedDiamonds = new Decimal()
   player.fifthGeneratedDiamonds = new Decimal()
-  player.multiplierCost = Decimal.fromString('1e4')
+  player.multiplierPaid = new Decimal()
   player.multiplierBought = 0
-  player.acceleratorCost = Decimal.fromString('500')
+  player.acceleratorPaid = new Decimal()
   player.acceleratorBought = 0
+  syncCurveBuildings()
 
   updatePrestigeCount(1)
 
@@ -499,22 +507,23 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     resetUpgrades(2)
     player.coinsThisTranscension = Decimal.fromString('100')
     player.firstOwnedDiamonds = 0
-    player.firstCostDiamonds = Decimal.fromString('100')
+    player.firstPaidDiamonds = new Decimal()
     player.secondOwnedDiamonds = 0
-    player.secondCostDiamonds = Decimal.fromString('1e5')
+    player.secondPaidDiamonds = new Decimal()
     player.thirdOwnedDiamonds = 0
-    player.thirdCostDiamonds = Decimal.fromString('1e15')
+    player.thirdPaidDiamonds = new Decimal()
     player.fourthOwnedDiamonds = 0
-    player.fourthCostDiamonds = Decimal.fromString('1e40')
+    player.fourthPaidDiamonds = new Decimal()
     player.fifthOwnedDiamonds = 0
-    player.fifthCostDiamonds = Decimal.fromString('1e100')
+    player.fifthPaidDiamonds = new Decimal()
     player.firstGeneratedMythos = new Decimal()
     player.secondGeneratedMythos = new Decimal()
     player.thirdGeneratedMythos = new Decimal()
     player.fourthGeneratedMythos = new Decimal()
     player.fifthGeneratedMythos = new Decimal()
     player.acceleratorBoostBought = 0
-    player.acceleratorBoostCost = Decimal.fromString('1e3')
+    player.acceleratorBoostPaid = new Decimal()
+    syncCurveBuildings()
 
     if (transcensionCheck) {
       updateTranscensionCount(1)
@@ -535,8 +544,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     for (let i = 1; i <= 5; i++) {
       if (getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy`) === 1) {
         const zeroIndex = i - 1 as ZeroToFour
-        player[`${G.ordinals[zeroIndex]}OwnedDiamonds`] = 1
-        player[`${G.ordinals[zeroIndex]}CostDiamonds`] = getCost('diamond', 2, zeroIndex)
+        grantCurveBuildings('diamond', zeroIndex, 1)
       }
     }
 
@@ -584,15 +592,16 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     resetUpgrades(3)
     player.coinsThisReincarnation = Decimal.fromString('100')
     player.firstOwnedMythos = 0
-    player.firstCostMythos = Decimal.fromString('1')
+    player.firstPaidMythos = new Decimal()
     player.secondOwnedMythos = 0
-    player.secondCostMythos = Decimal.fromString('1e2')
+    player.secondPaidMythos = new Decimal()
     player.thirdOwnedMythos = 0
-    player.thirdCostMythos = Decimal.fromString('1e4')
+    player.thirdPaidMythos = new Decimal()
     player.fourthOwnedMythos = 0
-    player.fourthCostMythos = Decimal.fromString('1e8')
+    player.fourthPaidMythos = new Decimal()
     player.fifthOwnedMythos = 0
-    player.fifthCostMythos = Decimal.fromString('1e16')
+    player.fifthPaidMythos = new Decimal()
+    syncCurveBuildings()
     player.firstGeneratedParticles = new Decimal()
     player.secondGeneratedParticles = new Decimal()
     player.thirdGeneratedParticles = new Decimal()
@@ -945,7 +954,7 @@ export const updateSingularityAchievements = (): void => {
 const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   if (player.highestSingularityCount >= 2) { // Singularity 2
     player.transcendPoints = Decimal.fromString('1001')
-    player.firstOwnedCoin = 1
+    grantCurveBuildings('coin', 0, 1)
     player.unlocks.coinone = true
     player.unlocks.cointwo = true
     player.unlocks.cointhree = true
@@ -1136,6 +1145,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.totalQuarksEver = player.totalQuarksEver
   hold.singularityCount = player.singularityCount
   hold.highestSingularityCount = player.highestSingularityCount
+  hold.buildingSoftcapReached = player.buildingSoftcapReached
   hold.singularityElevatorTarget = player.singularityElevatorTarget
   hold.singularityElevatorSlowClimb = player.singularityElevatorSlowClimb
   hold.singularityElevatorLocked = player.singularityElevatorLocked

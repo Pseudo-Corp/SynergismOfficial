@@ -67,6 +67,8 @@ import {
   antSpeedStats,
   ascensionCountMultStats,
   calculateTotalStat,
+  constructionBaseStats,
+  constructionMultiplierStats,
   negativeSalvageStatMultiplier,
   negativeSalvageStats,
   offeringObtainiumTimeModifiers,
@@ -662,6 +664,37 @@ export const calculateNegativeSalvageMultiplier = () => calculateTotalStat(negat
 export const calculateRawNegativeSalvage = () => calculateTotalStat(negativeSalvageStats)
 export const calculateNegativeSalvage = () => {
   return calculateRawNegativeSalvage() * calculateNegativeSalvageMultiplier()
+}
+
+export const baseConstruction = 1000
+const constructionHardcap = 1e15
+const challenge4BaseConstruction = 10
+const challenge8BaseConstruction = 1
+const ascensionChallenge15ParticleConstruction = 1000
+
+export const calculateRawConstruction = () => calculateTotalStat(constructionBaseStats)
+export const calculateConstructionMultiplier = () => calculateTotalStat(constructionMultiplierStats)
+export const calculateConstruction = () =>
+  Math.min(constructionHardcap, calculateRawConstruction() * calculateConstructionMultiplier())
+
+export const calculateBuildingConstruction = (type: 'coin' | 'diamond' | 'mythos' | 'particle') => {
+  const construction = calculateConstruction()
+  if (type === 'particle') {
+    return player.currentChallenge.ascension === 15 ? ascensionChallenge15ParticleConstruction : construction
+  }
+  let base = baseConstruction
+  if (player.currentChallenge.reincarnation === 8) {
+    base = challenge8BaseConstruction
+  } else if (
+    type !== 'mythos' && (player.currentChallenge.transcension === 4 || player.currentChallenge.reincarnation === 10)
+  ) {
+    base = challenge4BaseConstruction
+  }
+  if (base === baseConstruction) {
+    return construction
+  }
+  const bonus = construction / baseConstruction
+  return base * (bonus <= 2 ? bonus : 2 + Math.log(bonus - 1))
 }
 
 export const calculateTotalSalvage = () => {

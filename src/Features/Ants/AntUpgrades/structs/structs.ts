@@ -32,7 +32,7 @@ export type AntUpgradeTypeMap = {
   [AntUpgrades.AcceleratorBoosts]: { acceleratorBoostMult: number }
   [AntUpgrades.Multipliers]: { multiplierMult: number }
   [AntUpgrades.Offerings]: { offeringMult: number }
-  [AntUpgrades.BuildingCostScale]: { buildingCostScale: number; buildingPowerMult: number }
+  [AntUpgrades.BuildingCostScale]: { construction: number; buildingPowerMult: number }
   [AntUpgrades.Salvage]: { salvage: number }
   [AntUpgrades.FreeRunes]: { freeRuneLevel: number }
   [AntUpgrades.Obtainium]: { obtainiumMult: number }
