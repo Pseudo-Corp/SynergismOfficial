@@ -49,8 +49,12 @@ import {
   buyCrystalUpgrades,
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
-  getCost,
-  getReductionValue
+  getBuildingCost,
+  getBuildingCostKey,
+  initializeCurveBuildingsPaid,
+  syncCurveBuildings,
+  syncParticleCosts,
+  updateBuildingSoftcapReached
 } from './Buy'
 import {
   calculateAcceleratorMultiplier,
@@ -265,7 +269,6 @@ const buyAmountTypes = [
   'offering',
   'tesseract'
 ] as const
-const buildingResources = ['Coin', 'Diamonds', 'Mythos'] as const
 
 const researchAutoChallengeIndices = [71, 72, 73, 74, 75]
 // 2020 Platonic... Why the FUCK did you settle on this?
@@ -284,77 +287,77 @@ export const player: Player = {
 
   firstOwnedCoin: 0,
   firstGeneratedCoin: new Decimal(),
-  firstCostCoin: new Decimal('100'),
+  firstPaidCoin: new Decimal(),
   firstProduceCoin: 0.25,
 
   secondOwnedCoin: 0,
   secondGeneratedCoin: new Decimal(),
-  secondCostCoin: new Decimal('1e3'),
+  secondPaidCoin: new Decimal(),
   secondProduceCoin: 2.5,
 
   thirdOwnedCoin: 0,
   thirdGeneratedCoin: new Decimal(),
-  thirdCostCoin: new Decimal('2e4'),
+  thirdPaidCoin: new Decimal(),
   thirdProduceCoin: 25,
 
   fourthOwnedCoin: 0,
   fourthGeneratedCoin: new Decimal(),
-  fourthCostCoin: new Decimal('4e5'),
+  fourthPaidCoin: new Decimal(),
   fourthProduceCoin: 250,
 
   fifthOwnedCoin: 0,
   fifthGeneratedCoin: new Decimal(),
-  fifthCostCoin: new Decimal('8e6'),
+  fifthPaidCoin: new Decimal(),
   fifthProduceCoin: 2500,
 
   firstOwnedDiamonds: 0,
   firstGeneratedDiamonds: new Decimal(),
-  firstCostDiamonds: new Decimal('100'),
+  firstPaidDiamonds: new Decimal(),
   firstProduceDiamonds: 0.05,
 
   secondOwnedDiamonds: 0,
   secondGeneratedDiamonds: new Decimal(),
-  secondCostDiamonds: new Decimal('1e5'),
+  secondPaidDiamonds: new Decimal(),
   secondProduceDiamonds: 0.0005,
 
   thirdOwnedDiamonds: 0,
   thirdGeneratedDiamonds: new Decimal(),
-  thirdCostDiamonds: new Decimal('1e15'),
+  thirdPaidDiamonds: new Decimal(),
   thirdProduceDiamonds: 0.00005,
 
   fourthOwnedDiamonds: 0,
   fourthGeneratedDiamonds: new Decimal(),
-  fourthCostDiamonds: new Decimal('1e40'),
+  fourthPaidDiamonds: new Decimal(),
   fourthProduceDiamonds: 0.000005,
 
   fifthOwnedDiamonds: 0,
   fifthGeneratedDiamonds: new Decimal(),
-  fifthCostDiamonds: new Decimal('1e100'),
+  fifthPaidDiamonds: new Decimal(),
   fifthProduceDiamonds: 0.000005,
 
   firstOwnedMythos: 0,
   firstGeneratedMythos: new Decimal(),
-  firstCostMythos: new Decimal('1'),
+  firstPaidMythos: new Decimal(),
   firstProduceMythos: 1,
 
   secondOwnedMythos: 0,
   secondGeneratedMythos: new Decimal(),
-  secondCostMythos: new Decimal('100'),
+  secondPaidMythos: new Decimal(),
   secondProduceMythos: 0.01,
 
   thirdOwnedMythos: 0,
   thirdGeneratedMythos: new Decimal(),
-  thirdCostMythos: new Decimal('1e4'),
+  thirdPaidMythos: new Decimal(),
   thirdProduceMythos: 0.001,
 
   fourthOwnedMythos: 0,
   fourthGeneratedMythos: new Decimal(),
-  fourthCostMythos: new Decimal('1e8'),
+  fourthPaidMythos: new Decimal(),
   fourthProduceMythos: 0.0002,
 
   fifthOwnedMythos: 0,
   fifthGeneratedMythos: new Decimal(),
-  fifthCostMythos: new Decimal('1e16'),
+  fifthPaidMythos: new Decimal(),
   fifthProduceMythos: 0.00004,
 
   firstOwnedParticles: 0,
@@ -415,14 +418,14 @@ export const player: Player = {
     multiplier: 0.01
   },
 
-  multiplierCost: new Decimal('1e4'),
+  multiplierPaid: new Decimal(),
   multiplierBought: 0,
 
-  acceleratorCost: new Decimal('500'),
+  acceleratorPaid: new Decimal(),
   acceleratorBought: 0,
 
   acceleratorBoostBought: 0,
-  acceleratorBoostCost: new Decimal('1e3'),
+  acceleratorBoostPaid: new Decimal(),
 
   upgrades: Array(141).fill(0) as number[],
 
@@ -1199,7 +1202,8 @@ export const player: Player = {
     highestPurpleHoney: 0
   },
 
-  purpleUpdateQuarkRefundAwarded: true
+  purpleUpdateQuarkRefundAwarded: true,
+  buildingSoftcapReached: false
 }
 
 export const deepClone = () =>
@@ -2020,6 +2024,8 @@ const loadSynergy = (saveString: string): boolean => {
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
+    initializeCurveBuildingsPaid((key) => validatedPlayer.data[key] !== undefined)
+    syncParticleCosts()
     calculateObtainium()
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
@@ -3840,7 +3846,7 @@ export const updateAll = (): void => {
     if (
       player.toggles[i]
       && player.upgrades[80 + i]
-      && player.coins.gte(player[`${G.ordinals[zeroIndex]}CostCoin` as const])
+      && player.coins.gte(getBuildingCost('coin', zeroIndex))
     ) {
       buyBuilding('coin', 'max', zeroIndex)
     }
@@ -3848,21 +3854,21 @@ export const updateAll = (): void => {
   if (
     player.toggles[6]
     && player.upgrades[86] === 1
-    && player.coins.gte(player.acceleratorCost)
+    && player.coins.gte(getBuildingCost('accelerator'))
   ) {
     buyBuilding('accelerator', 'max')
   }
   if (
     player.toggles[7]
     && player.upgrades[87] === 1
-    && player.coins.gte(player.multiplierCost)
+    && player.coins.gte(getBuildingCost('multiplier'))
   ) {
     buyBuilding('multiplier', 'max')
   }
   if (
     player.toggles[8]
     && player.upgrades[88] === 1
-    && player.prestigePoints.gte(player.acceleratorBoostCost)
+    && player.prestigePoints.gte(getBuildingCost('acceleratorBoost'))
   ) {
     boostAccelerator('max')
   }
@@ -3873,7 +3879,7 @@ export const updateAll = (): void => {
     if (
       player.toggles[9 + i]
       && getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy` as const) === 1
-      && player.prestigePoints.gte(player[`${G.ordinals[zeroIndex]}CostDiamonds` as const])
+      && player.prestigePoints.gte(getBuildingCost('diamond', zeroIndex))
     ) {
       buyBuilding('diamond', 'max', zeroIndex)
     }
@@ -3910,7 +3916,7 @@ export const updateAll = (): void => {
     if (
       player.toggles[15 + i]
       && player.upgrades[93 + i] === 1
-      && player.transcendPoints.gte(player[`${G.ordinals[zeroIndex]}CostMythos` as const])
+      && player.transcendPoints.gte(getBuildingCost('mythos', zeroIndex))
     ) {
       buyBuilding('mythos', 'max', zeroIndex)
     }
@@ -3924,7 +3930,7 @@ export const updateAll = (): void => {
       && player.cubeUpgrades[7] === 1
       && player.reincarnationPoints.gte(player[`${G.ordinals[zeroIndex]}CostParticles` as const])
     ) {
-      buyBuilding('particle', undefined, zeroIndex)
+      buyBuilding('particle', 'max', zeroIndex)
     }
   }
 
@@ -4124,21 +4130,13 @@ export const updateAll = (): void => {
     }
   }
 
-  const reductionValue = getReductionValue()
-  if (reductionValue !== G.prevReductionValue) {
-    G.prevReductionValue = reductionValue
-    for (let res = 0; res < buildingResources.length; ++res) {
-      const resource = buildingResources[res]
-      for (let i = 1; i <= 5; i++) {
-        const zeroIndex = i - 1 as ZeroToFour
-        player[`${G.ordinals[zeroIndex]}Cost${resource}` as const] = getCost(
-          (['coin', 'diamond', 'mythos'] as const)[res],
-          player[`${G.ordinals[zeroIndex]}Owned${resource}` as const] + 1,
-          zeroIndex
-        )
-      }
-    }
+  const buildingCostKey = getBuildingCostKey()
+  if (buildingCostKey !== G.prevBuildingCostKey) {
+    G.prevBuildingCostKey = buildingCostKey
+    syncCurveBuildings()
+    syncParticleCosts()
   }
+  updateBuildingSoftcapReached()
 
   // Challenge 15 autoupdate
   if (

@@ -241,7 +241,7 @@ export const challengeDisplay = (i: number) => {
       case 4: {
         current1 = format(5 * CalcECC('transcend', player.challengecompletions[4]))
         current2 = format(2 * CalcECC('transcend', player.challengecompletions[4]))
-        current3 = format(0.5 * CalcECC('transcend', player.challengecompletions[4]), 2, true)
+        current3 = format(1 + CalcECC('transcend', player.challengecompletions[4]) / 200, 3, true)
         break
       }
       case 5: {

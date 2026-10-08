@@ -12,6 +12,7 @@ import {
 } from './Achievements'
 import {
   calculateSingularityUpgradePurchase,
+  getBuildingCost,
   type SingularityUpgradePurchaseOptions,
   type SingularityUpgradePurchaseQuote
 } from './Buy'
@@ -668,35 +669,36 @@ export const buttoncolorchange = () => {
     const h = DOMCacheGetOrSet('buyacceleratorboost')
     a.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(player.firstCostCoin)
+      (!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(getBuildingCost('coin', 0))
     )
     b.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(player.secondCostCoin)
+      (!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(getBuildingCost('coin', 1))
     )
     c.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(player.thirdCostCoin)
+      (!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(getBuildingCost('coin', 2))
     )
     d.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(player.fourthCostCoin)
+      (!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(getBuildingCost('coin', 3))
     )
     e.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(player.fifthCostCoin)
+      (!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(getBuildingCost('coin', 4))
     )
     f.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[6] || player.upgrades[86] === 0) && player.coins.gte(player.acceleratorCost)
+      (!player.toggles[6] || player.upgrades[86] === 0) && player.coins.gte(getBuildingCost('accelerator'))
     )
     g.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[7] || player.upgrades[87] === 0) && player.coins.gte(player.multiplierCost)
+      (!player.toggles[7] || player.upgrades[87] === 0) && player.coins.gte(getBuildingCost('multiplier'))
     )
     h.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.gte(player.acceleratorBoostCost)
+      (!player.toggles[8] || player.upgrades[88] === 0)
+        && player.prestigePoints.gte(getBuildingCost('acceleratorBoost'))
     )
   }
 
@@ -714,27 +716,27 @@ export const buttoncolorchange = () => {
     a.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[10] || getLevelMilestone('tier1CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.firstCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 0))
     )
     b.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[11] || getLevelMilestone('tier2CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.secondCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 1))
     )
     c.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[12] || getLevelMilestone('tier3CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.thirdCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 2))
     )
     d.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[13] || getLevelMilestone('tier4CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.fourthCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 3))
     )
     e.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[14] || getLevelMilestone('tier5CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.fifthCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 4))
     )
     let k = 0
     if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {
@@ -852,7 +854,7 @@ export const buttoncolorchange = () => {
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'mythos') {
     for (let i = 1; i <= 5; i++) {
       const toggle = player.toggles[i + 15]
-      const mythos = player[`${G.ordinals[i - 1 as ZeroToFour]}CostMythos` as const]
+      const mythos = getBuildingCost('mythos', i - 1 as ZeroToFour)
       if ((!toggle || !player.upgrades[93 + i]) && player.transcendPoints.gte(mythos)) {
         DOMCacheGetOrSet(`buymythos${i}`).classList.add('buildingPurchaseBtnAvailable')
       } else {

@@ -351,6 +351,7 @@ const mobileStatsIconConfig: Record<string, string> = {
   kOfferingMult: 'Pictures/Stats for Nerds Icons/Categories/OfferingMultiplier.png',
   kRuneEffectMult: 'Pictures/Stats for Nerds Icons/Categories/RunePower.png',
   kSalvage: 'Pictures/Stats for Nerds Icons/Categories/Salvage.png',
+  kConstruction: 'Pictures/Runes/Thrift.png',
   kBaseObtainium: 'Pictures/Stats for Nerds Icons/Categories/BaseObtainium.png',
   kObtIgnoreDR: 'Pictures/Stats for Nerds Icons/Categories/ImmaculateObtainium.png',
   kObtMult: 'Pictures/Stats for Nerds Icons/Categories/ObtainiumMultiplier.png',

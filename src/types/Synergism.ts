@@ -1,6 +1,7 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
+import type { CurveBuildingType } from '../Buy'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionPreset } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
@@ -38,77 +39,77 @@ export interface Player {
 
   firstOwnedCoin: number
   firstGeneratedCoin: Decimal
-  firstCostCoin: Decimal
+  firstPaidCoin: Decimal
   firstProduceCoin: number
 
   secondOwnedCoin: number
   secondGeneratedCoin: Decimal
-  secondCostCoin: Decimal
+  secondPaidCoin: Decimal
   secondProduceCoin: number
 
   thirdOwnedCoin: number
   thirdGeneratedCoin: Decimal
-  thirdCostCoin: Decimal
+  thirdPaidCoin: Decimal
   thirdProduceCoin: number
 
   fourthOwnedCoin: number
   fourthGeneratedCoin: Decimal
-  fourthCostCoin: Decimal
+  fourthPaidCoin: Decimal
   fourthProduceCoin: number
 
   fifthOwnedCoin: number
   fifthGeneratedCoin: Decimal
-  fifthCostCoin: Decimal
+  fifthPaidCoin: Decimal
   fifthProduceCoin: number
 
   firstOwnedDiamonds: number
   firstGeneratedDiamonds: Decimal
-  firstCostDiamonds: Decimal
+  firstPaidDiamonds: Decimal
   firstProduceDiamonds: number
 
   secondOwnedDiamonds: number
   secondGeneratedDiamonds: Decimal
-  secondCostDiamonds: Decimal
+  secondPaidDiamonds: Decimal
   secondProduceDiamonds: number
 
   thirdOwnedDiamonds: number
   thirdGeneratedDiamonds: Decimal
-  thirdCostDiamonds: Decimal
+  thirdPaidDiamonds: Decimal
   thirdProduceDiamonds: number
 
   fourthOwnedDiamonds: number
   fourthGeneratedDiamonds: Decimal
-  fourthCostDiamonds: Decimal
+  fourthPaidDiamonds: Decimal
   fourthProduceDiamonds: number
 
   fifthOwnedDiamonds: number
   fifthGeneratedDiamonds: Decimal
-  fifthCostDiamonds: Decimal
+  fifthPaidDiamonds: Decimal
   fifthProduceDiamonds: number
 
   firstOwnedMythos: number
   firstGeneratedMythos: Decimal
-  firstCostMythos: Decimal
+  firstPaidMythos: Decimal
   firstProduceMythos: number
 
   secondOwnedMythos: number
   secondGeneratedMythos: Decimal
-  secondCostMythos: Decimal
+  secondPaidMythos: Decimal
   secondProduceMythos: number
 
   thirdOwnedMythos: number
   thirdGeneratedMythos: Decimal
-  thirdCostMythos: Decimal
+  thirdPaidMythos: Decimal
   thirdProduceMythos: number
 
   fourthOwnedMythos: number
   fourthGeneratedMythos: Decimal
-  fourthCostMythos: Decimal
+  fourthPaidMythos: Decimal
   fourthProduceMythos: number
 
   fifthOwnedMythos: number
   fifthGeneratedMythos: Decimal
-  fifthCostMythos: Decimal
+  fifthPaidMythos: Decimal
   fifthProduceMythos: number
 
   firstOwnedParticles: number
@@ -169,14 +170,14 @@ export interface Player {
     multiplier: number
   }
 
-  multiplierCost: Decimal
+  multiplierPaid: Decimal
   multiplierBought: number
 
-  acceleratorCost: Decimal
+  acceleratorPaid: Decimal
   acceleratorBought: number
 
   acceleratorBoostBought: number
-  acceleratorBoostCost: Decimal
+  acceleratorBoostPaid: Decimal
 
   upgrades: number[]
 
@@ -582,6 +583,7 @@ export interface Player {
   }
 
   purpleUpdateQuarkRefundAwarded: boolean
+  buildingSoftcapReached: boolean
 }
 
 export interface GlobalVariables {
@@ -693,7 +695,8 @@ export interface GlobalVariables {
 
   triggerChallenge: number
 
-  prevReductionValue: number
+  prevBuildingCostKey: string
+  buildingCosts: Record<CurveBuildingType, Decimal[]>
 
   buildingSubTab: BuildingSubtab
 

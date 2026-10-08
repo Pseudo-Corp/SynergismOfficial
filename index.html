@@ -383,6 +383,8 @@
             -->
 
                 <p id="coinInformation"></p>
+                <p class="transcendunlock" id="coinConstruction" style="text-align: center"></p>
+                <p id="coinConstructionSoftcap" style="text-align: center; display: none"></p>
                 <p id="coinVanity"></p>
 
                 <div class="buttonRow"></div>
@@ -406,6 +408,9 @@
                         </tr>
                     </table>
                 </div>
+
+                <p class="transcendunlock" id="diamondConstruction" style="text-align: center"></p>
+                <p id="diamondConstructionSoftcap" style="text-align: center; display: none"></p>
 
                 <div class="buttonRow"></div>
 
@@ -451,6 +456,9 @@
                     </table>
                 </div>
 
+                <p class="transcendunlock" id="mythosConstruction" style="text-align: center"></p>
+                <p id="mythosConstructionSoftcap" style="text-align: center; display: none"></p>
+
                 <div class="buttonRow"></div>
 
                 <p id="transcendshardinfo" style="color:pink;"></p>
@@ -478,6 +486,9 @@
                         </tr>
                     </table>
                 </div>
+
+                <p class="transcendunlock" id="particleConstruction" style="text-align: center"></p>
+                <p id="particleConstructionSoftcap" style="text-align: center; display: none"></p>
 
                 <div class="buttonRow"></div>
 
@@ -2441,6 +2452,7 @@
                     <button class="prestigeunlock statsNerds" id="kOfferingMult" style="border: 2px solid palegreen" i18n="statistics.subtabs.offeringMult"></button>
                     <button class="prestigeunlock statsNerds" id="kRuneEffectMult" style="border: 2px solid pink" i18n="statistics.subtabs.runeEffectMult"></button>
                     <button class="prestigeunlock statsNerds" id="kSalvage" style="border: 2px solid green" i18n="statistics.subtabs.salvage"></button>
+                    <button class="prestigeunlock statsNerds" id="kConstruction" style="border: 2px solid orange" i18n="statistics.subtabs.construction"></button>
                     <button class="reincarnationunlock statsNerds" id="kBaseObtainium" style="border: 2px solid pink" i18n="statistics.subtabs.baseObtainium"></button>
                     <button class="reincarnationunlock statsNerds" id="kObtIgnoreDR" style="border: 2px solid pink" i18n="statistics.subtabs.obtIgnoreDR"></button>
                     <button class="reincarnationunlock statsNerds" id="kObtMult" style="border: 2px solid pink" i18n="statistics.subtabs.obtMult"></button>
@@ -2517,6 +2529,23 @@
                         <div id="salvageStatsNegativeTitle" class="statPortion" style="font-size: 1.2em; color: red" i18n="statistics.salvageNegative.title"></div>
                     </div>
                     <p id="statSalvageSep2" class="statPortion">&nbsp;</p>
+                </div>
+
+                <div id="constructionStats" class="statContainer" style="display: none;" aria-live="polite">
+                    <p id="constructionStatTitle" class="statPortion" style="font-size: 1.2em; color: orange" i18n="statistics.constructionStats.title"></p>
+                    <p id="constructionExtra"></p>
+                    <p id="constructionSoftcapInfo" style="display: none"></p>
+                    <div id="constructionBase">
+                        <div id="constructionStatsBaseTitle" class="statPortion" style="font-size: 1.2em; color: gold" i18n="statistics.constructionBase.title"></div>
+                    </div>
+                    <p id="statConstructionSep" class="statPortion">&nbsp;</p>
+                    <div id="constructionMultiplier">
+                        <div id="constructionStatsMultiplierTitle" class="statPortion" style="font-size: 1.2em; color: orange" i18n="statistics.constructionMultiplier.title"></div>
+                    </div>
+                    <p id="statConstructionSep2" class="statPortion">&nbsp;</p>
+                    <div id="constructionBuildings">
+                        <div id="constructionStatsBuildingsTitle" class="statPortion" style="font-size: 1.2em; color: lightblue" i18n="statistics.constructionBuildings.title"></div>
+                    </div>
                 </div>
 
                 <div id="baseObtainiumStats" class="statContainer" style="display: none;" aria-live="polite">

@@ -40,7 +40,7 @@ type RuneTypeMap = {
     costDivisorLog10: number
   }
   thrift: {
-    costDelay: number
+    construction: number
     salvage: number
     taxReduction: number
   }
@@ -457,8 +457,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     ignoreChal9: false,
     levelsPerOOMIncrease: () => thriftRuneOOMIncrease(),
     effects: (n, key) => {
-      if (key === 'costDelay') {
-        return Math.min(1e15, n / 125)
+      if (key === 'construction') {
+        return Math.min(1e15, n)
       } else if (key === 'salvage') {
         return 2.5 * Math.log(1 + n / 10)
       } else {
@@ -466,15 +466,15 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       }
     },
     effectsDescription: () => {
-      const costDelay = getRuneEffects('thrift', 'costDelay')
+      const construction = getRuneEffects('thrift', 'construction')
       const salvage = getRuneEffects('thrift', 'salvage')
       const taxReduction = getRuneEffects('thrift', 'taxReduction')
-      const costDelayText = i18next.t('runes.thrift.costDelay', { val: format(costDelay, 2, true) })
+      const constructionText = i18next.t('runes.thrift.construction', { val: format(construction, 2, true) })
       const salvageText = i18next.t('runes.thrift.salvage', { val: format(salvage, 2, true) })
       const taxReductionText = i18next.t('runes.thrift.taxReduction', {
         val: format(100 * (1 - taxReduction), 3, true)
       })
-      return `${costDelayText}<br>${salvageText}<br>${taxReductionText}`
+      return `${constructionText}<br>${salvageText}<br>${taxReductionText}`
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsThrift(),

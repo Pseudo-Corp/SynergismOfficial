@@ -4,6 +4,7 @@ import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  baseConstruction,
   calculateAllCubeMultiplier,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
@@ -24,6 +25,8 @@ import {
   calculateBaseObtainium,
   calculateBaseOfferings,
   calculateBlueberryInventory,
+  calculateBuildingConstruction,
+  calculateConstruction,
   calculateCookieUpgrade29Luck,
   calculateCubeBank,
   calculateCubeMultFromPowder,
@@ -68,6 +71,7 @@ import {
   calculateQuarkMultiplier,
   calculateRawAntSpeedMult,
   calculateRawAscensionSpeedMult,
+  calculateRawConstruction,
   calculateRawNegativeSalvage,
   calculateRawPositiveSalvage,
   calculateRedAmbrosiaCubes,
@@ -3385,6 +3389,66 @@ export const positiveSalvageStatMultiplier: NumberStatLineCategory = {
   ]
 }
 
+const constructionResearches = [56, 57, 58, 59, 60] as const
+
+export const constructionBaseStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => baseConstruction,
+      acc: 0
+    },
+    {
+      i18n: 'ThriftRune',
+      stat: () => getRuneEffects('thrift', 'construction')
+    }
+  ]
+}
+
+export const constructionMultiplierStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Researches',
+      stat: () => constructionResearches.reduce((mult, index) => mult * (1 + player.researches[index] / 200), 1)
+    },
+    {
+      i18n: 'Challenge4',
+      stat: () => 1 + CalcECC('transcend', player.challengecompletions[4]) / 200
+    },
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.BuildingCostScale).construction
+    }
+  ]
+}
+
+const constructionBuildingStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Misc,
+  lines: [
+    {
+      i18n: 'CoinBuildings',
+      stat: () => calculateBuildingConstruction('coin')
+    },
+    {
+      i18n: 'CrystalBuildings',
+      stat: () => calculateBuildingConstruction('diamond')
+    },
+    {
+      i18n: 'MythosBuildings',
+      stat: () => calculateBuildingConstruction('mythos')
+    },
+    {
+      i18n: 'ParticleBuildings',
+      stat: () => calculateBuildingConstruction('particle')
+    }
+  ]
+}
+
 export const negativeSalvageStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -4497,6 +4561,7 @@ const associated = new Map<string, string>([
   ['kBaseOffering', 'baseOfferingStats'],
   ['kOfferingMult', 'offeringMultiplierStats'],
   ['kSalvage', 'salvageStats'],
+  ['kConstruction', 'constructionStats'],
   ['kBaseObtainium', 'baseObtainiumStats'],
   ['kRuneEffectMult', 'runeEffectMultiplierStats'],
   ['kObtIgnoreDR', 'obtainiumIgnoreDRStats'],
@@ -4605,6 +4670,9 @@ export const loadStatisticsUpdate = (statsId?: string) => {
         break
       case 'salvageStats':
         loadSalvageStats()
+        break
+      case 'constructionStats':
+        loadConstructionStats()
         break
       case 'baseObtainiumStats':
         loadStatisticsObtainiumBase()
@@ -5232,6 +5300,40 @@ const loadTalismanRuneBonusMultiplierStats = () => {
     'TalismanRuneBonusStat',
     allTalismanRuneBonusStatsSum
   )
+}
+
+const loadConstructionStats = () => {
+  loadStatistics(
+    constructionBaseStats,
+    'constructionBase',
+    'statConBase',
+    'ConstructionStatBase',
+    calculateRawConstruction
+  )
+  loadStatistics(
+    constructionMultiplierStats,
+    'constructionMultiplier',
+    'statConMult',
+    'ConstructionStatMultiplier',
+    calculateConstruction
+  )
+  loadStatistics(
+    constructionBuildingStats,
+    'constructionBuildings',
+    'statConBuild',
+    'ConstructionStatBuildings',
+    () => 0,
+    '',
+    false
+  )
+
+  DOMCacheGetOrSet('constructionExtra').innerHTML = i18next.t('statistics.constructionStats.extraInfo')
+
+  const softcapInfo = DOMCacheGetOrSet('constructionSoftcapInfo')
+  softcapInfo.style.display = player.buildingSoftcapReached ? 'block' : 'none'
+  if (player.buildingSoftcapReached) {
+    softcapInfo.innerHTML = i18next.t('statistics.constructionStats.softcapInfo')
+  }
 }
 
 const loadSalvageStats = () => {

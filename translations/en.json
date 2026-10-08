@@ -2947,9 +2947,9 @@
       "buildingCostScale": {
         "name": "Hic Formicidae",
         "intro": "A builder ant! Some may call it a Carpenter Ant?",
-        "description": "+3% Building Cost Delay per level, and +1% Building Power per level!",
+        "description": "Multiplies Construction by up to x10 (about +3% per level at first), and +1% Building Power per level!",
         "lockedAutomation": "Unlock the <i>Hic Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
-        "effect": "Building Costs take <<lime | {{x}} longer>> to spiral out of control!",
+        "effect": "Construction <<lime | x{{x}}>>",
         "effect2": "Building Power <<lime | x{{x}}>>"
       },
       "salvage": {
@@ -3245,19 +3245,19 @@
       "name": "Cost+ Challenge || {{- value}} Completions",
       "progressName": "Cost+ Challenge",
       "flavor": "You're getting rich now, but inflation hasn't happened yet? I don't think so!",
-      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Prices grow super-exponentially after <<gold|num:((1000))>> of each Building. <br> ☆ Each completion lowers the above number by <<gold|10>> <br> ☆ Accelerator and Multiplier prices <<gold|immediately>> grow super-exponentially!",
+      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Base Construction is <<gold|num:((10))>> instead of <<gold|num:((1000))>> <br> ☆ The Building price softcap starts at <<gold|num:((1e13))>> instead of <<gold|num:((1e15))>> <br> ☆ Construction bonuses above <<gold|x2>> are much weaker <br> ☆ Accelerator and Multiplier prices start scaling quadratically after <<gold|num:((25))>> and <<gold|num:((15))>> purchases",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "Accelerator Cost scale slows down by +5 purchases. Current: ",
         "2": "Multiplier Cost scale slows down by +2 purchases. Current: ",
-        "3": "Building Cost Delay +num:((0.5))%. Current: "
+        "3": "Construction x(1 + num:((0.5))% per completion). Current: "
       },
       "first": "None",
       "start": "Start [Cost+]",
       "current": {
         "1": "Accelerator Delay +{{value}}",
         "2": "Multiplier Delay +{{value}}",
-        "3": "Building Cost Delay +{{value}}%"
+        "3": "Construction x{{value}}"
       }
     },
     "5": {
@@ -3321,7 +3321,7 @@
       "name": "Cost++ Challenge || {{- value}} Completions",
       "progressName": "Cost++ Challenge",
       "flavor": "You thought you could outgrow inflation by Reincarnating?",
-      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices increase <<gold|50x>> faster than in Cost+ <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building costs start growing super-exponentially after <<gold|1000 + 1000 per completion>> purchased. <br> ",
+      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Base Construction is <<gold|num:((1))>>, and the Building price softcap starts at <<gold|num:((1e12))>> <br> ☆ Construction bonuses above <<gold|x2>> are much weaker",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
         "1": "Base Building Power +num:((0.25))! Current: ",
@@ -3359,7 +3359,7 @@
       "name": "Sadistic Challenge I || {{- value}} Completions",
       "progressName": "Sadistic Challenge I",
       "flavor": "I'm sorry for what I've unleashed onto the world. You read a note on the floor: \"You probably want about num:((1e300)) Galactic Crumbs before you fully embrace the challenge. Try to Sacrifice some more Anthills, master your Ants and become one with the Ant God to achieve this.\"",
-      "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Costs grow super-exponentially after <<gold|num:((25000))>> purchased. This is affected by Building Cost Delay <br> ☆ Diamond gain is reduced to <<gold | Coins^num:((0.0001))>> <br> ☆ Mythos gain is reduced to <<gold | Coins^num:((0.001))>>",
+      "restrictions": "Reincarnate and reach the goal, but run a mix of the first five Challenges, all at once! <br> ☆ Acceleration Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Coin and Diamond Building prices scale as in Cost+ <br> ☆ Diamond gain is reduced to <<gold | Coins^num:((0.0001))>> <br> ☆ Mythos gain is reduced to <<gold | Coins^num:((0.001))>>",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+100 base ELO for sacrificing ants! Current: ",
@@ -3747,11 +3747,11 @@
       "53": "[3x3] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
       "54": "[3x4] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
       "55": "[3x5] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
-      "56": "[3x6] Building Cost Scale is delayed by num:((0.5))% per level.",
-      "57": "[3x7] Building Cost Scale is delayed by num:((0.5))% per level.",
-      "58": "[3x8] Building Cost Scale is delayed by num:((0.5))% per level.",
-      "59": "[3x9] Building Cost Scale is delayed by num:((0.5))% per level.",
-      "60": "[3x10] Building Cost Scale is delayed by num:((0.5))% per level.",
+      "56": "[3x6] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
+      "57": "[3x7] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
+      "58": "[3x8] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
+      "59": "[3x9] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
+      "60": "[3x10] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
       "61": "[3x11] Waiting to Reincarnate gives you more Obtainium when you finally do. Gain 50% of that amount increase, without having to Reincarnate! This does <b>NOT</b> affect Obtainium you would gain on Reincarnation, so it's like double dipping!",
       "62": "[3x12] Adds a flat +10% to [3x11]'s effect per level.",
       "63": "[3x13] If your Reincarnation lasts at least 2 seconds you gain +1 Base Obtainium per level.",
@@ -5859,6 +5859,8 @@
     "research": "Welcome to the future! Not sure what to study? Try the <<limegreen;|green-bordered>> Researches first."
   },
   "buildings": {
+    "construction": "Construction: <<{{color}}|{{amount}}>> [Building prices start hyperscaling past this many owned]",
+    "constructionSoftcap": "Past <<crimson|{{amount}}>> owned, Building price exponents grow with the amount owned<<crimson|^8>>",
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "You have nothing but 100 coins. You can hire a worker, conveniently for exactly 100 coins!",
@@ -6306,7 +6308,7 @@
       "name": "Thrift",
       "description": "It seems with this Rune in tow, you keep making great deals on your purchases, and your Offerings are just a little more reusable.",
       "lockedDescription": "This rune is locked! To unlock it, Reincarnate num:((10000)) times. You even get an Achievement for it!",
-      "costDelay": "<<lime | Building Cost Growth Delay +{{val}}%>> (+num:((0.125))% per Power, max +num:((1.00e15))% at num:((8e15)) Power)",
+      "construction": "<<lime | +{{val}} Construction>> (+1 per Power)",
       "salvage": "<<limegreen|+{{val}} Salvage>> (+num:((5.756)) * log_10(1 + Power / 10))",
       "taxReduction": "<<lightgray | Tax Growth -{{val}}%>> (Up to -99%)",
       "values": "+num:((0.125))% building cost growth delay per level, more Salvage per level (log scaling), Tax Growth is delayed more for each level (cap: 99%)!",
@@ -6923,6 +6925,7 @@
       "baseOffering": "Base Offerings",
       "offeringMult": "Offering Multipliers",
       "salvage": "Salvage",
+      "construction": "Construction",
       "baseObtainium": "Base Obtainium",
       "runeEffectMult": "Rune Power",
       "obtIgnoreDR": "Immaculate Obtainium",
@@ -7871,6 +7874,31 @@
       "title": "Offering Salvage",
       "Total": "Total Salvage:",
       "extraInfo": "Your Salvage multiplies your Rune, Blessing and Spirit EXP gain by <br> <<yellow |10^(Salvage / 30)>> <br> <<crimson|If your Salvage is negative, your Rune EXP is instead divided by this amount.>>"
+    },
+    "constructionStats": {
+      "title": "Construction",
+      "softcapInfo": "<<crimson|Past num:((1e15)) of a Building (fewer in Challenges 4, 8 and 10), its price exponent grows with the amount owned^8.>>",
+      "extraInfo": "Each Coin, Crystal, Mythos and Particle Building costs a fixed multiple more than the last, until you own as many of it as your Construction. <br> Past that, the price exponent grows <<yellow|quadratically>>. <br> <<crimson|Construction is capped at num:((1e15)).>>"
+    },
+    "constructionBase": {
+      "title": "Base Construction",
+      "Base": "Base:",
+      "ThriftRune": "Thrift Rune:",
+      "Total": "Total Base Construction:"
+    },
+    "constructionMultiplier": {
+      "title": "Construction Multipliers",
+      "Researches": "Researches 3x6 - 3x10:",
+      "Challenge4": "Challenge 4 Reward:",
+      "AntUpgrade": "Ant Upgrade - Hic Formicidae:",
+      "Total": "Total Construction:"
+    },
+    "constructionBuildings": {
+      "title": "Construction by Building (after Challenge penalties)",
+      "CoinBuildings": "Coin Buildings:",
+      "CrystalBuildings": "Crystal Buildings:",
+      "MythosBuildings": "Mythos Buildings:",
+      "ParticleBuildings": "Particle Buildings:"
     },
     "salvagePositive": {
       "PurpleAmbrosiaVirgo": "Purple Ambrosia - Virgo:",

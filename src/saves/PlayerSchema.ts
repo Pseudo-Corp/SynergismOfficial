@@ -334,77 +334,77 @@ export const playerSchema = z.object({
 
   firstOwnedCoin: z.number(),
   firstGeneratedCoin: decimalSchema,
-  firstCostCoin: decimalSchema,
+  firstPaidCoin: decimalSchema.optional(),
   firstProduceCoin: z.number(),
 
   secondOwnedCoin: z.number(),
   secondGeneratedCoin: decimalSchema,
-  secondCostCoin: decimalSchema,
+  secondPaidCoin: decimalSchema.optional(),
   secondProduceCoin: z.number(),
 
   thirdOwnedCoin: z.number(),
   thirdGeneratedCoin: decimalSchema,
-  thirdCostCoin: decimalSchema,
+  thirdPaidCoin: decimalSchema.optional(),
   thirdProduceCoin: z.number(),
 
   fourthOwnedCoin: z.number(),
   fourthGeneratedCoin: decimalSchema,
-  fourthCostCoin: decimalSchema,
+  fourthPaidCoin: decimalSchema.optional(),
   fourthProduceCoin: z.number(),
 
   fifthOwnedCoin: z.number(),
   fifthGeneratedCoin: decimalSchema,
-  fifthCostCoin: decimalSchema,
+  fifthPaidCoin: decimalSchema.optional(),
   fifthProduceCoin: z.number(),
 
   firstOwnedDiamonds: z.number(),
   firstGeneratedDiamonds: decimalSchema,
-  firstCostDiamonds: decimalSchema,
+  firstPaidDiamonds: decimalSchema.optional(),
   firstProduceDiamonds: z.number(),
 
   secondOwnedDiamonds: z.number(),
   secondGeneratedDiamonds: decimalSchema,
-  secondCostDiamonds: decimalSchema,
+  secondPaidDiamonds: decimalSchema.optional(),
   secondProduceDiamonds: z.number(),
 
   thirdOwnedDiamonds: z.number(),
   thirdGeneratedDiamonds: decimalSchema,
-  thirdCostDiamonds: decimalSchema,
+  thirdPaidDiamonds: decimalSchema.optional(),
   thirdProduceDiamonds: z.number(),
 
   fourthOwnedDiamonds: z.number(),
   fourthGeneratedDiamonds: decimalSchema,
-  fourthCostDiamonds: decimalSchema,
+  fourthPaidDiamonds: decimalSchema.optional(),
   fourthProduceDiamonds: z.number(),
 
   fifthOwnedDiamonds: z.number(),
   fifthGeneratedDiamonds: decimalSchema,
-  fifthCostDiamonds: decimalSchema,
+  fifthPaidDiamonds: decimalSchema.optional(),
   fifthProduceDiamonds: z.number(),
 
   firstOwnedMythos: z.number(),
   firstGeneratedMythos: decimalSchema,
-  firstCostMythos: decimalSchema,
+  firstPaidMythos: decimalSchema.optional(),
   firstProduceMythos: z.number(),
 
   secondOwnedMythos: z.number(),
   secondGeneratedMythos: decimalSchema,
-  secondCostMythos: decimalSchema,
+  secondPaidMythos: decimalSchema.optional(),
   secondProduceMythos: z.number(),
 
   thirdOwnedMythos: z.number(),
   thirdGeneratedMythos: decimalSchema,
-  thirdCostMythos: decimalSchema,
+  thirdPaidMythos: decimalSchema.optional(),
   thirdProduceMythos: z.number(),
 
   fourthOwnedMythos: z.number(),
   fourthGeneratedMythos: decimalSchema,
-  fourthCostMythos: decimalSchema,
+  fourthPaidMythos: decimalSchema.optional(),
   fourthProduceMythos: z.number(),
 
   fifthOwnedMythos: z.number(),
   fifthGeneratedMythos: decimalSchema,
-  fifthCostMythos: decimalSchema,
+  fifthPaidMythos: decimalSchema.optional(),
   fifthProduceMythos: z.number(),
 
   firstOwnedParticles: z.number(),
@@ -480,14 +480,14 @@ export const playerSchema = z.object({
   ascendBuilding4: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding4)),
   ascendBuilding5: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding5)),
 
-  multiplierCost: decimalSchema,
+  multiplierPaid: decimalSchema.optional(),
   multiplierBought: z.number(),
 
-  acceleratorCost: decimalSchema,
+  acceleratorPaid: decimalSchema.optional(),
   acceleratorBought: z.number(),
 
   acceleratorBoostBought: z.number(),
-  acceleratorBoostCost: decimalSchema,
+  acceleratorBoostPaid: decimalSchema.optional(),
 
   upgrades: z.number().array().transform((array) => {
     if (array.length < blankSave.upgrades.length) {
@@ -1100,5 +1100,6 @@ export const playerSchema = z.object({
     highestPurpleHoney: z.number().default(0)
   }).default(() => deepClone()(blankSave.stats)),
 
-  purpleUpdateQuarkRefundAwarded: z.boolean().default(() => false)
+  purpleUpdateQuarkRefundAwarded: z.boolean().default(() => false),
+  buildingSoftcapReached: z.boolean().default(() => false)
 })
