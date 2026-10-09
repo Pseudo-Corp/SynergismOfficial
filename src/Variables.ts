@@ -36,15 +36,9 @@ export const Globals: GlobalVariables = {
 
   ticker: 0,
 
-  freeAccelerator: 0,
-  totalAccelerator: 0,
-  freeAcceleratorBoost: 0,
-  totalAcceleratorBoost: 0,
   acceleratorPower: 1.10,
   acceleratorEffect: new Decimal(1),
 
-  freeMultiplier: 0,
-  totalMultiplier: 0,
   multiplierPower: 2,
   multiplierEffect: new Decimal(1),
   challengeOneLog: 3,
@@ -151,8 +145,6 @@ export const Globals: GlobalVariables = {
     fourth: new Decimal(),
     fifth: new Decimal()
   },
-
-  acceleratorMultiplier: 1,
 
   constUpgradeCosts: [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24],
 

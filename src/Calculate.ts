@@ -4,7 +4,8 @@ import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { CalcECC, useChallenge13Modifiers } from './Challenges'
-import { corruptionEffect, isCorruptionCubeUnlocked } from './Corruptions'
+import { c15ViscosityExponent, corruptionEffect, isCorruptionCubeUnlocked } from './Corruptions'
+import { calculateAcceleratorCubeBlessing } from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
@@ -12,7 +13,7 @@ import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/Reb
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { addTimers, automaticTools } from './Helper'
-import { hepteractEffective } from './Hepteracts'
+import { getHepteractEffects } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
@@ -26,8 +27,6 @@ import {
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
-import { getRuneBlessingEffect } from './RuneBlessings'
-import { sumOfRuneLevels } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -74,7 +73,9 @@ import {
   negativeSalvageStats,
   offeringObtainiumTimeModifiers,
   positiveSalvageStatMultiplier,
-  positiveSalvageStats
+  positiveSalvageStats,
+  tractionBaseStats,
+  tractionMultiplierStats
 } from './Statistics'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
@@ -567,87 +568,6 @@ export const calculateTotalCoinOwned = () => {
     + player.fifthOwnedCoin
 }
 
-export const calculateTotalAcceleratorBoost = () => {
-  let b = 0
-  const totalCoinOwned = calculateTotalCoinOwned()
-  if (player.upgrades[26] > 0.5) {
-    b += 1
-  }
-  if (player.upgrades[31] > 0.5) {
-    b += (Math.floor(totalCoinOwned / 2000) * 100) / 100
-  }
-  b += +getAchievementReward('accelBoosts')
-
-  b += player.researches[93]
-    * Math.floor(
-      (1 / 20)
-        * sumOfRuneLevels()
-    )
-  b *= 1
-    + (1 / 5)
-      * player.researches[3]
-      * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
-  b *= 1 + (1 / 20) * player.researches[16] + (1 / 20) * player.researches[17]
-  b *= 1 + (1 / 20) * player.researches[88]
-  b *= getAntUpgradeEffect(AntUpgrades.AcceleratorBoosts).acceleratorBoostMult
-  b *= 1 + (1 / 100) * player.researches[127]
-  b *= 1 + (0.8 / 100) * player.researches[142]
-  b *= 1 + (0.6 / 100) * player.researches[157]
-  b *= 1 + (0.4 / 100) * player.researches[172]
-  b *= 1 + (0.2 / 100) * player.researches[187]
-  b *= 1 + (0.01 / 100) * player.researches[200]
-  b *= 1 + (0.01 / 100) * player.cubeUpgrades[50]
-  b *= 1 + (1 / 1000) * hepteractEffective('acceleratorBoost')
-  if (
-    player.upgrades[73] > 0.5
-    && player.currentChallenge.reincarnation !== 0
-  ) {
-    b *= 2
-  }
-  b = Math.min(1e100, Math.floor(b))
-  G.freeAcceleratorBoost = b
-
-  G.totalAcceleratorBoost = (Math.floor(player.acceleratorBoostBought + G.freeAcceleratorBoost) * 100)
-    / 100
-}
-
-export const calculateAcceleratorMultiplier = () => {
-  G.acceleratorMultiplier = 1
-  G.acceleratorMultiplier *= 1
-    + (1 / 5)
-      * player.researches[1]
-      * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
-  G.acceleratorMultiplier *= 1
-    + (1 / 20) * player.researches[6]
-    + (1 / 25) * player.researches[7]
-    + (1 / 40) * player.researches[8]
-    + (3 / 200) * player.researches[9]
-    + (1 / 200) * player.researches[10]
-  G.acceleratorMultiplier *= 1 + (1 / 20) * player.researches[86]
-  G.acceleratorMultiplier *= 1 + (1 / 100) * player.researches[126]
-  G.acceleratorMultiplier *= 1 + (0.8 / 100) * player.researches[141]
-  G.acceleratorMultiplier *= 1 + (0.6 / 100) * player.researches[156]
-  G.acceleratorMultiplier *= 1 + (0.4 / 100) * player.researches[171]
-  G.acceleratorMultiplier *= 1 + (0.2 / 100) * player.researches[186]
-  G.acceleratorMultiplier *= 1 + (0.01 / 100) * player.researches[200]
-  G.acceleratorMultiplier *= 1 + (0.01 / 100) * player.cubeUpgrades[50]
-  G.acceleratorMultiplier *= Math.pow(
-    1.01,
-    player.upgrades[21]
-      + player.upgrades[22]
-      + player.upgrades[23]
-      + player.upgrades[24]
-      + player.upgrades[25]
-  )
-  if (
-    (player.currentChallenge.transcension !== 0
-      || player.currentChallenge.reincarnation !== 0)
-    && player.upgrades[50] > 0.5
-  ) {
-    G.acceleratorMultiplier *= 1.25
-  }
-}
-
 export const calculatePositiveSalvageMultiplier = () => calculateTotalStat(positiveSalvageStatMultiplier)
 export const calculateRawPositiveSalvage = () => calculateTotalStat(positiveSalvageStats)
 export const calculatePositiveSalvage = () => {
@@ -668,11 +588,10 @@ export const calculateNegativeSalvage = () => {
 }
 
 export const baseConstruction = 1000
-const constructionHardcap = 1e15
 const challenge4ConstructionScaling = { divisor: 100, power: 1 / 2 } as const
 const challenge8ConstructionScaling = { divisor: 1000, power: 1 / 3 } as const
 const ascensionChallenge15ParticleConstruction = 1000
-const buildingBonusConstruction = {
+export const buildingBonusConstruction = {
   coin: 0,
   diamond: 1000,
   mythos: 3000,
@@ -681,8 +600,7 @@ const buildingBonusConstruction = {
 
 export const calculateRawConstruction = () => calculateTotalStat(constructionBaseStats)
 export const calculateConstructionMultiplier = () => calculateTotalStat(constructionMultiplierStats)
-export const calculateConstruction = () =>
-  Math.min(constructionHardcap, calculateRawConstruction() * calculateConstructionMultiplier())
+export const calculateConstruction = () => calculateRawConstruction() * calculateConstructionMultiplier()
 
 const getChallengeConstructionScaling = (type: keyof typeof buildingBonusConstruction) => {
   if (type === 'particle') {
@@ -706,13 +624,12 @@ export const calculateBuildingConstruction = (type: keyof typeof buildingBonusCo
   const base = calculateRawConstruction() + buildingBonusConstruction[type]
   const scaling = getChallengeConstructionScaling(type)
   if (scaling === undefined) {
-    return Math.min(constructionHardcap, base * calculateConstructionMultiplier())
+    return base * calculateConstructionMultiplier()
   }
-  return Math.min(
-    constructionHardcap,
-    base / scaling.divisor * Math.pow(calculateConstructionMultiplier(), scaling.power)
-  )
+  return base / scaling.divisor * Math.pow(calculateConstructionMultiplier(), scaling.power)
 }
+
+const acceleratorBoostTractionHardcap = 1e15
 
 export const baseTraction = {
   accelerator: 125,
@@ -723,28 +640,52 @@ export const tractionPerChallenge4Completion = {
   accelerator: 5,
   multiplier: 2
 } as const
-const challenge4Traction = {
-  accelerator: 25,
-  multiplier: 15
-} as const
-const challenge8Traction = 1
-
-const calculateUncappedTraction = (type: keyof typeof baseTraction) => {
-  if (type === 'acceleratorBoost') {
-    return baseTraction.acceleratorBoost * getRuneBlessingEffect('thrift').accelBoostCostDelay
-  }
+export const getTractionChallengeScaling = () => {
   if (player.currentChallenge.reincarnation === 8) {
-    return challenge8Traction
+    return challenge8ConstructionScaling
   }
   if (player.currentChallenge.transcension === 4) {
-    return challenge4Traction[type]
+    return challenge4ConstructionScaling
   }
-  return baseTraction[type]
-    + tractionPerChallenge4Completion[type] * CalcECC('transcend', player.challengecompletions[4])
+  return undefined
 }
 
-export const calculateTraction = (type: keyof typeof baseTraction) =>
-  Math.min(constructionHardcap, calculateUncappedTraction(type))
+export const calculateChallenge4Traction = (type: keyof typeof tractionPerChallenge4Completion) =>
+  tractionPerChallenge4Completion[type] * CalcECC('transcend', player.challengecompletions[4])
+
+export const calculateAcceleratorTractionPerBoost = () =>
+  5
+  + 2 * player.researches[18]
+  + 2 * player.researches[19]
+  + 3 * player.researches[20]
+  + calculateAcceleratorCubeBlessing()
+
+export const calculateRawTraction = (type: keyof typeof baseTraction) => calculateTotalStat(tractionBaseStats[type])
+export const calculateTractionMultiplier = (type: keyof typeof baseTraction) =>
+  calculateTotalStat(tractionMultiplierStats[type])
+
+export const calculateTraction = (type: keyof typeof baseTraction) => {
+  const scaling = getTractionChallengeScaling()
+  const traction = scaling === undefined
+    ? calculateRawTraction(type) * calculateTractionMultiplier(type)
+    : calculateRawTraction(type) / scaling.divisor * Math.pow(calculateTractionMultiplier(type), scaling.power)
+  if (type === 'acceleratorBoost') {
+    return Math.min(acceleratorBoostTractionHardcap, traction)
+  }
+  return (Math.pow(traction, c15ViscosityExponent(player.corruptions.used)) + calculateHepteractTraction(type))
+    * G.challenge15Rewards[type].value
+    * calculateHepteractTractionMultiplier(type)
+}
+
+export const calculateHepteractTraction = (type: 'accelerator' | 'multiplier') =>
+  type === 'accelerator'
+    ? getHepteractEffects('accelerator').accelerators
+    : getHepteractEffects('multiplier').multiplier
+
+export const calculateHepteractTractionMultiplier = (type: 'accelerator' | 'multiplier') =>
+  type === 'accelerator'
+    ? getHepteractEffects('accelerator').acceleratorMultiplier
+    : getHepteractEffects('multiplier').multiplierMultiplier
 
 export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()

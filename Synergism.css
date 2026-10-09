@@ -2110,6 +2110,27 @@ p#promocodeStatus {
     height: 35px;
 }
 
+.buttonRow > .buildingSpacerText {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    margin-left: 0;
+    height: auto;
+}
+
+.buttonRow > .buildingSpacerText > p {
+    margin: 0;
+    text-align: center;
+}
+
+.buttonRow > .buildingSpacerText > p:first-child {
+    margin-top: 0.5em;
+}
+
+.buttonRow > .buildingSpacerText > p:last-child {
+    margin-bottom: 0.5em;
+}
+
 .buttonRow > div > p {
     margin-top: 0.25em;
 }

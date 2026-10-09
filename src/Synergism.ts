@@ -56,12 +56,10 @@ import {
   updateBuildingSoftcapReached
 } from './Buy'
 import {
-  calculateAcceleratorMultiplier,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateObtainium,
   calculateOffline,
-  calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   cancelOfflineProgress,
   dailyResetCheck,
@@ -70,7 +68,6 @@ import {
 } from './Calculate'
 import {
   c15CorruptionLevel,
-  c15ViscosityExponent,
   clearCorruptionLevel,
   corruptionEffect,
   corruptionPanelCreate,
@@ -83,7 +80,7 @@ import {
   normalizeCorruptionLevel,
   resetNextCorruptions
 } from './Corruptions'
-import { calculateAcceleratorCubeBlessing, calculateMultiplierCubeBlessing, updateCubeUpgradeBG } from './Cubes'
+import { updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
 import { addTimers, automaticTools } from './Helper'
 import { resetHistoryRenderAllTables } from './History'
@@ -114,7 +111,6 @@ import {
   indexToRune,
   runes,
   sacrificeOfferings,
-  sumOfRuneLevels,
   updateAllRuneLevelsFromEXP
 } from './Runes'
 import { allCoinExponentStats, allCoinMultiplierStats, c15RewardUpdate, calculateTotalStat } from './Statistics'
@@ -200,12 +196,7 @@ import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-eff
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { loadSynergyAntHTMLUpdates } from './Features/Ants/HTML/updates/load-game-update'
 import { defaultPlayerAnts } from './Features/Ants/player/default'
-import {
-  defaultHepteractValues,
-  getHepteractEffects,
-  setAutomaticHepteractTexts,
-  toggleAutoBuyOrbs
-} from './Hepteracts'
+import { defaultHepteractValues, setAutomaticHepteractTexts, toggleAutoBuyOrbs } from './Hepteracts'
 import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
@@ -2372,66 +2363,6 @@ export const formatDecimalAsPercentIncrease = (n: Decimal, accuracy = 2) => {
 }
 
 export const updateAllTick = (): void => {
-  let a = 0
-
-  G.totalAccelerator = player.acceleratorBought
-
-  if (player.upgrades[8] !== 0) {
-    a += Math.floor(player.multiplierBought / 7)
-  }
-  if (player.upgrades[21] !== 0) {
-    a += 5
-  }
-  if (player.upgrades[22] !== 0) {
-    a += 4
-  }
-  if (player.upgrades[23] !== 0) {
-    a += 3
-  }
-  if (player.upgrades[24] !== 0) {
-    a += 2
-  }
-  if (player.upgrades[25] !== 0) {
-    a += 1
-  }
-  if (player.upgrades[32] !== 0) {
-    a += Math.min(
-      500,
-      Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25))
-    )
-  }
-  if (player.upgrades[45] !== 0) {
-    a += Math.min(
-      2500,
-      Math.floor(Decimal.log(player.transcendShards.add(1), 10))
-    )
-  }
-  a += +getAchievementReward('accelerators')
-
-  a += 5 * CalcECC('transcend', player.challengecompletions[2])
-  a += G.totalAcceleratorBoost
-    * (5
-      + 2 * player.researches[18]
-      + 2 * player.researches[19]
-      + 3 * player.researches[20]
-      + calculateAcceleratorCubeBlessing())
-
-  if (player.unlocks.prestige) {
-    a *= getRuneEffects('speed', 'multiplicativeAccelerators')
-  }
-
-  calculateAcceleratorMultiplier()
-  a *= G.acceleratorMultiplier
-  a /= corruptionEffect(player.corruptions.used, 'viscosity')
-  a = Math.pow(a, c15ViscosityExponent(player.corruptions.used))
-  a += getHepteractEffects('accelerator').accelerators
-  a *= G.challenge15Rewards.accelerator.value
-  a *= getHepteractEffects('accelerator').acceleratorMultiplier
-  a = Math.floor(Math.min(1e100, a))
-
-  G.freeAccelerator = a
-  G.totalAccelerator += G.freeAccelerator
-
   G.tuSevenMulti = 1
 
   if (player.upgrades[46] > 0.5) {
@@ -2446,7 +2377,7 @@ export const updateAllTick = (): void => {
       + 1 / 400 * CalcECC('transcend', player.challengecompletions[2])
       + achievementBonus
       + G.tuSevenMulti
-        * (G.totalAcceleratorBoost / 100)
+        * (player.acceleratorBoostBought / 100)
         * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20),
     1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7])
   )
@@ -2477,13 +2408,13 @@ export const updateAllTick = (): void => {
   }
 
   if (player.currentChallenge.transcension !== 1) {
-    G.acceleratorEffect = Decimal.pow(G.acceleratorPower, G.totalAccelerator)
+    G.acceleratorEffect = Decimal.pow(G.acceleratorPower, player.acceleratorBought)
   }
 
   if (player.currentChallenge.transcension === 1) {
     G.acceleratorEffect = Decimal.pow(
       G.acceleratorPower,
-      G.totalAccelerator + G.totalMultiplier
+      player.acceleratorBought + player.multiplierBought
     )
   }
   if (player.currentChallenge.reincarnation === 10) {
@@ -2492,100 +2423,6 @@ export const updateAllTick = (): void => {
 }
 
 export const updateAllMultiplier = (): void => {
-  let a = 0
-
-  if (player.upgrades[7] > 0) {
-    a += Math.min(
-      4,
-      1 + Math.floor(Decimal.log(player.fifthOwnedCoin + 1, 10))
-    )
-  }
-  if (player.upgrades[9] > 0) {
-    a += Math.floor(player.acceleratorBought / 10)
-  }
-  if (player.upgrades[21] > 0) {
-    a += 1
-  }
-  if (player.upgrades[22] > 0) {
-    a += 1
-  }
-  if (player.upgrades[23] > 0) {
-    a += 1
-  }
-  if (player.upgrades[24] > 0) {
-    a += 1
-  }
-  if (player.upgrades[25] > 0) {
-    a += 1
-  }
-  if (player.upgrades[33] > 0) {
-    a += G.totalAcceleratorBoost
-  }
-  if (player.upgrades[49] > 0) {
-    a += Math.min(
-      50,
-      Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10))
-    )
-  }
-  if (player.upgrades[68] > 0) {
-    a += Math.min(2500, Math.floor((Decimal.log(G.taxdivisor, 10) * 1) / 1000))
-  }
-  if (player.challengecompletions[1] > 0) {
-    a += 1
-  }
-
-  a += +getAchievementReward('multipliers')
-  a += 20
-    * player.researches[94]
-    * Math.floor(sumOfRuneLevels() / 8)
-
-  a *= Math.pow(
-    1.01,
-    player.upgrades[21]
-      + player.upgrades[22]
-      + player.upgrades[23]
-      + player.upgrades[24]
-      + player.upgrades[25]
-  )
-  a *= 1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35]
-  a *= 1
-    + (1 / 5)
-      * player.researches[2]
-      * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
-  a *= 1
-    + (1 / 20) * player.researches[11]
-    + (1 / 25) * player.researches[12]
-    + (1 / 40) * player.researches[13]
-    + (3 / 200) * player.researches[14]
-    + (1 / 200) * player.researches[15]
-  a *= getRuneEffects('duplication', 'multiplicativeMultipliers')
-  a *= 1 + (1 / 20) * player.researches[87]
-  a *= 1 + (1 / 100) * player.researches[128]
-  a *= 1 + (0.8 / 100) * player.researches[143]
-  a *= 1 + (0.6 / 100) * player.researches[158]
-  a *= 1 + (0.4 / 100) * player.researches[173]
-  a *= 1 + (0.2 / 100) * player.researches[188]
-  a *= 1 + (0.01 / 100) * player.researches[200]
-  a *= 1 + (0.01 / 100) * player.cubeUpgrades[50]
-  a *= getAntUpgradeEffect(AntUpgrades.Multipliers).multiplierMult
-  a *= calculateMultiplierCubeBlessing()
-  if (
-    (player.currentChallenge.transcension !== 0
-      || player.currentChallenge.reincarnation !== 0)
-    && player.upgrades[50] > 0.5
-  ) {
-    a *= 1.25
-  }
-  a /= corruptionEffect(player.corruptions.used, 'viscosity')
-  a = Math.pow(a, c15ViscosityExponent(player.corruptions.used))
-  a += getHepteractEffects('multiplier').multiplier
-  a *= G.challenge15Rewards.multiplier.value
-  a *= getHepteractEffects('multiplier').multiplierMultiplier
-  a = Math.floor(Math.min(1e100, a))
-
-  G.freeMultiplier = a
-  G.totalMultiplier = G.freeMultiplier + player.multiplierBought
-
   G.challengeOneLog = 3
 
   let b = 0
@@ -2631,7 +2468,7 @@ export const updateAllMultiplier = (): void => {
     G.multiplierPower = 1
   }
 
-  G.multiplierEffect = Decimal.pow(G.multiplierPower, G.totalMultiplier)
+  G.multiplierEffect = Decimal.pow(G.multiplierPower, player.multiplierBought)
 }
 
 export const calculateBuildingPower = (): number => {
@@ -2799,7 +2636,7 @@ export const multipliers = (): void => {
     G.coinThreeMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[14] > 0.5) {
-    G.coinThreeMulti = G.coinThreeMulti.times(Decimal.pow(1.15, G.freeAccelerator).times(1e5))
+    G.coinThreeMulti = G.coinThreeMulti.times(Decimal.pow(1.15, player.acceleratorBought).times(1e5))
   }
   if (player.upgrades[18] > 0.5) {
     G.coinThreeMulti = G.coinThreeMulti.times(
@@ -2816,7 +2653,7 @@ export const multipliers = (): void => {
     G.coinFourMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[15] > 0.5) {
-    G.coinFourMulti = G.coinFourMulti.times(Decimal.pow(1.15, G.freeAccelerator).times(1e5))
+    G.coinFourMulti = G.coinFourMulti.times(Decimal.pow(1.15, player.acceleratorBought).times(1e5))
   }
   if (player.upgrades[17] > 0.5) {
     G.coinFourMulti = G.coinFourMulti.times(1e100)
@@ -2920,7 +2757,7 @@ export const multipliers = (): void => {
   }
   if (player.upgrades[51] > 0.5) {
     G.globalMythosMultiplier = G.globalMythosMultiplier.times(
-      Decimal.pow(G.totalAcceleratorBoost, 2)
+      Decimal.pow(player.acceleratorBoostBought, 2)
     )
   }
   if (player.upgrades[52] > 0.5) {
@@ -3018,8 +2855,6 @@ export const multipliers = (): void => {
 }
 
 export const resourceGain = (dt: number): void => {
-  calculateTotalAcceleratorBoost()
-
   updateAllTick()
   updateAllMultiplier()
   multipliers()

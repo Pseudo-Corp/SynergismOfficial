@@ -2,9 +2,11 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
 import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
-import { getBuildingCost, getBuildingSoftcap } from './Buy'
+import { getBuildingCost, getBuildingSoftcap, getScalingThreshold, getTractionScaling } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  buildingBonusConstruction,
+  calculateAcceleratorTractionPerBoost,
   calculateActualAntSpeedMult,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
@@ -439,28 +441,26 @@ const constructionColors = {
   particle: 'limegreen'
 } as const
 
-const constructionTextKeys = {
-  coin: 'buildings.construction',
-  diamond: 'buildings.constructionDiamond',
-  mythos: 'buildings.constructionMythos',
-  particle: 'buildings.constructionParticle'
-} as const
-
 const updateConstructionTexts = (type: keyof typeof constructionColors) => {
   const construction = calculateBuildingConstruction(type)
-  DOMCacheGetOrSet(`${type}Construction`).innerHTML = i18next.t(constructionTextKeys[type], {
+  DOMCacheGetOrSet(`${type}Construction`).innerHTML = i18next.t('buildings.construction', {
     amount: format(construction, 3, true),
     color: constructionColors[type]
   })
-
-  const softcapElement = DOMCacheGetOrSet(`${type}ConstructionSoftcap`)
-  softcapElement.style.display = player.buildingSoftcapReached ? 'block' : 'none'
-  if (player.buildingSoftcapReached) {
-    softcapElement.innerHTML = i18next.t('buildings.constructionSoftcap', {
-      amount: format(getBuildingSoftcap(type), 0, true)
+  if (type !== 'coin') {
+    DOMCacheGetOrSet(`${type}ConstructionBonus`).innerHTML = i18next.t('buildings.constructionBonus', {
+      amount: format(buildingBonusConstruction[type], 0, true),
+      color: constructionColors[type]
     })
   }
-  return construction
+
+  const threshold = getScalingThreshold(construction)
+  DOMCacheGetOrSet(`${type}Hyperscaling`).innerHTML = i18next.t('buildings.hyperscaling', {
+    threshold: format(threshold, 3, true),
+    wall: format(getBuildingSoftcap(type), 3, true),
+    color: constructionColors[type]
+  })
+  return threshold
 }
 
 export const visualUpdateBuildings = () => {
@@ -495,6 +495,19 @@ export const visualUpdateBuildings = () => {
       accelerator: format(calculateTraction('accelerator'), 3, true),
       multiplier: format(calculateTraction('multiplier'), 3, true),
       acceleratorBoost: format(calculateTraction('acceleratorBoost'), 3, true)
+    })
+    const acceleratorScaling = getTractionScaling('accelerator')
+    const multiplierScaling = getTractionScaling('multiplier')
+    const acceleratorBoostScaling = getTractionScaling('acceleratorBoost')
+    DOMCacheGetOrSet('coinTractionHyperscaling').innerHTML = i18next.t('buildings.tractionHyperscaling', {
+      accelerator: format(acceleratorScaling.threshold, 3, true),
+      multiplier: format(multiplierScaling.threshold, 3, true),
+      acceleratorBoost: format(acceleratorBoostScaling.threshold, 3, true)
+    })
+    DOMCacheGetOrSet('coinTractionWall').innerHTML = i18next.t('buildings.tractionWall', {
+      accelerator: format(acceleratorScaling.wall, 3, true),
+      multiplier: format(multiplierScaling.wall, 3, true),
+      acceleratorBoost: format(acceleratorBoostScaling.wall, 3, true)
     })
 
     let vanityIndex = 0
@@ -547,8 +560,7 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('buildtext11').textContent = i18next.t(
       'buildings.names.accelerators',
       {
-        amount: format(player.acceleratorBought, 0, true, false),
-        gain: format(G.freeAccelerator, 0, true, false)
+        amount: format(player.acceleratorBought, 0, true, false)
       }
     )
 
@@ -563,8 +575,7 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('buildtext13').innerHTML = i18next.t(
       'buildings.names.multipliers',
       {
-        amount: format(player.multiplierBought, 0, true, false),
-        gain: format(G.freeMultiplier, 0, true, false)
+        amount: format(player.multiplierBought, 0, true, false)
       }
     )
 
@@ -579,8 +590,7 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('buildtext15').textContent = i18next.t(
       'buildings.names.acceleratorBoost',
       {
-        amount: format(player.acceleratorBoostBought, 0, true, false),
-        gain: format(G.freeAcceleratorBoost, 0, false, false)
+        amount: format(player.acceleratorBoostBought, 0, true, false)
       }
     )
 
@@ -593,16 +603,7 @@ export const visualUpdateBuildings = () => {
           false,
           false
         ),
-        accelsPerBoost: format(
-          5
-            + 2 * player.researches[18]
-            + 2 * player.researches[19]
-            + 3 * player.researches[20]
-            + (calculateAcceleratorCubeBlessing()),
-          0,
-          true,
-          false
-        )
+        accelsPerBoost: format(calculateAcceleratorTractionPerBoost(), 2, true, false)
       }
     )
 

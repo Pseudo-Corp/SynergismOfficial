@@ -2,7 +2,6 @@ import Decimal from 'break_infinity.js'
 import { awardAchievementGroup } from './Achievements'
 import { baseTraction, calculateBuildingConstruction, calculateConstruction, calculateTraction } from './Calculate'
 import { reset } from './Reset'
-import { getRuneBlessingEffect } from './RuneBlessings'
 import { getRuneEffects } from './Runes'
 import { player } from './Synergism'
 import type { BuyAmount, OneToFive, ZeroToFour } from './types/Synergism'
@@ -54,6 +53,13 @@ const accelMultData = {
 
 const softcap = 1e15
 
+export const getScalingThreshold = (value: number) => Math.min(value, softcap)
+
+const getSoftcapPush = (value: number) => Math.cbrt(Math.max(1, value / softcap))
+
+const getSoftcapWall = (value: number, baseSoftcap: number) =>
+  Math.max(baseSoftcap * getSoftcapPush(value), getScalingThreshold(value))
+
 const linSum = (n: number) => n * (n + 1) / 2
 
 export type BuildingType = keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost'
@@ -78,15 +84,18 @@ const isScalingBuilding = (type: BuildingType): type is ScalingBuildingType =>
   type === 'coin' || type === 'diamond' || type === 'mythos' || type === 'particle'
 
 export const getBuildingCostKey = () =>
-  `${calculateConstruction()}|${getRuneBlessingEffect('thrift').accelBoostCostDelay}|${
-    player.challengecompletions[4]
+  `${calculateConstruction()}|${calculateTraction('accelerator')}|${calculateTraction('multiplier')}|${
+    calculateTraction('acceleratorBoost')
   }|${player.currentChallenge.transcension}|${player.currentChallenge.reincarnation}|${player.currentChallenge.ascension}`
 
+const softcapPower = 3
+
 const softcapExponentBetween = (slope: number, cap: number, from: number, to: number) =>
-  slope * cap / 8 * Math.pow(from / cap, 8) * Math.expm1(8 * Math.log1p((to - from) / from))
+  slope * cap / softcapPower * Math.pow(from / cap, softcapPower)
+  * Math.expm1(softcapPower * Math.log1p((to - from) / from))
 
 const softcapCountForExponent = (slope: number, cap: number, capExponent: number, exponent: number) =>
-  cap * Math.pow(1 + 8 * (exponent - capExponent) / (slope * cap), 1 / 8)
+  cap * Math.pow(1 + softcapPower * (exponent - capExponent) / (slope * cap), 1 / softcapPower)
 
 interface CubicScaling {
   threshold: number
@@ -125,10 +134,11 @@ const refineCountForExponent = (
 const createQuadraticCostCurve = (
   cost: number,
   growth: number,
-  threshold: number,
+  construction: number,
   softcapCount: number
 ): CostCurve => {
-  const cap = Math.max(softcapCount, threshold)
+  const threshold = getScalingThreshold(construction)
+  const cap = getSoftcapWall(construction, softcapCount)
   const uncappedExponentBetween = (from: number, to: number) => {
     let exponent = 0
     let start = from
@@ -214,7 +224,7 @@ const createAcceleratorBoostCostCurve = (traction: number): CostCurve => {
   }
 }
 
-export const getBuildingSoftcap = (type: ScalingBuildingType) => {
+const getBaseBuildingSoftcap = (type: ScalingBuildingType) => {
   if (type === 'particle') {
     return softcap
   }
@@ -230,6 +240,17 @@ export const getBuildingSoftcap = (type: ScalingBuildingType) => {
   return softcap
 }
 
+export const getBuildingSoftcap = (type: ScalingBuildingType) =>
+  getSoftcapWall(calculateBuildingConstruction(type), getBaseBuildingSoftcap(type))
+
+export const getTractionScaling = (type: keyof typeof baseTraction) => {
+  const traction = calculateTraction(type)
+  if (type === 'acceleratorBoost') {
+    return { threshold: traction, wall: softcap }
+  }
+  return { threshold: getScalingThreshold(traction), wall: getSoftcapWall(traction, softcap) }
+}
+
 const softcapTrackedBuildings = (['first', 'second', 'third', 'fourth', 'fifth'] as const).flatMap((pos) =>
   (['Coin', 'Diamonds', 'Mythos', 'Particles'] as const).map((name) => `${pos}Owned${name}` as const)
 )
@@ -241,7 +262,7 @@ export const updateBuildingSoftcapReached = () => {
 }
 
 const getBuildingCostCurve = (type: ScalingBuildingType, index: ZeroToFour): CostCurve => {
-  const buildingSoftcap = getBuildingSoftcap(type)
+  const buildingSoftcap = getBaseBuildingSoftcap(type)
   const growthPower = player.currentChallenge.reincarnation === 8 && type !== 'particle' ? challenge8GrowthPower : 1
 
   return createQuadraticCostCurve(

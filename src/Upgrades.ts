@@ -156,7 +156,7 @@ const upgradetexts = [
   () => format(Math.floor(player.multiplierBought / 7), 0, true),
   () => format(Math.floor(player.acceleratorBought / 10), 0, true),
   () => format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
-  () => format(Decimal.pow(1.02, G.totalAccelerator), 2),
+  () => format(Decimal.pow(1.02, player.acceleratorBought), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
   () =>
     format(
@@ -166,8 +166,8 @@ const upgradetexts = [
       ),
       2
     ),
-  () => format(Decimal.pow(1.15, G.freeAccelerator).times(1e5), 2),
-  () => format(Decimal.pow(1.15, G.freeAccelerator).times(1e5), 2),
+  () => format(Decimal.pow(1.15, player.acceleratorBought).times(1e5), 2),
+  () => format(Decimal.pow(1.15, player.acceleratorBought).times(1e5), 2),
   () =>
     format(
       Decimal.min(
@@ -189,26 +189,11 @@ const upgradetexts = [
       Decimal.pow((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 10),
       2
     ),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(5 + (1 / 101 * G.freeAccelerator)))
-  }),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(4 + (1 / 101 * G.freeAccelerator)))
-  }),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(3 + (1 / 101 * G.freeAccelerator)))
-  }),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(2 + (1 / 101 * G.freeAccelerator)))
-  }),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(1 + (1 / 101 * G.freeAccelerator)))
-  }),
+  () => null,
+  () => null,
+  () => null,
+  () => null,
+  () => null,
   () => null,
   () =>
     format(
@@ -242,9 +227,9 @@ const upgradetexts = [
     ),
   () => format(Math.floor(calculateTotalCoinOwned() / 2000)),
   () => format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))),
-  () => format(G.totalAcceleratorBoost),
-  () => format(Math.floor(3 / 103 * G.freeMultiplier)),
-  () => format(Math.floor(2 / 102 * G.freeMultiplier)),
+  () => format(player.acceleratorBoostBought),
+  () => null,
+  () => null,
   () => format(Decimal.min('1e5000', Decimal.pow(player.prestigePoints, 1 / 500)), 2),
   () => format(Decimal.pow(Decimal.log(player.prestigePoints.add(10), 10), 2), 2),
   () => null,
@@ -257,10 +242,10 @@ const upgradetexts = [
   () => format(Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)))),
   () => null,
   () => format(Math.pow(1.01, achievementPoints) * (achievementPoints / 5 + 1), 2),
-  () => format(Math.pow(Math.min(1e25, G.totalMultiplier * G.totalAccelerator) / 1000 + 1, 8)),
+  () => format(Math.pow(Math.min(1e25, player.multiplierBought * player.acceleratorBought) / 1000 + 1, 8)),
   () => format(Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))),
   () => null,
-  () => format(Math.pow(G.totalAcceleratorBoost, 2), 2),
+  () => format(Math.pow(player.acceleratorBoostBought, 2), 2),
   () => format(Decimal.pow(G.globalMythosMultiplier, 0.025), 2),
   () => format(Decimal.min('1e1250', Decimal.pow(G.acceleratorEffect, 1 / 125)), 2),
   () => format(Decimal.min('1e2000', Decimal.pow(G.multiplierEffect, 1 / 180)), 2),
