@@ -616,15 +616,9 @@ export interface GlobalVariables {
 
   ticker: number
 
-  freeAccelerator: number
-  totalAccelerator: number
-  freeAcceleratorBoost: number
-  totalAcceleratorBoost: number
   acceleratorPower: number
   acceleratorEffect: Decimal
 
-  freeMultiplier: number
-  totalMultiplier: number
   multiplierPower: number
   multiplierEffect: Decimal
   challengeOneLog: number
@@ -731,8 +725,6 @@ export interface GlobalVariables {
     fourth: Decimal
     fifth: Decimal
   }
-
-  acceleratorMultiplier: number
 
   constUpgradeCosts: ArrayStartingWithNull<number>
 
