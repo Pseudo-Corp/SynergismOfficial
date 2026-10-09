@@ -3245,18 +3245,18 @@
       "name": "Cost+ Challenge || {{- value}} Completions",
       "progressName": "Cost+ Challenge",
       "flavor": "You're getting rich now, but inflation hasn't happened yet? I don't think so!",
-      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Base Construction is divided by <<gold|num:((100))>> <br> ☆ Construction multipliers are <<gold|square rooted>> <br> ☆ The Building price softcap starts at <<gold|num:((1e13))>> instead of <<gold|num:((1e15))>> <br> ☆ Accelerator and Multiplier prices start scaling quadratically after <<gold|num:((25))>> and <<gold|num:((15))>> purchases",
+      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Base Construction is divided by <<gold|num:((100))>> <br> ☆ Construction multipliers are <<gold|square rooted>> <br> ☆ The Building price softcap starts at <<gold|num:((1e13))>> instead of <<gold|num:((1e15))>> <br> ☆ Accelerator and Multiplier Traction is <<gold|num:((25))>> and <<gold|num:((15))>>, ignoring Challenge 4 completions",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
-        "1": "Accelerator Cost scale slows down by +5 purchases. Current: ",
-        "2": "Multiplier Cost scale slows down by +2 purchases. Current: ",
+        "1": "Accelerator Traction +5 per completion. Current: ",
+        "2": "Multiplier Traction +2 per completion. Current: ",
         "3": "Construction x(1 + num:((0.5))% per completion). Current: "
       },
       "first": "None",
       "start": "Start [Cost+]",
       "current": {
-        "1": "Accelerator Delay +{{value}}",
-        "2": "Multiplier Delay +{{value}}",
+        "1": "Accelerator Traction +{{value}}",
+        "2": "Multiplier Traction +{{value}}",
         "3": "Construction x{{value}}"
       }
     },
@@ -3321,7 +3321,7 @@
       "name": "Cost++ Challenge || {{- value}} Completions",
       "progressName": "Cost++ Challenge",
       "flavor": "You thought you could outgrow inflation by Reincarnating?",
-      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Base Construction is divided by <<gold|num:((1000))>> <br> ☆ Construction multipliers are <<gold|cube rooted>> <br> ☆ The Building price softcap starts at <<gold|num:((1e12))>>",
+      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast, and their Traction is <<gold|num:((1))>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Base Construction is divided by <<gold|num:((1000))>> <br> ☆ Construction multipliers are <<gold|cube rooted>> <br> ☆ The Building price softcap starts at <<gold|num:((1e12))>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
         "1": "Base Building Power +num:((0.25))! Current: ",
@@ -5860,6 +5860,7 @@
   },
   "buildings": {
     "construction": "Construction: <<{{color}}|{{amount}}>> [Building prices start hyperscaling past this many owned]",
+    "traction": "Traction: Accelerators <<yellow|{{accelerator}}>>, Multipliers <<yellow|{{multiplier}}>>, Accelerator Boosts <<cyan|{{acceleratorBoost}}>> [prices start hyperscaling past this many owned]",
     "constructionDiamond": "Construction: <<{{color}}|{{amount}}>> [Building prices start hyperscaling past this many owned] <br> Crystal Buildings get <<cyan|+num:((1000))>> base Construction, which is multiplied like all other Construction",
     "constructionMythos": "Construction: <<{{color}}|{{amount}}>> [Building prices start hyperscaling past this many owned] <br> Mythos Buildings get <<plum|+num:((3000))>> base Construction, which is multiplied like all other Construction",
     "constructionParticle": "Construction: <<{{color}}|{{amount}}>> [Building prices start hyperscaling past this many owned] <br> Particle Buildings get <<limegreen|+num:((9000))>> base Construction, which is multiplied like all other Construction",
@@ -6588,7 +6589,7 @@
       },
       "thrift": {
         "description": "<i>\"Who wishes to fight must first count the cost.\"</i> - Sun Tzu, <i>The Art of War</i>",
-        "acceleratorBoostDelay": "<<cyan | Accelerator Boost Cost Delay +{{val}}>> (+num:((0.01))% per num:((10000)) Blessing Power)"
+        "acceleratorBoostDelay": "<<cyan | Accelerator Boost Traction +{{val}}>> (+num:((0.01))% per num:((10000)) Blessing Power)"
       },
       "superiorIntellect": {
         "description": "-- ANT LEGION -- ANT LEGION -- ANT LEGION --",
@@ -6929,6 +6930,7 @@
       "offeringMult": "Offering Multipliers",
       "salvage": "Salvage",
       "construction": "Construction",
+      "traction": "Traction",
       "baseObtainium": "Base Obtainium",
       "runeEffectMult": "Rune Power",
       "obtIgnoreDR": "Immaculate Obtainium",
@@ -7902,6 +7904,30 @@
       "CrystalBuildings": "Crystal Buildings:",
       "MythosBuildings": "Mythos Buildings:",
       "ParticleBuildings": "Particle Buildings:"
+    },
+    "tractionStats": {
+      "title": "Traction",
+      "extraInfo": "Traction is Construction for Accelerators, Multipliers and Accelerator Boosts. <br> Accelerators and Multipliers cost a fixed multiple more than the last until you own as many as their Traction, then their price exponent grows <<yellow|quadratically>>. <br> Accelerator Boost price exponents grow <<yellow|quadratically>> until you own as many as their Traction, then <<orange|cubically>>. <br> <<crimson|Traction is capped at num:((1e15)).>>",
+      "challenge4Info": "<<gold|Challenge 4 sets Accelerator and Multiplier Traction to num:((25)) and num:((15)), ignoring the bonuses below.>>",
+      "challenge8Info": "<<gold|Challenge 8 sets Accelerator and Multiplier Traction to num:((1)), ignoring the bonuses below.>>"
+    },
+    "tractionAccelerator": {
+      "title": "Accelerator Traction",
+      "Base": "Base:",
+      "Challenge4": "Challenge 4 Completions:",
+      "Total": "Total Accelerator Traction:"
+    },
+    "tractionMultiplier": {
+      "title": "Multiplier Traction",
+      "Base": "Base:",
+      "Challenge4": "Challenge 4 Completions:",
+      "Total": "Total Multiplier Traction:"
+    },
+    "tractionAcceleratorBoost": {
+      "title": "Accelerator Boost Traction",
+      "Base": "Base:",
+      "ThriftBlessing": "Thrift Blessing:",
+      "Total": "Total Accelerator Boost Traction:"
     },
     "salvagePositive": {
       "PurpleAmbrosiaVirgo": "Purple Ambrosia - Virgo:",

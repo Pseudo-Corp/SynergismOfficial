@@ -46,7 +46,8 @@ import {
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
   calculateTotalOcteractQuarkBonus,
-  calculateTotalSalvage
+  calculateTotalSalvage,
+  calculateTraction
 } from './Calculate'
 import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
@@ -490,6 +491,11 @@ export const visualUpdateBuildings = () => {
       totalGenerated: format(player.coinsTotal, 0, false, false)
     })
     const coinConstruction = updateConstructionTexts('coin')
+    DOMCacheGetOrSet('coinTraction').innerHTML = i18next.t('buildings.traction', {
+      accelerator: format(calculateTraction('accelerator'), 3, true),
+      multiplier: format(calculateTraction('multiplier'), 3, true),
+      acceleratorBoost: format(calculateTraction('acceleratorBoost'), 3, true)
+    })
 
     let vanityIndex = 0
     const decimalCoin = Decimal.log10(player.coinsTotal)

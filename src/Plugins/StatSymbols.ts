@@ -14,6 +14,7 @@ const KEYWORD_SYMBOLS: Record<string, string> = {
   'Obtainium': '❍',
   'Salvage': '♻',
   'Construction': '⌂',
+  'Traction': '⇶',
   'Ambrosia Luck': '☘',
   'Red Luck': '⚅',
   'Purple Honey Luck': '✰',
