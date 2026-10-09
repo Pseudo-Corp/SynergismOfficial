@@ -5,6 +5,7 @@ import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   baseConstruction,
+  baseTraction,
   calculateAllCubeMultiplier,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
@@ -91,7 +92,9 @@ import {
   calculateTotalOcteractOfferingBonus,
   calculateTotalOcteractQuarkBonus,
   calculateTotalSalvage,
-  derpsmithCornucopiaBonus
+  calculateTraction,
+  derpsmithCornucopiaBonus,
+  tractionPerChallenge4Completion
 } from './Calculate'
 import { campaignTokenBonuses } from './Campaign'
 import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier, useChallenge13Modifiers } from './Challenges'
@@ -3449,6 +3452,54 @@ const constructionBuildingStats: NumberStatLineCategory = {
   ]
 }
 
+const tractionAcceleratorStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => baseTraction.accelerator,
+      acc: 0
+    },
+    {
+      i18n: 'Challenge4',
+      stat: () => tractionPerChallenge4Completion.accelerator * CalcECC('transcend', player.challengecompletions[4])
+    }
+  ]
+}
+
+const tractionMultiplierStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => baseTraction.multiplier,
+      acc: 0
+    },
+    {
+      i18n: 'Challenge4',
+      stat: () => tractionPerChallenge4Completion.multiplier * CalcECC('transcend', player.challengecompletions[4])
+    }
+  ]
+}
+
+const tractionAcceleratorBoostStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Base',
+      stat: () => baseTraction.acceleratorBoost,
+      acc: 0
+    },
+    {
+      i18n: 'ThriftBlessing',
+      stat: () => getRuneBlessingEffect('thrift').accelBoostCostDelay
+    }
+  ]
+}
+
 export const negativeSalvageStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -4562,6 +4613,7 @@ const associated = new Map<string, string>([
   ['kOfferingMult', 'offeringMultiplierStats'],
   ['kSalvage', 'salvageStats'],
   ['kConstruction', 'constructionStats'],
+  ['kTraction', 'tractionStats'],
   ['kBaseObtainium', 'baseObtainiumStats'],
   ['kRuneEffectMult', 'runeEffectMultiplierStats'],
   ['kObtIgnoreDR', 'obtainiumIgnoreDRStats'],
@@ -4673,6 +4725,9 @@ export const loadStatisticsUpdate = (statsId?: string) => {
         break
       case 'constructionStats':
         loadConstructionStats()
+        break
+      case 'tractionStats':
+        loadTractionStats()
         break
       case 'baseObtainiumStats':
         loadStatisticsObtainiumBase()
@@ -5333,6 +5388,43 @@ const loadConstructionStats = () => {
   softcapInfo.style.display = player.buildingSoftcapReached ? 'block' : 'none'
   if (player.buildingSoftcapReached) {
     softcapInfo.innerHTML = i18next.t('statistics.constructionStats.softcapInfo')
+  }
+}
+
+const loadTractionStats = () => {
+  loadStatistics(
+    tractionAcceleratorStats,
+    'tractionAccelerator',
+    'statTracAccel',
+    'TractionStatAccelerator',
+    () => calculateTraction('accelerator')
+  )
+  loadStatistics(
+    tractionMultiplierStats,
+    'tractionMultiplier',
+    'statTracMult',
+    'TractionStatMultiplier',
+    () => calculateTraction('multiplier')
+  )
+  loadStatistics(
+    tractionAcceleratorBoostStats,
+    'tractionAcceleratorBoost',
+    'statTracBoost',
+    'TractionStatAcceleratorBoost',
+    () => calculateTraction('acceleratorBoost')
+  )
+
+  DOMCacheGetOrSet('tractionExtra').innerHTML = i18next.t('statistics.tractionStats.extraInfo')
+
+  const challengeInfo = DOMCacheGetOrSet('tractionChallengeInfo')
+  const challengeInfoKey = player.currentChallenge.reincarnation === 8
+    ? 'statistics.tractionStats.challenge8Info'
+    : player.currentChallenge.transcension === 4
+    ? 'statistics.tractionStats.challenge4Info'
+    : undefined
+  challengeInfo.style.display = challengeInfoKey === undefined ? 'none' : 'block'
+  if (challengeInfoKey !== undefined) {
+    challengeInfo.innerHTML = i18next.t(challengeInfoKey)
   }
 }
 

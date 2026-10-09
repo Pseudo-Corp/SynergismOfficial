@@ -26,6 +26,7 @@ import {
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
+import { getRuneBlessingEffect } from './RuneBlessings'
 import { sumOfRuneLevels } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -712,6 +713,38 @@ export const calculateBuildingConstruction = (type: keyof typeof buildingBonusCo
     base / scaling.divisor * Math.pow(calculateConstructionMultiplier(), scaling.power)
   )
 }
+
+export const baseTraction = {
+  accelerator: 125,
+  multiplier: 75,
+  acceleratorBoost: 1000
+} as const
+export const tractionPerChallenge4Completion = {
+  accelerator: 5,
+  multiplier: 2
+} as const
+const challenge4Traction = {
+  accelerator: 25,
+  multiplier: 15
+} as const
+const challenge8Traction = 1
+
+const calculateUncappedTraction = (type: keyof typeof baseTraction) => {
+  if (type === 'acceleratorBoost') {
+    return baseTraction.acceleratorBoost * getRuneBlessingEffect('thrift').accelBoostCostDelay
+  }
+  if (player.currentChallenge.reincarnation === 8) {
+    return challenge8Traction
+  }
+  if (player.currentChallenge.transcension === 4) {
+    return challenge4Traction[type]
+  }
+  return baseTraction[type]
+    + tractionPerChallenge4Completion[type] * CalcECC('transcend', player.challengecompletions[4])
+}
+
+export const calculateTraction = (type: keyof typeof baseTraction) =>
+  Math.min(constructionHardcap, calculateUncappedTraction(type))
 
 export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()
