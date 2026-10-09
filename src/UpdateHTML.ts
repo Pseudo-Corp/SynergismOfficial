@@ -865,7 +865,7 @@ export const buttoncolorchange = () => {
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'particle') {
     for (let i = 1; i <= 5; i++) {
-      const costParticles = player[`${G.ordinals[i - 1 as ZeroToFour]}CostParticles` as const]
+      const costParticles = getBuildingCost('particle', i - 1 as ZeroToFour)
       if (player.reincarnationPoints.gte(costParticles)) {
         DOMCacheGetOrSet(`buyparticles${i}`).classList.add('buildingPurchaseBtnAvailable')
       } else {

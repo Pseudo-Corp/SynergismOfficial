@@ -438,9 +438,16 @@ const constructionColors = {
   particle: 'limegreen'
 } as const
 
+const constructionTextKeys = {
+  coin: 'buildings.construction',
+  diamond: 'buildings.constructionDiamond',
+  mythos: 'buildings.constructionMythos',
+  particle: 'buildings.constructionParticle'
+} as const
+
 const updateConstructionTexts = (type: keyof typeof constructionColors) => {
   const construction = calculateBuildingConstruction(type)
-  DOMCacheGetOrSet(`${type}Construction`).innerHTML = i18next.t('buildings.construction', {
+  DOMCacheGetOrSet(`${type}Construction`).innerHTML = i18next.t(constructionTextKeys[type], {
     amount: format(construction, 3, true),
     color: constructionColors[type]
   })
@@ -793,7 +800,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buyparticles${i}`).textContent = i18next.t(
         'buildings.costParticles',
         {
-          particles: format(player[`${ith}CostParticles` as const], 2, false, false)
+          particles: format(getBuildingCost('particle', (i - 1) as ZeroToFour), 2, false, false)
         }
       )
     }

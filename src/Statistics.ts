@@ -3399,10 +3399,6 @@ export const constructionBaseStats: NumberStatLineCategory = {
       i18n: 'Base',
       stat: () => baseConstruction,
       acc: 0
-    },
-    {
-      i18n: 'ThriftRune',
-      stat: () => getRuneEffects('thrift', 'construction')
     }
   ]
 }
@@ -3411,6 +3407,10 @@ export const constructionMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
   lines: [
+    {
+      i18n: 'ThriftRune',
+      stat: () => getRuneEffects('thrift', 'construction')
+    },
     {
       i18n: 'Researches',
       stat: () => constructionResearches.reduce((mult, index) => mult * (1 + player.researches[index] / 200), 1)

@@ -668,33 +668,49 @@ export const calculateNegativeSalvage = () => {
 
 export const baseConstruction = 1000
 const constructionHardcap = 1e15
-const challenge4BaseConstruction = 10
-const challenge8BaseConstruction = 1
+const challenge4ConstructionScaling = { divisor: 100, power: 1 / 2 } as const
+const challenge8ConstructionScaling = { divisor: 1000, power: 1 / 3 } as const
 const ascensionChallenge15ParticleConstruction = 1000
+const buildingBonusConstruction = {
+  coin: 0,
+  diamond: 1000,
+  mythos: 3000,
+  particle: 9000
+} as const
 
 export const calculateRawConstruction = () => calculateTotalStat(constructionBaseStats)
 export const calculateConstructionMultiplier = () => calculateTotalStat(constructionMultiplierStats)
 export const calculateConstruction = () =>
   Math.min(constructionHardcap, calculateRawConstruction() * calculateConstructionMultiplier())
 
-export const calculateBuildingConstruction = (type: 'coin' | 'diamond' | 'mythos' | 'particle') => {
-  const construction = calculateConstruction()
+const getChallengeConstructionScaling = (type: keyof typeof buildingBonusConstruction) => {
   if (type === 'particle') {
-    return player.currentChallenge.ascension === 15 ? ascensionChallenge15ParticleConstruction : construction
+    return undefined
   }
-  let base = baseConstruction
   if (player.currentChallenge.reincarnation === 8) {
-    base = challenge8BaseConstruction
-  } else if (
+    return challenge8ConstructionScaling
+  }
+  if (
     type !== 'mythos' && (player.currentChallenge.transcension === 4 || player.currentChallenge.reincarnation === 10)
   ) {
-    base = challenge4BaseConstruction
+    return challenge4ConstructionScaling
   }
-  if (base === baseConstruction) {
-    return construction
+  return undefined
+}
+
+export const calculateBuildingConstruction = (type: keyof typeof buildingBonusConstruction) => {
+  if (type === 'particle' && player.currentChallenge.ascension === 15) {
+    return ascensionChallenge15ParticleConstruction
   }
-  const bonus = construction / baseConstruction
-  return base * (bonus <= 2 ? bonus : 2 + Math.log(bonus - 1))
+  const base = calculateRawConstruction() + buildingBonusConstruction[type]
+  const scaling = getChallengeConstructionScaling(type)
+  if (scaling === undefined) {
+    return Math.min(constructionHardcap, base * calculateConstructionMultiplier())
+  }
+  return Math.min(
+    constructionHardcap,
+    base / scaling.divisor * Math.pow(calculateConstructionMultiplier(), scaling.power)
+  )
 }
 
 export const calculateTotalSalvage = () => {

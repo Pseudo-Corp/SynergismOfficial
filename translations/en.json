@@ -3245,7 +3245,7 @@
       "name": "Cost+ Challenge || {{- value}} Completions",
       "progressName": "Cost+ Challenge",
       "flavor": "You're getting rich now, but inflation hasn't happened yet? I don't think so!",
-      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Base Construction is <<gold|num:((10))>> instead of <<gold|num:((1000))>> <br> ☆ The Building price softcap starts at <<gold|num:((1e13))>> instead of <<gold|num:((1e15))>> <br> ☆ Construction bonuses above <<gold|x2>> are much weaker <br> ☆ Accelerator and Multiplier prices start scaling quadratically after <<gold|num:((25))>> and <<gold|num:((15))>> purchases",
+      "restrictions": "Transcend and reach the goal except Coin + Diamond Buildings, Accelerators, and Multipliers cost more. <br> ☆ Base Construction is divided by <<gold|num:((100))>> <br> ☆ Construction multipliers are <<gold|square rooted>> <br> ☆ The Building price softcap starts at <<gold|num:((1e13))>> instead of <<gold|num:((1e15))>> <br> ☆ Accelerator and Multiplier prices start scaling quadratically after <<gold|num:((25))>> and <<gold|num:((15))>> purchases",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "Accelerator Cost scale slows down by +5 purchases. Current: ",
@@ -3321,7 +3321,7 @@
       "name": "Cost++ Challenge || {{- value}} Completions",
       "progressName": "Cost++ Challenge",
       "flavor": "You thought you could outgrow inflation by Reincarnating?",
-      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Base Construction is <<gold|num:((1))>>, and the Building price softcap starts at <<gold|num:((1e12))>> <br> ☆ Construction bonuses above <<gold|x2>> are much weaker",
+      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Base Construction is divided by <<gold|num:((1000))>> <br> ☆ Construction multipliers are <<gold|cube rooted>> <br> ☆ The Building price softcap starts at <<gold|num:((1e12))>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
         "1": "Base Building Power +num:((0.25))! Current: ",
@@ -5860,6 +5860,9 @@
   },
   "buildings": {
     "construction": "Construction: <<{{color}}|{{amount}}>> [Building prices start hyperscaling past this many owned]",
+    "constructionDiamond": "Construction: <<{{color}}|{{amount}}>> [Building prices start hyperscaling past this many owned] <br> Crystal Buildings get <<cyan|+num:((1000))>> base Construction, which is multiplied like all other Construction",
+    "constructionMythos": "Construction: <<{{color}}|{{amount}}>> [Building prices start hyperscaling past this many owned] <br> Mythos Buildings get <<plum|+num:((3000))>> base Construction, which is multiplied like all other Construction",
+    "constructionParticle": "Construction: <<{{color}}|{{amount}}>> [Building prices start hyperscaling past this many owned] <br> Particle Buildings get <<limegreen|+num:((9000))>> base Construction, which is multiplied like all other Construction",
     "constructionSoftcap": "Past <<crimson|{{amount}}>> owned, Building price exponents grow with the amount owned<<crimson|^8>>",
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
@@ -6308,10 +6311,10 @@
       "name": "Thrift",
       "description": "It seems with this Rune in tow, you keep making great deals on your purchases, and your Offerings are just a little more reusable.",
       "lockedDescription": "This rune is locked! To unlock it, Reincarnate num:((10000)) times. You even get an Achievement for it!",
-      "construction": "<<lime | +{{val}} Construction>> (+1 per Power)",
+      "construction": "<<lime | Construction +{{val}}>> (+num:((0.1))% per Power)",
       "salvage": "<<limegreen|+{{val}} Salvage>> (+num:((5.756)) * log_10(1 + Power / 10))",
       "taxReduction": "<<lightgray | Tax Growth -{{val}}%>> (Up to -99%)",
-      "values": "+num:((0.125))% building cost growth delay per level, more Salvage per level (log scaling), Tax Growth is delayed more for each level (cap: 99%)!",
+      "values": "+num:((0.1))% Construction per level, more Salvage per level (log scaling), Tax Growth is delayed more for each level (cap: 99%)!",
       "effect": "Thrift Rune Bonus: Delay all producer cost increases by {{val}}%, Salvage: +{{val2}}. -{{val3}}% Tax Growth"
     },
     "superiorIntellect": {
@@ -7878,16 +7881,16 @@
     "constructionStats": {
       "title": "Construction",
       "softcapInfo": "<<crimson|Past num:((1e15)) of a Building (fewer in Challenges 4, 8 and 10), its price exponent grows with the amount owned^8.>>",
-      "extraInfo": "Each Coin, Crystal, Mythos and Particle Building costs a fixed multiple more than the last, until you own as many of it as your Construction. <br> Past that, the price exponent grows <<yellow|quadratically>>. <br> <<crimson|Construction is capped at num:((1e15)).>>"
+      "extraInfo": "Each Coin, Crystal, Mythos and Particle Building costs a fixed multiple more than the last, until you own as many of it as your Construction. <br> Past that, the price exponent grows <<yellow|quadratically>>. <br> Crystal, Mythos and Particle Buildings get <<cyan|+num:((1000))>>, <<plum|+num:((3000))>> and <<limegreen|+num:((9000))>> extra base Construction respectively, which is multiplied like all other Construction. Challenges 4 and 10 divide base Construction by num:((100)) and square root multipliers, and Challenge 8 divides base Construction by num:((1000)) and cube roots multipliers (Challenge 8 takes priority). In Ascension Challenge 15, Particle Construction is fixed at num:((1000)) instead. <br> <<crimson|Construction is capped at num:((1e15)).>>"
     },
     "constructionBase": {
       "title": "Base Construction",
       "Base": "Base:",
-      "ThriftRune": "Thrift Rune:",
       "Total": "Total Base Construction:"
     },
     "constructionMultiplier": {
       "title": "Construction Multipliers",
+      "ThriftRune": "Thrift Rune:",
       "Researches": "Researches 3x6 - 3x10:",
       "Challenge4": "Challenge 4 Reward:",
       "AntUpgrade": "Ant Upgrade - Hic Formicidae:",

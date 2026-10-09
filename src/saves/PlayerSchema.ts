@@ -409,27 +409,27 @@ export const playerSchema = z.object({
 
   firstOwnedParticles: z.number(),
   firstGeneratedParticles: decimalSchema,
-  firstCostParticles: decimalSchema,
+  firstPaidParticles: decimalSchema.optional(),
   firstProduceParticles: z.number(),
 
   secondOwnedParticles: z.number(),
   secondGeneratedParticles: decimalSchema,
-  secondCostParticles: decimalSchema,
+  secondPaidParticles: decimalSchema.optional(),
   secondProduceParticles: z.number(),
 
   thirdOwnedParticles: z.number(),
   thirdGeneratedParticles: decimalSchema,
-  thirdCostParticles: decimalSchema,
+  thirdPaidParticles: decimalSchema.optional(),
   thirdProduceParticles: z.number(),
 
   fourthOwnedParticles: z.number(),
   fourthGeneratedParticles: decimalSchema,
-  fourthCostParticles: decimalSchema,
+  fourthPaidParticles: decimalSchema.optional(),
   fourthProduceParticles: z.number(),
 
   fifthOwnedParticles: z.number(),
   fifthGeneratedParticles: decimalSchema,
-  fifthCostParticles: decimalSchema,
+  fifthPaidParticles: decimalSchema.optional(),
   fifthProduceParticles: z.number(),
 
   firstOwnedAnts: z.number().optional(),

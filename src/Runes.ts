@@ -458,7 +458,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     levelsPerOOMIncrease: () => thriftRuneOOMIncrease(),
     effects: (n, key) => {
       if (key === 'construction') {
-        return Math.min(1e15, n)
+        return 1 + n / 1000
       } else if (key === 'salvage') {
         return 2.5 * Math.log(1 + n / 10)
       } else {
@@ -469,7 +469,9 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       const construction = getRuneEffects('thrift', 'construction')
       const salvage = getRuneEffects('thrift', 'salvage')
       const taxReduction = getRuneEffects('thrift', 'taxReduction')
-      const constructionText = i18next.t('runes.thrift.construction', { val: format(construction, 2, true) })
+      const constructionText = i18next.t('runes.thrift.construction', {
+        val: formatAsPercentIncrease(construction, 2)
+      })
       const salvageText = i18next.t('runes.thrift.salvage', { val: format(salvage, 2, true) })
       const taxReductionText = i18next.t('runes.thrift.taxReduction', {
         val: format(100 * (1 - taxReduction), 3, true)

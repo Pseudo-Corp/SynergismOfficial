@@ -38,7 +38,7 @@ const producerData = {
     currency: 'reincarnationPoints',
     production: 'particle',
     costs: [1, 1e2, 1e4, 1e8, 1e16],
-    growth: [1, 3, 6, 10, 15]
+    growth: [1, 1, 1, 1, 1]
   }
 } as const
 
@@ -64,18 +64,11 @@ const accelMultData = {
 } as const
 
 const softcap = 1e15
-const exponentDR = 1 / 8
 
 const linSum = (n: number) => n * (n + 1) / 2
 
-const decimalBases = {
-  two: Decimal.fromNumber(2)
-} as const
-
-type BuildingType = keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost'
-type ScalingBuildingType = 'coin' | 'diamond' | 'mythos'
-export type CurveBuildingType = Exclude<BuildingType, 'particle'>
-type CostCalculator = (n: number) => Decimal
+export type BuildingType = keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost'
+type ScalingBuildingType = keyof typeof producerData
 
 const challengeBuildingSoftcap = 1e13
 const challenge8BuildingSoftcap = 1e12
@@ -95,7 +88,7 @@ interface CostCurve {
 }
 
 const isScalingBuilding = (type: BuildingType): type is ScalingBuildingType =>
-  type === 'coin' || type === 'diamond' || type === 'mythos'
+  type === 'coin' || type === 'diamond' || type === 'mythos' || type === 'particle'
 
 export const getBuildingCostKey = () =>
   `${calculateConstruction()}|${getRuneBlessingEffect('thrift').accelBoostCostDelay}|${
@@ -248,7 +241,7 @@ const createAcceleratorBoostCostCurve = (delay: number): CostCurve => {
   }
 }
 
-export const getBuildingSoftcap = (type: ScalingBuildingType | 'particle') => {
+export const getBuildingSoftcap = (type: ScalingBuildingType) => {
   if (type === 'particle') {
     return softcap
   }
@@ -276,7 +269,7 @@ export const updateBuildingSoftcapReached = () => {
 
 const getBuildingCostCurve = (type: ScalingBuildingType, index: ZeroToFour): CostCurve => {
   const buildingSoftcap = getBuildingSoftcap(type)
-  const growthPower = player.currentChallenge.reincarnation === 8 ? challenge8GrowthPower : 1
+  const growthPower = player.currentChallenge.reincarnation === 8 && type !== 'particle' ? challenge8GrowthPower : 1
 
   return createQuadraticCostCurve(
     producerData[type].costs[index],
@@ -306,7 +299,7 @@ const getAccelMultCostCurve = (type: keyof typeof accelMultData): CostCurve => {
   })
 }
 
-const getCostCurve = (type: CurveBuildingType, index: ZeroToFour): CostCurve => {
+const getCostCurve = (type: BuildingType, index: ZeroToFour): CostCurve => {
   switch (type) {
     case 'accelerator':
     case 'multiplier':
@@ -346,48 +339,8 @@ const maxAffordable = (curve: CostCurve, owned: number, budget: Decimal) => {
   return count
 }
 
-const createParticleCostCalculator = (index: ZeroToFour): CostCalculator => {
-  const originalCost = producerData.particle.costs[index]
-  const baseCost = Decimal.fromValue(originalCost)
-  const DR = calculateBuildingConstruction('particle')
-  const lateGrowth = Decimal.fromNumber(1.001)
-  let softcapCost: Decimal | undefined
-
-  const calculateCost: CostCalculator = (n) => {
-    const owned = n - 1
-    let cost = baseCost.times(decimalBases.two.pow(owned))
-
-    if (owned > DR) {
-      cost = cost.times(lateGrowth.pow(linSum(owned - DR)))
-    }
-
-    if (owned > softcap) {
-      softcapCost ??= calculateCost(softcap)
-      const newCost = softcapCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
-      return Decimal.max(cost, newCost)
-    }
-    return cost
-  }
-
-  return calculateCost
-}
-
-const createCostCalculator = (
-  type: BuildingType,
-  index: ZeroToFour = 0
-): CostCalculator => {
-  if (type === 'particle') {
-    return createParticleCostCalculator(index)
-  }
-  const curve = getCostCurve(type, index)
-  return (n) => costBetween(curve, n - 1, n)
-}
-
-export const getCost = (type: BuildingType, n: number, index: ZeroToFour = 0): Decimal =>
-  createCostCalculator(type, index)(n)
-
-const curveBuildings: readonly { type: CurveBuildingType; index: ZeroToFour }[] = [
-  ...(['coin', 'diamond', 'mythos'] as const).flatMap((type) =>
+const curveBuildings: readonly { type: BuildingType; index: ZeroToFour }[] = [
+  ...(['coin', 'diamond', 'mythos', 'particle'] as const).flatMap((type) =>
     ([0, 1, 2, 3, 4] as const).map((index) => ({ type, index }))
   ),
   { type: 'accelerator', index: 0 },
@@ -395,7 +348,7 @@ const curveBuildings: readonly { type: CurveBuildingType; index: ZeroToFour }[] 
   { type: 'acceleratorBoost', index: 0 }
 ]
 
-const getCurveBuildingKeys = (type: CurveBuildingType, index: ZeroToFour) => {
+const getCurveBuildingKeys = (type: BuildingType, index: ZeroToFour) => {
   if (isScalingBuilding(type)) {
     const { currency, name, production } = producerData[type]
     const pos = G.ordinals[index]
@@ -416,7 +369,7 @@ const getCurveBuildingKeys = (type: CurveBuildingType, index: ZeroToFour) => {
 
 export type CurvePaidKey = ReturnType<typeof getCurveBuildingKeys>['paid']
 
-const setCurveBuildingState = (type: CurveBuildingType, index: ZeroToFour, curve: CostCurve, owned: number) => {
+const setCurveBuildingState = (type: BuildingType, index: ZeroToFour, curve: CostCurve, owned: number) => {
   const keys = getCurveBuildingKeys(type, index)
   player[keys.owned] = owned
   const price = costBetween(curve, owned, owned + smallestInc(owned))
@@ -424,18 +377,11 @@ const setCurveBuildingState = (type: CurveBuildingType, index: ZeroToFour, curve
   G.buildingCosts[type][index] = credit.gt(0) && credit.lt(price) ? price.sub(credit) : price
 }
 
-export const getBuildingCost = (type: CurveBuildingType, index: ZeroToFour = 0) => G.buildingCosts[type][index]
+export const getBuildingCost = (type: BuildingType, index: ZeroToFour = 0) => G.buildingCosts[type][index]
 
-export const syncCurveBuilding = (type: CurveBuildingType, index: ZeroToFour = 0) => {
+export const syncCurveBuilding = (type: BuildingType, index: ZeroToFour = 0) => {
   const curve = getCostCurve(type, index)
   setCurveBuildingState(type, index, curve, maxAffordable(curve, 0, player[getCurveBuildingKeys(type, index).paid]))
-}
-
-export const syncParticleCosts = () => {
-  for (const index of [0, 1, 2, 3, 4] as const) {
-    const pos = G.ordinals[index]
-    player[`${pos}CostParticles`] = createParticleCostCalculator(index)(player[`${pos}OwnedParticles`] + 1)
-  }
 }
 
 export const syncCurveBuildings = () => {
@@ -444,7 +390,7 @@ export const syncCurveBuildings = () => {
   }
 }
 
-export const grantCurveBuildings = (type: CurveBuildingType, index: ZeroToFour, count: number) => {
+export const grantCurveBuildings = (type: BuildingType, index: ZeroToFour, count: number) => {
   const curve = getCostCurve(type, index)
   const keys = getCurveBuildingKeys(type, index)
   player[keys.paid] = Decimal.max(player[keys.paid], costBetween(curve, 0, count))
@@ -461,7 +407,7 @@ export const initializeCurveBuildingsPaid = (isPaidLoaded: (key: CurvePaidKey) =
   syncCurveBuildings()
 }
 
-const buyCurveBuilding = (type: CurveBuildingType, amount: BuyAmount | 'max' | undefined, index: ZeroToFour) => {
+const buyCurveBuilding = (type: BuildingType, amount: BuyAmount | 'max' | undefined, index: ZeroToFour) => {
   const keys = getCurveBuildingKeys(type, index)
   const curve = getCostCurve(type, index)
   const owned = player[keys.owned]
@@ -483,101 +429,11 @@ const buyCurveBuilding = (type: CurveBuildingType, amount: BuyAmount | 'max' | u
   return true
 }
 
-const buyParticleBuilding = (amount: BuyAmount | 'max' | undefined, index: ZeroToFour) => {
-  const pos = G.ordinals[index]
-  const coinmax = 1e99
-  const tag = producerData.particle.currency
-  const posOwnedType = `${pos}OwnedParticles` as const
-  const posCostType = `${pos}CostParticles` as const
-  const calculateCost = createParticleCostCalculator(index)
-  const buyAmount = amount ?? player.particlebuyamount
-
-  const buyStart = player[posOwnedType]
-  // If at least softcap, we will use a different formulae
-  if (buyStart >= softcap) {
-    const log10Resource = Decimal.log10(player[tag])
-    const log10QuadrillionCost = Decimal.log10(calculateCost(softcap))
-
-    let hi = Math.floor(softcap * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, exponentDR)))
-    let lo = softcap
-    while (hi - lo > 0.5) {
-      const mid = Math.floor(lo + (hi - lo) / 2)
-      if (mid === lo || mid === hi) {
-        break
-      }
-      if (!player[tag].gte(calculateCost(mid))) {
-        hi = mid
-      } else {
-        lo = mid
-      }
-    }
-
-    player[posOwnedType] = lo
-    player[posCostType] = calculateCost(lo)
-    return
-  }
-
-  // Start buying at the current amount bought + 1
-  let buyInc = smallestInc(buyStart)
-  const buyDefault = buyStart + buyInc
-
-  let cashToBuy = calculateCost(buyDefault)
-
-  // Degenerate Case: return maximum if coins is too large
-  if (cashToBuy.exponent >= coinmax || !player[tag].gte(cashToBuy)) {
-    return
-  }
-
-  while (cashToBuy.exponent < coinmax && player[tag].gte(cashToBuy)) {
-    // then multiply by 4 until it reaches just above the amount needed
-    buyInc = buyInc * 4
-    cashToBuy = calculateCost(buyStart + buyInc)
-  }
-  let stepdown = Math.floor(buyInc / 8)
-  while (stepdown >= smallestInc(buyInc)) {
-    // if step down would push it below out of expense range then divide step down by 2
-    if (calculateCost(buyStart + buyInc - stepdown).lte(player[tag])) {
-      stepdown = Math.floor(stepdown / 2)
-    } else {
-      buyInc = buyInc - Math.max(smallestInc(buyInc), stepdown)
-    }
-  }
-
-  if (buyAmount !== 'max') {
-    buyInc = Math.min(buyInc, buyAmount)
-  }
-
-  // Resolves the infamous autobuyer bug, for large values. This prevents the notion of even being able
-  // to go above the softcap. Future instances will also not check more than the first few lines
-  // meaning that the code below this cannot run if this ever runs.
-  if (buyStart + buyInc >= softcap) {
-    player[posOwnedType] = softcap
-    player[posCostType] = calculateCost(softcap)
-    return
-  }
-
-  // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-  let buyFrom = Math.max(buyStart + buyInc - 6 - smallestInc(buyInc), buyDefault)
-  let thisCost = calculateCost(buyFrom)
-  while (buyFrom <= buyStart + buyInc && player[tag].gte(thisCost)) {
-    player[tag] = player[tag].sub(thisCost)
-    player[posOwnedType] = buyFrom
-    buyFrom = buyFrom + smallestInc(buyFrom)
-    thisCost = calculateCost(buyFrom)
-    player[posCostType] = thisCost
-  }
-}
-
 export const buyBuilding = (
   type: BuildingType,
   amount?: BuyAmount | 'max',
   index: ZeroToFour = 0
 ) => {
-  if (type === 'particle') {
-    buyParticleBuilding(amount, index)
-    return
-  }
-
   if (!buyCurveBuilding(type, amount, index)) {
     return
   }

@@ -1,7 +1,7 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
-import type { CurveBuildingType } from '../Buy'
+import type { BuildingType } from '../Buy'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionPreset } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
@@ -114,27 +114,27 @@ export interface Player {
 
   firstOwnedParticles: number
   firstGeneratedParticles: Decimal
-  firstCostParticles: Decimal
+  firstPaidParticles: Decimal
   firstProduceParticles: number
 
   secondOwnedParticles: number
   secondGeneratedParticles: Decimal
-  secondCostParticles: Decimal
+  secondPaidParticles: Decimal
   secondProduceParticles: number
 
   thirdOwnedParticles: number
   thirdGeneratedParticles: Decimal
-  thirdCostParticles: Decimal
+  thirdPaidParticles: Decimal
   thirdProduceParticles: number
 
   fourthOwnedParticles: number
   fourthGeneratedParticles: Decimal
-  fourthCostParticles: Decimal
+  fourthPaidParticles: Decimal
   fourthProduceParticles: number
 
   fifthOwnedParticles: number
   fifthGeneratedParticles: Decimal
-  fifthCostParticles: Decimal
+  fifthPaidParticles: Decimal
   fifthProduceParticles: number
 
   ants: PlayerAnts
@@ -696,7 +696,7 @@ export interface GlobalVariables {
   triggerChallenge: number
 
   prevBuildingCostKey: string
-  buildingCosts: Record<CurveBuildingType, Decimal[]>
+  buildingCosts: Record<BuildingType, Decimal[]>
 
   buildingSubTab: BuildingSubtab
 
