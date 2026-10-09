@@ -53,7 +53,6 @@ import {
   getBuildingCostKey,
   initializeCurveBuildingsPaid,
   syncCurveBuildings,
-  syncParticleCosts,
   updateBuildingSoftcapReached
 } from './Buy'
 import {
@@ -364,27 +363,27 @@ export const player: Player = {
 
   firstOwnedParticles: 0,
   firstGeneratedParticles: new Decimal(),
-  firstCostParticles: new Decimal('1'),
+  firstPaidParticles: new Decimal(),
   firstProduceParticles: 0.25,
 
   secondOwnedParticles: 0,
   secondGeneratedParticles: new Decimal(),
-  secondCostParticles: new Decimal('100'),
+  secondPaidParticles: new Decimal(),
   secondProduceParticles: 0.2,
 
   thirdOwnedParticles: 0,
   thirdGeneratedParticles: new Decimal(),
-  thirdCostParticles: new Decimal('1e4'),
+  thirdPaidParticles: new Decimal(),
   thirdProduceParticles: 0.15,
 
   fourthOwnedParticles: 0,
   fourthGeneratedParticles: new Decimal(),
-  fourthCostParticles: new Decimal('1e8'),
+  fourthPaidParticles: new Decimal(),
   fourthProduceParticles: 0.1,
 
   fifthOwnedParticles: 0,
   fifthGeneratedParticles: new Decimal(),
-  fifthCostParticles: new Decimal('1e16'),
+  fifthPaidParticles: new Decimal(),
   fifthProduceParticles: 0.5,
 
   ants: { ...defaultPlayerAnts },
@@ -2031,7 +2030,6 @@ const loadSynergy = (saveString: string): boolean => {
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
     initializeCurveBuildingsPaid((key) => validatedPlayer.data[key] !== undefined)
-    syncParticleCosts()
     calculateObtainium()
     resetHistoryRenderAllTables()
     updateSingularityAchievements()
@@ -3934,7 +3932,7 @@ export const updateAll = (): void => {
     if (
       player.toggles[21 + i]
       && player.cubeUpgrades[7] === 1
-      && player.reincarnationPoints.gte(player[`${G.ordinals[zeroIndex]}CostParticles` as const])
+      && player.reincarnationPoints.gte(getBuildingCost('particle', zeroIndex))
     ) {
       buyBuilding('particle', 'max', zeroIndex)
     }
@@ -4140,7 +4138,6 @@ export const updateAll = (): void => {
   if (buildingCostKey !== G.prevBuildingCostKey) {
     G.prevBuildingCostKey = buildingCostKey
     syncCurveBuildings()
-    syncParticleCosts()
   }
   updateBuildingSoftcapReached()
 

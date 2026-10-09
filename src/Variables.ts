@@ -132,6 +132,7 @@ export const Globals: GlobalVariables = {
     coin: [new Decimal(100), new Decimal(1e3), new Decimal(2e4), new Decimal(4e5), new Decimal(8e6)],
     diamond: [new Decimal(100), new Decimal(1e5), new Decimal(1e15), new Decimal(1e40), new Decimal(1e100)],
     mythos: [new Decimal(1), new Decimal(1e2), new Decimal(1e4), new Decimal(1e8), new Decimal(1e16)],
+    particle: [new Decimal(1), new Decimal(1e2), new Decimal(1e4), new Decimal(1e8), new Decimal(1e16)],
     accelerator: [new Decimal(500)],
     multiplier: [new Decimal(1e4)],
     acceleratorBoost: [new Decimal(1e3)]

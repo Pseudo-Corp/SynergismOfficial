@@ -10,7 +10,6 @@ import {
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
   getBuildingCost,
-  getCost,
   grantCurveBuildings,
   syncCurveBuildings
 } from './Buy'
@@ -679,11 +678,12 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.thirdOwnedParticles = 0
     player.fourthOwnedParticles = 0
     player.fifthOwnedParticles = 0
-    player.firstCostParticles = Decimal.fromString('1')
-    player.secondCostParticles = Decimal.fromString('100')
-    player.thirdCostParticles = Decimal.fromString('1e4')
-    player.fourthCostParticles = Decimal.fromString('1e8')
-    player.fifthCostParticles = Decimal.fromString('1e16')
+    player.firstPaidParticles = new Decimal()
+    player.secondPaidParticles = new Decimal()
+    player.thirdPaidParticles = new Decimal()
+    player.fourthPaidParticles = new Decimal()
+    player.fifthPaidParticles = new Decimal()
+    syncCurveBuildings()
     player.offerings = new Decimal()
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -692,8 +692,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     if (player.cubeUpgrades[27] === 1) {
       for (let i = 1; i <= 5; i++) {
         const zeroIndex = i - 1 as ZeroToFour
-        player[`${G.ordinals[zeroIndex]}OwnedParticles`] = 1
-        player[`${G.ordinals[zeroIndex]}CostParticles`] = getCost('particle', 2, zeroIndex)
+        grantCurveBuildings('particle', zeroIndex, 1)
       }
     }
 
