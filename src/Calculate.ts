@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcECC, useChallenge13Modifiers } from './Challenges'
+import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import { c15ViscosityExponent, corruptionEffect, isCorruptionCubeUnlocked } from './Corruptions'
 import { calculateAcceleratorCubeBlessing } from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
@@ -629,8 +629,6 @@ export const calculateBuildingConstruction = (type: keyof typeof buildingBonusCo
   return base / scaling.divisor * Math.pow(calculateConstructionMultiplier(), scaling.power)
 }
 
-const acceleratorBoostTractionHardcap = 1e15
-
 export const baseTraction = {
   accelerator: 125,
   multiplier: 75,
@@ -651,7 +649,7 @@ export const getTractionChallengeScaling = () => {
 }
 
 export const calculateChallenge4Traction = (type: keyof typeof tractionPerChallenge4Completion) =>
-  tractionPerChallenge4Completion[type] * CalcECC('transcend', player.challengecompletions[4])
+  tractionPerChallenge4Completion[type] * player.challengecompletions[4]
 
 export const calculateAcceleratorTractionPerBoost = () =>
   5
@@ -670,7 +668,7 @@ export const calculateTraction = (type: keyof typeof baseTraction) => {
     ? calculateRawTraction(type) * calculateTractionMultiplier(type)
     : calculateRawTraction(type) / scaling.divisor * Math.pow(calculateTractionMultiplier(type), scaling.power)
   if (type === 'acceleratorBoost') {
-    return Math.min(acceleratorBoostTractionHardcap, traction)
+    return traction
   }
   return (Math.pow(traction, c15ViscosityExponent(player.corruptions.used)) + calculateHepteractTraction(type))
     * G.challenge15Rewards[type].value
@@ -711,9 +709,9 @@ export const calculateActualAntSpeedMult = () => {
   if (player.currentChallenge.ascension === 12) {
     exponent = 0.75
   } else if (useChallenge13Modifiers()) {
-    exponent = 0.23
+    exponent = 0.4
   } else if (player.currentChallenge.ascension === 14) {
-    exponent = 0.2
+    exponent = 0.4
   } else if (player.currentChallenge.ascension === 15) {
     exponent = 0.5
   }
@@ -1324,13 +1322,17 @@ export const reincarnationChallengeCubeBankPerCompletion = 0.01
 export const challengeTenCubeBankMultiplier = () => 1.02 + 0.005 * player.cubeUpgrades[39]
 
 export const calculateCubeBankSources = () => {
-  const transcensionCompletions = sumChallengeCompletions(1, 5)
   const reincarnationCompletions = sumChallengeCompletions(6, 9)
+  const transcensionChallenges = transcensionCubeBankTiers.map(({ from, to, weight }) => {
+    let completions = 0
+    for (let i = 1; i <= 5; i++) {
+      completions += Math.max(0, Math.min(player.challengecompletions[i], to) - from + 1)
+    }
+    const perCompletion = weight * transcensionChallengeCubeBankPerCompletion()
+    return { from, to, completions, perCompletion, amount: completions * perCompletion }
+  })
   return {
-    transcensionChallenges: {
-      completions: transcensionCompletions,
-      amount: transcensionCompletions * transcensionChallengeCubeBankPerCompletion()
-    },
+    transcensionChallenges,
     ants: getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked,
     reincarnationChallenges: {
       completions: reincarnationCompletions,
@@ -1345,7 +1347,8 @@ export const calculateCubeBankSources = () => {
 
 export const calculateCubeBank = () => {
   const { transcensionChallenges, ants, reincarnationChallenges, challengeTen } = calculateCubeBankSources()
-  return (transcensionChallenges.amount + ants) * reincarnationChallenges.multiplier * challengeTen.multiplier
+  const transcensionAmount = transcensionChallenges.reduce((total, tier) => total + tier.amount, 0)
+  return (transcensionAmount + ants) * reincarnationChallenges.multiplier * challengeTen.multiplier
 }
 
 export const CalcCorruptionStuff = () => {

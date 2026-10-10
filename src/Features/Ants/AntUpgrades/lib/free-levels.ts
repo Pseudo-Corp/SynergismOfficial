@@ -1,13 +1,12 @@
 import { getAchievementReward } from '../../../../Achievements'
-import { CalcECC } from '../../../../Challenges'
 import { player } from '../../../../Synergism'
 import { Globals } from '../../../../Variables'
 
 export const computeFreeAntUpgradeLevels = () => {
   let bonusLevels = 0
-  bonusLevels += CalcECC('reincarnation', player.challengecompletions[9])
+  bonusLevels += player.challengecompletions[9]
   bonusLevels += Math.round(2000 * (1 - Math.pow(0.999, player.constantUpgrades[6])))
-  bonusLevels += 12 * CalcECC('ascension', player.challengecompletions[11])
+  bonusLevels += 12 * player.challengecompletions[11]
   bonusLevels += 2 * player.researches[97]
   bonusLevels += 2 * player.researches[98]
   bonusLevels += player.researches[102]

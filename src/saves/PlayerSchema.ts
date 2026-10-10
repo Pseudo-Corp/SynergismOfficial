@@ -1,6 +1,7 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
+import { transcensionChallengeCap } from '../Challenges'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
@@ -323,6 +324,11 @@ const playerCorruptionSchema = z.object({
     ?? Math.max(corruptions.used, corruptions.tokenCompletions.findLastIndex((completions) => completions > 0))
 })).prefault(() => deepClone()(blankSave.corruptions))
 
+const clampTranscensionChallengeCompletions = <T extends number | null>(completions: T[]) =>
+  completions.map((value, index) =>
+    index >= 1 && index <= 5 && value !== null ? Math.min(value, transcensionChallengeCap) : value
+  )
+
 export const playerSchema = z.object({
   firstPlayed: z.iso.datetime().optional().default(() => new Date().toISOString()),
   worlds: z.number().transform((quarks) => new QuarkHandler(quarks)),
@@ -522,7 +528,7 @@ export const playerSchema = z.object({
       )
       return challengeCompletions
     })
-  ]),
+  ]).transform(clampTranscensionChallengeCompletions),
   highestchallengecompletions: z.union([
     z.union([z.number(), z.null()]).array(),
     z.record(z.string(), z.number()).transform((value) => {
@@ -534,7 +540,7 @@ export const playerSchema = z.object({
       )
       return highestChallengeCompletions
     })
-  ]),
+  ]).transform(clampTranscensionChallengeCompletions),
   challenge15Exponent: z.number().default(() => blankSave.challenge15Exponent),
   highestChallenge15Exponent: z.number().optional(),
 
@@ -1100,6 +1106,5 @@ export const playerSchema = z.object({
     highestPurpleHoney: z.number().default(0)
   }).default(() => deepClone()(blankSave.stats)),
 
-  purpleUpdateQuarkRefundAwarded: z.boolean().default(() => false),
-  buildingSoftcapReached: z.boolean().default(() => false)
+  purpleUpdateQuarkRefundAwarded: z.boolean().default(() => false)
 })

@@ -407,8 +407,8 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.ascensionScore.intro'),
     description: () => i18next.t('ants.upgrades.ascensionScore.description'),
     effect: (n: number) => {
-      const bankedCubes = 3 * Math.min(200, n) + 2500 * (1 - Math.pow(1 - 1 / 2750, n))
-        + 96900 * (1 - Math.pow(1 - 1 / 969000, n))
+      const bankedCubes = Math.min(200, n) + Math.min(800, Math.max(0, n - 200) * 0.1)
+        + Math.min(5000, Math.max(0, n - 8200) / 100)
       return {
         cubesBanked: bankedCubes
       }

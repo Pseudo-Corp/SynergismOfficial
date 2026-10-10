@@ -6,9 +6,9 @@ import LZString from 'lz-string'
 
 import {
   autoAscensionChallengeSweepUnlock,
-  CalcECC,
   calculateChallenge15Score,
   challenge15ScoreMultiplier,
+  challengeCompletionsAffordable,
   challengeRequirement,
   clearStateChangeTimer,
   getChallengeConditions,
@@ -52,8 +52,7 @@ import {
   getBuildingCost,
   getBuildingCostKey,
   initializeCurveBuildingsPaid,
-  syncCurveBuildings,
-  updateBuildingSoftcapReached
+  syncCurveBuildings
 } from './Buy'
 import {
   calculateGlobalSpeedMult,
@@ -1192,8 +1191,7 @@ export const player: Player = {
     highestPurpleHoney: 0
   },
 
-  purpleUpdateQuarkRefundAwarded: true,
-  buildingSoftcapReached: false
+  purpleUpdateQuarkRefundAwarded: true
 }
 
 export const deepClone = () =>
@@ -2374,12 +2372,12 @@ export const updateAllTick = (): void => {
   G.acceleratorPower = Math.pow(
     1.1
       + getRuneEffects('speed', 'acceleratorPower')
-      + 1 / 400 * CalcECC('transcend', player.challengecompletions[2])
+      + 1 / 400 * player.challengecompletions[2]
       + achievementBonus
       + G.tuSevenMulti
         * (player.acceleratorBoostBought / 100)
-        * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20),
-    1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7])
+        * (1 + player.challengecompletions[2] / 20),
+    1 + 0.04 * player.challengecompletions[7]
   )
 
   // No MA and Sadistic will always overwrite Transcend challenges starting in v2.0.0
@@ -2388,7 +2386,7 @@ export const updateAllTick = (): void => {
     && player.currentChallenge.reincarnation !== 10
   ) {
     if (player.currentChallenge.transcension === 1) {
-      G.acceleratorPower *= 25 / (50 + player.challengecompletions[1])
+      G.acceleratorPower *= 0.25
       G.acceleratorPower += 0.55
       G.acceleratorPower = Math.max(1, G.acceleratorPower)
     }
@@ -2428,7 +2426,7 @@ export const updateAllMultiplier = (): void => {
   let b = 0
   b += Decimal.log(player.transcendShards.add(1), 3)
   b += getRuneEffects('duplication', 'multiplierBoosts')
-  b += 2 * CalcECC('transcend', player.challengecompletions[1])
+  b += 2 * player.challengecompletions[1]
   b *= 1 + (11 * player.researches[33]) / 100
   b *= 1 + (11 * player.researches[34]) / 100
   b *= 1 + (11 * player.researches[35]) / 100
@@ -2437,7 +2435,7 @@ export const updateAllMultiplier = (): void => {
 
   G.totalMultiplierBoost = Math.pow(
     Math.floor(b),
-    1 + CalcECC('reincarnation', player.challengecompletions[7]) * 0.04
+    1 + player.challengecompletions[7] * 0.04
   )
 
   let c7 = 1
@@ -2472,7 +2470,7 @@ export const updateAllMultiplier = (): void => {
 }
 
 export const calculateBuildingPower = (): number => {
-  const challenge8Bonus = 0.25 * CalcECC('reincarnation', player.challengecompletions[8])
+  const challenge8Bonus = 0.25 * player.challengecompletions[8]
 
   let power = 1
   // Atom bonus
@@ -2545,7 +2543,7 @@ export const calculateCrystalExponent = (): number => {
   const crystalUpgrade3Max = crystalUpgrade4MaxExponent()
   let exponent = 1 / 3 // Base Val
   exponent += crystalUpgrade3Max * (1 - Math.pow(0.995, player.crystalUpgrades[3]))
-  exponent += 0.04 * CalcECC('transcend', player.challengecompletions[3])
+  exponent += 0.04 * player.challengecompletions[3]
   exponent += 0.08 * player.researches[28] // 2x3
   exponent += 0.08 * player.researches[29] // 2x4
   exponent += 0.04 * player.researches[30] // 2x5
@@ -2717,13 +2715,13 @@ export const multipliers = (): void => {
     )
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
-    Decimal.pow(10, CalcECC('transcend', player.challengecompletions[5]))
+    Decimal.pow(10, player.challengecompletions[5])
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
     Decimal.pow(
       1e4,
       player.researches[5]
-        * (1 + (1 / 2) * CalcECC('ascension', player.challengecompletions[14]))
+        * (1 + (1 / 2) * player.challengecompletions[14])
     )
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
@@ -2777,7 +2775,7 @@ export const multipliers = (): void => {
   }
 
   G.challengeThreeMultiplier = Decimal.pow(
-    1 + CalcECC('transcend', player.challengecompletions[3]) / 200,
+    1 + player.challengecompletions[3] / 200,
     player.firstOwnedMythos
       + player.secondOwnedMythos
       + player.thirdOwnedMythos
@@ -3070,9 +3068,9 @@ export const resourceGain = (dt: number): void => {
     awardAchievementGroup('constant')
   }
 
-  let autoChallengeCompLimit = 1
-  autoChallengeCompLimit += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-  autoChallengeCompLimit += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+  const autoChallengeCompLimit = getShopUpgradeEffects('instantChallenge2', 'unlocked')
+    ? Number.POSITIVE_INFINITY
+    : 1 + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
 
   /* Researches 3x21 to 3x25 deal with autogaining Transcension Challenges in
   Reincarnation Challenges (71-75 in index).
@@ -3084,25 +3082,20 @@ export const resourceGain = (dt: number): void => {
       && player.currentChallenge.reincarnation !== 0
     ) {
       const challengeNum = i + 1
-      const maxChallenges = getMaxChallenges(challengeNum)
-      const challengeRequirementMult = researchAutoChallengeReqMulti[i]
-      for (let j = 0; j < autoChallengeCompLimit; j++) {
-        if (
-          player.challengecompletions[challengeNum]
-            < Math.min(maxChallenges, player.highestchallengecompletions[challengeNum])
-          && player.coinsThisTranscension.gte(
-            Decimal.pow(
-              challengeRequirement(challengeNum, player.challengecompletions[challengeNum], challengeNum),
-              challengeRequirementMult
-            )
-          )
-        ) {
-          player.challengecompletions[challengeNum] += 1
-          // Due to the min(..., player.highestchallengecompletions[n]) check, we don't need to award achievements
-        } else {
-          break
-        }
-      }
+      const limit = Math.min(
+        getMaxChallenges(challengeNum),
+        player.highestchallengecompletions[challengeNum],
+        player.challengecompletions[challengeNum] + autoChallengeCompLimit
+      )
+      player.challengecompletions[challengeNum] = Math.max(
+        player.challengecompletions[challengeNum],
+        challengeCompletionsAffordable(
+          challengeNum,
+          player.coinsThisTranscension,
+          limit,
+          researchAutoChallengeReqMulti[i]
+        )
+      )
     }
   }
 
@@ -3163,7 +3156,7 @@ export const resourceGain = (dt: number): void => {
 }
 
 export const resetCurrency = (): void => {
-  let prestigePow = 0.5 + CalcECC('transcend', player.challengecompletions[5]) / 100
+  let prestigePow = 0.5 + player.challengecompletions[5] / 100
   let transcendPow = 0.03
 
   // Calculates the conversion exponent for resets (Challenges 5 and 10 reduce the exponent accordingly).
@@ -3263,28 +3256,24 @@ export const resetCheck = async (
   ) {
     const q = player.currentChallenge.transcension
     const maxCompletions = getMaxChallenges(q)
-    const reqCheck = (comp: number) => player.coinsThisTranscension.gte(challengeRequirement(q, comp, q))
-    if (
-      player.challengecompletions[q] < maxCompletions
-      && reqCheck(player.challengecompletions[q])
-    ) {
+    if (player.challengecompletions[q] < maxCompletions) {
       let maxInc = 1
       if (player.retrychallenges && !manual && !leaving) {
-        maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-        maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+        maxInc = getShopUpgradeEffects('instantChallenge2', 'unlocked')
+          ? maxCompletions
+          : maxInc + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
       }
       if (useChallenge13Modifiers()) {
         maxInc = 1
       }
-      let counter = 0
-      let comp = player.challengecompletions[q]
-      while (counter < maxInc) {
-        if (comp < maxCompletions && reqCheck(comp)) {
-          comp++
-        }
-        counter++
-      }
-      player.challengecompletions[q] = comp
+      player.challengecompletions[q] = Math.max(
+        player.challengecompletions[q],
+        challengeCompletionsAffordable(
+          q,
+          player.coinsThisTranscension,
+          Math.min(maxCompletions, player.challengecompletions[q] + maxInc)
+        )
+      )
     }
     if (
       player.challengecompletions[q] > player.highestchallengecompletions[q]
@@ -3331,35 +3320,24 @@ export const resetCheck = async (
   ) {
     const q = player.currentChallenge.reincarnation
     const maxCompletions = getMaxChallenges(q)
-    const reqCheck = (comp: number) => {
-      if (q <= 8) {
-        return player.transcendShards.gte(challengeRequirement(q, comp, q))
-      } else {
-        // challenges 9 and 10
-        return player.coins.gte(challengeRequirement(q, comp, q))
-      }
-    }
-    if (
-      reqCheck(player.challengecompletions[q])
-      && player.challengecompletions[q] < maxCompletions
-    ) {
+    if (player.challengecompletions[q] < maxCompletions) {
       let maxInc = 1
       if (player.retrychallenges && !manual && !leaving) {
-        maxInc += getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-        maxInc += getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
+        maxInc = getShopUpgradeEffects('instantChallenge2', 'unlocked')
+          ? maxCompletions
+          : maxInc + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
       }
       if (useChallenge13Modifiers()) {
         maxInc = 1
       }
-      let counter = 0
-      let comp = player.challengecompletions[q]
-      while (counter < maxInc) {
-        if (reqCheck(comp) && comp < maxCompletions) {
-          comp++
-        }
-        counter++
-      }
-      player.challengecompletions[q] = comp
+      player.challengecompletions[q] = Math.max(
+        player.challengecompletions[q],
+        challengeCompletionsAffordable(
+          q,
+          q <= 8 ? player.transcendShards : player.coins,
+          Math.min(maxCompletions, player.challengecompletions[q] + maxInc)
+        )
+      )
     }
     if (
       player.challengecompletions[q] > player.highestchallengecompletions[q]
@@ -3968,7 +3946,6 @@ export const updateAll = (): void => {
     G.prevBuildingCostKey = buildingCostKey
     syncCurveBuildings()
   }
-  updateBuildingSoftcapReached()
 
   // Challenge 15 autoupdate
   if (
@@ -4189,7 +4166,7 @@ const tack = (dt: number) => {
     ) {
       const previousRoombaResearch = player.autoResearch || 1
       let counter = 0
-      const maxCount = 1 + Math.floor(CalcECC('ascension', player.challengecompletions[14]))
+      const maxCount = 1 + Math.floor(player.challengecompletions[14])
       while (counter < maxCount) {
         const currIndex = player.autoResearch
         if (isResearchUnlocked(currIndex)) {

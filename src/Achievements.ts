@@ -2051,43 +2051,43 @@ const achievements: Achievement[] = [
     group: 'reincarnationPointGain',
     steamAchievementId: 'GROUPED_PARTICLES_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[1] >= 1000, group: 'challenge1' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[1] >= 9000, group: 'challenge1' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[1] >= 150, group: 'challenge1' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[1] >= 300, group: 'challenge1' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[1] >= 9001,
+    unlockCondition: () => player.challengecompletions[1] >= 310,
     group: 'challenge1',
     steamAchievementId: 'GROUPED_CHALLENGE1_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[2] >= 1000, group: 'challenge2' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[2] >= 9000, group: 'challenge2' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[2] >= 150, group: 'challenge2' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[2] >= 300, group: 'challenge2' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[2] >= 9001,
+    unlockCondition: () => player.challengecompletions[2] >= 310,
     group: 'challenge2',
     steamAchievementId: 'GROUPED_CHALLENGE2_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[3] >= 1000, group: 'challenge3' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[3] >= 9000, group: 'challenge3' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[3] >= 150, group: 'challenge3' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[3] >= 300, group: 'challenge3' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[3] >= 9001,
+    unlockCondition: () => player.challengecompletions[3] >= 310,
     group: 'challenge3',
     steamAchievementId: 'GROUPED_CHALLENGE3_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[4] >= 1000, group: 'challenge4' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[4] >= 9000, group: 'challenge4' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[4] >= 150, group: 'challenge4' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[4] >= 300, group: 'challenge4' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[4] >= 9001,
+    unlockCondition: () => player.challengecompletions[4] >= 310,
     group: 'challenge4',
     steamAchievementId: 'GROUPED_CHALLENGE4_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[5] >= 1000, group: 'challenge5' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[5] >= 9000, group: 'challenge5' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[5] >= 150, group: 'challenge5' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[5] >= 300, group: 'challenge5' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[5] >= 9001,
+    unlockCondition: () => player.challengecompletions[5] >= 310,
     group: 'challenge5',
     steamAchievementId: 'GROUPED_CHALLENGE5_2'
   },

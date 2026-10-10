@@ -103,7 +103,7 @@ import {
   getTractionChallengeScaling
 } from './Calculate'
 import { campaignTokenBonuses } from './Campaign'
-import { CalcECC, type Challenge15Rewards, challenge15ScoreMultiplier, useChallenge13Modifiers } from './Challenges'
+import { type Challenge15Rewards, challenge15ScoreMultiplier, useChallenge13Modifiers } from './Challenges'
 import {
   c15ViscosityExponent,
   corruptionCubeRate,
@@ -1139,9 +1139,9 @@ export const allOfferingStats: DecimalStatLineCategory = {
     {
       i18n: 'ReincarnationChallenge',
       stat: () =>
-        1 + 1 / 50 * CalcECC('reincarnation', player.challengecompletions[6])
-        + 1 / 25 * CalcECC('reincarnation', player.challengecompletions[8])
-        + 1 / 25 * CalcECC('reincarnation', player.challengecompletions[10]) // Reincarnation Challenges
+        1 + 1 / 50 * player.challengecompletions[6]
+        + 1 / 25 * player.challengecompletions[8]
+        + 1 / 25 * player.challengecompletions[10] // Reincarnation Challenges
     },
     {
       i18n: 'DiamondUpgrade4x3',
@@ -1198,7 +1198,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'Challenge12',
-      stat: () => 1 + 0.12 * CalcECC('ascension', player.challengecompletions[12]) // Challenge 12
+      stat: () => 1 + 0.12 * player.challengecompletions[12] // Challenge 12
     },
     {
       i18n: 'ThriftSpirit',
@@ -1355,7 +1355,7 @@ export const firstFiveRuneEffectivenessStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Research1x4',
-      stat: () => 1 + player.researches[4] / 10 * (1 + CalcECC('ascension', player.challengecompletions[14]))
+      stat: () => 1 + player.researches[4] / 10 * (1 + player.challengecompletions[14])
     },
     {
       i18n: 'Research1x21',
@@ -1834,7 +1834,7 @@ export const allObtainiumStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'Challenge12',
-      stat: () => 1 + 0.5 * CalcECC('ascension', player.challengecompletions[12]) // Challenge 12
+      stat: () => 1 + 0.5 * player.challengecompletions[12] // Challenge 12
     },
     {
       i18n: 'SpiritPower',
@@ -2006,7 +2006,7 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'Challenge10',
-      stat: () => 1 + (1 / 50) * CalcECC('reincarnation', player.challengecompletions[10])
+      stat: () => 1 + (1 / 50) * player.challengecompletions[10]
     },
     {
       i18n: 'Research122',
@@ -3332,10 +3332,10 @@ export const positiveSalvageStats: NumberStatLineCategory = {
     {
       i18n: 'ReincarnationChallenge',
       stat: () => {
-        return 0.3 * CalcECC('reincarnation', player.challengecompletions[6])
-          + 0.3 * CalcECC('reincarnation', player.challengecompletions[7])
-          + 0.4 * CalcECC('reincarnation', player.challengecompletions[8])
-          + 0.5 * CalcECC('reincarnation', player.challengecompletions[9])
+        return 0.3 * player.challengecompletions[6]
+          + 0.3 * player.challengecompletions[7]
+          + 0.4 * player.challengecompletions[8]
+          + 0.5 * player.challengecompletions[9]
       },
       acc: 2
     },
@@ -3428,7 +3428,7 @@ export const constructionMultiplierStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Challenge4',
-      stat: () => 1 + CalcECC('transcend', player.challengecompletions[4]) / 200
+      stat: () => 1 + player.challengecompletions[4] / 200
     },
     {
       i18n: 'AntUpgrade',
@@ -3521,7 +3521,7 @@ const tractionAcceleratorBaseStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Challenge2',
-      stat: () => 5 * CalcECC('transcend', player.challengecompletions[2])
+      stat: () => 5 * player.challengecompletions[2]
     },
     {
       i18n: 'AcceleratorBoosts',
@@ -3540,7 +3540,7 @@ const tractionAcceleratorMultiplierStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Research1',
-      stat: () => 1 + player.researches[1] / 5 * (1 + CalcECC('ascension', player.challengecompletions[14]) / 2)
+      stat: () => 1 + player.researches[1] / 5 * (1 + player.challengecompletions[14] / 2)
     },
     {
       i18n: 'Researches6to10',
@@ -3654,7 +3654,7 @@ const tractionMultiplierMultiplierStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Research2',
-      stat: () => 1 + player.researches[2] / 5 * (1 + CalcECC('ascension', player.challengecompletions[14]) / 2)
+      stat: () => 1 + player.researches[2] / 5 * (1 + player.challengecompletions[14] / 2)
     },
     {
       i18n: 'Researches11to15',
@@ -3791,7 +3791,7 @@ const tractionAcceleratorBoostMultiplierStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Research3',
-      stat: () => 1 + player.researches[3] / 5 * (1 + CalcECC('ascension', player.challengecompletions[14]) / 2)
+      stat: () => 1 + player.researches[3] / 5 * (1 + player.challengecompletions[14] / 2)
     },
     {
       i18n: 'Researches16and17',
@@ -3968,11 +3968,11 @@ export const antSpeedStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'Challenge9Bonus',
-      stat: () => Decimal.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])) // Challenge 9 Bonus
+      stat: () => Decimal.pow(1.1, player.challengecompletions[9]) // Challenge 9 Bonus
     },
     {
       i18n: 'Challenge11Bonus',
-      stat: () => Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])) // Challenge 11 Bonus
+      stat: () => Decimal.pow(1e5, player.challengecompletions[11]) // Challenge 11 Bonus
     },
     {
       i18n: 'CubeTribute',
@@ -4053,7 +4053,7 @@ export const antELOStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Challenge10',
-      stat: () => 100 * CalcECC('reincarnation', player.challengecompletions[10])
+      stat: () => 100 * player.challengecompletions[10]
     },
     {
       i18n: 'ShopUpgrade',
@@ -4641,11 +4641,11 @@ export const allTaxExponentStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Challenge6',
-      stat: () => Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6]))
+      stat: () => Math.pow(0.965, player.challengecompletions[6])
     },
     {
       i18n: 'Challenge13',
-      stat: () => Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13]))
+      stat: () => Math.pow(0.966, player.challengecompletions[13])
     },
     {
       i18n: 'Challenge15',
@@ -5720,11 +5720,7 @@ const loadConstructionStats = () => {
 
   DOMCacheGetOrSet('constructionExtra').innerHTML = i18next.t('statistics.constructionStats.extraInfo')
 
-  const softcapInfo = DOMCacheGetOrSet('constructionSoftcapInfo')
-  softcapInfo.style.display = player.buildingSoftcapReached ? 'block' : 'none'
-  if (player.buildingSoftcapReached) {
-    softcapInfo.innerHTML = i18next.t('statistics.constructionStats.softcapInfo')
-  }
+  DOMCacheGetOrSet('constructionCubeRootInfo').innerHTML = i18next.t('statistics.constructionStats.cubeRootInfo')
 }
 
 const loadTractionStats = () => {

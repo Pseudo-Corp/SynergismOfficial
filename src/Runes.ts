@@ -8,7 +8,6 @@ import { awardAchievementGroup, getAchievementReward, updateProgressiveCache } f
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokenBonuses } from './Campaign'
-import { CalcECC } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
@@ -191,8 +190,8 @@ const speedRuneOOMIncrease = () => {
     player.upgrades[66] * 2
     + player.researches[78]
     + player.researches[111]
-    + CalcECC('ascension', player.challengecompletions[11])
-    + 1.5 * CalcECC('ascension', player.challengecompletions[14])
+    + player.challengecompletions[11]
+    + 1.5 * player.challengecompletions[14]
     + player.cubeUpgrades[16]
     + getTalismanEffects('chronos').speedOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
@@ -202,12 +201,12 @@ const speedRuneOOMIncrease = () => {
 
 const duplicationRuneOOMIncrease = () => {
   return (
-    0.75 * CalcECC('transcend', player.challengecompletions[1])
+    0.75 * player.challengecompletions[1]
     + player.upgrades[66] * 2
     + player.researches[90]
     + player.researches[112]
-    + CalcECC('ascension', player.challengecompletions[11])
-    + 1.5 * CalcECC('ascension', player.challengecompletions[14])
+    + player.challengecompletions[11]
+    + 1.5 * player.challengecompletions[14]
     + getTalismanEffects('exemption').duplicationOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
     + getLevelMilestone('duplicationRune')
@@ -219,8 +218,8 @@ const prismRuneOOMIncrease = () => {
     player.upgrades[66] * 2
     + player.researches[79]
     + player.researches[113]
-    + CalcECC('ascension', player.challengecompletions[11])
-    + 1.5 * CalcECC('ascension', player.challengecompletions[14])
+    + player.challengecompletions[11]
+    + 1.5 * player.challengecompletions[14]
     + player.cubeUpgrades[16]
     + getTalismanEffects('mortuus').prismOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
@@ -233,8 +232,8 @@ const thriftRuneOOMIncrease = () => {
     player.upgrades[66] * 2
     + player.researches[77]
     + player.researches[114]
-    + CalcECC('ascension', player.challengecompletions[11])
-    + 1.5 * CalcECC('ascension', player.challengecompletions[14])
+    + player.challengecompletions[11]
+    + 1.5 * player.challengecompletions[14]
     + player.cubeUpgrades[37]
     + getTalismanEffects('midas').thriftOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')
@@ -246,8 +245,8 @@ const superiorIntellectOOMIncrease = () => {
   return (
     player.upgrades[66] * 2
     + player.researches[115]
-    + CalcECC('ascension', player.challengecompletions[11])
-    + 1.5 * CalcECC('ascension', player.challengecompletions[14])
+    + player.challengecompletions[11]
+    + 1.5 * player.challengecompletions[14]
     + player.cubeUpgrades[37]
     + getTalismanEffects('polymath').SIOOMBonus
     + getAmbrosiaUpgradeEffects('ambrosiaRuneOOMBonus', 'runeOOMBonus')

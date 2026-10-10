@@ -2,7 +2,6 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcECC } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
@@ -264,7 +263,7 @@ const exponentialCostProgression = (
 
 const universalTalismanMaxLevelIncreasers = () => {
   return (
-    6 * CalcECC('ascension', player.challengecompletions[13])
+    6 * player.challengecompletions[13]
     + Math.floor(player.researches[200] / 400)
     + getSingularityChallengeEffect('taxmanLastStand', 'talismanFreeLevel')
     + getOcteractUpgradeEffect('octeractTalismanLevelCap1', 'talismanLevelCapIncrease')

@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
 import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
-import { getBuildingCost, getBuildingSoftcap, getScalingThreshold, getTractionScaling } from './Buy'
+import { getBuildingCost, getBuildingScalingThreshold, getTractionScalingThreshold } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   buildingBonusConstruction,
@@ -51,7 +51,7 @@ import {
   calculateTotalSalvage,
   calculateTraction
 } from './Calculate'
-import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
+import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
 import {
   corruptionEffectsUpdate,
@@ -454,10 +454,9 @@ const updateConstructionTexts = (type: keyof typeof constructionColors) => {
     })
   }
 
-  const threshold = getScalingThreshold(construction)
+  const threshold = getBuildingScalingThreshold(type)
   DOMCacheGetOrSet(`${type}Hyperscaling`).innerHTML = i18next.t('buildings.hyperscaling', {
     threshold: format(threshold, 3, true),
-    wall: format(getBuildingSoftcap(type), 3, true),
     color: constructionColors[type]
   })
   return threshold
@@ -496,18 +495,10 @@ export const visualUpdateBuildings = () => {
       multiplier: format(calculateTraction('multiplier'), 3, true),
       acceleratorBoost: format(calculateTraction('acceleratorBoost'), 3, true)
     })
-    const acceleratorScaling = getTractionScaling('accelerator')
-    const multiplierScaling = getTractionScaling('multiplier')
-    const acceleratorBoostScaling = getTractionScaling('acceleratorBoost')
     DOMCacheGetOrSet('coinTractionHyperscaling').innerHTML = i18next.t('buildings.tractionHyperscaling', {
-      accelerator: format(acceleratorScaling.threshold, 3, true),
-      multiplier: format(multiplierScaling.threshold, 3, true),
-      acceleratorBoost: format(acceleratorBoostScaling.threshold, 3, true)
-    })
-    DOMCacheGetOrSet('coinTractionWall').innerHTML = i18next.t('buildings.tractionWall', {
-      accelerator: format(acceleratorScaling.wall, 3, true),
-      multiplier: format(multiplierScaling.wall, 3, true),
-      acceleratorBoost: format(acceleratorBoostScaling.wall, 3, true)
+      accelerator: format(getTractionScalingThreshold('accelerator'), 3, true),
+      multiplier: format(getTractionScalingThreshold('multiplier'), 3, true),
+      acceleratorBoost: format(getTractionScalingThreshold('acceleratorBoost'), 3, true)
     })
 
     let vanityIndex = 0
@@ -598,7 +589,7 @@ export const visualUpdateBuildings = () => {
       player.upgrades[88] === 1 ? 'buildings.acceleratorBoostNoReset' : 'buildings.acceleratorBoost',
       {
         amount: format(
-          100 * (0.01 * G.tuSevenMulti * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20)),
+          100 * (0.01 * G.tuSevenMulti * (1 + player.challengecompletions[2] / 20)),
           2,
           false,
           false

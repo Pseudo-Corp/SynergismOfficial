@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import { awardAchievementGroup } from './Achievements'
-import { baseTraction, calculateBuildingConstruction, calculateConstruction, calculateTraction } from './Calculate'
+import { type baseTraction, calculateBuildingConstruction, calculateConstruction, calculateTraction } from './Calculate'
 import { reset } from './Reset'
 import { getRuneEffects } from './Runes'
 import { player } from './Synergism'
@@ -53,12 +53,7 @@ const accelMultData = {
 
 const softcap = 1e15
 
-export const getScalingThreshold = (value: number) => Math.min(value, softcap)
-
-const getSoftcapPush = (value: number) => Math.cbrt(Math.max(1, value / softcap))
-
-const getSoftcapWall = (value: number, baseSoftcap: number) =>
-  Math.max(baseSoftcap * getSoftcapPush(value), getScalingThreshold(value))
+const getScalingThreshold = (value: number, cap = softcap) => value <= cap ? value : cap * Math.cbrt(value / cap)
 
 const linSum = (n: number) => n * (n + 1) / 2
 
@@ -70,6 +65,7 @@ const challenge8BuildingSoftcap = 1e12
 const challenge8GrowthPower = 2
 const acceleratorBoostCost = 1000
 const acceleratorBoostLinearExponent = 9.5
+const acceleratorBoostPostTractionMultiplier = 10
 const affordabilityTolerance = 1 + 1e-9
 
 interface CostCurve {
@@ -88,58 +84,11 @@ export const getBuildingCostKey = () =>
     calculateTraction('acceleratorBoost')
   }|${player.currentChallenge.transcension}|${player.currentChallenge.reincarnation}|${player.currentChallenge.ascension}`
 
-const softcapPower = 3
-
-const softcapExponentBetween = (slope: number, cap: number, from: number, to: number) =>
-  slope * cap / softcapPower * Math.pow(from / cap, softcapPower)
-  * Math.expm1(softcapPower * Math.log1p((to - from) / from))
-
-const softcapCountForExponent = (slope: number, cap: number, capExponent: number, exponent: number) =>
-  cap * Math.pow(1 + softcapPower * (exponent - capExponent) / (slope * cap), 1 / softcapPower)
-
-interface CubicScaling {
-  threshold: number
-  delay: number
-}
-
-const cubicExponentBetween = (cubic: CubicScaling, from: number, to: number) => {
-  const start = Math.max(from - cubic.threshold, 0)
-  const end = Math.max(to - cubic.threshold, 0)
-  return (end - start) * (end * end + end * start + start * start) / (3 * cubic.delay)
-}
-
-const cubicSlope = (cubic: CubicScaling, count: number) =>
-  Math.pow(Math.max(count - cubic.threshold, 0), 2) / cubic.delay
-
-const cubicCountUpperBound = (cubic: CubicScaling, exponent: number, thresholdExponent: number) =>
-  cubic.threshold + Math.cbrt(3 * cubic.delay * (exponent - thresholdExponent))
-
-const refineCountForExponent = (
-  upperBound: number,
-  exponent: number,
-  exponentAt: (count: number) => number,
-  slopeAt: (count: number) => number
-) => {
-  let count = upperBound
-  for (let i = 0; i < 64; i++) {
-    const step = (exponentAt(count) - exponent) / slopeAt(count)
-    if (step <= count * Number.EPSILON) {
-      break
-    }
-    count -= step
-  }
-  return count
-}
-
-const createQuadraticCostCurve = (
-  cost: number,
-  growth: number,
-  construction: number,
-  softcapCount: number
-): CostCurve => {
-  const threshold = getScalingThreshold(construction)
-  const cap = getSoftcapWall(construction, softcapCount)
-  const uncappedExponentBetween = (from: number, to: number) => {
+const createQuadraticCostCurve = (cost: number, growth: number, threshold: number): CostCurve => ({
+  growth,
+  log10Growth: Math.log10(growth),
+  scale: Decimal.fromNumber(cost / (growth - 1)),
+  exponentBetween: (from, to) => {
     let exponent = 0
     let start = from
     if (start < threshold) {
@@ -151,75 +100,35 @@ const createQuadraticCostCurve = (
       exponent += (to - start) * (1 + (to + start - 2 * threshold) / threshold)
     }
     return exponent
-  }
-  const uncappedExponent = (count: number) => uncappedExponentBetween(0, count)
-  const uncappedSlope = (count: number) => count < threshold ? 1 : 1 + 2 * (count - threshold) / threshold
-  const capExponent = uncappedExponent(cap)
-  const capSlope = uncappedSlope(cap)
+  },
+  countForExponent: (exponent) =>
+    exponent <= threshold
+      ? exponent
+      : (threshold + Math.sqrt(4 * threshold * exponent - 3 * Math.pow(threshold, 2))) / 2
+})
 
-  return {
-    growth,
-    log10Growth: Math.log10(growth),
-    scale: Decimal.fromNumber(cost / (growth - 1)),
-    exponentBetween: (from, to) => {
-      const end = Math.min(to, cap)
-      let exponent = from < end ? uncappedExponentBetween(from, end) : 0
-      const start = Math.max(from, cap)
-      if (start < to) {
-        exponent += softcapExponentBetween(capSlope, cap, start, to)
-      }
-      return exponent
-    },
-    countForExponent: (exponent) => {
-      if (exponent > capExponent) {
-        return softcapCountForExponent(capSlope, cap, capExponent, exponent)
-      }
-      return exponent <= threshold
-        ? exponent
-        : (threshold + Math.sqrt(4 * threshold * exponent - 3 * Math.pow(threshold, 2))) / 2
-    }
-  }
-}
+const acceleratorBoostBaseExponentBetween = (from: number, to: number) =>
+  (to - from) * (acceleratorBoostLinearExponent + (to + from) / 2)
 
-const createAcceleratorBoostCostCurve = (traction: number): CostCurve => {
-  const cubic = { threshold: traction, delay: traction / baseTraction.acceleratorBoost }
-  const quadraticExponentBetween = (from: number, to: number) =>
-    (to - from) * (acceleratorBoostLinearExponent + (to + from) / 2)
-  const uncappedExponentBetween = (from: number, to: number) =>
-    quadraticExponentBetween(from, to) + cubicExponentBetween(cubic, from, to)
-  const uncappedExponent = (count: number) => uncappedExponentBetween(0, count)
-  const uncappedSlope = (count: number) => acceleratorBoostLinearExponent + count + cubicSlope(cubic, count)
-  const capExponent = uncappedExponent(softcap)
-  const capSlope = uncappedSlope(softcap)
+const createAcceleratorBoostCostCurve = (threshold: number): CostCurve => {
+  const thresholdExponent = acceleratorBoostBaseExponentBetween(0, threshold)
+  const exponentBetween = (from: number, to: number) => {
+    const end = Math.min(to, threshold)
+    const start = Math.max(from, threshold)
+    return (from < end ? acceleratorBoostBaseExponentBetween(from, end) : 0)
+      + (start < to ? acceleratorBoostPostTractionMultiplier * acceleratorBoostBaseExponentBetween(start, to) : 0)
+  }
 
   return {
     growth: 10,
     log10Growth: 1,
-    scale: Decimal.fromNumber(acceleratorBoostCost / (Math.pow(10, uncappedExponent(1)) - 1)),
-    exponentBetween: (from, to) => {
-      const end = Math.min(to, softcap)
-      let exponent = from < end ? uncappedExponentBetween(from, end) : 0
-      const start = Math.max(from, softcap)
-      if (start < to) {
-        exponent += softcapExponentBetween(capSlope, softcap, start, to)
-      }
-      return exponent
-    },
+    scale: Decimal.fromNumber(acceleratorBoostCost / (Math.pow(10, exponentBetween(0, 1)) - 1)),
+    exponentBetween,
     countForExponent: (exponent) => {
-      if (exponent > capExponent) {
-        return softcapCountForExponent(capSlope, softcap, capExponent, exponent)
-      }
-      const count = Math.sqrt(Math.pow(acceleratorBoostLinearExponent, 2) + 2 * exponent)
-        - acceleratorBoostLinearExponent
-      if (count <= cubic.threshold) {
-        return count
-      }
-      return refineCountForExponent(
-        Math.min(count, cubicCountUpperBound(cubic, exponent, quadraticExponentBetween(0, cubic.threshold))),
-        exponent,
-        uncappedExponent,
-        uncappedSlope
-      )
+      const baseExponent = exponent <= thresholdExponent
+        ? exponent
+        : thresholdExponent + (exponent - thresholdExponent) / acceleratorBoostPostTractionMultiplier
+      return Math.sqrt(Math.pow(acceleratorBoostLinearExponent, 2) + 2 * baseExponent) - acceleratorBoostLinearExponent
     }
   }
 }
@@ -240,43 +149,25 @@ const getBaseBuildingSoftcap = (type: ScalingBuildingType) => {
   return softcap
 }
 
-export const getBuildingSoftcap = (type: ScalingBuildingType) =>
-  getSoftcapWall(calculateBuildingConstruction(type), getBaseBuildingSoftcap(type))
+export const getBuildingScalingThreshold = (type: ScalingBuildingType) =>
+  getScalingThreshold(calculateBuildingConstruction(type), getBaseBuildingSoftcap(type))
 
-export const getTractionScaling = (type: keyof typeof baseTraction) => {
-  const traction = calculateTraction(type)
-  if (type === 'acceleratorBoost') {
-    return { threshold: traction, wall: softcap }
-  }
-  return { threshold: getScalingThreshold(traction), wall: getSoftcapWall(traction, softcap) }
-}
-
-const softcapTrackedBuildings = (['first', 'second', 'third', 'fourth', 'fifth'] as const).flatMap((pos) =>
-  (['Coin', 'Diamonds', 'Mythos', 'Particles'] as const).map((name) => `${pos}Owned${name}` as const)
-)
-
-export const updateBuildingSoftcapReached = () => {
-  if (!player.buildingSoftcapReached) {
-    player.buildingSoftcapReached = softcapTrackedBuildings.some((key) => player[key] >= softcap)
-  }
-}
+export const getTractionScalingThreshold = (type: keyof typeof baseTraction) =>
+  getScalingThreshold(calculateTraction(type))
 
 const getBuildingCostCurve = (type: ScalingBuildingType, index: ZeroToFour): CostCurve => {
-  const buildingSoftcap = getBaseBuildingSoftcap(type)
   const growthPower = player.currentChallenge.reincarnation === 8 && type !== 'particle' ? challenge8GrowthPower : 1
-
   return createQuadraticCostCurve(
     producerData[type].costs[index],
     Math.pow(1.25, producerData[type].growth[index] * growthPower),
-    calculateBuildingConstruction(type),
-    buildingSoftcap
+    getBuildingScalingThreshold(type)
   )
 }
 
 const getAccelMultCostCurve = (type: keyof typeof accelMultData): CostCurve => {
   const data = accelMultData[type]
   const growthPower = player.currentChallenge.reincarnation === 8 ? challenge8GrowthPower : 1
-  return createQuadraticCostCurve(data.cost, Math.pow(data.growth, growthPower), calculateTraction(type), softcap)
+  return createQuadraticCostCurve(data.cost, Math.pow(data.growth, growthPower), getTractionScalingThreshold(type))
 }
 
 const getCostCurve = (type: BuildingType, index: ZeroToFour): CostCurve => {
@@ -285,7 +176,7 @@ const getCostCurve = (type: BuildingType, index: ZeroToFour): CostCurve => {
     case 'multiplier':
       return getAccelMultCostCurve(type)
     case 'acceleratorBoost':
-      return createAcceleratorBoostCostCurve(calculateTraction('acceleratorBoost'))
+      return createAcceleratorBoostCostCurve(getTractionScalingThreshold('acceleratorBoost'))
   }
   return getBuildingCostCurve(type, index)
 }

@@ -583,7 +583,6 @@ export interface Player {
   }
 
   purpleUpdateQuarkRefundAwarded: boolean
-  buildingSoftcapReached: boolean
 }
 
 export interface GlobalVariables {

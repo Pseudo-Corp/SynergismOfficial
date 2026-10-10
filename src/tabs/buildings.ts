@@ -134,7 +134,7 @@ const coinRow: Entry[] = [
   })),
   {
     spacer: true,
-    lineIds: ['coinTraction', 'coinTractionHyperscaling', 'coinTractionWall'],
+    lineIds: ['coinTraction', 'coinTractionHyperscaling'],
     textClass: 'prestigeunlock'
   },
   {

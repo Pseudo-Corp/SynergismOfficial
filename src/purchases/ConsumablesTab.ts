@@ -92,7 +92,9 @@ const createBellHTML = (bell: ConsumableListItems) => `
     <div class="consumableBuy">
       ${createBuyButtonHTML(bell, i18next.t('pseudoCoins.consumables.activate'))}
       <p class="consumableBuyNote">${bell.html?.buyNote}</p>
-      <button id="consumableUseTips" class="consumableTipsButton">${i18next.t('pseudoCoins.consumables.applyTips')}</button>
+      <button id="consumableUseTips" class="consumableTipsButton">${
+  i18next.t('pseudoCoins.consumables.applyTips')
+}</button>
     </div>
   </div>
 `
@@ -128,7 +130,9 @@ const createLotusHTML = (lotusItems: ConsumableListItems[]) => `
       <p class="consumableName gradientText lotusGradient">${i18next.t('pseudoCoins.lotus.nameSingular')}</p>
       <p class="lotusCounts">
         <span id="lotusOwned">${i18next.t('pseudoCoins.lotus.owned', { x: format(getOwnedLotus(), 0, true) })}</span>
-        <span id="lotusUsed">${i18next.t('pseudoCoins.lotus.lifetimeUsed', { x: format(getUsedLotus(), 0, true) })}</span>
+        <span id="lotusUsed">${
+  i18next.t('pseudoCoins.lotus.lifetimeUsed', { x: format(getUsedLotus(), 0, true) })
+}</span>
       </p>
       <p class="consumableDescription">${i18next.t('pseudoCoins.lotus.intro')}</p>
     </div>

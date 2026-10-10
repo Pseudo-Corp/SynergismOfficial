@@ -47,7 +47,7 @@ type QuarkShopUpgradeRewards = {
   shopSadisticRune: { runeUnlocked: boolean }
   antSpeed: { antELO: number }
   instantChallenge: { unlocked: boolean; extraCompPerTick: number }
-  instantChallenge2: { unlocked: boolean; extraCompPerTick: number }
+  instantChallenge2: { unlocked: boolean }
   challengeExtension: { reincarnationChallengeCap: number }
   challengeTome: { c10RequirementReduction: number; c9c10ScalingReduction: number }
   challengeTome2: { c10RequirementReduction: number; c9c10ScalingReduction: number }
@@ -493,7 +493,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const c9c10ScalingReduction = getShopUpgradeEffects('challengeTome', 'c9c10ScalingReduction')
       return i18next.t('shop.upgradeEffects.challengeTome', {
         amount1: format(c10RequirementReduction, 0, true),
-        amount2: format(c9c10ScalingReduction, 2, true)
+        amount2: format(-100 * c9c10ScalingReduction, 0, true)
       })
     },
     isUnlocked: () => player.ascensionCount > 0 || player.highestSingularityCount > 0,
@@ -904,7 +904,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const c9c10ScalingReduction = getShopUpgradeEffects('challengeTome2', 'c9c10ScalingReduction')
       return i18next.t('shop.upgradeEffects.challengeTome2', {
         amount1: format(c10RequirementReduction, 0, true),
-        amount2: format(c9c10ScalingReduction, 3, true)
+        amount2: format(-100 * c9c10ScalingReduction, 0, true)
       })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass', 'unlocked'),
@@ -917,16 +917,9 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   instantChallenge2: {
     name: () => i18next.t('shop.names.instantChallenge2'),
     description: () => i18next.t('shop.upgradeDescriptions.instantChallenge2'),
-    effects: (n, key) => {
-      if (key === 'unlocked') {
-        return n > 0
-      }
-
-      return n * player.highestSingularityCount // extraCompPerTick
-    },
+    effects: (n) => n > 0, // unlocked
     effectDescription () {
-      const effects = getShopUpgradeEffects('instantChallenge2', 'extraCompPerTick')
-      return i18next.t('shop.upgradeEffects.instantChallenge2', { amount: format(effects) })
+      return i18next.t('shop.upgradeEffects.instantChallenge2')
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass', 'unlocked'),
     price: 20000000,

@@ -5,8 +5,7 @@ import {
   calculateCubeBank,
   calculateCubeBankSources,
   challengeTenCubeBankMultiplier,
-  reincarnationChallengeCubeBankPerCompletion,
-  transcensionChallengeCubeBankPerCompletion
+  reincarnationChallengeCubeBankPerCompletion
 } from './Calculate'
 import { campaignTokenRewardHTMLUpdate, corruptionLevelTokenInfo, updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
@@ -676,12 +675,14 @@ const corruptionCubeModalHTML = (cube: CorruptionCubeType) => {
 const corruptionCubeBankModalHTML = () => {
   const { transcensionChallenges, ants, reincarnationChallenges, challengeTen } = calculateCubeBankSources()
   const rows = [
-    [
-      i18next.t('corruptions.breakdown.bankSources.transcensionChallenges'),
-      format(transcensionChallenges.completions),
-      `+${format(transcensionChallengeCubeBankPerCompletion(), 2, true)}`,
-      `+${format(transcensionChallenges.amount, 1, true)}`
-    ],
+    ...transcensionChallenges.map(({ from, to, completions, perCompletion, amount }) => [
+      Number.isFinite(to)
+        ? i18next.t('corruptions.breakdown.bankSources.transcensionChallenges', { from, to })
+        : i18next.t('corruptions.breakdown.bankSources.transcensionChallengesFrom', { from }),
+      format(completions),
+      `+${format(perCompletion, 2, true)}`,
+      `+${format(amount, 1, true)}`
+    ]),
     [i18next.t('corruptions.breakdown.bankSources.ants'), '', '', `+${format(ants, 1, true)}`],
     [
       i18next.t('corruptions.breakdown.bankSources.reincarnationChallenges'),
