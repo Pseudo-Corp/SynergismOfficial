@@ -65,6 +65,22 @@ export type Challenge15RewardsInformation = {
 
 export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15RewardsInformation>
 
+export const transcensionChallengeCap = 310
+
+export const transcensionCubeBankTiers = [
+  { from: 1, to: 100, weight: 1 },
+  { from: 101, to: 300, weight: 2 },
+  { from: 301, to: Number.POSITIVE_INFINITY, weight: 10 }
+]
+
+const transcensionChallengeCubeBankWeight = (completion: number) =>
+  transcensionCubeBankTiers.find(({ to }) => completion <= to)?.weight ?? 0
+
+const reincarnationCompletionsPerTenfold = 12
+const transcensionCompletionsPerTenfold = 15
+const transcensionLateCompletionsPerTenfold = 2
+const transcensionLateExponent = 4 + 200 / transcensionCompletionsPerTenfold
+
 export const getMaxChallenges = (i: number) => {
   let maxChallenge = 0
   // Transcension Challenges
@@ -76,7 +92,7 @@ export const getMaxChallenges = (i: number) => {
     maxChallenge = 25
     // Check Research 5x5 ('Infinite' T. Challenges)
     if (player.researches[105] > 0) {
-      return 9001
+      return transcensionChallengeCap
     }
     // Max T. Challenge depends on researches 3x16 to 3x20
     maxChallenge += 5 * player.researches[65 + i]
@@ -164,37 +180,8 @@ export const challengeDisplay = (i: number) => {
   }
 
   const maxChallenges = getMaxChallenges(i)
-  if (i <= 5 && isFocused) {
-    if (player.challengecompletions[i] >= 100) {
-      DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
-        x: 100,
-        y: format(CalcECC('transcend', player.challengecompletions[i]), 2, true)
-      })
-    } else {
-      DOMCacheGetOrSet('completionSoftcap').textContent = i18next.t('challenges.perCompletionBonusEmpty')
-    }
-  }
-
   if (i > 5 && i <= 10) {
     quarksMultiplier = 10
-    if (player.challengecompletions[i] >= 25 && isFocused) {
-      DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
-        x: 25,
-        y: format(CalcECC('reincarnation', player.challengecompletions[i]), 2, true)
-      })
-    } else {
-      DOMCacheGetOrSet('completionSoftcap').textContent = i18next.t('challenges.perCompletionBonusEmpty')
-    }
-  }
-  if (i > 10) {
-    if (player.challengecompletions[i] >= 10) {
-      DOMCacheGetOrSet('completionSoftcap').innerHTML = i18next.t('challenges.perCompletionBonus', {
-        x: 10,
-        y: format(CalcECC('ascension', player.challengecompletions[i]), 2, true)
-      })
-    } else {
-      DOMCacheGetOrSet('completionSoftcap').textContent = i18next.t('challenges.perCompletionBonusEmpty')
-    }
   }
   let descriptor = ''
   const a = DOMCacheGetOrSet('challengeName')
@@ -222,86 +209,86 @@ export const challengeDisplay = (i: number) => {
 
     switch (i) {
       case 1: {
-        current1 = format(2 * CalcECC('transcend', player.challengecompletions[1]))
-        current2 = format(0.75 * CalcECC('transcend', player.challengecompletions[1]), 2, true)
-        current3 = format(0.04 * CalcECC('transcend', player.challengecompletions[1]), 2, true)
+        current1 = format(2 * player.challengecompletions[1])
+        current2 = format(0.75 * player.challengecompletions[1], 2, true)
+        current3 = format(0.04 * player.challengecompletions[1], 2, true)
         break
       }
       case 2: {
-        current1 = current2 = format(5 * CalcECC('transcend', player.challengecompletions[2]))
-        current3 = format(0.25 * CalcECC('transcend', player.challengecompletions[2]))
+        current1 = current2 = format(5 * player.challengecompletions[2])
+        current3 = format(0.25 * player.challengecompletions[2])
         break
       }
       case 3: {
-        current1 = format(0.04 * CalcECC('transcend', player.challengecompletions[3]), 2, true)
-        current2 = format(0.5 * CalcECC('transcend', player.challengecompletions[3]), 2, true)
-        current3 = format(0.01 * CalcECC('transcend', player.challengecompletions[3]), 2, true)
+        current1 = format(0.04 * player.challengecompletions[3], 2, true)
+        current2 = format(0.5 * player.challengecompletions[3], 2, true)
+        current3 = format(0.01 * player.challengecompletions[3], 2, true)
         break
       }
       case 4: {
-        current1 = format(5 * CalcECC('transcend', player.challengecompletions[4]))
-        current2 = format(2 * CalcECC('transcend', player.challengecompletions[4]))
-        current3 = format(1 + CalcECC('transcend', player.challengecompletions[4]) / 200, 3, true)
+        current1 = format(5 * player.challengecompletions[4])
+        current2 = format(2 * player.challengecompletions[4])
+        current3 = format(1 + player.challengecompletions[4] / 200, 3, true)
         break
       }
       case 5: {
-        current1 = format(0.5 + CalcECC('transcend', player.challengecompletions[5]) / 100, 2, true)
-        current2 = format(Math.pow(10, CalcECC('transcend', player.challengecompletions[5])))
-        current3 = format(5 * CalcECC('transcend', player.challengecompletions[5]), 2, true)
+        current1 = format(0.5 + player.challengecompletions[5] / 100, 2, true)
+        current2 = format(Decimal.pow(10, player.challengecompletions[5]))
+        current3 = format(5 * player.challengecompletions[5], 2, true)
         break
       }
       case 6: {
-        current1 = format(Math.pow(0.965, CalcECC('reincarnation', player.challengecompletions[6])), 3, true)
-        current2 = format(0.3 * CalcECC('reincarnation', player.challengecompletions[6]), 2, true)
-        current3 = format(2 * CalcECC('reincarnation', player.challengecompletions[6]))
+        current1 = format(Math.pow(0.965, player.challengecompletions[6]), 3, true)
+        current2 = format(0.3 * player.challengecompletions[6], 2, true)
+        current3 = format(2 * player.challengecompletions[6])
         break
       }
       case 7: {
-        current1 = format(1 + 0.04 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
-        current2 = format(0.3 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
-        current3 = format(15 * CalcECC('reincarnation', player.challengecompletions[7]), 2, true)
+        current1 = format(1 + 0.04 * player.challengecompletions[7], 2, true)
+        current2 = format(0.3 * player.challengecompletions[7], 2, true)
+        current3 = format(15 * player.challengecompletions[7], 2, true)
         break
       }
       case 8: {
-        current1 = format(0.25 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
-        current2 = format(0.4 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
-        current3 = format(4 * CalcECC('reincarnation', player.challengecompletions[8]), 2, true)
+        current1 = format(0.25 * player.challengecompletions[8], 2, true)
+        current2 = format(0.4 * player.challengecompletions[8], 2, true)
+        current3 = format(4 * player.challengecompletions[8], 2, true)
         break
       }
       case 9: {
-        current1 = format(CalcECC('reincarnation', player.challengecompletions[9]))
-        current2 = format(Math.pow(1.1, CalcECC('reincarnation', player.challengecompletions[9])), 2, true)
-        current3 = format(0.5 * CalcECC('reincarnation', player.challengecompletions[9]), 2, true)
+        current1 = format(player.challengecompletions[9])
+        current2 = format(Math.pow(1.1, player.challengecompletions[9]), 2, true)
+        current3 = format(0.5 * player.challengecompletions[9], 2, true)
         break
       }
       case 10: {
-        current1 = format(100 * CalcECC('reincarnation', player.challengecompletions[10]))
-        current2 = format(2 * CalcECC('reincarnation', player.challengecompletions[10]))
-        current3 = format(10 * CalcECC('reincarnation', player.challengecompletions[10]), 2, true)
+        current1 = format(100 * player.challengecompletions[10])
+        current2 = format(2 * player.challengecompletions[10])
+        current3 = format(10 * player.challengecompletions[10], 2, true)
         break
       }
       case 11: {
-        current1 = format(12 * CalcECC('ascension', player.challengecompletions[11]))
-        current2 = format(Decimal.pow(1e5, CalcECC('ascension', player.challengecompletions[11])))
-        current3 = format(CalcECC('ascension', player.challengecompletions[11]))
+        current1 = format(12 * player.challengecompletions[11])
+        current2 = format(Decimal.pow(1e5, player.challengecompletions[11]))
+        current3 = format(player.challengecompletions[11])
         break
       }
       case 12: {
-        current1 = format(50 * CalcECC('ascension', player.challengecompletions[12]))
-        current2 = format(12 * CalcECC('ascension', player.challengecompletions[12]))
-        current3 = format(20 * CalcECC('ascension', player.challengecompletions[12]))
+        current1 = format(50 * player.challengecompletions[12])
+        current2 = format(12 * player.challengecompletions[12])
+        current3 = format(20 * player.challengecompletions[12])
         break
       }
       case 13: {
-        current1 = format(100 - 100 * Math.pow(0.966, CalcECC('ascension', player.challengecompletions[13])), 3, true)
-        current2 = format(6 * CalcECC('ascension', player.challengecompletions[13]))
-        current3 = format(3 * CalcECC('ascension', player.challengecompletions[13]))
+        current1 = format(100 - 100 * Math.pow(0.966, player.challengecompletions[13]), 3, true)
+        current2 = format(6 * player.challengecompletions[13])
+        current3 = format(3 * player.challengecompletions[13])
         break
       }
       case 14: {
-        current1 = format(50 * CalcECC('ascension', player.challengecompletions[14]))
-        current2 = format(CalcECC('ascension', player.challengecompletions[14]))
-        current3 = format(1.5 * CalcECC('ascension', player.challengecompletions[14]))
+        current1 = format(50 * player.challengecompletions[14])
+        current2 = format(player.challengecompletions[14])
+        current3 = format(1.5 * player.challengecompletions[14])
         break
       }
     }
@@ -361,7 +348,12 @@ export const challengeDisplay = (i: number) => {
       })
     } else {
       j.textContent = i18next.t('challenges.ascensionBankAdd', {
-        x: format(transcensionChallengeCubeBankPerCompletion(), 2, true)
+        x: format(
+          transcensionChallengeCubeBankWeight(player.challengecompletions[i] + 1)
+            * transcensionChallengeCubeBankPerCompletion(),
+          2,
+          true
+        )
       })
     }
   }
@@ -437,7 +429,15 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
   }
 }
 
-// Works to mitigate the difficulty of calculating challenge multipliers when considering softcapping
+const reincarnationScalingRate = (challenge: number) => {
+  if (challenge !== 9 && challenge !== 10) {
+    return 1
+  }
+  return 1
+    + getShopUpgradeEffects('challengeTome', 'c9c10ScalingReduction')
+    + getShopUpgradeEffects('challengeTome2', 'c9c10ScalingReduction')
+}
+
 const calculateChallengeRequirementMultiplier = (
   type: 'transcend' | 'reincarnation' | 'ascension',
   completions: number,
@@ -451,77 +451,19 @@ const calculateChallengeRequirementMultiplier = (
   switch (type) {
     case 'transcend':
       requirementMultiplier *= G.challenge15Rewards.transcendChallengeReduction.value
-      if (completions >= 75) {
-        requirementMultiplier *= Math.pow(1 + completions, 12) / Math.pow(75, 8)
-      } else {
-        requirementMultiplier *= Math.pow(1 + completions, 2)
-      }
-
-      if (completions >= 1000) {
-        requirementMultiplier *= 10 * Math.pow(completions / 1000, 3)
-      }
-      if (completions >= 9000) {
-        requirementMultiplier *= 1337
-      }
-      if (completions >= 9001) {
-        requirementMultiplier *= completions - 8999
-      }
+      requirementMultiplier *= Math.pow(1 + Math.min(completions, 99), 2)
+      requirementMultiplier *= Math.pow(
+        10,
+        Math.min(Math.max(0, completions - 99), 200) / transcensionCompletionsPerTenfold
+      )
+      requirementMultiplier *= Math.pow(10, Math.max(0, completions - 299) / transcensionLateCompletionsPerTenfold)
       return requirementMultiplier
     case 'reincarnation':
-      if (completions >= 100 && (special === 9 || special === 10)) {
-        requirementMultiplier *= Math.pow(1.05, (completions - 100) * (1 + (completions - 100) / 20))
-      }
-      if (completions >= 90) {
-        if (special === 6) {
-          requirementMultiplier *= 100
-        } else if (special === 7) {
-          requirementMultiplier *= 50
-        } else if (special === 8) {
-          requirementMultiplier *= 10
-        } else {
-          requirementMultiplier *= 4
-        }
-      }
-      if (completions >= 80) {
-        if (special === 6) {
-          requirementMultiplier *= 50
-        } else if (special === 7) {
-          requirementMultiplier *= 20
-        } else if (special === 8) {
-          requirementMultiplier *= 4
-        } else {
-          requirementMultiplier *= 2
-        }
-      }
-      if (completions >= 70) {
-        if (special === 6) {
-          // Multiplier is reduced significantly for challenges requiring mythos shards
-          requirementMultiplier *= 20
-        } else if (special === 7) {
-          requirementMultiplier *= 10
-        } else if (special === 8) {
-          requirementMultiplier *= 2
-        } else {
-          requirementMultiplier *= 1
-        }
-      }
-      if (completions >= 60) {
-        if (special === 9 || special === 10) {
-          requirementMultiplier *= Math.pow(
-            1000,
-            (completions - 60)
-              * (1 + getShopUpgradeEffects('challengeTome', 'c9c10ScalingReduction')
-                + getShopUpgradeEffects('challengeTome2', 'c9c10ScalingReduction'))
-              / 10
-          )
-        }
-      }
-      if (completions >= 25) {
-        requirementMultiplier *= Math.pow(1 + completions, 5) / 625
-      }
-      if (completions < 25) {
-        requirementMultiplier *= Math.min(Math.pow(1 + completions, 2), Math.pow(1.3797, completions))
-      }
+      requirementMultiplier *= Math.pow(1 + Math.min(completions, 24), 2)
+      requirementMultiplier *= Math.pow(
+        10,
+        Math.max(0, completions - 24) * reincarnationScalingRate(special) / reincarnationCompletionsPerTenfold
+      )
       requirementMultiplier *= G.challenge15Rewards.reincarnationChallengeReduction.value
       return requirementMultiplier
     case 'ascension':
@@ -537,31 +479,6 @@ const calculateChallengeRequirementMultiplier = (
       return requirementMultiplier
     default:
       return 0
-  }
-}
-
-/**
- * Works to mitigate the difficulty of calculating challenge reward multipliers when considering softcapping
- */
-export const CalcECC = (type: 'transcend' | 'reincarnation' | 'ascension', completions: number) => { // ECC stands for "Effective Challenge Completions"
-  let effective = 0
-  switch (type) {
-    case 'transcend':
-      effective += Math.min(100, completions)
-      effective += 1 / 20 * (Math.min(1000, Math.max(100, completions)) - 100)
-      effective += 1 / 100 * (Math.max(1000, completions) - 1000)
-      return effective
-    case 'reincarnation':
-      effective += Math.min(25, completions)
-      effective += 1 / 2 * (Math.min(75, Math.max(25, completions)) - 25)
-      effective += 1 / 10 * (Math.max(75, completions) - 75)
-      return effective
-    case 'ascension':
-      effective += Math.min(10, completions)
-      effective += 1 / 2 * (Math.max(10, completions) - 10)
-      return effective
-    default:
-      throw new Error('Unreachable code in CalcECC')
   }
 }
 
@@ -591,6 +508,53 @@ export const challengeRequirement = (challenge: number, completion: number, spec
   } else {
     return 0
   }
+}
+
+const transcensionCompletionsAtMultiplier = (multiplier: number) => {
+  if (!(multiplier >= 1)) {
+    return 0
+  }
+  if (multiplier <= 1e4) {
+    return Math.floor(Math.sqrt(multiplier))
+  }
+  const exponent = Math.log10(multiplier)
+  if (exponent <= transcensionLateExponent) {
+    return 100 + Math.floor(transcensionCompletionsPerTenfold * (exponent - 4))
+  }
+  return 300 + Math.floor(transcensionLateCompletionsPerTenfold * (exponent - transcensionLateExponent))
+}
+
+const reincarnationCompletionsAtMultiplier = (multiplier: number, rate: number) => {
+  if (!(multiplier >= 1)) {
+    return 0
+  }
+  if (multiplier <= 625) {
+    return Math.floor(Math.sqrt(multiplier))
+  }
+  return 25 + Math.floor(reincarnationCompletionsPerTenfold * (Math.log10(multiplier) - Math.log10(625)) / rate)
+}
+
+export const challengeCompletionsAffordable = (
+  challenge: number,
+  amount: Decimal,
+  limit: number,
+  requirementPower = 1
+) => {
+  const meetsRequirement = (completions: number) =>
+    amount.gte(Decimal.pow(challengeRequirement(challenge, completions, challenge), requirementPower))
+  const multiplier = amount.log10()
+    / (Decimal.log10(challengeRequirement(challenge, 0, challenge)) * requirementPower)
+  const estimate = challenge <= 5
+    ? transcensionCompletionsAtMultiplier(multiplier)
+    : reincarnationCompletionsAtMultiplier(multiplier, reincarnationScalingRate(challenge))
+  let completions = Math.max(0, Math.min(limit, estimate))
+  while (completions > 0 && !meetsRequirement(completions - 1)) {
+    completions--
+  }
+  while (completions < limit && meetsRequirement(completions)) {
+    completions++
+  }
+  return completions
 }
 
 // Challenge State Machine

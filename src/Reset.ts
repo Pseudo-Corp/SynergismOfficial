@@ -24,7 +24,7 @@ import {
   calculatePowderConversion
 } from './Calculate'
 import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateMaxTokens, updateTokens } from './Campaign'
-import { CalcECC, challengeRequirement, resetChallengeSweep } from './Challenges'
+import { challengeRequirement, resetChallengeSweep } from './Challenges'
 import {
   autoClimbCorruptionLevel,
   c15CorruptionLevel,
@@ -388,7 +388,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
 export const updatePrestigeCount = (count: number) => {
   let multiplier = 1
   multiplier *= +getAchievementReward('prestigeCountMultiplier')
-  multiplier *= 1 + 0.05 * CalcECC('transcend', player.challengecompletions[5])
+  multiplier *= 1 + 0.05 * player.challengecompletions[5]
 
   const prestigeToAdd = Math.floor(count * multiplier)
   if (prestigeToAdd > 0) {
@@ -400,7 +400,7 @@ export const updatePrestigeCount = (count: number) => {
 export const updateTranscensionCount = (count: number) => {
   let multiplier = 1
   multiplier *= +getAchievementReward('transcensionCountMultiplier')
-  multiplier *= 1 + 0.15 * CalcECC('reincarnation', player.challengecompletions[7])
+  multiplier *= 1 + 0.15 * player.challengecompletions[7]
 
   const transcendToAdd = Math.floor(count * multiplier)
   if (transcendToAdd > 0) {
@@ -415,7 +415,7 @@ export const updateTranscensionCount = (count: number) => {
 export const updateReincarnationCount = (count: number) => {
   let multiplier = 1
   multiplier *= +getAchievementReward('reincarnationCountMultiplier')
-  multiplier *= 1 + 0.2 * CalcECC('ascension', player.challengecompletions[12])
+  multiplier *= 1 + 0.2 * player.challengecompletions[12]
 
   const reincarnationToAdd = Math.floor(count * multiplier)
   if (reincarnationToAdd > 0) {
@@ -1144,7 +1144,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.totalQuarksEver = player.totalQuarksEver
   hold.singularityCount = player.singularityCount
   hold.highestSingularityCount = player.highestSingularityCount
-  hold.buildingSoftcapReached = player.buildingSoftcapReached
   hold.singularityElevatorTarget = player.singularityElevatorTarget
   hold.singularityElevatorSlowClimb = player.singularityElevatorSlowClimb
   hold.singularityElevatorLocked = player.singularityElevatorLocked
