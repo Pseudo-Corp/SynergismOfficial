@@ -1429,9 +1429,6 @@
       "508": "The Hook Brings Me Back: Use Code 'add' num:((10000)) times."
     },
     "achievementRewards": {
-      "3": {
-        "acceleratorPower": "+num:((0.1))% Accelerator Power"
-      },
       "4": {
         "workerAutobuyer": "Start with the Worker Autobuyer unlocked!"
       },
@@ -1443,9 +1440,6 @@
       },
       "7": {
         "accelBoosts": "+1 Accelerator Boost Traction per num:((2000)) Workers owned"
-      },
-      "10": {
-        "acceleratorPower": "+num:((0.15))% Accelerator Power"
       },
       "11": {
         "investmentAutobuyer": "Start with the Investment Autobuyer unlocked!"
@@ -1459,9 +1453,6 @@
       "14": {
         "accelBoosts": "+1 Accelerator Boost Traction per num:((2000)) Investments owned"
       },
-      "17": {
-        "acceleratorPower": "+num:((0.2))% Accelerator Power"
-      },
       "18": {
         "printerAutobuyer": "Start with the Printer Autobuyer unlocked!"
       },
@@ -1474,9 +1465,6 @@
       "21": {
         "accelBoosts": "+1 Accelerator Boost Traction per num:((2000)) Printers owned"
       },
-      "24": {
-        "acceleratorPower": "+num:((0.2))% Accelerator Power"
-      },
       "25": {
         "mintAutobuyer": "Start with the Mint Autobuyer unlocked!"
       },
@@ -1488,9 +1476,6 @@
       },
       "28": {
         "accelBoosts": "+1 Accelerator Boost Traction per num:((2000)) Coin Mints owned"
-      },
-      "31": {
-        "acceleratorPower": "+num:((0.3))% Accelerator Power"
       },
       "32": {
         "alchemyAutobuyer": "Start with the Alchemy Autobuyer unlocked!"
@@ -1735,9 +1720,6 @@
       },
       "147": {
         "polymathTalisman": "Unlock the Polymath Talisman!"
-      },
-      "149": {
-        "acceleratorPower": "+1% Accelerator Power"
       },
       "151": {
         "accelerators": "Gain +5 Accelerator Traction"
@@ -2362,7 +2344,6 @@
       "title": "Achievement-specific bonuses grant you the following!",
       "unlocked": "✔",
       "locked": "❌",
-      "acceleratorPower": "• Accelerator Power +{{val}}",
       "accelerators": "• Accelerator Traction +{{val}}",
       "multipliers": "• Multiplier Traction +{{val}}",
       "accelBoosts": "• Accelerator Boost Traction +{{val}}",
@@ -2947,7 +2928,7 @@
       "buildingCostScale": {
         "name": "Hic Formicidae",
         "intro": "A builder ant! Some may call it a Carpenter Ant?",
-        "description": "Multiplies Construction by up to x10 (about +3% per level at first), and +1% Building Power per level!",
+        "description": "Multiplies Construction by up to x3 (about +0.67% per level at first), and +1% Building Power per level!",
         "lockedAutomation": "Unlock the <i>Hic Formicidae</i> autobuyer from the <<gold|<i>Anthills Sacrificed</i> >> Achievement Group",
         "effect": "Construction <<lime | x{{x}}>>",
         "effect2": "Building Power <<lime | x{{x}}>>"
@@ -3191,14 +3172,14 @@
       "restrictions": "Transcend and reach the goal except Multipliers count as Accelerators. <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Accelerator Power is multiplied by <<gold|num:((0.25))>>, then increased by <<gold|num:((0.55))>> <br> ☆ Each Multiplier gives a Coin Producer production multiplier equal to Accelerator Power.",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
-        "1": "+2 base Multiplier Boosts! [+num:((0.02)) to power!] Current: ",
+        "1": "None",
         "2": "Duplication Rune level scaling coefficient is increased by num:((0.75))! Current: ",
         "3": "+num:((0.04)) base Rune exp per Offering! Current: "
       },
       "first": "+1 Multiplier Traction! +1 Base EXP per offering used!",
       "start": "Start [No Multipliers]",
       "current": {
-        "1": "+{{value}} Boosts",
+        "1": "",
         "2": "+{{value}} Duplication Rune level scaling coefficient",
         "3": "+{{value}} Rune EXP [Highest Completion]"
       }
@@ -3207,19 +3188,19 @@
       "name": "No Accelerators Challenge || {{- value}} Completions",
       "progressName": "No Accelerators Challenge",
       "flavor": "Who needs accelerators? They do basically nothing now.",
-      "restrictions": "Transcend and reach the goal except Accelerators do nothing! <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power is reduced to be <<gold|num:((1.25)), +num:((0.0012))>> per Multiplier Boost",
+      "restrictions": "Transcend and reach the goal except Accelerators do nothing! <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power is reduced to <<gold|num:((1.25))>> (plus the Duplication Rune bonus)",
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+5 Accelerator Traction! Current: ",
-        "2": "+5% Accelerator Boost Power! Current: ",
-        "3": "+num:((0.25))% Accelerator Power! Current: "
+        "2": "Accelerator Boosts give +num:((0.02))% more Accelerator Traction each! Current: ",
+        "3": "None"
       },
       "first": "+1 base offering for Prestige and Transcensions.",
       "start": "Start [No Accelerators]",
       "current": {
         "1": "+{{value}} Accelerator Traction",
-        "2": "+{{value}}% A.Boost Power",
-        "3": "+{{value}}% Accelerator Power"
+        "2": "+{{value}}% per A.Boost",
+        "3": ""
       }
     },
     "3": {
@@ -3250,7 +3231,7 @@
       "per": {
         "1": "Accelerator Traction +5 per completion. Current: ",
         "2": "Multiplier Traction +2 per completion. Current: ",
-        "3": "Construction x(1 + num:((0.5))% per completion). Current: "
+        "3": "Construction x(1 + num:((0.3))% per completion). Current: "
       },
       "first": "None",
       "start": "Start [Cost+]",
@@ -3305,14 +3286,14 @@
       "restrictions": "Reincarnate and reach the goal except Accelerators and Multipliers do nothing. <br> ☆ Accelerator Power = <<gold|1>> at all times! <br> ☆ Multiplier Power = <<gold|1>> at all times! <br> ☆ Building Power above 1 is reduced by <<gold|95%>> <br> ☆ Your Coin production is divided by <<gold | num:((1e1250))>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
-        "1": "Accelerator/Multiplier boost power exponent +num:((0.04))! Current: ",
+        "1": "Accelerator and Multiplier Traction x(1 + num:((4))% per completion)! Current: ",
         "2": "+num:((0.3)) Salvage! Current: ",
         "3": "+15% more Transcension Count when Transcending! Current: "
       },
-      "first": "Multiplier Boost power +25%! The first Discord-Booster Global Diamond Upgrade.",
+      "first": "Multiplier Boosts +25%! The first Discord-Booster Global Diamond Upgrade.",
       "start": "Start <No Multipliers/Accelerators>",
       "current": {
-        "1": "Exponent = ^{{value}}",
+        "1": "+{{value}}% Traction",
         "2": "Salvage +{{value}}",
         "3": "Transcension Count +{{value}}%"
       }
@@ -3708,9 +3689,9 @@
       "15": "[1x15] Gain +num:((0.5))% Multiplier Traction per level.",
       "16": "[1x16] Gain +5% Accelerator Boost Traction per level.",
       "17": "[1x17] Gain +5% Accelerator Boost Traction per level.",
-      "18": "[1x18] Gain +2 Accelerator Traction per Accelerator Boost.",
-      "19": "[1x19] Gain +2 Accelerator Traction per Accelerator Boost.",
-      "20": "[1x20] Gain +3 Accelerator Traction per Accelerator Boost!",
+      "18": "[1x18] Accelerator Boosts give +num:((2))% more Accelerator Traction each.",
+      "19": "[1x19] Accelerator Boosts give +num:((2))% more Accelerator Traction each.",
+      "20": "[1x20] Accelerator Boosts give +num:((2))% more Accelerator Traction each!",
       "21": "[1x21] +1% Rune Power to the first five Runes per level.",
       "22": "[1x22] Each Offering used increases Rune EXP by num:((0.6)) per level.",
       "23": "[1x23] Each Offering used increases Rune EXP by another num:((0.3)) per level!",
@@ -3723,9 +3704,9 @@
       "30": "[2x5] Half of [2x3]. Add num:((0.04)) to its Exponent per level!",
       "31": "[2x6] Want to bake cookies instead? You can go offline for 4 additional hours per level (Base 72hr).",
       "32": "[2x7] Want to bake a lot of cookies instead? Extend the offline maximum timer by another 4 hours per level!",
-      "33": "[2x8] Gain +11% more Multiplier Boosts from Mythos Shards per level.",
-      "34": "[2x9] Gain another +11% more Multiplier Boosts from Mythos Shards per level.",
-      "35": "[2x10] Gain ANOTHER +11% more Multiplier Boosts from Mythos Shards per level.",
+      "33": "[2x8] Multiplier Boosts give +num:((0.04))% more Multiplier Traction each per level.",
+      "34": "[2x9] Multiplier Boosts give another +num:((0.04))% more Multiplier Traction each per level.",
+      "35": "[2x10] Multiplier Boosts give ANOTHER +num:((0.04))% more Multiplier Traction each per level.",
       "36": "[2x11] Building power scales 5% faster per level.",
       "37": "[2x12] Building power scales num:((2.5))% faster per level.",
       "38": "[2x13] Building power scales num:((2.5))% faster per level.",
@@ -3746,11 +3727,11 @@
       "53": "[3x3] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
       "54": "[3x4] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
       "55": "[3x5] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
-      "56": "[3x6] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
-      "57": "[3x7] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
-      "58": "[3x8] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
-      "59": "[3x9] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
-      "60": "[3x10] Construction x(1 + num:((0.5))% per level). Multiplies with Researches 3x6 - 3x10.",
+      "56": "[3x6] Construction +num:((0.5))% per level. Adds with Researches 3x6 - 3x10.",
+      "57": "[3x7] Construction +num:((0.5))% per level. Adds with Researches 3x6 - 3x10.",
+      "58": "[3x8] Construction +num:((0.5))% per level. Adds with Researches 3x6 - 3x10.",
+      "59": "[3x9] Construction +num:((0.5))% per level. Adds with Researches 3x6 - 3x10.",
+      "60": "[3x10] Construction +num:((0.5))% per level. Adds with Researches 3x6 - 3x10.",
       "61": "[3x11] Waiting to Reincarnate gives you more Obtainium when you finally do. Gain 50% of that amount increase, without having to Reincarnate! This does <b>NOT</b> affect Obtainium you would gain on Reincarnation, so it's like double dipping!",
       "62": "[3x12] Adds a flat +10% to [3x11]'s effect per level.",
       "63": "[3x13] If your Reincarnation lasts at least 2 seconds you gain +1 Base Obtainium per level.",
@@ -3779,12 +3760,12 @@
       "86": "[4x11] Yeah, going back to basics. +5% Accelerator Traction per level.",
       "87": "[4x12] 0/5 Multipliers SUCK: +5% Multiplier Traction per level.",
       "88": "[4x13] -1/5 A.Boosts SUCK: +5% Accelerator Boost Traction per level.",
-      "89": "[4x14] -5/5 MULTIPLIERS STILL SUCK: +20% Multiplier Boosts per level",
+      "89": "[4x14] -5/5 MULTIPLIERS STILL SUCK: Multiplier Boosts give +num:((0.06))% more Multiplier Traction each per level",
       "90": "[4x15] Runes don't suck at all, but why not make them even BETTER? +1% Rune Power per level!",
       "91": "[4x16] A simple +5% Rune EXP for all Runes!",
       "92": "[4x17] Another simple +5% Rune EXP for all Runes!",
-      "93": "[4x18] +1 Accelerator Boost Traction per 20 Rune Levels, per level.",
-      "94": "[4x19] +20 Multiplier Traction per 8 Rune Levels, per level.",
+      "93": "[4x18] +1 Accelerator Boost Traction per 20 Rune Levels, per level, up to +num:((1000)).",
+      "94": "[4x19] +20 Multiplier Traction per 25 Rune Levels, per level, up to +num:((1000)).",
       "95": "[4x20] Gain +4 base Offerings from by purchasing this. Easy Shmeezy.",
       "96": "[4x21] Ants slow? Multiply Ant Speed by (1 + num:((0.0002)) * level) per Worker Ant purchased.",
       "97": "[4x22] Add +2 free levels to Ant Upgrades per level! Free levels require a corresponding purchased level to work!",
@@ -5168,8 +5149,8 @@
       "5": "Increase production of Alchemies per producer bought.",
       "6": "Increase all production based on producer bought.",
       "7": "Gain Multiplier Traction based on your purchased Alchemies.",
-      "8": "Gain 1 Accelerator Traction per 7 purchased Multipliers.",
-      "9": "Gain 1 Multiplier Traction per 10 purchased Accelerators.",
+      "8": "Gain 1 Accelerator Traction per 7 purchased Multipliers, up to +num:((100)).",
+      "9": "Gain 1 Multiplier Traction per 10 purchased Accelerators, up to +num:((100)).",
       "10": "Improve Workers based on the first 750 purchased Investments.",
       "11": "Accelerators improve coin production by 2% each.",
       "12": "Each Prestige multiplies production by num:((1.01)), multiplicatively (Max: num:((1e4))x).",
@@ -5181,19 +5162,19 @@
       "18": "Multiply Printer production based on Mythos Shards.",
       "19": "Multiply Investment production based on Mythos.",
       "20": "Coin upgrade 1 is raised to the eleventh power.",
-      "21": "Gain +1 Multiplier Traction and +5 Accelerator Traction, plus 1% more Multiplier and Accelerator Traction.",
-      "22": "Gain +1 Multiplier Traction and +4 Accelerator Traction, plus 1% more Multiplier and Accelerator Traction.",
-      "23": "Gain +1 Multiplier Traction and +3 Accelerator Traction, plus 1% more Multiplier and Accelerator Traction.",
-      "24": "Gain +1 Multiplier Traction and +2 Accelerator Traction, plus 1% more Multiplier and Accelerator Traction.",
-      "25": "Gain +1 Multiplier Traction and +1 Accelerator Traction, plus 1% more Multiplier and Accelerator Traction.",
+      "21": "Gain 1% more Multiplier and Accelerator Traction.",
+      "22": "Gain 1% more Multiplier and Accelerator Traction.",
+      "23": "Gain 1% more Multiplier and Accelerator Traction.",
+      "24": "Gain 1% more Multiplier and Accelerator Traction.",
+      "25": "Gain 1% more Multiplier and Accelerator Traction.",
       "26": "Gain +1 Accelerator Boost Traction.",
       "27": "Gain free levels of Speed Rune based on unspent Coins. (Max: +100)",
       "28": "Gain a free level of Duplication Rune per 400 Coin producers bought. (Max: +100)",
       "29": "Gain a free level of Speed Rune per 400 Coin producers bought. (Max: +100)",
       "30": "Gain free levels of Duplication Rune based on unspent Coins. (Max: +100)",
-      "31": "Gain +1 Accelerator Boost Traction per num:((2000)) Coin producers bought.",
+      "31": "Gain +1 Accelerator Boost Traction per num:((2000)) Coin producers bought, up to +num:((500)).",
       "32": "Gain Accelerator Traction based on Unspent Diamonds.",
-      "33": "Gain 1 Multiplier Traction for each Accelerator Boost owned.",
+      "33": "Gain 1 Multiplier Traction for each Accelerator Boost owned, up to +num:((200)).",
       "34": "Gain 3% more Multiplier Traction.",
       "35": "Gain 2% more Multiplier Traction.",
       "36": "Multiply Crystal production by Diamonds, maximum num:((1e5000))x.",
@@ -5206,7 +5187,7 @@
       "43": "Multiply coin production by num:((1.01)) per Transcension (Max: num:((1e30))x).",
       "44": "Multiply Mythos gain on Transcend by num:((1.01)) per Transcension (Max: num:((1e6))x).",
       "45": "Gain Accelerator Traction based on Mythos Shards.",
-      "46": "Accelerator Boosts are 5% stronger.",
+      "46": "Accelerator Boosts give +num:((2))% more Accelerator Traction each.",
       "47": "Multiply Mythos Shard production based on your AP.",
       "48": "Multiply production based on owned Accelerators and Multipliers.",
       "49": "Gain Multiplier Traction based on unspent Mythos.",
@@ -5896,8 +5877,8 @@
     "taxWarning": "Your tax also caps your Coin gain at <<gold|{{gain}}/s>>.",
     "acceleratorPower": "Acceleration Power: {{power}}% <br> Acceleration Multiplier: {{mult}}x",
     "multiplierPower": "Multiplier Power: {{power}}x <br> Multiplier: {{mult}}x",
-    "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add {{amount}}% Acceleration Power and {{accelsPerBoost}} Accelerator Traction.",
-    "acceleratorBoostNoReset": "Spend Diamonds to add {{amount}}% Acceleration Power and {{accelsPerBoost}} Accelerator Traction.",
+    "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add +{{amount}}% Accelerator Traction.",
+    "acceleratorBoostNoReset": "Spend Diamonds to add +{{amount}}% Accelerator Traction.",
     "coinsPerSecond": "Coins/Sec: {{coins}} [{{percent}}%]",
     "buy": "Buy",
     "enableAllAutomation": "Enable all autobuyers",
@@ -5966,8 +5947,8 @@
       "cost": "Cost: <<lightblue|{{amount}}>> crystals",
       "currentEffect": "Current Effect: <<lightblue|{{effect}}>>"
     },
-    "mythosYouHave": "You have {{shards}} Mythos Shards, providing {{mult}} Multiplier Power boosts.",
-    "eachMultiplierBoost": "Each Multiplier Boost increases the base effect of Multipliers by num:((0.02)).",
+    "mythosYouHave": "You have {{shards}} Mythos Shards, providing {{mult}} Multiplier Boosts (+{{traction}} Multiplier Traction).",
+    "eachMultiplierBoost": "Each Multiplier Boost gives +num:((1))% Multiplier Traction (more with Researches). Boosts past num:((1e15)) are square rooted.",
     "costMythos": "Cost: {{mythos}} Mythos",
     "atomsYouHave": "You have <<white|{{atoms}}>> Atoms, providing <<gold|{{power}}>> Building Power.<br>Each Coin Producer purchased multiplies Coin Production by <<gold|{{power}}>><br>Multiplier to Coin Production: <<gold|{{mult}}>><br><<orange|Coin multiplier also increases your Tax Cap, and is further exempt from Taxation>>",
     "costParticles": "Cost: {{particles}} Particles",
@@ -6292,11 +6273,11 @@
       "name": "Duplication",
       "description": "\"<i>Its ability lies in the world inside of the mirror...</i>\" -some bizarre inscription",
       "lockedDescription": "This rune is locked! To unlock it, Prestige 100 times. You even get an Achievement for it!",
-      "multiplierPower": "<<pink | Multiplier Power Boosts +{{val}}>> (+num:((0.2)) per Power)",
+      "multiplierPower": "<<pink | Multiplier Power +{{val}}%>> (+num:((0.02))% per Power)",
       "freeMultipliers": "<<pink | Multiplier Traction +{{val}}>> (+num:((0.25))% per Power)",
       "taxReduction": "<<lightgray | Tax Growth -{{val}}%>> (Up to -num:((99.9))%)",
-      "values": "+num:((0.2)) Multiplier Power Boost (each gives +num:((0.02)) to Multiplier Power), +num:((0.25))% Multiplier Traction per level. Tax growth is delayed more for each level (cap: num:((99.9))%)!",
-      "effect": "Duplication Rune Bonus: +{{val}} Multiplier Power Boosts, +{{val2}} Multiplier Traction, -{{val3}}% Tax Growth."
+      "values": "+num:((0.02))% Multiplier Power, +num:((0.25))% Multiplier Traction per level. Tax growth is delayed more for each level (cap: num:((99.9))%)!",
+      "effect": "Duplication Rune Bonus: +{{val}}% Multiplier Power, +{{val2}} Multiplier Traction, -{{val3}}% Tax Growth."
     },
     "prism": {
       "name": "Prism",
@@ -6311,10 +6292,10 @@
       "name": "Thrift",
       "description": "It seems with this Rune in tow, you keep making great deals on your purchases, and your Offerings are just a little more reusable.",
       "lockedDescription": "This rune is locked! To unlock it, Reincarnate num:((10000)) times. You even get an Achievement for it!",
-      "construction": "<<lime | Construction +{{val}}>> (+num:((0.1))% per Power)",
+      "construction": "<<lime | Construction +{{val}}>> (+num:((1))% × √Power)",
       "salvage": "<<limegreen|+{{val}} Salvage>> (+num:((5.756)) * log_10(1 + Power / 10))",
       "taxReduction": "<<lightgray | Tax Growth -{{val}}%>> (Up to -99%)",
-      "values": "+num:((0.1))% Construction per level, more Salvage per level (log scaling), Tax Growth is delayed more for each level (cap: 99%)!",
+      "values": "+num:((1))% × √Power Construction, more Salvage per level (log scaling), Tax Growth is delayed more for each level (cap: 99%)!",
       "effect": "Thrift Rune Bonus: Delay all producer cost increases by {{val}}%, Salvage: +{{val2}}. -{{val3}}% Tax Growth"
     },
     "superiorIntellect": {
@@ -6563,7 +6544,7 @@
       "blessingPower": "Blessing Power: <<turquoise|{{value}}>> =-=-= Effect: {{desc}}",
       "rewards": {
         "speed": "{{effect}}x Global Speed",
-        "duplication": "{{effect}}x Multiplier Boosts",
+        "duplication": "{{effect}}x Multiplier Traction",
         "prism": "{{effect}}x Ant Sacrifice Rewards",
         "thrift": "{{effect}}x Accelerator Boost Cost Delays",
         "superiorIntellect": "Ant Speed multiplied by Obt^{{effect}} || Ant Speed x{{effect2}}"
@@ -6580,7 +6561,7 @@
       },
       "duplication": {
         "description": "<i>I control the inside of the mirror... that's my ability.</i>",
-        "multiplierBoosts": "<<pink | Multiplier Power Boosts +{{val}}>> (+1% per num:((10000)) Blessing Power)"
+        "multiplierTraction": "<<pink | Multiplier Traction +{{val}}>> (+num:((0.01))% × √Blessing Power)"
       },
       "prism": {
         "description": "If I get with the ultraviolet dream...",
@@ -7882,7 +7863,7 @@
     "constructionStats": {
       "title": "Construction",
       "cubeRootInfo": "<<crimson|Construction past X is cube rooted: quadratic scaling starts at X × (Construction / X)^(1/3) owned instead. X is num:((1e15)), except in Challenges 4 and 10, where it is num:((1e13)) for Coin and Crystal Buildings, and in Challenge 8, where it is num:((1e12)) for all but Particle Buildings (Challenge 8 takes priority).>>",
-      "extraInfo": "Each Coin, Crystal, Mythos and Particle Building costs a fixed multiple more than the last, until you own as many of it as your Construction. <br> Past that, the price exponent grows <<yellow|quadratically>>. <br> Crystal, Mythos and Particle Buildings get <<cyan|+num:((1000))>>, <<plum|+num:((3000))>> and <<limegreen|+num:((9000))>> extra base Construction respectively, which is multiplied like all other Construction. Challenges 4 and 10 divide base Construction by num:((100)) and square root multipliers, and Challenge 8 divides base Construction by num:((1000)) and cube roots multipliers (Challenge 8 takes priority). In Ascension Challenge 15, Particle Construction is fixed at num:((1000)) instead."
+      "extraInfo": "Each Coin, Crystal, Mythos and Particle Building costs a fixed multiple more than the last, until you own as many of it as your Construction. <br> Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Construction also slows price growth: the entire price exponent is multiplied by num:((1000)) / Construction (after Challenge penalties and cube rooting, capped at ×num:((1))), so doubling Construction halves it. This applies to the quadratic scaling past Construction as well.>> <br> Crystal, Mythos and Particle Buildings get <<cyan|+num:((1000))>>, <<plum|+num:((3000))>> and <<limegreen|+num:((9000))>> extra base Construction respectively, which is multiplied like all other Construction. Challenges 4 and 10 divide base Construction by num:((100)) and square root multipliers, and Challenge 8 divides base Construction by num:((1000)) and cube roots multipliers (Challenge 8 takes priority). In Ascension Challenge 15, Particle Construction is fixed at num:((1000)) instead."
     },
     "constructionBase": {
       "title": "Base Construction",
@@ -7904,9 +7885,16 @@
       "MythosBuildings": "Mythos Buildings:",
       "ParticleBuildings": "Particle Buildings:"
     },
+    "constructionScaling": {
+      "title": "Price Exponent Multiplier by Building",
+      "CoinBuildings": "Coin Buildings:",
+      "CrystalBuildings": "Crystal Buildings:",
+      "MythosBuildings": "Mythos Buildings:",
+      "ParticleBuildings": "Particle Buildings:"
+    },
     "tractionStats": {
       "title": "Traction",
-      "extraInfo": "Traction is Construction for Accelerators, Multipliers and Accelerator Boosts. <br> Accelerators and Multipliers cost a fixed multiple more than the last until you own as many as their Traction, then their price exponent grows <<yellow|quadratically>>. <br> Accelerator Boost price exponents grow <<yellow|quadratically>>, and <<orange|num:((10))× faster>> once you own more than their Traction. <br> <<crimson|Traction past num:((1e15)) is cube rooted: the scaling starts at num:((1e15)) × (Traction / num:((1e15)))^(1/3) owned instead.>>",
+      "extraInfo": "Traction is Construction for Accelerators, Multipliers and Accelerator Boosts. <br> Accelerators and Multipliers cost a fixed multiple more than the last until you own as many as their Traction, then their price exponent grows <<yellow|quadratically>>. <br> Accelerator Boost price exponents grow <<yellow|quadratically>>, and <<orange|num:((10))× faster>> once you own more than their Traction. <br> <<lime|Traction also slows price growth: the entire price exponent is multiplied by Base Traction / Traction (after penalties and cube rooting, capped at ×num:((1))), where Base Traction is num:((125)) for Accelerators, num:((75)) for Multipliers and num:((1000)) for Accelerator Boosts. Doubling Traction halves it. This applies to the scaling past Traction as well.>> <br> <<crimson|Traction past num:((1e15)) is cube rooted: the scaling starts at num:((1e15)) × (Traction / num:((1e15)))^(1/3) owned instead.>>",
       "challenge4Info": "<<gold|Challenge 4 divides Raw Accelerator, Multiplier and Accelerator Boost Traction by num:((100)) and square roots their Traction multipliers.>>",
       "challenge8Info": "<<gold|Challenge 8 divides Raw Accelerator, Multiplier and Accelerator Boost Traction by num:((1000)) and cube roots their Traction multipliers.>>"
     },
@@ -7914,6 +7902,7 @@
       "title": "Accelerator Traction",
       "Base": "Base:",
       "Challenge4": "Challenge 4 Completions:",
+      "Challenge7": "Challenge 7 Completions:",
       "CoinUpgrade8": "Coin Upgrade 8:",
       "DiamondUpgrades1to5": "Diamond Upgrades 1-5:",
       "DiamondUpgrade12": "Diamond Upgrade 12:",
@@ -7928,6 +7917,7 @@
       "Research86": "Research 4x11:",
       "LateResearches": "Researches 6x1, 6x16, 7x6, 7x21, 8x11, 8x25:",
       "CubeUpgrade50": "Cube Upgrade 5x10:",
+      "CubeBlessing": "Cube Blessing:",
       "MythosUpgrade10": "Mythos Upgrade 10:",
       "ViscosityCorruption": "Viscosity Corruption:",
       "MultiplierTotal": "Total Multiplier:",
@@ -7942,6 +7932,9 @@
       "title": "Multiplier Traction",
       "Base": "Base:",
       "Challenge4": "Challenge 4 Completions:",
+      "Challenge7": "Challenge 7 Completions:",
+      "MultiplierBoosts": "Multiplier Boosts:",
+      "DuplicationBlessing": "Duplication Blessing:",
       "CoinUpgrade7": "Coin Upgrade 7:",
       "CoinUpgrade9": "Coin Upgrade 9:",
       "DiamondUpgrades1to5": "Diamond Upgrades 1-5:",
@@ -7991,6 +7984,12 @@
       "MultiplierTotal": "Total Multiplier:",
       "ChallengePenalty": "Challenge Penalty (Raw, Multiplier):",
       "Total": "Total Accelerator Boost Traction:"
+    },
+    "tractionScaling": {
+      "title": "Price Exponent Multiplier",
+      "Accelerators": "Accelerators:",
+      "Multipliers": "Multipliers:",
+      "AcceleratorBoosts": "Accelerator Boosts:"
     },
     "salvagePositive": {
       "PurpleAmbrosiaVirgo": "Purple Ambrosia - Virgo:",
@@ -8222,7 +8221,7 @@
       "inventory": "You possess <<yellow|{{amount}}>> Wow! Cubes. Get them from ascending!",
       "total": "You have a total of <<yellow|{{amount}}>> Cube tributes!",
       "items": {
-        "1": "Hermes' Tribute x{{amount}}: +{{bonus}} Accelerator Traction per Accelerator Boost",
+        "1": "Hermes' Tribute x{{amount}}: +{{bonus}} Accelerator Traction",
         "2": "Aphrodite's Tribute x{{amount}}: +{{bonus}} Multiplier Traction",
         "3": "Plutus' Tribute x{{amount}}: +{{bonus}} Offering Gain",
         "4": "Iris' Tribute x{{amount}}: +{{bonus}} Salvage",

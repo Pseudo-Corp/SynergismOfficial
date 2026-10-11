@@ -600,7 +600,6 @@ export interface GlobalVariables {
   multiplierPower: number
   multiplierEffect: Decimal
   challengeOneLog: number
-  totalMultiplierBoost: number
 
   globalCoinMultiplier: Decimal
 
@@ -653,7 +652,6 @@ export interface GlobalVariables {
   producePerSecondMythos: Decimal
   producePerSecondParticles: Decimal
 
-  tuSevenMulti: number
   currentTab: Tabs
 
   ordinals: readonly [

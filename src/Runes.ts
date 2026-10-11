@@ -30,7 +30,7 @@ type RuneTypeMap = {
     globalSpeed: number
   }
   duplication: {
-    multiplierBoosts: number
+    multiplierPower: number
     multiplicativeMultipliers: number
     taxReduction: number
   }
@@ -374,8 +374,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     ignoreChal9: false,
     levelsPerOOMIncrease: () => duplicationRuneOOMIncrease(),
     effects: (n, key) => {
-      if (key === 'multiplierBoosts') {
-        return n / 5
+      if (key === 'multiplierPower') {
+        return 0.0002 * n
       } else if (key === 'multiplicativeMultipliers') {
         return 1 + n / 400
       } else {
@@ -383,11 +383,11 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       }
     },
     effectsDescription: () => {
-      const multiplierBoosts = getRuneEffects('duplication', 'multiplierBoosts')
+      const multiplierPower = getRuneEffects('duplication', 'multiplierPower')
       const multiplicativeMultipliers = getRuneEffects('duplication', 'multiplicativeMultipliers')
       const taxReduction = getRuneEffects('duplication', 'taxReduction')
       const multiplierPowerBoostsText = i18next.t('runes.duplication.multiplierPower', {
-        val: format(multiplierBoosts, 2, true)
+        val: format(100 * multiplierPower, 2)
       })
       const multiplicativeMultipliersText = i18next.t('runes.duplication.freeMultipliers', {
         val: formatAsPercentIncrease(multiplicativeMultipliers, 2)
@@ -457,7 +457,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     levelsPerOOMIncrease: () => thriftRuneOOMIncrease(),
     effects: (n, key) => {
       if (key === 'construction') {
-        return 1 + n / 1000
+        return 1 + 0.01 * Math.sqrt(n)
       } else if (key === 'salvage') {
         return 2.5 * Math.log(1 + n / 10)
       } else {

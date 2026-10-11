@@ -182,7 +182,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.buildingCostScale.intro'),
     description: () => i18next.t('ants.upgrades.buildingCostScale.description'),
     effect: (n: number) => {
-      const construction = 1 + 9 * (1 - Math.exp(-n / 300))
+      const construction = 1 + 2 * (1 - Math.exp(-n / 300))
       const buildingPowerMult = 1 + n / 100
       return {
         construction,

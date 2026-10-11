@@ -153,8 +153,8 @@ const upgradetexts = [
   () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
   () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
   () => Math.min(4, 1 + Math.floor(Decimal.log(player.fifthOwnedCoin + 1, 10))),
-  () => format(Math.floor(player.multiplierBought / 7), 0, true),
-  () => format(Math.floor(player.acceleratorBought / 10), 0, true),
+  () => format(Math.min(100, Math.floor(player.multiplierBought / 7)), 0, true),
+  () => format(Math.min(100, Math.floor(player.acceleratorBought / 10)), 0, true),
   () => format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
   () => format(Decimal.pow(1.02, player.acceleratorBought), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
@@ -225,9 +225,9 @@ const upgradetexts = [
       Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e30)))
         + Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e300)))
     ),
-  () => format(Math.floor(calculateTotalCoinOwned() / 2000)),
+  () => format(Math.min(500, Math.floor(calculateTotalCoinOwned() / 2000))),
   () => format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))),
-  () => format(player.acceleratorBoostBought),
+  () => format(Math.min(200, player.acceleratorBoostBought)),
   () => null,
   () => null,
   () => format(Decimal.min('1e5000', Decimal.pow(player.prestigePoints, 1 / 500)), 2),
