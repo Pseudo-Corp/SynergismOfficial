@@ -212,10 +212,13 @@ const costBetween = (curve: CostCurve, from: number, to: number): Decimal => {
 
 const maxAffordable = (curve: CostCurve, owned: number, budget: Decimal) => {
   const limit = budget.times(affordabilityTolerance)
-  const log10Total = Decimal.pow(10, curve.log10Growth * curve.exponentBetween(0, owned))
-    .add(budget.div(curve.scale))
-    .log10()
-  let count = Math.max(owned, Math.floor(curve.countForExponent(log10Total / curve.log10Growth)))
+  const ownedExponent = curve.exponentBetween(0, owned)
+  const ratio = budget.div(curve.scale.times(Decimal.pow(curve.growth, ownedExponent)))
+  const exponent = ownedExponent
+    + (ratio.lt(G.d1e300)
+      ? Math.log1p(ratio.toNumber()) / Math.log(curve.growth)
+      : ratio.add(1).log10() / curve.log10Growth)
+  let count = Math.max(owned, Math.floor(curve.countForExponent(exponent)))
   while (count > owned && costBetween(curve, owned, count).gt(limit)) {
     count -= smallestInc(count)
   }
