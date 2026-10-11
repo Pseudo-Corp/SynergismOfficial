@@ -1,6 +1,14 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import { buyTimeSkip, getOwnedLotus, getUsedLotus, isLotusInventoryLoaded, sendToWebsocket } from '../Login'
+import {
+  buyTimeSkip,
+  getOwnedBells,
+  getOwnedLotus,
+  getUsedLotus,
+  isLotusInventoryLoaded,
+  sendToWebsocket,
+  setOwnedBells
+} from '../Login'
 import { format } from '../Synergism'
 import { changeTab, Tabs } from '../Tabs'
 import { Alert, Confirm } from '../UpdateHTML'
@@ -49,17 +57,27 @@ const initializeConsumablesTab = memoize(() => {
         const isLotus = key.includes('LOTUS')
 
         button.addEventListener('click', async () => {
-          const confirmed = await Confirm(
-            i18next.t(isLotus ? 'pseudoCoins.lotus.buyConfirm' : 'pseudoCoins.consumables.confirmActivation', {
-              name,
-              cost
-            })
+          let confirmMessage = i18next.t(
+            isLotus ? 'pseudoCoins.lotus.buyConfirm' : 'pseudoCoins.consumables.confirmActivation',
+            { name, cost }
           )
+
+          if (key === 'HAPPY_HOUR_BELL' && getOwnedBells() > 0) {
+            confirmMessage = i18next.t('pseudoCoins.consumables.confirmFreeActivation', { name })
+          }
+
+          const confirmed = await Confirm(confirmMessage)
 
           if (!confirmed) return Alert(i18next.t('pseudoCoins.consumables.cancelled'))
           else if (key.includes('TIMESKIP')) {
             buyTimeSkip(key)
           } else {
+            // The server's updated count can take a while to arrive, and a click before then would spend PseudoCoins.
+            if (key === 'HAPPY_HOUR_BELL' && getOwnedBells() > 0) {
+              setOwnedBells(getOwnedBells() - 1)
+              updateBellButton()
+            }
+
             sendToWebsocket(JSON.stringify({
               type: 'consume',
               consumable: key,
@@ -72,6 +90,7 @@ const initializeConsumablesTab = memoize(() => {
       DOMCacheGetOrSet('consumableUseTips').addEventListener('click', () => changeTab(Tabs.Event))
 
       updateLotusDisplay()
+      updateBellButton()
     })
 })
 
@@ -92,7 +111,9 @@ const createBellHTML = (bell: ConsumableListItems) => `
     <div class="consumableBuy">
       ${createBuyButtonHTML(bell, i18next.t('pseudoCoins.consumables.activate'))}
       <p class="consumableBuyNote">${bell.html?.buyNote}</p>
-      <button id="consumableUseTips" class="consumableTipsButton">${i18next.t('pseudoCoins.consumables.applyTips')}</button>
+      <button id="consumableUseTips" class="consumableTipsButton">${
+  i18next.t('pseudoCoins.consumables.applyTips')
+}</button>
     </div>
   </div>
 `
@@ -128,7 +149,9 @@ const createLotusHTML = (lotusItems: ConsumableListItems[]) => `
       <p class="consumableName gradientText lotusGradient">${i18next.t('pseudoCoins.lotus.nameSingular')}</p>
       <p class="lotusCounts">
         <span id="lotusOwned">${i18next.t('pseudoCoins.lotus.owned', { x: format(getOwnedLotus(), 0, true) })}</span>
-        <span id="lotusUsed">${i18next.t('pseudoCoins.lotus.lifetimeUsed', { x: format(getUsedLotus(), 0, true) })}</span>
+        <span id="lotusUsed">${
+  i18next.t('pseudoCoins.lotus.lifetimeUsed', { x: format(getUsedLotus(), 0, true) })
+}</span>
       </p>
       <p class="consumableDescription">${i18next.t('pseudoCoins.lotus.intro')}</p>
     </div>
@@ -151,6 +174,23 @@ export const toggleConsumablesTab = () => {
 
 export const clearConsumablesTab = () => {
   tab.style.display = 'none'
+}
+
+export const updateBellButton = () => {
+  const button = tab.querySelector<HTMLButtonElement>('.consumableBuyButton[data-key="HAPPY_HOUR_BELL"]')
+
+  if (!button) return
+
+  const [label, cost] = button.querySelectorAll('span')
+  const ownedBells = getOwnedBells()
+
+  if (ownedBells > 0) {
+    label.textContent = i18next.t('pseudoCoins.consumables.activateFree')
+    cost.innerHTML = i18next.t('pseudoCoins.consumables.freeBells', { x: format(ownedBells, 0, true) })
+  } else {
+    label.textContent = i18next.t('pseudoCoins.consumables.activate')
+    cost.innerHTML = i18next.t('pseudoCoins.consumables.cost', { cost: format(Number(button.dataset.cost), 0, true) })
+  }
 }
 
 export const updateLotusDisplay = () => {

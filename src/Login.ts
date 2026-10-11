@@ -17,7 +17,7 @@ import { updateGlobalsIsEvent } from './Event'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
-import { updateLotusDisplay } from './purchases/ConsumablesTab'
+import { updateBellButton, updateLotusDisplay } from './purchases/ConsumablesTab'
 import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
 import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
@@ -95,6 +95,7 @@ let tips = 0
 let ownedLotus = 0
 let usedLotus = 0
 let lotusInventoryLoaded = false
+let ownedBells = 0
 let subscription: SubscriptionMetadata = null
 let lotusTimeExpiresAt: number | undefined = undefined
 let signedOutAccountHTML: string | undefined
@@ -110,6 +111,8 @@ export const setTips = (newTips: number) => tips = newTips
 export const getOwnedLotus = () => ownedLotus
 export const getUsedLotus = () => usedLotus
 export const isLotusInventoryLoaded = () => lotusInventoryLoaded
+export const getOwnedBells = () => ownedBells
+export const setOwnedBells = (newOwnedBells: number) => ownedBells = newOwnedBells
 export const getLotusTimeExpiresAt = () => lotusTimeExpiresAt
 
 export const getSubMetadata = () => subscription
@@ -166,7 +169,7 @@ const messageSchema = z.preprocess(
       }).array(),
       tips: z.number().int().nonnegative(),
       inventory: z.object({
-        type: z.literal('LOTUS'),
+        type: z.string(),
         amount: z.number().int().gte(0),
         used: z.number().int().gte(0)
       }).array()
@@ -206,6 +209,12 @@ const messageSchema = z.preprocess(
     z.object({
       type: z.literal('lotus-active'),
       remainingMs: z.number()
+    }),
+
+    /** Received when the player's count of free Happy Hour Bells changes */
+    z.object({
+      type: z.literal('happy-hour-bells'),
+      amount: z.number().int().gte(0)
     }),
 
     /** A warning - should *NOT* disconnect from the WebSocket */
@@ -693,8 +702,10 @@ function resetWebSocket () {
   usedLotus = 0
   lotusInventoryLoaded = false
   lotusTimeExpiresAt = undefined
+  ownedBells = 0
   queue.length = 0
   setLotusBalanceLoading()
+  updateBellButton()
   setFavicon('./favicon.ico')
 }
 
@@ -836,6 +847,8 @@ async function handleWebSocket () {
       ownedLotus = lotusInventory?.amount ?? 0
       usedLotus = lotusInventory?.used ?? 0
       lotusInventoryLoaded = true
+      ownedBells = data.inventory.find((item) => item.type === 'HAPPY_HOUR_BELL')?.amount ?? 0
+      updateBellButton()
       try {
         updateLotusDisplay()
       } catch {
@@ -889,6 +902,9 @@ async function handleWebSocket () {
       updateLotusDisplay()
 
       Notification(i18next.t('pseudoCoins.lotus.lotusActive'))
+    } else if (data.type === 'happy-hour-bells') {
+      ownedBells = data.amount
+      updateBellButton()
     } else {
       // eslint-disable-next-line unicorn/consistent-function-scoping
       const assertNever = (_x: never) => {

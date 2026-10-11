@@ -105,6 +105,14 @@ export const messages = {
       type: 'lotus-active',
       remainingMs: remaining
     })
+  },
+
+  /* Received when the player's count of free Happy Hour Bells changes */
+  happyHourBells (amount: number) {
+    return JSON.stringify({
+      type: 'happy-hour-bells',
+      amount
+    })
   }
 }
 

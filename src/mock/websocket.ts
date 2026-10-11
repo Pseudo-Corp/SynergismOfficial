@@ -4,6 +4,7 @@ import { sleep } from './util/util'
 
 const consumable = ws.link('wss://synergism.cc/consumables/connect')
 let tips = 1000
+let happyHourBells = 2
 const lotus = {
   inventory: 0,
   used: 0,
@@ -19,7 +20,9 @@ export const createConsumeHandlers = (purchaseConsumable: (internalName: string)
     console.log('connected', client.url)
 
     client.send(messages.join())
-    sleep(1000).then(() => client.send(messages.infoAll([], [], tips)))
+    sleep(1000).then(() =>
+      client.send(messages.infoAll([], [{ type: 'HAPPY_HOUR_BELL', amount: happyHourBells, used: 0 }], tips))
+    )
 
     client.addEventListener('message', ({ data: body }) => {
       if (body === 'ping') {
@@ -37,7 +40,10 @@ export const createConsumeHandlers = (purchaseConsumable: (internalName: string)
 
       switch (data.type) {
         case 'consume': {
-          if (!purchaseConsumable(data.consumable)) {
+          if (data.consumable === 'HAPPY_HOUR_BELL' && happyHourBells > 0) {
+            happyHourBells--
+            client.send(messages.happyHourBells(happyHourBells))
+          } else if (!purchaseConsumable(data.consumable)) {
             client.send(messages.warn('Consumable not found or you cannot afford it.'))
             return
           }

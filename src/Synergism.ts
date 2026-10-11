@@ -19,7 +19,7 @@ import {
   tickChallengeSweep,
   useChallenge13Modifiers
 } from './Challenges'
-import { btoa, isMobile, memoize, DateNow, PerformanceNow } from './Utility'
+import { btoa, DateNow, isMobile, memoize, PerformanceNow } from './Utility'
 import { blankGlobals, Globals as G } from './Variables'
 
 import {

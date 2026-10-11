@@ -76,7 +76,7 @@ import {
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
 import { Alert, Prompt } from './UpdateHTML'
-import { findInsertionIndex, memoize, DateNow, PerformanceNow } from './Utility'
+import { DateNow, findInsertionIndex, memoize, PerformanceNow } from './Utility'
 import { Globals as G } from './Variables'
 
 // dprint-ignore
