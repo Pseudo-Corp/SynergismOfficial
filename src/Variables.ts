@@ -42,7 +42,6 @@ export const Globals: GlobalVariables = {
   multiplierPower: 2,
   multiplierEffect: new Decimal(1),
   challengeOneLog: 3,
-  totalMultiplierBoost: 0,
 
   globalCoinMultiplier: new Decimal(1),
 
@@ -95,7 +94,6 @@ export const Globals: GlobalVariables = {
   producePerSecondMythos: new Decimal(),
   producePerSecondParticles: new Decimal(),
 
-  tuSevenMulti: 1,
   currentTab: Tabs.Buildings,
 
   // dprint-ignore

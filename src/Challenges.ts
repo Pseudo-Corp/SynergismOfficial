@@ -209,14 +209,13 @@ export const challengeDisplay = (i: number) => {
 
     switch (i) {
       case 1: {
-        current1 = format(2 * player.challengecompletions[1])
         current2 = format(0.75 * player.challengecompletions[1], 2, true)
         current3 = format(0.04 * player.challengecompletions[1], 2, true)
         break
       }
       case 2: {
-        current1 = current2 = format(5 * player.challengecompletions[2])
-        current3 = format(0.25 * player.challengecompletions[2])
+        current1 = format(5 * player.challengecompletions[2])
+        current2 = format(0.02 * player.challengecompletions[2], 2, true)
         break
       }
       case 3: {
@@ -228,7 +227,7 @@ export const challengeDisplay = (i: number) => {
       case 4: {
         current1 = format(5 * player.challengecompletions[4])
         current2 = format(2 * player.challengecompletions[4])
-        current3 = format(1 + player.challengecompletions[4] / 200, 3, true)
+        current3 = format(1 + 0.003 * player.challengecompletions[4], 3, true)
         break
       }
       case 5: {
@@ -244,7 +243,7 @@ export const challengeDisplay = (i: number) => {
         break
       }
       case 7: {
-        current1 = format(1 + 0.04 * player.challengecompletions[7], 2, true)
+        current1 = format(4 * player.challengecompletions[7], 2, true)
         current2 = format(0.3 * player.challengecompletions[7], 2, true)
         current3 = format(15 * player.challengecompletions[7], 2, true)
         break

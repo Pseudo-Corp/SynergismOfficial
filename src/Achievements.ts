@@ -219,7 +219,6 @@ export type AchievementGroups =
   | 'addCodesUsed'
 
 type AchievementRewards =
-  | 'acceleratorPower'
   | 'accelerators'
   | 'multipliers'
   | 'accelBoosts'
@@ -588,8 +587,7 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.firstOwnedCoin >= 100,
-    group: 'firstOwnedCoin',
-    reward: { acceleratorPower: () => 0.001 }
+    group: 'firstOwnedCoin'
   },
   {
     pointValue: 20,
@@ -625,8 +623,7 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.secondOwnedCoin >= 100,
-    group: 'secondOwnedCoin',
-    reward: { acceleratorPower: () => 0.0015 }
+    group: 'secondOwnedCoin'
   },
   {
     pointValue: 20,
@@ -662,8 +659,7 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.thirdOwnedCoin >= 100,
-    group: 'thirdOwnedCoin',
-    reward: { acceleratorPower: () => 0.002 }
+    group: 'thirdOwnedCoin'
   },
   {
     pointValue: 20,
@@ -699,8 +695,7 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.fourthOwnedCoin >= 100,
-    group: 'fourthOwnedCoin',
-    reward: { acceleratorPower: () => 0.002 }
+    group: 'fourthOwnedCoin'
   },
   {
     pointValue: 20,
@@ -736,8 +731,7 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.fifthOwnedCoin >= 66,
-    group: 'fifthOwnedCoin',
-    reward: { acceleratorPower: () => 0.003 }
+    group: 'fifthOwnedCoin'
   },
   {
     pointValue: 20,
@@ -1355,8 +1349,7 @@ const achievements: Achievement[] = [
   {
     pointValue: 10,
     unlockCondition: () => player.acceleratorBought >= 25,
-    group: 'accelerators',
-    reward: { acceleratorPower: () => 0.01 }
+    group: 'accelerators'
   },
   { pointValue: 15, unlockCondition: () => player.acceleratorBought >= 100, group: 'accelerators' },
   {
@@ -3268,12 +3261,6 @@ const achievementsByReward: Record<AchievementRewards, number[]> = achievements
   }, {} as Record<AchievementRewards, number[]>)
 
 const achRewards: Record<AchievementRewards, () => number | boolean> = {
-  acceleratorPower: (): number => {
-    return achievementsByReward.acceleratorPower.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.acceleratorPower!() : 0),
-      0
-    )
-  },
   accelerators: (): number => {
     return achievementsByReward.accelerators.reduce(
       (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.accelerators!() : 0),

@@ -5,7 +5,6 @@ import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import { c15ViscosityExponent, corruptionEffect, isCorruptionCubeUnlocked } from './Corruptions'
-import { calculateAcceleratorCubeBlessing } from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
@@ -652,11 +651,35 @@ export const calculateChallenge4Traction = (type: keyof typeof tractionPerChalle
   tractionPerChallenge4Completion[type] * player.challengecompletions[4]
 
 export const calculateAcceleratorTractionPerBoost = () =>
-  5
-  + 2 * player.researches[18]
-  + 2 * player.researches[19]
-  + 3 * player.researches[20]
-  + calculateAcceleratorCubeBlessing()
+  0.04
+  + (player.upgrades[46] > 0.5 ? 0.02 : 0)
+  + 0.0002 * player.challengecompletions[2]
+  + 0.02 * player.researches[18]
+  + 0.02 * player.researches[19]
+  + 0.02 * player.researches[20]
+
+export const calculateAcceleratorBoostTractionMultiplier = () =>
+  1 + calculateAcceleratorTractionPerBoost() * player.acceleratorBoostBought
+
+const multiplierBoostSoftcap = 1e15
+
+export const calculateMultiplierBoosts = () =>
+  Math.floor(
+    Decimal.log(player.transcendShards.add(1), 3) * (player.challengecompletions[7] > 0.5 ? 1.25 : 1)
+  )
+
+export const calculateEffectiveMultiplierBoosts = () => {
+  const boosts = calculateMultiplierBoosts()
+  return boosts <= multiplierBoostSoftcap ? boosts : multiplierBoostSoftcap * Math.sqrt(boosts / multiplierBoostSoftcap)
+}
+
+export const calculateMultiplierTractionPerBoost = () =>
+  0.01
+  + 0.0004 * (player.researches[33] + player.researches[34] + player.researches[35])
+  + 0.0006 * player.researches[89]
+
+export const calculateMultiplierBoostTractionMultiplier = () =>
+  1 + calculateMultiplierTractionPerBoost() * calculateEffectiveMultiplierBoosts()
 
 export const calculateRawTraction = (type: keyof typeof baseTraction) => calculateTotalStat(tractionBaseStats[type])
 export const calculateTractionMultiplier = (type: keyof typeof baseTraction) =>

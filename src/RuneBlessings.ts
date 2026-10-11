@@ -15,7 +15,7 @@ import { Globals as G } from './Variables'
 
 type RuneBlessingTypeMap = {
   speed: { globalSpeed: number }
-  duplication: { multiplierBoosts: number }
+  duplication: { multiplierTraction: number }
   prism: { antSacrificeMult: number }
   thrift: { accelBoostCostDelay: number }
   superiorIntellect: { obtToAntExponent: number }
@@ -80,15 +80,15 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     costCoefficient: new Decimal(1e7),
     levelsPerOOM: 4,
     effects: (level) => {
-      const multiplierBoosts = 1 + level / 1000000
+      const multiplierTraction = 1 + Math.sqrt(level) / 10000
       return {
-        multiplierBoosts
+        multiplierTraction
       }
     },
     effectsDescription: (level) => {
-      const multiplierBoosts = runeBlessings.duplication.effects(level).multiplierBoosts
-      return i18next.t('runes.blessings.duplication.multiplierBoosts', {
-        val: formatAsPercentIncrease(multiplierBoosts, 2)
+      const multiplierTraction = runeBlessings.duplication.effects(level).multiplierTraction
+      return i18next.t('runes.blessings.duplication.multiplierTraction', {
+        val: formatAsPercentIncrease(multiplierTraction, 2)
       })
     },
     effectiveLevelMult: () => blessingMultiplier('duplication'),

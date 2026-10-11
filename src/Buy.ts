@@ -1,6 +1,12 @@
 import Decimal from 'break_infinity.js'
 import { awardAchievementGroup } from './Achievements'
-import { type baseTraction, calculateBuildingConstruction, calculateConstruction, calculateTraction } from './Calculate'
+import {
+  baseConstruction,
+  baseTraction,
+  calculateBuildingConstruction,
+  calculateConstruction,
+  calculateTraction
+} from './Calculate'
 import { reset } from './Reset'
 import { getRuneEffects } from './Runes'
 import { player } from './Synergism'
@@ -84,50 +90,47 @@ export const getBuildingCostKey = () =>
     calculateTraction('acceleratorBoost')
   }|${player.currentChallenge.transcension}|${player.currentChallenge.reincarnation}|${player.currentChallenge.ascension}`
 
-const createQuadraticCostCurve = (cost: number, growth: number, threshold: number): CostCurve => ({
+const getScalingFactor = (base: number, threshold: number) => Math.min(1, base / threshold)
+
+const createQuadraticCostCurve = (cost: number, growth: number, threshold: number, factor: number): CostCurve => ({
   growth,
   log10Growth: Math.log10(growth),
-  scale: Decimal.fromNumber(cost / (growth - 1)),
+  scale: Decimal.fromNumber(cost / Math.expm1(factor * Math.log(growth))),
   exponentBetween: (from, to) => {
-    let exponent = 0
-    let start = from
-    if (start < threshold) {
-      const end = Math.min(to, threshold)
-      exponent += end - start
-      start = end
-    }
-    if (start < to) {
-      exponent += (to - start) * (1 + (to + start - 2 * threshold) / threshold)
-    }
-    return exponent
+    const start = Math.max(from, threshold)
+    return factor
+      * (to - from + (start < to ? (Math.pow(to - threshold, 2) - Math.pow(start - threshold, 2)) / threshold : 0))
   },
-  countForExponent: (exponent) =>
-    exponent <= threshold
-      ? exponent
-      : (threshold + Math.sqrt(4 * threshold * exponent - 3 * Math.pow(threshold, 2))) / 2
+  countForExponent: (exponent) => {
+    const baseExponent = exponent / factor
+    return baseExponent <= threshold
+      ? baseExponent
+      : (threshold + Math.sqrt(4 * threshold * baseExponent - 3 * Math.pow(threshold, 2))) / 2
+  }
 })
 
 const acceleratorBoostBaseExponentBetween = (from: number, to: number) =>
   (to - from) * (acceleratorBoostLinearExponent + (to + from) / 2)
 
-const createAcceleratorBoostCostCurve = (threshold: number): CostCurve => {
+const createAcceleratorBoostCostCurve = (threshold: number, factor: number): CostCurve => {
   const thresholdExponent = acceleratorBoostBaseExponentBetween(0, threshold)
   const exponentBetween = (from: number, to: number) => {
     const end = Math.min(to, threshold)
     const start = Math.max(from, threshold)
-    return (from < end ? acceleratorBoostBaseExponentBetween(from, end) : 0)
-      + (start < to ? acceleratorBoostPostTractionMultiplier * acceleratorBoostBaseExponentBetween(start, to) : 0)
+    return factor * ((from < end ? acceleratorBoostBaseExponentBetween(from, end) : 0)
+      + (start < to ? acceleratorBoostPostTractionMultiplier * acceleratorBoostBaseExponentBetween(start, to) : 0))
   }
 
   return {
     growth: 10,
     log10Growth: 1,
-    scale: Decimal.fromNumber(acceleratorBoostCost / (Math.pow(10, exponentBetween(0, 1)) - 1)),
+    scale: Decimal.fromNumber(acceleratorBoostCost / Math.expm1(exponentBetween(0, 1) * Math.LN10)),
     exponentBetween,
     countForExponent: (exponent) => {
-      const baseExponent = exponent <= thresholdExponent
-        ? exponent
-        : thresholdExponent + (exponent - thresholdExponent) / acceleratorBoostPostTractionMultiplier
+      const unscaledExponent = exponent / factor
+      const baseExponent = unscaledExponent <= thresholdExponent
+        ? unscaledExponent
+        : thresholdExponent + (unscaledExponent - thresholdExponent) / acceleratorBoostPostTractionMultiplier
       return Math.sqrt(Math.pow(acceleratorBoostLinearExponent, 2) + 2 * baseExponent) - acceleratorBoostLinearExponent
     }
   }
@@ -155,19 +158,31 @@ export const getBuildingScalingThreshold = (type: ScalingBuildingType) =>
 export const getTractionScalingThreshold = (type: keyof typeof baseTraction) =>
   getScalingThreshold(calculateTraction(type))
 
+export const getBuildingScalingFactor = (type: ScalingBuildingType) =>
+  getScalingFactor(baseConstruction, getBuildingScalingThreshold(type))
+
+export const getTractionScalingFactor = (type: keyof typeof baseTraction) =>
+  getScalingFactor(baseTraction[type], getTractionScalingThreshold(type))
+
 const getBuildingCostCurve = (type: ScalingBuildingType, index: ZeroToFour): CostCurve => {
   const growthPower = player.currentChallenge.reincarnation === 8 && type !== 'particle' ? challenge8GrowthPower : 1
   return createQuadraticCostCurve(
     producerData[type].costs[index],
     Math.pow(1.25, producerData[type].growth[index] * growthPower),
-    getBuildingScalingThreshold(type)
+    getBuildingScalingThreshold(type),
+    getBuildingScalingFactor(type)
   )
 }
 
 const getAccelMultCostCurve = (type: keyof typeof accelMultData): CostCurve => {
   const data = accelMultData[type]
   const growthPower = player.currentChallenge.reincarnation === 8 ? challenge8GrowthPower : 1
-  return createQuadraticCostCurve(data.cost, Math.pow(data.growth, growthPower), getTractionScalingThreshold(type))
+  return createQuadraticCostCurve(
+    data.cost,
+    Math.pow(data.growth, growthPower),
+    getTractionScalingThreshold(type),
+    getTractionScalingFactor(type)
+  )
 }
 
 const getCostCurve = (type: BuildingType, index: ZeroToFour): CostCurve => {
@@ -176,7 +191,10 @@ const getCostCurve = (type: BuildingType, index: ZeroToFour): CostCurve => {
     case 'multiplier':
       return getAccelMultCostCurve(type)
     case 'acceleratorBoost':
-      return createAcceleratorBoostCostCurve(getTractionScalingThreshold('acceleratorBoost'))
+      return createAcceleratorBoostCostCurve(
+        getTractionScalingThreshold('acceleratorBoost'),
+        getTractionScalingFactor('acceleratorBoost')
+      )
   }
   return getBuildingCostCurve(type, index)
 }
@@ -187,7 +205,7 @@ const costBetween = (curve: CostCurve, from: number, to: number): Decimal => {
   }
   const exponent = curve.exponentBetween(from, to)
   const increase = curve.log10Growth * exponent < 300
-    ? Decimal.fromNumber(Math.pow(curve.growth, exponent) - 1)
+    ? Decimal.fromNumber(Math.expm1(curve.log10Growth * exponent * Math.LN10))
     : Decimal.pow(curve.growth, exponent)
   return curve.scale.times(Decimal.pow(curve.growth, curve.exponentBetween(0, from))).times(increase)
 }

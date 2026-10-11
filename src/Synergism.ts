@@ -213,7 +213,6 @@ import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './Re
 import {
   buyBlessingLevels,
   generateBlessingsHTML,
-  getRuneBlessingEffect,
   type RuneBlessingKeys,
   updateAllBlessingLevelsFromEXP
 } from './RuneBlessings'
@@ -2367,24 +2366,7 @@ export const formatDecimalAsPercentIncrease = (n: Decimal, accuracy = 2) => {
 }
 
 export const updateAllTick = (): void => {
-  G.tuSevenMulti = 1
-
-  if (player.upgrades[46] > 0.5) {
-    G.tuSevenMulti = 1.05
-  }
-
-  const achievementBonus = +getAchievementReward('acceleratorPower')
-
-  G.acceleratorPower = Math.pow(
-    1.1
-      + getRuneEffects('speed', 'acceleratorPower')
-      + 1 / 400 * player.challengecompletions[2]
-      + achievementBonus
-      + G.tuSevenMulti
-        * (player.acceleratorBoostBought / 100)
-        * (1 + player.challengecompletions[2] / 20),
-    1 + 0.04 * player.challengecompletions[7]
-  )
+  G.acceleratorPower = 1.1 + getRuneEffects('speed', 'acceleratorPower')
 
   // No MA and Sadistic will always overwrite Transcend challenges starting in v2.0.0
   if (
@@ -2429,27 +2411,7 @@ export const updateAllTick = (): void => {
 export const updateAllMultiplier = (): void => {
   G.challengeOneLog = 3
 
-  let b = 0
-  b += Decimal.log(player.transcendShards.add(1), 3)
-  b += getRuneEffects('duplication', 'multiplierBoosts')
-  b += 2 * player.challengecompletions[1]
-  b *= 1 + (11 * player.researches[33]) / 100
-  b *= 1 + (11 * player.researches[34]) / 100
-  b *= 1 + (11 * player.researches[35]) / 100
-  b *= 1 + player.researches[89] / 5
-  b *= getRuneBlessingEffect('duplication').multiplierBoosts
-
-  G.totalMultiplierBoost = Math.pow(
-    Math.floor(b),
-    1 + player.challengecompletions[7] * 0.04
-  )
-
-  let c7 = 1
-  if (player.challengecompletions[7] > 0.5) {
-    c7 = 1.25
-  }
-
-  G.multiplierPower = 2 + 0.02 * G.totalMultiplierBoost * c7
+  G.multiplierPower = 2 + getRuneEffects('duplication', 'multiplierPower')
 
   // No MA and Sadistic will always override Transcend Challenges starting in v2.0.0
   if (
@@ -2460,7 +2422,7 @@ export const updateAllMultiplier = (): void => {
       G.multiplierPower = 1
     }
     if (player.currentChallenge.transcension === 2) {
-      G.multiplierPower = 1.25 + 0.0012 * b * c7
+      G.multiplierPower = 1.25 + getRuneEffects('duplication', 'multiplierPower')
     }
   }
   G.multiplierPower = Math.min(1e300, G.multiplierPower)

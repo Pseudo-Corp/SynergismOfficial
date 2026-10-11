@@ -22,6 +22,8 @@ import {
   calculateCubeQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
+  calculateMultiplierBoosts,
+  calculateMultiplierBoostTractionMultiplier,
   calculateOcteractMultiplier,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
@@ -589,13 +591,7 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('buildtext16').textContent = i18next.t(
       player.upgrades[88] === 1 ? 'buildings.acceleratorBoostNoReset' : 'buildings.acceleratorBoost',
       {
-        amount: format(
-          100 * (0.01 * G.tuSevenMulti * (1 + player.challengecompletions[2] / 20)),
-          2,
-          false,
-          false
-        ),
-        accelsPerBoost: format(calculateAcceleratorTractionPerBoost(), 2, true, false)
+        amount: format(100 * calculateAcceleratorTractionPerBoost(), 2, true, false)
       }
     )
 
@@ -710,7 +706,8 @@ export const visualUpdateBuildings = () => {
       'buildings.mythosYouHave',
       {
         shards: format(player.transcendShards, 2, false, false),
-        mult: format(G.totalMultiplierBoost, 0, true, false)
+        mult: format(calculateMultiplierBoosts(), 0, true, false),
+        traction: formatAsPercentIncrease(calculateMultiplierBoostTractionMultiplier(), 2)
       }
     )
     const mythosConstruction = updateConstructionTexts('mythos')
@@ -1236,7 +1233,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.cubes.items.1',
         {
           amount: format(player.cubeBlessings.accelerator, 0, true),
-          bonus: format(calculateAcceleratorCubeBlessing(), 3, true)
+          bonus: formatAsPercentIncrease(calculateAcceleratorCubeBlessing(), 2)
         }
       )
 
