@@ -2,7 +2,7 @@ import { calculateHypercubeBlessingMultiplierPlatonicBlessing } from './Platonic
 import { player } from './Synergism'
 
 export const calculateAcceleratorHypercubeBlessing = () => {
-  const DR = 1 / 12
+  const DR = 1 / 48
   const effectPerBlessing = calculateHypercubeBlessingMultiplierPlatonicBlessing() / 1000
   const limit = 1000
   if (player.hypercubeBlessings.accelerator < limit) {
@@ -14,7 +14,7 @@ export const calculateAcceleratorHypercubeBlessing = () => {
 }
 
 export const calculateMultiplierHypercubeBlessing = () => {
-  const DR = 1 / 12
+  const DR = 1 / 48
   const effectPerBlessing = calculateHypercubeBlessingMultiplierPlatonicBlessing() / 1000
   const limit = 1000
   if (player.hypercubeBlessings.multiplier < limit) {

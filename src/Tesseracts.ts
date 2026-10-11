@@ -14,7 +14,7 @@ import {
 import { player } from './Synergism'
 
 export const calculateAcceleratorTesseractBlessing = () => {
-  const DR = 1 / 6
+  const DR = 1 / 24
   const effectPerBlessing = calculateAcceleratorHypercubeBlessing() / 1000
   const limit = 1000
 
@@ -27,7 +27,7 @@ export const calculateAcceleratorTesseractBlessing = () => {
 }
 
 export const calculateMultiplierTesseractBlessing = () => {
-  const DR = 1 / 6
+  const DR = 1 / 24
   const effectPerBlessing = calculateMultiplierHypercubeBlessing() / 1000
   const limit = 1000
   if (player.tesseractBlessings.multiplier < limit) {

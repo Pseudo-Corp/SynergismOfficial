@@ -294,10 +294,10 @@ export const autoBuyCubeUpgrades = () => {
 }
 
 export const calculateAcceleratorCubeBlessing = () => {
-  const DR = 1 / 3
+  const DR = 1 / 12
   const effectPerBlessing = calculateAcceleratorTesseractBlessing() / 5000
   const limit = 1000
-  const DRIncrease = player.cubeUpgrades[45] / 300
+  const DRIncrease = player.cubeUpgrades[45] / 1200
 
   if (player.cubeBlessings.accelerator < limit) {
     return Math.pow(1 + effectPerBlessing * player.cubeBlessings.accelerator, 1 + DRIncrease)
@@ -308,10 +308,10 @@ export const calculateAcceleratorCubeBlessing = () => {
 }
 
 export const calculateMultiplierCubeBlessing = () => {
-  const DR = 1 / 3
+  const DR = 1 / 12
   const effectPerBlessing = calculateMultiplierTesseractBlessing() / 5000
   const limit = 1000
-  const DRIncrease = player.cubeUpgrades[35] / 300
+  const DRIncrease = player.cubeUpgrades[35] / 1200
 
   if (player.cubeBlessings.multiplier < limit) {
     return Math.pow(1 + effectPerBlessing * player.cubeBlessings.multiplier, 1 + DRIncrease)
