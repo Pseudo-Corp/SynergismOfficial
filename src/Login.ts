@@ -1,8 +1,7 @@
-/// <reference types="@types/cloudflare-turnstile" />
-
 import DOMPurify from 'dompurify'
 import i18next from 'i18next'
 import * as z from 'zod'
+import { type AccountActionId, renderAccountActions } from './account/actions'
 import { achievementLevel } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -98,8 +97,8 @@ let lotusInventoryLoaded = false
 let ownedBells = 0
 let subscription: SubscriptionMetadata = null
 let lotusTimeExpiresAt: number | undefined = undefined
-let signedOutAccountHTML: string | undefined
 const boundLogoutButtons = new WeakSet<HTMLElement>()
+const signedOutAccountActions: AccountActionId[] = ['login', 'register', 'forgotPassword']
 
 const cloudSaves: Save[] = []
 
@@ -336,8 +335,8 @@ export async function handleLogin () {
   const wasLoggedIn = loggedIn
 
   generateSubtabBrowser: {
-    const subtabElement = document.querySelector('#accountSubTab div#left.scrollbarX')!
-    signedOutAccountHTML ??= subtabElement.innerHTML
+    const subtabElement = DOMCacheGetOrSet('accountInfo')
+    const oauthLoginElement = DOMCacheGetOrSet('accountOAuthLogin')
 
     const logoutElement = DOMCacheGetOrSet('logoutButton')
     if (!boundLogoutButtons.has(logoutElement)) {
@@ -357,6 +356,8 @@ export async function handleLogin () {
     loggedIn = hasAccount(account)
     subscription = sub
     logoutElement.style.display = loggedIn ? '' : 'none'
+    oauthLoginElement.style.display = 'none'
+    renderAccountActions([])
 
     if (!isSynergismCC && PLATFORM === 'browser' && !DEV) {
       subtabElement.innerHTML = i18next.t('account.loginNotAvailable')
@@ -388,6 +389,23 @@ export async function handleLogin () {
         user = DOMPurify.sanitize(user)
       }
 
+      let emailStatus = ''
+      let email: string | undefined
+      const accountActions: AccountActionId[] = []
+
+      if (isEmailAccount(account)) {
+        email = account.member.email
+        emailStatus = i18next.t(account.member.verified ? 'account.email.verified' : 'account.email.notVerified')
+
+        if (!account.member.verified) {
+          accountActions.push('resendVerification')
+        }
+      }
+
+      if (linkedAccounts.includes('email')) {
+        accountActions.push('changePassword')
+      }
+
       const boosted = discord && (Boolean(account.member?.premium_since) || account.member?.roles.includes(BOOSTER))
       // It is possible for someone to have the roles through the Patreon integration with Discord, yet not have their
       // patreon linked to their Synergism (Discord/email) account.
@@ -412,7 +430,7 @@ export async function handleLogin () {
       }
 
       subtabElement.innerHTML = `
-      ${user ? i18next.t('account.helloUser', { username: user }) : i18next.t('account.helloNoUser')}
+      ${user ? i18next.t('account.helloUser', { username: user }) : i18next.t('account.helloNoUser')} ${emailStatus}
       ${i18next.t('account.personalQuarkBonus', { percent: format(bonus.quark, 2, true) })}
 
       ${i18next.t('account.subscriptionBonuses')}
@@ -477,6 +495,14 @@ export async function handleLogin () {
             <br>${i18next.t('account.eventBonusLink')}
           </div>
         `
+      }
+
+      if (linkedAccounts.length > 0) {
+        const linkedNames = linkedAccounts.map((name) => i18next.t(`account.platforms.${name}`, { defaultValue: name }))
+        subtabElement.insertAdjacentHTML(
+          'beforeend',
+          `<div>${i18next.t('account.linkedAccounts', { accounts: linkedNames.join(', ') })}</div>`
+        )
       }
 
       const allPlatforms = [
@@ -596,48 +622,23 @@ export async function handleLogin () {
         linkAccountsSection.appendChild(buttonContainer)
         subtabElement.appendChild(linkAccountsSection)
       }
+
+      renderAccountActions(accountActions, email)
     } else if (!hasAccount(account)) {
       // User is not logged in
-      if (wasLoggedIn) {
-        subtabElement.innerHTML = signedOutAccountHTML
-        if (PLATFORM === 'mobile') {
-          const { bindMobileFormHandlers } = await import('./mobile/auth')
-          bindMobileFormHandlers()
-        }
-      }
-      subtabElement.querySelector('#open-register')?.addEventListener('click', () => {
-        subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'flex')
-        subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
-        subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
-        renderCaptcha()
-      })
-
-      subtabElement.querySelector('#open-signin')?.addEventListener('click', () => {
-        subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
-        subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'flex')
-        subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'none')
-        renderCaptcha()
-      })
-
-      subtabElement.querySelector('#open-forgotpassword')?.addEventListener('click', () => {
-        subtabElement.querySelector<HTMLElement>('#register')?.style.setProperty('display', 'none')
-        subtabElement.querySelector<HTMLElement>('#login')?.style.setProperty('display', 'none')
-        subtabElement.querySelector<HTMLElement>('#forgotpassword')?.style.setProperty('display', 'flex')
-        renderCaptcha()
-      })
-
-      renderCaptcha()
+      subtabElement.innerHTML = ''
+      renderAccountActions(signedOutAccountActions)
 
       if (PLATFORM === 'steam') {
-        for (const link of subtabElement.querySelectorAll<HTMLAnchorElement>('a[href*="synergism.cc/login?with="]')) {
+        for (const link of oauthLoginElement.querySelectorAll<HTMLAnchorElement>('a')) {
           const url = new URL(link.href)
           url.searchParams.set('platform', 'steam')
           link.href = url.toString()
         }
-      } else if (PLATFORM === 'mobile') {
-        for (const link of subtabElement.querySelectorAll<HTMLAnchorElement>('a[href*="synergism.cc/login?with="]')) {
-          link.style.setProperty('display', 'none')
-        }
+      }
+
+      if (PLATFORM !== 'mobile') {
+        oauthLoginElement.style.display = ''
       }
     } else {
       assert(false, `unknown account type ${account.accountType}`)
@@ -1050,195 +1051,6 @@ async function logout () {
   storageRemoveItem('pendingTimeSkips')
   await Alert(i18next.t('account.logout'))
 }
-
-const hasCaptcha = new WeakSet<HTMLElement>()
-const boundSteamAuthForms = new WeakSet<HTMLFormElement>()
-const boundBrowserAuthForms = new WeakSet<HTMLFormElement>()
-
-let turnstileScript: Promise<void> | null = null
-
-const loadTurnstileScript = () => {
-  turnstileScript ??= new Promise<void>((resolve, reject) => {
-    const script = document.createElement('script')
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'
-    script.async = true
-    script.defer = true
-    script.addEventListener('load', () => resolve())
-    script.addEventListener('error', () => {
-      turnstileScript = null
-      script.remove()
-      reject(new Error('Failed to load the Turnstile script'))
-    })
-    document.head.appendChild(script)
-  })
-
-  return turnstileScript
-}
-
-const getAuthSubmitButton = (form: HTMLFormElement) => form.querySelector<HTMLButtonElement>('button[type="submit"]')
-
-export const startAuthFormSubmission = (form: HTMLFormElement) => {
-  if (form.dataset.submitting === 'true') return false
-
-  form.dataset.submitting = 'true'
-
-  const submitButton = getAuthSubmitButton(form)
-  if (submitButton) {
-    const spinner = document.createElement('span')
-    spinner.classList.add('authSubmitSpinner', 'spinner')
-    spinner.setAttribute('aria-hidden', 'true')
-
-    submitButton.disabled = true
-    submitButton.setAttribute('aria-busy', 'true')
-    submitButton.appendChild(spinner)
-  }
-
-  return true
-}
-
-export const finishAuthFormSubmission = (form: HTMLFormElement) => {
-  delete form.dataset.submitting
-
-  const submitButton = getAuthSubmitButton(form)
-  if (submitButton) {
-    submitButton.disabled = false
-    submitButton.removeAttribute('aria-busy')
-    submitButton.querySelector(':scope > .authSubmitSpinner')?.remove()
-  }
-}
-
-const bindBrowserAuthFormHandlers = () => {
-  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-apple-action]')) {
-    if (boundBrowserAuthForms.has(form)) continue
-    boundBrowserAuthForms.add(form)
-
-    form.addEventListener('submit', async (event) => {
-      const isPurchaseAuthentication = form.closest('.purchaseAuthModal') !== null
-
-      if (!isPurchaseAuthentication) {
-        if (!startAuthFormSubmission(form)) {
-          event.preventDefault()
-        }
-        return
-      }
-
-      event.preventDefault()
-      if (!startAuthFormSubmission(form)) return
-
-      const captcha = form.querySelector<HTMLElement>('.turnstile')
-      const resetCaptcha = () => {
-        if (captcha && typeof turnstile !== 'undefined') {
-          turnstile.reset(captcha)
-        }
-      }
-
-      try {
-        const body = new URLSearchParams()
-        for (const [key, value] of new FormData(form)) {
-          body.set(key, `${value}`)
-        }
-
-        const response = await fetch(form.action, {
-          method: form.method.toUpperCase(),
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: body.toString(),
-          credentials: 'include'
-        })
-
-        if (response.redirected || response.ok) {
-          await handleLogin()
-          if (!loggedIn) resetCaptcha()
-        } else {
-          resetCaptcha()
-          await displayHTMLError(response)
-        }
-      } catch (error) {
-        resetCaptcha()
-        console.error('Failed to submit the account form', error)
-        await Alert(i18next.t('account.forms.requestFailed', { error: `${error}` }))
-      } finally {
-        finishAuthFormSubmission(form)
-      }
-    })
-  }
-}
-
-export const renderCaptcha = PLATFORM === 'steam'
-  ? () => {
-    const captchaElements = document.querySelectorAll('.turnstile')
-
-    for (const element of captchaElements) {
-      if (element.parentElement instanceof HTMLFormElement) {
-        const form = element.parentElement
-        if (boundSteamAuthForms.has(form)) continue
-        boundSteamAuthForms.add(form)
-
-        form.addEventListener('submit', async (ev) => {
-          ev.preventDefault()
-
-          if (!startAuthFormSubmission(form)) return
-
-          try {
-            const { getSessionTicket } = await import('./steam/steam')
-
-            const sessionTicket = await getSessionTicket()
-
-            if (!sessionTicket) {
-              Alert('Failed to validate with Steam. Is Steam open?')
-              return
-            }
-
-            const dataAction = form.getAttribute('data-steam-action') ?? form.action
-
-            const fd = new FormData(form)
-            const body = new URLSearchParams()
-
-            fd.forEach((value, key) => body.set(key, `${value}`))
-            body.set('sessionTicket', sessionTicket)
-
-            const response = await fetch(dataAction, {
-              method: form.method.toUpperCase(),
-              body,
-              credentials: 'include'
-            })
-
-            if (response.redirected || response.ok) {
-              await handleLogin()
-            } else {
-              await displayHTMLError(response)
-            }
-          } finally {
-            finishAuthFormSubmission(form)
-          }
-        })
-      }
-    }
-  }
-  : PLATFORM === 'mobile'
-  ? () => {}
-  : () => {
-    bindBrowserAuthFormHandlers()
-
-    const captchaElements = Array.from<HTMLElement>(document.querySelectorAll('.turnstile'))
-    const visible = captchaElements.find((el) => el.offsetParent !== null)
-
-    if (visible && !hasCaptcha.has(visible)) {
-      hasCaptcha.add(visible)
-
-      loadTurnstileScript()
-        .then(() => {
-          turnstile.render(visible, {
-            sitekey: visible.getAttribute('data-sitekey')!,
-            'error-callback' () {},
-            retry: 'never'
-          })
-        })
-        .catch((e) => {
-          hasCaptcha.delete(visible)
-          console.error(e)
-        })
-    }
-  }
 
 const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
   const seconds = minutes * 60

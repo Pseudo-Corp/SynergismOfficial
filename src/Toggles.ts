@@ -9,7 +9,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { type AutoChallengeStates, getChallengeConditions, resetChallengeSweep } from './Challenges'
 import { corruptionDisplay, corruptionLoadoutTableUpdate, type Corruptions, corruptionStatsUpdate } from './Corruptions'
 import { storageGetItem, storageSetItem } from './events/storage-events'
-import { renderCaptcha } from './Login'
 import { initializeMessages } from './Messages'
 import { initializeOcteractUpgradeMap } from './Octeracts'
 import { researchOrderByCost, roombaResearchEnabled, setResearchRoombaHighlight } from './Research'
@@ -643,8 +642,6 @@ export const setActiveSettingScreen = async (subtab: string) => {
       const err = e as Error
       credits.appendChild(document.createTextNode(err.toString()))
     }
-  } else if (subtab === 'accountSubTab') {
-    renderCaptcha()
   } else if (subtab === 'messagesSubTab') {
     initializeMessages()
   }

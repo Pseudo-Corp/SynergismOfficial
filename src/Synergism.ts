@@ -4973,19 +4973,16 @@ window.addEventListener('load', async () => {
 
     await initMobileStorage()
     const [
-      { bindMobileFormHandlers },
       { initMobilePurchases },
       { initPushNotifications },
       { initKeepAwake },
       { initLiveUpdates }
     ] = await Promise.all([
-      import('./mobile/auth'),
       import('./mobile/microtxn'),
       import('./mobile/notifications'),
       import('./mobile/keep-awake'),
       import('./mobile/updater')
     ])
-    bindMobileFormHandlers()
     initMobilePurchases().catch((e) => console.error('Failed to initialize mobile purchases', e))
     initPushNotifications().catch((e) => console.error('Failed to initialize push notifications', e))
     initKeepAwake().catch((e) => console.error('Failed to initialize keep awake', e))

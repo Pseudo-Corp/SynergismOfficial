@@ -1,16 +1,16 @@
 import i18next from 'i18next'
+import { createAccountForm } from '../account/actions'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
-import { isLoggedIn, renderCaptcha } from '../Login'
+import { isLoggedIn } from '../Login'
 import { CloseModal, Modal } from '../UpdateHTML'
 import { createDeferredPromise } from '../Utility'
 
 type AccountForm = 'register' | 'login'
 
 interface ActivePurchaseAuthentication {
-  formNode?: HTMLElement
+  showingForm: boolean
   promise: Promise<boolean>
   resolve: (authenticated: boolean) => void
-  restoreForm?: () => void
 }
 
 let activePurchaseAuthentication: ActivePurchaseAuthentication | null = null
@@ -41,14 +41,6 @@ export const finishPurchaseAuthentication = (authenticated: boolean, closeModal 
 
   activePurchaseAuthentication = null
 
-  if (authenticated) {
-    // handleLogin has replaced the signed-out account page, so the old form
-    // should be discarded rather than restored into the signed-in page.
-    request.formNode?.remove()
-  } else {
-    request.restoreForm?.()
-  }
-
   if (closeModal) {
     CloseModal()
   }
@@ -59,35 +51,12 @@ const showForm = (form: AccountForm) => {
   const request = activePurchaseAuthentication
   if (request === null) return
 
-  const formNode = DOMCacheGetOrSet(form)
-  const parent = formNode.parentElement!
-  const nextSibling = formNode.nextSibling
-  const previousDisplay = formNode.style.display
+  request.showingForm = true
 
-  request.formNode = formNode
-  request.restoreForm = () => {
-    formNode.style.display = previousDisplay
-
-    if (nextSibling?.parentNode === parent) {
-      parent.insertBefore(formNode, nextSibling)
-    } else {
-      parent.appendChild(formNode)
-    }
-
-    request.formNode = undefined
-    request.restoreForm = undefined
-  }
-
-  formNode.style.display = 'flex'
+  const formNode = createAccountForm(form)
 
   const container = document.createElement('div')
   container.className = 'purchaseAuthModal'
-
-  const title = document.createElement('div')
-  title.className = 'resetModalTitle'
-  title.textContent = i18next.t(
-    form === 'register' ? 'pseudoCoins.purchaseAuth.createAccount' : 'pseudoCoins.purchaseAuth.login'
-  )
 
   const buttonRow = document.createElement('div')
   buttonRow.className = 'modalButtonRow'
@@ -98,10 +67,9 @@ const showForm = (form: AccountForm) => {
   backButton.textContent = i18next.t('general.Back')
   buttonRow.appendChild(backButton)
 
-  container.append(title, formNode, buttonRow)
+  container.append(formNode, buttonRow)
   DOMCacheGetOrSet('modalContent').replaceChildren(container)
 
-  renderCaptcha()
   formNode.querySelector<HTMLElement>('input, button')?.focus()
 }
 
@@ -109,7 +77,7 @@ const showChoice = () => {
   const request = activePurchaseAuthentication
   if (request === null) return
 
-  request.restoreForm?.()
+  request.showingForm = false
   DOMCacheGetOrSet('modalContent').innerHTML = choiceModalHTML()
 }
 
@@ -119,11 +87,11 @@ export const showPurchaseAuthModal = (): Promise<boolean> => {
   }
 
   const { promise, resolve } = createDeferredPromise<boolean>()
-  const request: ActivePurchaseAuthentication = { promise, resolve }
+  const request: ActivePurchaseAuthentication = { showingForm: false, promise, resolve }
   activePurchaseAuthentication = request
 
   const modalContent = DOMCacheGetOrSet('modalContent')
-  const html = () => request.formNode === undefined ? choiceModalHTML() : modalContent.innerHTML
+  const html = () => request.showingForm ? modalContent.innerHTML : choiceModalHTML()
 
   Modal(
     html,
