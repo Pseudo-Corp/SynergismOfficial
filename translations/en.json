@@ -3175,7 +3175,7 @@
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+num:((0.1)) Multiplier Traction! Current: ",
-        "2": "Duplication Rune level scaling coefficient is increased by num:((0.75))! Current: ",
+        "2": "Duplication Rune level scaling coefficient is increased by num:((0.8))! Current: ",
         "3": "+num:((0.04)) base Rune exp per Offering! Current: "
       },
       "first": "+1 Base EXP per offering used!",
@@ -3195,7 +3195,7 @@
       "per": {
         "1": "+num:((0.1)) Accelerator Traction! Current: ",
         "2": "+num:((0.1)) Accelerator Boost Traction! Current: ",
-        "3": "Speed Rune level scaling coefficient is increased by num:((0.75))! Current: "
+        "3": "Speed Rune level scaling coefficient is increased by num:((1))! Current: "
       },
       "first": "+1 base offering for Prestige and Transcensions.",
       "start": "Start [No Accelerators]",
@@ -3214,14 +3214,14 @@
       "per": {
         "1": "Crystal --> Coin conversion exponent +num:((0.04))! Current: ",
         "2": "+num:((0.5))% to Grandmaster production per Mythos producer bought. Current: ",
-        "3": "When you use a rune, all other runes gain +num:((0.01)) EXP. Current: "
+        "3": "Prism Rune level scaling coefficient is increased by num:((0.6))! Current: "
       },
       "first": "Gain an offering automatically every 2 seconds!",
       "start": "Start [No Shards]",
       "current": {
         "1": "Exponent +{{value}}",
         "2": "+{{value}}%",
-        "3": "+{{value}} EXP"
+        "3": "+{{value}} Prism Rune level scaling coefficient"
       }
     },
     "4": {
@@ -3233,14 +3233,14 @@
       "per": {
         "1": "Accelerator Traction +num:((0.1)) per completion. Current: ",
         "2": "Multiplier Traction +num:((0.1)) per completion. Current: ",
-        "3": "None"
+        "3": "Thrift Rune level scaling coefficient is increased by num:((0.4))! Current: "
       },
       "first": "None",
       "start": "Start [Cost+]",
       "current": {
         "1": "Accelerator Traction +{{value}}",
         "2": "Multiplier Traction +{{value}}",
-        "3": ""
+        "3": "+{{value}} Thrift Rune level scaling coefficient"
       }
     },
     "5": {
@@ -5163,7 +5163,7 @@
       "17": "Multiply Mint production by 1e+100.",
       "18": "Multiply Printer production based on Mythos Shards.",
       "19": "Multiply Investment production based on Mythos.",
-      "20": "Coin upgrade 1 is raised to the eleventh power.",
+      "20": "Coin upgrade 6 is raised to the eleventh power.",
       "21": "Gain +num:((0.02)) Accelerator and Multiplier Traction.",
       "22": "Gain +num:((0.02)) Accelerator and Multiplier Traction.",
       "23": "Gain +num:((0.02)) Accelerator and Multiplier Traction.",
@@ -5331,7 +5331,7 @@
       "17": "Effect: Mint Production xnum:((1e100)) (Duh)",
       "18": "Effect: Printer Production x{{x}}",
       "19": "Effect: Investment Production x{{x}}",
-      "20": "Effect: All coin production is further multiplied by {{x}} [Stacks with upgrade 1]!",
+      "20": "Effect: All coin production is further multiplied by {{x}}",
       "21": "Effect: +num:((0.02)) Accelerator and Multiplier Traction.",
       "22": "Effect: +num:((0.02)) Accelerator and Multiplier Traction.",
       "23": "Effect: +num:((0.02)) Accelerator and Multiplier Traction.",
