@@ -38,7 +38,7 @@ const captchaPlatform: CaptchaPlatform = Capacitor.getPlatform() === 'android' ?
 
 export const mobileProof: ProofProvider = {
   platform: captchaPlatform,
-  async get () {
+  async get (): Promise<Record<string, string>> {
     const attest = await attestDevice(captchaPlatform)
 
     if ('error' in attest) {
