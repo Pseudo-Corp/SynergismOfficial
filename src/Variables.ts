@@ -34,8 +34,6 @@ export const Globals: GlobalVariables = {
   crystalUpgradesCost: [6, 15, 20, 40, 100, 200, 500, 1000],
   crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
 
-  ticker: 0,
-
   acceleratorPower: 1.10,
   acceleratorEffect: new Decimal(1),
 
@@ -155,8 +153,8 @@ export const Globals: GlobalVariables = {
     taxes: (e: number) => Math.pow(0.98, Math.log(e / 1.25e3) / Math.log(2)),
     obtainium: (e: number) => 1 + (1 / 4) * Math.pow(e / 7.5e3, 0.6),
     offering: (e: number) => 1 + (1 / 4) * Math.pow(e / 7.5e3, 0.8),
-    accelerator: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2),
-    multiplier: (e: number) => 1 + ((1 / 20) * Math.log(e / 2.5e3)) / Math.log(2),
+    accelerator: (e: number) => (1 / 20) * Math.log2(e / 2.5e3),
+    multiplier: (e: number) => (1 / 20) * Math.log2(e / 2.5e3),
     runeExp: (e: number) => 1 + Math.pow(e / 2e4, 1.5),
     runeBonus: (e: number) => 1 + ((1 / 33) * Math.log(e / 1e4)) / Math.log(2),
     cube2: (e: number) => challenge15CubeReward(e, 3e15, 0.24),
@@ -244,14 +242,16 @@ export const Globals: GlobalVariables = {
       requirement: 7500
     },
     accelerator: {
-      value: 1,
-      baseValue: 1,
-      requirement: 10000
+      value: 0,
+      baseValue: 0,
+      requirement: 10000,
+      displayAsMultiplier: true
     },
     multiplier: {
-      value: 1,
-      baseValue: 1,
-      requirement: 10000
+      value: 0,
+      baseValue: 0,
+      requirement: 10000,
+      displayAsMultiplier: true
     },
     runeExp: {
       value: 1,

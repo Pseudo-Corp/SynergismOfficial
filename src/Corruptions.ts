@@ -196,7 +196,7 @@ const endgameScaledStrength = (level: number, slope: number) => {
 }
 
 const corruptionLevelEffects: Record<keyof Corruptions, (level: number) => number> = {
-  viscosity: (l) => Math.pow(2 - 0.04 * player.platonicUpgrades[6], l),
+  viscosity: (l) => Math.pow(Math.max(1, l), 2 - 0.04 * player.platonicUpgrades[6]),
   drought: (l) => -10 * Math.pow(0.2 * l + 7, 2),
   deflation: (l) => l >= deflationZeroLevel ? 0 : Math.pow(10, -25 * Math.pow(corruptionLevelStrength(l) / 11, 2)),
   extinction: (l) => 1 + Math.pow(0.2 * l + 7, 2) / (0.2 * l + 9.5),

@@ -4,7 +4,19 @@ import { achievementPoints, getAchievementReward } from './Achievements'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
+import {
+  calculateCoinUpgrade7Traction,
+  calculateCoinUpgrade8Traction,
+  calculateCoinUpgrade9Traction,
+  calculateDiamondUpgrade11Traction,
+  calculateDiamondUpgrade12Traction,
+  calculateDiamondUpgrade13Traction,
+  calculateGlobalSpeedMult,
+  calculateMythosUpgrade5Traction,
+  calculateMythosUpgrade9Traction,
+  calculateParticleUpgrade8Traction,
+  calculateTotalCoinOwned
+} from './Calculate'
 import { corruptionEffect } from './Corruptions'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
@@ -152,9 +164,9 @@ const upgradetexts = [
   () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
   () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
   () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
-  () => Math.min(4, 1 + Math.floor(Decimal.log(player.fifthOwnedCoin + 1, 10))),
-  () => format(Math.min(100, Math.floor(player.multiplierBought / 7)), 0, true),
-  () => format(Math.min(100, Math.floor(player.acceleratorBought / 10)), 0, true),
+  () => format(calculateCoinUpgrade7Traction(), 3, true),
+  () => format(calculateCoinUpgrade8Traction(), 3, true),
+  () => format(calculateCoinUpgrade9Traction(), 3, true),
   () => format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
   () => format(Decimal.pow(1.02, player.acceleratorBought), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
@@ -197,8 +209,8 @@ const upgradetexts = [
   () => null,
   () =>
     format(
-      Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e10)))
-        + Math.max(0, Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e50)) - 10))
+      Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e10)))
+        + Math.max(0, Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e50)) - 10))
     ),
   () =>
     format(
@@ -222,12 +234,12 @@ const upgradetexts = [
     ),
   () =>
     format(
-      Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e30)))
-        + Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e300)))
+      Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e30)))
+        + Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e300)))
     ),
-  () => format(Math.min(500, Math.floor(calculateTotalCoinOwned() / 2000))),
-  () => format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))),
-  () => format(Math.min(200, player.acceleratorBoostBought)),
+  () => format(calculateDiamondUpgrade11Traction(), 3, true),
+  () => format(calculateDiamondUpgrade12Traction(), 3, true),
+  () => format(calculateDiamondUpgrade13Traction(), 3, true),
   () => null,
   () => null,
   () => format(Decimal.min('1e5000', Decimal.pow(player.prestigePoints, 1 / 500)), 2),
@@ -239,11 +251,11 @@ const upgradetexts = [
   () => format(Decimal.min(1e50, Decimal.pow(player.prestigePoints.add(1), 1 / 50).dividedBy(2.5).add(1)), 2),
   () => format(Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)), 2),
   () => format(Decimal.min(1e6, Decimal.pow(1.01, player.transcendCount)), 2),
-  () => format(Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)))),
+  () => format(calculateMythosUpgrade5Traction(), 3, true),
   () => null,
   () => format(Math.pow(1.01, achievementPoints) * (achievementPoints / 5 + 1), 2),
   () => format(Math.pow(Math.min(1e25, player.multiplierBought * player.acceleratorBought) / 1000 + 1, 8)),
-  () => format(Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))),
+  () => format(calculateMythosUpgrade9Traction(), 3, true),
   () => null,
   () => format(Math.pow(player.acceleratorBoostBought, 2), 2),
   () => format(Decimal.pow(G.globalMythosMultiplier, 0.025), 2),
@@ -270,7 +282,7 @@ const upgradetexts = [
       ),
       2
     ),
-  () => format(Math.min(2500, Math.floor(1 / 1000 * Decimal.log(G.taxdivisor, 10)))),
+  () => format(calculateParticleUpgrade8Traction(), 3, true),
   () => {
     const a = Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
     const b = Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
@@ -806,7 +818,9 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
   }),
   9: () => ({
     x: format(
-      1 + 0.01 * Decimal.log(player.talismanShards.add(1), 4) * Math.min(1, player.constantUpgrades[9]),
+      1
+        + 0.01 * Decimal.log(player.stats.talismanShardsThisAscension.add(1), 4)
+          * Math.min(1, player.constantUpgrades[9]),
       4,
       true
     )

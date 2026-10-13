@@ -26,12 +26,12 @@ import { assert, isMobile, memoize } from './Utility'
 type RuneTypeMap = {
   speed: {
     acceleratorPower: number
-    multiplicativeAccelerators: number
+    acceleratorTraction: number
     globalSpeed: number
   }
   duplication: {
     multiplierPower: number
-    multiplicativeMultipliers: number
+    multiplierTraction: number
     taxReduction: number
   }
   prism: {
@@ -118,8 +118,8 @@ const bonusRuneLevelsSpeed = () => {
   return (
     getRuneBonusFromAllTalismans('speed')
     + (
-      player.upgrades[27] * (Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e10)))
-        + Math.max(0, Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e50)) - 10)))
+      player.upgrades[27] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e10)))
+        + Math.max(0, Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e50)) - 10)))
     )
     + player.upgrades[29] * Math.floor(
         Math.min(
@@ -142,8 +142,8 @@ const bonusRuneLevelsDuplication = () => {
         )
       )
     + (
-      player.upgrades[30] * (Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e30)))
-        + Math.min(50, Math.floor(Decimal.log(player.coins.add(1), 1e300))))
+      player.upgrades[30] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e30)))
+        + Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e300))))
     )
   )
 }
@@ -187,7 +187,8 @@ const bonusRuneLevelsHorseShoe = () => {
 
 const speedRuneOOMIncrease = () => {
   return (
-    player.upgrades[66] * 2
+    0.75 * player.challengecompletions[2]
+    + player.upgrades[66] * 2
     + player.researches[78]
     + player.researches[111]
     + player.challengecompletions[11]
@@ -321,6 +322,9 @@ const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
   return allRuneExpMultiplier.times(allRuneExpAdditiveMultiplier).times(recycleMultiplier)
 }
 
+const runeTractionEffect = (power: number, coefficient = 0.02) =>
+  power > 0 ? coefficient * Math.pow(1 + Math.log(1 + power), 2) : 0
+
 export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
   speed: {
     index: 1,
@@ -332,26 +336,26 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     effects: (n, key) => {
       if (key === 'acceleratorPower') {
         return 0.0002 * n
-      } else if (key === 'multiplicativeAccelerators') {
-        return 1 + n / 400
+      } else if (key === 'acceleratorTraction') {
+        return runeTractionEffect(n)
       } else {
         return 2 - Math.exp(-Math.cbrt(n) / 100) // globalSpeed
       }
     },
     effectsDescription: () => {
       const acceleratorPower = getRuneEffects('speed', 'acceleratorPower')
-      const multiplicativeAccelerators = getRuneEffects('speed', 'multiplicativeAccelerators')
+      const acceleratorTraction = getRuneEffects('speed', 'acceleratorTraction')
       const globalSpeed = getRuneEffects('speed', 'globalSpeed')
       const acceleratorPowerText = i18next.t('runes.speed.acceleratorPower', {
         val: format(100 * acceleratorPower, 2)
       })
-      const multiplicativeAcceleratorsText = i18next.t('runes.speed.freeAccelerators', {
-        val: formatAsPercentIncrease(multiplicativeAccelerators, 2)
+      const acceleratorTractionText = i18next.t('runes.speed.freeAccelerators', {
+        val: format(acceleratorTraction, 3, true)
       })
       const globalSpeedText = i18next.t('runes.speed.globalSpeed', {
         val: formatAsPercentIncrease(globalSpeed, 3)
       })
-      return `${acceleratorPowerText}<br>${multiplicativeAcceleratorsText}<br>${globalSpeedText}`
+      return `${acceleratorPowerText}<br>${acceleratorTractionText}<br>${globalSpeedText}`
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsSpeed(),
@@ -376,26 +380,26 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     effects: (n, key) => {
       if (key === 'multiplierPower') {
         return 0.0002 * n
-      } else if (key === 'multiplicativeMultipliers') {
-        return 1 + n / 400
+      } else if (key === 'multiplierTraction') {
+        return runeTractionEffect(n)
       } else {
         return 0.001 + .999 * Math.exp(-Math.cbrt(n) / 5) // taxReduction
       }
     },
     effectsDescription: () => {
       const multiplierPower = getRuneEffects('duplication', 'multiplierPower')
-      const multiplicativeMultipliers = getRuneEffects('duplication', 'multiplicativeMultipliers')
+      const multiplierTraction = getRuneEffects('duplication', 'multiplierTraction')
       const taxReduction = getRuneEffects('duplication', 'taxReduction')
       const multiplierPowerBoostsText = i18next.t('runes.duplication.multiplierPower', {
         val: format(100 * multiplierPower, 2)
       })
-      const multiplicativeMultipliersText = i18next.t('runes.duplication.freeMultipliers', {
-        val: formatAsPercentIncrease(multiplicativeMultipliers, 2)
+      const multiplierTractionText = i18next.t('runes.duplication.freeMultipliers', {
+        val: format(multiplierTraction, 3, true)
       })
       const taxReductionText = i18next.t('runes.duplication.taxReduction', {
         val: format(100 * (1 - taxReduction), 4, true)
       })
-      return `${multiplierPowerBoostsText}<br>${multiplicativeMultipliersText}<br>${taxReductionText}`
+      return `${multiplierPowerBoostsText}<br>${multiplierTractionText}<br>${taxReductionText}`
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsDuplication(),
@@ -457,7 +461,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     levelsPerOOMIncrease: () => thriftRuneOOMIncrease(),
     effects: (n, key) => {
       if (key === 'construction') {
-        return 1 + 0.01 * Math.sqrt(n)
+        return runeTractionEffect(n, 0.03)
       } else if (key === 'salvage') {
         return 2.5 * Math.log(1 + n / 10)
       } else {
@@ -469,7 +473,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       const salvage = getRuneEffects('thrift', 'salvage')
       const taxReduction = getRuneEffects('thrift', 'taxReduction')
       const constructionText = i18next.t('runes.thrift.construction', {
-        val: formatAsPercentIncrease(construction, 2)
+        val: format(construction, 3, true)
       })
       const salvageText = i18next.t('runes.thrift.salvage', { val: format(salvage, 2, true) })
       const taxReductionText = i18next.t('runes.thrift.taxReduction', {

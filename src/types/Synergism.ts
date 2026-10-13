@@ -580,6 +580,10 @@ export interface Player {
   stats: {
     totalAddCodesUsed: number
     highestPurpleHoney: number
+    highestDiamondsThisPrestige: Decimal
+    highestMythosThisPrestige: Decimal
+    highestTaxDivisorThisPrestige: Decimal
+    talismanShardsThisAscension: Decimal
   }
 
   purpleUpdateQuarkRefundAwarded: boolean
@@ -591,8 +595,6 @@ export interface GlobalVariables {
   // Mega list of Variables to be used elsewhere
   crystalUpgradesCost: number[]
   crystalUpgradeCostIncrement: number[]
-
-  ticker: number
 
   acceleratorPower: number
   acceleratorEffect: Decimal

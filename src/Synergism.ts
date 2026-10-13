@@ -1187,7 +1187,11 @@ export const player: Player = {
 
   stats: {
     totalAddCodesUsed: 0,
-    highestPurpleHoney: 0
+    highestPurpleHoney: 0,
+    highestDiamondsThisPrestige: new Decimal(),
+    highestMythosThisPrestige: new Decimal(),
+    highestTaxDivisorThisPrestige: new Decimal(1),
+    talismanShardsThisAscension: new Decimal()
   },
 
   purpleUpdateQuarkRefundAwarded: true
@@ -2842,6 +2846,7 @@ export const resourceGain = (dt: number): void => {
       Decimal.floor(G.transcendPointGain.dividedBy(4000).times(dt / 0.025))
     )
   }
+  updatePrestigeCurrencyRecords()
   if (player.cubeUpgrades[28] > 0 && player.transcendShards.gte(G.d1e300)) {
     player.reincarnationPoints = player.reincarnationPoints.add(
       Decimal.floor(G.reincarnationPointGain.dividedBy(4000).times(dt / 0.025))
@@ -3115,6 +3120,14 @@ export const resourceGain = (dt: number): void => {
       challengeAchievementCheck(ascendchal)
     }
   }
+}
+
+export const updatePrestigeCurrencyRecords = () => {
+  player.stats.highestDiamondsThisPrestige = Decimal.max(
+    player.stats.highestDiamondsThisPrestige,
+    player.prestigePoints
+  )
+  player.stats.highestMythosThisPrestige = Decimal.max(player.stats.highestMythosThisPrestige, player.transcendPoints)
 }
 
 export const resetCurrency = (): void => {

@@ -65,12 +65,13 @@ export type Challenge15RewardsInformation = {
 
 export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15RewardsInformation>
 
-export const transcensionChallengeCap = 310
+export const transcensionChallengeCap = 400
 
 export const transcensionCubeBankTiers = [
-  { from: 1, to: 100, weight: 1 },
-  { from: 101, to: 300, weight: 2 },
-  { from: 301, to: Number.POSITIVE_INFINITY, weight: 10 }
+  { from: 1, to: 100, weight: 2 },
+  { from: 101, to: 200, weight: 3 },
+  { from: 201, to: 300, weight: 4 },
+  { from: 301, to: Number.POSITIVE_INFINITY, weight: 5 }
 ]
 
 const transcensionChallengeCubeBankWeight = (completion: number) =>
@@ -78,8 +79,6 @@ const transcensionChallengeCubeBankWeight = (completion: number) =>
 
 const reincarnationCompletionsPerTenfold = 12
 const transcensionCompletionsPerTenfold = 15
-const transcensionLateCompletionsPerTenfold = 2
-const transcensionLateExponent = 4 + 200 / transcensionCompletionsPerTenfold
 
 export const getMaxChallenges = (i: number) => {
   let maxChallenge = 0
@@ -209,13 +208,15 @@ export const challengeDisplay = (i: number) => {
 
     switch (i) {
       case 1: {
+        current1 = format(0.1 * player.challengecompletions[1], 2, true)
         current2 = format(0.75 * player.challengecompletions[1], 2, true)
         current3 = format(0.04 * player.challengecompletions[1], 2, true)
         break
       }
       case 2: {
-        current1 = format(5 * player.challengecompletions[2])
-        current2 = format(0.02 * player.challengecompletions[2], 2, true)
+        current1 = format(0.1 * player.challengecompletions[2], 2, true)
+        current2 = format(0.1 * player.challengecompletions[2], 2, true)
+        current3 = format(0.75 * player.challengecompletions[2], 2, true)
         break
       }
       case 3: {
@@ -225,9 +226,8 @@ export const challengeDisplay = (i: number) => {
         break
       }
       case 4: {
-        current1 = format(5 * player.challengecompletions[4])
-        current2 = format(2 * player.challengecompletions[4])
-        current3 = format(1 + 0.003 * player.challengecompletions[4], 3, true)
+        current1 = format(0.1 * player.challengecompletions[4], 2, true)
+        current2 = format(0.1 * player.challengecompletions[4], 2, true)
         break
       }
       case 5: {
@@ -451,11 +451,7 @@ const calculateChallengeRequirementMultiplier = (
     case 'transcend':
       requirementMultiplier *= G.challenge15Rewards.transcendChallengeReduction.value
       requirementMultiplier *= Math.pow(1 + Math.min(completions, 99), 2)
-      requirementMultiplier *= Math.pow(
-        10,
-        Math.min(Math.max(0, completions - 99), 200) / transcensionCompletionsPerTenfold
-      )
-      requirementMultiplier *= Math.pow(10, Math.max(0, completions - 299) / transcensionLateCompletionsPerTenfold)
+      requirementMultiplier *= Math.pow(10, Math.max(0, completions - 99) / transcensionCompletionsPerTenfold)
       return requirementMultiplier
     case 'reincarnation':
       requirementMultiplier *= Math.pow(1 + Math.min(completions, 24), 2)
@@ -516,11 +512,7 @@ const transcensionCompletionsAtMultiplier = (multiplier: number) => {
   if (multiplier <= 1e4) {
     return Math.floor(Math.sqrt(multiplier))
   }
-  const exponent = Math.log10(multiplier)
-  if (exponent <= transcensionLateExponent) {
-    return 100 + Math.floor(transcensionCompletionsPerTenfold * (exponent - 4))
-  }
-  return 300 + Math.floor(transcensionLateCompletionsPerTenfold * (exponent - transcensionLateExponent))
+  return 100 + Math.floor(transcensionCompletionsPerTenfold * (Math.log10(multiplier) - 4))
 }
 
 const reincarnationCompletionsAtMultiplier = (multiplier: number, rate: number) => {

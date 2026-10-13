@@ -1,13 +1,13 @@
 import Decimal from 'break_infinity.js'
 import { awardAchievementGroup } from './Achievements'
 import {
-  baseConstruction,
-  baseTraction,
+  buildingConstructionSoftcap,
   calculateBuildingConstruction,
   calculateConstruction,
-  calculateTraction
+  calculateTraction,
+  calculateTractionSoftcap,
+  type tractionSoftcap
 } from './Calculate'
-import { reset } from './Reset'
 import { getRuneEffects } from './Runes'
 import { player } from './Synergism'
 import type { BuyAmount, OneToFive, ZeroToFour } from './types/Synergism'
@@ -57,21 +57,14 @@ const accelMultData = {
   }
 } as const
 
-const softcap = 1e15
-
-const getScalingThreshold = (value: number, cap = softcap) => value <= cap ? value : cap * Math.cbrt(value / cap)
-
 const linSum = (n: number) => n * (n + 1) / 2
 
 export type BuildingType = keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost'
 type ScalingBuildingType = keyof typeof producerData
 
-const challengeBuildingSoftcap = 1e13
-const challenge8BuildingSoftcap = 1e12
 const challenge8GrowthPower = 2
 const acceleratorBoostCost = 1000
-const acceleratorBoostLinearExponent = 9.5
-const acceleratorBoostPostTractionMultiplier = 10
+const acceleratorBoostGrowth = 1e5
 const affordabilityTolerance = 1 + 1e-9
 
 interface CostCurve {
@@ -88,6 +81,8 @@ const isScalingBuilding = (type: BuildingType): type is ScalingBuildingType =>
 export const getBuildingCostKey = () =>
   `${calculateConstruction()}|${calculateTraction('accelerator')}|${calculateTraction('multiplier')}|${
     calculateTraction('acceleratorBoost')
+  }|${calculateTractionSoftcap('accelerator')}|${
+    calculateTractionSoftcap('multiplier')
   }|${player.currentChallenge.transcension}|${player.currentChallenge.reincarnation}|${player.currentChallenge.ascension}`
 
 const getScalingFactor = (base: number, threshold: number) => Math.min(1, base / threshold)
@@ -109,60 +104,17 @@ const createQuadraticCostCurve = (cost: number, growth: number, threshold: numbe
   }
 })
 
-const acceleratorBoostBaseExponentBetween = (from: number, to: number) =>
-  (to - from) * (acceleratorBoostLinearExponent + (to + from) / 2)
-
-const createAcceleratorBoostCostCurve = (threshold: number, factor: number): CostCurve => {
-  const thresholdExponent = acceleratorBoostBaseExponentBetween(0, threshold)
-  const exponentBetween = (from: number, to: number) => {
-    const end = Math.min(to, threshold)
-    const start = Math.max(from, threshold)
-    return factor * ((from < end ? acceleratorBoostBaseExponentBetween(from, end) : 0)
-      + (start < to ? acceleratorBoostPostTractionMultiplier * acceleratorBoostBaseExponentBetween(start, to) : 0))
-  }
-
-  return {
-    growth: 10,
-    log10Growth: 1,
-    scale: Decimal.fromNumber(acceleratorBoostCost / Math.expm1(exponentBetween(0, 1) * Math.LN10)),
-    exponentBetween,
-    countForExponent: (exponent) => {
-      const unscaledExponent = exponent / factor
-      const baseExponent = unscaledExponent <= thresholdExponent
-        ? unscaledExponent
-        : thresholdExponent + (unscaledExponent - thresholdExponent) / acceleratorBoostPostTractionMultiplier
-      return Math.sqrt(Math.pow(acceleratorBoostLinearExponent, 2) + 2 * baseExponent) - acceleratorBoostLinearExponent
-    }
-  }
-}
-
-const getBaseBuildingSoftcap = (type: ScalingBuildingType) => {
-  if (type === 'particle') {
-    return softcap
-  }
-  if (player.currentChallenge.reincarnation === 8) {
-    return challenge8BuildingSoftcap
-  }
-  if (
-    type !== 'mythos'
-    && (player.currentChallenge.transcension === 4 || player.currentChallenge.reincarnation === 10)
-  ) {
-    return challengeBuildingSoftcap
-  }
-  return softcap
-}
-
 export const getBuildingScalingThreshold = (type: ScalingBuildingType) =>
-  getScalingThreshold(calculateBuildingConstruction(type), getBaseBuildingSoftcap(type))
+  calculateBuildingConstruction(type) * buildingConstructionSoftcap[type]
 
-export const getTractionScalingThreshold = (type: keyof typeof baseTraction) =>
-  getScalingThreshold(calculateTraction(type))
+export const getTractionScalingThreshold = (type: keyof typeof tractionSoftcap) =>
+  calculateTraction(type) * calculateTractionSoftcap(type)
 
 export const getBuildingScalingFactor = (type: ScalingBuildingType) =>
-  getScalingFactor(baseConstruction, getBuildingScalingThreshold(type))
+  getScalingFactor(buildingConstructionSoftcap[type], getBuildingScalingThreshold(type))
 
-export const getTractionScalingFactor = (type: keyof typeof baseTraction) =>
-  getScalingFactor(baseTraction[type], getTractionScalingThreshold(type))
+export const getTractionScalingFactor = (type: keyof typeof tractionSoftcap) =>
+  getScalingFactor(calculateTractionSoftcap(type), getTractionScalingThreshold(type))
 
 const getBuildingCostCurve = (type: ScalingBuildingType, index: ZeroToFour): CostCurve => {
   const growthPower = player.currentChallenge.reincarnation === 8 && type !== 'particle' ? challenge8GrowthPower : 1
@@ -191,7 +143,9 @@ const getCostCurve = (type: BuildingType, index: ZeroToFour): CostCurve => {
     case 'multiplier':
       return getAccelMultCostCurve(type)
     case 'acceleratorBoost':
-      return createAcceleratorBoostCostCurve(
+      return createQuadraticCostCurve(
+        acceleratorBoostCost,
+        acceleratorBoostGrowth,
         getTractionScalingThreshold('acceleratorBoost'),
         getTractionScalingFactor('acceleratorBoost')
       )
@@ -263,7 +217,8 @@ const setCurveBuildingState = (type: BuildingType, index: ZeroToFour, curve: Cos
   player[keys.owned] = owned
   const price = costBetween(curve, owned, owned + smallestInc(owned))
   const credit = player[keys.paid].sub(costBetween(curve, 0, owned))
-  G.buildingCosts[type][index] = credit.gt(0) && credit.lt(price) ? price.sub(credit) : price
+  G.buildingCosts[type][index] = (credit.gt(0) && credit.lt(price) ? price.sub(credit) : price)
+    .div(affordabilityTolerance)
 }
 
 export const getBuildingCost = (type: BuildingType, index: ZeroToFour = 0) => G.buildingCosts[type][index]
@@ -424,26 +379,7 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 }
 
 export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
-  if (player.upgrades[88] < 1) {
-    while (player.prestigePoints.gte(getBuildingCost('acceleratorBoost')) && G.ticker < 1) {
-      if (player.prestigePoints.gte(getBuildingCost('acceleratorBoost'))) {
-        grantCurveBuildings('acceleratorBoost', 0, player.acceleratorBoostBought + 1)
-        player.transcendnoaccelerator = false
-        player.reincarnatenoaccelerator = false
-        if (player.upgrades[88] < 0.5) {
-          for (let j = 21; j < 41; j++) {
-            player.upgrades[j] = 0
-          }
-          reset('prestige')
-          player.prestigePoints = new Decimal()
-        }
-      }
-    }
-  } else {
-    buyBuilding('acceleratorBoost', amount)
-  }
-
-  G.ticker = 0
+  buyBuilding('acceleratorBoost', amount)
   awardAchievementGroup('acceleratorBoosts')
 }
 

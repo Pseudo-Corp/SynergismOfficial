@@ -2,6 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateCubicSumData, calculateSummationNonLinear } from './Calculate'
+import { calculateAcceleratorHypercubeBlessing, calculateMultiplierHypercubeBlessing } from './Hypercubes'
 import { researchData, updateResearchBG } from './Research'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { format, player } from './Synergism'
@@ -293,33 +294,22 @@ export const autoBuyCubeUpgrades = () => {
   }
 }
 
-export const calculateAcceleratorCubeBlessing = () => {
-  const DR = 1 / 12
-  const effectPerBlessing = calculateAcceleratorTesseractBlessing() / 5000
-  const limit = 1000
-  const DRIncrease = player.cubeUpgrades[45] / 1200
+const calculateTractionCubeBlessing = (coefficient: number, blessings: number) =>
+  coefficient * Math.log10(1 + blessings)
 
-  if (player.cubeBlessings.accelerator < limit) {
-    return Math.pow(1 + effectPerBlessing * player.cubeBlessings.accelerator, 1 + DRIncrease)
-  } else {
-    const limitMult = Math.pow(limit, 1 - DR + DRIncrease)
-    return 1 + effectPerBlessing * limitMult * Math.pow(player.cubeBlessings.accelerator, DR + DRIncrease)
-  }
-}
+export const calculateAcceleratorCubeBlessing = () =>
+  calculateTractionCubeBlessing(
+    (0.4 + calculateAcceleratorTesseractBlessing() + calculateAcceleratorHypercubeBlessing())
+      * (1 + player.cubeUpgrades[45] / 100),
+    player.cubeBlessings.accelerator
+  )
 
-export const calculateMultiplierCubeBlessing = () => {
-  const DR = 1 / 12
-  const effectPerBlessing = calculateMultiplierTesseractBlessing() / 5000
-  const limit = 1000
-  const DRIncrease = player.cubeUpgrades[35] / 1200
-
-  if (player.cubeBlessings.multiplier < limit) {
-    return Math.pow(1 + effectPerBlessing * player.cubeBlessings.multiplier, 1 + DRIncrease)
-  } else {
-    const limitMult = Math.pow(limit, 1 - DR + DRIncrease)
-    return 1 + effectPerBlessing * limitMult * Math.pow(player.cubeBlessings.multiplier, DR + DRIncrease)
-  }
-}
+export const calculateMultiplierCubeBlessing = () =>
+  calculateTractionCubeBlessing(
+    (0.4 + calculateMultiplierTesseractBlessing() + calculateMultiplierHypercubeBlessing())
+      * (1 + player.cubeUpgrades[35] / 100),
+    player.cubeBlessings.multiplier
+  )
 
 export const calculateOfferingCubeBlessing = () => {
   const DR = 2 / 3
