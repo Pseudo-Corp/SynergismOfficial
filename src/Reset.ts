@@ -69,7 +69,7 @@ import {
   getGQUpgradeEffect
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
+import { blankSave, deepClone, format, player, saveSynergy, updatePrestigeCurrencyRecords } from './Synergism'
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
@@ -204,13 +204,10 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       break
     case 'acceleratorBoost':
       addCurrencyReward('Diamond.png', `-${format(getBuildingCost('acceleratorBoost'))}`)
-      resetDetails.infoText = i18next.t(
-        player.upgrades[88] === 1 ? 'reset.details.acceleratorBoostNoReset' : 'reset.details.acceleratorBoost',
-        {
-          amount: format(player.prestigePoints),
-          required: format(getBuildingCost('acceleratorBoost'))
-        }
-      )
+      resetDetails.infoText = i18next.t('reset.details.acceleratorBoost', {
+        amount: format(player.prestigePoints),
+        required: format(getBuildingCost('acceleratorBoost'))
+      })
       resetDetails.infoColor = 'cyan'
       break
     case 'transcensionChallenge':
@@ -466,6 +463,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   player.acceleratorPaid = new Decimal()
   player.acceleratorBought = 0
   syncCurveBuildings()
+  player.stats.highestTaxDivisorThisPrestige = new Decimal(1)
 
   updatePrestigeCount(1)
 
@@ -646,6 +644,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   }
 
   if (input === 'ascension' || input === 'ascensionChallenge' || input === 'singularity') {
+    player.stats.talismanShardsThisAscension = new Decimal()
     if (player.challengecompletions[10] > 0) {
       awardAchievementGroup('ascensionScore')
     }
@@ -936,6 +935,9 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     }
   }
 
+  player.stats.highestDiamondsThisPrestige = player.prestigePoints
+  player.stats.highestMythosThisPrestige = player.transcendPoints
+
   revealStuff()
   updateSubTabVisibility()
   if (input === 'transcensionChallenge' || input === 'reincarnationChallenge' || input === 'ascensionChallenge') {
@@ -953,6 +955,7 @@ export const updateSingularityAchievements = (): void => {
 const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   if (player.highestSingularityCount >= 2) { // Singularity 2
     player.transcendPoints = Decimal.fromString('1001')
+    updatePrestigeCurrencyRecords()
     grantCurveBuildings('coin', 0, 1)
     player.unlocks.coinone = true
     player.unlocks.cointwo = true

@@ -66,15 +66,13 @@ import {
   antSpeedStats,
   ascensionCountMultStats,
   calculateTotalStat,
-  constructionBaseStats,
-  constructionMultiplierStats,
+  constructionStats,
   negativeSalvageStatMultiplier,
   negativeSalvageStats,
   offeringObtainiumTimeModifiers,
   positiveSalvageStatMultiplier,
   positiveSalvageStats,
-  tractionBaseStats,
-  tractionMultiplierStats
+  tractionBaseStats
 } from './Statistics'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
@@ -586,127 +584,140 @@ export const calculateNegativeSalvage = () => {
   return calculateRawNegativeSalvage() * calculateNegativeSalvageMultiplier()
 }
 
-export const baseConstruction = 1000
-const challenge4ConstructionScaling = { divisor: 100, power: 1 / 2 } as const
-const challenge8ConstructionScaling = { divisor: 1000, power: 1 / 3 } as const
-const ascensionChallenge15ParticleConstruction = 1000
-export const buildingBonusConstruction = {
-  coin: 0,
-  diamond: 1000,
-  mythos: 3000,
-  particle: 9000
+export const baseConstruction = 1
+const challenge4ConstructionDivisor = 2
+const challenge8ConstructionDivisor = 5
+const ascensionChallenge15ParticleConstruction = 1
+export const buildingConstructionSoftcap = {
+  coin: 1000,
+  diamond: 2000,
+  mythos: 4000,
+  particle: 10000
 } as const
 
-export const calculateRawConstruction = () => calculateTotalStat(constructionBaseStats)
-export const calculateConstructionMultiplier = () => calculateTotalStat(constructionMultiplierStats)
-export const calculateConstruction = () => calculateRawConstruction() * calculateConstructionMultiplier()
+export const calculateConstruction = () => calculateTotalStat(constructionStats)
 
-const getChallengeConstructionScaling = (type: keyof typeof buildingBonusConstruction) => {
+const getChallengeConstructionDivisor = (type: keyof typeof buildingConstructionSoftcap) => {
   if (type === 'particle') {
-    return undefined
+    return 1
   }
   if (player.currentChallenge.reincarnation === 8) {
-    return challenge8ConstructionScaling
+    return challenge8ConstructionDivisor
   }
   if (
     type !== 'mythos' && (player.currentChallenge.transcension === 4 || player.currentChallenge.reincarnation === 10)
   ) {
-    return challenge4ConstructionScaling
+    return challenge4ConstructionDivisor
   }
-  return undefined
+  return 1
 }
 
-export const calculateBuildingConstruction = (type: keyof typeof buildingBonusConstruction) => {
+export const calculateBuildingConstruction = (type: keyof typeof buildingConstructionSoftcap) => {
   if (type === 'particle' && player.currentChallenge.ascension === 15) {
     return ascensionChallenge15ParticleConstruction
   }
-  const base = calculateRawConstruction() + buildingBonusConstruction[type]
-  const scaling = getChallengeConstructionScaling(type)
-  if (scaling === undefined) {
-    return base * calculateConstructionMultiplier()
-  }
-  return base / scaling.divisor * Math.pow(calculateConstructionMultiplier(), scaling.power)
+  return calculateConstruction() / getChallengeConstructionDivisor(type)
 }
 
-export const baseTraction = {
-  accelerator: 125,
-  multiplier: 75,
+export const baseTraction = 1
+export const tractionSoftcap = {
+  accelerator: 50,
+  multiplier: 25,
   acceleratorBoost: 1000
 } as const
-export const tractionPerChallenge4Completion = {
-  accelerator: 5,
-  multiplier: 2
-} as const
-export const getTractionChallengeScaling = () => {
+const tractionPerChallenge4Completion = 0.1
+const challenge4TractionDivisor = 2
+const challenge8TractionDivisor = 4
+export const getTractionChallengeDivisor = () => {
   if (player.currentChallenge.reincarnation === 8) {
-    return challenge8ConstructionScaling
+    return challenge8TractionDivisor
   }
   if (player.currentChallenge.transcension === 4) {
-    return challenge4ConstructionScaling
+    return challenge4TractionDivisor
   }
-  return undefined
+  return 1
 }
 
-export const calculateChallenge4Traction = (type: keyof typeof tractionPerChallenge4Completion) =>
-  tractionPerChallenge4Completion[type] * player.challengecompletions[4]
+export const calculateCoinUpgrade7Traction = () => Math.min(1, 0.05 * Math.log(player.fifthOwnedCoin + 1))
 
-export const calculateAcceleratorTractionPerBoost = () =>
+export const calculateCoinUpgrade8Traction = () => Math.min(1, 0.05 * Math.log(player.multiplierBought + 1))
+
+export const calculateCoinUpgrade9Traction = () => Math.min(1, 0.05 * Math.log(player.acceleratorBought + 1))
+
+export const calculateDiamondUpgrade11Traction = () => Math.min(1, 0.002 * Math.floor(calculateTotalCoinOwned() / 2000))
+
+export const calculateDiamondUpgrade12Traction = () =>
+  Math.min(1, Math.max(0, Decimal.log10(player.stats.highestDiamondsThisPrestige.add(1)) / 1e6))
+
+export const calculateDiamondUpgrade13Traction = () => 0.005 * Math.min(200, player.acceleratorBoostBought)
+
+export const calculateMythosUpgrade5Traction = () =>
+  Math.min(1, Math.max(0, Decimal.log10(player.transcendShards.add(1)) / 250000))
+
+export const calculateMythosUpgrade9Traction = () =>
+  Math.min(1, Decimal.log10(player.stats.highestMythosThisPrestige.add(1)) / 100)
+
+export const calculateParticleUpgrade8Traction = () =>
+  0.002 * Math.log(1 + Math.max(0, Decimal.log10(player.stats.highestTaxDivisorThisPrestige)))
+
+export const calculateChallenge4Traction = () => tractionPerChallenge4Completion * player.challengecompletions[4]
+
+export const calculateAcceleratorBoostCoefficient = () =>
   0.04
   + (player.upgrades[46] > 0.5 ? 0.02 : 0)
-  + 0.0002 * player.challengecompletions[2]
   + 0.02 * player.researches[18]
   + 0.02 * player.researches[19]
   + 0.02 * player.researches[20]
 
-export const calculateAcceleratorBoostTractionMultiplier = () =>
-  1 + calculateAcceleratorTractionPerBoost() * player.acceleratorBoostBought
+const boostSoftcapMultiplier = (coefficient: number, boosts: number) =>
+  1 + coefficient * Math.pow(Math.log(1 + boosts), 2)
 
-const multiplierBoostSoftcap = 1e15
+export const calculateAcceleratorBoostSoftcapMultiplier = (boosts = player.acceleratorBoostBought) =>
+  boostSoftcapMultiplier(calculateAcceleratorBoostCoefficient(), boosts)
 
 export const calculateMultiplierBoosts = () =>
   Math.floor(
     Decimal.log(player.transcendShards.add(1), 3) * (player.challengecompletions[7] > 0.5 ? 1.25 : 1)
   )
 
-export const calculateEffectiveMultiplierBoosts = () => {
-  const boosts = calculateMultiplierBoosts()
-  return boosts <= multiplierBoostSoftcap ? boosts : multiplierBoostSoftcap * Math.sqrt(boosts / multiplierBoostSoftcap)
-}
-
-export const calculateMultiplierTractionPerBoost = () =>
+export const calculateMultiplierBoostCoefficient = () =>
   0.01
-  + 0.0004 * (player.researches[33] + player.researches[34] + player.researches[35])
-  + 0.0006 * player.researches[89]
+  + 0.004
+    * (Math.min(1, player.researches[33]) + Math.min(1, player.researches[34]) + Math.min(1, player.researches[35]))
+  + 0.012 * Math.min(1, player.researches[89])
 
-export const calculateMultiplierBoostTractionMultiplier = () =>
-  1 + calculateMultiplierTractionPerBoost() * calculateEffectiveMultiplierBoosts()
+export const calculateMultiplierBoostSoftcapMultiplier = () =>
+  boostSoftcapMultiplier(calculateMultiplierBoostCoefficient(), calculateMultiplierBoosts())
 
-export const calculateRawTraction = (type: keyof typeof baseTraction) => calculateTotalStat(tractionBaseStats[type])
-export const calculateTractionMultiplier = (type: keyof typeof baseTraction) =>
-  calculateTotalStat(tractionMultiplierStats[type])
+const tractionSoftcapMultiplier = {
+  accelerator: () => calculateAcceleratorBoostSoftcapMultiplier(),
+  multiplier: calculateMultiplierBoostSoftcapMultiplier,
+  acceleratorBoost: () => 1
+} as const
 
-export const calculateTraction = (type: keyof typeof baseTraction) => {
-  const scaling = getTractionChallengeScaling()
-  const traction = scaling === undefined
-    ? calculateRawTraction(type) * calculateTractionMultiplier(type)
-    : calculateRawTraction(type) / scaling.divisor * Math.pow(calculateTractionMultiplier(type), scaling.power)
-  if (type === 'acceleratorBoost') {
-    return traction
-  }
-  return (Math.pow(traction, c15ViscosityExponent(player.corruptions.used)) + calculateHepteractTraction(type))
-    * G.challenge15Rewards[type].value
-    * calculateHepteractTractionMultiplier(type)
-}
+export const calculateTractionSoftcap = (type: keyof typeof tractionSoftcap) =>
+  tractionSoftcap[type] * tractionSoftcapMultiplier[type]()
 
-export const calculateHepteractTraction = (type: 'accelerator' | 'multiplier') =>
-  type === 'accelerator'
-    ? getHepteractEffects('accelerator').accelerators
-    : getHepteractEffects('multiplier').multiplier
+export const calculateRawTraction = (type: keyof typeof tractionSoftcap) => calculateTotalStat(tractionBaseStats[type])
 
-export const calculateHepteractTractionMultiplier = (type: 'accelerator' | 'multiplier') =>
-  type === 'accelerator'
-    ? getHepteractEffects('accelerator').acceleratorMultiplier
-    : getHepteractEffects('multiplier').multiplierMultiplier
+export const calculateTraction = (type: keyof typeof tractionSoftcap) =>
+  type === 'acceleratorBoost'
+    ? (calculateRawTraction(type) + calculateHepteractTraction(type)) / getTractionChallengeDivisor()
+    : (Math.pow(
+      calculateRawTraction(type) / corruptionEffect(player.corruptions.used, 'viscosity'),
+      c15ViscosityExponent(player.corruptions.used)
+    )
+      + calculateHepteractTraction(type)
+      + G.challenge15Rewards[type].value)
+      / getTractionChallengeDivisor()
+
+const hepteractTraction = {
+  accelerator: () => getHepteractEffects('accelerator').accelerators,
+  multiplier: () => getHepteractEffects('multiplier').multiplier,
+  acceleratorBoost: () => getHepteractEffects('acceleratorBoost').acceleratorBoosts
+} as const
+
+export const calculateHepteractTraction = (type: keyof typeof tractionSoftcap) => hepteractTraction[type]()
 
 export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()

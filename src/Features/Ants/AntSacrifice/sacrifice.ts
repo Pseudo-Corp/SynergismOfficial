@@ -59,6 +59,9 @@ export const sacrificeAnts = () => {
 
   if (player.challengecompletions[9] > 0) {
     player.talismanShards = player.talismanShards.add(sacRewards.talismanCraftItems.shard)
+    player.stats.talismanShardsThisAscension = player.stats.talismanShardsThisAscension.add(
+      sacRewards.talismanCraftItems.shard
+    )
     player.commonFragments = player.commonFragments.add(sacRewards.talismanCraftItems.commonFragment)
     player.uncommonFragments = player.uncommonFragments.add(sacRewards.talismanCraftItems.uncommonFragment)
     player.rareFragments = player.rareFragments.add(sacRewards.talismanCraftItems.rareFragment)

@@ -17,7 +17,7 @@ type RuneBlessingTypeMap = {
   speed: { globalSpeed: number }
   duplication: { multiplierTraction: number }
   prism: { antSacrificeMult: number }
-  thrift: { accelBoostCostDelay: number }
+  thrift: { acceleratorBoostTraction: number }
   superiorIntellect: { obtToAntExponent: number }
 }
 
@@ -80,7 +80,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     costCoefficient: new Decimal(1e7),
     levelsPerOOM: 4,
     effects: (level) => {
-      const multiplierTraction = 1 + Math.sqrt(level) / 10000
+      const multiplierTraction = 0.02 * Math.log(level + 1)
       return {
         multiplierTraction
       }
@@ -88,7 +88,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     effectsDescription: (level) => {
       const multiplierTraction = runeBlessings.duplication.effects(level).multiplierTraction
       return i18next.t('runes.blessings.duplication.multiplierTraction', {
-        val: formatAsPercentIncrease(multiplierTraction, 2)
+        val: format(multiplierTraction, 3, true)
       })
     },
     effectiveLevelMult: () => blessingMultiplier('duplication'),
@@ -124,15 +124,15 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     costCoefficient: new Decimal(1e12),
     levelsPerOOM: 4,
     effects: (level) => {
-      const accelBoostCostDelay = 1 + level / 1000000
+      const acceleratorBoostTraction = 0.02 * Math.log(level + 1)
       return {
-        accelBoostCostDelay
+        acceleratorBoostTraction
       }
     },
     effectsDescription: (level) => {
-      const accelBoostCostDelay = runeBlessings.thrift.effects(level).accelBoostCostDelay
+      const acceleratorBoostTraction = runeBlessings.thrift.effects(level).acceleratorBoostTraction
       return i18next.t('runes.blessings.thrift.acceleratorBoostDelay', {
-        val: formatAsPercentIncrease(accelBoostCostDelay, 2)
+        val: format(acceleratorBoostTraction, 3, true)
       })
     },
     effectiveLevelMult: () => blessingMultiplier('thrift'),

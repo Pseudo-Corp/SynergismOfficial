@@ -1,11 +1,9 @@
 import Decimal from 'break_infinity.js'
 import {
-  calculateAcceleratorHypercubeBlessing,
   calculateAntELOHypercubeBlessing,
   calculateAntSacrificeHypercubeBlessing,
   calculateAntSpeedHypercubeBlessing,
   calculateGlobalSpeedHypercubeBlessing,
-  calculateMultiplierHypercubeBlessing,
   calculateObtainiumHypercubeBlessing,
   calculateOfferingHypercubeBlessing,
   calculateRuneEffectivenessHypercubeBlessing,
@@ -13,30 +11,17 @@ import {
 } from './Hypercubes'
 import { player } from './Synergism'
 
-export const calculateAcceleratorTesseractBlessing = () => {
-  const DR = 1 / 24
-  const effectPerBlessing = calculateAcceleratorHypercubeBlessing() / 1000
-  const limit = 1000
-
-  if (player.tesseractBlessings.accelerator < limit) {
-    return 1 + effectPerBlessing * player.tesseractBlessings.accelerator
-  } else {
-    const limitMult = Math.pow(limit, 1 - DR)
-    return 1 + effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.accelerator, DR)
-  }
+const calculateTractionTesseractBlessing = (blessings: number) => {
+  const factor = Math.pow(Math.log10(blessings + 1), 1.25)
+  const cap = 0.3
+  return cap * factor / (20 + factor)
 }
 
-export const calculateMultiplierTesseractBlessing = () => {
-  const DR = 1 / 24
-  const effectPerBlessing = calculateMultiplierHypercubeBlessing() / 1000
-  const limit = 1000
-  if (player.tesseractBlessings.multiplier < limit) {
-    return 1 + effectPerBlessing * player.tesseractBlessings.multiplier
-  } else {
-    const limitMult = Math.pow(limit, 1 - DR)
-    return 1 + effectPerBlessing * limitMult * Math.pow(player.tesseractBlessings.multiplier, DR)
-  }
-}
+export const calculateAcceleratorTesseractBlessing = () =>
+  calculateTractionTesseractBlessing(player.tesseractBlessings.accelerator)
+
+export const calculateMultiplierTesseractBlessing = () =>
+  calculateTractionTesseractBlessing(player.tesseractBlessings.multiplier)
 
 export const calculateOfferingTesseractBlessing = () => {
   const DR = 1 / 3

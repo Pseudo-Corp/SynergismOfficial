@@ -26,9 +26,9 @@ type HepteractTypeMap = {
   quark: { quarkMultiplier: number }
   challenge: { c15ScoreMultiplier: number }
   abyss: { salvage: number }
-  accelerator: { accelerators: number; acceleratorMultiplier: number }
-  acceleratorBoost: { acceleratorBoostMultiplier: number }
-  multiplier: { multiplier: number; multiplierMultiplier: number }
+  accelerator: { accelerators: number }
+  acceleratorBoost: { acceleratorBoosts: number }
+  multiplier: { multiplier: number }
 }
 
 export type HepteractKeys = keyof HepteractTypeMap
@@ -213,15 +213,13 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     },
     EFFECTS: (hept) => {
       return {
-        accelerators: 2000 * hept,
-        acceleratorMultiplier: 1 + 3 * hept / 10000
+        accelerators: 0.5 * Math.log(1 + hept)
       }
     },
     EFFECTSDESCRIPTION: (hept) => {
       const effects = hepteracts.accelerator.EFFECTS(hept)
       return i18next.t('wowCubes.hepteractForge.descriptions.accelerator.currentEffect', {
-        x: format(effects.accelerators),
-        y: formatAsPercentIncrease(effects.acceleratorMultiplier, 2)
+        x: format(effects.accelerators, 3, true)
       })
     },
     DESCRIPTION: () => i18next.t('wowCubes.hepteractForge.descriptions.accelerator.effect'),
@@ -240,13 +238,13 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     },
     EFFECTS: (hept) => {
       return {
-        acceleratorBoostMultiplier: 1 + hept / 1000
+        acceleratorBoosts: 0.5 * Math.log(1 + hept)
       }
     },
     EFFECTSDESCRIPTION: (hept) => {
       const effects = hepteracts.acceleratorBoost.EFFECTS(hept)
       return i18next.t('wowCubes.hepteractForge.descriptions.acceleratorBoost.currentEffect', {
-        x: formatAsPercentIncrease(effects.acceleratorBoostMultiplier, 2)
+        x: format(effects.acceleratorBoosts, 3, true)
       })
     },
     DESCRIPTION: () => i18next.t('wowCubes.hepteractForge.descriptions.acceleratorBoost.effect'),
@@ -265,15 +263,13 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
     },
     EFFECTS: (hept) => {
       return {
-        multiplier: 1000 * hept,
-        multiplierMultiplier: 1 + 3 * hept / 10000
+        multiplier: 0.5 * Math.log(1 + hept)
       }
     },
     EFFECTSDESCRIPTION: (hept) => {
       const effects = hepteracts.multiplier.EFFECTS(hept)
       return i18next.t('wowCubes.hepteractForge.descriptions.multiplier.currentEffect', {
-        x: format(effects.multiplier),
-        y: formatAsPercentIncrease(effects.multiplierMultiplier, 2)
+        x: format(effects.multiplier, 3, true)
       })
     },
     DESCRIPTION: () => i18next.t('wowCubes.hepteractForge.descriptions.multiplier.effect'),

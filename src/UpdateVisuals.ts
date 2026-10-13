@@ -5,8 +5,9 @@ import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEncha
 import { getBuildingCost, getBuildingScalingThreshold, getTractionScalingThreshold } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  buildingBonusConstruction,
-  calculateAcceleratorTractionPerBoost,
+  buildingConstructionSoftcap,
+  calculateAcceleratorBoostCoefficient,
+  calculateAcceleratorBoostSoftcapMultiplier,
   calculateActualAntSpeedMult,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
@@ -22,8 +23,8 @@ import {
   calculateCubeQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
+  calculateMultiplierBoostCoefficient,
   calculateMultiplierBoosts,
-  calculateMultiplierBoostTractionMultiplier,
   calculateOcteractMultiplier,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
@@ -51,7 +52,9 @@ import {
   calculateTotalOcteractOfferingBonus,
   calculateTotalOcteractQuarkBonus,
   calculateTotalSalvage,
-  calculateTraction
+  calculateTraction,
+  calculateTractionSoftcap,
+  tractionSoftcap
 } from './Calculate'
 import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
@@ -450,12 +453,10 @@ const updateConstructionTexts = (type: keyof typeof constructionColors) => {
     amount: format(construction, 3, true),
     color: constructionColors[type]
   })
-  if (type !== 'coin') {
-    DOMCacheGetOrSet(`${type}ConstructionBonus`).innerHTML = i18next.t('buildings.constructionBonus', {
-      amount: format(buildingBonusConstruction[type], 0, true),
-      color: constructionColors[type]
-    })
-  }
+  DOMCacheGetOrSet(`${type}ConstructionBonus`).innerHTML = i18next.t('buildings.constructionBonus', {
+    amount: format(buildingConstructionSoftcap[type], 0, true),
+    color: constructionColors[type]
+  })
 
   const threshold = getBuildingScalingThreshold(type)
   DOMCacheGetOrSet(`${type}Hyperscaling`).innerHTML = i18next.t('buildings.hyperscaling', {
@@ -588,10 +589,16 @@ export const visualUpdateBuildings = () => {
       }
     )
 
+    const acceleratorSoftcap = tractionSoftcap.accelerator * calculateAcceleratorBoostSoftcapMultiplier()
+    const nextAcceleratorSoftcap = tractionSoftcap.accelerator
+        * calculateAcceleratorBoostSoftcapMultiplier(player.acceleratorBoostBought + 1)
+      - acceleratorSoftcap
     DOMCacheGetOrSet('buildtext16').textContent = i18next.t(
-      player.upgrades[88] === 1 ? 'buildings.acceleratorBoostNoReset' : 'buildings.acceleratorBoost',
+      nextAcceleratorSoftcap > 0.001 ? 'buildings.acceleratorBoostNext' : 'buildings.acceleratorBoost',
       {
-        amount: format(100 * calculateAcceleratorTractionPerBoost(), 2, true, false)
+        amount: format(acceleratorSoftcap, 3, true, false),
+        next: format(nextAcceleratorSoftcap, 3, true, false),
+        coefficient: format(calculateAcceleratorBoostCoefficient(), 3, true)
       }
     )
 
@@ -707,9 +714,12 @@ export const visualUpdateBuildings = () => {
       {
         shards: format(player.transcendShards, 2, false, false),
         mult: format(calculateMultiplierBoosts(), 0, true, false),
-        traction: formatAsPercentIncrease(calculateMultiplierBoostTractionMultiplier(), 2)
+        softcap: format(calculateTractionSoftcap('multiplier'), 3, true)
       }
     )
+    DOMCacheGetOrSet('transcendshardbonus').textContent = i18next.t('buildings.eachMultiplierBoost', {
+      coefficient: format(calculateMultiplierBoostCoefficient(), 3, true)
+    })
     const mythosConstruction = updateConstructionTexts('mythos')
 
     for (let i = 1; i <= 5; i++) {
@@ -1233,7 +1243,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.cubes.items.1',
         {
           amount: format(player.cubeBlessings.accelerator, 0, true),
-          bonus: formatAsPercentIncrease(calculateAcceleratorCubeBlessing(), 2)
+          bonus: format(calculateAcceleratorCubeBlessing(), 3, true)
         }
       )
 
@@ -1241,7 +1251,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.cubes.items.2',
         {
           amount: format(player.cubeBlessings.multiplier, 0, true),
-          bonus: formatAsPercentIncrease(calculateMultiplierCubeBlessing(), 2)
+          bonus: format(calculateMultiplierCubeBlessing(), 3, true)
         }
       )
 
@@ -1343,7 +1353,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.tesseracts.items.1',
         {
           amount: format(player.tesseractBlessings.accelerator, 0, true),
-          bonus: formatAsPercentIncrease(calculateAcceleratorTesseractBlessing(), 2)
+          bonus: format(calculateAcceleratorTesseractBlessing(), 4, true)
         }
       )
 
@@ -1351,7 +1361,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.tesseracts.items.2',
         {
           amount: format(player.tesseractBlessings.multiplier, 0, true),
-          bonus: formatAsPercentIncrease(calculateMultiplierTesseractBlessing(), 2)
+          bonus: format(calculateMultiplierTesseractBlessing(), 4, true)
         }
       )
 
@@ -1452,7 +1462,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.hypercubes.items.1',
         {
           amount: format(player.hypercubeBlessings.accelerator, 0, true),
-          bonus: formatAsPercentIncrease(calculateAcceleratorHypercubeBlessing(), 2)
+          bonus: format(calculateAcceleratorHypercubeBlessing(), 4, true)
         }
       )
 
@@ -1460,7 +1470,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.hypercubes.items.2',
         {
           amount: format(player.hypercubeBlessings.multiplier, 0, true),
-          bonus: formatAsPercentIncrease(calculateMultiplierHypercubeBlessing(), 2)
+          bonus: format(calculateMultiplierHypercubeBlessing(), 4, true)
         }
       )
 

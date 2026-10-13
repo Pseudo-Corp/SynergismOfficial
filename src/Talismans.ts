@@ -1469,6 +1469,7 @@ export const resetTalismanData = (tier: keyof typeof resetTiers) => {
   }
 
   player.talismanShards = new Decimal()
+  player.stats.talismanShardsThisAscension = new Decimal()
   player.commonFragments = new Decimal()
   player.uncommonFragments = new Decimal()
   player.rareFragments = new Decimal()
@@ -2494,6 +2495,9 @@ export const buyTalismanResources = (
   if (talismanResourcesData.canBuy) {
     if (type === 'shard') {
       player.talismanShards = player.talismanShards.add(talismanResourcesData.buyAmount)
+      player.stats.talismanShardsThisAscension = player.stats.talismanShardsThisAscension.add(
+        talismanResourcesData.buyAmount
+      )
     } else {
       player[`${type}s` as const] = player[`${type}s` as const].add(talismanResourcesData.buyAmount)
     }
