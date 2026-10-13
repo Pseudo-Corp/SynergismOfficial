@@ -2721,7 +2721,7 @@ export const multipliers = (): void => {
   }
   if (player.upgrades[51] > 0.5) {
     G.globalMythosMultiplier = G.globalMythosMultiplier.times(
-      Decimal.pow(player.acceleratorBoostBought, 2)
+      Decimal.pow(1 + player.acceleratorBoostBought, 2)
     )
   }
   if (player.upgrades[52] > 0.5) {

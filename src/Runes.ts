@@ -187,7 +187,7 @@ const bonusRuneLevelsHorseShoe = () => {
 
 const speedRuneOOMIncrease = () => {
   return (
-    0.75 * player.challengecompletions[2]
+    player.challengecompletions[2]
     + player.upgrades[66] * 2
     + player.researches[78]
     + player.researches[111]
@@ -202,7 +202,7 @@ const speedRuneOOMIncrease = () => {
 
 const duplicationRuneOOMIncrease = () => {
   return (
-    0.75 * player.challengecompletions[1]
+    0.8 * player.challengecompletions[1]
     + player.upgrades[66] * 2
     + player.researches[90]
     + player.researches[112]
@@ -216,7 +216,8 @@ const duplicationRuneOOMIncrease = () => {
 
 const prismRuneOOMIncrease = () => {
   return (
-    player.upgrades[66] * 2
+    0.6 * player.challengecompletions[3]
+    + player.upgrades[66] * 2
     + player.researches[79]
     + player.researches[113]
     + player.challengecompletions[11]
@@ -230,7 +231,8 @@ const prismRuneOOMIncrease = () => {
 
 const thriftRuneOOMIncrease = () => {
   return (
-    player.upgrades[66] * 2
+    0.4 * player.challengecompletions[4]
+    + player.upgrades[66] * 2
     + player.researches[77]
     + player.researches[114]
     + player.challengecompletions[11]
@@ -284,8 +286,6 @@ const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
   // Rune multiplier that is summed instead of added
   /* TODO: Replace the effects of these upgrades with new ones
     const allRuneExpAdditiveMultiplier = sumContents([
-        // Challenge 3 completions
-        (1 / 100) * player.highestchallengecompletions[3],
         // Reincarnation 2x1
         1 * player.upgrades[66]
       ])

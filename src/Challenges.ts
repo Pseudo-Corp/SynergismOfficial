@@ -9,6 +9,7 @@ import {
 import { campaignTokenBonuses } from './Campaign'
 import { corruptionEffect } from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
+import { type RuneKeys, runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -168,6 +169,12 @@ export const setChallengeFocus = (i: number) => {
   G.triggerChallenge = i
 }
 
+const runeLockedChallengeRewards: Partial<Record<number, [string, RuneKeys]>> = {
+  1: ['challengePer2', 'duplication'],
+  3: ['challengePer3', 'prism'],
+  4: ['challengePer3', 'thrift']
+}
+
 export const challengeDisplay = (i: number) => {
   let quarksMultiplier = 1
   const isFocused = i === G.challengefocus
@@ -209,25 +216,26 @@ export const challengeDisplay = (i: number) => {
     switch (i) {
       case 1: {
         current1 = format(0.1 * player.challengecompletions[1], 2, true)
-        current2 = format(0.75 * player.challengecompletions[1], 2, true)
+        current2 = format(0.8 * player.challengecompletions[1], 2, true)
         current3 = format(0.04 * player.challengecompletions[1], 2, true)
         break
       }
       case 2: {
         current1 = format(0.1 * player.challengecompletions[2], 2, true)
         current2 = format(0.1 * player.challengecompletions[2], 2, true)
-        current3 = format(0.75 * player.challengecompletions[2], 2, true)
+        current3 = format(player.challengecompletions[2], 2, true)
         break
       }
       case 3: {
         current1 = format(0.04 * player.challengecompletions[3], 2, true)
         current2 = format(0.5 * player.challengecompletions[3], 2, true)
-        current3 = format(0.01 * player.challengecompletions[3], 2, true)
+        current3 = format(0.6 * player.challengecompletions[3], 2, true)
         break
       }
       case 4: {
         current1 = format(0.1 * player.challengecompletions[4], 2, true)
         current2 = format(0.1 * player.challengecompletions[4], 2, true)
+        current3 = format(0.4 * player.challengecompletions[4], 2, true)
         break
       }
       case 5: {
@@ -308,6 +316,13 @@ export const challengeDisplay = (i: number) => {
     l.textContent = i18next.t(`challenges.${i}.current.1`, { value: current1 })
     m.textContent = i18next.t(`challenges.${i}.current.2`, { value: current2 })
     n.textContent = i18next.t(`challenges.${i}.current.3`, { value: current3 })
+
+    DOMCacheGetOrSet('challengePer2').style.display = ''
+    DOMCacheGetOrSet('challengePer3').style.display = ''
+    const runeLock = runeLockedChallengeRewards[i]
+    if (runeLock !== undefined && !runes[runeLock[1]].isUnlocked()) {
+      DOMCacheGetOrSet(runeLock[0]).style.display = 'none'
+    }
   }
 
   if (i === 15 && G.challengefocus === 15 && maxChallenges === 0) {

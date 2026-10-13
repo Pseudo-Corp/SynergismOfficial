@@ -551,7 +551,9 @@ export const visualUpdateBuildings = () => {
       )
     }
 
-    DOMCacheGetOrSet('buildtext11').textContent = i18next.t(
+    const acceleratorElement = DOMCacheGetOrSet('buildtext11')
+    acceleratorElement.style.color = player.acceleratorBought > getTractionScalingThreshold('accelerator') ? 'red' : ''
+    acceleratorElement.textContent = i18next.t(
       'buildings.names.accelerators',
       {
         amount: format(player.acceleratorBought, 0, true, false)
@@ -566,7 +568,9 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('buildtext13').innerHTML = i18next.t(
+    const multiplierElement = DOMCacheGetOrSet('buildtext13')
+    multiplierElement.style.color = player.multiplierBought > getTractionScalingThreshold('multiplier') ? 'red' : ''
+    multiplierElement.innerHTML = i18next.t(
       'buildings.names.multipliers',
       {
         amount: format(player.multiplierBought, 0, true, false)
@@ -581,7 +585,12 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('buildtext15').textContent = i18next.t(
+    const acceleratorBoostElement = DOMCacheGetOrSet('buildtext15')
+    acceleratorBoostElement.style.color =
+      player.acceleratorBoostBought > getTractionScalingThreshold('acceleratorBoost')
+        ? 'red'
+        : ''
+    acceleratorBoostElement.textContent = i18next.t(
       'buildings.names.acceleratorBoost',
       {
         amount: format(player.acceleratorBoostBought, 0, true, false)
