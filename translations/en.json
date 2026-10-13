@@ -8543,10 +8543,38 @@
     "loggedInBut": "You are logged in, but your profile couldn't be retrieved.",
     "loggedInButError": "You are logged in, but retrieving your profile yielded the following error: {{error}}",
     "loginNotAvailable": "Login is not available here, go to <a href=\"https://synergism.cc\">https://synergism.cc</a> instead!",
+    "linkedAccounts": "Linked accounts: {{accounts}}",
+    "platforms": {
+      "email": "Email",
+      "discord": "Discord",
+      "patreon": "Patreon",
+      "steam": "Steam"
+    },
+    "email": {
+      "verified": "<<lime|✔ Email verified>>",
+      "notVerified": "<<orange|⚠ Email not verified>>"
+    },
+    "actions": {
+      "login": "Login",
+      "register": "Create Account",
+      "forgotPassword": "Forgot Password",
+      "resendVerification": "Resend Verification Email",
+      "changePassword": "Change Password"
+    },
+    "fields": {
+      "email": "Email Address",
+      "password": "Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password"
+    },
     "forms": {
       "register": "Register",
       "login": "Login",
       "sendResetPasswordEmail": "Send Reset Password Email",
+      "sendVerificationEmail": "Send Verification Email",
+      "changePassword": "Change Password",
+      "completeCaptcha": "Please complete the captcha first.",
       "requestFailed": "Could not submit the account form: {{error}}"
     },
     "bonuses": {
