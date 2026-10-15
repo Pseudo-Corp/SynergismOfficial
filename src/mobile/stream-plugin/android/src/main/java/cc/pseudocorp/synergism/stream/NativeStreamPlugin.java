@@ -10,6 +10,7 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
@@ -25,7 +26,8 @@ import okhttp3.ResponseBody;
  * Native HTTP bridge that hands the response body to JS as it arrives.
  * CapacitorHttp reads the whole body before resolving, so a long-lived stream
  * shows nothing until it ends. Like the WebSocket plugin, this copies
- * CapacitorHttp's WebKit cookies (including HttpOnly) into the request.
+ * CapacitorHttp's WebKit cookies (including HttpOnly) into the request, and
+ * writes Set-Cookie from the response back to the same store.
  */
 @CapacitorPlugin(name = "NativeStream")
 public class NativeStreamPlugin extends Plugin {
@@ -115,6 +117,16 @@ public class NativeStreamPlugin extends Plugin {
             @Override
             public void onResponse(Call httpCall, Response response) {
                 try (ResponseBody body = response.body()) {
+                    List<String> setCookies = response.headers("Set-Cookie");
+                    if (!setCookies.isEmpty()) {
+                        CookieManager cookieManager = CookieManager.getInstance();
+                        String responseUrl = response.request().url().toString();
+                        for (String cookie : setCookies) {
+                            cookieManager.setCookie(responseUrl, cookie);
+                        }
+                        cookieManager.flush();
+                    }
+
                     JSObject headers = new JSObject();
                     for (String name : response.headers().names()) {
                         headers.put(name, String.join(", ", response.headers(name)));

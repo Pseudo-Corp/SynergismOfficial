@@ -93,7 +93,8 @@ export function nativeStreamFetch (url: string, init: NativeStreamInit = {}): Pr
       NativeStream.addListener('response', (event) => {
         if (event.requestId !== requestId || finished) return
         responded = true
-        resolve(new Response(body, { status: event.status, headers: event.headers }))
+        const nullBodyStatus = event.status === 204 || event.status === 205 || event.status === 304
+        resolve(new Response(nullBodyStatus ? null : body, { status: event.status, headers: event.headers }))
       }),
       NativeStream.addListener('data', (event) => {
         if (event.requestId !== requestId || finished) return
@@ -114,15 +115,20 @@ export function nativeStreamFetch (url: string, init: NativeStreamInit = {}): Pr
 
     // Listeners must be registered natively before the request starts, or its first events are dropped.
     Promise.all(handles)
-      .then(() =>
-        NativeStream.request({
+      .then(() => {
+        if (finished) return
+        const headers = new Headers(init.headers)
+        if (init.body !== undefined && !headers.has('content-type')) {
+          headers.set('content-type', 'text/plain;charset=UTF-8')
+        }
+        return NativeStream.request({
           requestId,
           url,
           method: init.method ?? 'GET',
-          headers: Object.fromEntries(new Headers(init.headers)),
+          headers: Object.fromEntries(headers),
           body: init.body
         })
-      )
+      })
       .catch((e) => fail(new TypeError(`${e}`)))
   })
 }

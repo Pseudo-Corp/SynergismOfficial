@@ -36,8 +36,9 @@ public class NativeStreamPlugin: CAPPlugin, CAPBridgedPlugin, URLSessionDataDele
     }
 
     @objc func request(_ call: CAPPluginCall) {
-        guard let urlString = call.getString("url"), let url = URL(string: urlString) else {
-            call.reject("Must provide a valid url")
+        guard let urlString = call.getString("url"), let url = URL(string: urlString),
+              url.scheme == "http" || url.scheme == "https" else {
+            call.reject("Must provide a valid http(s) url")
             return
         }
         guard let id = call.getString("requestId") else {
@@ -54,10 +55,14 @@ public class NativeStreamPlugin: CAPPlugin, CAPBridgedPlugin, URLSessionDataDele
         }
         request.httpBody = call.getString("body")?.data(using: .utf8)
 
+        lock.lock()
+        guard tasks[id] == nil else {
+            lock.unlock()
+            call.reject("A request already exists for id \(id)")
+            return
+        }
         let task = session.dataTask(with: request)
         task.taskDescription = id
-
-        lock.lock()
         tasks[id] = task
         lock.unlock()
 
