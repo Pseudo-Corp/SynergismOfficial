@@ -207,11 +207,13 @@ export const getEventBuff = (buff: BuffType): number => {
 
 export const consumableEventBuff = (buff: BuffType) => {
   const { HAPPY_HOUR_BELL } = allDurableConsumables
+  const now = Date.now()
+  const active = HAPPY_HOUR_BELL.ends.filter((end) => end > now).length
   // The interval is the number of events queued excluding the first.
-  const happyHourInterval = HAPPY_HOUR_BELL.amount - 1
+  const happyHourInterval = active - 1
 
   // If no consumable is active, early return
-  if (HAPPY_HOUR_BELL.amount === 0) {
+  if (active === 0) {
     return 0
   }
 
@@ -251,10 +253,10 @@ export const consumableEventBuff = (buff: BuffType) => {
 
 const isConsumableActive = (name?: PseudoCoinConsumableNames) => {
   if (typeof name === 'string') {
-    return allDurableConsumables[name].amount > 0
+    return allDurableConsumables[name].ends.some((end) => end > Date.now())
   }
 
-  return allDurableConsumables.HAPPY_HOUR_BELL.amount !== 0
+  return allDurableConsumables.HAPPY_HOUR_BELL.ends.some((end) => end > Date.now())
 }
 
 export const updateGlobalsIsEvent = () => {
