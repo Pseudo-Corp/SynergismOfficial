@@ -21,6 +21,7 @@ let package = Package(
         .package(name: "CapgoCapacitorKeepAwake", path: "../../../node_modules/@capgo/capacitor-keep-awake"),
         .package(name: "CapgoCapacitorUpdater", path: "../../../node_modules/@capgo/capacitor-updater"),
         .package(name: "CapacitorPluginCdvPurchase", path: "../../../node_modules/capacitor-plugin-cdv-purchase"),
+        .package(name: "SynergismStream", path: "../../../src/mobile/stream-plugin"),
         .package(name: "SynergismWebsocket", path: "../../../src/mobile/websocket-plugin")
     ],
     targets: [
@@ -38,6 +39,7 @@ let package = Package(
                 .product(name: "CapgoCapacitorKeepAwake", package: "CapgoCapacitorKeepAwake"),
                 .product(name: "CapgoCapacitorUpdater", package: "CapgoCapacitorUpdater"),
                 .product(name: "CapacitorPluginCdvPurchase", package: "CapacitorPluginCdvPurchase"),
+                .product(name: "SynergismStream", package: "SynergismStream"),
                 .product(name: "SynergismWebsocket", package: "SynergismWebsocket")
             ]
         )
