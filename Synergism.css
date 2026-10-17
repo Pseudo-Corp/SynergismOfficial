@@ -6540,8 +6540,7 @@ header #obtainiumDisplay { color: pink; }
     font-size: 0.75em;
 }
 
-.headerModule[data-size="S"] .img,
-.resetbtn.headerModule[data-size="S"] {
+.headerModule[data-size="S"] .img {
     width: 16px;
     height: 16px;
 }

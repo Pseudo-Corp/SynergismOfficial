@@ -108,7 +108,7 @@ const updateEditToolbar = (layout: HeaderLayout) => {
 
   for (const size of headerModuleSizes) {
     const button = DOMCacheGetOrSet(`headerSize${size}`) as HTMLButtonElement
-    button.disabled = selected === null || (size === 'XS' && !isHeaderButton(selected))
+    button.disabled = selected === null || (size === 'S' && isHeaderButton(selected))
     button.setAttribute('aria-pressed', `${selected !== null && sizeOf(layout, selected) === size}`)
   }
 
@@ -154,7 +154,7 @@ export const renderHeaderLayout = () => {
       if (shown.length > 1) {
         slotElement = document.createElement('div')
         slotElement.className = 'headerStack'
-        slotElement.classList.toggle('headerStackRow', slot.every((id) => sizeOf(layout, id) === 'XS'))
+        slotElement.classList.toggle('headerStackRow', slot.every(isHeaderButton))
         slotElement.replaceChildren(...shown)
       }
       slotElement.dataset.headerSlot = `${index}`
@@ -242,20 +242,14 @@ const findSlot = (layout: HeaderLayout, id: HeaderModuleId) => {
   return null
 }
 
-const groupSizeFor = (layout: HeaderLayout, slot: HeaderModuleId[], id: HeaderModuleId) => {
-  const buttonGroup = isHeaderButton(id)
-    && slot.every((member) => isHeaderButton(member) && (slot.length === 1 || sizeOf(layout, member) === 'XS'))
-
-  if (slot.includes(id)) {
-    return buttonGroup && slot.length > 1 ? 'XS' : null
+const canJoinSlot = (slot: HeaderModuleId[], id: HeaderModuleId) => {
+  if (!isHeaderButton(id)) {
+    return !slot.includes(id) && !slot.some(isHeaderButton) && slot.length < HEADER_STACK_CAPACITY
   }
-  if (buttonGroup && slot.length < HEADER_BUTTON_GROUP_CAPACITY) {
-    return 'XS'
+  if (!slot.every(isHeaderButton)) {
+    return false
   }
-  if (slot.length < HEADER_STACK_CAPACITY) {
-    return 'S'
-  }
-  return null
+  return slot.includes(id) ? slot.length > 1 : slot.length < HEADER_BUTTON_GROUP_CAPACITY
 }
 
 const detachModule = (layout: HeaderLayout, id: HeaderModuleId) => {
@@ -307,12 +301,13 @@ const hideModule = (layout: HeaderLayout, id: HeaderModuleId) => {
 }
 
 const resizeModule = (layout: HeaderLayout, id: HeaderModuleId, size: HeaderModuleSize) => {
-  splitOutModule(layout, id)
+  if (!isHeaderButton(id)) {
+    splitOutModule(layout, id)
+  }
   layout.sizes[id] = size
 }
 
 const moveModule = (layout: HeaderLayout, id: HeaderModuleId, region: HeaderRegionId, target: HeaderDropTarget) => {
-  const size = target.join ? groupSizeFor(layout, layout.regions[region][target.index], id) : null
   const removed = detachModule(layout, id)
   layout.hidden = layout.hidden.filter((hiddenId) => hiddenId !== id)
 
@@ -328,7 +323,7 @@ const moveModule = (layout: HeaderLayout, id: HeaderModuleId, region: HeaderRegi
   }
 
   const slots = layout.regions[region]
-  if (size === null && region === headerGridRegion) {
+  if (!target.join && region === headerGridRegion) {
     while (slots.length < index) {
       slots.push([])
     }
@@ -341,15 +336,17 @@ const moveModule = (layout: HeaderLayout, id: HeaderModuleId, region: HeaderRegi
     }
     return
   }
-  if (size === null) {
+  if (!target.join) {
     slots.splice(index, 0, [id])
     return
   }
 
   const slot = slots[index]
   slot.splice(member ?? slot.length, 0, id)
-  for (const grouped of slot) {
-    layout.sizes[grouped] = size
+  if (!isHeaderButton(id)) {
+    for (const grouped of slot) {
+      layout.sizes[grouped] = 'S'
+    }
   }
 }
 
@@ -468,11 +465,13 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
       if (cellElement === null) {
         continue
       }
+      const index = Number(cellElement.dataset.headerCell)
+      const slot = layout.regions[region][index] ?? []
       return {
         region,
-        index: Number(cellElement.dataset.headerCell),
+        index,
         member: null,
-        join: false,
+        join: isHeaderButton(id) && slot.some((member) => !layout.hidden.includes(member)) && canJoinSlot(slot, id),
         indicator: cellElement.getBoundingClientRect()
       }
     }
@@ -495,8 +494,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
     const memberElement = element.closest<HTMLElement>('.headerModule')
 
     if (
-      slotElement.classList.contains('headerStackRow') && memberElement !== null
-      && slotElement.contains(memberElement) && groupSizeFor(layout, slot, id) === 'XS'
+      isHeaderButton(id) && memberElement !== null && slotElement.contains(memberElement) && canJoinSlot(slot, id)
     ) {
       const memberRect = memberElement.getBoundingClientRect()
       const after = x >= memberRect.left + memberRect.width / 2
@@ -512,7 +510,8 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
     const rect = slotElement.getBoundingClientRect()
     const ratio = vertical ? (y - rect.top) / rect.height : (x - rect.left) / rect.width
 
-    if (ratio > HEADER_STACK_ZONE_START && ratio < HEADER_STACK_ZONE_END && groupSizeFor(layout, slot, id) !== null) {
+    const inStackZone = ratio > HEADER_STACK_ZONE_START && ratio < HEADER_STACK_ZONE_END
+    if ((isHeaderButton(id) || inStackZone) && canJoinSlot(slot, id)) {
       return { region, index, member: null, join: true, indicator: rect }
     }
 

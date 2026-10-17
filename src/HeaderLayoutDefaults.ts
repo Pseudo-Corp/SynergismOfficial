@@ -59,7 +59,7 @@ export const headerModuleIds = [
 
 export type HeaderModuleId = typeof headerModuleIds[number]
 
-export const headerModuleSizes = ['XS', 'S', 'M', 'L'] as const
+export const headerModuleSizes = ['S', 'M', 'L'] as const
 
 export type HeaderModuleSize = typeof headerModuleSizes[number]
 
@@ -77,16 +77,11 @@ export const createDefaultHeaderLayout = () => {
     regions: {
       ascensionStats: statModuleIds.map((id) => [id]),
       currenciesContainer: currencyModuleIds.map((id) => [id]),
-      resetsButtons: [],
+      resetsButtons: resetButtonModuleIds.map((id) => [id]),
       challengeProgress: []
     },
     sizes: {},
     hidden: ['happyHourBellHeader', 'lotusHeader']
-  }
-
-  for (const [index, id] of resetButtonModuleIds.entries()) {
-    layout.sizes[id] = 'XS'
-    ;(layout.regions.resetsButtons[Math.floor(index / HEADER_BUTTON_GROUP_CAPACITY)] ??= []).push(id)
   }
 
   for (const [index, id] of challengeProgressModuleIds.entries()) {
