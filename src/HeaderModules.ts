@@ -494,6 +494,29 @@ const buttonSlotRect = (rect: DOMRect, position: number) => ({
   height: rect.height
 })
 
+const nearestSlotElement = (regionElement: HTMLElement, x: number, y: number) => {
+  let nearest: HTMLElement | null = null
+  let nearestDistanceX = Infinity
+  let nearestDistanceY = Infinity
+
+  for (const slotElement of regionElement.querySelectorAll<HTMLElement>(':scope > [data-header-slot]')) {
+    const rect = slotElement.getBoundingClientRect()
+    if (rect.width === 0 || slotElement.classList.contains('headerModuleDragging')) {
+      continue
+    }
+
+    const distanceX = Math.max(rect.left - x, 0, x - rect.right)
+    const distanceY = Math.max(rect.top - y, 0, y - rect.bottom)
+    if (distanceY < nearestDistanceY || (distanceY === nearestDistanceY && distanceX < nearestDistanceX)) {
+      nearest = slotElement
+      nearestDistanceX = distanceX
+      nearestDistanceY = distanceY
+    }
+  }
+
+  return nearest
+}
+
 const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
   const layout = currentLayout()
 
@@ -509,10 +532,11 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
 
     const region = regionElement.id as HeaderRegionId
     const isGrid = isHeaderGridRegion(region)
-    const slotElement = element.closest<HTMLElement>('[data-header-slot]')
+    const hoveredSlot = element.closest<HTMLElement>('[data-header-slot]')
+    const hovered = hoveredSlot !== null && regionElement.contains(hoveredSlot)
     const cellElement = element.closest<HTMLElement>('.headerCell')
 
-    if (isGrid && (slotElement === null || !regionElement.contains(slotElement))) {
+    if (isGrid && !hovered) {
       if (cellElement === null) {
         continue
       }
@@ -529,16 +553,14 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
       }
     }
 
-    if (slotElement === null || !regionElement.contains(slotElement)) {
-      const last = regionElement.lastElementChild
+    const slotElement = hovered ? hoveredSlot : nearestSlotElement(regionElement, x, y)
+    if (slotElement === null) {
       return {
         region,
         index: layout.regions[region].length,
         position: 0,
         join: false,
-        indicator: last === null
-          ? regionElement.getBoundingClientRect()
-          : dropBar(last.getBoundingClientRect(), true)
+        indicator: regionElement.getBoundingClientRect()
       }
     }
 
@@ -549,7 +571,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
     const indicator = isHeaderButton(id) ? buttonSlotRect(rect, position) : rect
 
     const inStackZone = ratio > HEADER_STACK_ZONE_START && ratio < HEADER_STACK_ZONE_END
-    if ((isHeaderButton(id) || inStackZone) && canJoinSlot(layout.regions[region][index], id)) {
+    if (hovered && (isHeaderButton(id) || inStackZone) && canJoinSlot(layout.regions[region][index], id)) {
       return { region, index, position, join: true, indicator }
     }
 
