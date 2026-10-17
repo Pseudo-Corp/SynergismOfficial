@@ -32,6 +32,7 @@ export type BuyAmount = 1 | 10 | 100 | 1000 | 10_000 | 100_000
 export interface HeaderLayout {
   regions: Record<HeaderRegionId, HeaderModuleId[][]>
   sizes: Partial<Record<HeaderModuleId, HeaderModuleSize>>
+  positions: Partial<Record<HeaderModuleId, number>>
   hidden: HeaderModuleId[]
 }
 

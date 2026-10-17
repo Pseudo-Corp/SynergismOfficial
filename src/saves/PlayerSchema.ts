@@ -12,7 +12,9 @@ import { defaultAntUpgrades } from '../Features/Ants/AntUpgrades/player/default'
 import { AntUpgrades, LAST_ANT_UPGRADE } from '../Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/structs'
 import {
+  freeButtonPosition,
   HEADER_BUTTON_GROUP_CAPACITY,
+  type HeaderModuleId,
   headerModuleIds,
   headerModuleSizes,
   headerRegionIds,
@@ -340,6 +342,10 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
       z.enum(headerModuleIds).array().max(HEADER_BUTTON_GROUP_CAPACITY).array()
     ),
     sizes: z.partialRecord(z.enum(headerModuleIds), z.enum(headerModuleSizes)),
+    positions: z.partialRecord(
+      z.enum(headerModuleIds),
+      z.number().int().min(0).max(HEADER_BUTTON_GROUP_CAPACITY - 1)
+    ).default(() => ({})),
     hidden: z.enum(headerModuleIds).array()
   }).transform((saved) => {
     const fallback = blankSave.headerLayouts[layout]
@@ -349,7 +355,7 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
         saved.regions[region] = saved.regions[region].filter((slot) => slot.length > 0)
       }
       saved.regions[region] = saved.regions[region].flatMap((slot) => {
-        if (slot.length === 1 || !slot.some((id) => isHeaderButton(id) || isHeaderProgress(id))) {
+        if (slot.length === 1 || !slot.some(isHeaderProgress)) {
           return [slot]
         }
         for (const id of slot) {
@@ -366,6 +372,16 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
           if (fallback.hidden.includes(id)) {
             saved.hidden.push(id)
           }
+        }
+      }
+      for (const slot of saved.regions[region]) {
+        const positioned: HeaderModuleId[] = []
+        for (const id of slot.filter(isHeaderButton)) {
+          const position = saved.positions[id]
+          if (position === undefined || positioned.some((other) => saved.positions[other] === position)) {
+            saved.positions[id] = freeButtonPosition(saved.positions, positioned)
+          }
+          positioned.push(id)
         }
       }
     }
