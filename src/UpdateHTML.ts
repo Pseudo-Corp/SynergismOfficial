@@ -165,17 +165,15 @@ export const challengeExit = (tier: ChallengeTier) => {
     return
   }
 
-  const element = DOMCacheGetOrSet(challengeProgressRowIds[tier])
-  element.hidden = true
-  element.textContent = ''
+  const textElement = DOMCacheGetOrSet(`${challengeProgressRowIds[tier]}Text`)
+  resetFitText(textElement)
+  DOMCacheGetOrSet(challengeProgressRowIds[tier]).hidden = true
+  textElement.textContent = ''
 }
 
 const updateChallengeProgressRow = (elementId: string, challenge: number) => {
   const element = DOMCacheGetOrSet(elementId)
-
-  if (element.hidden) {
-    element.hidden = false
-  }
+  const textElement = DOMCacheGetOrSet(`${elementId}Text`)
 
   const progress = getChallengeProgress(challenge)
   const name = `challenges.${challenge}.progressName`
@@ -192,8 +190,13 @@ const updateChallengeProgressRow = (elementId: string, challenge: number) => {
       required
     })
 
-  if (element.innerHTML !== text) {
-    element.innerHTML = text
+  if (textElement.innerHTML !== text) {
+    textElement.innerHTML = text
+  }
+
+  if (element.hidden) {
+    element.hidden = false
+    createFitties()
   }
 }
 
@@ -1985,10 +1988,12 @@ export const createFitties = () => {
     }
 
     if (!existingInstance) {
+      const maxSize = Number.parseFloat(getComputedStyle(element).fontSize)
+      const multiLine = element.classList.contains('fitTextMultiLine')
       const fittyOptions = {
-        minSize: 0,
-        maxSize: Number.parseFloat(getComputedStyle(element).fontSize),
-        multiLine: false
+        minSize: multiLine ? maxSize / 2 : 0,
+        maxSize,
+        multiLine
       }
       fittyInstances.set(element, fitty(element, fittyOptions))
     } else {

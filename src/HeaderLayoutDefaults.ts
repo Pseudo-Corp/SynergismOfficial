@@ -63,7 +63,7 @@ export const headerModuleSizes = ['S', 'M', 'L'] as const
 
 export type HeaderModuleSize = typeof headerModuleSizes[number]
 
-const headerGridRegions = ['currenciesContainer', 'resetsButtons'] as const
+const headerGridRegions = ['currenciesContainer', 'resetsButtons', 'challengeProgress'] as const
 
 export const HEADER_GRID_COLUMNS = { desktop: 4, mobile: 2 } as const
 
@@ -74,8 +74,16 @@ export const HEADER_BUTTON_GRID_COLUMNS = {
   desktop: HEADER_BUTTON_MODULE_COUNT,
   mobile: HEADER_GRID_COLUMNS.mobile
 } as const
+export const HEADER_PROGRESS_MODULE_COUNT = challengeProgressModuleIds.length
+export const HEADER_PROGRESS_GRID_COLUMNS = {
+  desktop: HEADER_PROGRESS_MODULE_COUNT,
+  mobile: HEADER_GRID_COLUMNS.mobile
+} as const
 
 export const isHeaderButton = (id: HeaderModuleId) => (resetButtonModuleIds as readonly HeaderModuleId[]).includes(id)
+
+export const isHeaderProgress = (id: HeaderModuleId) =>
+  (challengeProgressModuleIds as readonly HeaderModuleId[]).includes(id)
 
 export const isHeaderGridRegion = (region: HeaderRegionId) =>
   (headerGridRegions as readonly HeaderRegionId[]).includes(region)
@@ -86,7 +94,7 @@ export const createDefaultHeaderLayout = () => {
       ascensionStats: statModuleIds.map((id) => [id]),
       currenciesContainer: currencyModuleIds.map((id) => [id]),
       resetsButtons: [],
-      challengeProgress: []
+      challengeProgress: challengeProgressModuleIds.map((id) => [id])
     },
     sizes: {},
     hidden: ['happyHourBellHeader', 'lotusHeader']
@@ -94,11 +102,6 @@ export const createDefaultHeaderLayout = () => {
 
   for (const [index, id] of resetButtonModuleIds.entries()) {
     ;(layout.regions.resetsButtons[Math.floor(index / HEADER_BUTTON_GROUP_CAPACITY)] ??= []).push(id)
-  }
-
-  for (const [index, id] of challengeProgressModuleIds.entries()) {
-    layout.sizes[id] = 'S'
-    ;(layout.regions.challengeProgress[Math.floor(index / HEADER_STACK_CAPACITY)] ??= []).push(id)
   }
 
   return layout

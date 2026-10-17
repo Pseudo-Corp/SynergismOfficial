@@ -6,6 +6,8 @@ import {
   HEADER_BUTTON_GROUP_CAPACITY,
   HEADER_BUTTON_MODULE_COUNT,
   HEADER_GRID_COLUMNS,
+  HEADER_PROGRESS_GRID_COLUMNS,
+  HEADER_PROGRESS_MODULE_COUNT,
   HEADER_STACK_CAPACITY,
   type HeaderModuleId,
   type HeaderModuleSize,
@@ -13,7 +15,8 @@ import {
   type HeaderRegionId,
   headerRegionIds,
   isHeaderButton,
-  isHeaderGridRegion
+  isHeaderGridRegion,
+  isHeaderProgress
 } from './HeaderLayoutDefaults'
 import { allDurableConsumables, getLotusTimeExpiresAt, getOwnedBells, getOwnedLotus } from './Login'
 import { runes } from './Runes'
@@ -96,7 +99,11 @@ let pointerStartY = 0
 const layoutKey = () => isMobile ? 'mobile' : 'desktop'
 const currentLayout = () => player.headerLayouts[layoutKey()]
 const gridColumns = (region: HeaderRegionId) =>
-  (region === 'resetsButtons' ? HEADER_BUTTON_GRID_COLUMNS : HEADER_GRID_COLUMNS)[layoutKey()]
+  (region === 'resetsButtons'
+    ? HEADER_BUTTON_GRID_COLUMNS
+    : region === 'challengeProgress'
+    ? HEADER_PROGRESS_GRID_COLUMNS
+    : HEADER_GRID_COLUMNS)[layoutKey()]
 const gridArea = (region: HeaderRegionId, index: number) =>
   `${Math.floor(index / gridColumns(region)) + 1} / ${(index % gridColumns(region)) + 1}`
 
@@ -122,7 +129,6 @@ const updateEditToolbar = (layout: HeaderLayout) => {
 export const renderHeaderLayout = () => {
   const layout = currentLayout()
   const trayModules: HTMLElement[] = []
-  let refit = false
 
   DOMCacheGetOrSet('mainHeader').style.setProperty('--header-cell-columns', `${HEADER_GRID_COLUMNS[layoutKey()]}`)
 
@@ -136,9 +142,9 @@ export const renderHeaderLayout = () => {
       for (const id of slot) {
         const element = DOMCacheGetOrSet(id)
         const size = sizeOf(layout, id)
-        if (element.dataset.size !== size && element.classList.contains('fitText')) {
-          resetFitText(element)
-          refit = true
+        const fitText = element.querySelector<HTMLElement>('.fitText')
+        if (element.dataset.size !== size && fitText !== null) {
+          resetFitText(fitText)
         }
         element.dataset.size = size
         element.classList.toggle('headerModuleSelected', id === selectedModule)
@@ -179,9 +185,9 @@ export const renderHeaderLayout = () => {
 
     const cells: HTMLElement[] = []
     if (editing) {
-      const cellCount = region === 'resetsButtons'
-        ? Math.max(HEADER_BUTTON_MODULE_COUNT, lastCell + 1)
-        : (Math.floor(lastCell / gridColumns(region)) + 2) * gridColumns(region)
+      const cellCount = region === 'currenciesContainer'
+        ? (Math.floor(lastCell / gridColumns(region)) + 2) * gridColumns(region)
+        : Math.max(region === 'resetsButtons' ? HEADER_BUTTON_MODULE_COUNT : HEADER_PROGRESS_MODULE_COUNT, lastCell + 1)
       for (let index = 0; index < cellCount; index++) {
         const cell = document.createElement('div')
         cell.className = 'headerCell'
@@ -196,10 +202,7 @@ export const renderHeaderLayout = () => {
 
   DOMCacheGetOrSet('headerTray').replaceChildren(DOMCacheGetOrSet('headerTrayLabel'), ...trayModules)
   updateEditToolbar(layout)
-
-  if (refit) {
-    createFitties()
-  }
+  createFitties()
 }
 
 export const updateHeaderModuleVisibility = () => {
@@ -251,6 +254,9 @@ const findSlot = (layout: HeaderLayout, id: HeaderModuleId) => {
 }
 
 const canJoinSlot = (slot: HeaderModuleId[], id: HeaderModuleId) => {
+  if (isHeaderProgress(id) || slot.some(isHeaderProgress)) {
+    return false
+  }
   if (!isHeaderButton(id)) {
     return !slot.includes(id) && !slot.some(isHeaderButton) && slot.length < HEADER_STACK_CAPACITY
   }
@@ -367,7 +373,7 @@ const enterEditMode = () => {
   CloseModal()
 
   for (const element of document.querySelectorAll<HTMLElement>('.headerProgress')) {
-    element.dataset.placeholder = i18next.t(`headerLayout.modules.${element.id}`)
+    DOMCacheGetOrSet(`${element.id}Text`).dataset.placeholder = i18next.t(`headerLayout.modules.${element.id}`)
   }
 
   DOMCacheGetOrSet('mainHeader').classList.add('headerEditMode')
@@ -435,20 +441,12 @@ const releasePointer = (pointerId: number) => {
   pressedModule = null
 }
 
-const dropBar = (rect: DOMRect, after: boolean, vertical: boolean) =>
-  vertical
-    ? {
-      left: rect.left,
-      top: (after ? rect.bottom : rect.top) - HEADER_DROP_BAR_PX / 2,
-      width: rect.width,
-      height: HEADER_DROP_BAR_PX
-    }
-    : {
-      left: (after ? rect.right : rect.left) - HEADER_DROP_BAR_PX / 2,
-      top: rect.top,
-      width: HEADER_DROP_BAR_PX,
-      height: rect.height
-    }
+const dropBar = (rect: DOMRect, after: boolean) => ({
+  left: (after ? rect.right : rect.left) - HEADER_DROP_BAR_PX / 2,
+  top: rect.top,
+  width: HEADER_DROP_BAR_PX,
+  height: rect.height
+})
 
 const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
   const layout = currentLayout()
@@ -465,7 +463,6 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
 
     const region = regionElement.id as HeaderRegionId
     const isGrid = isHeaderGridRegion(region)
-    const vertical = region === 'challengeProgress'
     const slotElement = element.closest<HTMLElement>('[data-header-slot]')
     const cellElement = element.closest<HTMLElement>('.headerCell')
 
@@ -493,7 +490,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
         join: false,
         indicator: last === null
           ? regionElement.getBoundingClientRect()
-          : dropBar(last.getBoundingClientRect(), true, vertical)
+          : dropBar(last.getBoundingClientRect(), true)
       }
     }
 
@@ -511,12 +508,12 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
         index,
         member: slot.indexOf(memberElement.id as HeaderModuleId) + (after ? 1 : 0),
         join: true,
-        indicator: dropBar(memberRect, after, false)
+        indicator: dropBar(memberRect, after)
       }
     }
 
     const rect = slotElement.getBoundingClientRect()
-    const ratio = vertical ? (y - rect.top) / rect.height : (x - rect.left) / rect.width
+    const ratio = (x - rect.left) / rect.width
 
     const inStackZone = ratio > HEADER_STACK_ZONE_START && ratio < HEADER_STACK_ZONE_END
     if ((isHeaderButton(id) || inStackZone) && canJoinSlot(slot, id)) {
@@ -533,7 +530,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
       index: after ? index + 1 : index,
       member: null,
       join: false,
-      indicator: dropBar(rect, after, vertical)
+      indicator: dropBar(rect, after)
     }
   }
 

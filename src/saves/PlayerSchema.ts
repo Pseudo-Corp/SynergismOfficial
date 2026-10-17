@@ -16,7 +16,8 @@ import {
   headerModuleIds,
   headerModuleSizes,
   headerRegionIds,
-  isHeaderGridRegion
+  isHeaderGridRegion,
+  isHeaderProgress
 } from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
@@ -346,6 +347,17 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
       if (!isHeaderGridRegion(region)) {
         saved.regions[region] = saved.regions[region].filter((slot) => slot.length > 0)
       }
+      saved.regions[region] = saved.regions[region].flatMap((slot) => {
+        if (slot.length === 1 || !slot.some(isHeaderProgress)) {
+          return [slot]
+        }
+        for (const id of slot) {
+          if (saved.sizes[id] === 'S') {
+            delete saved.sizes[id]
+          }
+        }
+        return slot.map((id) => [id])
+      })
       for (const id of fallback.regions[region].flat()) {
         if (!placed.has(id)) {
           saved.regions[region].push([id])

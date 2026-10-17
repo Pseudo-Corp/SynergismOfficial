@@ -1315,7 +1315,8 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     background-color: var(--button-color);
 }
 
-.resetsButtons {
+.resetsButtons,
+.challengeProgress {
     display: grid;
     grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi * 55 / 45 / var(--header-cell-columns)));
     align-self: flex-start;
@@ -1324,16 +1325,13 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 .challengeProgress {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     min-height: 3.6em;
-    margin-top: 0.25em;
-    line-height: 1.2em;
 }
 
-.challengeProgress > .headerStack {
-    align-self: stretch;
+.headerProgress {
+    justify-self: stretch;
+    line-height: 1.2;
+    text-align: center;
 }
 
 #transcensionChallengeProgress { color: var(--orchid-text-color); }
@@ -6446,6 +6444,7 @@ header .img {
 .currenciesContainer {
     display: grid;
     grid-template-columns: repeat(var(--header-grid-columns, 4), minmax(0, 1fr));
+    align-content: start;
     justify-items: center;
     line-height: 1em;
     font-variant-numeric: tabular-nums;
@@ -6631,7 +6630,7 @@ header #obtainiumDisplay { color: pink; }
     opacity: 0.6;
 }
 
-#mainHeader.headerEditMode .headerProgress[hidden]::before {
+#mainHeader.headerEditMode .headerProgress[hidden] > .fitText::before {
     content: attr(data-placeholder);
 }
 
@@ -12673,9 +12672,10 @@ html[data-mobile="true"] .hideOnMobile {
         width: unset;
     }
 
-    .resetsButtons {
+    .resetsButtons,
+    .challengeProgress {
         grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi / var(--header-cell-columns)));
-        margin: 0 auto;
+        margin-inline: auto;
     }
 
     /* Cube upgrades */
