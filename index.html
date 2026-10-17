@@ -467,9 +467,9 @@
             -->
 
                 <p id="coinInformation"></p>
-                <p class="transcendunlock" id="coinConstruction" style="text-align: center"></p>
-                <p class="transcendunlock" id="coinHyperscaling" style="text-align: center"></p>
-                <p class="transcendunlock" id="coinConstructionBonus" style="text-align: center"></p>
+                <p class="transcendunlock constructionInfo" id="coinConstruction"></p>
+                <p class="transcendunlock constructionInfo" id="coinHyperscaling"></p>
+                <p class="transcendunlock constructionInfo" id="coinConstructionBonus"></p>
                 <p id="coinVanity"></p>
 
                 <div class="buttonRow"></div>
@@ -494,9 +494,9 @@
                     </table>
                 </div>
 
-                <p class="transcendunlock" id="diamondConstruction" style="text-align: center"></p>
-                <p class="transcendunlock" id="diamondHyperscaling" style="text-align: center"></p>
-                <p class="transcendunlock" id="diamondConstructionBonus" style="text-align: center"></p>
+                <p class="transcendunlock constructionInfo" id="diamondConstruction"></p>
+                <p class="transcendunlock constructionInfo" id="diamondHyperscaling"></p>
+                <p class="transcendunlock constructionInfo" id="diamondConstructionBonus"></p>
 
                 <div class="buttonRow"></div>
 
@@ -542,14 +542,14 @@
                     </table>
                 </div>
 
-                <p class="transcendunlock" id="mythosConstruction" style="text-align: center"></p>
-                <p class="transcendunlock" id="mythosHyperscaling" style="text-align: center"></p>
-                <p class="transcendunlock" id="mythosConstructionBonus" style="text-align: center"></p>
+                <p class="transcendunlock constructionInfo" id="mythosConstruction"></p>
+                <p class="transcendunlock constructionInfo" id="mythosHyperscaling"></p>
+                <p class="transcendunlock constructionInfo" id="mythosConstructionBonus"></p>
 
                 <div class="buttonRow"></div>
 
                 <p id="transcendshardinfo" style="color:pink;"></p>
-                <p id="transcendshardbonus" style="color: limegreen;"></p>
+                <p id="transcendshardbonus" style="color: limegreen;" i18n="buildings.eachMultiplierBoost"></p>
 
                 <div class="resetautomation">
                     <button class="auto" id="toggle21" toggleid="21" format="Auto Transcend [$]"></button>
@@ -574,9 +574,9 @@
                     </table>
                 </div>
 
-                <p class="transcendunlock" id="particleConstruction" style="text-align: center"></p>
-                <p class="transcendunlock" id="particleHyperscaling" style="text-align: center"></p>
-                <p class="transcendunlock" id="particleConstructionBonus" style="text-align: center"></p>
+                <p class="transcendunlock constructionInfo" id="particleConstruction"></p>
+                <p class="transcendunlock constructionInfo" id="particleHyperscaling"></p>
+                <p class="transcendunlock constructionInfo" id="particleConstructionBonus"></p>
 
                 <div class="buttonRow"></div>
 
@@ -2541,7 +2541,7 @@
                     <button class="prestigeunlock statsNerds" id="kRuneEffectMult" style="border: 2px solid pink" i18n="statistics.subtabs.runeEffectMult"></button>
                     <button class="prestigeunlock statsNerds" id="kSalvage" style="border: 2px solid green" i18n="statistics.subtabs.salvage"></button>
                     <button class="prestigeunlock statsNerds" id="kConstruction" style="border: 2px solid orange" i18n="statistics.subtabs.construction"></button>
-                    <button class="prestigeunlock statsNerds" id="kTraction" style="border: 2px solid yellow" i18n="statistics.subtabs.traction"></button>
+                    <button class="prestigeunlock statsNerds" id="kFreeAccelMult" style="border: 2px solid yellow" i18n="statistics.subtabs.freeAccelMult"></button>
                     <button class="reincarnationunlock statsNerds" id="kBaseObtainium" style="border: 2px solid pink" i18n="statistics.subtabs.baseObtainium"></button>
                     <button class="reincarnationunlock statsNerds" id="kObtIgnoreDR" style="border: 2px solid pink" i18n="statistics.subtabs.obtIgnoreDR"></button>
                     <button class="reincarnationunlock statsNerds" id="kObtMult" style="border: 2px solid pink" i18n="statistics.subtabs.obtMult"></button>
@@ -2636,24 +2636,19 @@
                     </div>
                 </div>
 
-                <div id="tractionStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="tractionStatTitle" class="statPortion" style="font-size: 1.2em; color: yellow" i18n="statistics.tractionStats.title"></p>
-                    <p id="tractionExtra"></p>
-                    <p id="tractionChallengeInfo" style="display: none"></p>
-                    <div id="tractionAccelerator">
-                        <div id="tractionStatsAcceleratorTitle" class="statPortion" style="font-size: 1.2em; color: gold" i18n="statistics.tractionAccelerator.title"></div>
+                <div id="freeAccelMultStats" class="statContainer" style="display: none;" aria-live="polite">
+                    <p id="freeAccelMultStatTitle" class="statPortion" style="font-size: 1.2em; color: yellow" i18n="statistics.freeAccelMultStats.title"></p>
+                    <p id="freeAccelMultExtra"></p>
+                    <div id="freeAccelerators">
+                        <div id="freeAcceleratorsTitle" class="statPortion" style="font-size: 1.2em; color: gold" i18n="statistics.freeAccelerators.title"></div>
                     </div>
-                    <p id="statTractionSep" class="statPortion">&nbsp;</p>
-                    <div id="tractionMultiplier">
-                        <div id="tractionStatsMultiplierTitle" class="statPortion" style="font-size: 1.2em; color: orange" i18n="statistics.tractionMultiplier.title"></div>
+                    <p id="statFreeAccelMultSep" class="statPortion">&nbsp;</p>
+                    <div id="freeMultipliers">
+                        <div id="freeMultipliersTitle" class="statPortion" style="font-size: 1.2em; color: orange" i18n="statistics.freeMultipliers.title"></div>
                     </div>
-                    <p id="statTractionSep2" class="statPortion">&nbsp;</p>
-                    <div id="tractionAcceleratorBoost">
-                        <div id="tractionStatsAcceleratorBoostTitle" class="statPortion" style="font-size: 1.2em; color: cyan" i18n="statistics.tractionAcceleratorBoost.title"></div>
-                    </div>
-                    <p id="statTractionSep3" class="statPortion">&nbsp;</p>
-                    <div id="tractionScaling">
-                        <div id="tractionStatsScalingTitle" class="statPortion" style="font-size: 1.2em; color: lime" i18n="statistics.tractionScaling.title"></div>
+                    <p id="statFreeAccelMultSep2" class="statPortion">&nbsp;</p>
+                    <div id="freeAcceleratorBoosts">
+                        <div id="freeAcceleratorBoostsTitle" class="statPortion" style="font-size: 1.2em; color: cyan" i18n="statistics.freeAcceleratorBoosts.title"></div>
                     </div>
                 </div>
 

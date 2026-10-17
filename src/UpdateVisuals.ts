@@ -2,12 +2,11 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
 import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
-import { getBuildingCost, getBuildingScalingThreshold, getTractionScalingThreshold } from './Buy'
+import { getAccelMultScalingThreshold, getBuildingCost, getBuildingScalingThreshold } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   buildingConstructionSoftcap,
-  calculateAcceleratorBoostCoefficient,
-  calculateAcceleratorBoostSoftcapMultiplier,
+  calculateAcceleratorsPerBoost,
   calculateActualAntSpeedMult,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
@@ -23,8 +22,6 @@ import {
   calculateCubeQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
-  calculateMultiplierBoostCoefficient,
-  calculateMultiplierBoosts,
   calculateOcteractMultiplier,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
@@ -51,10 +48,7 @@ import {
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
   calculateTotalOcteractQuarkBonus,
-  calculateTotalSalvage,
-  calculateTraction,
-  calculateTractionSoftcap,
-  tractionSoftcap
+  calculateTotalSalvage
 } from './Calculate'
 import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
@@ -440,28 +434,18 @@ const particlePerSecNames = ['atoms', 'protons', 'elements', 'pulsars', 'quasars
 const tesseractNames = ['dot', 'vector', 'threeSpace', 'bentTime', 'hilbertSpace']
 const tesseractPerSecNames = ['constant', 'dot', 'vector', 'threeSpace', 'bentTime']
 
-const constructionColors = {
-  coin: 'yellow',
-  diamond: 'cyan',
-  mythos: 'plum',
-  particle: 'limegreen'
-} as const
-
-const updateConstructionTexts = (type: keyof typeof constructionColors) => {
+const updateConstructionTexts = (type: keyof typeof buildingConstructionSoftcap) => {
   const construction = calculateBuildingConstruction(type)
   DOMCacheGetOrSet(`${type}Construction`).innerHTML = i18next.t('buildings.construction', {
-    amount: format(construction, 3, true),
-    color: constructionColors[type]
+    amount: format(construction, 3, true)
   })
   DOMCacheGetOrSet(`${type}ConstructionBonus`).innerHTML = i18next.t('buildings.constructionBonus', {
-    amount: format(buildingConstructionSoftcap[type], 0, true),
-    color: constructionColors[type]
+    amount: format(buildingConstructionSoftcap[type], 0, true)
   })
 
   const threshold = getBuildingScalingThreshold(type)
   DOMCacheGetOrSet(`${type}Hyperscaling`).innerHTML = i18next.t('buildings.hyperscaling', {
-    threshold: format(threshold, 3, true),
-    color: constructionColors[type]
+    threshold: format(threshold, 3, true)
   })
   return threshold
 }
@@ -473,13 +457,6 @@ export const visualUpdateBuildings = () => {
 
   // When you're in Building --> Coin, update these.
   if (G.buildingSubTab === 'coin') {
-    let totalProductionDivisor: Decimal
-    if (G.produceTotal.equals(new Decimal())) {
-      totalProductionDivisor = new Decimal(G.dOne)
-    } else {
-      totalProductionDivisor = new Decimal(G.produceTotal)
-    }
-
     DOMCacheGetOrSet('coinInformation').innerHTML = i18next.t('buildings.coinInformation', {
       coins: format(player.coins, 0, false, false),
       coinsPerSecond: format(
@@ -494,16 +471,6 @@ export const visualUpdateBuildings = () => {
       totalGenerated: format(player.coinsTotal, 0, false, false)
     })
     const coinConstruction = updateConstructionTexts('coin')
-    DOMCacheGetOrSet('coinTraction').innerHTML = i18next.t('buildings.traction', {
-      accelerator: format(calculateTraction('accelerator'), 3, true),
-      multiplier: format(calculateTraction('multiplier'), 3, true),
-      acceleratorBoost: format(calculateTraction('acceleratorBoost'), 3, true)
-    })
-    DOMCacheGetOrSet('coinTractionHyperscaling').innerHTML = i18next.t('buildings.tractionHyperscaling', {
-      accelerator: format(getTractionScalingThreshold('accelerator'), 3, true),
-      multiplier: format(getTractionScalingThreshold('multiplier'), 3, true),
-      acceleratorBoost: format(getTractionScalingThreshold('acceleratorBoost'), 3, true)
-    })
 
     let vanityIndex = 0
     const decimalCoin = Decimal.log10(player.coinsTotal)
@@ -538,26 +505,21 @@ export const visualUpdateBuildings = () => {
         }
       )
 
-      const percentage = Decimal.fromMantissaExponent(
-        place.mantissa / totalProductionDivisor.mantissa,
-        place.exponent - totalProductionDivisor.exponent
-      ).times(100)
-
       DOMCacheGetOrSet(`buildtext${2 * i}`).textContent = i18next.t(
         'buildings.coinsPerSecond',
         {
-          coins: format(place.dividedBy(G.taxdivisor).times(40), 2, false, false),
-          percent: format(percentage, 2, true, false)
+          coins: format(place.dividedBy(G.taxdivisor).times(40), 2, false, false)
         }
       )
     }
 
     const acceleratorElement = DOMCacheGetOrSet('buildtext11')
-    acceleratorElement.style.color = player.acceleratorBought > getTractionScalingThreshold('accelerator') ? 'red' : ''
+    acceleratorElement.style.color = player.acceleratorBought > getAccelMultScalingThreshold('accelerator') ? 'red' : ''
     acceleratorElement.textContent = i18next.t(
       'buildings.names.accelerators',
       {
-        amount: format(player.acceleratorBought, 0, true, false)
+        amount: format(player.acceleratorBought, 0, true, false),
+        gain: format(G.freeAccelerator, 0, true, false)
       }
     )
 
@@ -570,11 +532,12 @@ export const visualUpdateBuildings = () => {
     )
 
     const multiplierElement = DOMCacheGetOrSet('buildtext13')
-    multiplierElement.style.color = player.multiplierBought > getTractionScalingThreshold('multiplier') ? 'red' : ''
+    multiplierElement.style.color = player.multiplierBought > getAccelMultScalingThreshold('multiplier') ? 'red' : ''
     multiplierElement.innerHTML = i18next.t(
       'buildings.names.multipliers',
       {
-        amount: format(player.multiplierBought, 0, true, false)
+        amount: format(player.multiplierBought, 0, true, false),
+        gain: format(G.freeMultiplier, 0, true, false)
       }
     )
 
@@ -588,26 +551,27 @@ export const visualUpdateBuildings = () => {
 
     const acceleratorBoostElement = DOMCacheGetOrSet('buildtext15')
     acceleratorBoostElement.style.color =
-      player.acceleratorBoostBought > getTractionScalingThreshold('acceleratorBoost')
+      player.acceleratorBoostBought > getAccelMultScalingThreshold('acceleratorBoost')
         ? 'red'
         : ''
     acceleratorBoostElement.textContent = i18next.t(
       'buildings.names.acceleratorBoost',
       {
-        amount: format(player.acceleratorBoostBought, 0, true, false)
+        amount: format(player.acceleratorBoostBought, 0, true, false),
+        gain: format(G.freeAcceleratorBoost, 0, false, false)
       }
     )
 
-    const acceleratorSoftcap = tractionSoftcap.accelerator * calculateAcceleratorBoostSoftcapMultiplier()
-    const nextAcceleratorSoftcap = tractionSoftcap.accelerator
-        * calculateAcceleratorBoostSoftcapMultiplier(player.acceleratorBoostBought + 1)
-      - acceleratorSoftcap
     DOMCacheGetOrSet('buildtext16').textContent = i18next.t(
-      nextAcceleratorSoftcap > 0.001 ? 'buildings.acceleratorBoostNext' : 'buildings.acceleratorBoost',
+      'buildings.acceleratorBoost',
       {
-        amount: format(acceleratorSoftcap, 3, true, false),
-        next: format(nextAcceleratorSoftcap, 3, true, false),
-        coefficient: format(calculateAcceleratorBoostCoefficient(), 3, true)
+        amount: format(
+          (player.upgrades[46] > 0.5 ? 1.05 : 1) * (1 + player.challengecompletions[2] / 20),
+          2,
+          false,
+          false
+        ),
+        accelsPerBoost: format(calculateAcceleratorsPerBoost(), 0, true, false)
       }
     )
 
@@ -722,13 +686,9 @@ export const visualUpdateBuildings = () => {
       'buildings.mythosYouHave',
       {
         shards: format(player.transcendShards, 2, false, false),
-        mult: format(calculateMultiplierBoosts(), 0, true, false),
-        softcap: format(calculateTractionSoftcap('multiplier'), 3, true)
+        mult: format(G.totalMultiplierBoost, 0, true, false)
       }
     )
-    DOMCacheGetOrSet('transcendshardbonus').textContent = i18next.t('buildings.eachMultiplierBoost', {
-      coefficient: format(calculateMultiplierBoostCoefficient(), 3, true)
-    })
     const mythosConstruction = updateConstructionTexts('mythos')
 
     for (let i = 1; i <= 5; i++) {
@@ -1260,7 +1220,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.cubes.items.2',
         {
           amount: format(player.cubeBlessings.multiplier, 0, true),
-          bonus: format(calculateMultiplierCubeBlessing(), 3, true)
+          bonus: formatAsPercentIncrease(calculateMultiplierCubeBlessing(), 2)
         }
       )
 
@@ -1362,7 +1322,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.tesseracts.items.1',
         {
           amount: format(player.tesseractBlessings.accelerator, 0, true),
-          bonus: format(calculateAcceleratorTesseractBlessing(), 4, true)
+          bonus: formatAsPercentIncrease(calculateAcceleratorTesseractBlessing(), 2)
         }
       )
 
@@ -1370,7 +1330,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.tesseracts.items.2',
         {
           amount: format(player.tesseractBlessings.multiplier, 0, true),
-          bonus: format(calculateMultiplierTesseractBlessing(), 4, true)
+          bonus: formatAsPercentIncrease(calculateMultiplierTesseractBlessing(), 2)
         }
       )
 
@@ -1471,7 +1431,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.hypercubes.items.1',
         {
           amount: format(player.hypercubeBlessings.accelerator, 0, true),
-          bonus: format(calculateAcceleratorHypercubeBlessing(), 4, true)
+          bonus: formatAsPercentIncrease(calculateAcceleratorHypercubeBlessing(), 2)
         }
       )
 
@@ -1479,7 +1439,7 @@ export const visualUpdateCubes = () => {
         'wowCubes.hypercubes.items.2',
         {
           amount: format(player.hypercubeBlessings.multiplier, 0, true),
-          bonus: format(calculateMultiplierHypercubeBlessing(), 4, true)
+          bonus: formatAsPercentIncrease(calculateMultiplierHypercubeBlessing(), 2)
         }
       )
 

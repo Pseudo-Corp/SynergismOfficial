@@ -15,9 +15,9 @@ import { Globals as G } from './Variables'
 
 type RuneBlessingTypeMap = {
   speed: { globalSpeed: number }
-  duplication: { multiplierTraction: number }
+  duplication: { multiplierBoosts: number }
   prism: { antSacrificeMult: number }
-  thrift: { acceleratorBoostTraction: number }
+  thrift: { accelBoostCostDelay: number }
   superiorIntellect: { obtToAntExponent: number }
 }
 
@@ -80,15 +80,15 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     costCoefficient: new Decimal(1e7),
     levelsPerOOM: 4,
     effects: (level) => {
-      const multiplierTraction = 0.02 * Math.log(level + 1)
+      const multiplierBoosts = 1 + level / 1000000
       return {
-        multiplierTraction
+        multiplierBoosts
       }
     },
     effectsDescription: (level) => {
-      const multiplierTraction = runeBlessings.duplication.effects(level).multiplierTraction
-      return i18next.t('runes.blessings.duplication.multiplierTraction', {
-        val: format(multiplierTraction, 3, true)
+      const multiplierBoosts = runeBlessings.duplication.effects(level).multiplierBoosts
+      return i18next.t('runes.blessings.duplication.multiplierBoosts', {
+        val: formatAsPercentIncrease(multiplierBoosts, 2)
       })
     },
     effectiveLevelMult: () => blessingMultiplier('duplication'),
@@ -124,15 +124,15 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
     costCoefficient: new Decimal(1e12),
     levelsPerOOM: 4,
     effects: (level) => {
-      const acceleratorBoostTraction = 0.02 * Math.log(level + 1)
+      const accelBoostCostDelay = 1 + level / 1000000
       return {
-        acceleratorBoostTraction
+        accelBoostCostDelay
       }
     },
     effectsDescription: (level) => {
-      const acceleratorBoostTraction = runeBlessings.thrift.effects(level).acceleratorBoostTraction
+      const accelBoostCostDelay = runeBlessings.thrift.effects(level).accelBoostCostDelay
       return i18next.t('runes.blessings.thrift.acceleratorBoostDelay', {
-        val: format(acceleratorBoostTraction, 3, true)
+        val: formatAsPercentIncrease(accelBoostCostDelay, 2)
       })
     },
     effectiveLevelMult: () => blessingMultiplier('thrift'),

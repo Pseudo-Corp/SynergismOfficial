@@ -55,10 +55,12 @@ import {
   syncCurveBuildings
 } from './Buy'
 import {
+  calculateFreeAccelMult,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateObtainium,
   calculateOffline,
+  calculateTotalAcceleratorBoost,
   calculateTotalCoinOwned,
   cancelOfflineProgress,
   dailyResetCheck,
@@ -213,6 +215,7 @@ import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './Re
 import {
   buyBlessingLevels,
   generateBlessingsHTML,
+  getRuneBlessingEffect,
   type RuneBlessingKeys,
   updateAllBlessingLevelsFromEXP
 } from './RuneBlessings'
@@ -1194,9 +1197,6 @@ export const player: Player = {
   stats: {
     totalAddCodesUsed: 0,
     highestPurpleHoney: 0,
-    highestDiamondsThisPrestige: new Decimal(),
-    highestMythosThisPrestige: new Decimal(),
-    highestTaxDivisorThisPrestige: new Decimal(1),
     talismanShardsThisAscension: new Decimal()
   },
 
@@ -2370,7 +2370,20 @@ export const formatDecimalAsPercentIncrease = (n: Decimal, accuracy = 2) => {
 }
 
 export const updateAllTick = (): void => {
-  G.acceleratorPower = 1.1 + getRuneEffects('speed', 'acceleratorPower')
+  G.freeAccelerator = calculateFreeAccelMult('accelerator')
+  G.totalAccelerator = player.acceleratorBought + G.freeAccelerator
+
+  const tuSevenMulti = player.upgrades[46] > 0.5 ? 1.05 : 1
+
+  G.acceleratorPower = Math.pow(
+    1.1
+      + getRuneEffects('speed', 'acceleratorPower')
+      + +getAchievementReward('acceleratorPower')
+      + tuSevenMulti
+        * (G.totalAcceleratorBoost / 100)
+        * (1 + player.challengecompletions[2] / 20),
+    1 + 0.04 * player.challengecompletions[7]
+  )
 
   // No MA and Sadistic will always overwrite Transcend challenges starting in v2.0.0
   if (
@@ -2378,7 +2391,7 @@ export const updateAllTick = (): void => {
     && player.currentChallenge.reincarnation !== 10
   ) {
     if (player.currentChallenge.transcension === 1) {
-      G.acceleratorPower *= 0.25
+      G.acceleratorPower *= 25 / (50 + player.challengecompletions[1])
       G.acceleratorPower += 0.55
       G.acceleratorPower = Math.max(1, G.acceleratorPower)
     }
@@ -2398,13 +2411,13 @@ export const updateAllTick = (): void => {
   }
 
   if (player.currentChallenge.transcension !== 1) {
-    G.acceleratorEffect = Decimal.pow(G.acceleratorPower, player.acceleratorBought)
+    G.acceleratorEffect = Decimal.pow(G.acceleratorPower, G.totalAccelerator)
   }
 
   if (player.currentChallenge.transcension === 1) {
     G.acceleratorEffect = Decimal.pow(
       G.acceleratorPower,
-      player.acceleratorBought + player.multiplierBought
+      G.totalAccelerator + G.totalMultiplier
     )
   }
   if (player.currentChallenge.reincarnation === 10) {
@@ -2413,9 +2426,29 @@ export const updateAllTick = (): void => {
 }
 
 export const updateAllMultiplier = (): void => {
+  G.freeMultiplier = calculateFreeAccelMult('multiplier')
+  G.totalMultiplier = player.multiplierBought + G.freeMultiplier
+
   G.challengeOneLog = 3
 
-  G.multiplierPower = 2 + getRuneEffects('duplication', 'multiplierPower')
+  let b = 0
+  b += Decimal.log(player.transcendShards.add(1), 3)
+  b += getRuneEffects('duplication', 'multiplierBoosts')
+  b += 2 * player.challengecompletions[1]
+  b *= 1 + (11 * player.researches[33]) / 100
+  b *= 1 + (11 * player.researches[34]) / 100
+  b *= 1 + (11 * player.researches[35]) / 100
+  b *= 1 + player.researches[89] / 5
+  b *= getRuneBlessingEffect('duplication').multiplierBoosts
+
+  G.totalMultiplierBoost = Math.pow(
+    Math.floor(b),
+    1 + player.challengecompletions[7] * 0.04
+  )
+
+  const c7 = player.challengecompletions[7] > 0.5 ? 1.25 : 1
+
+  G.multiplierPower = 2 + 0.02 * G.totalMultiplierBoost * c7
 
   // No MA and Sadistic will always override Transcend Challenges starting in v2.0.0
   if (
@@ -2426,7 +2459,7 @@ export const updateAllMultiplier = (): void => {
       G.multiplierPower = 1
     }
     if (player.currentChallenge.transcension === 2) {
-      G.multiplierPower = 1.25 + getRuneEffects('duplication', 'multiplierPower')
+      G.multiplierPower = 1.25 + 0.0012 * b * c7
     }
   }
   G.multiplierPower = Math.min(1e300, G.multiplierPower)
@@ -2438,7 +2471,7 @@ export const updateAllMultiplier = (): void => {
     G.multiplierPower = 1
   }
 
-  G.multiplierEffect = Decimal.pow(G.multiplierPower, player.multiplierBought)
+  G.multiplierEffect = Decimal.pow(G.multiplierPower, G.totalMultiplier)
 }
 
 export const calculateBuildingPower = (): number => {
@@ -2606,7 +2639,7 @@ export const multipliers = (): void => {
     G.coinThreeMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[14] > 0.5) {
-    G.coinThreeMulti = G.coinThreeMulti.times(Decimal.pow(1.15, player.acceleratorBought).times(1e5))
+    G.coinThreeMulti = G.coinThreeMulti.times(Decimal.pow(1.15, G.freeAccelerator).times(1e5))
   }
   if (player.upgrades[18] > 0.5) {
     G.coinThreeMulti = G.coinThreeMulti.times(
@@ -2623,7 +2656,7 @@ export const multipliers = (): void => {
     G.coinFourMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[15] > 0.5) {
-    G.coinFourMulti = G.coinFourMulti.times(Decimal.pow(1.15, player.acceleratorBought).times(1e5))
+    G.coinFourMulti = G.coinFourMulti.times(Decimal.pow(1.15, G.freeAccelerator).times(1e5))
   }
   if (player.upgrades[17] > 0.5) {
     G.coinFourMulti = G.coinFourMulti.times(1e100)
@@ -2687,9 +2720,6 @@ export const multipliers = (): void => {
     )
   )
   G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
-    Decimal.pow(10, player.challengecompletions[5])
-  )
-  G.globalCrystalMultiplier = G.globalCrystalMultiplier.times(
     Decimal.pow(
       1e4,
       player.researches[5]
@@ -2727,7 +2757,7 @@ export const multipliers = (): void => {
   }
   if (player.upgrades[51] > 0.5) {
     G.globalMythosMultiplier = G.globalMythosMultiplier.times(
-      Decimal.pow(1 + player.acceleratorBoostBought, 2)
+      Decimal.pow(G.totalAcceleratorBoost, 2)
     )
   }
   if (player.upgrades[52] > 0.5) {
@@ -2825,6 +2855,8 @@ export const multipliers = (): void => {
 }
 
 export const resourceGain = (dt: number): void => {
+  calculateTotalAcceleratorBoost()
+
   updateAllTick()
   updateAllMultiplier()
   multipliers()
@@ -2852,7 +2884,6 @@ export const resourceGain = (dt: number): void => {
       Decimal.floor(G.transcendPointGain.dividedBy(4000).times(dt / 0.025))
     )
   }
-  updatePrestigeCurrencyRecords()
   if (player.cubeUpgrades[28] > 0 && player.transcendShards.gte(G.d1e300)) {
     player.reincarnationPoints = player.reincarnationPoints.add(
       Decimal.floor(G.reincarnationPointGain.dividedBy(4000).times(dt / 0.025))
@@ -3126,14 +3157,6 @@ export const resourceGain = (dt: number): void => {
       challengeAchievementCheck(ascendchal)
     }
   }
-}
-
-export const updatePrestigeCurrencyRecords = () => {
-  player.stats.highestDiamondsThisPrestige = Decimal.max(
-    player.stats.highestDiamondsThisPrestige,
-    player.prestigePoints
-  )
-  player.stats.highestMythosThisPrestige = Decimal.max(player.stats.highestMythosThisPrestige, player.transcendPoints)
 }
 
 export const resetCurrency = (): void => {

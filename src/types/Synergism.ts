@@ -601,9 +601,6 @@ export interface Player {
   stats: {
     totalAddCodesUsed: number
     highestPurpleHoney: number
-    highestDiamondsThisPrestige: Decimal
-    highestMythosThisPrestige: Decimal
-    highestTaxDivisorThisPrestige: Decimal
     talismanShardsThisAscension: Decimal
   }
 
@@ -617,12 +614,19 @@ export interface GlobalVariables {
   crystalUpgradesCost: number[]
   crystalUpgradeCostIncrement: number[]
 
+  freeAccelerator: number
+  totalAccelerator: number
+  freeAcceleratorBoost: number
+  totalAcceleratorBoost: number
   acceleratorPower: number
   acceleratorEffect: Decimal
 
+  freeMultiplier: number
+  totalMultiplier: number
   multiplierPower: number
   multiplierEffect: Decimal
   challengeOneLog: number
+  totalMultiplierBoost: number
 
   globalCoinMultiplier: Decimal
 

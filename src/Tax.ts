@@ -107,5 +107,4 @@ export const calculatetax = () => {
   // Which is intentional.
   G.taxdivisor = Decimal.pow(1.01, divisorExponent * exponent)
   G.taxdivisorcheck = Decimal.pow(1.01, checkExponent * exponent)
-  player.stats.highestTaxDivisorThisPrestige = Decimal.max(player.stats.highestTaxDivisorThisPrestige, G.taxdivisor)
 }

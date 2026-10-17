@@ -172,7 +172,8 @@ export const setChallengeFocus = (i: number) => {
 const runeLockedChallengeRewards: Partial<Record<number, [string, RuneKeys]>> = {
   1: ['challengePer2', 'duplication'],
   3: ['challengePer3', 'prism'],
-  4: ['challengePer3', 'thrift']
+  4: ['challengePer3', 'thrift'],
+  5: ['challengePer2', 'superiorIntellect']
 }
 
 export const challengeDisplay = (i: number) => {
@@ -215,14 +216,13 @@ export const challengeDisplay = (i: number) => {
 
     switch (i) {
       case 1: {
-        current1 = format(0.1 * player.challengecompletions[1], 2, true)
+        current1 = format(2 * player.challengecompletions[1])
         current2 = format(0.8 * player.challengecompletions[1], 2, true)
         current3 = format(0.04 * player.challengecompletions[1], 2, true)
         break
       }
       case 2: {
-        current1 = format(0.1 * player.challengecompletions[2], 2, true)
-        current2 = format(0.1 * player.challengecompletions[2], 2, true)
+        current1 = current2 = format(5 * player.challengecompletions[2])
         current3 = format(player.challengecompletions[2], 2, true)
         break
       }
@@ -233,14 +233,14 @@ export const challengeDisplay = (i: number) => {
         break
       }
       case 4: {
-        current1 = format(0.1 * player.challengecompletions[4], 2, true)
-        current2 = format(0.1 * player.challengecompletions[4], 2, true)
+        current1 = format(5 * player.challengecompletions[4])
+        current2 = format(2 * player.challengecompletions[4])
         current3 = format(0.4 * player.challengecompletions[4], 2, true)
         break
       }
       case 5: {
         current1 = format(0.5 + player.challengecompletions[5] / 100, 2, true)
-        current2 = format(Decimal.pow(10, player.challengecompletions[5]))
+        current2 = format(0.2 * player.challengecompletions[5], 2, true)
         current3 = format(5 * player.challengecompletions[5], 2, true)
         break
       }
@@ -251,7 +251,7 @@ export const challengeDisplay = (i: number) => {
         break
       }
       case 7: {
-        current1 = format(4 * player.challengecompletions[7], 2, true)
+        current1 = format(1 + 0.04 * player.challengecompletions[7], 2, true)
         current2 = format(0.3 * player.challengecompletions[7], 2, true)
         current3 = format(15 * player.challengecompletions[7], 2, true)
         break
@@ -457,11 +457,7 @@ const calculateChallengeRequirementMultiplier = (
   completions: number,
   special = 0
 ) => {
-  let requirementMultiplier = corruptionEffect(player.corruptions.used, 'hyperchallenge')
-  if (type === 'ascension') {
-    // Normalize back to 1 if looking at ascension challenges in particular.
-    requirementMultiplier = 1
-  }
+  let requirementMultiplier = 1
   switch (type) {
     case 'transcend':
       requirementMultiplier *= G.challenge15Rewards.transcendChallengeReduction.value
@@ -498,15 +494,18 @@ export const challengeRequirement = (challenge: number, completion: number, spec
     return Decimal.pow(10, base * calculateChallengeRequirementMultiplier('transcend', completion, special))
   } else if (challenge <= 10) {
     let c10Reduction = 0
+    let hyperchallengeMultiplier = 1
     if (challenge === 10) {
       c10Reduction =
         1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185])
         + getShopUpgradeEffects('challengeTome', 'c10RequirementReduction')
         + getShopUpgradeEffects('challengeTome2', 'c10RequirementReduction')
+      hyperchallengeMultiplier = corruptionEffect(player.corruptions.used, 'hyperchallenge')
     }
     return Decimal.pow(
       10,
-      (base - c10Reduction) * calculateChallengeRequirementMultiplier('reincarnation', completion, special)
+      (base - c10Reduction) * hyperchallengeMultiplier
+        * calculateChallengeRequirementMultiplier('reincarnation', completion, special)
     )
   } else if (challenge <= 14) {
     return calculateChallengeRequirementMultiplier('ascension', completion, special)

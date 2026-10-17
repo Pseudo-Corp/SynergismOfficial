@@ -5,6 +5,7 @@ import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import { c15ViscosityExponent, corruptionEffect, isCorruptionCubeUnlocked } from './Corruptions'
+import { calculateAcceleratorCubeBlessing } from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
@@ -67,12 +68,17 @@ import {
   ascensionCountMultStats,
   calculateTotalStat,
   constructionStats,
+  freeAcceleratorAdditiveStats,
+  freeAcceleratorBoostAdditiveStats,
+  freeAcceleratorBoostMultiplierStats,
+  freeAcceleratorMultiplierStats,
+  freeMultiplierAdditiveStats,
+  freeMultiplierMultiplierStats,
   negativeSalvageStatMultiplier,
   negativeSalvageStats,
   offeringObtainiumTimeModifiers,
   positiveSalvageStatMultiplier,
-  positiveSalvageStats,
-  tractionBaseStats
+  positiveSalvageStats
 } from './Statistics'
 import { format, getTimePinnedToLoadDate, player, resourceGain, saveSynergy, updateAll } from './Synergism'
 import { toggleTalismanBuy, updateTalismanInventory } from './Talismans'
@@ -619,105 +625,62 @@ export const calculateBuildingConstruction = (type: keyof typeof buildingConstru
   return calculateConstruction() / getChallengeConstructionDivisor(type)
 }
 
-export const baseTraction = 1
-export const tractionSoftcap = {
-  accelerator: 50,
-  multiplier: 25,
-  acceleratorBoost: 1000
+const freeAccelMultAdditiveStats = {
+  accelerator: freeAcceleratorAdditiveStats,
+  multiplier: freeMultiplierAdditiveStats
 } as const
-const tractionPerChallenge4Completion = 0.1
-const challenge4TractionDivisor = 2
-const challenge8TractionDivisor = 4
-export const getTractionChallengeDivisor = () => {
-  if (player.currentChallenge.reincarnation === 8) {
-    return challenge8TractionDivisor
-  }
-  if (player.currentChallenge.transcension === 4) {
-    return challenge4TractionDivisor
-  }
-  return 1
-}
 
-export const calculateCoinUpgrade7Traction = () => Math.min(1, 0.05 * Math.log(player.fifthOwnedCoin + 1))
+const freeAccelMultMultiplicativeStats = {
+  accelerator: freeAcceleratorMultiplierStats,
+  multiplier: freeMultiplierMultiplierStats
+} as const
 
-export const calculateCoinUpgrade8Traction = () => Math.min(1, 0.05 * Math.log(player.multiplierBought + 1))
+export const hepteractFreeAccelMult = {
+  accelerator: () => getHepteractEffects('accelerator').accelerators,
+  multiplier: () => getHepteractEffects('multiplier').multiplier
+} as const
 
-export const calculateCoinUpgrade9Traction = () => Math.min(1, 0.05 * Math.log(player.acceleratorBought + 1))
+export const hepteractFreeAccelMultMultiplier = {
+  accelerator: () => getHepteractEffects('accelerator').acceleratorMultiplier,
+  multiplier: () => getHepteractEffects('multiplier').multiplierMultiplier
+} as const
 
-export const calculateDiamondUpgrade11Traction = () => Math.min(1, 0.002 * Math.floor(calculateTotalCoinOwned() / 2000))
+const calculateRawFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats) =>
+  calculateTotalStat(freeAccelMultAdditiveStats[type]) * calculateTotalStat(freeAccelMultMultiplicativeStats[type])
 
-export const calculateDiamondUpgrade12Traction = () =>
-  Math.min(1, Math.max(0, Decimal.log10(player.stats.highestDiamondsThisPrestige.add(1)) / 1e6))
-
-export const calculateDiamondUpgrade13Traction = () => 0.005 * Math.min(200, player.acceleratorBoostBought)
-
-export const calculateMythosUpgrade5Traction = () =>
-  Math.min(1, Math.max(0, Decimal.log10(player.transcendShards.add(1)) / 250000))
-
-export const calculateMythosUpgrade9Traction = () =>
-  Math.min(1, Decimal.log10(player.stats.highestMythosThisPrestige.add(1)) / 100)
-
-export const calculateParticleUpgrade8Traction = () =>
-  0.002 * Math.log(1 + Math.max(0, Decimal.log10(player.stats.highestTaxDivisorThisPrestige)))
-
-export const calculateChallenge4Traction = () => tractionPerChallenge4Completion * player.challengecompletions[4]
-
-export const calculateAcceleratorBoostCoefficient = () =>
-  0.04
-  + (player.upgrades[46] > 0.5 ? 0.02 : 0)
-  + 0.02 * player.researches[18]
-  + 0.02 * player.researches[19]
-  + 0.02 * player.researches[20]
-
-const boostSoftcapMultiplier = (coefficient: number, boosts: number) =>
-  1 + coefficient * Math.pow(Math.log(1 + boosts), 2)
-
-export const calculateAcceleratorBoostSoftcapMultiplier = (boosts = player.acceleratorBoostBought) =>
-  boostSoftcapMultiplier(calculateAcceleratorBoostCoefficient(), boosts)
-
-export const calculateMultiplierBoosts = () =>
+export const calculateFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats) =>
   Math.floor(
-    Decimal.log(player.transcendShards.add(1), 3) * (player.challengecompletions[7] > 0.5 ? 1.25 : 1)
+    Math.min(
+      1e100,
+      (Math.pow(
+        calculateRawFreeAccelMult(type) / corruptionEffect(player.corruptions.used, 'viscosity'),
+        c15ViscosityExponent(player.corruptions.used)
+      )
+        + hepteractFreeAccelMult[type]())
+        * G.challenge15Rewards[type].value
+        * hepteractFreeAccelMultMultiplier[type]()
+    )
   )
 
-export const calculateMultiplierBoostCoefficient = () =>
-  0.01
-  + 0.004
-    * (Math.min(1, player.researches[33]) + Math.min(1, player.researches[34]) + Math.min(1, player.researches[35]))
-  + 0.012 * Math.min(1, player.researches[89])
-
-export const calculateMultiplierBoostSoftcapMultiplier = () =>
-  boostSoftcapMultiplier(calculateMultiplierBoostCoefficient(), calculateMultiplierBoosts())
-
-const tractionSoftcapMultiplier = {
-  accelerator: () => calculateAcceleratorBoostSoftcapMultiplier(),
-  multiplier: calculateMultiplierBoostSoftcapMultiplier,
-  acceleratorBoost: () => 1
-} as const
-
-export const calculateTractionSoftcap = (type: keyof typeof tractionSoftcap) =>
-  tractionSoftcap[type] * tractionSoftcapMultiplier[type]()
-
-export const calculateRawTraction = (type: keyof typeof tractionSoftcap) => calculateTotalStat(tractionBaseStats[type])
-
-export const calculateTraction = (type: keyof typeof tractionSoftcap) =>
-  type === 'acceleratorBoost'
-    ? (calculateRawTraction(type) + calculateHepteractTraction(type)) / getTractionChallengeDivisor()
-    : (Math.pow(
-      calculateRawTraction(type) / corruptionEffect(player.corruptions.used, 'viscosity'),
-      c15ViscosityExponent(player.corruptions.used)
+export const calculateFreeAcceleratorBoosts = () =>
+  Math.floor(
+    Math.min(
+      1e100,
+      calculateTotalStat(freeAcceleratorBoostAdditiveStats) * calculateTotalStat(freeAcceleratorBoostMultiplierStats)
     )
-      + calculateHepteractTraction(type)
-      + G.challenge15Rewards[type].value)
-      / getTractionChallengeDivisor()
+  )
 
-const hepteractTraction = {
-  accelerator: () => getHepteractEffects('accelerator').accelerators,
-  multiplier: () => getHepteractEffects('multiplier').multiplier,
-  acceleratorBoost: () => getHepteractEffects('acceleratorBoost').acceleratorBoosts
-} as const
+export const calculateAcceleratorsPerBoost = () =>
+  5
+  + 2 * player.researches[18]
+  + 2 * player.researches[19]
+  + 3 * player.researches[20]
+  + calculateAcceleratorCubeBlessing()
 
-export const calculateHepteractTraction = (type: keyof typeof tractionSoftcap) => hepteractTraction[type]()
+export const calculateTotalAcceleratorBoost = () => {
+  G.freeAcceleratorBoost = calculateFreeAcceleratorBoosts()
+  G.totalAcceleratorBoost = player.acceleratorBoostBought + G.freeAcceleratorBoost
+}
 
 export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()
@@ -743,9 +706,9 @@ export const calculateActualAntSpeedMult = () => {
   if (player.currentChallenge.ascension === 12) {
     exponent = 0.75
   } else if (useChallenge13Modifiers()) {
-    exponent = 0.4
+    exponent = 0.23
   } else if (player.currentChallenge.ascension === 14) {
-    exponent = 0.4
+    exponent = 0.2
   } else if (player.currentChallenge.ascension === 15) {
     exponent = 0.5
   }

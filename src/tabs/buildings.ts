@@ -25,13 +25,7 @@ interface Building {
   fitStats?: boolean
 }
 
-interface Spacer {
-  spacer: true
-  lineIds?: string[]
-  textClass?: string
-}
-
-type Entry = Building | Spacer
+type Entry = Building | { spacer: true }
 
 const costIdOf = (buyId: string) => `cost${buyId.slice('buy'.length)}`
 const joinClasses = (...classes: Array<string | undefined>) => classes.filter(Boolean).join(' ')
@@ -99,16 +93,9 @@ const renderAutomationControl = (): string =>
   + '<button class="automatedBuildingVisibilityToggle" type="button" style="display: none" aria-pressed="false"></button>'
   + '</div>'
 
-const renderSpacer = (s: Spacer): string =>
-  s.lineIds === undefined
-    ? '<div class="buildingSpacer"></div>'
-    : `<div class="buildingSpacer buildingSpacerText">${
-      s.lineIds.map((id) => `<p class="${s.textClass ?? ''}" id="${id}"></p>`).join('')
-    }</div>`
-
 const renderRow = (entries: Entry[]): string =>
   renderAutomationControl()
-  + entries.map((e) => 'spacer' in e ? renderSpacer(e) : renderBuilding(e)).join('')
+  + entries.map((e) => 'spacer' in e ? '<div class="buildingSpacer"></div>' : renderBuilding(e)).join('')
 
 const goldStyle = 'color: gold'
 
@@ -132,11 +119,7 @@ const coinRow: Entry[] = [
     descStyle: goldStyle,
     statsStyle: goldStyle
   })),
-  {
-    spacer: true,
-    lineIds: ['coinTraction', 'coinTractionHyperscaling'],
-    textClass: 'prestigeunlock'
-  },
+  { spacer: true },
   {
     imgId: 'accelerator',
     imgAlt: 'Accelerator',
@@ -319,9 +302,7 @@ const updateBuildingVisibility = (row: HTMLElement, autobuyers: HTMLElement[]) =
       )
     child.classList.toggle(
       'buildingHiddenByAutomation',
-      hideAutomated
-        && ((!child.classList.contains('buildingSpacerText') && !hasVisibleBuildings(buildingsBefore))
-          || !hasVisibleBuildings(buildingsAfter))
+      hideAutomated && (!hasVisibleBuildings(buildingsBefore) || !hasVisibleBuildings(buildingsAfter))
     )
   }
 

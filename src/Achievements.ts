@@ -219,6 +219,7 @@ export type AchievementGroups =
   | 'addCodesUsed'
 
 type AchievementRewards =
+  | 'acceleratorPower'
   | 'accelerators'
   | 'multipliers'
   | 'accelBoosts'
@@ -587,7 +588,8 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.firstOwnedCoin >= 100,
-    group: 'firstOwnedCoin'
+    group: 'firstOwnedCoin',
+    reward: { acceleratorPower: () => 0.001 }
   },
   {
     pointValue: 20,
@@ -599,19 +601,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => player.firstOwnedCoin >= 5000,
     group: 'firstOwnedCoin',
-    reward: { accelerators: () => Math.min(0.2, 0.0001 * Math.floor(player.firstOwnedCoin / 500)) }
+    reward: { accelerators: () => Math.floor(player.firstOwnedCoin / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => player.firstOwnedCoin >= 10000,
     group: 'firstOwnedCoin',
-    reward: { multipliers: () => Math.min(0.2, 0.0001 * Math.floor(player.firstOwnedCoin / 500)) }
+    reward: { multipliers: () => Math.floor(player.firstOwnedCoin / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => player.firstOwnedCoin >= 20000,
     group: 'firstOwnedCoin',
-    reward: { accelBoosts: () => Math.min(0.2, 0.0001 * Math.floor(player.firstOwnedCoin / 500)) }
+    reward: { accelBoosts: () => Math.floor(player.firstOwnedCoin / 2000) }
   },
   {
     pointValue: 5,
@@ -623,7 +625,8 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.secondOwnedCoin >= 100,
-    group: 'secondOwnedCoin'
+    group: 'secondOwnedCoin',
+    reward: { acceleratorPower: () => 0.0015 }
   },
   {
     pointValue: 20,
@@ -635,19 +638,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => player.secondOwnedCoin >= 5000,
     group: 'secondOwnedCoin',
-    reward: { accelerators: () => Math.min(0.2, 0.0001 * Math.floor(player.secondOwnedCoin / 500)) }
+    reward: { accelerators: () => Math.floor(player.secondOwnedCoin / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => player.secondOwnedCoin >= 10000,
     group: 'secondOwnedCoin',
-    reward: { multipliers: () => Math.min(0.2, 0.0001 * Math.floor(player.secondOwnedCoin / 500)) }
+    reward: { multipliers: () => Math.floor(player.secondOwnedCoin / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => player.secondOwnedCoin >= 20000,
     group: 'secondOwnedCoin',
-    reward: { accelBoosts: () => Math.min(0.2, 0.0001 * Math.floor(player.secondOwnedCoin / 500)) }
+    reward: { accelBoosts: () => Math.floor(player.secondOwnedCoin / 2000) }
   },
   {
     pointValue: 5,
@@ -659,7 +662,8 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.thirdOwnedCoin >= 100,
-    group: 'thirdOwnedCoin'
+    group: 'thirdOwnedCoin',
+    reward: { acceleratorPower: () => 0.002 }
   },
   {
     pointValue: 20,
@@ -671,19 +675,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => player.thirdOwnedCoin >= 5000,
     group: 'thirdOwnedCoin',
-    reward: { accelerators: () => Math.min(0.2, 0.0001 * Math.floor(player.thirdOwnedCoin / 500)) }
+    reward: { accelerators: () => Math.floor(player.thirdOwnedCoin / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => player.thirdOwnedCoin >= 10000,
     group: 'thirdOwnedCoin',
-    reward: { multipliers: () => Math.min(0.2, 0.0001 * Math.floor(player.thirdOwnedCoin / 500)) }
+    reward: { multipliers: () => Math.floor(player.thirdOwnedCoin / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => player.thirdOwnedCoin >= 20000,
     group: 'thirdOwnedCoin',
-    reward: { accelBoosts: () => Math.min(0.2, 0.0001 * Math.floor(player.thirdOwnedCoin / 500)) }
+    reward: { accelBoosts: () => Math.floor(player.thirdOwnedCoin / 2000) }
   },
   {
     pointValue: 5,
@@ -695,7 +699,8 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.fourthOwnedCoin >= 100,
-    group: 'fourthOwnedCoin'
+    group: 'fourthOwnedCoin',
+    reward: { acceleratorPower: () => 0.002 }
   },
   {
     pointValue: 20,
@@ -707,19 +712,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => player.fourthOwnedCoin >= 5000,
     group: 'fourthOwnedCoin',
-    reward: { accelerators: () => Math.min(0.2, 0.0001 * Math.floor(player.fourthOwnedCoin / 500)) }
+    reward: { accelerators: () => Math.floor(player.fourthOwnedCoin / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => player.fourthOwnedCoin >= 10000,
     group: 'fourthOwnedCoin',
-    reward: { multipliers: () => Math.min(0.2, 0.0001 * Math.floor(player.fourthOwnedCoin / 500)) }
+    reward: { multipliers: () => Math.floor(player.fourthOwnedCoin / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => player.fourthOwnedCoin >= 20000,
     group: 'fourthOwnedCoin',
-    reward: { accelBoosts: () => Math.min(0.2, 0.0001 * Math.floor(player.fourthOwnedCoin / 500)) }
+    reward: { accelBoosts: () => Math.floor(player.fourthOwnedCoin / 2000) }
   },
   {
     pointValue: 5,
@@ -731,7 +736,8 @@ const achievements: Achievement[] = [
   {
     pointValue: 15,
     unlockCondition: () => player.fifthOwnedCoin >= 66,
-    group: 'fifthOwnedCoin'
+    group: 'fifthOwnedCoin',
+    reward: { acceleratorPower: () => 0.003 }
   },
   {
     pointValue: 20,
@@ -743,19 +749,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => player.fifthOwnedCoin >= 6666,
     group: 'fifthOwnedCoin',
-    reward: { accelerators: () => Math.min(0.2, 0.0001 * Math.floor(player.fifthOwnedCoin / 500)) }
+    reward: { accelerators: () => Math.floor(player.fifthOwnedCoin / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => player.fifthOwnedCoin >= 17777,
     group: 'fifthOwnedCoin',
-    reward: { multipliers: () => Math.min(0.2, 0.0001 * Math.floor(player.fifthOwnedCoin / 500)) }
+    reward: { multipliers: () => Math.floor(player.fifthOwnedCoin / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => player.fifthOwnedCoin >= 42777,
     group: 'fifthOwnedCoin',
-    reward: { accelBoosts: () => Math.min(0.2, 0.0001 * Math.floor(player.fifthOwnedCoin / 500)) }
+    reward: { accelBoosts: () => Math.floor(player.fifthOwnedCoin / 2000) }
   },
   {
     pointValue: 5,
@@ -848,42 +854,42 @@ const achievements: Achievement[] = [
     pointValue: 5,
     unlockCondition: () => player.prestigenomultiplier,
     group: 'ungrouped',
-    reward: { multipliers: () => 0.01 },
+    reward: { multipliers: () => 1 },
     checkReset: () => player.highestSingularityCount >= 3
   },
   {
     pointValue: 10,
     unlockCondition: () => player.transcendnomultiplier,
     group: 'ungrouped',
-    reward: { multipliers: () => 0.03 },
+    reward: { multipliers: () => 2 },
     checkReset: () => player.highestSingularityCount >= 3
   },
   {
     pointValue: 15,
     unlockCondition: () => player.reincarnatenomultiplier,
     group: 'ungrouped',
-    reward: { multipliers: () => 0.06 },
+    reward: { multipliers: () => 4 },
     checkReset: () => player.highestSingularityCount >= 3
   },
   {
     pointValue: 20,
     unlockCondition: () => player.prestigenoaccelerator,
     group: 'ungrouped',
-    reward: { accelerators: () => 0.01 },
+    reward: { accelerators: () => 2 },
     checkReset: () => player.highestSingularityCount >= 3
   },
   {
     pointValue: 25,
     unlockCondition: () => player.transcendnoaccelerator,
     group: 'ungrouped',
-    reward: { accelerators: () => 0.03 },
+    reward: { accelerators: () => 4 },
     checkReset: () => player.highestSingularityCount >= 3
   },
   {
     pointValue: 30,
     unlockCondition: () => player.reincarnatenoaccelerator,
     group: 'ungrouped',
-    reward: { accelerators: () => 0.06 },
+    reward: { accelerators: () => 8 },
     checkReset: () => player.highestSingularityCount >= 3
   },
   {
@@ -1349,32 +1355,33 @@ const achievements: Achievement[] = [
   {
     pointValue: 10,
     unlockCondition: () => player.acceleratorBought >= 25,
-    group: 'accelerators'
+    group: 'accelerators',
+    reward: { acceleratorPower: () => 0.01 }
   },
   { pointValue: 15, unlockCondition: () => player.acceleratorBought >= 100, group: 'accelerators' },
   {
     pointValue: 20,
     unlockCondition: () => player.acceleratorBought >= 666,
     group: 'accelerators',
-    reward: { accelerators: () => 0.02 }
+    reward: { accelerators: () => 5 }
   },
   {
     pointValue: 25,
     unlockCondition: () => player.acceleratorBought >= 2000,
     group: 'accelerators',
-    reward: { accelerators: () => 0.04 }
+    reward: { accelerators: () => 12 }
   },
   {
     pointValue: 30,
     unlockCondition: () => player.acceleratorBought >= 12500,
     group: 'accelerators',
-    reward: { accelerators: () => 0.06 }
+    reward: { accelerators: () => 25 }
   },
   {
     pointValue: 35,
     unlockCondition: () => player.acceleratorBought >= 100000,
     group: 'accelerators',
-    reward: { accelerators: () => 0.08 }
+    reward: { accelerators: () => 50 }
   },
   {
     pointValue: 5,
@@ -1386,32 +1393,32 @@ const achievements: Achievement[] = [
     pointValue: 10,
     unlockCondition: () => player.multiplierBought >= 20,
     group: 'multipliers',
-    reward: { multipliers: () => 0.02 }
+    reward: { multipliers: () => 1 }
   },
   { pointValue: 15, unlockCondition: () => player.multiplierBought >= 100, group: 'multipliers' },
   {
     pointValue: 20,
     unlockCondition: () => player.multiplierBought >= 500,
     group: 'multipliers',
-    reward: { multipliers: () => 0.04 }
+    reward: { multipliers: () => 1 }
   },
   {
     pointValue: 25,
     unlockCondition: () => player.multiplierBought >= 2000,
     group: 'multipliers',
-    reward: { multipliers: () => 0.06 }
+    reward: { multipliers: () => 3 }
   },
   {
     pointValue: 30,
     unlockCondition: () => player.multiplierBought >= 12500,
     group: 'multipliers',
-    reward: { multipliers: () => 0.08 }
+    reward: { multipliers: () => 6 }
   },
   {
     pointValue: 35,
     unlockCondition: () => player.multiplierBought >= 100000,
     group: 'multipliers',
-    reward: { multipliers: () => 0.1 }
+    reward: { multipliers: () => 10 }
   },
   {
     pointValue: 5,
@@ -2124,12 +2131,7 @@ const achievements: Achievement[] = [
     group: 'challenge10',
     steamAchievementId: 'GROUPED_CHALLENGE10_2'
   },
-  {
-    pointValue: 40,
-    unlockCondition: () => player.acceleratorBought >= 1e6,
-    group: 'accelerators',
-    reward: { accelerators: () => 0.1 }
-  },
+  { pointValue: 40, unlockCondition: () => player.acceleratorBought >= 1e6, group: 'accelerators' },
   { pointValue: 45, unlockCondition: () => player.acceleratorBought >= 1e7, group: 'accelerators' },
   {
     pointValue: 50,
@@ -3266,6 +3268,12 @@ const achievementsByReward: Record<AchievementRewards, number[]> = achievements
   }, {} as Record<AchievementRewards, number[]>)
 
 const achRewards: Record<AchievementRewards, () => number | boolean> = {
+  acceleratorPower: (): number => {
+    return achievementsByReward.acceleratorPower.reduce(
+      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.acceleratorPower!() : 0),
+      0
+    )
+  },
   accelerators: (): number => {
     return achievementsByReward.accelerators.reduce(
       (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.accelerators!() : 0),

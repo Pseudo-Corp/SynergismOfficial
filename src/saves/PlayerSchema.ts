@@ -1185,9 +1185,6 @@ export const playerSchema = z.object({
   stats: z.object({
     totalAddCodesUsed: z.number(),
     highestPurpleHoney: z.number().default(0),
-    highestDiamondsThisPrestige: decimalSchema.prefault(() => blankSave.stats.highestDiamondsThisPrestige),
-    highestMythosThisPrestige: decimalSchema.prefault(() => blankSave.stats.highestMythosThisPrestige),
-    highestTaxDivisorThisPrestige: decimalSchema.prefault(() => blankSave.stats.highestTaxDivisorThisPrestige),
     talismanShardsThisAscension: decimalSchema.prefault(() => blankSave.stats.talismanShardsThisAscension)
   }).default(() => deepClone()(blankSave.stats)),
 

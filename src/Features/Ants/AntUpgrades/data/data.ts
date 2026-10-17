@@ -8,8 +8,7 @@ import { format, formatAsPercentIncrease, player } from '../../../../Synergism'
 import { getAntUpgradeEffect } from '../lib/upgrade-effects'
 import { type AntUpgradeData, AntUpgrades } from '../structs/structs'
 
-const antTractionEffect = (coefficient: number, level: number) =>
-  level > 0 ? coefficient * Math.pow(1 + Math.log(1 + level), 2) : 0
+const antConstructionEffect = (level: number) => level > 0 ? 0.2 * Math.pow(1 + Math.log(1 + level), 2) : 0
 
 export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   [AntUpgrades.AntSpeed]: {
@@ -115,13 +114,13 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     description: () => i18next.t('ants.upgrades.acceleratorBoosts.description'),
     effect: (n: number) => {
       return {
-        acceleratorBoostMult: antTractionEffect(0.4, n)
+        acceleratorBoostMult: calculateSigmoidExponential(20, n / 1000)
       }
     },
     effectDescription: () => {
       const acceleratorBoostMult = getAntUpgradeEffect(AntUpgrades.AcceleratorBoosts).acceleratorBoostMult
       return i18next.t('ants.upgrades.acceleratorBoosts.effect', {
-        x: format(acceleratorBoostMult, 3, true)
+        x: formatAsPercentIncrease(acceleratorBoostMult, 2)
       })
     },
     lockedAutoDescription: () => i18next.t('ants.upgrades.acceleratorBoosts.lockedAutomation')
@@ -140,12 +139,12 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     description: () => i18next.t('ants.upgrades.multipliers.description'),
     effect: (n: number) => {
       return {
-        multiplierMult: antTractionEffect(0.4, n)
+        multiplierMult: calculateSigmoidExponential(40, n / 1000)
       }
     },
     effectDescription: () => {
       const multiplierMult = getAntUpgradeEffect(AntUpgrades.Multipliers).multiplierMult
-      return i18next.t('ants.upgrades.multipliers.effect', { x: format(multiplierMult, 3, true) })
+      return i18next.t('ants.upgrades.multipliers.effect', { x: formatAsPercentIncrease(multiplierMult, 2) })
     },
     lockedAutoDescription: () => i18next.t('ants.upgrades.multipliers.lockedAutomation')
   },
@@ -185,7 +184,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.buildingCostScale.intro'),
     description: () => i18next.t('ants.upgrades.buildingCostScale.description'),
     effect: (n: number) => {
-      const construction = antTractionEffect(0.2, n)
+      const construction = antConstructionEffect(n)
       const buildingPowerMult = 1 + n / 100
       return {
         construction,

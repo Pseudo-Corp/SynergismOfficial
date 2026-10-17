@@ -5239,7 +5239,7 @@
     "acceleratorPower": "加速器效果：{{power}}% || 加速器倍率：{{mult}}x",
     "multiplierPower": "加倍器效果：{{power}}x || 加倍器倍率：{{mult}}x",
     "acceleratorBoost": "重置钻石及转生升级，但使加速器效果增加{{amount}}%，免费的加速器增加{{accelsPerBoost}}个。",
-    "coinsPerSecond": "金币每秒产量：{{coins}} [{{percent}}%]",
+    "coinsPerSecond": "金币每秒产量：{{coins}}",
     "costCoins": "花费：{{coins}}金币。",
     "costDiamonds": "花费：{{diamonds}}钻石。",
     "names": {

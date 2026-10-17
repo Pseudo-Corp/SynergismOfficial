@@ -5239,7 +5239,7 @@
     "acceleratorPower": "Сила Ускорения: {{power}}% || Множитель Ускорения: {{mult}}x",
     "multiplierPower": "Сила Множителя: {{power}}х || Множитель: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add {{amount}}% Acceleration Power and {{accelsPerBoost}} free Accelerators.",
-    "coinsPerSecond": "Монеты/Сек: {{coins}} [{{percent}}%]",
+    "coinsPerSecond": "Монеты/Сек: {{coins}}",
     "costCoins": "Стоимость: {{coins}} монет.",
     "costDiamonds": "Стоимость: {{diamonds}} Алмазов.",
     "names": {

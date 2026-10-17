@@ -2,11 +2,11 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { getBuildingScalingFactor, getTractionScalingFactor } from './Buy'
+import { getBuildingScalingFactor } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   baseConstruction,
-  baseTraction,
+  calculateAcceleratorsPerBoost,
   calculateAllCubeMultiplier,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
@@ -28,10 +28,6 @@ import {
   calculateBaseOfferings,
   calculateBlueberryInventory,
   calculateBuildingConstruction,
-  calculateChallenge4Traction,
-  calculateCoinUpgrade7Traction,
-  calculateCoinUpgrade8Traction,
-  calculateCoinUpgrade9Traction,
   calculateConstruction,
   calculateCookieUpgrade29Luck,
   calculateCubeBank,
@@ -39,9 +35,6 @@ import {
   calculateCubeMultiplier,
   calculateCubeMultiplierWithTau,
   calculateCubeUpgradeCubeGain,
-  calculateDiamondUpgrade11Traction,
-  calculateDiamondUpgrade12Traction,
-  calculateDiamondUpgrade13Traction,
   calculateDilatedFiveLeafBonus,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
@@ -49,6 +42,8 @@ import {
   calculateEventCubeGain,
   calculateExalt3Penalty,
   calculateExalt6Penalty,
+  calculateFreeAcceleratorBoosts,
+  calculateFreeAccelMult,
   calculateFreeShopInfinityUpgrades,
   calculateGlobalSpeedDREnabledMult,
   calculateGlobalSpeedDRIgnoreMult,
@@ -56,13 +51,10 @@ import {
   calculateGoldenQuarkCost,
   calculateGoldenQuarks,
   calculateHepteractMultiplier,
-  calculateHepteractTraction,
   calculateHypercubeMultiplier,
   calculateImmaculateAlchemyBonus,
   calculateIrish3PurpleLuck,
   calculateLuckConversion,
-  calculateMythosUpgrade5Traction,
-  calculateMythosUpgrade9Traction,
   calculateNegativeSalvage,
   calculateObtainium,
   calculateObtainiumDecimal,
@@ -72,7 +64,6 @@ import {
   calculateOfferingPotionBaseOfferings,
   calculateOfferings,
   calculateOfferingsDecimal,
-  calculateParticleUpgrade8Traction,
   calculatePlatonicMultiplier,
   calculatePositiveSalvage,
   calculatePowderConversion,
@@ -86,7 +77,6 @@ import {
   calculateRawAscensionSpeedMult,
   calculateRawNegativeSalvage,
   calculateRawPositiveSalvage,
-  calculateRawTraction,
   calculateRedAmbrosiaCubes,
   calculateRedAmbrosiaGenerationSpeed,
   calculateRedAmbrosiaGenerationSpeedRaw,
@@ -104,9 +94,9 @@ import {
   calculateTotalOcteractOfferingBonus,
   calculateTotalOcteractQuarkBonus,
   calculateTotalSalvage,
-  calculateTraction,
   derpsmithCornucopiaBonus,
-  getTractionChallengeDivisor
+  hepteractFreeAccelMult,
+  hepteractFreeAccelMultMultiplier
 } from './Calculate'
 import { campaignTokenBonuses } from './Campaign'
 import { type Challenge15Rewards, challenge15ScoreMultiplier, useChallenge13Modifiers } from './Challenges'
@@ -120,7 +110,6 @@ import {
   isCorruptionCubeUnlocked
 } from './Corruptions'
 import {
-  calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
   calculateAntSacrificeCubeBlessing,
   calculateAntSpeedCubeBlessing,
@@ -3490,240 +3479,228 @@ const diamondUpgradesOneToFive = [21, 22, 23, 24, 25] as const
 
 const sumDiamondUpgradesOneToFive = () => diamondUpgradesOneToFive.reduce((sum, i) => sum + player.upgrades[i], 0)
 
-const isTractionUpgrade50Active = () =>
+const isMythosUpgrade10Active = () =>
   (player.currentChallenge.transcension !== 0 || player.currentChallenge.reincarnation !== 0)
   && player.upgrades[50] > 0.5
 
-const acceleratorTractionResearches = [
-  [6, 0.04],
-  [7, 0.04],
-  [8, 0.04],
-  [9, 0.04],
-  [10, 0.04],
-  [86, 0.1],
-  [126, 0.02],
-  [141, 0.02],
-  [156, 0.02],
-  [171, 0.02],
-  [186, 0.02],
-  [200, 0.0002]
-] as const
-const multiplierTractionResearches = [
-  [11, 0.04],
-  [12, 0.04],
-  [13, 0.04],
-  [14, 0.04],
-  [15, 0.04],
-  [87, 0.1],
-  [128, 0.02],
-  [143, 0.02],
-  [158, 0.02],
-  [173, 0.02],
-  [188, 0.02],
-  [200, 0.0002]
-] as const
-const acceleratorBoostTractionResearches = [
-  [16, 0.04],
-  [17, 0.04],
-  [88, 0.1],
-  [127, 0.02],
-  [142, 0.02],
-  [157, 0.02],
-  [172, 0.02],
-  [187, 0.02],
-  [200, 0.0002]
-] as const
+const challenge14ResearchMultiplier = (index: 1 | 2 | 3) =>
+  1 + player.researches[index] / 5 * (1 + player.challengecompletions[14] / 2)
 
-const tractionRuneResearch = (index: 93 | 94) =>
-  player.researches[index] > 0 ? Math.min(2, 0.02 * Math.floor(sumOfRuneLevels() / 2000)) : 0
+const lateResearchMultiplier = (indices: readonly [number, number, number, number, number]) =>
+  (1 + player.researches[indices[0]] / 100)
+  * (1 + 0.8 * player.researches[indices[1]] / 100)
+  * (1 + 0.6 * player.researches[indices[2]] / 100)
+  * (1 + 0.4 * player.researches[indices[3]] / 100)
+  * (1 + 0.2 * player.researches[indices[4]] / 100)
+  * (1 + 0.01 * player.researches[200] / 100)
 
-const tractionChallenge14Research = (index: 1 | 2 | 3) =>
-  0.4 * player.researches[index] * (1 + player.challengecompletions[14] / 2)
-
-const createResearchTractionLine = (
-  researches: readonly (readonly [number, number])[],
-  extra: () => number
-): StatLine<number> => ({
-  i18n: 'Researches',
-  stat: () => researches.reduce((sum, [index, perLevel]) => sum + perLevel * player.researches[index], extra()),
-  acc: 3
-})
-
-const tractionAcceleratorBaseStats: NumberStatLineCategory = {
+export const freeAcceleratorAdditiveStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
+  acc: 0,
   lines: [
     {
-      i18n: 'Base',
-      stat: () => baseTraction,
+      i18n: 'CoinUpgrade8',
+      stat: () => player.upgrades[8] !== 0 ? Math.floor(player.multiplierBought / 7) : 0,
       acc: 0
     },
     {
-      i18n: 'Challenge4',
-      stat: () => calculateChallenge4Traction(),
-      acc: 2
-    },
-    {
-      i18n: 'CoinUpgrade8',
-      stat: () => player.upgrades[8] > 0 ? calculateCoinUpgrade8Traction() : 0,
-      acc: 3
+      i18n: 'DiamondUpgrades1to5',
+      stat: () =>
+        (player.upgrades[21] !== 0 ? 5 : 0)
+        + (player.upgrades[22] !== 0 ? 4 : 0)
+        + (player.upgrades[23] !== 0 ? 3 : 0)
+        + (player.upgrades[24] !== 0 ? 2 : 0)
+        + (player.upgrades[25] !== 0 ? 1 : 0),
+      acc: 0
     },
     {
       i18n: 'DiamondUpgrade12',
-      stat: () => player.upgrades[32] > 0 ? calculateDiamondUpgrade12Traction() : 0,
-      acc: 3
+      stat: () =>
+        player.upgrades[32] !== 0 ? Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25))) : 0,
+      acc: 0
     },
     {
       i18n: 'MythosUpgrade5',
-      stat: () => player.upgrades[45] > 0 ? calculateMythosUpgrade5Traction() : 0,
-      acc: 3
+      stat: () =>
+        player.upgrades[45] !== 0 ? Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10))) : 0,
+      acc: 0
     },
     {
       i18n: 'Achievements',
       stat: () => +getAchievementReward('accelerators'),
-      acc: 3
+      acc: 0
     },
     {
       i18n: 'Challenge2',
-      stat: () => 0.1 * player.challengecompletions[2],
-      acc: 2
+      stat: () => 5 * player.challengecompletions[2],
+      acc: 0
     },
     {
-      i18n: 'Challenge7',
-      stat: () => 0.04 * player.challengecompletions[7],
-      acc: 2
-    },
-    {
-      i18n: 'SpeedRune',
-      stat: () => player.unlocks.prestige ? getRuneEffects('speed', 'acceleratorTraction') : 0,
-      acc: 3
-    },
-    createResearchTractionLine(acceleratorTractionResearches, () => tractionChallenge14Research(1)),
-    {
-      i18n: 'CubeUpgrade50',
-      stat: () => player.cubeUpgrades[50] / 10000,
-      acc: 3
-    },
-    {
-      i18n: 'CubeBlessing',
-      stat: () => calculateAcceleratorCubeBlessing(),
-      acc: 3
-    },
-    {
-      i18n: 'DiamondUpgrades1to5',
-      stat: () => 0.02 * sumDiamondUpgradesOneToFive(),
-      acc: 2
-    },
-    {
-      i18n: 'MythosUpgrade10',
-      stat: () => isTractionUpgrade50Active() ? 0.25 : 0,
-      acc: 2
+      i18n: 'AcceleratorBoosts',
+      stat: () => G.totalAcceleratorBoost * calculateAcceleratorsPerBoost(),
+      acc: 0
     }
   ]
 }
 
-const tractionMultiplierBaseStats: NumberStatLineCategory = {
+export const freeAcceleratorMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
-  type: StatLineTypes.Addition,
+  type: StatLineTypes.Multiplication,
   lines: [
     {
-      i18n: 'Base',
-      stat: () => baseTraction,
+      i18n: 'SpeedRune',
+      stat: () => player.unlocks.prestige ? getRuneEffects('speed', 'multiplicativeAccelerators') : 1
+    },
+    {
+      i18n: 'Research1x1',
+      stat: () => challenge14ResearchMultiplier(1)
+    },
+    {
+      i18n: 'Researches1x6to1x10',
+      stat: () =>
+        1
+        + player.researches[6] / 20
+        + player.researches[7] / 25
+        + player.researches[8] / 40
+        + 3 * player.researches[9] / 200
+        + player.researches[10] / 200
+    },
+    {
+      i18n: 'Research4x11',
+      stat: () => 1 + player.researches[86] / 20
+    },
+    {
+      i18n: 'LateResearches',
+      stat: () => lateResearchMultiplier([126, 141, 156, 171, 186])
+    },
+    {
+      i18n: 'CubeUpgrade50',
+      stat: () => 1 + 0.01 * player.cubeUpgrades[50] / 100
+    },
+    {
+      i18n: 'DiamondUpgrades1to5',
+      stat: () => Math.pow(1.01, sumDiamondUpgradesOneToFive())
+    },
+    {
+      i18n: 'MythosUpgrade10',
+      stat: () => isMythosUpgrade10Active() ? 1.25 : 1
+    }
+  ]
+}
+
+export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  acc: 0,
+  lines: [
+    {
+      i18n: 'CoinUpgrade7',
+      stat: () => player.upgrades[7] > 0 ? Math.min(4, 1 + Math.floor(Decimal.log(player.fifthOwnedCoin + 1, 10))) : 0,
       acc: 0
     },
     {
-      i18n: 'Challenge4',
-      stat: () => calculateChallenge4Traction(),
-      acc: 2
-    },
-    {
-      i18n: 'CoinUpgrade7',
-      stat: () => player.upgrades[7] > 0 ? calculateCoinUpgrade7Traction() : 0,
-      acc: 3
-    },
-    {
       i18n: 'CoinUpgrade9',
-      stat: () => player.upgrades[9] > 0 ? calculateCoinUpgrade9Traction() : 0,
-      acc: 3
+      stat: () => player.upgrades[9] > 0 ? Math.floor(player.acceleratorBought / 10) : 0,
+      acc: 0
+    },
+    {
+      i18n: 'DiamondUpgrades1to5',
+      stat: () => diamondUpgradesOneToFive.filter((i) => player.upgrades[i] > 0).length,
+      acc: 0
     },
     {
       i18n: 'DiamondUpgrade13',
-      stat: () => player.upgrades[33] > 0 ? calculateDiamondUpgrade13Traction() : 0,
-      acc: 3
+      stat: () => player.upgrades[33] > 0 ? G.totalAcceleratorBoost : 0,
+      acc: 0
     },
     {
       i18n: 'MythosUpgrade9',
-      stat: () => player.upgrades[49] > 0 ? calculateMythosUpgrade9Traction() : 0,
-      acc: 3
+      stat: () =>
+        player.upgrades[49] > 0 ? Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10))) : 0,
+      acc: 0
     },
     {
       i18n: 'ParticleUpgrade8',
-      stat: () => player.upgrades[68] > 0 ? calculateParticleUpgrade8Traction() : 0,
-      acc: 3
+      stat: () => player.upgrades[68] > 0 ? Math.min(2500, Math.floor(Decimal.log(G.taxdivisor, 10) / 1000)) : 0,
+      acc: 0
     },
     {
       i18n: 'Challenge1',
-      stat: () => 0.1 * player.challengecompletions[1],
-      acc: 2
+      stat: () => player.challengecompletions[1] > 0 ? 1 : 0,
+      acc: 0
     },
     {
       i18n: 'Achievements',
       stat: () => +getAchievementReward('multipliers'),
-      acc: 3
+      acc: 0
     },
     {
-      i18n: 'DuplicationBlessing',
-      stat: () => getRuneBlessingEffect('duplication').multiplierTraction,
-      acc: 3
-    },
-    {
-      i18n: 'Challenge7',
-      stat: () => 0.04 * player.challengecompletions[7],
-      acc: 2
-    },
-    {
-      i18n: 'DiamondUpgrades1to5',
-      stat: () => 0.02 * sumDiamondUpgradesOneToFive(),
-      acc: 2
-    },
-    {
-      i18n: 'DiamondUpgrades14and15',
-      stat: () => 0.06 * player.upgrades[34] + 0.04 * player.upgrades[35],
-      acc: 2
-    },
-    {
-      i18n: 'DuplicationRune',
-      stat: () => getRuneEffects('duplication', 'multiplierTraction'),
-      acc: 3
-    },
-    createResearchTractionLine(
-      multiplierTractionResearches,
-      () => tractionChallenge14Research(2) + tractionRuneResearch(94)
-    ),
-    {
-      i18n: 'CubeUpgrade50',
-      stat: () => player.cubeUpgrades[50] / 10000,
-      acc: 3
-    },
-    {
-      i18n: 'AntUpgrade',
-      stat: () => getAntUpgradeEffect(AntUpgrades.Multipliers).multiplierMult,
-      acc: 3
-    },
-    {
-      i18n: 'CubeBlessing',
-      stat: () => calculateMultiplierCubeBlessing(),
-      acc: 3
-    },
-    {
-      i18n: 'MythosUpgrade10',
-      stat: () => isTractionUpgrade50Active() ? 0.25 : 0,
-      acc: 2
+      i18n: 'Research4x19',
+      stat: () => 20 * player.researches[94] * Math.floor(sumOfRuneLevels() / 8),
+      acc: 0
     }
   ]
 }
 
-const createTractionFinalStats = (type: 'accelerator' | 'multiplier'): NumberStatLineCategory => ({
+export const freeMultiplierMultiplierStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'DiamondUpgrades1to5',
+      stat: () => Math.pow(1.01, sumDiamondUpgradesOneToFive())
+    },
+    {
+      i18n: 'DiamondUpgrades14and15',
+      stat: () => 1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35]
+    },
+    {
+      i18n: 'Research1x2',
+      stat: () => challenge14ResearchMultiplier(2)
+    },
+    {
+      i18n: 'Researches1x11to1x15',
+      stat: () =>
+        1
+        + player.researches[11] / 20
+        + player.researches[12] / 25
+        + player.researches[13] / 40
+        + 3 * player.researches[14] / 200
+        + player.researches[15] / 200
+    },
+    {
+      i18n: 'DuplicationRune',
+      stat: () => getRuneEffects('duplication', 'multiplicativeMultipliers')
+    },
+    {
+      i18n: 'Research4x12',
+      stat: () => 1 + player.researches[87] / 20
+    },
+    {
+      i18n: 'LateResearches',
+      stat: () => lateResearchMultiplier([128, 143, 158, 173, 188])
+    },
+    {
+      i18n: 'CubeUpgrade50',
+      stat: () => 1 + 0.01 * player.cubeUpgrades[50] / 100
+    },
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.Multipliers).multiplierMult
+    },
+    {
+      i18n: 'CubeBlessing',
+      stat: () => calculateMultiplierCubeBlessing()
+    },
+    {
+      i18n: 'MythosUpgrade10',
+      stat: () => isMythosUpgrade10Active() ? 1.25 : 1
+    }
+  ]
+}
+
+const createFreeAccelMultFinalStats = (type: 'accelerator' | 'multiplier'): NumberStatLineCategory => ({
   kind: 'number',
   type: StatLineTypes.Misc,
   lines: [
@@ -3743,131 +3720,94 @@ const createTractionFinalStats = (type: 'accelerator' | 'multiplier'): NumberSta
     },
     {
       i18n: 'Hepteract',
-      stat: () => calculateHepteractTraction(type),
-      format: (stat) => `+${format(stat, 3, true)}`,
-      displayCriterion: () => calculateHepteractTraction(type) !== 0
+      stat: () => hepteractFreeAccelMult[type](),
+      format: (stat) => `+${format(stat, 0, true)}`,
+      displayCriterion: () => hepteractFreeAccelMult[type]() !== 0
     },
     {
       i18n: 'Challenge15',
       stat: () => G.challenge15Rewards[type].value,
-      format: (stat) => `+${format(stat, 3, true)}`,
-      displayCriterion: () => G.challenge15Rewards[type].value !== 0
+      format: (stat) => `×${format(stat, 3, true)}`,
+      displayCriterion: () => G.challenge15Rewards[type].value !== 1
     },
     {
-      i18n: 'ChallengePenalty',
-      stat: () => getTractionChallengeDivisor(),
-      format: (stat) => `/${format(stat, 0, true)}`,
-      color: 'red',
-      displayCriterion: () => getTractionChallengeDivisor() !== 1
+      i18n: 'HepteractMultiplier',
+      stat: () => hepteractFreeAccelMultMultiplier[type](),
+      format: (stat) => `×${format(stat, 3, true)}`,
+      displayCriterion: () => hepteractFreeAccelMultMultiplier[type]() !== 1
     }
   ]
 })
 
-const tractionAcceleratorFinalStats = createTractionFinalStats('accelerator')
-const tractionMultiplierFinalStats = createTractionFinalStats('multiplier')
-const tractionAcceleratorBoostFinalStats: NumberStatLineCategory = {
-  kind: 'number',
-  type: StatLineTypes.Misc,
-  lines: [
-    {
-      i18n: 'Hepteract',
-      stat: () => calculateHepteractTraction('acceleratorBoost'),
-      format: (stat) => `+${format(stat, 3, true)}`,
-      displayCriterion: () => calculateHepteractTraction('acceleratorBoost') !== 0
-    },
-    {
-      i18n: 'ChallengePenalty',
-      stat: () => getTractionChallengeDivisor(),
-      format: (stat) => `/${format(stat, 0, true)}`,
-      color: 'red',
-      displayCriterion: () => getTractionChallengeDivisor() !== 1
-    }
-  ]
-}
+const freeAcceleratorFinalStats = createFreeAccelMultFinalStats('accelerator')
+const freeMultiplierFinalStats = createFreeAccelMultFinalStats('multiplier')
 
-const tractionScalingStats: NumberStatLineCategory = {
-  kind: 'number',
-  type: StatLineTypes.Misc,
-  lines: [
-    {
-      i18n: 'Accelerators',
-      stat: () => getTractionScalingFactor('accelerator'),
-      format: (stat) => `×${format(stat, 4, true)}`
-    },
-    {
-      i18n: 'Multipliers',
-      stat: () => getTractionScalingFactor('multiplier'),
-      format: (stat) => `×${format(stat, 4, true)}`
-    },
-    {
-      i18n: 'AcceleratorBoosts',
-      stat: () => getTractionScalingFactor('acceleratorBoost'),
-      format: (stat) => `×${format(stat, 4, true)}`
-    }
-  ]
-}
-
-const tractionAcceleratorBoostBaseStats: NumberStatLineCategory = {
+export const freeAcceleratorBoostAdditiveStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
+  acc: 0,
   lines: [
     {
-      i18n: 'Base',
-      stat: () => baseTraction,
+      i18n: 'DiamondUpgrade6',
+      stat: () => player.upgrades[26] > 0.5 ? 1 : 0,
       acc: 0
     },
     {
-      i18n: 'DiamondUpgrade6',
-      stat: () => player.upgrades[26] > 0.5 ? 0.05 : 0,
-      acc: 2
-    },
-    {
       i18n: 'DiamondUpgrade11',
-      stat: () => player.upgrades[31] > 0.5 ? calculateDiamondUpgrade11Traction() : 0,
-      acc: 3
-    },
-    {
-      i18n: 'Challenge2',
-      stat: () => 0.1 * player.challengecompletions[2],
-      acc: 2
+      stat: () => player.upgrades[31] > 0.5 ? Math.floor(calculateTotalCoinOwned() / 2000) : 0,
+      acc: 0
     },
     {
       i18n: 'Achievements',
       stat: () => +getAchievementReward('accelBoosts'),
-      acc: 3
+      acc: 0
     },
     {
-      i18n: 'ThriftBlessing',
-      stat: () => getRuneBlessingEffect('thrift').acceleratorBoostTraction,
-      acc: 3
-    },
-    {
-      i18n: 'AntUpgrade',
-      stat: () => getAntUpgradeEffect(AntUpgrades.AcceleratorBoosts).acceleratorBoostMult,
-      acc: 3
-    },
-    createResearchTractionLine(
-      acceleratorBoostTractionResearches,
-      () => tractionChallenge14Research(3) + tractionRuneResearch(93)
-    ),
-    {
-      i18n: 'CubeUpgrade50',
-      stat: () => player.cubeUpgrades[50] / 10000,
-      acc: 3
-    },
-    {
-      i18n: 'ParticleUpgrade13',
-      stat: () => player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0 ? 0.5 : 0,
-      acc: 2
+      i18n: 'Research4x18',
+      stat: () => player.researches[93] * Math.floor(sumOfRuneLevels() / 20),
+      acc: 0
     }
   ]
 }
 
-export const tractionBaseStats = {
-  accelerator: tractionAcceleratorBaseStats,
-  multiplier: tractionMultiplierBaseStats,
-  acceleratorBoost: tractionAcceleratorBoostBaseStats
-} as const
+export const freeAcceleratorBoostMultiplierStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'Research1x3',
+      stat: () => challenge14ResearchMultiplier(3)
+    },
+    {
+      i18n: 'Researches1x16and1x17',
+      stat: () => 1 + player.researches[16] / 20 + player.researches[17] / 20
+    },
+    {
+      i18n: 'Research4x13',
+      stat: () => 1 + player.researches[88] / 20
+    },
+    {
+      i18n: 'AntUpgrade',
+      stat: () => getAntUpgradeEffect(AntUpgrades.AcceleratorBoosts).acceleratorBoostMult
+    },
+    {
+      i18n: 'LateResearches',
+      stat: () => lateResearchMultiplier([127, 142, 157, 172, 187])
+    },
+    {
+      i18n: 'CubeUpgrade50',
+      stat: () => 1 + 0.01 * player.cubeUpgrades[50] / 100
+    },
+    {
+      i18n: 'Hepteract',
+      stat: () => getHepteractEffects('acceleratorBoost').acceleratorBoostMultiplier
+    },
+    {
+      i18n: 'ParticleUpgrade13',
+      stat: () => player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0 ? 2 : 1
+    }
+  ]
+}
 
 export const negativeSalvageStats: NumberStatLineCategory = {
   kind: 'number',
@@ -4816,7 +4756,7 @@ export const allCoinMultiplierStats: DecimalStatLineCategory = {
       i18n: 'CoinUpgrade11',
       stat: () =>
         player.upgrades[11] > 0.5 && player.currentChallenge.reincarnation !== 7
-          ? Decimal.pow(1.02, player.acceleratorBought)
+          ? Decimal.pow(1.02, G.totalAccelerator)
           : 1
     },
     {
@@ -4842,7 +4782,7 @@ export const allCoinMultiplierStats: DecimalStatLineCategory = {
       i18n: 'MythosUpgrade8',
       stat: () =>
         player.upgrades[48] > 0.5
-          ? Decimal.pow((player.multiplierBought * player.acceleratorBought) / 1000 + 1, 8)
+          ? Decimal.pow((G.totalMultiplier * G.totalAccelerator) / 1000 + 1, 8)
           : 1
     },
     {
@@ -4982,7 +4922,7 @@ const associated = new Map<string, string>([
   ['kOfferingMult', 'offeringMultiplierStats'],
   ['kSalvage', 'salvageStats'],
   ['kConstruction', 'constructionStats'],
-  ['kTraction', 'tractionStats'],
+  ['kFreeAccelMult', 'freeAccelMultStats'],
   ['kBaseObtainium', 'baseObtainiumStats'],
   ['kRuneEffectMult', 'runeEffectMultiplierStats'],
   ['kObtIgnoreDR', 'obtainiumIgnoreDRStats'],
@@ -5095,8 +5035,8 @@ export const loadStatisticsUpdate = (statsId?: string) => {
       case 'constructionStats':
         loadConstructionStats()
         break
-      case 'tractionStats':
-        loadTractionStats()
+      case 'freeAccelMultStats':
+        loadFreeAccelMultStats()
         break
       case 'baseObtainiumStats':
         loadStatisticsObtainiumBase()
@@ -5756,74 +5696,70 @@ const loadConstructionStats = () => {
   DOMCacheGetOrSet('constructionExtra').innerHTML = i18next.t('statistics.constructionStats.extraInfo')
 }
 
-const loadTractionStats = () => {
+const loadFreeAccelMultStats = () => {
   loadStatistics(
-    tractionAcceleratorBaseStats,
-    'tractionAccelerator',
-    'statTracAccel',
-    'TractionStatAccelerator',
-    () => calculateRawTraction('accelerator'),
-    'RawTotal'
+    freeAcceleratorAdditiveStats,
+    'freeAccelerators',
+    'statFreeAccelAdd',
+    'FreeAcceleratorStatAdditive',
+    () => calculateTotalStat(freeAcceleratorAdditiveStats),
+    'AdditiveTotal'
   )
   loadStatistics(
-    tractionAcceleratorFinalStats,
-    'tractionAccelerator',
-    'statTracAccelFinal',
-    'TractionStatAcceleratorFinal',
-    () => calculateTraction('accelerator')
+    freeAcceleratorMultiplierStats,
+    'freeAccelerators',
+    'statFreeAccelMult',
+    'FreeAcceleratorStatMultiplier',
+    () => calculateTotalStat(freeAcceleratorMultiplierStats),
+    'MultiplierTotal'
   )
   loadStatistics(
-    tractionMultiplierBaseStats,
-    'tractionMultiplier',
-    'statTracMult',
-    'TractionStatMultiplier',
-    () => calculateRawTraction('multiplier'),
-    'RawTotal'
+    freeAcceleratorFinalStats,
+    'freeAccelerators',
+    'statFreeAccelFinal',
+    'FreeAcceleratorStatFinal',
+    () => calculateFreeAccelMult('accelerator')
   )
   loadStatistics(
-    tractionMultiplierFinalStats,
-    'tractionMultiplier',
-    'statTracMultFinal',
-    'TractionStatMultiplierFinal',
-    () => calculateTraction('multiplier')
+    freeMultiplierAdditiveStats,
+    'freeMultipliers',
+    'statFreeMultAdd',
+    'FreeMultiplierStatAdditive',
+    () => calculateTotalStat(freeMultiplierAdditiveStats),
+    'AdditiveTotal'
   )
   loadStatistics(
-    tractionAcceleratorBoostBaseStats,
-    'tractionAcceleratorBoost',
-    'statTracBoost',
-    'TractionStatAcceleratorBoost',
-    () => calculateRawTraction('acceleratorBoost'),
-    'RawTotal'
+    freeMultiplierMultiplierStats,
+    'freeMultipliers',
+    'statFreeMultMult',
+    'FreeMultiplierStatMultiplier',
+    () => calculateTotalStat(freeMultiplierMultiplierStats),
+    'MultiplierTotal'
   )
   loadStatistics(
-    tractionAcceleratorBoostFinalStats,
-    'tractionAcceleratorBoost',
-    'statTracBoostFinal',
-    'TractionStatAcceleratorBoostFinal',
-    () => calculateTraction('acceleratorBoost')
+    freeMultiplierFinalStats,
+    'freeMultipliers',
+    'statFreeMultFinal',
+    'FreeMultiplierStatFinal',
+    () => calculateFreeAccelMult('multiplier')
   )
   loadStatistics(
-    tractionScalingStats,
-    'tractionScaling',
-    'statTracScale',
-    'TractionStatScaling',
-    () => 0,
-    '',
-    false
+    freeAcceleratorBoostAdditiveStats,
+    'freeAcceleratorBoosts',
+    'statFreeBoostAdd',
+    'FreeAcceleratorBoostStatAdditive',
+    () => calculateTotalStat(freeAcceleratorBoostAdditiveStats),
+    'AdditiveTotal'
+  )
+  loadStatistics(
+    freeAcceleratorBoostMultiplierStats,
+    'freeAcceleratorBoosts',
+    'statFreeBoostMult',
+    'FreeAcceleratorBoostStatMultiplier',
+    () => calculateFreeAcceleratorBoosts()
   )
 
-  DOMCacheGetOrSet('tractionExtra').innerHTML = i18next.t('statistics.tractionStats.extraInfo')
-
-  const challengeInfo = DOMCacheGetOrSet('tractionChallengeInfo')
-  const challengeInfoKey = player.currentChallenge.reincarnation === 8
-    ? 'statistics.tractionStats.challenge8Info'
-    : player.currentChallenge.transcension === 4
-    ? 'statistics.tractionStats.challenge4Info'
-    : undefined
-  challengeInfo.style.display = challengeInfoKey === undefined ? 'none' : 'block'
-  if (challengeInfoKey !== undefined) {
-    challengeInfo.innerHTML = i18next.t(challengeInfoKey)
-  }
+  DOMCacheGetOrSet('freeAccelMultExtra').innerHTML = i18next.t('statistics.freeAccelMultStats.extraInfo')
 }
 
 const loadSalvageStats = () => {

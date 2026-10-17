@@ -1,17 +1,29 @@
 import { calculateHypercubeBlessingMultiplierPlatonicBlessing } from './PlatonicCubes'
 import { player } from './Synergism'
 
-const calculateTractionHypercubeBlessing = (blessings: number) => {
-  const factor = Math.pow(Math.log10(blessings + 1), 1.25)
-  const cap = 0.3
-  return cap * factor / (40 + factor)
+export const calculateAcceleratorHypercubeBlessing = () => {
+  const DR = 1 / 12
+  const effectPerBlessing = calculateHypercubeBlessingMultiplierPlatonicBlessing() / 1000
+  const limit = 1000
+  if (player.hypercubeBlessings.accelerator < limit) {
+    return 1 + effectPerBlessing * player.hypercubeBlessings.accelerator
+  } else {
+    const limitMult = Math.pow(limit, 1 - DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.accelerator, DR)
+  }
 }
 
-export const calculateAcceleratorHypercubeBlessing = () =>
-  calculateTractionHypercubeBlessing(player.hypercubeBlessings.accelerator)
-
-export const calculateMultiplierHypercubeBlessing = () =>
-  calculateTractionHypercubeBlessing(player.hypercubeBlessings.multiplier)
+export const calculateMultiplierHypercubeBlessing = () => {
+  const DR = 1 / 12
+  const effectPerBlessing = calculateHypercubeBlessingMultiplierPlatonicBlessing() / 1000
+  const limit = 1000
+  if (player.hypercubeBlessings.multiplier < limit) {
+    return 1 + effectPerBlessing * player.hypercubeBlessings.multiplier
+  } else {
+    const limitMult = Math.pow(limit, 1 - DR)
+    return 1 + effectPerBlessing * limitMult * Math.pow(player.hypercubeBlessings.multiplier, DR)
+  }
+}
 
 export const calculateOfferingHypercubeBlessing = () => {
   const DR = 1 / 6
