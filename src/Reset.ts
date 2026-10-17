@@ -1228,6 +1228,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.overfluxOrbsAutoBuy = player.overfluxOrbsAutoBuy
   hold.hotkeys = player.hotkeys
   hold.notation = player.notation
+  hold.headerLayouts = player.headerLayouts
   hold.firstPlayed = player.firstPlayed
   hold.autoCubeUpgradesToggle = player.autoCubeUpgradesToggle
   hold.maxPlatToggle = player.maxPlatToggle

@@ -35,6 +35,7 @@ import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
 import { getCostNextAntUpgrade } from './Features/Ants/AntUpgrades/lib/get-cost'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
+import { updateHeaderConsumables, updateHeaderModuleVisibility } from './HeaderModules'
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
@@ -500,13 +501,7 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.insideSingularityChallenge = player.insideSingularityChallenge ? 'true' : 'false'
 
-  document.documentElement.dataset.ascensionStats =
-    (Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0) ? 'true' : 'false'
-  document.documentElement.dataset.ascHyperStats = player.challengecompletions[13] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.ascPlatonicStats = player.challengecompletions[14] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.ascHepteractStats = G.challenge15Rewards.hepteractsUnlocked.value >= 1
-    ? 'true'
-    : 'false'
+  updateHeaderModuleVisibility()
 
   // I'll clean this up later. Note to 2019 Platonic: Fuck you
   // note to 2019 and 2020 Platonic, you're welcome
@@ -596,6 +591,7 @@ export const htmlInserts = () => {
 
   updateChallengeProgress()
   updateAscensionStats()
+  updateHeaderConsumables()
 
   visualUpdate(G.currentTab)
 }
@@ -1969,6 +1965,11 @@ export const closeIframeOverlay = () => {
 }
 
 const fittyInstances = new WeakMap<HTMLElement, FittyInstance>()
+
+export const resetFitText = (element: HTMLElement) => {
+  fittyInstances.get(element)?.unsubscribe()
+  fittyInstances.delete(element)
+}
 
 export const createFitties = () => {
   const fittyElements = document.getElementsByClassName('fitText') as HTMLCollectionOf<HTMLElement>

@@ -237,113 +237,141 @@
     </div>
     <header id="mainHeader">
         <div id="mobileHeaderContent">
-            <div class="ascensionStats" id="ascensionStats">
-                <span id="ascCubeStats">
+            <div class="ascensionStats headerRegion" id="ascensionStats">
+                <span class="headerModule headerStat" id="ascCubeStats">
                     <img src="Pictures/Default/TinyWow3.png" class="corruptionImg" alt="3D Cube" title="Cube Information" loading="lazy">
                     <span id="ascCubes" class="wowcubeText">x</span> C<span id="unit1">/s</span>
                 </span>
-                <span id="ascTessStats">
+                <span class="headerModule headerStat" id="ascTessStats">
                     <img src="Pictures/Default/TinyWow4.png" class="corruptionImg" alt="4D Cube" title="Tesseract Information" loading="lazy">
                     <span id="ascTess" class="wowtesseractText">x</span> T<span id="unit2">/s</span>
                 </span>
-                <span class="ascHyperStats" id="ascHyperStats">
+                <span class="headerModule headerStat" id="ascHyperStats">
                     <img src="Pictures/Default/TinyWow5.png" class="corruptionImg" title="Hypercube Information" loading="lazy">
                     <span id="ascHyper" class="wowhypercubeText">x</span> Hy<span id="unit3">/s</span>
                 </span>
-                <span class="ascPlatonicStats" id="ascPlatonicStats">
+                <span class="headerModule headerStat" id="ascPlatonicStats">
                     <img src="Pictures/Default/TinyWow6.png" class="corruptionImg" title="Platonic Information" loading="lazy">
                     <span id="ascPlatonic" class="wowplatonicText">x</span> P<span id="unit4">/s</span>
                 </span>
-                <span class="ascHepteractStats" id="ascHepteractStats">
+                <span class="headerModule headerStat" id="ascHepteractStats">
                     <img src="Pictures/Default/TinyWow7.png" class="corruptionImg" title="Hepteract Information" loading="lazy">
                     <span id="ascHepteract" class="wowhepteractText">x</span> He<span id="unit5">/s</span>
                 </span>
-                <span id="ascTimeTakenStats">
+                <span class="headerModule headerStat" id="ascTimeTakenStats">
                     <img src="Pictures/Default/TinyA.png" class="corruptionImg" title="Ascension Timer" loading="lazy">
                     <span id="ascLen">x</span> <span id="unit6"></span>
                 </span>
-                <span id="ascC10CompletionsStats">
+                <span class="headerModule headerStat" id="ascC10CompletionsStats">
                     <img src="Pictures/Default/TinyChallenge10.png" class="corruptionImg" title="Challenge 10 Completions" loading="lazy">
                     <span id="ascC10">x</span>
                 </span>
-                <span id="ascTimeFactorStats">
+                <span class="headerModule headerStat" id="ascTimeFactorStats">
                     <img src="Pictures/Default/TinySpeed.png" class="corruptionImg" title="Global Speed Multiplier" loading="lazy">
                     <span id="ascTimeAccel">x</span>
                 </span>
-                <span id="ascAscensionTimeFactorStats">
+                <span class="headerModule headerStat" id="ascAscensionTimeFactorStats">
                     <img src="Pictures/Default/TinySpeedAscension.png" class="corruptionImg" title="Ascension Speed Multiplier" loading="lazy">
                     <span id="ascAscensionTimeAccel">x</span>
                 </span>
-                <span id="ascSingularityCountStats">
-                    <img src="Pictures/Default/TinyS.png" class="corruptionImg singularity" title="Singularity count" loading="lazy">
-                    <span id="ascSingularityCount" class="singularity">1</span>
+                <span class="headerModule headerStat" id="ascSingularityCountStats">
+                    <img src="Pictures/Default/TinyS.png" class="corruptionImg" title="Singularity count" loading="lazy">
+                    <span id="ascSingularityCount">1</span>
                 </span>
-                <span id="ascSingTimeTakenStats">
-                    <img src="Pictures/Default/TinySTime.png" class="corruptionImg singularity" title="Singularity Timer" loading="lazy">
-                    <span id="ascSingLen" class="singularity">x</span>
+                <span class="headerModule headerStat" id="ascSingTimeTakenStats">
+                    <img src="Pictures/Default/TinySTime.png" class="corruptionImg" title="Singularity Timer" loading="lazy">
+                    <span id="ascSingLen">x</span>
                 </span>
-                <span class="insideSingularityChallenge" id="ascSingChallengeTimeTakenStats">
-                    <img src="Pictures/Default/TinySChalTime.png" class="corruptionImg singularity" title="Singularity Challenge Timer" loading="lazy">
-                    <span id="ascSingChallengeLen" class="singularity">x</span>
+                <span class="headerModule headerStat" id="ascSingChallengeTimeTakenStats">
+                    <img src="Pictures/Default/TinySChalTime.png" class="corruptionImg" title="Singularity Challenge Timer" loading="lazy">
+                    <span id="ascSingChallengeLen">x</span>
                 </span>
             </div>
             <div class="subHeader">
-                <div class="currenciesContainer">
-                    <div class="currencyContainer">
+                <div class="currenciesContainer headerRegion" id="currenciesContainer">
+                    <div class="currencyContainer headerModule" id="coinHeader">
                         <img class="img coin" src="Pictures/Default/Coin.png" alt="Coin" title="Coin" loading="lazy">
                         <div class="statDisplay" id="coinDisplay">1</div>
                     </div>
-                    <div class="currencyContainer prestigeunlock">
+                    <div class="currencyContainer headerModule" id="diamondHeader">
                         <img class="img diamond" src="Pictures/Default/Diamond.png" alt="Diamond" title="Diamond" loading="lazy">
                         <div class="statDisplay" id="diamondDisplay">1</div>
                     </div>
-                    <div class="currencyContainer prestigeunlock">
+                    <div class="currencyContainer headerModule" id="offeringHeader">
                         <img class="img offering" src="Pictures/Default/Offering.png" i18n="general.resources.offering" title="Offering" loading="lazy">
                         <div class="statDisplay" id="offeringDisplay">1</div>
                     </div>
-                    <div class="currencyContainer reincarnationunlock">
+                    <div class="currencyContainer headerModule" id="quarkHeader">
                         <img class="img quark" src="Pictures/Default/Quark.png" alt="Quark" title="Quark" loading="lazy">
                         <div class="statDisplay" id="quarkDisplay">1</div>
                     </div>
-                    <div class="currencyContainer transcendunlock">
+                    <div class="currencyContainer headerModule" id="mythosHeader">
                         <img class="img mythos" src="Pictures/Default/Mythos.png" alt="Mythos" title="Mythos" loading="lazy">
                         <div class="statDisplay" id="mythosDisplay">1</div>
                     </div>
-                    <div class="currencyContainer transcendunlock">
+                    <div class="currencyContainer headerModule" id="mythosShardHeader">
                         <img class="img mythosshard" src="Pictures/Default/MythosShard.png" alt="Mythos Shard" title="Mythos Shard" loading="lazy">
                         <div class="statDisplay" id="mythosshardDisplay">1</div>
                     </div>
-                    <div class="currencyContainer reincarnationunlock">
+                    <div class="currencyContainer headerModule" id="particlesHeader">
                         <img class="img particle" src="Pictures/Default/Particle.png" alt="Particle" title="Particle"  loading="lazy">
                         <div class="statDisplay" id="particlesDisplay">1</div>
                     </div>
-                    <div class="currencyContainer reincarnationunlock">
+                    <div class="currencyContainer headerModule" id="obtainiumHeader">
                         <img class="img obtanium" src="Pictures/Default/Obtainium.png" i18n="general.resources.obtainium" title="Obtainium" loading="lazy">
                         <div class="statDisplay" id="obtainiumDisplay">1</div>
                     </div>
                 </div>
                 <div class="resetInformationContainer">
                     <div class="resetsContainer">
-                        <div class="resetsButtons">
-                            <img class="resetbtn coinunlock4" id="prestigebtn" i18n-aria-label="reset.buttonLabels.prestige" src="Pictures/Default/Prestige.png" loading="lazy">
-                            <img class="resetbtn prestigeunlock" id="transcendbtn" i18n-aria-label="reset.buttonLabels.transcension" src="Pictures/Default/Transcend.png" loading="lazy">
-                            <img class="resetbtn transcendunlock" id="reincarnatebtn" i18n-aria-label="reset.buttonLabels.reincarnation" src="Pictures/Default/Reincarnate.png" loading="lazy">
-                            <img class="resetbtn transcendunlock" id="acceleratorboostbtn" i18n-aria-label="reset.buttonLabels.acceleratorBoost" src="Pictures/Default/AcceleratorBoostShortcut.png" loading="lazy">
-                            <img class="resetbtn transcendunlock" id="challengebtn" i18n-aria-label="reset.buttonLabels.transcensionChallenge" src="Pictures/Default/Challenge.png" loading="lazy">
-                            <img class="resetbtn reincarnationunlock" id="reincarnatechallengebtn" i18n-aria-label="reset.buttonLabels.reincarnationChallenge" src="Pictures/Default/ChallengeReincarnation.png" loading="lazy">
-                            <img class="resetbtn ascendunlock" id="ascendChallengeBtn" i18n-aria-label="reset.buttonLabels.ascensionChallenge" src="Pictures/Default/ChallengeAscension.png" loading="lazy">
-                            <img class="resetbtn chal10" id="ascendbtn" i18n-aria-label="reset.buttonLabels.ascension" src="Pictures/Default/Ascension.png" loading="lazy">
-                            <img class="resetbtn singularity singularityButton" id="singularitybtn" i18n-aria-label="reset.buttonLabels.singularity" src="Pictures/Default/Singularity.png" loading="lazy">
+                        <div class="resetsButtons headerRegion" id="resetsButtons">
+                            <img class="resetbtn headerModule" id="prestigebtn" i18n-aria-label="reset.buttonLabels.prestige" src="Pictures/Default/Prestige.png" loading="lazy">
+                            <img class="resetbtn headerModule" id="transcendbtn" i18n-aria-label="reset.buttonLabels.transcension" src="Pictures/Default/Transcend.png" loading="lazy">
+                            <img class="resetbtn headerModule" id="reincarnatebtn" i18n-aria-label="reset.buttonLabels.reincarnation" src="Pictures/Default/Reincarnate.png" loading="lazy">
+                            <img class="resetbtn headerModule" id="acceleratorboostbtn" i18n-aria-label="reset.buttonLabels.acceleratorBoost" src="Pictures/Default/AcceleratorBoostShortcut.png" loading="lazy">
+                            <img class="resetbtn headerModule" id="challengebtn" i18n-aria-label="reset.buttonLabels.transcensionChallenge" src="Pictures/Default/Challenge.png" loading="lazy">
+                            <img class="resetbtn headerModule" id="reincarnatechallengebtn" i18n-aria-label="reset.buttonLabels.reincarnationChallenge" src="Pictures/Default/ChallengeReincarnation.png" loading="lazy">
+                            <img class="resetbtn headerModule" id="ascendChallengeBtn" i18n-aria-label="reset.buttonLabels.ascensionChallenge" src="Pictures/Default/ChallengeAscension.png" loading="lazy">
+                            <img class="resetbtn headerModule" id="ascendbtn" i18n-aria-label="reset.buttonLabels.ascension" src="Pictures/Default/Ascension.png" loading="lazy">
+                            <img class="resetbtn headerModule" id="singularitybtn" i18n-aria-label="reset.buttonLabels.singularity" src="Pictures/Default/Singularity.png" loading="lazy">
                         </div>
-                        <div class="challengeProgress">
-                            <div class="fitText" id="transcensionChallengeProgress" hidden></div>
-                            <div class="fitText" id="reincarnationChallengeProgress" hidden></div>
-                            <div class="fitText" id="ascensionChallengeProgress" hidden></div>
+                        <div class="challengeProgress headerRegion" id="challengeProgress">
+                            <div class="fitText headerModule headerProgress" id="transcensionChallengeProgress" hidden></div>
+                            <div class="fitText headerModule headerProgress" id="reincarnationChallengeProgress" hidden></div>
+                            <div class="fitText headerModule headerProgress" id="ascensionChallengeProgress" hidden></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div id="headerEditPanel">
+                <div id="headerEditToolbar">
+                    <div class="headerEditGroup" role="group" i18n-aria-label="headerLayout.size">
+                        <button type="button" id="headerSizeXS" i18n="headerLayout.extraSmall" disabled></button>
+                        <button type="button" id="headerSizeS" i18n="headerLayout.small" disabled></button>
+                        <button type="button" id="headerSizeM" i18n="headerLayout.medium" disabled></button>
+                        <button type="button" id="headerSizeL" i18n="headerLayout.large" disabled></button>
+                        <button type="button" id="headerHideModule" i18n="headerLayout.hide" disabled></button>
+                    </div>
+                    <div class="headerEditGroup">
+                        <button type="button" id="headerLayoutReset" i18n="headerLayout.reset"></button>
+                        <button type="button" id="headerEditDone" i18n="headerLayout.done"></button>
+                    </div>
+                </div>
+                <p id="headerEditHint" i18n="headerLayout.hint"></p>
+                <div id="headerTray">
+                    <span id="headerTrayLabel" i18n="headerLayout.hidden"></span>
+                    <span class="headerModule headerStat" id="happyHourBellHeader">
+                        <img src="Pictures/PseudoShop/HAPPY_HOUR_BELL.png" class="corruptionImg" i18n="headerLayout.modules.happyHourBell" loading="lazy">
+                        <span id="happyHourBellHeaderTimer">--:--</span> <span id="happyHourBellHeaderOwned" class="headerConsumableOwned"></span>
+                    </span>
+                    <span class="headerModule headerStat" id="lotusHeader">
+                        <img src="Pictures/PseudoShop/LOTUS.png" class="corruptionImg" i18n="headerLayout.modules.lotus" loading="lazy">
+                        <span id="lotusHeaderTimer">--:--</span> <span id="lotusHeaderOwned" class="headerConsumableOwned"></span>
+                    </span>
+                </div>
+            </div>
         </div>
+        <div id="headerDropIndicator" hidden></div>
         <nav class="navbar">
             <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span class="hamburger-line"></span>

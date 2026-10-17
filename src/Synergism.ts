@@ -199,6 +199,8 @@ import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-eff
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { loadSynergyAntHTMLUpdates } from './Features/Ants/HTML/updates/load-game-update'
 import { defaultPlayerAnts } from './Features/Ants/player/default'
+import { createDefaultHeaderLayout } from './HeaderLayoutDefaults'
+import { renderHeaderLayout } from './HeaderModules'
 import {
   defaultHepteractValues,
   getHepteractEffects,
@@ -1093,6 +1095,10 @@ export const player: Player = {
   hotkeys: {},
   iconSet: 1,
   notation: 'Default',
+  headerLayouts: {
+    desktop: createDefaultHeaderLayout(),
+    mobile: createDefaultHeaderLayout()
+  },
 
   goldenQuarkUpgrades: blankGQLevelObject,
   octUpgrades: blankOcteractLevelObject,
@@ -4843,6 +4849,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     }
   }
 
+  renderHeaderLayout()
   updateAllRuneLevelsFromEXP()
   updateAllBlessingLevelsFromEXP()
   updateAllSpiritLevelsFromEXP()

@@ -6,6 +6,7 @@ import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
+import type { HeaderModuleId, HeaderModuleSize, HeaderRegionId } from '../HeaderLayoutDefaults'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrades } from '../Octeracts'
@@ -27,6 +28,12 @@ import type { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
 export type BuyAmount = 1 | 10 | 100 | 1000 | 10_000 | 100_000
+
+export interface HeaderLayout {
+  regions: Record<HeaderRegionId, HeaderModuleId[][]>
+  sizes: Partial<Record<HeaderModuleId, HeaderModuleSize>>
+  hidden: HeaderModuleId[]
+}
 
 export interface Player {
   firstPlayed: string
@@ -499,6 +506,7 @@ export interface Player {
   hotkeys: Record<number, string[]>
   iconSet: number
   notation: 'Pure Scientific' | 'Pure Engineering' | 'Default'
+  headerLayouts: Record<'desktop' | 'mobile', HeaderLayout>
 
   goldenQuarkUpgrades: Record<SingularityDataKeys, {
     freeLevel: number

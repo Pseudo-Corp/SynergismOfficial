@@ -11,6 +11,13 @@ import type { PlayerAntProducers } from '../Features/Ants/AntProducers/structs/s
 import { defaultAntUpgrades } from '../Features/Ants/AntUpgrades/player/default'
 import { AntUpgrades, LAST_ANT_UPGRADE } from '../Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/structs'
+import {
+  HEADER_BUTTON_GROUP_CAPACITY,
+  headerGridRegion,
+  headerModuleIds,
+  headerModuleSizes,
+  headerRegionIds
+} from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
 import {
@@ -323,6 +330,34 @@ const campaignSchema = z.object({
   currentCampaign: z.string().optional(),
   campaigns: z.record(z.string(), z.number()).optional()
 })
+
+const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
+  z.object({
+    regions: z.record(
+      z.enum(headerRegionIds),
+      z.enum(headerModuleIds).array().max(HEADER_BUTTON_GROUP_CAPACITY).array()
+    ),
+    sizes: z.partialRecord(z.enum(headerModuleIds), z.enum(headerModuleSizes)),
+    hidden: z.enum(headerModuleIds).array()
+  }).transform((saved) => {
+    const fallback = blankSave.headerLayouts[layout]
+    const placed = new Set(Object.values(saved.regions).flat(2))
+    for (const region of headerRegionIds) {
+      if (region !== headerGridRegion) {
+        saved.regions[region] = saved.regions[region].filter((slot) => slot.length > 0)
+      }
+      for (const id of fallback.regions[region].flat()) {
+        if (!placed.has(id)) {
+          saved.regions[region].push([id])
+          saved.sizes[id] = fallback.sizes[id]
+          if (fallback.hidden.includes(id)) {
+            saved.hidden.push(id)
+          }
+        }
+      }
+    }
+    return saved
+  }).catch(() => deepClone()(blankSave.headerLayouts[layout]))
 
 const playerCampaignSchema = campaignSchema.transform((campaignData) => {
   return new CampaignManager(campaignData as ICampaignManagerData)
@@ -953,6 +988,10 @@ export const playerSchema = z.object({
   hotkeys: z.record(integerStringSchema, z.string().array()).prefault(() => blankSave.hotkeys),
   iconSet: z.number().default(() => blankSave.iconSet),
   notation: z.string().default(() => blankSave.notation),
+  headerLayouts: z.object({
+    desktop: headerLayoutSchema('desktop'),
+    mobile: headerLayoutSchema('mobile')
+  }).catch(() => deepClone()(blankSave.headerLayouts)),
 
   goldenQuarkUpgrades: z.record(z.string(), goldenQuarkUpgradeSchema).transform((object) => {
     return Object.fromEntries(

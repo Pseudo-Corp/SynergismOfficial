@@ -5446,6 +5446,28 @@
     "hoverOverUpgrade": "Hover over an upgrade to view details!",
     "bought": "BOUGHT!"
   },
+  "headerLayout": {
+    "extraSmall": "XS",
+    "small": "S",
+    "medium": "M",
+    "large": "L",
+    "size": "Module size",
+    "hide": "Hide",
+    "reset": "Reset Layout",
+    "resetConfirm": "Reset the header to its default layout? Your current arrangement will be lost.",
+    "done": "Done",
+    "hint": "Drag a module to move it anywhere in the header, or drop it onto another module to share one spot: two S modules, or up to four XS reset buttons. Click or tap a module to resize or hide it.",
+    "hidden": "Hidden modules (click or tap to show, or drag into the header):",
+    "owned": "Owned: {{x}}",
+    "bellActive": "{{amount}}x {{time}}",
+    "modules": {
+      "transcensionChallengeProgress": "Transcension Challenge progress",
+      "reincarnationChallengeProgress": "Reincarnation Challenge progress",
+      "ascensionChallengeProgress": "Ascension Challenge progress",
+      "happyHourBell": "Happy Hour Bell",
+      "lotus": "Lotus Timer"
+    }
+  },
   "tabs": {
     "hideTab": "Hide tab",
     "showTab": "Show tab",
