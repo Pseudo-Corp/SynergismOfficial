@@ -78,12 +78,11 @@ const HEADER_DROP_BAR_PX = 4
 interface HeaderDropTarget {
   region: HeaderRegionId | null
   index: number
-  member: number | null
   join: boolean
   indicator: { left: number; top: number; width: number; height: number } | null
 }
 
-const trayDropTarget: HeaderDropTarget = { region: null, index: 0, member: null, join: false, indicator: null }
+const trayDropTarget: HeaderDropTarget = { region: null, index: 0, join: false, indicator: null }
 
 let editing = false
 let holdTimer: number | undefined
@@ -131,6 +130,7 @@ export const renderHeaderLayout = () => {
   const trayModules: HTMLElement[] = []
 
   DOMCacheGetOrSet('mainHeader').style.setProperty('--header-cell-columns', `${HEADER_GRID_COLUMNS[layoutKey()]}`)
+  DOMCacheGetOrSet('resetsButtons').style.setProperty('--header-cell-slots', `${HEADER_BUTTON_GROUP_CAPACITY}`)
 
   for (const region of headerRegionIds) {
     const slotElements: HTMLElement[] = []
@@ -166,7 +166,6 @@ export const renderHeaderLayout = () => {
       if (shown.length > 1) {
         slotElement = document.createElement('div')
         slotElement.className = 'headerStack'
-        slotElement.classList.toggle('headerStackRow', slot.every(isHeaderButton))
         slotElement.replaceChildren(...shown)
       }
       slotElement.dataset.headerSlot = `${index}`
@@ -187,7 +186,10 @@ export const renderHeaderLayout = () => {
     if (editing) {
       const cellCount = region === 'currenciesContainer'
         ? (Math.floor(lastCell / gridColumns(region)) + 2) * gridColumns(region)
-        : Math.max(region === 'resetsButtons' ? HEADER_BUTTON_MODULE_COUNT : HEADER_PROGRESS_MODULE_COUNT, lastCell + 1)
+        : region === 'resetsButtons'
+        ? Math.max(HEADER_BUTTON_MODULE_COUNT, Math.ceil((lastCell + 1) / HEADER_BUTTON_GROUP_CAPACITY))
+          * HEADER_BUTTON_GROUP_CAPACITY
+        : Math.max(HEADER_PROGRESS_MODULE_COUNT, lastCell + 1)
       for (let index = 0; index < cellCount; index++) {
         const cell = document.createElement('div')
         cell.className = 'headerCell'
@@ -254,16 +256,10 @@ const findSlot = (layout: HeaderLayout, id: HeaderModuleId) => {
 }
 
 const canJoinSlot = (slot: HeaderModuleId[], id: HeaderModuleId) => {
-  if (isHeaderProgress(id) || slot.some(isHeaderProgress)) {
+  if (isHeaderButton(id) || isHeaderProgress(id) || slot.some(isHeaderProgress)) {
     return false
   }
-  if (!isHeaderButton(id)) {
-    return !slot.includes(id) && !slot.some(isHeaderButton) && slot.length < HEADER_STACK_CAPACITY
-  }
-  if (!slot.every(isHeaderButton)) {
-    return false
-  }
-  return slot.includes(id) ? slot.length > 1 : slot.length < HEADER_BUTTON_GROUP_CAPACITY
+  return !slot.includes(id) && !slot.some(isHeaderButton) && slot.length < HEADER_STACK_CAPACITY
 }
 
 const detachModule = (layout: HeaderLayout, id: HeaderModuleId) => {
@@ -326,14 +322,8 @@ const moveModule = (layout: HeaderLayout, id: HeaderModuleId, region: HeaderRegi
   layout.hidden = layout.hidden.filter((hiddenId) => hiddenId !== id)
 
   let index = target.index
-  let member = target.member
-  if (removed !== null && removed.region === region) {
-    if (removed.removedSlot && removed.index < index) {
-      index -= 1
-    }
-    if (!removed.removedSlot && removed.index === index && member !== null && removed.member < member) {
-      member -= 1
-    }
+  if (removed !== null && removed.region === region && removed.removedSlot && removed.index < index) {
+    index -= 1
   }
 
   const slots = layout.regions[region]
@@ -356,11 +346,9 @@ const moveModule = (layout: HeaderLayout, id: HeaderModuleId, region: HeaderRegi
   }
 
   const slot = slots[index]
-  slot.splice(member ?? slot.length, 0, id)
-  if (!isHeaderButton(id)) {
-    for (const grouped of slot) {
-      layout.sizes[grouped] = 'S'
-    }
+  slot.push(id)
+  for (const grouped of slot) {
+    layout.sizes[grouped] = 'S'
   }
 }
 
@@ -462,6 +450,10 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
     }
 
     const region = regionElement.id as HeaderRegionId
+    if (region === 'resetsButtons' && !isHeaderButton(id)) {
+      return null
+    }
+
     const isGrid = isHeaderGridRegion(region)
     const slotElement = element.closest<HTMLElement>('[data-header-slot]')
     const cellElement = element.closest<HTMLElement>('.headerCell')
@@ -470,13 +462,10 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
       if (cellElement === null) {
         continue
       }
-      const index = Number(cellElement.dataset.headerCell)
-      const slot = layout.regions[region][index] ?? []
       return {
         region,
-        index,
-        member: null,
-        join: isHeaderButton(id) && slot.some((member) => !layout.hidden.includes(member)) && canJoinSlot(slot, id),
+        index: Number(cellElement.dataset.headerCell),
+        join: false,
         indicator: cellElement.getBoundingClientRect()
       }
     }
@@ -486,7 +475,6 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
       return {
         region,
         index: layout.regions[region].length,
-        member: null,
         join: false,
         indicator: last === null
           ? regionElement.getBoundingClientRect()
@@ -495,40 +483,22 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
     }
 
     const index = Number(slotElement.dataset.headerSlot)
-    const slot = layout.regions[region][index]
-    const memberElement = element.closest<HTMLElement>('.headerModule')
-
-    if (
-      isHeaderButton(id) && memberElement !== null && slotElement.contains(memberElement) && canJoinSlot(slot, id)
-    ) {
-      const memberRect = memberElement.getBoundingClientRect()
-      const after = x >= memberRect.left + memberRect.width / 2
-      return {
-        region,
-        index,
-        member: slot.indexOf(memberElement.id as HeaderModuleId) + (after ? 1 : 0),
-        join: true,
-        indicator: dropBar(memberRect, after)
-      }
-    }
-
     const rect = slotElement.getBoundingClientRect()
     const ratio = (x - rect.left) / rect.width
 
     const inStackZone = ratio > HEADER_STACK_ZONE_START && ratio < HEADER_STACK_ZONE_END
-    if ((isHeaderButton(id) || inStackZone) && canJoinSlot(slot, id)) {
-      return { region, index, member: null, join: true, indicator: rect }
+    if (inStackZone && canJoinSlot(layout.regions[region][index], id)) {
+      return { region, index, join: true, indicator: rect }
     }
 
     if (isGrid) {
-      return { region, index, member: null, join: false, indicator: rect }
+      return { region, index, join: false, indicator: rect }
     }
 
     const after = ratio >= 0.5
     return {
       region,
       index: after ? index + 1 : index,
-      member: null,
       join: false,
       indicator: dropBar(rect, after)
     }

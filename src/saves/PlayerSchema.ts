@@ -16,6 +16,7 @@ import {
   headerModuleIds,
   headerModuleSizes,
   headerRegionIds,
+  isHeaderButton,
   isHeaderGridRegion,
   isHeaderProgress
 } from '../HeaderLayoutDefaults'
@@ -348,7 +349,7 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
         saved.regions[region] = saved.regions[region].filter((slot) => slot.length > 0)
       }
       saved.regions[region] = saved.regions[region].flatMap((slot) => {
-        if (slot.length === 1 || !slot.some(isHeaderProgress)) {
+        if (slot.length === 1 || !slot.some((id) => isHeaderButton(id) || isHeaderProgress(id))) {
           return [slot]
         }
         for (const id of slot) {

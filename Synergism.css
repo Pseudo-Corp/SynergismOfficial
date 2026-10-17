@@ -1317,11 +1317,19 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 
 .resetsButtons,
 .challengeProgress {
+    --header-cell-width: calc(100cqi * 55 / 45 / var(--header-cell-columns));
     display: grid;
-    grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi * 55 / 45 / var(--header-cell-columns)));
+    grid-template-columns: repeat(var(--header-grid-columns), var(--header-cell-width));
     align-self: flex-start;
     justify-items: center;
     align-items: start;
+}
+
+.resetsButtons {
+    grid-template-columns: repeat(
+        var(--header-grid-columns),
+        minmax(calc(var(--header-cell-width) / var(--header-cell-slots)), max-content)
+    );
 }
 
 .challengeProgress {
@@ -6521,12 +6529,6 @@ header #obtainiumDisplay { color: pink; }
     flex-direction: column;
 }
 
-.headerStack.headerStackRow {
-    flex-direction: row;
-    align-items: start;
-    justify-content: flex-start;
-}
-
 .headerModule[data-size="S"] {
     font-size: 0.75em;
 }
@@ -6598,7 +6600,6 @@ header #obtainiumDisplay { color: pink; }
 #mainHeader.headerEditMode .headerRegion {
     min-height: 20px;
     outline: 1px dashed #ffd70080;
-    outline-offset: 2px;
 }
 
 #mainHeader.headerEditMode .headerModule {
@@ -12674,7 +12675,7 @@ html[data-mobile="true"] .hideOnMobile {
 
     .resetsButtons,
     .challengeProgress {
-        grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi / var(--header-cell-columns)));
+        --header-cell-width: calc(100cqi / var(--header-cell-columns));
         margin-inline: auto;
     }
 
