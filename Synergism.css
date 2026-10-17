@@ -6419,7 +6419,8 @@ header {
     background-color: var(--header-color);
 }
 
-header .img {
+header .img,
+.currenciesContainer .headerStat img {
     height: 32px;
     width: 32px;
 }
@@ -6460,7 +6461,8 @@ header .img {
     border-radius: 4px;
 }
 
-.currencyContainer {
+.currencyContainer,
+.currenciesContainer .headerStat {
     display: flex;
     align-items: center;
     width: calc(38px + 7.5em);
@@ -6506,6 +6508,10 @@ header #obtainiumDisplay { color: pink; }
     margin: auto 4px auto 0;
 }
 
+.currenciesContainer .headerStat img {
+    margin-right: 6px;
+}
+
 .headerModule {
     -webkit-touch-callout: none;
 }
@@ -6548,21 +6554,25 @@ header #obtainiumDisplay { color: pink; }
     font-size: 1.25em;
 }
 
-.currencyContainer.headerModule[data-size="S"] {
+.currencyContainer.headerModule[data-size="S"],
+.currenciesContainer .headerStat[data-size="S"] {
     font-size: inherit;
 }
 
-.currencyContainer.headerModule[data-size="S"] .statDisplay {
+.currencyContainer.headerModule[data-size="S"] .statDisplay,
+.currenciesContainer .headerStat[data-size="S"] > span {
     font-size: 0.75em;
 }
 
-.headerModule[data-size="S"] .img {
+.headerModule[data-size="S"] .img,
+.currenciesContainer .headerStat[data-size="S"] img {
     width: 16px;
     height: 16px;
 }
 
 .headerModule[data-size="L"] .img,
-.resetbtn.headerModule[data-size="L"] {
+.resetbtn.headerModule[data-size="L"],
+.currenciesContainer .headerStat[data-size="L"] img {
     width: 48px;
     height: 48px;
 }
