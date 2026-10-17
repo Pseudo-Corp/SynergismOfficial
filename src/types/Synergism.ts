@@ -6,7 +6,7 @@ import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
-import type { HeaderModuleId, HeaderModuleSize, HeaderRegionId } from '../HeaderLayoutDefaults'
+import type { HeaderModuleId, HeaderModuleSize, HeaderRegionId, RainbowAmbrosiaModuleId } from '../HeaderLayoutDefaults'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrades } from '../Octeracts'
@@ -34,6 +34,7 @@ export interface HeaderLayout {
   sizes: Partial<Record<HeaderModuleId, HeaderModuleSize>>
   positions: Partial<Record<HeaderModuleId, number>>
   hidden: HeaderModuleId[]
+  rainbowAmbrosia: RainbowAmbrosiaModuleId
 }
 
 export interface Player {

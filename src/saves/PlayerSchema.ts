@@ -20,7 +20,8 @@ import {
   headerRegionIds,
   isHeaderButton,
   isHeaderGridRegion,
-  isHeaderProgress
+  isHeaderProgress,
+  rainbowAmbrosiaModuleIds
 } from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
@@ -346,7 +347,8 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
       z.enum(headerModuleIds),
       z.number().int().min(0).max(HEADER_BUTTON_GROUP_CAPACITY - 1)
     ).default(() => ({})),
-    hidden: z.enum(headerModuleIds).array()
+    hidden: z.enum(headerModuleIds).array(),
+    rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia)
   }).transform((saved) => {
     const fallback = blankSave.headerLayouts[layout]
     const placed = new Set(Object.values(saved.regions).flat(2))

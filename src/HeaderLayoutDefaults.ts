@@ -28,6 +28,17 @@ const currencyModuleIds = [
   'obtainiumHeader'
 ] as const
 
+export const rainbowAmbrosiaModuleIds = [
+  'ambrosiaHeader',
+  'redAmbrosiaHeader',
+  'purpleAmbrosiaHeader',
+  'blueberryHeader'
+] as const
+
+export type RainbowAmbrosiaModuleId = typeof rainbowAmbrosiaModuleIds[number]
+
+const ambrosiaModuleIds = [...rainbowAmbrosiaModuleIds, 'rainbowAmbrosiaHeader'] as const
+
 const resetButtonModuleIds = [
   'prestigebtn',
   'transcendbtn',
@@ -53,6 +64,7 @@ export type HeaderRegionId = typeof headerRegionIds[number]
 export const headerModuleIds = [
   ...statModuleIds,
   ...currencyModuleIds,
+  ...ambrosiaModuleIds,
   ...resetButtonModuleIds,
   ...challengeProgressModuleIds
 ]
@@ -100,13 +112,14 @@ export const createDefaultHeaderLayout = () => {
   const layout: HeaderLayout = {
     regions: {
       ascensionStats: statModuleIds.map((id) => [id]),
-      currenciesContainer: currencyModuleIds.map((id) => [id]),
+      currenciesContainer: [...currencyModuleIds, ...ambrosiaModuleIds].map((id) => [id]),
       resetsButtons: [],
       challengeProgress: challengeProgressModuleIds.map((id) => [id])
     },
     sizes: {},
     positions: {},
-    hidden: ['happyHourBellHeader', 'lotusHeader']
+    hidden: ['happyHourBellHeader', 'lotusHeader', ...ambrosiaModuleIds],
+    rainbowAmbrosia: 'ambrosiaHeader'
   }
 
   for (const [index, id] of resetButtonModuleIds.entries()) {

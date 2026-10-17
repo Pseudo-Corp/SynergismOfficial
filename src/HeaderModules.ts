@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { calculateBlueberryInventory } from './Calculate'
 import {
   freeButtonPosition,
   HEADER_BUTTON_GRID_COLUMNS,
@@ -17,7 +18,9 @@ import {
   headerRegionIds,
   isHeaderButton,
   isHeaderGridRegion,
-  isHeaderProgress
+  isHeaderProgress,
+  type RainbowAmbrosiaModuleId,
+  rainbowAmbrosiaModuleIds
 } from './HeaderLayoutDefaults'
 import { allDurableConsumables, getLotusTimeExpiresAt, getOwnedBells, getOwnedLotus } from './Login'
 import { runes } from './Runes'
@@ -30,6 +33,7 @@ import { Globals as G } from './Variables'
 const ascensionStatsUnlocked = () =>
   Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0
 const singularityStatsUnlocked = () => player.highestSingularityCount > 0
+const ambrosiaUnlocked = () => player.singularityChallenges.noSingularityUpgrades.completions > 0
 
 const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   ascCubeStats: ascensionStatsUnlocked,
@@ -54,6 +58,11 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   mythosShardHeader: () => player.unlocks.transcend,
   particlesHeader: () => player.unlocks.reincarnate,
   obtainiumHeader: () => player.unlocks.reincarnate,
+  ambrosiaHeader: ambrosiaUnlocked,
+  redAmbrosiaHeader: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0,
+  purpleAmbrosiaHeader: () => player.singularityChallenges.taxmanLastStand.completions > 0,
+  blueberryHeader: ambrosiaUnlocked,
+  rainbowAmbrosiaHeader: ambrosiaUnlocked,
   prestigebtn: () => player.unlocks.coinfour,
   transcendbtn: () => player.unlocks.prestige,
   reincarnatebtn: () => player.unlocks.transcend,
@@ -68,6 +77,13 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   reincarnationChallengeProgress: () =>
     !isMobile && (player.unlocks.reincarnate || player.currentChallenge.reincarnation !== 0),
   ascensionChallengeProgress: () => !isMobile && (player.ascensionCount > 0 || player.currentChallenge.ascension !== 0)
+}
+
+const ambrosiaAmounts: Record<RainbowAmbrosiaModuleId, () => number> = {
+  ambrosiaHeader: () => player.ambrosia,
+  redAmbrosiaHeader: () => player.redAmbrosia,
+  purpleAmbrosiaHeader: () => player.purpleAmbrosia,
+  blueberryHeader: () => calculateBlueberryInventory() - player.spentBlueberries
 }
 
 const HEADER_EDIT_HOLD_MS = 650
@@ -256,6 +272,27 @@ export const updateHeaderConsumables = () => {
   if (editing || !layout.hidden.includes('lotusHeader')) {
     setHeaderText('lotusHeaderTimer', timeRemainingMinutes(getLotusTimeExpiresAt()))
     setHeaderText('lotusHeaderOwned', i18next.t('headerLayout.owned', { x: format(getOwnedLotus(), 0, true) }))
+  }
+}
+
+export const updateHeaderAmbrosia = () => {
+  const layout = currentLayout()
+
+  for (const id of rainbowAmbrosiaModuleIds) {
+    if (editing || !layout.hidden.includes(id)) {
+      setHeaderText(`${id}Display`, format(ambrosiaAmounts[id](), 0, true))
+    }
+  }
+
+  if (editing || !layout.hidden.includes('rainbowAmbrosiaHeader')) {
+    const rainbow = DOMCacheGetOrSet('rainbowAmbrosiaHeader')
+    if (rainbow.dataset.ambrosia !== layout.rainbowAmbrosia) {
+      rainbow.dataset.ambrosia = layout.rainbowAmbrosia
+      for (const icon of rainbow.querySelectorAll('img')) {
+        icon.hidden = icon.dataset.ambrosia !== layout.rainbowAmbrosia
+      }
+    }
+    setHeaderText('rainbowAmbrosiaHeaderDisplay', format(ambrosiaAmounts[layout.rainbowAmbrosia](), 0, true))
   }
 }
 
@@ -802,4 +839,11 @@ export const registerHeaderLayoutEditing = () => {
   })
 
   DOMCacheGetOrSet('headerEditDone').addEventListener('click', exitEditMode)
+
+  DOMCacheGetOrSet('rainbowAmbrosiaHeader').addEventListener('click', () => {
+    const layout = currentLayout()
+    const unlocked = rainbowAmbrosiaModuleIds.filter((id) => headerModuleUnlocks[id]())
+    layout.rainbowAmbrosia = unlocked[(unlocked.indexOf(layout.rainbowAmbrosia) + 1) % unlocked.length]
+    updateHeaderAmbrosia()
+  })
 }

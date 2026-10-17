@@ -6478,6 +6478,19 @@ header #mythosshardDisplay { color: plum; }
 header #particlesDisplay { color: limegreen; }
 header #obtainiumDisplay { color: pink; }
 
+header #ambrosiaHeaderDisplay,
+#rainbowAmbrosiaHeader[data-ambrosia="ambrosiaHeader"] .statDisplay { color: var(--amber-text-color); }
+header #redAmbrosiaHeaderDisplay,
+#rainbowAmbrosiaHeader[data-ambrosia="redAmbrosiaHeader"] .statDisplay { color: var(--red-text-color); }
+header #purpleAmbrosiaHeaderDisplay,
+#rainbowAmbrosiaHeader[data-ambrosia="purpleAmbrosiaHeader"] .statDisplay { color: var(--purple-text-color); }
+header #blueberryHeaderDisplay,
+#rainbowAmbrosiaHeader[data-ambrosia="blueberryHeader"] .statDisplay { color: var(--blueberry-text-color); }
+
+#rainbowAmbrosiaHeader {
+    cursor: pointer;
+}
+
 .statDisplay {
     padding-left: 6px;
     margin: auto 0;

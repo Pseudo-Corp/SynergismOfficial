@@ -35,7 +35,7 @@ import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
 import { getCostNextAntUpgrade } from './Features/Ants/AntUpgrades/lib/get-cost'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
-import { updateHeaderConsumables, updateHeaderModuleVisibility } from './HeaderModules'
+import { updateHeaderAmbrosia, updateHeaderConsumables, updateHeaderModuleVisibility } from './HeaderModules'
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
@@ -595,6 +595,7 @@ export const htmlInserts = () => {
   updateChallengeProgress()
   updateAscensionStats()
   updateHeaderConsumables()
+  updateHeaderAmbrosia()
 
   visualUpdate(G.currentTab)
 }
