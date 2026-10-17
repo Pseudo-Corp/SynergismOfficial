@@ -2,16 +2,18 @@ import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  HEADER_BUTTON_GRID_COLUMNS,
   HEADER_BUTTON_GROUP_CAPACITY,
+  HEADER_BUTTON_MODULE_COUNT,
   HEADER_GRID_COLUMNS,
   HEADER_STACK_CAPACITY,
-  headerGridRegion,
   type HeaderModuleId,
   type HeaderModuleSize,
   headerModuleSizes,
   type HeaderRegionId,
   headerRegionIds,
-  isHeaderButton
+  isHeaderButton,
+  isHeaderGridRegion
 } from './HeaderLayoutDefaults'
 import { allDurableConsumables, getLotusTimeExpiresAt, getOwnedBells, getOwnedLotus } from './Login'
 import { runes } from './Runes'
@@ -93,8 +95,10 @@ let pointerStartY = 0
 
 const layoutKey = () => isMobile ? 'mobile' : 'desktop'
 const currentLayout = () => player.headerLayouts[layoutKey()]
-const gridColumns = () => HEADER_GRID_COLUMNS[layoutKey()]
-const gridArea = (index: number) => `${Math.floor(index / gridColumns()) + 1} / ${(index % gridColumns()) + 1}`
+const gridColumns = (region: HeaderRegionId) =>
+  (region === 'resetsButtons' ? HEADER_BUTTON_GRID_COLUMNS : HEADER_GRID_COLUMNS)[layoutKey()]
+const gridArea = (region: HeaderRegionId, index: number) =>
+  `${Math.floor(index / gridColumns(region)) + 1} / ${(index % gridColumns(region)) + 1}`
 
 const firstEmptyCell = (slots: HeaderModuleId[][], from: number) => {
   const index = slots.findIndex((slot, cell) => cell >= from && slot.length === 0)
@@ -120,9 +124,11 @@ export const renderHeaderLayout = () => {
   const trayModules: HTMLElement[] = []
   let refit = false
 
+  DOMCacheGetOrSet('mainHeader').style.setProperty('--header-cell-columns', `${HEADER_GRID_COLUMNS[layoutKey()]}`)
+
   for (const region of headerRegionIds) {
     const slotElements: HTMLElement[] = []
-    const isGrid = region === headerGridRegion
+    const isGrid = isHeaderGridRegion(region)
     let lastCell = -1
 
     layout.regions[region].forEach((slot, index) => {
@@ -159,7 +165,7 @@ export const renderHeaderLayout = () => {
       }
       slotElement.dataset.headerSlot = `${index}`
       if (isGrid) {
-        slotElement.style.gridArea = gridArea(index)
+        slotElement.style.gridArea = gridArea(region, index)
         lastCell = index
       }
       slotElements.push(slotElement)
@@ -173,16 +179,18 @@ export const renderHeaderLayout = () => {
 
     const cells: HTMLElement[] = []
     if (editing) {
-      const cellCount = (Math.floor(lastCell / gridColumns()) + 2) * gridColumns()
+      const cellCount = region === 'resetsButtons'
+        ? Math.max(HEADER_BUTTON_MODULE_COUNT, lastCell + 1)
+        : (Math.floor(lastCell / gridColumns(region)) + 2) * gridColumns(region)
       for (let index = 0; index < cellCount; index++) {
         const cell = document.createElement('div')
         cell.className = 'headerCell'
         cell.dataset.headerCell = `${index}`
-        cell.style.gridArea = gridArea(index)
+        cell.style.gridArea = gridArea(region, index)
         cells.push(cell)
       }
     }
-    regionElement.style.setProperty('--header-grid-columns', `${gridColumns()}`)
+    regionElement.style.setProperty('--header-grid-columns', `${gridColumns(region)}`)
     regionElement.replaceChildren(...cells, ...slotElements)
   }
 
@@ -260,7 +268,7 @@ const detachModule = (layout: HeaderLayout, id: HeaderModuleId) => {
 
   const slots = layout.regions[location.region]
   const slot = slots[location.index]
-  if (slot.length === 1 && location.region === headerGridRegion) {
+  if (slot.length === 1 && isHeaderGridRegion(location.region)) {
     slots[location.index] = []
     return { ...location, removedSlot: false }
   }
@@ -286,7 +294,7 @@ const splitOutModule = (layout: HeaderLayout, id: HeaderModuleId) => {
 
   detachModule(layout, id)
   const slots = layout.regions[location.region]
-  if (location.region === headerGridRegion) {
+  if (isHeaderGridRegion(location.region)) {
     slots[firstEmptyCell(slots, location.index + 1)] = [id]
   } else {
     slots.splice(location.index + 1, 0, [id])
@@ -323,7 +331,7 @@ const moveModule = (layout: HeaderLayout, id: HeaderModuleId, region: HeaderRegi
   }
 
   const slots = layout.regions[region]
-  if (!target.join && region === headerGridRegion) {
+  if (!target.join && isHeaderGridRegion(region)) {
     while (slots.length < index) {
       slots.push([])
     }
@@ -456,7 +464,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
     }
 
     const region = regionElement.id as HeaderRegionId
-    const isGrid = region === headerGridRegion
+    const isGrid = isHeaderGridRegion(region)
     const vertical = region === 'challengeProgress'
     const slotElement = element.closest<HTMLElement>('[data-header-slot]')
     const cellElement = element.closest<HTMLElement>('.headerCell')

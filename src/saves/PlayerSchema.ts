@@ -13,10 +13,10 @@ import { AntUpgrades, LAST_ANT_UPGRADE } from '../Features/Ants/AntUpgrades/stru
 import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/structs'
 import {
   HEADER_BUTTON_GROUP_CAPACITY,
-  headerGridRegion,
   headerModuleIds,
   headerModuleSizes,
-  headerRegionIds
+  headerRegionIds,
+  isHeaderGridRegion
 } from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
@@ -343,7 +343,7 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
     const fallback = blankSave.headerLayouts[layout]
     const placed = new Set(Object.values(saved.regions).flat(2))
     for (const region of headerRegionIds) {
-      if (region !== headerGridRegion) {
+      if (!isHeaderGridRegion(region)) {
         saved.regions[region] = saved.regions[region].filter((slot) => slot.length > 0)
       }
       for (const id of fallback.regions[region].flat()) {

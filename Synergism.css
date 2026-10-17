@@ -1298,6 +1298,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     line-height: 1.2em;
     width: 45%;
     flex-basis: 45%;
+    container-type: inline-size;
 }
 
 .resetsContainer {
@@ -1315,7 +1316,10 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 .resetsButtons {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi * 55 / 45 / var(--header-cell-columns)));
+    align-self: flex-start;
+    justify-items: center;
     align-items: start;
 }
 
@@ -12127,6 +12131,7 @@ html[data-mobile="true"] .hideOnMobile {
     html[data-mobile="true"] .resetInformationContainer {
         order: 1;
         flex: 0 0 auto;
+        width: 100%;
     }
 
     html[data-mobile="true"] .ascensionStats {
@@ -12669,6 +12674,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     .resetsButtons {
+        grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi / var(--header-cell-columns)));
         margin: 0 auto;
     }
 
