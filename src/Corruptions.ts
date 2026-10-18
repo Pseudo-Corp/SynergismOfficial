@@ -9,7 +9,6 @@ import {
 } from './Calculate'
 import { campaignTokenRewardHTMLUpdate, corruptionLevelTokenInfo, updateMaxTokens, updateTokens } from './Campaign'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
-import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getRuneEffects } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -17,8 +16,8 @@ import { calculateCorruptionCubeMultiplierParts } from './Statistics'
 import { format, player } from './Synergism'
 import { getTalismanEffects } from './Talismans'
 import { IconSets } from './Themes'
-import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, Prompt } from './UpdateHTML'
-import { assert, getElementById, isMobile, validateNonnegativeInteger } from './Utility'
+import { CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification } from './UpdateHTML'
+import { getElementById, isMobile, validateNonnegativeInteger } from './Utility'
 import { Globals as G } from './Variables'
 
 type CorruptionEffectValues = {
@@ -39,11 +38,6 @@ type CorruptionBand = 0 | 1 | 2 | 3 | 4
 
 type ActiveCorruptionBand = Exclude<CorruptionBand, 0>
 
-export type CorruptionPreset = {
-  name: string
-  level: number
-}
-
 export type CorruptionCubeType = 'cubes' | 'tesseracts' | 'hypercubes' | 'platonics' | 'hepteracts' | 'octeracts'
 
 type CorruptionBandData = {
@@ -54,26 +48,6 @@ type CorruptionBandData = {
 type CorruptionCubeUnlock = {
   level: number
   requiresChallenge15: boolean
-}
-
-const BASE_CORRUPTION_PRESET_COUNT = 8
-const MAX_CORRUPTION_PRESET_COUNT = 16
-
-export const getUnlockedCorruptionPresetCount = () => {
-  const presetCount = BASE_CORRUPTION_PRESET_COUNT + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL
-  assert(presetCount <= MAX_CORRUPTION_PRESET_COUNT, 'Corruption preset count exceeds the supported maximum.')
-  return presetCount
-}
-
-export const isCorruptionPresetUnlocked = (presetNum: number) => {
-  return Number.isInteger(presetNum) && presetNum >= 0 && presetNum < getUnlockedCorruptionPresetCount()
-}
-
-export const createDefaultCorruptionPresets = (): CorruptionPreset[] => {
-  return Array.from({ length: MAX_CORRUPTION_PRESET_COUNT }, (_, index) => ({
-    name: `Preset ${index + 1}`,
-    level: 0
-  }))
 }
 
 const c14LevelCap = 20
@@ -341,19 +315,6 @@ export const maxCorruptionLevel = () => {
   return Math.max(highest, Math.min(corruptionLevelCap(), highest + corruptionClimbStep()))
 }
 
-export const autoClimbCorruptionLevel = () => {
-  if (player.corruptions.autoClimb <= 0) {
-    return
-  }
-  const target = Math.min(maxCorruptionLevel(), player.corruptions.used + player.corruptions.autoClimb)
-  player.corruptions.next = Math.max(player.corruptions.next, target)
-}
-
-export const setCorruptionAutoClimb = (amount: number) => {
-  player.corruptions.autoClimb = validateNonnegativeInteger(amount) ? amount : 0
-  corruptionStatsUpdate()
-}
-
 export const clearCorruptionLevel = (level: number) => {
   if (level <= player.corruptions.highestCleared || level > player.corruptions.highestCleared + corruptionClimbStep()) {
     return
@@ -363,7 +324,6 @@ export const clearCorruptionLevel = (level: number) => {
     player.corruptions.next = Math.max(player.corruptions.next, maxCorruptionLevel())
   }
   corruptionStatsUpdate()
-  corruptionPresetTableUpdate()
 }
 
 export const normalizeCorruptionLevel = (level: number) => {
@@ -420,7 +380,6 @@ export const isCorruptionCubeUnlocked = (level: number, cube: CorruptionCubeType
 export const setNextCorruptionLevel = (level: number) => {
   player.corruptions.next = normalizeCorruptionLevel(Math.floor(level))
   corruptionStatsUpdate()
-  corruptionPresetTableUpdate()
 }
 
 export const changeNextCorruptionLevel = (delta: number) => {
@@ -429,10 +388,6 @@ export const changeNextCorruptionLevel = (delta: number) => {
 
 export const maxNextCorruptionLevel = () => {
   setNextCorruptionLevel(maxCorruptionLevel())
-}
-
-export const resetNextCorruptions = () => {
-  setNextCorruptionLevel(0)
 }
 
 const corruptionCleanseLevel = () => {
@@ -469,7 +424,6 @@ export const resetCorruptionProgress = async () => {
   updateMaxTokens()
   campaignTokenRewardHTMLUpdate()
   corruptionStatsUpdate()
-  corruptionPresetTableUpdate()
   void Notification(i18next.t('corruptions.resetProgress.done'))
 }
 
@@ -962,7 +916,6 @@ const corruptionLevelCapUpdate = () => {
     : i18next.t('corruptions.tiers.nextUnlockRange', { level: format(highest + step), step })
   getElementById<HTMLInputElement>('corruptionAutoIncreaseToggle').checked = player.corruptions.autoIncrease
   getElementById<HTMLInputElement>('corruptionCleanseToHighestToggle').checked = player.corruptions.cleanseToHighest
-  getElementById<HTMLInputElement>('corruptionAutoClimbInput').value = `${player.corruptions.autoClimb}`
 }
 
 const formatCorruptionEffect = (corr: CorruptionKey, level: number) => {
@@ -1026,119 +979,6 @@ export const corruptionPanelCreate = () => {
   }
 
   corruptionStatsUpdate()
-}
-
-export const corruptionPresetTableCreate = () => {
-  const table = getElementById<HTMLTableElement>('corruptionLoadoutTable')
-
-  for (let i = table.rows.length - 1; i >= 1; i--) {
-    table.deleteRow(i)
-  }
-
-  const nextRow = table.insertRow()
-  const nextCell = nextRow.insertCell()
-  nextCell.className = 'testTitle'
-  nextCell.textContent = i18next.t('corruptions.loadoutTable.next')
-  nextRow.insertCell()
-
-  const zeroCell = nextRow.insertCell()
-  zeroCell.colSpan = 2
-  const zeroBtn = document.createElement('button')
-  zeroBtn.className = 'corrLoad'
-  zeroBtn.textContent = i18next.t('corruptions.loadoutTable.zero')
-  zeroBtn.addEventListener('click', () => resetNextCorruptions())
-  zeroCell.appendChild(zeroBtn)
-  zeroCell.title = i18next.t('corruptions.loadoutTable.zeroTitle')
-
-  for (let i = 0; i < getUnlockedCorruptionPresetCount(); i++) {
-    const row = table.insertRow()
-
-    const titleCell = row.insertCell()
-    titleCell.className = 'testTitle corrLoadoutName'
-    titleCell.title = i18next.t('corruptions.loadoutTable.otherRowTitle', { value: i + 1 })
-    titleCell.addEventListener('click', () => void corruptionPresetGetNewName(i))
-
-    row.insertCell()
-
-    let cell = row.insertCell()
-    let btn = document.createElement('button')
-    btn.className = 'corrSave'
-    btn.textContent = i18next.t('corruptions.loadoutTable.save')
-    btn.addEventListener('click', () => saveCorruptionPreset(i))
-    cell.appendChild(btn)
-    cell.title = i18next.t('corruptions.loadoutTable.saveTitle')
-
-    cell = row.insertCell()
-    btn = document.createElement('button')
-    btn.className = 'corrLoad'
-    btn.textContent = i18next.t('corruptions.loadoutTable.load')
-    btn.addEventListener('click', () => loadCorruptionPreset(i))
-    cell.appendChild(btn)
-  }
-
-  corruptionPresetTableUpdate()
-}
-
-export const corruptionPresetTableUpdate = () => {
-  const rows = getElementById<HTMLTableElement>('corruptionLoadoutTable').rows
-  if (rows.length < 2) {
-    return
-  }
-
-  rows[1].cells[1].textContent = format(player.corruptions.next)
-
-  for (let i = 0; i < getUnlockedCorruptionPresetCount() && i + 2 < rows.length; i++) {
-    const cells = rows[i + 2].cells
-    cells[0].textContent = `${player.corruptions.presets[i].name}:`
-    cells[1].textContent = format(player.corruptions.presets[i].level)
-  }
-}
-
-const saveCorruptionPreset = (presetNum: number) => {
-  if (!isCorruptionPresetUnlocked(presetNum)) {
-    return
-  }
-
-  player.corruptions.presets[presetNum] = {
-    name: player.corruptions.presets[presetNum].name,
-    level: player.corruptions.next
-  }
-  corruptionPresetTableUpdate()
-}
-
-export const loadCorruptionPreset = (presetNum: number) => {
-  if (!isCorruptionPresetUnlocked(presetNum)) {
-    return
-  }
-
-  setNextCorruptionLevel(player.corruptions.presets[presetNum].level)
-}
-
-async function corruptionPresetGetNewName (presetNum: number) {
-  if (!isCorruptionPresetUnlocked(presetNum)) {
-    return
-  }
-
-  const maxChars = 9
-  // eslint-disable-next-line no-control-regex
-  const regex = /^[\x00-\xFF]*$/
-  const renamePrompt = await Prompt(
-    i18next.t('corruptions.corruptionLoadoutName.loadoutPrompt', { loadNum: presetNum + 1, maxChars })
-  )
-
-  if (!renamePrompt) {
-    return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.noName'))
-  } else if (renamePrompt.length > maxChars) {
-    return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.exceedsCharacterLimit'))
-  } else if (!regex.test(renamePrompt)) {
-    return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.regexError'))
-  } else {
-    player.corruptions.presets[presetNum].name = renamePrompt
-    corruptionPresetTableUpdate()
-    if (renamePrompt === 'crazy') {
-      return Alert(i18next.t('corruptions.corruptionLoadoutName.errors.crazyJoke'))
-    }
-  }
 }
 
 export const corruptionCleanseConfirm = () => {

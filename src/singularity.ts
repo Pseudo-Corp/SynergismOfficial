@@ -2941,6 +2941,8 @@ export async function buyGQUpgradeLevel (
     player.ascensionCounter = 0
     player.ascensionCounterReal = 0
     player.ascensionCounterRealReal = 0
+    player.lastSuccessfulAscensionCounter = 0
+    player.lastSuccessfulAscensionCounterReal = 0
     void Alert(i18next.t('singularity.goldenQuarks.ascensionReset'))
   }
 

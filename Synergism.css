@@ -210,7 +210,7 @@ html[data-legacyicons="true"] {
 
 #corrStatsBtn.active-subtab,
 #corrTokensBtn.active-subtab,
-#corrLoadoutsBtn.active-subtab {
+#corrAutoAscendBtn.active-subtab {
     background-color: dodgerblue;
 }
 
@@ -5880,7 +5880,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #corruptionAscensionControls {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     column-gap: 2em;
     margin-top: 8px;
     padding-top: 8px;
@@ -5905,43 +5905,14 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     gap: 4px;
 }
 
-#autoAscend {
-    max-width: 28em;
-    margin: 0;
-    line-height: 1.2em;
-    text-align: center;
-}
-
-#ascensionAmount,
-#ascensionAutoEnable,
-#ascensionAutoToggle {
+#ascensionAutoEnable {
     width: 12em;
     min-width: 150px;
     min-height: auto;
     margin: 0;
 }
 
-#ascensionAmount,
-#corruptionAutoClimbInput {
-    border: 1px solid orange;
-    color: gold;
-    background-color: var(--blackbtn-color);
-}
-
-#corruptionAutoClimb {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-}
-
-#corruptionAutoClimbInput {
-    width: 5em;
-    min-height: auto;
-    margin: 0;
-}
-
-#corruptionStatsLoadouts {
+#corruptionSubtabs {
     position: relative;
     box-sizing: border-box;
     width: fit-content;
@@ -5953,7 +5924,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     text-align: center;
 }
 
-#corruptionStatsLoadouts::before {
+#corruptionSubtabs::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -5969,7 +5940,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #corrStatsBtn,
 #corrTokensBtn,
-#corrLoadoutsBtn {
+#corrAutoAscendBtn {
     min-width: 120px;
     max-width: 100%;
     border: 2px solid;
@@ -6104,15 +6075,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     line-height: 1em;
 }
 
-.corrLoadoutName:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.corrLoadoutNameCol {
-    width: 20%;
-}
-
 .corrBtn {
     width: 30px;
     margin: 0 auto;
@@ -6149,11 +6111,355 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     z-index: 1;
 }
 
-#corruptionLoadouts {
+#corruptionLayout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+}
+
+#autoAscensions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     min-height: 350px;
     margin-top: 10px;
     font-size: min(1em, 20px);
     z-index: 1;
+}
+
+#autoAscendRules {
+    width: min(100%, 48em);
+}
+
+#autoAscendRules > .corruptionTierHeading {
+    color: orange;
+}
+
+.corruptionRulesNote {
+    max-width: 28em;
+    margin: 0;
+    color: var(--gray-text-color);
+    text-align: center;
+}
+
+#autoAscendStatus {
+    box-sizing: border-box;
+    width: 25em;
+    padding: 8px 12px;
+    border: 1px solid orange;
+    border-radius: 4px;
+    background-color: var(--box-color);
+}
+
+#autoAscendStatus > .corruptionTierHeading {
+    margin-top: 0;
+    color: orange;
+}
+
+#autoAscendStatusList {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 9em;
+    gap: 4px 12px;
+    margin: 0;
+}
+
+#autoAscendStatusList > dt {
+    overflow: hidden;
+    color: var(--gray-text-color);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+#autoAscendStatusList > dd {
+    overflow: hidden;
+    margin: 0;
+    color: var(--text-color);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+
+#autoAscendRulesEmpty {
+    max-width: 28em;
+    margin: 0;
+    text-align: center;
+}
+
+#autoAscendRuleList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.autoAscendRuleItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border: 1px solid orange;
+    border-radius: 4px;
+    background-color: var(--box-color);
+    color: var(--text-color);
+    text-align: left;
+}
+
+.autoAscendRuleItem.autoAscendRuleFired {
+    animation: autoAscendRulePulse 1.6s ease-out;
+}
+
+@keyframes autoAscendRulePulse {
+    0%,
+    50% {
+        border-color: lime;
+        box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
+    }
+
+    25%,
+    75% {
+        border-color: lime;
+        box-shadow: 0 0 12px 3px rgb(0 255 0 / 65%);
+    }
+
+    100% {
+        border-color: orange;
+        box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .autoAscendRuleItem.autoAscendRuleFired {
+        border-color: lime;
+        animation: none;
+    }
+}
+
+.autoAscendRuleNumber {
+    color: orange;
+    font-weight: bold;
+}
+
+.autoAscendRuleName {
+    flex: 1;
+    color: orange;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+    cursor: help;
+}
+
+.autoAscendRuleModal {
+    padding: 4px 8px;
+    color: var(--text-color);
+    text-align: left;
+}
+
+.autoAscendRuleModal > p {
+    margin: 4px 0;
+}
+
+.autoAscendRuleModal > .autoAscendRuleModalName {
+    color: orange;
+    font-weight: bold;
+}
+
+.autoAscendNameField {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+#autoAscendRuleName {
+    width: 14em;
+}
+
+.autoAscendModifier > span {
+    min-width: 10em;
+}
+
+.autoAscendRuleActions {
+    display: flex;
+    gap: 4px;
+}
+
+#autoAscendAddRule,
+.autoAscendButton,
+.autoAscendEditorFooter > button {
+    min-width: 44px;
+    padding: 0 8px;
+    border: 1px solid orange;
+    border-radius: 3px;
+}
+
+.autoAscendButton.autoAscendRemove {
+    border-color: var(--crimson-text-color);
+}
+
+#autoAscendRuleEditor {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgb(0 0 0 / 60%);
+    z-index: 6970;
+}
+
+#autoAscendRuleEditor[hidden] {
+    display: none;
+}
+
+.autoAscendEditorPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: min(760px, 100%);
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 16px;
+    border: 2px solid orange;
+    border-radius: 6px;
+    background-color: var(--alert-color);
+    color: var(--text-color);
+    text-align: left;
+}
+
+.autoAscendEditorHeader,
+.autoAscendEditorFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.autoAscendEditorHeader > h3,
+.autoAscendStep > h4 {
+    margin: 0;
+    color: orange;
+}
+
+.autoAscendEditorFooter {
+    justify-content: flex-end;
+}
+
+.autoAscendHelp,
+.autoAscendCount {
+    margin: 2px 0 6px;
+    color: var(--gray-text-color);
+}
+
+.autoAscendGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    border-left: 3px solid darkorange;
+    background-color: rgb(255 165 0 / 4%);
+}
+
+.autoAscendGroup .autoAscendGroup {
+    margin-left: 12px;
+}
+
+.autoAscendGroupHeader,
+.autoAscendGroupFooter,
+.autoAscendComparison {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.autoAscendSelect,
+.autoAscendNumber {
+    min-height: 30px;
+    padding: 0 6px;
+    border: 1px solid #fff4;
+    border-radius: 3px;
+    background-color: var(--button-color);
+    color: var(--text-color);
+}
+
+.autoAscendNumber {
+    width: 8em;
+}
+
+.autoAscendNumber.autoAscendInvalid {
+    border-color: var(--red-text-color);
+}
+
+.autoAscendButtonRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+.autoAscendEditorPanel .autoAscendButtonRow {
+    justify-content: flex-start;
+}
+
+.autoAscendRuleTextField {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+#autoAscendRuleText {
+    width: 100%;
+    min-height: 30px;
+    padding: 0 6px;
+    border: 1px solid #fff4;
+    border-radius: 3px;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    font-family: monospace;
+}
+
+#autoAscendRuleTextError {
+    min-height: 1em;
+    margin: 4px 0 0;
+    color: var(--red-text-color);
+}
+
+#autoAscendRulePreview {
+    margin: 4px 0;
+}
+
+#autoAscendRuleError {
+    min-height: 1em;
+    margin: 0;
+    color: var(--red-text-color);
+}
+
+@media (width <= 768px) {
+    .autoAscendRuleItem {
+        flex-wrap: wrap;
+    }
+
+    .autoAscendRuleActions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    #autoAscendRuleEditor {
+        padding: 0;
+    }
+
+    .autoAscendEditorPanel {
+        height: 100%;
+        border-radius: 0;
+    }
 }
 
 #corruptionDisplays > #corruptionExitIcon {
@@ -6166,20 +6472,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     align-items: center;
     gap: 20px;
     margin-top: 4px;
-}
-
-.corrLoadoutName {
-    white-space: nowrap;
-}
-
-#corruptionLoadoutTable {
-    border-collapse: collapse;
-    text-align: center;
-    width: 100%;
-}
-
-#corruptionLoadoutTable tbody th {
-    padding: 0;
 }
 
 #corruptionTierSelected {
@@ -6312,13 +6604,6 @@ img.small {
 img.corruptionImg.small {
     width: 100%;
     max-width: 32px;
-}
-
-.corrSave {
-    min-height: 20px;
-    min-width: 40px;
-    border: 1px solid dodgerblue;
-    width: 100%;
 }
 
 .corrLoad {
@@ -11577,8 +11862,7 @@ html[data-spirit-unlock="false"] .spiritUnlock {
     display: none;
 }
 
-html[data-chal12="false"] .chal12,
-html[data-chal12="false"] #corruptionSpiritValueRow {
+html[data-chal12="false"] .chal12 {
     display: none;
 }
 
@@ -12547,7 +12831,7 @@ html[data-mobile="true"] .hideOnMobile {
         width: unset;
     }
 
-    #corruptionStatsLoadouts {
+    #corruptionSubtabs {
         width: 100%;
         min-width: 0;
         max-width: 100%;

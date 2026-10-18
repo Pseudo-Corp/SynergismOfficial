@@ -22,7 +22,7 @@ import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, player, resetCheck } from './Synergism'
-import { AutoAscensionResetModes, toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
+import { toggleAutoChallengeModeText, toggleChallenges } from './Toggles'
 import { Globals as G } from './Variables'
 
 export type Challenge15Rewards =
@@ -634,7 +634,6 @@ type SweepStates =
   // Keep explored set in case we have to use c10_detour (don't run it twice)
   | { kind: 'enter_wait'; toIndex: number; explored: Set<number> }
   | { kind: 'active'; index: number; explored: Set<number> }
-  | { kind: 'c15_wait' } // Happens when you can autoGain c15 Exponent
   | { kind: 'finished' } // Challenges 1-10 are all completely maxed
 
 // 1-5 are transcension, 6-10 reincarnation
@@ -678,10 +677,6 @@ function sweepTransitionFunc (
 
         // Check if we've wrapped around or exhausted all challenges
         if (nextChallenge === -1) {
-          // Completed a full cycle, check if we need C15 wait
-          if (challenge15AutoExponentCheck()) {
-            return { kind: 'c15_wait' }
-          }
           // Restart the sweep (wait 'start' seconds before first challenge)
           return { kind: 'initial_wait' }
         }
@@ -694,13 +689,6 @@ function sweepTransitionFunc (
     case 'enter_wait':
       if (elapsedTime >= timers.enter) {
         return { kind: 'active', index: state.toIndex, explored: new Set([...state.explored, state.toIndex]) }
-      }
-      return state
-
-    case 'c15_wait':
-      if (elapsedTime >= 5) {
-        // After 5 seconds, restart the sweep
-        return { kind: 'initial_wait' }
       }
       return state
 
@@ -748,17 +736,13 @@ function handleStateTransition (oldState: SweepStates, newState: SweepStates): v
       toggleAutoChallengeModeText('CHALLENGE')
       break
 
-    case 'c15_wait':
-      toggleAutoChallengeModeText('WAIT')
-      break
-
     case 'finished':
       toggleAutoChallengeModeText('COMPLETE')
       break
   }
 }
 
-export type AutoChallengeStates = 'OFF' | 'START' | 'CHALLENGE' | 'ENTER' | 'WAIT' | 'COMPLETE'
+export type AutoChallengeStates = 'OFF' | 'START' | 'CHALLENGE' | 'ENTER' | 'COMPLETE'
 
 // Time (in seconds) that have been spent since the last state shift.
 export let timeSinceLastStateChange = 0
@@ -819,16 +803,6 @@ export const autoAscensionChallengeSweepUnlock = () => {
     && getShopUpgradeEffects('instantChallenge2', 'unlocked')
 }
 
-const challenge15AutoExponentCheck = () => {
-  return player.currentChallenge.ascension === 15
-    && player.autoAscend
-    && player.cubeUpgrades[10] > 0
-    && player.autoAscendMode === AutoAscensionResetModes.realAscensionTime
-    && !getShopUpgradeEffects('challenge15Auto', 'unlocked')
-    && autoAscensionChallengeSweepUnlock()
-    && player.ascensionCounterRealReal >= Math.max(0.1, player.autoAscendThreshold - 5)
-}
-
 export const challenge15ScoreMultiplier = () => {
   return (
     campaignTokenBonuses.c15() // Campaign Bonus to c15
@@ -860,27 +834,6 @@ export const getNextRegularChallenge = (startIndex: number, explored: Set<number
 
   // No challenge found!
   return -1
-}
-
-// Ascension Challenge 'next' Check. We don't have access to explored so we can't just use the same logic again. Sad!
-export const getNextAscensionChallenge = (startIndex: number) => {
-  let nextChallenge = startIndex
-
-  for (let i = 0; i < 5; i++) {
-    nextChallenge++
-    if (nextChallenge > 15) {
-      nextChallenge = 11
-    }
-    if (
-      player.autoChallengeToggles[nextChallenge]
-      && (nextChallenge === 15 || player.highestchallengecompletions[nextChallenge] < getMaxChallenges(nextChallenge))
-    ) {
-      return nextChallenge
-    }
-  }
-
-  // This returns the same as startIndex if no valid Challenges are found.
-  return nextChallenge
 }
 
 export const useChallenge13Modifiers = () => {

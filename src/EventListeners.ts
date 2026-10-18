@@ -38,7 +38,6 @@ import {
   maxNextCorruptionLevel,
   registerCorruptionDetailsModal,
   resetCorruptionProgress,
-  setCorruptionAutoClimb,
   setNextCorruptionLevel,
   toggleCorruptionAutoIncrease,
   toggleCorruptionCleanseToHighest
@@ -181,7 +180,6 @@ import {
   toggleAscStatPerSecond,
   toggleauto,
   toggleAutoAscendResetActive,
-  toggleAutoAscendResetMode,
   toggleAutoAscensionMode,
   toggleautobuytesseract,
   toggleAutoChallengeRun,
@@ -1146,7 +1144,6 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('prestigeamount').addEventListener('blur', () => updateAutoReset(1))
   DOMCacheGetOrSet('transcendamount').addEventListener('blur', () => updateAutoReset(2))
   DOMCacheGetOrSet('reincarnationamount').addEventListener('blur', () => updateAutoReset(3))
-  DOMCacheGetOrSet('ascensionAmount').addEventListener('blur', () => updateAutoReset(4))
   DOMCacheGetOrSet('autoAntSacrificeAmount').addEventListener('blur', () => updateAutoReset(5))
   // Tesseract-specific of the above. I don't know why I didn't standardize names here.
   DOMCacheGetOrSet('tesseractautobuytoggle').addEventListener('click', () => toggleautobuytesseract())
@@ -1627,13 +1624,9 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('corruptionLevelInput').addEventListener('change', (event) => {
     setNextCorruptionLevel(Number((event.target as HTMLInputElement).value))
   })
-  DOMCacheGetOrSet('corruptionAutoClimbInput').addEventListener('change', (event) => {
-    setCorruptionAutoClimb(Number((event.target as HTMLInputElement).value))
-  })
 
   // Extra toggle
   DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscendResetActive())
-  DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleAutoAscendResetMode())
 
   // SETTNGS TAB
   const t = document.querySelectorAll<HTMLElement>('.statsNerds')

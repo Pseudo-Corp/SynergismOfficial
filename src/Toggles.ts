@@ -805,7 +805,6 @@ const autoChallengeStateTexts: Record<AutoChallengeStates, () => string> = {
   START: () => i18next.t('challenges.modeStart'),
   CHALLENGE: () => i18next.t('challenges.modeChallenge'),
   ENTER: () => i18next.t('challenges.modeEnter'),
-  WAIT: () => i18next.t('challenges.modeWait'),
   COMPLETE: () => i18next.t('challenges.modeComplete')
 }
 
@@ -826,18 +825,6 @@ export const toggleAutoChallengeModeText = (mode: AutoChallengeStates) => {
   DOMCacheGetOrSet('autoChallengeType').textContent = autoChallengeStateTexts[mode]()
 }
 
-export enum AutoAscensionResetModes {
-  c10Completions = 0,
-  realAscensionTime = 1
-}
-
-const autoAscensionResetTogglei18n: Record<AutoAscensionResetModes, () => string> = {
-  [AutoAscensionResetModes.c10Completions]: () => i18next.t('corruptions.autoAscend.modeCompletions'),
-  [AutoAscensionResetModes.realAscensionTime]: () => i18next.t('corruptions.autoAscend.modeRealTime')
-}
-
-const NUM_ASCENSION_RESET_MODES = 2
-
 export const setAutoAscendResetActiveText = () => {
   const a = DOMCacheGetOrSet('ascensionAutoEnable')
   a.style.border = `2px solid ${player.autoAscend ? 'green' : 'red'}`
@@ -849,18 +836,6 @@ export const setAutoAscendResetActiveText = () => {
 export const toggleAutoAscendResetActive = () => {
   player.autoAscend = !player.autoAscend
   setAutoAscendResetActiveText()
-}
-
-export const setAutoAscendResetModeText = () => {
-  DOMCacheGetOrSet('ascensionAutoToggle').textContent = autoAscensionResetTogglei18n[player.autoAscendMode]()
-}
-
-export const toggleAutoAscendResetMode = () => {
-  if (player.highestSingularityCount >= 25) {
-    const nextEnum = (player.autoAscendMode + 1) % NUM_ASCENSION_RESET_MODES
-    player.autoAscendMode = nextEnum
-    setAutoAscendResetModeText()
-  }
 }
 
 export const toggleautoopensCubes = (i: number) => {

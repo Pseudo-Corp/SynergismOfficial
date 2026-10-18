@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { getBuildingScalingFactor } from './Buy'
+import { getBuildingScalingThreshold } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   baseConstruction,
@@ -347,7 +347,7 @@ export const allCubeStats: NumberStatLineCategory = {
     {
       i18n: 'AscensionTime',
       stat: () => {
-        const ascensionCounter = player.ascensionCounter
+        const ascensionCounter = player.lastSuccessfulAscensionCounter
         const resetThreshold = G.ASCENSION_RESET_THRESHOLD
         const scale = getAchievementReward('ascensionRewardScaling')
 
@@ -3470,23 +3470,23 @@ const constructionScalingStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'CoinBuildings',
-      stat: () => getBuildingScalingFactor('coin'),
-      format: (stat) => `×${format(stat, 4, true)}`
+      stat: () => getBuildingScalingThreshold('coin'),
+      format: (stat) => format(stat, 0, true)
     },
     {
       i18n: 'CrystalBuildings',
-      stat: () => getBuildingScalingFactor('diamond'),
-      format: (stat) => `×${format(stat, 4, true)}`
+      stat: () => getBuildingScalingThreshold('diamond'),
+      format: (stat) => format(stat, 0, true)
     },
     {
       i18n: 'MythosBuildings',
-      stat: () => getBuildingScalingFactor('mythos'),
-      format: (stat) => `×${format(stat, 4, true)}`
+      stat: () => getBuildingScalingThreshold('mythos'),
+      format: (stat) => format(stat, 0, true)
     },
     {
       i18n: 'ParticleBuildings',
-      stat: () => getBuildingScalingFactor('particle'),
-      format: (stat) => `×${format(stat, 4, true)}`
+      stat: () => getBuildingScalingThreshold('particle'),
+      format: (stat) => format(stat, 0, true)
     }
   ]
 }

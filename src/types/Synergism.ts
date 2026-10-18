@@ -1,9 +1,9 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
+import type { AutoAscendRule } from '../AutoAscension'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
 import type { BuildingType } from '../Buy'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
-import type { CorruptionPreset } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type {
@@ -29,7 +29,7 @@ import type { SingularityChallenge, SingularityChallengeDataKeys } from '../Sing
 import type { SynthesisUpgrades } from '../Synthesis'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
-import type { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from '../Toggles'
+import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
@@ -367,6 +367,8 @@ export interface Player {
   ascensionCounter: number
   ascensionCounterReal: number
   ascensionCounterRealReal: number
+  lastSuccessfulAscensionCounter: number
+  lastSuccessfulAscensionCounterReal: number
   autoOpenCubes: boolean
   openCubes: number
   autoOpenTesseracts: boolean
@@ -436,19 +438,16 @@ export interface Player {
   }
   ascendShards: Decimal
   autoAscend: boolean
-  autoAscendMode: AutoAscensionResetModes
-  autoAscendThreshold: number
+  autoAscendRules: AutoAscendRule[]
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 
   corruptions: {
     next: number
     used: number
-    presets: CorruptionPreset[]
     tokenCompletions: number[]
     highestCleared: number
     autoIncrease: boolean
-    autoClimb: number
     cleanseToHighest: boolean
   }
 

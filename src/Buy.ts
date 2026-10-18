@@ -92,23 +92,18 @@ export const getBuildingCostKey = () =>
     player.challengecompletions[4]
   }|${player.currentChallenge.transcension}|${player.currentChallenge.reincarnation}|${player.currentChallenge.ascension}`
 
-const getScalingFactor = (base: number, threshold: number) => Math.min(1, base / threshold)
-
-const createQuadraticCostCurve = (cost: number, growth: number, threshold: number, factor: number): CostCurve => ({
+const createQuadraticCostCurve = (cost: number, growth: number, threshold: number): CostCurve => ({
   growth,
   log10Growth: Math.log10(growth),
-  scale: Decimal.fromNumber(cost / Math.expm1(factor * Math.log(growth))),
+  scale: Decimal.fromNumber(cost / (growth - 1)),
   exponentBetween: (from, to) => {
     const start = Math.max(from, threshold)
-    return factor
-      * (to - from + (start < to ? (Math.pow(to - threshold, 2) - Math.pow(start - threshold, 2)) / threshold : 0))
+    return to - from + (start < to ? (Math.pow(to - threshold, 2) - Math.pow(start - threshold, 2)) / threshold : 0)
   },
-  countForExponent: (exponent) => {
-    const baseExponent = exponent / factor
-    return baseExponent <= threshold
-      ? baseExponent
-      : (threshold + Math.sqrt(4 * threshold * baseExponent - 3 * Math.pow(threshold, 2))) / 2
-  }
+  countForExponent: (exponent) =>
+    exponent <= threshold
+      ? exponent
+      : (threshold + Math.sqrt(4 * threshold * exponent - 3 * Math.pow(threshold, 2))) / 2
 })
 
 const softcapExponentBetween = (slope: number, cap: number, from: number, to: number) =>
@@ -256,9 +251,6 @@ const createAcceleratorBoostCostCurve = (delay: number): CostCurve => {
 export const getBuildingScalingThreshold = (type: ScalingBuildingType) =>
   calculateBuildingConstruction(type) * buildingConstructionSoftcap[type]
 
-export const getBuildingScalingFactor = (type: ScalingBuildingType) =>
-  getScalingFactor(buildingConstructionSoftcap[type], getBuildingScalingThreshold(type))
-
 const getAccelMultScaling = (type: keyof typeof accelMultData) => {
   const data = accelMultData[type]
   const delay = 1 + data.c4effect * player.challengecompletions[4] / data.threshold
@@ -281,8 +273,7 @@ const getBuildingCostCurve = (type: ScalingBuildingType, index: ZeroToFour): Cos
   return createQuadraticCostCurve(
     producerData[type].costs[index],
     Math.pow(1.25, producerData[type].growth[index] * growthPower),
-    getBuildingScalingThreshold(type),
-    getBuildingScalingFactor(type)
+    getBuildingScalingThreshold(type)
   )
 }
 

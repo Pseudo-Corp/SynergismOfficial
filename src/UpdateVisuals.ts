@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
+import { updateAutoAscendStatus } from './AutoAscensionUI'
 import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { getAccelMultScalingThreshold, getBuildingCost, getBuildingScalingThreshold } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -176,7 +177,7 @@ import {
   calculateRuneEffectivenessTesseractBlessing,
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
-import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './Toggles'
+import { AutoAscensionModes, AutoResetModes } from './Toggles'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { updateMobileUpgradeDescription } from './Upgrades'
@@ -1688,17 +1689,8 @@ export const visualUpdateCorruptions = () => {
     return
   }
 
-  const autoAscendDOM = DOMCacheGetOrSet('autoAscend')
-  if (player.autoAscendMode === AutoAscensionResetModes.c10Completions) {
-    autoAscendDOM.innerHTML = i18next.t('corruptions.autoAscend.c10Completions', {
-      input: format(player.autoAscendThreshold),
-      completions: format(player.challengecompletions[10])
-    })
-  } else if (player.autoAscendMode === AutoAscensionResetModes.realAscensionTime) {
-    autoAscendDOM.innerHTML = i18next.t('corruptions.autoAscend.realTime', {
-      input: format(player.autoAscendThreshold),
-      time: format(player.ascensionCounterRealReal, 2, false, false)
-    })
+  if (getActiveSubTab() === 2) {
+    updateAutoAscendStatus()
   }
 
   if (getActiveSubTab() !== 0) {

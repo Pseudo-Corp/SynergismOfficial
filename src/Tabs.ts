@@ -15,7 +15,7 @@ import {
   toggleRuneScreen,
   toggleSingularityScreen
 } from './Toggles'
-import { CloseModal, createFitties, revealStuff, showCorruptionStatsLoadouts } from './UpdateHTML'
+import { CloseModal, createFitties, revealStuff, showCorruptionSubtab } from './UpdateHTML'
 import {
   visualUpdateAchievements,
   visualUpdateAnts,
@@ -300,7 +300,7 @@ const tabInfo: Record<Tabs, TabInfo> = {
   [Tabs.Corruption]: {
     panelID: 'traits',
     // Circular import... yay
-    tabSwitcher: (subTabID) => showCorruptionStatsLoadouts(subTabID),
+    tabSwitcher: (subTabID) => showCorruptionSubtab(subTabID),
     visualUpdater: () => visualUpdateCorruptions(),
     subtabIndex: 0,
     subTabList: [
@@ -315,9 +315,9 @@ const tabInfo: Record<Tabs, TabInfo> = {
         buttonID: 'corrTokensBtn'
       },
       {
-        subTabID: 'presets',
+        subTabID: 'autoAscend',
         unlocked: () => true,
-        buttonID: 'corrLoadoutsBtn'
+        buttonID: 'corrAutoAscendBtn'
       }
     ]
   },

@@ -349,6 +349,8 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         : calculateAscensionSpeedMult()
       player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
       player.ascensionCounterReal += time * timeMultiplier
+      player.lastSuccessfulAscensionCounter += time * timeMultiplier * ascensionSpeedMulti
+      player.lastSuccessfulAscensionCounterReal += time * timeMultiplier
       break
     }
     case 'singularity': {

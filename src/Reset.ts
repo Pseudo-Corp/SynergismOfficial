@@ -6,6 +6,8 @@ import {
   challengeAchievementCheck,
   getAchievementReward
 } from './Achievements'
+import { applyPendingAutoAscendProtocol, printRules } from './AutoAscension'
+import { renderAutoAscendRules } from './AutoAscensionUI'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget, grantCurveBuildings, syncCurveBuildings } from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -21,9 +23,7 @@ import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateMaxTokens, upd
 import { challengeRequirement, resetChallengeSweep } from './Challenges'
 import {
   activeCorruptionLevel,
-  autoClimbCorruptionLevel,
   clearCorruptionLevel,
-  corruptionPresetTableUpdate,
   corruptionStatsUpdate,
   isCorruptionLevelOverwritten,
   normalizeCorruptionLevel
@@ -269,9 +269,6 @@ export const updateAutoReset = (i: number) => {
   } else if (i === 3) {
     value = Number.parseFloat((DOMCacheGetOrSet('reincarnationamount') as HTMLInputElement).value) || 0
     player.reincarnationamount = Math.max(value, 0)
-  } else if (i === 4) {
-    value = Math.floor(Number.parseFloat((DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value)) || 1
-    player.autoAscendThreshold = Math.max(value, 1)
   } else if (i === 5) {
     value = Number.parseFloat((DOMCacheGetOrSet('autoAntSacrificeAmount') as HTMLInputElement).value) || 0
     toggleAutoAntSacrificeThreshold(Math.max(value, 0))
@@ -727,6 +724,10 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.ascensionCounter = 0
     player.ascensionCounterReal = 0
     player.ascensionCounterRealReal = 0
+    if (c10Completions > 0) {
+      player.lastSuccessfulAscensionCounter = 0
+      player.lastSuccessfulAscensionCounterReal = 0
+    }
 
     updateTalismanInventory()
 
@@ -757,10 +758,10 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       earnCampaignTokens(activeCorruptionLevel(), c10Completions)
       if (!isCorruptionLevelOverwritten()) {
         clearCorruptionLevel(player.corruptions.used)
-        autoClimbCorruptionLevel()
       }
     }
 
+    applyPendingAutoAscendProtocol()
     player.corruptions.used = normalizeCorruptionLevel(player.corruptions.next)
 
     corruptionStatsUpdate()
@@ -1160,9 +1161,8 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
-  hold.corruptions.presets = player.corruptions.presets.map((preset) => ({ ...preset }))
+  hold.autoAscendRules = printRules(player.autoAscendRules)
   hold.corruptions.autoIncrease = player.corruptions.autoIncrease
-  hold.corruptions.autoClimb = player.corruptions.autoClimb
   hold.corruptions.highestCleared = player.corruptions.highestCleared
   hold.corruptions.cleanseToHighest = player.corruptions.cleanseToHighest
   hold.toggles = player.toggles
@@ -1188,8 +1188,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.reincarnationamount = player.reincarnationamount
   hold.buyTalismanShardPercent = player.buyTalismanShardPercent
   hold.autoAscend = player.autoAscend
-  hold.autoAscendMode = player.autoAscendMode
-  hold.autoAscendThreshold = player.autoAscendThreshold
   hold.autoResearch = 0
   hold.autoTesseracts = player.autoTesseracts
   hold.tesseractAutoBuyerToggle = player.tesseractAutoBuyerToggle
@@ -1302,7 +1300,7 @@ export const singularity = (setSingNumber = -1) => {
   updateMaxTokens()
   campaignTokenRewardHTMLUpdate()
   corruptionStatsUpdate()
-  corruptionPresetTableUpdate()
+  renderAutoAscendRules()
 
   // Save again at the end of singularity reset
   saveSynergy()

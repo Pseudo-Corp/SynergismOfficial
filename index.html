@@ -32,6 +32,50 @@
         <div id="modalContent">
         </div>
     </div>
+    <section id="autoAscendRuleEditor" role="dialog" aria-modal="true" aria-labelledby="autoAscendRuleEditorTitle" tabindex="-1" hidden>
+        <div class="autoAscendEditorPanel scrollbar">
+            <div class="autoAscendEditorHeader">
+                <h3 id="autoAscendRuleEditorTitle"></h3>
+                <button id="autoAscendRuleEditorClose" class="autoAscendButton" type="button" i18n-aria-label="corruptions.autoAscend.rules.ui.cancel">×</button>
+            </div>
+            <label class="autoAscendNameField">
+                <span i18n="corruptions.autoAscend.rules.ui.nameLabel"></span>
+                <input id="autoAscendRuleName" class="autoAscendNumber" type="text" maxlength="16" autocomplete="off">
+            </label>
+            <section class="autoAscendStep">
+                <h4 i18n="corruptions.autoAscend.rules.ui.conditionHeading"></h4>
+                <div id="autoAscendConditionEditor"></div>
+            </section>
+            <section class="autoAscendStep">
+                <h4 i18n="corruptions.autoAscend.rules.ui.protocolHeading"></h4>
+                <p class="autoAscendHelp" i18n="corruptions.autoAscend.rules.ui.protocolHelp"></p>
+                <div id="autoAscendProtocolEditor"></div>
+            </section>
+            <section class="autoAscendStep">
+                <h4 i18n="corruptions.autoAscend.rules.ui.exceptionHeading"></h4>
+                <p class="autoAscendHelp" i18n="corruptions.autoAscend.rules.ui.exceptionHelp"></p>
+                <div id="autoAscendExceptionEditor"></div>
+            </section>
+            <section class="autoAscendStep autoAscendPreview" aria-live="polite">
+                <h4 i18n="corruptions.autoAscend.rules.ui.previewHeading"></h4>
+                <p id="autoAscendRulePreview"></p>
+                <label class="autoAscendRuleTextField">
+                    <span i18n="corruptions.autoAscend.rules.ui.ruleTextLabel"></span>
+                    <input id="autoAscendRuleText" type="text" maxlength="1024" spellcheck="false" autocomplete="off">
+                </label>
+                <div class="autoAscendButtonRow">
+                    <button id="autoAscendRuleCopy" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.copyRule"></button>
+                    <button id="autoAscendRulePaste" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.pasteRule"></button>
+                </div>
+                <p id="autoAscendRuleTextError" role="alert"></p>
+            </section>
+            <p id="autoAscendRuleError" role="alert"></p>
+            <div class="autoAscendEditorFooter">
+                <button id="autoAscendRuleCancel" type="button" i18n="corruptions.autoAscend.rules.ui.cancel"></button>
+                <button id="autoAscendRuleSave" type="button" i18n="corruptions.autoAscend.rules.ui.save"></button>
+            </div>
+        </div>
+    </section>
     <button id="mobileHotkeysOpen" type="button" aria-controls="mobileHotkeysOverlay" aria-expanded="false" i18n-aria-label="hotkeys.mobile.open">
         &#9000;
     </button>
@@ -2273,11 +2317,12 @@
         <div id="traits" class="tab">
             <div id="corruptionIntroduction" class="tightText" i18n="corruptions.intro"></div>
             <div id="corruptionInfo1" class="tightText" i18n="corruptions.traitInfo"></div>
-            <div id="corruptionStatsLoadouts" class="flex column">
+            <div id="corruptionLayout">
+            <div id="corruptionSubtabs" class="flex column">
                 <span id="corrButtonRow" class="flex row center">
                     <button id="corrStatsBtn" class="active-subtab" i18n="corruptions.corrStatsBtn"></button>
                     <button id="corrTokensBtn" i18n="corruptions.corrTokensBtn"></button>
-                    <button id="corrLoadoutsBtn" i18n="corruptions.corrLoadoutsBtn"></button>
+                    <button id="corrAutoAscendBtn" i18n="corruptions.corrAutoAscendBtn"></button>
                 </span>
                 <p id="corrClickInfo" i18n="corruptions.clickInfo"></p>
                 <div id="corruptionTierSelected">
@@ -2328,19 +2373,30 @@
                         </div>
                     </div>
                 </div>
-                <div id="corruptionLoadouts" style="display: none">
-                    <table id="corruptionLoadoutTable">
-                        <tr>
-                            <th class="corrLoadoutNameCol"></th>
-                            <th i18n="corruptions.loadoutTable.level"></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </table>
+                <div id="autoAscensions" style="display: none">
+                    <div id="autoAscendRules" class="corruptionControlGroup cubeUpgrade10">
+                        <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.rules.ui.heading"></p>
+                        <div id="ascensionAutomationButtons">
+                            <button id="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green"></button>
+                        </div>
+                        <p id="autoAscendRuleSlots" class="corrDesc"></p>
+                        <p id="autoAscendRulesEmpty" class="corrDesc" i18n="corruptions.autoAscend.rules.ui.empty"></p>
+                        <ol id="autoAscendRuleList"></ol>
+                        <button id="autoAscendAddRule" type="button" i18n="corruptions.autoAscend.rules.ui.addRule"></button>
+                        <div class="autoAscendButtonRow">
+                            <button id="autoAscendPaletteCopy" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.palette.copyButton"></button>
+                            <button id="autoAscendPaletteExportFile" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.palette.exportFileButton"></button>
+                            <button id="autoAscendPalettePaste" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.palette.pasteButton"></button>
+                            <button id="autoAscendPaletteImportFile" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.palette.importFileButton"></button>
+                            <input id="autoAscendPaletteFile" type="file" accept=".txt,text/plain" hidden>
+                        </div>
+                    </div>
                 </div>
                 <div id="corruptionAscensionControls">
                     <div class="corruptionControlGroup">
                         <p class="corrDesc corruptionTierHeading" i18n="corruptions.controls.climbing"></p>
+                        <p class="corrDesc corruptionRulesNote" i18n="corruptions.toggles.rulesFirst"></p>
+                        <p class="corrDesc corruptionRulesNote" i18n="corruptions.toggles.timerPreserved"></p>
                         <label class="corruptionToggle">
                             <input type="checkbox" id="corruptionAutoIncreaseToggle">
                             <span i18n="corruptions.toggles.autoIncrease"></span>
@@ -2355,20 +2411,25 @@
                             <button id="corruptionCleanseConfirm" i18n="corruptions.confirm"></button>
                         </div>
                     </div>
-                    <div id="ascensionAutomation" class="corruptionControlGroup cubeUpgrade10">
-                        <p class="corrDesc corruptionTierHeading" i18n="corruptions.controls.autoAscend"></p>
-                        <div id="ascensionAutomationButtons">
-                            <button id="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green"></button>
-                            <button id="ascensionAutoToggle" class="hCenter tight" style="border:2px solid orchid;"></button>
-                            <input id="ascensionAmount" class="ascendunlock hCenter tight" type="number" min="1" max="999999999" defaultValue="1">
-                        </div>
-                        <p id="autoAscend" class="ascendunlock tightText"></p>
-                        <label id="corruptionAutoClimb">
-                            <span i18n="corruptions.toggles.autoClimb"></span>
-                            <input id="corruptionAutoClimbInput" type="number" min="0" step="1">
-                        </label>
-                    </div>
                 </div>
+            </div>
+            <div id="autoAscendStatus" class="corruptionControlGroup cubeUpgrade10" style="display: none">
+                <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.status.heading"></p>
+                <dl id="autoAscendStatusList">
+                    <dt i18n="corruptions.autoAscend.status.corruption"></dt>
+                    <dd id="autoAscendStatusCorruption"></dd>
+                    <dt i18n="corruptions.autoAscend.status.c10"></dt>
+                    <dd id="autoAscendStatusC10"></dd>
+                    <dt i18n="corruptions.autoAscend.status.ascensionChallenge"></dt>
+                    <dd id="autoAscendStatusChallenge"></dd>
+                    <dt i18n="corruptions.autoAscend.status.timeInGame"></dt>
+                    <dd id="autoAscendStatusTime"></dd>
+                    <dt i18n="corruptions.autoAscend.status.timeReal"></dt>
+                    <dd id="autoAscendStatusTimeReal"></dd>
+                    <dt i18n="corruptions.autoAscend.status.timeSuccessful"></dt>
+                    <dd id="autoAscendStatusTimeSuccessful"></dd>
+                </dl>
+            </div>
             </div>
         </div>
 
@@ -2894,12 +2955,10 @@
                 <div class="hotkeys"></div>
                 <span style="color: lightblue;">Last enabled key: <span style="color: gold;" id="lastHotkey"></span> <span style="color: white;" id="lastHotkeyName"></span></span>
                 <span id="hotkeyTooltip" i18n="hotkeys.note2"></span>
-                <span class="chal11 grayText" i18n="hotkeys.note1"></span>
                 <div class="resetHotkeys">
                     <button id="resetHotkeys" style="border: 2px solid brown" i18n="hotkeys.reset"></button>
                     <button class="auto" id="toggle39" toggleid="39" format="Hotkeys: $" style="border:2px solid green">Hotkeys: ON</button>
                     <button class="auto" id="toggle40" toggleid="40" format="Number Hotkeys: $" style="border:2px solid green">Number Hotkeys: ON</button>
-                    <button class="auto" id="toggle41" toggleid="41" format="Loadouts Notify: $" style="border:2px solid green">Loadouts Notify: ON</button>
                 </div>
             </div>
             <div class="subtabContent subtabDisplayFlex" id="accountSubTab">

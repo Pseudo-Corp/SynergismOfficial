@@ -13,7 +13,6 @@ import {
   clearStateChangeTimer,
   getChallengeConditions,
   getMaxChallenges,
-  getNextAscensionChallenge,
   highestChallengeRewards,
   setChallengeFocus,
   tickChallengeSweep,
@@ -41,6 +40,8 @@ import {
   updateAllUngroupedAchievementProgress,
   updateProgressiveCache
 } from './Achievements'
+import { runAutoAscendRules } from './AutoAscension'
+import { autoAscendRulesUICreate, pulseAutoAscendRule, renderAutoAscendRules } from './AutoAscensionUI'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
@@ -73,15 +74,9 @@ import {
   clearCorruptionLevel,
   corruptionEffect,
   corruptionPanelCreate,
-  corruptionPresetTableCreate,
-  corruptionPresetTableUpdate,
   corruptionStatsUpdate,
-  createDefaultCorruptionPresets,
   isCorruptionLevelOverwritten,
-  isCorruptionPresetUnlocked,
-  loadCorruptionPreset,
-  normalizeCorruptionLevel,
-  resetNextCorruptions
+  normalizeCorruptionLevel
 } from './Corruptions'
 import { updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
@@ -100,7 +95,6 @@ import {
   updateResearchBG
 } from './Research'
 import {
-  applyChallengeInitialModifiers,
   reset,
   singularity,
   updateAutoCubesOpens,
@@ -133,13 +127,11 @@ import {
 import { calculatetax } from './Tax'
 import {
   AutoAscensionModes,
-  AutoAscensionResetModes,
   autoCubeUpgradesToggle,
   autoPlatonicUpgradesToggle,
   AutoResetModes,
   initializeMonospaceFont,
   setAutoAscendResetActiveText,
-  setAutoAscendResetModeText,
   setAutoResetModeTexts,
   settingMonospaceFont,
   toggleAscStatPerSecond,
@@ -157,7 +149,6 @@ import {
   Confirm,
   createFitties,
   htmlInserts,
-  Notification,
   revealStuff,
   updateChallengeDisplay
 } from './UpdateHTML'
@@ -477,7 +468,6 @@ export const player: Player = {
     38: false,
     39: true,
     40: true,
-    41: true,
     42: false,
     43: false
   },
@@ -785,6 +775,8 @@ export const player: Player = {
   ascensionCounter: 0,
   ascensionCounterReal: 0,
   ascensionCounterRealReal: 0,
+  lastSuccessfulAscensionCounter: 0,
+  lastSuccessfulAscensionCounterReal: 0,
   // dprint-ignore
   cubeUpgrades: [
     null,
@@ -974,8 +966,7 @@ export const player: Player = {
 
   ascendShards: new Decimal(),
   autoAscend: false,
-  autoAscendMode: AutoAscensionResetModes.c10Completions,
-  autoAscendThreshold: 1,
+  autoAscendRules: [],
   autoOpenCubes: false,
   openCubes: 0,
   autoOpenTesseracts: false,
@@ -998,11 +989,9 @@ export const player: Player = {
   corruptions: {
     next: 0,
     used: 0,
-    presets: createDefaultCorruptionPresets(),
     tokenCompletions: Array.from({ length: 46 }, () => 0),
     highestCleared: 0,
     autoIncrease: false,
-    autoClimb: 0,
     cleanseToHighest: false
   },
 
@@ -1556,8 +1545,6 @@ const loadSynergy = (saveString: string): boolean => {
     corruptionStatsUpdate()
     updateBlueberryLoadoutCount() // Monetization update also added more Blueberry loadout slots
 
-    corruptionPresetTableUpdate()
-
     // For blueberry upgrades!
     displayProperLoadoutCount()
 
@@ -1657,16 +1644,6 @@ const loadSynergy = (saveString: string): boolean => {
         player.reincarnationamount || blankSave.reincarnationamount
       }`.replace(omit, 'e')
       updateAutoReset(3)
-    }
-    inputd = player.autoAscendThreshold
-    inpute = Number(
-      (DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value
-    )
-    if (inpute !== inputd || isNaN(inpute + inputd)) {
-      ;(DOMCacheGetOrSet('ascensionAmount') as HTMLInputElement).value = `${
-        player.autoAscendThreshold || blankSave.autoAscendThreshold
-      }`.replace(omit, 'e')
-      updateAutoReset(4)
     }
     inputd = player.ants.toggles.autoSacrificeThreshold
     inpute = Number(
@@ -1959,7 +1936,6 @@ const loadSynergy = (saveString: string): boolean => {
     loadSynergyAntHTMLUpdates()
 
     setAutoAscendResetActiveText()
-    setAutoAscendResetModeText()
 
     DOMCacheGetOrSet('historyTogglePerSecondButton').textContent = player.historyShowPerSecond
       ? i18next.t('history.perSecondOn')
@@ -3477,6 +3453,7 @@ export const resetCheck = async (
     }
 
     if (!player.retrychallenges || manual || leaving) {
+      // With Auto Ascend on, stay in the Ascension Challenge so Auto Ascension Rules decide whether to leave it.
       if (
         !(
           !manual
@@ -3908,46 +3885,9 @@ export const updateAll = (): void => {
     && player.cubeUpgrades[10] > 0
     && player.currentChallenge.reincarnation !== 10
   ) {
-    let ascension = false
-    if (
-      player.autoAscendMode === AutoAscensionResetModes.c10Completions
-      && player.challengecompletions[10] >= Math.max(1, player.autoAscendThreshold)
-    ) {
-      ascension = true
-    }
-    if (
-      player.autoAscendMode === AutoAscensionResetModes.realAscensionTime
-      && player.ascensionCounterRealReal
-        >= Math.max(0.1, player.autoAscendThreshold)
-    ) {
-      ascension = true
-    }
-    if (ascension && player.challengecompletions[10] > 0) {
-      // Auto Ascension and Auto Challenge Sweep enables rotation of the Ascension Challenge
-      if (
-        autoAscensionChallengeSweepUnlock()
-        && player.currentChallenge.ascension !== 0
-        && player.retrychallenges
-        && player.researches[150] === 1
-        && player.autoChallengeRunning
-      ) {
-        let nextChallenge = getNextAscensionChallenge(player.currentChallenge.ascension)
-        if (
-          player.currentChallenge.ascension !== nextChallenge
-        ) {
-          void resetCheck('ascensionChallenge', false, true)
-          reset('ascensionChallenge', false)
-          applyChallengeInitialModifiers('ascensionChallenge', nextChallenge)
-          player.currentChallenge.ascension = nextChallenge
-        }
-      } else {
-        if (player.currentChallenge.ascension !== 0) {
-          void resetCheck('ascensionChallenge', false, true)
-          reset('ascensionChallenge', false)
-        } else {
-          reset('ascension', false)
-        }
-      }
+    const firedRule = runAutoAscendRules()
+    if (firedRule !== -1) {
+      pulseAutoAscendRule(firedRule)
     }
   }
 
@@ -4310,30 +4250,6 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
   }
 
   if (event.shiftKey) {
-    let num = Number(key) - 1
-    if (key === 'BACKQUOTE') {
-      num = -1
-    }
-    if (player.challengecompletions[11] > 0 && !isNaN(num)) {
-      if (isCorruptionPresetUnlocked(num)) {
-        if (player.toggles[41]) {
-          void Notification(
-            i18next.t('main.corruptionLoadoutApplied', {
-              x: num + 1,
-              y: player.corruptions.presets[num].name
-            }),
-            5000
-          )
-        }
-        loadCorruptionPreset(num)
-      } else {
-        if (player.toggles[41]) {
-          void Notification(i18next.t('main.allCorruptionsZero'), 5000)
-        }
-        resetNextCorruptions()
-      }
-      event.preventDefault()
-    }
     return
   }
 
@@ -4542,7 +4458,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   player.corruptions.used = normalizeCorruptionLevel(player.corruptions.used)
   player.corruptions.next = normalizeCorruptionLevel(player.corruptions.next)
   corruptionStatsUpdate()
-  corruptionPresetTableUpdate()
+  renderAutoAscendRules()
 
   updateTokens()
   updateMaxTokens()
@@ -4745,7 +4661,7 @@ window.addEventListener('load', async () => {
   initializeSynthesis()
   generateEventHandlers()
   corruptionPanelCreate()
-  corruptionPresetTableCreate()
+  autoAscendRulesUICreate()
   createCampaignTokenRewardEventHandlers()
   generateAchievementHTMLs()
   generateLevelRewardHTMLs()

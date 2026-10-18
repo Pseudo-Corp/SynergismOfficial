@@ -1552,7 +1552,7 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.ascensionCount >= 14142,
     group: 'ascensionCount',
     reward: {
-      ascensionCountAdditive: () => (player.ascensionCounter > 10) ? 100 : 0
+      ascensionCountAdditive: () => (player.lastSuccessfulAscensionCounter > 10) ? 100 : 0
     }
   },
   {
@@ -1560,7 +1560,8 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.ascensionCount >= 141421,
     group: 'ascensionCount',
     reward: {
-      ascensionCountAdditive: () => (player.ascensionCounter > 10) ? player.ascensionCounterReal * 2 : 0,
+      ascensionCountAdditive: () =>
+        (player.lastSuccessfulAscensionCounter > 10) ? player.lastSuccessfulAscensionCounterReal * 2 : 0,
       wowCubeGain: () => 1 + 2 * Math.min(1, player.ascensionCount / 5e8)
     }
   },
@@ -1620,7 +1621,7 @@ const achievements: Achievement[] = [
     pointValue: 60,
     unlockCondition: () => player.challengecompletions[11] >= 20,
     group: 'challenge11',
-    reward: { ascensionCountAdditive: () => player.ascensionCounter * 2 }
+    reward: { ascensionCountAdditive: () => player.lastSuccessfulAscensionCounter * 2 }
   },
   {
     pointValue: 70,
@@ -1659,7 +1660,7 @@ const achievements: Achievement[] = [
     pointValue: 60,
     unlockCondition: () => player.challengecompletions[12] >= 20,
     group: 'challenge12',
-    reward: { ascensionCountAdditive: () => player.ascensionCounter * 2 }
+    reward: { ascensionCountAdditive: () => player.lastSuccessfulAscensionCounter * 2 }
   },
   {
     pointValue: 70,
@@ -1697,7 +1698,7 @@ const achievements: Achievement[] = [
     pointValue: 60,
     unlockCondition: () => player.challengecompletions[13] >= 20,
     group: 'challenge13',
-    reward: { ascensionCountAdditive: () => player.ascensionCounter * 2 }
+    reward: { ascensionCountAdditive: () => player.lastSuccessfulAscensionCounter * 2 }
   },
   {
     pointValue: 70,
@@ -1736,7 +1737,7 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.challengecompletions[14] >= 20,
     group: 'challenge14',
     reward: {
-      ascensionCountAdditive: () => player.ascensionCounter * 2,
+      ascensionCountAdditive: () => player.lastSuccessfulAscensionCounter * 2,
       wowPlatonicGain: () => 1 + 2 * Math.min(1, player.ascensionCount / 2.674e9)
     }
   },
@@ -2639,7 +2640,7 @@ const achievements: Achievement[] = [
     group: 'reincarnationCount',
     reward: {
       prestigeCountMultiplier: () => Math.min(4, 1.25 + 2.75 * player.prestigecounter / 1e6),
-      ascensionCountMultiplier: () => Math.min(1.25, 1 + 0.25 * player.ascensionCounter / 1e6)
+      ascensionCountMultiplier: () => Math.min(1.25, 1 + 0.25 * player.lastSuccessfulAscensionCounter / 1e6)
     }
   },
   {

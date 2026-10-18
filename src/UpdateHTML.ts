@@ -568,7 +568,6 @@ export const revealStuff = () => {
     toggle38: player.highestSingularityCount > 0, // Researchs Hover to Buy
     toggle39: player.unlocks.prestige, // Hotkeys
     toggle40: player.unlocks.prestige, // Number Hotkeys
-    toggle41: player.challengecompletions[11] > 0, // Loadouts Notifx
     toggle42: player.highestSingularityCount >= 6, // Potion Autogenerator for Offering Potions
     toggle43: player.highestSingularityCount >= 6 // Potion Autogenerator for Obtainium Potions
   }
@@ -1008,19 +1007,20 @@ export const updateChallengeLevel = (k: number) => {
 const corruptionSubtabPanels = {
   stats: 'corruptionStats',
   tokens: 'corruptionTokens',
-  presets: 'corruptionLoadouts'
+  autoAscend: 'autoAscensions'
 } as const
 
-export const showCorruptionStatsLoadouts = (subTabID: string) => {
+export const showCorruptionSubtab = (subTabID: string) => {
   for (const [id, panel] of Object.entries(corruptionSubtabPanels)) {
     DOMCacheGetOrSet(panel).style.display = id === subTabID ? 'flex' : 'none'
   }
   DOMCacheGetOrSet('corrClickInfo').style.display = subTabID === 'stats' ? 'block' : 'none'
-  DOMCacheGetOrSet('corruptionTierSelected').style.display = subTabID === 'presets' ? 'none' : 'flex'
+  DOMCacheGetOrSet('autoAscendStatus').style.display = subTabID === 'autoAscend' ? '' : 'none'
+  DOMCacheGetOrSet('corruptionTierSelected').style.display = subTabID === 'autoAscend' ? 'none' : 'flex'
 }
 
 const updateAscensionStats = () => {
-  let t = player.ascensionCounter
+  let t = player.lastSuccessfulAscensionCounter
   // Division by 0 is not defined
   if (t === 0) {
     t = 1

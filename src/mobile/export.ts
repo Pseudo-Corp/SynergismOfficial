@@ -10,6 +10,8 @@ const safeFileName = (fileName: string) => {
   return sanitized && sanitized !== '.' && sanitized !== '..' ? sanitized : 'Synergism-save.txt'
 }
 
+export const readMobileClipboard = async () => (await Clipboard.read()).value
+
 export const exportMobileData = async (text: string, fileName: string, toClipboard: boolean) => {
   if (toClipboard) {
     await Clipboard.write({ string: text })

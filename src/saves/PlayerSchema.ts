@@ -1,6 +1,7 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
+import { parseSavedRules } from '../AutoAscension'
 import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { transcensionChallengeCap } from '../Challenges'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
@@ -248,11 +249,6 @@ const newHepteractCraftSchema = z.object({
 
 const corruptionLevelSchema = z.number().int().min(0)
 
-const corruptionPresetSchema = z.object({
-  name: z.string(),
-  level: corruptionLevelSchema
-})
-
 const talismanFragmentSchema = z.object({
   shard: decimalSchema.default(() => new Decimal()),
   commonFragment: decimalSchema.default(() => new Decimal()),
@@ -319,18 +315,11 @@ const synthesisUpgradesSchema = z.object({
 const playerCorruptionSchema = z.object({
   used: corruptionLevelSchema.catch(() => blankSave.corruptions.used),
   next: corruptionLevelSchema.catch(() => blankSave.corruptions.next),
-  presets: z.unknown().array().catch(() => []).transform((presets) =>
-    blankSave.corruptions.presets.map((preset, index) => {
-      const parsed = corruptionPresetSchema.safeParse(presets[index])
-      return parsed.success ? parsed.data : { ...preset }
-    })
-  ),
   tokenCompletions: z.number().int().min(0).catch(0).array().catch(() => []).transform((completions) =>
     blankSave.corruptions.tokenCompletions.map((_, level) => completions[level] ?? 0)
   ),
   highestCleared: z.number().int().min(0).optional().catch(undefined),
   autoIncrease: z.boolean().catch(() => blankSave.corruptions.autoIncrease),
-  autoClimb: z.number().int().min(0).catch(() => blankSave.corruptions.autoClimb),
   cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest)
 }).transform(({ highestCleared, ...corruptions }) => ({
   ...corruptions,
@@ -857,6 +846,8 @@ export const playerSchema = z.object({
   ascensionCounter: z.number().default(() => blankSave.ascensionCounter),
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
+  lastSuccessfulAscensionCounter: z.number().optional(),
+  lastSuccessfulAscensionCounterReal: z.number().optional(),
   cubeUpgrades: arrayStartingWithNull(z.number())
     .transform((array) => arrayExtend(array, 'cubeUpgrades'))
     .default((): [null, ...number[]] => [...blankSave.cubeUpgrades]),
@@ -928,15 +919,7 @@ export const playerSchema = z.object({
 
   ascendShards: decimalSchema.default(() => deepClone()(blankSave.ascendShards)),
   autoAscend: z.boolean().default(() => blankSave.autoAscend),
-  autoAscendMode: z.union([
-    z.string().transform((str) => {
-      if (str === 'c10Completions') return 0
-      else if (str === 'realAscensionTime') return 1
-      else return 0
-    }),
-    z.number()
-  ]).default(() => blankSave.autoAscendMode),
-  autoAscendThreshold: z.number().default(() => blankSave.autoAscendThreshold),
+  autoAscendRules: z.string().transform((text) => parseSavedRules(text)).default(() => []).catch(() => []),
   autoOpenCubes: z.boolean().default(() => blankSave.autoOpenCubes),
   openCubes: z.number().default(() => blankSave.openCubes),
   autoOpenTesseracts: z.boolean().default(() => blankSave.autoOpenTesseracts),

@@ -600,9 +600,9 @@ const challenge8ConstructionDivisor = 5
 const ascensionChallenge15ParticleConstruction = 1
 export const buildingConstructionSoftcap = {
   coin: 1000,
-  diamond: 2000,
-  mythos: 4000,
-  particle: 10000
+  diamond: 1000,
+  mythos: 1000,
+  particle: 1000
 } as const
 
 export const calculateConstruction = () => calculateTotalStat(constructionStats)

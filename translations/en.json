@@ -3500,7 +3500,6 @@
     "autoRunChalOff": "Automatically Run Chal.{{x}} [OFF]",
     "modeStart": "MODE: START",
     "modeExit": "MODE: EXIT",
-    "modeWait": "MODE: WAIT",
     "modeOff": "MODE: OFF",
     "modeEnter": "MODE: ENTER",
     "modeChallenge": "MODE: CHALLENGE",
@@ -5874,56 +5873,176 @@
         "octeracts": "Octeracts"
       }
     },
-    "loadoutTable": {
-      "next": "Next:",
-      "level": "Level",
-      "otherRowTitle": "Click to rename. Hotkey: SHIFT+{{ value }}",
-      "zero": "Zero",
-      "zeroTitle": "Reset Corruption to level 0 on your next Ascension.",
-      "save": "Save",
-      "saveTitle": "Save the next Ascension's level to this preset",
-      "load": "Load"
-    },
-    "corruptionLoadoutName": {
-      "loadoutPrompt": "What would you like to name Preset {{ loadNum }}? Names cannot be longer than {{ maxChars }} characters. Nothing crazy!",
-      "errors": {
-        "noName": "Okay, maybe next time.",
-        "exceedsCharacterLimit": "The name you provided is too long! Try again.",
-        "regexError": "The Preset Renamer didn't like a character in your name! Try something else.",
-        "crazyJoke": "Ant God approves of your joke!"
-      }
-    },
     "corrStatsBtn": "Corruption Stats",
     "corrTokensBtn": "Corruption Tokens",
-    "corrLoadoutsBtn": "Corruption Presets",
+    "corrAutoAscendBtn": "Auto Ascensions",
     "clickInfo": "<<var(--orchid-text-color)|Hover over or tap the icons to view Corruption info!>>",
     "cleanse": "Cleanse",
     "confirm": "Confirm",
     "resetProgress": {
       "button": "Reset Corruption Progress [TESTING ONLY]",
-      "confirm": "Reset your Corruption progress? Your current and next level, highest cleared level and all Corruption Tokens earned from levels go back to 0. Presets are kept.",
+      "confirm": "Reset your Corruption progress? Your current and next level, highest cleared level and all Corruption Tokens earned from levels go back to 0. Auto Ascension rules are kept.",
       "done": "Corruption progress has been reset."
     },
     "intro": "The most rewarding ventures are those few would dare to embark.",
     "traitInfo": "Select the Corruption level you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
     "cubeBank": "<<goldenrod|{{value}}>>",
     "autoAscend": {
-      "c10Completions": "Ascend when you've completed Sadistic Challenge I a total of <<var(--violet-text-color)|{{input}}>> times, Currently <<gold|{{completions}}>>",
-      "realTime": "Ascend when the timer is at least <<var(--violet-text-color)|{{input}}>> seconds (Real-time), Currently <<gold|{{time}}>>",
       "on": "Auto Ascend [ON]",
       "off": "Auto Ascend [OFF]",
-      "modeCompletions": "Mode: C10 Completions",
-      "modeRealTime": "Mode: Real time"
+      "status": {
+        "heading": "Status",
+        "corruption": "Corruption Level",
+        "c10": "Challenge 10 Completions",
+        "ascensionChallenge": "Ascension Challenge",
+        "none": "None",
+        "timeInGame": "Ascension Timer",
+        "timeReal": "Real Ascension Timer",
+        "timeSuccessful": "Since last C10 Ascension"
+      },
+      "rules": {
+        "ui": {
+          "heading": "Auto Ascension Rules",
+          "slots": "{{count}} / {{max}} rules",
+          "empty": "You have no rules yet. Rules are checked from top to bottom, and the first rule that applies decides your next Ascension.",
+          "addRule": "Add Rule!",
+          "newTitle": "New Auto Ascension Rule",
+          "editTitle": "Edit Rule {{number}}",
+          "nameLabel": "Name (optional, up to 16 characters)",
+          "namePlaceholder": "Rule {{number}}",
+          "conditionHeading": "1. When should you Ascend?",
+          "protocolHeading": "2. What happens on Ascension?",
+          "protocolHelp": "Unless you enter an Ascension Challenge, this rule takes you out of the one you are in.",
+          "exceptionHeading": "3. Exception (optional)",
+          "exceptionHelp": "If the exception is true, this rule does not run even when its condition is met. Leave it empty for no exception.",
+          "previewHeading": "Preview",
+          "ruleTextLabel": "Rule text (paste a rule here to load it)",
+          "copyRule": "Copy Rule",
+          "pasteRule": "Paste Rule",
+          "ruleCopied": "Rule copied to clipboard.",
+          "palette": {
+            "copyButton": "Copy Rules",
+            "exportFileButton": "Export to File",
+            "pasteButton": "Paste Rules",
+            "importFileButton": "Import from File",
+            "confirm": "Importing replaces your first {{count}} rules with the imported ones. Continue?",
+            "imported": "Imported {{count}} rules into slots 1 to {{count}}.",
+            "importedAbridged": "Imported {{count}} rules into slots 1 to {{count}}. The last {{dropped}} did not fit in your {{slots}} rule slots and were left out.",
+            "empty": "There are no rules to import.",
+            "nothingToExport": "You have no rules to export.",
+            "copied": "Rules copied to clipboard.",
+            "exportedFile": "Rules exported to a file.",
+            "copyFailed": "Could not copy your rules to the clipboard.",
+            "exportFileFailed": "Could not export your rules to a file.",
+            "pasteFailed": "Could not read the clipboard. Try importing from a file instead."
+          },
+          "previewIncomplete": "Add at least one comparison and choose a protocol to finish this rule.",
+          "comparisonCount": "{{count}} / {{max}} comparisons",
+          "addComparison": "+ Comparison",
+          "addGroup": "+ Group",
+          "removeGroup": "Remove group",
+          "remove": "Remove",
+          "group": {
+            "and": "ALL of these are true",
+            "or": "ANY of these is true"
+          },
+          "is": "is true",
+          "isNot": "is false",
+          "not": "NOT",
+          "and": "AND",
+          "or": "OR",
+          "when": "When",
+          "unless": "unless",
+          "variables": {
+            "c10": "Challenge 10 Completions",
+            "t": "Ascension Time, In-game (seconds)",
+            "rt": "Ascension Time, Real (seconds)",
+            "tc": "Current Transcension Challenge",
+            "rc": "Current Reincarnation Challenge",
+            "ac": "Current Ascension Challenge",
+            "ch": "In any Challenge",
+            "tch": "In a Transcension Challenge",
+            "rch": "In a Reincarnation Challenge",
+            "ach": "In an Ascension Challenge",
+            "m10": "Challenge 10 Completions maxed",
+            "m11": "Challenge 11 Completions maxed",
+            "m12": "Challenge 12 Completions maxed",
+            "m13": "Challenge 13 Completions maxed",
+            "m14": "Challenge 14 Completions maxed",
+            "elo": "Reborn ELO is saturated",
+            "x": "In any EXALT",
+            "exalt": "In EXALT"
+          },
+          "protocols": {
+            "choose": "Choose what to do...",
+            "ascend": "Ascend (keep Corruption level)",
+            "ascensionChallenge": "Enter Ascension Challenge",
+            "nextAscensionChallenge": "Enter next unfinished Ascension Challenge (11 to 15)",
+            "corruption": "Set Corruption level to",
+            "corruptionUnlocked": "Set Corruption level to highest unlocked",
+            "corruptionCleared": "Set Corruption level to highest cleared",
+            "corruptionClimb": "Climb Corruption level by",
+            "corruptionDowngrade": "Downgrade Corruption level by",
+            "corruptionCleanse": "Cleanse Corruption (set to level 0)"
+          },
+          "modifiersHelp": "Optional: after Ascending, also change these settings.",
+          "modifiers": {
+            "antSacrifice": "Auto Ant Sacrifice",
+            "challengeSweep": "Challenge Sweep"
+          },
+          "modifierStates": {
+            "keep": "No change",
+            "enable": "Enable",
+            "disable": "Disable"
+          },
+          "save": "Save Rule",
+          "cancel": "Cancel",
+          "edit": "Edit",
+          "delete": "Delete",
+          "moveUp": "Move rule up",
+          "moveDown": "Move rule down",
+          "errors": {
+            "invalidNumber": "Fix the highlighted numbers first. They must be 0 or higher, Corruption levels must be whole numbers, and climbs or downgrades must be at least 1.",
+            "emptyCondition": "Add at least one comparison to the condition.",
+            "noProtocol": "Choose what happens on Ascension.",
+            "noSlots": "All of your rule slots are in use.",
+            "nameTooLong": "Rule names can be at most 16 characters long.",
+            "incompleteRule": "Finish the rule before copying it.",
+            "copyFailed": "Could not copy the rule to the clipboard.",
+            "pasteFailed": "Could not read the clipboard. Paste into the rule text box instead."
+          }
+        },
+        "errors": {
+          "unexpectedToken": "Line {{line}}, column {{column}}: Unexpected or missing symbol.",
+          "unknownRule": "Line {{line}}, column {{column}}: Unknown rule ID.",
+          "unknownExalt": "Line {{line}}, column {{column}}: Unknown EXALT ID.",
+          "expectedComparator": "Line {{line}}, column {{column}}: Expected a comparison (>=, >, <=, <, =, !=).",
+          "expectedEquality": "Line {{line}}, column {{column}}: Current Challenge comparisons must use = or !=.",
+          "invalidChallenge": "Line {{line}}, column {{column}}: Invalid Challenge. Use 1 to 5 for tc, 6 to 10 for rc and 11 to 15 for ac.",
+          "expectedNumber": "Line {{line}}, column {{column}}: Expected a number.",
+          "unclosedParen": "Line {{line}}, column {{column}}: Missing closing parenthesis.",
+          "expectedProtocol": "Line {{line}}, column {{column}}: Expected an exception after '~' or a protocol after ':' (asc, c=11 to c=15, c=next, l=<level>, l+<amount>, l-<amount>, l=max, l=clr or l=cln).",
+          "unknownProtocol": "Line {{line}}, column {{column}}: Unknown protocol. Use asc, c=<challenge>, c=next, l=<level>, l+<amount> or l-<amount>.",
+          "invalidProtocolValue": "Line {{line}}, column {{column}}: Invalid protocol value. Challenges must be 11 to 15 or next, levels a whole number, max, clr or cln, and climbs or downgrades a whole number of at least 1.",
+          "invalidName": "Line {{line}}, column {{column}}: The rule name is not a valid quoted name.",
+          "nameTooLong": "Line {{line}}, column {{column}}: Rule names can be at most 16 characters long.",
+          "unknownModifier": "Line {{line}}, column {{column}}: Unknown modifier. Use as (Auto Ant Sacrifice) or cs (Challenge Sweep).",
+          "invalidModifierValue": "Line {{line}}, column {{column}}: Modifiers must be set to 1 (enable) or 0 (disable).",
+          "duplicateModifier": "Line {{line}}, column {{column}}: This modifier is already set for this rule.",
+          "tooManyComparisons": "Line {{line}}, column {{column}}: A condition or exception can have at most 16 comparisons.",
+          "ruleTooLong": "Line {{line}}: Rule is too long."
+        }
+      }
     },
     "loadoutApplied": "The level from that run has been applied. This will take effect on the next Ascension.",
     "toggles": {
       "autoIncrease": "Move up to each newly unlocked level automatically",
       "cleanseToHighest": "Cleanse to your highest cleared level instead of level 0",
-      "autoClimb": "Levels to climb after each Ascension with a Challenge 10 completion (0 = off):"
+      "rulesFirst": "Auto Ascension Rules apply before these toggles",
+      "timerPreserved": "Ascending without a Challenge 10 completion preserves your Ascension Timer, but only for the purpose of rewards"
     },
     "controls": {
-      "climbing": "Climbing",
-      "autoAscend": "Auto Ascend"
+      "climbing": "Climbing"
     }
   },
   "footnotes": {
@@ -7994,7 +8113,7 @@
       "ParticleBuildings": "Particle Buildings:"
     },
     "constructionScaling": {
-      "title": "Price Exponent Multiplier by Building",
+      "title": "Building Softcap by Building",
       "CoinBuildings": "Coin Buildings:",
       "CrystalBuildings": "Crystal Buildings:",
       "MythosBuildings": "Mythos Buildings:",
@@ -8674,8 +8793,6 @@
   },
   "main": {
     "transferredFromLZ": "Transferred save to new format successfully!",
-    "allCorruptionsZero": "Corruption has been set to level 0. This will take effect on the next Ascension.",
-    "corruptionLoadoutApplied": "Corruption Preset {{x}} \"{{y}}\" has been applied. This will take effect on the next Ascension.",
     "ascendPrompt": "Ascending will reset your Buildings, (some) Runes and Talismans, Upgrades, most Researches, Anthill Count, Immortal ELO, and your Transcension/Reincarnation Challenges, in exchange for industrial Wow! Cubes. Shop Upgrades are preserved. Continue?",
     "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
     "transcendPrompt": "Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]",
@@ -8955,7 +9072,6 @@
     }
   },
   "hotkeys": {
-    "note1": "SHIFT + 1 to SHIFT + 9 load Corruption Presets 1 to 9. SHIFT + 0, SHIFT + BACKQUOTE and locked presets reset the next Ascension to Corruption level 0. You can't change these!",
     "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
     "reset": "Reset Hotkeys",
     "mobile": {

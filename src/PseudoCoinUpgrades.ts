@@ -1,5 +1,5 @@
+import { renderAutoAscendRules } from './AutoAscensionUI'
 import { displayProperLoadoutCount } from './BlueberryUpgrades'
-import { corruptionPresetTableCreate } from './Corruptions'
 import { CartTab } from './purchases/CartTab'
 
 export type PseudoCoinUpgradeNames =
@@ -118,7 +118,7 @@ const updatePCoinEffects = (name: PseudoCoinUpgradeNames, level: number) => {
       break
     case 'CORRUPTION_LOADOUT_SLOT_QOL':
       PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL = level
-      corruptionPresetTableCreate()
+      renderAutoAscendRules()
       break
     case 'AMBROSIA_LOADOUT_SLOT_QOL':
       PCoinUpgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL = level
