@@ -298,6 +298,8 @@ const purpleGemInscriptValues = [0, 1, 2, 3, 4, 5, 6, 10, 20, 30, 40]
 const cookieGrandmaInscriptValues = [0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36, 0.4]
 const horseShoeInscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.007, 0.01, 0.012, 0.015, 0.02]
 
+const achievementSignatureNegativeSalvage = (n: number) => n >= 6 ? -0.02 : 0
+
 export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   exemption: {
     level: 0,
@@ -659,10 +661,9 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 10),
     levelCapIncrease: () => getLevelMilestone('achievementTalismanEnhancement'),
     effects: (n) => {
-      const signatureValue = (n >= 6) ? -0.02 : 0
       return {
         positiveSalvageMult: achievementEffectInscriptValues[n] ?? 1,
-        negativeSalvageMult: signatureValue
+        negativeSalvageMult: achievementSignatureNegativeSalvage(n)
       }
     },
     inscriptionDesc: (n) => {
@@ -671,9 +672,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     signatureDesc: (n) => {
-      const negativeSalvageMult = (n >= 6) ? 0.98 : 1
       return i18next.t('runes.talismans.achievement.signature', {
-        val: formatAsPercentIncrease(negativeSalvageMult, 0)
+        val: format(-100 * achievementSignatureNegativeSalvage(n), 0, true)
       })
     },
     talismanBaseCoefficient: {

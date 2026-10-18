@@ -323,7 +323,6 @@
                 <img class="resetbtn headerModule" id="prestigebtn" i18n-aria-label="reset.buttonLabels.prestige" src="Pictures/Default/Prestige.png" loading="lazy">
                 <img class="resetbtn headerModule" id="transcendbtn" i18n-aria-label="reset.buttonLabels.transcension" src="Pictures/Default/Transcend.png" loading="lazy">
                 <img class="resetbtn headerModule" id="reincarnatebtn" i18n-aria-label="reset.buttonLabels.reincarnation" src="Pictures/Default/Reincarnate.png" loading="lazy">
-                <img class="resetbtn headerModule" id="acceleratorboostbtn" i18n-aria-label="reset.buttonLabels.acceleratorBoost" src="Pictures/Default/AcceleratorBoostShortcut.png" loading="lazy">
                 <img class="resetbtn headerModule" id="challengebtn" i18n-aria-label="reset.buttonLabels.transcensionChallenge" src="Pictures/Default/Challenge.png" loading="lazy">
                 <img class="resetbtn headerModule" id="reincarnatechallengebtn" i18n-aria-label="reset.buttonLabels.reincarnationChallenge" src="Pictures/Default/ChallengeReincarnation.png" loading="lazy">
                 <img class="resetbtn headerModule" id="ascendChallengeBtn" i18n-aria-label="reset.buttonLabels.ascensionChallenge" src="Pictures/Default/ChallengeAscension.png" loading="lazy">
@@ -2293,6 +2292,7 @@
                     <p id="corruptionHighestCleared" class="corrDesc"></p>
                     <p id="corruptionLevelCap" class="corrDesc"></p>
                     <p id="corruptionTierLevel" class="corrDesc"></p>
+                    <p id="corruptionLevelOverwritten" class="corrDesc"></p>
                 </div>
                 <div id="corruptionStats" class="corruptionContainer">
                     <div id="corruptionTierGrid">
@@ -2618,6 +2618,11 @@
                         <div id="salvageStatsNegativeTitle" class="statPortion" style="font-size: 1.2em; color: red" i18n="statistics.salvageNegative.title"></div>
                     </div>
                     <p id="statSalvageSep2" class="statPortion">&nbsp;</p>
+                    <div id="salvageTotal"></div>
+                    <p id="statSalvageSep3" class="statPortion">&nbsp;</p>
+                    <div id="salvageFirstFive">
+                        <div id="salvageStatsFirstFiveTitle" class="statPortion" style="font-size: 1.2em; color: orange" i18n="statistics.salvageFirstFive.title"></div>
+                    </div>
                 </div>
 
                 <div id="constructionStats" class="statContainer" style="display: none;" aria-live="polite">

@@ -6,13 +6,7 @@ import {
   challengeAchievementCheck,
   getAchievementReward
 } from './Achievements'
-import {
-  buyTesseractBuilding,
-  calculateTessBuildingsInBudget,
-  getBuildingCost,
-  grantCurveBuildings,
-  syncCurveBuildings
-} from './Buy'
+import { buyTesseractBuilding, calculateTessBuildingsInBudget, grantCurveBuildings, syncCurveBuildings } from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -26,11 +20,12 @@ import {
 import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateMaxTokens, updateTokens } from './Campaign'
 import { challengeRequirement, resetChallengeSweep } from './Challenges'
 import {
+  activeCorruptionLevel,
   autoClimbCorruptionLevel,
-  c15CorruptionLevel,
   clearCorruptionLevel,
   corruptionPresetTableUpdate,
   corruptionStatsUpdate,
+  isCorruptionLevelOverwritten,
   normalizeCorruptionLevel
 } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
@@ -202,14 +197,6 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       })
       resetDetails.infoColor = 'limegreen'
       break
-    case 'acceleratorBoost':
-      addCurrencyReward('Diamond.png', `-${format(getBuildingCost('acceleratorBoost'))}`)
-      resetDetails.infoText = i18next.t('reset.details.acceleratorBoost', {
-        amount: format(player.prestigePoints),
-        required: format(getBuildingCost('acceleratorBoost'))
-      })
-      resetDetails.infoColor = 'cyan'
-      break
     case 'transcensionChallenge':
       if (transcensionChallenge !== 0) {
         resetDetails.infoColor = 'aquamarine'
@@ -363,7 +350,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         seconds: player.ascensionCounter,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
-        usedCorruptions: player.corruptions.used,
+        usedCorruptions: activeCorruptionLevel(),
         wowCubes: corruptionMetaData.wowCubes,
         wowTesseracts: corruptionMetaData.wowTesseracts,
         wowHypercubes: corruptionMetaData.wowHypercubes,
@@ -550,12 +537,6 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
     player.transcendcounter = 0
     G.autoResetTimers.transcension = 0
-  }
-
-  if (input === 'reincarnation' || input === 'reincarnationChallenge') {
-    if (player.corruptions.used >= c15CorruptionLevel && player.platonicUpgrades[11] > 0) {
-      player.prestigePoints = player.prestigePoints.add(G.reincarnationPointGain)
-    }
   }
 
   if (
@@ -773,19 +754,14 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     }
 
     if (c10Completions > 0) {
-      earnCampaignTokens(player.corruptions.used, c10Completions)
-      if (player.currentChallenge.ascension !== 15) {
+      earnCampaignTokens(activeCorruptionLevel(), c10Completions)
+      if (!isCorruptionLevelOverwritten()) {
         clearCorruptionLevel(player.corruptions.used)
         autoClimbCorruptionLevel()
       }
     }
 
     player.corruptions.used = normalizeCorruptionLevel(player.corruptions.next)
-
-    // fix c15 ascension bug by restoring the corruptions if the player ascended instead of leaving
-    if (player.currentChallenge.ascension === 15 && (input === 'ascension' || input === 'ascensionChallenge')) {
-      player.corruptions.used = c15CorruptionLevel
-    }
 
     corruptionStatsUpdate()
     updateSingularityMilestoneAwards(false)
@@ -1438,9 +1414,6 @@ export const applyChallengeInitialModifiers = (
       }
       if (chalNum === 14) {
         player.obtainium = new Decimal()
-      }
-      if (chalNum === 15) {
-        player.corruptions.used = c15CorruptionLevel
       }
     }
   }

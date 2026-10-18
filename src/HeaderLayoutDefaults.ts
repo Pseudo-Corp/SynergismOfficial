@@ -58,7 +58,6 @@ const resetButtonModuleIds = [
   'prestigebtn',
   'transcendbtn',
   'reincarnatebtn',
-  'acceleratorboostbtn',
   'challengebtn',
   'reincarnatechallengebtn',
   'ascendChallengeBtn',

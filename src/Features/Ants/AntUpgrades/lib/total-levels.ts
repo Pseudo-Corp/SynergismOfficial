@@ -1,4 +1,4 @@
-import { corruptionEffect } from '../../../../Corruptions'
+import { challenge15CorruptionEffect } from '../../../../Corruptions'
 import { player } from '../../../../Synergism'
 import { antUpgradeData } from '../data/data'
 import type { AntUpgrades } from '../structs/structs'
@@ -8,7 +8,7 @@ export const calculateTrueAntLevel = (antUpgrade: AntUpgrades) => {
   const freeLevels = computeFreeAntUpgradeLevels()
   const corruptionDivisor = (antUpgradeData[antUpgrade].exemptFromCorruption)
     ? 1
-    : corruptionEffect(player.corruptions.used, 'extinction')
+    : challenge15CorruptionEffect('extinction')
 
   if (player.currentChallenge.ascension === 11) {
     return Math.min(player.ants.upgrades[antUpgrade], freeLevels) / corruptionDivisor

@@ -1,4 +1,11 @@
-import { calculateOfferings, calculateSalvageRuneEXPMultiplier } from './Calculate'
+import {
+  calculateBadOfferingsSalvage,
+  calculateChallenge15RuneSalvage,
+  calculateFirstFiveRuneSalvage,
+  calculateOfferings,
+  calculateSalvageRuneEXPMultiplier,
+  calculateTotalSalvage
+} from './Calculate'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Globals as G } from './Variables'
 
@@ -280,9 +287,9 @@ export const SIEffectiveRuneLevelMult = () => {
   return calculateTotalStat(runeEffectivenessStatsSI)
 }
 
-const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
+const universalRuneEXPMult = (purchasedLevels: number, salvage = calculateTotalSalvage()): Decimal => {
   // recycleMult accounted for all recycle chance, but inversed so it's a multiplier instead
-  const recycleMultiplier = calculateSalvageRuneEXPMultiplier()
+  const recycleMultiplier = calculateSalvageRuneEXPMultiplier(salvage)
 
   // Rune multiplier that is summed instead of added
   /* TODO: Replace the effects of these upgrades with new ones
@@ -323,6 +330,41 @@ const universalRuneEXPMult = (purchasedLevels: number): Decimal => {
   return allRuneExpMultiplier.times(allRuneExpAdditiveMultiplier).times(recycleMultiplier)
 }
 
+const firstFiveRuneEXPMult = (purchasedLevels: number) =>
+  universalRuneEXPMult(purchasedLevels, calculateFirstFiveRuneSalvage())
+
+const firstFiveRunes = new Set<RuneKeys>(['speed', 'duplication', 'prism', 'thrift', 'superiorIntellect'])
+
+const firstFiveRuneSalvageModifiers = [
+  { i18n: 'runes.salvageModal.badOfferings', amount: () => calculateBadOfferingsSalvage() },
+  { i18n: 'runes.salvageModal.challenge15', amount: () => calculateChallenge15RuneSalvage() }
+]
+
+const runeSalvageHTML = (rune: RuneKeys) => {
+  const globalSalvage = calculateTotalSalvage()
+  const lines = [i18next.t('runes.salvageModal.global', { amount: format(globalSalvage, 1, true) })]
+  let salvage = globalSalvage
+  if (firstFiveRunes.has(rune)) {
+    for (const { i18n, amount } of firstFiveRuneSalvageModifiers) {
+      const value = amount()
+      if (value !== 0) {
+        lines.push(i18next.t(i18n, { amount: format(value, 1, true) }))
+        salvage += value
+      }
+    }
+  }
+  const recycle = calculateSalvageRuneEXPMultiplier(salvage)
+  lines.push(
+    salvage >= 0
+      ? i18next.t('runes.salvageModal.total', { amount: format(salvage, 1, true), mult: format(recycle, 2, true) })
+      : i18next.t('runes.salvageModal.totalNegative', {
+        amount: format(salvage, 1, true),
+        div: format(Decimal.pow(recycle, -1), 2, true)
+      })
+  )
+  return lines.join('<br>')
+}
+
 const runeConstructionEffect = (power: number) => power > 0 ? 0.03 * Math.pow(1 + Math.log(1 + power), 2) : 0
 
 export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
@@ -359,7 +401,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsSpeed(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
+    runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
     isUnlocked: () => true,
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.speed.name'),
@@ -403,7 +445,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsDuplication(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
+    runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
     isUnlocked: () => Boolean(getAchievementReward('duplicationRuneUnlock')),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.duplication.name'),
@@ -441,7 +483,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsPrism(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
+    runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
     isUnlocked: () => Boolean(getAchievementReward('prismRuneUnlock')),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.prism.name'),
@@ -483,7 +525,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsThrift(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
+    runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
     isUnlocked: () => Boolean(getAchievementReward('thriftRuneUnlock')),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.thrift.name'),
@@ -525,7 +567,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult() * SIEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsSI(),
-    runeEXPPerOffering: (purchasedLevels) => universalRuneEXPMult(purchasedLevels),
+    runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
     isUnlocked: () => player.researches[82] > 0,
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.superiorIntellect.name'),
@@ -1064,6 +1106,7 @@ export const focusedRuneHTML = (rune: RuneKeys) => {
   return `${nameHTML}<br>${descriptionHTML}
   <br><br>${effectiveLevelHTML}<br>${effectiveLevelCalcHTML}<br>${effectText}
   <br><br>${coefficientText}<br>${levelCostIncreaseText}
+  <br><br>${runeSalvageHTML(rune)}
   <br><br>${experienceInfo}<br>${levelInfo}`
 }
 

@@ -35,6 +35,7 @@ export const Globals: GlobalVariables = {
   crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
 
   freeAccelerator: 0,
+  effectiveFreeAccelerator: 0,
   totalAccelerator: 0,
   freeAcceleratorBoost: 0,
   totalAcceleratorBoost: 0,
@@ -42,6 +43,7 @@ export const Globals: GlobalVariables = {
   acceleratorEffect: new Decimal(1),
 
   freeMultiplier: 0,
+  effectiveFreeMultiplier: 0,
   totalMultiplier: 0,
   multiplierPower: 2,
   multiplierEffect: new Decimal(1),

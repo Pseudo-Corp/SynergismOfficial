@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
-import { corruptionSpiritMultiplier } from './Corruptions'
+import { challenge15CorruptionEffect } from './Corruptions'
 import { resetTiers } from './Reset'
 import { type RuneBlessingKeys, runeBlessings } from './RuneBlessings'
 import { type RuneKeys, runes } from './Runes'
@@ -37,13 +37,16 @@ interface RuneSpiritData<K extends RuneSpiritKeys> {
   description: () => string
 }
 
+const spiritPowerPerPercent = 777777
+const prismSpiritDivisor = 7.777e7
+
 const otherSpiritMultipliers = () => {
   return (1 + (8 * player.researches[164]) / 100)
     * (player.researches[165] && player.currentChallenge.ascension !== 0 ? 2 : 1)
     * (1 + 0.15 * Decimal.log(player.legendaryFragments.add(1), 10) * player.researches[189])
     * (1 + (2 * player.researches[194]) / 100)
     * G.challenge15Rewards.spiritBonus.value
-    * corruptionSpiritMultiplier(player.corruptions.used)
+    * challenge15CorruptionEffect('spirit')
 }
 
 const spiritMultiplier = (key: RuneKeys) => {
@@ -60,7 +63,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     costCoefficient: new Decimal(1e45),
     levelsPerOOM: 2,
     effects: (level) => {
-      const globalSpeed = 1 + level / 1e9
+      const globalSpeed = 1 + level / spiritPowerPerPercent / 100
       return { globalSpeed }
     },
     effectsDescription: (level) => {
@@ -80,7 +83,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     costCoefficient: new Decimal(1e52),
     levelsPerOOM: 2,
     effects: (level) => {
-      const wowCubes = 1 + level / 1e9
+      const wowCubes = 1 + level / spiritPowerPerPercent / 100
       return { wowCubes }
     },
     effectsDescription: (level) => {
@@ -100,7 +103,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     costCoefficient: new Decimal(1e60),
     levelsPerOOM: 2,
     effects: (level) => {
-      const crystalCaps = level / 1e9
+      const crystalCaps = level / prismSpiritDivisor
       return { crystalCaps }
     },
     effectsDescription: (level) => {
@@ -120,7 +123,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     costCoefficient: new Decimal(1e72),
     levelsPerOOM: 2,
     effects: (level) => {
-      const offerings = 1 + level / 1e9
+      const offerings = 1 + level / spiritPowerPerPercent / 100
       return { offerings }
     },
     effectsDescription: (level) => {
@@ -140,7 +143,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
     costCoefficient: new Decimal(1e85),
     levelsPerOOM: 2,
     effects: (level) => {
-      const obtainium = 1 + level / 1e9
+      const obtainium = 1 + level / spiritPowerPerPercent / 100
       return { obtainium }
     },
     effectsDescription: (level) => {

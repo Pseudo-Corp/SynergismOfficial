@@ -1165,7 +1165,7 @@
       "244": "Smith: [Hint: :antismith: looks promising as well]",
       "245": "BLESSED: [Hint: Your Speed Blessing best be unreasonably high!]",
       "246": "Why?: [Hint: Sometimes even 1 in over a Trillion counts!]",
-      "247": "Challenging!: [Hint: Challenge 11 is calling your name, but with even less Ants]",
+      "247": "Challenging!: [Hint: Not just once, but 30 times in Challenge 11]",
       "248": "Seeing Red but not Blue: [Hint: Can you get red stuff without getting blue stuff?]",
       "249": "Overtaxed: [Hint: It might pay not to read!]",
       "250": "The Thousand Moons: [Hint: You need to fully research into becoming GOD]",
@@ -2715,7 +2715,6 @@
       "prestige": "Prestige",
       "transcension": "Transcend",
       "reincarnation": "Reincarnate",
-      "acceleratorBoost": "Accelerator Boost",
       "transcensionChallenge": "Exit Challenge",
       "reincarnationChallenge": "Exit Reincarnation Challenge",
       "ascensionChallenge": "Exit Ascension Challenge",
@@ -2726,7 +2725,6 @@
       "prestige": "Coins, Coin Producers, Coin Upgrades, and Crystals are reset, but in return you gain diamonds and a few Offerings. Required: {{amount}}/num:((1e16)) Coins || TIME SPENT: {{timeSpent}} Seconds.",
       "transcension": "Reset all Coin and Diamond Upgrades/Features, Crystal Upgrades & Producers, for Mythos/Offerings. Required: {{amount}}/num:((1e100)) Coins || TIME SPENT: {{timeSpent}} Seconds.",
       "reincarnation": "Reset ALL previous reset tiers, but you will gain Particles, Obtainium and Offerings! Required: {{amount}}/num:((1e300)) Mythos Shards || TIME SPENT: {{timeSpent}} Seconds.",
-      "acceleratorBoost": "Spend Diamonds in order to increase the power of your Accelerators. Required: {{amount}}/{{required}} Diamonds.",
       "transcensionChallenge": {
         "in": "Are you tired of being in your Challenge or stuck? Click to leave Challenge {{n}}. Progress: {{amount}}/{{required}} Coins. TIME SPENT: {{timeSpent}} Seconds.",
         "out": "You're not in a Transcension Challenge right now. Get in one before you can leave it, duh!"
@@ -2891,7 +2889,7 @@
       "sacrificeReset": "This Ant resets when you perform an Ant Sacrifice.",
       "ascensionReset": "This Ant resets when you Ascend.",
       "singularityReset": "This Ant resets when you perform a Singularity.",
-      "ignoreCorruption": "[<<white|♔>>] This Ant is unaffected by the effects of Corruptions.",
+      "ignoreCorruption": "[<<white|♔>>] This Ant is unaffected by The Second Meteor in Challenge 15.",
       "automationUnlocked": "You've unlocked the autobuyer for this Ant Upgrade!",
       "antSpeed": {
         "name": "Inceptus Formicidae",
@@ -3130,7 +3128,7 @@
     "producerCount": "<<crimson| {{x}} Purchased>> + <<orange | {{y}} Generated>>",
     "level": "Level {{x}} <<orange | [+{{y}}]>>",
     "challenge11Modifier": "Challenge 11 - Only free Ant Upgrade Levels count for Effective Levels",
-    "corruptionDivisor": "Corruption level {{x}} - Effective Levels are divided by <b>{{y}}</b>",
+    "corruptionDivisor": "Challenge 15 (The Second Meteor) - Effective Levels are divided by <b>{{y}}</b>",
     "effectiveLevel": "Effective Level: {{level}}",
     "costSingleLevel": "Cost: {{x}} Galactic Crumbs",
     "costMaxLevels": "Cost for +{{x}}: {{y}} Galactic Crumbs",
@@ -3450,10 +3448,31 @@
       }
     },
     "15": {
-      "name": "SADISTIC CHALLENGE II || {{- value}} Completions",
+      "name": "SADISTIC CHALLENGE II",
       "progressName": "SADISTIC CHALLENGE II",
       "flavor": "The worst atrocity a man can commit is witnessing, without anguish, the suffering of others.",
-      "restrictions": "Ascend and reach the goal but you're stuck at Corruption level 20. <br> ☆ Ant Speed <<gold|^num:((0.5))>> <br> ☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>> <br> ☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>> <br> ☆ Viscosity no longer divides free Accelerators and Multipliers. Instead, they are raised to <<gold|^num:((0.2))>> (improved by Platonic Upgrade 6)",
+      "restrictions": {
+        "intro": "Older Synergists lived within much harsher Corruptions than you do. Prove yourself by getting as many Coins as you can, with their devious modifiers!",
+        "modifiers": {
+          "viscosity": "☆ <<orange|Viscosity>>: Free Accelerators and Multipliers are raised to <<gold|^{{value}}>>",
+          "dilation": "☆ <<orange|Time Dilation>>: Global Speed <<gold|×{{value}}>>",
+          "hyperchallenge": "☆ <<orange|The Hyperchallenge Cube>>: Challenge 1-10 requirement exponents <<gold|×{{value}}>>",
+          "illiteracy": "☆ <<orange|Defunded Education>>: Obtainium multipliers are raised to <<gold|^{{value}}>>",
+          "illiteracyImproved": "☆ <<orange|Defunded Education>>: Obtainium multipliers are raised to <<gold|^{{value}}>>, improving up to <<gold|^{{max}}>> as you gain Obtainium",
+          "drought": "☆ <<orange|Drought>>: Salvage for the first five Runes <<gold|{{value}}>>",
+          "recession": "☆ <<orange|Recession>>: Coin gain is raised to <<gold|^{{value}}>>",
+          "recessionImproved": "☆ <<orange|Recession>>: Coin gain is raised to <<gold|^{{value}}>>, improving up to <<gold|^{{max}}>> as you gain Coins",
+          "deflation": "☆ <<orange|Crystal Mine Collapse>>: Diamond gain exponent <<gold|×{{value}}>>",
+          "extinction": "☆ <<orange|The Second Meteor>>: Ant Upgrade levels <<gold|÷{{value}}>>",
+          "spirit": "☆ <<orange|Hearty Spirits>>: Spirit Power <<gold|×{{value}}>><br>(The difficulty of Corruptions gave these players a fighting <i>spirit</i>...)"
+        },
+        "extraIntro": "Oh, and these modifiers are thrown in too. Just to add a twist. Enjoy!",
+        "extras": {
+          "antSpeed": "☆ Ant Speed <<gold|^num:((0.5))>>",
+          "fortunae": "☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>>",
+          "tax": "☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>>"
+        }
+      },
       "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
       "per": {
         "1": "Folly of mankind: ",
@@ -3467,7 +3486,8 @@
         "2": " ",
         "3": " "
       },
-      "noGoal": "You will find no goal in sight, but get bonuses based on your best attempt."
+      "noGoal": "You will find no goal in sight, but get bonuses based on your best attempt.",
+      "legend": "Legends say that if you best this Challenge you get a special cube with seven dimensions. They say legends are <i>forged</i>, not born."
     },
     "header": "Is the base game too easy? Try these situations! [Click the icons to view challenge details!]",
     "autoChallengeSweepOn": "Auto Challenge Sweep [ON]",
@@ -5612,58 +5632,93 @@
   },
   "corruptions": {
     "names": {
-      "viscosity": "Viscous Multiplier and Accelerators (Viscosity)",
-      "drought": "Less Fruitful Harvests (Drought)",
-      "deflation": "Crystal Mine Collapse (Deflation)",
-      "extinction": "The Second Meteor (Extinction)",
-      "illiteracy": "Defunded Education (Illiteracy)",
-      "recession": "Great Depression II (Recession)",
-      "dilation": "Time Dilation (Dilation)",
-      "hyperchallenge": "The Hyperchallenge Cube (Hyperchallenge)"
+      "construction": "Construction (Rocky Foundations)",
+      "viscosity": "Multipliers and Accelerators (Viscosity)",
+      "salvage": "Salvage Reduction (Bad Offerings)",
+      "drought": "Offering Reduction (Less Fruitful Harvests)",
+      "hyperchallenge": "Challenge 10 Scaling (Hyperchallenged)",
+      "illiteracy": "Research Cost Increase (Illiteracy)",
+      "obtainium": "Obtainium Reduction (Rare Earth Metals)",
+      "recession": "Coin Exponent (Great Depression II)",
+      "blunders": "Ant ELO (Blunders)"
     },
     "descriptions": {
+      "construction": "Guess we gotta burn down the house.",
       "viscosity": "You feel lethargic across the universe...",
-      "dilation": "Way to go, Albert.",
+      "salvage": "Not even Ant God would want these!",
+      "drought": "Your farmland is <i>unsalvagable!</i>",
       "hyperchallenge": "What's in a challenge?",
       "illiteracy": "Maybe Albert wouldn't have theorized Dilation after all.",
-      "deflation": "Diamond Mine destroyed... no more monopolies!",
-      "extinction": "It killed the dinosaurs too, ya Dingus.",
-      "drought": "Your farmland is <i>unsalvagable!</i>",
-      "recession": "Yet another 2025 catastrophe."
+      "obtainium": "More like... UNObtainium. Hah.",
+      "recession": "Yet another 2025 catastrophe.",
+      "blunders": "Checkmated by a mysterious \"Derpsmith\"..."
+    },
+    "effectDescriptions": {
+      "construction": "Construction is divided by",
+      "viscosity": "The number of Accelerators and Multipliers (free and purchased) counted by their Coin multipliers and by Upgrades is divided by",
+      "salvage": "Salvage for the first five Runes is changed by",
+      "drought": "Offering gain is divided by",
+      "hyperchallenge": "Challenge 10's requirement exponent is multiplied by",
+      "illiteracy": "Costs of Researches that reset on Ascension are multiplied by",
+      "obtainium": "Obtainium gain is divided by",
+      "recession": "Coin gain is raised to the power of",
+      "blunders": "Ant ELO is reduced by (additive, Ant ELO cannot go below 0)"
     },
     "modal": {
-      "levelFormula": "Formula (L = Level):",
+      "scaling": "<<lime|Difficulty scaling: ×{{scaling}} per level (Platonic Upgrade {{upgrade}})>>",
+      "levelFormula": "(L = Level):",
       "currentMarker": "L = {{level}} ▶",
       "nextMarker": "◀ L = {{level}}",
-      "linearFromZero": "{{start}} {{sign}} {{slope}} × L",
-      "linearNoStart": "{{sign}}{{slope}} × L",
-      "linear": "{{start}} {{sign}} {{slope}} × (L − {{from}})",
-      "exponentialFromOne": "{{end}}^(L ÷ {{to}})",
-      "exponential": "{{start}} × {{ratio}}^(L − {{from}})",
       "firstRange": "0 ≤ L ≤ {{to}}",
       "range": "{{from}} < L ≤ {{to}}",
-      "lastRange": "L > {{from}}",
-      "openRange": "{{from}} < L < {{to}}",
-      "atLeast": "L ≥ {{from}}"
+      "lastRange": "L > {{from}}"
     },
     "levelFormulas": {
+      "construction": {
+        "low": "1 + 0.2 × {{L}}",
+        "mid": "5 + 0.4 × ({{L}} − 20)",
+        "high": "15 × 1.05^({{L}} − 45)"
+      },
       "viscosity": {
-        "all": "(2 − 0.04 × Platonic Upgrade 6 level)^L"
+        "low": "2^{{L}}",
+        "mid": "2^(20 + 2 × ({{L}} − 20))",
+        "high": "2^(70 + 2 × ({{L}} − 45)^1.5)"
       },
-      "drought": "−10 × (0.2 × L + 7)²",
-      "deflation": {
-        "low": "10^(−L² ÷ 16)",
-        "mid": "10^(−25 × ((0.2 × L + 7) ÷ 11)²)",
-        "zero": "0"
+      "salvage": {
+        "low": "−62.5 × {{L}}",
+        "mid": "−1250 − 150 × ({{L}} − 20)",
+        "high": "−5000 − 500 × ({{L}} − 45)"
       },
-      "extinction": "1 + (0.2 × L + 7)² ÷ (0.2 × L + 9.5)",
-      "illiteracy": "2^(−(0.2 × L + 7) ÷ 5)",
-      "recession": "0.81^(16 + 5 × (L − 45))",
-      "dilation": {
-        "low": "10^(−0.06 × L²)",
-        "high": "10^(−24 × ((0.2 × L + 7) ÷ 11)²), minimum 10^−300"
+      "drought": {
+        "low": "2^{{L}}",
+        "mid": "2^20 × 10^({{L}} − 20)",
+        "high": "2^20 × 10^(25 + ({{L}} − 45)^1.5)"
       },
-      "hyperchallenge": "(1 + 1.618^(16 + 8 × (L − 45))) ÷ 2, maximum 10^300"
+      "hyperchallenge": {
+        "low": "1.25^{{L}}",
+        "mid": "1.25^20 × 1.5^({{L}} − 20)",
+        "high": "1.25^20 × 1.5^25 × 10^({{L}} − 46)"
+      },
+      "illiteracy": {
+        "low": "10^{{L}}",
+        "mid": "10^(20 + 2 × ({{L}} − 20))",
+        "high": "10^(70 + 2 × ({{L}} − 45)^1.5)"
+      },
+      "obtainium": {
+        "low": "2^{{L}}",
+        "mid": "2^20 × 10^({{L}} − 20)",
+        "high": "2^20 × 10^(25 + ({{L}} − 45)^1.5)"
+      },
+      "recession": {
+        "low": "1 − 0.9 × {{L}} ÷ 20",
+        "mid": "0.1 × (1 − 0.9 × ({{L}} − 20) ÷ 25)",
+        "high": "0.01 × 0.9^({{L}} − 45)"
+      },
+      "blunders": {
+        "low": "2% × {{L}}",
+        "mid": "40% + 1% × ({{L}} − 20)",
+        "high": "65%"
+      }
     },
     "breakdown": {
       "current": "This Ascension<br>L = {{level}}",
@@ -5710,56 +5765,56 @@
         "reincarnationChallenges": "Challenges 6-9",
         "challengeTen": "Challenge 10",
         "ants": "Ants"
-      },
-      "spiritDescription": "Multiplies Rune Spirit power. Free levels count.",
-      "spiritFormula": "1 + 0.32 × S², where S = min(0.55 × L, 0.2 × L + 7) and L = level + free levels. Level 0 always gives x1.",
-      "strength": "S",
-      "spiritMultiplier": "Spirit Power multiplier"
+      }
     },
     "effectSummary": {
+      "construction": {
+        "change": "<<silver|÷{{curr}} →>> <<gold|÷{{next}}>>",
+        "same": "<<gold|÷{{value}}>>"
+      },
       "viscosity": {
         "change": "<<silver|÷{{curr}} →>> <<gold|÷{{next}}>>",
-        "same": "<<gold|÷{{value}}>>",
-        "c15": "<<gold|÷1, ^{{value}} (Challenge 15)>>"
+        "same": "<<gold|÷{{value}}>>"
       },
-      "drought": {
+      "salvage": {
         "change": "<<silver|{{curr}} →>> <<gold|{{next}}>>",
         "same": "<<gold|{{value}}>>"
       },
-      "deflation": {
-        "change": "<<silver|^{{curr}} →>> <<gold|^{{next}}>>",
-        "same": "<<gold|^{{value}}>>"
+      "drought": {
+        "change": "<<silver|÷{{curr}} →>> <<gold|÷{{next}}>>",
+        "same": "<<gold|÷{{value}}>>"
       },
-      "extinction": {
-        "change": "<<silver|/{{curr}} →>> <<gold|/{{next}}>>",
-        "same": "<<gold|/{{value}}>>"
+      "hyperchallenge": {
+        "change": "<<silver|x{{curr}} →>> <<gold|x{{next}}>>",
+        "same": "<<gold|x{{value}}>>"
       },
       "illiteracy": {
-        "change": "<<silver|^{{curr}} →>> <<gold|^{{next}}>>",
-        "same": "<<gold|^{{value}}>>"
+        "change": "<<silver|x{{curr}} →>> <<gold|x{{next}}>>",
+        "same": "<<gold|x{{value}}>>"
+      },
+      "obtainium": {
+        "change": "<<silver|÷{{curr}} →>> <<gold|÷{{next}}>>",
+        "same": "<<gold|÷{{value}}>>"
       },
       "recession": {
         "change": "<<silver|^{{curr}} →>> <<gold|^{{next}}>>",
         "same": "<<gold|^{{value}}>>"
       },
-      "dilation": {
-        "change": "<<silver|x{{curr}} →>> <<gold|x{{next}}>>",
-        "same": "<<gold|x{{value}}>>"
-      },
-      "hyperchallenge": {
-        "change": "<<silver|x{{curr}} →>> <<gold|x{{next}}>>",
-        "same": "<<gold|x{{value}}>>"
+      "blunders": {
+        "change": "<<silver|−{{curr}}% →>> <<gold|−{{next}}%>>",
+        "same": "<<gold|−{{value}}%>>"
       }
     },
     "effectNames": {
-      "viscosity": "Free Accel. and Multipliers",
-      "drought": "Salvage",
-      "deflation": "Diamond gain",
-      "extinction": "Ant Upgrade levels",
-      "illiteracy": "Obtainium gain",
+      "construction": "Construction",
+      "viscosity": "Accel. and Multipliers",
+      "salvage": "Salvage (first five Runes)",
+      "drought": "Offering gain",
+      "hyperchallenge": "Challenge 10 Reqs.",
+      "illiteracy": "Research costs",
+      "obtainium": "Obtainium gain",
       "recession": "Coin gain",
-      "dilation": "Time Speed",
-      "hyperchallenge": "Challenge 10 Reqs."
+      "blunders": "Ant ELO"
     },
     "exitCorruption": {
       "name": "CLEANSE THE CORRUPTION",
@@ -5774,6 +5829,7 @@
       "notCorrupted": "Not Corrupted",
       "level": "Corruption Level <<gold|{{level}}>>",
       "levelChange": "Corruption Level <<silver|{{old}} →>> <<gold|{{new}}>>",
+      "levelOverwritten": "<<crimson|Your Corruption level ({{level}}) is overwritten to 0 while you are in an Ascension Challenge. Neither its modifiers nor its rewards apply. You will return to it once you leave.>>",
       "freeLevels": "Rewards are moved forward <<gold|{{free}}>> levels, thanks to your Free Levels!",
       "tokens": {
         "selectLevel": "Select a level to start earning Tokens!",
@@ -5797,7 +5853,6 @@
       "levelCapFinal": "Maximum level: {{cap}}.",
       "levelCapBelowHighest": "You can return to any level up to your highest cleared level ({{highest}}). Climbing past level {{cap}} is locked for now.",
       "cubeBank": "Cube Bank",
-      "spiritPower": "Spirit Power multiplier",
       "cubeMultipliersHeading": "Cube multipliers (this Ascension → next):",
       "cubeMultipliersHeadingSame": "Cube multipliers:",
       "effectsHeading": "Corruption effects (this Ascension → next):",
@@ -5844,7 +5899,6 @@
     "clickInfo": "<<var(--orchid-text-color)|Hover over or tap the icons to view Corruption info!>>",
     "cleanse": "Cleanse",
     "confirm": "Confirm",
-    "resetCorruptionsError": "You cannot cleanse your Corruptions while in Challenge 15!",
     "resetProgress": {
       "button": "Reset Corruption Progress [TESTING ONLY]",
       "confirm": "Reset your Corruption progress? Your current and next level, highest cleared level and all Corruption Tokens earned from levels go back to 0. Presets are kept.",
@@ -6511,7 +6565,7 @@
         "name": "Medal of Achievement",
         "description": "Has serial number <i>{{num}}</i> on it.",
         "inscription": "<<gold|Inscription>>: Sources of Positive Salvage give <<gold|{{val}}>> more!",
-        "signature": "<<crimson|Signature>>: Sources of Negative Salvage effect <<crimson|{{val}}>>."
+        "signature": "<<crimson|Signature>>: Sources of Negative Salvage are reduced by <<crimson|{{val}}%>>."
       },
       "cookieGrandma": {
         "name": "Freshly-Baked Cookie",
@@ -6649,23 +6703,23 @@
       },
       "speed": {
         "description": "Roger Bannister et al. wore this shoe.",
-        "globalSpeed": "<<royalblue | Global Speed +{{val}}>> (+1% per num:((10000000)) Spirit Power)"
+        "globalSpeed": "<<royalblue | Global Speed +{{val}}>> (+1% per num:((777777)) Spirit Power)"
       },
       "duplication": {
         "description": "A male contained within a reflective surface, quite illusive.",
-        "wowCubes": "<<white | Wow! Cubes +{{val}}>> (+1% per num:((10000000)) Spirit Power)"
+        "wowCubes": "<<white | Wow! Cubes +{{val}}>> (+1% per num:((777777)) Spirit Power)"
       },
       "prism": {
         "description": "Hide from the red light beam.",
-        "crystalCaps": "<<lightblue | Crystal Upgrade 4 Max Exponent +{{val}}>> (Spirit Power / num:((1e9)))"
+        "crystalCaps": "<<lightblue | Crystal Upgrade 4 Max Exponent +{{val}}>> (Spirit Power / num:((7.777e7)))"
       },
       "thrift": {
         "description": "Conjure the ghost of Synergism's Past!",
-        "offerings": "<<orange | Offering Gain +{{val}}>> (+1% per num:((10000000)) Spirit Power)"
+        "offerings": "<<orange | Offering Gain +{{val}}>> (+1% per num:((777777)) Spirit Power)"
       },
       "superiorIntellect": {
         "description": "I too have a theoretical degree in Physics.",
-        "obtainium": "<<pink | Obtainium Gain +{{val}}>> (+1% per num:((10000000)) Spirit Power)"
+        "obtainium": "<<pink | Obtainium Gain +{{val}}>> (+1% per num:((777777)) Spirit Power)"
       },
       "buyUpTo": "Buy up to <<var(--orchid-text-color)|{{amount}}>> Levels per purchase, if affordable. [Input to toggle]",
       "increaseLevel": "Increase Level By <<lightgoldenrodyellow|{{amount}}>> [Cost: <<lightgoldenrodyellow|{{offerings}}>> Offerings]"
@@ -6699,7 +6753,14 @@
     "freeLevels": "[<<orange|+{{x}}>>]",
     "offeringText": "+{{exp}} EXP per Offering - {{offeringReq}} Offerings for +{{levels}}.",
     "maxLevel": "Maxed Level!",
-    "TNL": "+{{levelAmount}} in <<orange | {{offerings}} Offerings>>"
+    "TNL": "+{{levelAmount}} in <<orange | {{offerings}} Offerings>>",
+    "salvageModal": {
+      "global": "Global Salvage: <<lightgreen|{{amount}}>>",
+      "badOfferings": "<<crimson|Corruptions - Bad Offerings: {{amount}}>>",
+      "challenge15": "<<crimson|Challenge 15 Penalty: {{amount}}>>",
+      "total": "Salvage for this Rune: <<gold|{{amount}}>> (Offerings needed divided by {{mult}})",
+      "totalNegative": "Salvage for this Rune: <<gold|{{amount}}>> (Offerings needed multiplied by {{div}})"
+    }
   },
   "singularityChallenge": {
     "modal": {
@@ -7294,6 +7355,7 @@
       "RedAmbrosiaTutorial": "Red Ambrosia - Tutorial Upgrade:",
       "RedAmbrosia": "Offerings \"\"\"made\"\"\" of Red Ambrosia",
       "Event": "Event Bonus:",
+      "DroughtCorruption": "'Less Fruitful Harvests' Corruption:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
       "TaxmanDebuff": "Taxman's Last Stand - ☢ Radioactive Debuff:",
       "Jack": "The Jack of all Trades:",
@@ -7460,6 +7522,7 @@
       "AmbrosiaObtainium1": "Ambrosia - RNG-based Obtainium Booster:",
       "EXUltraObtainium": "EX ULTIMATE Obtainium Bonus:",
       "PurpleHoneyUpgrade": "Purple Honey - Obtainium Purpling:",
+      "RareEarthMetalsCorruption": "'Rare Earth Metals' Corruption:",
       "Challenge14": "Challenge 14 - No Obtainium:",
       "SingularityDebuff": "Singularity Debuff:",
       "Exalt6Penalty": "The Grand Singularity Speedrun - Too Slow:",
@@ -7467,7 +7530,7 @@
       "Jack": "The Jack of all Trades:",
       "Event": "Event Bonus:",
       "Total": "Obtainium Multiplier:",
-      "ObtainiumDR": "Illiteracy Power:",
+      "ObtainiumDR": "Challenge 15 - Defunded Education:",
       "ImmaculateObtainium": "Immaculate Obtainium Cap:",
       "HalfMind": "HALF MIND Modifier:",
       "Total2": "Final Obtainium Multiplier:"
@@ -7522,7 +7585,7 @@
       "ChronosTalisman": "Chronos Talisman Bonus:",
       "Challenge15": "Challenge 15 Reward:",
       "CubeUpgradeCx2": "Cube Upgrade 6x2 (Cx2):",
-      "SpacialDilation": "Corruption: Time Dilation:",
+      "SpacialDilation": "Challenge 15 - Time Dilation:",
       "AmbrosiaBrickOfLead": "Ambrosia - The Brick of Lead:",
       "FastSpeedDR": "Global Speed Fast Softcap Power (>100):",
       "SlowSpeedDR": "Global Speed Slow Softcap Power (<1):",
@@ -7556,7 +7619,8 @@
       "PlatonicUpgrade14": "Platonic Upgrade 14 (Challenge 15):",
       "PlatonicUpgrade15": "Platonic Upgrade 15 (Challenge 15):",
       "Challenge15": "Challenge 15 Reward:",
-      "Recession": "Recession Corruption:",
+      "Challenge15Recession": "Challenge 15 - Recession:",
+      "Recession": "'Great Depression II' Corruption:",
       "Total2": "Total Coin Exponent:",
       "Producer1": "Workers-only Multiplier:",
       "Producer1Total": "Workers Total Multiplier:",
@@ -7908,12 +7972,11 @@
     },
     "salvageStats": {
       "title": "Offering Salvage",
-      "Total": "Total Salvage:",
       "extraInfo": "Your Salvage multiplies your Rune, Blessing and Spirit EXP gain by <br> <<yellow |10^(Salvage / 30)>> <br> <<crimson|If your Salvage is negative, your Rune EXP is instead divided by this amount.>>"
     },
     "constructionStats": {
       "title": "Construction",
-      "extraInfo": "Each Coin, Crystal, Mythos and Particle Building has a base Softcap of <<yellow|num:((1000))>>, <<cyan|num:((2000))>>, <<plum|num:((4000))>> and <<limegreen|num:((10000))>> owned respectively, which is multiplied by Construction. <br> Each Building costs a fixed multiple more than the last until you own as many as its Softcap. Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Construction also slows price growth: the entire price exponent is divided by Construction (capped at ×num:((1))). This applies to the quadratic scaling past the Softcap as well.>> <br> Challenges 4 and 10 divide Coin and Crystal Building Construction by num:((2)), and Challenge 8 divides Construction for all but Particle Buildings by num:((5)) (Challenge 8 takes priority). In Ascension Challenge 15, Particle Construction is fixed at num:((1)) instead."
+      "extraInfo": "Each Coin, Crystal, Mythos and Particle Building has a base Softcap of <<yellow|num:((1000))>>, <<cyan|num:((2000))>>, <<plum|num:((4000))>> and <<limegreen|num:((10000))>> owned respectively, which is multiplied by Construction. <br> Each Building costs a fixed multiple more than the last until you own as many as its Softcap. Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Construction also slows price growth: the entire price exponent is divided by Construction (capped at ×num:((1))). This applies to the quadratic scaling past the Softcap as well.>> <br> Challenges 4 and 10 divide Coin and Crystal Building Construction by num:((2)), and Challenge 8 divides Construction for all but Particle Buildings by num:((5)) (Challenge 8 takes priority). In Ascension Challenge 15, Particle Construction is fixed at num:((1)) instead. <br> <<crimson|The 'Rocky Foundations' Corruption divides Construction for every Building.>>"
     },
     "constructionBase": {
       "title": "Construction Sources",
@@ -7924,7 +7987,7 @@
       "Total": "Total Construction:"
     },
     "constructionBuildings": {
-      "title": "Construction by Building (after Challenge penalties)",
+      "title": "Construction by Building (after Challenge and Corruption penalties)",
       "CoinBuildings": "Coin Buildings:",
       "CrystalBuildings": "Crystal Buildings:",
       "MythosBuildings": "Mythos Buildings:",
@@ -7939,7 +8002,7 @@
     },
     "freeAccelMultStats": {
       "title": "Free Accelerators, Multipliers and Accelerator Boosts",
-      "extraInfo": "Free Accelerators and Multipliers are (Additive sources × Multipliers), divided by Viscosity, then raised to the Challenge 15 exponent. Hepteracts and Challenge 15 rewards are applied afterwards. Free Accelerator Boosts are Additive sources × Multipliers."
+      "extraInfo": "Free Accelerators and Multipliers are (Additive sources × Multipliers), raised to the Challenge 15 exponent. Hepteracts and Challenge 15 rewards are applied afterwards. The Viscosity Corruption then divides the number of Accelerators and Multipliers (free and purchased) counted by their Coin multipliers and by Upgrades. Free Accelerator Boosts are Additive sources × Multipliers."
     },
     "freeAccelerators": {
       "title": "Free Accelerators",
@@ -7959,8 +8022,7 @@
       "CubeUpgrade50": "Cube Upgrade 5x10:",
       "MythosUpgrade10": "Mythos Upgrade 10:",
       "MultiplierTotal": "Free Accelerator Multiplier:",
-      "ViscosityCorruption": "Viscosity Corruption:",
-      "ViscosityExponent": "Challenge 15 Exponent:",
+      "ViscosityExponent": "Challenge 15 - Viscosity:",
       "Hepteract": "Accelerator Hepteract:",
       "Challenge15": "Challenge 15 Reward:",
       "HepteractMultiplier": "Accelerator Hepteract Multiplier:",
@@ -7989,8 +8051,7 @@
       "CubeBlessing": "Aphrodite Tributes:",
       "MythosUpgrade10": "Mythos Upgrade 10:",
       "MultiplierTotal": "Free Multiplier Multiplier:",
-      "ViscosityCorruption": "Viscosity Corruption:",
-      "ViscosityExponent": "Challenge 15 Exponent:",
+      "ViscosityExponent": "Challenge 15 - Viscosity:",
       "Hepteract": "Multiplier Hepteract:",
       "Challenge15": "Challenge 15 Reward:",
       "HepteractMultiplier": "Multiplier Hepteract Multiplier:",
@@ -8040,12 +8101,22 @@
       "BaseMultiplier": "Base Negative Salvage Multiplier",
       "SingularityPerk": "Singularity Perk - Recyclists Clicking at Your Desktop:",
       "AchievementTalisman": "Achievement Talisman - Salvage Bonus:",
-      "DroughtCorruption": "'Less Fruitful Harvests' Corruption",
+      "PlatonicUpgrade13": "Platonic Upgrade 3x3:",
       "SingularityDebuff": "Singularity Debuff:",
       "RedAmbrosiaYinYang": "Red Ambrosia - Yin:",
       "Total": "Negative Salvage:",
       "NegativeMultiplier": "Negative Salvage Multiplier:",
       "Total2": "Total Negative Salvage:"
+    },
+    "salvageTotal": {
+      "Total": "Total Salvage:"
+    },
+    "salvageFirstFive": {
+      "title": "First Five Runes Salvage",
+      "GlobalSalvage": "Global Salvage:",
+      "BadOfferings": "Corruptions - Bad Offerings:",
+      "Challenge15Penalty": "Challenge 15 Penalty:",
+      "Total": "First Five Runes Salvage:"
     },
     "antSpeedMultStats": {
       "title": "Ant Speed Multiplier",
@@ -8106,6 +8177,7 @@
       "AntHolySpirit": "Ant Holy Spirit Purchased:",
       "PlatonicUpgrade12": "Platonic Upgrade 3x2:",
       "SingularityPerk": "Singularity Perk - Advanced... Cheating Tactics?",
+      "BlundersCorruption": "'Blunders' Corruption:",
       "SingularityDebuff": "Singularity Debuff:",
       "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Total Ant ELO Multiplier:"
@@ -8375,21 +8447,21 @@
         "platonicCanBuyMaxed": "===Maxed==="
       },
       "descriptions": {
-        "1": "+num:((0.045))% Cubes per level for every Corruption level!",
-        "2": "+num:((0.09))% Tesseracts per level for every Corruption level!",
-        "3": "+num:((0.27))% Hypercubes per level for every Corruption level!",
+        "1": "In Challenge 15, +num:((0.045))% Cubes per level for every Corruption level (counts as 11 levels)!",
+        "2": "In Challenge 15, +num:((0.09))% Tesseracts per level for every Corruption level (counts as 11 levels)!",
+        "3": "In Challenge 15, +num:((0.27))% Hypercubes per level for every Corruption level (counts as 11 levels)!",
         "4": "Gain +num:((2.4))% Platonic Cubes per level! It is that simple.",
         "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +num:((0.2)) free Corruption levels!",
-        "6": "Viscosity's divisor base is reduced by num:((0.04)) per level (2^L → 1.6^L at max level). In Challenge 15, Viscosity's exponent is multiplied by 1+(level/30), capped at ^1.",
-        "7": "Global speed below 1x is raised to ^1-(level/30), ignoring Immaculate multipliers.",
-        "8": "The Hyperchallenge Cube's effect is divided by 1+(level*num:((0.4))), with a minimum of 1x.",
-        "9": "Gain num:((2.5))x Immaculate Obtainium and multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at num:((1e100)) Obtainium.",
+        "6": "Viscosity's difficulty scaling is reduced by 3% per level. In Challenge 15, Viscosity's exponent is multiplied by 1+(level/30).",
+        "7": "Global speed below 1x is raised to ^1-(level/30), ignoring Immaculate multipliers. Less Fruitful Harvests' and Rare Earth Metals' difficulty scaling is reduced by 2% per level.",
+        "8": "Hyperchallenged's difficulty scaling is reduced by 6% per level. In Challenge 15, the Hyperchallenge Cube's effect is divided by 1+(level*num:((0.4))).",
+        "9": "Gain num:((2.5))x Immaculate Obtainium and reduce Illiteracy's difficulty scaling by 30%. In Challenge 15, multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at num:((1e100)) Obtainium.",
         "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, +num:((0.2)) free Corruption levels again!",
-        "11": "If you are at Corruption level 20 or higher, Reincarnations will also give Diamonds based on Particle gain!",
-        "12": "Gain +num:((0.275))% more Ant ELO per Corruption level up to 20, then +num:((0.1))% per level beyond, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
-        "13": "'Less Fruitful Harvests' reduces your <<green|Salvage>> by 50% less!",
-        "14": "Multiply Great Depression II's coin exponent by num:((1.55)), but only in Challenge 15.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level (+20% at level 20, uncapped), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
+        "11": "Rocky Foundations' difficulty scaling is reduced by 30%.",
+        "12": "Blunders' difficulty scaling is reduced by 3% per level. In Challenge 15, gain +5% more Ant ELO per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
+        "13": "All sources of negative <<green|Salvage>> are reduced by 50%!",
+        "14": "Great Depression II's difficulty scaling is reduced by 30%. In Challenge 15, Recession's coin exponent is multiplied by up to num:((1.5)) based on your Coins.",
+        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +11% in Challenge 15, +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to num:((100000)). This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
         "17": "If this is bought, gain +num:((0.2)) free Corruption levels per level (up to +4).",
         "18": "Raise the base percentage of Constant Upgrade 1 by num:((0.1))% and increase the base percentage cap of Constant Upgrade 2 by num:((0.3))% per level!",

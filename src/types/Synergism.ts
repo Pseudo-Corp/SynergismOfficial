@@ -615,6 +615,7 @@ export interface GlobalVariables {
   crystalUpgradeCostIncrement: number[]
 
   freeAccelerator: number
+  effectiveFreeAccelerator: number
   totalAccelerator: number
   freeAcceleratorBoost: number
   totalAcceleratorBoost: number
@@ -622,6 +623,7 @@ export interface GlobalVariables {
   acceleratorEffect: Decimal
 
   freeMultiplier: number
+  effectiveFreeMultiplier: number
   totalMultiplier: number
   multiplierPower: number
   multiplierEffect: Decimal
@@ -834,7 +836,6 @@ export type resetNames =
   | 'transcensionChallenge'
   | 'reincarnationChallenge'
   | 'ascensionChallenge'
-  | 'acceleratorBoost'
 
 export type BuildingSubtab =
   | 'coin'

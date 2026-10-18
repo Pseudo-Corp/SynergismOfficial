@@ -956,13 +956,6 @@ export const generateEventHandlers = () => {
       borderColor: 'green'
     },
     {
-      id: 'acceleratorboostbtn',
-      input: 'acceleratorBoost',
-      label: i18next.t('reset.buttonLabels.acceleratorBoost'),
-      action: () => boostAccelerator(),
-      borderColor: 'lightblue'
-    },
-    {
       id: 'challengebtn',
       input: 'transcensionChallenge',
       label: i18next.t('reset.buttonLabels.transcensionChallenge'),

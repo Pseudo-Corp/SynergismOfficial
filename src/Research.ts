@@ -2,6 +2,7 @@ import Decimal, { type DecimalSource } from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { activeCorruptionLevel, corruptionEffect } from './Corruptions'
 import type { resetTiers } from './Reset'
 import { runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
@@ -9,6 +10,7 @@ import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
 import { sortDecimalWithIndices, updateClassList } from './Utility'
+import { Globals as G } from './Variables'
 
 // TODO: Maybe we should just manually create this map? I was a bit lazy to port all the values
 // dprint-ignore
@@ -273,6 +275,15 @@ export const isResearchUnlocked = (index: number): boolean => {
   return unlockFunction ? unlockFunction() : false
 }
 
+const researchCostMultiplier = (index: number) => {
+  const illiteracy = researchData[index].minimumResetTier === 'ascension'
+    ? corruptionEffect(activeCorruptionLevel(), 'illiteracy')
+    : G.dOne
+  return illiteracy
+    .times(calculateSingularityDebuff('Researches'))
+    .times(getShopUpgradeEffects('obtainiumAuto', 'researchCostMult'))
+}
+
 const getBuyableResearchLevel = (index: number): number => {
   const buyToLevelFunc = researchData[index].buyToLevel
   const baseCost = researchData[index].baseCost
@@ -280,10 +291,7 @@ const getBuyableResearchLevel = (index: number): number => {
   const maxLevel = researchData[index].maxLevel
   const budget = player.obtainium
 
-  let researchCostMulti = calculateSingularityDebuff('Researches')
-  researchCostMulti *= getShopUpgradeEffects('obtainiumAuto', 'researchCostMult')
-
-  return buyToLevelFunc(budget, baseCost.times(researchCostMulti), currLevel, maxLevel)
+  return buyToLevelFunc(budget, baseCost.times(researchCostMultiplier(index)), currLevel, maxLevel)
 }
 
 const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
@@ -291,10 +299,7 @@ const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
   const baseCost = researchData[index].baseCost
   const currLevel = player.researches[index]
 
-  let researchCostMulti = calculateSingularityDebuff('Researches')
-  researchCostMulti *= getShopUpgradeEffects('obtainiumAuto', 'researchCostMult')
-
-  return costForLevelsFunc(baseCost.times(researchCostMulti), currLevel, buyTo)
+  return costForLevelsFunc(baseCost.times(researchCostMultiplier(index)), currLevel, buyTo)
 }
 
 export const researchOrderByCost: number[] = sortDecimalWithIndices(researchBaseCosts)

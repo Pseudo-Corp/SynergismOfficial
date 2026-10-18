@@ -5,7 +5,7 @@ import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
-import { corruptionEffect } from './Corruptions'
+import { challenge15CorruptionEffect } from './Corruptions'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
@@ -166,13 +166,13 @@ const upgradetexts = [
       ),
       2
     ),
-  () => format(Decimal.pow(1.15, G.freeAccelerator).times(1e5), 2),
-  () => format(Decimal.pow(1.15, G.freeAccelerator).times(1e5), 2),
+  () => format(Decimal.pow(1.15, G.effectiveFreeAccelerator).times(1e5), 2),
+  () => format(Decimal.pow(1.15, G.effectiveFreeAccelerator).times(1e5), 2),
   () =>
     format(
       Decimal.min(
         Decimal.pow(10, 1e33),
-        Decimal.pow(G.acceleratorEffect, corruptionEffect(player.corruptions.used, 'deflation') / 3)
+        Decimal.pow(G.acceleratorEffect, challenge15CorruptionEffect('deflation') / 3)
       ),
       2
     ),
@@ -190,24 +190,24 @@ const upgradetexts = [
       2
     ),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(5 + (1 / 101 * G.freeAccelerator)))
+    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
+    y: format(Math.floor(5 + (1 / 101 * G.effectiveFreeAccelerator)))
   }),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(4 + (1 / 101 * G.freeAccelerator)))
+    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
+    y: format(Math.floor(4 + (1 / 101 * G.effectiveFreeAccelerator)))
   }),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(3 + (1 / 101 * G.freeAccelerator)))
+    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
+    y: format(Math.floor(3 + (1 / 101 * G.effectiveFreeAccelerator)))
   }),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(2 + (1 / 101 * G.freeAccelerator)))
+    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
+    y: format(Math.floor(2 + (1 / 101 * G.effectiveFreeAccelerator)))
   }),
   () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.freeMultiplier))),
-    y: format(Math.floor(1 + (1 / 101 * G.freeAccelerator)))
+    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
+    y: format(Math.floor(1 + (1 / 101 * G.effectiveFreeAccelerator)))
   }),
   () => null,
   () =>
@@ -243,8 +243,8 @@ const upgradetexts = [
   () => format(Math.floor(calculateTotalCoinOwned() / 2000)),
   () => format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))),
   () => format(G.totalAcceleratorBoost),
-  () => format(Math.floor(3 / 103 * G.freeMultiplier)),
-  () => format(Math.floor(2 / 102 * G.freeMultiplier)),
+  () => format(Math.floor(3 / 103 * G.effectiveFreeMultiplier)),
+  () => format(Math.floor(2 / 102 * G.effectiveFreeMultiplier)),
   () => format(Decimal.min('1e5000', Decimal.pow(player.prestigePoints, 1 / 500)), 2),
   () => format(Decimal.pow(Decimal.log(player.prestigePoints.add(10), 10), 2), 2),
   () => null,

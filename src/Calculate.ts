@@ -4,7 +4,12 @@ import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
-import { c15ViscosityExponent, corruptionEffect, isCorruptionCubeUnlocked } from './Corruptions'
+import {
+  activeCorruptionLevel,
+  challenge15CorruptionEffect,
+  corruptionEffect,
+  isCorruptionCubeUnlocked
+} from './Corruptions'
 import { calculateAcceleratorCubeBlessing } from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
@@ -217,8 +222,7 @@ export const calculateObtainium = (timeMultUsed = true, baseObtainium = calculat
   // Immaculate Offering Capacity
   const immaculate = calculateObtainiumDRIgnoreMult()
 
-  // Illiteracy Effect
-  const DR = corruptionEffect(player.corruptions.used, 'illiteracy')
+  const DR = challenge15CorruptionEffect('illiteracy')
 
   // Reincarnation Timer Effects (Including HALF MIND)
   const timeMultiplier = timeMultUsed
@@ -584,7 +588,7 @@ export const calculatePositiveSalvage = () => {
   return calculateRawPositiveSalvage() * calculatePositiveSalvageMultiplier()
 }
 
-export const calculateNegativeSalvageMultiplier = () => calculateTotalStat(negativeSalvageStatMultiplier)
+export const calculateNegativeSalvageMultiplier = () => Math.max(0, calculateTotalStat(negativeSalvageStatMultiplier))
 export const calculateRawNegativeSalvage = () => calculateTotalStat(negativeSalvageStats)
 export const calculateNegativeSalvage = () => {
   return calculateRawNegativeSalvage() * calculateNegativeSalvageMultiplier()
@@ -623,6 +627,7 @@ export const calculateBuildingConstruction = (type: keyof typeof buildingConstru
     return ascensionChallenge15ParticleConstruction
   }
   return calculateConstruction() / getChallengeConstructionDivisor(type)
+    / corruptionEffect(activeCorruptionLevel(), 'construction')
 }
 
 const freeAccelMultAdditiveStats = {
@@ -652,10 +657,7 @@ export const calculateFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveS
   Math.floor(
     Math.min(
       1e100,
-      (Math.pow(
-        calculateRawFreeAccelMult(type) / corruptionEffect(player.corruptions.used, 'viscosity'),
-        c15ViscosityExponent(player.corruptions.used)
-      )
+      (Math.pow(calculateRawFreeAccelMult(type), challenge15CorruptionEffect('viscosity'))
         + hepteractFreeAccelMult[type]())
         * G.challenge15Rewards[type].value
         * hepteractFreeAccelMultMultiplier[type]()
@@ -684,6 +686,18 @@ export const calculateTotalAcceleratorBoost = () => {
 
 export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()
+}
+
+export const calculateBadOfferingsSalvage = () => {
+  return corruptionEffect(activeCorruptionLevel(), 'salvage') * calculateNegativeSalvageMultiplier()
+}
+
+export const calculateChallenge15RuneSalvage = () => {
+  return challenge15CorruptionEffect('drought') * calculateNegativeSalvageMultiplier()
+}
+
+export const calculateFirstFiveRuneSalvage = () => {
+  return calculateTotalSalvage() + calculateBadOfferingsSalvage() + calculateChallenge15RuneSalvage()
 }
 
 export const calculateSalvageRuneEXPMultiplier = (salvageVal?: number): Decimal => {
@@ -1351,13 +1365,13 @@ export const CalcCorruptionStuff = () => {
   const cubeGain = calculateCubeMultiplierWithTau()
   const tesseractGain = calculateTesseractMultiplier()
 
-  let hypercubeGain = isCorruptionCubeUnlocked(player.corruptions.used, 'hypercubes') ? 1 : 0
+  let hypercubeGain = isCorruptionCubeUnlocked(activeCorruptionLevel(), 'hypercubes') ? 1 : 0
   hypercubeGain *= calculateHypercubeMultiplier()
 
-  let platonicGain = isCorruptionCubeUnlocked(player.corruptions.used, 'platonics') ? 1 : 0
+  let platonicGain = isCorruptionCubeUnlocked(activeCorruptionLevel(), 'platonics') ? 1 : 0
   platonicGain *= calculatePlatonicMultiplier()
 
-  let hepteractGain = isCorruptionCubeUnlocked(player.corruptions.used, 'hepteracts') ? 1 : 0
+  let hepteractGain = isCorruptionCubeUnlocked(activeCorruptionLevel(), 'hepteracts') ? 1 : 0
   hepteractGain *= calculateHepteractMultiplier()
 
   return {

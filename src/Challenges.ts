@@ -2,12 +2,20 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  calculateNegativeSalvageMultiplier,
   challengeTenCubeBankMultiplier,
   reincarnationChallengeCubeBankPerCompletion,
   transcensionChallengeCubeBankPerCompletion
 } from './Calculate'
 import { campaignTokenBonuses } from './Campaign'
-import { corruptionEffect } from './Corruptions'
+import {
+  activeCorruptionLevel,
+  challenge15CorruptionEffect,
+  challenge15CorruptionValue,
+  challenge15IlliteracyBase,
+  challenge15IlliteracyMax,
+  corruptionEffect
+} from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
 import { type RuneKeys, runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
@@ -176,6 +184,59 @@ const runeLockedChallengeRewards: Partial<Record<number, [string, RuneKeys]>> = 
   5: ['challengePer2', 'superiorIntellect']
 }
 
+const challenge15PlatonicRecessionMax = 1.5
+
+const challenge15Modifiers: Array<[string, () => Record<string, string>]> = [
+  ['viscosity', () => ({ value: format(challenge15CorruptionValue('viscosity'), 3, true) })],
+  [
+    'dilation',
+    () => ({ value: format(challenge15CorruptionValue('dilation')) })
+  ],
+  ['hyperchallenge', () => ({ value: format(challenge15CorruptionValue('hyperchallenge'), 2, true) })],
+  [
+    'illiteracy',
+    () => ({ value: format(challenge15IlliteracyBase, 3, true), max: format(challenge15IlliteracyMax(), 3, true) })
+  ],
+  [
+    'drought',
+    () => ({ value: format(challenge15CorruptionValue('drought') * calculateNegativeSalvageMultiplier(), 1, true) })
+  ],
+  [
+    'recession',
+    () => ({
+      value: format(challenge15CorruptionValue('recession'), 3, true),
+      max: format(challenge15CorruptionValue('recession') * challenge15PlatonicRecessionMax, 3, true)
+    })
+  ],
+  ['deflation', () => ({ value: format(challenge15CorruptionValue('deflation')) })],
+  ['extinction', () => ({ value: format(challenge15CorruptionValue('extinction')) })],
+  ['spirit', () => ({ value: format(challenge15CorruptionValue('spirit')) })]
+]
+
+const challenge15ImprovingModifiers: Record<string, number> = {
+  illiteracy: 9,
+  recession: 14
+}
+
+const challenge15ModifierKey = (key: string) => {
+  const upgrade = challenge15ImprovingModifiers[key]
+  return upgrade !== undefined && player.platonicUpgrades[upgrade] > 0 ? `${key}Improved` : key
+}
+
+const challenge15ExtraModifiers = ['antSpeed', 'fortunae', 'tax'] as const
+
+const challenge15RestrictionsHTML = () => {
+  return [
+    i18next.t('challenges.15.restrictions.intro'),
+    ...challenge15Modifiers.map(([key, values]) =>
+      i18next.t(`challenges.15.restrictions.modifiers.${challenge15ModifierKey(key)}`, values())
+    ),
+    '',
+    i18next.t('challenges.15.restrictions.extraIntro'),
+    ...challenge15ExtraModifiers.map((key) => i18next.t(`challenges.15.restrictions.extras.${key}`))
+  ].join('<br>')
+}
+
 export const challengeDisplay = (i: number) => {
   let quarksMultiplier = 1
   const isFocused = i === G.challengefocus
@@ -306,7 +367,7 @@ export const challengeDisplay = (i: number) => {
       max: maxChallenges
     })
     b.textContent = i18next.t(`challenges.${i}.flavor`)
-    c.innerHTML = i18next.t(`challenges.${i}.restrictions`)
+    c.innerHTML = i === 15 ? challenge15RestrictionsHTML() : i18next.t(`challenges.${i}.restrictions`)
     d.textContent = i18next.t(`challenges.${i}.goal`, { value: goal })
     e.textContent = i18next.t(`challenges.${i}.per.1`)
     f.textContent = i18next.t(`challenges.${i}.per.2`)
@@ -375,7 +436,7 @@ export const challengeDisplay = (i: number) => {
     player.challengecompletions[i] >= player.highestchallengecompletions[i]
     && player.highestchallengecompletions[i] < 10 && i > 10
   ) {
-    j.textContent = i18next.t('challenges.hypercubeOneTimeBonus')
+    j.innerHTML = i18next.t(i === 15 ? 'challenges.15.legend' : 'challenges.hypercubeOneTimeBonus')
   }
 
   if (isFocused) {
@@ -491,16 +552,20 @@ const calculateChallengeRequirementMultiplier = (
 export const challengeRequirement = (challenge: number, completion: number, special = 0) => {
   const base = G.challengeBaseRequirements[challenge - 1]
   if (challenge <= 5) {
-    return Decimal.pow(10, base * calculateChallengeRequirementMultiplier('transcend', completion, special))
+    return Decimal.pow(
+      10,
+      base * challenge15CorruptionEffect('hyperchallenge')
+        * calculateChallengeRequirementMultiplier('transcend', completion, special)
+    )
   } else if (challenge <= 10) {
     let c10Reduction = 0
-    let hyperchallengeMultiplier = 1
+    let hyperchallengeMultiplier = challenge15CorruptionEffect('hyperchallenge')
     if (challenge === 10) {
       c10Reduction =
         1e8 * (player.researches[140] + player.researches[155] + player.researches[170] + player.researches[185])
         + getShopUpgradeEffects('challengeTome', 'c10RequirementReduction')
         + getShopUpgradeEffects('challengeTome2', 'c10RequirementReduction')
-      hyperchallengeMultiplier = corruptionEffect(player.corruptions.used, 'hyperchallenge')
+      hyperchallengeMultiplier *= corruptionEffect(activeCorruptionLevel(), 'hyperchallenge')
     }
     return Decimal.pow(
       10,

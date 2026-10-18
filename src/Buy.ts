@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import { awardAchievementGroup } from './Achievements'
 import { buildingConstructionSoftcap, calculateBuildingConstruction, calculateConstruction } from './Calculate'
+import { activeCorruptionLevel } from './Corruptions'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import { getRuneEffects } from './Runes'
 import { player } from './Synergism'
@@ -87,7 +88,7 @@ const isScalingBuilding = (type: BuildingType): type is ScalingBuildingType =>
   type === 'coin' || type === 'diamond' || type === 'mythos' || type === 'particle'
 
 export const getBuildingCostKey = () =>
-  `${calculateConstruction()}|${getRuneBlessingEffect('thrift').accelBoostCostDelay}|${
+  `${calculateConstruction()}|${activeCorruptionLevel()}|${getRuneBlessingEffect('thrift').accelBoostCostDelay}|${
     player.challengecompletions[4]
   }|${player.currentChallenge.transcension}|${player.currentChallenge.reincarnation}|${player.currentChallenge.ascension}`
 

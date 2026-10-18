@@ -68,7 +68,8 @@ import {
   isOfflineDialogOpen
 } from './Calculate'
 import {
-  c15CorruptionLevel,
+  activeCorruptionLevel,
+  challenge15CorruptionEffect,
   clearCorruptionLevel,
   corruptionEffect,
   corruptionPanelCreate,
@@ -76,6 +77,7 @@ import {
   corruptionPresetTableUpdate,
   corruptionStatsUpdate,
   createDefaultCorruptionPresets,
+  isCorruptionLevelOverwritten,
   isCorruptionPresetUnlocked,
   loadCorruptionPreset,
   normalizeCorruptionLevel,
@@ -2370,8 +2372,10 @@ export const formatDecimalAsPercentIncrease = (n: Decimal, accuracy = 2) => {
 }
 
 export const updateAllTick = (): void => {
+  const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
   G.freeAccelerator = calculateFreeAccelMult('accelerator')
-  G.totalAccelerator = player.acceleratorBought + G.freeAccelerator
+  G.effectiveFreeAccelerator = G.freeAccelerator / viscosity
+  G.totalAccelerator = player.acceleratorBought / viscosity + G.effectiveFreeAccelerator
 
   const tuSevenMulti = player.upgrades[46] > 0.5 ? 1.05 : 1
 
@@ -2426,8 +2430,10 @@ export const updateAllTick = (): void => {
 }
 
 export const updateAllMultiplier = (): void => {
+  const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
   G.freeMultiplier = calculateFreeAccelMult('multiplier')
-  G.totalMultiplier = player.multiplierBought + G.freeMultiplier
+  G.effectiveFreeMultiplier = G.freeMultiplier / viscosity
+  G.totalMultiplier = player.multiplierBought / viscosity + G.effectiveFreeMultiplier
 
   G.challengeOneLog = 3
 
@@ -2639,7 +2645,7 @@ export const multipliers = (): void => {
     G.coinThreeMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[14] > 0.5) {
-    G.coinThreeMulti = G.coinThreeMulti.times(Decimal.pow(1.15, G.freeAccelerator).times(1e5))
+    G.coinThreeMulti = G.coinThreeMulti.times(Decimal.pow(1.15, G.effectiveFreeAccelerator).times(1e5))
   }
   if (player.upgrades[18] > 0.5) {
     G.coinThreeMulti = G.coinThreeMulti.times(
@@ -2656,7 +2662,7 @@ export const multipliers = (): void => {
     G.coinFourMulti = Decimal.fromNumber(1)
   }
   if (player.upgrades[15] > 0.5) {
-    G.coinFourMulti = G.coinFourMulti.times(Decimal.pow(1.15, G.freeAccelerator).times(1e5))
+    G.coinFourMulti = G.coinFourMulti.times(Decimal.pow(1.15, G.effectiveFreeAccelerator).times(1e5))
   }
   if (player.upgrades[17] > 0.5) {
     G.coinFourMulti = G.coinFourMulti.times(1e100)
@@ -3171,7 +3177,7 @@ export const resetCurrency = (): void => {
     prestigePow = 1e-4
     transcendPow = 0.001
   }
-  prestigePow *= corruptionEffect(player.corruptions.used, 'deflation')
+  prestigePow *= challenge15CorruptionEffect('deflation')
   // Prestige Point Formulae
   G.prestigePointGain = Decimal.floor(
     Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow)
@@ -3186,7 +3192,7 @@ export const resetCurrency = (): void => {
         Decimal.pow(10, 1e33),
         Decimal.pow(
           G.acceleratorEffect,
-          (1 / 3) * corruptionEffect(player.corruptions.used, 'deflation')
+          (1 / 3) * challenge15CorruptionEffect('deflation')
         )
       )
     )
@@ -3354,7 +3360,7 @@ export const resetCheck = async (
       }
     }
     challengeAchievementCheck(q)
-    if (q === 10 && player.challengecompletions[10] > 0 && player.currentChallenge.ascension !== 15) {
+    if (q === 10 && player.challengecompletions[10] > 0 && !isCorruptionLevelOverwritten()) {
       clearCorruptionLevel(player.corruptions.used)
     }
     if (player.highestchallengecompletions[8] > 0) {
@@ -4533,9 +4539,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     }
   }
 
-  player.corruptions.used = player.currentChallenge.ascension === 15
-    ? c15CorruptionLevel
-    : normalizeCorruptionLevel(player.corruptions.used)
+  player.corruptions.used = normalizeCorruptionLevel(player.corruptions.used)
   player.corruptions.next = normalizeCorruptionLevel(player.corruptions.next)
   corruptionStatsUpdate()
   corruptionPresetTableUpdate()

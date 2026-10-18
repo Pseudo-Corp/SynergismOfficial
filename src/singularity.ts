@@ -9,6 +9,7 @@ import {
   calculateImmaculateAlchemyBonus
 } from './Calculate'
 import { updateMaxTokens, updateTokens } from './Campaign'
+import { activeCorruptionLevel } from './Corruptions'
 import { addCodeAvailableUses, addCodeMaxUses } from './ImportExport'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -1114,7 +1115,7 @@ export const goldenQuarkUpgrades: {
         if (n === 0) {
           return 1
         } else {
-          const level = player.corruptions.used
+          const level = activeCorruptionLevel()
           const perCorruption = level >= 45 ? 1.4 : level >= 40 ? 1.3 : level >= 35 ? 1.25 : 1
           return Math.pow(perCorruption, 8)
         }

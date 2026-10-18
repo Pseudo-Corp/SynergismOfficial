@@ -2,7 +2,7 @@ import type { DecimalSource } from 'break_infinity.js'
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { convertInputToCorruption, type Corruptions, setNextCorruptionLevel } from './Corruptions'
+import { setNextCorruptionLevel } from './Corruptions'
 import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/ant-speed'
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
@@ -50,6 +50,23 @@ export type ResetHistoryEntryReincarnate = ResetHistoryEntryBase & {
   kind: 'reincarnate'
 }
 
+const legacyCorruptionKeys = [
+  'viscosity',
+  'dilation',
+  'hyperchallenge',
+  'illiteracy',
+  'deflation',
+  'extinction',
+  'drought',
+  'recession'
+] as const
+
+type LegacyCorruptions = Record<typeof legacyCorruptionKeys[number], number>
+
+const convertInputToLegacyCorruptions = (array: number[]) => {
+  return Object.fromEntries(legacyCorruptionKeys.map((key, index) => [key, array[index]])) as LegacyCorruptions
+}
+
 type LegacyCorruptionTierState = {
   tier: number
   level: number
@@ -57,7 +74,7 @@ type LegacyCorruptionTierState = {
 
 export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
   c10Completions: number
-  usedCorruptions: Corruptions | number[] | LegacyCorruptionTierState | number
+  usedCorruptions: LegacyCorruptions | number[] | LegacyCorruptionTierState | number
   corruptionScore?: number
   wowCubes: number
   wowTesseracts: number
@@ -330,7 +347,7 @@ type corruptionInfo = {
 }
 
 // Images associated with the various corruptions.
-const resetHistoryCorruptionInfo: Record<keyof Corruptions, corruptionInfo> = {
+const resetHistoryCorruptionInfo: Record<keyof LegacyCorruptions, corruptionInfo> = {
   viscosity: {
     image: 'CorruptViscosity.png',
     title: 'Viscosity [Accelerators and Multipliers]'
@@ -543,15 +560,15 @@ const isLegacyCorruptionTierState = (
   return typeof corruptions === 'object' && !Array.isArray(corruptions) && 'tier' in corruptions
 }
 
-const resetHistoryFormatLegacyCorruptions = (usedCorruptions: Corruptions | number[]) => {
+const resetHistoryFormatLegacyCorruptions = (usedCorruptions: LegacyCorruptions | number[]) => {
   let corruptions = ''
   let corrs = 0
   const corrToLoad = Array.isArray(usedCorruptions)
-    ? convertInputToCorruption(usedCorruptions.slice(2, 10))
+    ? convertInputToLegacyCorruptions(usedCorruptions.slice(2, 10))
     : usedCorruptions
 
   for (const corruption in corrToLoad) {
-    const corrKey = corruption as keyof Corruptions
+    const corrKey = corruption as keyof LegacyCorruptions
     if (corrToLoad[corrKey] !== 0) {
       corruptions += `<img alt="${corrs > 0 ? '/' : ''}" src="Pictures/${IconSets[player.iconSet][0]}/${
         resetHistoryCorruptionInfo[corrKey].image

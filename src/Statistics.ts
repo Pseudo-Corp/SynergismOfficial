@@ -23,11 +23,13 @@ import {
   calculateAscensionCount,
   calculateAscensionSpeedExponentSpread,
   calculateAscensionSpeedMult,
+  calculateBadOfferingsSalvage,
   calculateBaseGoldenQuarks,
   calculateBaseObtainium,
   calculateBaseOfferings,
   calculateBlueberryInventory,
   calculateBuildingConstruction,
+  calculateChallenge15RuneSalvage,
   calculateConstruction,
   calculateCookieUpgrade29Luck,
   calculateCubeBank,
@@ -42,6 +44,7 @@ import {
   calculateEventCubeGain,
   calculateExalt3Penalty,
   calculateExalt6Penalty,
+  calculateFirstFiveRuneSalvage,
   calculateFreeAcceleratorBoosts,
   calculateFreeAccelMult,
   calculateFreeShopInfinityUpgrades,
@@ -101,11 +104,12 @@ import {
 import { campaignTokenBonuses } from './Campaign'
 import { type Challenge15Rewards, challenge15ScoreMultiplier, useChallenge13Modifiers } from './Challenges'
 import {
-  c15ViscosityExponent,
+  activeCorruptionLevel,
+  challenge15CorruptionEffect,
+  challenge15CorruptionLevel,
   corruptionCubeRate,
   type CorruptionCubeType,
   corruptionEffect,
-  corruptionLevelStrength,
   effectiveCorruptionLevel,
   isCorruptionCubeUnlocked
 } from './Corruptions'
@@ -293,7 +297,7 @@ const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
   {
     i18n: 'Corruption',
     stat: () =>
-      isCorruptionCubeUnlocked(player.corruptions.used, cube) ? corruptionCubeRate(cube, player.corruptions.used) : 0
+      isCorruptionCubeUnlocked(activeCorruptionLevel(), cube) ? corruptionCubeRate(cube, activeCorruptionLevel()) : 0
   },
   {
     i18n: 'Challenge15Bonus',
@@ -609,7 +613,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
       stat: () =>
         1
         + 0.00045
-          * player.corruptions.used
+          * challenge15CorruptionLevel()
           * player.platonicUpgrades[1]
     },
     {
@@ -672,7 +676,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CubeUpgrade4x8',
-      stat: () => 1 + (1 / 80) * player.cubeUpgrades[38] * player.corruptions.used
+      stat: () => 1 + (1 / 80) * player.cubeUpgrades[38] * activeCorruptionLevel()
     },
     {
       i18n: 'PlatonicCube',
@@ -680,7 +684,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x2',
-      stat: () => 1 + 0.0009 * player.corruptions.used * player.platonicUpgrades[2]
+      stat: () => 1 + 0.0009 * challenge15CorruptionLevel() * player.platonicUpgrades[2]
     }
   ]
 }
@@ -717,7 +721,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x3',
-      stat: () => 1 + 0.0027 * player.corruptions.used * player.platonicUpgrades[3]
+      stat: () => 1 + 0.0027 * challenge15CorruptionLevel() * player.platonicUpgrades[3]
     },
     {
       i18n: 'HyperrealHepteract',
@@ -841,7 +845,7 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
       i18n: 'CookieUpgrade20',
       stat: () => {
         if (player.cubeUpgrades[70] > 0) {
-          return Math.pow(1.13141, Math.max(0, effectiveCorruptionLevel(player.corruptions.used) - 35))
+          return Math.pow(1.13141, Math.max(0, effectiveCorruptionLevel(activeCorruptionLevel()) - 35))
         } else {
           return 1
         }
@@ -1316,6 +1320,12 @@ export const allOfferingStats: DecimalStatLineCategory = {
     {
       i18n: 'PurpleHoneyUpgrade',
       stat: () => getPurpleReactorUpgradeEffects('offerings', 'offeringMultiplier') // Purple Honey Offering Upgrade
+    },
+    {
+      i18n: 'DroughtCorruption',
+      stat: () => G.dOne.div(corruptionEffect(activeCorruptionLevel(), 'drought')),
+      format: () => `/${format(corruptionEffect(activeCorruptionLevel(), 'drought'), 2)}`,
+      color: 'red'
     },
     {
       i18n: 'Exalt6Penalty',
@@ -1905,6 +1915,12 @@ export const allObtainiumStats: DecimalStatLineCategory = {
       stat: () => getPurpleReactorUpgradeEffects('obtainium', 'obtainiumMultiplier') // Purple Honey Obtainium Upgrade
     },
     {
+      i18n: 'RareEarthMetalsCorruption',
+      stat: () => G.dOne.div(corruptionEffect(activeCorruptionLevel(), 'obtainium')),
+      format: () => `/${format(corruptionEffect(activeCorruptionLevel(), 'obtainium'), 2)}`,
+      color: 'red'
+    },
+    {
       i18n: 'Challenge14',
       stat: () => (player.currentChallenge.ascension === 14) ? 0 : 1, // Challenge 14: No Obtainium
       color: 'red'
@@ -1935,7 +1951,7 @@ const obtainiumDR: DecimalStatLineCategory = {
   lines: [
     {
       i18n: 'ObtainiumDR',
-      stat: () => corruptionEffect(player.corruptions.used, 'illiteracy'),
+      stat: () => challenge15CorruptionEffect('illiteracy'),
       color: 'orange'
     },
     {
@@ -2152,7 +2168,7 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'SpacialDilation',
-      stat: () => corruptionEffect(player.corruptions.used, 'dilation'), // Spacial Dilation
+      stat: () => challenge15CorruptionEffect('dilation'), // Spacial Dilation
       color: 'red'
     },
     {
@@ -2212,7 +2228,7 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'PlatonicOMEGA',
-      stat: () => 1 + 0.01 * player.corruptions.used * player.platonicUpgrades[15] // Platonic Omega
+      stat: () => 1 + 0.01 * challenge15CorruptionLevel() * player.platonicUpgrades[15] // Platonic Omega
     },
     {
       i18n: 'Challenge15',
@@ -3705,18 +3721,11 @@ const createFreeAccelMultFinalStats = (type: 'accelerator' | 'multiplier'): Numb
   type: StatLineTypes.Misc,
   lines: [
     {
-      i18n: 'ViscosityCorruption',
-      stat: () => corruptionEffect(player.corruptions.used, 'viscosity'),
-      format: (stat) => `/${format(stat, 3, true)}`,
-      color: 'red',
-      displayCriterion: () => corruptionEffect(player.corruptions.used, 'viscosity') !== 1
-    },
-    {
       i18n: 'ViscosityExponent',
-      stat: () => c15ViscosityExponent(player.corruptions.used),
+      stat: () => challenge15CorruptionEffect('viscosity'),
       format: (stat) => `^${format(stat, 3, true)}`,
       color: 'red',
-      displayCriterion: () => c15ViscosityExponent(player.corruptions.used) !== 1
+      displayCriterion: () => challenge15CorruptionEffect('viscosity') !== 1
     },
     {
       i18n: 'Hepteract',
@@ -3814,12 +3823,6 @@ export const negativeSalvageStats: NumberStatLineCategory = {
   type: StatLineTypes.Addition,
   lines: [
     {
-      i18n: 'DroughtCorruption',
-      stat: () => corruptionEffect(player.corruptions.used, 'drought'),
-      color: 'red',
-      acc: 0
-    },
-    {
       i18n: 'SingularityDebuff',
       stat: () => calculateSingularityDebuff('Salvage'), // Singularity Debuff
       color: 'red',
@@ -3850,6 +3853,11 @@ export const negativeSalvageStatMultiplier: NumberStatLineCategory = {
     {
       i18n: 'AchievementTalisman',
       stat: () => getTalismanEffects('achievement').negativeSalvageMult
+    },
+    {
+      i18n: 'PlatonicUpgrade13',
+      stat: () => player.platonicUpgrades[13] > 0 ? -0.5 : 0,
+      acc: 2
     }
   ]
 }
@@ -4111,7 +4119,12 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'PlatonicUpgrade12',
-      stat: () => (1 / 200) * player.platonicUpgrades[12] * corruptionLevelStrength(player.corruptions.used)
+      stat: () => player.currentChallenge.ascension === 15 ? 0.05 * player.platonicUpgrades[12] : 0
+    },
+    {
+      i18n: 'BlundersCorruption',
+      stat: () => -corruptionEffect(activeCorruptionLevel(), 'blunders'),
+      color: 'red'
     },
     {
       i18n: 'SingularityDebuff',
@@ -4824,7 +4837,7 @@ export const allCoinExponentStats: NumberStatLineCategory = {
       stat: () =>
         player.currentChallenge.ascension === 15 && player.platonicUpgrades[14] > 0
           ? 1
-            + ((1 / 20) * corruptionLevelStrength(player.corruptions.used) * Decimal.log(player.coins.add(1), 10))
+            + (0.5 * Decimal.log(player.coins.add(1), 10))
               / (1e7 + Decimal.log(player.coins.add(1), 10))
           : 1,
       format: formatExponent
@@ -4841,7 +4854,12 @@ export const allCoinExponentStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Recession',
-      stat: () => corruptionEffect(player.corruptions.used, 'recession'),
+      stat: () => corruptionEffect(activeCorruptionLevel(), 'recession'),
+      format: formatExponent
+    },
+    {
+      i18n: 'Challenge15Recession',
+      stat: () => challenge15CorruptionEffect('recession'),
       format: formatExponent
     }
   ]
@@ -5762,17 +5780,46 @@ const loadFreeAccelMultStats = () => {
   DOMCacheGetOrSet('freeAccelMultExtra').innerHTML = i18next.t('statistics.freeAccelMultStats.extraInfo')
 }
 
+const firstFiveRuneSalvageStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  lines: [
+    {
+      i18n: 'GlobalSalvage',
+      stat: () => calculateTotalSalvage(),
+      displayCriterion: () => true
+    },
+    {
+      i18n: 'BadOfferings',
+      stat: () => calculateBadOfferingsSalvage(),
+      color: 'red'
+    },
+    {
+      i18n: 'Challenge15Penalty',
+      stat: () => calculateChallenge15RuneSalvage(),
+      color: 'red'
+    }
+  ]
+}
+
 const loadSalvageStats = () => {
   loadPositiveSalvageStats()
   loadNegativeSalvageStats()
 
   loadStatistics(
-    // Erm??
     { kind: 'number', type: StatLineTypes.Misc, lines: [] },
-    'salvageStats',
+    'salvageTotal',
     'statSalv',
     'SalvageStat',
     calculateTotalSalvage
+  )
+
+  loadStatistics(
+    firstFiveRuneSalvageStats,
+    'salvageFirstFive',
+    'statSalvFirstFive',
+    'SalvageStatFirstFive',
+    calculateFirstFiveRuneSalvage
   )
 
   DOMCacheGetOrSet('salvageExtra').innerHTML = i18next.t('statistics.salvageStats.extraInfo')

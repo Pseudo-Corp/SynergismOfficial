@@ -52,12 +52,7 @@ import {
 } from './Calculate'
 import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
-import {
-  corruptionEffectsUpdate,
-  corruptionLevelScoreUpdate,
-  corruptionMultiplierChangeText,
-  corruptionSpiritMultiplier
-} from './Corruptions'
+import { corruptionEffectsUpdate, corruptionLevelScoreUpdate } from './Corruptions'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -1716,10 +1711,6 @@ export const visualUpdateCorruptions = () => {
 
   corruptionEffectsUpdate()
   corruptionLevelScoreUpdate()
-  DOMCacheGetOrSet('corruptionSpiritValue').innerHTML = corruptionMultiplierChangeText(
-    format(corruptionSpiritMultiplier(player.corruptions.used), 2, true),
-    format(corruptionSpiritMultiplier(player.corruptions.next), 2, true)
-  )
 }
 
 export const visualUpdateSettings = () => {

@@ -6286,6 +6286,13 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     line-height: 1.2em;
 }
 
+#corruptionLevelOverwritten {
+    max-width: 40em;
+    margin: 2px auto;
+    font-size: 1.15em;
+    line-height: 1.2em;
+}
+
 #corruptionLevelControls {
     gap: 4px;
     margin: 2px 0;

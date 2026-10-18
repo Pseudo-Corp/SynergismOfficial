@@ -90,7 +90,6 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   prestigebtn: () => player.unlocks.coinfour,
   transcendbtn: () => player.unlocks.prestige,
   reincarnatebtn: () => player.unlocks.transcend,
-  acceleratorboostbtn: () => player.unlocks.transcend,
   challengebtn: () => player.unlocks.transcend,
   reincarnatechallengebtn: () => player.unlocks.reincarnate,
   ascendChallengeBtn: () => player.ascensionCount > 0,
