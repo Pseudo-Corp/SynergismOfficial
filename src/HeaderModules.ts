@@ -221,6 +221,7 @@ export const renderHeaderLayout = () => {
   for (const region of headerRegionIds) {
     const slotElements: HTMLElement[] = []
     const isGrid = isHeaderGridRegion(region)
+    const filledRows = new Set<number>()
     let lastCell = -1
 
     if (isGrid) {
@@ -280,6 +281,7 @@ export const renderHeaderLayout = () => {
       if (isGrid) {
         slotElement.style.gridArea = wide ? `${gridArea(region, index)} / span 1 / span 2` : gridArea(region, index)
         lastCell = wide ? index + 1 : index
+        filledRows.add(Math.floor(index / gridColumns(region)))
       }
       slotElements.push(slotElement)
     })
@@ -301,6 +303,15 @@ export const renderHeaderLayout = () => {
         cell.dataset.headerCell = `${index}`
         cell.style.gridArea = gridArea(region, index)
         cells.push(cell)
+      }
+    } else {
+      for (let row = 0; row <= Math.floor(lastCell / gridColumns(region)); row++) {
+        if (!filledRows.has(row)) {
+          const cell = document.createElement('div')
+          cell.className = 'headerCell'
+          cell.style.gridArea = gridArea(region, row * gridColumns(region))
+          cells.push(cell)
+        }
       }
     }
     regionElement.style.setProperty('--header-grid-columns', `${gridColumns(region)}`)
