@@ -6411,7 +6411,7 @@ header {
 }
 
 header .img,
-.currenciesContainer .headerStat img {
+.headerGrid .headerStat img {
     height: 32px;
     width: 32px;
 }
@@ -6457,7 +6457,7 @@ header .img,
 }
 
 .currencyContainer,
-.currenciesContainer .headerStat {
+.headerGrid .headerStat {
     display: flex;
     align-items: center;
     width: calc(38px + 7.5em);
@@ -6525,7 +6525,7 @@ header #blueberryHeaderDisplay,
     margin: auto 4px auto 0;
 }
 
-.currenciesContainer .headerStat img {
+.headerGrid .headerStat img {
     margin-right: 6px;
 }
 
@@ -6572,24 +6572,24 @@ header #blueberryHeaderDisplay,
 }
 
 .currencyContainer.headerModule[data-size="S"],
-.currenciesContainer .headerStat[data-size="S"] {
+.headerGrid .headerStat[data-size="S"] {
     font-size: inherit;
 }
 
 .currencyContainer.headerModule[data-size="S"] .statDisplay,
-.currenciesContainer .headerStat[data-size="S"] > span {
+.headerGrid .headerStat[data-size="S"] > span {
     font-size: 0.75em;
 }
 
 .headerModule[data-size="S"] .img,
-.currenciesContainer .headerStat[data-size="S"] img {
+.headerGrid .headerStat[data-size="S"] img {
     width: 16px;
     height: 16px;
 }
 
 .headerModule[data-size="L"] .img,
 .resetbtn.headerModule[data-size="L"],
-.currenciesContainer .headerStat[data-size="L"] img {
+.headerGrid .headerStat[data-size="L"] img {
     width: 48px;
     height: 48px;
 }

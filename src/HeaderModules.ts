@@ -207,6 +207,7 @@ const updateEditToolbar = (layout: HeaderLayout) => {
 export const renderHeaderLayout = () => {
   const layout = currentLayout()
   const trayModules: HTMLElement[] = []
+  const grids: { region: HeaderRegionId; slotElements: HTMLElement[]; rows: number }[] = []
 
   DOMCacheGetOrSet('mainHeader').style.setProperty('--header-cell-columns', `${HEADER_GRID_COLUMNS[layoutKey()]}`)
   DOMCacheGetOrSet('mainHeader').style.setProperty('--header-button-slots', `${HEADER_BUTTON_GROUP_CAPACITY}`)
@@ -281,14 +282,18 @@ export const renderHeaderLayout = () => {
       slotElements.push(slotElement)
     })
 
-    const regionElement = DOMCacheGetOrSet(region)
     if (!isGrid) {
-      regionElement.replaceChildren(...slotElements)
+      DOMCacheGetOrSet(region).replaceChildren(...slotElements)
       continue
     }
 
+    grids.push({ region, slotElements, rows: Math.floor(lastCell / gridColumns(region)) + (editing ? 2 : 1) })
+  }
+
+  const gridRows = Math.max(...grids.map(({ rows }) => rows))
+  for (const { region, slotElements, rows } of grids) {
     const cells: HTMLElement[] = []
-    const cellCount = (Math.floor(lastCell / gridColumns(region)) + (editing ? 2 : 1)) * gridColumns(region)
+    const cellCount = (isMobile ? rows : gridRows) * gridColumns(region)
     for (let index = 0; index < cellCount; index++) {
       const cell = document.createElement('div')
       cell.className = 'headerCell'
@@ -296,6 +301,7 @@ export const renderHeaderLayout = () => {
       cell.style.gridArea = gridArea(region, index)
       cells.push(cell)
     }
+    const regionElement = DOMCacheGetOrSet(region)
     regionElement.style.setProperty('--header-grid-columns', `${gridColumns(region)}`)
     regionElement.replaceChildren(...cells, ...slotElements)
   }
