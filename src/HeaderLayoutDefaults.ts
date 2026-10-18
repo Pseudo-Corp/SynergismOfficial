@@ -67,7 +67,7 @@ const challengeProgressModuleIds = [
   'ascensionChallengeProgress'
 ] as const
 
-export const headerRegionIds = ['ascensionStats', 'currenciesContainer', 'resetsButtons'] as const
+export const headerRegionIds = ['ascensionStats', 'headerGrid'] as const
 
 export type HeaderRegionId = typeof headerRegionIds[number]
 
@@ -85,16 +85,14 @@ export const headerModuleSizes = ['S', 'M', 'L'] as const
 
 export type HeaderModuleSize = typeof headerModuleSizes[number]
 
-const headerGridRegions = ['currenciesContainer', 'resetsButtons'] as const
-
-export const HEADER_GRID_COLUMNS = { desktop: 4, mobile: 2 } as const
-
 export const HEADER_STACK_CAPACITY = 2
 export const HEADER_BUTTON_GROUP_CAPACITY = 4
 const HEADER_BUTTON_MODULE_COUNT = Math.ceil(resetButtonModuleIds.length / HEADER_BUTTON_GROUP_CAPACITY)
-export const HEADER_BUTTON_GRID_COLUMNS = {
-  desktop: HEADER_BUTTON_MODULE_COUNT,
-  mobile: HEADER_GRID_COLUMNS.mobile
+const HEADER_CURRENCY_COLUMNS = 4
+
+export const HEADER_GRID_COLUMNS = {
+  desktop: HEADER_CURRENCY_COLUMNS + HEADER_BUTTON_MODULE_COUNT,
+  mobile: 2
 } as const
 
 export const isHeaderButton = (id: HeaderModuleId) => (resetButtonModuleIds as readonly HeaderModuleId[]).includes(id)
@@ -104,8 +102,7 @@ export const isHeaderProgress = (id: HeaderModuleId) =>
 
 export const isHeaderLoadout = (id: HeaderModuleId) => (loadoutModuleIds as readonly HeaderModuleId[]).includes(id)
 
-export const isHeaderGridRegion = (region: HeaderRegionId) =>
-  (headerGridRegions as readonly HeaderRegionId[]).includes(region)
+export const isHeaderGridRegion = (region: HeaderRegionId) => region === 'headerGrid'
 
 export const freeButtonPosition = (positions: HeaderLayout['positions'], slot: HeaderModuleId[]) => {
   let position = 0
@@ -115,12 +112,11 @@ export const freeButtonPosition = (positions: HeaderLayout['positions'], slot: H
   return position
 }
 
-export const createDefaultHeaderLayout = () => {
+export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
   const layout: HeaderLayout = {
     regions: {
       ascensionStats: statModuleIds.map((id) => [id]),
-      currenciesContainer: [...currencyModuleIds, ...ambrosiaModuleIds].map((id) => [id]),
-      resetsButtons: []
+      headerGrid: []
     },
     sizes: {},
     positions: {},
@@ -141,12 +137,36 @@ export const createDefaultHeaderLayout = () => {
     rainbowAmbrosia: 'ambrosiaHeader'
   }
 
+  const buttonSlots: HeaderModuleId[][] = []
   for (const [index, id] of resetButtonModuleIds.entries()) {
-    ;(layout.regions.resetsButtons[Math.floor(index / HEADER_BUTTON_GROUP_CAPACITY)] ??= []).push(id)
+    ;(buttonSlots[Math.floor(index / HEADER_BUTTON_GROUP_CAPACITY)] ??= []).push(id)
     layout.positions[id] = index % HEADER_BUTTON_GROUP_CAPACITY
   }
-  for (const id of challengeProgressModuleIds) {
-    layout.regions.resetsButtons.push([id])
+  const currencySlots = [...currencyModuleIds, ...ambrosiaModuleIds].map((id) => [id])
+  const progressSlots = challengeProgressModuleIds.map((id) => [id])
+  const grid = layout.regions.headerGrid
+
+  if (key === 'mobile') {
+    grid.push(...buttonSlots)
+    while (grid.length % HEADER_GRID_COLUMNS.mobile !== 0) {
+      grid.push([])
+    }
+    grid.push(...currencySlots, ...progressSlots)
+    return layout
+  }
+
+  const resetSlots = [...buttonSlots, ...progressSlots]
+  const rows = Math.max(
+    Math.ceil(currencySlots.length / HEADER_CURRENCY_COLUMNS),
+    Math.ceil(resetSlots.length / HEADER_BUTTON_MODULE_COUNT)
+  )
+  for (let row = 0; row < rows; row++) {
+    for (let column = 0; column < HEADER_CURRENCY_COLUMNS; column++) {
+      grid.push(currencySlots[row * HEADER_CURRENCY_COLUMNS + column] ?? [])
+    }
+    for (let column = 0; column < HEADER_BUTTON_MODULE_COUNT; column++) {
+      grid.push(resetSlots[row * HEADER_BUTTON_MODULE_COUNT + column] ?? [])
+    }
   }
 
   return layout

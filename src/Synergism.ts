@@ -1096,8 +1096,8 @@ export const player: Player = {
   iconSet: 1,
   notation: 'Default',
   headerLayouts: {
-    desktop: createDefaultHeaderLayout(),
-    mobile: createDefaultHeaderLayout()
+    desktop: createDefaultHeaderLayout('desktop'),
+    mobile: createDefaultHeaderLayout('mobile')
   },
 
   goldenQuarkUpgrades: blankGQLevelObject,

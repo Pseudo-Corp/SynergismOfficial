@@ -1292,35 +1292,10 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     background-color: var(--blessings-hover-color);
 }
 
-.resetInformationContainer {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2em;
-    width: 45%;
-    flex-basis: 45%;
-    container-type: inline-size;
-}
-
-.resetsContainer {
-    display: flex;
-    flex-direction: column;
-    line-height: 1em;
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-}
-
 .resetbtn {
     cursor: pointer;
     margin-right: 5px;
     background-color: var(--button-color);
-}
-
-.resetsButtons {
-    display: grid;
-    grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi * 55 / 45 / var(--header-cell-columns)));
-    align-self: flex-start;
-    align-content: start;
-    justify-items: center;
 }
 
 .headerProgress {
@@ -6424,24 +6399,19 @@ header .img,
     display: none;
 }
 
-.subHeader {
-    display: flex;
-    flex-direction: row;
+.headerGrid {
+    display: grid;
+    grid-template-columns: repeat(var(--header-grid-columns), minmax(0, 1fr));
+    align-content: start;
+    justify-items: center;
+    width: 100%;
     min-width: 1250px;
     max-width: calc((38px + 7.5em) * 4 + 40em);
     min-height: 90px;
     margin-bottom: 5px;
-}
-
-.currenciesContainer {
-    display: grid;
-    grid-template-columns: repeat(var(--header-grid-columns, 4), minmax(0, 1fr));
-    align-content: start;
-    justify-items: center;
     line-height: 1em;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
-    flex-basis: 55%;
 }
 
 .headerCell {
@@ -12208,31 +12178,20 @@ html[data-mobile="true"] .hideOnMobile {
         font-size: 0.85em;
     }
 
-    .subHeader {
-        flex-direction: column;
+    .headerGrid {
         min-width: unset;
         max-width: unset;
     }
 
-    html[data-mobile="true"] .subHeader {
-        display: contents;
-    }
-
-    html[data-mobile="true"] .resetInformationContainer {
+    html[data-mobile="true"] .headerGrid {
         order: 1;
         flex: 0 0 auto;
-        width: 100%;
+        margin-top: 10px;
     }
 
     html[data-mobile="true"] .ascensionStats {
         order: 2;
         flex: 0 0 auto;
-    }
-
-    html[data-mobile="true"] .currenciesContainer {
-        order: 3;
-        flex: 0 0 auto;
-        width: 100%;
     }
 
     html[data-mobile="true"] #headerEditPanel {
@@ -12751,21 +12710,6 @@ html[data-mobile="true"] .hideOnMobile {
 
     #iframeOverlayWrapper {
         width: 90%;
-    }
-
-    .resetsContainer {
-        margin-top: 10px;
-        flex-wrap: wrap;
-        flex-direction: column;
-    }
-
-    .resetInformationContainer {
-        width: unset;
-    }
-
-    .resetsButtons {
-        grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi / var(--header-cell-columns)));
-        margin-inline: auto;
     }
 
     /* Cube upgrades */

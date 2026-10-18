@@ -11,7 +11,6 @@ import {
 } from './Corruptions'
 import {
   freeButtonPosition,
-  HEADER_BUTTON_GRID_COLUMNS,
   HEADER_BUTTON_GROUP_CAPACITY,
   HEADER_GRID_COLUMNS,
   HEADER_STACK_CAPACITY,
@@ -138,10 +137,8 @@ let pointerStartY = 0
 
 const layoutKey = () => isMobile ? 'mobile' : 'desktop'
 const currentLayout = () => player.headerLayouts[layoutKey()]
-const gridColumns = (region: HeaderRegionId) =>
-  (region === 'resetsButtons' ? HEADER_BUTTON_GRID_COLUMNS : HEADER_GRID_COLUMNS)[layoutKey()]
-const gridArea = (region: HeaderRegionId, index: number) =>
-  `${Math.floor(index / gridColumns(region)) + 1} / ${(index % gridColumns(region)) + 1}`
+const gridColumns = () => HEADER_GRID_COLUMNS[layoutKey()]
+const gridArea = (index: number) => `${Math.floor(index / gridColumns()) + 1} / ${(index % gridColumns()) + 1}`
 
 const sizeOf = (layout: HeaderLayout, id: HeaderModuleId) => layout.sizes[id] ?? 'M'
 
@@ -150,7 +147,7 @@ const isWideSlot = (layout: HeaderLayout, slot: HeaderModuleId[] | undefined) =>
   && !layout.hidden.includes(slot[0])
 
 const isCoveredCell = (layout: HeaderLayout, region: HeaderRegionId, cell: number) =>
-  cell % gridColumns(region) !== 0 && isWideSlot(layout, layout.regions[region][cell - 1])
+  cell % gridColumns() !== 0 && isWideSlot(layout, layout.regions[region][cell - 1])
 
 const firstEmptyCell = (layout: HeaderLayout, region: HeaderRegionId, from: number) => {
   const slots = layout.regions[region]
@@ -165,7 +162,7 @@ const firstEmptyCell = (layout: HeaderLayout, region: HeaderRegionId, from: numb
 }
 
 const settleWideSlots = (layout: HeaderLayout, region: HeaderRegionId) => {
-  const columns = gridColumns(region)
+  const columns = gridColumns()
   const slots = layout.regions[region]
   for (let index = 0; index < slots.length; index++) {
     if (!isWideSlot(layout, slots[index])) {
@@ -207,9 +204,7 @@ const updateEditToolbar = (layout: HeaderLayout) => {
 export const renderHeaderLayout = () => {
   const layout = currentLayout()
   const trayModules: HTMLElement[] = []
-  const grids: { region: HeaderRegionId; slotElements: HTMLElement[]; rows: number }[] = []
 
-  DOMCacheGetOrSet('mainHeader').style.setProperty('--header-cell-columns', `${HEADER_GRID_COLUMNS[layoutKey()]}`)
   DOMCacheGetOrSet('mainHeader').style.setProperty('--header-button-slots', `${HEADER_BUTTON_GROUP_CAPACITY}`)
 
   for (const region of headerRegionIds) {
@@ -274,7 +269,7 @@ export const renderHeaderLayout = () => {
       }
       slotElement.dataset.headerSlot = `${index}`
       if (isGrid) {
-        slotElement.style.gridArea = wide ? `${gridArea(region, index)} / span 1 / span 2` : gridArea(region, index)
+        slotElement.style.gridArea = wide ? `${gridArea(index)} / span 1 / span 2` : gridArea(index)
         if (unlocked) {
           lastCell = wide ? index + 1 : index
         }
@@ -282,27 +277,22 @@ export const renderHeaderLayout = () => {
       slotElements.push(slotElement)
     })
 
+    const regionElement = DOMCacheGetOrSet(region)
     if (!isGrid) {
-      DOMCacheGetOrSet(region).replaceChildren(...slotElements)
+      regionElement.replaceChildren(...slotElements)
       continue
     }
 
-    grids.push({ region, slotElements, rows: Math.floor(lastCell / gridColumns(region)) + (editing ? 2 : 1) })
-  }
-
-  const gridRows = Math.max(...grids.map(({ rows }) => rows))
-  for (const { region, slotElements, rows } of grids) {
     const cells: HTMLElement[] = []
-    const cellCount = (isMobile ? rows : gridRows) * gridColumns(region)
+    const cellCount = (Math.floor(lastCell / gridColumns()) + (editing ? 2 : 1)) * gridColumns()
     for (let index = 0; index < cellCount; index++) {
       const cell = document.createElement('div')
       cell.className = 'headerCell'
       cell.dataset.headerCell = `${index}`
-      cell.style.gridArea = gridArea(region, index)
+      cell.style.gridArea = gridArea(index)
       cells.push(cell)
     }
-    const regionElement = DOMCacheGetOrSet(region)
-    regionElement.style.setProperty('--header-grid-columns', `${gridColumns(region)}`)
+    regionElement.style.setProperty('--header-grid-columns', `${gridColumns()}`)
     regionElement.replaceChildren(...cells, ...slotElements)
   }
 
@@ -721,8 +711,8 @@ const buttonSlotRect = (rect: DOMRect, position: number) => ({
   height: rect.height
 })
 
-const wideCellRect = (region: HeaderRegionId, index: number, rect: DOMRect) => ({
-  left: index % gridColumns(region) === gridColumns(region) - 1 ? rect.left - rect.width : rect.left,
+const wideCellRect = (index: number, rect: DOMRect) => ({
+  left: index % gridColumns() === gridColumns() - 1 ? rect.left - rect.width : rect.left,
   top: rect.top,
   width: rect.width * 2,
   height: rect.height
@@ -784,7 +774,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
         index,
         position,
         join: isHeaderButton(id) && slot.some((member) => !layout.hidden.includes(member)) && canJoinSlot(slot, id),
-        indicator: isHeaderButton(id) ? buttonSlotRect(rect, position) : wide ? wideCellRect(region, index, rect) : rect
+        indicator: isHeaderButton(id) ? buttonSlotRect(rect, position) : wide ? wideCellRect(index, rect) : rect
       }
     }
 
@@ -817,7 +807,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
         index,
         position,
         join: false,
-        indicator: wide && cell !== null ? wideCellRect(region, index, cell.getBoundingClientRect()) : indicator
+        indicator: wide && cell !== null ? wideCellRect(index, cell.getBoundingClientRect()) : indicator
       }
     }
 
