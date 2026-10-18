@@ -67,7 +67,7 @@ const challengeProgressModuleIds = [
   'ascensionChallengeProgress'
 ] as const
 
-export const headerRegionIds = ['ascensionStats', 'currenciesContainer', 'resetsButtons', 'challengeProgress'] as const
+export const headerRegionIds = ['ascensionStats', 'currenciesContainer', 'resetsButtons'] as const
 
 export type HeaderRegionId = typeof headerRegionIds[number]
 
@@ -85,20 +85,15 @@ export const headerModuleSizes = ['S', 'M', 'L'] as const
 
 export type HeaderModuleSize = typeof headerModuleSizes[number]
 
-const headerGridRegions = ['currenciesContainer', 'resetsButtons', 'challengeProgress'] as const
+const headerGridRegions = ['currenciesContainer', 'resetsButtons'] as const
 
 export const HEADER_GRID_COLUMNS = { desktop: 4, mobile: 2 } as const
 
 export const HEADER_STACK_CAPACITY = 2
 export const HEADER_BUTTON_GROUP_CAPACITY = 4
-export const HEADER_BUTTON_MODULE_COUNT = Math.ceil(resetButtonModuleIds.length / HEADER_BUTTON_GROUP_CAPACITY)
+const HEADER_BUTTON_MODULE_COUNT = Math.ceil(resetButtonModuleIds.length / HEADER_BUTTON_GROUP_CAPACITY)
 export const HEADER_BUTTON_GRID_COLUMNS = {
   desktop: HEADER_BUTTON_MODULE_COUNT,
-  mobile: HEADER_GRID_COLUMNS.mobile
-} as const
-export const HEADER_PROGRESS_MODULE_COUNT = challengeProgressModuleIds.length
-export const HEADER_PROGRESS_GRID_COLUMNS = {
-  desktop: HEADER_PROGRESS_MODULE_COUNT,
   mobile: HEADER_GRID_COLUMNS.mobile
 } as const
 
@@ -125,8 +120,7 @@ export const createDefaultHeaderLayout = () => {
     regions: {
       ascensionStats: statModuleIds.map((id) => [id]),
       currenciesContainer: [...currencyModuleIds, ...ambrosiaModuleIds].map((id) => [id]),
-      resetsButtons: [],
-      challengeProgress: challengeProgressModuleIds.map((id) => [id])
+      resetsButtons: []
     },
     sizes: {},
     positions: {},
@@ -150,6 +144,9 @@ export const createDefaultHeaderLayout = () => {
   for (const [index, id] of resetButtonModuleIds.entries()) {
     ;(layout.regions.resetsButtons[Math.floor(index / HEADER_BUTTON_GROUP_CAPACITY)] ??= []).push(id)
     layout.positions[id] = index % HEADER_BUTTON_GROUP_CAPACITY
+  }
+  for (const id of challengeProgressModuleIds) {
+    layout.regions.resetsButtons.push([id])
   }
 
   return layout

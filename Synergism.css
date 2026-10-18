@@ -1315,17 +1315,12 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     background-color: var(--button-color);
 }
 
-.resetsButtons,
-.challengeProgress {
+.resetsButtons {
     display: grid;
     grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi * 55 / 45 / var(--header-cell-columns)));
     align-self: flex-start;
+    align-content: start;
     justify-items: center;
-    align-items: start;
-}
-
-.challengeProgress {
-    min-height: 3.6em;
 }
 
 .headerProgress {
@@ -1337,10 +1332,6 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 #transcensionChallengeProgress { color: var(--orchid-text-color); }
 #reincarnationChallengeProgress { color: limegreen; }
 #ascensionChallengeProgress { color: orange; }
-
-html[data-mobile="true"] .challengeProgress {
-    display: none;
-}
 
 #mainHeader {
     flex-shrink: 0;
@@ -12772,8 +12763,7 @@ html[data-mobile="true"] .hideOnMobile {
         width: unset;
     }
 
-    .resetsButtons,
-    .challengeProgress {
+    .resetsButtons {
         grid-template-columns: repeat(var(--header-grid-columns), calc(100cqi / var(--header-cell-columns)));
         margin-inline: auto;
     }

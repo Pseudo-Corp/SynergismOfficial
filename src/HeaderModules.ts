@@ -13,10 +13,7 @@ import {
   freeButtonPosition,
   HEADER_BUTTON_GRID_COLUMNS,
   HEADER_BUTTON_GROUP_CAPACITY,
-  HEADER_BUTTON_MODULE_COUNT,
   HEADER_GRID_COLUMNS,
-  HEADER_PROGRESS_GRID_COLUMNS,
-  HEADER_PROGRESS_MODULE_COUNT,
   HEADER_STACK_CAPACITY,
   type HeaderModuleId,
   type HeaderModuleSize,
@@ -142,11 +139,7 @@ let pointerStartY = 0
 const layoutKey = () => isMobile ? 'mobile' : 'desktop'
 const currentLayout = () => player.headerLayouts[layoutKey()]
 const gridColumns = (region: HeaderRegionId) =>
-  (region === 'resetsButtons'
-    ? HEADER_BUTTON_GRID_COLUMNS
-    : region === 'challengeProgress'
-    ? HEADER_PROGRESS_GRID_COLUMNS
-    : HEADER_GRID_COLUMNS)[layoutKey()]
+  (region === 'resetsButtons' ? HEADER_BUTTON_GRID_COLUMNS : HEADER_GRID_COLUMNS)[layoutKey()]
 const gridArea = (region: HeaderRegionId, index: number) =>
   `${Math.floor(index / gridColumns(region)) + 1} / ${(index % gridColumns(region)) + 1}`
 
@@ -221,7 +214,6 @@ export const renderHeaderLayout = () => {
   for (const region of headerRegionIds) {
     const slotElements: HTMLElement[] = []
     const isGrid = isHeaderGridRegion(region)
-    const filledRows = new Set<number>()
     let lastCell = -1
 
     if (isGrid) {
@@ -230,6 +222,7 @@ export const renderHeaderLayout = () => {
 
     layout.regions[region].forEach((slot, index) => {
       const shown: HTMLElement[] = []
+      let unlocked = false
       const wide = isGrid && isWideSlot(layout, slot)
       for (const id of slot) {
         const element = DOMCacheGetOrSet(id)
@@ -251,6 +244,7 @@ export const renderHeaderLayout = () => {
           trayModules.push(element)
         } else {
           shown.push(element)
+          unlocked ||= headerModuleUnlocks[id]()
         }
       }
 
@@ -280,8 +274,9 @@ export const renderHeaderLayout = () => {
       slotElement.dataset.headerSlot = `${index}`
       if (isGrid) {
         slotElement.style.gridArea = wide ? `${gridArea(region, index)} / span 1 / span 2` : gridArea(region, index)
-        lastCell = wide ? index + 1 : index
-        filledRows.add(Math.floor(index / gridColumns(region)))
+        if (unlocked) {
+          lastCell = wide ? index + 1 : index
+        }
       }
       slotElements.push(slotElement)
     })
@@ -293,26 +288,13 @@ export const renderHeaderLayout = () => {
     }
 
     const cells: HTMLElement[] = []
-    if (editing) {
-      const cellCount = region === 'currenciesContainer'
-        ? (Math.floor(lastCell / gridColumns(region)) + 2) * gridColumns(region)
-        : Math.max(region === 'resetsButtons' ? HEADER_BUTTON_MODULE_COUNT : HEADER_PROGRESS_MODULE_COUNT, lastCell + 1)
-      for (let index = 0; index < cellCount; index++) {
-        const cell = document.createElement('div')
-        cell.className = 'headerCell'
-        cell.dataset.headerCell = `${index}`
-        cell.style.gridArea = gridArea(region, index)
-        cells.push(cell)
-      }
-    } else {
-      for (let row = 0; row <= Math.floor(lastCell / gridColumns(region)); row++) {
-        if (!filledRows.has(row)) {
-          const cell = document.createElement('div')
-          cell.className = 'headerCell'
-          cell.style.gridArea = gridArea(region, row * gridColumns(region))
-          cells.push(cell)
-        }
-      }
+    const cellCount = (Math.floor(lastCell / gridColumns(region)) + (editing ? 2 : 1)) * gridColumns(region)
+    for (let index = 0; index < cellCount; index++) {
+      const cell = document.createElement('div')
+      cell.className = 'headerCell'
+      cell.dataset.headerCell = `${index}`
+      cell.style.gridArea = gridArea(region, index)
+      cells.push(cell)
     }
     regionElement.style.setProperty('--header-grid-columns', `${gridColumns(region)}`)
     regionElement.replaceChildren(...cells, ...slotElements)
@@ -324,8 +306,18 @@ export const renderHeaderLayout = () => {
 }
 
 export const updateHeaderModuleVisibility = () => {
+  let changed = false
   for (const id of Object.keys(headerModuleUnlocks) as HeaderModuleId[]) {
-    DOMCacheGetOrSet(id).classList.toggle('headerModuleLocked', !headerModuleUnlocks[id]())
+    const element = DOMCacheGetOrSet(id)
+    const locked = !headerModuleUnlocks[id]()
+    if (element.classList.contains('headerModuleLocked') !== locked) {
+      element.classList.toggle('headerModuleLocked', locked)
+      changed = true
+    }
+  }
+
+  if (changed) {
+    renderHeaderLayout()
   }
 }
 
