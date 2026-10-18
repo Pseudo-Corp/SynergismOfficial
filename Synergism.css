@@ -6624,6 +6624,16 @@ header #blueberryHeaderDisplay,
     color: #bbb;
 }
 
+.headerStatText {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.5em;
+}
+
+.headerStatText > .headerConsumableOwned {
+    margin-left: 0;
+}
+
 #happyHourBellHeaderTimer { color: gold; }
 #lotusHeaderTimer { color: violet; }
 #dailyCodeHeaderUses { color: lime; }

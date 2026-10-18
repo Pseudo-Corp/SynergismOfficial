@@ -349,6 +349,9 @@ export const updateHeaderConsumables = () => {
   }
 }
 
+const codeTime = (layout: HeaderLayout, id: HeaderModuleId, seconds: number) =>
+  sizeOf(layout, id) === 'S' ? `${format(Math.floor(seconds), 0, true)}s` : formatS(seconds)
+
 export const updateHeaderInfo = () => {
   const layout = currentLayout()
 
@@ -359,7 +362,9 @@ export const updateHeaderInfo = () => {
     setHeaderText(
       'dailyCodeHeaderNext',
       player.dailyCodeUsed
-        ? i18next.t('headerLayout.codeNext', { time: formatS((midnight.getTime() - Date.now()) / 1000) })
+        ? i18next.t('headerLayout.codeNext', {
+          time: codeTime(layout, 'dailyCodeHeader', (midnight.getTime() - Date.now()) / 1000)
+        })
         : ''
     )
   }
@@ -370,7 +375,9 @@ export const updateHeaderInfo = () => {
     setHeaderText('addCodeHeaderUses', `${format(uses, 0, true)}/${format(maxUses, 0, true)}`)
     setHeaderText(
       'addCodeHeaderNext',
-      uses < maxUses ? i18next.t('headerLayout.codeNext', { time: formatS(addCodeTimeToNextUse()) }) : ''
+      uses < maxUses
+        ? i18next.t('headerLayout.codeNext', { time: codeTime(layout, 'addCodeHeader', addCodeTimeToNextUse()) })
+        : ''
     )
   }
 
@@ -380,7 +387,7 @@ export const updateHeaderInfo = () => {
     setHeaderText(
       'timeCodeHeaderNext',
       uses === 0
-        ? i18next.t('headerLayout.codeNext', { time: formatS(timeCodeTimeToNextUse()) })
+        ? i18next.t('headerLayout.codeNext', { time: codeTime(layout, 'timeCodeHeader', timeCodeTimeToNextUse()) })
         : i18next.t('headerLayout.timeCodeMultiplier', { x: format(timeCodeRewardMultiplier(), 2, true) })
     )
   }
