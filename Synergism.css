@@ -6454,10 +6454,13 @@ header #quarkBonusHeaderDisplay { color: gold; }
 
 header #ambrosiaHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="ambrosiaHeader"] .statDisplay { color: var(--amber-text-color); }
+
 header #redAmbrosiaHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="redAmbrosiaHeader"] .statDisplay { color: var(--red-text-color); }
+
 header #purpleAmbrosiaHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="purpleAmbrosiaHeader"] .statDisplay { color: var(--purple-text-color); }
+
 header #blueberryHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="blueberryHeader"] .statDisplay { color: var(--blueberry-text-color); }
 
@@ -6642,6 +6645,56 @@ header #blueberryHeaderDisplay,
 #corruptionLoadoutsHeaderSlots > .headerLoadoutActive {
     background-color: #a71313;
     border-color: #ff5c5c;
+}
+
+.headerLoadoutSlot[data-icon] {
+    position: relative;
+}
+
+.headerLoadoutSlot[data-icon] > span {
+    position: relative;
+    text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black;
+}
+
+#mainHeader .headerLoadoutSlot > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    object-fit: contain;
+}
+
+.headerLoadoutIconTitle {
+    margin: 0 0 8px;
+    text-align: center;
+}
+
+.headerLoadoutIcons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+}
+
+.headerLoadoutIcons > button {
+    min-width: 40px;
+    height: 40px;
+    padding: 2px;
+    border: 2px solid #ffffff40;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.headerLoadoutIcons > button[aria-pressed="true"] {
+    border-color: gold;
+    background-color: var(--purplebtn-color);
+}
+
+.headerLoadoutIcons img {
+    display: block;
+    height: 100%;
+    margin: auto;
 }
 
 #headerEditPanel {

@@ -3,7 +3,7 @@ import type { ProgressiveAchievements } from '../Achievements'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
 import type { CampaignManager } from '../Campaign'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
-import type { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
+import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type { HeaderModuleId, HeaderModuleSize, HeaderRegionId, RainbowAmbrosiaModuleId } from '../HeaderLayoutDefaults'
@@ -35,6 +35,10 @@ export interface HeaderLayout {
   positions: Partial<Record<HeaderModuleId, number>>
   hidden: HeaderModuleId[]
   rainbowAmbrosia: RainbowAmbrosiaModuleId
+  loadoutIcons: {
+    corruptionLoadoutsHeader: Partial<Record<number, keyof Corruptions>>
+    ambrosiaLoadoutsHeader: Partial<Record<number, AmbrosiaUpgradeNames>>
+  }
 }
 
 export interface Player {

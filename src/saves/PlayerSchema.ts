@@ -1,8 +1,9 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
+import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
-import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
+import { CorruptionLoadout, CorruptionSaves, corruptionsSchema } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
@@ -348,7 +349,13 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
       z.number().int().min(0).max(HEADER_BUTTON_GROUP_CAPACITY - 1)
     ).default(() => ({})),
     hidden: z.enum(headerModuleIds).array(),
-    rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia)
+    rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia),
+    loadoutIcons: z.lazy(() =>
+      z.object({
+        corruptionLoadoutsHeader: z.record(integerStringSchema, corruptionsSchema.keyof()),
+        ambrosiaLoadoutsHeader: z.record(integerStringSchema, z.enum(ambrosiaUpgradeNames))
+      })
+    ).catch(() => deepClone()(blankSave.headerLayouts[layout].loadoutIcons))
   }).transform((saved) => {
     const fallback = blankSave.headerLayouts[layout]
     const placed = new Set(Object.values(saved.regions).flat(2))

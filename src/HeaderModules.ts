@@ -1,11 +1,19 @@
 import i18next from 'i18next'
 import { achievementPoints, getAchievementReward } from './Achievements'
-import { getUnlockedBlueberryLoadoutCount, lastBlueberryLoadout, loadBlueberryLoadout } from './BlueberryUpgrades'
+import {
+  type AmbrosiaUpgradeNames,
+  ambrosiaUpgradeNames,
+  getUnlockedBlueberryLoadoutCount,
+  lastBlueberryLoadout,
+  loadBlueberryLoadout
+} from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateBlueberryInventory } from './Calculate'
 import {
+  corrIcons,
   corruptionLoadLoadout,
   corruptionLoadoutMatches,
+  type Corruptions,
   getUnlockedCorruptionLoadoutCount,
   maxCorruptionLevel
 } from './Corruptions'
@@ -39,8 +47,9 @@ import { getGlobalBonus } from './Quark'
 import { runes } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { blankSave, deepClone, format, player } from './Synergism'
+import { IconSets } from './Themes'
 import type { HeaderLayout } from './types/Synergism'
-import { CloseModal, Confirm, createFitties, resetFitText } from './UpdateHTML'
+import { CloseModal, Confirm, createFitties, MEDIUM_MODAL_UPDATE_TICK, Modal, resetFitText } from './UpdateHTML'
 import { formatS, isMobile, timeRemainingMinutes } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -430,12 +439,73 @@ const loadoutSlots = (elementId: string, count: number, load: (slot: number) => 
       button.type = 'button'
       button.className = 'headerLoadoutSlot'
       button.textContent = `${slot}`
+      button.dataset.slot = `${slot}`
       button.addEventListener('click', () => load(slot))
       slots.push(button)
     }
     container.replaceChildren(...slots)
   }
-  return container.children
+  return container.children as HTMLCollectionOf<HTMLButtonElement>
+}
+
+const corruptionIconSrc = (icon: keyof Corruptions) => `Pictures/${IconSets[player.iconSet][0]}${corrIcons[icon]}`
+
+const blueberryIconSrc = (icon: AmbrosiaUpgradeNames) =>
+  (DOMCacheGetOrSet(icon).querySelector('img') as HTMLImageElement).src
+
+const setLoadoutSlotIcon = <T extends string>(
+  button: HTMLElement,
+  slot: number,
+  icon: T | undefined,
+  src: (icon: T) => string
+) => {
+  if (button.dataset.icon === icon) {
+    return
+  }
+
+  if (icon === undefined) {
+    delete button.dataset.icon
+    button.textContent = `${slot}`
+    return
+  }
+
+  const image = document.createElement('img')
+  image.src = src(icon)
+  image.alt = ''
+  const number = document.createElement('span')
+  number.textContent = `${slot}`
+  button.dataset.icon = icon
+  button.replaceChildren(image, number)
+}
+
+const openLoadoutIconPicker = <T extends string>(
+  event: PointerEvent,
+  button: HTMLElement,
+  icons: Partial<Record<number, T>>,
+  choices: readonly T[],
+  src: (icon: T) => string
+) => {
+  const slot = Number(button.dataset.slot)
+  const option = (icon: T | undefined, content: string) =>
+    `<button type="button" data-modal-action="${icon ?? ''}" aria-pressed="${icons[slot] === icon}">${content}</button>`
+  const html = `<p class="headerLoadoutIconTitle">${i18next.t('headerLayout.loadoutIcon', { x: slot })}</p>`
+    + `<div class="headerLoadoutIcons">${option(undefined, `${slot}`)}${
+      choices.map((icon) => option(icon, `<img src="${src(icon)}" alt="">`)).join('')
+    }</div>`
+
+  Modal(() => html, event.clientX, event.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK, {
+    targetElement: button,
+    buttonClick: (choice) => {
+      const icon = choices.find((candidate) => candidate === choice.dataset.modalAction)
+      if (icon === undefined) {
+        delete icons[slot]
+      } else {
+        icons[slot] = icon
+      }
+      CloseModal()
+      updateHeaderLoadouts()
+    }
+  })
 }
 
 export const updateHeaderLoadouts = () => {
@@ -463,6 +533,7 @@ export const updateHeaderLoadouts = () => {
         'headerLoadoutNext',
         corruptionLoadoutMatches(loadout.loadout, player.corruptions.next.loadout, maxLevel)
       )
+      setLoadoutSlotIcon(slot, index + 1, layout.loadoutIcons.corruptionLoadoutsHeader[index + 1], corruptionIconSrc)
     }
   }
 
@@ -474,6 +545,12 @@ export const updateHeaderLoadouts = () => {
     )
     for (let index = 0; index < slots.length; index++) {
       slots[index].classList.toggle('headerLoadoutActive', index + 1 === lastBlueberryLoadout)
+      setLoadoutSlotIcon(
+        slots[index],
+        index + 1,
+        layout.loadoutIcons.ambrosiaLoadoutsHeader[index + 1],
+        blueberryIconSrc
+      )
     }
   }
 }
@@ -638,6 +715,7 @@ const exitEditMode = () => {
   editing = false
   selectedModule = null
   endDrag()
+  CloseModal()
   DOMCacheGetOrSet('mainHeader').classList.remove('headerEditMode')
   renderHeaderLayout()
 }
@@ -943,8 +1021,27 @@ const handlePointerUp = (event: PointerEvent) => {
 
     renderHeaderLayout()
   } else if (editing && pressedModule !== null) {
+    const loadoutSlot = event.target instanceof Element
+      ? event.target.closest<HTMLElement>('.headerLoadoutSlot')
+      : null
     if (layout.hidden.includes(pressedModule)) {
       layout.hidden = layout.hidden.filter((hiddenId) => hiddenId !== pressedModule)
+    } else if (loadoutSlot !== null && pressedModule === 'corruptionLoadoutsHeader') {
+      openLoadoutIconPicker(
+        event,
+        loadoutSlot,
+        layout.loadoutIcons.corruptionLoadoutsHeader,
+        Object.keys(corrIcons) as Array<keyof Corruptions>,
+        corruptionIconSrc
+      )
+    } else if (loadoutSlot !== null && pressedModule === 'ambrosiaLoadoutsHeader') {
+      openLoadoutIconPicker(
+        event,
+        loadoutSlot,
+        layout.loadoutIcons.ambrosiaLoadoutsHeader,
+        ambrosiaUpgradeNames,
+        blueberryIconSrc
+      )
     } else {
       selectedModule = selectedModule === pressedModule ? null : pressedModule
     }
@@ -991,6 +1088,7 @@ export const registerHeaderLayoutEditing = () => {
   header.addEventListener('pointerleave', handlePointerLeave)
   header.addEventListener('click', suppressModuleEvent, true)
   header.addEventListener('mousemove', suppressModuleEvent, true)
+  header.addEventListener('touchend', suppressModuleEvent)
   header.addEventListener('touchmove', (event) => {
     if (draggedModule !== null) {
       event.preventDefault()

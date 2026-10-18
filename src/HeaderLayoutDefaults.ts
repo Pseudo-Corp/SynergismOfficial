@@ -134,7 +134,11 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
       'quarkBonusHeader',
       ...ambrosiaModuleIds
     ],
-    rainbowAmbrosia: 'ambrosiaHeader'
+    rainbowAmbrosia: 'ambrosiaHeader',
+    loadoutIcons: {
+      corruptionLoadoutsHeader: {},
+      ambrosiaLoadoutsHeader: {}
+    }
   }
 
   const buttonSlots: HeaderModuleId[][] = []
