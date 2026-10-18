@@ -1,5 +1,7 @@
 import type { HeaderLayout } from './types/Synergism'
 
+const loadoutModuleIds = ['corruptionLoadoutsHeader', 'ambrosiaLoadoutsHeader'] as const
+
 const statModuleIds = [
   'ascCubeStats',
   'ascTessStats',
@@ -18,8 +20,7 @@ const statModuleIds = [
   'dailyCodeHeader',
   'addCodeHeader',
   'timeCodeHeader',
-  'corruptionLoadoutsHeader',
-  'ambrosiaLoadoutsHeader'
+  ...loadoutModuleIds
 ] as const
 
 const currencyModuleIds = [
@@ -105,6 +106,8 @@ export const isHeaderButton = (id: HeaderModuleId) => (resetButtonModuleIds as r
 
 export const isHeaderProgress = (id: HeaderModuleId) =>
   (challengeProgressModuleIds as readonly HeaderModuleId[]).includes(id)
+
+export const isHeaderLoadout = (id: HeaderModuleId) => (loadoutModuleIds as readonly HeaderModuleId[]).includes(id)
 
 export const isHeaderGridRegion = (region: HeaderRegionId) =>
   (headerGridRegions as readonly HeaderRegionId[]).includes(region)

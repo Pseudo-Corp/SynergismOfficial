@@ -6469,6 +6469,11 @@ header .img,
     min-width: 150px;
 }
 
+.headerRegion .headerModuleWide {
+    justify-self: stretch;
+    width: auto;
+}
+
 header #quarkDisplay { color: white; }
 header #coinDisplay { color: gold; }
 header #diamondDisplay { color: cyan; }
@@ -6648,6 +6653,20 @@ header #blueberryHeaderDisplay,
     border-color: deepskyblue;
     color: white;
     font-weight: bold;
+}
+
+#corruptionLoadoutsHeaderSlots > .headerLoadoutSlot {
+    background-color: #2b0808;
+    border-color: #a71313;
+}
+
+#corruptionLoadoutsHeaderSlots > .headerLoadoutNext {
+    border-color: silver;
+}
+
+#corruptionLoadoutsHeaderSlots > .headerLoadoutActive {
+    background-color: #a71313;
+    border-color: #ff5c5c;
 }
 
 #headerEditPanel {

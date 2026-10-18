@@ -25,6 +25,7 @@ import {
   headerRegionIds,
   isHeaderButton,
   isHeaderGridRegion,
+  isHeaderLoadout,
   isHeaderProgress,
   type RainbowAmbrosiaModuleId,
   rainbowAmbrosiaModuleIds
@@ -149,12 +150,54 @@ const gridColumns = (region: HeaderRegionId) =>
 const gridArea = (region: HeaderRegionId, index: number) =>
   `${Math.floor(index / gridColumns(region)) + 1} / ${(index % gridColumns(region)) + 1}`
 
-const firstEmptyCell = (slots: HeaderModuleId[][], from: number) => {
-  const index = slots.findIndex((slot, cell) => cell >= from && slot.length === 0)
-  return index === -1 ? Math.max(slots.length, from) : index
+const sizeOf = (layout: HeaderLayout, id: HeaderModuleId) => layout.sizes[id] ?? 'M'
+
+const isWideSlot = (layout: HeaderLayout, slot: HeaderModuleId[] | undefined) =>
+  slot?.length === 1 && !isHeaderButton(slot[0]) && sizeOf(layout, slot[0]) === 'L'
+  && !layout.hidden.includes(slot[0])
+
+const isCoveredCell = (layout: HeaderLayout, region: HeaderRegionId, cell: number) =>
+  cell % gridColumns(region) !== 0 && isWideSlot(layout, layout.regions[region][cell - 1])
+
+const firstEmptyCell = (layout: HeaderLayout, region: HeaderRegionId, from: number) => {
+  const slots = layout.regions[region]
+  let cell = from
+  while ((slots[cell] ?? []).length > 0 || isCoveredCell(layout, region, cell)) {
+    cell++
+  }
+  while (slots.length < cell) {
+    slots.push([])
+  }
+  return cell
 }
 
-const sizeOf = (layout: HeaderLayout, id: HeaderModuleId) => layout.sizes[id] ?? 'M'
+const settleWideSlots = (layout: HeaderLayout, region: HeaderRegionId) => {
+  const columns = gridColumns(region)
+  const slots = layout.regions[region]
+  for (let index = 0; index < slots.length; index++) {
+    if (!isWideSlot(layout, slots[index])) {
+      continue
+    }
+
+    let start = index
+    if (index % columns === columns - 1) {
+      if (isCoveredCell(layout, region, index - 1)) {
+        const wide = slots[index]
+        slots[index] = []
+        slots[firstEmptyCell(layout, region, index + 1)] = wide
+        continue
+      }
+      start = index - 1
+      ;[slots[start], slots[index]] = [slots[index], slots[start]]
+    }
+
+    const displaced = slots[start + 1] ?? []
+    if (displaced.length > 0) {
+      slots[start + 1] = []
+      slots[firstEmptyCell(layout, region, start + 2)] = displaced
+    }
+  }
+}
 
 const updateEditToolbar = (layout: HeaderLayout) => {
   const selected = selectedModule
@@ -180,16 +223,22 @@ export const renderHeaderLayout = () => {
     const isGrid = isHeaderGridRegion(region)
     let lastCell = -1
 
+    if (isGrid) {
+      settleWideSlots(layout, region)
+    }
+
     layout.regions[region].forEach((slot, index) => {
       const shown: HTMLElement[] = []
+      const wide = isGrid && isWideSlot(layout, slot)
       for (const id of slot) {
         const element = DOMCacheGetOrSet(id)
-        const size = sizeOf(layout, id)
+        const size = isGrid && !isHeaderButton(id) && sizeOf(layout, id) === 'L' ? 'M' : sizeOf(layout, id)
         const fitText = element.querySelector<HTMLElement>('.fitText')
         if (element.dataset.size !== size && fitText !== null) {
           resetFitText(fitText)
         }
         element.dataset.size = size
+        element.classList.toggle('headerModuleWide', wide)
         element.classList.toggle('headerModuleSelected', id === selectedModule)
         element.style.gridArea = ''
         if (isHeaderButton(id)) {
@@ -229,8 +278,8 @@ export const renderHeaderLayout = () => {
       }
       slotElement.dataset.headerSlot = `${index}`
       if (isGrid) {
-        slotElement.style.gridArea = gridArea(region, index)
-        lastCell = index
+        slotElement.style.gridArea = wide ? `${gridArea(region, index)} / span 1 / span 2` : gridArea(region, index)
+        lastCell = wide ? index + 1 : index
       }
       slotElements.push(slotElement)
     })
@@ -435,7 +484,7 @@ const findSlot = (layout: HeaderLayout, id: HeaderModuleId) => {
 }
 
 const canJoinSlot = (slot: HeaderModuleId[], id: HeaderModuleId) => {
-  if (isHeaderProgress(id) || slot.some(isHeaderProgress)) {
+  if (isHeaderProgress(id) || slot.some(isHeaderProgress) || isHeaderLoadout(id) || slot.some(isHeaderLoadout)) {
     return false
   }
   if (!isHeaderButton(id)) {
@@ -482,7 +531,7 @@ const splitOutModule = (layout: HeaderLayout, id: HeaderModuleId) => {
   detachModule(layout, id)
   const slots = layout.regions[location.region]
   if (isHeaderGridRegion(location.region)) {
-    slots[firstEmptyCell(slots, location.index + 1)] = [id]
+    slots[firstEmptyCell(layout, location.region, location.index + 1)] = [id]
   } else {
     slots.splice(location.index + 1, 0, [id])
   }
@@ -534,7 +583,7 @@ const moveModule = (layout: HeaderLayout, id: HeaderModuleId, region: HeaderRegi
     if (occupants.length > 0) {
       const swap = removed !== null && removed.region === region && removed.index !== index
         && slots[removed.index].length === 0
-      slots[swap ? removed.index : firstEmptyCell(slots, index + 1)] = occupants
+      slots[swap ? removed.index : firstEmptyCell(layout, region, index + 1)] = occupants
     }
     return
   }
@@ -656,6 +705,13 @@ const buttonSlotRect = (rect: DOMRect, position: number) => ({
   height: rect.height
 })
 
+const wideCellRect = (region: HeaderRegionId, index: number, rect: DOMRect) => ({
+  left: index % gridColumns(region) === gridColumns(region) - 1 ? rect.left - rect.width : rect.left,
+  top: rect.top,
+  width: rect.width * 2,
+  height: rect.height
+})
+
 const nearestSlotElement = (regionElement: HTMLElement, x: number, y: number) => {
   let nearest: HTMLElement | null = null
   let nearestDistanceX = Infinity
@@ -681,6 +737,7 @@ const nearestSlotElement = (regionElement: HTMLElement, x: number, y: number) =>
 
 const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
   const layout = currentLayout()
+  const wide = !isHeaderButton(id) && sizeOf(layout, id) === 'L'
 
   for (const element of document.elementsFromPoint(x, y)) {
     if (element.closest('#headerTray') !== null) {
@@ -711,7 +768,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
         index,
         position,
         join: isHeaderButton(id) && slot.some((member) => !layout.hidden.includes(member)) && canJoinSlot(slot, id),
-        indicator: isHeaderButton(id) ? buttonSlotRect(rect, position) : rect
+        indicator: isHeaderButton(id) ? buttonSlotRect(rect, position) : wide ? wideCellRect(region, index, rect) : rect
       }
     }
 
@@ -738,7 +795,14 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
     }
 
     if (isGrid) {
-      return { region, index, position, join: false, indicator }
+      const cell = regionElement.querySelector(`:scope > [data-header-cell="${index}"]`)
+      return {
+        region,
+        index,
+        position,
+        join: false,
+        indicator: wide && cell !== null ? wideCellRect(region, index, cell.getBoundingClientRect()) : indicator
+      }
     }
 
     const after = ratio >= 0.5
