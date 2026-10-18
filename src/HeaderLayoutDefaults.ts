@@ -25,7 +25,8 @@ const currencyModuleIds = [
   'mythosHeader',
   'mythosShardHeader',
   'particlesHeader',
-  'obtainiumHeader'
+  'obtainiumHeader',
+  'goldenQuarkHeader'
 ] as const
 
 export const rainbowAmbrosiaModuleIds = [
@@ -118,7 +119,7 @@ export const createDefaultHeaderLayout = () => {
     },
     sizes: {},
     positions: {},
-    hidden: ['happyHourBellHeader', 'lotusHeader', ...ambrosiaModuleIds],
+    hidden: ['happyHourBellHeader', 'lotusHeader', 'goldenQuarkHeader', ...ambrosiaModuleIds],
     rainbowAmbrosia: 'ambrosiaHeader'
   }
 

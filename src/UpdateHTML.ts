@@ -59,7 +59,8 @@ const htmlInsertPlayerRequirements = [
   'transcendShards',
   'reincarnationPoints',
   'worlds',
-  'obtainium'
+  'obtainium',
+  'goldenQuarks'
 ] as const
 const htmlInsertDomRequirements = [
   'coinDisplay',
@@ -69,7 +70,8 @@ const htmlInsertDomRequirements = [
   'mythosshardDisplay',
   'particlesDisplay',
   'quarkDisplay',
-  'obtainiumDisplay'
+  'obtainiumDisplay',
+  'goldenQuarkHeaderDisplay'
 ] as const
 const challengeProgressRowIds = {
   transcension: 'transcensionChallengeProgress',

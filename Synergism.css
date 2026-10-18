@@ -6477,6 +6477,7 @@ header #mythosDisplay { color: plum; }
 header #mythosshardDisplay { color: plum; }
 header #particlesDisplay { color: limegreen; }
 header #obtainiumDisplay { color: pink; }
+header #goldenQuarkHeaderDisplay { color: gold; }
 
 header #ambrosiaHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="ambrosiaHeader"] .statDisplay { color: var(--amber-text-color); }

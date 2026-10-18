@@ -30,8 +30,7 @@ import { CloseModal, Confirm, createFitties, resetFitText } from './UpdateHTML'
 import { isMobile, timeRemainingMinutes } from './Utility'
 import { Globals as G } from './Variables'
 
-const ascensionStatsUnlocked = () =>
-  Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0
+const ascensionStatsUnlocked = () => Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0
 const singularityStatsUnlocked = () => player.highestSingularityCount > 0
 const ambrosiaUnlocked = () => player.singularityChallenges.noSingularityUpgrades.completions > 0
 
@@ -58,6 +57,7 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   mythosShardHeader: () => player.unlocks.transcend,
   particlesHeader: () => player.unlocks.reincarnate,
   obtainiumHeader: () => player.unlocks.reincarnate,
+  goldenQuarkHeader: () => player.highestSingularityCount > 0,
   ambrosiaHeader: ambrosiaUnlocked,
   redAmbrosiaHeader: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0,
   purpleAmbrosiaHeader: () => player.singularityChallenges.taxmanLastStand.completions > 0,
@@ -378,9 +378,7 @@ const resizeModule = (layout: HeaderLayout, id: HeaderModuleId, size: HeaderModu
 const moveModule = (layout: HeaderLayout, id: HeaderModuleId, region: HeaderRegionId, target: HeaderDropTarget) => {
   const location = findSlot(layout, id)
   if (target.join && location !== null && location.region === region && location.index === target.index) {
-    const occupant = layout.regions[region][target.index].find((member) =>
-      layout.positions[member] === target.position
-    )
+    const occupant = layout.regions[region][target.index].find((member) => layout.positions[member] === target.position)
     if (occupant !== undefined) {
       layout.positions[occupant] = layout.positions[id]
     }
