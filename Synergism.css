@@ -6508,7 +6508,7 @@ header #blueberryHeaderDisplay,
 
 .headerModule.headerModuleLocked,
 .headerStack:not(:has(> .headerModule:not(.headerModuleLocked))),
-#mainHeader:not(.headerEditMode) .ascensionStats:empty {
+#mainHeader:not(.headerEditMode) .ascensionStats:not(:has(.headerModule:not(.headerModuleLocked, [hidden]))) {
     display: none;
 }
 
