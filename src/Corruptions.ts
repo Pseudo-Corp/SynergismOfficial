@@ -850,6 +850,14 @@ const corruptionLoadoutGetExport = async () => {
     .catch((e: Error) => Alert(i18next.t('corruptions.loadoutExport.saveErrorNavigator', { message: e.message })))
 }
 
+export const corruptionLoadoutMatches = (saved: Corruptions, target: Corruptions, maxLevel: number) =>
+  Object.entries(saved).every(([corr, level]) => {
+    const corrKey = corr as keyof Corruptions
+    const locked = player.challengecompletions[corrChallengeMinimum(corrKey)] === 0
+      && !getGQUpgradeEffect('platonicTau', 'unlocked')
+    return target[corrKey] === (locked ? 0 : Math.min(level, maxLevel))
+  })
+
 export const corruptionCleanseConfirm = () => {
   const corrupt = DOMCacheGetOrSet('corruptionCleanseConfirm')
   corrupt.style.visibility = 'visible'

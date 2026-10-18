@@ -1,7 +1,14 @@
 import i18next from 'i18next'
-import { getAchievementReward } from './Achievements'
+import { achievementPoints, getAchievementReward } from './Achievements'
+import { getUnlockedBlueberryLoadoutCount, lastBlueberryLoadout, loadBlueberryLoadout } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateBlueberryInventory } from './Calculate'
+import {
+  corruptionLoadLoadout,
+  corruptionLoadoutMatches,
+  getUnlockedCorruptionLoadoutCount,
+  maxCorruptionLevel
+} from './Corruptions'
 import {
   freeButtonPosition,
   HEADER_BUTTON_GRID_COLUMNS,
@@ -22,12 +29,22 @@ import {
   type RainbowAmbrosiaModuleId,
   rainbowAmbrosiaModuleIds
 } from './HeaderLayoutDefaults'
+import {
+  addCodeAvailableUses,
+  addCodeMaxUses,
+  addCodeTimeToNextUse,
+  timeCodeAvailableUses,
+  timeCodeRewardMultiplier,
+  timeCodeTimeToNextUse
+} from './ImportExport'
 import { allDurableConsumables, getLotusTimeExpiresAt, getOwnedBells, getOwnedLotus } from './Login'
+import { getGlobalBonus } from './Quark'
 import { runes } from './Runes'
+import { getGQUpgradeEffect } from './singularity'
 import { blankSave, deepClone, format, player } from './Synergism'
 import type { HeaderLayout } from './types/Synergism'
 import { CloseModal, Confirm, createFitties, resetFitText } from './UpdateHTML'
-import { isMobile, timeRemainingMinutes } from './Utility'
+import { formatS, isMobile, timeRemainingMinutes } from './Utility'
 import { Globals as G } from './Variables'
 
 const ascensionStatsUnlocked = () => Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0
@@ -49,6 +66,11 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   ascSingChallengeTimeTakenStats: () => player.insideSingularityChallenge,
   happyHourBellHeader: () => true,
   lotusHeader: () => true,
+  dailyCodeHeader: () => true,
+  addCodeHeader: () => true,
+  timeCodeHeader: () => true,
+  corruptionLoadoutsHeader: () => player.challengecompletions[11] > 0,
+  ambrosiaLoadoutsHeader: ambrosiaUnlocked,
   coinHeader: () => true,
   diamondHeader: () => player.unlocks.prestige,
   offeringHeader: () => player.unlocks.prestige,
@@ -58,6 +80,9 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   particlesHeader: () => player.unlocks.reincarnate,
   obtainiumHeader: () => player.unlocks.reincarnate,
   goldenQuarkHeader: () => player.highestSingularityCount > 0,
+  octeractHeader: () => getGQUpgradeEffect('octeractUnlock', 'unlocked'),
+  achievementPointsHeader: () => true,
+  quarkBonusHeader: () => player.unlocks.reincarnate,
   ambrosiaHeader: ambrosiaUnlocked,
   redAmbrosiaHeader: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0,
   purpleAmbrosiaHeader: () => player.singularityChallenges.taxmanLastStand.completions > 0,
@@ -275,6 +300,51 @@ export const updateHeaderConsumables = () => {
   }
 }
 
+export const updateHeaderInfo = () => {
+  const layout = currentLayout()
+
+  if (editing || !layout.hidden.includes('dailyCodeHeader')) {
+    const midnight = new Date()
+    midnight.setHours(24, 0, 0, 0)
+    setHeaderText('dailyCodeHeaderUses', `${player.dailyCodeUsed ? 0 : 1}/1`)
+    setHeaderText(
+      'dailyCodeHeaderNext',
+      player.dailyCodeUsed
+        ? i18next.t('headerLayout.codeNext', { time: formatS((midnight.getTime() - Date.now()) / 1000) })
+        : ''
+    )
+  }
+
+  if (editing || !layout.hidden.includes('addCodeHeader')) {
+    const uses = addCodeAvailableUses()
+    const maxUses = addCodeMaxUses()
+    setHeaderText('addCodeHeaderUses', `${format(uses, 0, true)}/${format(maxUses, 0, true)}`)
+    setHeaderText(
+      'addCodeHeaderNext',
+      uses < maxUses ? i18next.t('headerLayout.codeNext', { time: formatS(addCodeTimeToNextUse()) }) : ''
+    )
+  }
+
+  if (editing || !layout.hidden.includes('timeCodeHeader')) {
+    const uses = timeCodeAvailableUses()
+    setHeaderText('timeCodeHeaderUses', `${uses}/1`)
+    setHeaderText(
+      'timeCodeHeaderNext',
+      uses === 0
+        ? i18next.t('headerLayout.codeNext', { time: formatS(timeCodeTimeToNextUse()) })
+        : i18next.t('headerLayout.timeCodeMultiplier', { x: format(timeCodeRewardMultiplier(), 2, true) })
+    )
+  }
+
+  if (editing || !layout.hidden.includes('achievementPointsHeader')) {
+    setHeaderText('achievementPointsHeaderDisplay', format(achievementPoints, 0, true))
+  }
+
+  if (editing || !layout.hidden.includes('quarkBonusHeader')) {
+    setHeaderText('quarkBonusHeaderDisplay', i18next.t('headerLayout.quarkBonus', { x: getGlobalBonus() }))
+  }
+}
+
 export const updateHeaderAmbrosia = () => {
   const layout = currentLayout()
 
@@ -293,6 +363,63 @@ export const updateHeaderAmbrosia = () => {
       }
     }
     setHeaderText('rainbowAmbrosiaHeaderDisplay', format(ambrosiaAmounts[layout.rainbowAmbrosia](), 0, true))
+  }
+}
+
+const loadoutSlots = (elementId: string, count: number, load: (slot: number) => void) => {
+  const container = DOMCacheGetOrSet(elementId)
+  if (container.children.length !== count) {
+    const slots: HTMLButtonElement[] = []
+    for (let slot = 1; slot <= count; slot++) {
+      const button = document.createElement('button')
+      button.type = 'button'
+      button.className = 'headerLoadoutSlot'
+      button.textContent = `${slot}`
+      button.addEventListener('click', () => load(slot))
+      slots.push(button)
+    }
+    container.replaceChildren(...slots)
+  }
+  return container.children
+}
+
+export const updateHeaderLoadouts = () => {
+  const layout = currentLayout()
+
+  if (editing || !layout.hidden.includes('corruptionLoadoutsHeader')) {
+    const saves = player.corruptions.saves.saves
+    const slots = loadoutSlots(
+      'corruptionLoadoutsHeaderSlots',
+      Math.min(saves.length, getUnlockedCorruptionLoadoutCount()),
+      (slot) => corruptionLoadLoadout(slot - 1)
+    )
+    const maxLevel = maxCorruptionLevel()
+    for (let index = 0; index < slots.length; index++) {
+      const slot = slots[index]
+      const { name, loadout } = saves[index]
+      if (slot.getAttribute('title') !== name) {
+        slot.setAttribute('title', name)
+      }
+      slot.classList.toggle(
+        'headerLoadoutActive',
+        corruptionLoadoutMatches(loadout.loadout, player.corruptions.used.loadout, maxLevel)
+      )
+      slot.classList.toggle(
+        'headerLoadoutNext',
+        corruptionLoadoutMatches(loadout.loadout, player.corruptions.next.loadout, maxLevel)
+      )
+    }
+  }
+
+  if (editing || !layout.hidden.includes('ambrosiaLoadoutsHeader')) {
+    const slots = loadoutSlots(
+      'ambrosiaLoadoutsHeaderSlots',
+      getUnlockedBlueberryLoadoutCount(),
+      loadBlueberryLoadout
+    )
+    for (let index = 0; index < slots.length; index++) {
+      slots[index].classList.toggle('headerLoadoutActive', index + 1 === lastBlueberryLoadout)
+    }
   }
 }
 

@@ -35,7 +35,13 @@ import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
 import { getCostNextAntUpgrade } from './Features/Ants/AntUpgrades/lib/get-cost'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
-import { updateHeaderAmbrosia, updateHeaderConsumables, updateHeaderModuleVisibility } from './HeaderModules'
+import {
+  updateHeaderAmbrosia,
+  updateHeaderConsumables,
+  updateHeaderInfo,
+  updateHeaderLoadouts,
+  updateHeaderModuleVisibility
+} from './HeaderModules'
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
@@ -60,7 +66,8 @@ const htmlInsertPlayerRequirements = [
   'reincarnationPoints',
   'worlds',
   'obtainium',
-  'goldenQuarks'
+  'goldenQuarks',
+  'wowOcteracts'
 ] as const
 const htmlInsertDomRequirements = [
   'coinDisplay',
@@ -71,7 +78,8 @@ const htmlInsertDomRequirements = [
   'particlesDisplay',
   'quarkDisplay',
   'obtainiumDisplay',
-  'goldenQuarkHeaderDisplay'
+  'goldenQuarkHeaderDisplay',
+  'octeractHeaderDisplay'
 ] as const
 const challengeProgressRowIds = {
   transcension: 'transcensionChallengeProgress',
@@ -597,7 +605,9 @@ export const htmlInserts = () => {
   updateChallengeProgress()
   updateAscensionStats()
   updateHeaderConsumables()
+  updateHeaderInfo()
   updateHeaderAmbrosia()
+  updateHeaderLoadouts()
 
   visualUpdate(G.currentTab)
 }

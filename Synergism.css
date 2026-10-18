@@ -6478,6 +6478,9 @@ header #mythosshardDisplay { color: plum; }
 header #particlesDisplay { color: limegreen; }
 header #obtainiumDisplay { color: pink; }
 header #goldenQuarkHeaderDisplay { color: gold; }
+header #octeractHeaderDisplay { color: var(--lightseagreen-text-color); }
+header #achievementPointsHeaderDisplay { color: white; }
+header #quarkBonusHeaderDisplay { color: gold; }
 
 header #ambrosiaHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="ambrosiaHeader"] .statDisplay { color: var(--amber-text-color); }
@@ -6618,6 +6621,34 @@ header #blueberryHeaderDisplay,
 
 #happyHourBellHeaderTimer { color: gold; }
 #lotusHeaderTimer { color: violet; }
+#dailyCodeHeaderUses { color: lime; }
+#addCodeHeaderUses { color: cyan; }
+#timeCodeHeaderUses { color: var(--lightseagreen-text-color); }
+
+.headerLoadoutSlots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.headerLoadoutSlot {
+    min-width: 1.75em;
+    height: 1.75em;
+    padding: 0 0.25em;
+    font-size: inherit;
+    border: 2px solid blue;
+}
+
+.headerLoadoutSlot.headerLoadoutNext {
+    border-color: silver;
+}
+
+.headerLoadoutSlot.headerLoadoutActive {
+    background-color: #1d4ed8;
+    border-color: deepskyblue;
+    color: white;
+    font-weight: bold;
+}
 
 #headerEditPanel {
     display: none;

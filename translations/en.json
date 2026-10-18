@@ -5459,13 +5459,23 @@
     "hidden": "Hidden modules (click or tap to show, or drag into the header):",
     "owned": "Owned: {{x}}",
     "bellActive": "{{amount}}x {{time}}",
+    "codeNext": "Next: {{time}}",
+    "timeCodeMultiplier": "x{{x}}",
+    "quarkBonus": "+{{x}}%",
     "modules": {
       "transcensionChallengeProgress": "Transcension Challenge progress",
       "reincarnationChallengeProgress": "Reincarnation Challenge progress",
       "ascensionChallengeProgress": "Ascension Challenge progress",
       "happyHourBell": "Happy Hour Bell",
       "lotus": "Lotus Timer",
-      "blueberries": "Blueberries"
+      "blueberries": "Blueberries",
+      "dailyCode": "Daily Code",
+      "addCode": "Add Code",
+      "timeCode": "Time Code",
+      "achievementPoints": "Achievement Points",
+      "quarkBonus": "Subscriber Quark Bonus",
+      "corruptionLoadouts": "Corruption Loadouts",
+      "ambrosiaLoadouts": "Ambrosia Loadouts"
     }
   },
   "tabs": {

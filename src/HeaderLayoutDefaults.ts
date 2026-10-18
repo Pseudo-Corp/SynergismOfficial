@@ -14,7 +14,12 @@ const statModuleIds = [
   'ascSingTimeTakenStats',
   'ascSingChallengeTimeTakenStats',
   'happyHourBellHeader',
-  'lotusHeader'
+  'lotusHeader',
+  'dailyCodeHeader',
+  'addCodeHeader',
+  'timeCodeHeader',
+  'corruptionLoadoutsHeader',
+  'ambrosiaLoadoutsHeader'
 ] as const
 
 const currencyModuleIds = [
@@ -26,7 +31,10 @@ const currencyModuleIds = [
   'mythosShardHeader',
   'particlesHeader',
   'obtainiumHeader',
-  'goldenQuarkHeader'
+  'goldenQuarkHeader',
+  'octeractHeader',
+  'achievementPointsHeader',
+  'quarkBonusHeader'
 ] as const
 
 export const rainbowAmbrosiaModuleIds = [
@@ -119,7 +127,20 @@ export const createDefaultHeaderLayout = () => {
     },
     sizes: {},
     positions: {},
-    hidden: ['happyHourBellHeader', 'lotusHeader', 'goldenQuarkHeader', ...ambrosiaModuleIds],
+    hidden: [
+      'happyHourBellHeader',
+      'lotusHeader',
+      'dailyCodeHeader',
+      'addCodeHeader',
+      'timeCodeHeader',
+      'corruptionLoadoutsHeader',
+      'ambrosiaLoadoutsHeader',
+      'goldenQuarkHeader',
+      'octeractHeader',
+      'achievementPointsHeader',
+      'quarkBonusHeader',
+      ...ambrosiaModuleIds
+    ],
     rainbowAmbrosia: 'ambrosiaHeader'
   }
 
