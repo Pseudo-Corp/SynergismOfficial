@@ -3514,7 +3514,6 @@
     "perCompletionBonus": "Per Completion Bonuses",
     "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
     "ascensionBankAdd": "Completing the challenge adds {{x}} to the Cube Bank.",
-    "ascensionBankPercent": "Completing the challenge increases the Cube Bank by +{{x}}% (additive).",
     "ascensionBankMultiply": "Completing the challenge multiplies the Cube Bank by x{{x}}.",
     "firstTimeBonus": "Gain {{x}} for completing this challenge [First Time Bonus]!",
     "firstTimeBonusQuarks": "Gain {{x}} Quarks for completing this challenge [First Time Bonus]!"
@@ -5679,9 +5678,9 @@
         "high": "15 × 1.05^({{L}} − 45)"
       },
       "viscosity": {
-        "low": "2^{{L}}",
-        "mid": "2^(20 + 2 × ({{L}} − 20))",
-        "high": "2^(70 + 2 × ({{L}} − 45)^1.5)"
+        "low": "2^(2 × {{L}})",
+        "mid": "2^(40 + 3 × ({{L}} − 20))",
+        "high": "2^(115 + 3 × ({{L}} − 45)^1.5)"
       },
       "salvage": {
         "low": "−62.5 × {{L}}",
@@ -5709,14 +5708,14 @@
         "high": "2^20 × 10^(25 + ({{L}} − 45)^1.5)"
       },
       "recession": {
-        "low": "1 − 0.9 × {{L}} ÷ 20",
-        "mid": "0.1 × (1 − 0.9 × ({{L}} − 20) ÷ 25)",
-        "high": "0.01 × 0.9^({{L}} − 45)"
+        "low": "0.7^{{L}}",
+        "mid": "0.7^{{L}}",
+        "high": "0.7^(45 + ({{L}} − 45)^1.5)"
       },
       "blunders": {
         "low": "2% × {{L}}",
-        "mid": "40% + 1% × ({{L}} − 20)",
-        "high": "65%"
+        "mid": "2% × {{L}}",
+        "high": "90%"
       }
     },
     "breakdown": {
@@ -5752,7 +5751,7 @@
       "unlock": "Unlocks at level {{level}} (level {{base}} minus your free levels).",
       "unlockC15": "Unlocks at level {{level}} (level {{base}} minus your free levels) and with the Challenge 15 Hepteract reward.",
       "otherMultipliers": "Excludes the Ascension time bonus. See Statistics for every source of each multiplier.",
-      "cubeBankDescription": "Every cube type is multiplied by the Cube Bank. Bank = (Challenges 1-5 + Ants) × Challenges 6-9 × Challenge 10. Challenge 1-5 completions give num:((2)) each, num:((3)) past num:((100)), num:((4)) past num:((200)) and num:((5)) past num:((300)).",
+      "cubeBankDescription": "Every cube type is multiplied by the Cube Bank. Bank = (Challenges 1-5 + Challenges 6-9 + Ants) × Challenge 10. Challenge 1-5 completions give num:((2)) each, num:((3)) past num:((100)), num:((4)) past num:((200)) and num:((5)) past num:((300)). Challenge 6-9 completions give num:((10)) each.",
       "source": "Source",
       "completions": "Completions",
       "perCompletion": "Per completion",

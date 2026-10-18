@@ -121,9 +121,9 @@ const corruptionLevelEffects: { [K in CorruptionKey]: CorruptionLevelEffect<K> }
     (l) => 15 * Math.pow(1.05, l - endgameLevel)
   ],
   viscosity: [
-    (l) => Math.pow(2, l),
-    (l) => Math.pow(2, 20 + 2 * (l - midgameLevel)),
-    (l) => Math.min(1e300, Math.pow(2, 70 + 2 * Math.pow(l - endgameLevel, 1.5)))
+    (l) => Math.pow(2, 2 * l),
+    (l) => Math.pow(2, 40 + 3 * (l - midgameLevel)),
+    (l) => Math.min(1e300, Math.pow(2, 115 + 3 * Math.pow(l - endgameLevel, 1.5)))
   ],
   salvage: [
     (l) => -62.5 * l,
@@ -151,14 +151,14 @@ const corruptionLevelEffects: { [K in CorruptionKey]: CorruptionLevelEffect<K> }
     (l) => tenToTheDecimal(25 + Math.pow(l - endgameLevel, 1.5)).times(twoToTheTwenty)
   ],
   recession: [
-    (l) => 1 - 0.9 * l / 20,
-    (l) => 0.1 * (1 - 0.9 * (l - midgameLevel) / 25),
-    (l) => 0.01 * Math.pow(0.9, l - endgameLevel)
+    (l) => Math.pow(0.7, l),
+    (l) => Math.pow(0.7, l),
+    (l) => Math.pow(0.7, endgameLevel + Math.pow(l - endgameLevel, 1.5))
   ],
   blunders: [
     (l) => 0.02 * l,
-    (l) => 0.4 + 0.01 * (l - midgameLevel),
-    () => 0.65
+    (l) => 0.02 * l,
+    () => 0.9
   ]
 }
 
@@ -596,13 +596,13 @@ const corruptionCubeBankModalHTML = () => {
       `+${format(perCompletion, 2, true)}`,
       `+${format(amount, 1, true)}`
     ]),
-    [i18next.t('corruptions.breakdown.bankSources.ants'), '', '', `+${format(ants, 1, true)}`],
     [
       i18next.t('corruptions.breakdown.bankSources.reincarnationChallenges'),
       format(reincarnationChallenges.completions),
-      `+${format(100 * reincarnationChallengeCubeBankPerCompletion, 0, true)}%`,
-      formatTimes(reincarnationChallenges.multiplier)
+      `+${format(reincarnationChallengeCubeBankPerCompletion)}`,
+      `+${format(reincarnationChallenges.amount, 1, true)}`
     ],
+    [i18next.t('corruptions.breakdown.bankSources.ants'), '', '', `+${format(ants, 1, true)}`],
     [
       i18next.t('corruptions.breakdown.bankSources.challengeTen'),
       format(challengeTen.completions),

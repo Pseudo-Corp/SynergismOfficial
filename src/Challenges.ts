@@ -418,8 +418,8 @@ export const challengeDisplay = (i: number) => {
         x: format(challengeTenCubeBankMultiplier(), 3, true)
       })
     } else if (i > 5) {
-      j.textContent = i18next.t('challenges.ascensionBankPercent', {
-        x: format(100 * reincarnationChallengeCubeBankPerCompletion, 0, true)
+      j.textContent = i18next.t('challenges.ascensionBankAdd', {
+        x: format(reincarnationChallengeCubeBankPerCompletion)
       })
     } else {
       j.textContent = i18next.t('challenges.ascensionBankAdd', {

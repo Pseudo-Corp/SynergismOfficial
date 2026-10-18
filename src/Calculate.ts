@@ -1327,7 +1327,7 @@ const sumChallengeCompletions = (from: number, to: number) => {
 
 export const transcensionChallengeCubeBankPerCompletion = () => 1 + 0.05 * player.cubeUpgrades[56]
 
-export const reincarnationChallengeCubeBankPerCompletion = 0.01
+export const reincarnationChallengeCubeBankPerCompletion = 10
 
 export const challengeTenCubeBankMultiplier = () => 1.02 + 0.005 * player.cubeUpgrades[39]
 
@@ -1346,7 +1346,7 @@ export const calculateCubeBankSources = () => {
     ants: getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked,
     reincarnationChallenges: {
       completions: reincarnationCompletions,
-      multiplier: 1 + reincarnationChallengeCubeBankPerCompletion * reincarnationCompletions
+      amount: reincarnationChallengeCubeBankPerCompletion * reincarnationCompletions
     },
     challengeTen: {
       completions: player.challengecompletions[10],
@@ -1358,7 +1358,7 @@ export const calculateCubeBankSources = () => {
 export const calculateCubeBank = () => {
   const { transcensionChallenges, ants, reincarnationChallenges, challengeTen } = calculateCubeBankSources()
   const transcensionAmount = transcensionChallenges.reduce((total, tier) => total + tier.amount, 0)
-  return (transcensionAmount + ants) * reincarnationChallenges.multiplier * challengeTen.multiplier
+  return (transcensionAmount + reincarnationChallenges.amount + ants) * challengeTen.multiplier
 }
 
 export const CalcCorruptionStuff = () => {
