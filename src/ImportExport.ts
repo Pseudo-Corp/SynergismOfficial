@@ -968,15 +968,15 @@ export const addCodeBonuses = () => {
   }
 }
 
-const timeCodeAvailableUses = (): number => {
+export const timeCodeAvailableUses = (): number => {
   return (DateNow() - player.promoCodeTiming.time) / 1000 < 900 ? 0 : 1
 }
 
-const timeCodeTimeToNextUse = (): number => {
+export const timeCodeTimeToNextUse = (): number => {
   return 900 - (DateNow() - player.promoCodeTiming.time) / 1000
 }
 
-const timeCodeRewardMultiplier = (): number => {
+export const timeCodeRewardMultiplier = (): number => {
   return Math.min(
     24,
     (DateNow() - player.promoCodeTiming.time) / (1000 * 3600)

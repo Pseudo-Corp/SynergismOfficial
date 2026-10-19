@@ -35,6 +35,13 @@ import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
 import { getCostNextAntUpgrade } from './Features/Ants/AntUpgrades/lib/get-cost'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
+import {
+  updateHeaderAmbrosia,
+  updateHeaderConsumables,
+  updateHeaderInfo,
+  updateHeaderLoadouts,
+  updateHeaderModuleVisibility
+} from './HeaderModules'
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
@@ -58,7 +65,9 @@ const htmlInsertPlayerRequirements = [
   'transcendShards',
   'reincarnationPoints',
   'worlds',
-  'obtainium'
+  'obtainium',
+  'goldenQuarks',
+  'wowOcteracts'
 ] as const
 const htmlInsertDomRequirements = [
   'coinDisplay',
@@ -68,7 +77,9 @@ const htmlInsertDomRequirements = [
   'mythosshardDisplay',
   'particlesDisplay',
   'quarkDisplay',
-  'obtainiumDisplay'
+  'obtainiumDisplay',
+  'goldenQuarkHeaderDisplay',
+  'octeractHeaderDisplay'
 ] as const
 const challengeProgressRowIds = {
   transcension: 'transcensionChallengeProgress',
@@ -164,17 +175,15 @@ export const challengeExit = (tier: ChallengeTier) => {
     return
   }
 
-  const element = DOMCacheGetOrSet(challengeProgressRowIds[tier])
-  element.hidden = true
-  element.textContent = ''
+  const textElement = DOMCacheGetOrSet(`${challengeProgressRowIds[tier]}Text`)
+  resetFitText(textElement)
+  DOMCacheGetOrSet(challengeProgressRowIds[tier]).hidden = true
+  textElement.textContent = ''
 }
 
 const updateChallengeProgressRow = (elementId: string, challenge: number) => {
   const element = DOMCacheGetOrSet(elementId)
-
-  if (element.hidden) {
-    element.hidden = false
-  }
+  const textElement = DOMCacheGetOrSet(`${elementId}Text`)
 
   const progress = getChallengeProgress(challenge)
   const name = `challenges.${challenge}.progressName`
@@ -191,8 +200,13 @@ const updateChallengeProgressRow = (elementId: string, challenge: number) => {
       required
     })
 
-  if (element.innerHTML !== text) {
-    element.innerHTML = text
+  if (textElement.innerHTML !== text) {
+    textElement.innerHTML = text
+  }
+
+  if (element.hidden) {
+    element.hidden = false
+    createFitties(element)
   }
 }
 
@@ -500,13 +514,7 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.insideSingularityChallenge = player.insideSingularityChallenge ? 'true' : 'false'
 
-  document.documentElement.dataset.ascensionStats =
-    (Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0) ? 'true' : 'false'
-  document.documentElement.dataset.ascHyperStats = player.challengecompletions[13] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.ascPlatonicStats = player.challengecompletions[14] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.ascHepteractStats = G.challenge15Rewards.hepteractsUnlocked.value >= 1
-    ? 'true'
-    : 'false'
+  updateHeaderModuleVisibility()
 
   // I'll clean this up later. Note to 2019 Platonic: Fuck you
   // note to 2019 and 2020 Platonic, you're welcome
@@ -596,6 +604,10 @@ export const htmlInserts = () => {
 
   updateChallengeProgress()
   updateAscensionStats()
+  updateHeaderConsumables()
+  updateHeaderInfo()
+  updateHeaderAmbrosia()
+  updateHeaderLoadouts()
 
   visualUpdate(G.currentTab)
 }
@@ -1970,8 +1982,13 @@ export const closeIframeOverlay = () => {
 
 const fittyInstances = new WeakMap<HTMLElement, FittyInstance>()
 
-export const createFitties = () => {
-  const fittyElements = document.getElementsByClassName('fitText') as HTMLCollectionOf<HTMLElement>
+export const resetFitText = (element: HTMLElement) => {
+  fittyInstances.get(element)?.unsubscribe()
+  fittyInstances.delete(element)
+}
+
+export const createFitties = (root: Document | HTMLElement = document) => {
+  const fittyElements = root.getElementsByClassName('fitText') as HTMLCollectionOf<HTMLElement>
   for (const element of fittyElements) {
     const existingInstance = fittyInstances.get(element)
 
@@ -1984,10 +2001,12 @@ export const createFitties = () => {
     }
 
     if (!existingInstance) {
+      const maxSize = Number.parseFloat(getComputedStyle(element).fontSize)
+      const multiLine = element.classList.contains('fitTextMultiLine')
       const fittyOptions = {
-        minSize: 0,
-        maxSize: Number.parseFloat(getComputedStyle(element).fontSize),
-        multiLine: false
+        minSize: multiLine ? maxSize / 2 : 0,
+        maxSize,
+        multiLine
       }
       fittyInstances.set(element, fitty(element, fittyOptions))
     } else {

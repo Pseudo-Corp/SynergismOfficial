@@ -66,6 +66,7 @@ import { toggleAutobuyAntProducer } from './Features/Ants/toggles/autobuy-produc
 import { toggleAutobuyAntUpgrade } from './Features/Ants/toggles/autobuy-upgrade'
 import { toggleMaxBuyAntProducer } from './Features/Ants/toggles/max-producer-buy'
 import { toggleMaxBuyAntUpgrade } from './Features/Ants/toggles/max-upgrade-buy'
+import { registerHeaderLayoutEditing } from './HeaderModules'
 import {
   craftHepteracts,
   expandHepteracts,
@@ -873,6 +874,7 @@ export const generateEventHandlers = () => {
   registerMobileStatsIcons()
   registerMobileHotkeyPanel()
   registerMobileHeaderResize()
+  registerHeaderLayoutEditing()
   registerSubTabSwitches()
   registerMobileSubTabLayout()
 

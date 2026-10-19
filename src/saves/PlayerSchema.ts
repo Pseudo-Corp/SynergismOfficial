@@ -1,8 +1,9 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
+import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { CampaignManager, type ICampaignManagerData } from '../Campaign'
-import { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
+import { CorruptionLoadout, CorruptionSaves, corruptionsSchema } from '../Corruptions'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
@@ -11,6 +12,18 @@ import type { PlayerAntProducers } from '../Features/Ants/AntProducers/structs/s
 import { defaultAntUpgrades } from '../Features/Ants/AntUpgrades/player/default'
 import { AntUpgrades, LAST_ANT_UPGRADE } from '../Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/structs'
+import {
+  freeButtonPosition,
+  HEADER_BUTTON_GROUP_CAPACITY,
+  type HeaderModuleId,
+  headerModuleIds,
+  headerModuleSizes,
+  headerRegionIds,
+  isHeaderButton,
+  isHeaderGridRegion,
+  isHeaderProgress,
+  rainbowAmbrosiaModuleIds
+} from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
 import {
@@ -323,6 +336,66 @@ const campaignSchema = z.object({
   currentCampaign: z.string().optional(),
   campaigns: z.record(z.string(), z.number()).optional()
 })
+
+const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
+  z.object({
+    regions: z.record(
+      z.enum(headerRegionIds),
+      z.enum(headerModuleIds).array().max(HEADER_BUTTON_GROUP_CAPACITY[layout]).array()
+    ),
+    sizes: z.partialRecord(z.enum(headerModuleIds), z.enum(headerModuleSizes)),
+    positions: z.partialRecord(
+      z.enum(headerModuleIds),
+      z.number().int().min(0).max(HEADER_BUTTON_GROUP_CAPACITY[layout] - 1)
+    ).default(() => ({})),
+    hidden: z.enum(headerModuleIds).array(),
+    rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia),
+    loadoutIcons: z.lazy(() =>
+      z.object({
+        corruptionLoadoutsHeader: z.partialRecord(integerStringSchema, corruptionsSchema.keyof()),
+        ambrosiaLoadoutsHeader: z.partialRecord(integerStringSchema, z.enum(ambrosiaUpgradeNames))
+      })
+    ).catch(() => deepClone()(blankSave.headerLayouts[layout].loadoutIcons))
+  }).transform((saved) => {
+    const fallback = blankSave.headerLayouts[layout]
+    const placed = new Set(Object.values(saved.regions).flat(2))
+    for (const region of headerRegionIds) {
+      if (!isHeaderGridRegion(region)) {
+        saved.regions[region] = saved.regions[region].filter((slot) => slot.length > 0)
+      }
+      saved.regions[region] = saved.regions[region].flatMap((slot) => {
+        if (slot.length === 1 || !slot.some(isHeaderProgress)) {
+          return [slot]
+        }
+        for (const id of slot) {
+          if (saved.sizes[id] === 'S') {
+            delete saved.sizes[id]
+          }
+        }
+        return slot.map((id) => [id])
+      })
+      for (const id of fallback.regions[region].flat()) {
+        if (!placed.has(id)) {
+          saved.regions[region].push([id])
+          saved.sizes[id] = fallback.sizes[id]
+          if (fallback.hidden.includes(id)) {
+            saved.hidden.push(id)
+          }
+        }
+      }
+      for (const slot of saved.regions[region]) {
+        const positioned: HeaderModuleId[] = []
+        for (const id of slot.filter(isHeaderButton)) {
+          const position = saved.positions[id]
+          if (position === undefined || positioned.some((other) => saved.positions[other] === position)) {
+            saved.positions[id] = freeButtonPosition(saved.positions, positioned)
+          }
+          positioned.push(id)
+        }
+      }
+    }
+    return saved
+  }).catch(() => deepClone()(blankSave.headerLayouts[layout]))
 
 const playerCampaignSchema = campaignSchema.transform((campaignData) => {
   return new CampaignManager(campaignData as ICampaignManagerData)
@@ -953,6 +1026,10 @@ export const playerSchema = z.object({
   hotkeys: z.record(integerStringSchema, z.string().array()).prefault(() => blankSave.hotkeys),
   iconSet: z.number().default(() => blankSave.iconSet),
   notation: z.string().default(() => blankSave.notation),
+  headerLayouts: z.object({
+    desktop: headerLayoutSchema('desktop'),
+    mobile: headerLayoutSchema('mobile')
+  }).catch(() => deepClone()(blankSave.headerLayouts)),
 
   goldenQuarkUpgrades: z.record(z.string(), goldenQuarkUpgradeSchema).transform((object) => {
     return Object.fromEntries(

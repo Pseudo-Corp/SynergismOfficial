@@ -2311,7 +2311,7 @@ export const ambrosiaEditAction = (upgradeKey: AmbrosiaUpgradeNames, action: str
   return false
 }
 
-const getUnlockedBlueberryLoadoutCount = () => {
+export const getUnlockedBlueberryLoadoutCount = () => {
   const loadoutCount = BASE_BLUEBERRY_LOADOUT_COUNT + PCoinUpgradeEffects.AMBROSIA_LOADOUT_SLOT_QOL
   assert(loadoutCount <= MAX_BLUEBERRY_LOADOUT_COUNT, 'Yeah. Nice try.')
   return loadoutCount
@@ -2460,7 +2460,7 @@ export const exportBlueberryTree = () => {
   void exportData(save, name)
 }
 
-const createBlueberryTree = (modules: BlueberryOpt) => {
+const createBlueberryTree = (modules: BlueberryOpt, giveAlert = true) => {
   // Check to see if tree being created is valid.
   const isPossible = validateBlueberryTree(modules)
   if (!isPossible) {
@@ -2492,7 +2492,9 @@ const createBlueberryTree = (modules: BlueberryOpt) => {
       ambrosiaUpgrades[k].level = val
     }
   }
-  void Alert(i18next.t('ambrosia.importTree.success'))
+  if (giveAlert) {
+    void Alert(i18next.t('ambrosia.importTree.success'))
+  }
   return true
 }
 
@@ -2511,7 +2513,7 @@ export const importBlueberryTree = (input: string | null) => {
   }
 }
 
-let lastBlueberryLoadout = 0
+export let lastBlueberryLoadout = 0
 
 export const setLastBlueberryLoadout = (n: number) => {
   lastBlueberryLoadout = n
@@ -2547,6 +2549,12 @@ export const loadoutHandler = (n: number, modules: BlueberryOpt) => {
     if (createBlueberryTree(modules)) {
       setLastBlueberryLoadout(n)
     }
+  }
+}
+
+export const loadBlueberryLoadout = (n: number) => {
+  if (createBlueberryTree(player.blueberryLoadouts[n] ?? { ambrosiaTutorial: 0 }, false)) {
+    setLastBlueberryLoadout(n)
   }
 }
 
