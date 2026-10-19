@@ -73,21 +73,18 @@ const corruptionCubeUnlocks: Record<CorruptionCubeType, CorruptionCubeUnlock> = 
 
 type CorruptionCubeRate = {
   base: number
-  earlyGrowth: number
   growth: number
   endgameGrowth: number
 }
 
 const corruptionCubeRates: Record<CorruptionCubeType, CorruptionCubeRate> = {
-  cubes: { base: 1.602, earlyGrowth: 1.35, growth: 1.25, endgameGrowth: 1.1 },
-  tesseracts: { base: 1.824e-3, earlyGrowth: 1.35, growth: 1.3, endgameGrowth: 1.15 },
-  hypercubes: { base: 5.032e-4, earlyGrowth: 1.6, growth: 1.4, endgameGrowth: 1.2 },
-  platonics: { base: 7.135e-4, earlyGrowth: 1.6, growth: 1.4, endgameGrowth: 1.2 },
-  hepteracts: { base: 1.33e-5, earlyGrowth: 1.3, growth: 1.2, endgameGrowth: 1.1 },
-  octeracts: { base: 8.587e-7, earlyGrowth: 1.2, growth: 1.1, endgameGrowth: 1.1 }
+  cubes: { base: 1, growth: 1.1, endgameGrowth: 1.05 },
+  tesseracts: { base: 1e-3, growth: 1.15, endgameGrowth: 1.05 },
+  hypercubes: { base: 1e-6, growth: 1.2, endgameGrowth: 1.05 },
+  platonics: { base: 1e-9, growth: 1.3, endgameGrowth: 1.05 },
+  hepteracts: { base: 1e-12, growth: 1.4, endgameGrowth: 1.05 },
+  octeracts: { base: 1 / (24 * 3600 * 365 * 1e30), growth: 1.45, endgameGrowth: 1.2 }
 }
-
-const corruptionCubeEarlyLevels = 10
 
 const corruptionCubeIcons: Record<CorruptionCubeType, string> = {
   cubes: '/WowCube.png',
@@ -351,15 +348,13 @@ export const effectiveCorruptionLevel = (level: number) => {
   return level + corruptionFreeLevels()
 }
 
+export const corruptionCubeBase = (cube: CorruptionCubeType) => corruptionCubeRates[cube].base
+
 export const corruptionCubeRate = (cube: CorruptionCubeType, level: number) => {
-  const { base, earlyGrowth, growth, endgameGrowth } = corruptionCubeRates[cube]
   const effectiveLevel = effectiveCorruptionLevel(level)
   const levelsPastUnlock = Math.max(0, Math.min(effectiveLevel, endgameLevel) - corruptionCubeUnlocks[cube].level)
-  const earlyLevels = Math.min(levelsPastUnlock, corruptionCubeEarlyLevels)
-  return base
-    * Math.pow(earlyGrowth, earlyLevels)
-    * Math.pow(growth, levelsPastUnlock - earlyLevels)
-    * Math.pow(endgameGrowth, Math.max(0, effectiveLevel - endgameLevel))
+  const { growth, endgameGrowth } = corruptionCubeRates[cube]
+  return Math.pow(growth, levelsPastUnlock) * Math.pow(endgameGrowth, Math.max(0, effectiveLevel - endgameLevel))
 }
 
 const meetsCorruptionCubeLevel = (level: number, cube: CorruptionCubeType) => {
@@ -548,6 +543,7 @@ const corruptionCubeModalHTML = (cube: CorruptionCubeType) => {
   const locked = (level: number) => !isCorruptionCubeUnlocked(level, cube)
   const lockedText = i18next.t('corruptions.breakdown.locked')
   const unlock = corruptionCubeUnlocks[cube]
+  const base = corruptionCubeBase(cube)
 
   const rows = [
     corruptionLevelRow(
@@ -558,11 +554,12 @@ const corruptionCubeModalHTML = (cube: CorruptionCubeType) => {
       i18next.t('corruptions.breakdown.rate'),
       (level) => locked(level) ? lockedText : formatTimes(corruptionCubeRate(cube, level))
     ),
+    corruptionLevelRow(i18next.t('corruptions.breakdown.base'), () => formatTimes(base)),
     corruptionLevelRow(i18next.t(`corruptions.breakdown.global.${cube}`), () => formatTimes(global)),
     corruptionLevelRow(i18next.t(`corruptions.breakdown.specific.${cube}`), () => formatTimes(specific)),
     corruptionLevelRow(
       i18next.t('corruptions.breakdown.total'),
-      (level) => locked(level) ? lockedText : formatTimes(corruptionCubeRate(cube, level) * global * specific)
+      (level) => locked(level) ? lockedText : formatTimes(base * corruptionCubeRate(cube, level) * global * specific)
     )
   ]
 
@@ -764,13 +761,14 @@ const corruptionCubeMultiplierText = (cube: CorruptionCubeType) => {
   }
 
   const { global, specific } = calculateCorruptionCubeMultiplierParts(cube)
-  const next = format(corruptionCubeRate(cube, player.corruptions.next) * global * specific, 3)
+  const base = corruptionCubeBase(cube)
+  const next = format(base * corruptionCubeRate(cube, player.corruptions.next) * global * specific, 3)
   if (!isCorruptionCubeUnlocked(activeCorruptionLevel(), cube)) {
     return i18next.t('corruptions.tiers.cubeMultiplierNew', { next })
   }
 
   return corruptionMultiplierChangeText(
-    format(corruptionCubeRate(cube, activeCorruptionLevel()) * global * specific, 3),
+    format(base * corruptionCubeRate(cube, activeCorruptionLevel()) * global * specific, 3),
     next
   )
 }

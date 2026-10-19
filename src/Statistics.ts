@@ -107,6 +107,7 @@ import {
   activeCorruptionLevel,
   challenge15CorruptionEffect,
   challenge15CorruptionLevel,
+  corruptionCubeBase,
   corruptionCubeRate,
   type CorruptionCubeType,
   corruptionEffect,
@@ -293,6 +294,10 @@ const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
   {
     i18n: 'CubeBank',
     stat: () => calculateCubeBank()
+  },
+  {
+    i18n: 'BaseMultiplier',
+    stat: () => corruptionCubeBase(cube)
   },
   {
     i18n: 'Corruption',
@@ -800,10 +805,6 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
   lines: [
-    {
-      i18n: 'BasePerSecond',
-      stat: () => 1 / (24 * 3600 * 365 * 1e15)
-    },
     ...corruptionCubeStatLines('octeracts'),
     ...cubeGainSourceLines,
     {
@@ -1002,7 +1003,7 @@ const corruptionCubeStatCategories: Record<CorruptionCubeType, NumberStatLineCat
   octeracts: allOcteractCubeStats
 }
 
-const cubeGainBaseStatKeys = new Set(['CubeBank', 'Corruption', 'BasePerSecond', 'AscensionTime'])
+const cubeGainBaseStatKeys = new Set(['CubeBank', 'BaseMultiplier', 'Corruption', 'AscensionTime'])
 const cubeGainGlobalStatLines = new Set<StatLine<number>>(cubeGainSourceLines)
 
 const displayedStatProduct = (lines: StatLine<number>[]) => {

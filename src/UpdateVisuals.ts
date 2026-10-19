@@ -53,7 +53,12 @@ import {
 } from './Calculate'
 import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
-import { corruptionEffectsUpdate, corruptionLevelScoreUpdate } from './Corruptions'
+import {
+  activeCorruptionLevel,
+  corruptionEffect,
+  corruptionEffectsUpdate,
+  corruptionLevelScoreUpdate
+} from './Corruptions'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -446,6 +451,19 @@ const updateConstructionTexts = (type: keyof typeof buildingConstructionSoftcap)
   return threshold
 }
 
+const viscosityEffectiveText = (viscosity: number, bought: number, free: number) => {
+  if (viscosity <= 1) {
+    return ''
+  }
+  return `<br>${
+    i18next.t('buildings.names.viscosityEffective', {
+      amount: format(bought, 2, true, false),
+      gain: format(free, 2, true, false),
+      viscosity: format(viscosity, 2, true)
+    })
+  }`
+}
+
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
     return
@@ -511,13 +529,14 @@ export const visualUpdateBuildings = () => {
 
     const acceleratorElement = DOMCacheGetOrSet('buildtext11')
     acceleratorElement.style.color = player.acceleratorBought > getAccelMultScalingThreshold('accelerator') ? 'red' : ''
-    acceleratorElement.textContent = i18next.t(
+    const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
+    acceleratorElement.innerHTML = i18next.t(
       'buildings.names.accelerators',
       {
         amount: format(player.acceleratorBought, 0, true, false),
         gain: format(G.freeAccelerator, 0, true, false)
       }
-    )
+    ) + viscosityEffectiveText(viscosity, G.totalAccelerator - G.effectiveFreeAccelerator, G.effectiveFreeAccelerator)
 
     DOMCacheGetOrSet('buildtext12').innerHTML = i18next.t(
       'buildings.acceleratorPower',
@@ -535,7 +554,7 @@ export const visualUpdateBuildings = () => {
         amount: format(player.multiplierBought, 0, true, false),
         gain: format(G.freeMultiplier, 0, true, false)
       }
-    )
+    ) + viscosityEffectiveText(viscosity, G.totalMultiplier - G.effectiveFreeMultiplier, G.effectiveFreeMultiplier)
 
     DOMCacheGetOrSet('buildtext14').innerHTML = i18next.t(
       'buildings.multiplierPower',

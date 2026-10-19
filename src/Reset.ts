@@ -761,7 +761,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       }
     }
 
-    applyPendingAutoAscendProtocol()
+    applyPendingAutoAscendProtocol(c10Completions > 0)
     player.corruptions.used = normalizeCorruptionLevel(player.corruptions.next)
 
     corruptionStatsUpdate()

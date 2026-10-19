@@ -621,11 +621,14 @@ const corruptionProtocolLevel = (protocol: CorruptionProtocol) => {
   }
 }
 
-export const applyPendingAutoAscendProtocol = () => {
+export const applyPendingAutoAscendProtocol = (challengeTenCompleted: boolean) => {
   if (pendingCorruptionProtocol === null) {
     return
   }
-  player.corruptions.next = normalizeCorruptionLevel(corruptionProtocolLevel(pendingCorruptionProtocol))
+  const level = corruptionProtocolLevel(pendingCorruptionProtocol)
+  player.corruptions.next = normalizeCorruptionLevel(
+    challengeTenCompleted ? level : Math.min(level, player.corruptions.used)
+  )
   pendingCorruptionProtocol = null
 }
 
