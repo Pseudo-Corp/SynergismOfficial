@@ -1310,6 +1310,8 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 
 #mainHeader {
     flex-shrink: 0;
+    display: grid;
+    justify-items: center;
 }
 
 main {

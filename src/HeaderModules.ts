@@ -346,7 +346,7 @@ export const renderHeaderLayout = () => {
 
   DOMCacheGetOrSet('headerTray').replaceChildren(DOMCacheGetOrSet('headerTrayLabel'), ...trayModules)
   updateEditToolbar(layout)
-  createFitties()
+  createFitties(DOMCacheGetOrSet('mainHeader'))
 }
 
 export const updateHeaderModuleVisibility = () => {

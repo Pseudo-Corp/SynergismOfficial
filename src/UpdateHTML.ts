@@ -206,7 +206,7 @@ const updateChallengeProgressRow = (elementId: string, challenge: number) => {
 
   if (element.hidden) {
     element.hidden = false
-    createFitties()
+    createFitties(element)
   }
 }
 
@@ -1987,8 +1987,8 @@ export const resetFitText = (element: HTMLElement) => {
   fittyInstances.delete(element)
 }
 
-export const createFitties = () => {
-  const fittyElements = document.getElementsByClassName('fitText') as HTMLCollectionOf<HTMLElement>
+export const createFitties = (root: Document | HTMLElement = document) => {
+  const fittyElements = root.getElementsByClassName('fitText') as HTMLCollectionOf<HTMLElement>
   for (const element of fittyElements) {
     const existingInstance = fittyInstances.get(element)
 
