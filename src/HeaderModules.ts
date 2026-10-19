@@ -137,7 +137,7 @@ interface HeaderButtonStack {
   positions: number[]
 }
 
-const trayDropTarget: HeaderDropTarget ={ region: null, index: 0, position: 0, join: false, indicator: null }
+const trayDropTarget: HeaderDropTarget = { region: null, index: 0, position: 0, join: false, indicator: null }
 
 let editing = false
 let holdTimer: number | undefined
