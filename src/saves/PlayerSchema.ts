@@ -352,8 +352,8 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
     rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia),
     loadoutIcons: z.lazy(() =>
       z.object({
-        corruptionLoadoutsHeader: z.record(integerStringSchema, corruptionsSchema.keyof()),
-        ambrosiaLoadoutsHeader: z.record(integerStringSchema, z.enum(ambrosiaUpgradeNames))
+        corruptionLoadoutsHeader: z.partialRecord(integerStringSchema, corruptionsSchema.keyof()),
+        ambrosiaLoadoutsHeader: z.partialRecord(integerStringSchema, z.enum(ambrosiaUpgradeNames))
       })
     ).catch(() => deepClone()(blankSave.headerLayouts[layout].loadoutIcons))
   }).transform((saved) => {
