@@ -341,12 +341,12 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
   z.object({
     regions: z.record(
       z.enum(headerRegionIds),
-      z.enum(headerModuleIds).array().max(HEADER_BUTTON_GROUP_CAPACITY).array()
+      z.enum(headerModuleIds).array().max(HEADER_BUTTON_GROUP_CAPACITY[layout]).array()
     ),
     sizes: z.partialRecord(z.enum(headerModuleIds), z.enum(headerModuleSizes)),
     positions: z.partialRecord(
       z.enum(headerModuleIds),
-      z.number().int().min(0).max(HEADER_BUTTON_GROUP_CAPACITY - 1)
+      z.number().int().min(0).max(HEADER_BUTTON_GROUP_CAPACITY[layout] - 1)
     ).default(() => ({})),
     hidden: z.enum(headerModuleIds).array(),
     rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia),

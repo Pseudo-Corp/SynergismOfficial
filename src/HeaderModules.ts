@@ -131,7 +131,13 @@ interface HeaderDropTarget {
   indicator: { left: number; top: number; width: number; height: number } | null
 }
 
-const trayDropTarget: HeaderDropTarget = { region: null, index: 0, position: 0, join: false, indicator: null }
+interface HeaderButtonStack {
+  index: number
+  element: HTMLElement
+  positions: number[]
+}
+
+const trayDropTarget: HeaderDropTarget ={ region: null, index: 0, position: 0, join: false, indicator: null }
 
 let editing = false
 let holdTimer: number | undefined
@@ -147,6 +153,7 @@ let pointerStartY = 0
 const layoutKey = () => isMobile ? 'mobile' : 'desktop'
 const currentLayout = () => player.headerLayouts[layoutKey()]
 const gridColumns = () => HEADER_GRID_COLUMNS[layoutKey()]
+const buttonGroupCapacity = () => HEADER_BUTTON_GROUP_CAPACITY[layoutKey()]
 const gridArea = (index: number) => `${Math.floor(index / gridColumns()) + 1} / ${(index % gridColumns()) + 1}`
 
 const sizeOf = (layout: HeaderLayout, id: HeaderModuleId) => layout.sizes[id] ?? 'M'
@@ -210,14 +217,36 @@ const updateEditToolbar = (layout: HeaderLayout) => {
   ;(DOMCacheGetOrSet('headerHideModule') as HTMLButtonElement).disabled = selected === null
 }
 
+const centerButtonRuns = (stacks: HeaderButtonStack[]) => {
+  const capacity = buttonGroupCapacity()
+  let run: HeaderButtonStack[] = []
+  for (const [i, stack] of stacks.entries()) {
+    run.push(stack)
+    const next = stacks[i + 1]
+    if (next?.index === stack.index + 1 && next.index % gridColumns() !== 0) {
+      continue
+    }
+
+    const occupied = run.flatMap(({ positions }, offset) => positions.map((position) => offset * capacity + position))
+    if (occupied.length > 0) {
+      const shift = (run.length * capacity - 1 - Math.max(...occupied) - Math.min(...occupied)) / 2
+      for (const { element } of run) {
+        element.style.translate = `${shift * 100 / capacity}%`
+      }
+    }
+    run = []
+  }
+}
+
 export const renderHeaderLayout = () => {
   const layout = currentLayout()
   const trayModules: HTMLElement[] = []
 
-  DOMCacheGetOrSet('mainHeader').style.setProperty('--header-button-slots', `${HEADER_BUTTON_GROUP_CAPACITY}`)
+  DOMCacheGetOrSet('mainHeader').style.setProperty('--header-button-slots', `${buttonGroupCapacity()}`)
 
   for (const region of headerRegionIds) {
     const slotElements: HTMLElement[] = []
+    const buttonStacks: HeaderButtonStack[] = []
     const isGrid = isHeaderGridRegion(region)
     let lastCell = -1
 
@@ -261,7 +290,7 @@ export const renderHeaderLayout = () => {
       if (slot.some(isHeaderButton)) {
         const buttonSlots: HTMLElement[] = []
         if (editing) {
-          for (let position = 0; position < HEADER_BUTTON_GROUP_CAPACITY; position++) {
+          for (let position = 0; position < buttonGroupCapacity(); position++) {
             const buttonSlot = document.createElement('div')
             buttonSlot.className = 'headerButtonSlot'
             buttonSlot.style.gridColumn = `${position + 1}`
@@ -271,6 +300,12 @@ export const renderHeaderLayout = () => {
         slotElement = document.createElement('div')
         slotElement.className = 'headerStack headerStackRow'
         slotElement.replaceChildren(...buttonSlots, ...shown)
+        buttonStacks.push({
+          index,
+          element: slotElement,
+          positions: slot.filter((id) => !layout.hidden.includes(id) && headerModuleUnlocks[id]())
+            .map((id) => layout.positions[id] ?? 0)
+        })
       } else if (shown.length > 1) {
         slotElement = document.createElement('div')
         slotElement.className = 'headerStack'
@@ -290,6 +325,10 @@ export const renderHeaderLayout = () => {
     if (!isGrid) {
       regionElement.replaceChildren(...slotElements)
       continue
+    }
+
+    if (isMobile && !editing) {
+      centerButtonRuns(buttonStacks)
     }
 
     const cells: HTMLElement[] = []
@@ -576,7 +615,7 @@ const canJoinSlot = (slot: HeaderModuleId[], id: HeaderModuleId) => {
   if (!slot.every(isHeaderButton)) {
     return false
   }
-  return slot.includes(id) || slot.length < HEADER_BUTTON_GROUP_CAPACITY
+  return slot.includes(id) || slot.length < buttonGroupCapacity()
 }
 
 const detachModule = (layout: HeaderLayout, id: HeaderModuleId) => {
@@ -778,14 +817,14 @@ const dropBar = (rect: DOMRect, after: boolean) => ({
 
 const buttonPositionAt = (rect: DOMRect, x: number) =>
   Math.min(
-    Math.max(Math.floor((x - rect.left) / rect.width * HEADER_BUTTON_GROUP_CAPACITY), 0),
-    HEADER_BUTTON_GROUP_CAPACITY - 1
+    Math.max(Math.floor((x - rect.left) / rect.width * buttonGroupCapacity()), 0),
+    buttonGroupCapacity() - 1
   )
 
 const buttonSlotRect = (rect: DOMRect, position: number) => ({
-  left: rect.left + rect.width * position / HEADER_BUTTON_GROUP_CAPACITY,
+  left: rect.left + rect.width * position / buttonGroupCapacity(),
   top: rect.top,
-  width: rect.width / HEADER_BUTTON_GROUP_CAPACITY,
+  width: rect.width / buttonGroupCapacity(),
   height: rect.height
 })
 

@@ -12237,13 +12237,13 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     html[data-mobile="true"] .headerGrid {
-        order: 1;
+        order: 2;
         flex: 0 0 auto;
         margin-top: 10px;
     }
 
     html[data-mobile="true"] .ascensionStats {
-        order: 2;
+        order: 1;
         flex: 0 0 auto;
     }
 
@@ -12253,6 +12253,11 @@ html[data-mobile="true"] .hideOnMobile {
 
     html[data-mobile="true"] #mainHeader.headerEditMode #mobileHeaderContent {
         max-height: none;
+    }
+
+    html[data-mobile="true"] #mainHeader.headerEditMode .ascensionStats {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     /* Sub tab wrappers */

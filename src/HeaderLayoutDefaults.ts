@@ -86,13 +86,19 @@ export const headerModuleSizes = ['S', 'M', 'L'] as const
 export type HeaderModuleSize = typeof headerModuleSizes[number]
 
 export const HEADER_STACK_CAPACITY = 2
-export const HEADER_BUTTON_GROUP_CAPACITY = 4
-const HEADER_BUTTON_MODULE_COUNT = Math.ceil(resetButtonModuleIds.length / HEADER_BUTTON_GROUP_CAPACITY)
 const HEADER_CURRENCY_COLUMNS = 4
+const HEADER_MOBILE_GRID_COLUMNS = 2
+
+export const HEADER_BUTTON_GROUP_CAPACITY = {
+  desktop: 4,
+  mobile: Math.ceil(resetButtonModuleIds.length / HEADER_MOBILE_GRID_COLUMNS)
+} as const
+
+const HEADER_BUTTON_MODULE_COUNT = Math.ceil(resetButtonModuleIds.length / HEADER_BUTTON_GROUP_CAPACITY.desktop)
 
 export const HEADER_GRID_COLUMNS = {
   desktop: HEADER_CURRENCY_COLUMNS + HEADER_BUTTON_MODULE_COUNT,
-  mobile: 2
+  mobile: HEADER_MOBILE_GRID_COLUMNS
 } as const
 
 export const isHeaderButton = (id: HeaderModuleId) => (resetButtonModuleIds as readonly HeaderModuleId[]).includes(id)
@@ -143,8 +149,8 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
 
   const buttonSlots: HeaderModuleId[][] = []
   for (const [index, id] of resetButtonModuleIds.entries()) {
-    ;(buttonSlots[Math.floor(index / HEADER_BUTTON_GROUP_CAPACITY)] ??= []).push(id)
-    layout.positions[id] = index % HEADER_BUTTON_GROUP_CAPACITY
+    ;(buttonSlots[Math.floor(index / HEADER_BUTTON_GROUP_CAPACITY[key])] ??= []).push(id)
+    layout.positions[id] = index % HEADER_BUTTON_GROUP_CAPACITY[key]
   }
   const currencySlots = [...currencyModuleIds, ...ambrosiaModuleIds].map((id) => [id])
   const progressSlots = challengeProgressModuleIds.map((id) => [id])
