@@ -6463,6 +6463,9 @@ header #redAmbrosiaHeaderDisplay,
 header #purpleAmbrosiaHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="purpleAmbrosiaHeader"] .statDisplay { color: var(--purple-text-color); }
 
+header #purpleHoneyHeaderDisplay,
+#rainbowAmbrosiaHeader[data-ambrosia="purpleHoneyHeader"] .statDisplay { color: var(--purple-text-color); }
+
 header #blueberryHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="blueberryHeader"] .statDisplay { color: var(--blueberry-text-color); }
 

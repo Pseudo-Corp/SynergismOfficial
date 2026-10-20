@@ -92,6 +92,7 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   ambrosiaHeader: ambrosiaUnlocked,
   redAmbrosiaHeader: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0,
   purpleAmbrosiaHeader: () => player.singularityChallenges.taxmanLastStand.completions > 0,
+  purpleHoneyHeader: () => player.singularityChallenges.taxmanLastStand.completions > 0,
   blueberryHeader: ambrosiaUnlocked,
   rainbowAmbrosiaHeader: ambrosiaUnlocked,
   prestigebtn: () => player.unlocks.coinfour,
@@ -114,6 +115,7 @@ const ambrosiaAmounts: Record<RainbowAmbrosiaModuleId, () => number> = {
   ambrosiaHeader: () => player.ambrosia,
   redAmbrosiaHeader: () => player.redAmbrosia,
   purpleAmbrosiaHeader: () => player.purpleAmbrosia,
+  purpleHoneyHeader: () => player.purpleReactor.purpleHoney,
   blueberryHeader: () => calculateBlueberryInventory() - player.spentBlueberries
 }
 

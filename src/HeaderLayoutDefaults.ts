@@ -42,6 +42,7 @@ export const rainbowAmbrosiaModuleIds = [
   'ambrosiaHeader',
   'redAmbrosiaHeader',
   'purpleAmbrosiaHeader',
+  'purpleHoneyHeader',
   'blueberryHeader'
 ] as const
 
