@@ -6478,7 +6478,9 @@ header #blueberryHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="blueberryHeader"] .statDisplay { color: var(--blueberry-text-color); }
 
 #rainbowAmbrosiaHeader,
-#octeractHeader {
+#octeractHeader,
+#corruptionLoadoutPageHeader,
+#ambrosiaLoadoutPageHeader {
     cursor: pointer;
 }
 
@@ -6653,26 +6655,31 @@ header #blueberryHeaderDisplay,
     font-weight: bold;
 }
 
-#corruptionLoadoutsHeaderSlots {
+#corruptionLoadoutsHeaderSlots,
+#corruptionLoadoutPageHeaderSlots {
     display: contents;
 }
 
-#corruptionCleanseHeader {
+#corruptionCleanseHeader,
+#corruptionCleansePageHeader {
     position: relative;
     background-color: black;
     border-color: #dc7d0b;
 }
 
-#corruptionLoadoutsHeaderSlots > .headerLoadoutSlot {
+#corruptionLoadoutsHeaderSlots > .headerLoadoutSlot,
+#corruptionLoadoutPageHeaderSlots > .headerLoadoutSlot {
     background-color: #2b0808;
     border-color: #a71313;
 }
 
-#corruptionLoadoutsHeaderSlots > .headerLoadoutNext {
+#corruptionLoadoutsHeaderSlots > .headerLoadoutNext,
+#corruptionLoadoutPageHeaderSlots > .headerLoadoutNext {
     border-color: silver;
 }
 
-#corruptionLoadoutsHeaderSlots > .headerLoadoutActive {
+#corruptionLoadoutsHeaderSlots > .headerLoadoutActive,
+#corruptionLoadoutPageHeaderSlots > .headerLoadoutActive {
     background-color: #a71313;
     border-color: #ff5c5c;
 }

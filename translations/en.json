@@ -5478,7 +5478,9 @@
       "achievementPoints": "Achievement Points",
       "quarkBonus": "Subscriber Quark Bonus",
       "corruptionLoadouts": "Corruption Loadouts",
-      "ambrosiaLoadouts": "Ambrosia Loadouts"
+      "ambrosiaLoadouts": "Ambrosia Loadouts",
+      "corruptionLoadoutPage": "Corruption Loadouts (8 per page, click to switch)",
+      "ambrosiaLoadoutPage": "Ambrosia Loadouts (8 per page, click to switch)"
     }
   },
   "tabs": {

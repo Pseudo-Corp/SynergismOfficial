@@ -31,6 +31,7 @@ import {
   isHeaderGridRegion,
   isHeaderLoadout,
   isHeaderProgress,
+  type LoadoutPageModuleId,
   type RainbowAmbrosiaModuleId,
   rainbowAmbrosiaModuleIds
 } from './HeaderLayoutDefaults'
@@ -77,6 +78,8 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   timeCodeHeader: () => true,
   corruptionLoadoutsHeader: () => player.challengecompletions[11] > 0,
   ambrosiaLoadoutsHeader: ambrosiaUnlocked,
+  corruptionLoadoutPageHeader: () => player.challengecompletions[11] > 0,
+  ambrosiaLoadoutPageHeader: ambrosiaUnlocked,
   coinHeader: () => true,
   diamondHeader: () => player.unlocks.prestige,
   offeringHeader: () => player.unlocks.prestige,
@@ -125,6 +128,7 @@ const HEADER_STACK_ZONE_START = 0.25
 const HEADER_STACK_ZONE_END = 0.75
 const HEADER_DROP_BAR_PX = 4
 const HEADER_EDIT_CYCLE_MS = 1500
+const HEADER_LOADOUT_PAGE_SIZE = 8
 
 interface HeaderDropTarget {
   region: HeaderRegionId | null
@@ -512,11 +516,12 @@ export const updateHeaderAmbrosia = () => {
   }
 }
 
-const loadoutSlots = (elementId: string, count: number, load: (slot: number) => void) => {
+const loadoutSlots = (elementId: string, first: number, last: number, load: (slot: number) => void) => {
   const container = DOMCacheGetOrSet(elementId)
-  if (container.children.length !== count) {
+  if (container.dataset.slots !== `${first}-${last}`) {
+    container.dataset.slots = `${first}-${last}`
     const slots: HTMLButtonElement[] = []
-    for (let slot = 1; slot <= count; slot++) {
+    for (let slot = first; slot <= last; slot++) {
       const button = document.createElement('button')
       button.type = 'button'
       button.className = 'headerLoadoutSlot'
@@ -597,50 +602,87 @@ const openLoadoutIconPicker = <T extends string>(
   })
 }
 
+const corruptionLoadoutCount = () =>
+  Math.min(player.corruptions.saves.saves.length, getUnlockedCorruptionLoadoutCount())
+
+const loadoutPageCount = (count: number) => Math.max(Math.ceil(count / HEADER_LOADOUT_PAGE_SIZE), 1)
+
+const loadoutPageRange = (layout: HeaderLayout, id: LoadoutPageModuleId, count: number) => {
+  const pages = loadoutPageCount(count)
+  const page = cycleWhileEditing(
+    Array.from({ length: pages }, (_, i) => i),
+    Math.min(layout.loadoutPages[id], pages - 1)
+  )
+  const first = page * HEADER_LOADOUT_PAGE_SIZE + 1
+  return { first, last: Math.min(first + HEADER_LOADOUT_PAGE_SIZE - 1, count) }
+}
+
+const cycleLoadoutPage = (event: MouseEvent, id: LoadoutPageModuleId, count: number) => {
+  if (event.target instanceof Element && event.target.closest('.headerLoadoutSlot') !== null) {
+    return
+  }
+
+  const layout = currentLayout()
+  layout.loadoutPages[id] = (layout.loadoutPages[id] + 1) % loadoutPageCount(count)
+  updateHeaderLoadouts()
+}
+
+const updateCorruptionLoadoutSlots = (layout: HeaderLayout, elementId: string, first: number, last: number) => {
+  const saves = player.corruptions.saves.saves
+  const slots = loadoutSlots(elementId, first, last, (slot) => corruptionLoadLoadout(slot - 1))
+  const maxLevel = maxCorruptionLevel()
+  for (let index = 0; index < slots.length; index++) {
+    const slot = slots[index]
+    const slotNumber = first + index
+    const { name, loadout } = saves[slotNumber - 1]
+    if (slot.getAttribute('title') !== name) {
+      slot.setAttribute('title', name)
+    }
+    slot.classList.toggle(
+      'headerLoadoutActive',
+      corruptionLoadoutMatches(loadout.loadout, player.corruptions.used.loadout, maxLevel)
+    )
+    slot.classList.toggle(
+      'headerLoadoutNext',
+      corruptionLoadoutMatches(loadout.loadout, player.corruptions.next.loadout, maxLevel)
+    )
+    setLoadoutSlotIcon(slot, slotNumber, layout.loadoutIcons.corruptionLoadoutsHeader[slotNumber], corruptionIconSrc)
+  }
+}
+
+const updateBlueberryLoadoutSlots = (layout: HeaderLayout, elementId: string, first: number, last: number) => {
+  const slots = loadoutSlots(elementId, first, last, loadBlueberryLoadout)
+  for (let index = 0; index < slots.length; index++) {
+    const slotNumber = first + index
+    slots[index].classList.toggle('headerLoadoutActive', slotNumber === lastBlueberryLoadout)
+    setLoadoutSlotIcon(
+      slots[index],
+      slotNumber,
+      layout.loadoutIcons.ambrosiaLoadoutsHeader[slotNumber],
+      blueberryIconSrc
+    )
+  }
+}
+
 export const updateHeaderLoadouts = () => {
   const layout = currentLayout()
 
   if (editing || !layout.hidden.includes('corruptionLoadoutsHeader')) {
-    const saves = player.corruptions.saves.saves
-    const slots = loadoutSlots(
-      'corruptionLoadoutsHeaderSlots',
-      Math.min(saves.length, getUnlockedCorruptionLoadoutCount()),
-      (slot) => corruptionLoadLoadout(slot - 1)
-    )
-    const maxLevel = maxCorruptionLevel()
-    for (let index = 0; index < slots.length; index++) {
-      const slot = slots[index]
-      const { name, loadout } = saves[index]
-      if (slot.getAttribute('title') !== name) {
-        slot.setAttribute('title', name)
-      }
-      slot.classList.toggle(
-        'headerLoadoutActive',
-        corruptionLoadoutMatches(loadout.loadout, player.corruptions.used.loadout, maxLevel)
-      )
-      slot.classList.toggle(
-        'headerLoadoutNext',
-        corruptionLoadoutMatches(loadout.loadout, player.corruptions.next.loadout, maxLevel)
-      )
-      setLoadoutSlotIcon(slot, index + 1, layout.loadoutIcons.corruptionLoadoutsHeader[index + 1], corruptionIconSrc)
-    }
+    updateCorruptionLoadoutSlots(layout, 'corruptionLoadoutsHeaderSlots', 1, corruptionLoadoutCount())
+  }
+
+  if (editing || !layout.hidden.includes('corruptionLoadoutPageHeader')) {
+    const { first, last } = loadoutPageRange(layout, 'corruptionLoadoutPageHeader', corruptionLoadoutCount())
+    updateCorruptionLoadoutSlots(layout, 'corruptionLoadoutPageHeaderSlots', first, last)
   }
 
   if (editing || !layout.hidden.includes('ambrosiaLoadoutsHeader')) {
-    const slots = loadoutSlots(
-      'ambrosiaLoadoutsHeaderSlots',
-      getUnlockedBlueberryLoadoutCount(),
-      loadBlueberryLoadout
-    )
-    for (let index = 0; index < slots.length; index++) {
-      slots[index].classList.toggle('headerLoadoutActive', index + 1 === lastBlueberryLoadout)
-      setLoadoutSlotIcon(
-        slots[index],
-        index + 1,
-        layout.loadoutIcons.ambrosiaLoadoutsHeader[index + 1],
-        blueberryIconSrc
-      )
-    }
+    updateBlueberryLoadoutSlots(layout, 'ambrosiaLoadoutsHeaderSlots', 1, getUnlockedBlueberryLoadoutCount())
+  }
+
+  if (editing || !layout.hidden.includes('ambrosiaLoadoutPageHeader')) {
+    const { first, last } = loadoutPageRange(layout, 'ambrosiaLoadoutPageHeader', getUnlockedBlueberryLoadoutCount())
+    updateBlueberryLoadoutSlots(layout, 'ambrosiaLoadoutPageHeaderSlots', first, last)
   }
 }
 
@@ -1116,7 +1158,10 @@ const handlePointerUp = (event: PointerEvent) => {
       : null
     if (layout.hidden.includes(pressedModule)) {
       layout.hidden = layout.hidden.filter((hiddenId) => hiddenId !== pressedModule)
-    } else if (loadoutSlot !== null && pressedModule === 'corruptionLoadoutsHeader') {
+    } else if (
+      loadoutSlot !== null
+      && (pressedModule === 'corruptionLoadoutsHeader' || pressedModule === 'corruptionLoadoutPageHeader')
+    ) {
       openLoadoutIconPicker(
         event,
         loadoutSlot,
@@ -1124,7 +1169,10 @@ const handlePointerUp = (event: PointerEvent) => {
         Object.keys(corrIcons) as Array<keyof Corruptions>,
         corruptionIconSrc
       )
-    } else if (loadoutSlot !== null && pressedModule === 'ambrosiaLoadoutsHeader') {
+    } else if (
+      loadoutSlot !== null
+      && (pressedModule === 'ambrosiaLoadoutsHeader' || pressedModule === 'ambrosiaLoadoutPageHeader')
+    ) {
       openLoadoutIconPicker(
         event,
         loadoutSlot,
@@ -1234,5 +1282,13 @@ export const registerHeaderLayoutEditing = () => {
     const layout = currentLayout()
     layout.octeractPerSecond = !layout.octeractPerSecond
     updateHeaderInfo()
+  })
+
+  DOMCacheGetOrSet('corruptionLoadoutPageHeader').addEventListener('click', (event) => {
+    cycleLoadoutPage(event, 'corruptionLoadoutPageHeader', corruptionLoadoutCount())
+  })
+
+  DOMCacheGetOrSet('ambrosiaLoadoutPageHeader').addEventListener('click', (event) => {
+    cycleLoadoutPage(event, 'ambrosiaLoadoutPageHeader', getUnlockedBlueberryLoadoutCount())
   })
 }

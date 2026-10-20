@@ -6,7 +6,13 @@ import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { CorruptionLoadout, Corruptions, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
-import type { HeaderModuleId, HeaderModuleSize, HeaderRegionId, RainbowAmbrosiaModuleId } from '../HeaderLayoutDefaults'
+import type {
+  HeaderModuleId,
+  HeaderModuleSize,
+  HeaderRegionId,
+  LoadoutPageModuleId,
+  RainbowAmbrosiaModuleId
+} from '../HeaderLayoutDefaults'
 import type { HepteractKeys, HepteractValues } from '../Hepteracts'
 import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrades } from '../Octeracts'
@@ -36,6 +42,7 @@ export interface HeaderLayout {
   hidden: HeaderModuleId[]
   rainbowAmbrosia: RainbowAmbrosiaModuleId
   octeractPerSecond: boolean
+  loadoutPages: Record<LoadoutPageModuleId, number>
   loadoutIcons: {
     corruptionLoadoutsHeader: Partial<Record<number, keyof Corruptions>>
     ambrosiaLoadoutsHeader: Partial<Record<number, AmbrosiaUpgradeNames>>

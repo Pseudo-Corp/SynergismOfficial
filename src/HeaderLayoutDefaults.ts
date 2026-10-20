@@ -1,6 +1,10 @@
 import type { HeaderLayout } from './types/Synergism'
 
-const loadoutModuleIds = ['corruptionLoadoutsHeader', 'ambrosiaLoadoutsHeader'] as const
+export const loadoutPageModuleIds = ['corruptionLoadoutPageHeader', 'ambrosiaLoadoutPageHeader'] as const
+
+export type LoadoutPageModuleId = typeof loadoutPageModuleIds[number]
+
+const loadoutModuleIds = ['corruptionLoadoutsHeader', 'ambrosiaLoadoutsHeader', ...loadoutPageModuleIds] as const
 
 const statModuleIds = [
   'ascCubeStats',
@@ -135,6 +139,7 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
       'timeCodeHeader',
       'corruptionLoadoutsHeader',
       'ambrosiaLoadoutsHeader',
+      ...loadoutPageModuleIds,
       'goldenQuarkHeader',
       'octeractHeader',
       'achievementPointsHeader',
@@ -143,6 +148,10 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
     ],
     rainbowAmbrosia: 'ambrosiaHeader',
     octeractPerSecond: false,
+    loadoutPages: {
+      corruptionLoadoutPageHeader: 0,
+      ambrosiaLoadoutPageHeader: 0
+    },
     loadoutIcons: {
       corruptionLoadoutsHeader: {},
       ambrosiaLoadoutsHeader: {}
