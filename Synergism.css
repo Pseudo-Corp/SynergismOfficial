@@ -6527,6 +6527,10 @@ header #blueberryHeaderDisplay,
     display: none;
 }
 
+html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:not(:has(.headerModule:not(.headerModuleLocked):not([hidden]))) + .headerGrid {
+    margin-top: 5px;
+}
+
 .headerStack {
     display: flex;
     flex-direction: column;
