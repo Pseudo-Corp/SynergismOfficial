@@ -22,10 +22,9 @@ import {
 import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateMaxTokens, updateTokens } from './Campaign'
 import { challengeRequirement, resetChallengeSweep } from './Challenges'
 import {
-  activeCorruptionLevel,
+  ascensionCorruptionLevel,
   clearCorruptionLevel,
   corruptionStatsUpdate,
-  isCorruptionLevelOverwritten,
   normalizeCorruptionLevel
 } from './Corruptions'
 import { WowCubes } from './CubeExperimental'
@@ -347,7 +346,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         seconds: player.ascensionCounter,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
-        usedCorruptions: activeCorruptionLevel(),
+        usedCorruptions: ascensionCorruptionLevel(),
         wowCubes: corruptionMetaData.wowCubes,
         wowTesseracts: corruptionMetaData.wowTesseracts,
         wowHypercubes: corruptionMetaData.wowHypercubes,
@@ -755,14 +754,13 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     }
 
     if (c10Completions > 0) {
-      earnCampaignTokens(activeCorruptionLevel(), c10Completions)
-      if (!isCorruptionLevelOverwritten()) {
-        clearCorruptionLevel(player.corruptions.used)
-      }
+      earnCampaignTokens(ascensionCorruptionLevel(), c10Completions)
+      clearCorruptionLevel(ascensionCorruptionLevel())
     }
 
     applyPendingAutoAscendProtocol(c10Completions > 0)
     player.corruptions.used = normalizeCorruptionLevel(player.corruptions.next)
+    player.corruptions.ascensionLevel = player.corruptions.used
 
     corruptionStatsUpdate()
     updateSingularityMilestoneAwards(false)

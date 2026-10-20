@@ -315,14 +315,16 @@ const synthesisUpgradesSchema = z.object({
 const playerCorruptionSchema = z.object({
   used: corruptionLevelSchema.catch(() => blankSave.corruptions.used),
   next: corruptionLevelSchema.catch(() => blankSave.corruptions.next),
+  ascensionLevel: z.number().int().min(0).optional().catch(undefined),
   tokenCompletions: z.number().int().min(0).catch(0).array().catch(() => []).transform((completions) =>
     blankSave.corruptions.tokenCompletions.map((_, level) => completions[level] ?? 0)
   ),
   highestCleared: z.number().int().min(0).optional().catch(undefined),
   autoIncrease: z.boolean().catch(() => blankSave.corruptions.autoIncrease),
   cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest)
-}).transform(({ highestCleared, ...corruptions }) => ({
+}).transform(({ highestCleared, ascensionLevel, ...corruptions }) => ({
   ...corruptions,
+  ascensionLevel: Math.min(ascensionLevel ?? corruptions.used, corruptions.used),
   highestCleared: highestCleared
     ?? Math.max(corruptions.used, corruptions.tokenCompletions.findLastIndex((completions) => completions > 0))
 })).prefault(() => deepClone()(blankSave.corruptions))

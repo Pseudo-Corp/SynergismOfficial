@@ -105,6 +105,7 @@ import { campaignTokenBonuses } from './Campaign'
 import { type Challenge15Rewards, challenge15ScoreMultiplier, useChallenge13Modifiers } from './Challenges'
 import {
   activeCorruptionLevel,
+  ascensionCorruptionLevel,
   challenge15CorruptionEffect,
   challenge15CorruptionLevel,
   corruptionCubeBase,
@@ -155,8 +156,8 @@ import {
 import { getLevelMilestone, getLevelReward } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import {
-  calculateAscensionScorePlatonicBlessing,
   calculateCubeMultiplierPlatonicBlessing,
+  calculateCubePlatonicBlessing,
   calculateGlobalSpeedPlatonicBlessing,
   calculateHypercubeMultiplierPlatonicBlessing,
   calculatePlatonicMultiplierPlatonicBlessing,
@@ -282,12 +283,12 @@ export const displayStatLine = (type: StatLineTypes, num: number | Decimal, altD
 }
 
 const challenge15CubeRewards = {
-  cubes: 'cube1',
-  tesseracts: 'cube2',
-  hypercubes: 'cube3',
-  platonics: 'cube4',
-  hepteracts: 'cube5',
-  octeracts: 'score'
+  cubes: 'wowCubes',
+  tesseracts: 'wowTesseracts',
+  hypercubes: 'wowHypercubes',
+  platonics: 'wowPlatonicCubes',
+  hepteracts: 'wowHepteracts',
+  octeracts: 'wowOcteracts'
 } as const satisfies Record<CorruptionCubeType, Challenge15Rewards>
 
 const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
@@ -302,19 +303,21 @@ const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
   {
     i18n: 'Corruption',
     stat: () =>
-      isCorruptionCubeUnlocked(activeCorruptionLevel(), cube) ? corruptionCubeRate(cube, activeCorruptionLevel()) : 0
+      isCorruptionCubeUnlocked(ascensionCorruptionLevel(), cube)
+        ? corruptionCubeRate(cube, ascensionCorruptionLevel())
+        : 0
   },
   {
     i18n: 'Challenge15Bonus',
     stat: () => G.challenge15Rewards[challenge15CubeRewards[cube]].value
+  },
+  {
+    i18n: 'PlatonicBlessing',
+    stat: () => calculateCubePlatonicBlessing(cube)
   }
 ]
 
 const cubeGainSourceLines = [
-  {
-    i18n: 'PlatonicBlessing',
-    stat: () => calculateAscensionScorePlatonicBlessing()
-  },
   {
     i18n: 'FiniteDescent',
     stat: () => getRuneEffects('finiteDescent', 'ascensionScore')
@@ -372,6 +375,15 @@ export const allCubeStats: NumberStatLineCategory = {
     {
       i18n: 'Campaign',
       stat: () => campaignTokenBonuses.cube()
+    },
+    {
+      i18n: 'Challenge15',
+      stat: () =>
+        G.challenge15Rewards.cube1.value
+        * G.challenge15Rewards.cube2.value
+        * G.challenge15Rewards.cube3.value
+        * G.challenge15Rewards.cube4.value
+        * G.challenge15Rewards.cube5.value
     },
     {
       i18n: 'InfiniteAscent',
@@ -681,7 +693,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CubeUpgrade4x8',
-      stat: () => 1 + (1 / 80) * player.cubeUpgrades[38] * activeCorruptionLevel()
+      stat: () => 1 + (1 / 80) * player.cubeUpgrades[38] * ascensionCorruptionLevel()
     },
     {
       i18n: 'PlatonicCube',
@@ -5969,7 +5981,7 @@ export const updateDisplayC15Rewards = () => {
     }
 
     const elm = DOMCacheGetOrSet(`c15Reward${key}`)
-    if (key === 'score' && !getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
+    if (key === 'wowOcteracts' && !getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
       elm.style.display = 'none'
     } else if (player.challenge15Exponent >= requirement) {
       elm.style.display = 'block'

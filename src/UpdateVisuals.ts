@@ -55,6 +55,7 @@ import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
 import {
   activeCorruptionLevel,
+  type CorruptionCubeType,
   corruptionEffect,
   corruptionEffectsUpdate,
   corruptionLevelScoreUpdate
@@ -105,8 +106,8 @@ import {
   updateOcteractUpgradeVisibility
 } from './Octeracts'
 import {
-  calculateAscensionScorePlatonicBlessing,
   calculateCubeMultiplierPlatonicBlessing,
+  calculateCubePlatonicBlessing,
   calculateGlobalSpeedPlatonicBlessing,
   calculateHypercubeBlessingMultiplierPlatonicBlessing,
   calculateHypercubeMultiplierPlatonicBlessing,
@@ -188,6 +189,15 @@ import { updateChallengeDisplay } from './UpdateHTML'
 import { updateMobileUpgradeDescription } from './Upgrades'
 import { isMobile, sumContents, timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
+
+const highScoringStatueCubes: CorruptionCubeType[] = [
+  'cubes',
+  'tesseracts',
+  'hypercubes',
+  'platonics',
+  'hepteracts',
+  'octeracts'
+]
 
 const coinUpper = [
   'produceFirst',
@@ -1598,13 +1608,18 @@ export const visualUpdateCubes = () => {
         }
       )
 
-      DOMCacheGetOrSet('platonicAscensionScoreBonus').innerHTML = i18next.t(
-        'wowCubes.platonics.items.7',
-        {
-          amount: format(player.platonicBlessings.scoreBonus, 0, true),
-          bonus: formatAsPercentIncrease(calculateAscensionScorePlatonicBlessing(), 2)
-        }
+      const statueCubes = highScoringStatueCubes.filter((cube) =>
+        (cube !== 'hepteracts' || G.challenge15Rewards.hepteractsUnlocked.value >= 1)
+        && (cube !== 'octeracts' || getGQUpgradeEffect('octeractUnlock', 'unlocked'))
       )
+      const statueBonuses = statueCubes.map((cube) =>
+        i18next.t(`wowCubes.platonics.highScoringStatue.${cube}`, {
+          bonus: format(calculateCubePlatonicBlessing(cube), 2, true)
+        })
+      )
+      DOMCacheGetOrSet('platonicAscensionScoreBonus').innerHTML = `${
+        i18next.t('wowCubes.platonics.items.7', { amount: format(player.platonicBlessings.scoreBonus, 0, true) })
+      } ${statueBonuses.map((bonus) => `<span class="statueBonus">${bonus}</span>`).join(', ')}`
 
       DOMCacheGetOrSet('platonicGlobalSpeedBonus').innerHTML = i18next.t(
         'wowCubes.platonics.items.8',

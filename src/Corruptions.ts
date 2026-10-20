@@ -80,10 +80,10 @@ type CorruptionCubeRate = {
 const corruptionCubeRates: Record<CorruptionCubeType, CorruptionCubeRate> = {
   cubes: { base: 1, growth: 1.1, endgameGrowth: 1.05 },
   tesseracts: { base: 1e-3, growth: 1.15, endgameGrowth: 1.05 },
-  hypercubes: { base: 1e-6, growth: 1.2, endgameGrowth: 1.05 },
-  platonics: { base: 1e-9, growth: 1.3, endgameGrowth: 1.05 },
-  hepteracts: { base: 1e-12, growth: 1.4, endgameGrowth: 1.05 },
-  octeracts: { base: 1 / (24 * 3600 * 365 * 1e30), growth: 1.45, endgameGrowth: 1.2 }
+  hypercubes: { base: 5e-4, growth: 1.2, endgameGrowth: 1.05 },
+  platonics: { base: 2e-4, growth: 1.3, endgameGrowth: 1.05 },
+  hepteracts: { base: 1e-4, growth: 1.4, endgameGrowth: 1.05 },
+  octeracts: { base: 1 / (5e19 * 3600 * 24 * 365), growth: 1.45, endgameGrowth: 1.2 }
 }
 
 const corruptionCubeIcons: Record<CorruptionCubeType, string> = {
@@ -244,6 +244,8 @@ const challenge15CorruptionNeutral: Record<Challenge15CorruptionKey, number> = {
 export const isCorruptionLevelOverwritten = () => player.currentChallenge.ascension !== 0
 
 export const activeCorruptionLevel = () => isCorruptionLevelOverwritten() ? 0 : player.corruptions.used
+
+export const ascensionCorruptionLevel = () => Math.min(player.corruptions.ascensionLevel, activeCorruptionLevel())
 
 export const challenge15CorruptionValue = (corr: Challenge15CorruptionKey) => {
   return challenge15CorruptionEffects[corr]()
@@ -412,6 +414,7 @@ export const resetCorruptionProgress = async () => {
   }
 
   player.corruptions.used = 0
+  player.corruptions.ascensionLevel = 0
   player.corruptions.next = 0
   player.corruptions.highestCleared = 0
   player.corruptions.tokenCompletions.fill(0)
@@ -763,12 +766,12 @@ const corruptionCubeMultiplierText = (cube: CorruptionCubeType) => {
   const { global, specific } = calculateCorruptionCubeMultiplierParts(cube)
   const base = corruptionCubeBase(cube)
   const next = format(base * corruptionCubeRate(cube, player.corruptions.next) * global * specific, 3)
-  if (!isCorruptionCubeUnlocked(activeCorruptionLevel(), cube)) {
+  if (!isCorruptionCubeUnlocked(ascensionCorruptionLevel(), cube)) {
     return i18next.t('corruptions.tiers.cubeMultiplierNew', { next })
   }
 
   return corruptionMultiplierChangeText(
-    format(base * corruptionCubeRate(cube, activeCorruptionLevel()) * global * specific, 3),
+    format(base * corruptionCubeRate(cube, ascensionCorruptionLevel()) * global * specific, 3),
     next
   )
 }

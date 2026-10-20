@@ -445,6 +445,7 @@ export interface Player {
   corruptions: {
     next: number
     used: number
+    ascensionLevel: number
     tokenCompletions: number[]
     highestCleared: number
     autoIncrease: boolean

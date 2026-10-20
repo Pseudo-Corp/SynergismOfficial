@@ -5187,6 +5187,15 @@ p[id$="BlessingsTotal"] {
     border-spacing: 0;
 }
 
+#platonicAscensionScoreBonus {
+    white-space: normal;
+    max-width: 700px;
+}
+
+.statueBonus {
+    white-space: nowrap;
+}
+
 .cubeIcon img {
     margin-right: 5px;
 }

@@ -70,6 +70,7 @@ import {
 } from './Calculate'
 import {
   activeCorruptionLevel,
+  ascensionCorruptionLevel,
   challenge15CorruptionEffect,
   clearCorruptionLevel,
   corruptionEffect,
@@ -989,6 +990,7 @@ export const player: Player = {
   corruptions: {
     next: 0,
     used: 0,
+    ascensionLevel: 0,
     tokenCompletions: Array.from({ length: 46 }, () => 0),
     highestCleared: 0,
     autoIncrease: false,
@@ -3336,8 +3338,11 @@ export const resetCheck = async (
       }
     }
     challengeAchievementCheck(q)
-    if (q === 10 && player.challengecompletions[10] > 0 && !isCorruptionLevelOverwritten()) {
-      clearCorruptionLevel(player.corruptions.used)
+    if (q === 10 && player.challengecompletions[10] > 0) {
+      player.corruptions.ascensionLevel = ascensionCorruptionLevel()
+      if (!isCorruptionLevelOverwritten()) {
+        clearCorruptionLevel(player.corruptions.used)
+      }
     }
     if (player.highestchallengecompletions[8] > 0) {
       player.unlocks.anthill = true
@@ -4457,6 +4462,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
 
   player.corruptions.used = normalizeCorruptionLevel(player.corruptions.used)
   player.corruptions.next = normalizeCorruptionLevel(player.corruptions.next)
+  player.corruptions.ascensionLevel = Math.min(player.corruptions.ascensionLevel, player.corruptions.used)
   corruptionStatsUpdate()
   renderAutoAscendRules()
 
