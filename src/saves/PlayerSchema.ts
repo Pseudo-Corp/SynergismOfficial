@@ -13,6 +13,8 @@ import { defaultAntUpgrades } from '../Features/Ants/AntUpgrades/player/default'
 import { AntUpgrades, LAST_ANT_UPGRADE } from '../Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/structs'
 import {
+  corruptionLoadoutCubeIcons,
+  corruptionLoadoutPlatonicIcons,
   freeButtonPosition,
   HEADER_BUTTON_GROUP_CAPACITY,
   type HeaderModuleId,
@@ -357,7 +359,14 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
     ),
     loadoutIcons: z.lazy(() =>
       z.object({
-        corruptionLoadoutsHeader: z.partialRecord(integerStringSchema, corruptionsSchema.keyof()),
+        corruptionLoadoutsHeader: z.partialRecord(
+          integerStringSchema,
+          z.union([
+            corruptionsSchema.keyof(),
+            z.enum(corruptionLoadoutCubeIcons),
+            z.enum(corruptionLoadoutPlatonicIcons)
+          ])
+        ),
         ambrosiaLoadoutsHeader: z.partialRecord(integerStringSchema, z.enum(ambrosiaUpgradeNames))
       })
     ).catch(() => deepClone()(blankSave.headerLayouts[layout].loadoutIcons))

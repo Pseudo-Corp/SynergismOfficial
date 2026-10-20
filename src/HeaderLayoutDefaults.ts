@@ -1,8 +1,25 @@
+import type { Corruptions } from './Corruptions'
 import type { HeaderLayout } from './types/Synergism'
 
 export const loadoutPageModuleIds = ['corruptionLoadoutPageHeader', 'ambrosiaLoadoutPageHeader'] as const
 
 export type LoadoutPageModuleId = typeof loadoutPageModuleIds[number]
+
+export const corruptionLoadoutCubeIcons = [
+  'WowCube',
+  'WowTessaract',
+  'WowHypercube',
+  'PlatonicCube',
+  'Hepteract',
+  'Octeract'
+] as const
+
+export const corruptionLoadoutPlatonicIcons = Array.from({ length: 20 }, (_, i) => `platUpg${i + 1}Image` as const)
+
+export type CorruptionLoadoutIcon =
+  | keyof Corruptions
+  | typeof corruptionLoadoutCubeIcons[number]
+  | typeof corruptionLoadoutPlatonicIcons[number]
 
 const loadoutModuleIds = ['corruptionLoadoutsHeader', 'ambrosiaLoadoutsHeader', ...loadoutPageModuleIds] as const
 

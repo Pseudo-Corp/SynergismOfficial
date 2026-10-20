@@ -18,6 +18,9 @@ import {
   maxCorruptionLevel
 } from './Corruptions'
 import {
+  type CorruptionLoadoutIcon,
+  corruptionLoadoutCubeIcons,
+  corruptionLoadoutPlatonicIcons,
   freeButtonPosition,
   HEADER_BUTTON_GROUP_CAPACITY,
   HEADER_GRID_COLUMNS,
@@ -47,6 +50,7 @@ import { allDurableConsumables, getLotusTimeExpiresAt, getOwnedBells, getOwnedLo
 import { getGlobalBonus } from './Quark'
 import { runes } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
+import { spriteIconStyle, spritePlaceholder } from './SpriteSheets'
 import { blankSave, deepClone, format, player } from './Synergism'
 import { IconSets } from './Themes'
 import type { HeaderLayout } from './types/Synergism'
@@ -535,18 +539,31 @@ const loadoutSlots = (elementId: string, first: number, last: number, load: (slo
   return container.children as HTMLCollectionOf<HTMLButtonElement>
 }
 
-const corruptionIconSrc = (icon: keyof Corruptions) => `Pictures/${IconSets[player.iconSet][0]}${corrIcons[icon]}`
+const corruptionIconImage = (icon: CorruptionLoadoutIcon) => {
+  const iconSet = IconSets[player.iconSet][0]
+  if (Object.hasOwn(corrIcons, icon)) {
+    return `<img src="Pictures/${iconSet}${corrIcons[icon as keyof Corruptions]}" alt="">`
+  }
 
-const blueberryIconSrc = (icon: AmbrosiaUpgradeNames) =>
-  (DOMCacheGetOrSet(icon).querySelector('img') as HTMLImageElement).src
+  const sprite = spriteIconStyle(icon)
+  if (sprite === undefined) {
+    return `<img src="Pictures/${iconSet}/${icon}.png" alt="">`
+  }
+
+  return `<img src="${spritePlaceholder}" style="${sprite}" alt="">`
+}
+
+const blueberryIconImage = (icon: AmbrosiaUpgradeNames) =>
+  `<img src="${(DOMCacheGetOrSet(icon).querySelector('img') as HTMLImageElement).src}" alt="">`
 
 const setLoadoutSlotIcon = <T extends string>(
   button: HTMLElement,
   slot: number,
   icon: T | undefined,
-  src: (icon: T) => string
+  image: (icon: T) => string
 ) => {
-  if (button.dataset.icon === icon) {
+  const key = icon === undefined ? undefined : `${player.iconSet}/${icon}`
+  if (button.dataset.icon === key) {
     return
   }
 
@@ -556,19 +573,14 @@ const setLoadoutSlotIcon = <T extends string>(
     return
   }
 
-  const image = document.createElement('img')
-  image.src = src(icon)
-  image.alt = ''
-  const number = document.createElement('span')
-  number.textContent = `${slot}`
-  button.dataset.icon = icon
-  button.replaceChildren(image, number)
+  button.dataset.icon = key
+  button.innerHTML = `${image(icon)}<span>${slot}</span>`
 }
 
 export const updateBlueberryLoadoutIcons = () => {
   const icons = currentLayout().loadoutIcons.ambrosiaLoadoutsHeader
   for (let slot = 1; slot <= getUnlockedBlueberryLoadoutCount(); slot++) {
-    setLoadoutSlotIcon(DOMCacheGetOrSet(`blueberryLoadout${slot}`), slot, icons[slot], blueberryIconSrc)
+    setLoadoutSlotIcon(DOMCacheGetOrSet(`blueberryLoadout${slot}`), slot, icons[slot], blueberryIconImage)
   }
 }
 
@@ -577,14 +589,14 @@ const openLoadoutIconPicker = <T extends string>(
   button: HTMLElement,
   icons: Partial<Record<number, T>>,
   choices: readonly T[],
-  src: (icon: T) => string
+  image: (icon: T) => string
 ) => {
   const slot = Number(button.dataset.slot)
   const option = (icon: T | undefined, content: string) =>
     `<button type="button" data-modal-action="${icon ?? ''}" aria-pressed="${icons[slot] === icon}">${content}</button>`
   const html = `<p class="headerLoadoutIconTitle">${i18next.t('headerLayout.loadoutIcon', { x: slot })}</p>`
     + `<div class="headerLoadoutIcons">${option(undefined, `${slot}`)}${
-      choices.map((icon) => option(icon, `<img src="${src(icon)}" alt="">`)).join('')
+      choices.map((icon) => option(icon, image(icon))).join('')
     }</div>`
 
   Modal(() => html, event.clientX, event.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK, {
@@ -646,7 +658,7 @@ const updateCorruptionLoadoutSlots = (layout: HeaderLayout, elementId: string, f
       'headerLoadoutNext',
       corruptionLoadoutMatches(loadout.loadout, player.corruptions.next.loadout, maxLevel)
     )
-    setLoadoutSlotIcon(slot, slotNumber, layout.loadoutIcons.corruptionLoadoutsHeader[slotNumber], corruptionIconSrc)
+    setLoadoutSlotIcon(slot, slotNumber, layout.loadoutIcons.corruptionLoadoutsHeader[slotNumber], corruptionIconImage)
   }
 }
 
@@ -659,7 +671,7 @@ const updateBlueberryLoadoutSlots = (layout: HeaderLayout, elementId: string, fi
       slots[index],
       slotNumber,
       layout.loadoutIcons.ambrosiaLoadoutsHeader[slotNumber],
-      blueberryIconSrc
+      blueberryIconImage
     )
   }
 }
@@ -1166,8 +1178,12 @@ const handlePointerUp = (event: PointerEvent) => {
         event,
         loadoutSlot,
         layout.loadoutIcons.corruptionLoadoutsHeader,
-        Object.keys(corrIcons) as Array<keyof Corruptions>,
-        corruptionIconSrc
+        [
+          ...Object.keys(corrIcons) as Array<keyof Corruptions>,
+          ...corruptionLoadoutCubeIcons,
+          ...corruptionLoadoutPlatonicIcons
+        ],
+        corruptionIconImage
       )
     } else if (
       loadoutSlot !== null
@@ -1178,7 +1194,7 @@ const handlePointerUp = (event: PointerEvent) => {
         loadoutSlot,
         layout.loadoutIcons.ambrosiaLoadoutsHeader,
         ambrosiaUpgradeNames,
-        blueberryIconSrc
+        blueberryIconImage
       )
     } else {
       selectedModule = selectedModule === pressedModule ? null : pressedModule
