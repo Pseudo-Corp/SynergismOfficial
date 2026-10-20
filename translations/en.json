@@ -8794,7 +8794,9 @@
       "move": "Move hotkeys: drag, use arrow keys, or tap for the next corner",
       "moveHint": "Drag to a corner. Swipe sideways to tuck away.",
       "dock": "Tuck hotkeys into the side of the screen",
-      "restore": "Restore hotkeys: tap or swipe inward"
+      "restore": "Restore hotkeys: tap or swipe inward",
+      "shortcutOn": "Hotkey Shortcut: ON",
+      "shortcutOff": "Hotkey Shortcut: OFF"
     },
     "names": {
       "buyAccelerators": "Buy Accelerators",
