@@ -6417,7 +6417,6 @@ header .img,
     width: 100%;
     min-width: 1250px;
     max-width: calc((38px + 7.5em) * 4 + 40em);
-    min-height: 90px;
     margin-bottom: 5px;
     line-height: 1em;
     font-variant-numeric: tabular-nums;
