@@ -1299,9 +1299,17 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 .headerProgress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     justify-self: stretch;
+    height: 1.5lh;
     line-height: 1.2;
     text-align: center;
+}
+
+.headerProgress[hidden] {
+    visibility: hidden;
 }
 
 #transcensionChallengeProgress { color: var(--orchid-text-color); }
@@ -6761,7 +6769,7 @@ header #blueberryHeaderDisplay,
 }
 
 #mainHeader.headerEditMode .headerProgress[hidden]:not(.headerModuleLocked) {
-    display: block;
+    visibility: visible;
     opacity: 0.6;
 }
 
