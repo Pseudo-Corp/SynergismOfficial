@@ -6608,6 +6608,12 @@ header #blueberryHeaderDisplay,
     font-size: 1.75em;
 }
 
+.headerProgress.headerModule[data-size="Tall"] {
+    height: auto;
+    contain: size;
+    font-size: 1.5em;
+}
+
 .headerConsumableOwned {
     margin-left: 0.5em;
     color: #bbb;

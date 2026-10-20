@@ -103,7 +103,7 @@ export const headerModuleIds = [
 
 export type HeaderModuleId = typeof headerModuleIds[number]
 
-export const headerModuleSizes = ['S', 'M', 'L', 'XL'] as const
+export const headerModuleSizes = ['S', 'M', 'L', 'XL', 'Tall'] as const
 
 export type HeaderModuleSize = typeof headerModuleSizes[number]
 
@@ -191,6 +191,10 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
     }
     grid.push(...currencySlots, ...progressSlots)
     return layout
+  }
+
+  for (const id of challengeProgressModuleIds) {
+    layout.sizes[id] = 'Tall'
   }
 
   const resetSlots = [...buttonSlots, ...progressSlots]

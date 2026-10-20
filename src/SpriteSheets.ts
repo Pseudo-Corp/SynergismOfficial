@@ -962,6 +962,8 @@ export const spriteIconStyle = (elementName: string) => {
       }% ${sheet.rows * 100}%; background-position: ${x}% ${y}%; background-repeat: no-repeat`
     }
   }
+
+  return undefined
 }
 
 export const updateIconsFromSprites = (folderUsed: string) => {

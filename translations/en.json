@@ -5451,6 +5451,7 @@
     "medium": "M",
     "large": "L",
     "xlarge": "XL",
+    "tall": "1x2",
     "size": "Module size",
     "hide": "Hide",
     "reset": "Reset Layout",
