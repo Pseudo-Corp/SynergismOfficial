@@ -160,12 +160,27 @@ const gridArea = (index: number) => `${Math.floor(index / gridColumns()) + 1} / 
 
 const sizeOf = (layout: HeaderLayout, id: HeaderModuleId) => layout.sizes[id] ?? 'M'
 
-const isWideSlot = (layout: HeaderLayout, slot: HeaderModuleId[] | undefined) =>
-  slot?.length === 1 && !isHeaderButton(slot[0]) && sizeOf(layout, slot[0]) === 'L'
-  && !layout.hidden.includes(slot[0])
+const moduleSpan = (layout: HeaderLayout, id: HeaderModuleId) => {
+  if (isHeaderButton(id)) {
+    return 1
+  }
 
-const isCoveredCell = (layout: HeaderLayout, region: HeaderRegionId, cell: number) =>
-  cell % gridColumns() !== 0 && isWideSlot(layout, layout.regions[region][cell - 1])
+  const size = sizeOf(layout, id)
+  return size === 'XL' ? 3 : size === 'L' ? 2 : 1
+}
+
+const slotSpan = (layout: HeaderLayout, slot: HeaderModuleId[] | undefined) =>
+  slot?.length === 1 && !layout.hidden.includes(slot[0]) ? moduleSpan(layout, slot[0]) : 1
+
+const isCoveredCell = (layout: HeaderLayout, region: HeaderRegionId, cell: number) => {
+  const slots = layout.regions[region]
+  for (let start = cell - cell % gridColumns(); start < cell; start++) {
+    if (start + slotSpan(layout, slots[start]) > cell) {
+      return true
+    }
+  }
+  return false
+}
 
 const firstEmptyCell = (layout: HeaderLayout, region: HeaderRegionId, from: number) => {
   const slots = layout.regions[region]
@@ -183,26 +198,28 @@ const settleWideSlots = (layout: HeaderLayout, region: HeaderRegionId) => {
   const columns = gridColumns()
   const slots = layout.regions[region]
   for (let index = 0; index < slots.length; index++) {
-    if (!isWideSlot(layout, slots[index])) {
+    const span = slotSpan(layout, slots[index])
+    if (span === 1) {
       continue
     }
 
-    let start = index
-    if (index % columns === columns - 1) {
-      if (isCoveredCell(layout, region, index - 1)) {
+    const start = Math.min(index, index - index % columns + columns - span)
+    if (start < index) {
+      if (isCoveredCell(layout, region, start)) {
         const wide = slots[index]
         slots[index] = []
         slots[firstEmptyCell(layout, region, index + 1)] = wide
         continue
       }
-      start = index - 1
-      ;[slots[start], slots[index]] = [slots[index], slots[start]]
+      slots.splice(start, 0, ...slots.splice(index, 1))
     }
 
-    const displaced = slots[start + 1] ?? []
-    if (displaced.length > 0) {
-      slots[start + 1] = []
-      slots[firstEmptyCell(layout, region, start + 2)] = displaced
+    for (let cell = start + 1; cell < start + span; cell++) {
+      const displaced = slots[cell] ?? []
+      if (displaced.length > 0) {
+        slots[cell] = []
+        slots[firstEmptyCell(layout, region, start + span)] = displaced
+      }
     }
   }
 }
@@ -213,6 +230,7 @@ const updateEditToolbar = (layout: HeaderLayout) => {
   for (const size of headerModuleSizes) {
     const button = DOMCacheGetOrSet(`headerSize${size}`) as HTMLButtonElement
     button.disabled = selected === null || (size === 'S' && isHeaderButton(selected))
+      || (size === 'XL' && (isMobile || !(isHeaderLoadout(selected) || isHeaderProgress(selected))))
     button.setAttribute('aria-pressed', `${selected !== null && sizeOf(layout, selected) === size}`)
   }
 
@@ -259,16 +277,16 @@ export const renderHeaderLayout = () => {
     layout.regions[region].forEach((slot, index) => {
       const shown: HTMLElement[] = []
       let unlocked = false
-      const wide = isGrid && isWideSlot(layout, slot)
+      const span = isGrid ? slotSpan(layout, slot) : 1
       for (const id of slot) {
         const element = DOMCacheGetOrSet(id)
-        const size = isGrid && !isHeaderButton(id) && sizeOf(layout, id) === 'L' ? 'M' : sizeOf(layout, id)
+        const size = isGrid && !isHeaderProgress(id) && moduleSpan(layout, id) > 1 ? 'M' : sizeOf(layout, id)
         const fitText = element.querySelector<HTMLElement>('.fitText')
         if (element.dataset.size !== size && fitText !== null) {
           resetFitText(fitText)
         }
         element.dataset.size = size
-        element.classList.toggle('headerModuleWide', wide)
+        element.classList.toggle('headerModuleWide', span > 1)
         element.classList.toggle('headerModuleSelected', id === selectedModule)
         element.style.gridArea = ''
         if (isHeaderButton(id)) {
@@ -315,9 +333,9 @@ export const renderHeaderLayout = () => {
       }
       slotElement.dataset.headerSlot = `${index}`
       if (isGrid) {
-        slotElement.style.gridArea = wide ? `${gridArea(index)} / span 1 / span 2` : gridArea(index)
+        slotElement.style.gridArea = span > 1 ? `${gridArea(index)} / span 1 / span ${span}` : gridArea(index)
         if (unlocked) {
-          lastCell = wide ? index + 1 : index
+          lastCell = index + span - 1
         }
       }
       slotElements.push(slotElement)
@@ -830,10 +848,10 @@ const buttonSlotRect = (rect: DOMRect, position: number) => ({
   height: rect.height
 })
 
-const wideCellRect = (index: number, rect: DOMRect) => ({
-  left: index % gridColumns() === gridColumns() - 1 ? rect.left - rect.width : rect.left,
+const wideCellRect = (index: number, span: number, rect: DOMRect) => ({
+  left: rect.left - rect.width * Math.max(index % gridColumns() + span - gridColumns(), 0),
   top: rect.top,
-  width: rect.width * 2,
+  width: rect.width * span,
   height: rect.height
 })
 
@@ -862,7 +880,7 @@ const nearestSlotElement = (regionElement: HTMLElement, x: number, y: number) =>
 
 const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
   const layout = currentLayout()
-  const wide = !isHeaderButton(id) && sizeOf(layout, id) === 'L'
+  const span = moduleSpan(layout, id)
 
   for (const element of document.elementsFromPoint(x, y)) {
     if (element.closest('#headerTray') !== null) {
@@ -893,7 +911,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
         index,
         position,
         join: isHeaderButton(id) && slot.some((member) => !layout.hidden.includes(member)) && canJoinSlot(slot, id),
-        indicator: isHeaderButton(id) ? buttonSlotRect(rect, position) : wide ? wideCellRect(index, rect) : rect
+        indicator: isHeaderButton(id) ? buttonSlotRect(rect, position) : wideCellRect(index, span, rect)
       }
     }
 
@@ -926,7 +944,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
         index,
         position,
         join: false,
-        indicator: wide && cell !== null ? wideCellRect(index, cell.getBoundingClientRect()) : indicator
+        indicator: span > 1 && cell !== null ? wideCellRect(index, span, cell.getBoundingClientRect()) : indicator
       }
     }
 

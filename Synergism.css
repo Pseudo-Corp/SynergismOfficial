@@ -6545,7 +6545,8 @@ header #blueberryHeaderDisplay,
     font-size: 0.75em;
 }
 
-.headerModule[data-size="L"] {
+.headerModule[data-size="L"],
+.headerModule[data-size="XL"] {
     font-size: 1.25em;
 }
 
@@ -6576,7 +6577,8 @@ header #blueberryHeaderDisplay,
     height: 12px;
 }
 
-.headerStat[data-size="L"] img {
+.headerStat[data-size="L"] img,
+.headerStat[data-size="XL"] img {
     height: 28px;
 }
 
@@ -6590,6 +6592,10 @@ header #blueberryHeaderDisplay,
 
 .headerProgress.headerModule[data-size="L"] {
     font-size: 1.5em;
+}
+
+.headerProgress.headerModule[data-size="XL"] {
+    font-size: 1.75em;
 }
 
 .headerConsumableOwned {

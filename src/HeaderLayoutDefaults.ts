@@ -82,7 +82,7 @@ export const headerModuleIds = [
 
 export type HeaderModuleId = typeof headerModuleIds[number]
 
-export const headerModuleSizes = ['S', 'M', 'L'] as const
+export const headerModuleSizes = ['S', 'M', 'L', 'XL'] as const
 
 export type HeaderModuleSize = typeof headerModuleSizes[number]
 

@@ -5450,6 +5450,7 @@
     "small": "S",
     "medium": "M",
     "large": "L",
+    "xlarge": "XL",
     "size": "Module size",
     "hide": "Hide",
     "reset": "Reset Layout",
