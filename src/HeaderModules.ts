@@ -560,6 +560,13 @@ const setLoadoutSlotIcon = <T extends string>(
   button.replaceChildren(image, number)
 }
 
+export const updateBlueberryLoadoutIcons = () => {
+  const icons = currentLayout().loadoutIcons.ambrosiaLoadoutsHeader
+  for (let slot = 1; slot <= getUnlockedBlueberryLoadoutCount(); slot++) {
+    setLoadoutSlotIcon(DOMCacheGetOrSet(`blueberryLoadout${slot}`), slot, icons[slot], blueberryIconSrc)
+  }
+}
+
 const openLoadoutIconPicker = <T extends string>(
   event: PointerEvent,
   button: HTMLElement,

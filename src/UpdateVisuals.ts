@@ -70,6 +70,7 @@ import { updateLeaderboardUI } from './Features/Ants/HTML/updates/leaderboard'
 import { showLockedSacrifice, showSacrifice } from './Features/Ants/HTML/updates/sacrifice'
 import { autoAntSacrificeModeDescHTML } from './Features/Ants/HTML/updates/toggles/sacrifice-mode'
 import { AntProducers } from './Features/Ants/structs/structs'
+import { updateBlueberryLoadoutIcons } from './HeaderModules'
 import { getFinalHepteractCap, type HepteractKeys, hepteractKeys, hepteracts } from './Hepteracts'
 import {
   calculateAcceleratorHypercubeBlessing,
@@ -2368,6 +2369,8 @@ export const visualUpdateAmbrosia = () => {
       })
     )
   }
+
+  updateBlueberryLoadoutIcons()
 }
 
 export const visualUpdatePurple = () => {

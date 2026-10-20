@@ -6677,16 +6677,19 @@ header #blueberryHeaderDisplay,
     border-color: #ff5c5c;
 }
 
-.headerLoadoutSlot[data-icon] {
+.headerLoadoutSlot[data-icon],
+.blueberryLoadoutSlot[data-icon] {
     position: relative;
 }
 
-.headerLoadoutSlot[data-icon] > span {
+.headerLoadoutSlot[data-icon] > span,
+.blueberryLoadoutSlot[data-icon] > span {
     position: relative;
     text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black;
 }
 
-#mainHeader .headerLoadoutSlot > img {
+#mainHeader .headerLoadoutSlot > img,
+.blueberryLoadoutSlot > img {
     position: absolute;
     inset: 0;
     width: 100%;
