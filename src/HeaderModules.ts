@@ -1081,7 +1081,7 @@ const handlePointerUp = (event: PointerEvent) => {
     renderHeaderLayout()
   } else if (editing && pressedModule !== null) {
     const loadoutSlot = event.target instanceof Element
-      ? event.target.closest<HTMLElement>('.headerLoadoutSlot')
+      ? event.target.closest<HTMLElement>('.headerLoadoutSlot[data-slot]')
       : null
     if (layout.hidden.includes(pressedModule)) {
       layout.hidden = layout.hidden.filter((hiddenId) => hiddenId !== pressedModule)

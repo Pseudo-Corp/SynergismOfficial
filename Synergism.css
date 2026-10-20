@@ -6622,7 +6622,7 @@ header #blueberryHeaderDisplay,
 .headerLoadoutSlots {
     display: flex;
     flex-wrap: wrap;
-    gap: 2px;
+    gap: 1px;
 }
 
 .headerLoadoutSlot {
@@ -6642,6 +6642,16 @@ header #blueberryHeaderDisplay,
     border-color: deepskyblue;
     color: white;
     font-weight: bold;
+}
+
+#corruptionLoadoutsHeaderSlots {
+    display: contents;
+}
+
+#corruptionCleanseHeader {
+    position: relative;
+    background-color: black;
+    border-color: #dc7d0b;
 }
 
 #corruptionLoadoutsHeaderSlots > .headerLoadoutSlot {
