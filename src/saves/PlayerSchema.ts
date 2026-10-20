@@ -350,6 +350,7 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
     ).default(() => ({})),
     hidden: z.enum(headerModuleIds).array(),
     rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia),
+    octeractPerSecond: z.boolean().catch(() => blankSave.headerLayouts[layout].octeractPerSecond),
     loadoutIcons: z.lazy(() =>
       z.object({
         corruptionLoadoutsHeader: z.partialRecord(integerStringSchema, corruptionsSchema.keyof()),

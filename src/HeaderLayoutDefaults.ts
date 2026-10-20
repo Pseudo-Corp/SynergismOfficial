@@ -142,6 +142,7 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
       ...ambrosiaModuleIds
     ],
     rainbowAmbrosia: 'ambrosiaHeader',
+    octeractPerSecond: false,
     loadoutIcons: {
       corruptionLoadoutsHeader: {},
       ambrosiaLoadoutsHeader: {}

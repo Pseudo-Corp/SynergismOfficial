@@ -5464,6 +5464,7 @@
     "codeNext": "Next: {{time}}",
     "timeCodeMultiplier": "x{{x}}",
     "quarkBonus": "+{{x}}%",
+    "perSecond": "{{x}}/s",
     "modules": {
       "transcensionChallengeProgress": "Transcension Challenge progress",
       "reincarnationChallengeProgress": "Reincarnation Challenge progress",

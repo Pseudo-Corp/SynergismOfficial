@@ -35,6 +35,7 @@ export interface HeaderLayout {
   positions: Partial<Record<HeaderModuleId, number>>
   hidden: HeaderModuleId[]
   rainbowAmbrosia: RainbowAmbrosiaModuleId
+  octeractPerSecond: boolean
   loadoutIcons: {
     corruptionLoadoutsHeader: Partial<Record<number, keyof Corruptions>>
     ambrosiaLoadoutsHeader: Partial<Record<number, AmbrosiaUpgradeNames>>

@@ -8,7 +8,7 @@ import {
   loadBlueberryLoadout
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateBlueberryInventory } from './Calculate'
+import { calculateBlueberryInventory, calculateOcteractMultiplier } from './Calculate'
 import {
   corrIcons,
   corruptionLoadLoadout,
@@ -124,6 +124,7 @@ const HEADER_HOLD_CANCEL_DISTANCE_PX = 8
 const HEADER_STACK_ZONE_START = 0.25
 const HEADER_STACK_ZONE_END = 0.75
 const HEADER_DROP_BAR_PX = 4
+const HEADER_EDIT_CYCLE_MS = 1500
 
 interface HeaderDropTarget {
   region: HeaderRegionId | null
@@ -142,6 +143,7 @@ interface HeaderButtonStack {
 const trayDropTarget: HeaderDropTarget = { region: null, index: 0, position: 0, join: false, indicator: null }
 
 let editing = false
+let editingSince = 0
 let holdTimer: number | undefined
 let activePointerId: number | null = null
 let pressedModule: HeaderModuleId | null = null
@@ -385,6 +387,17 @@ export const updateHeaderModuleVisibility = () => {
   }
 }
 
+const unlockedRainbowAmbrosia = () => rainbowAmbrosiaModuleIds.filter((id) => headerModuleUnlocks[id]())
+
+export const cycleWhileEditing = <T>(values: readonly T[], saved: T) => {
+  if (!editing) {
+    return saved
+  }
+
+  const step = Math.floor((performance.now() - editingSince) / HEADER_EDIT_CYCLE_MS)
+  return values[(Math.max(values.indexOf(saved), 0) + step) % values.length] ?? saved
+}
+
 const setHeaderText = (elementId: string, text: string) => {
   const element = DOMCacheGetOrSet(elementId)
   if (element.textContent !== text) {
@@ -459,6 +472,15 @@ export const updateHeaderInfo = () => {
     )
   }
 
+  if (editing || !layout.hidden.includes('octeractHeader')) {
+    setHeaderText(
+      'octeractHeaderDisplay',
+      cycleWhileEditing([false, true], layout.octeractPerSecond)
+        ? i18next.t('headerLayout.perSecond', { x: format(calculateOcteractMultiplier(), 2, false, false) })
+        : format(player.wowOcteracts, 0, false, false)
+    )
+  }
+
   if (editing || !layout.hidden.includes('achievementPointsHeader')) {
     setHeaderText('achievementPointsHeaderDisplay', format(achievementPoints, 0, true))
   }
@@ -478,14 +500,15 @@ export const updateHeaderAmbrosia = () => {
   }
 
   if (editing || !layout.hidden.includes('rainbowAmbrosiaHeader')) {
+    const shown = cycleWhileEditing(unlockedRainbowAmbrosia(), layout.rainbowAmbrosia)
     const rainbow = DOMCacheGetOrSet('rainbowAmbrosiaHeader')
-    if (rainbow.dataset.ambrosia !== layout.rainbowAmbrosia) {
-      rainbow.dataset.ambrosia = layout.rainbowAmbrosia
+    if (rainbow.dataset.ambrosia !== shown) {
+      rainbow.dataset.ambrosia = shown
       for (const icon of rainbow.querySelectorAll('img')) {
-        icon.hidden = icon.dataset.ambrosia !== layout.rainbowAmbrosia
+        icon.hidden = icon.dataset.ambrosia !== shown
       }
     }
-    setHeaderText('rainbowAmbrosiaHeaderDisplay', format(ambrosiaAmounts[layout.rainbowAmbrosia](), 0, true))
+    setHeaderText('rainbowAmbrosiaHeaderDisplay', format(ambrosiaAmounts[shown](), 0, true))
   }
 }
 
@@ -756,6 +779,7 @@ const enterEditMode = () => {
   }
 
   editing = true
+  editingSince = performance.now()
   CloseModal()
 
   for (const element of document.querySelectorAll<HTMLElement>('.headerProgress')) {
@@ -1194,8 +1218,14 @@ export const registerHeaderLayoutEditing = () => {
 
   DOMCacheGetOrSet('rainbowAmbrosiaHeader').addEventListener('click', () => {
     const layout = currentLayout()
-    const unlocked = rainbowAmbrosiaModuleIds.filter((id) => headerModuleUnlocks[id]())
+    const unlocked = unlockedRainbowAmbrosia()
     layout.rainbowAmbrosia = unlocked[(unlocked.indexOf(layout.rainbowAmbrosia) + 1) % unlocked.length]
     updateHeaderAmbrosia()
+  })
+
+  DOMCacheGetOrSet('octeractHeader').addEventListener('click', () => {
+    const layout = currentLayout()
+    layout.octeractPerSecond = !layout.octeractPerSecond
+    updateHeaderInfo()
   })
 }
