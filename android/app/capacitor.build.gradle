@@ -18,6 +18,7 @@ dependencies {
     implementation project(':capgo-capacitor-keep-awake')
     implementation project(':capgo-capacitor-updater')
     implementation project(':capacitor-plugin-cdv-purchase')
+    implementation project(':synergism-stream')
     implementation project(':synergism-websocket')
 
 }
