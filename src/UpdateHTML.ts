@@ -36,6 +36,7 @@ import { getCostNextAntUpgrade } from './Features/Ants/AntUpgrades/lib/get-cost'
 import { AntUpgrades, LAST_ANT_UPGRADE } from './Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import {
+  cycleWhileEditing,
   updateHeaderAmbrosia,
   updateHeaderConsumables,
   updateHeaderInfo,
@@ -66,8 +67,7 @@ const htmlInsertPlayerRequirements = [
   'reincarnationPoints',
   'worlds',
   'obtainium',
-  'goldenQuarks',
-  'wowOcteracts'
+  'goldenQuarks'
 ] as const
 const htmlInsertDomRequirements = [
   'coinDisplay',
@@ -78,8 +78,7 @@ const htmlInsertDomRequirements = [
   'particlesDisplay',
   'quarkDisplay',
   'obtainiumDisplay',
-  'goldenQuarkHeaderDisplay',
-  'octeractHeaderDisplay'
+  'goldenQuarkHeaderDisplay'
 ] as const
 const challengeProgressRowIds = {
   transcension: 'transcensionChallengeProgress',
@@ -1041,7 +1040,12 @@ const updateAscensionStats = () => {
   const addedAsteriskHalfMind = getGQUpgradeEffect('halfMind', 'unlocked')
   const addedAsteriskOneMind = getGQUpgradeEffect('oneMind', 'unlocked')
   const fillers: Record<string, string> = {
-    ascLen: formatTimeShort(player.ascStatToggles[6] ? player.ascensionCounter : player.ascensionCounterReal, 0),
+    ascLen: formatTimeShort(
+      cycleWhileEditing([false, true], player.ascStatToggles[6])
+        ? player.ascensionCounter
+        : player.ascensionCounterReal,
+      0
+    ),
     ascCubes: format(ascensionRewards.wowCubes * (player.ascStatToggles[1] ? 1 : 1 / t), 2, false, false),
     ascTess: format(ascensionRewards.wowTesseracts * (player.ascStatToggles[2] ? 1 : 1 / t), 2, false, false),
     ascHyper: format(ascensionRewards.wowHypercubes * (player.ascStatToggles[3] ? 1 : 1 / t), 2, false, false),

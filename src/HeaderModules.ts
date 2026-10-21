@@ -8,7 +8,7 @@ import {
   loadBlueberryLoadout
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateBlueberryInventory } from './Calculate'
+import { calculateBlueberryInventory, calculateOcteractMultiplier } from './Calculate'
 import {
   corrIcons,
   corruptionLoadLoadout,
@@ -18,6 +18,9 @@ import {
   maxCorruptionLevel
 } from './Corruptions'
 import {
+  corruptionLoadoutCubeIcons,
+  type CorruptionLoadoutIcon,
+  corruptionLoadoutPlatonicIcons,
   freeButtonPosition,
   HEADER_BUTTON_GROUP_CAPACITY,
   HEADER_GRID_COLUMNS,
@@ -31,6 +34,7 @@ import {
   isHeaderGridRegion,
   isHeaderLoadout,
   isHeaderProgress,
+  type LoadoutPageModuleId,
   type RainbowAmbrosiaModuleId,
   rainbowAmbrosiaModuleIds
 } from './HeaderLayoutDefaults'
@@ -46,6 +50,7 @@ import { allDurableConsumables, getLotusTimeExpiresAt, getOwnedBells, getOwnedLo
 import { getGlobalBonus } from './Quark'
 import { runes } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
+import { spriteIconStyle, spritePlaceholder } from './SpriteSheets'
 import { blankSave, deepClone, format, player } from './Synergism'
 import { IconSets } from './Themes'
 import type { HeaderLayout } from './types/Synergism'
@@ -77,6 +82,8 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   timeCodeHeader: () => true,
   corruptionLoadoutsHeader: () => player.challengecompletions[11] > 0,
   ambrosiaLoadoutsHeader: ambrosiaUnlocked,
+  corruptionLoadoutPageHeader: () => player.challengecompletions[11] > 0,
+  ambrosiaLoadoutPageHeader: ambrosiaUnlocked,
   coinHeader: () => true,
   diamondHeader: () => player.unlocks.prestige,
   offeringHeader: () => player.unlocks.prestige,
@@ -92,6 +99,7 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   ambrosiaHeader: ambrosiaUnlocked,
   redAmbrosiaHeader: () => player.singularityChallenges.noAmbrosiaUpgrades.completions > 0,
   purpleAmbrosiaHeader: () => player.singularityChallenges.taxmanLastStand.completions > 0,
+  purpleHoneyHeader: () => player.singularityChallenges.taxmanLastStand.completions > 0,
   blueberryHeader: ambrosiaUnlocked,
   rainbowAmbrosiaHeader: ambrosiaUnlocked,
   prestigebtn: () => player.unlocks.coinfour,
@@ -114,6 +122,7 @@ const ambrosiaAmounts: Record<RainbowAmbrosiaModuleId, () => number> = {
   ambrosiaHeader: () => player.ambrosia,
   redAmbrosiaHeader: () => player.redAmbrosia,
   purpleAmbrosiaHeader: () => player.purpleAmbrosia,
+  purpleHoneyHeader: () => player.purpleReactor.purpleHoney,
   blueberryHeader: () => calculateBlueberryInventory() - player.spentBlueberries
 }
 
@@ -122,6 +131,8 @@ const HEADER_HOLD_CANCEL_DISTANCE_PX = 8
 const HEADER_STACK_ZONE_START = 0.25
 const HEADER_STACK_ZONE_END = 0.75
 const HEADER_DROP_BAR_PX = 4
+const HEADER_EDIT_CYCLE_MS = 1500
+const HEADER_LOADOUT_PAGE_SIZE = 8
 
 interface HeaderDropTarget {
   region: HeaderRegionId | null
@@ -137,9 +148,16 @@ interface HeaderButtonStack {
   positions: number[]
 }
 
+interface HeaderSpan {
+  columns: number
+  rows: number
+}
+
 const trayDropTarget: HeaderDropTarget = { region: null, index: 0, position: 0, join: false, indicator: null }
+const singleCellSpan: HeaderSpan = { columns: 1, rows: 1 }
 
 let editing = false
+let editingSince = 0
 let holdTimer: number | undefined
 let activePointerId: number | null = null
 let pressedModule: HeaderModuleId | null = null
@@ -158,12 +176,31 @@ const gridArea = (index: number) => `${Math.floor(index / gridColumns()) + 1} / 
 
 const sizeOf = (layout: HeaderLayout, id: HeaderModuleId) => layout.sizes[id] ?? 'M'
 
-const isWideSlot = (layout: HeaderLayout, slot: HeaderModuleId[] | undefined) =>
-  slot?.length === 1 && !isHeaderButton(slot[0]) && sizeOf(layout, slot[0]) === 'L'
-  && !layout.hidden.includes(slot[0])
+const moduleSpan = (layout: HeaderLayout, id: HeaderModuleId) => {
+  if (isHeaderButton(id)) {
+    return singleCellSpan
+  }
 
-const isCoveredCell = (layout: HeaderLayout, region: HeaderRegionId, cell: number) =>
-  cell % gridColumns() !== 0 && isWideSlot(layout, layout.regions[region][cell - 1])
+  const size = sizeOf(layout, id)
+  return { columns: size === 'XL' ? 3 : size === 'L' ? 2 : 1, rows: size === 'Tall' ? 2 : 1 }
+}
+
+const slotSpan = (layout: HeaderLayout, slot: HeaderModuleId[] | undefined) =>
+  slot?.length === 1 && !layout.hidden.includes(slot[0]) ? moduleSpan(layout, slot[0]) : singleCellSpan
+
+const isCoveredCell = (layout: HeaderLayout, region: HeaderRegionId, cell: number, before = cell) => {
+  const columns = gridColumns()
+  const slots = layout.regions[region]
+  for (let start = 0; start < before; start++) {
+    const span = slotSpan(layout, slots[start])
+    const column = cell % columns - start % columns
+    const row = Math.floor(cell / columns) - Math.floor(start / columns)
+    if (column >= 0 && column < span.columns && row >= 0 && row < span.rows) {
+      return true
+    }
+  }
+  return false
+}
 
 const firstEmptyCell = (layout: HeaderLayout, region: HeaderRegionId, from: number) => {
   const slots = layout.regions[region]
@@ -181,26 +218,36 @@ const settleWideSlots = (layout: HeaderLayout, region: HeaderRegionId) => {
   const columns = gridColumns()
   const slots = layout.regions[region]
   for (let index = 0; index < slots.length; index++) {
-    if (!isWideSlot(layout, slots[index])) {
+    const span = slotSpan(layout, slots[index])
+    if (span.columns === 1 && span.rows === 1) {
       continue
     }
 
-    let start = index
-    if (index % columns === columns - 1) {
-      if (isCoveredCell(layout, region, index - 1)) {
-        const wide = slots[index]
-        slots[index] = []
-        slots[firstEmptyCell(layout, region, index + 1)] = wide
-        continue
+    const start = Math.min(index, index - index % columns + columns - span.columns)
+    const cells: number[] = []
+    for (let row = 0; row < span.rows; row++) {
+      for (let column = 0; column < span.columns; column++) {
+        cells.push(start + row * columns + column)
       }
-      start = index - 1
-      ;[slots[start], slots[index]] = [slots[index], slots[start]]
     }
 
-    const displaced = slots[start + 1] ?? []
-    if (displaced.length > 0) {
-      slots[start + 1] = []
-      slots[firstEmptyCell(layout, region, start + 2)] = displaced
+    if (cells.some((cell) => isCoveredCell(layout, region, cell, start))) {
+      const wide = slots[index]
+      slots[index] = []
+      slots[firstEmptyCell(layout, region, index + 1)] = wide
+      continue
+    }
+
+    if (start < index) {
+      slots.splice(start, 0, ...slots.splice(index, 1))
+    }
+
+    for (const cell of cells) {
+      const displaced = slots[cell] ?? []
+      if (cell !== start && displaced.length > 0) {
+        slots[cell] = []
+        slots[firstEmptyCell(layout, region, cell + 1)] = displaced
+      }
     }
   }
 }
@@ -211,6 +258,8 @@ const updateEditToolbar = (layout: HeaderLayout) => {
   for (const size of headerModuleSizes) {
     const button = DOMCacheGetOrSet(`headerSize${size}`) as HTMLButtonElement
     button.disabled = selected === null || (size === 'S' && isHeaderButton(selected))
+      || (size === 'XL' && (isMobile || !(isHeaderLoadout(selected) || isHeaderProgress(selected))))
+      || (size === 'Tall' && !isHeaderProgress(selected))
     button.setAttribute('aria-pressed', `${selected !== null && sizeOf(layout, selected) === size}`)
   }
 
@@ -257,16 +306,16 @@ export const renderHeaderLayout = () => {
     layout.regions[region].forEach((slot, index) => {
       const shown: HTMLElement[] = []
       let unlocked = false
-      const wide = isGrid && isWideSlot(layout, slot)
+      const span = isGrid ? slotSpan(layout, slot) : singleCellSpan
       for (const id of slot) {
         const element = DOMCacheGetOrSet(id)
-        const size = isGrid && !isHeaderButton(id) && sizeOf(layout, id) === 'L' ? 'M' : sizeOf(layout, id)
+        const size = isGrid && !isHeaderProgress(id) && moduleSpan(layout, id).columns > 1 ? 'M' : sizeOf(layout, id)
         const fitText = element.querySelector<HTMLElement>('.fitText')
         if (element.dataset.size !== size && fitText !== null) {
           resetFitText(fitText)
         }
         element.dataset.size = size
-        element.classList.toggle('headerModuleWide', wide)
+        element.classList.toggle('headerModuleWide', span.columns > 1)
         element.classList.toggle('headerModuleSelected', id === selectedModule)
         element.style.gridArea = ''
         if (isHeaderButton(id)) {
@@ -313,9 +362,9 @@ export const renderHeaderLayout = () => {
       }
       slotElement.dataset.headerSlot = `${index}`
       if (isGrid) {
-        slotElement.style.gridArea = wide ? `${gridArea(index)} / span 1 / span 2` : gridArea(index)
+        slotElement.style.gridArea = `${gridArea(index)} / span ${span.rows} / span ${span.columns}`
         if (unlocked) {
-          lastCell = wide ? index + 1 : index
+          lastCell = Math.max(lastCell, index + (span.rows - 1) * gridColumns() + span.columns - 1)
         }
       }
       slotElements.push(slotElement)
@@ -363,6 +412,17 @@ export const updateHeaderModuleVisibility = () => {
   if (changed) {
     renderHeaderLayout()
   }
+}
+
+const unlockedRainbowAmbrosia = () => rainbowAmbrosiaModuleIds.filter((id) => headerModuleUnlocks[id]())
+
+export const cycleWhileEditing = <T>(values: readonly T[], saved: T) => {
+  if (!editing) {
+    return saved
+  }
+
+  const step = Math.floor((performance.now() - editingSince) / HEADER_EDIT_CYCLE_MS)
+  return values[(Math.max(values.indexOf(saved), 0) + step) % values.length] ?? saved
 }
 
 const setHeaderText = (elementId: string, text: string) => {
@@ -439,6 +499,15 @@ export const updateHeaderInfo = () => {
     )
   }
 
+  if (editing || !layout.hidden.includes('octeractHeader')) {
+    setHeaderText(
+      'octeractHeaderDisplay',
+      cycleWhileEditing([false, true], layout.octeractPerSecond)
+        ? i18next.t('headerLayout.perSecond', { x: format(calculateOcteractMultiplier(), 2, false, false) })
+        : format(player.wowOcteracts, 0, false, false)
+    )
+  }
+
   if (editing || !layout.hidden.includes('achievementPointsHeader')) {
     setHeaderText('achievementPointsHeaderDisplay', format(achievementPoints, 0, true))
   }
@@ -458,22 +527,24 @@ export const updateHeaderAmbrosia = () => {
   }
 
   if (editing || !layout.hidden.includes('rainbowAmbrosiaHeader')) {
+    const shown = cycleWhileEditing(unlockedRainbowAmbrosia(), layout.rainbowAmbrosia)
     const rainbow = DOMCacheGetOrSet('rainbowAmbrosiaHeader')
-    if (rainbow.dataset.ambrosia !== layout.rainbowAmbrosia) {
-      rainbow.dataset.ambrosia = layout.rainbowAmbrosia
+    if (rainbow.dataset.ambrosia !== shown) {
+      rainbow.dataset.ambrosia = shown
       for (const icon of rainbow.querySelectorAll('img')) {
-        icon.hidden = icon.dataset.ambrosia !== layout.rainbowAmbrosia
+        icon.hidden = icon.dataset.ambrosia !== shown
       }
     }
-    setHeaderText('rainbowAmbrosiaHeaderDisplay', format(ambrosiaAmounts[layout.rainbowAmbrosia](), 0, true))
+    setHeaderText('rainbowAmbrosiaHeaderDisplay', format(ambrosiaAmounts[shown](), 0, true))
   }
 }
 
-const loadoutSlots = (elementId: string, count: number, load: (slot: number) => void) => {
+const loadoutSlots = (elementId: string, first: number, last: number, load: (slot: number) => void) => {
   const container = DOMCacheGetOrSet(elementId)
-  if (container.children.length !== count) {
+  if (container.dataset.slots !== `${first}-${last}`) {
+    container.dataset.slots = `${first}-${last}`
     const slots: HTMLButtonElement[] = []
-    for (let slot = 1; slot <= count; slot++) {
+    for (let slot = first; slot <= last; slot++) {
       const button = document.createElement('button')
       button.type = 'button'
       button.className = 'headerLoadoutSlot'
@@ -487,18 +558,31 @@ const loadoutSlots = (elementId: string, count: number, load: (slot: number) => 
   return container.children as HTMLCollectionOf<HTMLButtonElement>
 }
 
-const corruptionIconSrc = (icon: keyof Corruptions) => `Pictures/${IconSets[player.iconSet][0]}${corrIcons[icon]}`
+const corruptionIconImage = (icon: CorruptionLoadoutIcon) => {
+  const iconSet = IconSets[player.iconSet][0]
+  if (Object.hasOwn(corrIcons, icon)) {
+    return `<img src="Pictures/${iconSet}${corrIcons[icon as keyof Corruptions]}" alt="">`
+  }
 
-const blueberryIconSrc = (icon: AmbrosiaUpgradeNames) =>
-  (DOMCacheGetOrSet(icon).querySelector('img') as HTMLImageElement).src
+  const sprite = spriteIconStyle(icon)
+  if (sprite === undefined) {
+    return `<img src="Pictures/${iconSet}/${icon}.png" alt="">`
+  }
+
+  return `<img src="${spritePlaceholder}" style="${sprite}" alt="">`
+}
+
+const blueberryIconImage = (icon: AmbrosiaUpgradeNames) =>
+  `<img src="${(DOMCacheGetOrSet(icon).querySelector('img') as HTMLImageElement).src}" alt="">`
 
 const setLoadoutSlotIcon = <T extends string>(
   button: HTMLElement,
   slot: number,
   icon: T | undefined,
-  src: (icon: T) => string
+  image: (icon: T) => string
 ) => {
-  if (button.dataset.icon === icon) {
+  const key = icon === undefined ? undefined : `${player.iconSet}/${icon}`
+  if (button.dataset.icon === key) {
     return
   }
 
@@ -508,13 +592,15 @@ const setLoadoutSlotIcon = <T extends string>(
     return
   }
 
-  const image = document.createElement('img')
-  image.src = src(icon)
-  image.alt = ''
-  const number = document.createElement('span')
-  number.textContent = `${slot}`
-  button.dataset.icon = icon
-  button.replaceChildren(image, number)
+  button.dataset.icon = key
+  button.innerHTML = `${image(icon)}<span>${slot}</span>`
+}
+
+export const updateBlueberryLoadoutIcons = () => {
+  const icons = currentLayout().loadoutIcons.ambrosiaLoadoutsHeader
+  for (let slot = 1; slot <= getUnlockedBlueberryLoadoutCount(); slot++) {
+    setLoadoutSlotIcon(DOMCacheGetOrSet(`blueberryLoadout${slot}`), slot, icons[slot], blueberryIconImage)
+  }
 }
 
 const openLoadoutIconPicker = <T extends string>(
@@ -522,14 +608,14 @@ const openLoadoutIconPicker = <T extends string>(
   button: HTMLElement,
   icons: Partial<Record<number, T>>,
   choices: readonly T[],
-  src: (icon: T) => string
+  image: (icon: T) => string
 ) => {
   const slot = Number(button.dataset.slot)
   const option = (icon: T | undefined, content: string) =>
     `<button type="button" data-modal-action="${icon ?? ''}" aria-pressed="${icons[slot] === icon}">${content}</button>`
   const html = `<p class="headerLoadoutIconTitle">${i18next.t('headerLayout.loadoutIcon', { x: slot })}</p>`
     + `<div class="headerLoadoutIcons">${option(undefined, `${slot}`)}${
-      choices.map((icon) => option(icon, `<img src="${src(icon)}" alt="">`)).join('')
+      choices.map((icon) => option(icon, image(icon))).join('')
     }</div>`
 
   Modal(() => html, event.clientX, event.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK, {
@@ -547,50 +633,87 @@ const openLoadoutIconPicker = <T extends string>(
   })
 }
 
+const corruptionLoadoutCount = () =>
+  Math.min(player.corruptions.saves.saves.length, getUnlockedCorruptionLoadoutCount())
+
+const loadoutPageCount = (count: number) => Math.max(Math.ceil(count / HEADER_LOADOUT_PAGE_SIZE), 1)
+
+const loadoutPageRange = (layout: HeaderLayout, id: LoadoutPageModuleId, count: number) => {
+  const pages = loadoutPageCount(count)
+  const page = cycleWhileEditing(
+    Array.from({ length: pages }, (_, i) => i),
+    Math.min(layout.loadoutPages[id], pages - 1)
+  )
+  const first = page * HEADER_LOADOUT_PAGE_SIZE + 1
+  return { first, last: Math.min(first + HEADER_LOADOUT_PAGE_SIZE - 1, count) }
+}
+
+const cycleLoadoutPage = (event: MouseEvent, id: LoadoutPageModuleId, count: number) => {
+  if (event.target instanceof Element && event.target.closest('.headerLoadoutSlot') !== null) {
+    return
+  }
+
+  const layout = currentLayout()
+  layout.loadoutPages[id] = (layout.loadoutPages[id] + 1) % loadoutPageCount(count)
+  updateHeaderLoadouts()
+}
+
+const updateCorruptionLoadoutSlots = (layout: HeaderLayout, elementId: string, first: number, last: number) => {
+  const saves = player.corruptions.saves.saves
+  const slots = loadoutSlots(elementId, first, last, (slot) => corruptionLoadLoadout(slot - 1))
+  const maxLevel = maxCorruptionLevel()
+  for (let index = 0; index < slots.length; index++) {
+    const slot = slots[index]
+    const slotNumber = first + index
+    const { name, loadout } = saves[slotNumber - 1]
+    if (slot.getAttribute('title') !== name) {
+      slot.setAttribute('title', name)
+    }
+    slot.classList.toggle(
+      'headerLoadoutActive',
+      corruptionLoadoutMatches(loadout.loadout, player.corruptions.used.loadout, maxLevel)
+    )
+    slot.classList.toggle(
+      'headerLoadoutNext',
+      corruptionLoadoutMatches(loadout.loadout, player.corruptions.next.loadout, maxLevel)
+    )
+    setLoadoutSlotIcon(slot, slotNumber, layout.loadoutIcons.corruptionLoadoutsHeader[slotNumber], corruptionIconImage)
+  }
+}
+
+const updateBlueberryLoadoutSlots = (layout: HeaderLayout, elementId: string, first: number, last: number) => {
+  const slots = loadoutSlots(elementId, first, last, loadBlueberryLoadout)
+  for (let index = 0; index < slots.length; index++) {
+    const slotNumber = first + index
+    slots[index].classList.toggle('headerLoadoutActive', slotNumber === lastBlueberryLoadout)
+    setLoadoutSlotIcon(
+      slots[index],
+      slotNumber,
+      layout.loadoutIcons.ambrosiaLoadoutsHeader[slotNumber],
+      blueberryIconImage
+    )
+  }
+}
+
 export const updateHeaderLoadouts = () => {
   const layout = currentLayout()
 
   if (editing || !layout.hidden.includes('corruptionLoadoutsHeader')) {
-    const saves = player.corruptions.saves.saves
-    const slots = loadoutSlots(
-      'corruptionLoadoutsHeaderSlots',
-      Math.min(saves.length, getUnlockedCorruptionLoadoutCount()),
-      (slot) => corruptionLoadLoadout(slot - 1)
-    )
-    const maxLevel = maxCorruptionLevel()
-    for (let index = 0; index < slots.length; index++) {
-      const slot = slots[index]
-      const { name, loadout } = saves[index]
-      if (slot.getAttribute('title') !== name) {
-        slot.setAttribute('title', name)
-      }
-      slot.classList.toggle(
-        'headerLoadoutActive',
-        corruptionLoadoutMatches(loadout.loadout, player.corruptions.used.loadout, maxLevel)
-      )
-      slot.classList.toggle(
-        'headerLoadoutNext',
-        corruptionLoadoutMatches(loadout.loadout, player.corruptions.next.loadout, maxLevel)
-      )
-      setLoadoutSlotIcon(slot, index + 1, layout.loadoutIcons.corruptionLoadoutsHeader[index + 1], corruptionIconSrc)
-    }
+    updateCorruptionLoadoutSlots(layout, 'corruptionLoadoutsHeaderSlots', 1, corruptionLoadoutCount())
+  }
+
+  if (editing || !layout.hidden.includes('corruptionLoadoutPageHeader')) {
+    const { first, last } = loadoutPageRange(layout, 'corruptionLoadoutPageHeader', corruptionLoadoutCount())
+    updateCorruptionLoadoutSlots(layout, 'corruptionLoadoutPageHeaderSlots', first, last)
   }
 
   if (editing || !layout.hidden.includes('ambrosiaLoadoutsHeader')) {
-    const slots = loadoutSlots(
-      'ambrosiaLoadoutsHeaderSlots',
-      getUnlockedBlueberryLoadoutCount(),
-      loadBlueberryLoadout
-    )
-    for (let index = 0; index < slots.length; index++) {
-      slots[index].classList.toggle('headerLoadoutActive', index + 1 === lastBlueberryLoadout)
-      setLoadoutSlotIcon(
-        slots[index],
-        index + 1,
-        layout.loadoutIcons.ambrosiaLoadoutsHeader[index + 1],
-        blueberryIconSrc
-      )
-    }
+    updateBlueberryLoadoutSlots(layout, 'ambrosiaLoadoutsHeaderSlots', 1, getUnlockedBlueberryLoadoutCount())
+  }
+
+  if (editing || !layout.hidden.includes('ambrosiaLoadoutPageHeader')) {
+    const { first, last } = loadoutPageRange(layout, 'ambrosiaLoadoutPageHeader', getUnlockedBlueberryLoadoutCount())
+    updateBlueberryLoadoutSlots(layout, 'ambrosiaLoadoutPageHeaderSlots', first, last)
   }
 }
 
@@ -736,6 +859,7 @@ const enterEditMode = () => {
   }
 
   editing = true
+  editingSince = performance.now()
   CloseModal()
 
   for (const element of document.querySelectorAll<HTMLElement>('.headerProgress')) {
@@ -828,11 +952,11 @@ const buttonSlotRect = (rect: DOMRect, position: number) => ({
   height: rect.height
 })
 
-const wideCellRect = (index: number, rect: DOMRect) => ({
-  left: index % gridColumns() === gridColumns() - 1 ? rect.left - rect.width : rect.left,
+const wideCellRect = (index: number, span: HeaderSpan, rect: DOMRect) => ({
+  left: rect.left - rect.width * Math.max(index % gridColumns() + span.columns - gridColumns(), 0),
   top: rect.top,
-  width: rect.width * 2,
-  height: rect.height
+  width: rect.width * span.columns,
+  height: rect.height * span.rows
 })
 
 const nearestSlotElement = (regionElement: HTMLElement, x: number, y: number) => {
@@ -860,7 +984,7 @@ const nearestSlotElement = (regionElement: HTMLElement, x: number, y: number) =>
 
 const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
   const layout = currentLayout()
-  const wide = !isHeaderButton(id) && sizeOf(layout, id) === 'L'
+  const span = moduleSpan(layout, id)
 
   for (const element of document.elementsFromPoint(x, y)) {
     if (element.closest('#headerTray') !== null) {
@@ -891,7 +1015,7 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
         index,
         position,
         join: isHeaderButton(id) && slot.some((member) => !layout.hidden.includes(member)) && canJoinSlot(slot, id),
-        indicator: isHeaderButton(id) ? buttonSlotRect(rect, position) : wide ? wideCellRect(index, rect) : rect
+        indicator: isHeaderButton(id) ? buttonSlotRect(rect, position) : wideCellRect(index, span, rect)
       }
     }
 
@@ -924,7 +1048,9 @@ const findDropTarget = (id: HeaderModuleId, x: number, y: number) => {
         index,
         position,
         join: false,
-        indicator: wide && cell !== null ? wideCellRect(index, cell.getBoundingClientRect()) : indicator
+        indicator: (span.columns > 1 || span.rows > 1) && cell !== null
+          ? wideCellRect(index, span, cell.getBoundingClientRect())
+          : indicator
       }
     }
 
@@ -1061,25 +1187,35 @@ const handlePointerUp = (event: PointerEvent) => {
     renderHeaderLayout()
   } else if (editing && pressedModule !== null) {
     const loadoutSlot = event.target instanceof Element
-      ? event.target.closest<HTMLElement>('.headerLoadoutSlot')
+      ? event.target.closest<HTMLElement>('.headerLoadoutSlot[data-slot]')
       : null
     if (layout.hidden.includes(pressedModule)) {
       layout.hidden = layout.hidden.filter((hiddenId) => hiddenId !== pressedModule)
-    } else if (loadoutSlot !== null && pressedModule === 'corruptionLoadoutsHeader') {
+    } else if (
+      loadoutSlot !== null
+      && (pressedModule === 'corruptionLoadoutsHeader' || pressedModule === 'corruptionLoadoutPageHeader')
+    ) {
       openLoadoutIconPicker(
         event,
         loadoutSlot,
         layout.loadoutIcons.corruptionLoadoutsHeader,
-        Object.keys(corrIcons) as Array<keyof Corruptions>,
-        corruptionIconSrc
+        [
+          ...Object.keys(corrIcons) as Array<keyof Corruptions>,
+          ...corruptionLoadoutCubeIcons,
+          ...corruptionLoadoutPlatonicIcons
+        ],
+        corruptionIconImage
       )
-    } else if (loadoutSlot !== null && pressedModule === 'ambrosiaLoadoutsHeader') {
+    } else if (
+      loadoutSlot !== null
+      && (pressedModule === 'ambrosiaLoadoutsHeader' || pressedModule === 'ambrosiaLoadoutPageHeader')
+    ) {
       openLoadoutIconPicker(
         event,
         loadoutSlot,
         layout.loadoutIcons.ambrosiaLoadoutsHeader,
         ambrosiaUpgradeNames,
-        blueberryIconSrc
+        blueberryIconImage
       )
     } else {
       selectedModule = selectedModule === pressedModule ? null : pressedModule
@@ -1174,8 +1310,22 @@ export const registerHeaderLayoutEditing = () => {
 
   DOMCacheGetOrSet('rainbowAmbrosiaHeader').addEventListener('click', () => {
     const layout = currentLayout()
-    const unlocked = rainbowAmbrosiaModuleIds.filter((id) => headerModuleUnlocks[id]())
+    const unlocked = unlockedRainbowAmbrosia()
     layout.rainbowAmbrosia = unlocked[(unlocked.indexOf(layout.rainbowAmbrosia) + 1) % unlocked.length]
     updateHeaderAmbrosia()
+  })
+
+  DOMCacheGetOrSet('octeractHeader').addEventListener('click', () => {
+    const layout = currentLayout()
+    layout.octeractPerSecond = !layout.octeractPerSecond
+    updateHeaderInfo()
+  })
+
+  DOMCacheGetOrSet('corruptionLoadoutPageHeader').addEventListener('click', (event) => {
+    cycleLoadoutPage(event, 'corruptionLoadoutPageHeader', corruptionLoadoutCount())
+  })
+
+  DOMCacheGetOrSet('ambrosiaLoadoutPageHeader').addEventListener('click', (event) => {
+    cycleLoadoutPage(event, 'ambrosiaLoadoutPageHeader', getUnlockedBlueberryLoadoutCount())
   })
 }

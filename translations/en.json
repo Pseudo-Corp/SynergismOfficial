@@ -5450,6 +5450,8 @@
     "small": "S",
     "medium": "M",
     "large": "L",
+    "xlarge": "XL",
+    "tall": "1x2",
     "size": "Module size",
     "hide": "Hide",
     "reset": "Reset Layout",
@@ -5463,6 +5465,7 @@
     "codeNext": "Next: {{time}}",
     "timeCodeMultiplier": "x{{x}}",
     "quarkBonus": "+{{x}}%",
+    "perSecond": "{{x}}/s",
     "modules": {
       "transcensionChallengeProgress": "Transcension Challenge progress",
       "reincarnationChallengeProgress": "Reincarnation Challenge progress",
@@ -5476,7 +5479,9 @@
       "achievementPoints": "Achievement Points",
       "quarkBonus": "Subscriber Quark Bonus",
       "corruptionLoadouts": "Corruption Loadouts",
-      "ambrosiaLoadouts": "Ambrosia Loadouts"
+      "ambrosiaLoadouts": "Ambrosia Loadouts",
+      "corruptionLoadoutPage": "Corruption Loadouts (8 per page, click to switch)",
+      "ambrosiaLoadoutPage": "Ambrosia Loadouts (8 per page, click to switch)"
     }
   },
   "tabs": {
@@ -8794,7 +8799,9 @@
       "move": "Move hotkeys: drag, use arrow keys, or tap for the next corner",
       "moveHint": "Drag to a corner. Swipe sideways to tuck away.",
       "dock": "Tuck hotkeys into the side of the screen",
-      "restore": "Restore hotkeys: tap or swipe inward"
+      "restore": "Restore hotkeys: tap or swipe inward",
+      "shortcutOn": "Hotkey Shortcut: ON",
+      "shortcutOff": "Hotkey Shortcut: OFF"
     },
     "names": {
       "buyAccelerators": "Buy Accelerators",

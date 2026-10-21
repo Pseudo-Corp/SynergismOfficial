@@ -13,6 +13,8 @@ import { defaultAntUpgrades } from '../Features/Ants/AntUpgrades/player/default'
 import { AntUpgrades, LAST_ANT_UPGRADE } from '../Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/structs'
 import {
+  corruptionLoadoutCubeIcons,
+  corruptionLoadoutPlatonicIcons,
   freeButtonPosition,
   HEADER_BUTTON_GROUP_CAPACITY,
   type HeaderModuleId,
@@ -22,6 +24,7 @@ import {
   isHeaderButton,
   isHeaderGridRegion,
   isHeaderProgress,
+  loadoutPageModuleIds,
   rainbowAmbrosiaModuleIds
 } from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
@@ -350,9 +353,20 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
     ).default(() => ({})),
     hidden: z.enum(headerModuleIds).array(),
     rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia),
+    octeractPerSecond: z.boolean().catch(() => blankSave.headerLayouts[layout].octeractPerSecond),
+    loadoutPages: z.record(z.enum(loadoutPageModuleIds), z.number().int().min(0)).catch(() =>
+      deepClone()(blankSave.headerLayouts[layout].loadoutPages)
+    ),
     loadoutIcons: z.lazy(() =>
       z.object({
-        corruptionLoadoutsHeader: z.partialRecord(integerStringSchema, corruptionsSchema.keyof()),
+        corruptionLoadoutsHeader: z.partialRecord(
+          integerStringSchema,
+          z.union([
+            corruptionsSchema.keyof(),
+            z.enum(corruptionLoadoutCubeIcons),
+            z.enum(corruptionLoadoutPlatonicIcons)
+          ])
+        ),
         ambrosiaLoadoutsHeader: z.partialRecord(integerStringSchema, z.enum(ambrosiaUpgradeNames))
       })
     ).catch(() => deepClone()(blankSave.headerLayouts[layout].loadoutIcons))

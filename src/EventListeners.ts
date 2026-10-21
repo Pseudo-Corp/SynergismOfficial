@@ -1620,6 +1620,12 @@ export const generateEventHandlers = () => {
     player.corruptions.used.resetCorruptions()
     player.corruptions.next.resetCorruptions()
   })
+  for (const id of ['corruptionCleanseHeader', 'corruptionCleansePageHeader']) {
+    DOMCacheGetOrSet(id).addEventListener('click', () => {
+      player.corruptions.used.resetCorruptions()
+      player.corruptions.next.resetCorruptions(true)
+    })
+  }
   DOMCacheGetOrSet('corruptionScoreProgress').addEventListener('click', cycleCorruptionScoreTarget)
   const corruptionScoreTargetButtons = [
     'corruptionTesseracts',

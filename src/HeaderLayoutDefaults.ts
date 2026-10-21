@@ -1,6 +1,27 @@
+import type { Corruptions } from './Corruptions'
 import type { HeaderLayout } from './types/Synergism'
 
-const loadoutModuleIds = ['corruptionLoadoutsHeader', 'ambrosiaLoadoutsHeader'] as const
+export const loadoutPageModuleIds = ['corruptionLoadoutPageHeader', 'ambrosiaLoadoutPageHeader'] as const
+
+export type LoadoutPageModuleId = typeof loadoutPageModuleIds[number]
+
+export const corruptionLoadoutCubeIcons = [
+  'WowCube',
+  'WowTessaract',
+  'WowHypercube',
+  'PlatonicCube',
+  'Hepteract',
+  'Octeract'
+] as const
+
+export const corruptionLoadoutPlatonicIcons = Array.from({ length: 20 }, (_, i) => `platUpg${i + 1}Image` as const)
+
+export type CorruptionLoadoutIcon =
+  | keyof Corruptions
+  | typeof corruptionLoadoutCubeIcons[number]
+  | typeof corruptionLoadoutPlatonicIcons[number]
+
+const loadoutModuleIds = ['corruptionLoadoutsHeader', 'ambrosiaLoadoutsHeader', ...loadoutPageModuleIds] as const
 
 const statModuleIds = [
   'ascCubeStats',
@@ -42,6 +63,7 @@ export const rainbowAmbrosiaModuleIds = [
   'ambrosiaHeader',
   'redAmbrosiaHeader',
   'purpleAmbrosiaHeader',
+  'purpleHoneyHeader',
   'blueberryHeader'
 ] as const
 
@@ -81,7 +103,7 @@ export const headerModuleIds = [
 
 export type HeaderModuleId = typeof headerModuleIds[number]
 
-export const headerModuleSizes = ['S', 'M', 'L'] as const
+export const headerModuleSizes = ['S', 'M', 'L', 'XL', 'Tall'] as const
 
 export type HeaderModuleSize = typeof headerModuleSizes[number]
 
@@ -134,6 +156,7 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
       'timeCodeHeader',
       'corruptionLoadoutsHeader',
       'ambrosiaLoadoutsHeader',
+      ...loadoutPageModuleIds,
       'goldenQuarkHeader',
       'octeractHeader',
       'achievementPointsHeader',
@@ -141,6 +164,11 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
       ...ambrosiaModuleIds
     ],
     rainbowAmbrosia: 'ambrosiaHeader',
+    octeractPerSecond: false,
+    loadoutPages: {
+      corruptionLoadoutPageHeader: 0,
+      ambrosiaLoadoutPageHeader: 0
+    },
     loadoutIcons: {
       corruptionLoadoutsHeader: {},
       ambrosiaLoadoutsHeader: {}
@@ -163,6 +191,10 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
     }
     grid.push(...currencySlots, ...progressSlots)
     return layout
+  }
+
+  for (const id of challengeProgressModuleIds) {
+    layout.sizes[id] = 'Tall'
   }
 
   const resetSlots = [...buttonSlots, ...progressSlots]

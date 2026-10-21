@@ -1,9 +1,12 @@
+import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../Cache/DOM'
 import { storageGetItem, storageSetItem } from '../events/storage-events'
+import { isMobile } from '../Utility'
 
 const panelCorners = ['bottom-right', 'bottom-left', 'top-left', 'top-right'] as const
 const panelMoveKeys = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'])
 const PANEL_CORNER_STORAGE_KEY = 'mobileHotkeyPanelCorner'
+const PANEL_ENABLED_STORAGE_KEY = 'mobileHotkeyPanelEnabled'
 const DRAG_THRESHOLD = 8
 const SWIPE_PROJECTION_MS = 180
 const SWIPE_VELOCITY = 0.6
@@ -48,6 +51,7 @@ export const initializeMobileHotkeyPanel = (renderActions: () => void) => {
   const restoreButton = DOMCacheGetOrSet('mobileHotkeysRestore')
   const savedCorner = storageGetItem(PANEL_CORNER_STORAGE_KEY)
   let corner: PanelCorner = panelCorners.find((value) => value === savedCorner) ?? 'bottom-right'
+  let enabled = storageGetItem(PANEL_ENABLED_STORAGE_KEY) === 'true'
   let state: PanelState = 'closed'
   let drag: PanelDrag | null = null
   let suppressClick = false
@@ -109,7 +113,7 @@ export const initializeMobileHotkeyPanel = (renderActions: () => void) => {
     const previousState = state
     state = nextState
     overlay.dataset.state = state
-    launcher.hidden = state !== 'closed'
+    launcher.hidden = !enabled || state !== 'closed'
     launcher.setAttribute('aria-expanded', `${state !== 'closed'}`)
     card.inert = state !== 'open'
     if (state === 'open' && previousState !== 'open') renderActions()
@@ -305,4 +309,26 @@ export const initializeMobileHotkeyPanel = (renderActions: () => void) => {
   const observer = new ResizeObserver(layout)
   observer.observe(card)
   setState('closed', false)
+
+  if (isMobile) {
+    const toggle = document.createElement('button')
+    toggle.type = 'button'
+    const renderToggle = () => {
+      const i18nKey = enabled ? 'hotkeys.mobile.shortcutOn' : 'hotkeys.mobile.shortcutOff'
+      toggle.setAttribute('aria-pressed', `${enabled}`)
+      toggle.setAttribute('i18n', i18nKey)
+      toggle.textContent = i18next.t(i18nKey)
+      toggle.style.border = `2px solid ${enabled ? 'green' : 'red'}`
+    }
+
+    toggle.addEventListener('click', () => {
+      enabled = !enabled
+      storageSetItem(PANEL_ENABLED_STORAGE_KEY, `${enabled}`)
+      renderToggle()
+      setState('closed', false)
+    })
+
+    renderToggle()
+    document.querySelector('.resetHotkeys')!.append(toggle)
+  }
 }

@@ -1299,9 +1299,17 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 .headerProgress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     justify-self: stretch;
+    height: 1.5lh;
     line-height: 1.2;
     text-align: center;
+}
+
+.headerProgress[hidden] {
+    visibility: hidden;
 }
 
 #transcensionChallengeProgress { color: var(--orchid-text-color); }
@@ -6409,7 +6417,6 @@ header .img,
     width: 100%;
     min-width: 1250px;
     max-width: calc((38px + 7.5em) * 4 + 40em);
-    min-height: 90px;
     margin-bottom: 5px;
     line-height: 1em;
     font-variant-numeric: tabular-nums;
@@ -6463,10 +6470,16 @@ header #redAmbrosiaHeaderDisplay,
 header #purpleAmbrosiaHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="purpleAmbrosiaHeader"] .statDisplay { color: var(--purple-text-color); }
 
+header #purpleHoneyHeaderDisplay,
+#rainbowAmbrosiaHeader[data-ambrosia="purpleHoneyHeader"] .statDisplay { color: var(--purple-text-color); }
+
 header #blueberryHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="blueberryHeader"] .statDisplay { color: var(--blueberry-text-color); }
 
-#rainbowAmbrosiaHeader {
+#rainbowAmbrosiaHeader,
+#octeractHeader,
+#corruptionLoadoutPageHeader,
+#ambrosiaLoadoutPageHeader {
     cursor: pointer;
 }
 
@@ -6514,6 +6527,10 @@ header #blueberryHeaderDisplay,
     display: none;
 }
 
+html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:not(:has(.headerModule:not(.headerModuleLocked):not([hidden]))) + .headerGrid {
+    margin-top: 5px;
+}
+
 .headerStack {
     display: flex;
     flex-direction: column;
@@ -6542,7 +6559,8 @@ header #blueberryHeaderDisplay,
     font-size: 0.75em;
 }
 
-.headerModule[data-size="L"] {
+.headerModule[data-size="L"],
+.headerModule[data-size="XL"] {
     font-size: 1.25em;
 }
 
@@ -6573,7 +6591,8 @@ header #blueberryHeaderDisplay,
     height: 12px;
 }
 
-.headerStat[data-size="L"] img {
+.headerStat[data-size="L"] img,
+.headerStat[data-size="XL"] img {
     height: 28px;
 }
 
@@ -6586,6 +6605,16 @@ header #blueberryHeaderDisplay,
 }
 
 .headerProgress.headerModule[data-size="L"] {
+    font-size: 1.5em;
+}
+
+.headerProgress.headerModule[data-size="XL"] {
+    font-size: 1.75em;
+}
+
+.headerProgress.headerModule[data-size="Tall"] {
+    height: auto;
+    contain: size;
     font-size: 1.5em;
 }
 
@@ -6613,7 +6642,7 @@ header #blueberryHeaderDisplay,
 .headerLoadoutSlots {
     display: flex;
     flex-wrap: wrap;
-    gap: 2px;
+    gap: 1px;
 }
 
 .headerLoadoutSlot {
@@ -6635,30 +6664,48 @@ header #blueberryHeaderDisplay,
     font-weight: bold;
 }
 
-#corruptionLoadoutsHeaderSlots > .headerLoadoutSlot {
+#corruptionLoadoutsHeaderSlots,
+#corruptionLoadoutPageHeaderSlots {
+    display: contents;
+}
+
+#corruptionCleanseHeader,
+#corruptionCleansePageHeader {
+    position: relative;
+    background-color: black;
+    border-color: #dc7d0b;
+}
+
+#corruptionLoadoutsHeaderSlots > .headerLoadoutSlot,
+#corruptionLoadoutPageHeaderSlots > .headerLoadoutSlot {
     background-color: #2b0808;
     border-color: #a71313;
 }
 
-#corruptionLoadoutsHeaderSlots > .headerLoadoutNext {
+#corruptionLoadoutsHeaderSlots > .headerLoadoutNext,
+#corruptionLoadoutPageHeaderSlots > .headerLoadoutNext {
     border-color: silver;
 }
 
-#corruptionLoadoutsHeaderSlots > .headerLoadoutActive {
+#corruptionLoadoutsHeaderSlots > .headerLoadoutActive,
+#corruptionLoadoutPageHeaderSlots > .headerLoadoutActive {
     background-color: #a71313;
     border-color: #ff5c5c;
 }
 
-.headerLoadoutSlot[data-icon] {
+.headerLoadoutSlot[data-icon],
+.blueberryLoadoutSlot[data-icon] {
     position: relative;
 }
 
-.headerLoadoutSlot[data-icon] > span {
+.headerLoadoutSlot[data-icon] > span,
+.blueberryLoadoutSlot[data-icon] > span {
     position: relative;
     text-shadow: 0 0 2px black, 0 0 2px black, 0 0 2px black;
 }
 
-#mainHeader .headerLoadoutSlot > img {
+#mainHeader .headerLoadoutSlot > img,
+.blueberryLoadoutSlot > img {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -6742,7 +6789,7 @@ header #blueberryHeaderDisplay,
 }
 
 #mainHeader.headerEditMode .headerProgress[hidden]:not(.headerModuleLocked) {
-    display: block;
+    visibility: visible;
     opacity: 0.6;
 }
 
@@ -7166,6 +7213,7 @@ header #blueberryHeaderDisplay,
 .resetHotkeys {
     margin-top: 15px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
 }
