@@ -6021,6 +6021,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .corruptionBreakdown {
     margin: 0 auto;
+    max-width: 100%;
     border-collapse: collapse;
     color: white;
     font-size: 0.9em;
@@ -6040,6 +6041,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .corruptionBreakdown td:first-child {
     text-align: left;
+    white-space: normal;
 }
 
 .corruptionBreakdown tr:last-child td {
@@ -6498,7 +6500,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .corruptionTierRows {
     display: grid;
-    grid-template-columns: auto auto 10em;
+    grid-template-columns: auto auto 7em auto 7em;
     align-items: center;
     gap: 2px 8px;
     width: fit-content;
@@ -6533,14 +6535,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: contents;
 }
 
-#corruptionTierGrid .corruptionTierHalf:first-child {
-    grid-template-columns: auto auto 10em;
-}
-
-#corruptionTierGrid .corruptionTierHalf:last-child {
-    grid-template-columns: auto auto 14em;
-}
-
 #corruptionTierGrid #corruptionRewardFreeLevels {
     grid-column: 1 / -1;
     max-width: 24em;
@@ -6554,14 +6548,47 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     margin: 10px 0;
 }
 
-.corruptionTierRows .corruptionStatValue {
-    white-space: nowrap;
-}
-
 .corruptionTierRows .corrDesc {
     min-width: unset;
     margin: 0;
     text-align: left;
+}
+
+.corruptionTierRows .corruptionStatRow > img {
+    grid-column: 1;
+}
+
+.corruptionTierRows .corruptionStatName {
+    grid-column: 2;
+}
+
+.corruptionTierRows .corruptionStatCurr {
+    grid-column: 3;
+    text-align: right;
+    white-space: nowrap;
+    color: silver;
+}
+
+.corruptionTierRows .corruptionStatArrow {
+    grid-column: 4;
+    color: silver;
+}
+
+.corruptionTierRows .corruptionStatNext {
+    grid-column: 5;
+    white-space: nowrap;
+    color: gold;
+}
+
+.corruptionTierRows .corruptionStatCentered {
+    grid-column: 3 / -1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.corruptionLevelSame .corruptionStatCurr,
+.corruptionLevelSame .corruptionStatArrow {
+    visibility: hidden;
 }
 
 #corruptionTierCubeRows .corruptionStatRow > img,
@@ -12871,9 +12898,8 @@ html[data-mobile="true"] .hideOnMobile {
         row-gap: 10px;
     }
 
-    #corruptionTierGrid .corruptionTierHalf:first-child,
-    #corruptionTierGrid .corruptionTierHalf:last-child {
-        grid-template-columns: auto minmax(0, 1fr) auto;
+    #corruptionTierGrid .corruptionTierHalf {
+        grid-template-columns: auto minmax(0, 1fr) 7em auto 7em;
         width: 100%;
     }
 

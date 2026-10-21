@@ -56,12 +56,12 @@ const cubeBaseCost = [
 
 // dprint-ignore
 const cubeMaxLevel = [
-  3, 10, 5, 1, 1, 1, 1, 1, 1, 1,
-  3, 10, 1, 10, 10, 10, 5, 1, 1, 1,
-  5, 10, 1, 10, 10, 10, 1, 1, 5, 1,
-  5, 1, 1, 10, 10, 10, 10, 1, 1, 10,
-  5, 10, 10, 10, 10, 20, 1, 1, 1, 100000,
-  1, 900, 100, 900, 900, 20, 1, 1, 400, 10000,
+  10, 10, 5, 1, 1, 1, 1, 1, 1, 1,
+  10, 10, 1, 10, 10, 10, 5, 1, 1, 1,
+  10, 10, 1, 10, 10, 10, 1, 1, 5, 1,
+  10, 1, 1, 10, 10, 10, 10, 1, 1, 10,
+  10, 10, 10, 10, 10, 20, 1, 1, 1, 100000,
+  1, 900, 100, 900, 900, 20, 3, 1, 400, 10000,
   100, 1, 1, 1, 1, 1, 1, 1000, 1, 1,
   1, 1, 5, 1, 30, 2, 25, 30, 1, 1
 ]
@@ -97,8 +97,8 @@ const getCubeCost = (i: number, buyMax: boolean): IMultiBuy => {
 const getCubeMax = (i: number) => {
   let baseValue = cubeMaxLevel[i - 1]
 
-  if (player.cubeUpgrades[57] > 0 && i < 50 && i % 10 === 1) {
-    baseValue += 1
+  if (i < 50 && i % 10 === 1) {
+    baseValue += player.cubeUpgrades[57]
   }
 
   return baseValue

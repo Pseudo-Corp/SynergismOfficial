@@ -8,7 +8,7 @@ import {
   calculateGoldenQuarkCost,
   calculateImmaculateAlchemyBonus
 } from './Calculate'
-import { updateMaxTokens, updateTokens } from './Campaign'
+import { updateTokens } from './Campaign'
 import { activeCorruptionLevel } from './Corruptions'
 import { addCodeAvailableUses, addCodeMaxUses } from './ImportExport'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
@@ -82,11 +82,11 @@ type GoldenQuarkUpgradeRewards = {
   }
   advancedPack: {
     packQuarkAdd: number
-    corruptionScoreIncrease: number
+    cubesBanked: number
   }
   expertPack: {
     packQuarkAdd: number
-    ascensionScoreMult: number
+    freeCorruptionLevels: number
     addCodeAscensionTimeMult: number
   }
   masterPack: {
@@ -1037,16 +1037,16 @@ export const goldenQuarkUpgrades: {
     minimumSingularity: 9,
     specialCostForm: 'Default',
     effect: (n, key) => {
-      if (key === 'corruptionScoreIncrease') {
-        return n > 0 ? 0.33 : 0
+      if (key === 'cubesBanked') {
+        return n > 0 ? 500 : 0
       } else {
         return n > 0 ? 0.04 : 0 // packQuarkAdd
       }
     },
     effectDescription: () => {
-      const corruptionScoreIncrease = getGQUpgradeEffect('advancedPack', 'corruptionScoreIncrease')
+      const cubesBanked = getGQUpgradeEffect('advancedPack', 'cubesBanked')
       return i18next.t(
-        `singularity.data.advancedPack.effect${corruptionScoreIncrease > 0 ? 'Have' : 'HaveNot'}`
+        `singularity.data.advancedPack.effect${cubesBanked > 0 ? 'Have' : 'HaveNot'}`
       )
     },
     name: () => i18next.t('singularity.data.advancedPack.name'),
@@ -1063,8 +1063,8 @@ export const goldenQuarkUpgrades: {
     effect: (n, key) => {
       if (key === 'addCodeAscensionTimeMult') {
         return n > 0 ? 1.2 : 1
-      } else if (key === 'ascensionScoreMult') {
-        return n > 0 ? 1.2 : 1
+      } else if (key === 'freeCorruptionLevels') {
+        return n > 0 ? 1 : 0
       } else {
         return n > 0 ? 0.06 : 0 // packQuarkAdd
       }
@@ -1115,9 +1115,7 @@ export const goldenQuarkUpgrades: {
         if (n === 0) {
           return 1
         } else {
-          const level = activeCorruptionLevel()
-          const perCorruption = level >= 45 ? 1.4 : level >= 40 ? 1.3 : level >= 35 ? 1.25 : 1
-          return Math.pow(perCorruption, 8)
+          return Math.pow(1.3, Math.min(10, Math.max(0, activeCorruptionLevel() - 35)))
         }
       } else {
         return n > 0 ? 0.1 : 0 // packQuarkAdd
@@ -2961,7 +2959,6 @@ export async function buyGQUpgradeLevel (
   updateSingularityPenalties()
   updateSingularityPerks()
   updateTokens()
-  updateMaxTokens()
   revealStuff()
 }
 

@@ -19,7 +19,7 @@ import {
   calculateOfferings,
   calculatePowderConversion
 } from './Calculate'
-import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateMaxTokens, updateTokens } from './Campaign'
+import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateTokens } from './Campaign'
 import { challengeRequirement, resetChallengeSweep } from './Challenges'
 import {
   ascensionCorruptionLevel,
@@ -1295,7 +1295,6 @@ export const singularity = (setSingNumber = -1) => {
   player.promoCodeTiming.time = Math.max(savePromoCodeTime, DateNow())
 
   updateTokens()
-  updateMaxTokens()
   campaignTokenRewardHTMLUpdate()
   corruptionStatsUpdate()
   renderAutoAscendRules()

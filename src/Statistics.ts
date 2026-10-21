@@ -33,10 +33,10 @@ import {
   calculateConstruction,
   calculateCookieUpgrade29Luck,
   calculateCubeBank,
+  calculateCubeBankSources,
   calculateCubeMultFromPowder,
   calculateCubeMultiplier,
   calculateCubeMultiplierWithTau,
-  calculateCubeUpgradeCubeGain,
   calculateDilatedFiveLeafBonus,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
@@ -112,6 +112,7 @@ import {
   corruptionCubeRate,
   type CorruptionCubeType,
   corruptionEffect,
+  corruptionFreeLevels,
   effectiveCorruptionLevel,
   isCorruptionCubeUnlocked
 } from './Corruptions'
@@ -319,22 +320,6 @@ const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
 
 const cubeGainSourceLines = [
   {
-    i18n: 'FiniteDescent',
-    stat: () => getRuneEffects('finiteDescent', 'ascensionScore')
-  },
-  {
-    i18n: 'CubeUpgrades',
-    stat: () => calculateCubeUpgradeCubeGain()
-  },
-  {
-    i18n: 'CorruptionAchievements',
-    stat: () => +getAchievementReward('ascensionScore')
-  },
-  {
-    i18n: 'ExpertPack',
-    stat: () => getGQUpgradeEffect('expertPack', 'ascensionScoreMult')
-  },
-  {
     i18n: 'EventCubeGain',
     stat: () => calculateEventCubeGain(),
     color: 'lime'
@@ -367,10 +352,6 @@ export const allCubeStats: NumberStatLineCategory = {
           return penalty
         }
       }
-    },
-    {
-      i18n: 'CampaignTutorial',
-      stat: () => campaignTokenBonuses.tutorial().cubeBonus
     },
     {
       i18n: 'Campaign',
@@ -605,8 +586,8 @@ export const allWowCubeStats: NumberStatLineCategory = {
     {
       i18n: 'CubeUpgrades',
       stat: () =>
-        (1 + player.cubeUpgrades[1] / 6) // 1x1
-        * (1 + player.cubeUpgrades[11] / 11) // 2x1
+        (1 + 0.04 * player.cubeUpgrades[1]) // 1x1
+        * (1 + 0.04 * player.cubeUpgrades[11]) // 2x1
         * (1 + 0.4 * player.cubeUpgrades[30]) // 3x10
     },
     {
@@ -4297,6 +4278,129 @@ export const ascensionCountMultStats: NumberStatLineCategory = {
   ]
 }
 
+const cubeBankStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  acc: 1,
+  lines: [
+    {
+      i18n: 'TranscensionChallenges',
+      stat: () => calculateCubeBankSources().transcensionChallenges.reduce((total, tier) => total + tier.amount, 0),
+      acc: 1
+    },
+    {
+      i18n: 'ReincarnationChallenges',
+      stat: () => calculateCubeBankSources().reincarnationChallenges.amount,
+      acc: 1
+    },
+    {
+      i18n: 'Ants',
+      stat: () => calculateCubeBankSources().ants,
+      acc: 1
+    },
+    {
+      i18n: 'CubeUpgrades',
+      stat: () => calculateCubeBankSources().cubeUpgrades,
+      acc: 1
+    },
+    {
+      i18n: 'FiniteDescent',
+      stat: () => calculateCubeBankSources().finiteDescent,
+      acc: 1
+    },
+    {
+      i18n: 'Achievements',
+      stat: () => calculateCubeBankSources().achievements,
+      acc: 1
+    },
+    {
+      i18n: 'AdvancedPack',
+      stat: () => calculateCubeBankSources().advancedPack,
+      acc: 1
+    }
+  ]
+}
+
+const cubeBankMultiplierStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  acc: 1,
+  lines: [
+    {
+      i18n: 'ChallengeTen',
+      stat: () => calculateCubeBankSources().challengeTen.multiplier
+    }
+  ]
+}
+
+export const freeCorruptionLevelStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Addition,
+  acc: 2,
+  lines: [
+    {
+      i18n: 'PlatonicALPHA',
+      stat: () => player.platonicUpgrades[5] > 0 ? 1 : 0,
+      acc: 2
+    },
+    {
+      i18n: 'PlatonicBETA',
+      stat: () => player.platonicUpgrades[10] > 0 ? 1 : 0,
+      acc: 2
+    },
+    {
+      i18n: 'PlatonicUpgrade4x2',
+      stat: () => 0.2 * player.platonicUpgrades[17],
+      acc: 2
+    },
+    {
+      i18n: 'CorruptionFourteen',
+      stat: () => getGQUpgradeEffect('corruptionFourteen', 'unlocked') ? 1 : 0,
+      acc: 2
+    },
+    {
+      i18n: 'CorruptionFifteen',
+      stat: () => getGQUpgradeEffect('corruptionFifteen', 'freeCorruptionLevel'),
+      acc: 2
+    },
+    {
+      i18n: 'ExpertPack',
+      stat: () => getGQUpgradeEffect('expertPack', 'freeCorruptionLevels'),
+      acc: 2
+    },
+    {
+      i18n: 'MasterPack',
+      stat: () => getGQUpgradeEffect('masterPack', 'freeCorruptionLevels'),
+      acc: 2
+    },
+    {
+      i18n: 'OcteractCorruption',
+      stat: () => 0.5 * getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease'),
+      acc: 2
+    },
+    {
+      i18n: 'OneChallengeCap',
+      stat: () => getSingularityChallengeEffect('oneChallengeCap', 'freeCorruptionLevel'),
+      acc: 2
+    },
+    {
+      i18n: 'CubeUpgradeCx24',
+      stat: () => player.cubeUpgrades[74],
+      acc: 2
+    },
+    {
+      i18n: 'CookieGrandma',
+      stat: () => getTalismanEffects('cookieGrandma').freeCorruptionLevel,
+      acc: 2
+    },
+    {
+      i18n: 'FiniteDescent',
+      stat: () => getRuneEffects('finiteDescent', 'corruptionFreeLevels'),
+      acc: 2
+    }
+  ]
+}
+
 /**
  * This is different from 'Purple Ambrosia Generation', by the way.
  * "Purple" is the base resource used for Purple Ambrosia stuff.
@@ -4977,6 +5081,8 @@ const associated = new Map<string, string>([
   ['kOctMult', 'octeractMultiplierStats'],
   ['kASCMult', 'ascensionSpeedMultiplierStats'],
   ['kACountMult', 'ascensionCountMultiplierStats'],
+  ['kCubeBank', 'cubeBankStats'],
+  ['kFreeCorruptionLevels', 'freeCorruptionLevelStats'],
   ['kGQMult', 'goldenQuarkMultiplierStats'],
   ['kGQCost', 'goldenQuarkPurchaseCostStats'],
   ['kAddStats', 'addCodeStats'],
@@ -5115,6 +5221,12 @@ export const loadStatisticsUpdate = (statsId?: string) => {
       case 'ascensionCountMultiplierStats':
         loadStatisticsAscensionCountMultiplierStats()
         break
+      case 'freeCorruptionLevelStats':
+        loadStatisticsFreeCorruptionLevelStats()
+        break
+      case 'cubeBankStats':
+        loadStatisticsCubeBankStats()
+        break
       case 'goldenQuarkMultiplierStats':
         loadStatisticsGoldenQuarkMultipliers()
         break
@@ -5240,9 +5352,7 @@ const loadStatistics = (
     if (displayLine || !PROD) {
       statLine.style.display = 'block'
       statLine.style.backgroundColor = backgroundColors[numberDisplayedLines % backgroundColors.length]
-      if (!displayLine) {
-        statLine.style.border = '1px solid red'
-      }
+      statLine.style.border = displayLine ? '' : '1px solid red'
       numberDisplayedLines++
       const accuracy = line.acc ?? 3
       statNumber.textContent = line.format?.(num) ?? format(num, accuracy, true)
@@ -5881,6 +5991,34 @@ const loadStatisticsAscensionCountMultiplierStats = () => {
     'statACM',
     'AscensionCountMultStat',
     calculateAscensionCount
+  )
+}
+
+const loadStatisticsCubeBankStats = () => {
+  loadStatistics(
+    cubeBankStats,
+    'cubeBankStats',
+    'statCB',
+    'CubeBankStat',
+    () => calculateTotalStat(cubeBankStats)
+  )
+  loadStatistics(
+    cubeBankMultiplierStats,
+    'cubeBankStats',
+    'statCB2',
+    'CubeBankStat2',
+    calculateCubeBank,
+    'Total2'
+  )
+}
+
+const loadStatisticsFreeCorruptionLevelStats = () => {
+  loadStatistics(
+    freeCorruptionLevelStats,
+    'freeCorruptionLevelStats',
+    'statFCL',
+    'FreeCorruptionLevelStat',
+    corruptionFreeLevels
   )
 }
 

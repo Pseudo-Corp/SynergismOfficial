@@ -261,7 +261,7 @@ type AchievementRewards =
   | 'wowPlatonicGain'
   | 'quarkGain'
   | 'wowHepteractGain'
-  | 'ascensionScore'
+  | 'cubesBanked'
   | 'constUpgrade1Buff'
   | 'constUpgrade2Buff'
   | 'platonicToHypercubes'
@@ -1897,7 +1897,7 @@ const achievements: Achievement[] = [
     pointValue: 70,
     unlockCondition: () => activeCorruptionLevel() >= 45,
     group: 'ascensionScore',
-    reward: { ascensionScore: () => Math.pow(1.004, player.hepteracts.abyss.TIMES_CAP_EXTENDED) },
+    reward: { cubesBanked: () => 50 * player.hepteracts.abyss.TIMES_CAP_EXTENDED },
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_2'
   },
   {
@@ -1942,7 +1942,7 @@ const achievements: Achievement[] = [
     pointValue: 40,
     unlockCondition: () => player.ascendShards.gte(G.d1e1000),
     group: 'constant',
-    reward: { ascensionScore: () => Math.pow(1 + Math.min(Decimal.log(player.ascendShards.add(1), 10) / 1e5, 1), 0.4) }
+    reward: { cubesBanked: () => Math.min(2000, Math.floor(Decimal.log(player.ascendShards.add(1), 10) / 50)) }
   },
   { pointValue: 45, unlockCondition: () => player.ascendShards.gte(G.d1e5000), group: 'constant' },
   { pointValue: 50, unlockCondition: () => player.ascendShards.gte(G.d1e15000), group: 'constant' },
@@ -3461,10 +3461,10 @@ const achRewards: Record<AchievementRewards, () => number | boolean> = {
       1
     )
   },
-  ascensionScore: (): number => {
-    return achievementsByReward.ascensionScore.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.ascensionScore!() : 1),
-      1
+  cubesBanked: (): number => {
+    return achievementsByReward.cubesBanked.reduce(
+      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.cubesBanked!() : 0),
+      0
     )
   },
   ascensionRewardScaling: (): boolean => {

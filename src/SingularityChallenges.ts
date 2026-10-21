@@ -29,7 +29,6 @@ export type SingularityChallengeRewards = {
     shopUpgrade2: boolean
   }
   oneChallengeCap: {
-    corrScoreIncrease: number
     blueberrySpeedMult: number
     capIncrease: number
     freeCorruptionLevel: number
@@ -450,14 +449,12 @@ export const singularityChallengeData: {
     scalingrewardcount: 3,
     uniquerewardcount: 4,
     effect: (n, key) => {
-      if (key === 'corrScoreIncrease') {
-        return 0.05 * n
-      } else if (key === 'blueberrySpeedMult') {
+      if (key === 'blueberrySpeedMult') {
         return (1 + n / 60)
       } else if (key === 'capIncrease') {
         return 3 * +(n > 0)
       } else if (key === 'freeCorruptionLevel') {
-        return +(n >= 12)
+        return n >= 1 ? 1 + 0.2 * n : 0
       } else if (key === 'shopUpgrade') {
         return n >= 12
       } else if (key === 'reinCapIncrease2') {

@@ -2324,9 +2324,12 @@
                     <button id="corrTokensBtn" i18n="corruptions.corrTokensBtn"></button>
                     <button id="corrAutoAscendBtn" i18n="corruptions.corrAutoAscendBtn"></button>
                 </span>
-                <p id="corrClickInfo" i18n="corruptions.clickInfo"></p>
                 <div id="corruptionTierSelected">
+                    <p id="corruptionTierLevel" class="corrDesc"></p>
+                    <p id="corruptionLevelOverwritten" class="corrDesc"></p>
+                    <p id="corruptionHighestCleared" class="corrDesc"></p>
                     <div id="corruptionLevelControls" class="flex row center">
+                        <button id="corruptionLevelMin" class="corruptionReset">0</button>
                         <button id="corruptionLevelDown10" class="corruptionReset">-10</button>
                         <button id="corruptionLevelDown1" class="corruptionDown">-1</button>
                         <input id="corruptionLevelInput" type="number" min="0" step="1" i18n-aria-label="corruptions.tiers.levelInput">
@@ -2334,12 +2337,10 @@
                         <button id="corruptionLevelUp10" class="corruptionMax">+10</button>
                         <button id="corruptionLevelMax" class="corruptionMax" i18n="corruptions.max"></button>
                     </div>
-                    <p id="corruptionHighestCleared" class="corrDesc"></p>
                     <p id="corruptionLevelCap" class="corrDesc"></p>
-                    <p id="corruptionTierLevel" class="corrDesc"></p>
-                    <p id="corruptionLevelOverwritten" class="corrDesc"></p>
                 </div>
                 <div id="corruptionStats" class="corruptionContainer">
+                    <p id="corrClickInfo" i18n="corruptions.clickInfo"></p>
                     <div id="corruptionTierGrid">
                         <div class="corruptionTierHalf corruptionTierRows">
                             <p id="corruptionTierEffectsHeading" class="corrDesc corruptionTierHeading"></p>
@@ -2617,6 +2618,8 @@
                     <button class="statsNerds chal9" id="kTalismanRuneBonusMult" style="border: 2px solid green" i18n="statistics.subtabs.talismanRuneBonusMult"></button>
                     <button class="statsNerds ascendunlock" id="kASCMult" style="border: 2px solid orange" i18n="statistics.subtabs.ascMult"></button>
                     <button class="statsNerds ascendunlock" id="kACountMult" style="border: 2px solid orange" i18n="statistics.subtabs.ascCountMult"></button>
+                    <button class="statsNerds ascendunlock" id="kFreeCorruptionLevels" style="border: 2px solid orange" i18n="statistics.subtabs.freeCorruptionLevels"></button>
+                    <button class="statsNerds ascendunlock" id="kCubeBank" style="border: 2px solid khaki" i18n="statistics.subtabs.cubeBank"></button>
                     <button class="statsNerds ascendunlock" id="kGlobalCubeMult" style="border: 2px solid khaki" i18n="statistics.subtabs.globalCubeMult"></button>
                     <button class="statsNerds ascendunlock" id="kCubeMult" style="border: 2px solid darkgoldenrod" i18n="statistics.subtabs.cubeMult"></button>
                     <button class="statsNerds ascendunlock" id="kTessMult" style="border: 2px solid honeydew" i18n="statistics.subtabs.tessMult"></button>
@@ -2787,6 +2790,14 @@
 
                 <div id="ascensionCountMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
                     <p id="acmStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;" i18n="statistics.ascensionCountMultiplierStats.title"></p>
+                </div>
+
+                <div id="freeCorruptionLevelStats" class="statContainer" style="display: none;" aria-live="polite">
+                    <p id="fclStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;" i18n="statistics.freeCorruptionLevelStats.title"></p>
+                </div>
+
+                <div id="cubeBankStats" class="statContainer" style="display: none;" aria-live="polite">
+                    <p id="cbStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em;" i18n="statistics.cubeBankStats.title"></p>
                 </div>
 
                 <div id="globalCubeMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">

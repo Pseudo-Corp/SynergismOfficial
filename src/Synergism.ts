@@ -174,12 +174,7 @@ import {
   updateBlueberryLoadoutCount
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import {
-  campaignTokenRewardHTMLUpdate,
-  createCampaignTokenRewardEventHandlers,
-  updateMaxTokens,
-  updateTokens
-} from './Campaign'
+import { campaignTokenRewardHTMLUpdate, createCampaignTokenRewardEventHandlers, updateTokens } from './Campaign'
 import { lastUpdated, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
@@ -991,7 +986,7 @@ export const player: Player = {
     next: 0,
     used: 0,
     ascensionLevel: 0,
-    tokenCompletions: Array.from({ length: 46 }, () => 0),
+    tokenCompletions: [0],
     highestCleared: 0,
     autoIncrease: false,
     cleanseToHighest: false
@@ -4467,7 +4462,6 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   renderAutoAscendRules()
 
   updateTokens()
-  updateMaxTokens()
   refundOvercapResearches()
   updateShopLevels()
 

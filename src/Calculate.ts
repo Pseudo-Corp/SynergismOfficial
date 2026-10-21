@@ -33,6 +33,7 @@ import {
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
+import { getRuneEffects } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -1309,11 +1310,6 @@ export const calculateCubicSumData = (
     own function (specifically: calc of effective score and other global multipliers) to make it easy.
 */
 
-export const calculateCubeUpgradeCubeGain = () => {
-  return (1 + 0.02 * player.cubeUpgrades[21]) * (1 + 0.02 * player.cubeUpgrades[31])
-    * (1 + 0.02 * player.cubeUpgrades[41])
-}
-
 export const calculateEventCubeGain = () => {
   return G.isEvent ? Math.pow(1 + calculateEventBuff(BuffType.AscensionScore), 0.4) : 1
 }
@@ -1330,6 +1326,9 @@ export const transcensionChallengeCubeBankPerCompletion = () => 1 + 0.05 * playe
 
 export const reincarnationChallengeCubeBankPerCompletion = 10
 
+export const cubeUpgradeCubeBankAmount = () =>
+  15 * player.cubeUpgrades[21] + 20 * player.cubeUpgrades[31] + 25 * player.cubeUpgrades[41]
+
 export const challengeTenCubeBankMultiplier = () => 1.02 + 0.005 * player.cubeUpgrades[39]
 
 export const calculateCubeBankSources = () => {
@@ -1345,6 +1344,10 @@ export const calculateCubeBankSources = () => {
   return {
     transcensionChallenges,
     ants: getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked,
+    cubeUpgrades: cubeUpgradeCubeBankAmount(),
+    finiteDescent: getRuneEffects('finiteDescent', 'cubesBanked'),
+    achievements: +getAchievementReward('cubesBanked'),
+    advancedPack: getGQUpgradeEffect('advancedPack', 'cubesBanked'),
     reincarnationChallenges: {
       completions: reincarnationCompletions,
       amount: reincarnationChallengeCubeBankPerCompletion * reincarnationCompletions
@@ -1357,9 +1360,20 @@ export const calculateCubeBankSources = () => {
 }
 
 export const calculateCubeBank = () => {
-  const { transcensionChallenges, ants, reincarnationChallenges, challengeTen } = calculateCubeBankSources()
+  const {
+    transcensionChallenges,
+    ants,
+    cubeUpgrades,
+    finiteDescent,
+    achievements,
+    advancedPack,
+    reincarnationChallenges,
+    challengeTen
+  } = calculateCubeBankSources()
   const transcensionAmount = transcensionChallenges.reduce((total, tier) => total + tier.amount, 0)
-  return (transcensionAmount + reincarnationChallenges.amount + ants) * challengeTen.multiplier
+  return (transcensionAmount + reincarnationChallenges.amount + ants + cubeUpgrades + finiteDescent + achievements
+    + advancedPack)
+    * challengeTen.multiplier
 }
 
 export const CalcCorruptionStuff = () => {

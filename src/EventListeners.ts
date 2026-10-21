@@ -367,6 +367,8 @@ const mobileStatsIconConfig: Record<string, string> = {
   kTalismanRuneBonusMult: 'Pictures/Stats for Nerds Icons/Categories/TalismanPower.png',
   kASCMult: 'Pictures/Stats for Nerds Icons/Categories/AscensionSpeedMultiplier.png',
   kACountMult: 'Pictures/Stats for Nerds Icons/Categories/AscensionCountMultiplier.png',
+  kFreeCorruptionLevels: 'Pictures/Stats for Nerds Icons/Categories/AscensionCountMultiplier.png',
+  kCubeBank: 'Pictures/Stats for Nerds Icons/Categories/GlobalCubeMultiplier.png',
   kGlobalCubeMult: 'Pictures/Stats for Nerds Icons/Categories/GlobalCubeMultiplier.png',
   kCubeMult: 'Pictures/Stats for Nerds Icons/Categories/CubeMultiplier.png',
   kTessMult: 'Pictures/Stats for Nerds Icons/Categories/TesseractMultiplier.png',
@@ -1620,6 +1622,7 @@ export const generateEventHandlers = () => {
   for (const [id, delta] of corruptionLevelSteps) {
     DOMCacheGetOrSet(id).addEventListener('click', () => changeNextCorruptionLevel(delta))
   }
+  DOMCacheGetOrSet('corruptionLevelMin').addEventListener('click', () => setNextCorruptionLevel(0))
   DOMCacheGetOrSet('corruptionLevelMax').addEventListener('click', () => maxNextCorruptionLevel())
   DOMCacheGetOrSet('corruptionLevelInput').addEventListener('change', (event) => {
     setNextCorruptionLevel(Number((event.target as HTMLInputElement).value))

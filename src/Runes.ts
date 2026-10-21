@@ -72,7 +72,7 @@ type RuneTypeMap = {
     purpleHoneyLuck: number
   }
   finiteDescent: {
-    ascensionScore: number
+    cubesBanked: number
     corruptionFreeLevels: number
     infiniteAscentFreeLevel: number
   }
@@ -733,28 +733,28 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     ignoreChal9: true,
     levelsPerOOMIncrease: () => 0,
     effects: (n, key) => {
-      if (key === 'ascensionScore') {
-        return n >= 1 ? Math.pow(1.04 + 0.96 * (n - 1) / (n + 25), 0.4) : 1
+      if (key === 'cubesBanked') {
+        return n >= 1 ? Math.round(40 + 960 * (n - 1) / (n + 25)) : 0
       } else if (key === 'corruptionFreeLevels') {
-        return n >= 1 ? (1 + 14 * (n - 1) / (n + 16)) / 75 : 0
+        return 0.01 * Math.min(n, 100)
       } else {
         return Math.floor(n / 2) // infiniteAscentFreeLevel
       }
     },
     effectsDescription: () => {
       const corruptionFreeLevels = getRuneEffects('finiteDescent', 'corruptionFreeLevels')
-      const ascensionScore = getRuneEffects('finiteDescent', 'ascensionScore')
+      const cubesBanked = getRuneEffects('finiteDescent', 'cubesBanked')
       const infiniteAscentFreeLevel = getRuneEffects('finiteDescent', 'infiniteAscentFreeLevel')
       const corruptionFreeLevelsText = i18next.t('runes.finiteDescent.corruptionLevels', {
         val: format(corruptionFreeLevels, 3, true)
       })
-      const ascensionScoreText = i18next.t('runes.finiteDescent.ascensionScore', {
-        val: formatAsPercentIncrease(ascensionScore, 3)
+      const cubesBankedText = i18next.t('runes.finiteDescent.cubesBanked', {
+        val: format(cubesBanked, 0, true)
       })
       const infiniteAscentFreeLevelText = i18next.t('runes.finiteDescent.infiniteAscentLevels', {
         val: format(infiniteAscentFreeLevel, 0, true)
       })
-      return `${corruptionFreeLevelsText}<br>${ascensionScoreText}<br>${infiniteAscentFreeLevelText}`
+      return `${corruptionFreeLevelsText}<br>${cubesBankedText}<br>${infiniteAscentFreeLevelText}`
     },
     effectiveLevelMult: () => 1,
     freeLevels: () => 0,

@@ -1977,7 +1977,7 @@
         "wowHepteractGain": "Hepteract gain xnum:((1.1))"
       },
       "259": {
-        "ascensionScore": "Cube gain multiplier based on Abyss Hepteract expansions [xnum:((1.004)) per expansion]"
+        "cubesBanked": "Banked Cubes based on Abyss Hepteract expansions [+num:((50)) per expansion]"
       },
       "260": {
         "ascensionCountMultiplier": "Ascension Count xnum:((1.1))"
@@ -2001,7 +2001,7 @@
         "quarkGain": "Quark gain multiplier based on Ascension Count [up to xnum:((1.1)) at num:((1e15)) Ascension Count]"
       },
       "267": {
-        "ascensionScore": "Cube gain multiplier based on constants [up to xnum:((1.32)) at num:((1e100000)) Constant]"
+        "cubesBanked": "Banked Cubes based on Constant [+1 per num:((50)) Constant exponent, up to +num:((2000))]"
       },
       "270": {
         "wowHepteractGain": "Hepteract gain multiplier based on constants [up to x2 at num:((1e1000000)) Constant]",
@@ -2416,7 +2416,7 @@
       "wowHypercubeGain": "• Wow! Hypercube Gain x{{val}}",
       "wowPlatonicGain": "• Wow! Platonic Cube Gain x{{val}}",
       "wowHepteractGain": "• Wow! Hepteract Gain x{{val}}",
-      "ascensionScore": "• Cube gain x{{val}}",
+      "cubesBanked": "• Banked Cubes +{{val}}",
       "ascensionRewardScaling": "• Ascension Reward Scaling {{unlock}}",
       "constUpgrade1Buff": "• Constant Upgrade 1 Buff +{{val}}",
       "constUpgrade2Buff": "• Constant Upgrade 2 Buff +{{val}}",
@@ -3602,7 +3602,7 @@
       "80": "Wow! A Singular Cookie of the Grandma at the end of the Universe."
     },
     "upgradeDescriptions": {
-      "1": "[1x1] You got it! +num:((16.666))% 3D Cubes from Ascending per level.",
+      "1": "[1x1] You got it! +4% 3D Cubes from Ascending per level.",
       "2": "[1x2] Plutus grants you +3 Salvage per level!",
       "3": "[1x3] Athena grants you +10% more Obtainium, and +80% Auto Obtainium per level.",
       "4": "[1x4] You keep those 5 useful automation upgrades in the upgrades tab!",
@@ -3612,7 +3612,7 @@
       "8": "[1x8] Automatically buy Particle upgrades.",
       "9": "[1x9] The Research automator in shop now automatically buys cheapest when enabled. It's like a roomba kinda! <br> Like a roomba, it may backtrack in order to find cheaper Researches if they are unlocked later!",
       "10": "[1x10] Unlock some tools to automate Ascensions or whatever. Kinda expensive but cool. <br> <<gold|⚠>> You must clear Challenge 11 for this mechanic to be useful!",
-      "11": "[2x1] You got it again! +num:((9.09))% 3D Cubes from Ascending per level.",
+      "11": "[2x1] You got it again! +4% 3D Cubes from Ascending per level.",
       "12": "[2x2] Raise Building Power to the power of (1 + level * num:((0.09))).",
       "13": "[2x3] For each 20 Cubes opened at once, you get 1 additional Tribute at random.",
       "14": "[2x4] Iris shines her light on you. Each level increases the amount of Salvage she gives by 1%!",
@@ -3622,7 +3622,7 @@
       "18": "[2x8] Quantum tunnelling ftw. +20% Global Speed.",
       "19": "[2x9] Unlocks new Coin upgrades ranging from start of Ascend to after Challenge 10 and beyond.",
       "20": "[2x10] The Rune automator in shop now spends all Offerings automatically, splitting them into unlocked runes evenly. It also buys levels 20 times faster. Have fun!",
-      "21": "[3x1] Perhaps a bonus will benefit you more? Gain +2% more of every cube type per level.",
+      "21": "[3x1] Perhaps a bonus will benefit you more? Add +15 base Cubes to the Cube Bank per level.",
       "22": "[3x2] The effect of Artemis Tributes is raised to the power of (1 + level / 100).",
       "23": "[3x3] For each 20 Cubes opened at once, you get 1 additional Tribute at random.",
       "24": "[3x4] Plutus teaches you the Art of the Deal. The effect of his Tributes is raised to the power of (1 + level / 100).",
@@ -3632,7 +3632,7 @@
       "28": "[3x8] Well, I think you got it? Gain +1% of particles on Reincarnation per second.",
       "29": "[3x9] Add +4 to Reincarnation Challenge cap per level. Requirement exponents grow num:((10))x every num:((12)) completions after 25!",
       "30": "[3x10] You now get +40% Cubes and Tesseracts forever!",
-      "31": "[4x1] You again? +2% more of every cube type per level.",
+      "31": "[4x1] You again? Add +20 base Cubes to the Cube Bank per level.",
       "32": "[4x2] Gain +num:((0.1))% Rune EXP per second you have spent in an Ascension. This has no cap!",
       "33": "[4x3] For each 20 Cubes opened at once, you get yet another additional Tribute at random.",
       "34": "[4x4] Chronos overclocks the universe for your personal benefit. The effect of Chronos Tributes is raised to the power of (1 + level / 100).",
@@ -3642,7 +3642,7 @@
       "38": "[4x8] Gain +num:((1.25))% more Tesseracts on Ascension per Corruption level.",
       "39": "[4x9] Each Challenge 10 completion multiplies the Cube Bank by an extra num:((0.005)) (x1.02 → num:((1.025)))!",
       "40": "[4x10] Athena is very smart. The effect of Athena Tributes is raised to the power of (1 + level / 100).",
-      "41": "[5x1] Yeah yeah yeah, +2% of every cube type per level. Isn't it enough?",
+      "41": "[5x1] Yeah yeah yeah, +25 base Cubes to the Cube Bank per level. Isn't it enough?",
       "42": "[5x2] You now gain +4% Immaculate Obtainium per level, which is not dependent on corruptions!",
       "43": "[5x3] Gain another +3% Immaculate Obtainium per level.",
       "44": "[5x4] Blah blah blah Midas works harder. The effect of Midas Tributes is raised to the power of (1 + level / 100).",
@@ -3658,7 +3658,7 @@
       "54": "[Cx4] Pretty dry, but they suffice. Gain +1% Offerings per level.",
       "55": "[Cx5] An inventive take on the original chip cookie. Gain +1% Obtainium per level.",
       "56": "[Cx6] These are a little more exotic. Challenge 1-5 completions add +num:((0.05)) more to the Cube Bank per level.",
-      "57": "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1.",
+      "57": "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1 per level of this Cookie.",
       "58": "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by num:((1.25)).",
       "59": "[Cx9] Quite sour for a cookie. But it increases your Ascension Speed by +num:((0.25))% per level, so who is to complain?",
       "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by num:((0.003))% per level.",
@@ -3675,7 +3675,7 @@
       "71": "[Cx21] For each Talisman Rarity, multiply Obtainium gain by num:((1.04)).",
       "72": "[Cx22] For each Talisman Rarity, multiply Offering gain by num:((1.04)).",
       "73": "[Cx23] Each level adds 1 bonus level to the Infinite Ascent rune!",
-      "74": "[Cx24] Gain +num:((0.4)) free Corruption levels.",
+      "74": "[Cx24] Gain +1 free Corruption level.",
       "75": "[Cx25] Each level adds +num:((0.3))% effectiveness to most free Golden Quark upgrades per level! (additive with all other boosts; Hourglass upgrades are unaffected)",
       "76": "[Cx26] Each level gives <<lightblue|+2% Ambrosia Bar Points>> and <<red|+2% Red Bar Points>>!",
       "77": "[Cx27] Each level adds <<green | +2 +num:((0.1))% Ambrosia Luck>>!",
@@ -4309,15 +4309,15 @@
       },
       "firstClearTokens": {
         "name": "First to the Slaughter",
-        "default": "Every Corruption level's First completion bonus is increased by 10% of that level's base Challenge 10 completion cap!"
+        "default": "Every Corruption level's First completion bonus is increased by 10% of 50 completions' worth of Tokens!"
       },
       "lastClearTokens": {
         "name": "The Blessing of Finality, Corruptions",
-        "default": "Every Corruption level's Last completion bonus is increased by 20% of that level's base Challenge 10 completion cap!"
+        "default": "Every Corruption level's First completion bonus is increased by 20% of 50 completions' worth of Tokens!"
       },
       "bonusTokens": {
         "name": "More Tokens!",
-        "default": "Every Corruption level's Challenge 10 completion cap is +{{amount}}% higher, earning you more Corruption Tokens!"
+        "default": "Every Corruption level gives +{{amount}}% more Tokens from Challenge 10 completions!"
       },
       "cubeToQuark": {
         "name": "Cube to Quark Corner",
@@ -4647,15 +4647,15 @@
       },
       "corruptionFourteen": {
         "name": "Level Fourteen Corruptions",
-        "description": "Buy this to gain num:((0.2)) free Corruption levels. :)",
-        "effectHave": "You have gained num:((0.2)) free Corruption levels. {{m}}",
-        "effectHaveNot": "You have not gained num:((0.2)) free Corruption levels. {{m}}"
+        "description": "Buy this to gain +1 free Corruption level. :)",
+        "effectHave": "You have gained +1 free Corruption level. {{m}}",
+        "effectHaveNot": "You have not gained +1 free Corruption level. {{m}}"
       },
       "corruptionFifteen": {
         "name": "Level Fifteen Corruptions",
-        "description": "This doesn't *really* raise the Corruption limit. Rather, it adds num:((0.4)) FREE Corruption levels, no matter what (can exceed caps). :)",
-        "effectHave": "You have gained num:((0.4)) free Corruption levels. {{m}}",
-        "effectHaveNot": "You have not gained num:((0.4)) free Corruption levels. {{m}}"
+        "description": "This doesn't *really* raise the Corruption limit. Rather, it adds +1 FREE Corruption level, no matter what (can exceed caps). :)",
+        "effectHave": "You have gained +1 free Corruption level. {{m}}",
+        "effectHaveNot": "You have not gained +1 free Corruption level. {{m}}"
       },
       "singOfferings1": {
         "name": "Offering Charge",
@@ -4736,13 +4736,13 @@
       },
       "advancedPack": {
         "name": "Advanced Pack",
-        "description": "Now we're cooking with kerosene! Gain +4% Quarks, additive with intermediate pack, and +num:((0.4)) free Corruption levels!",
+        "description": "Now we're cooking with kerosene! Gain +4% Quarks, additive with intermediate pack, and +num:((500)) Banked Cubes!",
         "effectHave": "You have bought our advanced package.",
         "effectHaveNot": "You have not bought our advanced package."
       },
       "expertPack": {
         "name": "Expert Pack",
-        "description": "That's a handful! Gain +6% Quarks, additive with other packs, num:((1.2))x gain of every cube type, Code 'add' gives num:((1.2))x Ascension Timer.",
+        "description": "That's a handful! Gain +6% Quarks, additive with other packs, +1 free Corruption level, Code 'add' gives num:((1.2))x Ascension Timer.",
         "effectHave": "You have switched to the expert provider.",
         "effectHaveNot": "You have not switched to the expert provider."
       },
@@ -4754,7 +4754,7 @@
       },
       "divinePack": {
         "name": "Divine Pack",
-        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.25)) per Corruption at Corruption level 35 or higher (num:((1.3)) from level 40 and num:((1.4)) from level 45)!",
+        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 35, up to num:((10)) levels (maxed at level 45)!",
         "effectHave": "You have found the reason for existence. Current Octeract Bonus: +{{n}}",
         "effectHaveNot": "You have not found the reason for existence."
       },
@@ -4967,18 +4967,18 @@
       },
       "singBonusTokens1": {
         "name": "Spare Change on the Sofa Cushion",
-        "description": "Thanks to your perceptive eyes, you find more Corruption Tokens! Every Corruption level's First completion bonus is increased by 2% of its base Challenge 10 completion cap per level.",
-        "effect": "First completion bonus +{{n}}% of each level's base completion cap!"
+        "description": "Thanks to your perceptive eyes, you find more Corruption Tokens! Every Corruption level's First completion bonus is increased by 2% of 50 completions' worth of Tokens per level.",
+        "effect": "First completion bonus +{{n}}% of 50 completions' worth of Tokens!"
       },
       "singBonusTokens2": {
         "name": "Spare Change in the creases of the Sofa Cushions",
-        "description": "Thanks to your more perceptive eyes, you find even more Corruption Tokens! Every Corruption level's Challenge 10 completion cap is +1% higher per level.",
-        "effect": "Challenge 10 completion caps +{{n}}!"
+        "description": "Thanks to your more perceptive eyes, you find even more Corruption Tokens! Every Corruption level gives +1% more Tokens from Challenge 10 completions per level.",
+        "effect": "Tokens from Challenge 10 completions +{{n}}!"
       },
       "singBonusTokens3": {
         "name": "Spare Change under the Sofa",
-        "description": "Why do you have Tokens just lying everywhere near your Sofa? Every Corruption level's Last completion bonus is increased by 4% of its base Challenge 10 completion cap per level.",
-        "effect": "Last completion bonus +{{n}}% of each level's base completion cap!"
+        "description": "Why do you have Tokens just lying everywhere near your Sofa? Every Corruption level's First completion bonus is increased by 4% of 50 completions' worth of Tokens per level.",
+        "effect": "First completion bonus +{{n}}% of 50 completions' worth of Tokens!"
       },
       "singBonusTokens4": {
         "name": "Spare Change from the Ant God's Coffers",
@@ -5610,9 +5610,9 @@
   },
   "campaigns": {
     "tokens": {
-      "count": "You have {{ count }} / {{ maxCount }} tokens!",
+      "count": "You have {{ count }} tokens!",
       "rewardTexts": {
-        "tutorial": "For earning your first Corruption Tokens, get {{cube}} more Cubes, <<pink | {{obtainium}}>> more Obtainium, and <<orange | {{offering}}>> more Offerings!",
+        "tutorial": "For earning your first Corruption Tokens, get <<pink | {{obtainium}}>> more Obtainium and <<orange | {{offering}}>> more Offerings!",
         "cube": "Increase Cube gain by {{ reward }}",
         "obtainium": "Increase Obtainium gain by <<pink | {{ reward }}>>",
         "offering": "Increase Offering gain by <<orange | {{ reward }}>>",
@@ -5752,7 +5752,6 @@
       "unlock": "Unlocks at level {{level}} (level {{base}} minus your free levels).",
       "unlockC15": "Unlocks at level {{level}} (level {{base}} minus your free levels) and with the Challenge 15 Hepteract reward.",
       "otherMultipliers": "Excludes the Ascension time bonus. See Statistics for every source of each multiplier.",
-      "cubeBankDescription": "Every cube type is multiplied by the Cube Bank. Bank = (Challenges 1-5 + Challenges 6-9 + Ants) × Challenge 10. Challenge 1-5 completions give num:((2)) each, num:((3)) past num:((100)), num:((4)) past num:((200)) and num:((5)) past num:((300)). Challenge 6-9 completions give num:((10)) each.",
       "source": "Source",
       "completions": "Completions",
       "perCompletion": "Per completion",
@@ -5763,46 +5762,23 @@
         "transcensionChallengesFrom": "Challenges 1-5 (#{{from}}+)",
         "reincarnationChallenges": "Challenges 6-9",
         "challengeTen": "Challenge 10",
-        "ants": "Ants"
+        "ants": "Ants",
+        "cubeUpgrades": "Cube Upgrades 3x1, 4x1, 5x1",
+        "finiteDescent": "Finite Descent Rune",
+        "achievements": "Achievements",
+        "advancedPack": "Advanced Pack"
       }
     },
     "effectSummary": {
-      "construction": {
-        "change": "<<silver|÷{{curr}} →>> <<gold|÷{{next}}>>",
-        "same": "<<gold|÷{{value}}>>"
-      },
-      "viscosity": {
-        "change": "<<silver|÷{{curr}} →>> <<gold|÷{{next}}>>",
-        "same": "<<gold|÷{{value}}>>"
-      },
-      "salvage": {
-        "change": "<<silver|{{curr}} →>> <<gold|{{next}}>>",
-        "same": "<<gold|{{value}}>>"
-      },
-      "drought": {
-        "change": "<<silver|÷{{curr}} →>> <<gold|÷{{next}}>>",
-        "same": "<<gold|÷{{value}}>>"
-      },
-      "hyperchallenge": {
-        "change": "<<silver|x{{curr}} →>> <<gold|x{{next}}>>",
-        "same": "<<gold|x{{value}}>>"
-      },
-      "illiteracy": {
-        "change": "<<silver|x{{curr}} →>> <<gold|x{{next}}>>",
-        "same": "<<gold|x{{value}}>>"
-      },
-      "obtainium": {
-        "change": "<<silver|÷{{curr}} →>> <<gold|÷{{next}}>>",
-        "same": "<<gold|÷{{value}}>>"
-      },
-      "recession": {
-        "change": "<<silver|^{{curr}} →>> <<gold|^{{next}}>>",
-        "same": "<<gold|^{{value}}>>"
-      },
-      "blunders": {
-        "change": "<<silver|−{{curr}}% →>> <<gold|−{{next}}%>>",
-        "same": "<<gold|−{{value}}%>>"
-      }
+      "construction": "÷{{value}}",
+      "viscosity": "÷{{value}}",
+      "salvage": "{{value}}",
+      "drought": "÷{{value}}",
+      "hyperchallenge": "x{{value}}",
+      "illiteracy": "x{{value}}",
+      "obtainium": "÷{{value}}",
+      "recession": "^{{value}}",
+      "blunders": "−{{value}}%"
     },
     "effectNames": {
       "construction": "Construction",
@@ -5832,14 +5808,10 @@
       "freeLevels": "Rewards are moved forward <<gold|{{free}}>> levels, thanks to your Free Levels!",
       "tokens": {
         "selectLevel": "Select a level to start earning Tokens!",
-        "level": "Level {{level}} Tokens: {{earned}} / {{earnable}}",
-        "levelComplete": "<<gold|Level {{level}} Tokens: {{earned}} / {{earnable}}>>",
-        "completions": "<<gold|{{completions}}>> / {{cap}} Challenge 10 completions (+{{tokens}} Tokens)",
+        "level": "Level {{level}} Tokens: {{earned}}",
+        "completions": "<<gold|{{completions}}>> Challenge 10 completions × {{rate}} Tokens (+{{tokens}} Tokens)",
         "first": "<<gray|✗ First completion bonus: +{{amount}} Tokens>>",
-        "firstEarned": "<<lime|✓>> First completion bonus: <<lime|+{{amount}} Tokens>>",
-        "last": "<<gray|✗ Last completion bonus: +{{amount}} Tokens>>",
-        "lastEarned": "<<lime|✓>> Last completion bonus: <<lime|+{{amount}} Tokens>>",
-        "earlier": "<<lime|Eligible for up to {{tokens}} tokens from earlier levels!>>"
+        "firstEarned": "<<lime|✓>> First completion bonus: <<lime|+{{amount}} Tokens>>"
       },
       "summary": "Level {{level}}",
       "legacySummary": "Tier {{tier}}, Level {{level}}",
@@ -5856,14 +5828,9 @@
       "cubeMultipliersHeadingSame": "Cube multipliers:",
       "effectsHeading": "Corruption effects (this Ascension → next):",
       "effectsHeadingSame": "Corruption effects:",
-      "cubeMultiplier": "<<silver|x{{curr}} →>> <<gold|x{{next}}>>",
-      "cubeMultiplierSame": "<<gold|x{{value}}>>",
-      "cubeMultiplierNew": "<<silver|Locked →>> <<gold|x{{next}}>>",
-      "cubeLocked": {
-        "level": "<<gray|Unlocks at level {{level}}>>",
-        "levelFree": "<<gray|Unlocks at level {{level}} ({{base}} − {{free}} Free Levels)>>",
-        "challenge15": "<<gray|Needs C15 Hepteract reward>>"
-      },
+      "cubeValue": "x{{value}}",
+      "locked": "<<gray|Locked>>",
+      "arrow": "→",
       "cubes": {
         "cubes": "Wow! Cubes",
         "tesseracts": "Wow! Tesseracts",
@@ -6254,7 +6221,7 @@
       },
       "octeractCorruption": {
         "name": "EXTRA CHONKY Corruptions",
-        "description": "Adds num:((0.2)) free Corruption levels per level. Derpsmith approves.",
+        "description": "Adds num:((0.5)) free Corruption levels per level. Derpsmith approves.",
         "effect": "Free Corruption levels +{{n}}"
       },
       "octeractGQCostReduce": {
@@ -6325,18 +6292,18 @@
       },
       "octeractBonusTokens1": {
         "name": "Tokens of Derpsmith",
-        "description": "Derpsmith gives you a token of his appreciation. Every Corruption level's Last completion bonus is increased by 2% of its base Challenge 10 completion cap per level!",
-        "effect": "Last completion bonus +{{n}}% of each level's base completion cap"
+        "description": "Derpsmith gives you a token of his appreciation. Every Corruption level's First completion bonus is increased by 2% of 50 completions' worth of Tokens per level!",
+        "effect": "First completion bonus +{{n}}% of 50 completions' worth of Tokens"
       },
       "octeractBonusTokens2": {
         "name": "Tokens of Derpsmith II",
-        "description": "Under some weird trade agreement, every Corruption level's Challenge 10 completion cap is +1% higher per level. Pray that the trade is not further altered.",
-        "effect": "Challenge 10 completion caps +{{n}}%"
+        "description": "Under some weird trade agreement, every Corruption level gives +1% more Tokens from Challenge 10 completions per level. Pray that the trade is not further altered.",
+        "effect": "Tokens from Challenge 10 completions +{{n}}%"
       },
       "octeractBonusTokens3": {
         "name": "Tokens of Derpsmith III",
-        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. Every Corruption level's First completion bonus is increased by 2% of its base Challenge 10 completion cap per level.",
-        "effect": "First completion bonus +{{n}}% of each level's base completion cap"
+        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. Every Corruption level's First completion bonus is increased by 2% of 50 completions' worth of Tokens per level.",
+        "effect": "First completion bonus +{{n}}% of 50 completions' worth of Tokens"
       },
       "octeractBonusTokens4": {
         "name": "Tokens of Derpsmith IV",
@@ -6570,10 +6537,10 @@
       "name": "Finite Descent",
       "description": "That shopkeep told me it was an Ascent. That <i>liar</i>!",
       "lockedDescription": "This rune is locked! Honestly, I have no idea how you unlock this.",
-      "corruptionLevels": "<<lightgray | +{{val}} Free Corruption Levels>> (up to +num:((0.2)))",
-      "ascensionScore": "<<orange | +{{val}} gain of every cube type>> (up to +32%)",
+      "corruptionLevels": "<<lightgray | +{{val}} Free Corruption Levels>> (up to +1)",
+      "cubesBanked": "<<orange | +{{val}} Banked Cubes>> (up to +1,000)",
       "infiniteAscentLevels": "<<lightgoldenrodyellow | +{{val}} Free Infinite Ascent levels>> (+1 every 2 Power)",
-      "values": "Gain up to num:((1.32))x more of every cube type for your current Ascension, gain up to num:((0.2)) free Corruption levels, and tack on +1 free Infinite Ascent level every two levels. Shweet!",
+      "values": "Gain up to +num:((1000)) Banked Cubes, gain up to +1 free Corruption level, and tack on +1 free Infinite Ascent level every two levels. Shweet!",
       "effect": "This Ascension, gain +{{val}} of every cube type, {{val2}} free Corruption levels, and +{{val3}} Infinite Ascent levels."
     },
     "topHat": {
@@ -6921,11 +6888,11 @@
       "oneChallengeCap": {
         "name": "One Challenge Caps",
         "description": "Beat the target Singularity, but the first 14 Challenges have a cap of only 1!",
-        "ScalingReward1": "+num:((0.04)) free <<var(--red-text-color)|Corruption Levels>>",
+        "ScalingReward1": "+num:((0.2)) free <<var(--red-text-color)|Corruption Levels>>",
         "ScalingReward2": "+num:((1.66))% <<var(--blueberry-box-color)|Ambrosia Bar Points>> gained",
         "ScalingReward3": "15 Achievement Points!",
         "UniqueReward1": "1st - +3 <<green|Reincarnation Challenge>> Cap!",
-        "UniqueReward2": "12th - +num:((0.6)) Free <<var(--red-text-color)|Corruption Levels>>",
+        "UniqueReward2": "1st - +1 Free <<var(--red-text-color)|Corruption Level>>",
         "UniqueReward3": "12th - A new <<orchid|Quark>> upgrade!",
         "UniqueReward4": "15th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
       },
@@ -7158,6 +7125,8 @@
       "talismanRuneBonusMult": "Talisman Power",
       "ascMult": "Asc. Speed Multipliers",
       "ascCountMult": "Asc. Count Multipliers",
+      "freeCorruptionLevels": "Free Corruption Levels",
+      "cubeBank": "Cube Bank",
       "globalCubeMult": "Global Cube Multipliers",
       "cubeMult": "Cube Multipliers",
       "tessMult": "Tesseract Multipliers",
@@ -7188,14 +7157,9 @@
     },
     "globalCubeMultiplierStats": {
       "title": "Global Cube Multiplier",
-      "FiniteDescent": "Finite Descent Rune:",
-      "CubeUpgrades": "Cube Upgrades 3x1, 4x1, 5x1:",
-      "CorruptionAchievements": "Corruption Milestone Achievements:",
-      "ExpertPack": "Golden Quark Upgrade - Expert Pack:",
       "EventCubeGain": "Event - Bonus Cube Gain:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "AscensionTime": "Ascension Time Multiplier:",
-      "CampaignTutorial": "Corruption Tokens - First Token Bonus:",
       "Campaign": "Corruption Tokens - Cube Bonus:",
       "Challenge15": "Challenge 15 - All Cube Bonus I-V:",
       "SunMoon": "Sun & Moon Achievement Multiplier:",
@@ -7361,10 +7325,6 @@
       "Corruption": "Corruption (per Cube Bank point):",
       "Challenge15Bonus": "Challenge 15 Reward:",
       "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
-      "FiniteDescent": "Finite Descent Rune:",
-      "CubeUpgrades": "Cube Upgrades 3x1, 4x1, 5x1:",
-      "CorruptionAchievements": "Corruption Milestone Achievements:",
-      "ExpertPack": "Golden Quark Upgrade - Expert Pack:",
       "EventCubeGain": "Event - Bonus Cube Gain:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "Campaign": "Corruption Tokens: Octeract Bonus:",
@@ -8354,6 +8314,35 @@
       "OneMind": "One Mind Modifier:",
       "Total": "Ascension Count gained this Ascension:"
     },
+    "cubeBankStats": {
+      "title": "Cube Bank",
+      "TranscensionChallenges": "Challenges 1-5:",
+      "ReincarnationChallenges": "Challenges 6-9:",
+      "Ants": "Ants:",
+      "CubeUpgrades": "Cube Upgrades 3x1, 4x1, 5x1:",
+      "FiniteDescent": "Finite Descent Rune:",
+      "Achievements": "Achievements:",
+      "AdvancedPack": "Golden Quark Upgrade - Advanced Pack:",
+      "Total": "Cube Bank before Challenge 10:",
+      "ChallengeTen": "Challenge 10:",
+      "Total2": "Total Cube Bank:"
+    },
+    "freeCorruptionLevelStats": {
+      "title": "Free Corruption Levels",
+      "PlatonicALPHA": "Platonic ALPHA:",
+      "PlatonicBETA": "Platonic BETA:",
+      "PlatonicUpgrade4x2": "Platonic Upgrade 4x2:",
+      "CorruptionFourteen": "Golden Quark Upgrade - Corruption Fourteen:",
+      "CorruptionFifteen": "Golden Quark Upgrade - Corruption Fifteen:",
+      "ExpertPack": "Golden Quark Upgrade - Expert Pack:",
+      "MasterPack": "Golden Quark Upgrade - Master Pack:",
+      "OcteractCorruption": "Octeracts - Octeract Corruption:",
+      "OneChallengeCap": "Singularity Challenge - One Challenge Cap:",
+      "CubeUpgradeCx24": "Cube Upgrade 8x4 (Cx24):",
+      "CookieGrandma": "Cookie Grandma Talisman:",
+      "FiniteDescent": "Finite Descent Rune:",
+      "Total": "Total Free Corruption Levels:"
+    },
     "purpleHoneyEfficiencyStats": {
       "title": "Purple Honey Efficiency",
       "Base": "Base Purple Honey per Extraction:",
@@ -8594,12 +8583,12 @@
         "2": "In Challenge 15, +num:((0.09))% Tesseracts per level for every Corruption level (counts as 11 levels)!",
         "3": "In Challenge 15, +num:((0.27))% Hypercubes per level for every Corruption level (counts as 11 levels)!",
         "4": "Gain +num:((2.4))% Platonic Cubes per level! It is that simple.",
-        "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +num:((0.2)) free Corruption levels!",
+        "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +1 free Corruption level!",
         "6": "Viscosity's difficulty scaling is reduced by 3% per level. In Challenge 15, Viscosity's exponent is multiplied by 1+(level/30).",
         "7": "Global speed below 1x is raised to ^1-(level/30), ignoring Immaculate multipliers. Less Fruitful Harvests' and Rare Earth Metals' difficulty scaling is reduced by 2% per level.",
         "8": "Hyperchallenged's difficulty scaling is reduced by 6% per level. In Challenge 15, the Hyperchallenge Cube's effect is divided by 1+(level*num:((0.4))).",
         "9": "Gain num:((2.5))x Immaculate Obtainium and reduce Illiteracy's difficulty scaling by 30%. In Challenge 15, multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at num:((1e100)) Obtainium.",
-        "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, +num:((0.2)) free Corruption levels again!",
+        "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, +1 free Corruption level again!",
         "11": "Rocky Foundations' difficulty scaling is reduced by 30%.",
         "12": "Blunders' difficulty scaling is reduced by 3% per level. In Challenge 15, gain +5% more Ant ELO per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
         "13": "All sources of negative <<green|Salvage>> are reduced by 50%!",
