@@ -290,6 +290,7 @@ const centerButtonRuns = (stacks: HeaderButtonStack[]) => {
 export const renderHeaderLayout = () => {
   const layout = currentLayout()
   const trayModules: HTMLElement[] = []
+  let anyUnlocked = false
 
   DOMCacheGetOrSet('mainHeader').style.setProperty('--header-button-slots', `${buttonGroupCapacity()}`)
 
@@ -335,6 +336,7 @@ export const renderHeaderLayout = () => {
         return
       }
 
+      anyUnlocked ||= unlocked
       let slotElement = shown[0]
       if (slot.some(isHeaderButton)) {
         const buttonSlots: HTMLElement[] = []
@@ -381,7 +383,7 @@ export const renderHeaderLayout = () => {
     }
 
     const cells: HTMLElement[] = []
-    const cellCount = (Math.floor(lastCell / gridColumns()) + (editing ? 2 : 1)) * gridColumns()
+    const cellCount = (Math.floor(lastCell / gridColumns()) + (editing || !anyUnlocked ? 2 : 1)) * gridColumns()
     for (let index = 0; index < cellCount; index++) {
       const cell = document.createElement('div')
       cell.className = 'headerCell'
@@ -1090,11 +1092,14 @@ const handlePointerDown = (event: PointerEvent) => {
 
   const id = moduleFromEventTarget(event.target)
   if (id === null) {
-    if (editing && event.target instanceof Element && event.target.closest('.headerRegion') !== null) {
+    if (!(event.target instanceof Element) || event.target.closest('.headerRegion') === null) {
+      return
+    }
+    if (editing) {
       selectedModule = null
       renderHeaderLayout()
+      return
     }
-    return
   }
 
   clearHoldTimer()
@@ -1110,6 +1115,11 @@ const handlePointerDown = (event: PointerEvent) => {
 
   holdTimer = window.setTimeout(() => {
     holdTimer = undefined
+    if (id === null) {
+      enterEditMode()
+      return
+    }
+
     const before = DOMCacheGetOrSet(id).getBoundingClientRect()
     enterEditMode()
     const after = DOMCacheGetOrSet(id).getBoundingClientRect()
