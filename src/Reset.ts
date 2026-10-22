@@ -20,7 +20,7 @@ import {
   calculatePowderConversion
 } from './Calculate'
 import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateTokens } from './Campaign'
-import { challengeRequirement, resetChallengeSweep } from './Challenges'
+import { applyStartingChallengeCompletions, challengeRequirement, resetChallengeSweep } from './Challenges'
 import {
   ascensionCorruptionLevel,
   clearCorruptionLevel,
@@ -924,6 +924,7 @@ export const updateSingularityAchievements = (): void => {
 }
 
 const updateSingularityMilestoneAwards = (singularityReset = true): void => {
+  applyStartingChallengeCompletions()
   if (player.highestSingularityCount >= 2) { // Singularity 2
     player.transcendPoints = Decimal.fromString('1001')
     grantCurveBuildings('coin', 0, 1)
@@ -945,21 +946,15 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
       500 * calculateSingularityDebuff('Researches')
     ))
     player.reincarnationPoints = Decimal.fromString('1e16')
-    player.challengecompletions[6] = 1
-    player.highestchallengecompletions[6] = 1
   }
   const perk_5 = player.highestSingularityCount >= 5
   if (perk_5 && singularityReset) { // Singularity 5
     player.cubeUpgrades[7] = 1
   }
   if (player.highestSingularityCount >= 7) { // Singularity 7
-    player.challengecompletions[7] = 1
-    player.highestchallengecompletions[7] = 1
     player.reincarnationPoints = Decimal.fromString('1e100')
   }
   if (player.highestSingularityCount >= 10) { // Singularity 10
-    player.challengecompletions[8] = 1
-    player.highestchallengecompletions[8] = 1
     player.cubeUpgrades[8] = 1
     player.cubeUpgrades[4] = 1 // Adding these ones,
     player.cubeUpgrades[5] = 1 // so they wont reset
@@ -970,15 +965,11 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
     player.cubeUpgrades[9] = 1
   }
   if (player.highestSingularityCount >= 15) {
-    player.challengecompletions[8] = 5
-    player.highestchallengecompletions[8] = 5
     player.reincarnationPoints = Decimal.fromString('2.22e2222')
     player.cubeUpgrades[20] = 1
   }
   const perk_20 = player.highestSingularityCount >= 20
   if (perk_20) {
-    player.challengecompletions[9] = 1
-    player.highestchallengecompletions[9] = 1
     player.unlocks.talismans = true
     player.unlocks.blessings = true
     player.ants.crumbs = Decimal.fromString('1e100')

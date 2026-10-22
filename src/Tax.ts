@@ -4,7 +4,7 @@ import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
 import { awardUngroupedAchievement } from './Achievements'
-import { useChallenge13Modifiers } from './Challenges'
+import { totalStartingChallengeCompletions, useChallenge13Modifiers } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { allTaxExponentStats, calculateTotalStat } from './Statistics'
@@ -15,8 +15,7 @@ export const challenge13EffectiveCompletions = () => {
     0,
     sumContents(player.challengecompletions) - player.challengecompletions[11] - player.challengecompletions[12]
       - player.challengecompletions[13] - player.challengecompletions[14] - player.challengecompletions[15]
-      - ((player.singularityCount >= 15) ? 4 : 0)
-      - ((player.singularityCount >= 20) ? 1 : 0)
+      - totalStartingChallengeCompletions()
   )
 }
 

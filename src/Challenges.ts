@@ -847,6 +847,34 @@ export const getNextRegularChallenge = (startIndex: number, explored: Set<number
   return -1
 }
 
+const startingChallengeCompletions = [
+  { challenge: 6, completions: () => +(player.highestSingularityCount >= 4) },
+  { challenge: 7, completions: () => +(player.highestSingularityCount >= 7) },
+  {
+    challenge: 8,
+    completions: () => +(player.highestSingularityCount >= 10) + 4 * +(player.highestSingularityCount >= 15)
+  },
+  { challenge: 9, completions: () => +(player.highestSingularityCount >= 20) }
+]
+
+export const applyStartingChallengeCompletions = () => {
+  for (const { challenge, completions } of startingChallengeCompletions) {
+    const amount = completions()
+    if (amount > 0) {
+      player.challengecompletions[challenge] = amount
+      player.highestchallengecompletions[challenge] = amount
+    }
+  }
+}
+
+export const totalStartingChallengeCompletions = () => {
+  let total = 0
+  for (const { completions } of startingChallengeCompletions) {
+    total += completions()
+  }
+  return total
+}
+
 export const useChallenge13Modifiers = () => {
   return player.currentChallenge.ascension === 13
     || (player.singularityChallenges.taxmanLastStand.enabled
