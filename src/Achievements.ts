@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokens } from './Campaign'
-import { activeCorruptionLevel, ascensionCorruptionLevel } from './Corruptions'
+import { activeCorruptionLevel, ascensionEffectiveCorruptionLevel } from './Corruptions'
 import { calculateLeaderboardValue } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { displayLevelStuff } from './Levels'
@@ -1544,7 +1544,7 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.ascensionCount >= 1000,
     group: 'ascensionCount',
     reward: {
-      ascensionCountMultiplier: () => 1 + 0.8 * ascensionCorruptionLevel()
+      ascensionCountMultiplier: () => 1 + 0.8 * ascensionEffectiveCorruptionLevel()
     }
   },
   {

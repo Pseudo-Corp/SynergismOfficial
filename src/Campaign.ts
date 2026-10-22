@@ -114,10 +114,11 @@ export const earnCampaignTokens = (level: number, c10Completions: number) => {
 
 export const campaignTokenBonuses = {
   tutorial: () => ({
+    cubeBonus: 1 + 0.25 * +(campaignTokens > 0),
     obtainiumBonus: 1 + 0.2 * +(campaignTokens > 0),
     offeringBonus: 1 + 0.2 * +(campaignTokens > 0)
   }),
-  cube: () => 1 + 20 * (1 - Math.pow(1 - 1 / 2000, campaignTokens)),
+  cube: () => 1 + 2 * (1 - Math.pow(1 - 1 / 400, campaignTokens)),
   obtainium: () => {
     return 1
       + 0.1 * 1 / 25 * Math.min(campaignTokens, 25)
@@ -203,6 +204,7 @@ const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRe
     tokenRequirement: 0,
     color: 'white',
     reward: () => ({
+      cube: formatAsPercentIncrease(campaignTokenBonuses.tutorial().cubeBonus),
       obtainium: formatAsPercentIncrease(campaignTokenBonuses.tutorial().obtainiumBonus),
       offering: formatAsPercentIncrease(campaignTokenBonuses.tutorial().offeringBonus)
     })

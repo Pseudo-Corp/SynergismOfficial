@@ -195,7 +195,7 @@ import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMileston
 import { handleLogin, resumePendingTimeSkips } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
 import { blankOcteractLevelObject, clampOcteractFreeLevelsToCaps, setOcteractUpgradeLevels } from './Octeracts'
-import { updatePlatonicUpgradeBG } from './Platonic'
+import { clampPlatonicUpgradeLevelsToCaps, updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { initializePCoinCache } from './PseudoCoinUpgrades'
 import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from './PurpleAmbrosiaUpgrades'
@@ -1467,6 +1467,7 @@ const loadSynergy = (saveString: string): boolean => {
     for (let j = 1; j < player.cubeUpgrades.length; j++) {
       updateCubeUpgradeBG(j)
     }
+    clampPlatonicUpgradeLevelsToCaps()
     const platUpg = document.querySelectorAll('button[id^="platUpg"]')
     for (let j = 1; j <= platUpg.length; j++) {
       updatePlatonicUpgradeBG(j)

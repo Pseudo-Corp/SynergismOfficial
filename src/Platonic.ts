@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
+import { ascensionEffectiveCorruptionLevel } from './Corruptions'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { Alert, revealStuff } from './UpdateHTML'
@@ -50,50 +51,50 @@ const getPlatonicUpgradePriceMultiplier = (index: number, level = player.platoni
 const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
   1: {
     // obtainium: 1e70,
-    obtainium: 1,
-    offerings: 1e45,
-    cubes: 1e13,
-    tesseracts: 1e6,
-    hypercubes: 1e5,
-    platonics: 1e4,
+    obtainium: 10,
+    offerings: 1e46,
+    cubes: 1e14,
+    tesseracts: 1e7,
+    hypercubes: 1e6,
+    platonics: 1e5,
     abyssals: 0,
-    maxLevel: 300,
+    maxLevel: 30,
     priceMult: 2
   },
   2: {
     // obtainium: 3e70,
-    obtainium: 1,
-    offerings: 3e45,
-    cubes: 1e11,
-    tesseracts: 1e8,
-    hypercubes: 1e5,
-    platonics: 1e4,
+    obtainium: 10,
+    offerings: 3e46,
+    cubes: 1e12,
+    tesseracts: 1e9,
+    hypercubes: 1e6,
+    platonics: 1e5,
     abyssals: 0,
-    maxLevel: 300,
+    maxLevel: 30,
     priceMult: 2
   },
   3: {
     // obtainium: 1e74,
-    obtainium: 1,
-    offerings: 1e46,
-    cubes: 1e11,
-    tesseracts: 1e6,
-    hypercubes: 1e7,
-    platonics: 1e4,
+    obtainium: 10,
+    offerings: 1e47,
+    cubes: 1e12,
+    tesseracts: 1e7,
+    hypercubes: 1e8,
+    platonics: 1e5,
     abyssals: 0,
-    maxLevel: 300,
+    maxLevel: 30,
     priceMult: 2
   },
   4: {
     // obtainium: 3e74,
-    obtainium: 1,
-    offerings: 3e46,
-    cubes: 1e12,
-    tesseracts: 1e7,
-    hypercubes: 1e6,
-    platonics: 1e6,
+    obtainium: 10,
+    offerings: 3e47,
+    cubes: 1e13,
+    tesseracts: 1e8,
+    hypercubes: 1e7,
+    platonics: 1e7,
     abyssals: 0,
-    maxLevel: 300,
+    maxLevel: 30,
     priceMult: 2
   },
   5: {
@@ -372,6 +373,30 @@ const getPlatonicUpgradeCosts = (index: number) => {
   return { levels, costs, affordable }
 }
 
+const platonicCorruptionCubeBonusRates: Record<number, number> = {
+  1: 0.01,
+  2: 0.02,
+  3: 0.03,
+  4: 0.04
+}
+
+export const platonicCorruptionCubeBonus = (index: number) => {
+  return (platonicCorruptionCubeBonusRates[index] ?? 0) * ascensionEffectiveCorruptionLevel()
+    * player.platonicUpgrades[index]
+}
+
+const platonicDescriptionHTML = (index: number) => {
+  const description = i18next.t(`wowCubes.platonicUpgrades.descriptions.${index}`)
+  if (platonicCorruptionCubeBonusRates[index] === undefined) {
+    return description
+  }
+  return `${description}<br>${
+    i18next.t('wowCubes.platonicUpgrades.descriptionBox.currentBonus', {
+      num: format(100 * platonicCorruptionCubeBonus(index), 2, true)
+    })
+  }`
+}
+
 export const createPlatonicDescription = (index: number) => {
   let translationKey = 'wowCubes.platonicUpgrades.descriptionBox.upgradeLevel'
   if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
@@ -380,9 +405,7 @@ export const createPlatonicDescription = (index: number) => {
   const resourceCheck = checkPlatonicUpgrade(index)
   const upgradeCosts = getPlatonicUpgradeCosts(index)
 
-  DOMCacheGetOrSet('platonicUpgradeDescription').innerHTML = i18next.t(
-    `wowCubes.platonicUpgrades.descriptions.${index}`
-  )
+  DOMCacheGetOrSet('platonicUpgradeDescription').innerHTML = platonicDescriptionHTML(index)
   DOMCacheGetOrSet('platonicUpgradeLevel').textContent = i18next.t(translationKey, {
     a: format(player.platonicUpgrades[index]),
     b: format(platUpgradeBaseCosts[index].maxLevel),
@@ -559,7 +582,7 @@ export const platonicUpgradeModalHTML = (index: number, iconStyle?: string) => {
     })
   }</span>
     </div>
-    <div class="platonicUpgradeModalDescription">${i18next.t(`wowCubes.platonicUpgrades.descriptions.${index}`)}</div>
+    <div class="platonicUpgradeModalDescription">${platonicDescriptionHTML(index)}</div>
     <div class="platonicUpgradeModalLevel ${maxed ? 'maxed' : ''}">${
     i18next.t(levelTranslationKey, {
       a: format(player.platonicUpgrades[index]),
@@ -574,6 +597,22 @@ export const platonicUpgradeModalHTML = (index: number, iconStyle?: string) => {
   }</div>
     <div class="platonicUpgradeModalStatus ${statusClass}">${i18next.t(statusTranslationKey)}</div>
   </div>`
+}
+
+export const maxedPlatonicUpgradeCount = () => {
+  return Object.entries(platUpgradeBaseCosts).filter(([index, { maxLevel }]) =>
+    player.platonicUpgrades[Number(index)] >= maxLevel
+  ).length
+}
+
+export const challenge15PlatonicConstruction = () => {
+  return player.currentChallenge.ascension === 15 ? maxedPlatonicUpgradeCount() : 0
+}
+
+export const clampPlatonicUpgradeLevelsToCaps = () => {
+  for (const [index, { maxLevel }] of Object.entries(platUpgradeBaseCosts)) {
+    player.platonicUpgrades[Number(index)] = Math.min(player.platonicUpgrades[Number(index)], maxLevel)
+  }
 }
 
 export const updatePlatonicUpgradeBG = (i: number) => {

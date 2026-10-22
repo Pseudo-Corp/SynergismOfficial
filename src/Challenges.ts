@@ -17,6 +17,7 @@ import {
   corruptionEffect
 } from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
+import { maxedPlatonicUpgradeCount } from './Platonic'
 import { type RuneKeys, runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -228,7 +229,12 @@ const challenge15ModifierKey = (key: string) => {
   return upgrade !== undefined && player.platonicUpgrades[upgrade] > 0 ? `${key}Improved` : key
 }
 
-const challenge15ExtraModifiers = ['antSpeed', 'fortunae', 'tax'] as const
+const challenge15ExtraModifiers: Array<[string, () => Record<string, string>]> = [
+  ['antSpeed', () => ({})],
+  ['fortunae', () => ({})],
+  ['tax', () => ({})],
+  ['construction', () => ({ value: format(maxedPlatonicUpgradeCount(), 0, true) })]
+]
 
 const challenge15RestrictionsHTML = () => {
   return [
@@ -238,7 +244,7 @@ const challenge15RestrictionsHTML = () => {
     ),
     '',
     i18next.t('challenges.15.restrictions.extraIntro'),
-    ...challenge15ExtraModifiers.map((key) => i18next.t(`challenges.15.restrictions.extras.${key}`))
+    ...challenge15ExtraModifiers.map(([key, values]) => i18next.t(`challenges.15.restrictions.extras.${key}`, values()))
   ].join('<br>')
 }
 

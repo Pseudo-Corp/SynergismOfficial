@@ -105,15 +105,14 @@ import { campaignTokenBonuses } from './Campaign'
 import { type Challenge15Rewards, challenge15ScoreMultiplier, useChallenge13Modifiers } from './Challenges'
 import {
   activeCorruptionLevel,
-  ascensionCorruptionLevel,
+  activeEffectiveCorruptionLevel,
+  ascensionEffectiveCorruptionLevel,
   challenge15CorruptionEffect,
-  challenge15CorruptionLevel,
   corruptionCubeBase,
   corruptionCubeRate,
   type CorruptionCubeType,
   corruptionEffect,
   corruptionFreeLevels,
-  effectiveCorruptionLevel,
   isCorruptionCubeUnlocked
 } from './Corruptions'
 import {
@@ -156,6 +155,7 @@ import {
 } from './ImportExport'
 import { getLevelMilestone, getLevelReward } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
+import { challenge15PlatonicConstruction, platonicCorruptionCubeBonus } from './Platonic'
 import {
   calculateCubeMultiplierPlatonicBlessing,
   calculateCubePlatonicBlessing,
@@ -304,8 +304,8 @@ const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
   {
     i18n: 'Corruption',
     stat: () =>
-      isCorruptionCubeUnlocked(ascensionCorruptionLevel(), cube)
-        ? corruptionCubeRate(cube, ascensionCorruptionLevel())
+      isCorruptionCubeUnlocked(ascensionEffectiveCorruptionLevel(), cube)
+        ? corruptionCubeRate(cube, ascensionEffectiveCorruptionLevel())
         : 0
   },
   {
@@ -352,6 +352,10 @@ export const allCubeStats: NumberStatLineCategory = {
           return penalty
         }
       }
+    },
+    {
+      i18n: 'TutorialBonus',
+      stat: () => campaignTokenBonuses.tutorial().cubeBonus
     },
     {
       i18n: 'Campaign',
@@ -608,11 +612,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x1',
-      stat: () =>
-        1
-        + 0.00045
-          * challenge15CorruptionLevel()
-          * player.platonicUpgrades[1]
+      stat: () => 1 + platonicCorruptionCubeBonus(1)
     },
     {
       i18n: 'Antiquities',
@@ -674,7 +674,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CubeUpgrade4x8',
-      stat: () => 1 + (1 / 80) * player.cubeUpgrades[38] * ascensionCorruptionLevel()
+      stat: () => 1 + (1 / 20) * player.cubeUpgrades[38] * ascensionEffectiveCorruptionLevel()
     },
     {
       i18n: 'PlatonicCube',
@@ -682,7 +682,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x2',
-      stat: () => 1 + 0.0009 * challenge15CorruptionLevel() * player.platonicUpgrades[2]
+      stat: () => 1 + platonicCorruptionCubeBonus(2)
     }
   ]
 }
@@ -719,7 +719,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x3',
-      stat: () => 1 + 0.0027 * challenge15CorruptionLevel() * player.platonicUpgrades[3]
+      stat: () => 1 + platonicCorruptionCubeBonus(3)
     },
     {
       i18n: 'HyperrealHepteract',
@@ -760,7 +760,7 @@ export const allPlatonicCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x4',
-      stat: () => 1 + (1.2 * player.platonicUpgrades[4]) / 50
+      stat: () => 1 + platonicCorruptionCubeBonus(4)
     }
   ]
 }
@@ -839,7 +839,7 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
       i18n: 'CookieUpgrade20',
       stat: () => {
         if (player.cubeUpgrades[70] > 0) {
-          return Math.pow(1.13141, Math.max(0, effectiveCorruptionLevel(activeCorruptionLevel()) - 35))
+          return 1 + 0.2 * activeEffectiveCorruptionLevel()
         } else {
           return 1
         }
@@ -2222,7 +2222,10 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     },
     {
       i18n: 'PlatonicOMEGA',
-      stat: () => 1 + 0.01 * challenge15CorruptionLevel() * player.platonicUpgrades[15] // Platonic Omega
+      stat: () =>
+        1
+        + 0.01 * (player.currentChallenge.ascension === 15 ? 20 : Math.min(20, activeEffectiveCorruptionLevel()))
+          * player.platonicUpgrades[15] // Platonic Omega
     },
     {
       i18n: 'Challenge15',
@@ -3431,6 +3434,11 @@ export const constructionStats: NumberStatLineCategory = {
       i18n: 'AntUpgrade',
       stat: () => getAntUpgradeEffect(AntUpgrades.BuildingCostScale).construction,
       acc: 3
+    },
+    {
+      i18n: 'Challenge15Platonic',
+      stat: () => challenge15PlatonicConstruction(),
+      acc: 0
     }
   ]
 }

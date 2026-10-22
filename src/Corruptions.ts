@@ -195,12 +195,6 @@ export const corruptionEffect = <K extends CorruptionKey>(level: number, corr: K
   return effects[corruptionFormulaBranch(corr, level)](level * corruptionScaling(corr))
 }
 
-const challenge15CorruptionStrength = 11
-
-export const challenge15CorruptionLevel = () => {
-  return player.currentChallenge.ascension === 15 ? challenge15CorruptionStrength : 0
-}
-
 export const challenge15IlliteracyBase = 0.2
 
 export const challenge15IlliteracyMax = () => {
@@ -279,13 +273,36 @@ const corruptionLevelCapIncrease = () => {
     + levelCapPerIncrease * getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
 }
 
-const isCorruptionLevelCapMaxed = () => {
-  return player.platonicUpgrades[5] > 0
-    && player.platonicUpgrades[10] > 0
-    && getGQUpgradeEffect('corruptionFourteen', 'unlocked')
-    && getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
-      >= octeractUpgrades.octeractCorruption.maxLevel
+type CorruptionLevelCapSource = {
+  key: string
+  visible: () => boolean
+  maxed: () => boolean
 }
+
+const corruptionLevelCapSources: CorruptionLevelCapSource[] = [
+  {
+    key: 'platonicAlpha',
+    visible: () => player.unlocks.platonics,
+    maxed: () => player.platonicUpgrades[5] > 0
+  },
+  {
+    key: 'platonicBeta',
+    visible: () => player.unlocks.platonics,
+    maxed: () => player.platonicUpgrades[10] > 0
+  },
+  {
+    key: 'corruptionFourteen',
+    visible: () => player.highestSingularityCount > 0,
+    maxed: () => getGQUpgradeEffect('corruptionFourteen', 'unlocked')
+  },
+  {
+    key: 'octeractCorruption',
+    visible: () => getGQUpgradeEffect('octeractUnlock', 'unlocked'),
+    maxed: () =>
+      getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
+        >= octeractUpgrades.octeractCorruption.maxLevel
+  }
+]
 
 const corruptionLevelCap = () => {
   if (getGQUpgradeEffect('platonicTau', 'unlocked')) {
@@ -332,27 +349,33 @@ export const effectiveCorruptionLevel = (level: number) => {
   return level + corruptionFreeLevels()
 }
 
+export const activeEffectiveCorruptionLevel = () => {
+  return isCorruptionLevelOverwritten() ? 0 : effectiveCorruptionLevel(activeCorruptionLevel())
+}
+
+export const ascensionEffectiveCorruptionLevel = () => {
+  return isCorruptionLevelOverwritten() ? 0 : effectiveCorruptionLevel(ascensionCorruptionLevel())
+}
+
 export const corruptionCubeBase = (cube: CorruptionCubeType) => corruptionCubeRates[cube].base
 
-export const corruptionCubeRate = (cube: CorruptionCubeType, level: number) => {
-  const effectiveLevel = effectiveCorruptionLevel(level)
+export const corruptionCubeRate = (cube: CorruptionCubeType, effectiveLevel: number) => {
   const levelsPastUnlock = Math.max(0, Math.min(effectiveLevel, endgameLevel) - corruptionCubeUnlocks[cube].level)
   const { growth, endgameGrowth } = corruptionCubeRates[cube]
   return Math.pow(growth, levelsPastUnlock) * Math.pow(endgameGrowth, Math.max(0, effectiveLevel - endgameLevel))
 }
 
-const meetsCorruptionCubeLevel = (level: number, cube: CorruptionCubeType) => {
-  const unlock = corruptionCubeUnlocks[cube]
-  return effectiveCorruptionLevel(level) >= unlock.level
+const meetsCorruptionCubeLevel = (effectiveLevel: number, cube: CorruptionCubeType) => {
+  return effectiveLevel >= corruptionCubeUnlocks[cube].level
 }
 
 const corruptionCubeUnlockLevel = (cube: CorruptionCubeType) => {
   const level = Math.max(0, Math.floor(corruptionCubeUnlocks[cube].level - corruptionFreeLevels()))
-  return meetsCorruptionCubeLevel(level, cube) ? level : level + 1
+  return meetsCorruptionCubeLevel(effectiveCorruptionLevel(level), cube) ? level : level + 1
 }
 
-export const isCorruptionCubeUnlocked = (level: number, cube: CorruptionCubeType) => {
-  return meetsCorruptionCubeLevel(level, cube)
+export const isCorruptionCubeUnlocked = (effectiveLevel: number, cube: CorruptionCubeType) => {
+  return meetsCorruptionCubeLevel(effectiveLevel, cube)
     && (!corruptionCubeUnlocks[cube].requiresChallenge15 || G.challenge15Rewards.hepteractsUnlocked.value > 0)
 }
 
@@ -516,8 +539,8 @@ const corruptionLevelHeaders = () => {
   ]
 }
 
-const corruptionLevelRow = (label: string, value: (level: number) => string) => {
-  return [label, value(activeCorruptionLevel()), value(player.corruptions.next)]
+const corruptionLevelRow = (label: string, value: (effectiveLevel: number) => string) => {
+  return [label, value(activeEffectiveCorruptionLevel()), value(effectiveCorruptionLevel(player.corruptions.next))]
 }
 
 const formatTimes = (value: number) => `x${format(value, 3)}`
@@ -532,7 +555,7 @@ const corruptionCubeModalHTML = (cube: CorruptionCubeType) => {
   const rows = [
     corruptionLevelRow(
       i18next.t('corruptions.breakdown.effectiveLevel'),
-      (level) => format(effectiveCorruptionLevel(level), 2, true)
+      (level) => format(level, 2, true)
     ),
     corruptionLevelRow(
       i18next.t('corruptions.breakdown.rate'),
@@ -553,7 +576,7 @@ const corruptionCubeModalHTML = (cube: CorruptionCubeType) => {
     `<div class="corruptionDetailsModalDescription">${i18next.t(`corruptions.breakdown.cubeFormula.${cube}`)}</div>
     ${corruptionBreakdownTable(corruptionLevelHeaders(), rows)}
     ${
-      locked(player.corruptions.next)
+      locked(effectiveCorruptionLevel(player.corruptions.next))
         ? `<div class="corruptionDetailsModalFormula">${
           i18next.t(unlock.requiresChallenge15 ? 'corruptions.breakdown.unlockC15' : 'corruptions.breakdown.unlock', {
             level: corruptionCubeUnlockLevel(cube),
@@ -763,10 +786,10 @@ const createCorruptionTextRow = (
   return row
 }
 
-const corruptionCubeValueText = (cube: CorruptionCubeType, level: number, multiplier: number) => {
-  return isCorruptionCubeUnlocked(level, cube)
+const corruptionCubeValueText = (cube: CorruptionCubeType, effectiveLevel: number, multiplier: number) => {
+  return isCorruptionCubeUnlocked(effectiveLevel, cube)
     ? i18next.t('corruptions.tiers.cubeValue', {
-      value: format(corruptionCubeBase(cube) * corruptionCubeRate(cube, level) * multiplier, 3)
+      value: format(corruptionCubeBase(cube) * corruptionCubeRate(cube, effectiveLevel) * multiplier, 3)
     })
     : i18next.t('corruptions.tiers.locked')
 }
@@ -862,8 +885,8 @@ export const corruptionLevelScoreUpdate = () => {
       const { global, specific } = calculateCorruptionCubeMultiplierParts(cube)
       corruptionValueUpdate(
         `corruptionCubeValue${cube}`,
-        corruptionCubeValueText(cube, ascensionCorruptionLevel(), global * specific),
-        corruptionCubeValueText(cube, next, global * specific)
+        corruptionCubeValueText(cube, ascensionEffectiveCorruptionLevel(), global * specific),
+        corruptionCubeValueText(cube, effectiveCorruptionLevel(next), global * specific)
       )
     }
   }
@@ -876,9 +899,13 @@ const corruptionLevelCapText = (cap: number) => {
       challenge: corruptionBands[(corruptionBandOf(cap) + 1) as ActiveCorruptionBand].unlockChallenge
     })
   }
-  return isCorruptionLevelCapMaxed()
-    ? i18next.t('corruptions.tiers.levelCapFinal', { cap })
-    : i18next.t('corruptions.tiers.levelCapIncreasable', { cap })
+  const sources = corruptionLevelCapSources.filter((source) => source.visible() && !source.maxed())
+  if (sources.length === 0) {
+    return i18next.t('corruptions.tiers.levelCapFinal', { cap })
+  }
+  return `${i18next.t('corruptions.tiers.levelCapIncreasable', { cap })} ${
+    sources.map((source) => i18next.t(`corruptions.tiers.levelCapSources.${source.key}`)).join(', ')
+  }`
 }
 
 const corruptionLevelCapUpdate = () => {

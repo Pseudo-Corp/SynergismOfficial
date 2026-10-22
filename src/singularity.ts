@@ -9,7 +9,7 @@ import {
   calculateImmaculateAlchemyBonus
 } from './Calculate'
 import { updateTokens } from './Campaign'
-import { activeCorruptionLevel } from './Corruptions'
+import { activeEffectiveCorruptionLevel } from './Corruptions'
 import { addCodeAvailableUses, addCodeMaxUses } from './ImportExport'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -1115,7 +1115,7 @@ export const goldenQuarkUpgrades: {
         if (n === 0) {
           return 1
         } else {
-          return Math.pow(1.3, Math.min(10, Math.max(0, activeCorruptionLevel() - 35)))
+          return Math.pow(1.3, Math.min(10, Math.max(0, activeEffectiveCorruptionLevel() - 35)))
         }
       } else {
         return n > 0 ? 0.1 : 0 // packQuarkAdd
