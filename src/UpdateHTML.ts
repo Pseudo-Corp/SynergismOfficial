@@ -1400,8 +1400,8 @@ export const PurchasePrompt = (
       quote = calculateSingularityUpgradePurchase(options, amount, input)
       ok.disabled = quote === null || quote.levels === 0
 
-      if (field !== levels) levels.value = quote === null ? '' : format(quote.levels, 0, true)
-      if (field !== cost) cost.value = quote === null ? '' : format(quote.cost, 2, true)
+      if (field !== levels) levels.value = quote === null ? '' : String(quote.levels)
+      if (field !== cost) cost.value = quote === null ? '' : String(Math.ceil(quote.cost))
 
       if (value === '') {
         const affordable = calculateSingularityUpgradePurchase(options, -1, 'levels')
@@ -1415,14 +1415,18 @@ export const PurchasePrompt = (
         summary.textContent = i18next.t('general.purchasePrompt.invalid')
       } else if (quote.levels === 0) {
         summary.textContent = i18next.t('general.purchasePrompt.unavailable')
-      } else if (amount === -1 || amount > (input === 'levels' ? quote.levels : options.getBalance())) {
+      } else {
         summary.textContent = i18next.t(`general.purchasePrompt.summary.${options.resource}`, {
           levels: format(quote.levels, 0, true),
           cost: format(quote.cost, 2, true)
         })
-      } else {
-        summary.textContent = ''
       }
+    }
+
+    const onChange = () => {
+      if (quote === null || quote.levels === 0) return
+      levels.value = String(quote.levels)
+      cost.value = String(Math.ceil(quote.cost))
     }
 
     const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
@@ -1436,6 +1440,8 @@ export const PurchasePrompt = (
       cost.removeEventListener('keyup', kbListener)
       levels.removeEventListener('input', onInput)
       cost.removeEventListener('input', onInput)
+      levels.removeEventListener('change', onChange)
+      cost.removeEventListener('change', onChange)
 
       conf.style.display = 'none'
       confWrap.style.display = 'none'
@@ -1465,6 +1471,8 @@ export const PurchasePrompt = (
     cost.addEventListener('keyup', kbListener)
     levels.addEventListener('input', onInput)
     cost.addEventListener('input', onInput)
+    levels.addEventListener('change', onChange)
+    cost.addEventListener('change', onChange)
     onInput()
 
     return p.promise
