@@ -6,7 +6,8 @@ import {
   calculateBlueberryInventory,
   calculateExalt4EffectiveSingularityMultiplier,
   calculateGoldenQuarkCost,
-  calculateImmaculateAlchemyBonus
+  calculateImmaculateAlchemyBonus,
+  calculateIrish3PurpleLuck
 } from './Calculate'
 import { updateTokens } from './Campaign'
 import { activeEffectiveCorruptionLevel } from './Corruptions'
@@ -3789,15 +3790,14 @@ export const singularityPerks: SingularityPerk[] = [
   {
     name: 'singularity.perks.irishAnt3.name',
     levels: [285, 293],
-    description: () => {
+    description: (n: number, levels: number[]) => {
       let perSing = 2
-      if (player.highestSingularityCount >= 292) {
+      if (n >= levels[1]) {
         perSing++
       }
 
-      const effect = perSing * (player.highestSingularityCount - 280)
       return i18next.t('singularity.perks.irishAnt3.default', {
-        amt: format(effect, 0, true),
+        amt: format(calculateIrish3PurpleLuck(), 0, true),
         amt2: format(perSing, 0, true)
       })
     },
