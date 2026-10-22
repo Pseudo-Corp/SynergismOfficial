@@ -16,14 +16,15 @@ import {
   freeButtonPosition,
   HEADER_BUTTON_GROUP_CAPACITY,
   type HeaderModuleId,
-  headerModuleIds,
   headerModuleSizes,
   headerRegionIds,
   isHeaderButton,
   isHeaderGridRegion,
-  isHeaderProgress,
+  isHeaderModuleId,
+  isHeaderSizeAllowed,
   loadoutPageModuleIds,
-  rainbowAmbrosiaModuleIds
+  rainbowAmbrosiaModuleIds,
+  splitHeaderSlot
 } from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
@@ -34,7 +35,7 @@ import {
 } from '../SingularityChallenges'
 import { blankSave, deepClone } from '../Synergism'
 import { noTalismanFragments } from '../Talismans'
-import type { Player } from '../types/Synergism'
+import type { HeaderLayout, Player } from '../types/Synergism'
 import { padArray, sumContents } from '../Utility'
 
 const decimalSchema = z.custom<DecimalSource>((value: any) => {
@@ -327,67 +328,124 @@ const playerCorruptionSchema = z.object({
     ?? Math.max(corruptions.used, corruptions.tokenCompletions.findLastIndex((completions) => completions > 0))
 })).prefault(() => deepClone()(blankSave.corruptions))
 
+const headerRecordSchema = z.record(z.string(), z.unknown()).catch(() => ({}))
+const headerModuleListSchema = z.unknown().array().catch(() => []).transform((ids) => ids.filter(isHeaderModuleId))
+const headerModuleSizeSchema = z.enum(headerModuleSizes)
+const headerLoadoutPageSchema = z.number().int().min(0)
+const headerAmbrosiaIconSchema = z.lazy(() => z.enum(ambrosiaUpgradeNames))
+
 const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
   z.object({
-    regions: z.record(
-      z.enum(headerRegionIds),
-      z.enum(headerModuleIds).array().max(HEADER_BUTTON_GROUP_CAPACITY[layout]).array()
-    ),
-    sizes: z.partialRecord(z.enum(headerModuleIds), z.enum(headerModuleSizes)),
-    positions: z.partialRecord(
-      z.enum(headerModuleIds),
-      z.number().int().min(0).max(HEADER_BUTTON_GROUP_CAPACITY[layout] - 1)
-    ).default(() => ({})),
-    hidden: z.enum(headerModuleIds).array(),
+    regions: z.record(z.string(), headerModuleListSchema.array().catch(() => [])).catch(() => ({})),
+    sizes: headerRecordSchema,
+    positions: headerRecordSchema,
+    hidden: headerModuleListSchema,
     rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia),
     octeractPerSecond: z.boolean().catch(() => blankSave.headerLayouts[layout].octeractPerSecond),
-    loadoutPages: z.record(z.enum(loadoutPageModuleIds), z.number().int().min(0)).catch(() =>
-      deepClone()(blankSave.headerLayouts[layout].loadoutPages)
-    ),
-    loadoutIcons: z.lazy(() =>
-      z.object({
-        ambrosiaLoadoutsHeader: z.partialRecord(integerStringSchema, z.enum(ambrosiaUpgradeNames))
-      })
-    ).catch(() => deepClone()(blankSave.headerLayouts[layout].loadoutIcons))
-  }).transform((saved) => {
+    loadoutPages: headerRecordSchema,
+    loadoutIcons: z.object({ ambrosiaLoadoutsHeader: headerRecordSchema }).catch(() => ({
+      ambrosiaLoadoutsHeader: {}
+    }))
+  }).transform((saved): HeaderLayout => {
     const fallback = blankSave.headerLayouts[layout]
-    const placed = new Set(Object.values(saved.regions).flat(2))
-    for (const region of headerRegionIds) {
-      if (!isHeaderGridRegion(region)) {
-        saved.regions[region] = saved.regions[region].filter((slot) => slot.length > 0)
+
+    const sizes: HeaderLayout['sizes'] = {}
+    for (const [id, size] of Object.entries(saved.sizes)) {
+      const parsed = headerModuleSizeSchema.safeParse(size)
+      if (isHeaderModuleId(id) && parsed.success && isHeaderSizeAllowed(id, parsed.data, layout)) {
+        sizes[id] = parsed.data
       }
-      saved.regions[region] = saved.regions[region].flatMap((slot) => {
-        if (slot.length === 1 || !slot.some(isHeaderProgress)) {
-          return [slot]
-        }
+    }
+
+    const placed = new Set<HeaderModuleId>()
+    const regions = {} as HeaderLayout['regions']
+    for (const region of headerRegionIds) {
+      const slots = (saved.regions[region] ?? []).flatMap((slot) => {
+        const members: HeaderModuleId[] = []
         for (const id of slot) {
-          if (saved.sizes[id] === 'S') {
-            delete saved.sizes[id]
+          if (!placed.has(id)) {
+            placed.add(id)
+            members.push(id)
           }
         }
-        return slot.map((id) => [id])
+
+        const split = splitHeaderSlot(members, layout)
+        for (const piece of split) {
+          if (piece.length > 1 && !piece.some(isHeaderButton)) {
+            for (const id of piece) {
+              sizes[id] = 'S'
+            }
+          } else if (split.length > 1 && piece.length === 1 && sizes[piece[0]] === 'S') {
+            delete sizes[piece[0]]
+          }
+        }
+        return split
       })
+      regions[region] = isHeaderGridRegion(region) ? slots : slots.filter((slot) => slot.length > 0)
+    }
+
+    const hidden = [...new Set(saved.hidden)]
+    for (const region of headerRegionIds) {
       for (const id of fallback.regions[region].flat()) {
         if (!placed.has(id)) {
-          saved.regions[region].push([id])
-          saved.sizes[id] = fallback.sizes[id]
-          if (fallback.hidden.includes(id)) {
-            saved.hidden.push(id)
+          placed.add(id)
+          regions[region].push([id])
+          if (fallback.sizes[id] !== undefined) {
+            sizes[id] = fallback.sizes[id]
           }
-        }
-      }
-      for (const slot of saved.regions[region]) {
-        const positioned: HeaderModuleId[] = []
-        for (const id of slot.filter(isHeaderButton)) {
-          const position = saved.positions[id]
-          if (position === undefined || positioned.some((other) => saved.positions[other] === position)) {
-            saved.positions[id] = freeButtonPosition(saved.positions, positioned)
+          if (fallback.hidden.includes(id) && !hidden.includes(id)) {
+            hidden.push(id)
           }
-          positioned.push(id)
         }
       }
     }
-    return saved
+
+    const positions: HeaderLayout['positions'] = {}
+    for (const [id, position] of Object.entries(saved.positions)) {
+      if (
+        isHeaderModuleId(id) && isHeaderButton(id) && typeof position === 'number' && Number.isInteger(position)
+        && position >= 0 && position < HEADER_BUTTON_GROUP_CAPACITY[layout]
+      ) {
+        positions[id] = position
+      }
+    }
+    for (const slot of Object.values(regions).flat()) {
+      const positioned: HeaderModuleId[] = []
+      for (const id of slot.filter(isHeaderButton)) {
+        const position = positions[id]
+        if (position === undefined || positioned.some((other) => positions[other] === position)) {
+          positions[id] = freeButtonPosition(positions, positioned)
+        }
+        positioned.push(id)
+      }
+    }
+
+    const loadoutPages = { ...fallback.loadoutPages }
+    for (const id of loadoutPageModuleIds) {
+      const parsed = headerLoadoutPageSchema.safeParse(saved.loadoutPages[id])
+      if (parsed.success) {
+        loadoutPages[id] = parsed.data
+      }
+    }
+
+    const ambrosiaLoadoutsHeader: HeaderLayout['loadoutIcons']['ambrosiaLoadoutsHeader'] = {}
+    for (const [slot, icon] of Object.entries(saved.loadoutIcons.ambrosiaLoadoutsHeader)) {
+      const parsed = headerAmbrosiaIconSchema.safeParse(icon)
+      if (integerStringSchema.safeParse(slot).success && parsed.success) {
+        ambrosiaLoadoutsHeader[Number(slot)] = parsed.data
+      }
+    }
+
+    return {
+      regions,
+      sizes,
+      positions,
+      hidden,
+      rainbowAmbrosia: saved.rainbowAmbrosia,
+      octeractPerSecond: saved.octeractPerSecond,
+      loadoutPages,
+      loadoutIcons: { ambrosiaLoadoutsHeader }
+    }
   }).catch(() => deepClone()(blankSave.headerLayouts[layout]))
 
 const clampTranscensionChallengeCompletions = <T extends number | null>(completions: T[]) =>

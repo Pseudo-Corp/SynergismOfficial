@@ -24,6 +24,7 @@ const statModuleIds = [
   'dailyCodeHeader',
   'addCodeHeader',
   'timeCodeHeader',
+  'corruptionLevelHeader',
   ...loadoutModuleIds
 ] as const
 
@@ -114,6 +115,43 @@ export const isHeaderLoadout = (id: HeaderModuleId) => (loadoutModuleIds as read
 
 export const isHeaderGridRegion = (region: HeaderRegionId) => region === 'headerGrid'
 
+export const isHeaderModuleId = (id: unknown): id is HeaderModuleId =>
+  typeof id === 'string' && (headerModuleIds as readonly string[]).includes(id)
+
+const isHeaderSolo = (id: HeaderModuleId) => isHeaderProgress(id) || isHeaderLoadout(id)
+
+export const isHeaderSizeAllowed = (
+  id: HeaderModuleId,
+  size: HeaderModuleSize,
+  key: keyof typeof HEADER_BUTTON_GROUP_CAPACITY
+) => {
+  switch (size) {
+    case 'S':
+      return !isHeaderButton(id)
+    case 'XL':
+      return key === 'desktop' && isHeaderSolo(id)
+    case 'Tall':
+      return isHeaderProgress(id)
+    default:
+      return true
+  }
+}
+
+const chunkSlot = (ids: HeaderModuleId[], capacity: number) =>
+  Array.from({ length: Math.ceil(ids.length / capacity) }, (_, i) => ids.slice(i * capacity, (i + 1) * capacity))
+
+export const splitHeaderSlot = (slot: HeaderModuleId[], key: keyof typeof HEADER_BUTTON_GROUP_CAPACITY) => {
+  if (slot.length <= 1) {
+    return [slot]
+  }
+
+  return [
+    ...chunkSlot(slot.filter(isHeaderButton), HEADER_BUTTON_GROUP_CAPACITY[key]),
+    ...chunkSlot(slot.filter((id) => !isHeaderButton(id) && !isHeaderSolo(id)), HEADER_STACK_CAPACITY),
+    ...slot.filter(isHeaderSolo).map((id) => [id])
+  ]
+}
+
 export const freeButtonPosition = (positions: HeaderLayout['positions'], slot: HeaderModuleId[]) => {
   let position = 0
   while (slot.some((id) => positions[id] === position)) {
@@ -136,6 +174,7 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
       'dailyCodeHeader',
       'addCodeHeader',
       'timeCodeHeader',
+      'corruptionLevelHeader',
       'ambrosiaLoadoutsHeader',
       ...loadoutPageModuleIds,
       'goldenQuarkHeader',

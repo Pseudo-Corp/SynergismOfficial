@@ -5479,6 +5479,7 @@
       "dailyCode": "Daily Code",
       "addCode": "Add Code",
       "timeCode": "Time Code",
+      "corruptionLevel": "Corruption Level (current/highest settable)",
       "achievementPoints": "Achievement Points",
       "quarkBonus": "Subscriber Quark Bonus",
       "ambrosiaLoadouts": "Ambrosia Loadouts",

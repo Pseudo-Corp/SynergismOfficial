@@ -9,6 +9,7 @@ import {
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateBlueberryInventory, calculateOcteractMultiplier } from './Calculate'
+import { activeCorruptionLevel, maxCorruptionLevel } from './Corruptions'
 import {
   freeButtonPosition,
   HEADER_BUTTON_GROUP_CAPACITY,
@@ -23,6 +24,7 @@ import {
   isHeaderGridRegion,
   isHeaderLoadout,
   isHeaderProgress,
+  isHeaderSizeAllowed,
   type LoadoutPageModuleId,
   type RainbowAmbrosiaModuleId,
   rainbowAmbrosiaModuleIds
@@ -67,6 +69,7 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   dailyCodeHeader: () => true,
   addCodeHeader: () => true,
   timeCodeHeader: () => true,
+  corruptionLevelHeader: () => player.challengecompletions[11] > 0,
   ambrosiaLoadoutsHeader: ambrosiaUnlocked,
   ambrosiaLoadoutPageHeader: ambrosiaUnlocked,
   coinHeader: () => true,
@@ -241,9 +244,7 @@ const updateEditToolbar = (layout: HeaderLayout) => {
 
   for (const size of headerModuleSizes) {
     const button = DOMCacheGetOrSet(`headerSize${size}`) as HTMLButtonElement
-    button.disabled = selected === null || (size === 'S' && isHeaderButton(selected))
-      || (size === 'XL' && (isMobile || !(isHeaderLoadout(selected) || isHeaderProgress(selected))))
-      || (size === 'Tall' && !isHeaderProgress(selected))
+    button.disabled = selected === null || !isHeaderSizeAllowed(selected, size, layoutKey())
     button.setAttribute('aria-pressed', `${selected !== null && sizeOf(layout, selected) === size}`)
   }
 
@@ -482,6 +483,13 @@ export const updateHeaderInfo = () => {
       uses === 0
         ? i18next.t('headerLayout.codeNext', { time: codeTime(layout, 'timeCodeHeader', timeCodeTimeToNextUse()) })
         : i18next.t('headerLayout.timeCodeMultiplier', { x: format(timeCodeRewardMultiplier(), 2, true) })
+    )
+  }
+
+  if (editing || !layout.hidden.includes('corruptionLevelHeader')) {
+    setHeaderText(
+      'corruptionLevelHeaderText',
+      `${format(activeCorruptionLevel(), 0, true)}/${format(maxCorruptionLevel(), 0, true)}`
     )
   }
 
