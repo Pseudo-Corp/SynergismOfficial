@@ -50,7 +50,7 @@ import { isResearchUnlocked, roombaResearchEnabled } from './Research'
 import { getRuneEffects, runes, runesKeys } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
-import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
+import { format, formatTimeShort, /*formatTimeShort*/ parseFormattedNumber, player } from './Synergism'
 import { getActiveSubTab, Tabs, visualUpdate } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { talismanKeys, talismans } from './Talismans'
@@ -1396,7 +1396,7 @@ export const PurchasePrompt = (
       const field = event?.target as HTMLInputElement | undefined
       const input = field === cost ? 'cost' : 'levels'
       const value = field?.value.trim() ?? ''
-      const amount = value === '' ? Number.NaN : Number(value)
+      const amount = parseFormattedNumber(value)
       quote = calculateSingularityUpgradePurchase(options, amount, input)
       ok.disabled = quote === null || quote.levels === 0
 

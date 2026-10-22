@@ -2147,6 +2147,15 @@ const getFormatter = (
   return formatters[keyString]
 }
 
+const localeNumberParts = new Intl.NumberFormat().formatToParts(1000.5)
+const groupSeparator = localeNumberParts.find((part) => part.type === 'group')?.value ?? ','
+const decimalSeparator = localeNumberParts.find((part) => part.type === 'decimal')?.value ?? '.'
+
+export const parseFormattedNumber = (value: string) => {
+  const normalized = value.replaceAll(groupSeparator, '').replaceAll(/\s/g, '').replace(decimalSeparator, '.')
+  return normalized === '' ? Number.NaN : Number(normalized)
+}
+
 const zeroDecimalForFormatting = new Decimal()
 let warned = false
 
