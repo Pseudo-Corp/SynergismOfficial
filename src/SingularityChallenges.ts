@@ -768,7 +768,7 @@ export const singularityChallengeData: {
     singularityRequirement: (baseReq: number, completions: number) => {
       return baseReq + completions
     },
-    scalingrewardcount: 2,
+    scalingrewardcount: 3,
     uniquerewardcount: 2,
     effect: (n, key) => {
       if (key === 'shopUpgrade') {

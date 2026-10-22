@@ -6999,6 +6999,7 @@
         "barMod3": "<<var(--purple-text-color)|Purple Bar: Grants the effect of both bars once per 100 Purple Honey Luck, with remaining Luck giving a chance at +1>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
         "ScalingReward1": "<<var(--purple-text-color)|Purple Ambrosia Synthesis>> costs -5%",
         "ScalingReward2": "+1 <<var(--blueberry-text-color)|Blueberry>>. Yes, really.",
+        "ScalingReward3": "50 Achievement Points!",
         "UniqueReward1": "1st - <<var(--purple-text-color)|+50 Purple Honey Luck>>. This will be changed, one day.",
         "UniqueReward2": "2nd - Unlock a new <<orchid|Quark Upgrade>>! Neigh."
       },
