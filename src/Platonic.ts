@@ -35,12 +35,12 @@ const platonicResourceNames = [
   'wowAbyssals'
 ] as const
 
-const getPlatonicUpgradePriceMultiplier = (index: number) => {
+const getPlatonicUpgradePriceMultiplier = (index: number, level = player.platonicUpgrades[index]) => {
   let priceMultiplier = 1
   if (platUpgradeBaseCosts[index].priceMult) {
     priceMultiplier = Math.pow(
       platUpgradeBaseCosts[index].priceMult,
-      Math.pow(player.platonicUpgrades[index] / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
+      Math.pow(level / (platUpgradeBaseCosts[index].maxLevel - 1), 1.25)
     )
   }
 
@@ -322,80 +322,140 @@ const checkPlatonicUpgrade = (
   return checks
 }
 
+type PlatonicResource = typeof platonicResources[number]
+
+const isPlatonicResourceAffordable = (resource: PlatonicResource, amount: number) => {
+  if (resource === 'abyssals') {
+    return amount === 0 || player.hepteracts.abyss.BAL >= amount
+  }
+  return amount <= (player[platonicResourceNames[platonicResources.indexOf(resource)]] as number)
+}
+
+const getPlatonicUpgradeCosts = (index: number) => {
+  const costs: Record<PlatonicResource, number> = {
+    obtainium: 0,
+    offerings: 0,
+    cubes: 0,
+    tesseracts: 0,
+    hypercubes: 0,
+    platonics: 0,
+    abyssals: 0
+  }
+  const buyMax = player.maxPlatToggle && player.singularityCount > 0
+  const maxLevel = platUpgradeBaseCosts[index].maxLevel
+  let levels = 0
+
+  while (player.platonicUpgrades[index] + levels < maxLevel) {
+    const priceMultiplier = getPlatonicUpgradePriceMultiplier(index, player.platonicUpgrades[index] + levels)
+    const nextCosts = platonicResources.map((resource) =>
+      costs[resource] + Math.floor(platUpgradeBaseCosts[index][resource] * priceMultiplier)
+    )
+
+    if (levels > 0 && !platonicResources.every((resource, i) => isPlatonicResourceAffordable(resource, nextCosts[i]))) {
+      break
+    }
+
+    platonicResources.forEach((resource, i) => {
+      costs[resource] = nextCosts[i]
+    })
+    levels++
+
+    if (!buyMax) {
+      break
+    }
+  }
+
+  const affordable = Object.fromEntries(
+    platonicResources.map((resource) => [resource, isPlatonicResourceAffordable(resource, costs[resource])])
+  ) as Record<PlatonicResource, boolean>
+
+  return { levels, costs, affordable }
+}
+
 export const createPlatonicDescription = (index: number) => {
   let translationKey = 'wowCubes.platonicUpgrades.descriptionBox.upgradeLevel'
   if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
     translationKey = 'wowCubes.platonicUpgrades.descriptionBox.upgradeLevelMaxed'
   }
   const resourceCheck = checkPlatonicUpgrade(index)
-
-  const priceMultiplier = getPlatonicUpgradePriceMultiplier(index)
+  const upgradeCosts = getPlatonicUpgradeCosts(index)
 
   DOMCacheGetOrSet('platonicUpgradeDescription').innerHTML = i18next.t(
     `wowCubes.platonicUpgrades.descriptions.${index}`
   )
   DOMCacheGetOrSet('platonicUpgradeLevel').textContent = i18next.t(translationKey, {
     a: format(player.platonicUpgrades[index]),
-    b: format(platUpgradeBaseCosts[index].maxLevel)
+    b: format(platUpgradeBaseCosts[index].maxLevel),
+    c: format(upgradeCosts.levels)
   })
   DOMCacheGetOrSet('platonicOfferingCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.offeringCost',
     {
       a: format(player.offerings),
-      b: format(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+      b: format(upgradeCosts.costs.offerings)
     }
   )
   DOMCacheGetOrSet('platonicObtainiumCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.obtainiumCost',
     {
       a: format(player.obtainium),
-      b: format(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
+      b: format(upgradeCosts.costs.obtainium)
     }
   )
   DOMCacheGetOrSet('platonicCubeCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.cubeCost', {
     a: format(player.wowCubes.valueOf()),
-    b: format(platUpgradeBaseCosts[index].cubes * priceMultiplier)
+    b: format(upgradeCosts.costs.cubes)
   })
   DOMCacheGetOrSet('platonicTesseractCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.tesseractCost',
     {
       a: format(player.wowTesseracts.valueOf()),
-      b: format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier)
+      b: format(upgradeCosts.costs.tesseracts)
     }
   )
   DOMCacheGetOrSet('platonicHypercubeCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.hypercubeCost',
     {
       a: format(player.wowHypercubes.valueOf()),
-      b: format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier)
+      b: format(upgradeCosts.costs.hypercubes)
     }
   )
   DOMCacheGetOrSet('platonicPlatonicCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.platonicCost',
     {
       a: format(player.wowPlatonicCubes.valueOf()),
-      b: format(platUpgradeBaseCosts[index].platonics * priceMultiplier)
+      b: format(upgradeCosts.costs.platonics)
     }
   )
   DOMCacheGetOrSet('platonicHepteractCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.hepteractCost',
     {
       a: format(player.hepteracts.abyss.BAL),
-      b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier))
+      b: format(upgradeCosts.costs.abyssals)
     }
   )
 
-  DOMCacheGetOrSet('platonicOfferingCost').style.color = resourceCheck.offerings ? 'lime' : 'var(--crimson-text-color)'
-  DOMCacheGetOrSet('platonicObtainiumCost').style.color = resourceCheck.obtainium ? 'lime' : 'var(--crimson-text-color)'
-  DOMCacheGetOrSet('platonicCubeCost').style.color = resourceCheck.cubes ? 'lime' : 'var(--crimson-text-color)'
-  DOMCacheGetOrSet('platonicTesseractCost').style.color = resourceCheck.tesseracts
+  DOMCacheGetOrSet('platonicOfferingCost').style.color = upgradeCosts.affordable.offerings
     ? 'lime'
     : 'var(--crimson-text-color)'
-  DOMCacheGetOrSet('platonicHypercubeCost').style.color = resourceCheck.hypercubes
+  DOMCacheGetOrSet('platonicObtainiumCost').style.color = upgradeCosts.affordable.obtainium
     ? 'lime'
     : 'var(--crimson-text-color)'
-  DOMCacheGetOrSet('platonicPlatonicCost').style.color = resourceCheck.platonics ? 'lime' : 'var(--crimson-text-color)'
-  DOMCacheGetOrSet('platonicHepteractCost').style.color = resourceCheck.abyssals ? 'lime' : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicCubeCost').style.color = upgradeCosts.affordable.cubes
+    ? 'lime'
+    : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicTesseractCost').style.color = upgradeCosts.affordable.tesseracts
+    ? 'lime'
+    : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicHypercubeCost').style.color = upgradeCosts.affordable.hypercubes
+    ? 'lime'
+    : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicPlatonicCost').style.color = upgradeCosts.affordable.platonics
+    ? 'lime'
+    : 'var(--crimson-text-color)'
+  DOMCacheGetOrSet('platonicHepteractCost').style.color = upgradeCosts.affordable.abyssals
+    ? 'lime'
+    : 'var(--crimson-text-color)'
 
   if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
     DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'
@@ -424,7 +484,7 @@ export const createPlatonicDescription = (index: number) => {
 
 export const platonicUpgradeModalHTML = (index: number, iconStyle?: string) => {
   const resourceCheck = checkPlatonicUpgrade(index)
-  const priceMultiplier = getPlatonicUpgradePriceMultiplier(index)
+  const upgradeCosts = getPlatonicUpgradeCosts(index)
   const maxed = player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel
   const levelTranslationKey = maxed
     ? 'wowCubes.platonicUpgrades.descriptionBox.upgradeLevelMaxed'
@@ -442,51 +502,51 @@ export const platonicUpgradeModalHTML = (index: number, iconStyle?: string) => {
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.offeringCost', {
         a: format(player.offerings),
-        b: format(platUpgradeBaseCosts[index].offerings * priceMultiplier)
+        b: format(upgradeCosts.costs.offerings)
       }),
-      affordable: resourceCheck.offerings
+      affordable: upgradeCosts.affordable.offerings
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.obtainiumCost', {
         a: format(player.obtainium),
-        b: format(platUpgradeBaseCosts[index].obtainium * priceMultiplier)
+        b: format(upgradeCosts.costs.obtainium)
       }),
-      affordable: resourceCheck.obtainium
+      affordable: upgradeCosts.affordable.obtainium
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.cubeCost', {
         a: format(player.wowCubes.valueOf()),
-        b: format(platUpgradeBaseCosts[index].cubes * priceMultiplier)
+        b: format(upgradeCosts.costs.cubes)
       }),
-      affordable: resourceCheck.cubes
+      affordable: upgradeCosts.affordable.cubes
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.tesseractCost', {
         a: format(player.wowTesseracts.valueOf()),
-        b: format(platUpgradeBaseCosts[index].tesseracts * priceMultiplier)
+        b: format(upgradeCosts.costs.tesseracts)
       }),
-      affordable: resourceCheck.tesseracts
+      affordable: upgradeCosts.affordable.tesseracts
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.hypercubeCost', {
         a: format(player.wowHypercubes.valueOf()),
-        b: format(platUpgradeBaseCosts[index].hypercubes * priceMultiplier)
+        b: format(upgradeCosts.costs.hypercubes)
       }),
-      affordable: resourceCheck.hypercubes
+      affordable: upgradeCosts.affordable.hypercubes
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.platonicCost', {
         a: format(player.wowPlatonicCubes.valueOf()),
-        b: format(platUpgradeBaseCosts[index].platonics * priceMultiplier)
+        b: format(upgradeCosts.costs.platonics)
       }),
-      affordable: resourceCheck.platonics
+      affordable: upgradeCosts.affordable.platonics
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.hepteractCost', {
         a: format(player.hepteracts.abyss.BAL),
-        b: format(Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier))
+        b: format(upgradeCosts.costs.abyssals)
       }),
-      affordable: resourceCheck.abyssals
+      affordable: upgradeCosts.affordable.abyssals
     }
   ]
 
@@ -503,7 +563,8 @@ export const platonicUpgradeModalHTML = (index: number, iconStyle?: string) => {
     <div class="platonicUpgradeModalLevel ${maxed ? 'maxed' : ''}">${
     i18next.t(levelTranslationKey, {
       a: format(player.platonicUpgrades[index]),
-      b: format(platUpgradeBaseCosts[index].maxLevel)
+      b: format(platUpgradeBaseCosts[index].maxLevel),
+      c: format(upgradeCosts.levels)
     })
   }</div>
     <div class="platonicUpgradeModalCosts">${

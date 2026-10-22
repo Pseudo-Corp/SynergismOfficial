@@ -790,7 +790,8 @@ export const singularityChallengeData: {
       const introText2 = i18next.t('singularityChallenge.data.barDependence.barIntro2')
 
       const blueberryReq = calculateRequiredBlueberryTimeEXALT()
-      const secs = calculateAmbrosiaRewardLuck() / 10000
+      const secs = (calculateAmbrosiaRewardLuck() / 100
+        + getSingularityChallengeEffect('noAmbrosiaUpgrades', 'bonusAmbrosia')) * 0.01
       const barMod1Text = i18next.t('singularityChallenge.data.barDependence.barMod1', {
         secs: format(secs, 2, true),
         req: format(blueberryReq, 0, true)
