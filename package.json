@@ -66,6 +66,7 @@
   "scripts": {
     "live-server": "npx live-server --port=3000 -q --watch=dist,index.html,Synergism.css,translations",
     "dev": "concurrently \"npm run watch:esbuild\" \"npm run live-server\"",
+    "dev:testing": "concurrently \"npm run watch:esbuild:testing\" \"npm run live-server\"",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "fmt": "npx dprint fmt",
@@ -75,6 +76,7 @@
     "htmllint": "npx htmlhint index.html",
     "build:esbuild": "node scripts/build-esbuild.mjs",
     "watch:esbuild": "node --run msw:init && node scripts/build-esbuild.mjs --dev --watch --sourcemap",
+    "watch:esbuild:testing": "node --run msw:init && node scripts/build-esbuild.mjs --dev --watch --sourcemap --testing",
     "check:tsc": "npx -p typescript tsc",
     "watch:tsc": "npx -p typescript tsc --watch",
     "prepare": "husky install",
