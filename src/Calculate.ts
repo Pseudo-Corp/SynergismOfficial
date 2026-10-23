@@ -74,6 +74,7 @@ import {
   antSpeedStats,
   ascensionCountMultStats,
   calculateTotalStat,
+  constructionMultiplierStats,
   constructionStats,
   freeAcceleratorAdditiveStats,
   freeAcceleratorBoostAdditiveStats,
@@ -599,7 +600,6 @@ export const calculateNegativeSalvage = () => {
 export const baseConstruction = 1
 const challenge4ConstructionDivisor = 2
 const challenge8ConstructionDivisor = 5
-const ascensionChallenge15ParticleConstruction = 1
 export const buildingConstructionSoftcap = {
   coin: 1000,
   diamond: 1000,
@@ -607,7 +607,8 @@ export const buildingConstructionSoftcap = {
   particle: 1000
 } as const
 
-export const calculateConstruction = () => calculateTotalStat(constructionStats)
+export const calculateRawConstruction = () => calculateTotalStat(constructionStats)
+export const calculateConstruction = () => calculateRawConstruction() * calculateTotalStat(constructionMultiplierStats)
 
 const getChallengeConstructionDivisor = (type: keyof typeof buildingConstructionSoftcap) => {
   if (type === 'particle') {
@@ -625,9 +626,6 @@ const getChallengeConstructionDivisor = (type: keyof typeof buildingConstruction
 }
 
 export const calculateBuildingConstruction = (type: keyof typeof buildingConstructionSoftcap) => {
-  if (type === 'particle' && player.currentChallenge.ascension === 15) {
-    return ascensionChallenge15ParticleConstruction
-  }
   return calculateConstruction() / getChallengeConstructionDivisor(type)
     / corruptionEffect(activeCorruptionLevel(), 'construction')
 }

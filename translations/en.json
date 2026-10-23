@@ -8075,7 +8075,7 @@
     },
     "constructionStats": {
       "title": "Construction",
-      "extraInfo": "Each Coin, Crystal, Mythos and Particle Building has a base Softcap of <<yellow|num:((1000))>>, <<cyan|num:((2000))>>, <<plum|num:((4000))>> and <<limegreen|num:((10000))>> owned respectively, which is multiplied by Construction. <br> Each Building costs a fixed multiple more than the last until you own as many as its Softcap. Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Construction also slows price growth: the entire price exponent is divided by Construction (capped at ×num:((1))). This applies to the quadratic scaling past the Softcap as well.>> <br> Challenges 4 and 10 divide Coin and Crystal Building Construction by num:((2)), and Challenge 8 divides Construction for all but Particle Buildings by num:((5)) (Challenge 8 takes priority). In Ascension Challenge 15, Particle Construction is fixed at num:((1)) instead. <br> <<crimson|The 'Rocky Foundations' Corruption divides Construction for every Building.>>"
+      "extraInfo": "Every Coin, Crystal, Mythos and Particle Building has a base Softcap of <<yellow|num:((1000))>> owned, which is multiplied by Construction. <br> Each Building costs a fixed multiple more than the last until you own as many as its Softcap. Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Past the Softcap, the price exponent gains an extra (Owned - Softcap)² / Softcap, so more Construction both delays the quadratic scaling and makes it grow more slowly.>> <br> Challenges 4 and 10 divide Coin and Crystal Building Construction by num:((2)), and Challenge 8 divides Construction for all but Particle Buildings by num:((5)) (Challenge 8 takes priority). <br> <<crimson|The 'Rocky Foundations' Corruption divides Construction for every Building.>>"
     },
     "constructionBase": {
       "title": "Construction Sources",
@@ -8084,17 +8084,13 @@
       "Researches": "Researches 3x6 - 3x10:",
       "AntUpgrade": "Ant Upgrade - Hic Formicidae:",
       "Challenge15Platonic": "Challenge 15 - Maxed Platonic Upgrades:",
-      "Total": "Total Construction:"
+      "Challenge15Reward": "Challenge 15 Reward - Construction:",
+      "Total": "Additive Construction:",
+      "PlatonicUpgrade13": "Challenge 15 - Platonic Upgrade 3x3:",
+      "Total2": "Total Construction:"
     },
     "constructionBuildings": {
       "title": "Construction by Building (after Challenge and Corruption penalties)",
-      "CoinBuildings": "Coin Buildings:",
-      "CrystalBuildings": "Crystal Buildings:",
-      "MythosBuildings": "Mythos Buildings:",
-      "ParticleBuildings": "Particle Buildings:"
-    },
-    "constructionScaling": {
-      "title": "Building Softcap by Building",
       "CoinBuildings": "Coin Buildings:",
       "CrystalBuildings": "Crystal Buildings:",
       "MythosBuildings": "Mythos Buildings:",
@@ -8553,6 +8549,7 @@
         "wowHepteracts": "• 7D Reward - Hepteracts: x{{amount}}",
         "wowOcteracts": "• 8D Reward - Octeracts: x{{amount}}",
         "quarks": "• Quarks: +{{amount}}",
+        "construction": "• Construction: +{{amount}}",
         "hepteractsUnlocked": "• Hepteracts: Unlocked!",
         "challengeHepteractUnlocked": "• Challenge Hepteract: Unlocked!",
         "cube5": "• All Cube Types V: +{{amount}}",
@@ -8601,7 +8598,7 @@
         "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, +1 free Corruption level and raise your maximum Corruption level by 5 again!",
         "11": "Rocky Foundations' difficulty scaling is reduced by 30%.",
         "12": "Blunders' difficulty scaling is reduced by 3% per level. In Challenge 15, gain +5% more Ant ELO per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
-        "13": "All sources of negative <<green|Salvage>> are reduced by 50%!",
+        "13": "All sources of negative <<green|Salvage>> are reduced by 50%! In Challenge 15, your Construction stat is doubled!",
         "14": "Great Depression II's difficulty scaling is reduced by 30%. In Challenge 15, Recession's coin exponent is multiplied by up to num:((1.5)) based on your Coins.",
         "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to num:((100000)). This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",

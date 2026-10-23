@@ -2,7 +2,6 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { getBuildingScalingThreshold } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   baseConstruction,
@@ -78,6 +77,7 @@ import {
   calculateQuarkMultiplier,
   calculateRawAntSpeedMult,
   calculateRawAscensionSpeedMult,
+  calculateRawConstruction,
   calculateRawNegativeSalvage,
   calculateRawPositiveSalvage,
   calculateRedAmbrosiaCubes,
@@ -3439,6 +3439,23 @@ export const constructionStats: NumberStatLineCategory = {
       i18n: 'Challenge15Platonic',
       stat: () => challenge15PlatonicConstruction(),
       acc: 0
+    },
+    {
+      i18n: 'Challenge15Reward',
+      stat: () => G.challenge15Rewards.construction.value,
+      acc: 2
+    }
+  ]
+}
+
+export const constructionMultiplierStats: NumberStatLineCategory = {
+  kind: 'number',
+  type: StatLineTypes.Multiplication,
+  lines: [
+    {
+      i18n: 'PlatonicUpgrade13',
+      stat: () => player.currentChallenge.ascension === 15 && player.platonicUpgrades[13] > 0 ? 2 : 1,
+      acc: 0
     }
   ]
 }
@@ -3462,33 +3479,6 @@ const constructionBuildingStats: NumberStatLineCategory = {
     {
       i18n: 'ParticleBuildings',
       stat: () => calculateBuildingConstruction('particle')
-    }
-  ]
-}
-
-const constructionScalingStats: NumberStatLineCategory = {
-  kind: 'number',
-  type: StatLineTypes.Misc,
-  lines: [
-    {
-      i18n: 'CoinBuildings',
-      stat: () => getBuildingScalingThreshold('coin'),
-      format: (stat) => format(stat, 0, true)
-    },
-    {
-      i18n: 'CrystalBuildings',
-      stat: () => getBuildingScalingThreshold('diamond'),
-      format: (stat) => format(stat, 0, true)
-    },
-    {
-      i18n: 'MythosBuildings',
-      stat: () => getBuildingScalingThreshold('mythos'),
-      format: (stat) => format(stat, 0, true)
-    },
-    {
-      i18n: 'ParticleBuildings',
-      stat: () => getBuildingScalingThreshold('particle'),
-      format: (stat) => format(stat, 0, true)
     }
   ]
 }
@@ -5821,22 +5811,21 @@ const loadConstructionStats = () => {
     'constructionBase',
     'statConBase',
     'ConstructionStatBase',
-    calculateConstruction
+    calculateRawConstruction
+  )
+  loadStatistics(
+    constructionMultiplierStats,
+    'constructionBase',
+    'statConBase2',
+    'ConstructionStatBase2',
+    calculateConstruction,
+    'Total2'
   )
   loadStatistics(
     constructionBuildingStats,
     'constructionBuildings',
     'statConBuild',
     'ConstructionStatBuildings',
-    () => 0,
-    '',
-    false
-  )
-  loadStatistics(
-    constructionScalingStats,
-    'constructionScaling',
-    'statConScale',
-    'ConstructionStatScaling',
     () => 0,
     '',
     false
@@ -6135,7 +6124,7 @@ export const updateDisplayC15Rewards = () => {
         amount: v.displayAsMultiplier
           ? format(value, 2, true)
           : doNotUsePercentage
-          ? format(value, 0, true)
+          ? format(value, v.accuracy ?? 0, true)
           : formatAsPercentIncrease(value, 2)
       })
     } else {

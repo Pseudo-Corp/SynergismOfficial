@@ -56,6 +56,7 @@ export type Challenge15Rewards =
   | 'wowHepteracts'
   | 'wowOcteracts'
   | 'quarks'
+  | 'construction'
   | 'hepteractsUnlocked'
   | 'challengeHepteractUnlocked'
   | 'cube5'
@@ -75,6 +76,7 @@ export type Challenge15RewardsInformation = {
   requirement: number
   HTMLColor?: string
   doNotUsePercentage?: boolean
+  accuracy?: number
   displayAsMultiplier?: boolean
 }
 
