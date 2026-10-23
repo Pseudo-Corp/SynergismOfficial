@@ -17,7 +17,7 @@ import {
   corruptionEffect
 } from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
-import { maxedPlatonicUpgradeCount } from './Platonic'
+import { maxedPlatonicUpgradeConstruction } from './Platonic'
 import { type RuneKeys, runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -235,7 +235,7 @@ const challenge15ExtraModifiers: Array<[string, () => Record<string, string>]> =
   ['antSpeed', () => ({})],
   ['fortunae', () => ({})],
   ['tax', () => ({})],
-  ['construction', () => ({ value: format(maxedPlatonicUpgradeCount(), 0, true) })]
+  ['construction', () => ({ value: format(maxedPlatonicUpgradeConstruction(), 1, true) })]
 ]
 
 const challenge15RestrictionsHTML = () => {

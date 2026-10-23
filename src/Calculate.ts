@@ -1804,7 +1804,7 @@ export const singularityBonusTokenMult = () => {
 }
 
 const calculatePlatonic7UpgradePower = () => {
-  return 1 - player.platonicUpgrades[7] / 30
+  return 1 - player.platonicUpgrades[7] / 20
 }
 
 export const calculateOfferingPotionBaseOfferings = () => {

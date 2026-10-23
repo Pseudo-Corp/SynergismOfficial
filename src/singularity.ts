@@ -1117,7 +1117,7 @@ export const goldenQuarkUpgrades: {
         if (n === 0) {
           return 1
         } else {
-          return Math.pow(1.3, Math.min(10, Math.max(0, activeEffectiveCorruptionLevel() - 35)))
+          return divinePackOcteractMultiplier(activeEffectiveCorruptionLevel())
         }
       } else {
         return n > 0 ? 0.1 : 0 // packQuarkAdd
@@ -3003,6 +3003,10 @@ export function computeGQUpgradeMaxLevel (upgradeKey: SingularityDataKeys): numb
     cap += getOcteractUpgradeEffect('octeractSingUpgradeCap', 'goldenQuarkUpgradeCapIncrease')
     return cap
   }
+}
+
+export const divinePackOcteractMultiplier = (effectiveLevel: number) => {
+  return Math.pow(1.3, Math.min(10, Math.max(0, effectiveLevel - 35)))
 }
 
 export function actualGQUpgradeTotalLevels (upgradeKey: SingularityDataKeys): number {

@@ -3471,7 +3471,7 @@
           "antSpeed": "☆ Ant Speed <<gold|^num:((0.5))>>",
           "fortunae": "☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>>",
           "tax": "☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>>",
-          "construction": "☆ <<lime|+1 Construction>> per maxed Platonic Upgrade (currently <<lime|+{{value}}>>)"
+          "construction": "☆ <<lime|+num:((1.5)) Construction>> per maxed Platonic Upgrade (currently <<lime|+{{value}}>>)"
         }
       },
       "goal": "Goal: {{value}} Coins, but get bonuses based on your best attempt.",
@@ -3640,7 +3640,7 @@
       "35": "[4x5] Aphrodite increases the fertility of your coins. The effect of Aphrodite Tributes is raised to the power of (1 + level / 100).",
       "36": "[4x6] Raise Building Power to (1 + num:((0.05)) * Level) once more.",
       "37": "[4x7] For Thrift and Superior Intellect runes, add +1 to the Rune Level Coefficient per level!",
-      "38": "[4x8] Gain +5% more Tesseracts on Ascension per Corruption level, including free levels.",
+      "38": "[4x8] Gain +5% more Tesseracts on Ascension per Corruption level, including free levels (Max: +100% at 20 Corruption levels).",
       "39": "[4x9] Each Challenge 10 completion multiplies the Cube Bank by an extra num:((0.005)) (x1.02 → num:((1.025)))!",
       "40": "[4x10] Athena is very smart. The effect of Athena Tributes is raised to the power of (1 + level / 100).",
       "41": "[5x1] Yeah yeah yeah, +25 base Cubes to the Cube Bank per level. Isn't it enough?",
@@ -5665,7 +5665,7 @@
       "blunders": "Ant ELO is reduced by (additive, Ant ELO cannot go below 0)"
     },
     "modal": {
-      "scaling": "<<lime|Difficulty scaling: ×{{scaling}} per level (Platonic Upgrade {{upgrade}})>>",
+      "scaling": "<<lime|Difficulty scaling: ×{{scaling}} per level (maxed Platonic Upgrades)>>",
       "levelFormula": "(L = Level):",
       "currentMarker": "L = {{level}} ▶",
       "nextMarker": "◀ L = {{level}}",
@@ -5681,8 +5681,8 @@
       },
       "viscosity": {
         "low": "2^(2 × {{L}})",
-        "mid": "2^(40 + 3 × ({{L}} − 20))",
-        "high": "2^(115 + 3 × ({{L}} − 45)^1.5)"
+        "mid": "2^(40 + 6 × ({{L}} − 20))",
+        "high": "2^(190 + 3 × ({{L}} − 45)^1.5)"
       },
       "salvage": {
         "low": "−62.5 × {{L}}",
@@ -5724,12 +5724,12 @@
       "current": "This Ascension<br>L = {{level}}",
       "next": "Next Ascension<br>L = {{level}}",
       "cubeFormula": {
-        "cubes": "Total multiplier = Base × Corruption × Global Cube × Wow! Cube multipliers",
-        "tesseracts": "Total multiplier = Base × Corruption × Global Cube × Wow! Tesseract multipliers",
-        "hypercubes": "Total multiplier = Base × Corruption × Global Cube × Wow! Hypercube multipliers",
-        "platonics": "Total multiplier = Base × Corruption × Global Cube × Platonic Cube multipliers",
+        "cubes": "Total multiplier = Base × Corruption × Global Cube × Wow! Cube multipliers × Corruption-scaling upgrades",
+        "tesseracts": "Total multiplier = Base × Corruption × Global Cube × Wow! Tesseract multipliers × Corruption-scaling upgrades",
+        "hypercubes": "Total multiplier = Base × Corruption × Global Cube × Wow! Hypercube multipliers × Corruption-scaling upgrades",
+        "platonics": "Total multiplier = Base × Corruption × Global Cube × Platonic Cube multipliers × Corruption-scaling upgrades",
         "hepteracts": "Total multiplier = Base × Corruption × Global Cube × Hepteract multipliers",
-        "octeracts": "Total multiplier = Base × Corruption × shared cube sources × Octeract multipliers"
+        "octeracts": "Total multiplier = Base × Corruption × shared cube sources × Octeract multipliers × Corruption-scaling upgrades"
       },
       "effectiveLevel": "Level + free levels",
       "rate": "Corruption",
@@ -5750,6 +5750,7 @@
         "hepteracts": "Hepteract multipliers",
         "octeracts": "Octeract multipliers"
       },
+      "scaling": "Corruption-scaling upgrades",
       "locked": "Locked",
       "unlock": "Unlocks at level {{level}} (level {{base}} minus your free levels).",
       "unlockC15": "Unlocks at level {{level}} (level {{base}} minus your free levels) and with the Challenge 15 Hepteract reward.",
@@ -8591,15 +8592,15 @@
         "3": "+3% Wow! Hypercubes per level for every Corruption level, including free levels!",
         "4": "+4% Platonic Cubes per level for every Corruption level, including free levels!",
         "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +1 free Corruption level and raise your maximum Corruption level by 5!",
-        "6": "Viscosity's difficulty scaling is reduced by 3% per level. In Challenge 15, Viscosity's exponent is multiplied by 1+(level/30).",
-        "7": "Global speed below 1x is raised to ^1-(level/30), ignoring Immaculate multipliers. Less Fruitful Harvests' and Rare Earth Metals' difficulty scaling is reduced by 2% per level.",
-        "8": "Hyperchallenged's difficulty scaling is reduced by 6% per level. In Challenge 15, the Hyperchallenge Cube's effect is divided by 1+(level*num:((0.4))).",
-        "9": "Gain num:((2.5))x Immaculate Obtainium and reduce Illiteracy's difficulty scaling by 30%. In Challenge 15, multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at num:((1e100)) Obtainium.",
+        "6": "In Challenge 15, Viscosity's exponent is multiplied by 1+(level/30). When maxed, all Corruptions scale 2.5% slower.",
+        "7": "Global speed below 1x is raised to ^1-(level/20), ignoring Immaculate multipliers. When maxed, all Corruptions scale 2.5% slower.",
+        "8": "In Challenge 15, the Hyperchallenge Cube's effect is divided by 1+(level*num:((0.4))). When maxed, all Corruptions scale 2.5% slower.",
+        "9": "Gain num:((2.5))x Immaculate Obtainium and all Corruptions scale 2.5% slower. In Challenge 15, multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at num:((1e100)) Obtainium.",
         "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, +1 free Corruption level and raise your maximum Corruption level by 5 again!",
-        "11": "Rocky Foundations' difficulty scaling is reduced by 30%.",
-        "12": "Blunders' difficulty scaling is reduced by 3% per level. In Challenge 15, gain +5% more Ant ELO per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
-        "13": "All sources of negative <<green|Salvage>> are reduced by 50%! In Challenge 15, your Construction stat is doubled!",
-        "14": "Great Depression II's difficulty scaling is reduced by 30%. In Challenge 15, Recession's coin exponent is multiplied by up to num:((1.5)) based on your Coins.",
+        "11": "All Corruptions scale 2.5% slower.",
+        "12": "When maxed, all Corruptions scale 2.5% slower. In Challenge 15, gain +5% more Ant ELO per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
+        "13": "All sources of negative <<green|Salvage>> are reduced by 50% and all Corruptions scale 2.5% slower! In Challenge 15, your Construction stat is tripled!",
+        "14": "All Corruptions scale 2.5% slower. In Challenge 15, Recession's coin exponent is multiplied by up to num:((1.5)) based on your Coins.",
         "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to num:((100000)). This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
         "17": "If this is bought, gain +num:((0.2)) free Corruption levels per level (up to +4).",

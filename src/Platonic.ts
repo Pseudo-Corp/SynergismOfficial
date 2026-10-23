@@ -128,7 +128,7 @@ const platUpgradeBaseCosts: Record<number, IPlatBaseCost> = {
     hypercubes: 2e8,
     platonics: 1.5e7,
     abyssals: 0,
-    maxLevel: 15
+    maxLevel: 10
   },
   8: {
     // obtainium: 1e87,
@@ -380,8 +380,8 @@ const platonicCorruptionCubeBonusRates: Record<number, number> = {
   4: 0.04
 }
 
-export const platonicCorruptionCubeBonus = (index: number) => {
-  return (platonicCorruptionCubeBonusRates[index] ?? 0) * ascensionEffectiveCorruptionLevel()
+export const platonicCorruptionCubeBonus = (index: number, effectiveLevel = ascensionEffectiveCorruptionLevel()) => {
+  return (platonicCorruptionCubeBonusRates[index] ?? 0) * effectiveLevel
     * player.platonicUpgrades[index]
 }
 
@@ -605,8 +605,23 @@ export const maxedPlatonicUpgradeCount = () => {
   ).length
 }
 
+const corruptionScalingPlatonicUpgrades = [6, 7, 8, 9, 11, 12, 13, 14]
+const corruptionScalingPerMaxedUpgrade = 0.025
+
+export const platonicCorruptionScaling = () => {
+  const maxed =
+    corruptionScalingPlatonicUpgrades.filter((index) =>
+      player.platonicUpgrades[index] >= platUpgradeBaseCosts[index].maxLevel
+    ).length
+  return 1 - corruptionScalingPerMaxedUpgrade * maxed
+}
+
+const constructionPerMaxedPlatonicUpgrade = 1.5
+
+export const maxedPlatonicUpgradeConstruction = () => constructionPerMaxedPlatonicUpgrade * maxedPlatonicUpgradeCount()
+
 export const challenge15PlatonicConstruction = () => {
-  return player.currentChallenge.ascension === 15 ? maxedPlatonicUpgradeCount() : 0
+  return player.currentChallenge.ascension === 15 ? maxedPlatonicUpgradeConstruction() : 0
 }
 
 export const clampPlatonicUpgradeLevelsToCaps = () => {

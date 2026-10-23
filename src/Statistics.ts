@@ -181,8 +181,10 @@ import {
 import { getRuneSpiritEffect } from './RuneSpirits'
 import { getShopUpgradeEffects } from './Shop'
 import {
+  actualGQUpgradeTotalLevels,
   calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
+  divinePackOcteractMultiplier,
   getGQUpgradeEffect,
   goldenQuarkUpgrades
 } from './singularity'
@@ -291,6 +293,32 @@ const challenge15CubeRewards = {
   hepteracts: 'wowHepteracts',
   octeracts: 'wowOcteracts'
 } as const satisfies Record<CorruptionCubeType, Challenge15Rewards>
+
+const corruptionScaledCubeStats = {
+  cubes: {
+    Platonic1x1: (effectiveLevel: number) => 1 + platonicCorruptionCubeBonus(1, effectiveLevel)
+  },
+  tesseracts: {
+    CubeUpgrade4x8: (effectiveLevel: number) => 1 + (1 / 20) * player.cubeUpgrades[38] * Math.min(20, effectiveLevel),
+    Platonic1x2: (effectiveLevel: number) => 1 + platonicCorruptionCubeBonus(2, effectiveLevel)
+  },
+  hypercubes: {
+    Platonic1x3: (effectiveLevel: number) => 1 + platonicCorruptionCubeBonus(3, effectiveLevel)
+  },
+  platonics: {
+    Platonic1x4: (effectiveLevel: number) => 1 + platonicCorruptionCubeBonus(4, effectiveLevel)
+  },
+  hepteracts: {},
+  octeracts: {
+    CookieUpgrade20: (effectiveLevel: number) => player.cubeUpgrades[70] > 0 ? 1 + 0.2 * effectiveLevel : 1,
+    DivinePack: (effectiveLevel: number) =>
+      actualGQUpgradeTotalLevels('divinePack') > 0 ? divinePackOcteractMultiplier(effectiveLevel) : 1
+  }
+} satisfies Record<CorruptionCubeType, Record<string, (effectiveLevel: number) => number>>
+
+export const hasCorruptionScaledCubeStats = (cube: CorruptionCubeType) => {
+  return Object.keys(corruptionScaledCubeStats[cube]).length > 0
+}
 
 const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
   {
@@ -612,7 +640,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x1',
-      stat: () => 1 + platonicCorruptionCubeBonus(1)
+      stat: () => corruptionScaledCubeStats.cubes.Platonic1x1(ascensionEffectiveCorruptionLevel())
     },
     {
       i18n: 'Antiquities',
@@ -674,7 +702,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CubeUpgrade4x8',
-      stat: () => 1 + (1 / 20) * player.cubeUpgrades[38] * ascensionEffectiveCorruptionLevel()
+      stat: () => corruptionScaledCubeStats.tesseracts.CubeUpgrade4x8(ascensionEffectiveCorruptionLevel())
     },
     {
       i18n: 'PlatonicCube',
@@ -682,7 +710,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x2',
-      stat: () => 1 + platonicCorruptionCubeBonus(2)
+      stat: () => corruptionScaledCubeStats.tesseracts.Platonic1x2(ascensionEffectiveCorruptionLevel())
     }
   ]
 }
@@ -719,7 +747,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x3',
-      stat: () => 1 + platonicCorruptionCubeBonus(3)
+      stat: () => corruptionScaledCubeStats.hypercubes.Platonic1x3(ascensionEffectiveCorruptionLevel())
     },
     {
       i18n: 'HyperrealHepteract',
@@ -760,7 +788,7 @@ export const allPlatonicCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Platonic1x4',
-      stat: () => 1 + platonicCorruptionCubeBonus(4)
+      stat: () => corruptionScaledCubeStats.platonics.Platonic1x4(ascensionEffectiveCorruptionLevel())
     }
   ]
 }
@@ -837,17 +865,11 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'CookieUpgrade20',
-      stat: () => {
-        if (player.cubeUpgrades[70] > 0) {
-          return 1 + 0.2 * activeEffectiveCorruptionLevel()
-        } else {
-          return 1
-        }
-      }
+      stat: () => corruptionScaledCubeStats.octeracts.CookieUpgrade20(activeEffectiveCorruptionLevel())
     },
     {
       i18n: 'DivinePack',
-      stat: () => getGQUpgradeEffect('divinePack', 'octeractMult')
+      stat: () => corruptionScaledCubeStats.octeracts.DivinePack(activeEffectiveCorruptionLevel())
     },
     {
       i18n: 'SingCubes1',
@@ -1009,14 +1031,19 @@ const displayedStatProduct = (lines: StatLine<number>[]) => {
   return product
 }
 
-export const calculateCorruptionCubeMultiplierParts = (cube: CorruptionCubeType) => {
+export const calculateCorruptionCubeMultiplierParts = (cube: CorruptionCubeType, effectiveLevel?: number) => {
+  const scaledStats: Partial<Record<string, (effectiveLevel: number) => number>> = corruptionScaledCubeStats[cube]
   let global = 1
   let specific = 1
+  let scaling = 1
   for (const line of corruptionCubeStatCategories[cube].lines) {
     if (cubeGainBaseStatKeys.has(line.i18n)) {
       continue
     }
-    if (line.i18n === 'GlobalCube') {
+    const scaledStat = scaledStats[line.i18n]
+    if (scaledStat !== undefined) {
+      scaling *= effectiveLevel === undefined ? line.stat() : scaledStat(effectiveLevel)
+    } else if (line.i18n === 'GlobalCube') {
       global *= displayedStatProduct(allCubeStats.lines)
     } else if (cubeGainGlobalStatLines.has(line)) {
       global *= line.stat()
@@ -1024,7 +1051,11 @@ export const calculateCorruptionCubeMultiplierParts = (cube: CorruptionCubeType)
       specific *= line.stat()
     }
   }
-  return { global: Math.min(1e300, global), specific: Math.min(1e300, specific) }
+  return {
+    global: Math.min(1e300, global),
+    specific: Math.min(1e300, specific),
+    scaling: Math.min(1e300, scaling)
+  }
 }
 
 export const allBaseOfferingStats: NumberStatLineCategory = {
@@ -2183,7 +2214,7 @@ const allGlobalSpeedDRStats: NumberStatLineCategory = {
     },
     {
       i18n: 'SlowSpeedDR',
-      stat: () => 1 - player.platonicUpgrades[7] / 30
+      stat: () => 1 - player.platonicUpgrades[7] / 20
     },
     {
       i18n: 'ImmaculateSpeedMult',
@@ -3438,7 +3469,7 @@ export const constructionStats: NumberStatLineCategory = {
     {
       i18n: 'Challenge15Platonic',
       stat: () => challenge15PlatonicConstruction(),
-      acc: 0
+      acc: 1
     },
     {
       i18n: 'Challenge15Reward',
@@ -3454,7 +3485,7 @@ export const constructionMultiplierStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'PlatonicUpgrade13',
-      stat: () => player.currentChallenge.ascension === 15 && player.platonicUpgrades[13] > 0 ? 2 : 1,
+      stat: () => player.currentChallenge.ascension === 15 && player.platonicUpgrades[13] > 0 ? 3 : 1,
       acc: 0
     }
   ]
