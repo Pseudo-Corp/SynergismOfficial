@@ -12842,7 +12842,8 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     .platonicContainer {
-        width: unset;
+        width: 0;
+        min-width: 100%;
     }
 
     .hepteractGrid {
