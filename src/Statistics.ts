@@ -6325,14 +6325,14 @@ const gameStages = (): Stage[] => {
     {
       stage: 23,
       tier: 6,
-      name: 's256-exalt7x10',
+      name: 's256-exalt9x1',
       unlocked: player.singularityChallenges.limitedTime.completions >= 10,
       reset: player.highestSingularityCount > 0
     },
     {
       stage: 24,
       tier: 6,
-      name: 'exalt7x10-pen',
+      name: 'exalt9x1-pen',
       unlocked: goldenQuarkUpgrades.ultimatePen.level > 0,
       reset: player.highestSingularityCount > 0
     },
