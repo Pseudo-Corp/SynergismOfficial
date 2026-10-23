@@ -5,6 +5,7 @@ interface Save {
   id: number
   name: string
   uploadedAt: string
+  updatedAt: string
   save: string
   type: 'sub' | 'perm'
 }
@@ -93,8 +94,10 @@ export const cloudSaveHandlers: HttpHandler[] = [
 
     if (existing) {
       existing.save = encoded
+      existing.updatedAt = sqliteNow()
     } else {
-      saves.push({ id: nextId++, name, uploadedAt: sqliteNow(), save: encoded, type: 'sub' })
+      const now = sqliteNow()
+      saves.push({ id: nextId++, name, uploadedAt: now, updatedAt: now, save: encoded, type: 'sub' })
     }
 
     return new HttpResponse('Ok!', { status: 200 })

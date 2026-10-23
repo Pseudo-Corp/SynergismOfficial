@@ -56,6 +56,7 @@ interface Save {
   id: number
   name: string
   uploadedAt: string
+  updatedAt: string
   save: string
   actionButtons?: {
     rename: HTMLButtonElement
@@ -1318,7 +1319,7 @@ const initializeCloudSaves = memoize(() => {
         }
 
         cloudSaves.forEach((save, index) => {
-          const { id, name, uploadedAt } = save
+          const { id, name, uploadedAt, updatedAt } = save
           const rowDiv = document.createElement('div')
           rowDiv.className = 'grid-row'
           rowDiv.style.display = 'contents'
@@ -1336,14 +1337,20 @@ const initializeCloudSaves = memoize(() => {
           dateCell.className = 'grid-cell date-cell'
           dateCell.textContent = new Date(uploadedAt).toLocaleString()
 
+          const updatedCell = document.createElement('div')
+          updatedCell.className = 'grid-cell date-cell'
+          updatedCell.textContent = new Date(updatedAt).toLocaleString()
+
           rowDiv.appendChild(idCell)
           rowDiv.appendChild(nameCell)
           rowDiv.appendChild(dateCell)
+          rowDiv.appendChild(updatedCell)
 
           if (index % 2 === 0) {
             idCell.classList.add('alt-row')
             nameCell.classList.add('alt-row')
             dateCell.classList.add('alt-row')
+            updatedCell.classList.add('alt-row')
           }
 
           // Create the expandable details row
@@ -1746,14 +1753,19 @@ async function handleSteamCloudSave () {
     ? i18next.t('account.steamCloud.exists')
     : i18next.t('account.steamCloud.noSave')
 
+  const updatedCell = document.createElement('div')
+  updatedCell.className = 'grid-cell date-cell'
+
   rowDiv.appendChild(idCell)
   rowDiv.appendChild(nameCell)
   rowDiv.appendChild(dateCell)
+  rowDiv.appendChild(updatedCell)
 
   // Alternate row styling (Steam is always first)
   idCell.classList.add('alt-row')
   nameCell.classList.add('alt-row')
   dateCell.classList.add('alt-row')
+  updatedCell.classList.add('alt-row')
 
   // Create the expandable details row
   const detailsRow = document.createElement('div')
