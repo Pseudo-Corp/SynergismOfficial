@@ -2551,9 +2551,8 @@ p#promocodeStatus {
 }
 
 .talismansModify {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    justify-items: center;
     position: relative;
 }
 
@@ -2978,6 +2977,7 @@ img.runeTypeElement:hover {
 
 #talismanEffect,
 #talismanLevelUpCost {
+    grid-area: 1 / 1;
     margin-top: 10px;
     text-align: center;
 }

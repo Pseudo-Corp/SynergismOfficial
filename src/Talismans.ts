@@ -1217,8 +1217,8 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
 export const talismanToStringHTML = (t: TalismanKeys): void => {
   assert(G.currentTab === Tabs.Runes, 'Talisman updateRewardHTML called outside of Runes tab')
   const talisman = talismans[t]
-  DOMCacheGetOrSet('talismanLevelUpCost').style.display = 'none'
-  DOMCacheGetOrSet('talismanEffect').style.display = 'block'
+  DOMCacheGetOrSet('talismanLevelUpCost').style.visibility = 'hidden'
+  DOMCacheGetOrSet('talismanEffect').style.visibility = 'visible'
 
   DOMCacheGetOrSet('talismanTitle').innerHTML = `${talisman.name()} - ${
     i18next.t(`runes.talismans.rarity.${talisman.rarity}`)
@@ -1261,8 +1261,8 @@ export const talismanToStringHTML = (t: TalismanKeys): void => {
 
 export const updateWebTalismanCostHTML = (t: TalismanKeys) => {
   assert(G.currentTab === Tabs.Runes, 'Talisman updateCostHTML called outside of Runes tab')
-  DOMCacheGetOrSet('talismanEffect').style.display = 'none'
-  DOMCacheGetOrSet('talismanLevelUpCost').style.display = 'block'
+  DOMCacheGetOrSet('talismanEffect').style.visibility = 'hidden'
+  DOMCacheGetOrSet('talismanLevelUpCost').style.visibility = 'visible'
   const a = DOMCacheGetOrSet('talismanShardCost')
   const b = DOMCacheGetOrSet('talismanCommonFragmentCost')
   const c = DOMCacheGetOrSet('talismanUncommonFragmentCost')
@@ -1807,7 +1807,7 @@ export const generateWebCenterTalismansHTML = () => {
   talismanLevelUpCost.id = 'talismanLevelUpCost'
   talismanLevelUpCost.setAttribute('aria-live', 'polite')
   talismanLevelUpCost.style.tableLayout = 'fixed'
-  talismanLevelUpCost.style.display = 'none'
+  talismanLevelUpCost.style.visibility = 'hidden'
 
   const talismanLevelUpSummary = document.createElement('p')
   talismanLevelUpSummary.id = 'talismanLevelUpSummary'
