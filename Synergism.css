@@ -9866,7 +9866,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 #accountSubTab div#right.scrollbarX > #table > .grid-table {
     display: grid;
-    grid-template-columns: 80px 0.5fr 0.5fr;
+    grid-template-columns: 80px minmax(0, 1fr) auto auto;
     width: 99%;
     justify-content: center;
 }
@@ -9898,10 +9898,13 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 #accountSubTab div#right.scrollbarX > #table > .grid-table .name-cell {
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #accountSubTab div#right.scrollbarX > #table > .grid-table .date-cell {
     font-size: 14px;
+    white-space: normal;
 }
 
 #accountSubTab div#right.scrollbarX > #table > .grid-table .grid-details-row {
@@ -9923,8 +9926,8 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 /* Details actions section */
 .details-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    flex-shrink: 0;
 }
 
 .details-actions button {
