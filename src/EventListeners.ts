@@ -1776,7 +1776,7 @@ TODO: Fix this entire tab it's utter shit
   const lockToggle = DOMCacheGetOrSet('elevatorLockToggle')
   const slowClimbToggle = DOMCacheGetOrSet('elevatorSlowClimbToggle')
 
-  elevatorInput.addEventListener('input', () => {
+  elevatorInput.addEventListener('change', () => {
     const value = Number.parseInt((elevatorInput as HTMLInputElement).value) || 1
 
     const canLookahead = runes.antiquities.level > 0
