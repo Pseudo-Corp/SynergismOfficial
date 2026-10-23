@@ -5884,7 +5884,7 @@
         "ui": {
           "heading": "Auto Ascension Rules",
           "slots": "{{count}} / {{max}} rules",
-          "empty": "You have no rules yet. Rules are checked from top to bottom, and the first rule that applies decides your next Ascension.",
+          "empty": "You have no rules yet. Rules are checked from top to bottom, and the first rule that applies decides your next Ascension. Click a rule to disable or enable it.",
           "addRule": "Add Rule!",
           "newTitle": "New Auto Ascension Rule",
           "editTitle": "Edit Rule {{number}}",
@@ -5993,6 +5993,10 @@
           "cancel": "Cancel",
           "edit": "Edit",
           "delete": "Delete",
+          "ruleOn": "ON",
+          "ruleOff": "OFF",
+          "disableHint": "Click this rule to disable it.",
+          "enableHint": "This rule is disabled and is skipped. Click this rule to enable it.",
           "moveUp": "Move rule up",
           "moveDown": "Move rule down",
           "errors": {

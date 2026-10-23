@@ -6264,6 +6264,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     background-color: var(--box-color);
     color: var(--text-color);
     text-align: left;
+    cursor: pointer;
 }
 
 .autoAscendRuleItem.autoAscendRuleFired {
@@ -6342,6 +6343,36 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .autoAscendRuleActions {
     display: flex;
     gap: 4px;
+    cursor: default;
+}
+
+.autoAscendRuleState {
+    min-width: 3.2em;
+    padding: 1px 4px;
+    border: 1px solid var(--green-text-color);
+    border-radius: 3px;
+    background-color: transparent;
+    color: var(--green-text-color);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.autoAscendRuleDisabled {
+    border-style: dashed;
+    opacity: 0.55;
+}
+
+.autoAscendRuleDisabled .autoAscendRuleState {
+    border-color: var(--red-text-color);
+    color: var(--red-text-color);
+}
+
+.autoAscendRuleDisabled .autoAscendRuleName {
+    text-decoration: line-through;
+}
+
+.autoAscendRuleModalHint {
+    color: var(--gray-text-color);
 }
 
 #autoAscendAddRule,

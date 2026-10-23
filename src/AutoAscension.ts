@@ -165,6 +165,7 @@ export type AutoAscendRule = {
   protocol: AutoAscendProtocol
   modifiers: ProtocolModifiers
   loadouts: LoadoutWrite[]
+  disabled: boolean
 }
 
 export const isChallengeCondition = (
@@ -172,7 +173,7 @@ export const isChallengeCondition = (
 ): c is Extract<AutoAscendCondition, { rule: ChallengeRuleKey }> => Object.hasOwn(challengeRules, c.rule)
 
 const isRuleActive = (rule: AutoAscendRule) =>
-  evaluateExpr(rule.condition) && (rule.exception === null || !evaluateExpr(rule.exception))
+  !rule.disabled && evaluateExpr(rule.condition) && (rule.exception === null || !evaluateExpr(rule.exception))
 
 const evaluateCondition = (c: AutoAscendCondition): boolean => {
   if (c.rule === 'exalt') {
@@ -262,7 +263,7 @@ export class RuleParseError extends Error {
 
 const identifierPattern = /^[a-z]/
 const tokenPattern =
-  /\s*("(?:[^"\\\r\n]|\\.)*"|\d+(?:\.\d+)?(?:e[+-]?\d+)?|[a-z][a-z0-9]*|>=|<=|!=|[<>=&|!():~+,-])\s*/iy
+  /\s*("(?:[^"\\\r\n]|\\.)*"|\d+(?:\.\d+)?(?:e[+-]?\d+)?|[a-z][a-z0-9]*|>=|<=|!=|[<>=&|!():~+,#-])\s*/iy
 
 const tokenize = (text: string) => {
   const tokens: { text: string; column: number }[] = []
@@ -498,6 +499,11 @@ export const parseRule = (text: string): AutoAscendRule => {
     return expr
   }
 
+  const disabled = peek() === '#'
+  if (disabled) {
+    i++
+  }
+
   let name = ''
   if (peek().startsWith('"')) {
     name = parseRuleName(peek(), tokens[i].column)
@@ -563,7 +569,7 @@ export const parseRule = (text: string): AutoAscendRule => {
   if (i < tokens.length) {
     fail('unexpectedToken')
   }
-  return { name, condition, exception, protocol, modifiers, loadouts }
+  return { name, condition, exception, protocol, modifiers, loadouts, disabled }
 }
 
 export const parseRules = (text: string): AutoAscendRule[] => {
@@ -649,6 +655,7 @@ const printProtocol = (protocol: AutoAscendProtocol): string => {
 }
 
 export const printRule = (rule: AutoAscendRule) => {
+  const disabled = rule.disabled ? '#' : ''
   const name = rule.name === '' ? '' : `${JSON.stringify(rule.name)} `
   const exception = rule.exception === null ? '' : `~${printExpr(rule.exception)}`
   const modifiers = protocolModifierKeys
@@ -656,7 +663,9 @@ export const printRule = (rule: AutoAscendRule) => {
     .map((key) => `,${protocolModifierShortIds[key]}=${rule.modifiers[key] ? 1 : 0}`)
     .join('')
   const loadouts = rule.loadouts.map(({ slot, op, value }) => `,s${slot}${op}${value}`).join('')
-  return `${name}${printExpr(rule.condition)}${exception}:${printProtocol(rule.protocol)}${loadouts}${modifiers}`
+  return `${disabled}${name}${printExpr(rule.condition)}${exception}:${
+    printProtocol(rule.protocol)
+  }${loadouts}${modifiers}`
 }
 
 export const printRules = (rules: AutoAscendRule[]) => rules.map(printRule).join('\n')

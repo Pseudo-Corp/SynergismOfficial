@@ -61,6 +61,7 @@ type RuleDraft = {
   protocol: AutoAscendProtocol | null
   modifiers: ProtocolModifiers
   loadouts: LoadoutWrite[]
+  disabled: boolean
 }
 
 const modifierStates = ['keep', 'enable', 'disable'] as const
@@ -602,7 +603,8 @@ const buildDraftRule = (): AutoAscendRule | null => {
     exception: fromDraft(draft.exception),
     protocol: draft.protocol,
     modifiers: { ...draft.modifiers },
-    loadouts: draft.loadouts.map((write) => ({ ...write }))
+    loadouts: draft.loadouts.map((write) => ({ ...write })),
+    disabled: draft.disabled
   }
 }
 
@@ -639,7 +641,8 @@ const draftFromRule = (index: number | null, rule: AutoAscendRule | undefined): 
   exception: rule?.exception ? toDraft(rule.exception) : { kind: 'group', op: 'and', children: [] },
   protocol: rule === undefined ? null : { ...rule.protocol },
   modifiers: rule === undefined ? {} : { ...rule.modifiers },
-  loadouts: rule === undefined ? [] : rule.loadouts.map((write) => ({ ...write }))
+  loadouts: rule === undefined ? [] : rule.loadouts.map((write) => ({ ...write })),
+  disabled: rule?.disabled ?? false
 })
 
 const parseErrorMessage = (error: RuleParseError, line: number) =>
@@ -731,6 +734,12 @@ const moveRule = (index: number, delta: number) => {
   renderAutoAscendRules()
 }
 
+const toggleRule = (index: number) => {
+  player.autoAscendRules[index].disabled = !player.autoAscendRules[index].disabled
+  CloseModal()
+  renderAutoAscendRules()
+}
+
 const deleteRule = (index: number) => {
   player.autoAscendRules.splice(index, 1)
   renderAutoAscendRules()
@@ -743,10 +752,13 @@ const registerRuleModal = (element: HTMLElement, rule: AutoAscendRule, index: nu
   const html = () =>
     `<div class="autoAscendRuleModal"><p class="autoAscendRuleModalName">${
       escapeHTML(ruleDisplayName(rule, index))
-    }</p><p>${escapeHTML(describeRule(rule))}</p></div>`
+    }</p><p>${escapeHTML(describeRule(rule))}</p><p class="autoAscendRuleModalHint">${
+      i18next.t(`${uiKey}.${rule.disabled ? 'enableHint' : 'disableHint'}`)
+    }</p></div>`
 
   if (isMobile) {
     element.addEventListener('click', (event) => {
+      event.stopPropagation()
       Modal(html, event.clientX, event.clientY, { borderColor: 'orange' }, MEDIUM_MODAL_UPDATE_TICK, element)
     })
     return
@@ -759,13 +771,23 @@ const registerRuleModal = (element: HTMLElement, rule: AutoAscendRule, index: nu
 }
 
 const renderRuleItem = (rule: AutoAscendRule, index: number, total: number) => {
-  const item = createElement('li', 'autoAscendRuleItem')
+  const item = createElement('li', rule.disabled ? 'autoAscendRuleItem autoAscendRuleDisabled' : 'autoAscendRuleItem')
+  item.addEventListener('click', () => toggleRule(index))
   const name = createElement('span', 'autoAscendRuleName', ruleDisplayName(rule, index))
   name.setAttribute('aria-description', describeRule(rule))
   registerRuleModal(name, rule, index)
-  item.append(createElement('span', 'autoAscendRuleNumber', `${index + 1}.`), name)
+  const state = createElement(
+    'button',
+    'autoAscendRuleState',
+    i18next.t(`${uiKey}.${rule.disabled ? 'ruleOff' : 'ruleOn'}`)
+  )
+  state.type = 'button'
+  state.setAttribute('aria-pressed', String(!rule.disabled))
+  state.setAttribute('aria-label', ruleDisplayName(rule, index))
+  item.append(createElement('span', 'autoAscendRuleNumber', `${index + 1}.`), state, name)
 
   const actions = createElement('span', 'autoAscendRuleActions')
+  actions.addEventListener('click', (event) => event.stopPropagation())
   const up = createButton('↑', () => moveRule(index, -1))
   const down = createButton('↓', () => moveRule(index, 1))
   up.disabled = index === 0
