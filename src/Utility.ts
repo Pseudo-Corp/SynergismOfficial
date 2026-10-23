@@ -102,6 +102,8 @@ export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
 // eslint-disable-next-line typescript/no-unnecessary-type-parameters
 export const getElementById = <T extends HTMLElement>(id: string) => DOMCacheGetOrSet(id) as T
 
+export const nullPrototype = <T extends object>(obj: T): T => Object.setPrototypeOf(obj, null) as T
+
 /**
  * Pads an array (a) with param (b) (c) times
  * @param a array to be padded

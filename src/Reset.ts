@@ -6,7 +6,7 @@ import {
   challengeAchievementCheck,
   getAchievementReward
 } from './Achievements'
-import { applyPendingAutoAscendProtocol, printRules } from './AutoAscension'
+import { applyPendingAutoAscendProtocol, printRules, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
 import { buyTesseractBuilding, calculateTessBuildingsInBudget, grantCurveBuildings, syncCurveBuildings } from './Buy'
 import type { TesseractBuildings } from './Buy'
@@ -721,6 +721,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     awardUngroupedAchievement('ascended')
 
     player.ascensionCounterRealReal = 0
+    resetCubeRateTracking()
     if (c10Completions > 0) {
       player.ascensionCounter = 0
       player.ascensionCounterReal = 0

@@ -5932,10 +5932,20 @@
           "or": "OR",
           "when": "When",
           "unless": "unless",
+          "cubeStall": {
+            "wowCubes": "Seconds since Cubes per second went up",
+            "wowTesseracts": "Seconds since Tesseracts per second went up",
+            "wowHypercubes": "Seconds since Hypercubes per second went up",
+            "wowPlatonicCubes": "Seconds since Platonic Cubes per second went up",
+            "wowHepteracts": "Seconds since Hepteracts per second went up"
+          },
+          "stallTolerance": "by at least {{percent}}%",
+          "stallToleranceLabel": "Minimum rise (%)",
           "challengeCompletions": "Completions",
           "challengeScore": "Score",
           "variables": {
             "cc": "Challenge Completions (Score for Challenge 15)",
+            "stall": "Seconds since a Cube type per second last went up",
             "t": "Ascension Time, In-game (seconds, needs a C10 completion)",
             "rt": "This Attempt, Real (seconds)",
             "sg": "Current Singularity",
@@ -6031,6 +6041,7 @@
           "expectedEquality": "Line {{line}}, column {{column}}: Current Challenge comparisons must use = or !=.",
           "invalidChallenge": "Line {{line}}, column {{column}}: Invalid Challenge. Use 1 to 5 for tc, 6 to 10 for rc and 11 to 15 for ac.",
           "expectedNumber": "Line {{line}}, column {{column}}: Expected a number.",
+          "invalidTolerance": "Line {{line}}, column {{column}}: Expected a minimum rise of 0% or more after '@', like sc>=30@3.",
           "invalidStage": "Line {{line}}, column {{column}}: Invalid Game Section. Use a Game Section number from 0 up, like gs>=12.",
           "unclosedParen": "Line {{line}}, column {{column}}: Missing closing parenthesis.",
           "expectedProtocol": "Line {{line}}, column {{column}}: Expected an exception after '~' or a protocol after ':' (asc, c=11 to c=15, c=next, l=<level>, l=s1 to l=s8, l+<amount>, l-<amount>, l=max, l=clr or l=cln).",

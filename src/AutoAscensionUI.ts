@@ -14,6 +14,9 @@ import {
   comparatorKeys,
   completionChallenges,
   corruptionLoadoutCount,
+  corruptionLoadoutSlots,
+  type CubeRateKey,
+  cubeRateKeys,
   equalityComparatorKeys,
   exaltKeys,
   getAutoAscendRuleSlots,
@@ -36,7 +39,8 @@ import {
   type ProtocolModifierKey,
   protocolModifierKeys,
   type ProtocolModifiers,
-  RuleParseError
+  RuleParseError,
+  ruleVariableKeys
 } from './AutoAscension'
 import { getUnlockedBlueberryLoadoutCount } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -77,7 +81,6 @@ const uiKey = 'corruptions.autoAscend.rules.ui'
 const errorKey = 'corruptions.autoAscend.rules.errors'
 const paletteFileName = 'Synergism-AutoAscension-Rules.txt'
 
-const variableKeys: VariableKey[] = ['cc', ...numberRuleKeys, ...challengeRuleKeys, ...booleanRuleKeys, 'exalt']
 const integerNumberRules = new Set<VariableKey>(['sg', 'cb', 'hb'])
 const groupOps: GroupOp[] = ['and', 'or']
 const protocolTypes: ProtocolType[] = [
@@ -92,8 +95,6 @@ const protocolTypes: ProtocolType[] = [
   'corruptionDowngrade',
   'corruptionCleanse'
 ]
-
-const loadoutSlots = Array.from({ length: corruptionLoadoutCount }, (_, i) => i + 1)
 
 const loadoutOpKeys: Record<LoadoutOp, string> = {
   '=': 'set',
@@ -140,6 +141,7 @@ const loadoutSlotOptions = (slots: number[]) => slots.map((slot) => ({ value: sl
 const ambrosiaLoadoutName = (slot: number) => i18next.t(`${uiKey}.ambrosiaLoadoutSlot`, { slot })
 const completionName = (challenge: number) =>
   `${challengeName(challenge)} ${i18next.t(`${uiKey}.${challenge === 15 ? 'challengeScore' : 'challengeCompletions'}`)}`
+const cubeStallName = (cube: CubeRateKey) => i18next.t(`${uiKey}.cubeStall.${cube}`)
 const gameStageName = (stage: number) => `${stage}: ${gameStages()[stage]?.name ?? ''}`
 
 const modifierState = (enabled: boolean | undefined): ModifierState =>
@@ -209,6 +211,9 @@ const createNumberInput = (value: number, integer: boolean, onValid: (value: num
 const defaultCondition = (key: VariableKey): AutoAscendCondition => {
   if (key === 'cc') {
     return { rule: key, challenge: 10, op: '>=', value: 0 }
+  }
+  if (key === 'stall') {
+    return { rule: key, cube: cubeRateKeys[0], tolerance: 0, op: '>=', value: 30 }
   }
   if (isNumberRuleKey(key)) {
     return { rule: key, op: '>=', value: 0 }
@@ -280,6 +285,14 @@ const describeCondition = (condition: AutoAscendCondition) => {
   }
   if (condition.rule === 'cc') {
     return `${completionName(condition.challenge)} ${comparatorSymbols[condition.op]} ${
+      format(condition.value, 2, true)
+    }`
+  }
+  if (condition.rule === 'stall') {
+    const tolerance = condition.tolerance === 0
+      ? ''
+      : ` ${i18next.t(`${uiKey}.stallTolerance`, { percent: format(condition.tolerance, 2, true) })}`
+    return `${cubeStallName(condition.cube)}${tolerance} ${comparatorSymbols[condition.op]} ${
       format(condition.value, 2, true)
     }`
   }
@@ -357,7 +370,7 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
   const row = createElement('div', 'autoAscendComparison')
 
   row.append(createSelect(
-    variableKeys.map((key) => ({ value: key, label: variableName(key) })),
+    ruleVariableKeys.map((key) => ({ value: key, label: variableName(key) })),
     node.condition.rule,
     (key) => {
       node.condition = defaultCondition(key)
@@ -423,6 +436,25 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
       comparatorSelect(condition),
       createNumberInput(condition.value, condition.challenge !== 15, (value) => {
         condition.value = value
+      })
+    )
+  } else if (condition.rule === 'stall') {
+    row.append(
+      createSelect(
+        cubeRateKeys.map((cube) => ({ value: cube, label: cubeStallName(cube) })),
+        condition.cube,
+        (cube) => {
+          condition.cube = cube
+          updatePreview()
+        }
+      ),
+      comparatorSelect(condition),
+      createNumberInput(condition.value, false, (value) => {
+        condition.value = value
+      }),
+      createElement('span', '', i18next.t(`${uiKey}.stallToleranceLabel`)),
+      createNumberInput(condition.tolerance, false, (tolerance) => {
+        condition.tolerance = tolerance
       })
     )
   } else if (condition.rule === 'gs') {
@@ -566,7 +598,7 @@ const renderProtocolEditor = () => {
       protocol.level = level
     }))
   } else if (protocol?.type === 'corruptionLoadout') {
-    row.append(createSelect(loadoutSlotOptions(loadoutSlots), protocol.slot, (slot) => {
+    row.append(createSelect(loadoutSlotOptions(corruptionLoadoutSlots), protocol.slot, (slot) => {
       protocol.slot = slot
       updatePreview()
     }))
@@ -590,7 +622,7 @@ const renderProtocolEditor = () => {
     remove.setAttribute('aria-label', i18next.t(`${uiKey}.remove`))
     loadoutRow.append(
       createSelect(
-        loadoutSlotOptions(loadoutSlots.filter((slot) => slot === write.slot || !usedSlots.has(slot))),
+        loadoutSlotOptions(corruptionLoadoutSlots.filter((slot) => slot === write.slot || !usedSlots.has(slot))),
         write.slot,
         (slot) => {
           write.slot = slot
@@ -614,7 +646,7 @@ const renderProtocolEditor = () => {
     return loadoutRow
   })
   const addLoadout = createButton(i18next.t(`${uiKey}.addLoadout`), () => {
-    const slot = loadoutSlots.find((candidate) => !usedSlots.has(candidate))
+    const slot = corruptionLoadoutSlots.find((candidate) => !usedSlots.has(candidate))
     if (slot !== undefined) {
       currentDraft.loadouts.push({ slot, op: '=', value: 0 })
       rerenderProtocol()
@@ -929,7 +961,10 @@ export const updateAutoAscendStatus = () => {
 const loadoutInput = (slot: number) => DOMCacheGetOrSet(`corruptionLoadoutInput${slot}`) as HTMLInputElement
 
 export const updateCorruptionLoadouts = () => {
-  for (const slot of loadoutSlots) {
+  if (DOMCacheGetOrSet('corruptionLoadoutList').childElementCount === 0) {
+    return
+  }
+  for (const slot of corruptionLoadoutSlots) {
     const input = loadoutInput(slot)
     if (document.activeElement !== input) {
       input.value = String(player.corruptions.loadouts[slot - 1])
@@ -1007,7 +1042,7 @@ export const autoAscendRulesUICreate = () => {
   DOMCacheGetOrSet('autoAscendRuleEditorClose').addEventListener('click', closeEditor)
   DOMCacheGetOrSet('autoAscendRuleCancel').addEventListener('click', closeEditor)
   DOMCacheGetOrSet('autoAscendRuleSave').addEventListener('click', saveDraft)
-  DOMCacheGetOrSet('corruptionLoadoutList').replaceChildren(...loadoutSlots.map(createLoadoutRow))
+  DOMCacheGetOrSet('corruptionLoadoutList').replaceChildren(...corruptionLoadoutSlots.map(createLoadoutRow))
   renderAutoAscendRules()
 }
 

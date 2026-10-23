@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import { resetCubeRateTracking } from './AutoAscension'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { calculateSingularityUpgradePurchase } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -2941,6 +2942,7 @@ export async function buyGQUpgradeLevel (
     player.ascensionCounter = 0
     player.ascensionCounterReal = 0
     player.ascensionCounterRealReal = 0
+    resetCubeRateTracking()
     void Alert(i18next.t('singularity.goldenQuarks.ascensionReset'))
   }
 

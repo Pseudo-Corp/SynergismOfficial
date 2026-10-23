@@ -3891,7 +3891,6 @@ export const updateAll = (): void => {
     player.autoAscend
     && player.challengecompletions[11] > 0
     && player.cubeUpgrades[10] > 0
-    && player.currentChallenge.reincarnation !== 10
   ) {
     const firedRule = runAutoAscendRules()
     if (firedRule !== -1) {

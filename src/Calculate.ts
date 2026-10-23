@@ -1389,7 +1389,7 @@ export const CalcCorruptionStuff = () => {
 
   return {
     wowCubes: Math.min(1e300, Math.floor(cubeGain)),
-    wowTesseracts: Math.min(1e300, Math.max(player.singularityCount, Math.floor(tesseractGain))),
+    wowTesseracts: Math.min(1e300, Math.floor(tesseractGain)),
     wowHypercubes: Math.min(1e300, Math.floor(hypercubeGain)),
     wowPlatonicCubes: Math.min(1e300, Math.floor(platonicGain)),
     wowHepteracts: Math.min(1e300, Math.floor(hepteractGain))

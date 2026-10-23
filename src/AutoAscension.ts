@@ -1,6 +1,6 @@
 import { getAchievementReward } from './Achievements'
 import { autoLoadBlueberryLoadout, MAX_BLUEBERRY_LOADOUT_COUNT } from './BlueberryUpgrades'
-import { calculateCubeBank } from './Calculate'
+import { CalcCorruptionStuff, calculateCubeBank } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { maxCorruptionLevel, normalizeCorruptionLevel } from './Corruptions'
 import { activeHappyHourBells } from './Event'
@@ -21,6 +21,7 @@ import {
   toggleChallenges
 } from './Toggles'
 import { challengeExit } from './UpdateHTML'
+import { nullPrototype } from './Utility'
 
 const comparators = {
   '>=': (a: number, b: number) => a >= b,
@@ -35,14 +36,16 @@ export type Comparator = keyof typeof comparators
 
 export const comparatorKeys = Object.keys(comparators) as Comparator[]
 
-const numberRules = {
-  t: () => player.ascensionCounter,
-  rt: () => player.ascensionCounterRealReal,
-  sg: () => player.singularityCount,
-  gs: () => synergismStageNumber(),
-  cb: () => calculateCubeBank(),
-  hb: () => activeHappyHourBells()
-} satisfies Record<string, () => number>
+const numberRules = nullPrototype(
+  {
+    t: () => player.ascensionCounter,
+    rt: () => player.ascensionCounterRealReal,
+    sg: () => player.singularityCount,
+    gs: () => synergismStageNumber(),
+    cb: () => calculateCubeBank(),
+    hb: () => activeHappyHourBells()
+  } satisfies Record<string, () => number>
+)
 
 export const completionChallenges = Array.from({ length: 15 }, (_, i) => i + 1)
 
@@ -50,37 +53,109 @@ const completionIds: Record<string, number> = Object.fromEntries(
   completionChallenges.map((challenge) => [`c${challenge}`, challenge])
 )
 
+const cubeStallIds = {
+  sc: 'wowCubes',
+  st: 'wowTesseracts',
+  sh: 'wowHypercubes',
+  sp: 'wowPlatonicCubes',
+  shp: 'wowHepteracts'
+} as const
+
+export type CubeRateKey = typeof cubeStallIds[keyof typeof cubeStallIds]
+
+export const cubeRateKeys = Object.values(cubeStallIds)
+
+const cubeStallShortIds = Object.fromEntries(
+  Object.entries(cubeStallIds).map(([short, key]) => [key, short])
+) as Record<CubeRateKey, keyof typeof cubeStallIds>
+
+const cubeRateSampleInterval = 1
+
+type StallCondition = Extract<AutoAscendCondition, { rule: 'stall' }>
+
+const cubeRateTrackers = new Map<string, { rate: number; at: number }>()
+
+let lastCubeRateSample = Number.NEGATIVE_INFINITY
+
+const cubeRateTrackerKey = ({ cube, tolerance }: StallCondition) => `${cube}@${tolerance}`
+
+export const resetCubeRateTracking = () => {
+  cubeRateTrackers.clear()
+  lastCubeRateSample = Number.NEGATIVE_INFINITY
+}
+
+const stallConditions = (expr: AutoAscendExpr | null): StallCondition[] => {
+  if (expr === null) {
+    return []
+  }
+  if (expr.type === 'rule') {
+    return expr.condition.rule === 'stall' ? [expr.condition] : []
+  }
+  return expr.children.flatMap(stallConditions)
+}
+
+const sampleCubeRates = () => {
+  const now = player.ascensionCounterRealReal
+  if (now - lastCubeRateSample < cubeRateSampleInterval) {
+    return
+  }
+  lastCubeRateSample = now
+  const gains = CalcCorruptionStuff()
+  const time = player.ascensionCounter === 0 ? 1 : player.ascensionCounter
+  for (const rule of player.autoAscendRules) {
+    for (const condition of [...stallConditions(rule.condition), ...stallConditions(rule.exception)]) {
+      const key = cubeRateTrackerKey(condition)
+      const tracker = cubeRateTrackers.get(key) ?? { rate: 0, at: 0 }
+      cubeRateTrackers.set(key, tracker)
+      const rate = gains[condition.cube] / time
+      if (rate > tracker.rate * (1 + condition.tolerance / 100)) {
+        tracker.rate = rate
+        tracker.at = now
+      }
+    }
+  }
+}
+
+const cubeRateStallSeconds = (condition: StallCondition) => {
+  const tracker = cubeRateTrackers.get(cubeRateTrackerKey(condition))
+  return tracker === undefined ? 0 : player.ascensionCounterRealReal - tracker.at
+}
+
 const challengeCompletionValue = (challenge: number) =>
   challenge === 15 ? player.challenge15Exponent : player.challengecompletions[challenge]
 
 const isGameStage = (value: number) => Number.isInteger(value) && value >= 0 && value < gameStages().length
 
-const challengeRules = {
-  tc: { current: () => player.currentChallenge.transcension, challenges: [1, 2, 3, 4, 5] },
-  rc: { current: () => player.currentChallenge.reincarnation, challenges: [6, 7, 8, 9, 10] },
-  ac: { current: () => player.currentChallenge.ascension, challenges: [11, 12, 13, 14, 15] }
-} satisfies Record<string, { current: () => number; challenges: number[] }>
+const challengeRules = nullPrototype(
+  {
+    tc: { current: () => player.currentChallenge.transcension, challenges: [1, 2, 3, 4, 5] },
+    rc: { current: () => player.currentChallenge.reincarnation, challenges: [6, 7, 8, 9, 10] },
+    ac: { current: () => player.currentChallenge.ascension, challenges: [11, 12, 13, 14, 15] }
+  } satisfies Record<string, { current: () => number; challenges: number[] }>
+)
 
 export type EqualityComparator = '=' | '!='
 
 export const equalityComparatorKeys: EqualityComparator[] = ['=', '!=']
 
-const booleanRules = {
-  ch: () =>
-    player.currentChallenge.transcension !== 0
-    || player.currentChallenge.reincarnation !== 0
-    || player.currentChallenge.ascension !== 0,
-  tch: () => player.currentChallenge.transcension !== 0,
-  rch: () => player.currentChallenge.reincarnation !== 0,
-  ach: () => player.currentChallenge.ascension !== 0,
-  m10: () => player.challengecompletions[10] >= getMaxChallenges(10),
-  m11: () => player.challengecompletions[11] >= getMaxChallenges(11),
-  m12: () => player.challengecompletions[12] >= getMaxChallenges(12),
-  m13: () => player.challengecompletions[13] >= getMaxChallenges(13),
-  m14: () => player.challengecompletions[14] >= getMaxChallenges(14),
-  elo: () => calculateAvailableRebornELO() < 0.001,
-  x: () => player.insideSingularityChallenge
-} satisfies Record<string, () => boolean>
+const booleanRules = nullPrototype(
+  {
+    ch: () =>
+      player.currentChallenge.transcension !== 0
+      || player.currentChallenge.reincarnation !== 0
+      || player.currentChallenge.ascension !== 0,
+    tch: () => player.currentChallenge.transcension !== 0,
+    rch: () => player.currentChallenge.reincarnation !== 0,
+    ach: () => player.currentChallenge.ascension !== 0,
+    m10: () => player.challengecompletions[10] >= getMaxChallenges(10),
+    m11: () => player.challengecompletions[11] >= getMaxChallenges(11),
+    m12: () => player.challengecompletions[12] >= getMaxChallenges(12),
+    m13: () => player.challengecompletions[13] >= getMaxChallenges(13),
+    m14: () => player.challengecompletions[14] >= getMaxChallenges(14),
+    elo: () => calculateAvailableRebornELO() < 0.001,
+    x: () => player.insideSingularityChallenge
+  } satisfies Record<string, () => boolean>
+)
 
 const exaltIds = {
   nsu: 'noSingularityUpgrades',
@@ -112,9 +187,19 @@ export const exaltKeys: SingularityChallengeDataKeys[] = Object.values(exaltIds)
 export type AutoAscendCondition =
   | { rule: NumberRuleKey; op: Comparator; value: number }
   | { rule: 'cc'; challenge: number; op: Comparator; value: number }
+  | { rule: 'stall'; cube: CubeRateKey; tolerance: number; op: Comparator; value: number }
   | { rule: ChallengeRuleKey; op: EqualityComparator; value: number }
   | { rule: BooleanRuleKey; value: boolean }
   | { rule: 'exalt'; value: SingularityChallengeDataKeys }
+
+export const ruleVariableKeys: AutoAscendCondition['rule'][] = [
+  'cc',
+  'stall',
+  ...numberRuleKeys,
+  ...challengeRuleKeys,
+  ...booleanRuleKeys,
+  'exalt'
+]
 
 export type AutoAscendExpr =
   | { type: 'rule'; condition: AutoAscendCondition }
@@ -222,6 +307,8 @@ export const isAmbrosiaLoadoutUnlocked = () => player.singularityChallenges.noSi
 
 export const corruptionLoadoutCount = 8
 
+export const corruptionLoadoutSlots = Array.from({ length: corruptionLoadoutCount }, (_, i) => i + 1)
+
 const loadoutOpMinimums = { '=': 0, '+': 1, '-': 1 } as const
 
 export type LoadoutOp = keyof typeof loadoutOpMinimums
@@ -259,6 +346,9 @@ const evaluateCondition = (c: AutoAscendCondition): boolean => {
   }
   if (c.rule === 'cc') {
     return comparators[c.op](challengeCompletionValue(c.challenge), c.value)
+  }
+  if (c.rule === 'stall') {
+    return comparators[c.op](cubeRateStallSeconds(c), c.value)
   }
   if ('op' in c) {
     if (c.rule === 't' && player.challengecompletions[10] === 0) {
@@ -323,6 +413,7 @@ type RuleParseErrorCode =
   | 'expectedEquality'
   | 'invalidChallenge'
   | 'invalidStage'
+  | 'invalidTolerance'
   | 'unclosedParen'
   | 'expectedProtocol'
   | 'unknownProtocol'
@@ -346,7 +437,7 @@ export class RuleParseError extends Error {
 
 const identifierPattern = /^[a-z]/
 const tokenPattern =
-  /\s*("(?:[^"\\\r\n]|\\.)*"|\d+(?:\.\d+)?(?:e[+-]?\d+)?|[a-z][a-z0-9]*|>=|<=|!=|[<>=&|!():~+,#-])\s*/iy
+  /\s*("(?:[^"\\\r\n]|\\.)*"|\d+(?:\.\d+)?(?:e[+-]?\d+)?|[a-z][a-z0-9]*|>=|<=|!=|[<>=&|!():~+,#@-])\s*/iy
 
 const tokenize = (text: string) => {
   const tokens: { text: string; column: number }[] = []
@@ -372,6 +463,7 @@ const isBooleanRule = (id: string): id is BooleanRuleKey => Object.hasOwn(boolea
 const isComparator = (id: string): id is Comparator => Object.hasOwn(comparators, id)
 const isModifierId = (id: string): id is keyof typeof protocolModifierIds => Object.hasOwn(protocolModifierIds, id)
 const isLoadoutOp = (id: string): id is LoadoutOp => Object.hasOwn(loadoutOpMinimums, id)
+const isCubeStallId = (id: string): id is keyof typeof cubeStallIds => Object.hasOwn(cubeStallIds, id)
 const isExaltId = (id: string): id is keyof typeof exaltIds => Object.hasOwn(exaltIds, id)
 const isAscensionChallenge = (n: number): n is AscensionChallenge =>
   (ascensionChallenges as readonly number[]).includes(n)
@@ -493,6 +585,21 @@ export const parseRule = (text: string): AutoAscendRule => {
     if (!negated && Object.hasOwn(completionIds, id)) {
       i++
       return { rule: 'cc', challenge: completionIds[id], ...parseComparison(Number.isFinite, 'expectedNumber') }
+    }
+
+    if (!negated && isCubeStallId(id)) {
+      i++
+      const comparison = parseComparison(Number.isFinite, 'expectedNumber')
+      let tolerance = 0
+      if (peek() === '@') {
+        i++
+        tolerance = Number(peek())
+        if (peek() === '' || !Number.isFinite(tolerance) || tolerance < 0) {
+          return fail('invalidTolerance')
+        }
+        i++
+      }
+      return { rule: 'stall', cube: cubeStallIds[id], tolerance, ...comparison }
     }
 
     if (!negated && isNumberRule(id)) {
@@ -718,6 +825,10 @@ const printCondition = (condition: AutoAscendCondition): string => {
   if (condition.rule === 'cc') {
     return `c${condition.challenge}${condition.op}${condition.value}`
   }
+  if (condition.rule === 'stall') {
+    const tolerance = condition.tolerance === 0 ? '' : `@${condition.tolerance}`
+    return `${cubeStallShortIds[condition.cube]}${condition.op}${condition.value}${tolerance}`
+  }
   if ('op' in condition) {
     return `${condition.rule}${condition.op}${condition.value}`
   }
@@ -915,6 +1026,7 @@ const applyProtocolModifiers = (modifiers: ProtocolModifiers) => {
 }
 
 export const runAutoAscendRules = () => {
+  sampleCubeRates()
   const index = player.autoAscendRules.findIndex(isRuleActive)
   if (index === -1) {
     return index
