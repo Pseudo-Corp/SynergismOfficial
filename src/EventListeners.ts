@@ -1672,14 +1672,30 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet(player.iconSet + 1))
   DOMCacheGetOrSet('monospaceFont').addEventListener('click', () => toggleMonospaceFont())
   DOMCacheGetOrSet('statSymbols').addEventListener('click', () => toggleStatSymbol())
-  const testingDtMultiplierSlider = DOMCacheGetOrSet('testingDtMultiplierSlider') as HTMLInputElement
-  testingDtMultiplierSlider.addEventListener('input', () => {
-    const requested = testingDtMultiplierSlider.valueAsNumber
-    G.testingDtMultiplier = Number.isFinite(requested) ? Math.min(10, Math.max(0.1, requested)) : 1
-    DOMCacheGetOrSet('testingDtMultiplierValue').textContent = i18next.t('settings.testingDtMultiplierValue', {
-      x: G.testingDtMultiplier.toFixed(1)
+  if (TESTING) {
+    const testingDtMultiplierSetting = document.createElement('div')
+    testingDtMultiplierSetting.className = 'appearanceSetting'
+    const testingDtMultiplierTitle = document.createElement('p')
+    testingDtMultiplierTitle.textContent = i18next.t('settings.testingDtMultiplier')
+    const testingDtMultiplierSlider = document.createElement('input')
+    testingDtMultiplierSlider.type = 'range'
+    testingDtMultiplierSlider.min = '0.1'
+    testingDtMultiplierSlider.max = '10'
+    testingDtMultiplierSlider.step = '0.1'
+    testingDtMultiplierSlider.value = '1'
+    testingDtMultiplierSlider.setAttribute('aria-label', i18next.t('settings.testingDtMultiplier'))
+    const testingDtMultiplierValue = document.createElement('p')
+    testingDtMultiplierValue.textContent = i18next.t('settings.testingDtMultiplierValue', { x: '1.0' })
+    testingDtMultiplierSlider.addEventListener('input', () => {
+      const requested = testingDtMultiplierSlider.valueAsNumber
+      G.testingDtMultiplier = Number.isFinite(requested) ? Math.min(10, Math.max(0.1, requested)) : 1
+      testingDtMultiplierValue.textContent = i18next.t('settings.testingDtMultiplierValue', {
+        x: G.testingDtMultiplier.toFixed(1)
+      })
     })
-  })
+    testingDtMultiplierSetting.append(testingDtMultiplierTitle, testingDtMultiplierSlider, testingDtMultiplierValue)
+    document.querySelector('.appearanceSettings')!.append(testingDtMultiplierSetting)
+  }
 
   saveStringInput.addEventListener('mousemove', (e) => Modal(() => saveStringHTML(), e.clientX, e.clientY))
   saveStringInput.addEventListener('focus', () => {
