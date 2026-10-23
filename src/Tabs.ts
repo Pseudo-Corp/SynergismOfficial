@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
+import { isCorruptionTabUnlocked } from './Corruptions'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
@@ -15,7 +16,7 @@ import {
   toggleRuneScreen,
   toggleSingularityScreen
 } from './Toggles'
-import { CloseModal, createFitties, revealStuff, showCorruptionStatsLoadouts } from './UpdateHTML'
+import { CloseModal, createFitties, revealStuff, showCorruptionSubtab } from './UpdateHTML'
 import {
   visualUpdateAchievements,
   visualUpdateAnts,
@@ -300,24 +301,24 @@ const tabInfo: Record<Tabs, TabInfo> = {
   [Tabs.Corruption]: {
     panelID: 'traits',
     // Circular import... yay
-    tabSwitcher: (subTabID) => showCorruptionStatsLoadouts(subTabID),
+    tabSwitcher: (subTabID) => showCorruptionSubtab(subTabID),
     visualUpdater: () => visualUpdateCorruptions(),
     subtabIndex: 0,
     subTabList: [
       {
-        subTabID: 'campaigns',
-        unlocked: () => true,
-        buttonID: 'corrCampaignsBtn'
-      },
-      {
-        subTabID: 'true',
+        subTabID: 'stats',
         unlocked: () => true,
         buttonID: 'corrStatsBtn'
       },
       {
-        subTabID: 'false',
+        subTabID: 'tokens',
         unlocked: () => true,
-        buttonID: 'corrLoadoutsBtn'
+        buttonID: 'corrTokensBtn'
+      },
+      {
+        subTabID: 'autoAscend',
+        unlocked: () => true,
+        buttonID: 'corrAutoAscendBtn'
       }
     ]
   },
@@ -1072,13 +1073,13 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'chal11',
+    class: 'corruptionUnlock',
     id: 'traitstab',
     i18n: 'tabs.main.corruption',
     mobileIcon: 'Corruption.png',
     activeColor: 'orange'
   })
-    .setUnlockedState(() => (player.challengecompletions[11] > 0))
+    .setUnlockedState(() => isCorruptionTabUnlocked())
     .setType(Tabs.Corruption)
     .makeDraggable()
     .makeRemoveable(),

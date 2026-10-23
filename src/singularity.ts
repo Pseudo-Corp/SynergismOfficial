@@ -1,4 +1,5 @@
 import i18next from 'i18next'
+import { resetCubeRateTracking } from './AutoAscension'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { calculateSingularityUpgradePurchase } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -6,9 +7,12 @@ import {
   calculateBlueberryInventory,
   calculateExalt4EffectiveSingularityMultiplier,
   calculateGoldenQuarkCost,
-  calculateImmaculateAlchemyBonus
+  calculateImmaculateAlchemyBonus,
+  calculateIrish3PurpleLuck,
+  calculateMaxBaseCubeQuarkMultiplier
 } from './Calculate'
-import { updateMaxTokens, updateTokens } from './Campaign'
+import { updateTokens } from './Campaign'
+import { activeEffectiveCorruptionLevel } from './Corruptions'
 import { addCodeAvailableUses, addCodeMaxUses } from './ImportExport'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
@@ -81,16 +85,16 @@ type GoldenQuarkUpgradeRewards = {
   }
   advancedPack: {
     packQuarkAdd: number
-    corruptionScoreIncrease: number
+    cubesBanked: number
   }
   expertPack: {
     packQuarkAdd: number
-    ascensionScoreMult: number
+    freeCorruptionLevels: number
     addCodeAscensionTimeMult: number
   }
   masterPack: {
     packQuarkAdd: number
-    ascensionScoreMult: number
+    freeCorruptionLevels: number
   }
   divinePack: {
     packQuarkAdd: number
@@ -1036,16 +1040,16 @@ export const goldenQuarkUpgrades: {
     minimumSingularity: 9,
     specialCostForm: 'Default',
     effect: (n, key) => {
-      if (key === 'corruptionScoreIncrease') {
-        return n > 0 ? 0.33 : 0
+      if (key === 'cubesBanked') {
+        return n > 0 ? 500 : 0
       } else {
         return n > 0 ? 0.04 : 0 // packQuarkAdd
       }
     },
     effectDescription: () => {
-      const corruptionScoreIncrease = getGQUpgradeEffect('advancedPack', 'corruptionScoreIncrease')
+      const cubesBanked = getGQUpgradeEffect('advancedPack', 'cubesBanked')
       return i18next.t(
-        `singularity.data.advancedPack.effect${corruptionScoreIncrease > 0 ? 'Have' : 'HaveNot'}`
+        `singularity.data.advancedPack.effect${cubesBanked > 0 ? 'Have' : 'HaveNot'}`
       )
     },
     name: () => i18next.t('singularity.data.advancedPack.name'),
@@ -1062,8 +1066,8 @@ export const goldenQuarkUpgrades: {
     effect: (n, key) => {
       if (key === 'addCodeAscensionTimeMult') {
         return n > 0 ? 1.2 : 1
-      } else if (key === 'ascensionScoreMult') {
-        return n > 0 ? 1.5 : 1
+      } else if (key === 'freeCorruptionLevels') {
+        return n > 0 ? 1 : 0
       } else {
         return n > 0 ? 0.06 : 0 // packQuarkAdd
       }
@@ -1086,16 +1090,16 @@ export const goldenQuarkUpgrades: {
     minimumSingularity: 25,
     specialCostForm: 'Default',
     effect: (n, key) => {
-      if (key === 'ascensionScoreMult') {
-        return n > 0 ? 2 : 1
+      if (key === 'freeCorruptionLevels') {
+        return n > 0 ? 1 : 0
       } else {
         return n > 0 ? 0.08 : 0 // packQuarkAdd
       }
     },
     effectDescription: () => {
-      const ascensionScoreMult = getGQUpgradeEffect('masterPack', 'ascensionScoreMult')
+      const freeCorruptionLevels = getGQUpgradeEffect('masterPack', 'freeCorruptionLevels')
       return i18next.t(
-        `singularity.data.masterPack.effect${ascensionScoreMult > 1 ? 'Have' : 'HaveNot'}`
+        `singularity.data.masterPack.effect${freeCorruptionLevels > 0 ? 'Have' : 'HaveNot'}`
       )
     },
     name: () => i18next.t('singularity.data.masterPack.name'),
@@ -1114,12 +1118,7 @@ export const goldenQuarkUpgrades: {
         if (n === 0) {
           return 1
         } else {
-          const corruptions = player.corruptions.used
-          const octMult = Object.values(corruptions.loadout).reduce(
-            (acc, curr) => acc * (curr === 16 ? 1.4 : (curr === 15 ? 1.3 : (curr === 14 ? 1.25 : 1))),
-            1
-          )
-          return octMult
+          return divinePackOcteractMultiplier(activeEffectiveCorruptionLevel())
         }
       } else {
         return n > 0 ? 0.1 : 0 // packQuarkAdd
@@ -1953,7 +1952,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const firstCompletionBonusTokens = getGQUpgradeEffect('singBonusTokens1', 'firstCompletionBonusTokens')
       return i18next.t('singularity.data.singBonusTokens1.effect', {
-        n: format(firstCompletionBonusTokens)
+        n: format(2 * firstCompletionBonusTokens)
       })
     },
     name: () => i18next.t('singularity.data.singBonusTokens1.name'),
@@ -1993,7 +1992,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const lastCompletionBonusTokens = getGQUpgradeEffect('singBonusTokens3', 'lastCompletionBonusTokens')
       return i18next.t('singularity.data.singBonusTokens3.effect', {
-        n: format(lastCompletionBonusTokens)
+        n: format(2 * lastCompletionBonusTokens)
       })
     },
     name: () => i18next.t('singularity.data.singBonusTokens3.name'),
@@ -2943,6 +2942,7 @@ export async function buyGQUpgradeLevel (
     player.ascensionCounter = 0
     player.ascensionCounterReal = 0
     player.ascensionCounterRealReal = 0
+    resetCubeRateTracking()
     void Alert(i18next.t('singularity.goldenQuarks.ascensionReset'))
   }
 
@@ -2961,7 +2961,6 @@ export async function buyGQUpgradeLevel (
   updateSingularityPenalties()
   updateSingularityPerks()
   updateTokens()
-  updateMaxTokens()
   revealStuff()
 }
 
@@ -3004,6 +3003,10 @@ export function computeGQUpgradeMaxLevel (upgradeKey: SingularityDataKeys): numb
     cap += getOcteractUpgradeEffect('octeractSingUpgradeCap', 'goldenQuarkUpgradeCapIncrease')
     return cap
   }
+}
+
+export const divinePackOcteractMultiplier = (effectiveLevel: number) => {
+  return Math.pow(1.3, Math.min(10, Math.max(0, effectiveLevel - 35)))
 }
 
 export function actualGQUpgradeTotalLevels (upgradeKey: SingularityDataKeys): number {
@@ -3067,6 +3070,8 @@ interface SingularityPerk {
 
 // List of Singularity Perks based on player.highestSingularityCount
 // The list is ordered on first level acquisition, so be careful when inserting a new one ;)
+export const generousOrbsLevels = [1, 5, 10, 25, 50, 100, 200]
+
 export const singularityPerks: SingularityPerk[] = [
   {
     name: 'singularity.perks.welcometoSingularity.name',
@@ -3116,27 +3121,11 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: 'singularity.perks.generousOrbs.name',
-    levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
-    description: (n: number, levels: number[]) => {
-      const overfluxBonus: Record<number, number> = {
-        8: 700, // How to read: levels[8] -> Sing 35 gives 700%
-        7: 500,
-        6: 415,
-        5: 360,
-        4: 315,
-        3: 280,
-        2: 255,
-        1: 230
-      }
-
-      for (let i = 8; i > 0; i--) {
-        if (n >= levels[i]) {
-          return i18next.t('singularity.perks.generousOrbs.default', {
-            amount: overfluxBonus[i]
-          })
-        }
-      }
-      return i18next.t('singularity.perks.generousOrbs.default', { amount: '215' })
+    levels: generousOrbsLevels,
+    description: (n: number) => {
+      return i18next.t('singularity.perks.generousOrbs.default', {
+        amount: format(100 * (calculateMaxBaseCubeQuarkMultiplier(n) - 1))
+      })
     },
     ID: 'generousOrbs'
   },
@@ -3293,14 +3282,6 @@ export const singularityPerks: SingularityPerk[] = [
       }
     },
     ID: 'notSoChallenging'
-  },
-  {
-    name: 'singularity.perks.autoCampaigns.name',
-    levels: [4],
-    description: () => {
-      return i18next.t('singularity.perks.autoCampaigns.default')
-    },
-    ID: 'autoCampaigns'
   },
   {
     name: 'singularity.perks.automationUpgrades.name',
@@ -3800,15 +3781,14 @@ export const singularityPerks: SingularityPerk[] = [
   {
     name: 'singularity.perks.irishAnt3.name',
     levels: [285, 293],
-    description: () => {
+    description: (n: number, levels: number[]) => {
       let perSing = 2
-      if (player.highestSingularityCount >= 292) {
+      if (n >= levels[1]) {
         perSing++
       }
 
-      const effect = perSing * (player.highestSingularityCount - 280)
       return i18next.t('singularity.perks.irishAnt3.default', {
-        amt: format(effect, 0, true),
+        amt: format(calculateIrish3PurpleLuck(), 0, true),
         amt2: format(perSing, 0, true)
       })
     },
@@ -3867,8 +3847,7 @@ const yPrime = (k: number) => (k + 0.25) * yScale
 const SINGULARITY_PERK_TREE_PLACEMENTS: Record<string, SingularityPerkTreePlacement> = {
   welcometoSingularity: { parentID: null, x: -1, y: 0 },
   tokenInheritance: { parentID: 'welcometoSingularity', x: -3, y: -2, independentChildConnections: true },
-  autoCampaigns: { parentID: 'tokenInheritance', x: -4, y: -3 },
-  bonusTokens: { parentID: 'autoCampaigns', x: -5, y: -3 },
+  bonusTokens: { parentID: 'tokenInheritance', x: -4, y: -3 },
   firstClearTokens: { parentID: 'tokenInheritance', x: -4, y: -2 },
   lastClearTokens: { parentID: 'firstClearTokens', x: -5, y: -2 },
   sweepomatic: { parentID: 'welcometoSingularity', x: -3, y: 0 },

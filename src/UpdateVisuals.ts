@@ -1,10 +1,13 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
+import { updateAutoAscendStatus } from './AutoAscensionUI'
 import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
+import { getAccelMultScalingThreshold, getBuildingCost, getBuildingScalingThreshold } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  CalcCorruptionStuff,
+  buildingConstructionSoftcap,
+  calculateAcceleratorsPerBoost,
   calculateActualAntSpeedMult,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
@@ -13,9 +16,10 @@ import {
   calculateAmbrosiaLuckRaw,
   calculateAmbrosiaQuarkMult,
   calculateAmbrosiaRewardLuck,
-  calculateAscensionCount,
   calculateBlueberryInventory,
+  calculateBuildingConstruction,
   calculateCookieUpgrade29Luck,
+  calculateCubeBank,
   calculateCubeQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
@@ -47,8 +51,15 @@ import {
   calculateTotalOcteractQuarkBonus,
   calculateTotalSalvage
 } from './Calculate'
-import { CalcECC, challengeDisplay, timeSinceLastStateChange } from './Challenges'
+import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
+import {
+  activeCorruptionLevel,
+  type CorruptionCubeType,
+  corruptionEffect,
+  corruptionEffectsUpdate,
+  corruptionLevelScoreUpdate
+} from './Corruptions'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -95,8 +106,8 @@ import {
   updateOcteractUpgradeVisibility
 } from './Octeracts'
 import {
-  calculateAscensionScorePlatonicBlessing,
   calculateCubeMultiplierPlatonicBlessing,
+  calculateCubePlatonicBlessing,
   calculateGlobalSpeedPlatonicBlessing,
   calculateHypercubeBlessingMultiplierPlatonicBlessing,
   calculateHypercubeMultiplierPlatonicBlessing,
@@ -172,12 +183,21 @@ import {
   calculateRuneEffectivenessTesseractBlessing,
   calculateSalvageTesseractBlessing
 } from './Tesseracts'
-import { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from './Toggles'
+import { AutoAscensionModes, AutoResetModes } from './Toggles'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { updateMobileUpgradeDescription } from './Upgrades'
 import { isMobile, sumContents, timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
+
+const highScoringStatueCubes: CorruptionCubeType[] = [
+  'cubes',
+  'tesseracts',
+  'hypercubes',
+  'platonics',
+  'hepteracts',
+  'octeracts'
+]
 
 const coinUpper = [
   'produceFirst',
@@ -425,6 +445,35 @@ const particlePerSecNames = ['atoms', 'protons', 'elements', 'pulsars', 'quasars
 const tesseractNames = ['dot', 'vector', 'threeSpace', 'bentTime', 'hilbertSpace']
 const tesseractPerSecNames = ['constant', 'dot', 'vector', 'threeSpace', 'bentTime']
 
+const updateConstructionTexts = (type: keyof typeof buildingConstructionSoftcap) => {
+  const construction = calculateBuildingConstruction(type)
+  DOMCacheGetOrSet(`${type}Construction`).innerHTML = i18next.t('buildings.construction', {
+    amount: format(construction, 3, true)
+  })
+  DOMCacheGetOrSet(`${type}ConstructionBonus`).innerHTML = i18next.t('buildings.constructionBonus', {
+    amount: format(buildingConstructionSoftcap[type], 0, true)
+  })
+
+  const threshold = getBuildingScalingThreshold(type)
+  DOMCacheGetOrSet(`${type}Hyperscaling`).innerHTML = i18next.t('buildings.hyperscaling', {
+    threshold: format(threshold, 3, true)
+  })
+  return threshold
+}
+
+const viscosityEffectiveText = (viscosity: number, bought: number, free: number) => {
+  if (viscosity <= 1) {
+    return ''
+  }
+  return `<br>${
+    i18next.t('buildings.names.viscosityEffective', {
+      amount: format(bought, 2, true, false),
+      gain: format(free, 2, true, false),
+      viscosity: format(viscosity, 2, true)
+    })
+  }`
+}
+
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
     return
@@ -432,13 +481,6 @@ export const visualUpdateBuildings = () => {
 
   // When you're in Building --> Coin, update these.
   if (G.buildingSubTab === 'coin') {
-    let totalProductionDivisor: Decimal
-    if (G.produceTotal.equals(new Decimal())) {
-      totalProductionDivisor = new Decimal(G.dOne)
-    } else {
-      totalProductionDivisor = new Decimal(G.produceTotal)
-    }
-
     DOMCacheGetOrSet('coinInformation').innerHTML = i18next.t('buildings.coinInformation', {
       coins: format(player.coins, 0, false, false),
       coinsPerSecond: format(
@@ -452,6 +494,7 @@ export const visualUpdateBuildings = () => {
       ),
       totalGenerated: format(player.coinsTotal, 0, false, false)
     })
+    const coinConstruction = updateConstructionTexts('coin')
 
     let vanityIndex = 0
     const decimalCoin = Decimal.log10(player.coinsTotal)
@@ -469,7 +512,9 @@ export const visualUpdateBuildings = () => {
       const place = G[coinUpper[i - 1]]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
-      DOMCacheGetOrSet(`buildtext${2 * i - 1}`).textContent = i18next.t(
+      const nameElement = DOMCacheGetOrSet(`buildtext${2 * i - 1}`)
+      nameElement.style.color = player[`${ith}OwnedCoin` as const] > coinConstruction ? 'red' : ''
+      nameElement.textContent = i18next.t(
         `buildings.names.${coinNames[i - 1]}`,
         {
           amount: format(player[`${ith}OwnedCoin` as const], 0, true, false),
@@ -480,31 +525,28 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buycoin${i}`).textContent = i18next.t(
         'buildings.costCoins',
         {
-          coins: format(player[`${ith}CostCoin` as const], 0, false, false)
+          coins: format(getBuildingCost('coin', (i - 1) as ZeroToFour), 0, false, false)
         }
       )
-
-      const percentage = Decimal.fromMantissaExponent(
-        place.mantissa / totalProductionDivisor.mantissa,
-        place.exponent - totalProductionDivisor.exponent
-      ).times(100)
 
       DOMCacheGetOrSet(`buildtext${2 * i}`).textContent = i18next.t(
         'buildings.coinsPerSecond',
         {
-          coins: format(place.dividedBy(G.taxdivisor).times(40), 2, false, false),
-          percent: format(percentage, 2, true, false)
+          coins: format(place.dividedBy(G.taxdivisor).times(40), 2, false, false)
         }
       )
     }
 
-    DOMCacheGetOrSet('buildtext11').textContent = i18next.t(
+    const acceleratorElement = DOMCacheGetOrSet('buildtext11')
+    acceleratorElement.style.color = player.acceleratorBought > getAccelMultScalingThreshold('accelerator') ? 'red' : ''
+    const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
+    acceleratorElement.innerHTML = i18next.t(
       'buildings.names.accelerators',
       {
         amount: format(player.acceleratorBought, 0, true, false),
         gain: format(G.freeAccelerator, 0, true, false)
       }
-    )
+    ) + viscosityEffectiveText(viscosity, G.totalAccelerator - G.effectiveFreeAccelerator, G.effectiveFreeAccelerator)
 
     DOMCacheGetOrSet('buildtext12').innerHTML = i18next.t(
       'buildings.acceleratorPower',
@@ -514,13 +556,15 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('buildtext13').innerHTML = i18next.t(
+    const multiplierElement = DOMCacheGetOrSet('buildtext13')
+    multiplierElement.style.color = player.multiplierBought > getAccelMultScalingThreshold('multiplier') ? 'red' : ''
+    multiplierElement.innerHTML = i18next.t(
       'buildings.names.multipliers',
       {
         amount: format(player.multiplierBought, 0, true, false),
         gain: format(G.freeMultiplier, 0, true, false)
       }
-    )
+    ) + viscosityEffectiveText(viscosity, G.totalMultiplier - G.effectiveFreeMultiplier, G.effectiveFreeMultiplier)
 
     DOMCacheGetOrSet('buildtext14').innerHTML = i18next.t(
       'buildings.multiplierPower',
@@ -530,7 +574,12 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('buildtext15').textContent = i18next.t(
+    const acceleratorBoostElement = DOMCacheGetOrSet('buildtext15')
+    acceleratorBoostElement.style.color =
+      player.acceleratorBoostBought > getAccelMultScalingThreshold('acceleratorBoost')
+        ? 'red'
+        : ''
+    acceleratorBoostElement.textContent = i18next.t(
       'buildings.names.acceleratorBoost',
       {
         amount: format(player.acceleratorBoostBought, 0, true, false),
@@ -539,43 +588,34 @@ export const visualUpdateBuildings = () => {
     )
 
     DOMCacheGetOrSet('buildtext16').textContent = i18next.t(
-      player.upgrades[88] === 1 ? 'buildings.acceleratorBoostNoReset' : 'buildings.acceleratorBoost',
+      'buildings.acceleratorBoost',
       {
         amount: format(
-          100 * (0.01 * G.tuSevenMulti * (1 + CalcECC('transcend', player.challengecompletions[2]) / 20)),
+          (player.upgrades[46] > 0.5 ? 1.05 : 1) * (1 + player.challengecompletions[2] / 20),
           2,
           false,
           false
         ),
-        accelsPerBoost: format(
-          5
-            + 2 * player.researches[18]
-            + 2 * player.researches[19]
-            + 3 * player.researches[20]
-            + (calculateAcceleratorCubeBlessing()),
-          0,
-          true,
-          false
-        )
+        accelsPerBoost: format(calculateAcceleratorsPerBoost(), 0, true, false)
       }
     )
 
     getBuildingCostElement('buyaccelerator').textContent = i18next.t(
       'buildings.costCoins',
       {
-        coins: format(player.acceleratorCost, 0, false, false)
+        coins: format(getBuildingCost('accelerator'), 0, false, false)
       }
     )
     getBuildingCostElement('buymultiplier').textContent = i18next.t(
       'buildings.costCoins',
       {
-        coins: format(player.multiplierCost, 0, false, false)
+        coins: format(getBuildingCost('multiplier'), 0, false, false)
       }
     )
     getBuildingCostElement('buyacceleratorboost').textContent = i18next.t(
       'buildings.costDiamonds',
       {
-        diamonds: format(player.acceleratorBoostCost, 0, false, false)
+        diamonds: format(getBuildingCost('acceleratorBoost'), 0, false, false)
       }
     )
 
@@ -598,12 +638,6 @@ export const visualUpdateBuildings = () => {
         warning
       }
     )
-    const taurusTaxDivisor = getPurpleAmbrosiaUpgradeEffects('taurus', 'taxDivisor')
-    if (taurusTaxDivisor > 1) {
-      DOMCacheGetOrSet('taxinfo').innerHTML += `<br>${
-        i18next.t('purpleAmbrosia.taurusTaxReduction', { divisor: format(taurusTaxDivisor, 1, true) })
-      }`
-    }
   } else if (G.buildingSubTab === 'diamond') {
     const crystalExponent = calculateCrystalExponent()
     const crystalCoinMult = calculateCrystalCoinMultiplier(crystalExponent)
@@ -615,12 +649,15 @@ export const visualUpdateBuildings = () => {
         exponent: format(crystalExponent, 2, true, false)
       }
     )
+    const diamondConstruction = updateConstructionTexts('diamond')
 
     for (let i = 1; i <= 5; i++) {
       const place = G[diamondUpper[i - 1]]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
-      DOMCacheGetOrSet(`prestigetext${2 * i - 1}`).textContent = i18next.t(
+      const nameElement = DOMCacheGetOrSet(`prestigetext${2 * i - 1}`)
+      nameElement.style.color = player[`${ith}OwnedDiamonds` as const] > diamondConstruction ? 'red' : ''
+      nameElement.textContent = i18next.t(
         `buildings.names.${diamondNames[i - 1]}`,
         {
           amount: format(player[`${ith}OwnedDiamonds` as const], 0, true, false),
@@ -638,7 +675,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buydiamond${i}`).textContent = i18next.t(
         'buildings.costDiamonds',
         {
-          diamonds: format(player[`${ith}CostDiamonds` as const], 2, false, false)
+          diamonds: format(getBuildingCost('diamond', (i - 1) as ZeroToFour), 2, false, false)
         }
       )
     }
@@ -677,12 +714,15 @@ export const visualUpdateBuildings = () => {
         mult: format(G.totalMultiplierBoost, 0, true, false)
       }
     )
+    const mythosConstruction = updateConstructionTexts('mythos')
 
     for (let i = 1; i <= 5; i++) {
       const place = G[mythosUpper[i - 1]]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
-      DOMCacheGetOrSet(`transcendtext${2 * i - 1}`).textContent = i18next.t(
+      const nameElement = DOMCacheGetOrSet(`transcendtext${2 * i - 1}`)
+      nameElement.style.color = player[`${ith}OwnedMythos` as const] > mythosConstruction ? 'red' : ''
+      nameElement.textContent = i18next.t(
         `buildings.names.${mythosNames[i - 1]}`,
         {
           amount: format(player[`${ith}OwnedMythos` as const], 0, true, false),
@@ -700,7 +740,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buymythos${i}`).textContent = i18next.t(
         'buildings.costMythos',
         {
-          mythos: format(player[`${ith}CostMythos` as const], 2, false, false)
+          mythos: format(getBuildingCost('mythos', (i - 1) as ZeroToFour), 2, false, false)
         }
       )
     }
@@ -736,11 +776,15 @@ export const visualUpdateBuildings = () => {
       )
     }
   } else if (G.buildingSubTab === 'particle') {
+    const particleConstruction = updateConstructionTexts('particle')
+
     for (let i = 1; i <= 5; i++) {
       const ith = G.ordinals[(i - 1) as ZeroToFour]
       const place = G[`produce${particleUpper[i - 1]}` as const]
 
-      DOMCacheGetOrSet(`reincarnationtext${i}`).textContent = i18next.t(
+      const nameElement = DOMCacheGetOrSet(`reincarnationtext${i}`)
+      nameElement.style.color = player[`${ith}OwnedParticles` as const] > particleConstruction ? 'red' : ''
+      nameElement.textContent = i18next.t(
         `buildings.names.${particleNames[i - 1]}`,
         {
           amount: format(player[`${ith}OwnedParticles` as const], 0, true, false),
@@ -756,7 +800,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buyparticles${i}`).textContent = i18next.t(
         'buildings.costParticles',
         {
-          particles: format(player[`${ith}CostParticles` as const], 2, false, false)
+          particles: format(getBuildingCost('particle', (i - 1) as ZeroToFour), 2, false, false)
         }
       )
     }
@@ -1564,13 +1608,18 @@ export const visualUpdateCubes = () => {
         }
       )
 
-      DOMCacheGetOrSet('platonicAscensionScoreBonus').innerHTML = i18next.t(
-        'wowCubes.platonics.items.7',
-        {
-          amount: format(player.platonicBlessings.scoreBonus, 0, true),
-          bonus: formatAsPercentIncrease(calculateAscensionScorePlatonicBlessing(), 2)
-        }
+      const statueCubes = highScoringStatueCubes.filter((cube) =>
+        (cube !== 'hepteracts' || G.challenge15Rewards.hepteractsUnlocked.value >= 1)
+        && (cube !== 'octeracts' || getGQUpgradeEffect('octeractUnlock', 'unlocked'))
       )
+      const statueBonuses = statueCubes.map((cube) =>
+        i18next.t(`wowCubes.platonics.highScoringStatue.${cube}`, {
+          bonus: format(calculateCubePlatonicBlessing(cube), 2, true)
+        })
+      )
+      DOMCacheGetOrSet('platonicAscensionScoreBonus').innerHTML = `${
+        i18next.t('wowCubes.platonics.items.7', { amount: format(player.platonicBlessings.scoreBonus, 0, true) })
+      } ${statueBonuses.map((bonus) => `<span class="statueBonus">${bonus}</span>`).join(', ')}`
 
       DOMCacheGetOrSet('platonicGlobalSpeedBonus').innerHTML = i18next.t(
         'wowCubes.platonics.items.8',
@@ -1669,188 +1718,25 @@ const UpdateHeptGridValues = (hept: HepteractKeys) => {
   }
 }
 
-const corruptionScoreTargets = [
-  {
-    score: 1e5,
-    color: 'var(--tesseract-color)',
-    textKey: 'corruptions.rewards.moreTesseracts'
-  },
-  {
-    score: 1e9,
-    color: 'var(--hypercube-color)',
-    textKey: 'corruptions.rewards.scoreRequirement'
-  },
-  {
-    score: 2.666e12,
-    color: 'var(--platonic-color)',
-    textKey: 'corruptions.rewards.scoreRequirement'
-  },
-  {
-    score: 1.666e17,
-    color: 'var(--hepteract-color)',
-    textKey: 'corruptions.rewards.scoreRequirement'
-  }
-] as const
-
-const corruptionScoreTargetRewardIds = [
-  'corruptionTesseracts',
-  'corruptionHypercubes',
-  'corruptionPlatonicCubes',
-  'corruptionHepteracts'
-] as const
-
-let corruptionScoreTargetIndex: number | null = null
-
-const updateCorruptionReward = (
-  containerId: string,
-  valueId: string,
-  translationKey: string,
-  amount: number
-) => {
-  const formattedAmount = format(amount, 0)
-  const label = i18next.t(translationKey, { amount: formattedAmount })
-  const container = DOMCacheGetOrSet(containerId)
-
-  DOMCacheGetOrSet(valueId).textContent = formattedAmount
-  container.setAttribute('aria-label', label)
-  container.title = label
-}
-
-const updateCorruptionScoreProgress = (effectiveScore: number) => {
-  if (corruptionScoreTargetIndex === null) {
-    const firstUnmetTarget = corruptionScoreTargets.findIndex(({ score }) => effectiveScore < score)
-    corruptionScoreTargetIndex = firstUnmetTarget === -1
-      ? corruptionScoreTargets.length - 1
-      : firstUnmetTarget
-  }
-
-  const target = corruptionScoreTargets[corruptionScoreTargetIndex]
-  const formattedTarget = format(target.score, 3, true)
-  const progress = Math.min(100, Math.max(effectiveScore ? 0.2 : 0, 100 * effectiveScore / target.score))
-  const progressButton = DOMCacheGetOrSet('corruptionScoreProgress')
-
-  progressButton.style.setProperty('--corruption-progress-color', target.color)
-  DOMCacheGetOrSet('corruptionScoreProgressFill').style.width = `${progress}%`
-  DOMCacheGetOrSet('corruptionScoreProgressText').textContent = i18next.t(target.textKey, {
-    score: formattedTarget
-  })
-
-  for (const [index, rewardId] of corruptionScoreTargetRewardIds.entries()) {
-    const reward = DOMCacheGetOrSet(rewardId)
-    const isSelected = index === corruptionScoreTargetIndex
-    reward.setAttribute('aria-pressed', `${isSelected}`)
-    reward.classList.toggle('selected', isSelected)
-  }
-}
-
 export const visualUpdateCorruptions = () => {
   if (G.currentTab !== Tabs.Corruption) {
     return
   }
 
-  // Hidden corruption text still determines the campaign panel's width.
-  if (getActiveSubTab() === 0) {
+  if (getActiveSubTab() === 2) {
+    updateAutoAscendStatus()
+  }
+
+  if (getActiveSubTab() !== 0) {
     return
   }
 
-  const ascensionRewards = CalcCorruptionStuff()
-  const ascCount = calculateAscensionCount()
-
-  const autoAscendDOM = DOMCacheGetOrSet('autoAscend')
-  if (player.autoAscendMode === AutoAscensionResetModes.c10Completions) {
-    autoAscendDOM.innerHTML = i18next.t('corruptions.autoAscend.c10Completions', {
-      input: format(player.autoAscendThreshold),
-      completions: format(player.challengecompletions[10])
-    })
-  } else if (player.autoAscendMode === AutoAscensionResetModes.realAscensionTime) {
-    autoAscendDOM.innerHTML = i18next.t('corruptions.autoAscend.realTime', {
-      input: format(player.autoAscendThreshold),
-      time: format(player.ascensionCounterRealReal, 2, false, false)
-    })
-  }
-
-  DOMCacheGetOrSet('corruptionScore').innerHTML = i18next.t(
-    'corruptions.corruptionScore',
-    {
-      ascScore: format(ascensionRewards.baseScore, 1, true),
-      corrMult: format(ascensionRewards.corruptionMultiplier, 1, true),
-      bonusMult: format(ascensionRewards.bonusMultiplier, 2, true),
-      totalScore: format(ascensionRewards.effectiveScore, 1, true)
-    }
-  )
-
-  if (ascensionRewards.effectiveScore > 1e23) {
-    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'visible'
-  } else {
-    DOMCacheGetOrSet('corruptionScoreDR').style.visibility = 'hidden'
-  }
-
-  updateCorruptionReward(
-    'corruptionCubes',
-    'corruptionCubesValue',
-    'corruptions.rewards.cube',
-    ascensionRewards.wowCubes
-  )
-  updateCorruptionReward(
-    'corruptionTesseracts',
-    'corruptionTesseractsValue',
-    'corruptions.rewards.tesseract',
-    ascensionRewards.wowTesseracts
-  )
-  updateCorruptionReward(
-    'corruptionHypercubes',
-    'corruptionHypercubesValue',
-    'corruptions.rewards.hypercube',
-    ascensionRewards.wowHypercubes
-  )
-  updateCorruptionReward(
-    'corruptionPlatonicCubes',
-    'corruptionPlatonicCubesValue',
-    'corruptions.rewards.platonic',
-    ascensionRewards.wowPlatonicCubes
-  )
-  updateCorruptionReward(
-    'corruptionHepteracts',
-    'corruptionHepteractsValue',
-    'corruptions.rewards.hepteract',
-    ascensionRewards.wowHepteracts
-  )
-  updateCorruptionScoreProgress(ascensionRewards.effectiveScore)
-  DOMCacheGetOrSet('corruptionMultiplierTotal').textContent = i18next.t('corruptions.totalScoreMultiplier', {
-    curr: format(player.corruptions.used.totalCorruptionAscensionMultiplier, 2, true),
-    next: format(player.corruptions.next.totalCorruptionAscensionMultiplier, 2, true)
-  })
-  DOMCacheGetOrSet('corruptionDifficultyTotal').textContent = i18next.t('corruptions.totalDifficulty', {
-    curr: format(player.corruptions.used.totalCorruptionDifficultyScore, 2, true),
-    next: format(player.corruptions.next.totalCorruptionDifficultyScore, 2, true)
-  })
-  DOMCacheGetOrSet('corruptionSpiritTotal').textContent = i18next.t('corruptions.totalSpiritContribution', {
-    curr: formatAsPercentIncrease(player.corruptions.used.totalCorruptionDifficultyMultiplier),
-    next: formatAsPercentIncrease(player.corruptions.next.totalCorruptionDifficultyMultiplier)
+  DOMCacheGetOrSet('corruptionCubeBank').innerHTML = i18next.t('corruptions.cubeBank', {
+    value: format(calculateCubeBank(), 1, true)
   })
 
-  DOMCacheGetOrSet('corruptionAscensionCount').style.display = ascCount > 1 ? 'flex' : 'none'
-
-  if (ascCount > 1) {
-    updateCorruptionReward(
-      'corruptionAscensionCount',
-      'corruptionAscensionCountValue',
-      'corruptions.rewards.ascensionCount',
-      ascCount
-    )
-  }
-}
-
-export const cycleCorruptionScoreTarget = () => {
-  corruptionScoreTargetIndex = ((corruptionScoreTargetIndex ?? -1) + 1) % corruptionScoreTargets.length
-}
-
-export const selectCorruptionScoreTarget = (index: number) => {
-  if (index < 0 || index >= corruptionScoreTargets.length) {
-    return
-  }
-
-  corruptionScoreTargetIndex = index
+  corruptionEffectsUpdate()
+  corruptionLevelScoreUpdate()
 }
 
 export const visualUpdateSettings = () => {

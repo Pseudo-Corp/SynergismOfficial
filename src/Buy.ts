@@ -1,9 +1,7 @@
 import Decimal from 'break_infinity.js'
 import { awardAchievementGroup } from './Achievements'
-import { CalcECC } from './Challenges'
-import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
-import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
-import { reset } from './Reset'
+import { buildingConstructionSoftcap, calculateBuildingConstruction, calculateConstruction } from './Calculate'
+import { activeCorruptionLevel, corruptionEffect } from './Corruptions'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import { getRuneEffects } from './Runes'
 import { player } from './Synergism'
@@ -39,7 +37,7 @@ const producerData = {
     currency: 'reincarnationPoints',
     production: 'particle',
     costs: [1, 1e2, 1e4, 1e8, 1e16],
-    growth: [1, 3, 6, 10, 15]
+    growth: [1, 1, 1, 1, 1]
   }
 } as const
 
@@ -48,424 +46,396 @@ const accelMultData = {
     cost: 500,
     growth: 4,
     threshold: 125,
-    c4effect: 5
+    c4effect: 5,
+    challenge4Threshold: 25,
+    cubicThreshold: 10000,
+    cubicDelay: 1.32e6
   },
   multiplier: {
     cost: 10000,
     growth: 10,
     threshold: 75,
-    c4effect: 2
+    c4effect: 2,
+    challenge4Threshold: 15,
+    cubicThreshold: 10000,
+    cubicDelay: 2.2e6
   }
-}
-
-const softcap = 1e15
-const exponentDR = 1 / 8
-
-export const getReductionValue = () => {
-  let reduction = 1
-  reduction += getRuneEffects('thrift', 'costDelay')
-  reduction += player.researches.slice(56, 61).reduce((sum, level) => sum + level) / 200
-  reduction += CalcECC('transcend', player.challengecompletions[4]) / 200
-  reduction += getAntUpgradeEffect(AntUpgrades.BuildingCostScale).buildingCostScale
-  return reduction
-}
-
-const linSum = (n: number) => n * (n + 1) / 2
-const sqrSum = (n: number) => n * (n + 1) * (2 * n + 1) / 6
-const fact100 = Decimal.fromNumber(100).factorial()
-
-const decimalBases = {
-  building: Decimal.fromNumber(1.25),
-  lateBuilding: Decimal.fromNumber(1.03),
-  oneHundred: Decimal.fromNumber(100),
-  two: Decimal.fromNumber(2)
 } as const
 
-type BuildingType = keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost'
-type CostCalculator = (n: number) => Decimal
+const softcap = 1e15
 
-interface BuildingCostScaling {
-  reduction: number
-  threshold1000: number
-  threshold5000: number
-  threshold20000: number
-  threshold25000: number
-  threshold250000: number
-  inverseFactorial1000(): Decimal
-  inverseFactorial5000(): Decimal
-  inverseFactorial20000Cubed(): Decimal
+const linSum = (n: number) => n * (n + 1) / 2
+
+export type BuildingType = keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost'
+type ScalingBuildingType = keyof typeof producerData
+
+const challenge8GrowthPower = 2
+const challenge8AccelMultThreshold = 1
+const acceleratorBoostCost = 1000
+const acceleratorBoostLinearExponent = 9.5
+const acceleratorBoostThreshold = 1000
+const affordabilityTolerance = 1 + 1e-9
+
+interface CostCurve {
+  growth: number
+  log10Growth: number
+  scale: Decimal
+  exponentBetween: (from: number, to: number) => number
+  countForExponent: (exponent: number) => number
 }
 
-let buildingCostScalingCache: BuildingCostScaling | undefined
+const isScalingBuilding = (type: BuildingType): type is ScalingBuildingType =>
+  type === 'coin' || type === 'diamond' || type === 'mythos' || type === 'particle'
 
-const getBuildingCostScaling = (reduction: number): BuildingCostScaling => {
-  if (buildingCostScalingCache?.reduction === reduction) {
-    return buildingCostScalingCache
-  }
+export const getBuildingCostKey = () =>
+  `${calculateConstruction()}|${corruptionEffect(activeCorruptionLevel(), 'construction')}|${
+    getRuneBlessingEffect('thrift').accelBoostCostDelay
+  }|${
+    player.challengecompletions[4]
+  }|${player.currentChallenge.transcension}|${player.currentChallenge.reincarnation}|${player.currentChallenge.ascension}`
 
-  const threshold1000 = Math.ceil(reduction * 1000)
-  const threshold5000 = Math.ceil(reduction * 5000)
-  const threshold20000 = Math.ceil(reduction * 20000)
-  let inverseFactorial1000: Decimal | undefined
-  let inverseFactorial5000: Decimal | undefined
-  let inverseFactorial20000Cubed: Decimal | undefined
+const createQuadraticCostCurve = (cost: number, growth: number, threshold: number): CostCurve => ({
+  growth,
+  log10Growth: Math.log10(growth),
+  scale: Decimal.fromNumber(cost / (growth - 1)),
+  exponentBetween: (from, to) => {
+    const start = Math.max(from, threshold)
+    return to - from + (start < to ? (Math.pow(to - threshold, 2) - Math.pow(start - threshold, 2)) / threshold : 0)
+  },
+  countForExponent: (exponent) =>
+    exponent <= threshold
+      ? exponent
+      : (threshold + Math.sqrt(4 * threshold * exponent - 3 * Math.pow(threshold, 2))) / 2
+})
 
-  buildingCostScalingCache = {
-    reduction,
-    threshold1000,
-    threshold5000,
-    threshold20000,
-    threshold25000: Math.ceil(reduction * 25000),
-    threshold250000: Math.ceil(reduction * 250000),
-    inverseFactorial1000 () {
-      return inverseFactorial1000 ??= Decimal.fromNumber(threshold1000 - 1).factorial().recip()
-    },
-    inverseFactorial5000 () {
-      return inverseFactorial5000 ??= Decimal.fromNumber(threshold5000 - 1).factorial().recip()
-    },
-    inverseFactorial20000Cubed () {
-      return inverseFactorial20000Cubed ??= Decimal.fromNumber(threshold20000 - 1).factorial().pow(3).recip()
-    }
-  }
+const softcapExponentBetween = (slope: number, cap: number, from: number, to: number) =>
+  slope * cap / 8 * Math.pow(from / cap, 8) * Math.expm1(8 * Math.log1p((to - from) / from))
 
-  return buildingCostScalingCache
+const softcapCountForExponent = (slope: number, cap: number, capExponent: number, exponent: number) =>
+  cap * Math.pow(1 + 8 * (exponent - capExponent) / (slope * cap), 1 / 8)
+
+interface CubicScaling {
+  threshold: number
+  delay: number
 }
 
-const createBuildingCostCalculator = (
-  type: 'coin' | 'diamond' | 'mythos',
-  index: ZeroToFour,
-  r: number
-): CostCalculator => {
-  const originalCost = producerData[type].costs[index]
-  const growth = producerData[type].growth[index]
-  const add1s = 1 / (Math.pow(1.25, growth) - 1)
-  const baseCost = Decimal.add(originalCost, add1s)
-  const firstGrowth = Decimal.fromNumber((1 + growth / 2) / 1000)
-  const secondGrowth = Decimal.fromNumber(100 + 100 * growth)
-  const thirdGrowth = Decimal.fromNumber(1e7 + 1e7 * growth)
-  const scaling = getBuildingCostScaling(r)
-  const challenge4Completions = player.challengecompletions[4]
-  const challenge4Active = player.currentChallenge.transcension === 4 && type !== 'mythos'
-  const challenge4Threshold = Math.max(1, 1000 - 10 * challenge4Completions)
-  const challenge4Exponent = 1.25 + challenge4Completions / 4
-  const challenge8Completions = player.challengecompletions[8]
-  const challenge8Active = player.currentChallenge.reincarnation === 8
-  const challenge8Threshold = Math.ceil(r * 1000 * challenge8Completions)
-  const challenge10Active = player.currentChallenge.reincarnation === 10 && type !== 'mythos'
-  let softcapCost: Decimal | undefined
+const cubicExponentBetween = (cubic: CubicScaling, from: number, to: number) => {
+  const start = Math.max(from - cubic.threshold, 0)
+  const end = Math.max(to - cubic.threshold, 0)
+  return (end - start) * (end * end + end * start + start * start) / (3 * cubic.delay)
+}
 
-  const calculateCost: CostCalculator = (n) => {
-    const owned = n - 1
+const cubicSlope = (cubic: CubicScaling, count: number) =>
+  Math.pow(Math.max(count - cubic.threshold, 0), 2) / cubic.delay
 
-    // Accounts for the multiplies by 1.25^growth owned times
-    let steps = growth * owned
-    let cost = baseCost
-    let fastFactMultBuyTo = 0
+const cubicCountUpperBound = (cubic: CubicScaling, exponent: number, thresholdExponent: number) =>
+  cubic.threshold + Math.cbrt(3 * cubic.delay * (exponent - thresholdExponent))
 
-    if (owned >= scaling.threshold1000) {
-      fastFactMultBuyTo += 1
-      cost = cost.times(scaling.inverseFactorial1000())
-      cost = cost.times(firstGrowth.pow(n - scaling.threshold1000))
+const refineCountForExponent = (
+  upperBound: number,
+  exponent: number,
+  exponentAt: (count: number) => number,
+  slopeAt: (count: number) => number
+) => {
+  let count = upperBound
+  for (let i = 0; i < 64; i++) {
+    const step = (exponentAt(count) - exponent) / slopeAt(count)
+    if (step <= count * Number.EPSILON) {
+      break
     }
+    count -= step
+  }
+  return count
+}
 
-    if (owned >= scaling.threshold5000) {
-      fastFactMultBuyTo += 1
-      cost = cost.times(scaling.inverseFactorial5000())
-      cost = cost.times(secondGrowth.pow(n - scaling.threshold5000))
+const createAccelMultCostCurve = (
+  cost: number,
+  growth: number,
+  threshold: number,
+  cubic: CubicScaling
+): CostCurve => {
+  const cap = Math.max(softcap, threshold)
+  const uncappedExponentBetween = (from: number, to: number) => {
+    let exponent = cubicExponentBetween(cubic, from, to)
+    let start = from
+    if (start < threshold) {
+      const end = Math.min(to, threshold)
+      exponent += end - start
+      start = end
     }
-
-    if (owned >= scaling.threshold20000) {
-      fastFactMultBuyTo += 3
-      cost = cost.times(scaling.inverseFactorial20000Cubed())
-      cost = cost.times(thirdGrowth.pow(n - scaling.threshold20000))
+    if (start < to) {
+      exponent += (to - start) * (1 + (to + start - 2 * threshold) / threshold)
     }
+    return exponent
+  }
+  const uncappedExponent = (count: number) => uncappedExponentBetween(0, count)
+  const uncappedSlope = (count: number) =>
+    (count < threshold ? 1 : 1 + 2 * (count - threshold) / threshold) + cubicSlope(cubic, count)
+  const capExponent = uncappedExponent(cap)
+  const capSlope = uncappedSlope(cap)
 
-    if (owned >= scaling.threshold250000) {
-      // The exponents from each 1.03 multiplier form the sum from zero to owned - threshold.
-      cost = cost.times(
-        decimalBases.lateBuilding.pow(
-          (owned - scaling.threshold250000) * (n - scaling.threshold250000) / 2
-        )
-      )
-    }
-
-    if (fastFactMultBuyTo > 0) {
-      // Applies the factorials from earlier without computing them five times.
-      cost = cost.times(Decimal.fromNumber(owned).factorial().pow(fastFactMultBuyTo))
-    }
-
-    if (challenge4Active) {
-      const extra = Decimal.fromNumber(owned + 100).factorial()
-        .dividedBy(fact100)
-        .times(decimalBases.oneHundred.pow(owned))
-      cost = cost.times(extra.pow(challenge4Exponent))
-      if (owned >= challenge4Threshold) {
-        steps += (owned * n - challenge4Threshold * (challenge4Threshold - 1)) / 2
+  return {
+    growth,
+    log10Growth: Math.log10(growth),
+    scale: Decimal.fromNumber(cost / (growth - 1)),
+    exponentBetween: (from, to) => {
+      const end = Math.min(to, cap)
+      let exponent = from < end ? uncappedExponentBetween(from, end) : 0
+      const start = Math.max(from, cap)
+      if (start < to) {
+        exponent += softcapExponentBetween(capSlope, cap, start, to)
       }
-    }
-
-    if (challenge10Active && owned >= scaling.threshold25000) {
-      steps += (owned * n - scaling.threshold25000 * (scaling.threshold25000 - 1)) / 2
-    }
-
-    // Applies all the 1.25s from earlier n times to avoid multiple computations.
-    cost = cost.times(decimalBases.building.pow(steps))
-
-    if (challenge8Active && owned > challenge8Threshold) {
-      cost = cost.times(
-        decimalBases.two.pow(
-          (owned - challenge8Threshold) * (n - challenge8Threshold) / (2 + challenge8Completions)
-        )
+      return exponent
+    },
+    countForExponent: (exponent) => {
+      if (exponent > capExponent) {
+        return softcapCountForExponent(capSlope, cap, capExponent, exponent)
+      }
+      const count = exponent <= threshold
+        ? exponent
+        : (threshold + Math.sqrt(4 * threshold * exponent - 3 * Math.pow(threshold, 2))) / 2
+      if (count <= cubic.threshold) {
+        return count
+      }
+      return refineCountForExponent(
+        Math.min(count, cubicCountUpperBound(cubic, exponent, uncappedExponent(cubic.threshold))),
+        exponent,
+        uncappedExponent,
+        uncappedSlope
       )
     }
-
-    cost = cost.subtract(add1s)
-    // c4, c8x0, c10 add1s are annoying to deal with, and it'd be possible to fix that,
-    // but that's a lot of work for a minuscule difference.
-
-    if (owned > softcap) {
-      softcapCost ??= calculateCost(softcap)
-      const newCost = softcapCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
-      return Decimal.max(cost, newCost)
-    }
-    return cost
   }
-
-  return calculateCost
 }
 
-const createAccelMultCostCalculator = (type: keyof typeof accelMultData): CostCalculator => {
-  const c4reward = accelMultData[type].c4effect * CalcECC('transcend', player.challengecompletions[4])
-  const factorialThreshold = accelMultData[type].threshold + c4reward
-  const secondaryThreshold = 2000 + c4reward
-  const baseCost = Decimal.fromNumber(accelMultData[type].cost)
-  const growthBase = Decimal.fromNumber(accelMultData[type].growth)
-  let challengeGrowth = 1
-  if (player.currentChallenge.transcension === 4) {
-    challengeGrowth *= 10
+const createAcceleratorBoostCostCurve = (delay: number): CostCurve => {
+  const cubic = { threshold: acceleratorBoostThreshold * delay, delay }
+  const quadraticExponentBetween = (from: number, to: number) =>
+    (to - from) * (acceleratorBoostLinearExponent + (to + from) / 2)
+  const uncappedExponentBetween = (from: number, to: number) =>
+    quadraticExponentBetween(from, to) + cubicExponentBetween(cubic, from, to)
+  const uncappedExponent = (count: number) => uncappedExponentBetween(0, count)
+  const uncappedSlope = (count: number) => acceleratorBoostLinearExponent + count + cubicSlope(cubic, count)
+  const capExponent = uncappedExponent(softcap)
+  const capSlope = uncappedSlope(softcap)
+
+  return {
+    growth: 10,
+    log10Growth: 1,
+    scale: Decimal.fromNumber(acceleratorBoostCost / (Math.pow(10, uncappedExponent(1)) - 1)),
+    exponentBetween: (from, to) => {
+      const end = Math.min(to, softcap)
+      let exponent = from < end ? uncappedExponentBetween(from, end) : 0
+      const start = Math.max(from, softcap)
+      if (start < to) {
+        exponent += softcapExponentBetween(capSlope, softcap, start, to)
+      }
+      return exponent
+    },
+    countForExponent: (exponent) => {
+      if (exponent > capExponent) {
+        return softcapCountForExponent(capSlope, softcap, capExponent, exponent)
+      }
+      const count = Math.sqrt(Math.pow(acceleratorBoostLinearExponent, 2) + 2 * exponent)
+        - acceleratorBoostLinearExponent
+      if (count <= cubic.threshold) {
+        return count
+      }
+      return refineCountForExponent(
+        Math.min(count, cubicCountUpperBound(cubic, exponent, quadraticExponentBetween(0, cubic.threshold))),
+        exponent,
+        uncappedExponent,
+        uncappedSlope
+      )
+    }
   }
+}
+
+export const getBuildingScalingThreshold = (type: ScalingBuildingType) =>
+  calculateBuildingConstruction(type) * buildingConstructionSoftcap[type]
+
+const getAccelMultScaling = (type: keyof typeof accelMultData) => {
+  const data = accelMultData[type]
+  const delay = 1 + data.c4effect * player.challengecompletions[4] / data.threshold
   if (player.currentChallenge.reincarnation === 8) {
-    challengeGrowth *= 1e50
+    return { threshold: challenge8AccelMultThreshold, delay: 1 }
   }
-  const challengeGrowthBase = challengeGrowth > 1 ? Decimal.fromNumber(challengeGrowth) : undefined
-  let softcapCost: Decimal | undefined
-
-  const calculateCost: CostCalculator = (n) => {
-    const owned = n - 1
-    let steps = owned
-    let cost = baseCost
-
-    if (owned > factorialThreshold) {
-      const num = owned - factorialThreshold
-      steps += num
-      cost = cost.times(Decimal.fromNumber(num).factorial())
-    }
-    cost = cost.times(growthBase.pow(steps))
-
-    if (owned > secondaryThreshold) {
-      const num = owned - secondaryThreshold
-      cost = cost.times(decimalBases.two.pow(linSum(num)))
-    }
-
-    if (challengeGrowthBase !== undefined) {
-      cost = cost.times(challengeGrowthBase.pow(linSum(owned)))
-    }
-
-    if (owned > softcap) {
-      softcapCost ??= calculateCost(softcap)
-      const newCost = softcapCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
-      return Decimal.max(cost, newCost)
-    }
-
-    return cost
+  if (player.currentChallenge.transcension === 4) {
+    return { threshold: data.challenge4Threshold, delay: 1 }
   }
-
-  return calculateCost
+  return { threshold: data.threshold * delay, delay }
 }
 
-const createAcceleratorBoostCostCalculator = (): CostCalculator => {
-  const base = new Decimal(1000)
-  const r = getRuneBlessingEffect('thrift').accelBoostCostDelay
-  const threshold = 1000 * r
-  let softcapCost: Decimal | undefined
+export const getAccelMultScalingThreshold = (type: keyof typeof accelMultData | 'acceleratorBoost') =>
+  type === 'acceleratorBoost'
+    ? acceleratorBoostThreshold * getRuneBlessingEffect('thrift').accelBoostCostDelay
+    : getAccelMultScaling(type).threshold
 
-  const calculateCost: CostCalculator = (n) => {
-    const owned = n - 1
-    let exponent = 10 * owned + linSum(owned) // each level increases the exponent by 1 more each time
-    if (owned > threshold) {
-      // after cost delay is passed each level increases the cost by the square each time
-      exponent += sqrSum(owned - threshold) / r
-    }
-    const cost = base.times(Decimal.pow(10, exponent))
-
-    if (owned > softcap) {
-      softcapCost ??= calculateCost(softcap)
-      const newCost = softcapCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
-      return Decimal.max(cost, newCost)
-    }
-    return cost
-  }
-
-  return calculateCost
+const getBuildingCostCurve = (type: ScalingBuildingType, index: ZeroToFour): CostCurve => {
+  const growthPower = player.currentChallenge.reincarnation === 8 && type !== 'particle' ? challenge8GrowthPower : 1
+  return createQuadraticCostCurve(
+    producerData[type].costs[index],
+    Math.pow(1.25, producerData[type].growth[index] * growthPower),
+    getBuildingScalingThreshold(type)
+  )
 }
 
-const createParticleCostCalculator = (index: ZeroToFour): CostCalculator => {
-  const originalCost = producerData.particle.costs[index]
-  const baseCost = Decimal.fromValue(originalCost)
-  const DR = (player.currentChallenge.ascension !== 15) ? 325000 : 1000
-  const lateGrowth = Decimal.fromNumber(1.001)
-  let softcapCost: Decimal | undefined
-
-  const calculateCost: CostCalculator = (n) => {
-    const owned = n - 1
-    let cost = baseCost.times(decimalBases.two.pow(owned))
-
-    if (owned > DR) {
-      cost = cost.times(lateGrowth.pow(linSum(owned - DR)))
-    }
-
-    if (owned > softcap) {
-      softcapCost ??= calculateCost(softcap)
-      const newCost = softcapCost.pow(Math.pow(owned / softcap, 1 / exponentDR))
-      return Decimal.max(cost, newCost)
-    }
-    return cost
-  }
-
-  return calculateCost
+const getAccelMultCostCurve = (type: keyof typeof accelMultData): CostCurve => {
+  const data = accelMultData[type]
+  const { threshold, delay } = getAccelMultScaling(type)
+  const growthPower = player.currentChallenge.reincarnation === 8 ? challenge8GrowthPower : 1
+  return createAccelMultCostCurve(data.cost, Math.pow(data.growth, growthPower), threshold, {
+    threshold: data.cubicThreshold * delay,
+    delay: data.cubicDelay * delay
+  })
 }
 
-const createCostCalculator = (
-  type: BuildingType,
-  index: ZeroToFour = 0,
-  r?: number
-): CostCalculator => {
+const getCostCurve = (type: BuildingType, index: ZeroToFour): CostCurve => {
   switch (type) {
     case 'accelerator':
     case 'multiplier':
-      return createAccelMultCostCalculator(type)
+      return getAccelMultCostCurve(type)
     case 'acceleratorBoost':
-      return createAcceleratorBoostCostCalculator()
-    case 'particle':
-      return createParticleCostCalculator(index)
+      return createAcceleratorBoostCostCurve(getRuneBlessingEffect('thrift').accelBoostCostDelay)
   }
-  return createBuildingCostCalculator(type, index, r ?? getReductionValue())
+  return getBuildingCostCurve(type, index)
 }
 
-export const getCost = (type: BuildingType, n: number, index: ZeroToFour = 0, r?: number): Decimal =>
-  createCostCalculator(type, index, r)(n)
+const costBetween = (curve: CostCurve, from: number, to: number): Decimal => {
+  if (to <= from) {
+    return new Decimal()
+  }
+  const exponent = curve.exponentBetween(from, to)
+  const increase = curve.log10Growth * exponent < 300
+    ? Decimal.fromNumber(Math.expm1(curve.log10Growth * exponent * Math.LN10))
+    : Decimal.pow(curve.growth, exponent)
+  return curve.scale.times(Decimal.pow(curve.growth, curve.exponentBetween(0, from))).times(increase)
+}
+
+const maxAffordable = (curve: CostCurve, owned: number, budget: Decimal) => {
+  const limit = budget.times(affordabilityTolerance)
+  const ownedExponent = curve.exponentBetween(0, owned)
+  const ratio = budget.div(curve.scale.times(Decimal.pow(curve.growth, ownedExponent)))
+  const exponent = ownedExponent
+    + (ratio.lt(G.d1e300)
+      ? Math.log1p(ratio.toNumber()) / Math.log(curve.growth)
+      : ratio.add(1).log10() / curve.log10Growth)
+  let count = Math.max(owned, Math.floor(curve.countForExponent(exponent)))
+  while (count > owned && costBetween(curve, owned, count).gt(limit)) {
+    count -= smallestInc(count)
+  }
+  while (
+    count + smallestInc(count) <= Number.MAX_SAFE_INTEGER
+    && costBetween(curve, owned, count + smallestInc(count)).lte(limit)
+  ) {
+    count += smallestInc(count)
+  }
+  return count
+}
+
+const curveBuildings: readonly { type: BuildingType; index: ZeroToFour }[] = [
+  ...(['coin', 'diamond', 'mythos', 'particle'] as const).flatMap((type) =>
+    ([0, 1, 2, 3, 4] as const).map((index) => ({ type, index }))
+  ),
+  { type: 'accelerator', index: 0 },
+  { type: 'multiplier', index: 0 },
+  { type: 'acceleratorBoost', index: 0 }
+]
+
+const getCurveBuildingKeys = (type: BuildingType, index: ZeroToFour) => {
+  if (isScalingBuilding(type)) {
+    const { currency, name, production } = producerData[type]
+    const pos = G.ordinals[index]
+    return {
+      currency,
+      owned: `${pos}Owned${name}` as const,
+      paid: `${pos}Paid${name}` as const,
+      amount: player[`${production}buyamount` as const]
+    }
+  }
+  return {
+    currency: type === 'acceleratorBoost' ? 'prestigePoints' as const : 'coins' as const,
+    owned: `${type}Bought` as const,
+    paid: `${type}Paid` as const,
+    amount: player.coinbuyamount
+  }
+}
+
+export type CurvePaidKey = ReturnType<typeof getCurveBuildingKeys>['paid']
+
+const setCurveBuildingState = (type: BuildingType, index: ZeroToFour, curve: CostCurve, owned: number) => {
+  const keys = getCurveBuildingKeys(type, index)
+  player[keys.owned] = owned
+  const price = costBetween(curve, owned, owned + smallestInc(owned))
+  const credit = player[keys.paid].sub(costBetween(curve, 0, owned))
+  G.buildingCosts[type][index] = (credit.gt(0) && credit.lt(price) ? price.sub(credit) : price)
+    .div(affordabilityTolerance)
+}
+
+export const getBuildingCost = (type: BuildingType, index: ZeroToFour = 0) => G.buildingCosts[type][index]
+
+export const syncCurveBuilding = (type: BuildingType, index: ZeroToFour = 0) => {
+  const curve = getCostCurve(type, index)
+  setCurveBuildingState(type, index, curve, maxAffordable(curve, 0, player[getCurveBuildingKeys(type, index).paid]))
+}
+
+export const syncCurveBuildings = () => {
+  for (const { type, index } of curveBuildings) {
+    syncCurveBuilding(type, index)
+  }
+}
+
+export const grantCurveBuildings = (type: BuildingType, index: ZeroToFour, count: number) => {
+  const curve = getCostCurve(type, index)
+  const keys = getCurveBuildingKeys(type, index)
+  player[keys.paid] = Decimal.max(player[keys.paid], costBetween(curve, 0, count))
+  setCurveBuildingState(type, index, curve, maxAffordable(curve, 0, player[keys.paid]))
+}
+
+export const initializeCurveBuildingsPaid = (isPaidLoaded: (key: CurvePaidKey) => boolean) => {
+  for (const { type, index } of curveBuildings) {
+    const keys = getCurveBuildingKeys(type, index)
+    if (!isPaidLoaded(keys.paid)) {
+      player[keys.paid] = costBetween(getCostCurve(type, index), 0, player[keys.owned])
+    }
+  }
+  syncCurveBuildings()
+}
+
+const buyCurveBuilding = (type: BuildingType, amount: BuyAmount | 'max' | undefined, index: ZeroToFour) => {
+  const keys = getCurveBuildingKeys(type, index)
+  const curve = getCostCurve(type, index)
+  const owned = player[keys.owned]
+  const paid = player[keys.paid]
+  const buyAmount = amount ?? keys.amount
+
+  let buyTo = maxAffordable(curve, 0, paid.add(player[keys.currency]))
+  if (buyAmount !== 'max') {
+    buyTo = Math.min(buyTo, owned + buyAmount)
+  }
+  if (buyTo <= owned) {
+    return false
+  }
+
+  const totalCost = costBetween(curve, 0, buyTo)
+  player[keys.currency] = player[keys.currency].sub(totalCost.sub(paid).max(0)).max(0)
+  player[keys.paid] = Decimal.max(paid, totalCost)
+  setCurveBuildingState(type, index, curve, buyTo)
+  return true
+}
 
 export const buyBuilding = (
   type: BuildingType,
   amount?: BuyAmount | 'max',
   index: ZeroToFour = 0
 ) => {
-  const isAccelMult = type === 'accelerator' || type === 'multiplier'
-  const isProducer = !isAccelMult && type !== 'acceleratorBoost'
-  const pos = G.ordinals[index]
-
-  const coinmax = 1e99
-  const tag = isAccelMult ? 'coins' : isProducer ? producerData[type].currency : 'prestigePoints'
-  const posOwnedType = isProducer ? `${pos}Owned${producerData[type].name}` as const : `${type}Bought` as const
-  const posCostType = isProducer ? `${pos}Cost${producerData[type].name}` as const : `${type}Cost` as const
-  const calculateCost = createCostCalculator(type, index)
-
-  if (amount === undefined) {
-    if (isProducer) {
-      amount = player[`${producerData[type].production}buyamount` as const]
-    } else {
-      amount = player.coinbuyamount // Accelerator Boosts use Coin amounts too
-    }
-  }
-
-  const buyStart = player[posOwnedType]
-  // If at least softcap, we will use a different formulae
-  if (buyStart >= softcap) {
-    const log10Resource = Decimal.log10(player[tag])
-    const log10QuadrillionCost = Decimal.log10(calculateCost(softcap))
-
-    let hi = Math.floor(softcap * Math.max(1, Math.pow(log10Resource / log10QuadrillionCost, exponentDR)))
-    let lo = softcap
-    while (hi - lo > 0.5) {
-      const mid = Math.floor(lo + (hi - lo) / 2)
-      if (mid === lo || mid === hi) {
-        break
-      }
-      if (!player[tag].gte(calculateCost(mid))) {
-        hi = mid
-      } else {
-        lo = mid
-      }
-    }
-    const buyable = lo
-    const thisCost = calculateCost(buyable)
-
-    player[posOwnedType] = buyable
-    player[posCostType] = thisCost
-
-    if (isAccelMult) {
-      awardAchievementGroup(`${type}s` as const)
-    }
-
+  if (!buyCurveBuilding(type, amount, index)) {
     return
   }
 
-  // Start buying at the current amount bought + 1
-  let buyInc = smallestInc(buyStart)
-  const buyDefault = buyStart + buyInc
-
-  let cashToBuy = calculateCost(buyDefault)
-
-  // Degenerate Case: return maximum if coins is too large
-  if (cashToBuy.exponent >= coinmax || !player[tag].gte(cashToBuy)) {
-    return
-  }
-
-  while (cashToBuy.exponent < coinmax && player[tag].gte(cashToBuy)) {
-    // then multiply by 4 until it reaches just above the amount needed
-    buyInc = buyInc * 4
-    cashToBuy = calculateCost(buyStart + buyInc)
-  }
-  let stepdown = Math.floor(buyInc / 8)
-  while (stepdown >= smallestInc(buyInc)) {
-    // if step down would push it below out of expense range then divide step down by 2
-    if (calculateCost(buyStart + buyInc - stepdown).lte(player[tag])) {
-      stepdown = Math.floor(stepdown / 2)
-    } else {
-      buyInc = buyInc - Math.max(smallestInc(buyInc), stepdown)
-    }
-  }
-
-  if (amount !== 'max') {
-    buyInc = Math.min(buyInc, amount)
-  }
-
-  // Resolves the infamous autobuyer bug, for large values. This prevents the notion of even being able
-  // to go above the softcap. Future instances will also not check more than the first few lines
-  // meaning that the code below this cannot run if this ever runs.
-  if (buyStart + buyInc >= softcap) {
-    player[posOwnedType] = softcap
-    player[posCostType] = calculateCost(softcap)
-    return
-  }
-
-  // go down by 7 steps below the last one able to be bought and spend the cost of 25 up to the one that you started with and stop if coin goes below requirement
-  let buyFrom = Math.max(buyStart + buyInc - 6 - smallestInc(buyInc), buyDefault)
-  let thisCost = calculateCost(buyFrom)
-  while (buyFrom <= buyStart + buyInc && player[tag].gte(thisCost)) {
-    player[tag] = player[tag].sub(thisCost)
-    player[posOwnedType] = buyFrom
-    buyFrom = buyFrom + smallestInc(buyFrom)
-    thisCost = calculateCost(buyFrom)
-    player[posCostType] = thisCost
-  }
-
-  if (isAccelMult) {
-    if (player[posOwnedType] > 0) {
-      player[`prestigeno${type}` as const] = false
-      player[`transcendno${type}` as const] = false
-      player[`reincarnateno${type}` as const] = false
-    }
+  if (type === 'accelerator' || type === 'multiplier') {
+    player[`prestigeno${type}` as const] = false
+    player[`transcendno${type}` as const] = false
+    player[`reincarnateno${type}` as const] = false
     awardAchievementGroup(`${type}s` as const)
   } else if (type === 'acceleratorBoost') {
     player.transcendnoaccelerator = false
@@ -559,28 +529,7 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 }
 
 export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
-  if (player.upgrades[88] < 1) {
-    const calculateCost = createAcceleratorBoostCostCalculator()
-    while (player.prestigePoints.gte(player.acceleratorBoostCost) && G.ticker < 1) {
-      if (player.prestigePoints.gte(player.acceleratorBoostCost)) {
-        player.acceleratorBoostBought += 1
-        player.acceleratorBoostCost = calculateCost(player.acceleratorBoostBought)
-        player.transcendnoaccelerator = false
-        player.reincarnatenoaccelerator = false
-        if (player.upgrades[88] < 0.5) {
-          for (let j = 21; j < 41; j++) {
-            player.upgrades[j] = 0
-          }
-          reset('prestige')
-          player.prestigePoints = new Decimal()
-        }
-      }
-    }
-  } else {
-    buyBuilding('acceleratorBoost', amount)
-  }
-
-  G.ticker = 0
+  buyBuilding('acceleratorBoost', amount)
   awardAchievementGroup('acceleratorBoosts')
 }
 

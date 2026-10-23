@@ -8,6 +8,8 @@ import { format, formatAsPercentIncrease, player } from '../../../../Synergism'
 import { getAntUpgradeEffect } from '../lib/upgrade-effects'
 import { type AntUpgradeData, AntUpgrades } from '../structs/structs'
 
+const antConstructionEffect = (level: number) => level > 0 ? 0.2 * Math.pow(1 + Math.log(1 + level), 2) : 0
+
 export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
   [AntUpgrades.AntSpeed]: {
     baseCost: Decimal.fromString('100'),
@@ -46,7 +48,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     antUpgradeHTML: {
       color: 'yellow'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
     autobuy: () => Boolean(getAchievementReward('fortunaeAutobuy')),
     name: () => i18next.t('ants.upgrades.coins.name'),
@@ -81,7 +83,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     antUpgradeHTML: {
       color: 'lightgray'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
     autobuy: () => Boolean(getAchievementReward('tributumAutobuy')),
     name: () => i18next.t('ants.upgrades.taxes.name'),
@@ -104,7 +106,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     antUpgradeHTML: {
       color: 'cyan'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
     autobuy: () => Boolean(getAchievementReward('celeritasAutobuy')),
     name: () => i18next.t('ants.upgrades.acceleratorBoosts.name'),
@@ -129,7 +131,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     antUpgradeHTML: {
       color: 'pink'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
     autobuy: () => Boolean(getAchievementReward('exploratoremAutobuy')),
     name: () => i18next.t('ants.upgrades.multipliers.name'),
@@ -152,7 +154,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     antUpgradeHTML: {
       color: 'orange'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
     autobuy: () => Boolean(getAchievementReward('sacrificiumAutobuy')),
     name: () => i18next.t('ants.upgrades.offerings.name'),
@@ -175,24 +177,24 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     antUpgradeHTML: {
       color: 'lime'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
     autobuy: () => Boolean(getAchievementReward('hicAutobuy')),
     name: () => i18next.t('ants.upgrades.buildingCostScale.name'),
     intro: () => i18next.t('ants.upgrades.buildingCostScale.intro'),
     description: () => i18next.t('ants.upgrades.buildingCostScale.description'),
     effect: (n: number) => {
-      const scalePercent = 3 * n
+      const construction = antConstructionEffect(n)
       const buildingPowerMult = 1 + n / 100
       return {
-        buildingCostScale: scalePercent / 100,
+        construction,
         buildingPowerMult
       }
     },
     effectDescription: () => {
       const effects = getAntUpgradeEffect(AntUpgrades.BuildingCostScale)
       const effect1 = i18next.t('ants.upgrades.buildingCostScale.effect', {
-        x: formatAsPercentIncrease(1 + effects.buildingCostScale, 2)
+        x: format(effects.construction, 3, true)
       })
       const effect2 = i18next.t('ants.upgrades.buildingCostScale.effect2', {
         x: format(effects.buildingPowerMult, 2, true)
@@ -230,7 +232,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     antUpgradeHTML: {
       color: 'cyan'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
     autobuy: () => Boolean(getAchievementReward('praemoenioAutobuy')),
     name: () => i18next.t('ants.upgrades.freeRunes.name'),
@@ -253,7 +255,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     antUpgradeHTML: {
       color: 'pink'
     },
-    minimumResetTier: AntSacrificeTiers.sacrifice,
+    minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
     autobuy: () => Boolean(getAchievementReward('experientiaAutobuy')),
     name: () => i18next.t('ants.upgrades.obtainium.name'),
@@ -407,21 +409,15 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.ascensionScore.intro'),
     description: () => i18next.t('ants.upgrades.ascensionScore.description'),
     effect: (n: number) => {
-      const ascensionScoreBase = 100000 * (1 - Math.pow(0.999, n))
-      const bankedCubes = 3 * Math.min(200, n) + 2500 * (1 - Math.pow(1 - 1 / 2750, n))
-        + 96900 * (1 - Math.pow(1 - 1 / 969000, n))
+      const bankedCubes = Math.min(200, n) + Math.min(800, Math.max(0, n - 200) * 0.1)
+        + Math.min(5000, Math.max(0, n - 8200) / 100)
       return {
-        cubesBanked: bankedCubes,
-        ascensionScoreBase: ascensionScoreBase
+        cubesBanked: bankedCubes
       }
     },
     effectDescription: () => {
       const effects = getAntUpgradeEffect(AntUpgrades.AscensionScore)
-      const effect1 = i18next.t('ants.upgrades.ascensionScore.effect', {
-        x: format(effects.ascensionScoreBase, 0, true)
-      })
-      const effect2 = i18next.t('ants.upgrades.ascensionScore.effect2', { x: format(effects.cubesBanked, 2, true) })
-      return `${effect1}<br>${effect2}`
+      return i18next.t('ants.upgrades.ascensionScore.effect2', { x: format(effects.cubesBanked, 2, true) })
     },
     lockedAutoDescription: () => i18next.t('ants.upgrades.ascensionScore.lockedAutomation')
   },

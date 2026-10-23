@@ -2,7 +2,7 @@ import i18next from 'i18next'
 import { calculateSingularityUpgradePurchase } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
-import { updateMaxTokens, updateTokens } from './Campaign'
+import { updateTokens } from './Campaign'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { Alert, InfoAlert, infoAlertInactiveHTML, infoAlertTableHTML, PurchasePrompt } from './UpdateHTML'
@@ -217,7 +217,7 @@ export const octeractUpgrades: {
     effect: (n: number) => {
       return n // corruptionLevelCapIncrease
     },
-    effectDescription: (n: number) => i18next.t('octeract.data.octeractCorruption.effect', { n }),
+    effectDescription: (n: number) => i18next.t('octeract.data.octeractCorruption.effect', { n: format(0.5 * n, 1) }),
     name: () => i18next.t('octeract.data.octeractCorruption.name'),
     description: () => i18next.t('octeract.data.octeractCorruption.description')
   },
@@ -753,7 +753,7 @@ export const octeractUpgrades: {
     effect: (n: number) => {
       return n // lastCompletionBonusTokens
     },
-    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens1.effect', { n: format(n) }),
+    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens1.effect', { n: format(2 * n) }),
     name: () => i18next.t('octeract.data.octeractBonusTokens1.name'),
     description: () => i18next.t('octeract.data.octeractBonusTokens1.description'),
     qualityOfLife: false
@@ -781,7 +781,7 @@ export const octeractUpgrades: {
     effect: (n: number) => {
       return n // firstCompletionBonusTokens
     },
-    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens3.effect', { n: format(n) }),
+    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens3.effect', { n: format(2 * n) }),
     name: () => i18next.t('octeract.data.octeractBonusTokens3.name'),
     description: () => i18next.t('octeract.data.octeractBonusTokens3.description'),
     qualityOfLife: false
@@ -1462,7 +1462,6 @@ export const buyOcteractUpgradeLevel = async (
   upgrade.level += levelsToPurchase
   player.octUpgrades[upgradeKey].octeractsInvested = upgrade.costFormula(upgrade.level)
   updateTokens()
-  updateMaxTokens()
   if (levelsToPurchase > 1) {
     return Alert(i18next.t('octeract.buyLevel.multiBuy', { n: format(levelsToPurchase) }))
   }

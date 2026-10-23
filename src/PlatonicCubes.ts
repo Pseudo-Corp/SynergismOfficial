@@ -1,3 +1,4 @@
+import type { CorruptionCubeType } from './Corruptions'
 import { player } from './Synergism'
 
 export const calculateCubeMultiplierPlatonicBlessing = () => {
@@ -77,24 +78,44 @@ export const calculateTaxPlatonicBlessing = () => {
   }*/
 }
 
-export const calculateAscensionScorePlatonicBlessing = () => {
+const highScoringStatueBase = (blessings: number) => {
   const DR1 = 1 / 4
   const DR2 = 1 / 8
   const limit1 = 1e4
   const limit2 = 1e20
   const effectPerBlessing = 1 / 1e4
 
-  if (player.platonicBlessings.globalSpeed < limit1) {
-    return 1 + effectPerBlessing * player.platonicBlessings.globalSpeed
-  } else if (limit1 <= player.platonicBlessings.globalSpeed && player.platonicBlessings.globalSpeed < limit2) {
+  if (blessings < limit1) {
+    return 1 + effectPerBlessing * blessings
+  } else if (limit1 <= blessings && blessings < limit2) {
     const limitMult = Math.pow(limit1, 1 - DR1)
-    return 1 + effectPerBlessing * limitMult * Math.pow(player.platonicBlessings.globalSpeed, DR1)
+    return 1 + effectPerBlessing * limitMult * Math.pow(blessings, DR1)
   } else {
     // Can derive that this works using algebra (Platonic did it)
     const limitMult1 = Math.pow(limit1, 1 - DR1)
     const limitMult2 = Math.pow(limit2, DR1 - DR2)
-    return 1 + effectPerBlessing * limitMult1 * limitMult2 * Math.pow(player.platonicBlessings.globalSpeed, DR2)
+    return 1 + effectPerBlessing * limitMult1 * limitMult2 * Math.pow(blessings, DR2)
   }
+}
+
+const highScoringStatueSoftcap = 1e25
+
+const highScoringStatueScaling: Record<CorruptionCubeType, { power: number; normalization: number }> = {
+  cubes: { power: 1 / 4.1, normalization: 0 },
+  tesseracts: { power: 0.35, normalization: 0 },
+  hypercubes: { power: 0.5, normalization: 0 },
+  platonics: { power: 0.75, normalization: 0 },
+  hepteracts: { power: 0.85, normalization: 1e12 },
+  octeracts: { power: 1, normalization: 1e25 }
+}
+
+export const calculateCubePlatonicBlessing = (cube: CorruptionCubeType) => {
+  const { power, normalization } = highScoringStatueScaling[cube]
+  const blessings = player.platonicBlessings.scoreBonus
+  const softcapped = highScoringStatueBase(Math.min(blessings, highScoringStatueSoftcap))
+  const excess = highScoringStatueBase(Math.max(blessings, highScoringStatueSoftcap))
+    / highScoringStatueBase(highScoringStatueSoftcap)
+  return Math.pow(Math.max(1, softcapped * Math.sqrt(excess) / highScoringStatueBase(normalization)), power)
 }
 
 export const calculateGlobalSpeedPlatonicBlessing = () => {

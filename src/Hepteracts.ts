@@ -2,8 +2,11 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  calculateAutoWarpQuarkMultiplier,
+  calculateBaseCubeQuarkMultiplier,
   calculateCubeMultFromPowder,
   calculateCubeQuarkMultiplier,
+  calculateMaxBaseCubeQuarkMultiplier,
   calculatePowderConversion,
   calculateQuarkMultFromPowder,
   forcedDailyReset
@@ -626,6 +629,7 @@ export const hepteractDescriptions = (hept: HepteractKeys) => {
   DOMCacheGetOrSet('hepteractCurrentEffectText').style.display = 'block'
   DOMCacheGetOrSet('hepteractBalanceText').style.display = 'block'
   DOMCacheGetOrSet('powderDayWarpText').style.display = 'none'
+  DOMCacheGetOrSet('hepteractOrbBreakdownText').style.display = 'none'
   DOMCacheGetOrSet('hepteractCostText').style.display = 'block'
 
   const unlockedText = DOMCacheGetOrSet('hepteractUnlockedText')
@@ -704,8 +708,24 @@ export const hepteractToOverfluxOrbDescription = () => {
   DOMCacheGetOrSet('hepteractCostText').style.display = 'block'
 
   DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = i18next.t('hepteracts.orbEffect', {
-    x: formatAsPercentIncrease(calculateCubeQuarkMultiplier(), 2)
+    x: format(100 * (calculateCubeQuarkMultiplier() - 1), 2, true)
   })
+  const breakdown = [
+    i18next.t('hepteracts.orbBreakdown.base', {
+      base: format(calculateBaseCubeQuarkMultiplier(), 3, true),
+      cap: format(calculateMaxBaseCubeQuarkMultiplier(player.highestSingularityCount))
+    })
+  ]
+  const shopMult = getShopUpgradeEffects('cubeToQuarkAll', 'quarkMult')
+  if (shopMult > 1) {
+    breakdown.push(i18next.t('hepteracts.orbBreakdown.shop', { x: format(shopMult, 3, true) }))
+  }
+  const warpMult = calculateAutoWarpQuarkMultiplier()
+  if (warpMult > 1) {
+    breakdown.push(i18next.t('hepteracts.orbBreakdown.warp', { x: format(warpMult) }))
+  }
+  DOMCacheGetOrSet('hepteractOrbBreakdownText').style.display = 'block'
+  DOMCacheGetOrSet('hepteractOrbBreakdownText').textContent = `[${breakdown.join(' ')}]`
   DOMCacheGetOrSet('hepteractBalanceText').textContent = i18next.t('hepteracts.orbsPurchasedToday', {
     x: format(player.overfluxOrbs)
   })
@@ -805,6 +825,7 @@ export const overfluxPowderDescription = () => {
     })
   }
   DOMCacheGetOrSet('hepteractUnlockedText').style.display = 'none'
+  DOMCacheGetOrSet('hepteractOrbBreakdownText').style.display = 'none'
   DOMCacheGetOrSet('hepteractCurrentEffectText').textContent = powderEffectText
   DOMCacheGetOrSet('hepteractBalanceText').textContent = i18next.t('hepteracts.powderLumps', {
     x: format(player.overfluxPowder)

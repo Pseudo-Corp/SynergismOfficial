@@ -1,27 +1,10 @@
-import type { Corruptions } from './Corruptions'
 import type { HeaderLayout } from './types/Synergism'
 
-export const loadoutPageModuleIds = ['corruptionLoadoutPageHeader', 'ambrosiaLoadoutPageHeader'] as const
+export const loadoutPageModuleIds = ['ambrosiaLoadoutPageHeader'] as const
 
 export type LoadoutPageModuleId = typeof loadoutPageModuleIds[number]
 
-export const corruptionLoadoutCubeIcons = [
-  'WowCube',
-  'WowTessaract',
-  'WowHypercube',
-  'PlatonicCube',
-  'Hepteract',
-  'Octeract'
-] as const
-
-export const corruptionLoadoutPlatonicIcons = Array.from({ length: 20 }, (_, i) => `platUpg${i + 1}Image` as const)
-
-export type CorruptionLoadoutIcon =
-  | keyof Corruptions
-  | typeof corruptionLoadoutCubeIcons[number]
-  | typeof corruptionLoadoutPlatonicIcons[number]
-
-const loadoutModuleIds = ['corruptionLoadoutsHeader', 'ambrosiaLoadoutsHeader', ...loadoutPageModuleIds] as const
+const loadoutModuleIds = ['ambrosiaLoadoutsHeader', ...loadoutPageModuleIds] as const
 
 const statModuleIds = [
   'ascCubeStats',
@@ -41,6 +24,7 @@ const statModuleIds = [
   'dailyCodeHeader',
   'addCodeHeader',
   'timeCodeHeader',
+  'corruptionLevelHeader',
   ...loadoutModuleIds
 ] as const
 
@@ -75,7 +59,6 @@ const resetButtonModuleIds = [
   'prestigebtn',
   'transcendbtn',
   'reincarnatebtn',
-  'acceleratorboostbtn',
   'challengebtn',
   'reincarnatechallengebtn',
   'ascendChallengeBtn',
@@ -132,6 +115,43 @@ export const isHeaderLoadout = (id: HeaderModuleId) => (loadoutModuleIds as read
 
 export const isHeaderGridRegion = (region: HeaderRegionId) => region === 'headerGrid'
 
+export const isHeaderModuleId = (id: unknown): id is HeaderModuleId =>
+  typeof id === 'string' && (headerModuleIds as readonly string[]).includes(id)
+
+const isHeaderSolo = (id: HeaderModuleId) => isHeaderProgress(id) || isHeaderLoadout(id)
+
+export const isHeaderSizeAllowed = (
+  id: HeaderModuleId,
+  size: HeaderModuleSize,
+  key: keyof typeof HEADER_BUTTON_GROUP_CAPACITY
+) => {
+  switch (size) {
+    case 'S':
+      return !isHeaderButton(id)
+    case 'XL':
+      return key === 'desktop' && isHeaderSolo(id)
+    case 'Tall':
+      return isHeaderProgress(id)
+    default:
+      return true
+  }
+}
+
+const chunkSlot = (ids: HeaderModuleId[], capacity: number) =>
+  Array.from({ length: Math.ceil(ids.length / capacity) }, (_, i) => ids.slice(i * capacity, (i + 1) * capacity))
+
+export const splitHeaderSlot = (slot: HeaderModuleId[], key: keyof typeof HEADER_BUTTON_GROUP_CAPACITY) => {
+  if (slot.length <= 1) {
+    return [slot]
+  }
+
+  return [
+    ...chunkSlot(slot.filter(isHeaderButton), HEADER_BUTTON_GROUP_CAPACITY[key]),
+    ...chunkSlot(slot.filter((id) => !isHeaderButton(id) && !isHeaderSolo(id)), HEADER_STACK_CAPACITY),
+    ...slot.filter(isHeaderSolo).map((id) => [id])
+  ]
+}
+
 export const freeButtonPosition = (positions: HeaderLayout['positions'], slot: HeaderModuleId[]) => {
   let position = 0
   while (slot.some((id) => positions[id] === position)) {
@@ -154,7 +174,7 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
       'dailyCodeHeader',
       'addCodeHeader',
       'timeCodeHeader',
-      'corruptionLoadoutsHeader',
+      'corruptionLevelHeader',
       'ambrosiaLoadoutsHeader',
       ...loadoutPageModuleIds,
       'goldenQuarkHeader',
@@ -166,11 +186,9 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
     rainbowAmbrosia: 'ambrosiaHeader',
     octeractPerSecond: false,
     loadoutPages: {
-      corruptionLoadoutPageHeader: 0,
       ambrosiaLoadoutPageHeader: 0
     },
     loadoutIcons: {
-      corruptionLoadoutsHeader: {},
       ambrosiaLoadoutsHeader: {}
     }
   }

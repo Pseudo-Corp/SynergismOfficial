@@ -5239,7 +5239,7 @@
     "acceleratorPower": "Poder de Aceleración: {{power}}% || Multiplicador de aceleración: {{mult}}x",
     "multiplierPower": "Poder de Multiplicador: {{power}}x || Multiplicador: {{mult}}x",
     "acceleratorBoost": "Reset Diamonds and Diamond Upgrades, but add {{amount}}% Acceleration Power and {{accelsPerBoost}} free Accelerators.",
-    "coinsPerSecond": "Monedas/Seg: {{coins}} [{{percent}}%]",
+    "coinsPerSecond": "Monedas/Seg: {{coins}}",
     "costCoins": "Coste: {{coins}} monedas.",
     "costDiamonds": "Coste: {{diamonds}} Diamantes.",
     "names": {

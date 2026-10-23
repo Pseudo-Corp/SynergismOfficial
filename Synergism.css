@@ -208,9 +208,9 @@ html[data-legacyicons="true"] {
     color: #fff0ff;
 }
 
-#corrCampaignsBtn.active-subtab,
 #corrStatsBtn.active-subtab,
-#corrLoadoutsBtn.active-subtab {
+#corrTokensBtn.active-subtab,
+#corrAutoAscendBtn.active-subtab {
     background-color: dodgerblue;
 }
 
@@ -2551,9 +2551,8 @@ p#promocodeStatus {
 }
 
 .talismansModify {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    justify-items: center;
     position: relative;
 }
 
@@ -2569,6 +2568,11 @@ p#promocodeStatus {
 
 .buyAmountBtn:hover {
     background-color: var(--hover-color);
+}
+
+.constructionInfo {
+    color: white;
+    text-align: center;
 }
 
 #prestige {
@@ -2973,6 +2977,7 @@ img.runeTypeElement:hover {
 
 #talismanEffect,
 #talismanLevelUpCost {
+    grid-area: 1 / 1;
     margin-top: 10px;
     text-align: center;
 }
@@ -5182,6 +5187,15 @@ p[id$="BlessingsTotal"] {
     border-spacing: 0;
 }
 
+#platonicAscensionScoreBonus {
+    white-space: normal;
+    max-width: 700px;
+}
+
+.statueBonus {
+    white-space: nowrap;
+}
+
 .cubeIcon img {
     margin-right: 5px;
 }
@@ -5767,37 +5781,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: white;
 }
 
-#campaigns {
-    contain: inline-size;
-    margin-top: 10px;
-}
-
-#campaignsMain {
-    contain: inline-size;
-    min-width: 0;
-    row-gap: 10px;
-    line-height: 1.2;
-    margin-top: 10px;
-}
-
-#campaignsIcons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-items: center;
-}
-
-#campaignIconGrid {
-    display: grid;
-    grid-template-columns: repeat(10, minmax(0, 48px));
-    grid-template-rows: repeat(5, minmax(0, 48px));
-    column-gap: 2px;
-    row-gap: 2px;
-    justify-content: center;
-}
-
 /* Credit: gwabo_ */
-.campaignIcon:not(.green-background),
 .tieredAchievementType img:not(.green-background),
 .progressiveAchievementType img:not(.green-background) {
     --pct: 0;
@@ -5811,93 +5795,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
             green calc(round(var(--pct) * 100%, 1px)),
             transparent calc(round(var(--pct) * 100%, 1px))
         );
-}
-
-#campaignsIcons h3 {
-    text-align: center;
-}
-
-#campaignsIcons img {
-    box-sizing: content-box;
-    width: 100%;
-    max-width: 48px;
-    height: auto;
-    font-size: 0;
-    cursor: pointer;
-}
-
-#campaignsIcons img:hover {
-    background-color: var(--hover-color);
-}
-
-#campaignsDescriptions {
-    border: 2px solid red;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    min-height: 300px;
-}
-
-#campaignsDescriptions h3 {
-    margin-top: 1px;
-    margin-bottom: 1px;
-}
-
-#campaignsDescriptions h5 {
-    margin-top: 1px;
-    margin-bottom: 1px;
-}
-
-#campaignCorruptionInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.campaignCorrDisplay {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    text-align: left;
-}
-
-.campaignCorrDisplay img {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
-    font-size: 0;
-}
-
-.campaignCorrDisplay p {
-    margin: 0;
-}
-
-#campaignCorruptions {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-#campaignCorruptionStats {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-#campaignCorruptionStats p {
-    margin: 0;
-}
-
-#campaignCorruptionStats button {
-    align-self: flex-end;
-    width: 100%;
-    border: 1px solid gold;
-    font-size: 1.2em;
 }
 
 #campaignsTokensInfo {
@@ -5966,240 +5863,93 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #traits {
     display: flex;
-    justify-content: center;
-    align-items: start;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 
     /* Hopefully prevent some elements from overlapping with the tab buttons */
     margin-top: 10px;
 }
 
-#corruptionMain {
-    min-width: 43.75rem;
-    max-width: 75rem;
-}
-
-#corruptionMain.campaigns-active > :not(#campaignsMain) {
-    visibility: hidden;
-    block-size: 0;
-    min-block-size: 0;
-    margin-block: 0;
-    overflow: hidden;
-}
-
 #corruptionIntroduction {
     font-size: 1.2em;
     color: var(--darkorchid-text-color);
+    text-align: center;
 }
 
 #corruptionInfo1 {
     color: yellow;
-}
-
-#corruptionSelected {
-    width: 70px;
-    height: 70px;
-    margin-top: 15px;
-}
-
-#corruptionSelectedPic {
-    height: 100%;
-    object-fit: contain;
-}
-
-#corruptionDetails {
-    display: flex;
-    min-height: 9em;
-    visibility: hidden;
-}
-
-#corruptionName {
-    font-size: 1.2em;
-}
-
-#corruptionDescription {
-    color: darkviolet;
-}
-
-#corruptionLevelCurrent {
-    color: var(--orchid-text-color);
-}
-
-#corruptionLevelPlanned {
-    color: lime;
-}
-
-#corruptionSpiritContribution {
-    color: gold;
-}
-
-#corruptionRewards {
-    width: min(100%, 800px);
-    margin: 5px auto 0;
     text-align: center;
 }
 
-#corruptionRewardsHeading {
-    margin: 0 0 10px;
-    color: white;
-    font-size: 1.25em;
+
+
+
+
+
+#corruptionAscensionControls {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 2em;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #fff2;
 }
 
-#corruptionRewardGrid {
+.corruptionControlGroup {
     display: flex;
-    justify-content: center;
-    align-items: end;
-    gap: clamp(6px, 2vw, 28px);
-}
-
-.corruptionReward {
-    display: flex;
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 105px;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
-button.corruptionRewardSelector {
-    min-height: 0;
-    font-size: inherit;
-    color: inherit;
-    background-color: transparent;
+.corruptionControlGroup > .corruptionTierHeading {
+    margin: 0 0 2px;
 }
 
-body button.corruptionRewardSelector:hover:not(:disabled):not(.disable-hover-color),
-body button.corruptionRewardSelector:active:not(:disabled):not(.disable-hover-color) {
-    background-color: transparent;
-}
-
-#corruptionTesseracts {
-    --corruption-reward-color: var(--tesseract-color);
-}
-
-#corruptionHypercubes {
-    --corruption-reward-color: var(--hypercube-color);
-}
-
-#corruptionPlatonicCubes {
-    --corruption-reward-color: var(--platonic-color);
-}
-
-#corruptionHepteracts {
-    --corruption-reward-color: var(--hepteract-color);
-}
-
-.corruptionRewardSelector.selected > img,
-.corruptionRewardSelector:focus-visible > img {
-    outline: 2px solid var(--corruption-reward-color);
-    outline-offset: 3px;
-}
-
-html[data-chal13="true"] .corruptionReward.chal13,
-html[data-chal14="true"] .corruptionReward.chal14,
-html[data-hepteracts="true"] .corruptionReward.hepteracts {
+#ascensionAutomationButtons {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
 }
 
-.corruptionReward > img {
-    width: clamp(40px, 6vw, 64px);
-    height: clamp(40px, 6vw, 64px);
-    object-fit: contain;
-}
-
-.corruptionAscensionIcon {
-    width: clamp(40px, 6vw, 64px);
-    height: clamp(40px, 6vw, 64px);
-    display: grid;
-    place-items: center;
-}
-
-.corruptionAscensionIcon > img {
-    width: 75%;
-    height: 75%;
-    object-fit: contain;
-}
-
-.corruptionRewardValue {
-    max-width: 100%;
-    font-size: clamp(0.75em, 2vw, 1.25em);
-    line-height: 1.1;
-    white-space: nowrap;
-}
-
-#corruptionAscensionCount {
-    color: darkorange;
-}
-
-#corruptionScoreProgress {
-    --corruption-progress-color: var(--tesseract-color);
-
-    width: min(calc(100% - 80px), 650px);
-    height: 24px;
-    min-height: 24px;
-    position: relative;
-    margin: 16px auto 0;
-    overflow: hidden;
-    border-radius: 12px;
-    color: var(--corruption-progress-color);
-    background-color: var(--blessings-hover-color);
-    font-size: 1.05em;
-    isolation: isolate;
-}
-
-#corruptionScoreProgress:focus-visible {
-    outline: 2px solid var(--corruption-progress-color);
-    outline-offset: 3px;
-}
-
-#corruptionScoreProgressFill {
-    width: 0;
-    position: absolute;
-    inset: 0 auto 0 0;
-    z-index: 0;
-    background-color: var(--corruption-progress-color);
-    transition: width var(--transition-extra);
-}
-
-#corruptionScoreProgressText {
-    position: relative;
-    z-index: 1;
-    color: black;
-    font-weight: bold;
-}
-
-#ascensionAutomation {
-    margin-top: 10px;
-}
-
-#ascensionAmount,
-#ascensionAutoEnable,
-#ascensionAutoToggle {
+#ascensionAutoEnable {
     width: 12em;
     min-width: 150px;
     min-height: auto;
+    margin: 0;
 }
 
-#ascensionAmount {
-    border: 1px solid orange;
-    color: gold;
-    background-color: var(--blackbtn-color);
-}
-
-#corruptionStatsLoadouts {
-    min-width: 500px;
-    max-width: 600px;
-    margin: 10px;
-    padding: 30px 10px;
-    border: 1px solid orange;
+#corruptionSubtabs {
+    position: relative;
+    box-sizing: border-box;
+    width: fit-content;
+    max-width: calc(100% - 20px);
+    margin: 0 10px;
+    padding: 12px 24px;
     color: white;
     background-color: var(--box-color);
     text-align: center;
 }
 
-#corrCampaignsBtn,
+#corruptionSubtabs::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    background: linear-gradient(135deg, #ff4d4d, #8b0000 30%, #ff1f5a 55%, #b30000 80%, #ff6a3d);
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    pointer-events: none;
+}
+
+#corrClickInfo {
+    margin: 6px 0 0;
+}
+
 #corrStatsBtn,
-#corrLoadoutsBtn {
+#corrTokensBtn,
+#corrAutoAscendBtn {
     min-width: 120px;
     max-width: 100%;
     border: 2px solid;
@@ -6261,8 +6011,71 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
     color: var(--red-text-color);
 }
 
-.corruptionDetailsModalFree {
+.corruptionDetailsModalFormula {
     color: orchid;
+}
+
+.corruptionFormulaActive {
+    color: #ffc4f0;
+}
+
+.corruptionBreakdown {
+    margin: 0 auto;
+    max-width: 100%;
+    border-collapse: collapse;
+    color: white;
+    font-size: 0.9em;
+}
+
+.corruptionBreakdown th {
+    padding: 2px 8px;
+    color: var(--orchid-text-color);
+    font-weight: normal;
+}
+
+.corruptionBreakdown td {
+    padding: 2px 8px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.corruptionBreakdown td:first-child {
+    text-align: left;
+    white-space: normal;
+}
+
+.corruptionBreakdown tr:last-child td {
+    border-top: 1px solid gray;
+    color: gold;
+}
+
+.corruptionBreakdownNote {
+    color: silver;
+    font-size: 0.9em;
+}
+
+.corruptionFormulaTable {
+    display: grid;
+    grid-template-columns: auto auto minmax(0, max-content) auto;
+    justify-content: center;
+    gap: 3px 14px;
+    max-width: 100%;
+    margin-top: 4px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.corruptionFormulaExpression {
+    white-space: normal;
+}
+
+.corruptionFormulaCurrent {
+    color: gold;
+    text-align: right;
+}
+
+.corruptionFormulaNext {
+    color: white;
 }
 
 .corrDesc {
@@ -6271,15 +6084,6 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
     margin: 0 auto;
     text-align: center;
     line-height: 1em;
-}
-
-.corrLoadoutName:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
-.corrLoadoutNameCol {
-    width: 20%;
 }
 
 .corrBtn {
@@ -6313,34 +6117,594 @@ html[data-hepteracts="true"] .corruptionReward.hepteracts {
     width: 3.5em;
 }
 
-#corruptionStats,
-#corruptionLoadouts {
+#corruptionStats {
     font-size: min(1em, 20px);
-    min-height: 350px;
     z-index: 1;
 }
 
-#corruptionLoadouts {
-    margin-top: 10px;
-}
-
-#corruptionDisplays {
-    margin-top: 5%;
-}
-
-.corrLoadoutName {
-    white-space: nowrap;
-}
-
-#corruptionLoadoutTable {
-    border-collapse: collapse;
-    text-align: center;
+#corruptionLayout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
     width: 100%;
 }
 
-#corruptionLoadoutTable tbody th {
-    font-size: 0;
+#autoAscensions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-height: 350px;
+    margin-top: 10px;
+    font-size: min(1em, 20px);
+    z-index: 1;
+}
+
+#autoAscendRules {
+    width: min(100%, 48em);
+}
+
+#autoAscendRules > .corruptionTierHeading {
+    color: orange;
+}
+
+.corruptionRulesNote {
+    max-width: 28em;
+    margin: 0;
+    color: var(--gray-text-color);
+    text-align: center;
+}
+
+#autoAscendSidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 25em;
+    max-width: 100%;
+}
+
+#autoAscendStatus,
+#corruptionLoadouts {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid orange;
+    border-radius: 4px;
+    background-color: var(--box-color);
+}
+
+#autoAscendStatus > .corruptionTierHeading,
+#corruptionLoadouts > .corruptionTierHeading {
+    margin-top: 0;
+    color: orange;
+}
+
+#corruptionLoadoutList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 12px;
+    width: 100%;
+    margin-top: 6px;
+}
+
+.corruptionLoadoutRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+}
+
+.corruptionLoadoutName {
+    overflow: hidden;
+    color: var(--gray-text-color);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.corruptionLoadoutId {
+    color: orange;
+}
+
+.corruptionLoadoutRow > .autoAscendNumber {
+    width: auto;
+    min-width: 0;
+    margin-left: auto;
+    flex: 0 1 4.5em;
+}
+
+#autoAscendStatusList {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 9em;
+    gap: 4px 12px;
+    margin: 0;
+}
+
+#autoAscendStatusList > dt {
+    overflow: hidden;
+    color: var(--gray-text-color);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+#autoAscendStatusList > dd {
+    overflow: hidden;
+    margin: 0;
+    color: var(--text-color);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: right;
+}
+
+#autoAscendRulesEmpty {
+    max-width: 28em;
+    margin: 0;
+    text-align: center;
+}
+
+#autoAscendRuleList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    margin: 0;
     padding: 0;
+    list-style: none;
+}
+
+.autoAscendRuleItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    border: 1px solid orange;
+    border-radius: 4px;
+    background-color: var(--box-color);
+    color: var(--text-color);
+    text-align: left;
+    cursor: pointer;
+}
+
+.autoAscendRuleItem.autoAscendRuleFired {
+    animation: auto-ascend-rule-pulse 1.6s ease-out;
+}
+
+@keyframes auto-ascend-rule-pulse {
+    0%,
+    50% {
+        border-color: lime;
+        box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
+    }
+
+    25%,
+    75% {
+        border-color: lime;
+        box-shadow: 0 0 12px 3px rgb(0 255 0 / 65%);
+    }
+
+    100% {
+        border-color: orange;
+        box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .autoAscendRuleItem.autoAscendRuleFired {
+        border-color: lime;
+        animation: none;
+    }
+}
+
+.autoAscendRuleNumber {
+    color: orange;
+    font-weight: bold;
+}
+
+.autoAscendRuleName {
+    flex: 1;
+    color: orange;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+    cursor: help;
+}
+
+.autoAscendRuleModal {
+    padding: 4px 8px;
+    color: var(--text-color);
+    text-align: left;
+}
+
+.autoAscendRuleModal > p {
+    margin: 4px 0;
+}
+
+.autoAscendRuleModal > .autoAscendRuleModalName {
+    color: orange;
+    font-weight: bold;
+}
+
+.autoAscendNameField {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+#autoAscendRuleName {
+    width: 14em;
+}
+
+.autoAscendModifier > span {
+    min-width: 10em;
+}
+
+.autoAscendRuleActions {
+    display: flex;
+    gap: 4px;
+    cursor: default;
+}
+
+.autoAscendRuleState {
+    min-width: 3.2em;
+    padding: 1px 4px;
+    border: 1px solid var(--green-text-color);
+    border-radius: 3px;
+    background-color: transparent;
+    color: var(--green-text-color);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.autoAscendRuleDisabled {
+    border-style: dashed;
+    opacity: 0.55;
+}
+
+.autoAscendRuleDisabled .autoAscendRuleState {
+    border-color: var(--red-text-color);
+    color: var(--red-text-color);
+}
+
+.autoAscendRuleDisabled .autoAscendRuleName {
+    text-decoration: line-through;
+}
+
+.autoAscendRuleModalHint {
+    color: var(--gray-text-color);
+}
+
+#autoAscendAddRule,
+.autoAscendButton,
+.autoAscendEditorFooter > button {
+    min-width: 44px;
+    padding: 0 8px;
+    border: 1px solid orange;
+    border-radius: 3px;
+}
+
+.autoAscendButton.autoAscendRemove {
+    border-color: var(--crimson-text-color);
+}
+
+#autoAscendRuleEditor {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgb(0 0 0 / 60%);
+    z-index: 6970;
+}
+
+#autoAscendRuleEditor[hidden] {
+    display: none;
+}
+
+.autoAscendEditorPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: min(760px, 100%);
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 16px;
+    border: 2px solid orange;
+    border-radius: 6px;
+    background-color: var(--alert-color);
+    color: var(--text-color);
+    text-align: left;
+}
+
+.autoAscendEditorHeader,
+.autoAscendEditorFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.autoAscendEditorHeader > h3,
+.autoAscendStep > h4 {
+    margin: 0;
+    color: orange;
+}
+
+.autoAscendEditorFooter {
+    justify-content: flex-end;
+}
+
+.autoAscendHelp,
+.autoAscendCount {
+    margin: 2px 0 6px;
+    color: var(--gray-text-color);
+}
+
+.autoAscendGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    border-left: 3px solid darkorange;
+    background-color: rgb(255 165 0 / 4%);
+}
+
+.autoAscendGroup .autoAscendGroup {
+    margin-left: 12px;
+}
+
+.autoAscendGroupHeader,
+.autoAscendGroupFooter,
+.autoAscendComparison {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.autoAscendSelect,
+.autoAscendNumber {
+    min-height: 30px;
+    padding: 0 6px;
+    border: 1px solid #fff4;
+    border-radius: 3px;
+    background-color: var(--button-color);
+    color: var(--text-color);
+}
+
+.autoAscendNumber {
+    width: 8em;
+}
+
+.autoAscendNumber.autoAscendInvalid {
+    border-color: var(--red-text-color);
+}
+
+.autoAscendButtonRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+}
+
+.autoAscendEditorPanel .autoAscendButtonRow {
+    justify-content: flex-start;
+}
+
+.autoAscendRuleTextField {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+#autoAscendRuleText {
+    width: 100%;
+    min-height: 30px;
+    padding: 0 6px;
+    border: 1px solid #fff4;
+    border-radius: 3px;
+    background-color: var(--button-color);
+    color: var(--text-color);
+    font-family: monospace;
+}
+
+#autoAscendRuleTextError {
+    min-height: 1em;
+    margin: 4px 0 0;
+    color: var(--red-text-color);
+}
+
+#autoAscendRulePreview {
+    margin: 4px 0;
+}
+
+#autoAscendRuleError {
+    min-height: 1em;
+    margin: 0;
+    color: var(--red-text-color);
+}
+
+@media (width <= 768px) {
+    .autoAscendRuleItem {
+        flex-wrap: wrap;
+    }
+
+    .autoAscendRuleActions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    #autoAscendRuleEditor {
+        padding: 0;
+    }
+
+    .autoAscendEditorPanel {
+        height: 100%;
+        border-radius: 0;
+    }
+}
+
+#corruptionDisplays > #corruptionExitIcon {
+    width: 44px;
+    height: 44px;
+}
+
+#corruptionDisplays {
+    position: relative;
+    align-items: center;
+    gap: 20px;
+    margin-top: 4px;
+}
+
+#corruptionTierSelected {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 4px 0;
+    color: white;
+}
+
+.corruptionTierHeading {
+    margin-top: 10px;
+    color: var(--orchid-text-color);
+}
+
+.corruptionTierRows {
+    display: grid;
+    grid-template-columns: auto auto 7em auto 7em;
+    align-items: center;
+    gap: 2px 8px;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.corruptionTierRows .corruptionStatRow {
+    display: contents;
+}
+
+#corruptionTierGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2em;
+}
+
+.corruptionTierHalf {
+    grid-template-rows: auto;
+    grid-auto-rows: minmax(28px, auto);
+    column-gap: 8px;
+    row-gap: 2px;
+    align-content: start;
+}
+
+.corruptionTierHalf > .corruptionTierHeading {
+    grid-column: 1 / -1;
+    margin: 0;
+}
+
+#corruptionTierEffects,
+#corruptionTierCubeRows {
+    display: contents;
+}
+
+#corruptionTierGrid #corruptionRewardFreeLevels {
+    grid-column: 1 / -1;
+    max-width: 24em;
+    margin: 6px auto 0;
+    line-height: 1.2em;
+    text-align: center;
+}
+
+#corruptionTokens {
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.corruptionTierRows .corrDesc {
+    min-width: unset;
+    margin: 0;
+    text-align: left;
+}
+
+.corruptionTierRows .corruptionStatRow > img {
+    grid-column: 1;
+}
+
+.corruptionTierRows .corruptionStatName {
+    grid-column: 2;
+}
+
+.corruptionTierRows .corruptionStatCurr {
+    grid-column: 3;
+    text-align: right;
+    white-space: nowrap;
+    color: silver;
+}
+
+.corruptionTierRows .corruptionStatArrow {
+    grid-column: 4;
+    color: silver;
+}
+
+.corruptionTierRows .corruptionStatNext {
+    grid-column: 5;
+    white-space: nowrap;
+    color: gold;
+}
+
+.corruptionTierRows .corruptionStatCentered {
+    grid-column: 3 / -1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.corruptionLevelSame .corruptionStatCurr,
+.corruptionLevelSame .corruptionStatArrow {
+    visibility: hidden;
+}
+
+#corruptionTierCubeRows .corruptionStatRow > img,
+#corruptionTierEffects .corruptionStatRow > img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+.corruptionTierRows .corruptionStatRow > img,
+#corruptionExitIcon {
+    cursor: help;
+}
+
+#corruptionLevelCap {
+    max-width: 34em;
+    line-height: 1.2em;
+}
+
+#corruptionTierLevel {
+    margin: 2px auto;
+    font-size: 1.75em;
+    line-height: 1.2em;
+}
+
+#corruptionLevelOverwritten {
+    max-width: 40em;
+    margin: 2px auto;
+    font-size: 1.15em;
+    line-height: 1.2em;
+}
+
+#corruptionLevelControls {
+    gap: 4px;
+    margin: 2px 0;
+}
+
+#corruptionLevelInput {
+    width: 5em;
+    border: 1px solid orange;
+    color: gold;
+    background-color: var(--blackbtn-color);
 }
 
 img.small {
@@ -6350,13 +6714,6 @@ img.small {
 img.corruptionImg.small {
     width: 100%;
     max-width: 32px;
-}
-
-.corrSave {
-    min-height: 20px;
-    min-width: 40px;
-    border: 1px solid dodgerblue;
-    width: 100%;
 }
 
 .corrLoad {
@@ -6376,14 +6733,32 @@ img.corruptionImg.small {
 #corruptionCleanse {
     width: 8em;
     min-width: 150px;
-    margin: auto 20px;
+    margin: 0;
     border: 2px solid darkmagenta;
     z-index: 2;
 }
 
+.corruptionToggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.corruptionToggle > input {
+    margin: 0;
+    cursor: pointer;
+    transform: scale(1.4);
+}
+
 #corruptionCleanseConfirm {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 12px);
     width: 100px;
-    margin: auto;
+    margin: 0;
+    transform: translateY(-50%);
     border: 2px solid green;
     visibility: hidden;
 }
@@ -6478,7 +6853,6 @@ header #blueberryHeaderDisplay,
 
 #rainbowAmbrosiaHeader,
 #octeractHeader,
-#corruptionLoadoutPageHeader,
 #ambrosiaLoadoutPageHeader {
     cursor: pointer;
 }
@@ -6653,44 +7027,11 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     border: 2px solid blue;
 }
 
-.headerLoadoutSlot.headerLoadoutNext {
-    border-color: silver;
-}
-
 .headerLoadoutSlot.headerLoadoutActive {
     background-color: #1d4ed8;
     border-color: deepskyblue;
     color: white;
     font-weight: bold;
-}
-
-#corruptionLoadoutsHeaderSlots,
-#corruptionLoadoutPageHeaderSlots {
-    display: contents;
-}
-
-#corruptionCleanseHeader,
-#corruptionCleansePageHeader {
-    position: relative;
-    background-color: black;
-    border-color: #dc7d0b;
-}
-
-#corruptionLoadoutsHeaderSlots > .headerLoadoutSlot,
-#corruptionLoadoutPageHeaderSlots > .headerLoadoutSlot {
-    background-color: #2b0808;
-    border-color: #a71313;
-}
-
-#corruptionLoadoutsHeaderSlots > .headerLoadoutNext,
-#corruptionLoadoutPageHeaderSlots > .headerLoadoutNext {
-    border-color: silver;
-}
-
-#corruptionLoadoutsHeaderSlots > .headerLoadoutActive,
-#corruptionLoadoutPageHeaderSlots > .headerLoadoutActive {
-    background-color: #a71313;
-    border-color: #ff5c5c;
 }
 
 .headerLoadoutSlot[data-icon],
@@ -11622,6 +11963,14 @@ html[data-chal11="false"] .chal11 {
     display: none;
 }
 
+html[data-corruption-unlock="true"] .corruptionUnlock {
+    display: block;
+}
+
+html[data-corruption-unlock="false"] .corruptionUnlock {
+    display: none;
+}
+
 html[data-chal12="true"] .chal12 {
     display: block;
 }
@@ -11903,11 +12252,11 @@ html[data-unread-messages="false"] .unreadMessages {
     display: none;
 }
 
-html[data-cube-upgrade10="true"] .cubeUpgrade10 {
+html[data-auto-ascend-unlock="true"] .autoAscendUnlock {
     display: flex;
 }
 
-html[data-cube-upgrade10="false"] .cubeUpgrade10 {
+html[data-auto-ascend-unlock="false"] .autoAscendUnlock {
     display: none;
 }
 
@@ -12578,7 +12927,8 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     .platonicContainer {
-        width: unset;
+        width: 0;
+        min-width: 100%;
     }
 
     .hepteractGrid {
@@ -12599,26 +12949,11 @@ html[data-mobile="true"] .hideOnMobile {
         min-height: unset;
     }
 
-    /* Campaigns */
-    #campaignsIcons {
-        width: unset;
-    }
-
-    #campaignIconGrid {
-        grid-template-columns: repeat(5, 48px);
-        column-gap: unset;
-        row-gap: unset;
-    }
-
     #campaignsTokensInfo {
         width: unset;
     }
 
-    #traits {
-        flex-direction: column;
-    }
-
-    #corruptionStatsLoadouts {
+    #corruptionSubtabs {
         width: 100%;
         min-width: 0;
         max-width: 100%;
@@ -12639,13 +12974,19 @@ html[data-mobile="true"] .hideOnMobile {
         min-width: unset;
     }
 
-    .corruptionStatRow > button {
+    #corruptionLevelControls > button {
         min-width: 44px;
     }
 
-    #campaignsMain,
-    #corruptionMain {
-        min-width: unset;
+    #corruptionTierGrid,
+    #corruptionAscensionControls {
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+    }
+
+    #corruptionTierGrid .corruptionTierHalf {
+        grid-template-columns: auto minmax(0, 1fr) 7em auto 7em;
+        width: 100%;
     }
 
     #elevatorLockToggle,
@@ -13301,11 +13642,6 @@ html[data-mobile="true"] .hideOnMobile {
     /* Cubes */
     #cubeTab6 {
         flex-direction: column;
-    }
-
-    /* Campaigns */
-    #campaignsDescriptions {
-        width: unset;
     }
 
     /* Dialogs */

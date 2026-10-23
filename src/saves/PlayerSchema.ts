@@ -1,9 +1,9 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
+import { corruptionLoadoutCount, parseSavedRules } from '../AutoAscension'
 import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
-import { CampaignManager, type ICampaignManagerData } from '../Campaign'
-import { CorruptionLoadout, CorruptionSaves, corruptionsSchema } from '../Corruptions'
+import { transcensionChallengeCap } from '../Challenges'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
@@ -13,19 +13,18 @@ import { defaultAntUpgrades } from '../Features/Ants/AntUpgrades/player/default'
 import { AntUpgrades, LAST_ANT_UPGRADE } from '../Features/Ants/AntUpgrades/structs/structs'
 import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/structs'
 import {
-  corruptionLoadoutCubeIcons,
-  corruptionLoadoutPlatonicIcons,
   freeButtonPosition,
   HEADER_BUTTON_GROUP_CAPACITY,
   type HeaderModuleId,
-  headerModuleIds,
   headerModuleSizes,
   headerRegionIds,
   isHeaderButton,
   isHeaderGridRegion,
-  isHeaderProgress,
+  isHeaderModuleId,
+  isHeaderSizeAllowed,
   loadoutPageModuleIds,
-  rainbowAmbrosiaModuleIds
+  rainbowAmbrosiaModuleIds,
+  splitHeaderSlot
 } from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { QuarkHandler } from '../Quark'
@@ -36,7 +35,7 @@ import {
 } from '../SingularityChallenges'
 import { blankSave, deepClone } from '../Synergism'
 import { noTalismanFragments } from '../Talismans'
-import type { Player } from '../types/Synergism'
+import type { HeaderLayout, Player } from '../types/Synergism'
 import { padArray, sumContents } from '../Utility'
 
 const decimalSchema = z.custom<DecimalSource>((value: any) => {
@@ -249,16 +248,7 @@ const newHepteractCraftSchema = z.object({
   AUTO: z.boolean()
 })
 
-const optionalCorruptionSchema = z.object({
-  viscosity: z.number().optional().default(0),
-  drought: z.number().optional().default(0),
-  deflation: z.number().optional().default(0),
-  extinction: z.number().optional().default(0),
-  illiteracy: z.number().optional().default(0),
-  recession: z.number().optional().default(0),
-  dilation: z.number().optional().default(0),
-  hyperchallenge: z.number().optional().default(0)
-})
+const corruptionLevelSchema = z.number().int().min(0)
 
 const talismanFragmentSchema = z.object({
   shard: decimalSchema.default(() => new Decimal()),
@@ -324,96 +314,147 @@ const synthesisUpgradesSchema = z.object({
 })
 
 const playerCorruptionSchema = z.object({
-  used: optionalCorruptionSchema.transform((value) => {
-    return new CorruptionLoadout(value)
-  }),
-  next: optionalCorruptionSchema.transform((value) => {
-    return new CorruptionLoadout(value)
-  }),
-  saves: z.record(z.string(), optionalCorruptionSchema).transform((value) => {
-    return new CorruptionSaves(value)
-  })
-}).prefault(() => JSON.parse(JSON.stringify(blankSave.corruptions)))
+  used: corruptionLevelSchema.catch(() => blankSave.corruptions.used),
+  next: corruptionLevelSchema.catch(() => blankSave.corruptions.next),
+  ascensionLevel: z.number().int().min(0).optional().catch(undefined),
+  tokenCompletions: z.number().int().min(0).catch(0).array().catch(() => [0]),
+  highestCleared: z.number().int().min(0).optional().catch(undefined),
+  autoIncrease: z.boolean().catch(() => blankSave.corruptions.autoIncrease),
+  cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest),
+  loadouts: corruptionLevelSchema.catch(0).array().catch(() => []).transform((levels) =>
+    Array.from({ length: corruptionLoadoutCount }, (_, i) => levels[i] ?? 0)
+  )
+}).transform(({ highestCleared, ascensionLevel, ...corruptions }) => ({
+  ...corruptions,
+  ascensionLevel: Math.min(ascensionLevel ?? corruptions.used, corruptions.used),
+  highestCleared: highestCleared
+    ?? Math.max(corruptions.used, corruptions.tokenCompletions.findLastIndex((completions) => completions > 0))
+})).prefault(() => deepClone()(blankSave.corruptions))
 
-const campaignSchema = z.object({
-  currentCampaign: z.string().optional(),
-  campaigns: z.record(z.string(), z.number()).optional()
-})
+const headerRecordSchema = z.record(z.string(), z.unknown()).catch(() => ({}))
+const headerModuleListSchema = z.unknown().array().catch(() => []).transform((ids) => ids.filter(isHeaderModuleId))
+const headerModuleSizeSchema = z.enum(headerModuleSizes)
+const headerLoadoutPageSchema = z.number().int().min(0)
+const headerAmbrosiaIconSchema = z.lazy(() => z.enum(ambrosiaUpgradeNames))
 
 const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
   z.object({
-    regions: z.record(
-      z.enum(headerRegionIds),
-      z.enum(headerModuleIds).array().max(HEADER_BUTTON_GROUP_CAPACITY[layout]).array()
-    ),
-    sizes: z.partialRecord(z.enum(headerModuleIds), z.enum(headerModuleSizes)),
-    positions: z.partialRecord(
-      z.enum(headerModuleIds),
-      z.number().int().min(0).max(HEADER_BUTTON_GROUP_CAPACITY[layout] - 1)
-    ).default(() => ({})),
-    hidden: z.enum(headerModuleIds).array(),
+    regions: z.record(z.string(), headerModuleListSchema.array().catch(() => [])).catch(() => ({})),
+    sizes: headerRecordSchema,
+    positions: headerRecordSchema,
+    hidden: headerModuleListSchema,
     rainbowAmbrosia: z.enum(rainbowAmbrosiaModuleIds).catch(() => blankSave.headerLayouts[layout].rainbowAmbrosia),
     octeractPerSecond: z.boolean().catch(() => blankSave.headerLayouts[layout].octeractPerSecond),
-    loadoutPages: z.record(z.enum(loadoutPageModuleIds), z.number().int().min(0)).catch(() =>
-      deepClone()(blankSave.headerLayouts[layout].loadoutPages)
-    ),
-    loadoutIcons: z.lazy(() =>
-      z.object({
-        corruptionLoadoutsHeader: z.partialRecord(
-          integerStringSchema,
-          z.union([
-            corruptionsSchema.keyof(),
-            z.enum(corruptionLoadoutCubeIcons),
-            z.enum(corruptionLoadoutPlatonicIcons)
-          ])
-        ),
-        ambrosiaLoadoutsHeader: z.partialRecord(integerStringSchema, z.enum(ambrosiaUpgradeNames))
-      })
-    ).catch(() => deepClone()(blankSave.headerLayouts[layout].loadoutIcons))
-  }).transform((saved) => {
+    loadoutPages: headerRecordSchema,
+    loadoutIcons: z.object({ ambrosiaLoadoutsHeader: headerRecordSchema }).catch(() => ({
+      ambrosiaLoadoutsHeader: {}
+    }))
+  }).transform((saved): HeaderLayout => {
     const fallback = blankSave.headerLayouts[layout]
-    const placed = new Set(Object.values(saved.regions).flat(2))
-    for (const region of headerRegionIds) {
-      if (!isHeaderGridRegion(region)) {
-        saved.regions[region] = saved.regions[region].filter((slot) => slot.length > 0)
+
+    const sizes: HeaderLayout['sizes'] = {}
+    for (const [id, size] of Object.entries(saved.sizes)) {
+      const parsed = headerModuleSizeSchema.safeParse(size)
+      if (isHeaderModuleId(id) && parsed.success && isHeaderSizeAllowed(id, parsed.data, layout)) {
+        sizes[id] = parsed.data
       }
-      saved.regions[region] = saved.regions[region].flatMap((slot) => {
-        if (slot.length === 1 || !slot.some(isHeaderProgress)) {
-          return [slot]
-        }
+    }
+
+    const placed = new Set<HeaderModuleId>()
+    const regions = {} as HeaderLayout['regions']
+    for (const region of headerRegionIds) {
+      const slots = (saved.regions[region] ?? []).flatMap((slot) => {
+        const members: HeaderModuleId[] = []
         for (const id of slot) {
-          if (saved.sizes[id] === 'S') {
-            delete saved.sizes[id]
+          if (!placed.has(id)) {
+            placed.add(id)
+            members.push(id)
           }
         }
-        return slot.map((id) => [id])
+
+        const split = splitHeaderSlot(members, layout)
+        for (const piece of split) {
+          if (piece.length > 1 && !piece.some(isHeaderButton)) {
+            for (const id of piece) {
+              sizes[id] = 'S'
+            }
+          } else if (split.length > 1 && piece.length === 1 && sizes[piece[0]] === 'S') {
+            delete sizes[piece[0]]
+          }
+        }
+        return split
       })
+      regions[region] = isHeaderGridRegion(region) ? slots : slots.filter((slot) => slot.length > 0)
+    }
+
+    const hidden = [...new Set(saved.hidden)]
+    for (const region of headerRegionIds) {
       for (const id of fallback.regions[region].flat()) {
         if (!placed.has(id)) {
-          saved.regions[region].push([id])
-          saved.sizes[id] = fallback.sizes[id]
-          if (fallback.hidden.includes(id)) {
-            saved.hidden.push(id)
+          placed.add(id)
+          regions[region].push([id])
+          if (fallback.sizes[id] !== undefined) {
+            sizes[id] = fallback.sizes[id]
           }
-        }
-      }
-      for (const slot of saved.regions[region]) {
-        const positioned: HeaderModuleId[] = []
-        for (const id of slot.filter(isHeaderButton)) {
-          const position = saved.positions[id]
-          if (position === undefined || positioned.some((other) => saved.positions[other] === position)) {
-            saved.positions[id] = freeButtonPosition(saved.positions, positioned)
+          if (fallback.hidden.includes(id) && !hidden.includes(id)) {
+            hidden.push(id)
           }
-          positioned.push(id)
         }
       }
     }
-    return saved
+
+    const positions: HeaderLayout['positions'] = {}
+    for (const [id, position] of Object.entries(saved.positions)) {
+      if (
+        isHeaderModuleId(id) && isHeaderButton(id) && typeof position === 'number' && Number.isInteger(position)
+        && position >= 0 && position < HEADER_BUTTON_GROUP_CAPACITY[layout]
+      ) {
+        positions[id] = position
+      }
+    }
+    for (const slot of Object.values(regions).flat()) {
+      const positioned: HeaderModuleId[] = []
+      for (const id of slot.filter(isHeaderButton)) {
+        const position = positions[id]
+        if (position === undefined || positioned.some((other) => positions[other] === position)) {
+          positions[id] = freeButtonPosition(positions, positioned)
+        }
+        positioned.push(id)
+      }
+    }
+
+    const loadoutPages = { ...fallback.loadoutPages }
+    for (const id of loadoutPageModuleIds) {
+      const parsed = headerLoadoutPageSchema.safeParse(saved.loadoutPages[id])
+      if (parsed.success) {
+        loadoutPages[id] = parsed.data
+      }
+    }
+
+    const ambrosiaLoadoutsHeader: HeaderLayout['loadoutIcons']['ambrosiaLoadoutsHeader'] = {}
+    for (const [slot, icon] of Object.entries(saved.loadoutIcons.ambrosiaLoadoutsHeader)) {
+      const parsed = headerAmbrosiaIconSchema.safeParse(icon)
+      if (integerStringSchema.safeParse(slot).success && parsed.success) {
+        ambrosiaLoadoutsHeader[Number(slot)] = parsed.data
+      }
+    }
+
+    return {
+      regions,
+      sizes,
+      positions,
+      hidden,
+      rainbowAmbrosia: saved.rainbowAmbrosia,
+      octeractPerSecond: saved.octeractPerSecond,
+      loadoutPages,
+      loadoutIcons: { ambrosiaLoadoutsHeader }
+    }
   }).catch(() => deepClone()(blankSave.headerLayouts[layout]))
 
-const playerCampaignSchema = campaignSchema.transform((campaignData) => {
-  return new CampaignManager(campaignData as ICampaignManagerData)
-}).prefault(() => JSON.parse(JSON.stringify(blankSave.campaigns)))
+const clampTranscensionChallengeCompletions = <T extends number | null>(completions: T[]) =>
+  completions.map((value, index) =>
+    index >= 1 && index <= 5 && value !== null ? Math.min(value, transcensionChallengeCap) : value
+  )
 
 export const playerSchema = z.object({
   firstPlayed: z.iso.datetime().optional().default(() => new Date().toISOString()),
@@ -426,102 +467,102 @@ export const playerSchema = z.object({
 
   firstOwnedCoin: z.number(),
   firstGeneratedCoin: decimalSchema,
-  firstCostCoin: decimalSchema,
+  firstPaidCoin: decimalSchema.optional(),
   firstProduceCoin: z.number(),
 
   secondOwnedCoin: z.number(),
   secondGeneratedCoin: decimalSchema,
-  secondCostCoin: decimalSchema,
+  secondPaidCoin: decimalSchema.optional(),
   secondProduceCoin: z.number(),
 
   thirdOwnedCoin: z.number(),
   thirdGeneratedCoin: decimalSchema,
-  thirdCostCoin: decimalSchema,
+  thirdPaidCoin: decimalSchema.optional(),
   thirdProduceCoin: z.number(),
 
   fourthOwnedCoin: z.number(),
   fourthGeneratedCoin: decimalSchema,
-  fourthCostCoin: decimalSchema,
+  fourthPaidCoin: decimalSchema.optional(),
   fourthProduceCoin: z.number(),
 
   fifthOwnedCoin: z.number(),
   fifthGeneratedCoin: decimalSchema,
-  fifthCostCoin: decimalSchema,
+  fifthPaidCoin: decimalSchema.optional(),
   fifthProduceCoin: z.number(),
 
   firstOwnedDiamonds: z.number(),
   firstGeneratedDiamonds: decimalSchema,
-  firstCostDiamonds: decimalSchema,
+  firstPaidDiamonds: decimalSchema.optional(),
   firstProduceDiamonds: z.number(),
 
   secondOwnedDiamonds: z.number(),
   secondGeneratedDiamonds: decimalSchema,
-  secondCostDiamonds: decimalSchema,
+  secondPaidDiamonds: decimalSchema.optional(),
   secondProduceDiamonds: z.number(),
 
   thirdOwnedDiamonds: z.number(),
   thirdGeneratedDiamonds: decimalSchema,
-  thirdCostDiamonds: decimalSchema,
+  thirdPaidDiamonds: decimalSchema.optional(),
   thirdProduceDiamonds: z.number(),
 
   fourthOwnedDiamonds: z.number(),
   fourthGeneratedDiamonds: decimalSchema,
-  fourthCostDiamonds: decimalSchema,
+  fourthPaidDiamonds: decimalSchema.optional(),
   fourthProduceDiamonds: z.number(),
 
   fifthOwnedDiamonds: z.number(),
   fifthGeneratedDiamonds: decimalSchema,
-  fifthCostDiamonds: decimalSchema,
+  fifthPaidDiamonds: decimalSchema.optional(),
   fifthProduceDiamonds: z.number(),
 
   firstOwnedMythos: z.number(),
   firstGeneratedMythos: decimalSchema,
-  firstCostMythos: decimalSchema,
+  firstPaidMythos: decimalSchema.optional(),
   firstProduceMythos: z.number(),
 
   secondOwnedMythos: z.number(),
   secondGeneratedMythos: decimalSchema,
-  secondCostMythos: decimalSchema,
+  secondPaidMythos: decimalSchema.optional(),
   secondProduceMythos: z.number(),
 
   thirdOwnedMythos: z.number(),
   thirdGeneratedMythos: decimalSchema,
-  thirdCostMythos: decimalSchema,
+  thirdPaidMythos: decimalSchema.optional(),
   thirdProduceMythos: z.number(),
 
   fourthOwnedMythos: z.number(),
   fourthGeneratedMythos: decimalSchema,
-  fourthCostMythos: decimalSchema,
+  fourthPaidMythos: decimalSchema.optional(),
   fourthProduceMythos: z.number(),
 
   fifthOwnedMythos: z.number(),
   fifthGeneratedMythos: decimalSchema,
-  fifthCostMythos: decimalSchema,
+  fifthPaidMythos: decimalSchema.optional(),
   fifthProduceMythos: z.number(),
 
   firstOwnedParticles: z.number(),
   firstGeneratedParticles: decimalSchema,
-  firstCostParticles: decimalSchema,
+  firstPaidParticles: decimalSchema.optional(),
   firstProduceParticles: z.number(),
 
   secondOwnedParticles: z.number(),
   secondGeneratedParticles: decimalSchema,
-  secondCostParticles: decimalSchema,
+  secondPaidParticles: decimalSchema.optional(),
   secondProduceParticles: z.number(),
 
   thirdOwnedParticles: z.number(),
   thirdGeneratedParticles: decimalSchema,
-  thirdCostParticles: decimalSchema,
+  thirdPaidParticles: decimalSchema.optional(),
   thirdProduceParticles: z.number(),
 
   fourthOwnedParticles: z.number(),
   fourthGeneratedParticles: decimalSchema,
-  fourthCostParticles: decimalSchema,
+  fourthPaidParticles: decimalSchema.optional(),
   fourthProduceParticles: z.number(),
 
   fifthOwnedParticles: z.number(),
   fifthGeneratedParticles: decimalSchema,
-  fifthCostParticles: decimalSchema,
+  fifthPaidParticles: decimalSchema.optional(),
   fifthProduceParticles: z.number(),
 
   firstOwnedAnts: z.number().optional(),
@@ -572,14 +613,14 @@ export const playerSchema = z.object({
   ascendBuilding4: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding4)),
   ascendBuilding5: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding5)),
 
-  multiplierCost: decimalSchema,
+  multiplierPaid: decimalSchema.optional(),
   multiplierBought: z.number(),
 
-  acceleratorCost: decimalSchema,
+  acceleratorPaid: decimalSchema.optional(),
   acceleratorBought: z.number(),
 
   acceleratorBoostBought: z.number(),
-  acceleratorBoostCost: decimalSchema,
+  acceleratorBoostPaid: decimalSchema.optional(),
 
   upgrades: z.number().array().transform((array) => {
     if (array.length < blankSave.upgrades.length) {
@@ -614,7 +655,7 @@ export const playerSchema = z.object({
       )
       return challengeCompletions
     })
-  ]),
+  ]).transform(clampTranscensionChallengeCompletions),
   highestchallengecompletions: z.union([
     z.union([z.number(), z.null()]).array(),
     z.record(z.string(), z.number()).transform((value) => {
@@ -626,7 +667,7 @@ export const playerSchema = z.object({
       )
       return highestChallengeCompletions
     })
-  ]),
+  ]).transform(clampTranscensionChallengeCompletions),
   challenge15Exponent: z.number().default(() => blankSave.challenge15Exponent),
   highestChallenge15Exponent: z.number().optional(),
 
@@ -937,15 +978,7 @@ export const playerSchema = z.object({
 
   ascendShards: decimalSchema.default(() => deepClone()(blankSave.ascendShards)),
   autoAscend: z.boolean().default(() => blankSave.autoAscend),
-  autoAscendMode: z.union([
-    z.string().transform((str) => {
-      if (str === 'c10Completions') return 0
-      else if (str === 'realAscensionTime') return 1
-      else return 0
-    }),
-    z.number()
-  ]).default(() => blankSave.autoAscendMode),
-  autoAscendThreshold: z.number().default(() => blankSave.autoAscendThreshold),
+  autoAscendRules: z.string().transform((text) => parseSavedRules(text)).default(() => []).catch(() => []),
   autoOpenCubes: z.boolean().default(() => blankSave.autoOpenCubes),
   openCubes: z.number().default(() => blankSave.openCubes),
   autoOpenTesseracts: z.boolean().default(() => blankSave.autoOpenTesseracts),
@@ -957,15 +990,7 @@ export const playerSchema = z.object({
   roombaResearchIndex: z.number().default(() => blankSave.roombaResearchIndex),
   ascStatToggles: z.record(integerStringSchema, z.boolean()).default(() => ({ ...blankSave.ascStatToggles })),
 
-  campaigns: playerCampaignSchema,
-
   corruptions: playerCorruptionSchema,
-
-  prototypeCorruptions: z.number().array().optional(),
-  usedCorruptions: z.number().array().optional(),
-  corruptionLoadouts: z.record(integerStringSchema, z.number().array()).optional(),
-
-  corruptionLoadoutNames: z.string().array().optional(),
 
   constantUpgrades: arrayStartingWithNull(z.number()).default((): [
     null,
@@ -1201,7 +1226,8 @@ export const playerSchema = z.object({
 
   stats: z.object({
     totalAddCodesUsed: z.number(),
-    highestPurpleHoney: z.number().default(0)
+    highestPurpleHoney: z.number().default(0),
+    talismanShardsThisAscension: decimalSchema.prefault(() => blankSave.stats.talismanShardsThisAscension)
   }).default(() => deepClone()(blankSave.stats)),
 
   purpleUpdateQuarkRefundAwarded: z.boolean().default(() => false)

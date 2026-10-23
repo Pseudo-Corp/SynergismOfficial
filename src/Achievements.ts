@@ -2,8 +2,8 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcCorruptionStuff, calculateAscensionScore } from './Calculate'
 import { campaignTokens } from './Campaign'
+import { activeCorruptionLevel, ascensionEffectiveCorruptionLevel } from './Corruptions'
 import { calculateLeaderboardValue } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { AntProducers, LAST_ANT_PRODUCER } from './Features/Ants/structs/structs'
 import { displayLevelStuff } from './Levels'
@@ -134,12 +134,12 @@ export const challengeAchievementCheck = (i: number) => {
       break
     case 10:
       awardAchievementGroup('challenge10')
+      if (player.currentChallenge.ascension === 11 && player.challengecompletions[10] >= 30) {
+        awardUngroupedAchievement('extraChallenging')
+      }
       break
     case 11:
       awardAchievementGroup('challenge11')
-      if (player.challengecompletions[10] > 50 && player.corruptions.used.extinction >= 5) {
-        awardUngroupedAchievement('extraChallenging')
-      }
       break
     case 12:
       awardAchievementGroup('challenge12')
@@ -261,7 +261,7 @@ type AchievementRewards =
   | 'wowPlatonicGain'
   | 'quarkGain'
   | 'wowHepteractGain'
-  | 'ascensionScore'
+  | 'cubesBanked'
   | 'constUpgrade1Buff'
   | 'constUpgrade2Buff'
   | 'platonicToHypercubes'
@@ -1544,7 +1544,7 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.ascensionCount >= 1000,
     group: 'ascensionCount',
     reward: {
-      ascensionCountMultiplier: () => Math.log10(calculateAscensionScore().effectiveScore + 100) - 1
+      ascensionCountMultiplier: () => 1 + 0.8 * ascensionEffectiveCorruptionLevel()
     }
   },
   {
@@ -1560,7 +1560,8 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.ascensionCount >= 141421,
     group: 'ascensionCount',
     reward: {
-      ascensionCountAdditive: () => (player.ascensionCounter > 10) ? player.ascensionCounterReal * 2 : 0,
+      ascensionCountAdditive: () =>
+        (player.ascensionCounter > 10) ? player.ascensionCounterReal * 2 : 0,
       wowCubeGain: () => 1 + 2 * Math.min(1, player.ascensionCount / 5e8)
     }
   },
@@ -1743,16 +1744,40 @@ const achievements: Achievement[] = [
   { pointValue: 70, unlockCondition: () => player.challengecompletions[14] >= 30, group: 'challenge14' },
   {
     pointValue: 5,
-    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e5,
+    unlockCondition: () => activeCorruptionLevel() >= 4,
     group: 'ascensionScore',
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_1'
   },
-  { pointValue: 10, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e6, group: 'ascensionScore' },
-  { pointValue: 15, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e7, group: 'ascensionScore' },
-  { pointValue: 20, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e8, group: 'ascensionScore' },
-  { pointValue: 25, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e9, group: 'ascensionScore' },
-  { pointValue: 30, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 5e9, group: 'ascensionScore' },
-  { pointValue: 35, unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 2.5e10, group: 'ascensionScore' },
+  {
+    pointValue: 10,
+    unlockCondition: () => activeCorruptionLevel() >= 6,
+    group: 'ascensionScore'
+  },
+  {
+    pointValue: 15,
+    unlockCondition: () => activeCorruptionLevel() >= 8,
+    group: 'ascensionScore'
+  },
+  {
+    pointValue: 20,
+    unlockCondition: () => activeCorruptionLevel() >= 10,
+    group: 'ascensionScore'
+  },
+  {
+    pointValue: 25,
+    unlockCondition: () => activeCorruptionLevel() >= 12,
+    group: 'ascensionScore'
+  },
+  {
+    pointValue: 30,
+    unlockCondition: () => activeCorruptionLevel() >= 14,
+    group: 'ascensionScore'
+  },
+  {
+    pointValue: 35,
+    unlockCondition: () => activeCorruptionLevel() >= 16,
+    group: 'ascensionScore'
+  },
   { pointValue: 10, unlockCondition: () => runeBlessings.speed.level >= 20, group: 'speedBlessing' },
   {
     pointValue: 20,
@@ -1834,45 +1859,45 @@ const achievements: Achievement[] = [
   },
   {
     pointValue: 40,
-    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e12,
+    unlockCondition: () => activeCorruptionLevel() >= 18,
     group: 'ascensionScore',
     reward: { wowHypercubeGain: () => 1.1 }
   },
   {
     pointValue: 45,
-    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e14,
+    unlockCondition: () => activeCorruptionLevel() >= 20,
     group: 'ascensionScore',
     reward: { wowCubeGain: () => 1.1 }
   },
   {
     pointValue: 50,
-    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e17,
+    unlockCondition: () => activeCorruptionLevel() >= 25,
     group: 'ascensionScore',
     reward: { wowTesseractGain: () => 1.1 }
   },
   {
     pointValue: 55,
-    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 2e18,
+    unlockCondition: () => activeCorruptionLevel() >= 30,
     group: 'ascensionScore',
     reward: { wowPlatonicGain: () => 1.1, overfluxConversionRate: () => 1.05 }
   },
   {
     pointValue: 60,
-    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 4e19,
+    unlockCondition: () => activeCorruptionLevel() >= 35,
     group: 'ascensionScore',
     reward: { overfluxConversionRate: () => 1.05 }
   },
   {
     pointValue: 65,
-    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e21,
+    unlockCondition: () => activeCorruptionLevel() >= 40,
     group: 'ascensionScore',
     reward: { wowHepteractGain: () => 1.1 }
   },
   {
     pointValue: 70,
-    unlockCondition: () => CalcCorruptionStuff().effectiveScore >= 1e23,
+    unlockCondition: () => activeCorruptionLevel() >= 45,
     group: 'ascensionScore',
-    reward: { ascensionScore: () => Math.pow(1.01, player.hepteracts.abyss.TIMES_CAP_EXTENDED) },
+    reward: { cubesBanked: () => 50 * player.hepteracts.abyss.TIMES_CAP_EXTENDED },
     steamAchievementId: 'GROUPED_ASCENSIONSCORE_2'
   },
   {
@@ -1917,7 +1942,7 @@ const achievements: Achievement[] = [
     pointValue: 40,
     unlockCondition: () => player.ascendShards.gte(G.d1e1000),
     group: 'constant',
-    reward: { ascensionScore: () => 1 + Math.min(Decimal.log(player.ascendShards.add(1), 10) / 1e5, 1) }
+    reward: { cubesBanked: () => Math.min(2000, Math.floor(Decimal.log(player.ascendShards.add(1), 10) / 50)) }
   },
   { pointValue: 45, unlockCondition: () => player.ascendShards.gte(G.d1e5000), group: 'constant' },
   { pointValue: 50, unlockCondition: () => player.ascendShards.gte(G.d1e15000), group: 'constant' },
@@ -2028,43 +2053,43 @@ const achievements: Achievement[] = [
     group: 'reincarnationPointGain',
     steamAchievementId: 'GROUPED_PARTICLES_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[1] >= 1000, group: 'challenge1' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[1] >= 9000, group: 'challenge1' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[1] >= 200, group: 'challenge1' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[1] >= 300, group: 'challenge1' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[1] >= 9001,
+    unlockCondition: () => player.challengecompletions[1] >= 400,
     group: 'challenge1',
     steamAchievementId: 'GROUPED_CHALLENGE1_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[2] >= 1000, group: 'challenge2' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[2] >= 9000, group: 'challenge2' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[2] >= 200, group: 'challenge2' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[2] >= 300, group: 'challenge2' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[2] >= 9001,
+    unlockCondition: () => player.challengecompletions[2] >= 400,
     group: 'challenge2',
     steamAchievementId: 'GROUPED_CHALLENGE2_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[3] >= 1000, group: 'challenge3' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[3] >= 9000, group: 'challenge3' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[3] >= 200, group: 'challenge3' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[3] >= 300, group: 'challenge3' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[3] >= 9001,
+    unlockCondition: () => player.challengecompletions[3] >= 400,
     group: 'challenge3',
     steamAchievementId: 'GROUPED_CHALLENGE3_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[4] >= 1000, group: 'challenge4' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[4] >= 9000, group: 'challenge4' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[4] >= 200, group: 'challenge4' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[4] >= 300, group: 'challenge4' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[4] >= 9001,
+    unlockCondition: () => player.challengecompletions[4] >= 400,
     group: 'challenge4',
     steamAchievementId: 'GROUPED_CHALLENGE4_2'
   },
-  { pointValue: 40, unlockCondition: () => player.challengecompletions[5] >= 1000, group: 'challenge5' },
-  { pointValue: 45, unlockCondition: () => player.challengecompletions[5] >= 9000, group: 'challenge5' },
+  { pointValue: 40, unlockCondition: () => player.challengecompletions[5] >= 200, group: 'challenge5' },
+  { pointValue: 45, unlockCondition: () => player.challengecompletions[5] >= 300, group: 'challenge5' },
   {
     pointValue: 50,
-    unlockCondition: () => player.challengecompletions[5] >= 9001,
+    unlockCondition: () => player.challengecompletions[5] >= 400,
     group: 'challenge5',
     steamAchievementId: 'GROUPED_CHALLENGE5_2'
   },
@@ -3436,10 +3461,10 @@ const achRewards: Record<AchievementRewards, () => number | boolean> = {
       1
     )
   },
-  ascensionScore: (): number => {
-    return achievementsByReward.ascensionScore.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.ascensionScore!() : 1),
-      1
+  cubesBanked: (): number => {
+    return achievementsByReward.cubesBanked.reduce(
+      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.cubesBanked!() : 0),
+      0
     )
   },
   ascensionRewardScaling: (): boolean => {

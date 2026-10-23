@@ -335,26 +335,27 @@ export const resetGame = async (force = true) => {
   importSynergism(btoa(JSON.stringify(hold.data)), true)
 }
 
+export const readFileAsText = async (file: File) => {
+  // https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
+  // not available in (bad) browsers like Safari 11
+  if (typeof Blob.prototype.text === 'function') {
+    return file.text()
+  }
+
+  const reader = new FileReader()
+  reader.readAsText(file)
+  return new Promise<string>((res) => {
+    reader.addEventListener('load', () => res(reader.result as string))
+  })
+}
+
 export const importData = async (
   e: Event,
   importFunc: (save: string | null) => void | Promise<void>
 ) => {
   const element = e.target as HTMLInputElement
   const file = element.files![0]
-  let save = ''
-  // https://developer.mozilla.org/en-US/docs/Web/API/Blob/text
-  // not available in (bad) browsers like Safari 11
-  if (typeof Blob.prototype.text === 'function') {
-    save = await file.text()
-  } else {
-    const reader = new FileReader()
-    reader.readAsText(file)
-    const text = await new Promise<string>((res) => {
-      reader.addEventListener('load', () => res(reader.result as string))
-    })
-
-    save = text
-  }
+  const save = await readFileAsText(file)
 
   element.value = ''
   handleLastModified(file.lastModified)

@@ -31,7 +31,17 @@ import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
 import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
-import { corruptionCleanseConfirm, corruptionDisplay, openCorruptionDetailsModal } from './Corruptions'
+import {
+  changeNextCorruptionLevel,
+  cleanseCorruptions,
+  corruptionCleanseConfirm,
+  maxNextCorruptionLevel,
+  registerCorruptionDetailsModal,
+  resetCorruptionProgress,
+  setNextCorruptionLevel,
+  toggleCorruptionAutoIncrease,
+  toggleCorruptionCleanseToHighest
+} from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
 import { eventPageMessageHandler } from './Event'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
@@ -170,7 +180,6 @@ import {
   toggleAscStatPerSecond,
   toggleauto,
   toggleAutoAscendResetActive,
-  toggleAutoAscendResetMode,
   toggleAutoAscensionMode,
   toggleautobuytesseract,
   toggleAutoChallengeRun,
@@ -210,7 +219,7 @@ import {
   openIframeOverlay,
   Prompt
 } from './UpdateHTML'
-import { cycleCorruptionScoreTarget, selectCorruptionScoreTarget, visualUpdatePurple } from './UpdateVisuals'
+import { visualUpdatePurple } from './UpdateVisuals'
 import {
   buyAllUpgrades,
   buyConstantUpgrades,
@@ -342,6 +351,8 @@ const mobileStatsIconConfig: Record<string, string> = {
   kOfferingMult: 'Pictures/Stats for Nerds Icons/Categories/OfferingMultiplier.png',
   kRuneEffectMult: 'Pictures/Stats for Nerds Icons/Categories/RunePower.png',
   kSalvage: 'Pictures/Stats for Nerds Icons/Categories/Salvage.png',
+  kConstruction: 'Pictures/Runes/Thrift.png',
+  kFreeAccelMult: 'Pictures/Runes/Speed.png',
   kBaseObtainium: 'Pictures/Stats for Nerds Icons/Categories/BaseObtainium.png',
   kObtIgnoreDR: 'Pictures/Stats for Nerds Icons/Categories/ImmaculateObtainium.png',
   kObtMult: 'Pictures/Stats for Nerds Icons/Categories/ObtainiumMultiplier.png',
@@ -356,6 +367,8 @@ const mobileStatsIconConfig: Record<string, string> = {
   kTalismanRuneBonusMult: 'Pictures/Stats for Nerds Icons/Categories/TalismanPower.png',
   kASCMult: 'Pictures/Stats for Nerds Icons/Categories/AscensionSpeedMultiplier.png',
   kACountMult: 'Pictures/Stats for Nerds Icons/Categories/AscensionCountMultiplier.png',
+  kFreeCorruptionLevels: 'Pictures/Stats for Nerds Icons/Categories/AscensionCountMultiplier.png',
+  kCubeBank: 'Pictures/Stats for Nerds Icons/Categories/GlobalCubeMultiplier.png',
   kGlobalCubeMult: 'Pictures/Stats for Nerds Icons/Categories/GlobalCubeMultiplier.png',
   kCubeMult: 'Pictures/Stats for Nerds Icons/Categories/CubeMultiplier.png',
   kTessMult: 'Pictures/Stats for Nerds Icons/Categories/TesseractMultiplier.png',
@@ -375,6 +388,8 @@ const mobileStatsIconConfig: Record<string, string> = {
   kRedAmbrosiaLuck: 'Pictures/Stats for Nerds Icons/Categories/RedLuck.png',
   kRedAmbrosiaGenMult: 'Pictures/Stats for Nerds Icons/Categories/RedBarPoints.png',
   kShopVouchers: 'Pictures/Stats for Nerds Icons/Categories/ShopVouchers.png',
+  kCoins: 'Pictures/Default/Coin.png',
+  kTaxes: 'Pictures/Default/perktaxReduction.png',
   kPurpleHoneyEfficiency: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleEfficiency1.png',
   kPurpleHalfLife: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHalfLife1.png',
   kPurpleReactantCapacity: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePurpleCapacityExpander1.png',
@@ -388,6 +403,12 @@ const getSubTabI18nKey = (button: HTMLButtonElement) =>
 const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
 const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
 const shopPotionKeys = ['offeringPotion', 'obtainiumPotion'] as const
+const corruptionLevelSteps = [
+  ['corruptionLevelDown10', -10],
+  ['corruptionLevelDown1', -1],
+  ['corruptionLevelUp1', 1],
+  ['corruptionLevelUp10', 10]
+] as const
 
 const registerIframeOverlayLink = (id: string, url: string) => {
   DOMCacheGetOrSet(id).addEventListener('click', (event) => {
@@ -409,21 +430,9 @@ const modalBuyButtonsHTML = (buttons = defaultModalBuyButtons()) =>
 
 const resetDetailsModalHTML = (input: resetNames, element: HTMLElement, label: string) => {
   const details = getResetDetails(input)
-  const rewards = [
-    details.offeringVisible
-      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${
-        IconSets[player.iconSet][0]
-      }/Offering.png">${details.offeringText}</span>`
-      : '',
-    details.currencyVisible
-      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="${details.currencySrc}">${details.currencyText}</span>`
-      : '',
-    details.obtainiumVisible
-      ? `<span class="resetModalReward" data-modal-preserve="children"><img src="Pictures/${
-        IconSets[player.iconSet][0]
-      }/Obtainium.png">${details.obtainiumText}</span>`
-      : ''
-  ].filter(Boolean).join('')
+  const rewards = details.rewards.map(({ src, text }) =>
+    `<span class="resetModalReward" data-modal-preserve="children"><img src="${src}">${text}</span>`
+  ).join('')
 
   return `<div class="resetModal" data-modal-preserve="children">
     <div class="resetModalTitle" data-modal-preserve="children">
@@ -897,6 +906,15 @@ export const generateEventHandlers = () => {
     const consumables = DOMCacheGetOrSet('actualConsumables')
     consumables.appendChild(warp)
     consumables.appendChild(dayReset)
+
+    const corruptionReset = document.createElement('button')
+    corruptionReset.textContent = i18next.t('corruptions.resetProgress.button')
+    corruptionReset.setAttribute(
+      'style',
+      'width: auto; height: 30px; border: 2px solid crimson;'
+    )
+    corruptionReset.addEventListener('click', () => resetCorruptionProgress())
+    DOMCacheGetOrSet('corruptionDisplays').after(corruptionReset)
   }
   // Offline Button
   DOMCacheGetOrSet('exitOffline').addEventListener('click', () => exitOffline())
@@ -936,13 +954,6 @@ export const generateEventHandlers = () => {
       label: i18next.t('reset.buttonLabels.reincarnation'),
       action: () => resetCheck('reincarnation'),
       borderColor: 'green'
-    },
-    {
-      id: 'acceleratorboostbtn',
-      input: 'acceleratorBoost',
-      label: i18next.t('reset.buttonLabels.acceleratorBoost'),
-      action: () => boostAccelerator(),
-      borderColor: 'lightblue'
     },
     {
       id: 'challengebtn',
@@ -989,14 +1000,14 @@ export const generateEventHandlers = () => {
       element,
       html: () => resetDetailsModalHTML(reset.input, element, reset.label),
       style: { borderColor: reset.borderColor },
-      buy: (_, modalAction) => {
+      buy: async (_, modalAction) => {
         if (isMobile && modalAction !== 'reset') {
           return
         }
         if (isMobile) {
           CloseModal()
         }
-        return reset.action()
+        await reset.action()
       },
       mobileButtons: [{ action: 'reset', label: reset.label }],
       updateInterval: MEDIUM_MODAL_UPDATE_TICK
@@ -1135,7 +1146,6 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('prestigeamount').addEventListener('blur', () => updateAutoReset(1))
   DOMCacheGetOrSet('transcendamount').addEventListener('blur', () => updateAutoReset(2))
   DOMCacheGetOrSet('reincarnationamount').addEventListener('blur', () => updateAutoReset(3))
-  DOMCacheGetOrSet('ascensionAmount').addEventListener('blur', () => updateAutoReset(4))
   DOMCacheGetOrSet('autoAntSacrificeAmount').addEventListener('blur', () => updateAutoReset(5))
   // Tesseract-specific of the above. I don't know why I didn't standardize names here.
   DOMCacheGetOrSet('tesseractautobuytoggle').addEventListener('click', () => toggleautobuytesseract())
@@ -1601,45 +1611,25 @@ export const generateEventHandlers = () => {
 
   // CORRUPTION TAB
   // Part 1: Displays
-  const corruptionDisplays = DOMCacheGetOrSet('corruptionDisplays')
-  corruptionDisplays.addEventListener('click', (event) => {
-    if (isMobile) {
-      const target = event.target instanceof Element ? event.target : null
-      if (target?.closest('button')) {
-        return
-      }
-
-      openCorruptionDetailsModal('exit', event, corruptionDisplays)
-      return
-    }
-
-    corruptionDisplay('exit')
-  })
+  registerCorruptionDetailsModal(DOMCacheGetOrSet('corruptionExitIcon'), 'exit')
   DOMCacheGetOrSet('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
-  DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => {
-    player.corruptions.used.resetCorruptions()
-    player.corruptions.next.resetCorruptions()
+  DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => cleanseCorruptions())
+  DOMCacheGetOrSet('corruptionAutoIncreaseToggle').addEventListener('change', () => toggleCorruptionAutoIncrease())
+  DOMCacheGetOrSet('corruptionCleanseToHighestToggle').addEventListener(
+    'change',
+    () => toggleCorruptionCleanseToHighest()
+  )
+  for (const [id, delta] of corruptionLevelSteps) {
+    DOMCacheGetOrSet(id).addEventListener('click', () => changeNextCorruptionLevel(delta))
+  }
+  DOMCacheGetOrSet('corruptionLevelMin').addEventListener('click', () => setNextCorruptionLevel(0))
+  DOMCacheGetOrSet('corruptionLevelMax').addEventListener('click', () => maxNextCorruptionLevel())
+  DOMCacheGetOrSet('corruptionLevelInput').addEventListener('change', (event) => {
+    setNextCorruptionLevel(Number((event.target as HTMLInputElement).value))
   })
-  for (const id of ['corruptionCleanseHeader', 'corruptionCleansePageHeader']) {
-    DOMCacheGetOrSet(id).addEventListener('click', () => {
-      player.corruptions.used.resetCorruptions()
-      player.corruptions.next.resetCorruptions(true)
-    })
-  }
-  DOMCacheGetOrSet('corruptionScoreProgress').addEventListener('click', cycleCorruptionScoreTarget)
-  const corruptionScoreTargetButtons = [
-    'corruptionTesseracts',
-    'corruptionHypercubes',
-    'corruptionPlatonicCubes',
-    'corruptionHepteracts'
-  ] as const
-  for (const [index, id] of corruptionScoreTargetButtons.entries()) {
-    DOMCacheGetOrSet(id).addEventListener('click', () => selectCorruptionScoreTarget(index))
-  }
 
   // Extra toggle
   DOMCacheGetOrSet('ascensionAutoEnable').addEventListener('click', () => toggleAutoAscendResetActive())
-  DOMCacheGetOrSet('ascensionAutoToggle').addEventListener('click', () => toggleAutoAscendResetMode())
 
   // SETTNGS TAB
   const t = document.querySelectorAll<HTMLElement>('.statsNerds')
@@ -1682,6 +1672,14 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('iconSet').addEventListener('click', () => toggleIconSet(player.iconSet + 1))
   DOMCacheGetOrSet('monospaceFont').addEventListener('click', () => toggleMonospaceFont())
   DOMCacheGetOrSet('statSymbols').addEventListener('click', () => toggleStatSymbol())
+  const testingDtMultiplierSlider = DOMCacheGetOrSet('testingDtMultiplierSlider') as HTMLInputElement
+  testingDtMultiplierSlider.addEventListener('input', () => {
+    const requested = testingDtMultiplierSlider.valueAsNumber
+    G.testingDtMultiplier = Number.isFinite(requested) ? Math.min(10, Math.max(0.1, requested)) : 1
+    DOMCacheGetOrSet('testingDtMultiplierValue').textContent = i18next.t('settings.testingDtMultiplierValue', {
+      x: G.testingDtMultiplier.toFixed(1)
+    })
+  })
 
   saveStringInput.addEventListener('mousemove', (e) => Modal(() => saveStringHTML(), e.clientX, e.clientY))
   saveStringInput.addEventListener('focus', () => {
@@ -1778,7 +1776,7 @@ TODO: Fix this entire tab it's utter shit
   const lockToggle = DOMCacheGetOrSet('elevatorLockToggle')
   const slowClimbToggle = DOMCacheGetOrSet('elevatorSlowClimbToggle')
 
-  elevatorInput.addEventListener('input', () => {
+  elevatorInput.addEventListener('change', () => {
     const value = Number.parseInt((elevatorInput as HTMLInputElement).value) || 1
 
     const canLookahead = runes.antiquities.level > 0

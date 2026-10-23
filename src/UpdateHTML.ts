@@ -10,8 +10,10 @@ import {
   ungroupedAchievementData,
   ungroupedAchievementKeys
 } from './Achievements'
+import { isAutoAscendRunning, isAutoAscendUnlocked } from './AutoAscension'
 import {
   calculateSingularityUpgradePurchase,
+  getBuildingCost,
   type SingularityUpgradePurchaseOptions,
   type SingularityUpgradePurchaseQuote
 } from './Buy'
@@ -28,7 +30,7 @@ import {
   challengeRequirement,
   getMaxChallenges
 } from './Challenges'
-import { revealCorruptions } from './Corruptions'
+import { isCorruptionTabUnlocked, revealCorruptions } from './Corruptions'
 import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'
 import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
@@ -49,7 +51,7 @@ import { isResearchUnlocked, roombaResearchEnabled } from './Research'
 import { getRuneEffects, runes, runesKeys } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
-import { format, formatTimeShort, /*formatTimeShort*/ player } from './Synergism'
+import { format, formatTimeShort, /*formatTimeShort*/ parseFormattedNumber, player } from './Synergism'
 import { getActiveSubTab, Tabs, visualUpdate } from './Tabs'
 import { updateBuildingAutomationButtons } from './tabs/buildings'
 import { talismanKeys, talismans } from './Talismans'
@@ -295,6 +297,7 @@ export const revealStuff = () => {
   }
 
   document.documentElement.dataset.chal11 = player.highestchallengecompletions[11] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.corruptionUnlock = isCorruptionTabUnlocked() ? 'true' : 'false'
   document.documentElement.dataset.chal12 = player.highestchallengecompletions[12] > 0 ? 'true' : 'false'
   document.documentElement.dataset.spiritUnlock = player.unlocks.spirits ? 'true' : 'false'
   document.documentElement.dataset.chal13 = player.highestchallengecompletions[13] > 0 ? 'true' : 'false'
@@ -305,7 +308,7 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.research150 = player.researches[150] > 0 ? 'true' : 'false'
 
-  document.documentElement.dataset.cubeUpgrade10 = player.cubeUpgrades[10] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.autoAscendUnlock = isAutoAscendUnlocked() ? 'true' : 'false'
   document.documentElement.dataset.cubeUpgrade19 = player.cubeUpgrades[19] > 0 ? 'true' : 'false'
 
   document.documentElement.dataset.sacrificeAnts = getAchievementReward('antSacrificeUnlock') ? 'true' : 'false'
@@ -567,7 +570,6 @@ export const revealStuff = () => {
     toggle38: player.highestSingularityCount > 0, // Researchs Hover to Buy
     toggle39: player.unlocks.prestige, // Hotkeys
     toggle40: player.unlocks.prestige, // Number Hotkeys
-    toggle41: player.challengecompletions[11] > 0, // Loadouts Notifx
     toggle42: player.highestSingularityCount >= 6, // Potion Autogenerator for Offering Potions
     toggle43: player.highestSingularityCount >= 6 // Potion Autogenerator for Obtainium Potions
   }
@@ -625,10 +627,6 @@ export const buttoncolorchange = () => {
     ? 'green'
     : ''
 
-  DOMCacheGetOrSet('acceleratorboostbtn').style.backgroundColor = player.toggles[8] && player.upgrades[88] > 0.5
-    ? 'green'
-    : ''
-
   DOMCacheGetOrSet('challengebtn').style.backgroundColor = player.currentChallenge.transcension === 0 ? '' : 'purple'
 
   DOMCacheGetOrSet('reincarnatechallengebtn').style.backgroundColor = player.currentChallenge.reincarnation === 0
@@ -637,8 +635,7 @@ export const buttoncolorchange = () => {
 
   DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = player.currentChallenge.ascension === 0 ? '' : 'purple'
 
-  DOMCacheGetOrSet('ascendbtn').style.backgroundColor =
-    player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 ? 'green' : ''
+  DOMCacheGetOrSet('ascendbtn').style.backgroundColor = isAutoAscendRunning() ? 'green' : ''
 
   DOMCacheGetOrSet('singularitybtn').style.filter = runes.antiquities.level > 0
     ? ''
@@ -679,35 +676,36 @@ export const buttoncolorchange = () => {
     const h = DOMCacheGetOrSet('buyacceleratorboost')
     a.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(player.firstCostCoin)
+      (!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(getBuildingCost('coin', 0))
     )
     b.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(player.secondCostCoin)
+      (!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(getBuildingCost('coin', 1))
     )
     c.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(player.thirdCostCoin)
+      (!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(getBuildingCost('coin', 2))
     )
     d.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(player.fourthCostCoin)
+      (!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(getBuildingCost('coin', 3))
     )
     e.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(player.fifthCostCoin)
+      (!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(getBuildingCost('coin', 4))
     )
     f.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[6] || player.upgrades[86] === 0) && player.coins.gte(player.acceleratorCost)
+      (!player.toggles[6] || player.upgrades[86] === 0) && player.coins.gte(getBuildingCost('accelerator'))
     )
     g.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[7] || player.upgrades[87] === 0) && player.coins.gte(player.multiplierCost)
+      (!player.toggles[7] || player.upgrades[87] === 0) && player.coins.gte(getBuildingCost('multiplier'))
     )
     h.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[8] || player.upgrades[88] === 0) && player.prestigePoints.gte(player.acceleratorBoostCost)
+      (!player.toggles[8] || player.upgrades[88] === 0)
+        && player.prestigePoints.gte(getBuildingCost('acceleratorBoost'))
     )
   }
 
@@ -725,27 +723,27 @@ export const buttoncolorchange = () => {
     a.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[10] || getLevelMilestone('tier1CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.firstCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 0))
     )
     b.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[11] || getLevelMilestone('tier2CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.secondCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 1))
     )
     c.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[12] || getLevelMilestone('tier3CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.thirdCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 2))
     )
     d.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[13] || getLevelMilestone('tier4CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.fourthCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 3))
     )
     e.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[14] || getLevelMilestone('tier5CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(player.fifthCostDiamonds)
+        && player.prestigePoints.gte(getBuildingCost('diamond', 4))
     )
     let k = 0
     if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {
@@ -863,7 +861,7 @@ export const buttoncolorchange = () => {
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'mythos') {
     for (let i = 1; i <= 5; i++) {
       const toggle = player.toggles[i + 15]
-      const mythos = player[`${G.ordinals[i - 1 as ZeroToFour]}CostMythos` as const]
+      const mythos = getBuildingCost('mythos', i - 1 as ZeroToFour)
       if ((!toggle || !player.upgrades[93 + i]) && player.transcendPoints.gte(mythos)) {
         DOMCacheGetOrSet(`buymythos${i}`).classList.add('buildingPurchaseBtnAvailable')
       } else {
@@ -874,7 +872,7 @@ export const buttoncolorchange = () => {
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'particle') {
     for (let i = 1; i <= 5; i++) {
-      const costParticles = player[`${G.ordinals[i - 1 as ZeroToFour]}CostParticles` as const]
+      const costParticles = getBuildingCost('particle', i - 1 as ZeroToFour)
       if (player.reincarnationPoints.gte(costParticles)) {
         DOMCacheGetOrSet(`buyparticles${i}`).classList.add('buildingPurchaseBtnAvailable')
       } else {
@@ -1007,27 +1005,18 @@ export const updateChallengeLevel = (k: number) => {
   }
 } */
 
-export const showCorruptionStatsLoadouts = (subTabID: string) => {
-  const campaignsShown = subTabID === 'campaigns'
+const corruptionSubtabPanels = {
+  stats: 'corruptionStats',
+  tokens: 'corruptionTokens',
+  autoAscend: 'autoAscensions'
+} as const
 
-  DOMCacheGetOrSet('campaigns').style.display = campaignsShown ? 'block' : 'none'
-  DOMCacheGetOrSet('corruptionDisplays').style.display = campaignsShown ? 'none' : ''
-  DOMCacheGetOrSet('corruptionMain').classList.toggle('campaigns-active', campaignsShown)
-  DOMCacheGetOrSet('campaignsMain').style.display = campaignsShown ? 'flex' : 'none'
-
-  if (campaignsShown) {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'none'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    DOMCacheGetOrSet('corrClickInfo').style.display = 'none'
-  } else if (subTabID === 'true') {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'flex'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'none'
-    DOMCacheGetOrSet('corrClickInfo').style.display = 'block'
-  } else {
-    DOMCacheGetOrSet('corruptionStats').style.display = 'none'
-    DOMCacheGetOrSet('corruptionLoadouts').style.display = 'flex'
-    DOMCacheGetOrSet('corrClickInfo').style.display = 'none'
+export const showCorruptionSubtab = (subTabID: string) => {
+  for (const [id, panel] of Object.entries(corruptionSubtabPanels)) {
+    DOMCacheGetOrSet(panel).style.display = id === subTabID ? 'flex' : 'none'
   }
+  DOMCacheGetOrSet('autoAscendSidebar').style.display = subTabID === 'autoAscend' ? '' : 'none'
+  DOMCacheGetOrSet('corruptionTierSelected').style.display = subTabID === 'autoAscend' ? 'none' : 'flex'
 }
 
 const updateAscensionStats = () => {
@@ -1408,12 +1397,12 @@ export const PurchasePrompt = (
       const field = event?.target as HTMLInputElement | undefined
       const input = field === cost ? 'cost' : 'levels'
       const value = field?.value.trim() ?? ''
-      const amount = value === '' ? Number.NaN : Number(value)
+      const amount = parseFormattedNumber(value)
       quote = calculateSingularityUpgradePurchase(options, amount, input)
       ok.disabled = quote === null || quote.levels === 0
 
-      if (field !== levels) levels.value = quote === null ? '' : format(quote.levels, 0, true)
-      if (field !== cost) cost.value = quote === null ? '' : format(quote.cost, 2, true)
+      if (field !== levels) levels.value = quote === null ? '' : String(quote.levels)
+      if (field !== cost) cost.value = quote === null ? '' : String(Math.ceil(quote.cost))
 
       if (value === '') {
         const affordable = calculateSingularityUpgradePurchase(options, -1, 'levels')
@@ -1427,14 +1416,18 @@ export const PurchasePrompt = (
         summary.textContent = i18next.t('general.purchasePrompt.invalid')
       } else if (quote.levels === 0) {
         summary.textContent = i18next.t('general.purchasePrompt.unavailable')
-      } else if (amount === -1 || amount > (input === 'levels' ? quote.levels : options.getBalance())) {
+      } else {
         summary.textContent = i18next.t(`general.purchasePrompt.summary.${options.resource}`, {
           levels: format(quote.levels, 0, true),
           cost: format(quote.cost, 2, true)
         })
-      } else {
-        summary.textContent = ''
       }
+    }
+
+    const onChange = () => {
+      if (quote === null || quote.levels === 0) return
+      levels.value = String(quote.levels)
+      cost.value = String(Math.ceil(quote.cost))
     }
 
     const listener = ({ target }: MouseEvent | { target: HTMLElement }) => {
@@ -1448,6 +1441,8 @@ export const PurchasePrompt = (
       cost.removeEventListener('keyup', kbListener)
       levels.removeEventListener('input', onInput)
       cost.removeEventListener('input', onInput)
+      levels.removeEventListener('change', onChange)
+      cost.removeEventListener('change', onChange)
 
       conf.style.display = 'none'
       confWrap.style.display = 'none'
@@ -1477,6 +1472,8 @@ export const PurchasePrompt = (
     cost.addEventListener('keyup', kbListener)
     levels.addEventListener('input', onInput)
     cost.addEventListener('input', onInput)
+    levels.addEventListener('change', onChange)
+    cost.addEventListener('change', onChange)
     onInput()
 
     return p.promise

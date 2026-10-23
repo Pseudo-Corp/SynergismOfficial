@@ -2,7 +2,6 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { CalcECC } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { getLevelMilestone } from './Levels'
@@ -264,7 +263,7 @@ const exponentialCostProgression = (
 
 const universalTalismanMaxLevelIncreasers = () => {
   return (
-    6 * CalcECC('ascension', player.challengecompletions[13])
+    6 * player.challengecompletions[13]
     + Math.floor(player.researches[200] / 400)
     + getSingularityChallengeEffect('taxmanLastStand', 'talismanFreeLevel')
     + getOcteractUpgradeEffect('octeractTalismanLevelCap1', 'talismanLevelCapIncrease')
@@ -296,8 +295,10 @@ const plasticInscriptValues = [1, 1.005, 1.01, 1.015, 1.02, 1.025, 1.03, 1.04, 1
 const wowSquareInscriptValues = [1, 1.025, 1.05, 1.075, 1.1, 1.125, 1.15, 1.2, 1.225, 1.25, 1.30]
 const achievementEffectInscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.006, 0.008, .01, .015, .02, .03]
 const purpleGemInscriptValues = [0, 1, 2, 3, 4, 5, 6, 10, 20, 30, 40]
-const cookieGrandmaInscriptValues = [0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10]
+const cookieGrandmaInscriptValues = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 const horseShoeInscriptValues = [0, 0.001, 0.002, 0.003, 0.004, 0.005, 0.007, 0.01, 0.012, 0.015, 0.02]
+
+const achievementSignatureNegativeSalvage = (n: number) => n >= 6 ? -0.02 : 0
 
 export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   exemption: {
@@ -660,10 +661,9 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 10),
     levelCapIncrease: () => getLevelMilestone('achievementTalismanEnhancement'),
     effects: (n) => {
-      const signatureValue = (n >= 6) ? -0.02 : 0
       return {
         positiveSalvageMult: achievementEffectInscriptValues[n] ?? 1,
-        negativeSalvageMult: signatureValue
+        negativeSalvageMult: achievementSignatureNegativeSalvage(n)
       }
     },
     inscriptionDesc: (n) => {
@@ -672,9 +672,8 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     signatureDesc: (n) => {
-      const negativeSalvageMult = (n >= 6) ? 0.98 : 1
       return i18next.t('runes.talismans.achievement.signature', {
-        val: formatAsPercentIncrease(negativeSalvageMult, 0)
+        val: format(-100 * achievementSignatureNegativeSalvage(n), 0, true)
       })
     },
     talismanBaseCoefficient: {
@@ -755,7 +754,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     inscriptionDesc: (n) => {
       return i18next.t('runes.talismans.cookieGrandma.inscription', {
-        val: format(cookieGrandmaInscriptValues[n] ?? 0, 3)
+        val: format(cookieGrandmaInscriptValues[n] ?? 0, 2)
       })
     },
     signatureDesc: () => i18next.t('runes.talismans.cookieGrandma.signature'),
@@ -1218,8 +1217,8 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
 export const talismanToStringHTML = (t: TalismanKeys): void => {
   assert(G.currentTab === Tabs.Runes, 'Talisman updateRewardHTML called outside of Runes tab')
   const talisman = talismans[t]
-  DOMCacheGetOrSet('talismanLevelUpCost').style.display = 'none'
-  DOMCacheGetOrSet('talismanEffect').style.display = 'block'
+  DOMCacheGetOrSet('talismanLevelUpCost').style.visibility = 'hidden'
+  DOMCacheGetOrSet('talismanEffect').style.visibility = 'visible'
 
   DOMCacheGetOrSet('talismanTitle').innerHTML = `${talisman.name()} - ${
     i18next.t(`runes.talismans.rarity.${talisman.rarity}`)
@@ -1262,8 +1261,8 @@ export const talismanToStringHTML = (t: TalismanKeys): void => {
 
 export const updateWebTalismanCostHTML = (t: TalismanKeys) => {
   assert(G.currentTab === Tabs.Runes, 'Talisman updateCostHTML called outside of Runes tab')
-  DOMCacheGetOrSet('talismanEffect').style.display = 'none'
-  DOMCacheGetOrSet('talismanLevelUpCost').style.display = 'block'
+  DOMCacheGetOrSet('talismanEffect').style.visibility = 'hidden'
+  DOMCacheGetOrSet('talismanLevelUpCost').style.visibility = 'visible'
   const a = DOMCacheGetOrSet('talismanShardCost')
   const b = DOMCacheGetOrSet('talismanCommonFragmentCost')
   const c = DOMCacheGetOrSet('talismanUncommonFragmentCost')
@@ -1470,6 +1469,7 @@ export const resetTalismanData = (tier: keyof typeof resetTiers) => {
   }
 
   player.talismanShards = new Decimal()
+  player.stats.talismanShardsThisAscension = new Decimal()
   player.commonFragments = new Decimal()
   player.uncommonFragments = new Decimal()
   player.rareFragments = new Decimal()
@@ -1807,7 +1807,7 @@ export const generateWebCenterTalismansHTML = () => {
   talismanLevelUpCost.id = 'talismanLevelUpCost'
   talismanLevelUpCost.setAttribute('aria-live', 'polite')
   talismanLevelUpCost.style.tableLayout = 'fixed'
-  talismanLevelUpCost.style.display = 'none'
+  talismanLevelUpCost.style.visibility = 'hidden'
 
   const talismanLevelUpSummary = document.createElement('p')
   talismanLevelUpSummary.id = 'talismanLevelUpSummary'
@@ -2495,6 +2495,9 @@ export const buyTalismanResources = (
   if (talismanResourcesData.canBuy) {
     if (type === 'shard') {
       player.talismanShards = player.talismanShards.add(talismanResourcesData.buyAmount)
+      player.stats.talismanShardsThisAscension = player.stats.talismanShardsThisAscension.add(
+        talismanResourcesData.buyAmount
+      )
     } else {
       player[`${type}s` as const] = player[`${type}s` as const].add(talismanResourcesData.buyAmount)
     }

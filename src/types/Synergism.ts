@@ -1,13 +1,12 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
+import type { AutoAscendRule } from '../AutoAscension'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
-import type { CampaignManager } from '../Campaign'
+import type { BuildingType } from '../Buy'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
-import type { CorruptionLoadout, CorruptionSaves } from '../Corruptions'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type {
-  CorruptionLoadoutIcon,
   HeaderModuleId,
   HeaderModuleSize,
   HeaderRegionId,
@@ -30,7 +29,7 @@ import type { SingularityChallenge, SingularityChallengeDataKeys } from '../Sing
 import type { SynthesisUpgrades } from '../Synthesis'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
-import type { AutoAscensionModes, AutoAscensionResetModes, AutoResetModes } from '../Toggles'
+import type { AutoAscensionModes, AutoResetModes } from '../Toggles'
 
 type ArrayStartingWithNull<T> = [null, ...T[]]
 
@@ -45,7 +44,6 @@ export interface HeaderLayout {
   octeractPerSecond: boolean
   loadoutPages: Record<LoadoutPageModuleId, number>
   loadoutIcons: {
-    corruptionLoadoutsHeader: Partial<Record<number, CorruptionLoadoutIcon>>
     ambrosiaLoadoutsHeader: Partial<Record<number, AmbrosiaUpgradeNames>>
   }
 }
@@ -61,102 +59,102 @@ export interface Player {
 
   firstOwnedCoin: number
   firstGeneratedCoin: Decimal
-  firstCostCoin: Decimal
+  firstPaidCoin: Decimal
   firstProduceCoin: number
 
   secondOwnedCoin: number
   secondGeneratedCoin: Decimal
-  secondCostCoin: Decimal
+  secondPaidCoin: Decimal
   secondProduceCoin: number
 
   thirdOwnedCoin: number
   thirdGeneratedCoin: Decimal
-  thirdCostCoin: Decimal
+  thirdPaidCoin: Decimal
   thirdProduceCoin: number
 
   fourthOwnedCoin: number
   fourthGeneratedCoin: Decimal
-  fourthCostCoin: Decimal
+  fourthPaidCoin: Decimal
   fourthProduceCoin: number
 
   fifthOwnedCoin: number
   fifthGeneratedCoin: Decimal
-  fifthCostCoin: Decimal
+  fifthPaidCoin: Decimal
   fifthProduceCoin: number
 
   firstOwnedDiamonds: number
   firstGeneratedDiamonds: Decimal
-  firstCostDiamonds: Decimal
+  firstPaidDiamonds: Decimal
   firstProduceDiamonds: number
 
   secondOwnedDiamonds: number
   secondGeneratedDiamonds: Decimal
-  secondCostDiamonds: Decimal
+  secondPaidDiamonds: Decimal
   secondProduceDiamonds: number
 
   thirdOwnedDiamonds: number
   thirdGeneratedDiamonds: Decimal
-  thirdCostDiamonds: Decimal
+  thirdPaidDiamonds: Decimal
   thirdProduceDiamonds: number
 
   fourthOwnedDiamonds: number
   fourthGeneratedDiamonds: Decimal
-  fourthCostDiamonds: Decimal
+  fourthPaidDiamonds: Decimal
   fourthProduceDiamonds: number
 
   fifthOwnedDiamonds: number
   fifthGeneratedDiamonds: Decimal
-  fifthCostDiamonds: Decimal
+  fifthPaidDiamonds: Decimal
   fifthProduceDiamonds: number
 
   firstOwnedMythos: number
   firstGeneratedMythos: Decimal
-  firstCostMythos: Decimal
+  firstPaidMythos: Decimal
   firstProduceMythos: number
 
   secondOwnedMythos: number
   secondGeneratedMythos: Decimal
-  secondCostMythos: Decimal
+  secondPaidMythos: Decimal
   secondProduceMythos: number
 
   thirdOwnedMythos: number
   thirdGeneratedMythos: Decimal
-  thirdCostMythos: Decimal
+  thirdPaidMythos: Decimal
   thirdProduceMythos: number
 
   fourthOwnedMythos: number
   fourthGeneratedMythos: Decimal
-  fourthCostMythos: Decimal
+  fourthPaidMythos: Decimal
   fourthProduceMythos: number
 
   fifthOwnedMythos: number
   fifthGeneratedMythos: Decimal
-  fifthCostMythos: Decimal
+  fifthPaidMythos: Decimal
   fifthProduceMythos: number
 
   firstOwnedParticles: number
   firstGeneratedParticles: Decimal
-  firstCostParticles: Decimal
+  firstPaidParticles: Decimal
   firstProduceParticles: number
 
   secondOwnedParticles: number
   secondGeneratedParticles: Decimal
-  secondCostParticles: Decimal
+  secondPaidParticles: Decimal
   secondProduceParticles: number
 
   thirdOwnedParticles: number
   thirdGeneratedParticles: Decimal
-  thirdCostParticles: Decimal
+  thirdPaidParticles: Decimal
   thirdProduceParticles: number
 
   fourthOwnedParticles: number
   fourthGeneratedParticles: Decimal
-  fourthCostParticles: Decimal
+  fourthPaidParticles: Decimal
   fourthProduceParticles: number
 
   fifthOwnedParticles: number
   fifthGeneratedParticles: Decimal
-  fifthCostParticles: Decimal
+  fifthPaidParticles: Decimal
   fifthProduceParticles: number
 
   ants: PlayerAnts
@@ -192,14 +190,14 @@ export interface Player {
     multiplier: number
   }
 
-  multiplierCost: Decimal
+  multiplierPaid: Decimal
   multiplierBought: number
 
-  acceleratorCost: Decimal
+  acceleratorPaid: Decimal
   acceleratorBought: number
 
   acceleratorBoostBought: number
-  acceleratorBoostCost: Decimal
+  acceleratorBoostPaid: Decimal
 
   upgrades: number[]
 
@@ -438,17 +436,19 @@ export interface Player {
   }
   ascendShards: Decimal
   autoAscend: boolean
-  autoAscendMode: AutoAscensionResetModes
-  autoAscendThreshold: number
+  autoAscendRules: AutoAscendRule[]
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 
-  campaigns: CampaignManager
-
   corruptions: {
-    next: CorruptionLoadout
-    used: CorruptionLoadout
-    saves: CorruptionSaves
+    next: number
+    used: number
+    ascensionLevel: number
+    tokenCompletions: number[]
+    highestCleared: number
+    autoIncrease: boolean
+    cleanseToHighest: boolean
+    loadouts: number[]
   }
 
   constantUpgrades: ArrayStartingWithNull<number>
@@ -600,6 +600,7 @@ export interface Player {
   stats: {
     totalAddCodesUsed: number
     highestPurpleHoney: number
+    talismanShardsThisAscension: Decimal
   }
 
   purpleUpdateQuarkRefundAwarded: boolean
@@ -612,17 +613,16 @@ export interface GlobalVariables {
   crystalUpgradesCost: number[]
   crystalUpgradeCostIncrement: number[]
 
-  ticker: number
-
   freeAccelerator: number
+  effectiveFreeAccelerator: number
   totalAccelerator: number
   freeAcceleratorBoost: number
   totalAcceleratorBoost: number
   acceleratorPower: number
   acceleratorEffect: Decimal
-  generatorPower: Decimal
 
   freeMultiplier: number
+  effectiveFreeMultiplier: number
   totalMultiplier: number
   multiplierPower: number
   multiplierEffect: Decimal
@@ -680,7 +680,6 @@ export interface GlobalVariables {
   producePerSecondMythos: Decimal
   producePerSecondParticles: Decimal
 
-  tuSevenMulti: number
   currentTab: Tabs
 
   ordinals: readonly [
@@ -711,24 +710,17 @@ export interface GlobalVariables {
   talismanResourceOfferingCosts: number[]
 
   timeWarp: boolean
+  testingDtMultiplier: number
 
   triggerChallenge: number
 
-  prevReductionValue: number
+  prevBuildingCostKey: string
+  buildingCosts: Record<BuildingType, Decimal[]>
 
   buildingSubTab: BuildingSubtab
 
   autoOfferingCounter: number
   MAX_AUTO_SACRIFICE_RUNE: number
-
-  viscosityPower: number[]
-  dilationMultiplier: number[]
-  hyperchallengeMultiplier: number[]
-  illiteracyPower: number[]
-  deflationMultiplier: number[]
-  extinctionDivisor: number[]
-  droughtSalvage: number[]
-  recessionPower: number[]
 
   ascendBuildingProduction: {
     first: Decimal
@@ -737,8 +729,6 @@ export interface GlobalVariables {
     fourth: Decimal
     fifth: Decimal
   }
-
-  acceleratorMultiplier: number
 
   constUpgradeCosts: ArrayStartingWithNull<number>
 
@@ -845,7 +835,6 @@ export type resetNames =
   | 'transcensionChallenge'
   | 'reincarnationChallenge'
   | 'ascensionChallenge'
-  | 'acceleratorBoost'
 
 export type BuildingSubtab =
   | 'coin'
