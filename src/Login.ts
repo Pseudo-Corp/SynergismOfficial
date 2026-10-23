@@ -331,6 +331,31 @@ async function fetchMeRoute () {
   return await fetch('https://synergism.cc/api/v1/users/me', { credentials: 'same-origin' }).catch(() => fallback)
 }
 
+export async function claimLink (code: string) {
+  const claim = (force: boolean) =>
+    fetch('https://synergism.cc/login/link/claim', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ code, force })
+    })
+
+  let response = await claim(false)
+
+  if (response.status === 409) {
+    const { error } = await response.json()
+    if (!await Confirm(error)) return
+    response = await claim(true)
+  }
+
+  if (!response.ok) {
+    await displayHTMLError(response)
+    return
+  }
+
+  await handleLogin()
+}
+
 export async function handleLogin () {
   const wasLoggedIn = loggedIn
 
@@ -605,12 +630,7 @@ export async function handleLogin () {
               }
             } else {
               if (PLATFORM === 'steam') {
-                const res = await fetch('https://synergism.cc/login/link-token', { credentials: 'include' })
-                const { token } = await res.json()
-                window.open(
-                  `https://synergism.cc/login?with=${unlinked.name}&link=true&platform=steam&link_token=${token}`,
-                  '_blank'
-                )
+                window.open(`https://synergism.cc/login?with=${unlinked.name}&link=true&platform=steam`, '_blank')
               } else {
                 window.open(`https://synergism.cc/login?with=${unlinked.name}&link=true`, '_blank')
               }

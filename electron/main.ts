@@ -93,7 +93,11 @@ async function handleProtocolUrl (raw: string): Promise<void> {
 
     if (url.hostname === 'link-callback') {
       if (!consumeAuthState(url.searchParams.get('state'))) return
-      mainWindow?.webContents.send('auth:changed')
+
+      const code = url.searchParams.get('code')
+      if (!code) return
+
+      mainWindow?.webContents.send('auth:linkCode', code)
       return
     }
 

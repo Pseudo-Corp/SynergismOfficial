@@ -210,7 +210,7 @@ import {
 import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
-import { handleLogin, resumePendingTimeSkips } from './Login'
+import { claimLink, handleLogin, resumePendingTimeSkips } from './Login'
 import { initializeAnnouncements, initializeMessages } from './Messages'
 import { blankOcteractLevelObject, clampOcteractFreeLevelsToCaps, setOcteractUpgradeLevels } from './Octeracts'
 import { updatePlatonicUpgradeBG } from './Platonic'
@@ -5018,8 +5018,9 @@ window.addEventListener('load', async () => {
 
   const loginResolved = handleLogin().catch(console.error)
   if (PLATFORM === 'steam') {
-    const { onAuthChanged } = await import('./steam/steam')
+    const { onAuthChanged, onAuthLinkCode } = await import('./steam/steam')
     onAuthChanged(() => handleLogin().catch(console.error))
+    onAuthLinkCode((code) => claimLink(code).catch(console.error))
   }
 
   refreshQuarkBonus()
