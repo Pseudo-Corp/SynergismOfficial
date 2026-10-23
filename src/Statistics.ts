@@ -6184,7 +6184,7 @@ interface Stage {
   reset: boolean
 }
 
-const gameStages = (): Stage[] => {
+export const gameStages = (): Stage[] => {
   const stages: Stage[] = [
     { stage: 0, tier: 1, name: 'start', unlocked: true, reset: true },
     {
@@ -6369,16 +6369,13 @@ const gameStages = (): Stage[] => {
 // Calculate which progress in the game you are playing
 // The progress displayed is based on Progression Chat and Questions
 // This will be used to determine the behavior of the profile of the autopilot function in the future
+const currentGameStage = (skipTier: number): Stage => {
+  const stages = gameStages()
+  return stages.find((stage) => skipTier < stage.tier && (!stage.reset || !stage.unlocked)) ?? stages[0]
+}
+
 export const synergismStage = (
   skipTier = player.singularityCount > 0 ? 5 : 0
-): string => {
-  const stages = gameStages()
-  for (let i = 0; i < stages.length; i++) {
-    const stage = stages[i]
-    if (skipTier < stage.tier && (!stage.reset || !stage.unlocked)) {
-      return stage.name
-    }
-  }
-  const stagesZero = stages[0]
-  return stagesZero.name
-}
+): string => currentGameStage(skipTier).name
+
+export const synergismStageNumber = (skipTier = 0) => currentGameStage(skipTier).stage

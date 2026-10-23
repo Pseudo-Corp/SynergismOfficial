@@ -205,10 +205,14 @@ export const getEventBuff = (buff: BuffType): number => {
   }
 }
 
+export const activeHappyHourBells = () => {
+  const now = Date.now()
+  return allDurableConsumables.HAPPY_HOUR_BELL.ends.filter((end) => end > now).length
+}
+
 export const consumableEventBuff = (buff: BuffType) => {
   const { HAPPY_HOUR_BELL } = allDurableConsumables
-  const now = Date.now()
-  const active = HAPPY_HOUR_BELL.ends.filter((end) => end > now).length
+  const active = activeHappyHourBells()
   // The interval is the number of events queued excluding the first.
   const happyHourInterval = active - 1
 

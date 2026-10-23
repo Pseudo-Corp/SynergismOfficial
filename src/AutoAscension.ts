@@ -1,13 +1,25 @@
 import { getAchievementReward } from './Achievements'
+import { autoLoadBlueberryLoadout, MAX_BLUEBERRY_LOADOUT_COUNT } from './BlueberryUpgrades'
+import { calculateCubeBank } from './Calculate'
 import { getMaxChallenges } from './Challenges'
 import { maxCorruptionLevel, normalizeCorruptionLevel } from './Corruptions'
+import { activeHappyHourBells } from './Event'
 import { calculateAvailableRebornELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 import { toggleAutoAntSacrificeEnabled } from './Features/Ants/toggles/auto-sacrifice'
+import { hepteractKeys, toggleAutomaticHepteracts } from './Hepteracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { reset } from './Reset'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
+import { gameStages, synergismStageNumber } from './Statistics'
 import { player, resetCheck } from './Synergism'
-import { toggleAutoChallengeRun, toggleChallenges } from './Toggles'
+import {
+  autoCubeUpgradesToggle,
+  autoPlatonicUpgradesToggle,
+  toggleautobuytesseract,
+  toggleAutoChallengeRun,
+  toggleautoopensCubes,
+  toggleChallenges
+} from './Toggles'
 import { challengeExit } from './UpdateHTML'
 
 const comparators = {
@@ -24,10 +36,24 @@ export type Comparator = keyof typeof comparators
 export const comparatorKeys = Object.keys(comparators) as Comparator[]
 
 const numberRules = {
-  c10: () => player.challengecompletions[10],
   t: () => player.ascensionCounter,
-  rt: () => player.ascensionCounterRealReal
+  rt: () => player.ascensionCounterRealReal,
+  sg: () => player.singularityCount,
+  gs: () => synergismStageNumber(),
+  cb: () => calculateCubeBank(),
+  hb: () => activeHappyHourBells()
 } satisfies Record<string, () => number>
+
+export const completionChallenges = Array.from({ length: 15 }, (_, i) => i + 1)
+
+const completionIds: Record<string, number> = Object.fromEntries(
+  completionChallenges.map((challenge) => [`c${challenge}`, challenge])
+)
+
+const challengeCompletionValue = (challenge: number) =>
+  challenge === 15 ? player.challenge15Exponent : player.challengecompletions[challenge]
+
+const isGameStage = (value: number) => Number.isInteger(value) && value >= 0 && value < gameStages().length
 
 const challengeRules = {
   tc: { current: () => player.currentChallenge.transcension, challenges: [1, 2, 3, 4, 5] },
@@ -85,6 +111,7 @@ export const exaltKeys: SingularityChallengeDataKeys[] = Object.values(exaltIds)
 
 export type AutoAscendCondition =
   | { rule: NumberRuleKey; op: Comparator; value: number }
+  | { rule: 'cc'; challenge: number; op: Comparator; value: number }
   | { rule: ChallengeRuleKey; op: EqualityComparator; value: number }
   | { rule: BooleanRuleKey; value: boolean }
   | { rule: 'exalt'; value: SingularityChallengeDataKeys }
@@ -117,7 +144,12 @@ type CorruptionProtocol = Exclude<
 
 const protocolModifierIds = {
   as: 'antSacrifice',
-  cs: 'challengeSweep'
+  cs: 'challengeSweep',
+  co: 'cubeOpens',
+  tb: 'tesseractBuildings',
+  cu: 'cubeUpgrades',
+  pu: 'platonicUpgrades',
+  ha: 'hepteracts'
 } as const
 
 export type ProtocolModifierKey = typeof protocolModifierIds[keyof typeof protocolModifierIds]
@@ -129,22 +161,64 @@ const protocolModifierShortIds = Object.fromEntries(
   Object.entries(protocolModifierIds).map(([short, key]) => [key, short])
 ) as Record<ProtocolModifierKey, keyof typeof protocolModifierIds>
 
-const protocolModifierState: Record<ProtocolModifierKey, () => boolean> = {
-  antSacrifice: () => player.ants.toggles.autoSacrificeEnabled,
-  challengeSweep: () => player.autoChallengeRunning
-}
-
 const protocolModifierUnlocks: Record<ProtocolModifierKey, () => boolean> = {
   antSacrifice: () => Boolean(getAchievementReward('autoAntSacrifice')),
-  challengeSweep: () => player.researches[150] > 0
+  challengeSweep: () => player.researches[150] > 0,
+  cubeOpens: () => player.highestSingularityCount >= 10,
+  tesseractBuildings: () => player.researches[190] > 0,
+  cubeUpgrades: () => player.highestSingularityCount >= 50,
+  platonicUpgrades: () => player.highestSingularityCount >= 50,
+  hepteracts: () => player.highestSingularityCount >= 1
 }
 
 export const isProtocolModifierUnlocked = (key: ProtocolModifierKey) => protocolModifierUnlocks[key]()
 
-const protocolModifierToggles: Record<ProtocolModifierKey, () => void> = {
-  antSacrifice: toggleAutoAntSacrificeEnabled,
-  challengeSweep: toggleAutoChallengeRun
+const autoOpenCubeKeys = [
+  'autoOpenCubes',
+  'autoOpenTesseracts',
+  'autoOpenHypercubes',
+  'autoOpenPlatonicsCubes'
+] as const
+
+const protocolModifierSetters: Record<ProtocolModifierKey, (enabled: boolean) => void> = {
+  antSacrifice: (enabled) => {
+    if (player.ants.toggles.autoSacrificeEnabled !== enabled) {
+      toggleAutoAntSacrificeEnabled()
+    }
+  },
+  challengeSweep: (enabled) => {
+    if (player.autoChallengeRunning !== enabled) {
+      toggleAutoChallengeRun()
+    }
+  },
+  cubeOpens: (enabled) => {
+    autoOpenCubeKeys.forEach((key, index) => {
+      if (player[key] !== enabled) {
+        toggleautoopensCubes(index + 1)
+      }
+    })
+  },
+  tesseractBuildings: (enabled) => {
+    if (player.tesseractAutoBuyerToggle !== enabled) {
+      toggleautobuytesseract()
+    }
+  },
+  cubeUpgrades: (enabled) => {
+    player.autoCubeUpgradesToggle = enabled
+    autoCubeUpgradesToggle(false)
+  },
+  platonicUpgrades: (enabled) => {
+    player.autoPlatonicUpgradesToggle = enabled
+    autoPlatonicUpgradesToggle(false)
+  },
+  hepteracts: (enabled) => {
+    for (const hept of hepteractKeys) {
+      toggleAutomaticHepteracts(hept, enabled)
+    }
+  }
 }
+
+export const isAmbrosiaLoadoutUnlocked = () => player.singularityChallenges.noSingularityUpgrades.completions > 0
 
 export const corruptionLoadoutCount = 8
 
@@ -165,6 +239,7 @@ export type AutoAscendRule = {
   protocol: AutoAscendProtocol
   modifiers: ProtocolModifiers
   loadouts: LoadoutWrite[]
+  ambrosiaLoadout: number | null
   disabled: boolean
 }
 
@@ -181,6 +256,9 @@ const evaluateCondition = (c: AutoAscendCondition): boolean => {
   }
   if (isChallengeCondition(c)) {
     return comparators[c.op](challengeRules[c.rule].current(), c.value)
+  }
+  if (c.rule === 'cc') {
+    return comparators[c.op](challengeCompletionValue(c.challenge), c.value)
   }
   if ('op' in c) {
     if (c.rule === 't' && player.challengecompletions[10] === 0) {
@@ -244,6 +322,7 @@ type RuleParseErrorCode =
   | 'expectedNumber'
   | 'expectedEquality'
   | 'invalidChallenge'
+  | 'invalidStage'
   | 'unclosedParen'
   | 'expectedProtocol'
   | 'unknownProtocol'
@@ -253,6 +332,7 @@ type RuleParseErrorCode =
   | 'duplicateModifier'
   | 'invalidLoadout'
   | 'duplicateLoadout'
+  | 'invalidAmbrosiaLoadout'
   | 'tooManyComparisons'
   | 'invalidName'
   | 'nameTooLong'
@@ -359,6 +439,20 @@ export const parseRule = (text: string): AutoAscendRule => {
     return { type, children: children.flatMap((child) => child.type === type ? child.children : [child]) }
   }
 
+  const parseComparison = (isValid: (value: number) => boolean, code: RuleParseErrorCode) => {
+    const op = peek()
+    if (!isComparator(op)) {
+      return fail('expectedComparator')
+    }
+    i++
+    const value = Number(peek())
+    if (peek() === '' || !isValid(value)) {
+      return fail(code)
+    }
+    i++
+    return { op, value }
+  }
+
   const parseCondition = (): AutoAscendCondition => {
     const negated = peek() === '!'
     if (negated) {
@@ -396,19 +490,17 @@ export const parseRule = (text: string): AutoAscendRule => {
       return { rule: id, op, value }
     }
 
+    if (!negated && Object.hasOwn(completionIds, id)) {
+      i++
+      return { rule: 'cc', challenge: completionIds[id], ...parseComparison(Number.isFinite, 'expectedNumber') }
+    }
+
     if (!negated && isNumberRule(id)) {
       i++
-      const op = peek()
-      if (!isComparator(op)) {
-        return fail('expectedComparator')
-      }
-      i++
-      const value = Number(peek())
-      if (peek() === '' || !Number.isFinite(value)) {
-        return fail('expectedNumber')
-      }
-      i++
-      return { rule: id, op, value }
+      const comparison = id === 'gs'
+        ? parseComparison(isGameStage, 'invalidStage')
+        : parseComparison(Number.isFinite, 'expectedNumber')
+      return { rule: id, ...comparison }
     }
 
     return fail(identifierPattern.test(id) ? 'unknownRule' : 'unexpectedToken')
@@ -526,9 +618,27 @@ export const parseRule = (text: string): AutoAscendRule => {
   const protocol = parseProtocol()
   const modifiers: ProtocolModifiers = {}
   const loadouts: LoadoutWrite[] = []
+  let ambrosiaLoadout: number | null = null
   while (peek() === ',') {
     i++
     const id = peek()
+    if (id === 'al') {
+      if (ambrosiaLoadout !== null) {
+        fail('duplicateModifier')
+      }
+      i++
+      if (peek() !== '=') {
+        fail('unexpectedToken')
+      }
+      i++
+      const slot = Number(peek())
+      if (peek() === '' || !Number.isInteger(slot) || slot < 1 || slot > MAX_BLUEBERRY_LOADOUT_COUNT) {
+        fail('invalidAmbrosiaLoadout')
+      }
+      i++
+      ambrosiaLoadout = slot
+      continue
+    }
     const slot = parseLoadoutSlot(id)
     if (slot !== null) {
       if (Number.isNaN(slot)) {
@@ -572,7 +682,7 @@ export const parseRule = (text: string): AutoAscendRule => {
   if (i < tokens.length) {
     fail('unexpectedToken')
   }
-  return { name, condition, exception, protocol, modifiers, loadouts, disabled }
+  return { name, condition, exception, protocol, modifiers, loadouts, ambrosiaLoadout, disabled }
 }
 
 export const parseRules = (text: string): AutoAscendRule[] => {
@@ -604,6 +714,9 @@ export const parseSavedRules = (text: string): AutoAscendRule[] =>
 const printCondition = (condition: AutoAscendCondition): string => {
   if (condition.rule === 'exalt') {
     return `x=${exaltShortIds[condition.value]}`
+  }
+  if (condition.rule === 'cc') {
+    return `c${condition.challenge}${condition.op}${condition.value}`
   }
   if ('op' in condition) {
     return `${condition.rule}${condition.op}${condition.value}`
@@ -666,9 +779,10 @@ export const printRule = (rule: AutoAscendRule) => {
     .map((key) => `,${protocolModifierShortIds[key]}=${rule.modifiers[key] ? 1 : 0}`)
     .join('')
   const loadouts = rule.loadouts.map(({ slot, op, value }) => `,s${slot}${op}${value}`).join('')
+  const ambrosiaLoadout = rule.ambrosiaLoadout === null ? '' : `,al=${rule.ambrosiaLoadout}`
   return `${disabled}${name}${printExpr(rule.condition)}${exception}:${
     printProtocol(rule.protocol)
-  }${loadouts}${modifiers}`
+  }${loadouts}${modifiers}${ambrosiaLoadout}`
 }
 
 export const printRules = (rules: AutoAscendRule[]) => rules.map(printRule).join('\n')
@@ -794,8 +908,8 @@ const applyLoadoutWrites = (loadouts: LoadoutWrite[]) => {
 const applyProtocolModifiers = (modifiers: ProtocolModifiers) => {
   for (const key of protocolModifierKeys) {
     const enabled = modifiers[key]
-    if (enabled !== undefined && isProtocolModifierUnlocked(key) && protocolModifierState[key]() !== enabled) {
-      protocolModifierToggles[key]()
+    if (enabled !== undefined && isProtocolModifierUnlocked(key)) {
+      protocolModifierSetters[key](enabled)
     }
   }
 }
@@ -809,5 +923,8 @@ export const runAutoAscendRules = () => {
   runAutoAscendProtocol(firedRule.protocol)
   applyLoadoutWrites(firedRule.loadouts)
   applyProtocolModifiers(firedRule.modifiers)
+  if (firedRule.ambrosiaLoadout !== null && isAmbrosiaLoadoutUnlocked()) {
+    autoLoadBlueberryLoadout(firedRule.ambrosiaLoadout)
+  }
   return index
 }

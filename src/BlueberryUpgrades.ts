@@ -14,7 +14,7 @@ export type BlueberryOpt = Partial<Record<AmbrosiaUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
 
 const BASE_BLUEBERRY_LOADOUT_COUNT = 8
-const MAX_BLUEBERRY_LOADOUT_COUNT = 16
+export const MAX_BLUEBERRY_LOADOUT_COUNT = 16
 export const PURPLE_AMBROSIA_ENCHANTMENT_ACTION = 'purpleAmbrosiaEnchantment'
 
 type AmbrosiaUpgradeRewards = {
@@ -2554,6 +2554,21 @@ export const loadoutHandler = (n: number, modules: BlueberryOpt) => {
 
 export const loadBlueberryLoadout = (n: number) => {
   if (createBlueberryTree(player.blueberryLoadouts[n] ?? { ambrosiaTutorial: 0 }, false)) {
+    setLastBlueberryLoadout(n)
+  }
+}
+
+const isBlueberryTreeLoaded = (modules: BlueberryOpt) =>
+  ambrosiaUpgradeNames.every((k) =>
+    Math.min(modules[k] ?? 0, ambrosiaUpgrades[k].maxLevel) === ambrosiaUpgrades[k].level
+  )
+
+export const autoLoadBlueberryLoadout = (n: number) => {
+  if (n > getUnlockedBlueberryLoadoutCount()) {
+    return
+  }
+  const modules = player.blueberryLoadouts[n] ?? {}
+  if (isBlueberryTreeLoaded(modules) || (validateBlueberryTree(modules) && createBlueberryTree(modules, false))) {
     setLastBlueberryLoadout(n)
   }
 }

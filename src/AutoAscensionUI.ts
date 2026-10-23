@@ -12,10 +12,12 @@ import {
   challengeRuleKeys,
   type Comparator,
   comparatorKeys,
+  completionChallenges,
   corruptionLoadoutCount,
   equalityComparatorKeys,
   exaltKeys,
   getAutoAscendRuleSlots,
+  isAmbrosiaLoadoutUnlocked,
   isChallengeCondition,
   isProtocolModifierUnlocked,
   type LoadoutOp,
@@ -36,11 +38,13 @@ import {
   type ProtocolModifiers,
   RuleParseError
 } from './AutoAscension'
+import { getUnlockedBlueberryLoadoutCount } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getMaxChallenges } from './Challenges'
 import { activeCorruptionLevel, maxCorruptionLevel } from './Corruptions'
 import { readFileAsText } from './ImportExport'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
+import { gameStages } from './Statistics'
 import { format, formatTimeShort, player } from './Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification } from './UpdateHTML'
 import { isMobile } from './Utility'
@@ -61,6 +65,7 @@ type RuleDraft = {
   protocol: AutoAscendProtocol | null
   modifiers: ProtocolModifiers
   loadouts: LoadoutWrite[]
+  ambrosiaLoadout: number | null
   disabled: boolean
 }
 
@@ -72,7 +77,8 @@ const uiKey = 'corruptions.autoAscend.rules.ui'
 const errorKey = 'corruptions.autoAscend.rules.errors'
 const paletteFileName = 'Synergism-AutoAscension-Rules.txt'
 
-const variableKeys: VariableKey[] = [...numberRuleKeys, ...challengeRuleKeys, ...booleanRuleKeys, 'exalt']
+const variableKeys: VariableKey[] = ['cc', ...numberRuleKeys, ...challengeRuleKeys, ...booleanRuleKeys, 'exalt']
+const integerNumberRules = new Set<VariableKey>(['sg', 'cb', 'hb'])
 const groupOps: GroupOp[] = ['and', 'or']
 const protocolTypes: ProtocolType[] = [
   'ascend',
@@ -131,6 +137,10 @@ const modifierName = (key: ProtocolModifierKey) => i18next.t(`${uiKey}.modifiers
 const modifierStateName = (state: ModifierState) => i18next.t(`${uiKey}.modifierStates.${state}`)
 const loadoutName = (slot: number) => i18next.t(`${uiKey}.loadoutSlot`, { slot })
 const loadoutSlotOptions = (slots: number[]) => slots.map((slot) => ({ value: slot, label: loadoutName(slot) }))
+const ambrosiaLoadoutName = (slot: number) => i18next.t(`${uiKey}.ambrosiaLoadoutSlot`, { slot })
+const completionName = (challenge: number) =>
+  `${challengeName(challenge)} ${i18next.t(`${uiKey}.${challenge === 15 ? 'challengeScore' : 'challengeCompletions'}`)}`
+const gameStageName = (stage: number) => `${stage}: ${gameStages()[stage]?.name ?? ''}`
 
 const modifierState = (enabled: boolean | undefined): ModifierState =>
   enabled === undefined ? 'keep' : enabled ? 'enable' : 'disable'
@@ -197,6 +207,9 @@ const createNumberInput = (value: number, integer: boolean, onValid: (value: num
 }
 
 const defaultCondition = (key: VariableKey): AutoAscendCondition => {
+  if (key === 'cc') {
+    return { rule: key, challenge: 10, op: '>=', value: 0 }
+  }
   if (isNumberRuleKey(key)) {
     return { rule: key, op: '>=', value: 0 }
   }
@@ -233,7 +246,10 @@ const defaultProtocol = (type: ProtocolType): AutoAscendProtocol => {
   }
 }
 
-const newComparison = (): DraftComparison => ({ kind: 'comparison', condition: { rule: 'c10', op: '>=', value: 1 } })
+const newComparison = (): DraftComparison => ({
+  kind: 'comparison',
+  condition: { rule: 'cc', challenge: 10, op: '>=', value: 1 }
+})
 
 const toDraftNode = (node: AutoAscendExpr): DraftNode =>
   node.type === 'rule'
@@ -261,6 +277,14 @@ const describeCondition = (condition: AutoAscendCondition) => {
   }
   if (isChallengeCondition(condition)) {
     return `${variableName(condition.rule)} ${comparatorSymbols[condition.op]} ${challengeName(condition.value)}`
+  }
+  if (condition.rule === 'cc') {
+    return `${completionName(condition.challenge)} ${comparatorSymbols[condition.op]} ${
+      format(condition.value, 2, true)
+    }`
+  }
+  if (condition.rule === 'gs') {
+    return `${variableName(condition.rule)} ${comparatorSymbols[condition.op]} ${gameStageName(condition.value)}`
   }
   if ('op' in condition) {
     return `${variableName(condition.rule)} ${comparatorSymbols[condition.op]} ${format(condition.value, 2, true)}`
@@ -319,7 +343,10 @@ const describeRule = (rule: AutoAscendRule) => {
   const modifiers = protocolModifierKeys
     .filter((key) => rule.modifiers[key] !== undefined && isProtocolModifierUnlocked(key))
     .map((key) => `${modifierName(key)}: ${modifierStateName(modifierState(rule.modifiers[key]))}`)
-  const extras = [...loadouts, ...modifiers].join(', ')
+  const ambrosiaLoadout = rule.ambrosiaLoadout !== null && isAmbrosiaLoadoutUnlocked()
+    ? [i18next.t(`${uiKey}.ambrosiaLoadoutWrite`, { slot: rule.ambrosiaLoadout })]
+    : []
+  const extras = [...loadouts, ...modifiers, ...ambrosiaLoadout].join(', ')
   const modifierText = extras === '' ? '' : ` (${extras})`
   return `${i18next.t(`${uiKey}.when`)} ${describeExpr(rule.condition)}${exception} → ${
     describeProtocol(rule.protocol)
@@ -339,6 +366,16 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
   ))
 
   const condition = node.condition
+  const comparatorSelect = (target: { op: Comparator }) =>
+    createSelect(
+      comparatorKeys.map((op) => ({ value: op, label: comparatorSymbols[op] })),
+      target.op,
+      (op) => {
+        target.op = op
+        updatePreview()
+      }
+    )
+
   if (condition.rule === 'exalt') {
     row.append(createSelect(
       exaltKeys.map((key) => ({ value: key, label: exaltName(key) })),
@@ -370,17 +407,40 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
         }
       )
     )
-  } else if ('op' in condition) {
+  } else if (condition.rule === 'cc') {
     row.append(
       createSelect(
-        comparatorKeys.map((op) => ({ value: op, label: comparatorSymbols[op] })),
-        condition.op,
-        (op) => {
-          condition.op = op
-          updatePreview()
+        completionChallenges.map((challenge) => ({ value: challenge, label: completionName(challenge) })),
+        condition.challenge,
+        (challenge) => {
+          condition.challenge = challenge
+          if (challenge !== 15) {
+            condition.value = Math.floor(condition.value)
+          }
+          rerender()
         }
       ),
-      createNumberInput(condition.value, false, (value) => {
+      comparatorSelect(condition),
+      createNumberInput(condition.value, condition.challenge !== 15, (value) => {
+        condition.value = value
+      })
+    )
+  } else if (condition.rule === 'gs') {
+    row.append(
+      comparatorSelect(condition),
+      createSelect(
+        gameStages().map(({ stage }) => ({ value: stage, label: gameStageName(stage) })),
+        condition.value,
+        (stage) => {
+          condition.value = stage
+          updatePreview()
+        }
+      )
+    )
+  } else if ('op' in condition) {
+    row.append(
+      comparatorSelect(condition),
+      createNumberInput(condition.value, integerNumberRules.has(condition.rule), (value) => {
         condition.value = value
       })
     )
@@ -578,6 +638,26 @@ const renderProtocolEditor = () => {
     return modifierRow
   })
 
+  if (isAmbrosiaLoadoutUnlocked()) {
+    const ambrosiaRow = createElement('label', 'autoAscendComparison autoAscendModifier')
+    const slotCount = Math.max(getUnlockedBlueberryLoadoutCount(), currentDraft.ambrosiaLoadout ?? 0)
+    ambrosiaRow.append(
+      createElement('span', '', i18next.t(`${uiKey}.ambrosiaLoadout`)),
+      createSelect(
+        [
+          { value: 0, label: modifierStateName('keep') },
+          ...Array.from({ length: slotCount }, (_, i) => ({ value: i + 1, label: ambrosiaLoadoutName(i + 1) }))
+        ],
+        currentDraft.ambrosiaLoadout ?? 0,
+        (slot) => {
+          currentDraft.ambrosiaLoadout = slot === 0 ? null : slot
+          updatePreview()
+        }
+      )
+    )
+    modifierRows.push(ambrosiaRow)
+  }
+
   container.replaceChildren(
     row,
     createElement('p', 'autoAscendHelp', i18next.t(`${uiKey}.loadoutsHelp`)),
@@ -604,6 +684,7 @@ const buildDraftRule = (): AutoAscendRule | null => {
     protocol: draft.protocol,
     modifiers: { ...draft.modifiers },
     loadouts: draft.loadouts.map((write) => ({ ...write })),
+    ambrosiaLoadout: draft.ambrosiaLoadout,
     disabled: draft.disabled
   }
 }
@@ -642,6 +723,7 @@ const draftFromRule = (index: number | null, rule: AutoAscendRule | undefined): 
   protocol: rule === undefined ? null : { ...rule.protocol },
   modifiers: rule === undefined ? {} : { ...rule.modifiers },
   loadouts: rule === undefined ? [] : rule.loadouts.map((write) => ({ ...write })),
+  ambrosiaLoadout: rule?.ambrosiaLoadout ?? null,
   disabled: rule?.disabled ?? false
 })
 
