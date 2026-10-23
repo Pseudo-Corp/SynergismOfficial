@@ -6871,7 +6871,7 @@
     },
     "exitChallenge": {
       "incompleteWarning": "WARNING: You will not get a completion as you have not yet purchased Antiquities.",
-      "confirmation": "Are you sure you want to quit {{name}} Tier {{tier}} \n{{warning}}`",
+      "confirmation": "Are you sure you want to quit {{name}} Tier {{tier}} \n{{warning}}",
       "decline": "Derpsmith tries to hug you, but he has no arms.",
       "acceptSuccess": "You have completed the {{tier}} tier of {{name}}! The corresponding challenge rewards have been updated.",
       "acceptFailure": "You have been transported back to your highest reached Singularity. Try again soon! -Derpsmith"

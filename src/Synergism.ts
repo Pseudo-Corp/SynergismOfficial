@@ -1401,15 +1401,14 @@ const loadSynergy = (saveString: string): boolean => {
 
     // TODO(@KhafraDev): remove G.currentSingChallenge
     // fix current sing challenge blank
-    if (player.insideSingularityChallenge) {
-      const challenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
-      for (let i = 0; i < challenges.length; i++) {
-        if (player.singularityChallenges[challenges[i]].enabled) {
-          G.currentSingChallenge = singularityChallengeData[challenges[i]].HTMLTag
-          break
-        }
+    const challenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
+    for (let i = 0; i < challenges.length; i++) {
+      if (player.singularityChallenges[challenges[i]].enabled) {
+        G.currentSingChallenge = singularityChallengeData[challenges[i]].HTMLTag
+        break
       }
     }
+    player.insideSingularityChallenge = G.currentSingChallenge !== undefined
 
     // Does this need to be kept here?
     if (player.transcendCount < 0) {
