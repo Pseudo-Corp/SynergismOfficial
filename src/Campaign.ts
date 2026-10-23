@@ -132,7 +132,7 @@ export const campaignTokenBonuses = {
       + 0.5 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
   },
   quark: () => {
-    if (campaignTokens < 100) {
+    if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.quark)) {
       return 1
     }
     return 1
@@ -141,7 +141,7 @@ export const campaignTokenBonuses = {
       + 0.1 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 10000))
   },
   tax: () => {
-    if (campaignTokens < 250) {
+    if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.tax)) {
       return 1
     }
     return 1
@@ -150,7 +150,7 @@ export const campaignTokenBonuses = {
       - 0.05 * (1 - Math.exp(-Math.max(campaignTokens - 4000, 0) / 5000))
   },
   c15: () => {
-    if (campaignTokens < 250) {
+    if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.c15)) {
       return 1
     }
     return 1
@@ -158,6 +158,9 @@ export const campaignTokenBonuses = {
       + 0.95 * (1 - Math.exp(-Math.max(campaignTokens - 500, 0) / 1250))
   },
   rune6: () => {
+    if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.rune6)) {
+      return 0
+    }
     for (let i = 0; i < bonusRune6ThresholdReqs.length; i++) {
       if (campaignTokens < bonusRune6ThresholdReqs[i]) {
         return i
@@ -166,7 +169,7 @@ export const campaignTokenBonuses = {
     return 12
   },
   goldenQuark: () => {
-    if (campaignTokens < 500) {
+    if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.goldenQuark)) {
       return 1
     }
     return 1
@@ -174,7 +177,7 @@ export const campaignTokenBonuses = {
       + 0.05 * (1 - Math.exp(-Math.max(campaignTokens - 1000, 0) / 2500))
   },
   octeract: () => {
-    if (campaignTokens < 1000) {
+    if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.octeract)) {
       return 1
     }
     return 1
@@ -182,7 +185,7 @@ export const campaignTokenBonuses = {
       + 0.15 * (1 - Math.exp(-Math.max(campaignTokens - 2000, 0) / 4000))
   },
   ambrosiaLuck: () => {
-    if (campaignTokens < 2000) {
+    if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.ambrosiaLuck)) {
       return 0
     }
     return 10
@@ -190,7 +193,7 @@ export const campaignTokenBonuses = {
       + 50 * (1 - Math.exp(-Math.max(campaignTokens - 4000, 0) / 2500))
   },
   blueberrySpeed: () => {
-    if (campaignTokens < 2000) {
+    if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.blueberrySpeed)) {
       return 1
     }
     return 1
