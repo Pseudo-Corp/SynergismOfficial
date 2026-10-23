@@ -15,6 +15,7 @@ import { AntProducers, LAST_ANT_PRODUCER } from '../Features/Ants/structs/struct
 import {
   freeButtonPosition,
   HEADER_BUTTON_GROUP_CAPACITY,
+  HEADER_GRID_COLUMNS,
   type HeaderModuleId,
   headerModuleSizes,
   headerRegionIds,
@@ -339,6 +340,7 @@ const headerAmbrosiaIconSchema = z.lazy(() => z.enum(ambrosiaUpgradeNames))
 
 const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
   z.object({
+    columns: z.number().catch(() => layout === 'desktop' ? 6 : 2),
     regions: z.record(z.string(), headerModuleListSchema.array().catch(() => [])).catch(() => ({})),
     sizes: headerRecordSchema,
     positions: headerRecordSchema,
@@ -363,7 +365,10 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
     const placed = new Set<HeaderModuleId>()
     const regions = {} as HeaderLayout['regions']
     for (const region of headerRegionIds) {
-      const slots = (saved.regions[region] ?? []).flatMap((slot) => {
+      const savedSlots = isHeaderGridRegion(region) && saved.columns !== HEADER_GRID_COLUMNS[layout]
+        ? fallback.regions[region]
+        : saved.regions[region] ?? []
+      const slots = savedSlots.flatMap((slot) => {
         const members: HeaderModuleId[] = []
         for (const id of slot) {
           if (!placed.has(id)) {
@@ -440,6 +445,7 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
     }
 
     return {
+      columns: HEADER_GRID_COLUMNS[layout],
       regions,
       sizes,
       positions,

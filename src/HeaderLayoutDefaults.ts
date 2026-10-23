@@ -99,10 +99,13 @@ export const HEADER_BUTTON_GROUP_CAPACITY = {
   mobile: Math.ceil(resetButtonModuleIds.length / HEADER_MOBILE_GRID_COLUMNS)
 } as const
 
-const HEADER_BUTTON_MODULE_COUNT = Math.ceil(resetButtonModuleIds.length / HEADER_BUTTON_GROUP_CAPACITY.desktop)
+const HEADER_RESET_COLUMNS = Math.max(
+  Math.ceil(resetButtonModuleIds.length / HEADER_BUTTON_GROUP_CAPACITY.desktop),
+  challengeProgressModuleIds.length
+)
 
 export const HEADER_GRID_COLUMNS = {
-  desktop: HEADER_CURRENCY_COLUMNS + HEADER_BUTTON_MODULE_COUNT,
+  desktop: HEADER_CURRENCY_COLUMNS + HEADER_RESET_COLUMNS,
   mobile: HEADER_MOBILE_GRID_COLUMNS
 } as const
 
@@ -162,6 +165,7 @@ export const freeButtonPosition = (positions: HeaderLayout['positions'], slot: H
 
 export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
   const layout: HeaderLayout = {
+    columns: HEADER_GRID_COLUMNS[key],
     regions: {
       ascensionStats: statModuleIds.map((id) => [id]),
       headerGrid: []
@@ -215,17 +219,20 @@ export const createDefaultHeaderLayout = (key: 'desktop' | 'mobile') => {
     layout.sizes[id] = 'Tall'
   }
 
+  while (buttonSlots.length % HEADER_RESET_COLUMNS !== 0) {
+    buttonSlots.push([])
+  }
   const resetSlots = [...buttonSlots, ...progressSlots]
   const rows = Math.max(
     Math.ceil(currencySlots.length / HEADER_CURRENCY_COLUMNS),
-    Math.ceil(resetSlots.length / HEADER_BUTTON_MODULE_COUNT)
+    Math.ceil(resetSlots.length / HEADER_RESET_COLUMNS)
   )
   for (let row = 0; row < rows; row++) {
     for (let column = 0; column < HEADER_CURRENCY_COLUMNS; column++) {
       grid.push(currencySlots[row * HEADER_CURRENCY_COLUMNS + column] ?? [])
     }
-    for (let column = 0; column < HEADER_BUTTON_MODULE_COUNT; column++) {
-      grid.push(resetSlots[row * HEADER_BUTTON_MODULE_COUNT + column] ?? [])
+    for (let column = 0; column < HEADER_RESET_COLUMNS; column++) {
+      grid.push(resetSlots[row * HEADER_RESET_COLUMNS + column] ?? [])
     }
   }
 

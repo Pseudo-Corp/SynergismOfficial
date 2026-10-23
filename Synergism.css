@@ -6791,7 +6791,7 @@ header .img,
     justify-items: center;
     width: 100%;
     min-width: 1250px;
-    max-width: calc((38px + 7.5em) * 4 + 40em);
+    max-width: calc((38px + 7.5em) * 4 + 60em);
     margin-bottom: 5px;
     line-height: 1em;
     font-variant-numeric: tabular-nums;

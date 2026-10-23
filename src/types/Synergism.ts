@@ -36,6 +36,7 @@ type ArrayStartingWithNull<T> = [null, ...T[]]
 export type BuyAmount = 1 | 10 | 100 | 1000 | 10_000 | 100_000
 
 export interface HeaderLayout {
+  columns: number
   regions: Record<HeaderRegionId, HeaderModuleId[][]>
   sizes: Partial<Record<HeaderModuleId, HeaderModuleSize>>
   positions: Partial<Record<HeaderModuleId, number>>
