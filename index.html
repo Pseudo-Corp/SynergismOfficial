@@ -2380,11 +2380,12 @@
                     </div>
                 </div>
                 <div id="autoAscensions" style="display: none">
-                    <div id="autoAscendRules" class="corruptionControlGroup cubeUpgrade10">
+                    <div id="autoAscendRules" class="corruptionControlGroup autoAscendUnlock">
                         <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.rules.ui.heading"></p>
                         <div id="ascensionAutomationButtons">
-                            <button id="ascensionAutoEnable" class="ascendunlock hCenter tight" style="border: 2px solid green"></button>
+                            <button id="ascensionAutoEnable" class="hCenter tight" style="border: 2px solid green"></button>
                         </div>
+                        <p id="autoAscendRequiresC10" class="corrDesc corruptionRulesNote" i18n="corruptions.autoAscend.requiresC10" hidden></p>
                         <p id="autoAscendRuleSlots" class="corrDesc"></p>
                         <p id="autoAscendRulesEmpty" class="corrDesc" i18n="corruptions.autoAscend.rules.ui.empty"></p>
                         <ol id="autoAscendRuleList"></ol>
@@ -2420,7 +2421,7 @@
                 </div>
             </div>
             <div id="autoAscendSidebar" style="display: none">
-                <div id="autoAscendStatus" class="corruptionControlGroup cubeUpgrade10">
+                <div id="autoAscendStatus" class="corruptionControlGroup autoAscendUnlock">
                     <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.status.heading"></p>
                     <dl id="autoAscendStatusList">
                         <dt i18n="corruptions.autoAscend.status.corruption"></dt>
@@ -2433,9 +2434,11 @@
                         <dd id="autoAscendStatusTime"></dd>
                         <dt i18n="corruptions.autoAscend.status.timeReal"></dt>
                         <dd id="autoAscendStatusTimeReal"></dd>
+                        <dt i18n="corruptions.autoAscend.status.lastFired"></dt>
+                        <dd id="autoAscendStatusLastFired"></dd>
                     </dl>
                 </div>
-                <div id="corruptionLoadouts" class="corruptionControlGroup cubeUpgrade10">
+                <div id="corruptionLoadouts" class="corruptionControlGroup autoAscendUnlock">
                     <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.loadouts.heading"></p>
                     <p class="corrDesc corruptionRulesNote" i18n="corruptions.autoAscend.loadouts.help"></p>
                     <div id="corruptionLoadoutList"></div>

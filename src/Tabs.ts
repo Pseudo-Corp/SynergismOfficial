@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
+import { isCorruptionTabUnlocked } from './Corruptions'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
@@ -1072,13 +1073,13 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'chal11',
+    class: 'corruptionUnlock',
     id: 'traitstab',
     i18n: 'tabs.main.corruption',
     mobileIcon: 'Corruption.png',
     activeColor: 'orange'
   })
-    .setUnlockedState(() => (player.challengecompletions[11] > 0))
+    .setUnlockedState(() => isCorruptionTabUnlocked())
     .setType(Tabs.Corruption)
     .makeDraggable()
     .makeRemoveable(),

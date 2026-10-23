@@ -2,7 +2,7 @@ import { getAchievementReward } from './Achievements'
 import { autoLoadBlueberryLoadout, MAX_BLUEBERRY_LOADOUT_COUNT } from './BlueberryUpgrades'
 import { CalcCorruptionStuff, calculateCubeBank } from './Calculate'
 import { getMaxChallenges } from './Challenges'
-import { maxCorruptionLevel, normalizeCorruptionLevel } from './Corruptions'
+import { canChangeCorruptions, maxCorruptionLevel, normalizeCorruptionLevel } from './Corruptions'
 import { activeHappyHourBells } from './Event'
 import { calculateAvailableRebornELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 import { toggleAutoAntSacrificeEnabled } from './Features/Ants/toggles/auto-sacrifice'
@@ -303,6 +303,11 @@ const protocolModifierSetters: Record<ProtocolModifierKey, (enabled: boolean) =>
   }
 }
 
+export const isAutoAscendUnlocked = () =>
+  player.highestSingularityCount > 0 || (player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0)
+
+export const isAutoAscendRunning = () => player.autoAscend && player.unlocks.ascensions && isAutoAscendUnlocked()
+
 export const isAmbrosiaLoadoutUnlocked = () => player.singularityChallenges.noSingularityUpgrades.completions > 0
 
 export const corruptionLoadoutCount = 8
@@ -334,8 +339,20 @@ export const isChallengeCondition = (
   c: AutoAscendCondition
 ): c is Extract<AutoAscendCondition, { rule: ChallengeRuleKey }> => Object.hasOwn(challengeRules, c.rule)
 
+const nonCorruptionProtocolTypes = new Set<AutoAscendProtocol['type']>([
+  'ascend',
+  'ascensionChallenge',
+  'nextAscensionChallenge'
+])
+
+const affectsCorruptions = (rule: AutoAscendRule) =>
+  !nonCorruptionProtocolTypes.has(rule.protocol.type) || rule.loadouts.length > 0
+
 const isRuleActive = (rule: AutoAscendRule) =>
-  !rule.disabled && evaluateExpr(rule.condition) && (rule.exception === null || !evaluateExpr(rule.exception))
+  !rule.disabled
+  && (canChangeCorruptions() || !affectsCorruptions(rule))
+  && evaluateExpr(rule.condition)
+  && (rule.exception === null || !evaluateExpr(rule.exception))
 
 const evaluateCondition = (c: AutoAscendCondition): boolean => {
   if (c.rule === 'exalt') {

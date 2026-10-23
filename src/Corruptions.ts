@@ -308,7 +308,14 @@ const corruptionClimbStep = () => {
   return player.highestSingularityCount >= fastClimbSingularity ? fastClimbStep : 1
 }
 
+export const canChangeCorruptions = () => player.challengecompletions[11] > 0
+
+export const isCorruptionTabUnlocked = () => canChangeCorruptions() || player.highestSingularityCount > 0
+
 export const maxCorruptionLevel = () => {
+  if (!canChangeCorruptions()) {
+    return 0
+  }
   const highest = player.corruptions.highestCleared
   return Math.max(highest, Math.min(corruptionLevelCap(), highest + corruptionClimbStep()))
 }
@@ -922,7 +929,9 @@ const corruptionLevelCapUpdate = () => {
     level: format(highest)
   })
   const step = corruptionClimbStep()
-  DOMCacheGetOrSet('corruptionLevelCap').innerHTML = highest > cap
+  DOMCacheGetOrSet('corruptionLevelCap').innerHTML = !canChangeCorruptions()
+    ? i18next.t('corruptions.tiers.requiresChallenge11')
+    : highest > cap
     ? i18next.t('corruptions.tiers.levelCapBelowHighest', { highest: format(highest), cap: format(cap) })
     : highest + step >= cap
     ? corruptionLevelCapText(cap)

@@ -11960,6 +11960,14 @@ html[data-chal11="false"] .chal11 {
     display: none;
 }
 
+html[data-corruption-unlock="true"] .corruptionUnlock {
+    display: block;
+}
+
+html[data-corruption-unlock="false"] .corruptionUnlock {
+    display: none;
+}
+
 html[data-chal12="true"] .chal12 {
     display: block;
 }
@@ -12241,11 +12249,11 @@ html[data-unread-messages="false"] .unreadMessages {
     display: none;
 }
 
-html[data-cube-upgrade10="true"] .cubeUpgrade10 {
+html[data-auto-ascend-unlock="true"] .autoAscendUnlock {
     display: flex;
 }
 
-html[data-cube-upgrade10="false"] .cubeUpgrade10 {
+html[data-auto-ascend-unlock="false"] .autoAscendUnlock {
     display: none;
 }
 

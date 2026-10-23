@@ -5832,6 +5832,7 @@
       },
       "levelCapFinal": "Maximum level: {{cap}}.",
       "levelCapBelowHighest": "You can return to any level up to your highest cleared level ({{highest}}). Climbing past level {{cap}} is locked for now.",
+      "requiresChallenge11": "Complete Challenge 11 to change your Corruption level.",
       "cubeBank": "Cube Bank",
       "cubeMultipliersHeading": "Cube multipliers (this Ascension → next):",
       "cubeMultipliersHeadingSame": "Cube multipliers:",
@@ -5866,6 +5867,7 @@
     "autoAscend": {
       "on": "Auto Ascend [ON]",
       "off": "Auto Ascend [OFF]",
+      "requiresC10": "Auto Ascension Rules will not run until you complete Challenge 10.",
       "status": {
         "heading": "Status",
         "corruption": "Corruption Level",
@@ -5873,7 +5875,8 @@
         "ascensionChallenge": "Ascension Challenge",
         "none": "None",
         "timeInGame": "Ascension Timer",
-        "timeReal": "This Attempt (Real)"
+        "timeReal": "This Attempt (Real)",
+        "lastFired": "Last Rule Fired"
       },
       "loadouts": {
         "heading": "Corruption Loadouts",

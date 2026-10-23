@@ -40,7 +40,7 @@ import {
   updateAllUngroupedAchievementProgress,
   updateProgressiveCache
 } from './Achievements'
-import { corruptionLoadoutCount, runAutoAscendRules } from './AutoAscension'
+import { corruptionLoadoutCount, isAutoAscendRunning, runAutoAscendRules } from './AutoAscension'
 import { autoAscendRulesUICreate, pulseAutoAscendRule, renderAutoAscendRules } from './AutoAscensionUI'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
@@ -3467,9 +3467,7 @@ export const resetCheck = async (
           !manual
           && (autoAscensionChallengeSweepUnlock()
             || !player.autoChallengeRunning) // If not autochallenge, don't reset
-          && player.autoAscend
-          && player.challengecompletions[11] > 0
-          && player.cubeUpgrades[10] > 0
+          && isAutoAscendRunning()
         )
       ) {
         challengeExit('ascension')
@@ -3887,11 +3885,7 @@ export const updateAll = (): void => {
     awardAchievementGroup('sacMult')
   }
 
-  if (
-    player.autoAscend
-    && player.challengecompletions[11] > 0
-    && player.cubeUpgrades[10] > 0
-  ) {
+  if (isAutoAscendRunning()) {
     const firedRule = runAutoAscendRules()
     if (firedRule !== -1) {
       pulseAutoAscendRule(firedRule)

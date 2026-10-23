@@ -125,6 +125,7 @@ let draft: RuleDraft | null = null
 
 const rulePulseDuration = 1600
 let rulePulse: { element: Element; timeout: ReturnType<typeof setTimeout> } | null = null
+let lastFiredRule: { rule: AutoAscendRule; index: number } | null = null
 
 const isNumberRuleKey = (key: VariableKey): key is NumberRuleKey => (numberRuleKeys as string[]).includes(key)
 const isChallengeRuleKey = (key: VariableKey): key is ChallengeRuleKey => (challengeRuleKeys as string[]).includes(key)
@@ -920,6 +921,8 @@ const renderRuleItem = (rule: AutoAscendRule, index: number, total: number) => {
 }
 
 export const pulseAutoAscendRule = (index: number) => {
+  lastFiredRule = { rule: player.autoAscendRules[index], index }
+
   if (rulePulse !== null) {
     clearTimeout(rulePulse.timeout)
     rulePulse.element.classList.remove('autoAscendRuleFired')
@@ -943,6 +946,7 @@ export const pulseAutoAscendRule = (index: number) => {
 }
 
 export const updateAutoAscendStatus = () => {
+  DOMCacheGetOrSet('autoAscendRequiresC10').hidden = player.unlocks.ascensions
   DOMCacheGetOrSet('autoAscendStatusCorruption').textContent = `${format(activeCorruptionLevel())} / ${
     format(maxCorruptionLevel())
   }`
@@ -955,6 +959,11 @@ export const updateAutoAscendStatus = () => {
   challengeElement.title = challenge === 0 ? '' : challengeName(challenge)
   DOMCacheGetOrSet('autoAscendStatusTime').textContent = formatTimeShort(player.ascensionCounter, 0)
   DOMCacheGetOrSet('autoAscendStatusTimeReal').textContent = formatTimeShort(player.ascensionCounterRealReal, 0)
+  const lastFiredElement = DOMCacheGetOrSet('autoAscendStatusLastFired')
+  lastFiredElement.textContent = lastFiredRule === null
+    ? i18next.t('corruptions.autoAscend.status.none')
+    : ruleDisplayName(lastFiredRule.rule, lastFiredRule.index)
+  lastFiredElement.title = lastFiredRule === null ? '' : describeRule(lastFiredRule.rule)
   updateCorruptionLoadouts()
 }
 

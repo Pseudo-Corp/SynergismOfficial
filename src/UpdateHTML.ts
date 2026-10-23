@@ -10,6 +10,7 @@ import {
   ungroupedAchievementData,
   ungroupedAchievementKeys
 } from './Achievements'
+import { isAutoAscendRunning, isAutoAscendUnlocked } from './AutoAscension'
 import {
   calculateSingularityUpgradePurchase,
   getBuildingCost,
@@ -29,7 +30,7 @@ import {
   challengeRequirement,
   getMaxChallenges
 } from './Challenges'
-import { revealCorruptions } from './Corruptions'
+import { isCorruptionTabUnlocked, revealCorruptions } from './Corruptions'
 import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'
 import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
@@ -296,6 +297,7 @@ export const revealStuff = () => {
   }
 
   document.documentElement.dataset.chal11 = player.highestchallengecompletions[11] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.corruptionUnlock = isCorruptionTabUnlocked() ? 'true' : 'false'
   document.documentElement.dataset.chal12 = player.highestchallengecompletions[12] > 0 ? 'true' : 'false'
   document.documentElement.dataset.spiritUnlock = player.unlocks.spirits ? 'true' : 'false'
   document.documentElement.dataset.chal13 = player.highestchallengecompletions[13] > 0 ? 'true' : 'false'
@@ -306,7 +308,7 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.research150 = player.researches[150] > 0 ? 'true' : 'false'
 
-  document.documentElement.dataset.cubeUpgrade10 = player.cubeUpgrades[10] > 0 ? 'true' : 'false'
+  document.documentElement.dataset.autoAscendUnlock = isAutoAscendUnlocked() ? 'true' : 'false'
   document.documentElement.dataset.cubeUpgrade19 = player.cubeUpgrades[19] > 0 ? 'true' : 'false'
 
   document.documentElement.dataset.sacrificeAnts = getAchievementReward('antSacrificeUnlock') ? 'true' : 'false'
@@ -633,8 +635,7 @@ export const buttoncolorchange = () => {
 
   DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = player.currentChallenge.ascension === 0 ? '' : 'purple'
 
-  DOMCacheGetOrSet('ascendbtn').style.backgroundColor =
-    player.autoAscend && player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0 ? 'green' : ''
+  DOMCacheGetOrSet('ascendbtn').style.backgroundColor = isAutoAscendRunning() ? 'green' : ''
 
   DOMCacheGetOrSet('singularitybtn').style.filter = runes.antiquities.level > 0
     ? ''
