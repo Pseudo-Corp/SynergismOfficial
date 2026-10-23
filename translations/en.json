@@ -4006,7 +4006,7 @@
       "shopAmbrosiaLuckMultiplier4": "Gain +1% Ambrosia Luck per level! Simple as that.",
       "shopOcteractAmbrosiaLuck": "Gain +1 Ambrosia Luck per level, multiplied by the number of digits in your lifetime produced Octeracts!",
       "shopCashGrabUltra": "For a nominal price, gain up to +15% Ambrosia Bar Points, +120% Cubes and +8% Quarks per level based on Ambrosia, scaling nonlinearly until num:((10000000)) lifetime earned.",
-      "shopAmbrosiaAccelerator": "For each level of this Accelerator, reduce Ambrosia Bar Point requirements for Ambrosia generation by num:((0.6))% per completion of EXALT 5 - No Ambrosia Upgrades.",
+      "shopAmbrosiaAccelerator": "For each level of this Accelerator, reduce Ambrosia Bar Point requirements for Ambrosia generation by num:((0.6))% per completion of EXALT 6 - No Ambrosia Upgrades.",
       "shopEXUltra": "With this EX Upgrade, every num:((1000)) owned Ambrosia adds +num:((0.1))% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at num:((125000)) * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +2 permanent Ambrosia Luck, per level.",
