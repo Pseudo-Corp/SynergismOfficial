@@ -1,7 +1,7 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
-import { parseSavedRules } from '../AutoAscension'
+import { corruptionLoadoutCount, parseSavedRules } from '../AutoAscension'
 import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { transcensionChallengeCap } from '../Challenges'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
@@ -320,7 +320,10 @@ const playerCorruptionSchema = z.object({
   tokenCompletions: z.number().int().min(0).catch(0).array().catch(() => [0]),
   highestCleared: z.number().int().min(0).optional().catch(undefined),
   autoIncrease: z.boolean().catch(() => blankSave.corruptions.autoIncrease),
-  cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest)
+  cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest),
+  loadouts: corruptionLevelSchema.catch(0).array().catch(() => []).transform((levels) =>
+    Array.from({ length: corruptionLoadoutCount }, (_, i) => levels[i] ?? 0)
+  )
 }).transform(({ highestCleared, ascensionLevel, ...corruptions }) => ({
   ...corruptions,
   ascensionLevel: Math.min(ascensionLevel ?? corruptions.used, corruptions.used),

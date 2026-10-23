@@ -1014,7 +1014,7 @@ export const showCorruptionSubtab = (subTabID: string) => {
   for (const [id, panel] of Object.entries(corruptionSubtabPanels)) {
     DOMCacheGetOrSet(panel).style.display = id === subTabID ? 'flex' : 'none'
   }
-  DOMCacheGetOrSet('autoAscendStatus').style.display = subTabID === 'autoAscend' ? '' : 'none'
+  DOMCacheGetOrSet('autoAscendSidebar').style.display = subTabID === 'autoAscend' ? '' : 'none'
   DOMCacheGetOrSet('corruptionTierSelected').style.display = subTabID === 'autoAscend' ? 'none' : 'flex'
 }
 

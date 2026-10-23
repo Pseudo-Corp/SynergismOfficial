@@ -450,6 +450,7 @@ export interface Player {
     highestCleared: number
     autoIncrease: boolean
     cleanseToHighest: boolean
+    loadouts: number[]
   }
 
   constantUpgrades: ArrayStartingWithNull<number>

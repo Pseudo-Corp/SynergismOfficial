@@ -103,6 +103,7 @@ export type AutoAscendProtocol =
   | { type: 'ascensionChallenge'; challenge: AscensionChallenge }
   | { type: 'nextAscensionChallenge' }
   | { type: 'corruption'; level: number }
+  | { type: 'corruptionLoadout'; slot: number }
   | { type: 'corruptionUnlocked' }
   | { type: 'corruptionCleared' }
   | { type: 'corruptionClimb'; amount: number }
@@ -145,12 +146,25 @@ const protocolModifierToggles: Record<ProtocolModifierKey, () => void> = {
   challengeSweep: toggleAutoChallengeRun
 }
 
+export const corruptionLoadoutCount = 8
+
+const loadoutOpMinimums = { '=': 0, '+': 1, '-': 1 } as const
+
+export type LoadoutOp = keyof typeof loadoutOpMinimums
+
+export const loadoutOps = Object.keys(loadoutOpMinimums) as LoadoutOp[]
+
+export const loadoutOpMinimum = (op: LoadoutOp) => loadoutOpMinimums[op]
+
+export type LoadoutWrite = { slot: number; op: LoadoutOp; value: number }
+
 export type AutoAscendRule = {
   name: string
   condition: AutoAscendExpr
   exception: AutoAscendExpr | null
   protocol: AutoAscendProtocol
   modifiers: ProtocolModifiers
+  loadouts: LoadoutWrite[]
 }
 
 export const isChallengeCondition = (
@@ -233,6 +247,8 @@ type RuleParseErrorCode =
   | 'unknownModifier'
   | 'invalidModifierValue'
   | 'duplicateModifier'
+  | 'invalidLoadout'
+  | 'duplicateLoadout'
   | 'tooManyComparisons'
   | 'invalidName'
   | 'nameTooLong'
@@ -271,9 +287,21 @@ const isChallengeRule = (id: string): id is ChallengeRuleKey => Object.hasOwn(ch
 const isBooleanRule = (id: string): id is BooleanRuleKey => Object.hasOwn(booleanRules, id)
 const isComparator = (id: string): id is Comparator => Object.hasOwn(comparators, id)
 const isModifierId = (id: string): id is keyof typeof protocolModifierIds => Object.hasOwn(protocolModifierIds, id)
+const isLoadoutOp = (id: string): id is LoadoutOp => Object.hasOwn(loadoutOpMinimums, id)
 const isExaltId = (id: string): id is keyof typeof exaltIds => Object.hasOwn(exaltIds, id)
 const isAscensionChallenge = (n: number): n is AscensionChallenge =>
   (ascensionChallenges as readonly number[]).includes(n)
+
+const loadoutIdPattern = /^s(\d+)$/
+
+const parseLoadoutSlot = (id: string) => {
+  const match = loadoutIdPattern.exec(id)
+  if (match === null) {
+    return null
+  }
+  const slot = Number(match[1])
+  return slot >= 1 && slot <= corruptionLoadoutCount ? slot : Number.NaN
+}
 
 const corruptionKeywordProtocols = {
   max: 'corruptionUnlocked',
@@ -444,6 +472,15 @@ export const parseRule = (text: string): AutoAscendRule => {
       return { type: corruptionKeywordProtocols[value] }
     }
 
+    const slot = parseLoadoutSlot(value)
+    if (slot !== null) {
+      if (Number.isNaN(slot)) {
+        return fail('invalidLoadout')
+      }
+      i++
+      return { type: 'corruptionLoadout', slot }
+    }
+
     const level = Number(value)
     if (value === '' || !Number.isInteger(level) || level < 0) {
       return fail('invalidProtocolValue')
@@ -479,9 +516,32 @@ export const parseRule = (text: string): AutoAscendRule => {
   i++
   const protocol = parseProtocol()
   const modifiers: ProtocolModifiers = {}
+  const loadouts: LoadoutWrite[] = []
   while (peek() === ',') {
     i++
     const id = peek()
+    const slot = parseLoadoutSlot(id)
+    if (slot !== null) {
+      if (Number.isNaN(slot)) {
+        fail('invalidLoadout')
+      }
+      if (loadouts.some((write) => write.slot === slot)) {
+        fail('duplicateLoadout')
+      }
+      i++
+      const op = peek()
+      if (!isLoadoutOp(op)) {
+        return fail('unexpectedToken')
+      }
+      i++
+      const value = Number(peek())
+      if (peek() === '' || !Number.isInteger(value) || value < loadoutOpMinimums[op]) {
+        fail('invalidLoadout')
+      }
+      i++
+      loadouts.push({ slot, op, value })
+      continue
+    }
     if (!isModifierId(id)) {
       fail('unknownModifier')
     }
@@ -503,7 +563,7 @@ export const parseRule = (text: string): AutoAscendRule => {
   if (i < tokens.length) {
     fail('unexpectedToken')
   }
-  return { name, condition, exception, protocol, modifiers }
+  return { name, condition, exception, protocol, modifiers, loadouts }
 }
 
 export const parseRules = (text: string): AutoAscendRule[] => {
@@ -569,6 +629,8 @@ const printProtocol = (protocol: AutoAscendProtocol): string => {
       return 'c=next'
     case 'corruption':
       return `l=${protocol.level}`
+    case 'corruptionLoadout':
+      return `l=s${protocol.slot}`
     case 'corruptionUnlocked':
       return 'l=max'
     case 'corruptionCleared':
@@ -593,7 +655,8 @@ export const printRule = (rule: AutoAscendRule) => {
     .filter((key) => rule.modifiers[key] !== undefined)
     .map((key) => `,${protocolModifierShortIds[key]}=${rule.modifiers[key] ? 1 : 0}`)
     .join('')
-  return `${name}${printExpr(rule.condition)}${exception}:${printProtocol(rule.protocol)}${modifiers}`
+  const loadouts = rule.loadouts.map(({ slot, op, value }) => `,s${slot}${op}${value}`).join('')
+  return `${name}${printExpr(rule.condition)}${exception}:${printProtocol(rule.protocol)}${loadouts}${modifiers}`
 }
 
 export const printRules = (rules: AutoAscendRule[]) => rules.map(printRule).join('\n')
@@ -604,6 +667,8 @@ const corruptionProtocolLevel = (protocol: CorruptionProtocol) => {
   switch (protocol.type) {
     case 'corruption':
       return protocol.level
+    case 'corruptionLoadout':
+      return player.corruptions.loadouts[protocol.slot - 1]
     case 'corruptionUnlocked':
       return maxCorruptionLevel()
     case 'corruptionCleared':
@@ -693,6 +758,27 @@ const runAutoAscendProtocol = (protocol: AutoAscendProtocol) => {
   pendingCorruptionProtocol = null
 }
 
+const loadoutWriteLevel = (current: number, { op, value }: LoadoutWrite) => {
+  switch (op) {
+    case '=':
+      return value
+    case '+':
+      return Math.max(current, Math.min(current + value, maxCorruptionLevel()))
+    case '-':
+      return Math.max(0, current - value)
+    default: {
+      const unreachable: never = op
+      return unreachable
+    }
+  }
+}
+
+const applyLoadoutWrites = (loadouts: LoadoutWrite[]) => {
+  for (const write of loadouts) {
+    player.corruptions.loadouts[write.slot - 1] = loadoutWriteLevel(player.corruptions.loadouts[write.slot - 1], write)
+  }
+}
+
 const applyProtocolModifiers = (modifiers: ProtocolModifiers) => {
   for (const key of protocolModifierKeys) {
     const enabled = modifiers[key]
@@ -709,6 +795,7 @@ export const runAutoAscendRules = () => {
   }
   const firedRule = player.autoAscendRules[index]
   runAutoAscendProtocol(firedRule.protocol)
+  applyLoadoutWrites(firedRule.loadouts)
   applyProtocolModifiers(firedRule.modifiers)
   return index
 }

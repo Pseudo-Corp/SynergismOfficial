@@ -40,7 +40,7 @@ import {
   updateAllUngroupedAchievementProgress,
   updateProgressiveCache
 } from './Achievements'
-import { runAutoAscendRules } from './AutoAscension'
+import { corruptionLoadoutCount, runAutoAscendRules } from './AutoAscension'
 import { autoAscendRulesUICreate, pulseAutoAscendRule, renderAutoAscendRules } from './AutoAscensionUI'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
@@ -989,7 +989,8 @@ export const player: Player = {
     tokenCompletions: [0],
     highestCleared: 0,
     autoIncrease: false,
-    cleanseToHighest: false
+    cleanseToHighest: false,
+    loadouts: Array.from({ length: corruptionLoadoutCount }, () => 0)
   },
 
   constantUpgrades: [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

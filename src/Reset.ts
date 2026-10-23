@@ -1154,6 +1154,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.corruptions.autoIncrease = player.corruptions.autoIncrease
   hold.corruptions.highestCleared = player.corruptions.highestCleared
   hold.corruptions.cleanseToHighest = player.corruptions.cleanseToHighest
+  hold.corruptions.loadouts = [...player.corruptions.loadouts]
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
   hold.resetToggleModes = player.resetToggleModes

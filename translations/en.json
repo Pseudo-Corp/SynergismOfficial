@@ -5876,6 +5876,10 @@
         "timeReal": "Real Ascension Timer",
         "timeSuccessful": "Since last C10 Ascension"
       },
+      "loadouts": {
+        "heading": "Corruption Loadouts",
+        "help": "Each Loadout stores a Corruption level. Auto Ascension Rules can go to a Loadout's level or change it."
+      },
       "rules": {
         "ui": {
           "heading": "Auto Ascension Rules",
@@ -5955,12 +5959,26 @@
             "ascensionChallenge": "Enter Ascension Challenge",
             "nextAscensionChallenge": "Enter next unfinished Ascension Challenge (11 to 15)",
             "corruption": "Set Corruption level to",
+            "corruptionLoadout": "Set Corruption level to a Loadout's level",
             "corruptionUnlocked": "Set Corruption level to highest unlocked",
             "corruptionCleared": "Set Corruption level to highest cleared",
             "corruptionClimb": "Climb Corruption level by",
             "corruptionDowngrade": "Downgrade Corruption level by",
             "corruptionCleanse": "Cleanse Corruption (set to level 0)"
           },
+          "loadoutsHelp": "Optional: after Ascending, also change these Loadouts. A Loadout picked above uses its level from before this change. Increases stop at your highest unlocked level, and decreases stop at 0.",
+          "loadoutSlot": "Loadout {{slot}}",
+          "loadoutOps": {
+            "set": "set to",
+            "increase": "increase by",
+            "decrease": "decrease by"
+          },
+          "loadoutWrites": {
+            "set": "Loadout {{slot}} set to {{value}}",
+            "increase": "Loadout {{slot}} increased by {{value}}",
+            "decrease": "Loadout {{slot}} decreased by {{value}}"
+          },
+          "addLoadout": "+ Loadout change",
           "modifiersHelp": "Optional: after Ascending, also change these settings.",
           "modifiers": {
             "antSacrifice": "Auto Ant Sacrifice",
@@ -5978,7 +5996,7 @@
           "moveUp": "Move rule up",
           "moveDown": "Move rule down",
           "errors": {
-            "invalidNumber": "Fix the highlighted numbers first. They must be 0 or higher, Corruption levels must be whole numbers, and climbs or downgrades must be at least 1.",
+            "invalidNumber": "Fix the highlighted numbers first. They must be 0 or higher, Corruption and Loadout levels must be whole numbers, and climbs, downgrades and Loadout increases or decreases must be at least 1.",
             "emptyCondition": "Add at least one comparison to the condition.",
             "noProtocol": "Choose what happens on Ascension.",
             "noSlots": "All of your rule slots are in use.",
@@ -5997,14 +6015,16 @@
           "invalidChallenge": "Line {{line}}, column {{column}}: Invalid Challenge. Use 1 to 5 for tc, 6 to 10 for rc and 11 to 15 for ac.",
           "expectedNumber": "Line {{line}}, column {{column}}: Expected a number.",
           "unclosedParen": "Line {{line}}, column {{column}}: Missing closing parenthesis.",
-          "expectedProtocol": "Line {{line}}, column {{column}}: Expected an exception after '~' or a protocol after ':' (asc, c=11 to c=15, c=next, l=<level>, l+<amount>, l-<amount>, l=max, l=clr or l=cln).",
-          "unknownProtocol": "Line {{line}}, column {{column}}: Unknown protocol. Use asc, c=<challenge>, c=next, l=<level>, l+<amount> or l-<amount>.",
-          "invalidProtocolValue": "Line {{line}}, column {{column}}: Invalid protocol value. Challenges must be 11 to 15 or next, levels a whole number, max, clr or cln, and climbs or downgrades a whole number of at least 1.",
+          "expectedProtocol": "Line {{line}}, column {{column}}: Expected an exception after '~' or a protocol after ':' (asc, c=11 to c=15, c=next, l=<level>, l=s1 to l=s8, l+<amount>, l-<amount>, l=max, l=clr or l=cln).",
+          "unknownProtocol": "Line {{line}}, column {{column}}: Unknown protocol. Use asc, c=<challenge>, c=next, l=<level>, l=s<loadout>, l+<amount> or l-<amount>.",
+          "invalidProtocolValue": "Line {{line}}, column {{column}}: Invalid protocol value. Challenges must be 11 to 15 or next, levels a whole number, s1 to s8, max, clr or cln, and climbs or downgrades a whole number of at least 1.",
           "invalidName": "Line {{line}}, column {{column}}: The rule name is not a valid quoted name.",
           "nameTooLong": "Line {{line}}, column {{column}}: Rule names can be at most 16 characters long.",
-          "unknownModifier": "Line {{line}}, column {{column}}: Unknown modifier. Use as (Auto Ant Sacrifice) or cs (Challenge Sweep).",
+          "unknownModifier": "Line {{line}}, column {{column}}: Unknown modifier. Use as (Auto Ant Sacrifice), cs (Challenge Sweep) or s1 to s8 (Loadout).",
           "invalidModifierValue": "Line {{line}}, column {{column}}: Modifiers must be set to 1 (enable) or 0 (disable).",
           "duplicateModifier": "Line {{line}}, column {{column}}: This modifier is already set for this rule.",
+          "invalidLoadout": "Line {{line}}, column {{column}}: Loadouts are s1 to s8. Set a Loadout to a whole number of 0 or higher (s3=25), or increase or decrease it by a whole number of at least 1 (s3+2, s3-2).",
+          "duplicateLoadout": "Line {{line}}, column {{column}}: This Loadout is already changed by this rule.",
           "tooManyComparisons": "Line {{line}}, column {{column}}: A condition or exception can have at most 16 comparisons.",
           "ruleTooLong": "Line {{line}}: Rule is too long."
         }

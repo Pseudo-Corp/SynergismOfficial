@@ -12,11 +12,16 @@ import {
   challengeRuleKeys,
   type Comparator,
   comparatorKeys,
+  corruptionLoadoutCount,
   equalityComparatorKeys,
   exaltKeys,
   getAutoAscendRuleSlots,
   isChallengeCondition,
   isProtocolModifierUnlocked,
+  type LoadoutOp,
+  loadoutOpMinimum,
+  loadoutOps,
+  type LoadoutWrite,
   maxComparisonsPerExpr,
   maxRuleNameLength,
   normalizeExpr,
@@ -55,6 +60,7 @@ type RuleDraft = {
   exception: DraftGroup
   protocol: AutoAscendProtocol | null
   modifiers: ProtocolModifiers
+  loadouts: LoadoutWrite[]
 }
 
 const modifierStates = ['keep', 'enable', 'disable'] as const
@@ -72,12 +78,21 @@ const protocolTypes: ProtocolType[] = [
   'ascensionChallenge',
   'nextAscensionChallenge',
   'corruption',
+  'corruptionLoadout',
   'corruptionUnlocked',
   'corruptionCleared',
   'corruptionClimb',
   'corruptionDowngrade',
   'corruptionCleanse'
 ]
+
+const loadoutSlots = Array.from({ length: corruptionLoadoutCount }, (_, i) => i + 1)
+
+const loadoutOpKeys: Record<LoadoutOp, string> = {
+  '=': 'set',
+  '+': 'increase',
+  '-': 'decrease'
+}
 
 const comparatorSymbols: Record<Comparator, string> = {
   '>=': '≥',
@@ -113,6 +128,8 @@ const challengeName = (challenge: number) => i18next.t(`challenges.${challenge}.
 const protocolName = (type: ProtocolType) => i18next.t(`${uiKey}.protocols.${type}`)
 const modifierName = (key: ProtocolModifierKey) => i18next.t(`${uiKey}.modifiers.${key}`)
 const modifierStateName = (state: ModifierState) => i18next.t(`${uiKey}.modifierStates.${state}`)
+const loadoutName = (slot: number) => i18next.t(`${uiKey}.loadoutSlot`, { slot })
+const loadoutSlotOptions = (slots: number[]) => slots.map((slot) => ({ value: slot, label: loadoutName(slot) }))
 
 const modifierState = (enabled: boolean | undefined): ModifierState =>
   enabled === undefined ? 'keep' : enabled ? 'enable' : 'disable'
@@ -197,6 +214,8 @@ const defaultProtocol = (type: ProtocolType): AutoAscendProtocol => {
       return { type, challenge: 11 }
     case 'corruption':
       return { type, level: 0 }
+    case 'corruptionLoadout':
+      return { type, slot: 1 }
     case 'corruptionClimb':
     case 'corruptionDowngrade':
       return { type, amount: 1 }
@@ -271,6 +290,8 @@ const describeProtocol = (protocol: AutoAscendProtocol) => {
       return `${protocolName(protocol.type)}: ${challengeName(protocol.challenge)}`
     case 'corruption':
       return `${protocolName(protocol.type)} ${format(protocol.level)}`
+    case 'corruptionLoadout':
+      return `${protocolName(protocol.type)}: ${loadoutName(protocol.slot)}`
     case 'corruptionClimb':
     case 'corruptionDowngrade':
       return `${protocolName(protocol.type)} ${format(protocol.amount)}`
@@ -291,11 +312,14 @@ const describeRule = (rule: AutoAscendRule) => {
   const exception = rule.exception === null
     ? ''
     : ` ${i18next.t(`${uiKey}.unless`)} ${describeExpr(rule.exception)}`
+  const loadouts = rule.loadouts.map(({ slot, op, value }) =>
+    i18next.t(`${uiKey}.loadoutWrites.${loadoutOpKeys[op]}`, { slot, value: format(value) })
+  )
   const modifiers = protocolModifierKeys
     .filter((key) => rule.modifiers[key] !== undefined && isProtocolModifierUnlocked(key))
     .map((key) => `${modifierName(key)}: ${modifierStateName(modifierState(rule.modifiers[key]))}`)
-    .join(', ')
-  const modifierText = modifiers === '' ? '' : ` (${modifiers})`
+  const extras = [...loadouts, ...modifiers].join(', ')
+  const modifierText = extras === '' ? '' : ` (${extras})`
   return `${i18next.t(`${uiKey}.when`)} ${describeExpr(rule.condition)}${exception} → ${
     describeProtocol(rule.protocol)
   }${modifierText}`
@@ -480,11 +504,62 @@ const renderProtocolEditor = () => {
     row.append(createNumberInput(protocol.level, true, (level) => {
       protocol.level = level
     }))
+  } else if (protocol?.type === 'corruptionLoadout') {
+    row.append(createSelect(loadoutSlotOptions(loadoutSlots), protocol.slot, (slot) => {
+      protocol.slot = slot
+      updatePreview()
+    }))
   } else if (protocol?.type === 'corruptionClimb' || protocol?.type === 'corruptionDowngrade') {
     row.append(createNumberInput(protocol.amount, true, (amount) => {
       protocol.amount = amount
     }, 1))
   }
+
+  const rerenderProtocol = () => {
+    renderProtocolEditor()
+    updatePreview()
+  }
+  const usedSlots = new Set(currentDraft.loadouts.map((write) => write.slot))
+  const loadoutRows = currentDraft.loadouts.map((write) => {
+    const loadoutRow = createElement('div', 'autoAscendComparison')
+    const remove = createButton('×', () => {
+      currentDraft.loadouts.splice(currentDraft.loadouts.indexOf(write), 1)
+      rerenderProtocol()
+    }, 'autoAscendButton autoAscendRemove')
+    remove.setAttribute('aria-label', i18next.t(`${uiKey}.remove`))
+    loadoutRow.append(
+      createSelect(
+        loadoutSlotOptions(loadoutSlots.filter((slot) => slot === write.slot || !usedSlots.has(slot))),
+        write.slot,
+        (slot) => {
+          write.slot = slot
+          rerenderProtocol()
+        }
+      ),
+      createSelect(
+        loadoutOps.map((op) => ({ value: op, label: i18next.t(`${uiKey}.loadoutOps.${loadoutOpKeys[op]}`) })),
+        write.op,
+        (op) => {
+          write.op = op
+          write.value = Math.max(write.value, loadoutOpMinimum(op))
+          rerenderProtocol()
+        }
+      ),
+      createNumberInput(write.value, true, (value) => {
+        write.value = value
+      }, loadoutOpMinimum(write.op)),
+      remove
+    )
+    return loadoutRow
+  })
+  const addLoadout = createButton(i18next.t(`${uiKey}.addLoadout`), () => {
+    const slot = loadoutSlots.find((candidate) => !usedSlots.has(candidate))
+    if (slot !== undefined) {
+      currentDraft.loadouts.push({ slot, op: '=', value: 0 })
+      rerenderProtocol()
+    }
+  })
+  addLoadout.disabled = usedSlots.size >= corruptionLoadoutCount
 
   const modifierRows = protocolModifierKeys.filter(isProtocolModifierUnlocked).map((key) => {
     const modifierRow = createElement('label', 'autoAscendComparison autoAscendModifier')
@@ -502,7 +577,12 @@ const renderProtocolEditor = () => {
     return modifierRow
   })
 
-  container.replaceChildren(row)
+  container.replaceChildren(
+    row,
+    createElement('p', 'autoAscendHelp', i18next.t(`${uiKey}.loadoutsHelp`)),
+    ...loadoutRows,
+    addLoadout
+  )
   if (modifierRows.length > 0) {
     container.append(createElement('p', 'autoAscendHelp', i18next.t(`${uiKey}.modifiersHelp`)), ...modifierRows)
   }
@@ -521,7 +601,8 @@ const buildDraftRule = (): AutoAscendRule | null => {
     condition,
     exception: fromDraft(draft.exception),
     protocol: draft.protocol,
-    modifiers: { ...draft.modifiers }
+    modifiers: { ...draft.modifiers },
+    loadouts: draft.loadouts.map((write) => ({ ...write }))
   }
 }
 
@@ -557,7 +638,8 @@ const draftFromRule = (index: number | null, rule: AutoAscendRule | undefined): 
   condition: rule === undefined ? { kind: 'group', op: 'and', children: [newComparison()] } : toDraft(rule.condition),
   exception: rule?.exception ? toDraft(rule.exception) : { kind: 'group', op: 'and', children: [] },
   protocol: rule === undefined ? null : { ...rule.protocol },
-  modifiers: rule === undefined ? {} : { ...rule.modifiers }
+  modifiers: rule === undefined ? {} : { ...rule.modifiers },
+  loadouts: rule === undefined ? [] : rule.loadouts.map((write) => ({ ...write }))
 })
 
 const parseErrorMessage = (error: RuleParseError, line: number) =>
@@ -741,6 +823,43 @@ export const updateAutoAscendStatus = () => {
     player.lastSuccessfulAscensionCounter,
     0
   )
+  updateCorruptionLoadouts()
+}
+
+const loadoutInput = (slot: number) => DOMCacheGetOrSet(`corruptionLoadoutInput${slot}`) as HTMLInputElement
+
+export const updateCorruptionLoadouts = () => {
+  for (const slot of loadoutSlots) {
+    const input = loadoutInput(slot)
+    if (document.activeElement !== input) {
+      input.value = String(player.corruptions.loadouts[slot - 1])
+      input.classList.remove('autoAscendInvalid')
+    }
+  }
+}
+
+const createLoadoutRow = (slot: number) => {
+  const row = createElement('label', 'corruptionLoadoutRow')
+  const input = createElement('input', 'autoAscendNumber')
+  input.id = `corruptionLoadoutInput${slot}`
+  input.type = 'number'
+  input.min = '0'
+  input.step = '1'
+  input.addEventListener('input', () => {
+    const level = Number(input.value)
+    const valid = input.value.trim() !== '' && Number.isInteger(level) && level >= 0
+    input.classList.toggle('autoAscendInvalid', !valid)
+    if (valid) {
+      player.corruptions.loadouts[slot - 1] = level
+    }
+  })
+  input.addEventListener('blur', updateCorruptionLoadouts)
+  row.append(
+    createElement('span', 'corruptionLoadoutName', loadoutName(slot)),
+    createElement('code', 'corruptionLoadoutId', `s${slot}`),
+    input
+  )
+  return row
 }
 
 export const renderAutoAscendRules = () => {
@@ -756,6 +875,7 @@ export const renderAutoAscendRules = () => {
     ...rules.map((rule, index) => renderRuleItem(rule, index, rules.length))
   )
   DOMCacheGetOrSet('autoAscendAddRule').toggleAttribute('disabled', rules.length >= slots)
+  updateCorruptionLoadouts()
 }
 
 export const autoAscendRulesUICreate = () => {
@@ -787,6 +907,7 @@ export const autoAscendRulesUICreate = () => {
   DOMCacheGetOrSet('autoAscendRuleEditorClose').addEventListener('click', closeEditor)
   DOMCacheGetOrSet('autoAscendRuleCancel').addEventListener('click', closeEditor)
   DOMCacheGetOrSet('autoAscendRuleSave').addEventListener('click', saveDraft)
+  DOMCacheGetOrSet('corruptionLoadoutList').replaceChildren(...loadoutSlots.map(createLoadoutRow))
   renderAutoAscendRules()
 }
 
