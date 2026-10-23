@@ -1000,14 +1000,14 @@ export const generateEventHandlers = () => {
       element,
       html: () => resetDetailsModalHTML(reset.input, element, reset.label),
       style: { borderColor: reset.borderColor },
-      buy: (_, modalAction) => {
+      buy: async (_, modalAction) => {
         if (isMobile && modalAction !== 'reset') {
           return
         }
         if (isMobile) {
           CloseModal()
         }
-        return reset.action()
+        await reset.action()
       },
       mobileButtons: [{ action: 'reset', label: reset.label }],
       updateInterval: MEDIUM_MODAL_UPDATE_TICK

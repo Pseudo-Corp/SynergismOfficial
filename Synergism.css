@@ -6268,10 +6268,10 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .autoAscendRuleItem.autoAscendRuleFired {
-    animation: autoAscendRulePulse 1.6s ease-out;
+    animation: auto-ascend-rule-pulse 1.6s ease-out;
 }
 
-@keyframes autoAscendRulePulse {
+@keyframes auto-ascend-rule-pulse {
     0%,
     50% {
         border-color: lime;
