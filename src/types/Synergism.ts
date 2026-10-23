@@ -367,8 +367,6 @@ export interface Player {
   ascensionCounter: number
   ascensionCounterReal: number
   ascensionCounterRealReal: number
-  lastSuccessfulAscensionCounter: number
-  lastSuccessfulAscensionCounterReal: number
   autoOpenCubes: boolean
   openCubes: number
   autoOpenTesseracts: boolean

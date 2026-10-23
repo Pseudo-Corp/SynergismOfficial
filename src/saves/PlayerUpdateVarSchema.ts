@@ -406,8 +406,5 @@ export const playerUpdateVarSchema = z.preprocess(cleanseLegacyCorruptions, play
 
   Reflect.deleteProperty(player, 'highestChallenge15Exponent')
 
-  player.lastSuccessfulAscensionCounter ??= player.ascensionCounter
-  player.lastSuccessfulAscensionCounterReal ??= player.ascensionCounterReal
-
   return player
 })

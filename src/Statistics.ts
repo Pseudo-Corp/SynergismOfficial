@@ -368,12 +368,11 @@ export const allCubeStats: NumberStatLineCategory = {
     {
       i18n: 'AscensionTime',
       stat: () => {
-        const ascensionCounter = player.lastSuccessfulAscensionCounter
         const resetThreshold = G.ASCENSION_RESET_THRESHOLD
         const scale = getAchievementReward('ascensionRewardScaling')
 
-        const penalty = Math.min(1, ascensionCounter / resetThreshold)
-        const extraReward = Math.max(1, ascensionCounter / resetThreshold)
+        const penalty = Math.min(1, player.ascensionCounter / resetThreshold)
+        const extraReward = Math.max(1, player.ascensionCounter / resetThreshold)
         if (scale) {
           return penalty * extraReward
         } else {

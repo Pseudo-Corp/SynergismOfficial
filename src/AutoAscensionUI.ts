@@ -841,10 +841,6 @@ export const updateAutoAscendStatus = () => {
   challengeElement.title = challenge === 0 ? '' : challengeName(challenge)
   DOMCacheGetOrSet('autoAscendStatusTime').textContent = formatTimeShort(player.ascensionCounter, 0)
   DOMCacheGetOrSet('autoAscendStatusTimeReal').textContent = formatTimeShort(player.ascensionCounterRealReal, 0)
-  DOMCacheGetOrSet('autoAscendStatusTimeSuccessful').textContent = formatTimeShort(
-    player.lastSuccessfulAscensionCounter,
-    0
-  )
   updateCorruptionLoadouts()
 }
 

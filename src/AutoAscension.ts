@@ -183,6 +183,9 @@ const evaluateCondition = (c: AutoAscendCondition): boolean => {
     return comparators[c.op](challengeRules[c.rule].current(), c.value)
   }
   if ('op' in c) {
+    if (c.rule === 't' && player.challengecompletions[10] === 0) {
+      return false
+    }
     return comparators[c.op](numberRules[c.rule](), c.value)
   }
   return booleanRules[c.rule]() === c.value

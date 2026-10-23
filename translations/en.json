@@ -5873,8 +5873,7 @@
         "ascensionChallenge": "Ascension Challenge",
         "none": "None",
         "timeInGame": "Ascension Timer",
-        "timeReal": "Real Ascension Timer",
-        "timeSuccessful": "Since last C10 Ascension"
+        "timeReal": "This Attempt (Real)"
       },
       "loadouts": {
         "heading": "Corruption Loadouts",
@@ -5935,8 +5934,8 @@
           "unless": "unless",
           "variables": {
             "c10": "Challenge 10 Completions",
-            "t": "Ascension Time, In-game (seconds)",
-            "rt": "Ascension Time, Real (seconds)",
+            "t": "Ascension Time, In-game (seconds, needs a C10 completion)",
+            "rt": "This Attempt, Real (seconds)",
             "tc": "Current Transcension Challenge",
             "rc": "Current Reincarnation Challenge",
             "ac": "Current Ascension Challenge",
@@ -6039,7 +6038,7 @@
       "autoIncrease": "Move up to each newly unlocked level automatically",
       "cleanseToHighest": "Cleanse to your highest cleared level instead of level 0",
       "rulesFirst": "Auto Ascension Rules apply before these toggles",
-      "timerPreserved": "Ascending without a Challenge 10 completion preserves your Ascension Timer, but only for the purpose of rewards"
+      "timerPreserved": "Ascending without a Challenge 10 completion keeps your Ascension Timer. Rules comparing Ascension Time only apply once you have a Challenge 10 completion. To time an attempt, use This Attempt instead."
     },
     "controls": {
       "climbing": "Climbing"

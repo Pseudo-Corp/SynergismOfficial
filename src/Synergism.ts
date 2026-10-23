@@ -771,8 +771,6 @@ export const player: Player = {
   ascensionCounter: 0,
   ascensionCounterReal: 0,
   ascensionCounterRealReal: 0,
-  lastSuccessfulAscensionCounter: 0,
-  lastSuccessfulAscensionCounterReal: 0,
   // dprint-ignore
   cubeUpgrades: [
     null,

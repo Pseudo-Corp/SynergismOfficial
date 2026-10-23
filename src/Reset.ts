@@ -720,12 +720,10 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     awardAchievementGroup('ascensionCount')
     awardUngroupedAchievement('ascended')
 
-    player.ascensionCounter = 0
-    player.ascensionCounterReal = 0
     player.ascensionCounterRealReal = 0
     if (c10Completions > 0) {
-      player.lastSuccessfulAscensionCounter = 0
-      player.lastSuccessfulAscensionCounterReal = 0
+      player.ascensionCounter = 0
+      player.ascensionCounterReal = 0
     }
 
     updateTalismanInventory()

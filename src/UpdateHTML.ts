@@ -1019,7 +1019,7 @@ export const showCorruptionSubtab = (subTabID: string) => {
 }
 
 const updateAscensionStats = () => {
-  let t = player.lastSuccessfulAscensionCounter
+  let t = player.ascensionCounter
   // Division by 0 is not defined
   if (t === 0) {
     t = 1

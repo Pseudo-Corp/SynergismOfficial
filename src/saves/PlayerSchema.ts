@@ -907,8 +907,6 @@ export const playerSchema = z.object({
   ascensionCounter: z.number().default(() => blankSave.ascensionCounter),
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
-  lastSuccessfulAscensionCounter: z.number().optional(),
-  lastSuccessfulAscensionCounterReal: z.number().optional(),
   cubeUpgrades: arrayStartingWithNull(z.number())
     .transform((array) => arrayExtend(array, 'cubeUpgrades'))
     .default((): [null, ...number[]] => [...blankSave.cubeUpgrades]),
