@@ -935,7 +935,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     effectDescription () {
       const effects = getShopUpgradeEffects('cubeToQuarkAll', 'quarkMult')
       return i18next.t('shop.upgradeEffects.cubeToQuarkAll', {
-        amount: formatAsPercentIncrease(effects, 1)
+        amount: format(effects, 3, true)
       })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass2', 'unlocked'),

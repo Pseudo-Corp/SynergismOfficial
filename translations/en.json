@@ -3967,7 +3967,7 @@
       "seasonPassZ": "This one is arguably very good. Gain +1% ALL Cubes per level, per Singularity!",
       "challengeTome2": "You find the final pages of the lost tome. It functionally acts the same as the rest of the pages, but you can have up to five more!",
       "instantChallenge2": "Completing an Ascension Challenge doesn't cause a reset (if retry is enabled), and Transcension and Reincarnation Challenges gain every completion you can afford each tick.",
-      "cubeToQuarkAll": "First up on the menu, why not gain +num:((0.2))% Quarks from Cube opening per level?",
+      "cubeToQuarkAll": "First up on the menu, why not boost your Overflux Orb Effect by +num:((0.2))% per level?",
       "cashGrab2": "This isn't even as good as the original. +num:((0.5))% Offerings and Obtainium per level.",
       "chronometerZ": "Gain +num:((0.1))% Ascension Speed per level per Singularity. It needs a lot of fuel to power up.",
       "offeringEX2": "Gain +1% Offerings per level per Singularity. Putting the Singularity Debuff industry out of business.",
@@ -4080,7 +4080,7 @@
       "seasonPassZ": "Ascensions give <<lightgoldenrodyellow|{{amount}}>> more cubes (of <<orchid|all>> types) on Ascension. This one <<red|never>> resets!",
       "challengeTome2": "Challenge 10 Exponent Requirement reduced by <<lightgoldenrodyellow|{{amount1}}>>. Past 25 completions, C9 and C10 requirements scale <<lightgoldenrodyellow|{{amount2}}%>> slower",
       "instantChallenge2": "Transcension and Reincarnation Challenges complete all at once!",
-      "cubeToQuarkAll": "Cube to Quark Corner gives <<cyan|+{{amount}}>> more Quarks!",
+      "cubeToQuarkAll": "Your Overflux Orb Effect is multiplied by <<cyan|×{{amount}}>>!",
       "cashGrab2": "You will gain <<gold|{{amount}}>> more Obtainium and Offerings! <<red|Half>> as powerful as the original.",
       "chronometerZ": "Ascension timer increases <<orange|{{amount}}>> faster! Seems like this model can build <<orchid|momentum>>...",
       "offeringEX2": "You will gain <<goldenrod|{{amount}}>> more Offerings! Puts the first to <<red|shame>>...",
@@ -4089,7 +4089,7 @@
       "seasonPassLost": "You generate <<lightgoldenrodyellow|{{amount}}>> more Wow! Octeracts per second.",
       "challenge15Auto": "Even in a premium shop it's kinda obvious, right?",
       "extraWarp": "You can warp <<red|+{{amount}}>> extra time.",
-      "autoWarp": "If you buy this upgrade, you can toggle <<red|auto warp>> in the Hepteract Forge tab. Only if you buy this, though.",
+      "autoWarp": "If you buy this upgrade, you can toggle <<red|auto warp>> in the Hepteract Forge tab. While on, your Overflux Orb effect and Quarks from Ants are multiplied by 1 + your remaining Day Warps.",
       "improveQuarkHept": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "improveQuarkHept2": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "improveQuarkHept3": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
@@ -4302,7 +4302,7 @@
       },
       "generousOrbs": {
         "name": "Generous Orbs",
-        "default": "Overflux Orbs effect on opening Cubes for Quarks can now go up to {{amount}}%"
+        "default": "The base effect of Overflux Orbs on opening Cubes for Quarks can now go up to {{amount}}%, before other multipliers"
       },
       "tokenInheritance": {
         "name": "Token Inheritance",
@@ -8704,6 +8704,11 @@
     "doubleSpent": "Something already modified your balance or cap, try again!",
     "expandedInventory": "Successfully expanded your inventory. You can now fit {{x}}.",
     "orbEffect": "Orb Effect: Opening Cubes gives {{x}}% more Quarks.",
+    "orbBreakdown": {
+      "base": "Orbs: ×{{base}} (max ×{{cap}})",
+      "shop": "× {{x}} from Quark Gain Cube Improvement 2",
+      "warp": "× {{x}} from Auto Warp"
+    },
     "orbsPurchasedToday": "Orbs Purchased Today: {{x}}.",
     "amalgamate": "You can amalgamate Overflux Orbs here. [NOTE: these expire at the end of your current day]",
     "cost250k": "Cost: num:((250000)) Hepteracts per Overflux Orb",

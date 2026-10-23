@@ -7,7 +7,8 @@ import {
   calculateExalt4EffectiveSingularityMultiplier,
   calculateGoldenQuarkCost,
   calculateImmaculateAlchemyBonus,
-  calculateIrish3PurpleLuck
+  calculateIrish3PurpleLuck,
+  calculateMaxBaseCubeQuarkMultiplier
 } from './Calculate'
 import { updateTokens } from './Campaign'
 import { activeEffectiveCorruptionLevel } from './Corruptions'
@@ -3065,6 +3066,8 @@ interface SingularityPerk {
 
 // List of Singularity Perks based on player.highestSingularityCount
 // The list is ordered on first level acquisition, so be careful when inserting a new one ;)
+export const generousOrbsLevels = [1, 5, 10, 25, 50, 100, 200]
+
 export const singularityPerks: SingularityPerk[] = [
   {
     name: 'singularity.perks.welcometoSingularity.name',
@@ -3114,27 +3117,11 @@ export const singularityPerks: SingularityPerk[] = [
   },
   {
     name: 'singularity.perks.generousOrbs.name',
-    levels: [1, 2, 5, 10, 15, 20, 25, 30, 35],
-    description: (n: number, levels: number[]) => {
-      const overfluxBonus: Record<number, number> = {
-        8: 700, // How to read: levels[8] -> Sing 35 gives 700%
-        7: 500,
-        6: 415,
-        5: 360,
-        4: 315,
-        3: 280,
-        2: 255,
-        1: 230
-      }
-
-      for (let i = 8; i > 0; i--) {
-        if (n >= levels[i]) {
-          return i18next.t('singularity.perks.generousOrbs.default', {
-            amount: overfluxBonus[i]
-          })
-        }
-      }
-      return i18next.t('singularity.perks.generousOrbs.default', { amount: '215' })
+    levels: generousOrbsLevels,
+    description: (n: number) => {
+      return i18next.t('singularity.perks.generousOrbs.default', {
+        amount: format(100 * (calculateMaxBaseCubeQuarkMultiplier(n) - 1))
+      })
     },
     ID: 'generousOrbs'
   },
