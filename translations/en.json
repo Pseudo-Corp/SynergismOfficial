@@ -5682,7 +5682,7 @@
       "viscosity": {
         "low": "2^(2 × {{L}})",
         "mid": "2^(40 + 6 × ({{L}} − 20))",
-        "high": "2^(190 + 3 × ({{L}} − 45)^1.5)"
+        "high": "2^(190 + 9 × ({{L}} − 45))"
       },
       "salvage": {
         "low": "−62.5 × {{L}}",
@@ -6149,6 +6149,7 @@
       "accelerators": "Accelerators: {{amount}} [+{{gain}}]",
       "multipliers": "Multipliers: {{amount}} [+{{gain}}]",
       "viscosityEffective": "<<orange|Effective: {{amount}} [+{{gain}}] (÷{{viscosity}} Viscosity)>>",
+      "freeHardcap": "<<crimson|Free amount hardcapped at {{cap}}>>",
       "acceleratorBoost": "Accelerator Boost: {{amount}} [+{{gain}}]",
       "refineries": "Refineries: {{amount}} [+{{gain}}]",
       "coalPlants": "Coal Plants: {{amount}} [+{{gain}}]",
@@ -8152,7 +8153,7 @@
     },
     "freeAccelMultStats": {
       "title": "Free Accelerators, Multipliers and Accelerator Boosts",
-      "extraInfo": "Free Accelerators and Multipliers are (Additive sources × Multipliers), raised to the Challenge 15 exponent. Hepteracts and Challenge 15 rewards are applied afterwards. The Viscosity Corruption then divides the number of Accelerators and Multipliers (free and purchased) counted by their Coin multipliers and by Upgrades. Free Accelerator Boosts are Additive sources × Multipliers."
+      "extraInfo": "Free Accelerators and Multipliers are (Additive sources × Multipliers), raised to the Challenge 15 exponent. Hepteracts and Challenge 15 rewards are applied afterwards. The Viscosity Corruption then divides the number of Accelerators and Multipliers (free and purchased) counted by their Coin multipliers and by Upgrades, with free Accelerators and Multipliers capped at num:((1e300)) before Viscosity and num:((1e100)) after. Free Accelerator Boosts are Additive sources × Multipliers."
     },
     "freeAccelerators": {
       "title": "Free Accelerators",
@@ -8329,7 +8330,8 @@
       "BlundersCorruption": "'Blunders' Corruption:",
       "SingularityDebuff": "Singularity Debuff:",
       "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
-      "Total": "Total Ant ELO Multiplier:"
+      "Total": "Total Ant ELO Multiplier:",
+      "extraInfo": "The Total Ant ELO Multiplier can never go below <<yellow|{{min}}%>>, no matter how many penalties apply."
     },
     "effectiveAntELOStats": {
       "title": "Effective Ant ELO",
