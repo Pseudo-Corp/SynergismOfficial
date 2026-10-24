@@ -49,7 +49,8 @@ import {
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
   calculateTotalOcteractQuarkBonus,
-  calculateTotalSalvage
+  calculateTotalSalvage,
+  freeAccelMultHardcap
 } from './Calculate'
 import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
@@ -474,6 +475,13 @@ const viscosityEffectiveText = (viscosity: number, bought: number, free: number)
   }`
 }
 
+const freeAccelMultHardcapText = (free: number) => {
+  if (free < freeAccelMultHardcap) {
+    return ''
+  }
+  return `<br>${i18next.t('buildings.names.freeHardcap', { cap: format(freeAccelMultHardcap) })}`
+}
+
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
     return
@@ -547,6 +555,7 @@ export const visualUpdateBuildings = () => {
         gain: format(G.freeAccelerator, 0, true, false)
       }
     ) + viscosityEffectiveText(viscosity, G.totalAccelerator - G.effectiveFreeAccelerator, G.effectiveFreeAccelerator)
+      + freeAccelMultHardcapText(G.effectiveFreeAccelerator)
 
     DOMCacheGetOrSet('buildtext12').innerHTML = i18next.t(
       'buildings.acceleratorPower',
@@ -565,6 +574,7 @@ export const visualUpdateBuildings = () => {
         gain: format(G.freeMultiplier, 0, true, false)
       }
     ) + viscosityEffectiveText(viscosity, G.totalMultiplier - G.effectiveFreeMultiplier, G.effectiveFreeMultiplier)
+      + freeAccelMultHardcapText(G.effectiveFreeMultiplier)
 
     DOMCacheGetOrSet('buildtext14').innerHTML = i18next.t(
       'buildings.multiplierPower',

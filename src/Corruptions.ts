@@ -77,6 +77,7 @@ const corruptionCubeUnlocks: Record<CorruptionCubeType, CorruptionCubeUnlock> = 
 type CorruptionCubeRate = {
   base: number
   growth: number
+  lateGrowth?: number
   endgameGrowth: number
 }
 
@@ -85,7 +86,7 @@ const corruptionCubeRates: Record<CorruptionCubeType, CorruptionCubeRate> = {
   tesseracts: { base: 1e-3, growth: 1.15, endgameGrowth: 1.07 },
   hypercubes: { base: 1e-3, growth: 1.2, endgameGrowth: 1.1 },
   platonics: { base: 2e-4, growth: 1.3, endgameGrowth: 1.15 },
-  hepteracts: { base: 1e-4, growth: 1.4, endgameGrowth: 1.17 },
+  hepteracts: { base: 1e-4, growth: 1.7, lateGrowth: 1.05, endgameGrowth: 1.05 },
   octeracts: { base: 1 / (5e19 * 3600 * 24 * 365), growth: 1.45, endgameGrowth: 1.2 }
 }
 
@@ -101,6 +102,7 @@ const corruptionCubeIcons: Record<CorruptionCubeType, string> = {
 const corruptionCubeTypes = Object.keys(corruptionCubeIcons) as CorruptionCubeType[]
 
 const midgameLevel = 20
+const lateGameLevel = 36
 const endgameLevel = 45
 
 type CorruptionLevelEffect<K extends CorruptionKey> = [
@@ -123,7 +125,7 @@ const corruptionLevelEffects: { [K in CorruptionKey]: CorruptionLevelEffect<K> }
   viscosity: [
     (l) => Math.pow(2, 2 * l),
     (l) => Math.pow(2, 40 + 6 * (l - midgameLevel)),
-    (l) => Math.min(1e300, Math.pow(2, 190 + 3 * Math.pow(l - endgameLevel, 1.5)))
+    (l) => Math.min(1e300, Math.pow(2, 190 + 9 * (l - endgameLevel)))
   ],
   salvage: [
     (l) => -62.5 * l,
@@ -352,9 +354,12 @@ export const ascensionEffectiveCorruptionLevel = () => {
 export const corruptionCubeBase = (cube: CorruptionCubeType) => corruptionCubeRates[cube].base
 
 export const corruptionCubeRate = (cube: CorruptionCubeType, effectiveLevel: number) => {
-  const levelsPastUnlock = Math.max(0, Math.min(effectiveLevel, endgameLevel) - corruptionCubeUnlocks[cube].level)
-  const { growth, endgameGrowth } = corruptionCubeRates[cube]
-  return Math.pow(growth, levelsPastUnlock) * Math.pow(endgameGrowth, Math.max(0, effectiveLevel - endgameLevel))
+  const unlockLevel = corruptionCubeUnlocks[cube].level
+  const earlyLevels = Math.max(0, Math.min(effectiveLevel, lateGameLevel) - unlockLevel)
+  const lateLevels = Math.max(0, Math.min(effectiveLevel, endgameLevel) - Math.max(lateGameLevel, unlockLevel))
+  const { growth, lateGrowth = growth, endgameGrowth } = corruptionCubeRates[cube]
+  return Math.pow(growth, earlyLevels) * Math.pow(lateGrowth, lateLevels)
+    * Math.pow(endgameGrowth, Math.max(0, effectiveLevel - endgameLevel))
 }
 
 const meetsCorruptionCubeLevel = (effectiveLevel: number, cube: CorruptionCubeType) => {

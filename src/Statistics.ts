@@ -131,7 +131,8 @@ import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-
 import {
   calculateBaseAntELO,
   calculateEffectiveAntELO,
-  calculateELOMult
+  calculateELOMult,
+  minimumELOMult
 } from './Features/Ants/AntSacrifice/Rewards/ELO/AntELO/lib/calculate'
 import {
   calculateSingularityPerkELO,
@@ -4940,7 +4941,7 @@ export const allCoinMultiplierStats: DecimalStatLineCategory = {
       i18n: 'MythosUpgrade8',
       stat: () =>
         player.upgrades[48] > 0.5
-          ? Decimal.pow((G.totalMultiplier * G.totalAccelerator) / 1000 + 1, 8)
+          ? Decimal.pow(new Decimal(G.totalMultiplier).times(G.totalAccelerator).div(1000).add(1), 8)
           : 1
     },
     {
@@ -5591,6 +5592,10 @@ const loadStatisticsAdditiveAntELOMult = () => {
     'AdditiveAntELOStat',
     calculateELOMult
   )
+
+  DOMCacheGetOrSet('additiveAntELOExtra').innerHTML = i18next.t('statistics.additiveAntELOMultStats.extraInfo', {
+    min: format(100 * minimumELOMult, 0, true)
+  })
 }
 
 const loadStatisticsRebornELOCreationSpeedMult = () => {

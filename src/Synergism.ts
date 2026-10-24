@@ -56,6 +56,7 @@ import {
   syncCurveBuildings
 } from './Buy'
 import {
+  calculateEffectiveFreeAccelMult,
   calculateFreeAccelMult,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
@@ -2355,7 +2356,7 @@ export const formatDecimalAsPercentIncrease = (n: Decimal, accuracy = 2) => {
 export const updateAllTick = (): void => {
   const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
   G.freeAccelerator = calculateFreeAccelMult('accelerator')
-  G.effectiveFreeAccelerator = G.freeAccelerator / viscosity
+  G.effectiveFreeAccelerator = calculateEffectiveFreeAccelMult(G.freeAccelerator, viscosity)
   G.totalAccelerator = player.acceleratorBought / viscosity + G.effectiveFreeAccelerator
 
   const tuSevenMulti = player.upgrades[46] > 0.5 ? 1.05 : 1
@@ -2413,7 +2414,7 @@ export const updateAllTick = (): void => {
 export const updateAllMultiplier = (): void => {
   const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
   G.freeMultiplier = calculateFreeAccelMult('multiplier')
-  G.effectiveFreeMultiplier = G.freeMultiplier / viscosity
+  G.effectiveFreeMultiplier = calculateEffectiveFreeAccelMult(G.freeMultiplier, viscosity)
   G.totalMultiplier = player.multiplierBought / viscosity + G.effectiveFreeMultiplier
 
   G.challengeOneLog = 3

@@ -44,6 +44,9 @@ const calculateTotalProductionForRebornELO = (rebornELO: number) => {
 export const calculateSecondsToMaxRebornELO = () => {
   const stageMod = thresholdModifiers().rebornSpeedMult
   const baseProductionPerSecond = rebornELOCreationSpeedMult() / stageMod
+  if (!(baseProductionPerSecond > 0)) {
+    return 0
+  }
 
   const discountRequiredProduction = calculateTotalProductionForRebornELO(player.ants.rebornELO)
   const totalRequiredProduction = calculateTotalProductionForRebornELO(player.ants.immortalELO)
