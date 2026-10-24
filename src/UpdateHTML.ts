@@ -570,6 +570,7 @@ export const revealStuff = () => {
     toggle38: player.highestSingularityCount > 0, // Researchs Hover to Buy
     toggle39: player.unlocks.prestige, // Hotkeys
     toggle40: player.unlocks.prestige, // Number Hotkeys
+    toggle41: isAutoAscendUnlocked(), // Loadouts Notify
     toggle42: player.highestSingularityCount >= 6, // Potion Autogenerator for Offering Potions
     toggle43: player.highestSingularityCount >= 6 // Potion Autogenerator for Obtainium Potions
   }

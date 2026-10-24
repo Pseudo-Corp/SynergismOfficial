@@ -55,6 +55,7 @@ type CorruptionCubeUnlock = {
 
 const c14LevelCap = 20
 const levelCapPerIncrease = 5
+const platonicOmegaLevelCapIncrease = 3
 const fastClimbSingularity = 2
 const fastClimbStep = 2
 
@@ -86,7 +87,7 @@ const corruptionCubeRates: Record<CorruptionCubeType, CorruptionCubeRate> = {
   tesseracts: { base: 1e-3, growth: 1.15, endgameGrowth: 1.07 },
   hypercubes: { base: 1e-3, growth: 1.2, endgameGrowth: 1.1 },
   platonics: { base: 2e-4, growth: 1.3, endgameGrowth: 1.15 },
-  hepteracts: { base: 1e-4, growth: 1.7, lateGrowth: 1.05, endgameGrowth: 1.05 },
+  hepteracts: { base: 1e-4, growth: 1.4, lateGrowth: 1.05, endgameGrowth: 1.05 },
   octeracts: { base: 1 / (5e19 * 3600 * 24 * 365), growth: 1.45, endgameGrowth: 1.1 }
 }
 
@@ -256,6 +257,7 @@ const corruptionBandOf = (level: number): CorruptionBand => {
 const corruptionLevelCapIncrease = () => {
   return (player.platonicUpgrades[5] > 0 ? levelCapPerIncrease : 0)
     + (player.platonicUpgrades[10] > 0 ? levelCapPerIncrease : 0)
+    + (player.platonicUpgrades[15] > 0 ? platonicOmegaLevelCapIncrease : 0)
     + (getGQUpgradeEffect('corruptionFourteen', 'unlocked') ? levelCapPerIncrease : 0)
     + levelCapPerIncrease * getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
 }
@@ -276,6 +278,11 @@ const corruptionLevelCapSources: CorruptionLevelCapSource[] = [
     key: 'platonicBeta',
     visible: () => player.unlocks.platonics,
     maxed: () => player.platonicUpgrades[10] > 0
+  },
+  {
+    key: 'platonicOmega',
+    visible: () => player.unlocks.platonics,
+    maxed: () => player.platonicUpgrades[15] > 0
   },
   {
     key: 'corruptionFourteen',

@@ -4378,6 +4378,11 @@ export const freeCorruptionLevelStats: NumberStatLineCategory = {
       acc: 2
     },
     {
+      i18n: 'PlatonicOMEGA',
+      stat: () => player.platonicUpgrades[15] > 0 ? 1 : 0,
+      acc: 2
+    },
+    {
       i18n: 'PlatonicUpgrade4x2',
       stat: () => 0.2 * player.platonicUpgrades[17],
       acc: 2

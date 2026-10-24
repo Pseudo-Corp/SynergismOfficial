@@ -5827,6 +5827,7 @@
       "levelCapSources": {
         "platonicAlpha": "Platonic ALPHA (+5)",
         "platonicBeta": "Platonic BETA (+5)",
+        "platonicOmega": "Platonic OMEGA (+3)",
         "corruptionFourteen": "Level Fourteen Corruptions (+5)",
         "octeractCorruption": "EXTRA CHONKY Corruptions (+5 per level)"
       },
@@ -8392,6 +8393,7 @@
       "title": "Free Corruption Levels",
       "PlatonicALPHA": "Platonic ALPHA:",
       "PlatonicBETA": "Platonic BETA:",
+      "PlatonicOMEGA": "Platonic OMEGA:",
       "PlatonicUpgrade4x2": "Platonic Upgrade 4x2:",
       "CorruptionFourteen": "Golden Quark Upgrade - Corruption Fourteen:",
       "CorruptionFifteen": "Golden Quark Upgrade - Corruption Fifteen:",
@@ -8656,7 +8658,7 @@
         "12": "When maxed, all Corruptions scale 2.5% slower. In Challenge 15, gain +5% more Ant ELO per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
         "13": "All sources of negative <<green|Salvage>> are reduced by 50% and all Corruptions scale 2.5% slower! In Challenge 15, your Construction stat is tripled!",
         "14": "All Corruptions scale 2.5% slower. In Challenge 15, Recession's coin exponent is multiplied by up to num:((1.5)) based on your Coins.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
+        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, +1 free Corruption level and raise your maximum Corruption level by 3! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to num:((100000)). This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
         "17": "If this is bought, gain +num:((0.2)) free Corruption levels per level (up to +4).",
         "18": "Raise the base percentage of Constant Upgrade 1 by num:((0.1))% and increase the base percentage cap of Constant Upgrade 2 by num:((0.3))% per level!",
@@ -8713,8 +8715,8 @@
           "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Cubes (lol)"
         },
         "accelerator": {
-          "effect": "Haha, stupid Corruptions. +num:((2000)) +num:((0.03))% Immaculate Accelerators per 'Way too many accelerators' Hepteract!",
-          "currentEffect": "Current Effect: Immaculate Accelerators +{{x}} + {{y}}",
+          "effect": "Haha, stupid Corruptions. +num:((2000)) +num:((0.03))% Accelerators per 'Way too many accelerators' Hepteract! Immune to the effects of Challenge 15.",
+          "currentEffect": "Current Effect: Accelerators +{{x}} + {{y}}",
           "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Wow! Tesseracts"
         },
         "acceleratorBoost": {
@@ -8723,8 +8725,8 @@
           "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Hypercubes"
         },
         "multiplier": {
-          "effect": "Haha, stupid Corruptions. +num:((1000)) +num:((0.03))% Immaculate Multipliers per 'Way too many multipliers' Hepteract!",
-          "currentEffect": "Current Effect: Immaculate Multipliers +{{x}} +{{y}}",
+          "effect": "Haha, stupid Corruptions. +num:((1000)) +num:((0.03))% Multipliers per 'Way too many multipliers' Hepteract! Immune to the effects of Challenge 15.",
+          "currentEffect": "Current Effect: Multipliers +{{x}} +{{y}}",
           "oneCost": "One of these will cost you {{x}} Hepteracts and {{y}} Obtainium"
         }
       }
@@ -8874,6 +8876,8 @@
   },
   "main": {
     "transferredFromLZ": "Transferred save to new format successfully!",
+    "allCorruptionsZero": "Next Ascension will be at Corruption level 0.",
+    "corruptionLoadoutApplied": "Loaded Corruption Loadout {{x}}: next Ascension will be at Corruption level {{y}}.",
     "ascendPrompt": "Ascending will reset your Buildings, (some) Runes and Talismans, Upgrades, most Researches, Anthill Count, Immortal ELO, and your Transcension/Reincarnation Challenges, in exchange for industrial Wow! Cubes. Shop Upgrades are preserved. Continue?",
     "reincarnatePrompt": "Reincarnating will reset EVERYTHING but in return you will get extraordinarily powerful Particles, and unlock some very strong upgrades and some new features. would you like to Reincarnate? [Disable this message in settings.]",
     "transcendPrompt": "Transcends will reset coin and prestige upgrades, coin producers, crystal producers AND diamonds. The first Transcension unlocks new features. Would you like to Transcend? [Toggle this message in settings.]",
@@ -9153,6 +9157,7 @@
     }
   },
   "hotkeys": {
+    "note1": "SHIFT + 1 to SHIFT + 8 load Corruption Loadouts 1 to 8 for the next Ascension. SHIFT + 9, SHIFT + 0 and SHIFT + BACKQUOTE set the next Ascension to Corruption level 0. You can't change these!",
     "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
     "reset": "Reset Hotkeys",
     "mobile": {

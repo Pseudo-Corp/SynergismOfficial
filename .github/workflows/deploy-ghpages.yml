@@ -26,6 +26,11 @@ jobs:
         run: |
           node ./scripts/update-last-updated.js
           npm run-script build:esbuild
+      - name: Cache-bust CSS and JS
+        run: |
+          sed -i "s|href=\"Synergism.css\"|href=\"Synergism.css?v=${GITHUB_SHA::8}\"|; s|src=\"./dist/out.js\"|src=\"./dist/out.js?v=${GITHUB_SHA::8}\"|" index.html
+          grep -q "Synergism.css?v=" index.html
+          grep -q "out.js?v=" index.html
       - name: Prepare for deploy
         run: |
           rm -rf targetdir
