@@ -189,8 +189,9 @@ async function cancelSubscription (provider: SubscriptionProvider) {
 function manageSubClickHandler (this: HTMLButtonElement) {
   const provider = this.getAttribute('data-provider') as SubscriptionProvider | null
   if (this.classList.contains('subscriptionCancel')) {
-    if (provider === null) return
-    cancelSubscription(provider)
+    const sub = getSubMetadata()
+    if (sub === null) return
+    cancelSubscription(sub.provider)
     return
   } else if (this.classList.contains('subscriptionWebsite')) {
     manageSubscription(provider)
@@ -371,31 +372,30 @@ const manageSubscriptionButtonVisibility = (sub: SubscriptionMetadata) => {
   const patreonManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-patreon-sub')!
   const stripeManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-stripe-sub')!
   const paypalManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-paypal-sub')!
-  const xsollaManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-xsolla-sub')!
   const mobileManageForm = manageSubscriptionHolder.querySelector<HTMLElement>('#manage-mobile-sub')!
-
-  const subscriptionCancelButtons = manageSubscriptionHolder.querySelectorAll<HTMLElement>('.subscriptionCancel')
+  const subscriptionCancelButton = manageSubscriptionHolder.querySelector<HTMLElement>('#subscription-cancel')!
 
   if (PLATFORM === 'steam') {
-    manageSubscriptionHolder.classList.add('none')
-    return
-  }
-
-  if (PLATFORM === 'mobile') {
     patreonManageForm.style.display = 'none'
     stripeManageForm.style.display = 'none'
     paypalManageForm.style.display = 'none'
-    xsollaManageForm.style.display = 'none'
+    mobileManageForm.style.display = 'none'
+  } else if (PLATFORM === 'mobile') {
+    patreonManageForm.style.display = 'none'
+    stripeManageForm.style.display = 'none'
+    paypalManageForm.style.display = 'none'
     mobileManageForm.style.display = sub?.provider === 'apple' || sub?.provider === 'google' ? 'flex' : 'none'
   } else {
     patreonManageForm.style.display = sub === null || sub.provider === 'patreon' ? 'flex' : 'none'
     stripeManageForm.style.display = sub === null || sub.provider === 'stripe' ? 'flex' : 'none'
     paypalManageForm.style.display = sub === null || sub.provider === 'paypal' ? 'flex' : 'none'
-    xsollaManageForm.style.display = sub?.provider === 'xsolla' ? 'flex' : 'none'
     mobileManageForm.style.display = 'none'
   }
 
-  subscriptionCancelButtons.forEach((btn) => btn.style.display = sub === null ? 'none' : 'block')
+  subscriptionCancelButton.style.display =
+    sub?.provider === 'stripe' || sub?.provider === 'paypal' || sub?.provider === 'xsolla' || sub?.provider === 'steam'
+      ? 'block'
+      : 'none'
 }
 
 async function submitSubscriptionSteam (productId: string) {

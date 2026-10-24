@@ -11264,6 +11264,12 @@ form input:hover {
     cursor: pointer;
 }
 
+#manage-subscription-holder > .subscriptionCancel {
+    width: 200px;
+    height: 40px;
+    margin: 5px;
+}
+
 .pseudoCoinContainer {
     margin: 10px 10px 0 0;
     border: 1px solid #ccc;
