@@ -40,7 +40,7 @@ import {
   updateAllUngroupedAchievementProgress,
   updateProgressiveCache
 } from './Achievements'
-import { corruptionLoadoutCount, isAutoAscendRunning, runAutoAscendRules } from './AutoAscension'
+import { corruptionLoadoutCount, isAutoAscendRunning, isAutoAscendUnlocked, runAutoAscendRules } from './AutoAscension'
 import { autoAscendRulesUICreate, pulseAutoAscendRule, renderAutoAscendRules } from './AutoAscensionUI'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
@@ -78,7 +78,8 @@ import {
   corruptionPanelCreate,
   corruptionStatsUpdate,
   isCorruptionLevelOverwritten,
-  normalizeCorruptionLevel
+  normalizeCorruptionLevel,
+  setNextCorruptionLevel
 } from './Corruptions'
 import { updateCubeUpgradeBG } from './Cubes'
 import { generateEventHandlers } from './EventListeners'
@@ -151,6 +152,7 @@ import {
   Confirm,
   createFitties,
   htmlInserts,
+  Notification,
   revealStuff,
   updateChallengeDisplay
 } from './UpdateHTML'
@@ -465,6 +467,7 @@ export const player: Player = {
     38: false,
     39: true,
     40: true,
+    41: true,
     42: false,
     43: false
   },
@@ -4252,6 +4255,24 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
   }
 
   if (event.shiftKey) {
+    const slot = key === 'BACKQUOTE' ? 0 : Number(key)
+    if (isAutoAscendUnlocked() && Number.isInteger(slot)) {
+      if (slot >= 1 && slot <= corruptionLoadoutCount) {
+        setNextCorruptionLevel(player.corruptions.loadouts[slot - 1])
+        if (player.toggles[41]) {
+          void Notification(
+            i18next.t('main.corruptionLoadoutApplied', { x: slot, y: player.corruptions.next }),
+            5000
+          )
+        }
+      } else {
+        setNextCorruptionLevel(0)
+        if (player.toggles[41]) {
+          void Notification(i18next.t('main.allCorruptionsZero'), 5000)
+        }
+      }
+      event.preventDefault()
+    }
     return
   }
 

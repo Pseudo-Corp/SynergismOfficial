@@ -6474,6 +6474,52 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: var(--text-color);
 }
 
+.autoAscendSelect {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+}
+
+.autoAscendSelect::after {
+    content: '▾';
+    margin-left: auto;
+}
+
+#autoAscendSelectMenu {
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    border: 1px solid orange;
+    border-radius: 3px;
+    background-color: var(--alert-color);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 60%);
+}
+
+#autoAscendSelectMenu[hidden] {
+    display: none;
+}
+
+.autoAscendSelectOption {
+    flex-shrink: 0;
+    padding: 0 8px;
+    background-color: transparent;
+    color: var(--text-color);
+    text-align: left;
+    white-space: nowrap;
+}
+
+.autoAscendSelectOption:focus-visible {
+    background-color: var(--hover-color);
+    outline: none;
+}
+
+.autoAscendSelectOption[aria-selected="true"] {
+    color: orange;
+}
+
 .autoAscendNumber {
     width: 8em;
 }

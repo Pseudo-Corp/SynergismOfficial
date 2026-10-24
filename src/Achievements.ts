@@ -1560,8 +1560,7 @@ const achievements: Achievement[] = [
     unlockCondition: () => player.ascensionCount >= 141421,
     group: 'ascensionCount',
     reward: {
-      ascensionCountAdditive: () =>
-        (player.ascensionCounter > 10) ? player.ascensionCounterReal * 2 : 0,
+      ascensionCountAdditive: () => (player.ascensionCounter > 10) ? player.ascensionCounterReal * 2 : 0,
       wowCubeGain: () => 1 + 2 * Math.min(1, player.ascensionCount / 5e8)
     }
   },

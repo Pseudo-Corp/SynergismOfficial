@@ -75,6 +75,7 @@
                 <button id="autoAscendRuleSave" type="button" i18n="corruptions.autoAscend.rules.ui.save"></button>
             </div>
         </div>
+        <div id="autoAscendSelectMenu" class="scrollbar" role="listbox" hidden></div>
     </section>
     <button id="mobileHotkeysOpen" type="button" aria-controls="mobileHotkeysOverlay" aria-expanded="false" i18n-aria-label="hotkeys.mobile.open">
         &#9000;
@@ -2971,10 +2972,12 @@
                 <div class="hotkeys"></div>
                 <span style="color: lightblue;">Last enabled key: <span style="color: gold;" id="lastHotkey"></span> <span style="color: white;" id="lastHotkeyName"></span></span>
                 <span id="hotkeyTooltip" i18n="hotkeys.note2"></span>
+                <span class="autoAscendUnlock grayText" i18n="hotkeys.note1"></span>
                 <div class="resetHotkeys">
                     <button id="resetHotkeys" style="border: 2px solid brown" i18n="hotkeys.reset"></button>
                     <button class="auto" id="toggle39" toggleid="39" format="Hotkeys: $" style="border:2px solid green">Hotkeys: ON</button>
                     <button class="auto" id="toggle40" toggleid="40" format="Number Hotkeys: $" style="border:2px solid green">Number Hotkeys: ON</button>
+                    <button class="auto" id="toggle41" toggleid="41" format="Loadouts Notify: $" style="border:2px solid green">Loadouts Notify: ON</button>
                 </div>
             </div>
             <div class="subtabContent subtabDisplayFlex" id="accountSubTab">

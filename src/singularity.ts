@@ -4489,7 +4489,7 @@ export const calculateSingularityDebuff = (
       : 1)
   } else if (debuff === 'Hepteract Costs') {
     return baseDebuffMultiplier * (constitutiveSingularityCount > 50
-      ? (1 + Math.pow(effectiveSingularities, 11 / 50) / 25) * (1 + (constitutiveSingularityCount - 50) / 10)
+      ? 1 + Math.pow(effectiveSingularities, 11 / 50) / 25
       : 1)
   } else {
     // Cube upgrades
