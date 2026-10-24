@@ -12538,15 +12538,9 @@ html[data-mobile="true"] .hideOnMobile {
 }
 
 #iframeOverlayWrapper {
-    width: 50%;
-    height: 100%;
     z-index: 10000;
     position: fixed;
-    margin: 0 auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: max(5%, env(safe-area-inset-top)) max(5%, env(safe-area-inset-right)) max(5%, env(safe-area-inset-bottom)) max(5%, env(safe-area-inset-left));
     display: none;
 }
 
@@ -13213,7 +13207,7 @@ html[data-mobile="true"] .hideOnMobile {
     }
 
     #iframeOverlayWrapper {
-        width: 90%;
+        inset: env(safe-area-inset-top) max(5%, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(5%, env(safe-area-inset-left));
     }
 
     /* Cube upgrades */
