@@ -121,7 +121,11 @@ const htmlEscapes: Record<string, string> = {
 
 const escapeHTML = (text: string) => text.replace(/[&<>"']/g, (character) => htmlEscapes[character])
 
+const selectMenuMargin = 8
+const selectMenuSteps: Record<string, number> = { ArrowDown: 1, ArrowUp: -1 }
+
 let draft: RuleDraft | null = null
+let openSelect: HTMLButtonElement | null = null
 
 const rulePulseDuration = 1600
 let rulePulse: { element: Element; timeout: ReturnType<typeof setTimeout> } | null = null
@@ -166,28 +170,95 @@ const createButton = (text: string, onClick: () => void, className = 'autoAscend
   return button
 }
 
+const closeSelectMenu = (restoreFocus = false) => {
+  if (openSelect === null) {
+    return
+  }
+  const trigger = openSelect
+  openSelect = null
+  trigger.setAttribute('aria-expanded', 'false')
+  const menu = DOMCacheGetOrSet('autoAscendSelectMenu')
+  menu.hidden = true
+  menu.replaceChildren()
+  if (restoreFocus) {
+    trigger.focus()
+  }
+}
+
+const positionSelectMenu = (trigger: HTMLElement, menu: HTMLElement) => {
+  const rect = trigger.getBoundingClientRect()
+  const below = window.innerHeight - rect.bottom - selectMenuMargin
+  const above = rect.top - selectMenuMargin
+  const placeAbove = menu.scrollHeight > below && above > below
+  menu.style.minWidth = `${rect.width}px`
+  menu.style.maxHeight = `${placeAbove ? above : below}px`
+  menu.style.left = `${
+    Math.max(selectMenuMargin, Math.min(rect.left, window.innerWidth - menu.offsetWidth - selectMenuMargin))
+  }px`
+  menu.style.top = `${placeAbove ? rect.top - menu.offsetHeight : rect.bottom}px`
+}
+
+const openSelectMenu = <T extends string | number>(
+  trigger: HTMLButtonElement,
+  options: readonly { value: T; label: string }[],
+  selected: T | null,
+  onPick: (value: T) => void
+) => {
+  closeSelectMenu()
+  const menu = DOMCacheGetOrSet('autoAscendSelectMenu')
+  const items = options.map((entry) => {
+    const item = createButton(entry.label, () => {
+      closeSelectMenu(true)
+      onPick(entry.value)
+    }, 'autoAscendSelectOption')
+    item.tabIndex = -1
+    item.setAttribute('role', 'option')
+    item.setAttribute('aria-selected', String(entry.value === selected))
+    return item
+  })
+  menu.replaceChildren(...items)
+  menu.hidden = false
+  openSelect = trigger
+  trigger.setAttribute('aria-expanded', 'true')
+  positionSelectMenu(trigger, menu)
+
+  const active = items.find((item) => item.getAttribute('aria-selected') === 'true') ?? items[0]
+  if (active !== undefined) {
+    menu.scrollTop = active.offsetTop - (menu.clientHeight - active.offsetHeight) / 2
+    active.focus({ preventScroll: true })
+  }
+}
+
 const createSelect = <T extends string | number>(
   options: readonly { value: T; label: string }[],
   selected: T | null,
   onChange: (value: T) => void,
   placeholder = ''
 ) => {
-  const select = createElement('select', 'autoAscendSelect')
-  if (placeholder !== '') {
-    const option = createElement('option', '', placeholder)
-    option.value = ''
-    option.disabled = true
-    option.selected = selected === null
-    select.append(option)
-  }
-  options.forEach((entry, index) => {
-    const option = createElement('option', '', entry.label)
-    option.value = String(index)
-    option.selected = entry.value === selected
-    select.append(option)
+  let current = selected
+  const labelOf = (value: T | null) => options.find((entry) => entry.value === value)?.label ?? placeholder
+  const open = () =>
+    openSelectMenu(trigger, options, current, (value) => {
+      current = value
+      trigger.textContent = labelOf(value)
+      onChange(value)
+    })
+  const trigger = createButton(labelOf(current), () => {
+    if (openSelect === trigger) {
+      closeSelectMenu()
+    } else {
+      open()
+    }
+  }, 'autoAscendSelect')
+  trigger.setAttribute('aria-haspopup', 'listbox')
+  trigger.setAttribute('aria-expanded', 'false')
+  trigger.addEventListener('keydown', (event) => {
+    if (selectMenuSteps[event.key] !== undefined) {
+      event.preventDefault()
+      open()
+    }
   })
-  select.addEventListener('change', () => onChange(options[Number(select.value)].value))
-  return select
+  return trigger
 }
 
 const createNumberInput = (value: number, integer: boolean, onValid: (value: number) => void, min = 0) => {
@@ -800,6 +871,7 @@ const openEditor = (index: number | null) => {
 }
 
 const closeEditor = () => {
+  closeSelectMenu()
   draft = null
   DOMCacheGetOrSet('autoAscendRuleEditor').hidden = true
   DOMCacheGetOrSet('autoAscendAddRule').focus()
@@ -1024,11 +1096,43 @@ export const renderAutoAscendRules = () => {
 
 export const autoAscendRulesUICreate = () => {
   const dialog = DOMCacheGetOrSet('autoAscendRuleEditor')
+  const selectMenu = DOMCacheGetOrSet('autoAscendSelectMenu')
   dialog.addEventListener('keydown', (event) => {
     event.stopPropagation()
     if (event.key === 'Escape') {
-      closeEditor()
+      if (openSelect === null) {
+        closeEditor()
+      } else {
+        closeSelectMenu(true)
+      }
     }
+  })
+  dialog.addEventListener('click', (event) => {
+    const target = event.target as Node
+    if (openSelect !== null && !openSelect.contains(target) && !selectMenu.contains(target)) {
+      closeSelectMenu()
+    }
+  })
+  dialog.addEventListener('scroll', (event) => {
+    if (event.target !== selectMenu) {
+      closeSelectMenu()
+    }
+  }, true)
+  window.addEventListener('resize', () => closeSelectMenu())
+  selectMenu.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') {
+      event.preventDefault()
+      closeSelectMenu(true)
+      return
+    }
+    const step = selectMenuSteps[event.key]
+    if (step === undefined) {
+      return
+    }
+    event.preventDefault()
+    const items = Array.from(selectMenu.children) as HTMLElement[]
+    const index = items.indexOf(document.activeElement as HTMLElement)
+    items[(index + step + items.length) % items.length]?.focus()
   })
   DOMCacheGetOrSet('autoAscendRuleName').addEventListener('input', (event) => {
     if (draft !== null) {

@@ -51,3 +51,8 @@ function myFunction () {
 ## Comments
 
 Please do not write comments. You suck at writing.
+
+## <select> menus
+
+Don't use <select> menus. These are incompatible for some users, such as
+those using a Steamdeck.

@@ -1,4 +1,4 @@
-export const version = '4.4.0 October 23, 2026 (2): The Corrupted'
+export const version = '4.4.0 October 23, 2026 (3): The Corrupted'
 
 export const isSynergismCC = location.hostname === 'synergism.cc'
 
