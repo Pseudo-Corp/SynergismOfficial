@@ -4310,15 +4310,15 @@
       },
       "firstClearTokens": {
         "name": "First to the Slaughter",
-        "default": "Every Corruption level's First completion bonus is increased by 10% of 50 completions' worth of Tokens!"
+        "default": "Every Corruption level's First completion bonus is increased by 1 Token!"
       },
       "lastClearTokens": {
         "name": "The Blessing of Finality, Corruptions",
-        "default": "Every Corruption level's First completion bonus is increased by 20% of 50 completions' worth of Tokens!"
+        "default": "Every Corruption level's First completion bonus is increased by 1 Token!"
       },
       "bonusTokens": {
         "name": "More Tokens!",
-        "default": "Every Corruption level gives +{{amount}}% more Tokens from Challenge 10 completions!"
+        "default": "Gain +{{amount}}% more Corruption Tokens from all sources!"
       },
       "cubeToQuark": {
         "name": "Cube to Quark Corner",
@@ -4968,22 +4968,22 @@
       },
       "singBonusTokens1": {
         "name": "Spare Change on the Sofa Cushion",
-        "description": "Thanks to your perceptive eyes, you find more Corruption Tokens! Every Corruption level's First completion bonus is increased by 2% of 50 completions' worth of Tokens per level.",
-        "effect": "First completion bonus +{{n}}% of 50 completions' worth of Tokens!"
+        "description": "Thanks to your perceptive eyes, you find more Corruption Tokens! Every Corruption level's First completion bonus is increased by 1 Token per level.",
+        "effect": "First completion bonus +{{n}} Tokens!"
       },
       "singBonusTokens2": {
         "name": "Spare Change in the creases of the Sofa Cushions",
-        "description": "Thanks to your more perceptive eyes, you find even more Corruption Tokens! Every Corruption level gives +1% more Tokens from Challenge 10 completions per level.",
-        "effect": "Tokens from Challenge 10 completions +{{n}}!"
+        "description": "Thanks to your more perceptive eyes, you find even more Corruption Tokens! Gain +1% more Corruption Tokens from all sources per level.",
+        "effect": "Corruption Tokens from all sources +{{n}}!"
       },
       "singBonusTokens3": {
         "name": "Spare Change under the Sofa",
-        "description": "Why do you have Tokens just lying everywhere near your Sofa? Every Corruption level's First completion bonus is increased by 4% of 50 completions' worth of Tokens per level.",
-        "effect": "First completion bonus +{{n}}% of 50 completions' worth of Tokens!"
+        "description": "Why do you have Tokens just lying everywhere near your Sofa? Every Corruption level's First completion bonus is increased by 1 Token per level.",
+        "effect": "First completion bonus +{{n}} Tokens!"
       },
       "singBonusTokens4": {
         "name": "Spare Change from the Ant God's Coffers",
-        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +5 Tokens at the start of a Singularity per level.",
+        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +2 Tokens at the start of a Singularity per level.",
         "effect": "Ant God ponies up {{n}} Tokens at the start of a Singularity!"
       },
       "singInfiniteShopUpgrades": {
@@ -5811,8 +5811,8 @@
       "freeLevels": "Rewards are moved forward <<gold|{{free}}>> levels, thanks to your Free Levels!",
       "tokens": {
         "selectLevel": "Select a level to start earning Tokens!",
-        "level": "Level {{level}} Tokens: {{earned}}",
-        "completions": "<<gold|{{completions}}>> Challenge 10 completions × {{rate}} Tokens (+{{tokens}} Tokens)",
+        "level": "Level {{level}} Tokens: {{earned}} (before multipliers)",
+        "completions": "<<gold|{{completions}}>> Challenge 10 completions (+{{completions}} Tokens)",
         "first": "<<gray|✗ First completion bonus: +{{amount}} Tokens>>",
         "firstEarned": "<<lime|✓>> First completion bonus: <<lime|+{{amount}} Tokens>>"
       },
@@ -6346,23 +6346,23 @@
       },
       "octeractBonusTokens1": {
         "name": "Tokens of Derpsmith",
-        "description": "Derpsmith gives you a token of his appreciation. Every Corruption level's First completion bonus is increased by 2% of 50 completions' worth of Tokens per level!",
-        "effect": "First completion bonus +{{n}}% of 50 completions' worth of Tokens"
+        "description": "Derpsmith gives you a token of his appreciation. Every Corruption level's First completion bonus is increased by 1 Token per level!",
+        "effect": "First completion bonus +{{n}} Tokens"
       },
       "octeractBonusTokens2": {
         "name": "Tokens of Derpsmith II",
-        "description": "Under some weird trade agreement, every Corruption level gives +1% more Tokens from Challenge 10 completions per level. Pray that the trade is not further altered.",
-        "effect": "Tokens from Challenge 10 completions +{{n}}%"
+        "description": "Under some weird trade agreement, gain +1% more Corruption Tokens from all sources per level. Pray that the trade is not further altered.",
+        "effect": "Corruption Tokens from all sources +{{n}}%"
       },
       "octeractBonusTokens3": {
         "name": "Tokens of Derpsmith III",
-        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. Every Corruption level's First completion bonus is increased by 2% of 50 completions' worth of Tokens per level.",
-        "effect": "First completion bonus +{{n}}% of 50 completions' worth of Tokens"
+        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. Every Corruption level's First completion bonus is increased by 1 Token per level.",
+        "effect": "First completion bonus +{{n}} Tokens"
       },
       "octeractBonusTokens4": {
         "name": "Tokens of Derpsmith IV",
-        "description": "Derpsmith is impressed by your dedication. +2 Tokens at the start of your Singularity per level.",
-        "effect": "Token gain +{{n}} at the start of your Singularity.."
+        "description": "Derpsmith is impressed by your dedication. +1 Token at the start of your Singularity per level.",
+        "effect": "Token gain +{{n}} at the start of your Singularity."
       },
       "octeractSingUpgradeCap": {
         "name": "Overwriting Pointers",

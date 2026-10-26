@@ -34,67 +34,47 @@ type CampaignTokenRewardDisplay = {
 
 const bonusRune6ThresholdReqs = [500, 750, 1000, 1250, 1500, 1750, 2000, 3000, 4000, 6000, 8000, 10000]
 
-const corruptionLevelTokenRates: Array<[lastLevel: number, tokensPerCompletion: number]> = [
-  [20, 1],
-  [45, 2],
-  [Number.POSITIVE_INFINITY, 3]
-]
-
-const tokenRateOf = (level: number) => {
-  for (const [lastLevel, tokensPerCompletion] of corruptionLevelTokenRates) {
-    if (level <= lastLevel) {
-      return tokensPerCompletion
-    }
-  }
-  return 0
-}
-
-const completionTokenMultiplier = () => {
-  return singularityBonusTokenMult()
-    * getGQUpgradeEffect('singBonusTokens2', 'tokenMultiplier')
-    * getOcteractUpgradeEffect('octeractBonusTokens2', 'tokenMultiplier')
+const tokenMultiplier = () => {
+  return 1
+    + (singularityBonusTokenMult() - 1)
+    + (getGQUpgradeEffect('singBonusTokens2', 'tokenMultiplier') - 1)
+    + (getOcteractUpgradeEffect('octeractBonusTokens2', 'tokenMultiplier') - 1)
 }
 
 const firstCompletionBonusPoints = () => {
-  return (player.highestSingularityCount >= 16 ? 5 : 0)
-    + (player.highestSingularityCount >= 69 ? 10 : 0)
+  return 5
+    + (player.highestSingularityCount >= 16 ? 1 : 0)
+    + (player.highestSingularityCount >= 69 ? 1 : 0)
     + getGQUpgradeEffect('singBonusTokens1', 'firstCompletionBonusTokens')
     + getGQUpgradeEffect('singBonusTokens3', 'lastCompletionBonusTokens')
     + getOcteractUpgradeEffect('octeractBonusTokens3', 'firstCompletionBonusTokens')
     + getOcteractUpgradeEffect('octeractBonusTokens1', 'lastCompletionBonusTokens')
 }
 
-const levelTokenTerms = () => {
-  const multiplier = completionTokenMultiplier()
-  const bonusPoints = firstCompletionBonusPoints()
-  return (level: number, completions: number) => {
-    const rate = tokenRateOf(level)
-    const completionTokens = Math.floor(rate * completions * multiplier)
-    const first = Math.floor(rate * bonusPoints)
-    return { rate, completionTokens, first, earned: completionTokens + (completions >= 1 ? first : 0) }
-  }
-}
+const levelTokens = (completions: number, first: number) => completions + (completions >= 1 ? first : 0)
 
 export const corruptionLevelTokenInfo = (level: number) => {
   const completions = player.corruptions.tokenCompletions[level] ?? 0
+  const first = Math.floor(firstCompletionBonusPoints())
   return {
-    ...levelTokenTerms()(level, completions),
     completions,
-    firstEarned: completions >= 1
+    first,
+    firstEarned: completions >= 1,
+    earned: levelTokens(completions, first)
   }
 }
 
 export const updateTokens = () => {
-  const terms = levelTokenTerms()
+  const first = Math.floor(firstCompletionBonusPoints())
   const completions = player.corruptions.tokenCompletions
   let tokens = 0
   for (let level = 1; level < completions.length; level++) {
-    tokens += terms(level, completions[level] ?? 0).earned
+    tokens += levelTokens(completions[level] ?? 0, first)
   }
-  campaignTokens = tokens
-    + inheritanceTokens()
+  tokens += inheritanceTokens()
     + getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
     + getOcteractUpgradeEffect('octeractBonusTokens4', 'initialTokenBonus')
+  campaignTokens = Math.floor(tokens * tokenMultiplier())
   awardAchievementGroup('campaignTokens')
 }
 
