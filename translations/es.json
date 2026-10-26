@@ -4755,7 +4755,7 @@
       },
       "divinePack": {
         "name": "Pack Divino",
-        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 45, including free levels, up to num:((10)) levels!",
+        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 35, including free levels, up to num:((10)) levels!",
         "effectHave": "You have found the reason for existence. Current Octeract Bonus: +{{n}}",
         "effectHaveNot": "No has encontrado la razón de tu existencia."
       },
