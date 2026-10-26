@@ -8879,6 +8879,7 @@
   },
   "main": {
     "transferredFromLZ": "¡Guardado transferido al nuevo formato con éxito!",
+    "notSynergismCC": "You are playing on an outdated version. The game will only receive updates on <a href=\"https://synergism.cc\" target=\"_blank\">https://synergism.cc</a>.",
     "allCorruptionsZero": "Todas las Corrupciones se han puesto a Cero. Tendrá efecto en la próxima Ascensión.",
     "corruptionLoadoutApplied": "Carga de Corrupción {{x}} \"{{y}}\" aplicada. Tendrá efecto en la siguiente Ascensión.",
     "ascendPrompt": "Ascending will reset your Buildings, (some) Runes and Talismans, Upgrades, most Researches, Anthill Count, Immortal ELO, and your Transcension/Reincarnation Challenges, in exchange for industrial Wow! Cubes. Shop Upgrades are preserved. Continue?",

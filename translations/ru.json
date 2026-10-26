@@ -8879,6 +8879,7 @@
   },
   "main": {
     "transferredFromLZ": "Сохранение успешно конвертировано в новый формат!",
+    "notSynergismCC": "You are playing on an outdated version. The game will only receive updates on <a href=\"https://synergism.cc\" target=\"_blank\">https://synergism.cc</a>.",
     "allCorruptionsZero": "Все Порчи были установлены на Ноль. Эффект вступит в силу при следующем Вознесении.",
     "corruptionLoadoutApplied": "Заготовка Порчи {{x}} \"{{y}}\" была применена. Эффект вступит в силу в следующем Вознесении.",
     "ascendPrompt": "Ascending will reset your Buildings, (some) Runes and Talismans, Upgrades, most Researches, Anthill Count, Immortal ELO, and your Transcension/Reincarnation Challenges, in exchange for industrial Wow! Cubes. Shop Upgrades are preserved. Continue?",
