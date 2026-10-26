@@ -770,9 +770,7 @@ const corruptionTokenUpdate = (level: number) => {
   const lines = [
     i18next.t('corruptions.tiers.tokens.level', { level: format(level), earned: format(info.earned) }),
     i18next.t('corruptions.tiers.tokens.completions', {
-      completions: format(info.completions),
-      rate: format(info.rate),
-      tokens: format(info.completionTokens)
+      completions: format(info.completions)
     }),
     corruptionTokenFirstLine(info.first, info.firstEarned)
   ]

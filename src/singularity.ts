@@ -167,7 +167,6 @@ type GoldenQuarkUpgradeRewards = {
 export type SingularityDataKeys = keyof GoldenQuarkUpgradeRewards
 
 const overclockPerks = [50, 60, 75, 100, 125, 150, 175, 200, 225, 250]
-const tokenInheritanceTokens = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
 const singularityPenaltyThresholds = [11, 26, 37, 51, 101, 151, 201, 216, 230, 270]
 
 export const updateSingularityPenalties = (): void => {
@@ -1940,7 +1939,7 @@ export const goldenQuarkUpgrades: {
   },
   singBonusTokens1: {
     level: 0,
-    maxLevel: 5,
+    maxLevel: 2,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 25,
@@ -1952,7 +1951,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const firstCompletionBonusTokens = getGQUpgradeEffect('singBonusTokens1', 'firstCompletionBonusTokens')
       return i18next.t('singularity.data.singBonusTokens1.effect', {
-        n: format(2 * firstCompletionBonusTokens)
+        n: format(firstCompletionBonusTokens)
       })
     },
     name: () => i18next.t('singularity.data.singBonusTokens1.name'),
@@ -1980,19 +1979,19 @@ export const goldenQuarkUpgrades: {
   },
   singBonusTokens3: {
     level: 0,
-    maxLevel: 5,
+    maxLevel: 2,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 1e8,
     minimumSingularity: 100,
     specialCostForm: 'Exponential2',
     effect: (n: number) => {
-      return 2 * n
+      return n
     },
     effectDescription: () => {
       const lastCompletionBonusTokens = getGQUpgradeEffect('singBonusTokens3', 'lastCompletionBonusTokens')
       return i18next.t('singularity.data.singBonusTokens3.effect', {
-        n: format(2 * lastCompletionBonusTokens)
+        n: format(lastCompletionBonusTokens)
       })
     },
     name: () => i18next.t('singularity.data.singBonusTokens3.name'),
@@ -2000,14 +1999,14 @@ export const goldenQuarkUpgrades: {
   },
   singBonusTokens4: {
     level: 0,
-    maxLevel: 30,
+    maxLevel: 25,
     canExceedCap: false,
     qualityOfLife: false,
     costPerLevel: 1e13,
     minimumSingularity: 166,
     specialCostForm: 'Exponential2',
     effect: (n: number) => {
-      return 5 * n
+      return 2 * n
     },
     effectDescription: () => {
       const initialTokenBonus = getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
@@ -3188,10 +3187,10 @@ export const singularityPerks: SingularityPerk[] = [
     name: 'singularity.perks.tokenInheritance.name',
     levels: [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277],
     description: (n: number, levels: number[]) => {
-      for (let i = 15; i > 0; i--) {
+      for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
           return i18next.t('singularity.perks.tokenInheritance.default', {
-            amount: tokenInheritanceTokens[i]
+            amount: 10 * (i + 1)
           })
         }
       }

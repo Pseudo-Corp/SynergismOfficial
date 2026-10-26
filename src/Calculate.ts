@@ -133,7 +133,6 @@ const derpsmithSingCounts = [
 const immaculateAlchemyThresholds = [50, 90, 130, 170, 200, 217, 235, 253, 271, 289]
 
 const inheritanceLevels = [2, 5, 10, 17, 26, 37, 50, 65, 82, 101, 220, 240, 260, 270, 277]
-const inheritanceTokenValues = [1, 10, 25, 40, 75, 100, 150, 200, 250, 300, 350, 400, 500, 600, 750]
 
 const bonusTokenLevels = [41, 58, 113, 163, 229]
 
@@ -1810,9 +1809,9 @@ export const sumOfExaltCompletions = () => {
 }
 
 export const inheritanceTokens = () => {
-  for (let i = 15; i > 0; i--) {
+  for (let i = inheritanceLevels.length - 1; i >= 0; i--) {
     if (player.highestSingularityCount >= inheritanceLevels[i]) {
-      return inheritanceTokenValues[i]
+      return 10 * (i + 1)
     }
   }
 

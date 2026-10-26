@@ -749,11 +749,11 @@ export const octeractUpgrades: {
     costFormula: (n) => {
       return 1e-5 * (Math.pow(1e2, n) - 1) / 99
     },
-    maxLevel: 10,
+    maxLevel: 2,
     effect: (n: number) => {
       return n // lastCompletionBonusTokens
     },
-    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens1.effect', { n: format(2 * n) }),
+    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens1.effect', { n: format(n) }),
     name: () => i18next.t('octeract.data.octeractBonusTokens1.name'),
     description: () => i18next.t('octeract.data.octeractBonusTokens1.description'),
     qualityOfLife: false
@@ -777,11 +777,11 @@ export const octeractUpgrades: {
     costFormula: (n) => {
       return 1e40 * (Math.pow(1e10, n) - 1)
     },
-    maxLevel: 5,
+    maxLevel: 2,
     effect: (n: number) => {
       return n // firstCompletionBonusTokens
     },
-    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens3.effect', { n: format(2 * n) }),
+    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens3.effect', { n: format(n) }),
     name: () => i18next.t('octeract.data.octeractBonusTokens3.name'),
     description: () => i18next.t('octeract.data.octeractBonusTokens3.description'),
     qualityOfLife: false
@@ -793,9 +793,9 @@ export const octeractUpgrades: {
     },
     maxLevel: 50,
     effect: (n: number) => {
-      return 2 * n // initialTokenBonus
+      return n // initialTokenBonus
     },
-    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens4.effect', { n: format(2 * n) }),
+    effectDescription: (n: number) => i18next.t('octeract.data.octeractBonusTokens4.effect', { n: format(n) }),
     name: () => i18next.t('octeract.data.octeractBonusTokens4.name'),
     description: () => i18next.t('octeract.data.octeractBonusTokens4.description'),
     qualityOfLife: false
