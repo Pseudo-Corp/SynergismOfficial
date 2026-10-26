@@ -52,7 +52,7 @@ const corruptionCubeUnlocks: Record<CorruptionCubeType, CorruptionCubeUnlock> = 
   hypercubes: { level: 5, requiresChallenge15: false },
   platonics: { level: 11, requiresChallenge15: false },
   hepteracts: { level: 20, requiresChallenge15: true },
-  octeracts: { level: 45, requiresChallenge15: false }
+  octeracts: { level: 35, requiresChallenge15: false }
 }
 
 type CorruptionCubeRate = {
@@ -68,7 +68,7 @@ const corruptionCubeRates: Record<CorruptionCubeType, CorruptionCubeRate> = {
   hypercubes: { base: 1e-3, growth: 1.2, endgameGrowth: 1.1 },
   platonics: { base: 5e-4, growth: 1.25, endgameGrowth: 1.1 },
   hepteracts: { base: 1e-4, growth: 1.4, lateGrowth: 1.1, endgameGrowth: 1.1 },
-  octeracts: { base: 1 / (1e20 * 3600 * 24 * 365), growth: 1.45, endgameGrowth: 1.1 }
+  octeracts: { base: 1 / (5e19 * 3600 * 24 * 365), growth: 1.45, endgameGrowth: 1.05 }
 }
 
 const corruptionCubeIcons: Record<CorruptionCubeType, string> = {
