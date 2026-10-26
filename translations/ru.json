@@ -3318,7 +3318,7 @@
       "name": "Испытание Стоимость++ || {{- value}} Выполнений",
       "progressName": "Cost++ Challenge",
       "flavor": "Вы и правда подумали, что реинкарнация спасёт от инфляции?",
-      "restrictions": "Реинкарнируйте и достигните цели, учитывая что вы проходите усложнённую версию Стоимость+! <br> ☆ Цена ускорителей и множителей увеличивается в <<gold|50 раз>> выстрее чем в Стоитмость+ <br> ☆ Увеличение стоимости строений также влияет на строения мифов! <br> ☆ Стоимость строений начинает расти супер-экспоненциально плсде <<gold|1000 + 1000 за завешение>> покупок. <br> ",
+      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Construction is divided by <<gold|num:((5))>> for Coin, Diamond and Mythos Buildings",
       "goal": "Цель: Получить {{value}} осколков мифов в испытании.",
       "per": {
         "1": "Базовая сила строений +0.25! Текущий: ",
@@ -3382,7 +3382,7 @@
         "2": "Скорость муравьёв x(1e5)^выполнений. Текущий эффект: ",
         "3": "+1 к коэффициенту уровней первых пяти рун! Текущее:"
       },
-      "first": "Открывает 15 исследований, и возможность открывать тессеракты! Вы так же теперь можете 'испортить' свою игру... проверьте это во вкладке Компаний.",
+      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to 'Corrupt' your game with Corruption levels!",
       "start": "Начать <[(Меньше муравьёв)]>",
       "current": {
         "1": "+{{value}} бесплатных уровней у муравьев",
@@ -3401,7 +3401,7 @@
         "2": "+12% подношений! Текущий: ",
         "3": "+20% к количеству реинкарнаций при реинкарнации! Текущее: "
       },
-      "first": "Открывает 15 исследований, и мистическую силу духов! Найдите это во вкладке рун. Так же добавляет новые кампании и порчи!",
+      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab.",
       "start": "Начать <[(Без реинкарнаций)]>",
       "current": {
         "1": "+{{value}}% обтаиниума",
@@ -3420,7 +3420,7 @@
         "2": "+6 к максимальному пределу уровня талисманов! Текущий: ",
         "3": "+3% к эффективности сылы духов! Текущий: "
       },
-      "first": "Открывает 15 исследований, и силу гиперкубов! Открывает ещё больше кампаний и порч!",
+      "first": "Unlock 15 Researches, and unlock the power of the Hypercube!",
       "start": "Начать <[(Налоги+++)]>",
       "current": {
         "1": "-{{value}}% налоговой нагрузки",
@@ -3439,7 +3439,7 @@
         "2": "+1 к покупке исследований за тик румбы! Текущее: ",
         "3": "+1,5 к коэффициенту уровней первых пяти рун! Текущее: "
       },
-      "first": "Открывает 15 исследований, и открывает новый вид идеального куба - возможно, платонические? Плюсом больше кампаний и порч, конечно же. ",
+      "first": "Unlock 15 Researches, and discover a new type of ideal cube - a Platonic one perhaps?",
       "start": "Начать <[(Без исследований)]>",
       "current": {
         "1": "+{{value}}% силы",
@@ -4648,13 +4648,13 @@
       },
       "corruptionFourteen": {
         "name": "Порчи Четырнадцатого Уровня",
-        "description": "Купите это, чтобы открыть порчи четырнадцатого уровня. :)",
+        "description": "Buy this to gain +1 free Corruption level. :)",
         "effectHave": "Вы получили способность использовать порчу 14-го уровня. {{m}}",
         "effectHaveNot": "Вы не получили способность использовать порчу 14-го уровня. {{m}}"
       },
       "corruptionFifteen": {
         "name": "Порчи Пятнадцатого Уровня",
-        "description": "*На самом деле*, это не повышает предел порчи. Скорее, это добавляет один БЕСПЛАТНЫЙ уровень к множителям порчи, ни от чего не зависящий (может превышать лимит). :)",
+        "description": "Adds +1 FREE Corruption level, no matter what. :)",
         "effectHave": "Вы получили бесплатный уровень порчи. {{m}}",
         "effectHaveNot": "Вы не получили бесплатный уровень порчи. {{m}}"
       },
@@ -4755,7 +4755,7 @@
       },
       "divinePack": {
         "name": "Божественный Набор",
-        "description": "ООООООО. Получайте +10% Кварков, складывается суммированием с другими наборами, а также умножить прирост Октерактов на 1.25 за каждый Порчу 14-о уровня или выше (1.3 для >=15 и 1.4 для >=16)!",
+        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 35, including free levels, up to num:((10)) levels!",
         "effectHave": "Вы нашли причину вашего бытия. Текущий бонус к Октерактам: +{{n}}",
         "effectHaveNot": "Вы не нашли причину существования."
       },
@@ -4848,7 +4848,7 @@
       },
       "platonicTau": {
         "name": "Платоново ТАУ",
-        "description": "Размещённое в неправильном разделе улучшения, оно снимет все ограничения порчи или лимиты уровня порчи! Также возводит прирост 3d-кубов в 1.01!",
+        "description": "Placed in the wrong upgrade section, this raises all Cube gains to the power of num:((1.01))!",
         "effectHave": "Это улучшение уже куплено",
         "effectHaveNot": "Это улучшение ещё не куплено"
       },
@@ -5226,7 +5226,7 @@
       "45": "Получите бесплатные Ускорители в зависимости от Осколков Мифов.",
       "46": "Усилители Ускорителей теперь на 5% сильнее и не сбрасывают функции Престижа.",
       "47": "Умножает производство Осколков Мифов в зависимости от ваших ОД.",
-      "48": "Умножает производство в зависимости от имеющихся Ускорителей и Множителей.",
+      "48": "Gain +num:((0.2)) Construction, to make buildings and such cheaper!",
       "49": "Получите бесплатные Множители в зависимости от имеющихся Мифов.",
       "50": "+25% бесплатных Ускорителей и Множителей, но ТОЛЬКО во время Испытаний.",
       "51": "Увеличивает производство всех строений Мифов в зависимости от имеющихся Усилителей Ускорителей.",
@@ -5394,7 +5394,7 @@
       "45": "Эффект: +{{x}} Ускорителей!",
       "46": "Эффект: Это вроде как самоочевидно, не так ли?",
       "47": "Эффект: Производство производителей Мифов x{{x}}",
-      "48": "Эффект: Умножение производства монет на коэффициент {{x}}!",
+      "48": "Effect: +num:((0.2)) Construction!",
       "49": "Эффект: +{{x}} Множителей с помощью магии!",
       "50": "Эффект: Совершенно очевидно, в чём заключается выгода, но вы должны быть в Испытании, чтобы это можно было использовать!",
       "51": "Эффект: Производство производителей Мифов x{{x}}!",
@@ -5680,9 +5680,9 @@
         "high": "15 × 1.05^({{L}} − 45)"
       },
       "viscosity": {
-        "low": "2^(2 × {{L}})",
-        "mid": "2^(40 + 6 × ({{L}} − 20))",
-        "high": "2^(190 + 9 × ({{L}} − 45))"
+        "low": "3^{{L}}",
+        "mid": "3^(20 + 3 × ({{L}} − 20))",
+        "high": "3^95 × 21^(2 × ({{L}} − 45))"
       },
       "salvage": {
         "low": "−62.5 × {{L}}",
@@ -5822,17 +5822,6 @@
       "highestCleared": "Highest level cleared: <<gold|{{level}}>>",
       "nextUnlock": "Complete Challenge 10 at level {{level}} to unlock level {{unlock}}.",
       "nextUnlockRange": "You can climb up to {{step}} levels past your highest cleared level (up to level {{level}}).",
-      "levelCap": "Maximum level: {{cap}}. Complete Challenge {{challenge}} to raise it.",
-      "levelCapIncreasable": "Maximum level: {{cap}}. Raise it with:",
-      "levelCapSources": {
-        "platonicAlpha": "Platonic ALPHA (+5)",
-        "platonicBeta": "Platonic BETA (+5)",
-        "platonicOmega": "Platonic OMEGA (+3)",
-        "corruptionFourteen": "Level Fourteen Corruptions (+5)",
-        "octeractCorruption": "EXTRA CHONKY Corruptions (+5 per level)"
-      },
-      "levelCapFinal": "Maximum level: {{cap}}.",
-      "levelCapBelowHighest": "You can return to any level up to your highest cleared level ({{highest}}). Climbing past level {{cap}} is locked for now.",
       "requiresChallenge11": "Complete Challenge 11 to change your Corruption level.",
       "cubeBank": "Cube Bank",
       "cubeMultipliersHeading": "Cube multipliers (this Ascension → next):",
@@ -6100,6 +6089,7 @@
     "construction": "Construction: <<yellow|{{amount}}>>",
     "constructionBonus": "These Buildings have a base Softcap of <<yellow|{{amount}}>> owned, which is multiplied by Construction",
     "hyperscaling": "Price exponents start growing <<yellow|quadratically>> past <<yellow|{{threshold}}>> owned",
+    "accelMultConstruction": "Accelerators, Multipliers and Accelerator Boosts benefit from <<yellow|√Construction>> (<<yellow|×{{amount}}>>) <br> Accelerators scale <<yellow|quadratically>> past <<yellow|{{accelerators}}>> bought <br> Multipliers scale <<yellow|quadratically>> past <<yellow|{{multipliers}}>> bought <br> Accelerator Boosts scale <<yellow|cubically>> past <<yellow|{{boosts}}>> bought",
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold | +{{coinsPerSecond}}/s>>] | Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "Ваши карманы пустые, но у вас есть 100 монет. За эти 100 монет вам как раз хватит нанять хотя бы одного работника!",
@@ -6285,7 +6275,7 @@
       },
       "octeractCorruption": {
         "name": "ЭКСТРА ПЛОТНЫЕ Порчи",
-        "description": "Добавляет один уровень порчей к пределу. Кукузнец одобряет.",
+        "description": "Adds num:((0.5)) free Corruption levels per level. Derpsmith approves.",
         "effect": "Лимит уровня Порчи увеличен на {{n}}"
       },
       "octeractGQCostReduce": {
@@ -7320,7 +7310,9 @@
       "Achievement255": "Бонус Достижения 255:",
       "PlatonicCube": "Платоновы Кубы:",
       "Platonic1x2": "Платоново 1x2:",
-      "Total": "Общий Множитель Тессерактов:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Общий Множитель Тессерактов:",
+      "Total2": "Final Tesseract Multiplier:"
     },
     "hypercubeMultiplierStats": {
       "title": "Множитель Вау! Гиперкубов",
@@ -7342,7 +7334,9 @@
       "PlatonicCube": "Платоновы Кубы:",
       "Platonic1x3": "Платоново 1x3:",
       "HyperrealHepteract": "Бонус Гиперреального Гептеракта:",
-      "Total": "Общий Множитель Гиперкубов:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Общий Множитель Гиперкубов:",
+      "Total2": "Final Hypercube Multiplier:"
     },
     "platonicMultiplierStats": {
       "title": "Множитель Вау! Платоновых Кубов",
@@ -7362,7 +7356,9 @@
       "Achievement257": "Бонус Достижения 257:",
       "PlatonicCube": "Платоновы Кубы:",
       "Platonic1x4": "Платоново 1x4:",
-      "Total": "Общий Множитель Платоновых Кубов:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Общий Множитель Платоновых Кубов:",
+      "Total2": "Final Platonic Cube Multiplier:"
     },
     "hepteractMultiplierStats": {
       "title": "Множитель Вау! Гептерактов",
@@ -7380,7 +7376,9 @@
       "Achievement264": "Бонус Достижения 264:",
       "Achievement265": "Бонус Достижения 265:",
       "Achievement270": "Бонус Достижения 270:",
-      "Total": "Общий Множитель Гептерактов:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Общий Множитель Гептерактов:",
+      "Total2": "Final Hepteract Multiplier:"
     },
     "octeractMultiplierStats": {
       "title": "Множитель Вау! Октерактов",
@@ -7431,7 +7429,9 @@
       "CashGrabUltra": "УЛЬТИМАТИВНАЯ Обдираловка:",
       "EXUltra": "EX ULTIMATE Cube Bonus:",
       "AscensionSpeed": "Множитель Скорости Вознесения:",
-      "Total": "Общий Множитель Октерактов:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Общий Множитель Октерактов:",
+      "Total2": "Final Octeract Multiplier:"
     },
     "baseOfferingStats": {
       "title": "Базовые Подношение Общ",
@@ -7763,7 +7763,6 @@
       "CoinUpgrade20": "Coin Upgrade 20:",
       "MythosUpgrade1": "Mythos Upgrade 1:",
       "MythosUpgrade3": "Mythos Upgrade 3:",
-      "MythosUpgrade8": "Mythos Upgrade 8:",
       "Challenge6Active": "In Challenge 6:",
       "Challenge7Active": "In Challenge 7:",
       "Challenge9Active": "In Challenge 9:",
@@ -8131,11 +8130,12 @@
     },
     "constructionStats": {
       "title": "Construction",
-      "extraInfo": "Every Coin, Crystal, Mythos and Particle Building has a base Softcap of <<yellow|num:((1000))>> owned, which is multiplied by Construction. <br> Each Building costs a fixed multiple more than the last until you own as many as its Softcap. Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Past the Softcap, the price exponent gains an extra (Owned - Softcap)² / Softcap, so more Construction both delays the quadratic scaling and makes it grow more slowly.>> <br> Challenges 4 and 10 divide Coin and Crystal Building Construction by num:((2)), and Challenge 8 divides Construction for all but Particle Buildings by num:((5)) (Challenge 8 takes priority). <br> <<crimson|The 'Rocky Foundations' Corruption divides Construction for every Building.>>"
+      "extraInfo": "Every Coin, Crystal, Mythos and Particle Building has a base Softcap of <<yellow|num:((1000))>> owned, which is multiplied by Construction. The quadratic scaling thresholds of Accelerators and Multipliers, and the cost scaling delay of Accelerator Boosts, are multiplied by <<yellow|√Construction>> as well. <br> Each Building costs a fixed multiple more than the last until you own as many as its Softcap. Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Past the Softcap, the price exponent gains an extra (Owned - Softcap)² / Softcap, so more Construction both delays the quadratic scaling and makes it grow more slowly.>> <br> Challenges 4 and 10 divide Coin and Crystal Building Construction by num:((2)), and Challenge 8 divides Coin, Crystal and Mythos Building Construction by num:((5)) (Challenge 8 takes priority). <br> <<crimson|The 'Rocky Foundations' Corruption divides Construction for everything.>>"
     },
     "constructionBase": {
       "title": "Construction Sources",
       "Base": "Base:",
+      "MythosUpgrade8": "Mythos Upgrade 8:",
       "ThriftRune": "Thrift Rune:",
       "Researches": "Researches 3x6 - 3x10:",
       "AntUpgrade": "Ant Upgrade - Hic Formicidae:",
@@ -8150,7 +8150,10 @@
       "CoinBuildings": "Coin Buildings:",
       "CrystalBuildings": "Crystal Buildings:",
       "MythosBuildings": "Mythos Buildings:",
-      "ParticleBuildings": "Particle Buildings:"
+      "ParticleBuildings": "Particle Buildings:",
+      "Accelerators": "Accelerators:",
+      "Multipliers": "Multipliers:",
+      "AcceleratorBoosts": "Accelerator Boosts:"
     },
     "freeAccelMultStats": {
       "title": "Free Accelerators, Multipliers and Accelerator Boosts",
@@ -8648,17 +8651,17 @@
         "2": "+0.018% Тессерактов за уровень Порчи за уровень!",
         "3": "+0.054% Гиперкубов за уровень Порчи за уровень!",
         "4": "+2.4% Платоновых Кубов за уровень. И ничего лишнего.",
-        "5": "Экспонента И10: 1.035 --> 1.0375, экспонента налогов от Константы +0.10, скорость производства Константы 2х, Кварки 1.05x, +10 к Лимиту выполнений Испытаний Реинкарнации, +5 к Лимиту выполнений Испытаний Вознесения, 2x Чистого Обтаниума и Подношений, получение монет в И15 ^1.10, а также +1 к Лимиту Уровней Порч!",
+        "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +1 free Corruption level!",
         "6": "Viscosity's exponent is multiplied by 1+(level/30), capped at ^1.",
         "7": "Глобальная скорость ниже 1x возводится в степень ^1-(уровень/30), игнорируя Чистые множители.",
         "8": "Эффект Куба Гипериспытаний разделён на 1+(уровень*0.4), с минимальным значением 1x.",
         "9": "Даёт 2.5x Чистого Обтаниума и умножает экспоненту Упразднённого Образования на 1+log10(Обтаниум+1)/100, достигая лимита при 1e100 Обтаниума.",
-        "10": "Экспонента И1.1.0: 1.0375 --> 1.04, экспонента налогов от Константы +0.20, скорость производства Константы 10х, Кварки 1.10x, +10 к Лимиту выполнений Испытаний Реинкарнации, +5 к Лимиту выполнений Испытаний Вознесения, 3.5x Чистого Обтаниума и Подношений, Все Кубы 2x, экспонента муравьёв в И15 ^1.25, и вновь +1 к Лимиту Уровней Порч!",
+        "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, and +1 free Corruption level!",
         "11": "Если Обрушение Кристальной Шахты установлено на 11 или выше, Реинкарнации также будут приносить Алмазы в зависимости от производства Частиц!",
         "12": "For each level of Extinction, gain +0.5% more Ant ELO, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
         "13": "'Less Fruitful Harvests' reduces your <<green|Salvage>> by 50% less!",
         "14": "Умножает экспоненту монет Великой Депрессии II на 1.55, но только в Испытании 15.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +0.10 in Challenge 15, Challenge 15 Score +25%, Ascension Speed +0.2% per Corruption Level (Max: 20%), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), 1.15x Quarks, 1e250x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings! Talk about a deep dive.",
+        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, and +1 free Corruption level! Talk about a deep dive.",
         "16": "Увеличивает коэффициент преобразования порошка на 1% за уровень, +2% счётчика Вознесений за уровень и ещё 2% в зависимости от порошка (до 100 000). Также умножает производство Строений Тессерактов на (Порошок +1)^(10 * уровень), без лимита.",
         "17": "If this is bought, Viscosity's score multiplier is raised to 3+(level*0.04) if its level is set to 10 or higher.",
         "18": "Увеличивает базовый процент Улучшения Константы 1 на 0.1% и лимит базового процента Улучшения Константы 2 на 0.3% за уровень!",
