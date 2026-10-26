@@ -4696,6 +4696,10 @@ window.addEventListener('load', async () => {
 
   await reloadShit()
 
+  if (location.hostname === 'pseudo-corp.github.io') {
+    void Alert(i18next.t('main.notSynergismCC'))
+  }
+
   // Which endpoint announcements come from depends on the login state, so wait for it to settle
   loginResolved.then(initializeAnnouncements).catch(console.error)
   loginResolved.then(resumePendingTimeSkips).catch(console.error)
