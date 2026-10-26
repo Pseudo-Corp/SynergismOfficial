@@ -4535,17 +4535,14 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
 
   constantIntervals()
 
-  eventCheck()
-    .catch(() => {})
-    .finally(() => {
-      setInterval(
-        () =>
-          eventCheck().catch((error: Error) => {
-            console.error(error)
-          }),
-        1000 * 60 * 5
-      )
-    })
+  eventCheck().catch(() => {})
+  setInterval(
+    () =>
+      eventCheck().catch((error: Error) => {
+        console.error(error)
+      }),
+    1000 * 60 * 5
+  )
   campaignTokenRewardHTMLUpdate()
   updateAllUngroupedAchievementProgress()
   updateAllGroupedAchievementProgress()
