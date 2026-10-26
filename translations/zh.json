@@ -7,11 +7,11 @@
   },
   "save": {
     "loadFailed": "无法载入存档。{{reason}}",
-    "storageLoadFailed": "The app could not read your saved game from device storage. Autosaving has been disabled to protect it. Close and reopen the app, then try again.",
+    "storageLoadFailed": "应用无法从设备存储中读取游戏存档。为保护存档，已禁用自动保存。请关闭并重新打开应用，然后重试。",
     "saveToClipboard": "您确定要启用将存档导出到剪贴板吗？",
-    "playOffline": "Play Offline",
-    "recoveryExport": "Export savefile",
-    "recoveryImport": "Load from file"
+    "playOffline": "离线游戏",
+    "recoveryExport": "导出存档",
+    "recoveryImport": "从文件导入"
   },
   "ambrosia": {
     "upgradeAP": "Red & Purple Ambrosia Upgrade AP: <<gold|{{current}}/{{max}}>>",
@@ -384,7 +384,7 @@
       "freeTutorialLevels": {
         "name": "增加神肴教程模块的等级",
         "description": "某种元教程。红神肴的强大能力之一是为蓝莓树供能！每级可以使神肴教程模块的有效等级增加1。",
-        "effect": "该升级使神肴教程模块的有效等级增加 <<pink | {{amount}}>>！"
+        "effect": "该升级使神肴教程模块的有效等级增加<<pink | {{amount}}>>！"
       },
       "freeLevelsRow2": {
         "name": "增加第2行蓝莓升级的等级",
@@ -419,7 +419,7 @@
       "redGenerationSpeed": {
         "name": "千年之红神肴",
         "description": "考虑到这份神肴放置的时间，它肯定也很了解时间。每级使红进度条点数获取速度增加0.3%。",
-        "effect": "该升级使红进度条点数获取速度增加 <<red|{{amount}}>>！"
+        "effect": "该升级使红进度条点数获取速度增加<<red|{{amount}}>>！"
       },
       "redGenerationSpeed2": {
         "name": "Era of Red Ambrosia",
@@ -6335,7 +6335,7 @@
       },
       "octeractImprovedFree": {
         "name": "真惊奇！我希望免费升级效果变得更好。",
-        "description": "使金夸克升级的有效等级从<<gold | (购买等级 + 免费等级)>>变为<<gold | (购买等级 * 免费等级)>>的<<orchid | {{power}}>>次方。不过，如果前者更高，那么仍然按照前者计算。",
+        "description": "使金夸克升级的有效等级从<<gold|(购买等级 + 免费等级)>>变为<<gold|(购买等级 * 免费等级)>>的<<orchid|{{power}}>>次方。不过，如果前者更高，那么仍然按照前者计算。",
         "effectDisabled": "金夸克商店的免费等级效果未被强化，有效等级仍然为(购买等级 + 免费等级)。",
         "effectEnabled": "金夸克商店的免费等级效果已被强化！"
       },
@@ -6963,7 +6963,7 @@
       "noOcteracts": {
         "name": "无八阶方块效果",
         "description": "您需要在八阶方块和相应升级失效的前提下通过目标奇点！",
-        "effectMod1": "<<gold|⚠>>在该拔擢中，奇点惩罚系数还会变为原来的<<red|{{sing}}>>倍。",
+        "effectMod1": "<<gold|⚠>>在该拔擢中，奇点次数还会视为原来的<<red|{{sing}}>>倍。",
         "ScalingReward1": "使<<var(--lightseagreen-text-color)|惊奇八阶方块对惊奇方盒至惊奇七阶立方>>的加成指数增加0.02(基础值为2.00)[完成10阶层后，之后的加成减半]",
         "ScalingReward2": "20成就点数！",
         "UniqueReward1": "第1次 - 根据<<var(--lightseagreen-text-color)|八阶方块>>数量，增加<<Gold|祭品>>获取数量！",
