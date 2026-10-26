@@ -163,19 +163,24 @@ const offeringPotionThresholds = [
 const obtainiumPotionThresholds = [1, 20, 50, 250, 1000, 20000, 4e5, 1e7, 4e8, 1e10, 1e11, 1e12, 1e13, 1e14, 1e15]
 
 export const calculateAllCubeMultiplier = () => calculateTotalStat(allCubeStats)
-export const calculateCubeMultiplier = () => calculateTotalStat(allWowCubeStats)
 
-export const calculateCubeMultiplierWithTau = () => {
-  const base = calculateCubeMultiplier()
-  const tauBonus = getGQUpgradeEffect('platonicTau', 'tauPower')
-  return Math.pow(base, tauBonus)
+const applyTauPower = (multiplier: number) => {
+  return multiplier > 1 ? Math.pow(multiplier, getGQUpgradeEffect('platonicTau', 'tauPower')) : multiplier
 }
 
-export const calculateTesseractMultiplier = () => calculateTotalStat(allTesseractStats)
-export const calculateHypercubeMultiplier = () => calculateTotalStat(allHypercubeStats)
-export const calculatePlatonicMultiplier = () => calculateTotalStat(allPlatonicCubeStats)
-export const calculateHepteractMultiplier = () => calculateTotalStat(allHepteractCubeStats)
-export const calculateOcteractMultiplier = () => calculateTotalStat(allOcteractCubeStats)
+export const calculateRawCubeMultiplier = () => calculateTotalStat(allWowCubeStats)
+export const calculateRawTesseractMultiplier = () => calculateTotalStat(allTesseractStats)
+export const calculateRawHypercubeMultiplier = () => calculateTotalStat(allHypercubeStats)
+export const calculateRawPlatonicMultiplier = () => calculateTotalStat(allPlatonicCubeStats)
+export const calculateRawHepteractMultiplier = () => calculateTotalStat(allHepteractCubeStats)
+export const calculateRawOcteractMultiplier = () => calculateTotalStat(allOcteractCubeStats)
+
+export const calculateCubeMultiplier = () => applyTauPower(calculateRawCubeMultiplier())
+export const calculateTesseractMultiplier = () => applyTauPower(calculateRawTesseractMultiplier())
+export const calculateHypercubeMultiplier = () => applyTauPower(calculateRawHypercubeMultiplier())
+export const calculatePlatonicMultiplier = () => applyTauPower(calculateRawPlatonicMultiplier())
+export const calculateHepteractMultiplier = () => applyTauPower(calculateRawHepteractMultiplier())
+export const calculateOcteractMultiplier = () => applyTauPower(calculateRawOcteractMultiplier())
 
 export const calculateOfferingsDecimal = () => calculateTotalStat(allOfferingStats)
 export const calculateBaseOfferings = () => calculateTotalStat(allBaseOfferingStats)
@@ -607,11 +612,21 @@ export const buildingConstructionSoftcap = {
   particle: 1000
 } as const
 
+type AccelMultConstructionType = 'accelerator' | 'multiplier' | 'acceleratorBoost'
+type ConstructionType = keyof typeof buildingConstructionSoftcap | AccelMultConstructionType
+
+const challengeConstructionExempt = new Set<ConstructionType>([
+  'particle',
+  'accelerator',
+  'multiplier',
+  'acceleratorBoost'
+])
+
 export const calculateRawConstruction = () => calculateTotalStat(constructionStats)
 export const calculateConstruction = () => calculateRawConstruction() * calculateTotalStat(constructionMultiplierStats)
 
-const getChallengeConstructionDivisor = (type: keyof typeof buildingConstructionSoftcap) => {
-  if (type === 'particle') {
+const getChallengeConstructionDivisor = (type: ConstructionType) => {
+  if (challengeConstructionExempt.has(type)) {
     return 1
   }
   if (player.currentChallenge.reincarnation === 8) {
@@ -625,10 +640,13 @@ const getChallengeConstructionDivisor = (type: keyof typeof buildingConstruction
   return 1
 }
 
-export const calculateBuildingConstruction = (type: keyof typeof buildingConstructionSoftcap) => {
+export const calculateBuildingConstruction = (type: ConstructionType) => {
   return calculateConstruction() / getChallengeConstructionDivisor(type)
     / corruptionEffect(activeCorruptionLevel(), 'construction')
 }
+
+export const calculateAccelMultConstructionEffect = (type: AccelMultConstructionType) =>
+  Math.sqrt(calculateBuildingConstruction(type))
 
 const freeAccelMultAdditiveStats = {
   accelerator: freeAcceleratorAdditiveStats,
@@ -1381,7 +1399,7 @@ export const calculateCubeBank = () => {
 }
 
 export const CalcCorruptionStuff = () => {
-  const cubeGain = calculateCubeMultiplierWithTau()
+  const cubeGain = calculateCubeMultiplier()
   const tesseractGain = calculateTesseractMultiplier()
 
   let hypercubeGain = isCorruptionCubeUnlocked(ascensionEffectiveCorruptionLevel(), 'hypercubes') ? 1 : 0

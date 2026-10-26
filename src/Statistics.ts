@@ -35,7 +35,6 @@ import {
   calculateCubeBankSources,
   calculateCubeMultFromPowder,
   calculateCubeMultiplier,
-  calculateCubeMultiplierWithTau,
   calculateDilatedFiveLeafBonus,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
@@ -78,8 +77,14 @@ import {
   calculateRawAntSpeedMult,
   calculateRawAscensionSpeedMult,
   calculateRawConstruction,
+  calculateRawCubeMultiplier,
+  calculateRawHepteractMultiplier,
+  calculateRawHypercubeMultiplier,
   calculateRawNegativeSalvage,
+  calculateRawOcteractMultiplier,
+  calculateRawPlatonicMultiplier,
   calculateRawPositiveSalvage,
+  calculateRawTesseractMultiplier,
   calculateRedAmbrosiaCubes,
   calculateRedAmbrosiaGenerationSpeed,
   calculateRedAmbrosiaGenerationSpeedRaw,
@@ -655,7 +660,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
   ]
 }
 
-const allWowCubePowerStats: NumberStatLineCategory = {
+const cubeTauPowerStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Misc,
   lines: [
@@ -3441,6 +3446,7 @@ export const positiveSalvageStatMultiplier: NumberStatLineCategory = {
 }
 
 const constructionResearches = [56, 57, 58, 59, 60] as const
+const mythosUpgrade8Construction = 0.2
 
 export const constructionStats: NumberStatLineCategory = {
   kind: 'number',
@@ -3450,6 +3456,11 @@ export const constructionStats: NumberStatLineCategory = {
       i18n: 'Base',
       stat: () => baseConstruction,
       acc: 0
+    },
+    {
+      i18n: 'MythosUpgrade8',
+      stat: () => mythosUpgrade8Construction * player.upgrades[48],
+      acc: 1
     },
     {
       i18n: 'ThriftRune',
@@ -3510,6 +3521,18 @@ const constructionBuildingStats: NumberStatLineCategory = {
     {
       i18n: 'ParticleBuildings',
       stat: () => calculateBuildingConstruction('particle')
+    },
+    {
+      i18n: 'Accelerators',
+      stat: () => calculateBuildingConstruction('accelerator')
+    },
+    {
+      i18n: 'Multipliers',
+      stat: () => calculateBuildingConstruction('multiplier')
+    },
+    {
+      i18n: 'AcceleratorBoosts',
+      stat: () => calculateBuildingConstruction('acceleratorBoost')
     }
   ]
 }
@@ -4943,13 +4966,6 @@ export const allCoinMultiplierStats: DecimalStatLineCategory = {
       stat: () => player.upgrades[43] > 0.5 ? Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)) : 1
     },
     {
-      i18n: 'MythosUpgrade8',
-      stat: () =>
-        player.upgrades[48] > 0.5
-          ? Decimal.pow(new Decimal(G.totalMultiplier).times(G.totalAccelerator).div(1000).add(1), 8)
-          : 1
-    },
-    {
       i18n: 'Challenge6Active',
       stat: () => player.currentChallenge.reincarnation === 6 ? challenge6CoinPenalty : 1
     },
@@ -5435,15 +5451,8 @@ const loadGlobalCubeMultiplierStats = () => {
 }
 
 const loadWowCubeMultiplierStats = () => {
-  loadStatistics(allWowCubeStats, 'cubeMultiplierStats', 'statCM', 'WowCubeStat', calculateCubeMultiplier)
-  loadStatistics(
-    allWowCubePowerStats,
-    'cubeMultiplierStats',
-    'statCM2',
-    'WowCubeStat2',
-    calculateCubeMultiplierWithTau,
-    'Total2'
-  )
+  loadStatistics(allWowCubeStats, 'cubeMultiplierStats', 'statCM', 'WowCubeStat', calculateRawCubeMultiplier)
+  loadStatistics(cubeTauPowerStats, 'cubeMultiplierStats', 'statCM2', 'WowCubeStat2', calculateCubeMultiplier, 'Total2')
 }
 
 const loadTesseractMultiplierStats = () => {
@@ -5452,7 +5461,15 @@ const loadTesseractMultiplierStats = () => {
     'tesseractMultiplierStats',
     'statTeM',
     'TesseractStat',
-    calculateTesseractMultiplier
+    calculateRawTesseractMultiplier
+  )
+  loadStatistics(
+    cubeTauPowerStats,
+    'tesseractMultiplierStats',
+    'statTeM2',
+    'TesseractStat2',
+    calculateTesseractMultiplier,
+    'Total2'
   )
 }
 
@@ -5462,7 +5479,15 @@ const loadHypercubeMultiplierStats = () => {
     'hypercubeMultiplierStats',
     'statHyM',
     'HypercubeStat',
-    calculateHypercubeMultiplier
+    calculateRawHypercubeMultiplier
+  )
+  loadStatistics(
+    cubeTauPowerStats,
+    'hypercubeMultiplierStats',
+    'statHyM2',
+    'HypercubeStat2',
+    calculateHypercubeMultiplier,
+    'Total2'
   )
 }
 
@@ -5472,7 +5497,15 @@ const loadPlatonicMultiplierStats = () => {
     'platonicMultiplierStats',
     'statPlM',
     'PlatonicStat',
-    calculatePlatonicMultiplier
+    calculateRawPlatonicMultiplier
+  )
+  loadStatistics(
+    cubeTauPowerStats,
+    'platonicMultiplierStats',
+    'statPlM2',
+    'PlatonicStat2',
+    calculatePlatonicMultiplier,
+    'Total2'
   )
 }
 
@@ -5482,7 +5515,15 @@ const loadHepteractMultiplierStats = () => {
     'hepteractMultiplierStats',
     'statHeM',
     'HepteractCubeStat',
-    calculateHepteractMultiplier
+    calculateRawHepteractMultiplier
+  )
+  loadStatistics(
+    cubeTauPowerStats,
+    'hepteractMultiplierStats',
+    'statHeM2',
+    'HepteractCubeStat2',
+    calculateHepteractMultiplier,
+    'Total2'
   )
 }
 
@@ -5492,7 +5533,15 @@ const loadOcteractMultiplierStats = () => {
     'octeractMultiplierStats',
     'statOcM',
     'OcteractCubeStat',
-    calculateOcteractMultiplier
+    calculateRawOcteractMultiplier
+  )
+  loadStatistics(
+    cubeTauPowerStats,
+    'octeractMultiplierStats',
+    'statOcM2',
+    'OcteractCubeStat2',
+    calculateOcteractMultiplier,
+    'Total2'
   )
 }
 

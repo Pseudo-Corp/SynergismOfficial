@@ -8,7 +8,6 @@ import {
   reincarnationChallengeCubeBankPerCompletion
 } from './Calculate'
 import { campaignTokenRewardHTMLUpdate, corruptionLevelTokenInfo, updateTokens } from './Campaign'
-import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { platonicCorruptionScaling } from './Platonic'
 import { getGQUpgradeEffect } from './singularity'
 import {
@@ -37,42 +36,23 @@ type CorruptionEffectValues = {
 
 type CorruptionKey = keyof CorruptionEffectValues
 
-type CorruptionBand = 0 | 1 | 2 | 3 | 4
-
-type ActiveCorruptionBand = Exclude<CorruptionBand, 0>
-
 export type CorruptionCubeType = 'cubes' | 'tesseracts' | 'hypercubes' | 'platonics' | 'hepteracts' | 'octeracts'
-
-type CorruptionBandData = {
-  unlockChallenge: number
-  lastLevel: number
-}
 
 type CorruptionCubeUnlock = {
   level: number
   requiresChallenge15: boolean
 }
 
-const c14LevelCap = 20
-const levelCapPerIncrease = 5
-const platonicOmegaLevelCapIncrease = 3
 const fastClimbSingularity = 2
 const fastClimbStep = 2
-
-const corruptionBands: Record<ActiveCorruptionBand, CorruptionBandData> = {
-  1: { unlockChallenge: 11, lastLevel: 4 },
-  2: { unlockChallenge: 12, lastLevel: 8 },
-  3: { unlockChallenge: 13, lastLevel: 14 },
-  4: { unlockChallenge: 14, lastLevel: Number.POSITIVE_INFINITY }
-}
 
 const corruptionCubeUnlocks: Record<CorruptionCubeType, CorruptionCubeUnlock> = {
   cubes: { level: 0, requiresChallenge15: false },
   tesseracts: { level: 0, requiresChallenge15: false },
-  hypercubes: { level: 8, requiresChallenge15: false },
-  platonics: { level: 14, requiresChallenge15: false },
+  hypercubes: { level: 5, requiresChallenge15: false },
+  platonics: { level: 11, requiresChallenge15: false },
   hepteracts: { level: 20, requiresChallenge15: true },
-  octeracts: { level: 35, requiresChallenge15: false }
+  octeracts: { level: 45, requiresChallenge15: false }
 }
 
 type CorruptionCubeRate = {
@@ -86,9 +66,9 @@ const corruptionCubeRates: Record<CorruptionCubeType, CorruptionCubeRate> = {
   cubes: { base: 1, growth: 1.1, endgameGrowth: 1.05 },
   tesseracts: { base: 1e-3, growth: 1.15, endgameGrowth: 1.07 },
   hypercubes: { base: 1e-3, growth: 1.2, endgameGrowth: 1.1 },
-  platonics: { base: 2e-4, growth: 1.3, endgameGrowth: 1.15 },
-  hepteracts: { base: 1e-4, growth: 1.4, lateGrowth: 1.05, endgameGrowth: 1.05 },
-  octeracts: { base: 1 / (5e19 * 3600 * 24 * 365), growth: 1.45, endgameGrowth: 1.1 }
+  platonics: { base: 5e-4, growth: 1.25, endgameGrowth: 1.1 },
+  hepteracts: { base: 1e-4, growth: 1.4, lateGrowth: 1.1, endgameGrowth: 1.1 },
+  octeracts: { base: 1 / (1e20 * 3600 * 24 * 365), growth: 1.45, endgameGrowth: 1.1 }
 }
 
 const corruptionCubeIcons: Record<CorruptionCubeType, string> = {
@@ -124,9 +104,9 @@ const corruptionLevelEffects: { [K in CorruptionKey]: CorruptionLevelEffect<K> }
     (l) => 15 * Math.pow(1.05, l - endgameLevel)
   ],
   viscosity: [
-    (l) => Math.pow(2, 2 * l),
-    (l) => Math.pow(2, 40 + 6 * (l - midgameLevel)),
-    (l) => Math.min(1e300, Math.pow(2, 190 + 9 * (l - endgameLevel)))
+    (l) => Math.pow(3, l),
+    (l) => Math.pow(3, 20 + 3 * (l - midgameLevel)),
+    (l) => Math.min(1e300, Math.pow(3, 95) * Math.pow(21, 2 * (l - endgameLevel)))
   ],
   salvage: [
     (l) => -62.5 * l,
@@ -236,83 +216,6 @@ export const challenge15CorruptionEffect = (corr: Challenge15CorruptionKey) => {
     : challenge15CorruptionNeutral[corr]
 }
 
-export const isCorruptionBandUnlocked = (band: CorruptionBand) => {
-  return band === 0
-    || player.challengecompletions[corruptionBands[band].unlockChallenge] > 0
-    || getGQUpgradeEffect('platonicTau', 'unlocked')
-}
-
-const corruptionBandOf = (level: number): CorruptionBand => {
-  if (level <= 0) {
-    return 0
-  }
-  for (const band of [1, 2, 3] as const) {
-    if (level <= corruptionBands[band].lastLevel) {
-      return band
-    }
-  }
-  return 4
-}
-
-const corruptionLevelCapIncrease = () => {
-  return (player.platonicUpgrades[5] > 0 ? levelCapPerIncrease : 0)
-    + (player.platonicUpgrades[10] > 0 ? levelCapPerIncrease : 0)
-    + (player.platonicUpgrades[15] > 0 ? platonicOmegaLevelCapIncrease : 0)
-    + (getGQUpgradeEffect('corruptionFourteen', 'unlocked') ? levelCapPerIncrease : 0)
-    + levelCapPerIncrease * getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
-}
-
-type CorruptionLevelCapSource = {
-  key: string
-  visible: () => boolean
-  maxed: () => boolean
-}
-
-const corruptionLevelCapSources: CorruptionLevelCapSource[] = [
-  {
-    key: 'platonicAlpha',
-    visible: () => player.unlocks.platonics,
-    maxed: () => player.platonicUpgrades[5] > 0
-  },
-  {
-    key: 'platonicBeta',
-    visible: () => player.unlocks.platonics,
-    maxed: () => player.platonicUpgrades[10] > 0
-  },
-  {
-    key: 'platonicOmega',
-    visible: () => player.unlocks.platonics,
-    maxed: () => player.platonicUpgrades[15] > 0
-  },
-  {
-    key: 'corruptionFourteen',
-    visible: () => player.highestSingularityCount > 0,
-    maxed: () => getGQUpgradeEffect('corruptionFourteen', 'unlocked')
-  },
-  {
-    key: 'octeractCorruption',
-    visible: () => getGQUpgradeEffect('octeractUnlock', 'unlocked'),
-    maxed: () =>
-      getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease')
-        >= octeractUpgrades.octeractCorruption.maxLevel
-  }
-]
-
-const corruptionLevelCap = () => {
-  if (getGQUpgradeEffect('platonicTau', 'unlocked')) {
-    return Number.POSITIVE_INFINITY
-  }
-  if (isCorruptionBandUnlocked(4)) {
-    return c14LevelCap + corruptionLevelCapIncrease()
-  }
-  for (const band of [3, 2, 1] as const) {
-    if (isCorruptionBandUnlocked(band)) {
-      return corruptionBands[band].lastLevel
-    }
-  }
-  return 0
-}
-
 const corruptionClimbStep = () => {
   return player.highestSingularityCount >= fastClimbSingularity ? fastClimbStep : 1
 }
@@ -325,8 +228,7 @@ export const maxCorruptionLevel = () => {
   if (!canChangeCorruptions()) {
     return 0
   }
-  const highest = player.corruptions.highestCleared
-  return Math.max(highest, Math.min(corruptionLevelCap(), highest + corruptionClimbStep()))
+  return player.corruptions.highestCleared + corruptionClimbStep()
 }
 
 export const clearCorruptionLevel = (level: number) => {
@@ -918,24 +820,7 @@ export const corruptionLevelScoreUpdate = () => {
   }
 }
 
-const corruptionLevelCapText = (cap: number) => {
-  if (!isCorruptionBandUnlocked(4)) {
-    return i18next.t('corruptions.tiers.levelCap', {
-      cap,
-      challenge: corruptionBands[(corruptionBandOf(cap) + 1) as ActiveCorruptionBand].unlockChallenge
-    })
-  }
-  const sources = corruptionLevelCapSources.filter((source) => source.visible() && !source.maxed())
-  if (sources.length === 0) {
-    return i18next.t('corruptions.tiers.levelCapFinal', { cap })
-  }
-  return `${i18next.t('corruptions.tiers.levelCapIncreasable', { cap })} ${
-    sources.map((source) => i18next.t(`corruptions.tiers.levelCapSources.${source.key}`)).join(', ')
-  }`
-}
-
 const corruptionLevelCapUpdate = () => {
-  const cap = corruptionLevelCap()
   const highest = player.corruptions.highestCleared
   DOMCacheGetOrSet('corruptionHighestCleared').innerHTML = i18next.t('corruptions.tiers.highestCleared', {
     level: format(highest)
@@ -943,10 +828,6 @@ const corruptionLevelCapUpdate = () => {
   const step = corruptionClimbStep()
   DOMCacheGetOrSet('corruptionLevelCap').innerHTML = !canChangeCorruptions()
     ? i18next.t('corruptions.tiers.requiresChallenge11')
-    : highest > cap
-    ? i18next.t('corruptions.tiers.levelCapBelowHighest', { highest: format(highest), cap: format(cap) })
-    : highest + step >= cap
-    ? corruptionLevelCapText(cap)
     : step === 1
     ? i18next.t('corruptions.tiers.nextUnlock', { level: format(highest + 1), unlock: format(highest + 2) })
     : i18next.t('corruptions.tiers.nextUnlockRange', { level: format(highest + step), step })

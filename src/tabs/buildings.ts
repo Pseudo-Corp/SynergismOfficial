@@ -25,7 +25,7 @@ interface Building {
   fitStats?: boolean
 }
 
-type Entry = Building | { spacer: true }
+type Entry = Building | { spacer: true; infoId?: string }
 
 const costIdOf = (buyId: string) => `cost${buyId.slice('buy'.length)}`
 const joinClasses = (...classes: Array<string | undefined>) => classes.filter(Boolean).join(' ')
@@ -93,9 +93,14 @@ const renderAutomationControl = (): string =>
   + '<button class="automatedBuildingVisibilityToggle" type="button" style="display: none" aria-pressed="false"></button>'
   + '</div>'
 
+const renderSpacer = (infoId?: string): string =>
+  infoId === undefined
+    ? '<div class="buildingSpacer"></div>'
+    : `<div class="buildingSpacer buildingInfo"><p class="transcendunlock constructionInfo" id="${infoId}"></p></div>`
+
 const renderRow = (entries: Entry[]): string =>
   renderAutomationControl()
-  + entries.map((e) => 'spacer' in e ? '<div class="buildingSpacer"></div>' : renderBuilding(e)).join('')
+  + entries.map((e) => 'spacer' in e ? renderSpacer(e.infoId) : renderBuilding(e)).join('')
 
 const goldStyle = 'color: gold'
 
@@ -119,7 +124,7 @@ const coinRow: Entry[] = [
     descStyle: goldStyle,
     statsStyle: goldStyle
   })),
-  { spacer: true },
+  { spacer: true, infoId: 'accelMultConstruction' },
   {
     imgId: 'accelerator',
     imgAlt: 'Accelerator',

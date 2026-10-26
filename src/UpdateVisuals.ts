@@ -8,6 +8,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   buildingConstructionSoftcap,
   calculateAcceleratorsPerBoost,
+  calculateAccelMultConstructionEffect,
   calculateActualAntSpeedMult,
   calculateAmbrosiaAdditiveLuckMult,
   calculateAmbrosiaCubeMult,
@@ -503,6 +504,12 @@ export const visualUpdateBuildings = () => {
       totalGenerated: format(player.coinsTotal, 0, false, false)
     })
     const coinConstruction = updateConstructionTexts('coin')
+    DOMCacheGetOrSet('accelMultConstruction').innerHTML = i18next.t('buildings.accelMultConstruction', {
+      amount: format(calculateAccelMultConstructionEffect('accelerator'), 3, true),
+      accelerators: format(getAccelMultScalingThreshold('accelerator'), 0, true),
+      multipliers: format(getAccelMultScalingThreshold('multiplier'), 0, true),
+      boosts: format(getAccelMultScalingThreshold('acceleratorBoost'), 0, true)
+    })
 
     let vanityIndex = 0
     const decimalCoin = Decimal.log10(player.coinsTotal)

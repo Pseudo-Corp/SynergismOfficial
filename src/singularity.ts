@@ -3006,7 +3006,7 @@ export function computeGQUpgradeMaxLevel (upgradeKey: SingularityDataKeys): numb
 }
 
 export const divinePackOcteractMultiplier = (effectiveLevel: number) => {
-  return Math.pow(1.3, Math.min(10, Math.max(0, effectiveLevel - 35)))
+  return Math.pow(1.3, Math.min(10, Math.max(0, effectiveLevel - 45)))
 }
 
 export function actualGQUpgradeTotalLevels (upgradeKey: SingularityDataKeys): number {

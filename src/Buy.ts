@@ -1,6 +1,11 @@
 import Decimal from 'break_infinity.js'
 import { awardAchievementGroup } from './Achievements'
-import { buildingConstructionSoftcap, calculateBuildingConstruction, calculateConstruction } from './Calculate'
+import {
+  buildingConstructionSoftcap,
+  calculateAccelMultConstructionEffect,
+  calculateBuildingConstruction,
+  calculateConstruction
+} from './Calculate'
 import { activeCorruptionLevel, corruptionEffect } from './Corruptions'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import { getRuneEffects } from './Runes'
@@ -255,19 +260,23 @@ export const getBuildingScalingThreshold = (type: ScalingBuildingType) =>
 
 const getAccelMultScaling = (type: keyof typeof accelMultData) => {
   const data = accelMultData[type]
+  const construction = calculateAccelMultConstructionEffect(type)
   const delay = 1 + data.c4effect * player.challengecompletions[4] / data.threshold
   if (player.currentChallenge.reincarnation === 8) {
-    return { threshold: challenge8AccelMultThreshold, delay: 1 }
+    return { threshold: challenge8AccelMultThreshold * construction, delay: 1 }
   }
   if (player.currentChallenge.transcension === 4) {
-    return { threshold: data.challenge4Threshold, delay: 1 }
+    return { threshold: data.challenge4Threshold * construction, delay: 1 }
   }
-  return { threshold: data.threshold * delay, delay }
+  return { threshold: data.threshold * delay * construction, delay }
 }
+
+const getAcceleratorBoostDelay = () =>
+  getRuneBlessingEffect('thrift').accelBoostCostDelay * calculateAccelMultConstructionEffect('acceleratorBoost')
 
 export const getAccelMultScalingThreshold = (type: keyof typeof accelMultData | 'acceleratorBoost') =>
   type === 'acceleratorBoost'
-    ? acceleratorBoostThreshold * getRuneBlessingEffect('thrift').accelBoostCostDelay
+    ? acceleratorBoostThreshold * getAcceleratorBoostDelay()
     : getAccelMultScaling(type).threshold
 
 const getBuildingCostCurve = (type: ScalingBuildingType, index: ZeroToFour): CostCurve => {
@@ -295,7 +304,7 @@ const getCostCurve = (type: BuildingType, index: ZeroToFour): CostCurve => {
     case 'multiplier':
       return getAccelMultCostCurve(type)
     case 'acceleratorBoost':
-      return createAcceleratorBoostCostCurve(getRuneBlessingEffect('thrift').accelBoostCostDelay)
+      return createAcceleratorBoostCostCurve(getAcceleratorBoostDelay())
   }
   return getBuildingCostCurve(type, index)
 }

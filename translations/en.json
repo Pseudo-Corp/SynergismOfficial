@@ -3318,7 +3318,7 @@
       "name": "Cost++ Challenge || {{- value}} Completions",
       "progressName": "Cost++ Challenge",
       "flavor": "You thought you could outgrow inflation by Reincarnating?",
-      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Construction is divided by <<gold|num:((5))>> for all but Particle Buildings",
+      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Construction is divided by <<gold|num:((5))>> for Coin, Diamond and Mythos Buildings",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
         "1": "Base Building Power +num:((0.25))! Current: ",
@@ -3382,7 +3382,7 @@
         "2": "Ant Speed x(num:((1e5)))^completions! Current: ",
         "3": "+1 to the Rune Level Coefficient of the first five runes! Current: "
       },
-      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to 'Corrupt' your game with Corruption levels 1–4!",
+      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to 'Corrupt' your game with Corruption levels!",
       "start": "Start <[(Reduced Ants)]>",
       "current": {
         "1": "+{{value}} free ant levels",
@@ -3401,7 +3401,7 @@
         "2": "+12% Offerings! Current: ",
         "3": "+20% more Reincarnation Count on Reincarnation! Current: "
       },
-      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab. Also unlocks Corruption levels up to 8!",
+      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab.",
       "start": "Start <[(No Reincarnation)]>",
       "current": {
         "1": "+{{value}}% Obtainium",
@@ -3420,7 +3420,7 @@
         "2": "+6 maximum to Talisman Level Cap! Current: ",
         "3": "+3% Spirit Power effectiveness! Current: "
       },
-      "first": "Unlock 15 Researches, and unlock the power of the Hypercube! Also unlocks Corruption levels up to 14!",
+      "first": "Unlock 15 Researches, and unlock the power of the Hypercube!",
       "start": "Start <[(Tax+++)]>",
       "current": {
         "1": "-{{value}}% Tax Burden",
@@ -3439,7 +3439,7 @@
         "2": "+1 Research purchased per roomba tick! Current: ",
         "3": "+num:((1.5)) to the Rune Level Coefficient of the first five runes! Current: "
       },
-      "first": "Unlock 15 Researches, and discover a new type of ideal cube - a Platonic one perhaps? Plus uncapped Corruption levels, of course.",
+      "first": "Unlock 15 Researches, and discover a new type of ideal cube - a Platonic one perhaps?",
       "start": "Start <[(No Research)]>",
       "current": {
         "1": "+{{value}}% Power",
@@ -4648,13 +4648,13 @@
       },
       "corruptionFourteen": {
         "name": "Level Fourteen Corruptions",
-        "description": "Buy this to gain +1 free Corruption level and raise your maximum Corruption level by 5. :)",
+        "description": "Buy this to gain +1 free Corruption level. :)",
         "effectHave": "You have gained +1 free Corruption level. {{m}}",
         "effectHaveNot": "You have not gained +1 free Corruption level. {{m}}"
       },
       "corruptionFifteen": {
         "name": "Level Fifteen Corruptions",
-        "description": "This doesn't *really* raise the Corruption limit. Rather, it adds +1 FREE Corruption level, no matter what (can exceed caps). :)",
+        "description": "Adds +1 FREE Corruption level, no matter what. :)",
         "effectHave": "You have gained +1 free Corruption level. {{m}}",
         "effectHaveNot": "You have not gained +1 free Corruption level. {{m}}"
       },
@@ -4755,7 +4755,7 @@
       },
       "divinePack": {
         "name": "Divine Pack",
-        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 35, including free levels, up to num:((10)) levels!",
+        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 45, including free levels, up to num:((10)) levels!",
         "effectHave": "You have found the reason for existence. Current Octeract Bonus: +{{n}}",
         "effectHaveNot": "You have not found the reason for existence."
       },
@@ -4848,7 +4848,7 @@
       },
       "platonicTau": {
         "name": "Platonic TAU",
-        "description": "Placed in the wrong upgrade section, this will remove the Corruption level cap! Also raises 3d cube gain to the power of num:((1.01))!",
+        "description": "Placed in the wrong upgrade section, this raises all Cube gains to the power of num:((1.01))!",
         "effectHave": "This upgrade has been purchased",
         "effectHaveNot": "This upgrade has not been purchased"
       },
@@ -5226,7 +5226,7 @@
       "45": "Gain free Accelerators based on Mythos Shards.",
       "46": "Accelerator Boosts are 5% stronger.",
       "47": "Multiply Mythos Shard production based on your AP.",
-      "48": "Multiply production based on owned Accelerators and Multipliers.",
+      "48": "Gain +num:((0.2)) Construction, to make buildings and such cheaper!",
       "49": "Gain free Multipliers based on unspent Mythos.",
       "50": "Gain +25% free Accelerators and Multipliers, but ONLY while doing Challenges.",
       "51": "Increase production of all Mythos buildings based on owned Accelerator Boosts.",
@@ -5394,7 +5394,7 @@
       "45": "Effect: +{{x}} Accelerators!",
       "46": "Effect: Accelerator Boosts are 5% stronger!",
       "47": "Effect: Mythos-tier producers production x{{x}}",
-      "48": "Effect: Multiply coin production by a factor of {{x}}!",
+      "48": "Effect: +num:((0.2)) Construction!",
       "49": "Effect: +{{x}} Multipliers through magic!",
       "50": "Effect: It's quite obvious what the benefit is, but you must be in a Challenge for it to be in use!",
       "51": "Effect: Mythos-tier producers production x{{x}}!",
@@ -5680,9 +5680,9 @@
         "high": "15 × 1.05^({{L}} − 45)"
       },
       "viscosity": {
-        "low": "2^(2 × {{L}})",
-        "mid": "2^(40 + 6 × ({{L}} − 20))",
-        "high": "2^(190 + 9 × ({{L}} − 45))"
+        "low": "3^{{L}}",
+        "mid": "3^(20 + 3 × ({{L}} − 20))",
+        "high": "3^95 × 21^(2 × ({{L}} − 45))"
       },
       "salvage": {
         "low": "−62.5 × {{L}}",
@@ -5822,17 +5822,6 @@
       "highestCleared": "Highest level cleared: <<gold|{{level}}>>",
       "nextUnlock": "Complete Challenge 10 at level {{level}} to unlock level {{unlock}}.",
       "nextUnlockRange": "You can climb up to {{step}} levels past your highest cleared level (up to level {{level}}).",
-      "levelCap": "Maximum level: {{cap}}. Complete Challenge {{challenge}} to raise it.",
-      "levelCapIncreasable": "Maximum level: {{cap}}. Raise it with:",
-      "levelCapSources": {
-        "platonicAlpha": "Platonic ALPHA (+5)",
-        "platonicBeta": "Platonic BETA (+5)",
-        "platonicOmega": "Platonic OMEGA (+3)",
-        "corruptionFourteen": "Level Fourteen Corruptions (+5)",
-        "octeractCorruption": "EXTRA CHONKY Corruptions (+5 per level)"
-      },
-      "levelCapFinal": "Maximum level: {{cap}}.",
-      "levelCapBelowHighest": "You can return to any level up to your highest cleared level ({{highest}}). Climbing past level {{cap}} is locked for now.",
       "requiresChallenge11": "Complete Challenge 11 to change your Corruption level.",
       "cubeBank": "Cube Bank",
       "cubeMultipliersHeading": "Cube multipliers (this Ascension → next):",
@@ -6100,6 +6089,7 @@
     "construction": "Construction: <<yellow|{{amount}}>>",
     "constructionBonus": "These Buildings have a base Softcap of <<yellow|{{amount}}>> owned, which is multiplied by Construction",
     "hyperscaling": "Price exponents start growing <<yellow|quadratically>> past <<yellow|{{threshold}}>> owned",
+    "accelMultConstruction": "Accelerators, Multipliers and Accelerator Boosts benefit from <<yellow|√Construction>> (<<yellow|×{{amount}}>>) <br> Accelerators scale <<yellow|quadratically>> past <<yellow|{{accelerators}}>> bought <br> Multipliers scale <<yellow|quadratically>> past <<yellow|{{multipliers}}>> bought <br> Accelerator Boosts scale <<yellow|cubically>> past <<yellow|{{boosts}}>> bought",
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "You have nothing but 100 coins. You can hire a worker, conveniently for exactly 100 coins!",
@@ -6285,7 +6275,7 @@
       },
       "octeractCorruption": {
         "name": "EXTRA CHONKY Corruptions",
-        "description": "Adds num:((0.5)) free Corruption levels per level. Each level of this upgrade raises your maximum Corruption level by 5. Derpsmith approves.",
+        "description": "Adds num:((0.5)) free Corruption levels per level. Derpsmith approves.",
         "effect": "Free Corruption levels +{{n}}"
       },
       "octeractGQCostReduce": {
@@ -7320,7 +7310,9 @@
       "Achievement255": "Achievement 255 Bonus:",
       "PlatonicCube": "Platonic Cubes:",
       "Platonic1x2": "Platonic 1x2:",
-      "Total": "Total Tesseract Multiplier:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Total Tesseract Multiplier:",
+      "Total2": "Final Tesseract Multiplier:"
     },
     "hypercubeMultiplierStats": {
       "title": "Wow! Hypercube Multiplier",
@@ -7342,7 +7334,9 @@
       "PlatonicCube": "Platonic Cubes:",
       "Platonic1x3": "Platonic 1x3:",
       "HyperrealHepteract": "Hyperreal Hepteract Bonus:",
-      "Total": "Total Hypercube Multiplier:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Total Hypercube Multiplier:",
+      "Total2": "Final Hypercube Multiplier:"
     },
     "platonicMultiplierStats": {
       "title": "Wow! Platonic Cube Multiplier",
@@ -7362,7 +7356,9 @@
       "Achievement257": "Achievement 257 Bonus:",
       "PlatonicCube": "Platonic Cubes:",
       "Platonic1x4": "Platonic 1x4:",
-      "Total": "Total Platonic Cube Multiplier:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Total Platonic Cube Multiplier:",
+      "Total2": "Final Platonic Cube Multiplier:"
     },
     "hepteractMultiplierStats": {
       "title": "Wow! Hepteract Cube Multiplier",
@@ -7380,7 +7376,9 @@
       "Achievement264": "Achievement 264 Bonus:",
       "Achievement265": "Achievement 265 Bonus:",
       "Achievement270": "Achievement 270 Bonus:",
-      "Total": "Total Hepteract Multiplier:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Total Hepteract Multiplier:",
+      "Total2": "Final Hepteract Multiplier:"
     },
     "octeractMultiplierStats": {
       "title": "Wow! Octeract Cube Multiplier",
@@ -7431,7 +7429,9 @@
       "CashGrabUltra": "Quark Upgrade: It's the FINAL CASHGRAB!",
       "EXUltra": "Quark Upgrade: It's the FINAL E X! [Cube Bonus]",
       "AscensionSpeed": "Ascension Speed Multiplier:",
-      "Total": "Total Octeract Multiplier:"
+      "Tau": "Platonic TAU Power:",
+      "Total": "Total Octeract Multiplier:",
+      "Total2": "Final Octeract Multiplier:"
     },
     "baseOfferingStats": {
       "title": "Base Offering Sum",
@@ -7763,7 +7763,6 @@
       "CoinUpgrade20": "Coin Upgrade 20:",
       "MythosUpgrade1": "Mythos Upgrade 1:",
       "MythosUpgrade3": "Mythos Upgrade 3:",
-      "MythosUpgrade8": "Mythos Upgrade 8:",
       "Challenge6Active": "In Challenge 6:",
       "Challenge7Active": "In Challenge 7:",
       "Challenge9Active": "In Challenge 9:",
@@ -8131,11 +8130,12 @@
     },
     "constructionStats": {
       "title": "Construction",
-      "extraInfo": "Every Coin, Crystal, Mythos and Particle Building has a base Softcap of <<yellow|num:((1000))>> owned, which is multiplied by Construction. <br> Each Building costs a fixed multiple more than the last until you own as many as its Softcap. Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Past the Softcap, the price exponent gains an extra (Owned - Softcap)² / Softcap, so more Construction both delays the quadratic scaling and makes it grow more slowly.>> <br> Challenges 4 and 10 divide Coin and Crystal Building Construction by num:((2)), and Challenge 8 divides Construction for all but Particle Buildings by num:((5)) (Challenge 8 takes priority). <br> <<crimson|The 'Rocky Foundations' Corruption divides Construction for every Building.>>"
+      "extraInfo": "Every Coin, Crystal, Mythos and Particle Building has a base Softcap of <<yellow|num:((1000))>> owned, which is multiplied by Construction. The quadratic scaling thresholds of Accelerators and Multipliers, and the cost scaling delay of Accelerator Boosts, are multiplied by <<yellow|√Construction>> as well. <br> Each Building costs a fixed multiple more than the last until you own as many as its Softcap. Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Past the Softcap, the price exponent gains an extra (Owned - Softcap)² / Softcap, so more Construction both delays the quadratic scaling and makes it grow more slowly.>> <br> Challenges 4 and 10 divide Coin and Crystal Building Construction by num:((2)), and Challenge 8 divides Coin, Crystal and Mythos Building Construction by num:((5)) (Challenge 8 takes priority). <br> <<crimson|The 'Rocky Foundations' Corruption divides Construction for everything.>>"
     },
     "constructionBase": {
       "title": "Construction Sources",
       "Base": "Base:",
+      "MythosUpgrade8": "Mythos Upgrade 8:",
       "ThriftRune": "Thrift Rune:",
       "Researches": "Researches 3x6 - 3x10:",
       "AntUpgrade": "Ant Upgrade - Hic Formicidae:",
@@ -8150,7 +8150,10 @@
       "CoinBuildings": "Coin Buildings:",
       "CrystalBuildings": "Crystal Buildings:",
       "MythosBuildings": "Mythos Buildings:",
-      "ParticleBuildings": "Particle Buildings:"
+      "ParticleBuildings": "Particle Buildings:",
+      "Accelerators": "Accelerators:",
+      "Multipliers": "Multipliers:",
+      "AcceleratorBoosts": "Accelerator Boosts:"
     },
     "freeAccelMultStats": {
       "title": "Free Accelerators, Multipliers and Accelerator Boosts",
@@ -8648,17 +8651,17 @@
         "2": "+2% Wow! Tesseracts per level for every Corruption level, including free levels!",
         "3": "+3% Wow! Hypercubes per level for every Corruption level, including free levels!",
         "4": "+4% Platonic Cubes per level for every Corruption level, including free levels!",
-        "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +1 free Corruption level and raise your maximum Corruption level by 5!",
+        "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +1 free Corruption level!",
         "6": "In Challenge 15, Viscosity's exponent is multiplied by 1+(level/30). When maxed, all Corruptions scale 2.5% slower.",
         "7": "Global speed below 1x is raised to ^1-(level/20), ignoring Immaculate multipliers. When maxed, all Corruptions scale 2.5% slower.",
         "8": "In Challenge 15, the Hyperchallenge Cube's effect is divided by 1+(level*num:((0.4))). When maxed, all Corruptions scale 2.5% slower.",
         "9": "Gain num:((2.5))x Immaculate Obtainium and all Corruptions scale 2.5% slower. In Challenge 15, multiply Defunded Education's exponent by 1+log10(Obtainium+1)/100, capped at num:((1e100)) Obtainium.",
-        "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, +1 free Corruption level and raise your maximum Corruption level by 5 again!",
+        "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, and +1 free Corruption level!",
         "11": "All Corruptions scale 2.5% slower.",
         "12": "When maxed, all Corruptions scale 2.5% slower. In Challenge 15, gain +5% more Ant ELO per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
         "13": "All sources of negative <<green|Salvage>> are reduced by 50% and all Corruptions scale 2.5% slower! In Challenge 15, your Construction stat is tripled!",
         "14": "All Corruptions scale 2.5% slower. In Challenge 15, Recession's coin exponent is multiplied by up to num:((1.5)) based on your Coins.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, +1 free Corruption level and raise your maximum Corruption level by 3! Talk about a deep dive.",
+        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, and +1 free Corruption level! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to num:((100000)). This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
         "17": "If this is bought, gain +num:((0.2)) free Corruption levels per level (up to +4).",
         "18": "Raise the base percentage of Constant Upgrade 1 by num:((0.1))% and increase the base percentage cap of Constant Upgrade 2 by num:((0.3))% per level!",
