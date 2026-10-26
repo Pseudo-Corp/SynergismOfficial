@@ -4755,7 +4755,7 @@
       },
       "divinePack": {
         "name": "Божественный Набор",
-        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 45, including free levels, up to num:((10)) levels!",
+        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 35, including free levels, up to num:((10)) levels!",
         "effectHave": "Вы нашли причину вашего бытия. Текущий бонус к Октерактам: +{{n}}",
         "effectHaveNot": "Вы не нашли причину существования."
       },
