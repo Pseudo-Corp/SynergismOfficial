@@ -466,7 +466,7 @@
       },
       "redAmbrosiaAccelerator": {
         "name": "Red-Blue Ultrafusion",
-        "description": "When you fill the Red Bar, you gain a bit of Ambrosia Bar Points! +num:((0.02)) real-life seconds of Ambrosia Bar Points per level, per 100 Red Ambrosia Luck, with the first level giving +1 second!",
+        "description": "When you fill the Red Bar, you gain a bit of Ambrosia Bar Points! +num:((0.02)) real-life seconds of Ambrosia Bar Points per level, per 100 Red Ambrosia Luck, with the first level giving +1 second! Each Red Bar fill grants at most num:((80000000)) Ambrosia Bar Points.",
         "effect": "Each Red Bar Fill grants <<white|{{amount}}>> real-life seconds of Ambrosia Bar Points per 100 Red Luck (Per Red Bar Fill: <<white|+{{current}}s>>)"
       },
       "regularLuck2": {
@@ -7042,7 +7042,7 @@
         "barIntro2": "Each Ambrosia or Red Ambrosia a Bar would normally grant is converted into time instead, so Luck (and TWO MIND) still matters!",
         "barMod1": "<<var(--blueberry-text-color)|Ambrosia Bar: +0.01 seconds of Global Time per Ambrosia (Average: +{{secs}} seconds)>> (Requirement is fixed at <<var(--blueberry-text-color)|{{req}} ABP>>)",
         "barMod2": "<<red|Red Bar: +0.05 seconds of Ascension Time per Red Ambrosia (Average: +{{secs}} seconds)>> (Requirement is fixed at <<red|{{req}} RABP>>)",
-        "barMod3": "<<var(--purple-text-color)|Purple Bar: Grants the effect of both bars once per 100 Purple Honey Luck, with remaining Luck giving a chance at +1>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
+        "barMod3": "<<var(--purple-text-color)|Purple Bar: Each of the Ambrosia and Red Bars has an independent chance to fill, equal to 1 - 2^(-Purple Honey Luck / 100) (Current: {{chance}}%)>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
         "ScalingReward1": "<<var(--purple-text-color)|Purple Ambrosia Synthesis>> costs -5%",
         "ScalingReward2": "+1 <<var(--blueberry-text-color)|Blueberry>>. Yes, really.",
         "ScalingReward3": "50 Achievement Points!",

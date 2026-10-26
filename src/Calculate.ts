@@ -426,6 +426,8 @@ export const calculatePurpleHoneyLuck = () => calculateTotalStat(allPurpleHoneyL
 export const calculatePurpleHoneyRewardLuck = () =>
   calculateBarRewardLuck(calculatePurpleHoneyLuck(), calculatePurpleHoneyConversionFactor)
 
+export const calculateBarEXALTPurpleFillChance = () => 1 - Math.pow(2, -calculatePurpleHoneyRewardLuck() / 100)
+
 export const calculateBarEXALTPurpleHoneyRequirement = () => {
   const multiplier = Math.pow(1 + player.singularityChallenges.barDependence.completions, 2)
   const divisor = Math.max(1, player.purpleReactor.lifetimePurpleHoney)
