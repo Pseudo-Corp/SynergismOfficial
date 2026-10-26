@@ -2092,6 +2092,13 @@ p#promocodeStatus {
     height: 35px;
 }
 
+.buttonRow > .buildingSpacer.buildingInfo {
+    height: auto;
+    justify-content: center;
+    margin-left: 0;
+    padding: 0.5em 0;
+}
+
 .buttonRow > div > p {
     margin-top: 0.25em;
 }
