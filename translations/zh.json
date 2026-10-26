@@ -14,23 +14,23 @@
     "recoveryImport": "从文件导入"
   },
   "ambrosia": {
-    "upgradeAP": "Red & Purple Ambrosia Upgrade AP: <<gold|{{current}}/{{max}}>>",
+    "upgradeAP": "红神肴和紫神肴升级获得的成就点数：<<gold|{{current}}/{{max}}>>",
     "ambrosia": "神肴",
     "upgradeUnlockHints": {
-      "red": "Unlock more upgrades by completing EXALT <<red|$t(singularityChallenge.data.noAmbrosiaUpgrades.name), Tier 1>>.",
-      "purple": "Unlock more upgrades by completing EXALT <<var(--purple-text-color)|$t(singularityChallenge.data.taxmanLastStand.name), Tier 1>>."
+      "red": "完成第1阶层的拔擢 - <<red|$t(singularityChallenge.data.noAmbrosiaUpgrades.name)>>后可以解锁更多升级。",
+      "purple": "完成第1阶层的拔擢 - <<var(--purple-text-color)|$t(singularityChallenge.data.taxmanLastStand.name)>>后可以解锁更多升级。"
     },
     "ledger": {
       "balance": "<span class='ambrosiaLedgerCurrent'>{{current}}</span> <span class='ambrosiaLedgerTotal'>/ {{total}}</span>",
-      "balanceDescription": "{{current}} available out of {{total}} earned over your lifetime",
-      "blueberryBalanceDescription": "{{current}} unspent out of {{total}} total Blueberries",
-      "upgradeAmbrosia": "{{amount}} Ambrosia available",
-      "upgradeRedAmbrosia": "{{amount}} Red Ambrosia available",
-      "upgradePurpleAmbrosia": "{{amount}} Purple Ambrosia available",
-      "perFill": "<<var(--amber-text-color)|+{{guaranteed}}>> Ambrosia on fill (<<var(--amber-text-color)|{{extraChance}}%>> chance for 1 more)",
-      "redPerFill": "<<red|+{{guaranteed}}>> Red Ambrosia on fill (<<red|{{extraChance}}%>> chance for 1 more)",
-      "luck": "<<lime|{{luck}}>> Ambrosia Luck",
-      "redLuck": "<<red|{{luck}}>> Red Luck",
+      "balanceDescription": "您累计获得{{total}}，目前{{current}}可用",
+      "blueberryBalanceDescription": "您共有{{total}}蓝莓，其中{{current}}未花费",
+      "upgradeAmbrosia": "{{amount}}神肴可用",
+      "upgradeRedAmbrosia": "{{amount}}红神肴可用",
+      "upgradePurpleAmbrosia": "{{amount}}紫神肴可用",
+      "perFill": "充满后<<var(--amber-text-color)|增加{{guaranteed}}>>神肴(<<var(--amber-text-color)|{{extraChance}}%>>概率再增加1神肴)",
+      "redPerFill": "充满后<<red|增加{{guaranteed}}>>红神肴(<<red|{{extraChance}}%>>概率再增加1红神肴)",
+      "luck": "<<lime|{{luck}}>>神肴之运",
+      "redLuck": "<red|{{luck}}>红运",
       "luckModifiers": "<<var(--amber-text-color)|{{base}}>> base + <<var(--amber-text-color)|{{percent}}%>>",
       "twoMindModifier": "TWO MIND: <<var(--amber-text-color)|{{unmodifiedLuck}}>> for everything else",
       "redTwoMindModifier": "TWO MIND: <<red|{{unmodifiedLuck}}>> for everything else",
@@ -4314,11 +4314,11 @@
       },
       "lastClearTokens": {
         "name": "终局之佑·腐化",
-        "default": "每有1个完成所有挑战10次数的战役，就获得10个战役代币！"
+        "default": "增加每级腐化等级的首次完成奖励，数值为完成50次该腐化等级对应挑战10所获腐化代币总数的20%！"
       },
       "bonusTokens": {
         "name": "更多代币！",
-        "default": "战役代币获取数量增加{{amount}}%(向下取整)！"
+        "default": "每级腐化等级完成对应挑战10所获腐化代币数量增加{{amount}}%！"
       },
       "cubeToQuark": {
         "name": "方核转夸克",
