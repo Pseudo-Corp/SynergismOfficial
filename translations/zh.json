@@ -2679,14 +2679,14 @@
         "apSource": "每个稀有度获得5成就点数。护身符解锁后稀有度至少为1。"
       },
       "purpleHoneyUpgrades": {
-        "name": "Progressive Achievement - Purple Honey Upgrades",
-        "description": "Gain various AP for each Purple Honey upgrade maxxed, or levels purchased!",
-        "apSource": "Check out <i>The Purple</i> Subtab in Singularity for more info. AP is rounded down."
+        "name": "递进式成就 - 紫蜜升级",
+        "description": "根据满级或者相应等级的紫蜜升级数量获得成就点数！",
+        "apSource": "查看奇点的<i>紫色</i>子面板，了解更多信息。成就点数向下取整。"
       },
       "purpleAmbrosiaUpgrades": {
         "name": "递进式成就 - 紫神肴升级",
-        "description": "Gain AP from Synthesis Upgrades, Purple Ambrosia Upgrades, and Purple Enchantments!",
-        "apSource": "Synthesis Upgrades: up to +50 AP per upgrade as levels are purchased.<br>Purple Ambrosia Upgrades: +12 AP per maxxed upgrade.<br>Purple Enchantments (Blueberry Modules): +5 AP per maxxed enchantment."
+        "description": "通过合成升级、紫神肴升级和紫神肴附魔获得成就点数！",
+        "apSource": "合成升级：每个升级最多增加50成就点数，随等级增加。<br>紫神肴升级：每个满级升级增加12成就点数。<br>紫神肴附魔(蓝莓模块)：每个满级附魔增加5成就点数。"
       }
     },
     "alerts": {
@@ -2698,13 +2698,13 @@
     "ungroupedExtraRewards": "这个成就拥有额外奖励！",
     "totalPoints": "成就点数：{{x}}/{{y}} [{{z}}%]",
     "achievementPoints": "您有{{x}}成就点数！",
-    "achievementPointsMobile": "Achievement Points (AP): {{x}}",
+    "achievementPointsMobile": "成就点数：{{x}}",
     "rewardGainMessage": "奖励：{{x}}成就点数。{{y}}夸克！{{z}}",
     "completed": "已完成！",
     "notification": "您解锁了成就：{{m}}",
     "quarkBonus": "每500成就点数使夸克获取数量增加0.01倍！目前夸克倍率：<<cyan|{{multiplier}}倍>>",
     "achievementLevel": "基于成就点数，您目前的协同效应为<span class=\"rainbowText\">{{level}}</span>级",
-    "achievementLevelMobile": "Synergism Level <span class=\"rainbowText\">{{level}}</span>",
+    "achievementLevelMobile": "协同效应<span class=\"rainbowText\">{{level}}</span>级",
     "achievementToNextLevel": "需要{{AP}}成就点数才能达到{{level}}级",
     "levelUpNotification": "升级了！协同效应等级从{{old}}提升为{{new}}",
     "complete": "&nbsp;&nbsp;第{{tier}}阶(已完成)",
@@ -2712,14 +2712,14 @@
   },
   "reset": {
     "buttonLabels": {
-      "prestige": "Prestige",
-      "transcension": "Transcend",
-      "reincarnation": "Reincarnate",
-      "transcensionChallenge": "Exit Challenge",
-      "reincarnationChallenge": "Exit Reincarnation Challenge",
-      "ascensionChallenge": "Exit Ascension Challenge",
-      "ascension": "Ascend",
-      "singularity": "Enter the Singularity"
+      "prestige": "转生",
+      "transcension": "超越",
+      "reincarnation": "转世",
+      "transcensionChallenge": "退出挑战",
+      "reincarnationChallenge": "退出转世挑战",
+      "ascensionChallenge": "退出飞升挑战",
+      "ascension": "飞升",
+      "singularity": "进入奇点"
     },
     "details": {
       "prestige": "重置金币、金币生产者、金币升级、水晶，获得钻石和一些祭品。需要：{{amount}}/num:((1e16))金币 || 花费时间：{{timeSpent}}秒。",
@@ -2741,7 +2741,7 @@
       "singularity": "您愿意放弃目前的一切荣耀，踏上更大挑战的征途吗？蚁神将赐予您{{gqAmount}}金夸克。花费时间：{{timeSpent}}秒。"
     },
     "challengeProgress": {
-      "line": "{{check}} $t({{name}}) ({{comps}}/{{maxComps}}): <<gold|{{amount}}>> / <<gold|{{required}}>> {{resource}}",
+      "line": "{{check}}$t({{name}})({{comps}}/{{maxComps}})：<<gold|{{amount}}>> / <<gold|{{required}}>>{{resource}}",
       "challenge15Line": "$t({{name}}): <<gold|{{score}}>> Score (<<gold|{{current}}>>/<<gold|{{required}}>> Coins)",
       "challenge15ProjectedLine": "$t({{name}}): <<gold|{{score}}>> → <<gold|{{projectedScore}}>> Score",
       "challenge15AutoLine": "$t({{name}}): <<gold|{{score}}>> Score",
