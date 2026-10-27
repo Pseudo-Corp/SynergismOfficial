@@ -8,7 +8,12 @@ import {
 } from './Achievements'
 import { applyPendingAutoAscendProtocol, printRules, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
-import { buyTesseractBuilding, calculateTessBuildingsInBudget, grantCurveBuildings, syncCurveBuildings } from './Buy'
+import {
+  buyTesseractBuilding,
+  calculateTessBuildingsInBudget,
+  getTesseractBuildingsOwned,
+  grantCurveBuildings
+} from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -421,19 +426,14 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   resetUpgrades(1)
   player.coins = Decimal.fromString('100')
   player.coinsThisPrestige = Decimal.fromString('100')
-  player.firstOwnedCoin = 0
   player.firstGeneratedCoin = new Decimal()
   player.firstPaidCoin = new Decimal()
-  player.secondOwnedCoin = 0
   player.secondGeneratedCoin = new Decimal()
   player.secondPaidCoin = new Decimal()
-  player.thirdOwnedCoin = 0
   player.thirdGeneratedCoin = new Decimal()
   player.thirdPaidCoin = new Decimal()
-  player.fourthOwnedCoin = 0
   player.fourthGeneratedCoin = new Decimal()
   player.fourthPaidCoin = new Decimal()
-  player.fifthOwnedCoin = 0
   player.fifthGeneratedCoin = new Decimal()
   player.fifthPaidCoin = new Decimal()
   player.firstGeneratedDiamonds = new Decimal()
@@ -442,10 +442,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   player.fourthGeneratedDiamonds = new Decimal()
   player.fifthGeneratedDiamonds = new Decimal()
   player.multiplierPaid = new Decimal()
-  player.multiplierBought = 0
   player.acceleratorPaid = new Decimal()
-  player.acceleratorBought = 0
-  syncCurveBuildings()
 
   updatePrestigeCount(1)
 
@@ -485,24 +482,17 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   if (resetTypes.has(input)) {
     resetUpgrades(2)
     player.coinsThisTranscension = Decimal.fromString('100')
-    player.firstOwnedDiamonds = 0
     player.firstPaidDiamonds = new Decimal()
-    player.secondOwnedDiamonds = 0
     player.secondPaidDiamonds = new Decimal()
-    player.thirdOwnedDiamonds = 0
     player.thirdPaidDiamonds = new Decimal()
-    player.fourthOwnedDiamonds = 0
     player.fourthPaidDiamonds = new Decimal()
-    player.fifthOwnedDiamonds = 0
     player.fifthPaidDiamonds = new Decimal()
     player.firstGeneratedMythos = new Decimal()
     player.secondGeneratedMythos = new Decimal()
     player.thirdGeneratedMythos = new Decimal()
     player.fourthGeneratedMythos = new Decimal()
     player.fifthGeneratedMythos = new Decimal()
-    player.acceleratorBoostBought = 0
     player.acceleratorBoostPaid = new Decimal()
-    syncCurveBuildings()
 
     if (transcensionCheck) {
       updateTranscensionCount(1)
@@ -564,17 +554,11 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     challengeExit('transcension')
     resetUpgrades(3)
     player.coinsThisReincarnation = Decimal.fromString('100')
-    player.firstOwnedMythos = 0
     player.firstPaidMythos = new Decimal()
-    player.secondOwnedMythos = 0
     player.secondPaidMythos = new Decimal()
-    player.thirdOwnedMythos = 0
     player.thirdPaidMythos = new Decimal()
-    player.fourthOwnedMythos = 0
     player.fourthPaidMythos = new Decimal()
-    player.fifthOwnedMythos = 0
     player.fifthPaidMythos = new Decimal()
-    syncCurveBuildings()
     player.firstGeneratedParticles = new Decimal()
     player.secondGeneratedParticles = new Decimal()
     player.thirdGeneratedParticles = new Decimal()
@@ -621,6 +605,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
   if (input === 'ascension' || input === 'ascensionChallenge' || input === 'singularity') {
     player.stats.talismanShardsThisAscension = new Decimal()
+    player.coinsThisAscension = Decimal.fromString('100')
     if (player.challengecompletions[10] > 0) {
       awardAchievementGroup('ascensionScore')
     }
@@ -648,17 +633,11 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
         player.upgrades[j] = 0
       }
     }
-    player.firstOwnedParticles = 0
-    player.secondOwnedParticles = 0
-    player.thirdOwnedParticles = 0
-    player.fourthOwnedParticles = 0
-    player.fifthOwnedParticles = 0
     player.firstPaidParticles = new Decimal()
     player.secondPaidParticles = new Decimal()
     player.thirdPaidParticles = new Decimal()
     player.fourthPaidParticles = new Decimal()
     player.fifthPaidParticles = new Decimal()
-    syncCurveBuildings()
     player.offerings = new Decimal()
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -805,7 +784,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
       for (let i = 1; i <= 5; i++) {
         if (player.autoTesseracts[i]) {
-          ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
+          ownedBuildings[i - 1] = getTesseractBuildingsOwned(i as OneToFive)
         }
       }
       const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
@@ -882,15 +861,15 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.unlocks.spirits = false
     player.unlocks.platonics = false
 
-    player.ascendBuilding1.owned = 0
+    player.ascendBuilding1.paid = 0
     player.ascendBuilding1.generated = new Decimal()
-    player.ascendBuilding2.owned = 0
+    player.ascendBuilding2.paid = 0
     player.ascendBuilding2.generated = new Decimal()
-    player.ascendBuilding3.owned = 0
+    player.ascendBuilding3.paid = 0
     player.ascendBuilding3.generated = new Decimal()
-    player.ascendBuilding4.owned = 0
+    player.ascendBuilding4.paid = 0
     player.ascendBuilding4.generated = new Decimal()
-    player.ascendBuilding5.owned = 0
+    player.ascendBuilding5.paid = 0
     player.ascendBuilding5.generated = new Decimal()
 
     player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

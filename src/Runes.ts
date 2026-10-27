@@ -1,3 +1,4 @@
+import { getTotalBuildingsOwned } from './Buy'
 import {
   calculateBadOfferingsSalvage,
   calculateChallenge15RuneSalvage,
@@ -128,26 +129,14 @@ const bonusRuneLevelsSpeed = () => {
       player.upgrades[27] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e10)))
         + Math.max(0, Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e50)) - 10)))
     )
-    + player.upgrades[29] * Math.floor(
-        Math.min(
-          100,
-          (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin
-            + player.fifthOwnedCoin) / 400
-        )
-      )
+    + (player.upgrades[29] > 0 ? Math.floor(Math.min(100, getTotalBuildingsOwned('coin') / 400)) : 0)
   )
 }
 
 const bonusRuneLevelsDuplication = () => {
   return (
     getRuneBonusFromAllTalismans('duplication')
-    + player.upgrades[28] * Math.min(
-        100,
-        Math.floor(
-          (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin
-            + player.fifthOwnedCoin) / 400
-        )
-      )
+    + (player.upgrades[28] > 0 ? Math.min(100, Math.floor(getTotalBuildingsOwned('coin') / 400)) : 0)
     + (
       player.upgrades[30] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e30)))
         + Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e300))))

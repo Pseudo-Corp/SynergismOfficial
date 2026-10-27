@@ -2,9 +2,9 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, getAchievementReward } from './Achievements'
 import { buyAutobuyers, buyGenerator } from './Automation'
-import { buyUpgrades } from './Buy'
+import { buyUpgrades, getBuildingOwned, getTesseractBuildingsOwned, getTotalBuildingsOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateGlobalSpeedMult, calculateTotalCoinOwned } from './Calculate'
+import { calculateGlobalSpeedMult } from './Calculate'
 import { challenge15CorruptionEffect } from './Corruptions'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
@@ -12,6 +12,7 @@ import { getShopUpgradeEffects } from './Shop'
 import { spritePlaceholder } from './SpriteSheets'
 import {
   calculateBuildingPower,
+  calculateFirstSixCoinUpgradeMultiplier,
   crystalUpgrade3Base,
   crystalUpgrade3CrystalMultiplier,
   crystalUpgrade3MaxBase,
@@ -146,23 +147,23 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
 }
 
 const upgradetexts = [
-  () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
-  () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
-  () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
-  () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
-  () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
-  () => format((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 2),
-  () => Math.min(4, 1 + Math.floor(Decimal.log(player.fifthOwnedCoin + 1, 10))),
-  () => format(Math.floor(player.multiplierBought / 7), 0, true),
-  () => format(Math.floor(player.acceleratorBought / 10), 0, true),
-  () => format(Decimal.pow(2, Math.min(50, player.secondOwnedCoin / 15)), 2),
+  () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
+  () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
+  () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
+  () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
+  () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
+  () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
+  () => Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', 4) + 1, 10))),
+  () => format(Math.floor(getBuildingOwned('multiplier') / 7), 0, true),
+  () => format(Math.floor(getBuildingOwned('accelerator') / 10), 0, true),
+  () => format(Decimal.pow(2, Math.min(50, getBuildingOwned('coin', 1) / 15)), 2),
   () => format(Decimal.pow(1.02, G.totalAccelerator), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
   () =>
     format(
       Decimal.min(
         1e50,
-        Decimal.pow(player.firstGeneratedMythos.add(player.firstOwnedMythos).add(1), 4 / 3).times(1e22)
+        Decimal.pow(player.firstGeneratedMythos.add(getBuildingOwned('mythos', 0)).add(1), 4 / 3).times(1e22)
       ),
       2
     ),
@@ -186,7 +187,7 @@ const upgradetexts = [
   () => format(Decimal.min(1e200, player.transcendPoints.times(1e30).add(1))),
   () =>
     format(
-      Decimal.pow((calculateTotalCoinOwned() + 1) * Math.min(1e30, Math.pow(1.008, calculateTotalCoinOwned())), 10),
+      Decimal.pow(calculateFirstSixCoinUpgradeMultiplier(), 10),
       2
     ),
   () => ({
@@ -219,20 +220,13 @@ const upgradetexts = [
     format(
       Math.min(
         100,
-        Math.floor(
-          (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin
-            + player.fifthOwnedCoin) / 400
-        )
+        Math.floor(getTotalBuildingsOwned('coin') / 400)
       )
     ),
   () =>
     format(
       Math.floor(
-        Math.min(
-          100,
-          (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin
-            + player.fifthOwnedCoin) / 400
-        )
+        Math.min(100, getTotalBuildingsOwned('coin') / 400)
       )
     ),
   () =>
@@ -240,7 +234,7 @@ const upgradetexts = [
       Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e30)))
         + Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e300)))
     ),
-  () => format(Math.floor(calculateTotalCoinOwned() / 2000)),
+  () => format(Math.floor(getTotalBuildingsOwned('coin') / 2000)),
   () => format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))),
   () => format(G.totalAcceleratorBoost),
   () => format(Math.floor(3 / 103 * G.effectiveFreeMultiplier)),
@@ -280,8 +274,7 @@ const upgradetexts = [
     format(
       Decimal.pow(
         1.03,
-        player.firstOwnedParticles + player.secondOwnedParticles + player.thirdOwnedParticles
-          + player.fourthOwnedParticles + player.fifthOwnedParticles
+        getTotalBuildingsOwned('particle')
       ),
       2
     ),
@@ -763,8 +756,8 @@ export const togglePurchasedUpgrades = () => {
 }
 
 export const ascendBuildingDR = () => {
-  const sum = player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned
-    + player.ascendBuilding4.owned + player.ascendBuilding5.owned
+  const sum = getTesseractBuildingsOwned(1) + getTesseractBuildingsOwned(2) + getTesseractBuildingsOwned(3)
+    + getTesseractBuildingsOwned(4) + getTesseractBuildingsOwned(5)
 
   if (sum > 100000) {
     return Math.pow(100000, 0.5) * Math.pow(sum, 0.5)

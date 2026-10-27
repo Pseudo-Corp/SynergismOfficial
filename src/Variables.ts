@@ -27,6 +27,38 @@ const challenge15CubeReward = (e: number, power: number, divisor = 1e10) => {
   return Math.pow(softcapped, power) * Math.pow(excess, power / 2)
 }
 
+export const buildingBaseProduction = {
+  coin: [0.25, 2.5, 25, 250, 2500],
+  diamond: [0.05, 0.0005, 0.00005, 0.000005, 0.000005],
+  mythos: [1, 0.01, 0.001, 0.0002, 0.00004],
+  particle: [0.25, 0.2, 0.15, 0.1, 0.5]
+} as const
+
+export const buildingProductionKeys = {
+  coin: ['produceFirst', 'produceSecond', 'produceThird', 'produceFourth', 'produceFifth'],
+  diamond: [
+    'produceFirstDiamonds',
+    'produceSecondDiamonds',
+    'produceThirdDiamonds',
+    'produceFourthDiamonds',
+    'produceFifthDiamonds'
+  ],
+  mythos: [
+    'produceFirstMythos',
+    'produceSecondMythos',
+    'produceThirdMythos',
+    'produceFourthMythos',
+    'produceFifthMythos'
+  ],
+  particle: [
+    'produceFirstParticles',
+    'produceSecondParticles',
+    'produceThirdParticles',
+    'produceFourthParticles',
+    'produceFifthParticles'
+  ]
+} as const
+
 export const Globals: GlobalVariables = {
   // this shows the logarithm of costs. ex: upgrade one will cost 1e+6 coins, upgrade 2 1e+7, etc.
   // dprint-ignore
@@ -135,17 +167,6 @@ export const Globals: GlobalVariables = {
   testingDtMultiplier: 1,
 
   triggerChallenge: 0,
-
-  prevBuildingCostKey: '',
-  buildingCosts: {
-    coin: [new Decimal(100), new Decimal(1e3), new Decimal(2e4), new Decimal(4e5), new Decimal(8e6)],
-    diamond: [new Decimal(100), new Decimal(1e5), new Decimal(1e15), new Decimal(1e40), new Decimal(1e100)],
-    mythos: [new Decimal(1), new Decimal(1e2), new Decimal(1e4), new Decimal(1e8), new Decimal(1e16)],
-    particle: [new Decimal(1), new Decimal(1e2), new Decimal(1e4), new Decimal(1e8), new Decimal(1e16)],
-    accelerator: [new Decimal(500)],
-    multiplier: [new Decimal(1e4)],
-    acceleratorBoost: [new Decimal(1e3)]
-  },
 
   buildingSubTab: 'coin',
   // 1,000 of each before Diminishing Returns

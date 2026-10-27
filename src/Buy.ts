@@ -3,10 +3,8 @@ import { awardAchievementGroup } from './Achievements'
 import {
   buildingConstructionSoftcap,
   calculateAccelMultConstructionEffect,
-  calculateBuildingConstruction,
-  calculateConstruction
+  calculateBuildingConstruction
 } from './Calculate'
-import { activeCorruptionLevel, corruptionEffect } from './Corruptions'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import { getRuneEffects } from './Runes'
 import { player } from './Synergism'
@@ -72,7 +70,7 @@ const softcap = 1e15
 const linSum = (n: number) => n * (n + 1) / 2
 
 export type BuildingType = keyof typeof producerData | keyof typeof accelMultData | 'acceleratorBoost'
-type ScalingBuildingType = keyof typeof producerData
+export type ScalingBuildingType = keyof typeof producerData
 
 const challenge8GrowthPower = 2
 const challenge8AccelMultThreshold = 1
@@ -91,13 +89,6 @@ interface CostCurve {
 
 const isScalingBuilding = (type: BuildingType): type is ScalingBuildingType =>
   type === 'coin' || type === 'diamond' || type === 'mythos' || type === 'particle'
-
-export const getBuildingCostKey = () =>
-  `${calculateConstruction()}|${corruptionEffect(activeCorruptionLevel(), 'construction')}|${
-    getRuneBlessingEffect('thrift').accelBoostCostDelay
-  }|${
-    player.challengecompletions[4]
-  }|${player.currentChallenge.transcension}|${player.currentChallenge.reincarnation}|${player.currentChallenge.ascension}`
 
 const createQuadraticCostCurve = (cost: number, growth: number, threshold: number): CostCurve => ({
   growth,
@@ -279,12 +270,16 @@ export const getAccelMultScalingThreshold = (type: keyof typeof accelMultData | 
     ? acceleratorBoostThreshold * getAcceleratorBoostDelay()
     : getAccelMultScaling(type).threshold
 
-const getBuildingCostCurve = (type: ScalingBuildingType, index: ZeroToFour): CostCurve => {
+const getBuildingCostCurve = (
+  type: ScalingBuildingType,
+  index: ZeroToFour,
+  threshold = getBuildingScalingThreshold(type)
+): CostCurve => {
   const growthPower = player.currentChallenge.reincarnation === 8 && type !== 'particle' ? challenge8GrowthPower : 1
   return createQuadraticCostCurve(
     producerData[type].costs[index],
     Math.pow(1.25, producerData[type].growth[index] * growthPower),
-    getBuildingScalingThreshold(type)
+    threshold
   )
 }
 
@@ -350,71 +345,79 @@ const curveBuildings: readonly { type: BuildingType; index: ZeroToFour }[] = [
   { type: 'acceleratorBoost', index: 0 }
 ]
 
+const getCurveBuildingPaidKey = (type: BuildingType, index: ZeroToFour) =>
+  isScalingBuilding(type) ? `${G.ordinals[index]}Paid${producerData[type].name}` as const : `${type}Paid` as const
+
 const getCurveBuildingKeys = (type: BuildingType, index: ZeroToFour) => {
+  const paid = getCurveBuildingPaidKey(type, index)
   if (isScalingBuilding(type)) {
     const { currency, name, production } = producerData[type]
-    const pos = G.ordinals[index]
     return {
       currency,
-      owned: `${pos}Owned${name}` as const,
-      paid: `${pos}Paid${name}` as const,
+      legacyOwned: `${G.ordinals[index]}Owned${name}` as const,
+      paid,
       amount: player[`${production}buyamount` as const]
     }
   }
   return {
     currency: type === 'acceleratorBoost' ? 'prestigePoints' as const : 'coins' as const,
-    owned: `${type}Bought` as const,
-    paid: `${type}Paid` as const,
+    legacyOwned: `${type}Bought` as const,
+    paid,
     amount: player.coinbuyamount
   }
 }
 
-export type CurvePaidKey = ReturnType<typeof getCurveBuildingKeys>['paid']
+type CurveBuildingKeys = ReturnType<typeof getCurveBuildingKeys>
 
-const setCurveBuildingState = (type: BuildingType, index: ZeroToFour, curve: CostCurve, owned: number) => {
-  const keys = getCurveBuildingKeys(type, index)
-  player[keys.owned] = owned
-  const price = costBetween(curve, owned, owned + smallestInc(owned))
-  const credit = player[keys.paid].sub(costBetween(curve, 0, owned))
-  G.buildingCosts[type][index] = (credit.gt(0) && credit.lt(price) ? price.sub(credit) : price)
-    .div(affordabilityTolerance)
+export type LegacyCurveBuildingData =
+  & { [K in CurveBuildingKeys['paid']]?: Decimal }
+  & { [K in CurveBuildingKeys['legacyOwned']]?: number }
+
+export const getBuildingOwned = (type: BuildingType, index: ZeroToFour = 0) =>
+  maxAffordable(getCostCurve(type, index), 0, player[getCurveBuildingPaidKey(type, index)])
+
+export const getBuildingsOwned = (type: ScalingBuildingType) => {
+  const threshold = getBuildingScalingThreshold(type)
+  const owned = (index: ZeroToFour) =>
+    maxAffordable(getBuildingCostCurve(type, index, threshold), 0, player[getCurveBuildingPaidKey(type, index)])
+  return [owned(0), owned(1), owned(2), owned(3), owned(4)] as const
 }
 
-export const getBuildingCost = (type: BuildingType, index: ZeroToFour = 0) => G.buildingCosts[type][index]
+export const getBuildingGeneratedKey = (type: ScalingBuildingType, index: ZeroToFour) =>
+  `${G.ordinals[index]}Generated${producerData[type].name}` as const
 
-export const syncCurveBuilding = (type: BuildingType, index: ZeroToFour = 0) => {
+export const getTotalBuildingsOwned = (type: ScalingBuildingType) =>
+  getBuildingsOwned(type).reduce((sum, owned) => sum + owned, 0)
+
+export const getBuildingCost = (type: BuildingType, index: ZeroToFour = 0) => {
   const curve = getCostCurve(type, index)
-  setCurveBuildingState(type, index, curve, maxAffordable(curve, 0, player[getCurveBuildingKeys(type, index).paid]))
-}
-
-export const syncCurveBuildings = () => {
-  for (const { type, index } of curveBuildings) {
-    syncCurveBuilding(type, index)
-  }
+  const paid = player[getCurveBuildingPaidKey(type, index)]
+  const owned = maxAffordable(curve, 0, paid)
+  const price = costBetween(curve, owned, owned + smallestInc(owned))
+  const credit = paid.sub(costBetween(curve, 0, owned))
+  return (credit.gt(0) && credit.lt(price) ? price.sub(credit) : price).div(affordabilityTolerance)
 }
 
 export const grantCurveBuildings = (type: BuildingType, index: ZeroToFour, count: number) => {
-  const curve = getCostCurve(type, index)
-  const keys = getCurveBuildingKeys(type, index)
-  player[keys.paid] = Decimal.max(player[keys.paid], costBetween(curve, 0, count))
-  setCurveBuildingState(type, index, curve, maxAffordable(curve, 0, player[keys.paid]))
+  const paidKey = getCurveBuildingPaidKey(type, index)
+  player[paidKey] = Decimal.max(player[paidKey], costBetween(getCostCurve(type, index), 0, count))
 }
 
-export const initializeCurveBuildingsPaid = (isPaidLoaded: (key: CurvePaidKey) => boolean) => {
+export const initializeCurveBuildingsPaid = (data: LegacyCurveBuildingData) => {
   for (const { type, index } of curveBuildings) {
     const keys = getCurveBuildingKeys(type, index)
-    if (!isPaidLoaded(keys.paid)) {
-      player[keys.paid] = costBetween(getCostCurve(type, index), 0, player[keys.owned])
+    if (data[keys.paid] === undefined) {
+      player[keys.paid] = costBetween(getCostCurve(type, index), 0, data[keys.legacyOwned] ?? 0)
     }
+    Reflect.deleteProperty(player, keys.legacyOwned)
   }
-  syncCurveBuildings()
 }
 
 const buyCurveBuilding = (type: BuildingType, amount: BuyAmount | 'max' | undefined, index: ZeroToFour) => {
   const keys = getCurveBuildingKeys(type, index)
   const curve = getCostCurve(type, index)
-  const owned = player[keys.owned]
   const paid = player[keys.paid]
+  const owned = maxAffordable(curve, 0, paid)
   const buyAmount = amount ?? keys.amount
 
   let buyTo = maxAffordable(curve, 0, paid.add(player[keys.currency]))
@@ -428,7 +431,6 @@ const buyCurveBuilding = (type: BuildingType, amount: BuyAmount | 'max' | undefi
   const totalCost = costBetween(curve, 0, buyTo)
   player[keys.currency] = player[keys.currency].sub(totalCost.sub(paid).max(0)).max(0)
   player[keys.paid] = Decimal.max(paid, totalCost)
-  setCurveBuildingState(type, index, curve, buyTo)
   return true
 }
 
@@ -449,6 +451,7 @@ export const buyBuilding = (
   } else if (type === 'acceleratorBoost') {
     player.transcendnoaccelerator = false
     player.reincarnatenoaccelerator = false
+    awardAchievementGroup('acceleratorBoosts')
   }
 }
 
@@ -539,7 +542,6 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
 
 export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
   buyBuilding('acceleratorBoost', amount)
-  awardAchievementGroup('acceleratorBoosts')
 }
 
 const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const
@@ -550,6 +552,25 @@ const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const
 //   cost(n) = tesseractBuildingCosts[i-1] * (n * (n+1) / 2)^2
 // in total. Use cost(owned+buyAmount) - cost(owned) to figure the cost of
 // buying multiple buildings.
+
+export const getTesseractBuildingsCumulativeCost = (index: OneToFive, owned: number) =>
+  tesseractBuildingCosts[index - 1] * Math.pow(linSum(owned), 2)
+
+export const getTesseractBuildingsOwned = (index: OneToFive) => {
+  const paid = player[`ascendBuilding${index}` as const].paid
+  let owned = Math.floor(
+    -1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow(paid / tesseractBuildingCosts[index - 1], 1 / 2), 1 / 2)
+  )
+  if (getTesseractBuildingsCumulativeCost(index, owned + 1) <= paid) {
+    owned++
+  } else if (owned > 0 && getTesseractBuildingsCumulativeCost(index, owned) > paid) {
+    owned--
+  }
+  return owned
+}
+
+export const getTesseractBuildingCost = (index: OneToFive) =>
+  tesseractBuildingCosts[index - 1] * Math.pow(getTesseractBuildingsOwned(index) + 1, 3)
 
 export type TesseractBuildings = [number | null, number | null, number | null, number | null, number | null]
 
@@ -739,9 +760,9 @@ const getTesseractCost = (
   buyFrom?: number
 ): [number, number] => {
   amount ??= player.tesseractbuyamount
-  buyFrom ??= player[`ascendBuilding${index}` as const].owned
+  buyFrom ??= getTesseractBuildingsOwned(index)
   const intCost = tesseractBuildingCosts[index - 1]
-  const subCost = intCost * Math.pow(linSum(buyFrom), 2)
+  const subCost = getTesseractBuildingsCumulativeCost(index, buyFrom)
 
   let actualBuy: number
   if (checkCanAfford) {
@@ -752,19 +773,16 @@ const getTesseractCost = (
   } else {
     actualBuy = buyFrom + amount
   }
-  const actualCost = intCost * Math.pow(linSum(actualBuy), 2) - subCost
+  const actualCost = getTesseractBuildingsCumulativeCost(index, actualBuy) - subCost
   return [actualBuy, actualCost]
 }
 
 export const buyTesseractBuilding = (index: OneToFive, amount: number = player.tesseractbuyamount) => {
-  const intCost = tesseractBuildingCosts[index - 1]
-  const ascendBuildingIndex = `ascendBuilding${index}` as const
   // Destructuring FTW!
   const [buyTo, actualCost] = getTesseractCost(index, amount)
 
-  player[ascendBuildingIndex].owned = buyTo
+  player[`ascendBuilding${index}` as const].paid = getTesseractBuildingsCumulativeCost(index, buyTo)
   player.wowTesseracts.sub(actualCost)
-  player[ascendBuildingIndex].cost = intCost * Math.pow(1 + buyTo, 3)
 }
 
 export type SingularityUpgradePurchaseQuote = { levels: number; cost: number }
