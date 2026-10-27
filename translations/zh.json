@@ -78,7 +78,7 @@
       "amount": "紫神肴：<<var(--purple-text-color)|{{amount}}>>",
       "enchantment": "紫神肴附魔",
       "level": "附魔等级 {{level}}/{{maxLevel}}",
-      "freeLevelsEffectNotMaxed": "使该蓝莓模块的等级从<<silver|+{{oldValue}}级变为>><<gold|+{{newValue}}级>>。",
+      "freeLevelsEffectNotMaxed": "使该蓝莓模块的等级从<<silver|+{{oldValue}}级 →>> <<gold|+{{newValue}}级>>。",
       "freeLevelsEffectMaxed": "使该蓝莓模块的等级<<gold|+{{maxValue}}>>级。",
       "blueberryCostReductionEffectNotMaxed": "启用该模块花费的蓝莓数量从减少<<silver|{{oldValue}}个变为>>减少<<gold|{{newValue}}>>个。",
       "blueberryCostReductionEffectMaxed": "启用该模块花费的蓝莓数量减少<<gold|{{maxValue}}>>个。",
@@ -164,7 +164,7 @@
       "ambrosiaQuarks4": {
         "name": "神肴夸克顶点",
         "description": "每级使夸克获取数量增加1%，就这么简单。",
-        "effect": "第四代夸克模块使夸克获取数量增加了 {{amount}}"
+        "effect": "第四代夸克模块使夸克获取数量增加了{{amount}}。"
       },
       "ambrosiaCubes3": {
         "name": "神肴方盒模块 III",
@@ -306,7 +306,7 @@
         "description": "吃掉蓝莓。吃。必须吃！",
         "descriptionAmbrosia": "使神肴进度条点数需求固定为<<var(--blueberry-text-color)|10,000,000>>。",
         "descriptionRedAmbrosia": "使红进度条点数需求固定为<<red|7,500>>。",
-        "descriptionPurpleHoney": "修正紫神肴进度条要求<<var(--purple-text-color)|125,000>> 紫神肴进度点数",
+        "descriptionPurpleHoney": "使紫进度条点数需求固定为<<var(--purple-text-color)|125,000>>。",
         "descriptionSummary": "<b>各类型“运”在计算进度条收益时，会先乘以二心的固定需求，再除以未升级二心时的需求。计算其他效果时不受影响。</b>",
         "effectDisabled": "您未吃掉蓝莓。",
         "effectEnabled": "您已吃掉蓝莓，感觉意识中的毒素被涤净。"
@@ -356,7 +356,7 @@
     "purchaseWarning": "<<gold|⚠>>与蓝莓模块不同的是您<<red|无法>>返还相应升级。",
     "perGen": "目前可以获得<<red|{{guaranteed}}>>红神肴，并有<<red|{{extraChance}}%>>概率再获得1个。[<<red|红运：{{ambrosiaLuck}}>>]",
     "redAmbrosiaBuyPrompt": "您想要花费多少红神肴？最多可以花费{{amount}}。如果想要购买最大数量，请输入-1！",
-    "purchaseNoLongerAffordable": "你不再有足够的红神肴来购买等级。自动合成可能在购买提示打开时就已经用完了。未购买任何等级。",
+    "purchaseNoLongerAffordable": "您的红神肴不够。可能是在购买提示框打开期间，自动合成花掉了它。未购买任何等级。",
     "notUnlocked": "首次完成无神肴升级！",
     "redAmbrosiaCost": "下一级的花费：<<red|{{amount}}>>红神肴",
     "redAmbrosiaSpent": "红神肴花费总数：<<red|{{amount}}>>",
@@ -423,8 +423,8 @@
       },
       "redGenerationSpeed2": {
         "name": "红神肴时代",
-        "description": "+num:((0.1))% more Red Bar Points per level. Red Ambrosia so old that it makes Ant God seem young!",
-        "effect": "This upgrade increases Red Bar Point gain by <<red|{{amount}}>>!"
+        "description": "每级使红进度条点数获取速度增加num:((0.1))%。红神肴太古老了，蚁神跟它相比都显得年轻！",
+        "effect": "该升级使红进度条点数获取速度增加<<red|{{amount}}>>！"
       },
       "redLuck": {
         "name": "决定命运的骰子",
@@ -517,90 +517,90 @@
     }
   },
   "purpleAmbrosia": {
-    "cancerBarFillBonus": "巨蟹座: <<var(--purple-text-color)|+{{points}}>> 根据神肴/红神肴填充",
-    "purpleAmbrosiaCost": "下一级的花费: <<var(--purple-text-color)|{{amount}}>> 紫神肴",
-    "purpleAmbrosiaSpent": "紫神肴花费： <<var(--purple-text-color)|{{current}}/{{max}}>>",
-    "purchaseWarning": "<<gold|⚠>> Unlike Blueberry Modules, you <<var(--purple-text-color)|CANNOT>> refund this upgrade.",
-    "purpleAmbrosiaBuyPrompt": "How many levels would you like to buy? You can buy up to {{amount}}. Type -1 to use max!",
-    "notEnough": "You cannot afford another level of this upgrade.",
+    "cancerBarFillBonus": "巨蟹座：神肴进度条或红进度条充满后<<var(--purple-text-color)|+{{points}}>>",
+    "purpleAmbrosiaCost": "下一级的花费：<<var(--purple-text-color)|{{amount}}>>紫神肴",
+    "purpleAmbrosiaSpent": "紫神肴花费数量：<<var(--purple-text-color)|{{current}}/{{max}}>>",
+    "purchaseWarning": "<<gold|⚠>>与蓝莓模块不同的是您<<var(--purple-text-color)|无法>>返还相应升级。",
+    "purpleAmbrosiaBuyPrompt": "您想要购买多少级？您最多可以购买{{amount}}级。如果想要购买最大数量，请输入-1！",
+    "notEnough": "您无法承担该升级的花费。",
     "data": {
       "aries": {
         "name": "白羊座",
-        "description": "充满动力、潜力和希望。对神肴来说，就是这样。",
-        "effectNotMaxed": "For every digit in lifetime Ambrosia, Red Ambrosia and Purple Ambrosia, ALL Bar Points generate <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> faster (Current: <<silver|{{oldPercent2}} →>> <<gold|{{newPercent2}}>>)",
-        "effectMaxed": "For every digit in lifetime Ambrosia, Red Ambrosia and Purple Ambrosia, ALL Bar Points generate <<gold|{{maxPercent}}>> faster (Current: <<gold|{{maxPercent2}}>>)"
+        "description": "冲劲十足，潜力无限，前途光明。至少对神肴来说是这样。",
+        "effectNotMaxed": "神肴总数、红神肴总数或紫神肴总数每有一个数量级，就使所有类型的进度条点数获取速度增加 <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> (当前效果：<<silver|{{oldPercent2}} →>> <<gold|{{newPercent2}}>>)",
+        "effectMaxed": "神肴总数、红神肴总数或紫神肴总数每有一个数量级，就使所有类型的进度条点数获取速度增加<<gold|{{maxPercent}}>>(当前效果：<<gold|{{maxPercent2}}>>)"
       },
       "taurus": {
         "name": "金牛座",
-        "description": "税收绝对是吹牛辶——糟糕！",
-        "effectNotMaxed": "税款按<<silver|{{oldValue}} →>> <<gold|{{newValue}}>>。",
-        "effectMaxed": "税款按<<gold|{{maxValue}}>>。"
+        "description": "这税，绝对是狗——够呛！",
+        "effectNotMaxed": "使税收除以 <<silver|{{oldValue}} →>> <<gold|{{newValue}}>>。",
+        "effectMaxed": "Taxes are divided by <<gold|{{maxValue}}>>."
       },
       "gemini": {
         "name": "双子座",
         "description": "我将用最直白、最直接、最不绕弯子的方式告诉你：做不到。",
         "effectNotMaxed": "当紫进度条充满后：<<silver|{{oldValue}} →>> <<gold|{{newValue}}>> 神肴进度条点数。",
-        "effectNotMaxed2": "紫神肴进度条填充: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> 红神肴进度条点数。",
-        "effectMaxed": "紫神肴进度条填充: <<gold|{{maxValue}}>> 神肴进度条点数。",
-        "effectMaxed2": "紫神肴进度条填充: <<gold|{{maxValue}}>> 红神肴进度条点数。"
+        "effectNotMaxed2": "On Purple Bar Fill: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Red Ambrosia Bar Points.",
+        "effectMaxed": "On Purple Bar Fill: <<gold|{{maxValue}}>> Ambrosia Bar Points.",
+        "effectMaxed2": "On Purple Bar Fill: <<gold|{{maxValue}}>> Red Ambrosia Bar Points."
       },
       "cancer": {
         "name": "巨蟹座",
-        "description": "尤其与双子座相配。",
+        "description": "Particularly compatible with Gemini.",
         "effectNotMaxed": "当神肴进度条或红进度条充满后：获得 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> 紫进度条点数。",
-        "effectMaxed": "当神肴或红神肴进度条填充: 获得 <<gold|+{{maxValue}}>> 紫神肴进度条点数。"
+        "effectMaxed": "On Ambrosia or Red Bar fill: Gain <<gold|+{{maxValue}}>> Purple Bar Points."
       },
       "leo": {
         "name": "狮子座",
-        "description": "特别喜欢培育蓝莓。",
+        "description": "Particularly likes to forage blueberries.",
         "effectNotMaxed": "If you have at least five unassigned Blueberries: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Ambrosia Luck per unassigned Blueberry (Current: <<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>).",
         "effectMaxed": "If you have at least five unassigned Blueberries: <<gold|{{maxValue}}>> Ambrosia Luck per unassigned Blueberry (Current: <<gold|{{maxValue2}}>>)."
       },
       "virgo": {
         "name": "处女座",
-        "description": "这是最好的时代，现在依然如此，但过去也是。",
+        "description": "It was the best of times. It still is, but it used to too.",
         "effectNotMaxed": "For each assigned Blueberry: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Salvage (Current: <<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>).",
         "effectMaxed": "For each assigned Blueberry: <<gold|{{maxValue}}>> Salvage (Current: <<gold|{{maxValue2}}>>)."
       },
       "libra": {
         "name": "天秤座",
-        "description": "非常不喜欢：养老基金中的违规行为。",
-        "effectNotMaxed": "你 <<silver|can't →>> <<gold|can>> 使魔诌器中的溢出反应成为可能。如果其他反应物可用，过量反应的效率为10%；其余的则回到正常的进度条。",
-        "effectMaxed": "您可以在魔诌器中启用溢出反应。如果其他反应物可用，过量反应的效率为10%；其余的则回到正常的进度条。"
+        "description": "Strongly dislikes: irregularities in the pension fund.",
+        "effectNotMaxed": "You <<silver|can't →>> <<gold|can>> enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar.",
+        "effectMaxed": "You can enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar."
       },
       "scorpio": {
         "name": "天蝎座",
-        "description": "渴望你的定期神肴。",
+        "description": "Hungers for your regular Ambrosia.",
         "effectNotMaxed": "Purple Reactor Conversion: <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> more Ambrosia Bar Points and Purple Bar Points. Red Bar Points are left alone!",
         "effectMaxed": "Purple Reactor Conversion: <<gold|{{maxPercent}}>> more Ambrosia Bar Points and Purple Bar Points. Red Bar Points are left alone!"
       },
       "sagittarius": {
         "name": "射手座",
-        "description": "马就是马，当然，马的！",
-        "effectNotPurchased": "解锁新的马蹄符文！提升神肴之运、红运和紫蜜运。",
-        "effectPurchased": "你解锁了一个马蹄符文！",
+        "description": "A horse is a horse, of course. Horse!",
+        "effectNotPurchased": "Unlock a new Horseshoe rune! Boosts Ambrosia Luck, Red Luck and Purple Honey Luck.",
+        "effectPurchased": "You've unlocked a Horseshoe rune!",
         "effect2NotMaxed": "Horseshoe Rune Coefficient: <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>",
         "effect2Maxed": "Horseshoe Rune Coefficient: <<gold|+{{maxValue}}>>"
       },
       "capricorn": {
         "name": "摩羯座",
-        "description": "有一双只有射手座才会喜欢的马蹄。",
-        "effectNotPurchased": "解锁新的马蹄护身符！提升神肴之运和红运！",
-        "effectPurchased": "你解锁了一个马蹄护身符！别忘了红运神话签名。",
+        "description": "Has a horse shoe that only a Sagittarius could love.",
+        "effectNotPurchased": "Unlock a new Horse Shoe talisman! Boosts Ambrosia Luck and Red Luck!",
+        "effectPurchased": "You've unlocked a Horse Shoe talisman! Don't forget the Red Luck Mythic Signature.",
         "effect2NotMaxed": "Antiquities of Ant God Coefficient: <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>",
         "effect2Maxed": "Antiquities of Ant God Coefficient: <<gold|+{{maxValue}}>>"
       },
       "aquarius": {
         "name": "水瓶座",
-        "description": "神秘的水晶启示，以及心灵的真正解放。",
+        "description": "Mystic crystal revelation, and the MIND's true liberation.",
         "effectNotMaxed": "'Infinite Transcription of the One Mind' adds <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> to One Mind's Ascension Speed exponent for the global cube multiplier. Applies only when Ascension Speed is at least 1.",
         "effectMaxed": "'Infinite Transcription of the One Mind' adds <<gold|+{{maxValue}}>> to One Mind's Ascension Speed exponent for the global cube multiplier. Applies only when Ascension Speed is at least 1."
       },
       "pisces": {
         "name": "双鱼座",
-        "description": "Platonic 是双鱼座，把它传下去。",
-        "effectNotMaxed": "你<<silver|don't →>> <<gold|will>> 用PLATONIC BETA开始奇点！",
-        "effectMaxed": "你 <<gold|start>> 进入奇点获得PLATONIC BETA！"
+        "description": "Platonic's a Pisces. Pass it on.",
+        "effectNotMaxed": "You <<silver|don't →>> <<gold|will>> start Singularities with Platonic BETA!",
+        "effectMaxed": "You <<gold|start>> Singularities with Platonic BETA!"
       }
     }
   },
@@ -615,36 +615,36 @@
     "lifetimePurpleHoneyAntELO": "<<orchid|Ant ELO +{{amount}}>>",
     "lifetimePurpleHoneyRebornELOSpeed": "<<#00DDFF|Reborn ELO Speed +{{amount}}>>",
     "header": {
-      "title": "色度-魔诌器",
-      "subtitle": "宏伟、神奇",
-      "reactionLabel": "反应（进度条点数）",
+      "title": "Chroma-Encabulator",
+      "subtitle": "The Grand, Fantabulous",
+      "reactionLabel": "Reaction (Bar Points)",
       "reaction": "<<lightblue|{{ambrosia}} Ambrosia>> + <<red|{{redAmbrosia}} Red>> → <<var(--purple-text-color)|{{purple}} Purple>>",
-      "ariesModifier": "白羊座: <<gold|+{{percent}}>> 产出",
-      "scorpioModifier": "天蝎座: <<gold|+{{percent}}>> 神肴消费和产出",
-      "speedLabel": "附魔速度",
-      "speed": "<<gold|{{speed}}%>> 神肴容量/小时",
-      "maximumDraw": "最大抽取: <<lightblue|{{ambrosia}} Ambrosia BP/s>> 和 <<red|{{redAmbrosia}} Red BP/s>>",
-      "overflowLabel": "天秤座溢出"
+      "ariesModifier": "Aries: <<gold|+{{percent}}>> Purple output",
+      "scorpioModifier": "Scorpio: <<gold|+{{percent}}>> Ambrosia cost and Purple output",
+      "speedLabel": "Encabulator Speed",
+      "speed": "<<gold|{{speed}}%>> Ambrosia capacity / hour",
+      "maximumDraw": "Maximum draw: <<lightblue|{{ambrosia}} Ambrosia BP/s>> and <<red|{{redAmbrosia}} Red BP/s>>",
+      "overflowLabel": "Libra overflow"
     },
-    "reactantTankLabel": "输入槽",
+    "reactantTankLabel": "Input Tank",
     "ambrosiaReactantTankTitle": "<<lightblue|Ambrosia Bar Points>>",
     "redAmbrosiaReactantTankTitle": "<<red|Red Bar Points>>",
-    "reactantRouting": "生产百分比输送",
+    "reactantRouting": "Percent Production Routed",
     "reactantRoutingPercentage": "{{percentage}}%",
-    "reactantRoutingPercentageAria": "{{percentage}}% 产量被输送到魔诌器",
+    "reactantRoutingPercentageAria": "{{percentage}}% of production routed to the Encabulator",
     "reactantTankProgress": "{{stored}} / {{capacity}}",
     "reactantTankProgressAria": "{{stored}} of {{capacity}} stored; {{percentage}}% full",
     "reactantNetRatePositive": "+{{amount}}/s net",
     "reactantNetRateNegative": "-{{amount}}/s net",
     "reactantNetRateZero": "0/s net",
     "reactantRoutedRate": "Routed to storage: <<var(--reactant-bright)|{{amount}}/s>>",
-    "reactantSpentRate": "花费在魔诌器中: <<var(--purple-text-color)|{{amount}}/s>>",
+    "reactantSpentRate": "Spent in Encabulator: <<var(--purple-text-color)|{{amount}}/s>>",
     "overflowExplanation": "React excess from either input tank at 10% efficiency using the other tank's reactant. Any unmatched excess returns to its regular bar.",
     "reactantOverflowRate": "Overflow reacted: <<var(--reactant-bright)|{{amount}}/s>>",
     "purpleHoneyOverflowRate": "Libra: +{{rate}}/s from overflow",
     "purpleHoneyProgress": "{{current}} / {{conversion}}",
     "purpleHoneyProgressRate": "Reactants: +{{rate}}/s",
-    "reactorCoreTitle": "魔诌器核心",
+    "reactorCoreTitle": "Encabulator Core",
     "purpleHoneyProgressTitle": "<<var(--purple-text-color)|Purple Bar Points>>",
     "purpleHoneyProgressAriaLabel": "Purple Bar Points toward the next Purple Honey extraction",
     "purpleHoneyGain": "+{{amount}}",
@@ -655,14 +655,14 @@
     "percentageOption0": "0%",
     "percentageOption50": "50%",
     "percentageOption100": "100%",
-    "ambrosiaBarPointPercentageAriaLabel": "运往魔诌器的神肴进度条点数百分比",
-    "redAmbrosiaBarPointPercentageAriaLabel": "运往魔诌器的红神肴进度条点数百分比",
-    "ambrosiaTankAriaLabel": "神肴进度条点数魔诌器存储装置",
-    "redAmbrosiaTankAriaLabel": "红神肴进度条点数魔诌器存储装置",
-    "purpleHoneySpent": "紫神肴花费： <<var(--purple-text-color)|{{current}}/{{max}}>>",
+    "ambrosiaBarPointPercentageAriaLabel": "Percentage of Ambrosia Bar Point production routed to the Encabulator",
+    "redAmbrosiaBarPointPercentageAriaLabel": "Percentage of Red Bar Point production routed to the Encabulator",
+    "ambrosiaTankAriaLabel": "Ambrosia Bar Point Encabulator storage",
+    "redAmbrosiaTankAriaLabel": "Red Bar Point Encabulator storage",
+    "purpleHoneySpent": "Purple Honey spent: <<var(--purple-text-color)|{{current}}/{{max}}>>",
     "upgradeAPPerLevel": "Each level of this upgrade grants <<gold|+{{amount}}>> AP [<<gold|+{{total}}>>]",
     "upgradeAPMax": "You also get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
-    "purpleUpgradeAP": "紫蜜成就点数: <<gold|{{current}}/{{max}}>>",
+    "purpleUpgradeAP": "Purple Honey Upgrade AP: <<gold|{{current}}/{{max}}>>",
     "synthesis": {
       "name": "合成",
       "close": "关闭合成",
@@ -701,7 +701,7 @@
         },
         "subatomicShavings": {
           "name": "Subatomic Shavings",
-          "flavor": "立马从魔诌器的地板上下来。",
+          "flavor": "Straight off the floor of the Encabulator.",
           "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<cyan|{{quarks}} Quarks>>.",
           "purchaseAria": "Buy {{amount}} levels of Subatomic Shavings for {{purpleAmbrosia}} Purple Ambrosia and {{quarks}} Quarks.",
           "effectNotMaxed": "On Synthesis: Gain <<silver|{{current}} →>> <<gold|{{next}}>> Quarks.",
@@ -724,14 +724,14 @@
     "upgradeShop": {
       "sections": {
         "intro": "Intro",
-        "reactor": "紫魔诌器升级",
+        "reactor": "Purple Encabulator Upgrades",
         "honeyPower": "Honey Power Upgrades",
         "resources": "Resource Upgrades",
         "miscellaneous": "Miscellaneous"
       },
       "familyNames": {
         "capacity": "Capacity",
-        "halfLife": "附魔速度",
+        "halfLife": "Encabulator Speed",
         "efficiency": "Efficiency",
         "honeyLuck": "Honey Luck",
         "requirementReduction": "Purple Bar Size Reduction",
@@ -755,21 +755,21 @@
         "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Point and Red Bar Point Generation."
       },
       "purpleEfficiency1": {
-        "name": "魔诌器效率 I",
+        "name": "Chroma-Encabulator Efficiency I",
         "flavor": "mmm... Purple...",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> 来自魔诌器融合的紫运。",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> 来自魔诌器融合的紫运。"
+        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Purple Honey from Chroma-Encabulator fusions.",
+        "effectMaxed": "<<gold|+{{maxPercent}}>> Purple Honey from Chroma-Encabulator fusions."
       },
       "purpleEfficiency2": {
-        "name": "魔诌器效率 II",
+        "name": "Chroma-Encabulator Efficiency II",
         "flavor": "Let the Sunshine in to get more Honey from your Purple Bar Points!"
       },
       "purpleEfficiency3": {
-        "name": "魔诌器效率 III",
+        "name": "Chroma-Encabulator Efficiency III",
         "flavor": "Where does Purple Honey come from? Purple Bees!"
       },
       "purpleEfficiency4": {
-        "name": "魔诌器效率 IV",
+        "name": "Chroma-Encabulator Efficiency IV",
         "flavor": "Orange you glad I didn't say... Purple?"
       },
       "purpleHoneyLuck1": {
@@ -793,8 +793,8 @@
       "purpleHalfLife1": {
         "name": "All-Natural, Organic Catalyzer I",
         "flavor": "Now chemical-free!",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> 附魔速度。",
-        "effectMaxed": "<<gold|+{{maxValue}}>> 附魔速度。"
+        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Encabulator Speed.",
+        "effectMaxed": "<<gold|+{{maxValue}}>> Encabulator Speed."
       },
       "purpleHalfLife2": {
         "name": "All-Natural, Organic Catalyzer II",
@@ -832,7 +832,7 @@
       },
       "purpleCapacityExpander4": {
         "name": "Reactant Storage Expansion IV",
-        "flavor": "你的魔诌器能占用多少空间值得怀疑。"
+        "flavor": "It's questionable how much more space your Encabulator can take."
       },
       "purpleHoneyRequirementReduction1": {
         "name": "Purple Bar Size Reduction I",
@@ -2685,7 +2685,7 @@
       },
       "purpleAmbrosiaUpgrades": {
         "name": "递进式成就 - 紫神肴升级",
-        "description": "从协同升级、紫神肴升级和紫附魔术中获得成就点！",
+        "description": "Gain AP from Synthesis Upgrades, Purple Ambrosia Upgrades, and Purple Enchantments!",
         "apSource": "Synthesis Upgrades: up to +50 AP per upgrade as levels are purchased.<br>Purple Ambrosia Upgrades: +12 AP per maxxed upgrade.<br>Purple Enchantments (Blueberry Modules): +5 AP per maxxed enchantment."
       }
     },
@@ -4016,7 +4016,7 @@
       "shopInfiniteShopUpgrades": "印在蓝色铭牌‌上的商店代金券。每完成1阶层拔擢，每级该升级就使“无限公司”相关商店升级的有效等级增加num:((0.01))，向下取整。",
       "shopHorseShoe": "马蹄铁的保护效果很好！使马蹄铁符文增加3级免费等级，且每级马蹄铁符文都可以使奇点惩罚(除了回收以外)减少num:((0.1))%，效果相互叠加，上限：减少30%！",
       "shopPanthema": "太空王牌！",
-      "shopPurpleBarRebate": "当紫进度条装满时， 获得<<var(--blueberry-text-color)|+num:((50000))>> 神肴进度条点数和 <<var(--red-text-color)|+num:((25))>> 红神肴进度条点数每次升级！"
+      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((50000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((25))>> Red Bar Points per level of this upgrade!"
     },
     "maxed": "已满级！",
     "bought": "已购买！",
@@ -4452,7 +4452,7 @@
       },
       "reactorSpeedup": {
         "name": "282+ Years of Work Experience",
-        "default": "魔诌器中的紫进度条需要<<var(--purple-text-color)|{{amt}}>> 紫进度条点数才能填充！"
+        "default": "The Purple Bar in the Encabulator requires <<var(--purple-text-color)|{{amt}}>> Purple Bar Points to fill!"
       },
       "goldenRevolution": {
         "name": "金之革命",
@@ -7201,7 +7201,7 @@
       "redAmbrosiaLuck": "红运",
       "redAmbrosiaGenMult": "红进度条点数",
       "purpleHoneyEfficiency": "Purple Honey Efficiency",
-      "purpleHalfLife": "附魔速度",
+      "purpleHalfLife": "Encabulator Speed",
       "purpleReactantCapacity": "Ambrosia Bar Point Capacity",
       "purpleHoneyLuck": "Purple Honey Luck",
       "purpleHoneyProgressRequirement": "Purple Bar Points Required",
@@ -7871,7 +7871,7 @@
       "Total": "神肴之运总倍率(效果叠加)："
     },
     "ambrosiaLuckStats": {
-      "PurpleAmbrosiaLeo": "紫神肴 - 狮子座:",
+      "PurpleAmbrosiaLeo": "Purple Ambrosia - Leo:",
       "title": "神肴之运",
       "Base": "基础值：",
       "SynergismLevel": "协同效应等级的奖励：",
@@ -7917,7 +7917,7 @@
       "Total": "拥有的蓝莓总数："
     },
     "ambrosiaGenerationStats": {
-      "PurpleAmbrosiaAries": "紫神肴 - 白羊座:",
+      "PurpleAmbrosiaAries": "Purple Ambrosia - Aries:",
       "title": "神肴进度条点数",
       "Default": "每秒默认值：",
       "PseudoCoins": "伪币升级：",
@@ -8072,7 +8072,7 @@
     },
     "redAmbrosiaGenerationStats": {
       "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
-      "PurpleAmbrosiaAries": "紫神肴 - 白羊座:",
+      "PurpleAmbrosiaAries": "Purple Ambrosia - Aries:",
       "title": "红进度条点数",
       "PseudoCoins": "伪币升级：",
       "Base": "每秒默认值：",
@@ -8230,7 +8230,7 @@
       "Total": "Total Free Accelerator Boosts:"
     },
     "salvagePositive": {
-      "PurpleAmbrosiaVirgo": "紫神肴 - 处女座:",
+      "PurpleAmbrosiaVirgo": "Purple Ambrosia - Virgo:",
       "title": "正数回收",
       "BaseMultiplier": "基础正数回收倍率",
       "AchievementTalisman": "成就护身符 - 回收加成：",
@@ -8414,20 +8414,20 @@
       "Base": "Base Purple Honey per Extraction:",
       "SingularityPerk": "Singularity Perk - Efficient Blueberries:",
       "PseudoCoins": "PseudoCoin Upgrade:",
-      "PurpleHoneyUpgrade1": "紫蜜-魔诌器效率 I：",
-      "PurpleHoneyUpgrade2": "紫蜜-魔诌器效率 II：",
-      "PurpleHoneyUpgrade3": "紫蜜-魔诌器效率 III：",
-      "PurpleHoneyUpgrade4": "紫蜜-魔诌器效率 IV：",
+      "PurpleHoneyUpgrade1": "Purple Honey - Chroma-Encabulator Efficiency I:",
+      "PurpleHoneyUpgrade2": "Purple Honey - Chroma-Encabulator Efficiency II:",
+      "PurpleHoneyUpgrade3": "Purple Honey - Chroma-Encabulator Efficiency III:",
+      "PurpleHoneyUpgrade4": "Purple Honey - Chroma-Encabulator Efficiency IV:",
       "Total": "Total Base Purple Honey per Extraction:"
     },
     "purpleHalfLifeStats": {
-      "title": "附魔速度",
-      "Base": "基础附魔速度:",
+      "title": "Encabulator Speed",
+      "Base": "Base Encabulator Speed:",
       "PurpleHoneyUpgrade1": "Purple Honey - All-Natural, Organic Catalyzer I:",
       "PurpleHoneyUpgrade2": "Purple Honey - All-Natural, Organic Catalyzer II:",
       "PurpleHoneyUpgrade3": "Purple Honey - All-Natural, Organic Catalyzer III:",
       "PurpleHoneyUpgrade4": "Purple Honey - All-Natural, Organic Catalyzer IV:",
-      "Total": "总附魔速度:"
+      "Total": "Total Encabulator Speed:"
     },
     "purpleReactantCapacityStats": {
       "title": "Ambrosia Bar Point Capacity (Red: 1/1,000)",
