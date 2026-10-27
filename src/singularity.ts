@@ -3031,7 +3031,10 @@ export function actualGQUpgradeTotalLevels (upgradeKey: SingularityDataKeys): nu
   const linearLevels = goldenQuarkUpgrades[upgradeKey].level + actualFreeLevels
   let polynomialLevels = 0
 
-  if (getOcteractUpgradeEffect('octeractImprovedFree', 'unlocked')) {
+  if (
+    goldenQuarkUpgrades[upgradeKey].level * actualFreeLevels !== 0
+    && getOcteractUpgradeEffect('octeractImprovedFree', 'unlocked')
+  ) {
     let exponent = getOcteractUpgradeEffect('octeractImprovedFree', 'freeLevelPower')
     exponent += getOcteractUpgradeEffect('octeractImprovedFree2', 'freeLevelPowerIncrease')
     exponent += getOcteractUpgradeEffect('octeractImprovedFree3', 'freeLevelPowerIncrease')
