@@ -198,10 +198,14 @@ import {
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import {
-  calculateAccelMultStats,
+  calculateAcceleratorCounts,
+  calculateAcceleratorStats,
   calculateBuildingPowerCoinMultiplier,
+  calculateCoinTierMultiplier,
   calculateCrystalCoinMultiplier,
   calculateFirstSixCoinUpgradeMultiplier,
+  calculateGlobalCoinMultiplier,
+  calculateMultiplierStats,
   calculateRefineryAlchemyExponent,
   calculateRefineryAlchemyMultiplier,
   format,
@@ -209,13 +213,7 @@ import {
   player
 } from './Synergism'
 import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talismans'
-import {
-  calculateFlatTaxCapIncrease,
-  calculateTax,
-  calculateTaxExponent,
-  challenge13EffectiveCompletions,
-  type TaxResult
-} from './Tax'
+import { calculateFlatTaxCapIncrease, calculateTax, calculateTaxExponent, challenge13EffectiveCompletions } from './Tax'
 import type { GlobalVariables } from './types/Synergism'
 import { MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
 import { isMobile, sumContents } from './Utility'
@@ -227,90 +225,63 @@ enum StatLineTypes {
   Multiplication
 }
 
-type StatContextArgs<C> = [C] extends [void] ? [] : [context: C]
-
-interface StatLine<T, C = void> {
+interface StatLine<T> {
   i18n: string
-  stat: (context: C) => T
+  stat: () => T
   format?: (stat: number | Decimal) => string
   color?: string
   acc?: number
   displayCriterion?: () => boolean
 }
 
-interface NumberStatLineCategory<C = void> {
+interface NumberStatLineCategory {
   kind: 'number'
   type: StatLineTypes
   acc?: number
-  lines: StatLine<number, C>[]
+  lines: StatLine<number>[]
 }
 
-interface DecimalStatLineCategory<C = void> {
+interface DecimalStatLineCategory {
   kind: 'decimal'
   type: StatLineTypes
   acc?: 0
-  lines: StatLine<number | Decimal, C>[]
+  lines: StatLine<number | Decimal>[]
 }
 
-export interface TotalAcceleratorBoostContext {
-  totalAcceleratorBoost: number
-}
-
-export interface CoinMultiplierContext {
-  acceleratorEffect: Decimal
-  multiplierEffect: Decimal
-  totalAccelerator: number
-}
-
-export const calculateTotalStatNumber = <C = void>(
-  category: NumberStatLineCategory<C>,
-  ...[context]: StatContextArgs<C>
-): number => {
+export const calculateTotalStatNumber = (category: NumberStatLineCategory): number => {
   if (category.type === StatLineTypes.Addition) {
     return Math.min(
       1e300,
-      category.lines.reduce((total, line) => total + line.stat(context as C), 0)
+      category.lines.reduce((total, line) => total + line.stat(), 0)
     )
   } else if (category.type === StatLineTypes.Multiplication) {
     return Math.min(
       1e300,
-      category.lines.reduce((total, line) => total * line.stat(context as C), 1)
+      category.lines.reduce((total, line) => total * line.stat(), 1)
     )
   } else {
     throw new Error('Please do not compute Statlines of type Misc!')
   }
 }
 
-export const calculateTotalStatDecimal = <C = void>(
-  category: DecimalStatLineCategory<C>,
-  ...[context]: StatContextArgs<C>
-): Decimal => {
+export const calculateTotalStatDecimal = (category: DecimalStatLineCategory): Decimal => {
   if (category.type === StatLineTypes.Addition) {
-    return category.lines.reduce((total, line) => total.add(line.stat(context as C)), new Decimal())
+    return category.lines.reduce((total, line) => total.add(line.stat()), new Decimal())
   } else if (category.type === StatLineTypes.Multiplication) {
-    return category.lines.reduce((total, line) => total.mul(line.stat(context as C)), new Decimal(1))
+    return category.lines.reduce((total, line) => total.mul(line.stat()), new Decimal(1))
   } else {
     throw new Error('Please do not compute Statlines of type Misc!')
   }
 }
 
 // Overload is intentional -Plat
-export function calculateTotalStat<C = void> (
-  category: NumberStatLineCategory<C>,
-  ...context: StatContextArgs<C>
-): number
-export function calculateTotalStat<C = void> (
-  category: DecimalStatLineCategory<C>,
-  ...context: StatContextArgs<C>
-): Decimal
-export function calculateTotalStat<C> (
-  category: NumberStatLineCategory<C> | DecimalStatLineCategory<C>,
-  ...context: StatContextArgs<C>
-): number | Decimal {
+export function calculateTotalStat (category: NumberStatLineCategory): number
+export function calculateTotalStat (category: DecimalStatLineCategory): Decimal
+export function calculateTotalStat (category: NumberStatLineCategory | DecimalStatLineCategory): number | Decimal {
   if (category.kind === 'number') {
-    return calculateTotalStatNumber(category, ...context)
+    return calculateTotalStatNumber(category)
   } else {
-    return calculateTotalStatDecimal(category, ...context)
+    return calculateTotalStatDecimal(category)
   }
 }
 
@@ -3592,7 +3563,7 @@ const lateResearchMultiplier = (indices: readonly [number, number, number, numbe
   * (1 + 0.2 * player.researches[indices[4]] / 100)
   * (1 + 0.01 * player.researches[200] / 100)
 
-export const freeAcceleratorAdditiveStats: NumberStatLineCategory<TotalAcceleratorBoostContext> = {
+export const freeAcceleratorAdditiveStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
   acc: 0,
@@ -3636,7 +3607,7 @@ export const freeAcceleratorAdditiveStats: NumberStatLineCategory<TotalAccelerat
     },
     {
       i18n: 'AcceleratorBoosts',
-      stat: ({ totalAcceleratorBoost }) => totalAcceleratorBoost * calculateAcceleratorsPerBoost(),
+      stat: () => calculateTotalAcceleratorBoost() * calculateAcceleratorsPerBoost(),
       acc: 0
     }
   ]
@@ -3687,7 +3658,7 @@ export const freeAcceleratorMultiplierStats: NumberStatLineCategory = {
   ]
 }
 
-export const freeMultiplierAdditiveStats: NumberStatLineCategory<TotalAcceleratorBoostContext> = {
+export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
   acc: 0,
@@ -3710,7 +3681,7 @@ export const freeMultiplierAdditiveStats: NumberStatLineCategory<TotalAccelerato
     },
     {
       i18n: 'DiamondUpgrade13',
-      stat: ({ totalAcceleratorBoost }) => player.upgrades[33] > 0 ? totalAcceleratorBoost : 0,
+      stat: () => player.upgrades[33] > 0 ? calculateTotalAcceleratorBoost() : 0,
       acc: 0
     },
     {
@@ -4912,13 +4883,13 @@ export const allTaxExponentStats: NumberStatLineCategory = {
   ]
 }
 
-const allTaxCapStats: DecimalStatLineCategory<TaxResult> = {
+const allTaxCapStats: DecimalStatLineCategory = {
   kind: 'decimal',
   type: StatLineTypes.Misc,
   lines: [
     {
       i18n: 'MaxExponent',
-      stat: ({ maxexponent }) => maxexponent
+      stat: () => calculateTax().maxexponent
     },
     {
       i18n: 'FlatCapIncrease',
@@ -4926,11 +4897,11 @@ const allTaxCapStats: DecimalStatLineCategory<TaxResult> = {
     },
     {
       i18n: 'ProductionExponent',
-      stat: ({ produceTotal }) => Decimal.log10(produceTotal.add(1))
+      stat: () => Decimal.log10(calculateTax().produceTotal.add(1))
     },
     {
       i18n: 'TaxDivisor',
-      stat: ({ taxdivisor }) => taxdivisor
+      stat: () => calculateTax().taxdivisor
     }
   ]
 }
@@ -4941,17 +4912,17 @@ const challenge9CoinPenalty = new Decimal('1e-2000000')
 
 const formatExponent = (stat: number | Decimal) => `^${format(stat, 4, true)}`
 
-export const allCoinMultiplierStats: DecimalStatLineCategory<CoinMultiplierContext> = {
+export const allCoinMultiplierStats: DecimalStatLineCategory = {
   kind: 'decimal',
   type: StatLineTypes.Multiplication,
   lines: [
     {
       i18n: 'Multipliers',
-      stat: ({ multiplierEffect }) => multiplierEffect
+      stat: () => calculateMultiplierStats().multiplierEffect
     },
     {
       i18n: 'Accelerators',
-      stat: ({ acceleratorEffect }) => acceleratorEffect
+      stat: () => calculateAcceleratorStats().acceleratorEffect
     },
     {
       i18n: 'Crystals',
@@ -4978,9 +4949,9 @@ export const allCoinMultiplierStats: DecimalStatLineCategory<CoinMultiplierConte
     },
     {
       i18n: 'CoinUpgrade11',
-      stat: ({ totalAccelerator }) =>
+      stat: () =>
         player.upgrades[11] > 0.5 && player.currentChallenge.reincarnation !== 7
-          ? Decimal.pow(1.02, totalAccelerator)
+          ? Decimal.pow(1.02, calculateAcceleratorCounts().totalAccelerator)
           : 1
     },
     {
@@ -5069,41 +5040,41 @@ export const allCoinExponentStats: NumberStatLineCategory = {
   ]
 }
 
-const allCoinProductionStats: DecimalStatLineCategory<TaxResult> = {
+const allCoinProductionStats: DecimalStatLineCategory = {
   kind: 'decimal',
   type: StatLineTypes.Misc,
   lines: [
     {
       i18n: 'Producer1',
-      stat: ({ coinTierMultipliers }) => coinTierMultipliers[0]
+      stat: () => calculateCoinTierMultiplier(0)
     },
     {
       i18n: 'Producer1Total',
-      stat: ({ coinMultiplier, coinTierMultipliers }) => coinMultiplier.times(coinTierMultipliers[0])
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(0))
     },
     {
       i18n: 'Producer2',
-      stat: ({ coinTierMultipliers }) => coinTierMultipliers[1]
+      stat: () => calculateCoinTierMultiplier(1)
     },
     {
       i18n: 'Producer2Total',
-      stat: ({ coinMultiplier, coinTierMultipliers }) => coinMultiplier.times(coinTierMultipliers[1])
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(1))
     },
     {
       i18n: 'Producer3',
-      stat: ({ coinTierMultipliers }) => coinTierMultipliers[2]
+      stat: () => calculateCoinTierMultiplier(2)
     },
     {
       i18n: 'Producer3Total',
-      stat: ({ coinMultiplier, coinTierMultipliers }) => coinMultiplier.times(coinTierMultipliers[2])
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(2))
     },
     {
       i18n: 'Producer4',
-      stat: ({ coinTierMultipliers }) => coinTierMultipliers[3]
+      stat: () => calculateCoinTierMultiplier(3)
     },
     {
       i18n: 'Producer4Total',
-      stat: ({ coinMultiplier, coinTierMultipliers }) => coinMultiplier.times(coinTierMultipliers[3])
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(3))
     },
     {
       i18n: 'RefineryAlchemy',
@@ -5113,23 +5084,26 @@ const allCoinProductionStats: DecimalStatLineCategory<TaxResult> = {
     },
     {
       i18n: 'Producer5',
-      stat: ({ coinTierMultipliers }) => coinTierMultipliers[4]
+      stat: () => calculateCoinTierMultiplier(4)
     },
     {
       i18n: 'Producer5Total',
-      stat: ({ coinMultiplier, coinTierMultipliers }) => coinMultiplier.times(coinTierMultipliers[4])
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(4))
     },
     {
       i18n: 'GrossPerSecond',
-      stat: ({ producePerSecond }) => producePerSecond
+      stat: () => calculateTax().producePerSecond
     },
     {
       i18n: 'TaxDivisor',
-      stat: ({ taxdivisor }) => taxdivisor
+      stat: () => calculateTax().taxdivisor
     },
     {
       i18n: 'NetPerSecond',
-      stat: ({ producePerSecond, taxdivisor }) => producePerSecond.dividedBy(taxdivisor)
+      stat: () => {
+        const { producePerSecond, taxdivisor } = calculateTax()
+        return producePerSecond.dividedBy(taxdivisor)
+      }
     }
   ]
 }
@@ -5397,15 +5371,14 @@ export const loadStatisticsUpdate = (statsId?: string) => {
 
 const backgroundColors = ['#1f1f1f', '']
 
-const loadStatistics = <C = void>(
-  statsObj: NumberStatLineCategory<C> | DecimalStatLineCategory<C>,
+const loadStatistics = (
+  statsObj: NumberStatLineCategory | DecimalStatLineCategory,
   parentDiv: string,
   statLinePrefix: string,
   specificClass: string,
   calcTotalFunc: () => number | Decimal,
   summativeName = 'Total',
-  hasSummative = true,
-  ...[context]: StatContextArgs<C>
+  hasSummative = true
 ) => {
   const parent = DOMCacheGetOrSet(parentDiv)
   const numStatLines = document.getElementsByClassName(specificClass).length
@@ -5434,7 +5407,7 @@ const loadStatistics = <C = void>(
 
     const statLine = DOMCacheGetOrSet(statHTMLName)
     const statNumber = DOMCacheGetOrSet(statNumHTMLName)
-    const num = line.stat(context as C)
+    const num = line.stat()
 
     const displayLine = displayStatLine(statsObj.type, num, line.displayCriterion)
     if (displayLine || !PROD) {
@@ -5895,29 +5868,16 @@ const loadShopVoucherStats = () => {
 
 const loadTaxStats = () => {
   loadStatistics(allTaxExponentStats, 'taxStats', 'statTax', 'TaxStat', calculateTaxExponent)
-  loadStatistics(
-    allTaxCapStats,
-    'taxStats',
-    'statTax2',
-    'TaxStat2',
-    () => 0,
-    '',
-    false,
-    calculateTax(calculateAccelMultStats())
-  )
+  loadStatistics(allTaxCapStats, 'taxStats', 'statTax2', 'TaxStat2', () => 0, '', false)
 }
 
 const loadCoinStats = () => {
-  const accelMultStats = calculateAccelMultStats()
   loadStatistics(
     allCoinMultiplierStats,
     'coinStats',
     'statCoin',
     'CoinStat',
-    () => calculateTotalStat(allCoinMultiplierStats, accelMultStats),
-    'Total',
-    true,
-    accelMultStats
+    () => calculateTotalStat(allCoinMultiplierStats)
   )
   loadStatistics(
     allCoinExponentStats,
@@ -5927,16 +5887,7 @@ const loadCoinStats = () => {
     () => calculateTotalStat(allCoinExponentStats),
     'Total2'
   )
-  loadStatistics(
-    allCoinProductionStats,
-    'coinStats',
-    'statCoin3',
-    'CoinStat3',
-    () => 0,
-    '',
-    false,
-    calculateTax(accelMultStats)
-  )
+  loadStatistics(allCoinProductionStats, 'coinStats', 'statCoin3', 'CoinStat3', () => 0, '', false)
 }
 
 const loadMiscellaneousStats = () => {
@@ -5984,16 +5935,13 @@ const loadConstructionStats = () => {
 }
 
 const loadFreeAccelMultStats = () => {
-  const boostContext = { totalAcceleratorBoost: calculateTotalAcceleratorBoost() }
   loadStatistics(
     freeAcceleratorAdditiveStats,
     'freeAccelerators',
     'statFreeAccelAdd',
     'FreeAcceleratorStatAdditive',
-    () => calculateTotalStat(freeAcceleratorAdditiveStats, boostContext),
-    'AdditiveTotal',
-    true,
-    boostContext
+    () => calculateTotalStat(freeAcceleratorAdditiveStats),
+    'AdditiveTotal'
   )
   loadStatistics(
     freeAcceleratorMultiplierStats,
@@ -6008,17 +5956,15 @@ const loadFreeAccelMultStats = () => {
     'freeAccelerators',
     'statFreeAccelFinal',
     'FreeAcceleratorStatFinal',
-    () => calculateFreeAccelMult('accelerator', boostContext.totalAcceleratorBoost)
+    () => calculateFreeAccelMult('accelerator')
   )
   loadStatistics(
     freeMultiplierAdditiveStats,
     'freeMultipliers',
     'statFreeMultAdd',
     'FreeMultiplierStatAdditive',
-    () => calculateTotalStat(freeMultiplierAdditiveStats, boostContext),
-    'AdditiveTotal',
-    true,
-    boostContext
+    () => calculateTotalStat(freeMultiplierAdditiveStats),
+    'AdditiveTotal'
   )
   loadStatistics(
     freeMultiplierMultiplierStats,
@@ -6033,7 +5979,7 @@ const loadFreeAccelMultStats = () => {
     'freeMultipliers',
     'statFreeMultFinal',
     'FreeMultiplierStatFinal',
-    () => calculateFreeAccelMult('multiplier', boostContext.totalAcceleratorBoost)
+    () => calculateFreeAccelMult('multiplier')
   )
   loadStatistics(
     freeAcceleratorBoostAdditiveStats,
