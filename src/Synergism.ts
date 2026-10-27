@@ -60,6 +60,7 @@ import {
   sumBuildingsOwned
 } from './Buy'
 import {
+  calculateConstruction,
   calculateEffectiveFreeAccelMult,
   calculateFreeAcceleratorBoosts,
   calculateFreeAccelMult,
@@ -2355,10 +2356,13 @@ export const calculateAcceleratorPower = (totalAcceleratorBoost: number): number
   return power
 }
 
-export const calculateMultiplierStats = (viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')) => {
+export const calculateMultiplierStats = (
+  viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
+  construction?: number
+) => {
   const freeMultiplier = calculateFreeAccelMult('multiplier')
   const effectiveFreeMultiplier = calculateEffectiveFreeAccelMult(freeMultiplier, viscosity)
-  const totalMultiplier = getBuildingOwned('multiplier') / viscosity + effectiveFreeMultiplier
+  const totalMultiplier = getBuildingOwned('multiplier', 0, construction) / viscosity + effectiveFreeMultiplier
   const multiplierPower = calculateMultiplierPower()
   return {
     freeMultiplier,
@@ -2369,22 +2373,29 @@ export const calculateMultiplierStats = (viscosity = corruptionEffect(activeCorr
   }
 }
 
-export const calculateAcceleratorCounts = (viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')) => {
+export const calculateAcceleratorCounts = (
+  viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
+  construction?: number
+) => {
   const freeAccelerator = calculateFreeAccelMult('accelerator')
   const effectiveFreeAccelerator = calculateEffectiveFreeAccelMult(freeAccelerator, viscosity)
   return {
     freeAccelerator,
     effectiveFreeAccelerator,
-    totalAccelerator: getBuildingOwned('accelerator') / viscosity + effectiveFreeAccelerator
+    totalAccelerator: getBuildingOwned('accelerator', 0, construction) / viscosity + effectiveFreeAccelerator
   }
 }
 
 export const calculateAcceleratorStats = (
   totalAcceleratorBoost = calculateTotalAcceleratorBoost(),
   viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
-  totalMultiplier?: number
+  totalMultiplier?: number,
+  construction?: number
 ) => {
-  const { freeAccelerator, effectiveFreeAccelerator, totalAccelerator } = calculateAcceleratorCounts(viscosity)
+  const { freeAccelerator, effectiveFreeAccelerator, totalAccelerator } = calculateAcceleratorCounts(
+    viscosity,
+    construction
+  )
   const acceleratorPower = calculateAcceleratorPower(totalAcceleratorBoost)
 
   let acceleratorEffect: Decimal
@@ -2408,17 +2419,17 @@ export const calculateAcceleratorStats = (
   }
 }
 
-export const calculateAccelMultStats = () => {
+export const calculateAccelMultStats = (construction = calculateConstruction()) => {
   const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
   const freeAcceleratorBoost = calculateFreeAcceleratorBoosts()
-  const totalAcceleratorBoost = calculateTotalAcceleratorBoost(freeAcceleratorBoost)
-  const multiplierStats = calculateMultiplierStats(viscosity)
+  const totalAcceleratorBoost = calculateTotalAcceleratorBoost(freeAcceleratorBoost, construction)
+  const multiplierStats = calculateMultiplierStats(viscosity, construction)
   return {
     viscosity,
     freeAcceleratorBoost,
     totalAcceleratorBoost,
     ...multiplierStats,
-    ...calculateAcceleratorStats(totalAcceleratorBoost, viscosity, multiplierStats.totalMultiplier)
+    ...calculateAcceleratorStats(totalAcceleratorBoost, viscosity, multiplierStats.totalMultiplier, construction)
   }
 }
 
@@ -2930,12 +2941,13 @@ export const calculateTesseractBuildingProduction = (index: OneToFive, constantM
     .times(constantMultiplier)
 
 export const resourceGain = (dt: number): void => {
-  const coinsOwned = getBuildingsOwned('coin')
-  const diamondsOwned = getBuildingsOwned('diamond')
-  const mythosOwned = getBuildingsOwned('mythos')
-  const particlesOwned = getBuildingsOwned('particle')
+  const construction = calculateConstruction()
+  const coinsOwned = getBuildingsOwned('coin', construction)
+  const diamondsOwned = getBuildingsOwned('diamond', construction)
+  const mythosOwned = getBuildingsOwned('mythos', construction)
+  const particlesOwned = getBuildingsOwned('particle', construction)
   const totalCoinOwned = sumBuildingsOwned(coinsOwned)
-  const accelMultStats = calculateAccelMultStats()
+  const accelMultStats = calculateAccelMultStats(construction)
   const buildingPower = calculateBuildingPower()
   const buildingPowerMult = calculateBuildingPowerCoinMultiplier(buildingPower, totalCoinOwned)
   const crystalMultiplier = calculateGlobalCrystalMultiplier(buildingPowerMult, sumBuildingsOwned(diamondsOwned))
