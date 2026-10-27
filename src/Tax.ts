@@ -1,4 +1,11 @@
-import { getBuildingOwned, getBuildingsOwned, sumBuildingsOwned } from './Buy'
+import {
+  CoinBuilding,
+  DiamondBuilding,
+  getBuildingOwned,
+  getBuildingsOwned,
+  MythosBuilding,
+  sumBuildingsOwned
+} from './Buy'
 import {
   type AccelMultStats,
   calculateAcceleratorCounts,
@@ -45,8 +52,8 @@ export interface CoinProducerInputs {
 
 const getCoinProducerInputs = (): CoinProducerInputs => ({
   coinsOwned: getBuildingsOwned('coin'),
-  firstMythosOwned: getBuildingOwned('mythos', 0),
-  firstDiamondOwned: getBuildingOwned('diamond', 0)
+  firstMythosOwned: getBuildingOwned('mythos', MythosBuilding.Augments),
+  firstDiamondOwned: getBuildingOwned('diamond', DiamondBuilding.Refineries)
 })
 
 export const calculateTax = (
@@ -73,18 +80,18 @@ export const calculateTax = (
     firstDiamondOwned
   }
   const coinTierMultipliers = [
-    calculateCoinTierMultiplier(0, tierInputs),
-    calculateCoinTierMultiplier(1, tierInputs),
-    calculateCoinTierMultiplier(2, tierInputs),
-    calculateCoinTierMultiplier(3, tierInputs),
-    calculateCoinTierMultiplier(4, tierInputs)
+    calculateCoinTierMultiplier(CoinBuilding.Workers, tierInputs),
+    calculateCoinTierMultiplier(CoinBuilding.Investments, tierInputs),
+    calculateCoinTierMultiplier(CoinBuilding.Printers, tierInputs),
+    calculateCoinTierMultiplier(CoinBuilding.CoinMints, tierInputs),
+    calculateCoinTierMultiplier(CoinBuilding.Alchemies, tierInputs)
   ] as const
   const grossProduction = calculateBuildingProduction('coin', coinsOwned, [
-    coinMultiplier.times(coinTierMultipliers[0]),
-    coinMultiplier.times(coinTierMultipliers[1]),
-    coinMultiplier.times(coinTierMultipliers[2]),
-    coinMultiplier.times(coinTierMultipliers[3]),
-    coinMultiplier.times(coinTierMultipliers[4])
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.Workers]),
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.Investments]),
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.Printers]),
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.CoinMints]),
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.Alchemies])
   ])
   const produceTotal = grossProduction.reduce((total, production) => total.add(production), new Decimal())
   const production = grossProduction.map((tier) => tier.lte(G.d0_0001) ? new Decimal() : tier)

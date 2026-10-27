@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import * as z from 'zod'
+import { AchievementId } from '../Achievements'
 import type { AmbrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
@@ -90,14 +91,22 @@ export const playerUpdateVarSchema = z.preprocess(cleanseLegacyCorruptions, play
     player.runes.antiquities = new Decimal(player.runeexp[6] ?? 0)
 
     // Retroactively reward players with unlocks, because I don't have a better place here
-    player.unlocks.anthill = player.achievements[127] === 1 || (player.highestchallengecompletions[8] ?? 0) > 0
-    player.unlocks.talismans = player.achievements[134] === 1 || (player.highestchallengecompletions[9] ?? 0) > 0
-    player.unlocks.blessings = player.achievements[134] === 1 || (player.highestchallengecompletions[9] ?? 0) > 0
-    player.unlocks.ascensions = player.achievements[141] === 1 || (player.highestchallengecompletions[10] ?? 0) > 0
-    player.unlocks.tesseracts = player.achievements[197] === 1 || (player.highestchallengecompletions[11] ?? 0) > 0
-    player.unlocks.spirits = player.achievements[204] === 1 || (player.highestchallengecompletions[12] ?? 0) > 0
-    player.unlocks.hypercubes = player.achievements[211] === 1 || (player.highestchallengecompletions[13] ?? 0) > 0
-    player.unlocks.platonics = player.achievements[218] === 1 || (player.highestchallengecompletions[14] ?? 0) > 0
+    player.unlocks.anthill = player.achievements[AchievementId.Challenge8Tier1] === 1
+      || (player.highestchallengecompletions[8] ?? 0) > 0
+    player.unlocks.talismans = player.achievements[AchievementId.Challenge9Tier1] === 1
+      || (player.highestchallengecompletions[9] ?? 0) > 0
+    player.unlocks.blessings = player.achievements[AchievementId.Challenge9Tier1] === 1
+      || (player.highestchallengecompletions[9] ?? 0) > 0
+    player.unlocks.ascensions = player.achievements[AchievementId.Challenge10Tier1] === 1
+      || (player.highestchallengecompletions[10] ?? 0) > 0
+    player.unlocks.tesseracts = player.achievements[AchievementId.Challenge11Tier1] === 1
+      || (player.highestchallengecompletions[11] ?? 0) > 0
+    player.unlocks.spirits = player.achievements[AchievementId.Challenge12Tier1] === 1
+      || (player.highestchallengecompletions[12] ?? 0) > 0
+    player.unlocks.hypercubes = player.achievements[AchievementId.Challenge13Tier1] === 1
+      || (player.highestchallengecompletions[13] ?? 0) > 0
+    player.unlocks.platonics = player.achievements[AchievementId.Challenge14Tier1] === 1
+      || (player.highestchallengecompletions[14] ?? 0) > 0
     player.unlocks.hepteracts = player.challenge15Exponent >= 1e15
   }
 

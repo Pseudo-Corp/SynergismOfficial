@@ -3,6 +3,7 @@ import fitty, { type FittyInstance } from 'fitty'
 import i18next from 'i18next'
 import {
   type AchievementGroups,
+  AchievementId,
   getAchievementReward,
   groupedAchievementData,
   progressiveAchievementKeys,
@@ -13,6 +14,8 @@ import {
 import { isAutoAscendRunning, isAutoAscendUnlocked } from './AutoAscension'
 import {
   calculateSingularityUpgradePurchase,
+  CoinBuilding,
+  DiamondBuilding,
   getBuildingCost,
   getTesseractBuildingCost,
   type SingularityUpgradePurchaseOptions,
@@ -250,8 +253,8 @@ export const revealStuff = () => {
   document.documentElement.dataset.reincarnationThree = player.researches[49] === 1 ? 'true' : 'false'
   document.documentElement.dataset.reincarnationFour = player.researches[50] === 1 ? 'true' : 'false'
 
-  document.documentElement.dataset.chal6 = player.achievements[113] === 1 ? 'true' : 'false'
-  document.documentElement.dataset.chal7 = player.achievements[120] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.chal6 = player.achievements[AchievementId.Challenge6Tier1] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.chal7 = player.achievements[AchievementId.Challenge7Tier1] === 1 ? 'true' : 'false'
 
   const example17 = document.getElementsByClassName('chal8') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example17.length; i++) {
@@ -561,7 +564,7 @@ export const revealStuff = () => {
     toggle29: player.transcendCount > 0 || player.reincarnationCount > 0, // Settings - Confirmations - Transcension
     toggle30: player.reincarnationCount > 0, // Settings - Confirmations - Reincarnation
     toggle31: player.ascensionCount > 0, // Settings - Confirmations - Ascension and Asc. Challenge
-    toggle32: Boolean(getAchievementReward('antSacrificeUnlock')), // Settings - Confirmations - Ant Sacrifice
+    toggle32: getAchievementReward('antSacrificeUnlock'), // Settings - Confirmations - Ant Sacrifice
     toggle33: player.highestSingularityCount > 0 && player.ascensionCount > 0, // Settings - Confirmations - Singularity
     toggle34: player.unlocks.coinfour, // Achievements - Notifications
     toggle35: player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
@@ -678,23 +681,28 @@ export const buttoncolorchange = () => {
     const h = DOMCacheGetOrSet('buyacceleratorboost')
     a.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(getBuildingCost('coin', 0))
+      (!player.toggles[1] || player.upgrades[81] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.Workers))
     )
     b.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(getBuildingCost('coin', 1))
+      (!player.toggles[2] || player.upgrades[82] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.Investments))
     )
     c.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(getBuildingCost('coin', 2))
+      (!player.toggles[3] || player.upgrades[83] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.Printers))
     )
     d.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(getBuildingCost('coin', 3))
+      (!player.toggles[4] || player.upgrades[84] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.CoinMints))
     )
     e.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(getBuildingCost('coin', 4))
+      (!player.toggles[5] || player.upgrades[85] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.Alchemies))
     )
     f.classList.toggle(
       'buildingPurchaseBtnAvailable',
@@ -725,27 +733,27 @@ export const buttoncolorchange = () => {
     a.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[10] || getLevelMilestone('tier1CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 0))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.Refineries))
     )
     b.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[11] || getLevelMilestone('tier2CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 1))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.CoalPlants))
     )
     c.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[12] || getLevelMilestone('tier3CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 2))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.CoalRigs))
     )
     d.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[13] || getLevelMilestone('tier4CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 3))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.Pickaxes))
     )
     e.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[14] || getLevelMilestone('tier5CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 4))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.PandorasBoxes))
     )
     let k = 0
     if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {

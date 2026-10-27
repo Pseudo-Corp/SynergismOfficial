@@ -386,7 +386,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return Boolean(getAchievementReward('chronosTalisman'))
+      return getAchievementReward('chronosTalisman')
     },
     name: () => i18next.t('runes.talismans.chronos.name'),
     description: () => i18next.t('runes.talismans.chronos.description')
@@ -431,7 +431,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return Boolean(getAchievementReward('midasTalisman'))
+      return getAchievementReward('midasTalisman')
     },
     name: () => i18next.t('runes.talismans.midas.name'),
     description: () => i18next.t('runes.talismans.midas.description')
@@ -478,7 +478,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return Boolean(getAchievementReward('metaphysicsTalisman'))
+      return getAchievementReward('metaphysicsTalisman')
     },
     name: () => i18next.t('runes.talismans.metaphysics.name'),
     description: () => i18next.t('runes.talismans.metaphysics.description')
@@ -523,7 +523,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return Boolean(getAchievementReward('polymathTalisman'))
+      return getAchievementReward('polymathTalisman')
     },
     name: () => i18next.t('runes.talismans.polymath.name'),
     description: () => i18next.t('runes.talismans.polymath.description')

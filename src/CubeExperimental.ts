@@ -396,7 +396,7 @@ export class WowPlatonicCubes extends Cube {
       }
     }
 
-    const hyperCubesPerPlatonic = +getAchievementReward('platonicToHypercubes')
+    const hyperCubesPerPlatonic = getAchievementReward('platonicToHypercubes')
     if (hyperCubesPerPlatonic > 0) {
       const extraHypercubes = Math.floor(
         toSpend * hyperCubesPerPlatonic

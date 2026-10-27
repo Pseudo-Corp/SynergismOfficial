@@ -12,7 +12,7 @@ export const computeFreeAntUpgradeLevels = () => {
   bonusLevels += player.researches[102]
   bonusLevels += 2 * player.researches[132]
   bonusLevels += Math.floor((1 / 200) * player.researches[200])
-  bonusLevels += +getAchievementReward('freeAntUpgrades')
+  bonusLevels += getAchievementReward('freeAntUpgrades')
   bonusLevels *= Globals.challenge15Rewards.bonusAntLevel.value
 
   if (player.currentChallenge.ascension === 11) {

@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { getBuildingOwned, getTotalBuildingsOwned } from './Buy'
+import { CoinBuilding, getBuildingOwned, getTotalBuildingsOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   baseConstruction,
@@ -661,7 +661,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('wowCubeGain')
+      stat: () => getAchievementReward('wowCubeGain')
     },
     {
       i18n: 'SeasonPass1',
@@ -747,7 +747,7 @@ export const allWowCubeStatsProduct = (
       * calculateCubePlatonicBlessing('cubes')
       * allCubeMultiplier
       * getLevelReward('wowCubes')
-      * (+getAchievementReward('wowCubeGain'))
+      * getAchievementReward('wowCubeGain')
       * getShopUpgradeEffects('seasonPass', 'wowCubeMult')
       * getTalismanEffects('wowSquare').oddDimBonus
       * ((1 + player.researches[119] / 1000)
@@ -803,7 +803,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('wowTesseractGain')
+      stat: () => getAchievementReward('wowTesseractGain')
     },
     {
       i18n: 'SeasonPass1',
@@ -851,7 +851,7 @@ export const allTesseractStatsProduct = (
       * calculateCubePlatonicBlessing('tesseracts')
       * allCubeMultiplier
       * getLevelReward('wowTesseracts')
-      * (+getAchievementReward('wowTesseractGain'))
+      * getAchievementReward('wowTesseractGain')
       * getShopUpgradeEffects('seasonPass', 'wowTesseractMult')
       * getTalismanEffects('wowSquare').evenDimBonus
       * (1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]))
@@ -877,7 +877,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('wowHypercubeGain')
+      stat: () => getAchievementReward('wowHypercubeGain')
     },
     {
       i18n: 'SeasonPass2',
@@ -917,7 +917,7 @@ export const allHypercubeStatsProduct = (
       * calculateCubePlatonicBlessing('hypercubes')
       * allCubeMultiplier
       * getLevelReward('wowHyperCubes')
-      * (+getAchievementReward('wowHypercubeGain'))
+      * getAchievementReward('wowHypercubeGain')
       * getShopUpgradeEffects('seasonPass2', 'wowHypercubeMult')
       * getTalismanEffects('wowSquare').oddDimBonus
       * calculateHypercubeMultiplierPlatonicBlessing()
@@ -941,7 +941,7 @@ export const allPlatonicCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('wowPlatonicGain')
+      stat: () => getAchievementReward('wowPlatonicGain')
     },
     {
       i18n: 'SeasonPass2',
@@ -977,7 +977,7 @@ export const allPlatonicCubeStatsProduct = (
       * calculateCubePlatonicBlessing('platonics')
       * allCubeMultiplier
       * getLevelReward('wowPlatonicCubes')
-      * (+getAchievementReward('wowPlatonicGain'))
+      * getAchievementReward('wowPlatonicGain')
       * getShopUpgradeEffects('seasonPass2', 'wowPlatonicMult')
       * getTalismanEffects('wowSquare').evenDimBonus
       * calculatePlatonicMultiplierPlatonicBlessing()
@@ -1000,7 +1000,7 @@ export const allHepteractCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('wowHepteractGain')
+      stat: () => getAchievementReward('wowHepteractGain')
     },
     {
       i18n: 'SeasonPass3',
@@ -1028,7 +1028,7 @@ export const allHepteractCubeStatsProduct = (
       * calculateCubePlatonicBlessing('hepteracts')
       * allCubeMultiplier
       * getLevelReward('wowHepteractCubes')
-      * (+getAchievementReward('wowHepteractGain'))
+      * getAchievementReward('wowHepteractGain')
       * getShopUpgradeEffects('seasonPass3', 'wowHepteractMult')
       * getTalismanEffects('wowSquare').oddDimBonus
   )
@@ -1444,7 +1444,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('offeringBonus')
+      stat: () => getAchievementReward('offeringBonus')
     },
     {
       i18n: 'SynergismLevel',
@@ -1677,7 +1677,7 @@ export const allOfferingStatsProduct = (baseOfferings = calculateBaseOfferings()
   new Decimal(1)
     .mul(baseOfferings)
     .mul(1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5)
-    .mul(+getAchievementReward('offeringBonus'))
+    .mul(getAchievementReward('offeringBonus'))
     .mul(getLevelReward('offerings'))
     .mul(getRuneEffects('superiorIntellect', 'offeringMult'))
     .mul(
@@ -1853,7 +1853,7 @@ export const allQuarkStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('quarkGain')
+      stat: () => getAchievementReward('quarkGain')
     },
     {
       i18n: 'SynergismLevel',
@@ -2036,7 +2036,7 @@ export const allQuarkStatsProduct = () =>
     1e300,
     (1 + getGlobalBonus() / 100)
       * (1 + getPersonalBonus() / 100)
-      * (+getAchievementReward('quarkGain'))
+      * getAchievementReward('quarkGain')
       * getLevelReward('quarks')
       * getTalismanEffects('plastic').quarkBonus
       * (player.platonicUpgrades[5] > 0 ? 1.05 : 1)
@@ -2278,7 +2278,7 @@ export const allObtainiumStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('obtainiumBonus') // Achievement Bonus
+      stat: () => getAchievementReward('obtainiumBonus') // Achievement Bonus
     },
     {
       i18n: 'SynergismLevel',
@@ -2456,7 +2456,7 @@ export const allObtainiumStats: DecimalStatLineCategory = {
 export const allObtainiumStatsProduct = () =>
   new Decimal(1)
     .mul(Math.max(1, Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)))
-    .mul(+getAchievementReward('obtainiumBonus'))
+    .mul(getAchievementReward('obtainiumBonus'))
     .mul(getLevelReward('obtainium'))
     .mul(
       (player.upgrades[69] > 0)
@@ -2572,7 +2572,7 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
   lines: [
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('sacrificeMult')
+      stat: () => getAchievementReward('sacrificeMult')
     },
     {
       i18n: 'AntUpgrade11',
@@ -2629,7 +2629,7 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
 
 export const antSacrificeRewardStatsProduct = () =>
   new Decimal(1)
-    .mul(+getAchievementReward('sacrificeMult'))
+    .mul(getAchievementReward('sacrificeMult'))
     .mul(getAntUpgradeEffect(AntUpgrades.AntSacrifice).antSacrificeMultiplier)
     .mul(1 + player.researches[103] / 20)
     .mul(1 + player.researches[104] / 20)
@@ -3436,7 +3436,7 @@ export const allPowderMultiplierStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('overfluxConversionRate') // Achievement Bonus
+      stat: () => getAchievementReward('overfluxConversionRate') // Achievement Bonus
     },
     {
       i18n: 'Challenge15',
@@ -3463,7 +3463,7 @@ export const allPowderMultiplierStatsProduct = () =>
   Math.min(
     1e300,
     (1 / 100)
-      * (+getAchievementReward('overfluxConversionRate'))
+      * getAchievementReward('overfluxConversionRate')
       * G.challenge15Rewards.powder.value
       * getShopUpgradeEffects('powderEX', 'orbToPowderConversionMult')
       * (1 + 0.01 * player.platonicUpgrades[16])
@@ -4136,7 +4136,7 @@ const allTalismanRuneBonusStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('talismanPower')
+      stat: () => getAchievementReward('talismanPower')
     },
     {
       i18n: 'Research106',
@@ -4193,7 +4193,7 @@ export const allTalismanRuneBonusStatsSum = () =>
   Math.min(
     1e300,
     1
-      + (+getAchievementReward('talismanPower'))
+      + getAchievementReward('talismanPower')
       + (player.researches[106] / 1000)
       + (player.researches[107] / 1000)
       + (2 * player.researches[118] / 1000)
@@ -4217,7 +4217,7 @@ export const positiveSalvageStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('salvage'),
+      stat: () => getAchievementReward('salvage'),
       acc: 0
     },
     {
@@ -4292,7 +4292,7 @@ export const positiveSalvageStats: NumberStatLineCategory = {
 export const positiveSalvageStatsSum = () =>
   Math.min(
     1e300,
-    (+getAchievementReward('salvage'))
+    getAchievementReward('salvage')
       + getLevelReward('salvage')
       + getLevelMilestone('salvageChallengeBuff')
       + (7 * player.upgrades[61])
@@ -4503,7 +4503,7 @@ export const freeAcceleratorAdditiveStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Achievements',
-      stat: () => +getAchievementReward('accelerators'),
+      stat: () => getAchievementReward('accelerators'),
       acc: 0
     },
     {
@@ -4530,7 +4530,7 @@ export const freeAcceleratorAdditiveStatsSum = (totalAcceleratorBoost = calculat
         + (player.upgrades[25] !== 0 ? 1 : 0))
       + (player.upgrades[32] !== 0 ? Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25))) : 0)
       + (player.upgrades[45] !== 0 ? Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10))) : 0)
-      + (+getAchievementReward('accelerators'))
+      + getAchievementReward('accelerators')
       + (5 * player.challengecompletions[2])
       + (totalAcceleratorBoost * calculateAcceleratorsPerBoost())
   )
@@ -4606,7 +4606,9 @@ export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
     {
       i18n: 'CoinUpgrade7',
       stat: () =>
-        player.upgrades[7] > 0 ? Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', 4) + 1, 10))) : 0,
+        player.upgrades[7] > 0
+          ? Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', CoinBuilding.Alchemies) + 1, 10)))
+          : 0,
       acc: 0
     },
     {
@@ -4642,7 +4644,7 @@ export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Achievements',
-      stat: () => +getAchievementReward('multipliers'),
+      stat: () => getAchievementReward('multipliers'),
       acc: 0
     },
     {
@@ -4656,14 +4658,16 @@ export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
 export const freeMultiplierAdditiveStatsSum = (totalAcceleratorBoost?: number) =>
   Math.min(
     1e300,
-    (player.upgrades[7] > 0 ? Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', 4) + 1, 10))) : 0)
+    (player.upgrades[7] > 0
+      ? Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', CoinBuilding.Alchemies) + 1, 10)))
+      : 0)
       + (player.upgrades[9] > 0 ? Math.floor(getBuildingOwned('accelerator') / 10) : 0)
       + diamondUpgradesOneToFive.filter((i) => player.upgrades[i] > 0).length
       + (player.upgrades[33] > 0 ? totalAcceleratorBoost ?? calculateTotalAcceleratorBoost() : 0)
       + (player.upgrades[49] > 0 ? Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10))) : 0)
       + (player.upgrades[68] > 0 ? calculateParticleUpgrade8FreeMultipliers() : 0)
       + (player.challengecompletions[1] > 0 ? 1 : 0)
-      + (+getAchievementReward('multipliers'))
+      + getAchievementReward('multipliers')
       + (20 * player.researches[94] * Math.floor(sumOfRuneLevels() / 8))
   )
 
@@ -4797,7 +4801,7 @@ export const freeAcceleratorBoostAdditiveStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Achievements',
-      stat: () => +getAchievementReward('accelBoosts'),
+      stat: () => getAchievementReward('accelBoosts'),
       acc: 0
     },
     {
@@ -4813,7 +4817,7 @@ export const freeAcceleratorBoostAdditiveStatsSum = () =>
     1e300,
     (player.upgrades[26] > 0.5 ? 1 : 0)
       + (player.upgrades[31] > 0.5 ? Math.floor(getTotalBuildingsOwned('coin') / 2000) : 0)
-      + (+getAchievementReward('accelBoosts'))
+      + getAchievementReward('accelBoosts')
       + (player.researches[93] * Math.floor(sumOfRuneLevels() / 20))
   )
 
@@ -4955,7 +4959,7 @@ export const antSpeedStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('antSpeed') // Achievement Bonus
+      stat: () => getAchievementReward('antSpeed') // Achievement Bonus
     },
     {
       i18n: 'ImmortalELO',
@@ -5078,7 +5082,7 @@ export const antSpeedStatsProduct = (globalSpeedMult = calculateGlobalSpeedMult(
         : 0
     )
     .mul(globalSpeedMult > 1 ? Decimal.pow(globalSpeedMult, 1 + 3 * player.upgrades[79]) : globalSpeedMult)
-    .mul(+getAchievementReward('antSpeed'))
+    .mul(getAchievementReward('antSpeed'))
     .mul(calculateAntSpeedMultFromELO())
     .mul(getAntUpgradeEffect(AntUpgrades.AntSpeed).antSpeed)
     .mul(1 + 0.6 * player.upgrades[39])
@@ -5125,7 +5129,7 @@ export const antELOStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementBonus',
-      stat: () => +getAchievementReward('antELOAdditive')
+      stat: () => getAchievementReward('antELOAdditive')
     },
     {
       i18n: 'SynergismLevel',
@@ -5195,7 +5199,7 @@ export const antELOStatsSum = () =>
   Math.min(
     1e300,
     player.ants.producers[AntProducers.Workers].purchased
-      + (+getAchievementReward('antELOAdditive'))
+      + getAchievementReward('antELOAdditive')
       + getLevelReward('ants')
       + (player.upgrades[80] === 0
         ? 0
@@ -5226,7 +5230,7 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'AchievementMultiplier',
-      stat: () => +getAchievementReward('antELOAdditiveMultiplier')
+      stat: () => getAchievementReward('antELOAdditiveMultiplier')
     },
     {
       i18n: 'AntQueens',
@@ -5284,7 +5288,7 @@ export const additiveAntELOMultStatsSum = () =>
   Math.min(
     1e300,
     1
-      + (+getAchievementReward('antELOAdditiveMultiplier'))
+      + getAchievementReward('antELOAdditiveMultiplier')
       + (player.ants.producers[AntProducers.Queens].purchased > 0 ? 0.01 : 0)
       + (player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 0.01 : 0)
       + (player.ants.producers[AntProducers.Almighties].purchased > 0 ? 0.01 : 0)
@@ -5425,11 +5429,11 @@ export const ascensionCountMultStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 1 + +getAchievementReward('ascensionCountAdditive')
+      stat: () => 1 + getAchievementReward('ascensionCountAdditive')
     },
     {
       i18n: 'AchievementMultiplier',
-      stat: () => +getAchievementReward('ascensionCountMultiplier')
+      stat: () => getAchievementReward('ascensionCountMultiplier')
     },
     {
       i18n: 'Challenge15',
@@ -5469,8 +5473,8 @@ export const ascensionCountMultStats: NumberStatLineCategory = {
 export const ascensionCountMultStatsProduct = (ascensionSpeedMult?: number) =>
   Math.min(
     1e300,
-    (1 + +getAchievementReward('ascensionCountAdditive'))
-      * (+getAchievementReward('ascensionCountMultiplier'))
+    (1 + getAchievementReward('ascensionCountAdditive'))
+      * getAchievementReward('ascensionCountMultiplier')
       * G.challenge15Rewards.ascensions.value
       * (player.platonicUpgrades[15] > 0 ? 2 : 1)
       * (1 + player.platonicUpgrades[16] * 0.02 * (1 + Math.min(1, player.overfluxPowder / 100000)))
@@ -6098,7 +6102,7 @@ export const allTaxExponentStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Achievements',
-      stat: () => +getAchievementReward('taxReduction')
+      stat: () => getAchievementReward('taxReduction')
     },
     {
       i18n: 'Campaign',
@@ -6156,7 +6160,7 @@ export const allTaxExponentStatsProduct = () =>
         ))
       * (player.upgrades[121] > 0 ? 0.5 : 1)
       * (1 - 0.666 * player.cubeUpgrades[50] / 100000)
-      * (+getAchievementReward('taxReduction'))
+      * getAchievementReward('taxReduction')
       * campaignTokenBonuses.tax()
       * (1 / getPurpleAmbrosiaUpgradeEffects('taurus', 'taxDivisor'))
       * (player.highestSingularityCount >= 281 ? 0.5 : 1)
@@ -6379,35 +6383,35 @@ const allCoinProductionStats: DecimalStatLineCategory = {
   lines: [
     {
       i18n: 'Producer1',
-      stat: () => calculateCoinTierMultiplier(0)
+      stat: () => calculateCoinTierMultiplier(CoinBuilding.Workers)
     },
     {
       i18n: 'Producer1Total',
-      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(0))
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(CoinBuilding.Workers))
     },
     {
       i18n: 'Producer2',
-      stat: () => calculateCoinTierMultiplier(1)
+      stat: () => calculateCoinTierMultiplier(CoinBuilding.Investments)
     },
     {
       i18n: 'Producer2Total',
-      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(1))
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(CoinBuilding.Investments))
     },
     {
       i18n: 'Producer3',
-      stat: () => calculateCoinTierMultiplier(2)
+      stat: () => calculateCoinTierMultiplier(CoinBuilding.Printers)
     },
     {
       i18n: 'Producer3Total',
-      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(2))
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(CoinBuilding.Printers))
     },
     {
       i18n: 'Producer4',
-      stat: () => calculateCoinTierMultiplier(3)
+      stat: () => calculateCoinTierMultiplier(CoinBuilding.CoinMints)
     },
     {
       i18n: 'Producer4Total',
-      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(3))
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(CoinBuilding.CoinMints))
     },
     {
       i18n: 'RefineryAlchemy',
@@ -6417,11 +6421,11 @@ const allCoinProductionStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'Producer5',
-      stat: () => calculateCoinTierMultiplier(4)
+      stat: () => calculateCoinTierMultiplier(CoinBuilding.Alchemies)
     },
     {
       i18n: 'Producer5Total',
-      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(4))
+      stat: () => calculateGlobalCoinMultiplier().times(calculateCoinTierMultiplier(CoinBuilding.Alchemies))
     },
     {
       i18n: 'GrossPerSecond',
@@ -6944,7 +6948,7 @@ const loadStatisticsObtainiumMultipliers = () => {
   loadStatistics(
     combinedObtainiumDRTimeModifiers(
       player.reincarnationcounter,
-      Boolean(getAchievementReward('obtainiumTimerMultiplier'))
+      getAchievementReward('obtainiumTimerMultiplier')
     ),
     'obtainiumMultiplierStats',
     'statObt2',
@@ -7630,7 +7634,7 @@ export const gameStages = (): Stage[] => {
       stage: 5,
       tier: 4,
       name: 'ant-sacrifice',
-      unlocked: Boolean(getAchievementReward('antSacrificeUnlock')),
+      unlocked: getAchievementReward('antSacrificeUnlock'),
       reset: player.unlocks.reincarnate
     },
     {
