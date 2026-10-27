@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
-import { getBuildingOwned } from './Buy'
+import { getBuildingOwned, getBuildingsOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokens } from './Campaign'
 import { activeCorruptionLevel, ascensionEffectiveCorruptionLevel } from './Corruptions'
@@ -290,7 +290,11 @@ type AchievementRewards =
   | 'antSacrificeToReincarnation'
   | 'obtainiumTimerMultiplier'
 
-type AchievementReward = Partial<Record<AchievementRewards, () => number>>
+type CoinOwnedAchievementRewards = 'accelerators' | 'multipliers' | 'accelBoosts'
+
+type AchievementReward =
+  & Partial<Record<Exclude<AchievementRewards, CoinOwnedAchievementRewards>, () => number>>
+  & Partial<Record<CoinOwnedAchievementRewards, (coinsOwned?: readonly number[]) => number>>
 
 interface Achievement {
   pointValue: number
@@ -603,19 +607,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => getBuildingOwned('coin', 0) >= 5000,
     group: 'firstOwnedCoin',
-    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 0) / 500) }
+    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[0] / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => getBuildingOwned('coin', 0) >= 10000,
     group: 'firstOwnedCoin',
-    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 0) / 1000) }
+    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[0] / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => getBuildingOwned('coin', 0) >= 20000,
     group: 'firstOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 0) / 2000) }
+    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[0] / 2000) }
   },
   {
     pointValue: 5,
@@ -640,19 +644,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => getBuildingOwned('coin', 1) >= 5000,
     group: 'secondOwnedCoin',
-    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 1) / 500) }
+    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[1] / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => getBuildingOwned('coin', 1) >= 10000,
     group: 'secondOwnedCoin',
-    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 1) / 1000) }
+    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[1] / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => getBuildingOwned('coin', 1) >= 20000,
     group: 'secondOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 1) / 2000) }
+    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[1] / 2000) }
   },
   {
     pointValue: 5,
@@ -677,19 +681,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => getBuildingOwned('coin', 2) >= 5000,
     group: 'thirdOwnedCoin',
-    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 2) / 500) }
+    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[2] / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => getBuildingOwned('coin', 2) >= 10000,
     group: 'thirdOwnedCoin',
-    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 2) / 1000) }
+    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[2] / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => getBuildingOwned('coin', 2) >= 20000,
     group: 'thirdOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 2) / 2000) }
+    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[2] / 2000) }
   },
   {
     pointValue: 5,
@@ -714,19 +718,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => getBuildingOwned('coin', 3) >= 5000,
     group: 'fourthOwnedCoin',
-    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 3) / 500) }
+    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[3] / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => getBuildingOwned('coin', 3) >= 10000,
     group: 'fourthOwnedCoin',
-    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 3) / 1000) }
+    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[3] / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => getBuildingOwned('coin', 3) >= 20000,
     group: 'fourthOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 3) / 2000) }
+    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[3] / 2000) }
   },
   {
     pointValue: 5,
@@ -751,19 +755,19 @@ const achievements: Achievement[] = [
     pointValue: 25,
     unlockCondition: () => getBuildingOwned('coin', 4) >= 6666,
     group: 'fifthOwnedCoin',
-    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 4) / 500) }
+    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[4] / 500) }
   },
   {
     pointValue: 30,
     unlockCondition: () => getBuildingOwned('coin', 4) >= 17777,
     group: 'fifthOwnedCoin',
-    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 4) / 1000) }
+    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[4] / 1000) }
   },
   {
     pointValue: 35,
     unlockCondition: () => getBuildingOwned('coin', 4) >= 42777,
     group: 'fifthOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 4) / 2000) }
+    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[4] / 2000) }
   },
   {
     pointValue: 5,
@@ -3269,6 +3273,17 @@ const achievementsByReward: Record<AchievementRewards, number[]> = achievements
     return rewards
   }, {} as Record<AchievementRewards, number[]>)
 
+const sumCoinOwnedAchievementRewards = (reward: CoinOwnedAchievementRewards): number => {
+  let coinsOwned: readonly number[] | undefined
+  return achievementsByReward[reward].reduce((sum, index) => {
+    if (!player.achievements[index]) {
+      return sum
+    }
+    coinsOwned ??= getBuildingsOwned('coin')
+    return sum + achievements[index].reward![reward]!(coinsOwned)
+  }, 0)
+}
+
 const achRewards: Record<AchievementRewards, () => number | boolean> = {
   acceleratorPower: (): number => {
     return achievementsByReward.acceleratorPower.reduce(
@@ -3276,24 +3291,9 @@ const achRewards: Record<AchievementRewards, () => number | boolean> = {
       0
     )
   },
-  accelerators: (): number => {
-    return achievementsByReward.accelerators.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.accelerators!() : 0),
-      0
-    )
-  },
-  multipliers: (): number => {
-    return achievementsByReward.multipliers.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.multipliers!() : 0),
-      0
-    )
-  },
-  accelBoosts: (): number => {
-    return achievementsByReward.accelBoosts.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.accelBoosts!() : 0),
-      0
-    )
-  },
+  accelerators: (): number => sumCoinOwnedAchievementRewards('accelerators'),
+  multipliers: (): number => sumCoinOwnedAchievementRewards('multipliers'),
+  accelBoosts: (): number => sumCoinOwnedAchievementRewards('accelBoosts'),
   crystalMultiplier: (): number => {
     return achievementsByReward.crystalMultiplier.reduce(
       (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.crystalMultiplier!() : 1),
