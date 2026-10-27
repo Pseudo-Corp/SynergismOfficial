@@ -565,8 +565,8 @@
       "libra": {
         "name": "天秤座",
         "description": "强烈反感：养老基金里的违规操作。",
-        "effectNotMaxed": "You <<silver|can't →>> <<gold|can>> enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar.",
-        "effectMaxed": "You can enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar."
+        "effectNotMaxed": "您<<silver|无法→>><<gold|可以>>启用恩卡布器的溢出反应。启用后，当一种反应物达到上限，另一种仍有余量时，达到上限的一方停止产生，并按正常反应比例消耗另一种反应物来维持反应，效率为正常的10%。",
+        "effectMaxed": "您可以启用恩卡布器的溢出反应。启用后，当一种反应物达到上限，另一种仍有余量时，达到上限的一方停止产生，并按正常反应比例消耗另一种反应物来维持反应，效率为正常的10%。"
       },
       "scorpio": {
         "name": "天蝎座",
