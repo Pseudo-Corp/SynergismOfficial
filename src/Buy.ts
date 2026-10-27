@@ -90,10 +90,19 @@ interface CostCurve {
 const isScalingBuilding = (type: BuildingType): type is ScalingBuildingType =>
   type === 'coin' || type === 'diamond' || type === 'mythos' || type === 'particle'
 
-const createQuadraticCostCurve = (cost: number, growth: number, threshold: number): CostCurve => ({
+interface QuadraticCurveConstants {
+  growth: number
+  log10Growth: number
+  scale: Decimal
+}
+
+const createQuadraticCostCurve = (
+  { growth, log10Growth, scale }: QuadraticCurveConstants,
+  threshold: number
+): CostCurve => ({
   growth,
-  log10Growth: Math.log10(growth),
-  scale: Decimal.fromNumber(cost / (growth - 1)),
+  log10Growth,
+  scale,
   exponentBetween: (from, to) => {
     const start = Math.max(from, threshold)
     return to - from + (start < to ? (Math.pow(to - threshold, 2) - Math.pow(start - threshold, 2)) / threshold : 0)
@@ -270,17 +279,35 @@ export const getAccelMultScalingThreshold = (type: keyof typeof accelMultData | 
     ? acceleratorBoostThreshold * getAcceleratorBoostDelay()
     : getAccelMultScaling(type).threshold
 
+const createQuadraticCurveConstants = (type: ScalingBuildingType, growthPower: number) =>
+  producerData[type].costs.map((cost, index) => {
+    const growth = Math.pow(1.25, producerData[type].growth[index] * growthPower)
+    return { growth, log10Growth: Math.log10(growth), scale: Decimal.fromNumber(cost / (growth - 1)) }
+  })
+
+const quadraticCurveConstants = {
+  coin: createQuadraticCurveConstants('coin', 1),
+  diamond: createQuadraticCurveConstants('diamond', 1),
+  mythos: createQuadraticCurveConstants('mythos', 1),
+  particle: createQuadraticCurveConstants('particle', 1)
+}
+
+const challenge8QuadraticCurveConstants = {
+  coin: createQuadraticCurveConstants('coin', challenge8GrowthPower),
+  diamond: createQuadraticCurveConstants('diamond', challenge8GrowthPower),
+  mythos: createQuadraticCurveConstants('mythos', challenge8GrowthPower),
+  particle: quadraticCurveConstants.particle
+}
+
 const getBuildingCostCurve = (
   type: ScalingBuildingType,
   index: ZeroToFour,
   threshold = getBuildingScalingThreshold(type)
 ): CostCurve => {
-  const growthPower = player.currentChallenge.reincarnation === 8 && type !== 'particle' ? challenge8GrowthPower : 1
-  return createQuadraticCostCurve(
-    producerData[type].costs[index],
-    Math.pow(1.25, producerData[type].growth[index] * growthPower),
-    threshold
-  )
+  const constants = player.currentChallenge.reincarnation === 8
+    ? challenge8QuadraticCurveConstants
+    : quadraticCurveConstants
+  return createQuadraticCostCurve(constants[type][index], threshold)
 }
 
 const getAccelMultCostCurve = (type: keyof typeof accelMultData): CostCurve => {
@@ -312,24 +339,25 @@ const costBetween = (curve: CostCurve, from: number, to: number): Decimal => {
   const increase = curve.log10Growth * exponent < 300
     ? Decimal.fromNumber(Math.expm1(curve.log10Growth * exponent * Math.LN10))
     : Decimal.pow(curve.growth, exponent)
+  if (from === 0) {
+    return curve.scale.times(increase)
+  }
   return curve.scale.times(Decimal.pow(curve.growth, curve.exponentBetween(0, from))).times(increase)
 }
 
-const maxAffordable = (curve: CostCurve, owned: number, budget: Decimal) => {
+const maxAffordable = (curve: CostCurve, budget: Decimal) => {
   const limit = budget.times(affordabilityTolerance)
-  const ownedExponent = curve.exponentBetween(0, owned)
-  const ratio = budget.div(curve.scale.times(Decimal.pow(curve.growth, ownedExponent)))
-  const exponent = ownedExponent
-    + (ratio.lt(G.d1e300)
-      ? Math.log1p(ratio.toNumber()) / Math.log(curve.growth)
-      : ratio.add(1).log10() / curve.log10Growth)
-  let count = Math.max(owned, Math.floor(curve.countForExponent(exponent)))
-  while (count > owned && costBetween(curve, owned, count).gt(limit)) {
+  const ratio = budget.div(curve.scale)
+  const exponent = ratio.lt(G.d1e300)
+    ? Math.log1p(ratio.toNumber()) / Math.log(curve.growth)
+    : ratio.add(1).log10() / curve.log10Growth
+  let count = Math.max(0, Math.floor(curve.countForExponent(exponent)))
+  while (count > 0 && costBetween(curve, 0, count).gt(limit)) {
     count -= smallestInc(count)
   }
   while (
     count + smallestInc(count) <= Number.MAX_SAFE_INTEGER
-    && costBetween(curve, owned, count + smallestInc(count)).lte(limit)
+    && costBetween(curve, 0, count + smallestInc(count)).lte(limit)
   ) {
     count += smallestInc(count)
   }
@@ -345,8 +373,58 @@ const curveBuildings: readonly { type: BuildingType; index: ZeroToFour }[] = [
   { type: 'acceleratorBoost', index: 0 }
 ]
 
+const scalingBuildingPaidKeys = {
+  coin: ['firstPaidCoin', 'secondPaidCoin', 'thirdPaidCoin', 'fourthPaidCoin', 'fifthPaidCoin'],
+  diamond: ['firstPaidDiamonds', 'secondPaidDiamonds', 'thirdPaidDiamonds', 'fourthPaidDiamonds', 'fifthPaidDiamonds'],
+  mythos: ['firstPaidMythos', 'secondPaidMythos', 'thirdPaidMythos', 'fourthPaidMythos', 'fifthPaidMythos'],
+  particle: [
+    'firstPaidParticles',
+    'secondPaidParticles',
+    'thirdPaidParticles',
+    'fourthPaidParticles',
+    'fifthPaidParticles'
+  ]
+} as const
+
+const accelMultPaidKeys = {
+  accelerator: 'acceleratorPaid',
+  multiplier: 'multiplierPaid',
+  acceleratorBoost: 'acceleratorBoostPaid'
+} as const
+
+const scalingBuildingGeneratedKeys = {
+  coin: [
+    'firstGeneratedCoin',
+    'secondGeneratedCoin',
+    'thirdGeneratedCoin',
+    'fourthGeneratedCoin',
+    'fifthGeneratedCoin'
+  ],
+  diamond: [
+    'firstGeneratedDiamonds',
+    'secondGeneratedDiamonds',
+    'thirdGeneratedDiamonds',
+    'fourthGeneratedDiamonds',
+    'fifthGeneratedDiamonds'
+  ],
+  mythos: [
+    'firstGeneratedMythos',
+    'secondGeneratedMythos',
+    'thirdGeneratedMythos',
+    'fourthGeneratedMythos',
+    'fifthGeneratedMythos'
+  ],
+  particle: [
+    'firstGeneratedParticles',
+    'secondGeneratedParticles',
+    'thirdGeneratedParticles',
+    'fourthGeneratedParticles',
+    'fifthGeneratedParticles'
+  ]
+} as const
+
 const getCurveBuildingPaidKey = (type: BuildingType, index: ZeroToFour) =>
-  isScalingBuilding(type) ? `${G.ordinals[index]}Paid${producerData[type].name}` as const : `${type}Paid` as const
+  isScalingBuilding(type) ? scalingBuildingPaidKeys[type][index] : accelMultPaidKeys[type]
 
 const getCurveBuildingKeys = (type: BuildingType, index: ZeroToFour) => {
   const paid = getCurveBuildingPaidKey(type, index)
@@ -374,25 +452,26 @@ export type LegacyCurveBuildingData =
   & { [K in CurveBuildingKeys['legacyOwned']]?: number }
 
 export const getBuildingOwned = (type: BuildingType, index: ZeroToFour = 0) =>
-  maxAffordable(getCostCurve(type, index), 0, player[getCurveBuildingPaidKey(type, index)])
+  maxAffordable(getCostCurve(type, index), player[getCurveBuildingPaidKey(type, index)])
 
 export const getBuildingsOwned = (type: ScalingBuildingType) => {
   const threshold = getBuildingScalingThreshold(type)
   const owned = (index: ZeroToFour) =>
-    maxAffordable(getBuildingCostCurve(type, index, threshold), 0, player[getCurveBuildingPaidKey(type, index)])
+    maxAffordable(getBuildingCostCurve(type, index, threshold), player[getCurveBuildingPaidKey(type, index)])
   return [owned(0), owned(1), owned(2), owned(3), owned(4)] as const
 }
 
 export const getBuildingGeneratedKey = (type: ScalingBuildingType, index: ZeroToFour) =>
-  `${G.ordinals[index]}Generated${producerData[type].name}` as const
+  scalingBuildingGeneratedKeys[type][index]
 
-export const getTotalBuildingsOwned = (type: ScalingBuildingType) =>
-  getBuildingsOwned(type).reduce((sum, owned) => sum + owned, 0)
+export const sumBuildingsOwned = (owned: readonly number[]) => owned.reduce((sum, amount) => sum + amount, 0)
+
+export const getTotalBuildingsOwned = (type: ScalingBuildingType) => sumBuildingsOwned(getBuildingsOwned(type))
 
 export const getBuildingCost = (type: BuildingType, index: ZeroToFour = 0) => {
   const curve = getCostCurve(type, index)
   const paid = player[getCurveBuildingPaidKey(type, index)]
-  const owned = maxAffordable(curve, 0, paid)
+  const owned = maxAffordable(curve, paid)
   const price = costBetween(curve, owned, owned + smallestInc(owned))
   const credit = paid.sub(costBetween(curve, 0, owned))
   return (credit.gt(0) && credit.lt(price) ? price.sub(credit) : price).div(affordabilityTolerance)
@@ -417,10 +496,10 @@ const buyCurveBuilding = (type: BuildingType, amount: BuyAmount | 'max' | undefi
   const keys = getCurveBuildingKeys(type, index)
   const curve = getCostCurve(type, index)
   const paid = player[keys.paid]
-  const owned = maxAffordable(curve, 0, paid)
+  const owned = maxAffordable(curve, paid)
   const buyAmount = amount ?? keys.amount
 
-  let buyTo = maxAffordable(curve, 0, paid.add(player[keys.currency]))
+  let buyTo = maxAffordable(curve, paid.add(player[keys.currency]))
   if (buyAmount !== 'max') {
     buyTo = Math.min(buyTo, owned + buyAmount)
   }

@@ -662,18 +662,17 @@ export const hepteractFreeAccelMultMultiplier = {
   multiplier: () => getHepteractEffects('multiplier').multiplierMultiplier
 } as const
 
-const calculateRawFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats, totalAcceleratorBoost: number) =>
-  calculateTotalStat(freeAccelMultAdditiveStats[type], { totalAcceleratorBoost })
-  * calculateTotalStat(freeAccelMultMultiplicativeStats[type])
+const calculateRawFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats) =>
+  calculateTotalStat(freeAccelMultAdditiveStats[type]) * calculateTotalStat(freeAccelMultMultiplicativeStats[type])
 
 const freeAccelMultRawHardcap = 1e300
 export const freeAccelMultHardcap = 1e100
 
-export const calculateFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats, totalAcceleratorBoost: number) =>
+export const calculateFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats) =>
   Math.floor(
     Math.min(
       freeAccelMultRawHardcap,
-      (Math.pow(calculateRawFreeAccelMult(type, totalAcceleratorBoost), challenge15CorruptionEffect('viscosity'))
+      (Math.pow(calculateRawFreeAccelMult(type), challenge15CorruptionEffect('viscosity'))
         + hepteractFreeAccelMult[type]())
         * G.challenge15Rewards[type].value
         * hepteractFreeAccelMultMultiplier[type]()

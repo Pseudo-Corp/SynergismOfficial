@@ -1,5 +1,7 @@
-import { getBuildingsOwned } from './Buy'
+import { getBuildingOwned, getBuildingsOwned, sumBuildingsOwned } from './Buy'
 import {
+  type AccelMultStats,
+  calculateAcceleratorCounts,
   calculateBuildingPowerCoinMultiplier,
   calculateBuildingProduction,
   calculateCoinTierMultiplier,
@@ -15,7 +17,7 @@ import { awardUngroupedAchievement } from './Achievements'
 import { totalStartingChallengeCompletions, useChallenge13Modifiers } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
-import { allTaxExponentStats, calculateTotalStat, type CoinMultiplierContext } from './Statistics'
+import { allTaxExponentStats, calculateTotalStat } from './Statistics'
 
 // im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
 export const challenge13EffectiveCompletions = () => {
@@ -30,23 +32,47 @@ export const challenge13EffectiveCompletions = () => {
 // Cap the calculation overflow bug || httpsnet
 export const calculateTaxExponent = () => Math.max(1e-300, calculateTotalStat(allTaxExponentStats))
 
-export const calculateFlatTaxCapIncrease = () => {
+export const calculateFlatTaxCapIncrease = (buildingPowerCoinMultiplier = calculateBuildingPowerCoinMultiplier()) => {
   return Decimal.log(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 10)
-    + Decimal.log(calculateBuildingPowerCoinMultiplier(), 10)
+    + Decimal.log(buildingPowerCoinMultiplier, 10)
 }
 
-export const calculateTax = (stats: CoinMultiplierContext & { effectiveFreeAccelerator: number }) => {
+export interface CoinProducerInputs {
+  coinsOwned: readonly number[]
+  firstMythosOwned: number
+  firstDiamondOwned: number
+}
+
+const getCoinProducerInputs = (): CoinProducerInputs => ({
+  coinsOwned: getBuildingsOwned('coin'),
+  firstMythosOwned: getBuildingOwned('mythos', 0),
+  firstDiamondOwned: getBuildingOwned('diamond', 0)
+})
+
+export const calculateTax = (
+  stats: Pick<AccelMultStats, 'effectiveFreeAccelerator'> = calculateAcceleratorCounts(),
+  { coinsOwned, firstMythosOwned, firstDiamondOwned }: CoinProducerInputs = getCoinProducerInputs(),
+  buildingPowerCoinMultiplier = calculateBuildingPowerCoinMultiplier(undefined, sumBuildingsOwned(coinsOwned))
+) => {
   // To 2020 Platonic: Why the HELL is this done here???
-  const coinMultiplier = calculateGlobalCoinMultiplier(stats)
-  const first6CoinUp = calculateFirstSixCoinUpgradeMultiplier()
+  const totalCoinOwned = sumBuildingsOwned(coinsOwned)
+  const first6CoinUp = calculateFirstSixCoinUpgradeMultiplier(totalCoinOwned)
+  const coinMultiplier = calculateGlobalCoinMultiplier()
+  const tierInputs = {
+    first6CoinUp,
+    effectiveFreeAccelerator: stats.effectiveFreeAccelerator,
+    coinsOwned,
+    firstMythosOwned,
+    firstDiamondOwned
+  }
   const coinTierMultipliers = [
-    calculateCoinTierMultiplier(0, stats.effectiveFreeAccelerator, first6CoinUp),
-    calculateCoinTierMultiplier(1, stats.effectiveFreeAccelerator, first6CoinUp),
-    calculateCoinTierMultiplier(2, stats.effectiveFreeAccelerator, first6CoinUp),
-    calculateCoinTierMultiplier(3, stats.effectiveFreeAccelerator, first6CoinUp),
-    calculateCoinTierMultiplier(4, stats.effectiveFreeAccelerator, first6CoinUp)
+    calculateCoinTierMultiplier(0, tierInputs),
+    calculateCoinTierMultiplier(1, tierInputs),
+    calculateCoinTierMultiplier(2, tierInputs),
+    calculateCoinTierMultiplier(3, tierInputs),
+    calculateCoinTierMultiplier(4, tierInputs)
   ] as const
-  const grossProduction = calculateBuildingProduction('coin', getBuildingsOwned('coin'), [
+  const grossProduction = calculateBuildingProduction('coin', coinsOwned, [
     coinMultiplier.times(coinTierMultipliers[0]),
     coinMultiplier.times(coinTierMultipliers[1]),
     coinMultiplier.times(coinTierMultipliers[2]),
@@ -64,7 +90,7 @@ export const calculateTax = (stats: CoinMultiplierContext & { effectiveFreeAccel
   // It multiplies the coin production but is also tax-exempt, which we do by increasing the tax cap
   // While also deducting the log value from `exponentForDivisor`.
   // Implementing this was much more difficult than it needed to be.
-  const flatMaxExponentIncrease = calculateFlatTaxCapIncrease()
+  const flatMaxExponentIncrease = calculateFlatTaxCapIncrease(buildingPowerCoinMultiplier)
 
   const maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1 + flatMaxExponentIncrease
 
