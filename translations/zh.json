@@ -712,105 +712,105 @@
           "flavor": "满足“E<sub>n</sub>为248维”的n。",
           "cost": "花费：<<var(--purple-text-color)|{{purpleAmbrosia}}紫神肴>>和<<var(--lightseagreen-text-color)|{{octeracts}}惊奇八阶方块>>。",
           "purchaseAria": "花费{{purpleAmbrosia}}紫神肴和{{octeracts}}惊奇八阶方块购买{{amount}}级例外李群。",
-          "effectNotMaxed": "On Synthesis: <<silver|{{current}} →>> <<gold|{{next}}s>> of Octeract production.",
-          "effectMaxed": "On Syntehsis: <<gold|{{value}}s>> of Octeract production."
+          "effectNotMaxed": "合成时：获得相当于 <<silver|{{current}}秒 →>> <<gold|{{next}}秒>> 产量的惊奇八阶方块。",
+          "effectMaxed": "合成时：获得相当于<<gold|{{value}}秒>>产量的惊奇八阶方块。"
         }
       }
     },
-    "lifetimeHoneyFormulaNotMaxed": "Multiplier = 1 + (<<silver|{{oldValue}} →>> <<gold|{{newValue}}>>) * ln(1 + Honey/100)",
-    "lifetimeHoneyFormulaMaxed": "Multiplier = 1 + <<gold|{{maxValue}}>> * ln(1 + Honey/100)",
-    "lifetimeHoneyELOFormulaNotMaxed": "Bonus: (<<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>) * ln(1 + Honey)",
-    "lifetimeHoneyELOFormulaMaxed": "Bonus: <<gold|{{maxPercent}}>> * ln(1 + Honey)",
+    "lifetimeHoneyFormulaNotMaxed": "倍率 = 1 + (<<silver|{{oldValue}} →>> <<gold|{{newValue}}>>) * ln(1 + 紫蜜数量/100)",
+    "lifetimeHoneyFormulaMaxed": "倍率 = 1 + <<gold|{{maxValue}}>> * ln(1 + 紫蜜数量/100)",
+    "lifetimeHoneyELOFormulaNotMaxed": "加成：(<<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>) * ln(1 + 紫蜜数量)",
+    "lifetimeHoneyELOFormulaMaxed": "加成：<<gold|{{maxPercent}}>> * ln(1 + 紫蜜数量)",
     "upgradeShop": {
       "sections": {
-        "intro": "Intro",
-        "reactor": "Purple Encabulator Upgrades",
-        "honeyPower": "Honey Power Upgrades",
-        "resources": "Resource Upgrades",
-        "miscellaneous": "Miscellaneous"
+        "intro": "介绍",
+        "reactor": "紫色恩卡布器升级",
+        "honeyPower": "紫蜜加成升级",
+        "resources": "资源升级",
+        "miscellaneous": "杂项"
       },
       "familyNames": {
-        "capacity": "Capacity",
-        "halfLife": "Encabulator Speed",
-        "efficiency": "Efficiency",
-        "honeyLuck": "Honey Luck",
-        "requirementReduction": "Purple Bar Size Reduction",
-        "lifetimeHoneyBonuses": "Lifetime Honey Bonuses"
+        "capacity": "容量",
+        "halfLife": "恩卡布器速度",
+        "efficiency": "效率",
+        "honeyLuck": "紫蜜之运",
+        "requirementReduction": "减少紫色进度条点数上限",
+        "lifetimeHoneyBonuses": "紫蜜总数加成"
       },
       "level": "{{current}}/{{max}}",
-      "maxed": "Maxed!",
-      "nextCost": "Next: {{cost}} Purple Honey",
-      "cost": "Costs {{cost}} Purple Honey",
-      "toggleUpgrades": "Upgrades",
-      "closeUpgrades": "Close upgrades",
+      "maxed": "已满级！",
+      "nextCost": "下一级：{{cost}}紫蜜",
+      "cost": "花费{{cost}}紫蜜",
+      "toggleUpgrades": "升级",
+      "closeUpgrades": "关闭升级",
       "purchaseAmount": "+{{amount}}",
-      "purchaseMax": "+MAX",
-      "purchaseCost": "Cost: {{cost}}"
+      "purchaseMax": "+最大",
+      "purchaseCost": "花费：{{cost}}"
     },
     "upgrades": {
       "tutorial": {
-        "name": "The Purple Guy's Greeting",
-        "flavor": "You ask for the guy's name. He says \"<i>Not Sure</i>\"...",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ambrosia Bar Point and Red Bar Point Generation.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Point and Red Bar Point Generation."
+        "name": "紫色家伙的问候",
+        "flavor": "您问那家伙叫什么名字。他说：“<i>不确定</i>”……",
+        "effectNotMaxed": "使神肴进度条点数获取速度和红进度条点数获取速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>。",
+        "effectMaxed": "使神肴进度条点数获取速度和红进度条点数获取速度 <<gold|+{{maxPercent}}>>。"
       },
       "purpleEfficiency1": {
-        "name": "Chroma-Encabulator Efficiency I",
-        "flavor": "mmm... Purple...",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Purple Honey from Chroma-Encabulator fusions.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Purple Honey from Chroma-Encabulator fusions."
+        "name": "色度-恩卡布器效率 I",
+        "flavor": "嗯……紫色……",
+        "effectNotMaxed": "使色度-恩卡布器融合的紫蜜数量 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>。",
+        "effectMaxed": "使色度-恩卡布器融合的紫蜜数量 <<gold|+{{maxPercent}}>>。"
       },
       "purpleEfficiency2": {
-        "name": "Chroma-Encabulator Efficiency II",
-        "flavor": "Let the Sunshine in to get more Honey from your Purple Bar Points!"
+        "name": "色度-恩卡布器效率 II",
+        "flavor": "让阳光照进来，可以通过紫进度条点数获取更多蜂蜜！"
       },
       "purpleEfficiency3": {
-        "name": "Chroma-Encabulator Efficiency III",
-        "flavor": "Where does Purple Honey come from? Purple Bees!"
+        "name": "色度-恩卡布器效率 III",
+        "flavor": "紫蜜来自哪里？是紫蜂！"
       },
       "purpleEfficiency4": {
-        "name": "Chroma-Encabulator Efficiency IV",
-        "flavor": "Orange you glad I didn't say... Purple?"
+        "name": "色度-恩卡布器效率 IV",
+        "flavor": "我紫道你很急，但你先别急。"
       },
       "purpleHoneyLuck1": {
-        "name": "Purple Honey Luck I",
-        "flavor": "I'm feeling lucky.",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Purple Honey Luck.",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Purple Honey Luck."
+        "name": "紫蜜之运 I",
+        "flavor": "手气不错。",
+        "effectNotMaxed": "使紫蜜之运 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
+        "effectMaxed": "使紫蜜之运 <<gold|+{{maxValue}}>>。"
       },
       "purpleHoneyLuck2": {
-        "name": "Purple Honey Luck II",
-        "flavor": "Everyone needs a lucky break sometimes."
+        "name": "紫蜜之运 II",
+        "flavor": "风水轮流转。"
       },
       "purpleHoneyLuck3": {
-        "name": "Purple Honey Luck III",
-        "flavor": "It's as though you can predict when more Purple Honey is synthesized."
+        "name": "紫蜜之运 III",
+        "flavor": "您好像可以预测什么时候能合成更多紫色蜂蜜了。"
       },
       "purpleHoneyLuck4": {
-        "name": "Purple Honey Luck IV",
-        "flavor": "Everyone has that third, Purple eye."
+        "name": "紫蜜之运 IV",
+        "flavor": "紫色天眼？谁都有啊。"
       },
       "purpleHalfLife1": {
-        "name": "All-Natural, Organic Catalyzer I",
-        "flavor": "Now chemical-free!",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Encabulator Speed.",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Encabulator Speed."
+        "name": "纯天然有机催化剂 I",
+        "flavor": "不含任何化学物质！",
+        "effectNotMaxed": "恩卡布器速度 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
+        "effectMaxed": "恩卡布器速度 <<gold|+{{maxValue}}>>。"
       },
       "purpleHalfLife2": {
-        "name": "All-Natural, Organic Catalyzer II",
-        "flavor": "What takes minutes, now takes fewer minutes!"
+        "name": "纯天然有机催化剂 II",
+        "flavor": "本来要几分钟，现在少了几分钟！"
       },
       "purpleHalfLife3": {
-        "name": "All-Natural, Organic Catalyzer III",
-        "flavor": "I don't need to say it... right?"
+        "name": "纯天然有机催化剂 III",
+        "flavor": "不用我说了……对吧？"
       },
       "purpleHalfLife4": {
-        "name": "All-Natural, Organic Catalyzer IV",
-        "flavor": "The One With the Really Fast Reaction"
+        "name": "纯天然有机催化剂 IV",
+        "flavor": "反应超快的那一款"
       },
       "paperweight": {
-        "name": "The AP Paperweight, Mate",
-        "flavor": "This thing can't really hold paper down.",
+        "name": "是成就点数镇纸，老兄",
+        "flavor": "真的镇不住纸。",
         "effectNotMaxed": "This paperweight does nothing, except give you a little AP.",
         "effectMaxed": "Yup. Still nothing but AP."
       },
