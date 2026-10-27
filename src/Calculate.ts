@@ -662,22 +662,26 @@ export const hepteractFreeAccelMultMultiplier = {
   multiplier: () => getHepteractEffects('multiplier').multiplierMultiplier
 } as const
 
-const calculateRawFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats) =>
-  calculateTotalStat(freeAccelMultAdditiveStats[type]) * calculateTotalStat(freeAccelMultMultiplicativeStats[type])
+const calculateRawFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats, totalAcceleratorBoost: number) =>
+  calculateTotalStat(freeAccelMultAdditiveStats[type], { totalAcceleratorBoost })
+  * calculateTotalStat(freeAccelMultMultiplicativeStats[type])
 
 const freeAccelMultRawHardcap = 1e300
 export const freeAccelMultHardcap = 1e100
 
-export const calculateFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats) =>
+export const calculateFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats, totalAcceleratorBoost: number) =>
   Math.floor(
     Math.min(
       freeAccelMultRawHardcap,
-      (Math.pow(calculateRawFreeAccelMult(type), challenge15CorruptionEffect('viscosity'))
+      (Math.pow(calculateRawFreeAccelMult(type, totalAcceleratorBoost), challenge15CorruptionEffect('viscosity'))
         + hepteractFreeAccelMult[type]())
         * G.challenge15Rewards[type].value
         * hepteractFreeAccelMultMultiplier[type]()
     )
   )
+
+export const calculateParticleUpgrade8FreeMultipliers = () =>
+  Math.min(2500, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 10) / 1000))
 
 export const calculateEffectiveFreeAccelMult = (freeAmount: number, viscosity: number) =>
   Math.min(freeAccelMultHardcap, freeAmount / viscosity)
@@ -697,10 +701,8 @@ export const calculateAcceleratorsPerBoost = () =>
   + 3 * player.researches[20]
   + calculateAcceleratorCubeBlessing()
 
-export const calculateTotalAcceleratorBoost = () => {
-  G.freeAcceleratorBoost = calculateFreeAcceleratorBoosts()
-  G.totalAcceleratorBoost = getBuildingOwned('acceleratorBoost') + G.freeAcceleratorBoost
-}
+export const calculateTotalAcceleratorBoost = (freeAcceleratorBoosts = calculateFreeAcceleratorBoosts()) =>
+  getBuildingOwned('acceleratorBoost') + freeAcceleratorBoosts
 
 export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()

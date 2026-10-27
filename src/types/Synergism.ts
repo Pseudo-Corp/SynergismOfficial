@@ -562,72 +562,12 @@ export interface GlobalVariables {
   crystalUpgradesCost: number[]
   crystalUpgradeCostIncrement: number[]
 
-  freeAccelerator: number
-  effectiveFreeAccelerator: number
-  totalAccelerator: number
-  freeAcceleratorBoost: number
-  totalAcceleratorBoost: number
-  acceleratorPower: number
-  acceleratorEffect: Decimal
-
-  freeMultiplier: number
-  effectiveFreeMultiplier: number
-  totalMultiplier: number
-  multiplierPower: number
-  multiplierEffect: Decimal
-  challengeOneLog: number
-  totalMultiplierBoost: number
-
-  globalCoinMultiplier: Decimal
-
-  coinOneMulti: Decimal
-  coinTwoMulti: Decimal
-  coinThreeMulti: Decimal
-  coinFourMulti: Decimal
-  coinFiveMulti: Decimal
-
-  globalCrystalMultiplier: Decimal
-  globalMythosMultiplier: Decimal
-
-  challengeThreeMultiplier: Decimal
-
   prestigePointGain: Decimal
 
   transcendPointGain: Decimal
   reincarnationPointGain: Decimal
 
-  produceFirst: Decimal
-  produceSecond: Decimal
-  produceThird: Decimal
-  produceFourth: Decimal
-  produceFifth: Decimal
-  produceTotal: Decimal
-
-  produceFirstDiamonds: Decimal
-  produceSecondDiamonds: Decimal
-  produceThirdDiamonds: Decimal
-  produceFourthDiamonds: Decimal
-  produceFifthDiamonds: Decimal
-  produceDiamonds: Decimal
-
-  produceFirstMythos: Decimal
-  produceSecondMythos: Decimal
-  produceThirdMythos: Decimal
-  produceFourthMythos: Decimal
-  produceFifthMythos: Decimal
-  produceMythos: Decimal
-
-  produceFirstParticles: Decimal
-  produceSecondParticles: Decimal
-  produceThirdParticles: Decimal
-  produceFourthParticles: Decimal
-  produceFifthParticles: Decimal
-  produceParticles: Decimal
-
-  producePerSecond: Decimal
   producePerSecondDiamonds: Decimal
-  producePerSecondMythos: Decimal
-  producePerSecondParticles: Decimal
 
   currentTab: Tabs
 
@@ -645,15 +585,7 @@ export interface GlobalVariables {
 
   challengeBaseRequirements: number[]
 
-  taxdivisor: Decimal
-  taxdivisorcheck: Decimal
-
-  mythosupgrade13: Decimal
-  mythosupgrade14: Decimal
-  mythosupgrade15: Decimal
   challengefocus: number
-
-  maxexponent: number
 
   talismanResourceObtainiumCosts: number[]
   talismanResourceOfferingCosts: number[]
@@ -668,17 +600,7 @@ export interface GlobalVariables {
   autoOfferingCounter: number
   MAX_AUTO_SACRIFICE_RUNE: number
 
-  ascendBuildingProduction: {
-    first: Decimal
-    second: Decimal
-    third: Decimal
-    fourth: Decimal
-    fifth: Decimal
-  }
-
   constUpgradeCosts: ArrayStartingWithNull<number>
-
-  globalConstantMult: Decimal
 
   c15RewardFormulae: Record<Challenge15Rewards, (e: number) => number>
   challenge15Rewards: Challenge15RewardObject

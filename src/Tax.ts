@@ -1,5 +1,12 @@
 import { getBuildingsOwned } from './Buy'
-import { calculateBuildingPowerCoinMultiplier, calculateBuildingProduction, player } from './Synergism'
+import {
+  calculateBuildingPowerCoinMultiplier,
+  calculateBuildingProduction,
+  calculateCoinTierMultiplier,
+  calculateFirstSixCoinUpgradeMultiplier,
+  calculateGlobalCoinMultiplier,
+  player
+} from './Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -8,7 +15,7 @@ import { awardUngroupedAchievement } from './Achievements'
 import { totalStartingChallengeCompletions, useChallenge13Modifiers } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
-import { allTaxExponentStats, calculateTotalStat } from './Statistics'
+import { allTaxExponentStats, calculateTotalStat, type CoinMultiplierContext } from './Statistics'
 
 // im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
 export const challenge13EffectiveCompletions = () => {
@@ -28,36 +35,28 @@ export const calculateFlatTaxCapIncrease = () => {
     + Decimal.log(calculateBuildingPowerCoinMultiplier(), 10)
 }
 
-export const calculatetax = () => {
+export const calculateTax = (stats: CoinMultiplierContext & { effectiveFreeAccelerator: number }) => {
   // To 2020 Platonic: Why the HELL is this done here???
-  const coinMultiplier = G.globalCoinMultiplier
-  calculateBuildingProduction('coin', getBuildingsOwned('coin'), [
-    coinMultiplier.times(G.coinOneMulti),
-    coinMultiplier.times(G.coinTwoMulti),
-    coinMultiplier.times(G.coinThreeMulti),
-    coinMultiplier.times(G.coinFourMulti),
-    coinMultiplier.times(G.coinFiveMulti)
+  const coinMultiplier = calculateGlobalCoinMultiplier(stats)
+  const first6CoinUp = calculateFirstSixCoinUpgradeMultiplier()
+  const coinTierMultipliers = [
+    calculateCoinTierMultiplier(0, stats.effectiveFreeAccelerator, first6CoinUp),
+    calculateCoinTierMultiplier(1, stats.effectiveFreeAccelerator, first6CoinUp),
+    calculateCoinTierMultiplier(2, stats.effectiveFreeAccelerator, first6CoinUp),
+    calculateCoinTierMultiplier(3, stats.effectiveFreeAccelerator, first6CoinUp),
+    calculateCoinTierMultiplier(4, stats.effectiveFreeAccelerator, first6CoinUp)
+  ] as const
+  const grossProduction = calculateBuildingProduction('coin', getBuildingsOwned('coin'), [
+    coinMultiplier.times(coinTierMultipliers[0]),
+    coinMultiplier.times(coinTierMultipliers[1]),
+    coinMultiplier.times(coinTierMultipliers[2]),
+    coinMultiplier.times(coinTierMultipliers[3]),
+    coinMultiplier.times(coinTierMultipliers[4])
   ])
-  G.produceTotal = G.produceFirst.add(G.produceSecond).add(G.produceThird).add(G.produceFourth)
-    .add(G.produceFifth)
+  const produceTotal = grossProduction.reduce((total, production) => total.add(production), new Decimal())
+  const production = grossProduction.map((tier) => tier.lte(G.d0_0001) ? new Decimal() : tier)
 
-  if (G.produceFirst.lte(G.d0_0001)) {
-    G.produceFirst = new Decimal()
-  }
-  if (G.produceSecond.lte(G.d0_0001)) {
-    G.produceSecond = new Decimal()
-  }
-  if (G.produceThird.lte(G.d0_0001)) {
-    G.produceThird = new Decimal()
-  }
-  if (G.produceFourth.lte(G.d0_0001)) {
-    G.produceFourth = new Decimal()
-  }
-  if (G.produceFifth.lte(G.d0_0001)) {
-    G.produceFifth = new Decimal()
-  }
-
-  G.producePerSecond = G.produceTotal.times(40)
+  const producePerSecond = produceTotal.times(40)
 
   const exponent = calculateTaxExponent()
 
@@ -67,15 +66,38 @@ export const calculatetax = () => {
   // Implementing this was much more difficult than it needed to be.
   const flatMaxExponentIncrease = calculateFlatTaxCapIncrease()
 
-  G.maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1 + flatMaxExponentIncrease
+  const maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1 + flatMaxExponentIncrease
 
   const exponentForDivisor = Math.max(
     0,
-    Math.min(G.maxexponent, Math.floor(Decimal.log(G.produceTotal.add(1), 10))) - flatMaxExponentIncrease
+    Math.min(maxexponent, Math.floor(Decimal.log(produceTotal.add(1), 10))) - flatMaxExponentIncrease
   )
-  const exponentForWarning = Math.max(0, G.maxexponent - flatMaxExponentIncrease)
+  const exponentForWarning = Math.max(0, maxexponent - flatMaxExponentIncrease)
 
-  if (useChallenge13Modifiers() && (G.maxexponent - flatMaxExponentIncrease) <= 99999) {
+  const divisorExponent = 1 / 550 * Math.pow(exponentForDivisor, 2)
+  // Not exactly clear why this is needed?
+  const checkExponent = 1 / 550 * Math.pow(exponentForWarning, 2)
+
+  // November 11, 2025: Platonic re-derived these equations to understand why this works.
+  // If you write this value out, you end up getting a function whose log is O(exponent^-1),
+  // Which is intentional.
+  return {
+    coinMultiplier,
+    coinTierMultipliers,
+    production,
+    produceTotal,
+    producePerSecond,
+    maxexponent,
+    flatMaxExponentIncrease,
+    taxdivisor: Decimal.pow(1.01, divisorExponent * exponent),
+    taxdivisorcheck: Decimal.pow(1.01, checkExponent * exponent)
+  }
+}
+
+export type TaxResult = ReturnType<typeof calculateTax>
+
+export const awardOvertaxedAchievement = ({ maxexponent, flatMaxExponentIncrease }: TaxResult) => {
+  if (useChallenge13Modifiers() && (maxexponent - flatMaxExponentIncrease) <= 99999) {
     // i don't think it makes sense to give the achievement as soon as the challenge is opened
     // as soon as the challenge is opened you don't have enough tax reducers to have max exponent above 100000
     // so for the achievement description to make sense i think it should require at least 1 challenge completion || Dorijanko
@@ -83,16 +105,4 @@ export const calculatetax = () => {
       awardUngroupedAchievement('overtaxed')
     }
   }
-
-  const divisorExponent = 1 / 550 * Math.pow(exponentForDivisor, 2)
-  // Not exactly clear why this is needed?
-  const checkExponent = 1 / 550 * Math.pow(exponentForWarning, 2)
-
-  // After the ants update, I really should get rid of these bad globals
-
-  // November 11, 2025: Platonic re-derived these equations to understand why this works.
-  // If you write this value out, you end up getting a function whose log is O(exponent^-1),
-  // Which is intentional.
-  G.taxdivisor = Decimal.pow(1.01, divisorExponent * exponent)
-  G.taxdivisorcheck = Decimal.pow(1.01, checkExponent * exponent)
 }

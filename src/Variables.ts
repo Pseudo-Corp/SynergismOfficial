@@ -34,31 +34,6 @@ export const buildingBaseProduction = {
   particle: [0.25, 0.2, 0.15, 0.1, 0.5]
 } as const
 
-export const buildingProductionKeys = {
-  coin: ['produceFirst', 'produceSecond', 'produceThird', 'produceFourth', 'produceFifth'],
-  diamond: [
-    'produceFirstDiamonds',
-    'produceSecondDiamonds',
-    'produceThirdDiamonds',
-    'produceFourthDiamonds',
-    'produceFifthDiamonds'
-  ],
-  mythos: [
-    'produceFirstMythos',
-    'produceSecondMythos',
-    'produceThirdMythos',
-    'produceFourthMythos',
-    'produceFifthMythos'
-  ],
-  particle: [
-    'produceFirstParticles',
-    'produceSecondParticles',
-    'produceThirdParticles',
-    'produceFourthParticles',
-    'produceFifthParticles'
-  ]
-} as const
-
 export const Globals: GlobalVariables = {
   // this shows the logarithm of costs. ex: upgrade one will cost 1e+6 coins, upgrade 2 1e+7, etc.
   // dprint-ignore
@@ -76,72 +51,12 @@ export const Globals: GlobalVariables = {
   crystalUpgradesCost: [6, 15, 20, 40, 100, 200, 500, 1000],
   crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
 
-  freeAccelerator: 0,
-  effectiveFreeAccelerator: 0,
-  totalAccelerator: 0,
-  freeAcceleratorBoost: 0,
-  totalAcceleratorBoost: 0,
-  acceleratorPower: 1.10,
-  acceleratorEffect: new Decimal(1),
-
-  freeMultiplier: 0,
-  effectiveFreeMultiplier: 0,
-  totalMultiplier: 0,
-  multiplierPower: 2,
-  multiplierEffect: new Decimal(1),
-  challengeOneLog: 3,
-  totalMultiplierBoost: 0,
-
-  globalCoinMultiplier: new Decimal(1),
-
-  coinOneMulti: new Decimal(1),
-  coinTwoMulti: new Decimal(1),
-  coinThreeMulti: new Decimal(1),
-  coinFourMulti: new Decimal(1),
-  coinFiveMulti: new Decimal(1),
-
-  globalCrystalMultiplier: new Decimal(1),
-  globalMythosMultiplier: new Decimal(0.01),
-
-  challengeThreeMultiplier: new Decimal(1),
-
   prestigePointGain: new Decimal(),
 
   transcendPointGain: new Decimal(),
   reincarnationPointGain: new Decimal(),
 
-  produceFirst: new Decimal(),
-  produceSecond: new Decimal(),
-  produceThird: new Decimal(),
-  produceFourth: new Decimal(),
-  produceFifth: new Decimal(),
-  produceTotal: new Decimal(),
-
-  produceFirstDiamonds: new Decimal(),
-  produceSecondDiamonds: new Decimal(),
-  produceThirdDiamonds: new Decimal(),
-  produceFourthDiamonds: new Decimal(),
-  produceFifthDiamonds: new Decimal(),
-  produceDiamonds: new Decimal(),
-
-  produceFirstMythos: new Decimal(),
-  produceSecondMythos: new Decimal(),
-  produceThirdMythos: new Decimal(),
-  produceFourthMythos: new Decimal(),
-  produceFifthMythos: new Decimal(),
-  produceMythos: new Decimal(),
-
-  produceFirstParticles: new Decimal(),
-  produceSecondParticles: new Decimal(),
-  produceThirdParticles: new Decimal(),
-  produceFourthParticles: new Decimal(),
-  produceFifthParticles: new Decimal(),
-  produceParticles: new Decimal(),
-
-  producePerSecond: new Decimal(),
   producePerSecondDiamonds: new Decimal(),
-  producePerSecondMythos: new Decimal(),
-  producePerSecondParticles: new Decimal(),
 
   currentTab: Tabs.Buildings,
 
@@ -150,15 +65,7 @@ export const Globals: GlobalVariables = {
 
   challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 2.5e9],
 
-  taxdivisor: new Decimal('1'),
-  taxdivisorcheck: new Decimal('1'),
-
-  mythosupgrade13: new Decimal('1'),
-  mythosupgrade14: new Decimal('1'),
-  mythosupgrade15: new Decimal('1'),
   challengefocus: 0,
-
-  maxexponent: 10000,
 
   talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
   talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
@@ -174,17 +81,7 @@ export const Globals: GlobalVariables = {
   autoOfferingCounter: 0,
   MAX_AUTO_SACRIFICE_RUNE: 5,
 
-  ascendBuildingProduction: {
-    first: new Decimal(),
-    second: new Decimal(),
-    third: new Decimal(),
-    fourth: new Decimal(),
-    fifth: new Decimal()
-  },
-
   constUpgradeCosts: [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24],
-
-  globalConstantMult: new Decimal('1'),
 
   c15RewardFormulae: {
     cube1: (e: number) => 1 + ((1 / 50) * Math.log2(e / 175)),
