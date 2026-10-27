@@ -1,6 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
+import { getBuildingOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokens } from './Campaign'
 import { activeCorruptionLevel, ascensionEffectiveCorruptionLevel } from './Corruptions'
@@ -581,188 +582,188 @@ const achievements: Achievement[] = [
   { pointValue: 5, unlockCondition: () => true, group: 'ungrouped' }, // Free Achievement Perhaps?
   {
     pointValue: 5,
-    unlockCondition: () => player.firstOwnedCoin >= 1,
+    unlockCondition: () => getBuildingOwned('coin', 0) >= 1,
     group: 'firstOwnedCoin',
     steamAchievementId: 'GROUPED_WORKERS_1'
   },
-  { pointValue: 10, unlockCondition: () => player.firstOwnedCoin >= 10, group: 'firstOwnedCoin' },
+  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 0) >= 10, group: 'firstOwnedCoin' },
   {
     pointValue: 15,
-    unlockCondition: () => player.firstOwnedCoin >= 100,
+    unlockCondition: () => getBuildingOwned('coin', 0) >= 100,
     group: 'firstOwnedCoin',
     reward: { acceleratorPower: () => 0.001 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => player.firstOwnedCoin >= 1000,
+    unlockCondition: () => getBuildingOwned('coin', 0) >= 1000,
     group: 'firstOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.firstOwnedCoin >= 5000,
+    unlockCondition: () => getBuildingOwned('coin', 0) >= 5000,
     group: 'firstOwnedCoin',
-    reward: { accelerators: () => Math.floor(player.firstOwnedCoin / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 0) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.firstOwnedCoin >= 10000,
+    unlockCondition: () => getBuildingOwned('coin', 0) >= 10000,
     group: 'firstOwnedCoin',
-    reward: { multipliers: () => Math.floor(player.firstOwnedCoin / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 0) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.firstOwnedCoin >= 20000,
+    unlockCondition: () => getBuildingOwned('coin', 0) >= 20000,
     group: 'firstOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(player.firstOwnedCoin / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 0) / 2000) }
   },
   {
     pointValue: 5,
-    unlockCondition: () => player.secondOwnedCoin >= 1,
+    unlockCondition: () => getBuildingOwned('coin', 1) >= 1,
     group: 'secondOwnedCoin',
     steamAchievementId: 'GROUPED_INVESTMENTS_1'
   },
-  { pointValue: 10, unlockCondition: () => player.secondOwnedCoin >= 10, group: 'secondOwnedCoin' },
+  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 1) >= 10, group: 'secondOwnedCoin' },
   {
     pointValue: 15,
-    unlockCondition: () => player.secondOwnedCoin >= 100,
+    unlockCondition: () => getBuildingOwned('coin', 1) >= 100,
     group: 'secondOwnedCoin',
     reward: { acceleratorPower: () => 0.0015 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => player.secondOwnedCoin >= 500,
+    unlockCondition: () => getBuildingOwned('coin', 1) >= 500,
     group: 'secondOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.secondOwnedCoin >= 5000,
+    unlockCondition: () => getBuildingOwned('coin', 1) >= 5000,
     group: 'secondOwnedCoin',
-    reward: { accelerators: () => Math.floor(player.secondOwnedCoin / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 1) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.secondOwnedCoin >= 10000,
+    unlockCondition: () => getBuildingOwned('coin', 1) >= 10000,
     group: 'secondOwnedCoin',
-    reward: { multipliers: () => Math.floor(player.secondOwnedCoin / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 1) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.secondOwnedCoin >= 20000,
+    unlockCondition: () => getBuildingOwned('coin', 1) >= 20000,
     group: 'secondOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(player.secondOwnedCoin / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 1) / 2000) }
   },
   {
     pointValue: 5,
-    unlockCondition: () => player.thirdOwnedCoin >= 1,
+    unlockCondition: () => getBuildingOwned('coin', 2) >= 1,
     group: 'thirdOwnedCoin',
     steamAchievementId: 'GROUPED_PRINTERS_1'
   },
-  { pointValue: 10, unlockCondition: () => player.thirdOwnedCoin >= 10, group: 'thirdOwnedCoin' },
+  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 2) >= 10, group: 'thirdOwnedCoin' },
   {
     pointValue: 15,
-    unlockCondition: () => player.thirdOwnedCoin >= 100,
+    unlockCondition: () => getBuildingOwned('coin', 2) >= 100,
     group: 'thirdOwnedCoin',
     reward: { acceleratorPower: () => 0.002 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => player.thirdOwnedCoin >= 333,
+    unlockCondition: () => getBuildingOwned('coin', 2) >= 333,
     group: 'thirdOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.thirdOwnedCoin >= 5000,
+    unlockCondition: () => getBuildingOwned('coin', 2) >= 5000,
     group: 'thirdOwnedCoin',
-    reward: { accelerators: () => Math.floor(player.thirdOwnedCoin / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 2) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.thirdOwnedCoin >= 10000,
+    unlockCondition: () => getBuildingOwned('coin', 2) >= 10000,
     group: 'thirdOwnedCoin',
-    reward: { multipliers: () => Math.floor(player.thirdOwnedCoin / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 2) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.thirdOwnedCoin >= 20000,
+    unlockCondition: () => getBuildingOwned('coin', 2) >= 20000,
     group: 'thirdOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(player.thirdOwnedCoin / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 2) / 2000) }
   },
   {
     pointValue: 5,
-    unlockCondition: () => player.fourthOwnedCoin >= 1,
+    unlockCondition: () => getBuildingOwned('coin', 3) >= 1,
     group: 'fourthOwnedCoin',
     steamAchievementId: 'GROUPED_MINTS_1'
   },
-  { pointValue: 10, unlockCondition: () => player.fourthOwnedCoin >= 10, group: 'fourthOwnedCoin' },
+  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 3) >= 10, group: 'fourthOwnedCoin' },
   {
     pointValue: 15,
-    unlockCondition: () => player.fourthOwnedCoin >= 100,
+    unlockCondition: () => getBuildingOwned('coin', 3) >= 100,
     group: 'fourthOwnedCoin',
     reward: { acceleratorPower: () => 0.002 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => player.fourthOwnedCoin >= 333,
+    unlockCondition: () => getBuildingOwned('coin', 3) >= 333,
     group: 'fourthOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.fourthOwnedCoin >= 5000,
+    unlockCondition: () => getBuildingOwned('coin', 3) >= 5000,
     group: 'fourthOwnedCoin',
-    reward: { accelerators: () => Math.floor(player.fourthOwnedCoin / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 3) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.fourthOwnedCoin >= 10000,
+    unlockCondition: () => getBuildingOwned('coin', 3) >= 10000,
     group: 'fourthOwnedCoin',
-    reward: { multipliers: () => Math.floor(player.fourthOwnedCoin / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 3) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.fourthOwnedCoin >= 20000,
+    unlockCondition: () => getBuildingOwned('coin', 3) >= 20000,
     group: 'fourthOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(player.fourthOwnedCoin / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 3) / 2000) }
   },
   {
     pointValue: 5,
-    unlockCondition: () => player.fifthOwnedCoin >= 1,
+    unlockCondition: () => getBuildingOwned('coin', 4) >= 1,
     group: 'fifthOwnedCoin',
     steamAchievementId: 'GROUPED_ALCHEMIES_1'
   },
-  { pointValue: 10, unlockCondition: () => player.fifthOwnedCoin >= 10, group: 'fifthOwnedCoin' },
+  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 4) >= 10, group: 'fifthOwnedCoin' },
   {
     pointValue: 15,
-    unlockCondition: () => player.fifthOwnedCoin >= 66,
+    unlockCondition: () => getBuildingOwned('coin', 4) >= 66,
     group: 'fifthOwnedCoin',
     reward: { acceleratorPower: () => 0.003 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => player.fifthOwnedCoin >= 200,
+    unlockCondition: () => getBuildingOwned('coin', 4) >= 200,
     group: 'fifthOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.fifthOwnedCoin >= 6666,
+    unlockCondition: () => getBuildingOwned('coin', 4) >= 6666,
     group: 'fifthOwnedCoin',
-    reward: { accelerators: () => Math.floor(player.fifthOwnedCoin / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', 4) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.fifthOwnedCoin >= 17777,
+    unlockCondition: () => getBuildingOwned('coin', 4) >= 17777,
     group: 'fifthOwnedCoin',
-    reward: { multipliers: () => Math.floor(player.fifthOwnedCoin / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', 4) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.fifthOwnedCoin >= 42777,
+    unlockCondition: () => getBuildingOwned('coin', 4) >= 42777,
     group: 'fifthOwnedCoin',
-    reward: { accelBoosts: () => Math.floor(player.fifthOwnedCoin / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', 4) / 2000) }
   },
   {
     pointValue: 5,
@@ -896,7 +897,7 @@ const achievements: Achievement[] = [
   {
     pointValue: 35,
     unlockCondition: () => {
-      return player.acceleratorBought === 0 && player.acceleratorBoostBought === 0
+      return getBuildingOwned('accelerator') === 0 && getBuildingOwned('acceleratorBoost') === 0
         && player.coinsThisTranscension.gte(G.d1e120000)
     },
     group: 'ungrouped',
@@ -1349,90 +1350,90 @@ const achievements: Achievement[] = [
   },
   {
     pointValue: 5,
-    unlockCondition: () => player.acceleratorBought >= 5,
+    unlockCondition: () => getBuildingOwned('accelerator') >= 5,
     group: 'accelerators',
     steamAchievementId: 'GROUPED_ACCELERATOR_1'
   },
   {
     pointValue: 10,
-    unlockCondition: () => player.acceleratorBought >= 25,
+    unlockCondition: () => getBuildingOwned('accelerator') >= 25,
     group: 'accelerators',
     reward: { acceleratorPower: () => 0.01 }
   },
-  { pointValue: 15, unlockCondition: () => player.acceleratorBought >= 100, group: 'accelerators' },
+  { pointValue: 15, unlockCondition: () => getBuildingOwned('accelerator') >= 100, group: 'accelerators' },
   {
     pointValue: 20,
-    unlockCondition: () => player.acceleratorBought >= 666,
+    unlockCondition: () => getBuildingOwned('accelerator') >= 666,
     group: 'accelerators',
     reward: { accelerators: () => 5 }
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.acceleratorBought >= 2000,
+    unlockCondition: () => getBuildingOwned('accelerator') >= 2000,
     group: 'accelerators',
     reward: { accelerators: () => 12 }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.acceleratorBought >= 12500,
+    unlockCondition: () => getBuildingOwned('accelerator') >= 12500,
     group: 'accelerators',
     reward: { accelerators: () => 25 }
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.acceleratorBought >= 100000,
+    unlockCondition: () => getBuildingOwned('accelerator') >= 100000,
     group: 'accelerators',
     reward: { accelerators: () => 50 }
   },
   {
     pointValue: 5,
-    unlockCondition: () => player.multiplierBought >= 2,
+    unlockCondition: () => getBuildingOwned('multiplier') >= 2,
     group: 'multipliers',
     steamAchievementId: 'GROUPED_MULTIPLIER_1'
   },
   {
     pointValue: 10,
-    unlockCondition: () => player.multiplierBought >= 20,
+    unlockCondition: () => getBuildingOwned('multiplier') >= 20,
     group: 'multipliers',
     reward: { multipliers: () => 1 }
   },
-  { pointValue: 15, unlockCondition: () => player.multiplierBought >= 100, group: 'multipliers' },
+  { pointValue: 15, unlockCondition: () => getBuildingOwned('multiplier') >= 100, group: 'multipliers' },
   {
     pointValue: 20,
-    unlockCondition: () => player.multiplierBought >= 500,
+    unlockCondition: () => getBuildingOwned('multiplier') >= 500,
     group: 'multipliers',
     reward: { multipliers: () => 1 }
   },
   {
     pointValue: 25,
-    unlockCondition: () => player.multiplierBought >= 2000,
+    unlockCondition: () => getBuildingOwned('multiplier') >= 2000,
     group: 'multipliers',
     reward: { multipliers: () => 3 }
   },
   {
     pointValue: 30,
-    unlockCondition: () => player.multiplierBought >= 12500,
+    unlockCondition: () => getBuildingOwned('multiplier') >= 12500,
     group: 'multipliers',
     reward: { multipliers: () => 6 }
   },
   {
     pointValue: 35,
-    unlockCondition: () => player.multiplierBought >= 100000,
+    unlockCondition: () => getBuildingOwned('multiplier') >= 100000,
     group: 'multipliers',
     reward: { multipliers: () => 10 }
   },
   {
     pointValue: 5,
-    unlockCondition: () => player.acceleratorBoostBought >= 2,
+    unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 2,
     group: 'acceleratorBoosts',
     steamAchievementId: 'GROUPED_ACCELERATOR_BOOSTS_1'
   },
-  { pointValue: 10, unlockCondition: () => player.acceleratorBoostBought >= 10, group: 'acceleratorBoosts' },
-  { pointValue: 15, unlockCondition: () => player.acceleratorBoostBought >= 50, group: 'acceleratorBoosts' },
-  { pointValue: 20, unlockCondition: () => player.acceleratorBoostBought >= 200, group: 'acceleratorBoosts' },
-  { pointValue: 25, unlockCondition: () => player.acceleratorBoostBought >= 1000, group: 'acceleratorBoosts' },
-  { pointValue: 30, unlockCondition: () => player.acceleratorBoostBought >= 5000, group: 'acceleratorBoosts' },
-  { pointValue: 35, unlockCondition: () => player.acceleratorBoostBought >= 15000, group: 'acceleratorBoosts' },
+  { pointValue: 10, unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 10, group: 'acceleratorBoosts' },
+  { pointValue: 15, unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 50, group: 'acceleratorBoosts' },
+  { pointValue: 20, unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 200, group: 'acceleratorBoosts' },
+  { pointValue: 25, unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 1000, group: 'acceleratorBoosts' },
+  { pointValue: 30, unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 5000, group: 'acceleratorBoosts' },
+  { pointValue: 35, unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 15000, group: 'acceleratorBoosts' },
   {
     pointValue: 5,
     unlockCondition: () => player.ants.crumbs.gte(G.d3),
@@ -1980,43 +1981,43 @@ const achievements: Achievement[] = [
     group: 'singularityCount',
     steamAchievementId: 'GROUPED_SINGULARITY_2'
   },
-  { pointValue: 40, unlockCondition: () => player.firstOwnedCoin >= 1e5, group: 'firstOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => player.firstOwnedCoin >= 1e6, group: 'firstOwnedCoin' },
+  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 0) >= 1e5, group: 'firstOwnedCoin' },
+  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 0) >= 1e6, group: 'firstOwnedCoin' },
   {
     pointValue: 50,
-    unlockCondition: () => player.firstOwnedCoin >= 1e8,
+    unlockCondition: () => getBuildingOwned('coin', 0) >= 1e8,
     group: 'firstOwnedCoin',
     steamAchievementId: 'GROUPED_WORKERS_2'
   },
-  { pointValue: 40, unlockCondition: () => player.secondOwnedCoin >= 1e6, group: 'secondOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => player.secondOwnedCoin >= 1e8, group: 'secondOwnedCoin' },
+  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 1) >= 1e6, group: 'secondOwnedCoin' },
+  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 1) >= 1e8, group: 'secondOwnedCoin' },
   {
     pointValue: 50,
-    unlockCondition: () => player.secondOwnedCoin >= 1e9,
+    unlockCondition: () => getBuildingOwned('coin', 1) >= 1e9,
     group: 'secondOwnedCoin',
     steamAchievementId: 'GROUPED_INVESTMENTS_2'
   },
-  { pointValue: 40, unlockCondition: () => player.thirdOwnedCoin >= 1e7, group: 'thirdOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => player.thirdOwnedCoin >= 1e8, group: 'thirdOwnedCoin' },
+  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 2) >= 1e7, group: 'thirdOwnedCoin' },
+  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 2) >= 1e8, group: 'thirdOwnedCoin' },
   {
     pointValue: 50,
-    unlockCondition: () => player.thirdOwnedCoin >= 5e9,
+    unlockCondition: () => getBuildingOwned('coin', 2) >= 5e9,
     group: 'thirdOwnedCoin',
     steamAchievementId: 'GROUPED_PRINTERS_2'
   },
-  { pointValue: 40, unlockCondition: () => player.fourthOwnedCoin >= 1e8, group: 'fourthOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => player.fourthOwnedCoin >= 1e9, group: 'fourthOwnedCoin' },
+  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 3) >= 1e8, group: 'fourthOwnedCoin' },
+  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 3) >= 1e9, group: 'fourthOwnedCoin' },
   {
     pointValue: 50,
-    unlockCondition: () => player.fourthOwnedCoin >= 2e10,
+    unlockCondition: () => getBuildingOwned('coin', 3) >= 2e10,
     group: 'fourthOwnedCoin',
     steamAchievementId: 'GROUPED_MINTS_2'
   },
-  { pointValue: 40, unlockCondition: () => player.fifthOwnedCoin >= 1e9, group: 'fifthOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => player.fifthOwnedCoin >= 2e10, group: 'fifthOwnedCoin' },
+  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 4) >= 1e9, group: 'fifthOwnedCoin' },
+  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 4) >= 2e10, group: 'fifthOwnedCoin' },
   {
     pointValue: 50,
-    unlockCondition: () => player.fifthOwnedCoin >= 1e12,
+    unlockCondition: () => getBuildingOwned('coin', 4) >= 1e12,
     group: 'fifthOwnedCoin',
     steamAchievementId: 'GROUPED_ALCHEMIES_2'
   },
@@ -2132,27 +2133,27 @@ const achievements: Achievement[] = [
     group: 'challenge10',
     steamAchievementId: 'GROUPED_CHALLENGE10_2'
   },
-  { pointValue: 40, unlockCondition: () => player.acceleratorBought >= 1e6, group: 'accelerators' },
-  { pointValue: 45, unlockCondition: () => player.acceleratorBought >= 1e7, group: 'accelerators' },
+  { pointValue: 40, unlockCondition: () => getBuildingOwned('accelerator') >= 1e6, group: 'accelerators' },
+  { pointValue: 45, unlockCondition: () => getBuildingOwned('accelerator') >= 1e7, group: 'accelerators' },
   {
     pointValue: 50,
-    unlockCondition: () => player.acceleratorBought >= 1e8,
+    unlockCondition: () => getBuildingOwned('accelerator') >= 1e8,
     group: 'accelerators',
     steamAchievementId: 'GROUPED_ACCELERATOR_2'
   },
-  { pointValue: 40, unlockCondition: () => player.multiplierBought >= 3e6, group: 'multipliers' },
-  { pointValue: 45, unlockCondition: () => player.multiplierBought >= 3e7, group: 'multipliers' },
+  { pointValue: 40, unlockCondition: () => getBuildingOwned('multiplier') >= 3e6, group: 'multipliers' },
+  { pointValue: 45, unlockCondition: () => getBuildingOwned('multiplier') >= 3e7, group: 'multipliers' },
   {
     pointValue: 50,
-    unlockCondition: () => player.multiplierBought >= 3e8,
+    unlockCondition: () => getBuildingOwned('multiplier') >= 3e8,
     group: 'multipliers',
     steamAchievementId: 'GROUPED_MULTIPLIER_2'
   },
-  { pointValue: 40, unlockCondition: () => player.acceleratorBoostBought >= 1e5, group: 'acceleratorBoosts' },
-  { pointValue: 45, unlockCondition: () => player.acceleratorBoostBought >= 1e6, group: 'acceleratorBoosts' },
+  { pointValue: 40, unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 1e5, group: 'acceleratorBoosts' },
+  { pointValue: 45, unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 1e6, group: 'acceleratorBoosts' },
   {
     pointValue: 50,
-    unlockCondition: () => player.acceleratorBoostBought >= 1e7,
+    unlockCondition: () => getBuildingOwned('acceleratorBoost') >= 1e7,
     group: 'acceleratorBoosts',
     steamAchievementId: 'GROUPED_ACCELERATOR_BOOSTS_2'
   },

@@ -1,4 +1,5 @@
-import { calculateBuildingPowerCoinMultiplier, player } from './Synergism'
+import { getBuildingsOwned } from './Buy'
+import { calculateBuildingPowerCoinMultiplier, calculateBuildingProduction, player } from './Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
@@ -29,26 +30,14 @@ export const calculateFlatTaxCapIncrease = () => {
 
 export const calculatetax = () => {
   // To 2020 Platonic: Why the HELL is this done here???
-  G.produceFirst = (player.firstGeneratedCoin.add(player.firstOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinOneMulti
-  )
-    .times(player.firstProduceCoin)
-  G.produceSecond = (player.secondGeneratedCoin.add(player.secondOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinTwoMulti
-  )
-    .times(player.secondProduceCoin)
-  G.produceThird = (player.thirdGeneratedCoin.add(player.thirdOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinThreeMulti
-  )
-    .times(player.thirdProduceCoin)
-  G.produceFourth = (player.fourthGeneratedCoin.add(player.fourthOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinFourMulti
-  )
-    .times(player.fourthProduceCoin)
-  G.produceFifth = (player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinFiveMulti
-  )
-    .times(player.fifthProduceCoin)
+  const coinMultiplier = G.globalCoinMultiplier
+  calculateBuildingProduction('coin', getBuildingsOwned('coin'), [
+    coinMultiplier.times(G.coinOneMulti),
+    coinMultiplier.times(G.coinTwoMulti),
+    coinMultiplier.times(G.coinThreeMulti),
+    coinMultiplier.times(G.coinFourMulti),
+    coinMultiplier.times(G.coinFiveMulti)
+  ])
   G.produceTotal = G.produceFirst.add(G.produceSecond).add(G.produceThird).add(G.produceFourth)
     .add(G.produceFifth)
 

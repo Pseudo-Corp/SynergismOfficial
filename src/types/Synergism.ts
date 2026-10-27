@@ -2,7 +2,6 @@ import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
 import type { AutoAscendRule } from '../AutoAscension'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
-import type { BuildingType } from '../Buy'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
@@ -56,148 +55,97 @@ export interface Player {
   coinsThisPrestige: Decimal
   coinsThisTranscension: Decimal
   coinsThisReincarnation: Decimal
+  coinsThisAscension: Decimal
+  coinsThisSingularity: Decimal
   coinsTotal: Decimal
 
-  firstOwnedCoin: number
   firstGeneratedCoin: Decimal
   firstPaidCoin: Decimal
-  firstProduceCoin: number
 
-  secondOwnedCoin: number
   secondGeneratedCoin: Decimal
   secondPaidCoin: Decimal
-  secondProduceCoin: number
 
-  thirdOwnedCoin: number
   thirdGeneratedCoin: Decimal
   thirdPaidCoin: Decimal
-  thirdProduceCoin: number
 
-  fourthOwnedCoin: number
   fourthGeneratedCoin: Decimal
   fourthPaidCoin: Decimal
-  fourthProduceCoin: number
 
-  fifthOwnedCoin: number
   fifthGeneratedCoin: Decimal
   fifthPaidCoin: Decimal
-  fifthProduceCoin: number
 
-  firstOwnedDiamonds: number
   firstGeneratedDiamonds: Decimal
   firstPaidDiamonds: Decimal
-  firstProduceDiamonds: number
 
-  secondOwnedDiamonds: number
   secondGeneratedDiamonds: Decimal
   secondPaidDiamonds: Decimal
-  secondProduceDiamonds: number
 
-  thirdOwnedDiamonds: number
   thirdGeneratedDiamonds: Decimal
   thirdPaidDiamonds: Decimal
-  thirdProduceDiamonds: number
 
-  fourthOwnedDiamonds: number
   fourthGeneratedDiamonds: Decimal
   fourthPaidDiamonds: Decimal
-  fourthProduceDiamonds: number
 
-  fifthOwnedDiamonds: number
   fifthGeneratedDiamonds: Decimal
   fifthPaidDiamonds: Decimal
-  fifthProduceDiamonds: number
 
-  firstOwnedMythos: number
   firstGeneratedMythos: Decimal
   firstPaidMythos: Decimal
-  firstProduceMythos: number
 
-  secondOwnedMythos: number
   secondGeneratedMythos: Decimal
   secondPaidMythos: Decimal
-  secondProduceMythos: number
 
-  thirdOwnedMythos: number
   thirdGeneratedMythos: Decimal
   thirdPaidMythos: Decimal
-  thirdProduceMythos: number
 
-  fourthOwnedMythos: number
   fourthGeneratedMythos: Decimal
   fourthPaidMythos: Decimal
-  fourthProduceMythos: number
 
-  fifthOwnedMythos: number
   fifthGeneratedMythos: Decimal
   fifthPaidMythos: Decimal
-  fifthProduceMythos: number
 
-  firstOwnedParticles: number
   firstGeneratedParticles: Decimal
   firstPaidParticles: Decimal
-  firstProduceParticles: number
 
-  secondOwnedParticles: number
   secondGeneratedParticles: Decimal
   secondPaidParticles: Decimal
-  secondProduceParticles: number
 
-  thirdOwnedParticles: number
   thirdGeneratedParticles: Decimal
   thirdPaidParticles: Decimal
-  thirdProduceParticles: number
 
-  fourthOwnedParticles: number
   fourthGeneratedParticles: Decimal
   fourthPaidParticles: Decimal
-  fourthProduceParticles: number
 
-  fifthOwnedParticles: number
   fifthGeneratedParticles: Decimal
   fifthPaidParticles: Decimal
-  fifthProduceParticles: number
 
   ants: PlayerAnts
 
   ascendBuilding1: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
   ascendBuilding2: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
   ascendBuilding3: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
   ascendBuilding4: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
   ascendBuilding5: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
 
   multiplierPaid: Decimal
-  multiplierBought: number
 
   acceleratorPaid: Decimal
-  acceleratorBought: number
 
-  acceleratorBoostBought: number
   acceleratorBoostPaid: Decimal
 
   upgrades: number[]
@@ -714,9 +662,6 @@ export interface GlobalVariables {
   testingDtMultiplier: number
 
   triggerChallenge: number
-
-  prevBuildingCostKey: string
-  buildingCosts: Record<BuildingType, Decimal[]>
 
   buildingSubTab: BuildingSubtab
 

@@ -2,6 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
+import { getBuildingOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import {
@@ -576,14 +577,6 @@ export const calculatePurpleHoneyExtractionMultiplier = (luck: number) => {
 
 export const calculateFreeShopInfinityUpgrades = () => calculateTotalStat(allShopTablets)
 
-export const calculateTotalCoinOwned = () => {
-  return player.firstOwnedCoin
-    + player.secondOwnedCoin
-    + player.thirdOwnedCoin
-    + player.fourthOwnedCoin
-    + player.fifthOwnedCoin
-}
-
 export const calculatePositiveSalvageMultiplier = () => calculateTotalStat(positiveSalvageStatMultiplier)
 export const calculateRawPositiveSalvage = () => calculateTotalStat(positiveSalvageStats)
 export const calculatePositiveSalvage = () => {
@@ -706,7 +699,7 @@ export const calculateAcceleratorsPerBoost = () =>
 
 export const calculateTotalAcceleratorBoost = () => {
   G.freeAcceleratorBoost = calculateFreeAcceleratorBoosts()
-  G.totalAcceleratorBoost = player.acceleratorBoostBought + G.freeAcceleratorBoost
+  G.totalAcceleratorBoost = getBuildingOwned('acceleratorBoost') + G.freeAcceleratorBoost
 }
 
 export const calculateTotalSalvage = () => {

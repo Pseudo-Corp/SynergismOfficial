@@ -14,6 +14,7 @@ import { isAutoAscendRunning, isAutoAscendUnlocked } from './AutoAscension'
 import {
   calculateSingularityUpgradePurchase,
   getBuildingCost,
+  getTesseractBuildingCost,
   type SingularityUpgradePurchaseOptions,
   type SingularityUpgradePurchaseQuote
 } from './Buy'
@@ -130,7 +131,7 @@ const getChallengeProgress = (challenge: number): ChallengeProgress => {
   }
 
   return {
-    amount: player.coins,
+    amount: player.coinsThisAscension,
     required: Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
     resource: 'coins'
   }
@@ -884,8 +885,7 @@ export const buttoncolorchange = () => {
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'tesseract') {
     for (let i = 1; i <= 5; i++) {
-      const ascendBuilding = player[`ascendBuilding${i as OneToFive}` as const].cost
-      if (Number(player.wowTesseracts) >= ascendBuilding) {
+      if (Number(player.wowTesseracts) >= getTesseractBuildingCost(i as OneToFive)) {
         DOMCacheGetOrSet(`buyTesseracts${i}`).classList.add('buildingPurchaseBtnAvailable')
       } else {
         DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseBtnAvailable')

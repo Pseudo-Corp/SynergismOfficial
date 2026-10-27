@@ -6090,7 +6090,7 @@
     "constructionBonus": "These Buildings have a base Softcap of <<yellow|{{amount}}>> owned, which is multiplied by Construction",
     "hyperscaling": "Price exponents start growing <<yellow|quadratically>> past <<yellow|{{threshold}}>> owned",
     "accelMultConstruction": "Accelerators, Multipliers and Accelerator Boosts benefit from <<yellow|√Construction>> (<<yellow|×{{amount}}>>) <br> Accelerators scale <<yellow|quadratically>> past <<yellow|{{accelerators}}>> bought <br> Multipliers scale <<yellow|quadratically>> past <<yellow|{{multipliers}}>> bought <br> Accelerator Boosts scale <<yellow|cubically>> past <<yellow|{{boosts}}>> bought",
-    "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> Total Ever: <<gold | {{totalGenerated}}>>",
+    "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> This Ascension: <<gold | {{thisAscension}}>> <br> This Singularity: <<gold | {{thisSingularity}}>> <br> Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "You have nothing but 100 coins. You can hire a worker, conveniently for exactly 100 coins!",
       "2": "Your workers sure are working hard. Let's buy some investments with our coins!",
