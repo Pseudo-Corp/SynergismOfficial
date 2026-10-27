@@ -4,15 +4,21 @@ import { achievementPoints, getAchievementReward } from './Achievements'
 import { buyAutobuyers, buyGenerator } from './Automation'
 import { buyUpgrades, getBuildingOwned, getTesseractBuildingsOwned, getTotalBuildingsOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateGlobalSpeedMult } from './Calculate'
+import {
+  calculateGlobalSpeedMult,
+  calculateParticleUpgrade8FreeMultipliers,
+  calculateTotalAcceleratorBoost
+} from './Calculate'
 import { challenge15CorruptionEffect } from './Corruptions'
 import { AntProducers } from './Features/Ants/structs/structs'
 import { getRuneEffects } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { spritePlaceholder } from './SpriteSheets'
 import {
+  calculateAccelMultStats,
   calculateBuildingPower,
   calculateFirstSixCoinUpgradeMultiplier,
+  calculateGlobalMythosMultiplier,
   crystalUpgrade3Base,
   crystalUpgrade3CrystalMultiplier,
   crystalUpgrade3MaxBase,
@@ -157,7 +163,7 @@ const upgradetexts = [
   () => format(Math.floor(getBuildingOwned('multiplier') / 7), 0, true),
   () => format(Math.floor(getBuildingOwned('accelerator') / 10), 0, true),
   () => format(Decimal.pow(2, Math.min(50, getBuildingOwned('coin', 1) / 15)), 2),
-  () => format(Decimal.pow(1.02, G.totalAccelerator), 2),
+  () => format(Decimal.pow(1.02, calculateAccelMultStats().totalAccelerator), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
   () =>
     format(
@@ -167,13 +173,13 @@ const upgradetexts = [
       ),
       2
     ),
-  () => format(Decimal.pow(1.15, G.effectiveFreeAccelerator).times(1e5), 2),
-  () => format(Decimal.pow(1.15, G.effectiveFreeAccelerator).times(1e5), 2),
+  () => format(Decimal.pow(1.15, calculateAccelMultStats().effectiveFreeAccelerator).times(1e5), 2),
+  () => format(Decimal.pow(1.15, calculateAccelMultStats().effectiveFreeAccelerator).times(1e5), 2),
   () =>
     format(
       Decimal.min(
         Decimal.pow(10, 1e33),
-        Decimal.pow(G.acceleratorEffect, challenge15CorruptionEffect('deflation') / 3)
+        Decimal.pow(calculateAccelMultStats().acceleratorEffect, challenge15CorruptionEffect('deflation') / 3)
       ),
       2
     ),
@@ -190,26 +196,41 @@ const upgradetexts = [
       Decimal.pow(calculateFirstSixCoinUpgradeMultiplier(), 10),
       2
     ),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
-    y: format(Math.floor(5 + (1 / 101 * G.effectiveFreeAccelerator)))
-  }),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
-    y: format(Math.floor(4 + (1 / 101 * G.effectiveFreeAccelerator)))
-  }),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
-    y: format(Math.floor(3 + (1 / 101 * G.effectiveFreeAccelerator)))
-  }),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
-    y: format(Math.floor(2 + (1 / 101 * G.effectiveFreeAccelerator)))
-  }),
-  () => ({
-    x: format(Math.floor(1 + (1 / 101 * G.effectiveFreeMultiplier))),
-    y: format(Math.floor(1 + (1 / 101 * G.effectiveFreeAccelerator)))
-  }),
+  () => {
+    const { effectiveFreeAccelerator, effectiveFreeMultiplier } = calculateAccelMultStats()
+    return {
+      x: format(Math.floor(1 + (1 / 101 * effectiveFreeMultiplier))),
+      y: format(Math.floor(5 + (1 / 101 * effectiveFreeAccelerator)))
+    }
+  },
+  () => {
+    const { effectiveFreeAccelerator, effectiveFreeMultiplier } = calculateAccelMultStats()
+    return {
+      x: format(Math.floor(1 + (1 / 101 * effectiveFreeMultiplier))),
+      y: format(Math.floor(4 + (1 / 101 * effectiveFreeAccelerator)))
+    }
+  },
+  () => {
+    const { effectiveFreeAccelerator, effectiveFreeMultiplier } = calculateAccelMultStats()
+    return {
+      x: format(Math.floor(1 + (1 / 101 * effectiveFreeMultiplier))),
+      y: format(Math.floor(3 + (1 / 101 * effectiveFreeAccelerator)))
+    }
+  },
+  () => {
+    const { effectiveFreeAccelerator, effectiveFreeMultiplier } = calculateAccelMultStats()
+    return {
+      x: format(Math.floor(1 + (1 / 101 * effectiveFreeMultiplier))),
+      y: format(Math.floor(2 + (1 / 101 * effectiveFreeAccelerator)))
+    }
+  },
+  () => {
+    const { effectiveFreeAccelerator, effectiveFreeMultiplier } = calculateAccelMultStats()
+    return {
+      x: format(Math.floor(1 + (1 / 101 * effectiveFreeMultiplier))),
+      y: format(Math.floor(1 + (1 / 101 * effectiveFreeAccelerator)))
+    }
+  },
   () => null,
   () =>
     format(
@@ -236,9 +257,9 @@ const upgradetexts = [
     ),
   () => format(Math.floor(getTotalBuildingsOwned('coin') / 2000)),
   () => format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))),
-  () => format(G.totalAcceleratorBoost),
-  () => format(Math.floor(3 / 103 * G.effectiveFreeMultiplier)),
-  () => format(Math.floor(2 / 102 * G.effectiveFreeMultiplier)),
+  () => format(calculateTotalAcceleratorBoost()),
+  () => format(Math.floor(3 / 103 * calculateAccelMultStats().effectiveFreeMultiplier)),
+  () => format(Math.floor(2 / 102 * calculateAccelMultStats().effectiveFreeMultiplier)),
   () => format(Decimal.min('1e5000', Decimal.pow(player.prestigePoints, 1 / 500)), 2),
   () => format(Decimal.pow(Decimal.log(player.prestigePoints.add(10), 10), 2), 2),
   () => null,
@@ -254,10 +275,10 @@ const upgradetexts = [
   () => null,
   () => format(Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10)))),
   () => null,
-  () => format(Math.pow(G.totalAcceleratorBoost, 2), 2),
-  () => format(Decimal.pow(G.globalMythosMultiplier, 0.025), 2),
-  () => format(Decimal.min('1e1250', Decimal.pow(G.acceleratorEffect, 1 / 125)), 2),
-  () => format(Decimal.min('1e2000', Decimal.pow(G.multiplierEffect, 1 / 180)), 2),
+  () => format(Math.pow(calculateTotalAcceleratorBoost(), 2), 2),
+  () => format(Decimal.pow(calculateGlobalMythosMultiplier(calculateTotalAcceleratorBoost()), 0.025), 2),
+  () => format(Decimal.min('1e1250', Decimal.pow(calculateAccelMultStats().acceleratorEffect, 1 / 125)), 2),
+  () => format(Decimal.min('1e2000', Decimal.pow(calculateAccelMultStats().multiplierEffect, 1 / 180)), 2),
   () => format(Decimal.pow('1e1000', Math.min(1000, calculateBuildingPower() - 1)), 2),
   () => null,
   () => null,
@@ -278,7 +299,7 @@ const upgradetexts = [
       ),
       2
     ),
-  () => format(Math.min(2500, Math.floor(1 / 1000 * Decimal.log(G.taxdivisor, 10)))),
+  () => format(calculateParticleUpgrade8FreeMultipliers()),
   () => {
     const a = Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
     const b = Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)

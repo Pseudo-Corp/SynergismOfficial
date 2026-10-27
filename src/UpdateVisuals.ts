@@ -63,13 +63,7 @@ import {
 } from './Calculate'
 import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
-import {
-  activeCorruptionLevel,
-  type CorruptionCubeType,
-  corruptionEffect,
-  corruptionEffectsUpdate,
-  corruptionLevelScoreUpdate
-} from './Corruptions'
+import { type CorruptionCubeType, corruptionEffectsUpdate, corruptionLevelScoreUpdate } from './Corruptions'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -159,10 +153,17 @@ import {
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { loadStatisticsUpdate, updateDisplayC15Rewards } from './Statistics'
 import {
+  calculateAccelMultStats,
   calculateBuildingPower,
   calculateBuildingPowerCoinMultiplier,
   calculateCrystalCoinMultiplier,
   calculateCrystalExponent,
+  calculateDiamondProduction,
+  calculateGlobalConstantMultiplier,
+  calculateMultiplierBoosts,
+  calculateMythosProduction,
+  calculateParticleProduction,
+  calculateTesseractBuildingProduction,
   format,
   formatAsPercentIncrease,
   formatDecimalAsPercentIncrease,
@@ -181,6 +182,7 @@ import {
   updateMobileTalismanInventoryPurchaseInfo,
   updateTalismanInventory
 } from './Talismans'
+import { calculateTax } from './Tax'
 import {
   calculateAcceleratorTesseractBlessing,
   calculateAntELOTesseractBlessing,
@@ -198,7 +200,7 @@ import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { updateMobileUpgradeDescription } from './Upgrades'
 import { isMobile, sumContents, timeRemainingHours } from './Utility'
-import { buildingProductionKeys, Globals as G } from './Variables'
+import { Globals as G } from './Variables'
 
 const highScoringStatueCubes: CorruptionCubeType[] = [
   'cubes',
@@ -415,13 +417,6 @@ const mythosPerSecNames = [
   'oracles'
 ]
 
-const particleUpper = [
-  'FirstParticles',
-  'SecondParticles',
-  'ThirdParticles',
-  'FourthParticles',
-  'FifthParticles'
-] as const
 const particleNames = [
   'protons',
   'elements',
@@ -477,12 +472,14 @@ export const visualUpdateBuildings = () => {
 
   // When you're in Building --> Coin, update these.
   if (G.buildingSubTab === 'coin') {
+    const accelMultStats = calculateAccelMultStats()
+    const tax = calculateTax(accelMultStats)
     DOMCacheGetOrSet('coinInformation').innerHTML = i18next.t('buildings.coinInformation', {
       coins: format(player.coins, 0, false, false),
       coinsPerSecond: format(
         Decimal.min(
-          G.producePerSecond.dividedBy(G.taxdivisor),
-          Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10))
+          tax.producePerSecond.dividedBy(tax.taxdivisor),
+          Decimal.pow(10, tax.maxexponent - Decimal.log(tax.taxdivisorcheck, 10))
         ),
         2,
         false,
@@ -514,7 +511,7 @@ export const visualUpdateBuildings = () => {
 
     const coinsOwned = getBuildingsOwned('coin')
     for (let i = 1; i <= 5; i++) {
-      const place = G[buildingProductionKeys.coin[i - 1]]
+      const place = tax.production[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`buildtext${2 * i - 1}`)
@@ -537,7 +534,7 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`buildtext${2 * i}`).textContent = i18next.t(
         'buildings.coinsPerSecond',
         {
-          coins: format(place.dividedBy(G.taxdivisor).times(40), 2, false, false)
+          coins: format(place.dividedBy(tax.taxdivisor).times(40), 2, false, false)
         }
       )
     }
@@ -545,21 +542,25 @@ export const visualUpdateBuildings = () => {
     const acceleratorsOwned = getBuildingOwned('accelerator')
     const acceleratorElement = DOMCacheGetOrSet('buildtext11')
     acceleratorElement.style.color = acceleratorsOwned > getAccelMultScalingThreshold('accelerator') ? 'red' : ''
-    const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
     acceleratorElement.innerHTML = i18next.t(
       'buildings.names.accelerators',
       {
         amount: format(acceleratorsOwned, 0, true, false),
-        gain: format(G.freeAccelerator, 0, true, false)
+        gain: format(accelMultStats.freeAccelerator, 0, true, false)
       }
-    ) + viscosityEffectiveText(viscosity, G.totalAccelerator - G.effectiveFreeAccelerator, G.effectiveFreeAccelerator)
-      + freeAccelMultHardcapText(G.effectiveFreeAccelerator)
+    )
+      + viscosityEffectiveText(
+        accelMultStats.viscosity,
+        accelMultStats.totalAccelerator - accelMultStats.effectiveFreeAccelerator,
+        accelMultStats.effectiveFreeAccelerator
+      )
+      + freeAccelMultHardcapText(accelMultStats.effectiveFreeAccelerator)
 
     DOMCacheGetOrSet('buildtext12').innerHTML = i18next.t(
       'buildings.acceleratorPower',
       {
-        power: format((G.acceleratorPower - 1) * 100, 2, false, false),
-        mult: format(G.acceleratorEffect, 2, false, false)
+        power: format((accelMultStats.acceleratorPower - 1) * 100, 2, false, false),
+        mult: format(accelMultStats.acceleratorEffect, 2, false, false)
       }
     )
 
@@ -570,16 +571,21 @@ export const visualUpdateBuildings = () => {
       'buildings.names.multipliers',
       {
         amount: format(multipliersOwned, 0, true, false),
-        gain: format(G.freeMultiplier, 0, true, false)
+        gain: format(accelMultStats.freeMultiplier, 0, true, false)
       }
-    ) + viscosityEffectiveText(viscosity, G.totalMultiplier - G.effectiveFreeMultiplier, G.effectiveFreeMultiplier)
-      + freeAccelMultHardcapText(G.effectiveFreeMultiplier)
+    )
+      + viscosityEffectiveText(
+        accelMultStats.viscosity,
+        accelMultStats.totalMultiplier - accelMultStats.effectiveFreeMultiplier,
+        accelMultStats.effectiveFreeMultiplier
+      )
+      + freeAccelMultHardcapText(accelMultStats.effectiveFreeMultiplier)
 
     DOMCacheGetOrSet('buildtext14').innerHTML = i18next.t(
       'buildings.multiplierPower',
       {
-        power: format(G.multiplierPower, 2, false, false),
-        mult: format(G.multiplierEffect, 2, false, false)
+        power: format(accelMultStats.multiplierPower, 2, false, false),
+        mult: format(accelMultStats.multiplierEffect, 2, false, false)
       }
     )
 
@@ -592,7 +598,7 @@ export const visualUpdateBuildings = () => {
       'buildings.names.acceleratorBoost',
       {
         amount: format(acceleratorBoostsOwned, 0, true, false),
-        gain: format(G.freeAcceleratorBoost, 0, false, false)
+        gain: format(accelMultStats.freeAcceleratorBoost, 0, false, false)
       }
     )
 
@@ -633,7 +639,7 @@ export const visualUpdateBuildings = () => {
     if (player.reincarnationCount > 0) {
       warning = i18next.t('buildings.taxWarning', {
         gain: format(
-          Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10)),
+          Decimal.pow(10, tax.maxexponent - Decimal.log(tax.taxdivisorcheck, 10)),
           2,
           false,
           false
@@ -643,7 +649,7 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('taxinfo').innerHTML = i18next.t(
       'buildings.excessiveWealth',
       {
-        div: format(G.taxdivisor, 2, false, false),
+        div: format(tax.taxdivisor, 2, false, false),
         warning
       }
     )
@@ -661,8 +667,9 @@ export const visualUpdateBuildings = () => {
     const diamondConstruction = updateConstructionTexts('diamond')
 
     const diamondsOwned = getBuildingsOwned('diamond')
+    const diamondProduction = calculateDiamondProduction()
     for (let i = 1; i <= 5; i++) {
-      const place = G[buildingProductionKeys.diamond[i - 1]]
+      const place = diamondProduction[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`prestigetext${2 * i - 1}`)
@@ -721,14 +728,15 @@ export const visualUpdateBuildings = () => {
       'buildings.mythosYouHave',
       {
         shards: format(player.transcendShards, 2, false, false),
-        mult: format(G.totalMultiplierBoost, 0, true, false)
+        mult: format(calculateMultiplierBoosts(), 0, true, false)
       }
     )
     const mythosConstruction = updateConstructionTexts('mythos')
 
     const mythosOwned = getBuildingsOwned('mythos')
+    const mythosProduction = calculateMythosProduction()
     for (let i = 1; i <= 5; i++) {
-      const place = G[buildingProductionKeys.mythos[i - 1]]
+      const place = mythosProduction[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`transcendtext${2 * i - 1}`)
@@ -790,9 +798,10 @@ export const visualUpdateBuildings = () => {
     const particleConstruction = updateConstructionTexts('particle')
 
     const particlesOwned = getBuildingsOwned('particle')
+    const particleProduction = calculateParticleProduction()
     for (let i = 1; i <= 5; i++) {
       const ith = G.ordinals[(i - 1) as ZeroToFour]
-      const place = G[`produce${particleUpper[i - 1]}` as const]
+      const place = particleProduction[i - 1]
 
       const nameElement = DOMCacheGetOrSet(`reincarnationtext${i}`)
       nameElement.style.color = particlesOwned[i - 1] > particleConstruction ? 'red' : ''
@@ -873,6 +882,7 @@ export const visualUpdateBuildings = () => {
       )
     }
   } else if (G.buildingSubTab === 'tesseract') {
+    const constantMultiplier = calculateGlobalConstantMultiplier()
     for (let i = 1; i <= 5; i++) {
       const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const
 
@@ -888,9 +898,7 @@ export const visualUpdateBuildings = () => {
         `buildings.per.${tesseractPerSecNames[i - 1]}`,
         {
           amount: format(
-            (G.ascendBuildingProduction as Record<string, Decimal>)[
-              G.ordinals[i - 1]
-            ],
+            calculateTesseractBuildingProduction(i as OneToFive, constantMultiplier),
             2,
             false,
             false
