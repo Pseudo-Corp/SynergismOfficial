@@ -1049,14 +1049,15 @@ export const buyTalismanLevelToMax = (t: TalismanKeys): void => {
 
 const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKeys): number => {
   const talisman = talismans[t]
-  if (!talisman.isUnlocked()) {
+  if (talisman.talismanBaseCoefficient[rune] === 0 || !talisman.isUnlocked()) {
     return 0
   }
 
   let bonusMult = 1
   if (t === 'metaphysics') {
-    bonusMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).talismanEffect
-    bonusMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).extraTalismanEffect
+    const effects = talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']
+    bonusMult *= effects.talismanEffect
+    bonusMult *= effects.extraTalismanEffect
   }
   if (t === 'mortuus') {
     bonusMult *= getAntUpgradeEffect(AntUpgrades.Mortuus2).talismanEffectBuff

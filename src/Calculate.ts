@@ -634,13 +634,13 @@ const getChallengeConstructionDivisor = (type: ConstructionType) => {
   return 1
 }
 
-export const calculateBuildingConstruction = (type: ConstructionType) => {
-  return calculateConstruction() / getChallengeConstructionDivisor(type)
+export const calculateBuildingConstruction = (type: ConstructionType, construction = calculateConstruction()) => {
+  return construction / getChallengeConstructionDivisor(type)
     / corruptionEffect(activeCorruptionLevel(), 'construction')
 }
 
-export const calculateAccelMultConstructionEffect = (type: AccelMultConstructionType) =>
-  Math.sqrt(calculateBuildingConstruction(type))
+export const calculateAccelMultConstructionEffect = (type: AccelMultConstructionType, construction?: number) =>
+  Math.sqrt(calculateBuildingConstruction(type, construction))
 
 const freeAccelMultAdditiveStats = {
   accelerator: freeAcceleratorAdditiveStats,
@@ -700,8 +700,10 @@ export const calculateAcceleratorsPerBoost = () =>
   + 3 * player.researches[20]
   + calculateAcceleratorCubeBlessing()
 
-export const calculateTotalAcceleratorBoost = (freeAcceleratorBoosts = calculateFreeAcceleratorBoosts()) =>
-  getBuildingOwned('acceleratorBoost') + freeAcceleratorBoosts
+export const calculateTotalAcceleratorBoost = (
+  freeAcceleratorBoosts = calculateFreeAcceleratorBoosts(),
+  construction?: number
+) => getBuildingOwned('acceleratorBoost', 0, construction) + freeAcceleratorBoosts
 
 export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()
