@@ -274,7 +274,7 @@
       "ambrosiaBrickOfLead": {
         "name": "铅砖",
         "description": "我总将它藏在帽子里。它每级会降低你 2% 的神肴进度条点数生成速度，但作为补偿，它会赐予你神肴之运！同时，它每级还会使全局速度、拔擢速度和奇点速度减慢 1%。 <<lightgoldenrodyellow| <i>这东西对某个特定的拔擢或许大有裨益…… </i> >>",
-        "effect": "神肴进度条需求x{{blueberryGen}}，神肴之运增加{{luckMult}}。全局、飞升、奇点速度x{{singularitySpeed}}"
+        "effect": "神肴进度条点数需求×{{blueberryGen}}，神肴之运增加{{luckMult}}。全局速度、飞升的速度和奇点速度×{{singularitySpeed}}"
       },
       "ambrosiaFreeLuckUpgrades": {
         "name": "绿而再绿的神肴绿草",
@@ -725,7 +725,7 @@
       "sections": {
         "intro": "介绍",
         "reactor": "紫色恩卡布器升级",
-        "honeyPower": "紫蜜加成升级",
+        "honeyPower": "紫蜜之力升级",
         "resources": "资源升级",
         "miscellaneous": "杂项"
       },
@@ -734,7 +734,7 @@
         "halfLife": "恩卡布器速度",
         "efficiency": "效率",
         "honeyLuck": "紫蜜之运",
-        "requirementReduction": "减少紫色进度条点数上限",
+        "requirementReduction": "减少紫进度条点数上限",
         "lifetimeHoneyBonuses": "紫蜜总数加成"
       },
       "level": "{{current}}/{{max}}",
@@ -793,8 +793,8 @@
       "purpleHalfLife1": {
         "name": "纯天然有机催化剂 I",
         "flavor": "不含任何化学物质！",
-        "effectNotMaxed": "恩卡布器速度 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
-        "effectMaxed": "恩卡布器速度 <<gold|+{{maxValue}}>>。"
+        "effectNotMaxed": "使恩卡布器速度 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
+        "effectMaxed": "使恩卡布器速度 <<gold|+{{maxValue}}>>。"
       },
       "purpleHalfLife2": {
         "name": "纯天然有机催化剂 II",
@@ -811,112 +811,112 @@
       "paperweight": {
         "name": "是成就点数镇纸，老兄",
         "flavor": "真的镇不住纸。",
-        "effectNotMaxed": "This paperweight does nothing, except give you a little AP.",
-        "effectMaxed": "Yup. Still nothing but AP."
+        "effectNotMaxed": "镇纸除了给您成就点数以外，什么用都没有。",
+        "effectMaxed": "嗯。只有成就点数。"
       },
       "purpleCapacityExpander1": {
-        "name": "Reactant Storage Expansion I",
-        "flavor": "More storage means potentially more Purple Honey creation!",
-        "effectNotMaxedAmbrosia": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Ambrosia Bar Point storage capacity.",
-        "effectNotMaxedRed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Red Bar Point storage capacity.",
-        "effectMaxedAmbrosia": "<<gold|+{{maxValue}}>> Ambrosia Bar Point storage capacity.",
-        "effectMaxedRed": "<<gold|+{{maxValue}}>> Red Bar Point storage capacity."
+        "name": "反应物存储延展 I",
+        "flavor": "存储空间越大，就越有可能获得更多紫蜜！",
+        "effectNotMaxedAmbrosia": "使神肴进度条点数存储上限 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
+        "effectNotMaxedRed": "使红进度条点数存储上限 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
+        "effectMaxedAmbrosia": "使神肴进度条点数存储上限 <<gold|+{{maxValue}}>>。",
+        "effectMaxedRed": "使红进度条点数存储上限 <<gold|+{{maxValue}}>>。"
       },
       "purpleCapacityExpander2": {
-        "name": "Reactant Storage Expansion II",
-        "flavor": "Storage does grow on trees!"
+        "name": "反应物存储延展 II",
+        "flavor": "存储空间还真能从树上长出来！"
       },
       "purpleCapacityExpander3": {
-        "name": "Reactant Storage Expansion III",
-        "flavor": "You gotta spend Honey to make (more) Honey."
+        "name": "反应物存储延展 III",
+        "flavor": "欲先取之，必先予之，对紫蜜也适用。"
       },
       "purpleCapacityExpander4": {
-        "name": "Reactant Storage Expansion IV",
-        "flavor": "It's questionable how much more space your Encabulator can take."
+        "name": "反应物存储延展 IV",
+        "flavor": "恩卡布器到底能占据多少空间，实在难以确定。"
       },
       "purpleHoneyRequirementReduction1": {
-        "name": "Purple Bar Size Reduction I",
-        "flavor": "Making the bar shorter makes it fill faster? Why aren't we funding this?",
-        "effectNotMaxed": "<<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> Purple Bar Points required to fill the Purple bar.",
-        "effectMaxed": "<<gold|{{maxPercent}}>> Purple Bar Points required to fill the Purple bar."
+        "name": "减少紫进度条点数上限 I",
+        "flavor": "进度条越短就越快充满？这个项目我们投了！",
+        "effectNotMaxed": "使紫进度条点数需求 <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>。",
+        "effectMaxed": "使紫进度条点数需求 <<gold|{{maxPercent}}>>。"
       },
       "purpleHoneyRequirementReduction2": {
-        "name": "Purple Bar Size Reduction II",
-        "flavor": "More Purple, less wait."
+        "name": "减少紫进度条点数上限 II",
+        "flavor": "更多紫色，更少等待。"
       },
       "purpleHoneyRequirementReduction3": {
-        "name": "Purple Bar Size Reduction III",
-        "flavor": "Is the Purple Bar getting smaller, or am I just getting larger?"
+        "name": "减少紫进度条点数上限 III",
+        "flavor": "是紫进度条变短了，还是我变大了？"
       },
       "purpleHoneyRequirementReduction4": {
-        "name": "Purple Bar Size Reduction IV",
-        "flavor": "Bend space, but not time, to make the Purple Bar fill up faster."
+        "name": "减少紫进度条点数上限 IV",
+        "flavor": "只扭曲空间，不动时间，让紫进度条更快充满。"
       },
       "obtainium": {
-        "name": "Obtainium Purpling",
-        "flavor": "Let me shift the hue down a bit for you.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Obtainium.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Obtainium."
+        "name": "紫化难得素",
+        "flavor": "我来帮你把色相调低一点。",
+        "effectNotMaxed": "使难得素获取数量 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>。",
+        "effectMaxed": "使难得素获取数量 <<gold|+{{maxPercent}}>>。"
       },
       "offerings": {
-        "name": "Offerings but Purple",
-        "flavor": "They're Purple for an amazing reason!",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Offerings.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Offerings."
+        "name": "祭品，但是紫色",
+        "flavor": "它们之所以呈紫色，原因令人惊叹！",
+        "effectNotMaxed": "使祭品获取数量 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>。",
+        "effectMaxed": "使祭品获取数量 <<gold|+{{maxPercent}}>>。"
       },
       "lifetimeHoneyQuarks": {
-        "name": "Honey Power: Quarks",
-        "flavor": "Oh, honey honey!",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Quarks",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Quarks, from your Lifetime Honey stat."
+        "name": "紫蜜之力：夸克",
+        "flavor": "哦，亲爱的蜂蜜！",
+        "effectNotMaxed": "使夸克获取数量 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使夸克获取数量 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyGlobalSpeed": {
-        "name": "Honey Power: Global Speed",
-        "flavor": "We're not going faster, the Earth is just spinning without us.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Global Speed",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Global Speed, from your Lifetime Honey stat."
+        "name": "紫蜜之力：全局速度",
+        "flavor": "我们并未加速，只是地球在独自旋转，没带上我们。",
+        "effectNotMaxed": "使全局速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使全局速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyAscensionSpeed": {
-        "name": "Honey Power: Ascension Speed",
-        "flavor": "The flavor of this Honey is ascendent.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ascension Speed",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ascension Speed, from your Lifetime Honey stat."
+        "name": "紫蜜之力：飞升的速度",
+        "flavor": "这种紫蜜的味道十分出众。",
+        "effectNotMaxed": "使飞升的速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使飞升的速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyAmbrosia": {
-        "name": "Honey Power: Ambrosia",
-        "flavor": "Lathering your Ambrosia with Honey is like putting bacon on your hotdog.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ambrosia Bar Points",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Points, from your Lifetime Honey stat."
+        "name": "紫蜜之力：神肴",
+        "flavor": "紫蜜和神肴，就像豆浆油条一样绝配。",
+        "effectNotMaxed": "使神肴进度条点数获取速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使神肴进度条点数获取速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyRedAmbrosia": {
-        "name": "Honey Power: Red Ambrosia",
-        "flavor": "Lathering your Red Ambrosia with Honey is like putting red bacon on your red hotdog. Wait.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Red Bar Points",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Red Bar Points, from your Lifetime Honey stat."
+        "name": "紫蜜之力：红神肴",
+        "flavor": "紫蜜和红神肴，就像红豆浆和红油条……等等，不对。",
+        "effectNotMaxed": "使红进度条点数获取速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使红进度条点数获取速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyAntELO": {
-        "name": "Honey Power: Ant ELO",
-        "flavor": "Honey attracts Ants better than your Galactic Crumbs do.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ant ELO",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ant ELO, from your Lifetime Honey stat."
+        "name": "紫蜜之力：蚂蚁强度分",
+        "flavor": "紫蜜比银河碎屑还能吸引蚂蚁。",
+        "effectNotMaxed": "使蚂蚁强度分 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使蚂蚁强度分 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyRebornELOSpeed": {
-        "name": "Honey Power: Reborn ELO Speed",
-        "flavor": "Too much honey will have you catching up to Ant God quicker.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Reborn ELO Speed",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Reborn ELO Speed, from your Lifetime Honey stat."
+        "name": "紫蜜之力：重生强度分的产生速度",
+        "flavor": "吃多一些紫蜜，就能更快追上蚁神。",
+        "effectNotMaxed": "使重生强度分的产生速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使重生强度分的产生速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "purpleQuarkGain": {
-        "name": "Lab-Grown Quarks",
-        "flavor": "Looks, feels, tastes and <i>is</i> just like a Quark.",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Quarks per extracted Purple Honey",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Quarks per extracted Purple Honey",
-        "disclaimer": "<<gold | ⚠>> This perk only works if your current Singularity is at least 1 hour long, and you are not in the 'Bar Charging' EXALT! The lab takes some time warming up, after all."
+        "name": "实验室培育的夸克",
+        "flavor": "外观、触感、味道乃至<i>本质</i>，都是夸克。",
+        "effectNotMaxed": "每次提取紫蜜时 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>夸克",
+        "effectMaxed": "每次提取紫蜜时 <<gold|+{{maxValue}}>>夸克",
+        "disclaimer": "<<gold | ⚠>>该加成只有在当前奇点至少持续1个小时，且并未进行“进度条填充”拔擢时生效！实验室预热毕竟是需要一些时间的。"
       }
     }
   },
   "achievements": {
-    "showProgressDetails": "Show achievement progress details",
+    "showProgressDetails": "显示成就进度详情",
     "descriptions": {
       "0": "成就猎人: 打开成就界面。",
       "1": "一个忠实的雇员：雇佣第1个工人。",
