@@ -541,14 +541,14 @@
         "description": "我将用最直白、最直接、最不绕弯子的方式告诉你：做不到。",
         "effectNotMaxed": "当紫进度条充满后：获得 <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> 神肴进度条点数。",
         "effectNotMaxed2": "当紫进度条充满后：获得 <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> 红进度条点数。",
-        "effectMaxed": "当紫进度条充满后：获得 <<gold|{{maxValue}}>>神肴进度条点数。",
+        "effectMaxed": "当紫进度条充满后：获得<<gold|{{maxValue}}>>神肴进度条点数。",
         "effectMaxed2": "当紫进度条充满后：获得<<gold|{{maxValue}}>>红进度条点数。"
       },
       "cancer": {
         "name": "巨蟹座",
         "description": "与双子座特别合得来。",
         "effectNotMaxed": "当神肴进度条或红进度条充满后：获得 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> 紫进度条点数。",
-        "effectMaxed": "当神肴进度条或红进度条充满后：获得<<gold|+{{maxValue}}>>紫进度条点数。"
+        "effectMaxed": "当神肴进度条或红进度条充满后：获得<<gold|{{maxValue}}>>紫进度条点数。"
       },
       "leo": {
         "name": "狮子座",
@@ -565,14 +565,14 @@
       "libra": {
         "name": "天秤座",
         "description": "强烈反感：养老基金里的违规操作。",
-        "effectNotMaxed": "您<<silver|无法→>><<gold|可以>>启用恩卡布器的溢出反应。启用后，当一种反应物达到上限，另一种仍有余量时，达到上限的一方停止产生，并按正常反应比例消耗另一种反应物来维持反应，效率为正常的10%。",
-        "effectMaxed": "您可以启用恩卡布器的溢出反应。启用后，当一种反应物达到上限，另一种仍有余量时，达到上限的一方停止产生，并按正常反应比例消耗另一种反应物来维持反应，效率为正常的10%。"
+        "effectNotMaxed": "您<<silver|无法→>><<gold|可以>>启用恩卡布器的溢出反应。启用后，超过上限的部分以正常反应比例与另一种反应物(需要不为0)进行反应，效率为正常的10%。其余部分正常反应。",
+        "effectMaxed": "您可以启用恩卡布器的溢出反应。启用后，超过上限的部分以正常反应比例与另一种反应物(需要不为0)进行反应，效率为正常的10%。其余部分正常反应。"
       },
       "scorpio": {
         "name": "天蝎座",
         "description": "渴望享用您平日的神肴。",
-        "effectNotMaxed": "紫色反应转换效率：神肴进度条点数和紫进度条点数增加 <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>。不影响红进度条点数！",
-        "effectMaxed": "紫色反应转换效率：神肴进度条点数和紫进度条点数增加<<gold|{{maxPercent}}>>。不影响红进度条点数！"
+        "effectNotMaxed": "紫色反应转换效率：参与反应的神肴进度条点数和紫进度条点数增加 <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>。不影响红进度条点数！",
+        "effectMaxed": "紫色反应转换效率：参与反应的神肴进度条点数和紫进度条点数增加<<gold|{{maxPercent}}>>。不影响红进度条点数！"
       },
       "sagittarius": {
         "name": "射手座",
@@ -593,35 +593,35 @@
       "aquarius": {
         "name": "水瓶座",
         "description": "神秘水晶的启示，以及真正的，心之解放。",
-        "effectNotMaxed": "计算全局方盒倍率时，“无限转录一心”可以使“一心”飞升的速度指数增加 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。仅在飞升的速度至少为1时生效。",
-        "effectMaxed": "计算全局方盒倍率时，“无限转录一心”可以使“一心”飞升的速度指数增加<<gold|+{{maxValue}}>>。仅在飞升的速度至少为1时生效。"
+        "effectNotMaxed": "计算全局方盒倍率时，“无限转录一心”可以使“一心”飞升的速度指数 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。仅在飞升的速度至少为1时生效。",
+        "effectMaxed": "计算全局方盒倍率时，“无限转录一心”可以使“一心”飞升的速度指数<<gold|+{{maxValue}}>>。仅在飞升的速度至少为1时生效。"
       },
       "pisces": {
         "name": "双鱼座",
-        "description": "Platonic's a Pisces. Pass it on.",
-        "effectNotMaxed": "You <<silver|don't →>> <<gold|will>> start Singularities with Platonic BETA!",
-        "effectMaxed": "You <<gold|start>> Singularities with Platonic BETA!"
+        "description": "Platonic是双鱼座的。传下去。",
+        "effectNotMaxed": "进入奇点后，您<<silver|不能→>><<gold|可以>>立刻获得PLATONIC·贝塔！",
+        "effectMaxed": "进入奇点后，您<<gold|可以>>立刻获得PLATONIC·贝塔！"
       }
     }
   },
   "purpleReactor": {
-    "purpleHoneyAmount": "You have <<var(--purple-text-color)|{{amount}}>> Purple Honey (<<var(--purple-text-color)|{{lifetimeAmount}}>> Lifetime)",
-    "highestPurpleHoney": "Most Purple Honey at once: <<var(--purple-text-color)|{{amount}}>>",
-    "lifetimePurpleHoneyQuarks": "<<cyan|Quarks +{{amount}}>>",
-    "lifetimePurpleHoneyGlobalSpeed": "<<lightskyblue|Global Speed +{{amount}}>>",
-    "lifetimePurpleHoneyAscensionSpeed": "<<orange|Ascension Speed +{{amount}}>>",
-    "lifetimePurpleHoneyAmbrosia": "<<lightblue|Ambrosia Bar Points +{{amount}}>>",
-    "lifetimePurpleHoneyRedAmbrosia": "<<red|Red Bar Points +{{amount}}>>",
-    "lifetimePurpleHoneyAntELO": "<<orchid|Ant ELO +{{amount}}>>",
-    "lifetimePurpleHoneyRebornELOSpeed": "<<#00DDFF|Reborn ELO Speed +{{amount}}>>",
+    "purpleHoneyAmount": "您有<<var(--purple-text-color)|{{amount}}>>紫蜜(总数为<<var(--purple-text-color)|{{lifetimeAmount}}>>)",
+    "highestPurpleHoney": "单次最多的紫蜜数量：<<var(--purple-text-color)|{{amount}}>>",
+    "lifetimePurpleHoneyQuarks": "<<cyan|夸克获取数量 +{{amount}}>>",
+    "lifetimePurpleHoneyGlobalSpeed": "<<lightskyblue|全局速度 +{{amount}}>>",
+    "lifetimePurpleHoneyAscensionSpeed": "<<orange|飞升的速度 +{{amount}}>>",
+    "lifetimePurpleHoneyAmbrosia": "<<lightblue|神肴进度条点数获取速度 +{{amount}}>>",
+    "lifetimePurpleHoneyRedAmbrosia": "<<red|红进度条点数获取速度 +{{amount}}>>",
+    "lifetimePurpleHoneyAntELO": "<<orchid|蚂蚁强度分 +{{amount}}>>",
+    "lifetimePurpleHoneyRebornELOSpeed": "<<#00DDFF|重生强度分的产生速度 +{{amount}}>>",
     "header": {
-      "title": "Chroma-Encabulator",
-      "subtitle": "The Grand, Fantabulous",
-      "reactionLabel": "Reaction (Bar Points)",
-      "reaction": "<<lightblue|{{ambrosia}} Ambrosia>> + <<red|{{redAmbrosia}} Red>> → <<var(--purple-text-color)|{{purple}} Purple>>",
-      "ariesModifier": "Aries: <<gold|+{{percent}}>> Purple output",
-      "scorpioModifier": "Scorpio: <<gold|+{{percent}}>> Ambrosia cost and Purple output",
-      "speedLabel": "Encabulator Speed",
+      "title": "色度-恩卡布器",
+      "subtitle": "宏伟而奇妙绝伦",
+      "reactionLabel": "反应(进度条点数)",
+      "reaction": "<<lightblue|{{ambrosia}}神肴>>+<<red|{{redAmbrosia}}红神肴>>→<<var(--purple-text-color)|{{purple}}紫神肴>>",
+      "ariesModifier": "白羊座：紫神肴产量<<gold|+{{percent}}>>",
+      "scorpioModifier": "天蝎座：神肴花费和紫神肴产量<<gold|+{{percent}}>>",
+      "speedLabel": "恩卡布器速度",
       "speed": "<<gold|{{speed}}%>> Ambrosia capacity / hour",
       "maximumDraw": "Maximum draw: <<lightblue|{{ambrosia}} Ambrosia BP/s>> and <<red|{{redAmbrosia}} Red BP/s>>",
       "overflowLabel": "Libra overflow"
