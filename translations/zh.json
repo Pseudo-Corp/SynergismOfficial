@@ -570,31 +570,31 @@
       },
       "scorpio": {
         "name": "天蝎座",
-        "description": "Hungers for your regular Ambrosia.",
-        "effectNotMaxed": "Purple Reactor Conversion: <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> more Ambrosia Bar Points and Purple Bar Points. Red Bar Points are left alone!",
-        "effectMaxed": "Purple Reactor Conversion: <<gold|{{maxPercent}}>> more Ambrosia Bar Points and Purple Bar Points. Red Bar Points are left alone!"
+        "description": "渴望享用您平日的神肴。",
+        "effectNotMaxed": "紫色反应转换效率：神肴进度条点数和紫进度条点数增加 <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>。不影响红进度条点数！",
+        "effectMaxed": "紫色反应转换效率：神肴进度条点数和紫进度条点数增加<<gold|{{maxPercent}}>>。不影响红进度条点数！"
       },
       "sagittarius": {
         "name": "射手座",
-        "description": "A horse is a horse, of course. Horse!",
-        "effectNotPurchased": "Unlock a new Horseshoe rune! Boosts Ambrosia Luck, Red Luck and Purple Honey Luck.",
-        "effectPurchased": "You've unlocked a Horseshoe rune!",
-        "effect2NotMaxed": "Horseshoe Rune Coefficient: <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>",
-        "effect2Maxed": "Horseshoe Rune Coefficient: <<gold|+{{maxValue}}>>"
+        "description": "马就是马，理所当然。马！",
+        "effectNotPurchased": "解锁新的马蹄铁符文！它可以增加神肴之运、红运和紫蜜之运。",
+        "effectPurchased": "您解锁了马蹄铁符文！",
+        "effect2NotMaxed": "马蹄铁符文的符文系数：<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>",
+        "effect2Maxed": "马蹄铁符文的符文系数：<<gold|+{{maxValue}}>>"
       },
       "capricorn": {
         "name": "摩羯座",
-        "description": "Has a horse shoe that only a Sagittarius could love.",
-        "effectNotPurchased": "Unlock a new Horse Shoe talisman! Boosts Ambrosia Luck and Red Luck!",
-        "effectPurchased": "You've unlocked a Horse Shoe talisman! Don't forget the Red Luck Mythic Signature.",
-        "effect2NotMaxed": "Antiquities of Ant God Coefficient: <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>",
-        "effect2Maxed": "Antiquities of Ant God Coefficient: <<gold|+{{maxValue}}>>"
+        "description": "拥有只有射手座才会喜欢的马蹄铁。",
+        "effectNotPurchased": "解锁新的马蹄铁护身符！它可以增加神肴之运和红运！",
+        "effectPurchased": "您解锁了马蹄铁护身符！别忘了签名的红运加成。",
+        "effect2NotMaxed": "蚁神之古物的符文系数：<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>",
+        "effect2Maxed": "蚁神之古物的符文系数：<<gold|+{{maxValue}}>>"
       },
       "aquarius": {
         "name": "水瓶座",
-        "description": "Mystic crystal revelation, and the MIND's true liberation.",
-        "effectNotMaxed": "'Infinite Transcription of the One Mind' adds <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> to One Mind's Ascension Speed exponent for the global cube multiplier. Applies only when Ascension Speed is at least 1.",
-        "effectMaxed": "'Infinite Transcription of the One Mind' adds <<gold|+{{maxValue}}>> to One Mind's Ascension Speed exponent for the global cube multiplier. Applies only when Ascension Speed is at least 1."
+        "description": "神秘水晶的启示，以及真正的，心之解放。",
+        "effectNotMaxed": "计算全局方盒倍率时，“无限转录一心”可以使“一心”飞升的速度指数增加 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。仅在飞升的速度至少为1时生效。",
+        "effectMaxed": "计算全局方盒倍率时，“无限转录一心”可以使“一心”飞升的速度指数增加<<gold|+{{maxValue}}>>。仅在飞升的速度至少为1时生效。"
       },
       "pisces": {
         "name": "双鱼座",
@@ -6718,7 +6718,7 @@
         "name": "马蹄铁",
         "description": "这下真的是马儿的鞋子了！",
         "inscription": "<<gold|铭文>>：使神肴之运增加<<gold|{{val}}%>>。",
-        "signature": "<<crimson|签名>> 签名：使红运增加<<crimson|{{val}}>>。"
+        "signature": "<<crimson|签名>>：使红运增加<<crimson|{{val}}>>。"
       },
       "purpleGem": {
         "name": "Purple Gem",
