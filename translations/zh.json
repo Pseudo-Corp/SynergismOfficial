@@ -61,7 +61,7 @@
     "prerequisite": "前提条件：",
     "prereqNotMet": "（未满足！）",
     "prerequisiteDetails": {
-      "heading": "Prerequisites (purchased levels):",
+      "heading": "前提条件（已购买等级）：",
       "levels": "{{current}}/{{required}}"
     },
     "blueberryCost": "启用花费蓝莓：",
