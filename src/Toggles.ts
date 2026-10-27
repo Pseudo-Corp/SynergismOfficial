@@ -153,7 +153,7 @@ export const toggleChallenges = (i: number, auto = false) => {
     }
   }
   updateChallengeDisplay()
-  getChallengeConditions(i)
+  getChallengeConditions()
 
   if (i <= 10 && !auto && player.autoChallengeRunning) {
     toggleAutoChallengeRun()

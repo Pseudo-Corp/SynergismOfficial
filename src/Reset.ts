@@ -68,7 +68,16 @@ import {
   getGQUpgradeEffect
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
+import {
+  blankSave,
+  calculatePrestigePointGain,
+  calculateReincarnationPointGain,
+  calculateTranscendPointGain,
+  deepClone,
+  format,
+  player,
+  saveSynergy
+} from './Synergism'
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
@@ -177,7 +186,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
 
   switch (input) {
     case 'prestige':
-      addCurrencyReward('Diamond.png', `+${format(G.prestigePointGain)}`)
+      addCurrencyReward('Diamond.png', `+${format(calculatePrestigePointGain())}`)
       resetDetails.infoText = i18next.t('reset.details.prestige', {
         amount: format(player.coinsThisPrestige),
         timeSpent: format(player.prestigecounter)
@@ -185,7 +194,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.infoColor = 'turquoise'
       break
     case 'transcension':
-      addCurrencyReward('Mythos.png', `+${format(G.transcendPointGain)}`)
+      addCurrencyReward('Mythos.png', `+${format(calculateTranscendPointGain())}`)
       resetDetails.infoText = i18next.t('reset.details.transcension', {
         amount: format(player.coinsThisTranscension),
         timeSpent: format(player.transcendcounter)
@@ -193,7 +202,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.infoColor = 'var(--orchid-text-color)'
       break
     case 'reincarnation':
-      addCurrencyReward('Particle.png', `+${format(G.reincarnationPointGain)}`)
+      addCurrencyReward('Particle.png', `+${format(calculateReincarnationPointGain())}`)
       addCurrencyReward('Obtainium.png', format(Decimal.floor(calculateObtainium())))
       resetDetails.infoText = i18next.t('reset.details.reincarnation', {
         amount: format(player.transcendShards),
@@ -312,7 +321,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
       date: Date.now(),
       offerings: offeringsGiven,
       kind: 'prestige',
-      diamonds: G.prestigePointGain.toString()
+      diamonds: calculatePrestigePointGain().toString()
     }
 
     resetHistoryAdd('reset', historyEntry)
@@ -324,7 +333,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         date: Date.now(),
         offerings: offeringsGiven,
         kind: 'transcend',
-        mythos: G.transcendPointGain.toString()
+        mythos: calculateTranscendPointGain().toString()
       }
 
       resetHistoryAdd('reset', historyEntry)
@@ -337,7 +346,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         date: Date.now(),
         offerings: offeringsGiven,
         kind: 'reincarnate',
-        particles: G.reincarnationPointGain.toString(),
+        particles: calculateReincarnationPointGain().toString(),
         obtainium: obtainiumGiven
       }
 
@@ -416,6 +425,9 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
   resetAddHistoryEntry(input, from)
 
+  const prestigePointGain = calculatePrestigePointGain()
+  const transcendPointGain = calculateTranscendPointGain()
+  const reincarnationPointGain = calculateReincarnationPointGain()
   const transcensionCheck = player.coinsThisTranscension.gte(G.d1e100)
   const reincarnationCheck = player.transcendShards.gte(G.d1e300)
   const obtainiumToGain = calculateObtainium()
@@ -446,7 +458,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
   updatePrestigeCount(1)
 
-  player.prestigePoints = player.prestigePoints.add(G.prestigePointGain)
+  player.prestigePoints = player.prestigePoints.add(prestigePointGain)
   player.prestigeShards = new Decimal()
   player.prestigenoaccelerator = true
   player.prestigenomultiplier = true
@@ -474,8 +486,6 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.fastestprestige = player.prestigecounter
   }
 
-  G.prestigePointGain = new Decimal()
-
   player.prestigecounter = 0
   G.autoResetTimers.prestige = 0
 
@@ -501,14 +511,12 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     awardAchievementGroup('transcensionCount')
 
     player.prestigePoints = new Decimal()
-    player.transcendPoints = player.transcendPoints.add(G.transcendPointGain)
+    player.transcendPoints = player.transcendPoints.add(transcendPointGain)
     player.transcendShards = new Decimal()
     player.transcendnocoinupgrades = true
     player.transcendnocoinorprestigeupgrades = true
     player.transcendnoaccelerator = true
     player.transcendnomultiplier = true
-
-    G.transcendPointGain = new Decimal()
 
     for (let i = 1; i <= 5; i++) {
       if (getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy`) === 1) {
@@ -569,7 +577,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
     player.transcendPoints = new Decimal()
     if (awardReincarnationPoints) {
-      player.reincarnationPoints = player.reincarnationPoints.add(G.reincarnationPointGain)
+      player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain)
     }
     player.reincarnationShards = new Decimal()
     player.challengecompletions[1] = 0
@@ -577,8 +585,6 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.challengecompletions[3] = 0
     player.challengecompletions[4] = 0
     player.challengecompletions[5] = 0
-
-    G.reincarnationPointGain = new Decimal()
 
     if (getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       player.challengecompletions[1] = player.highestchallengecompletions[1]

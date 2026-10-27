@@ -163,7 +163,10 @@ import {
   calculateMultiplierBoosts,
   calculateMythosProduction,
   calculateParticleProduction,
+  calculatePrestigePointGain,
+  calculateReincarnationPointGain,
   calculateTesseractBuildingProduction,
+  calculateTranscendPointGain,
   format,
   formatAsPercentIncrease,
   formatDecimalAsPercentIncrease,
@@ -700,7 +703,7 @@ export const visualUpdateBuildings = () => {
     if (player.resetToggleModes.prestige === AutoResetModes.amount) {
       const p = Decimal.pow(
         10,
-        Decimal.log(G.prestigePointGain.add(1), 10)
+        Decimal.log(calculatePrestigePointGain().add(1), 10)
           - Decimal.log(player.prestigePoints.sub(1), 10)
       )
       DOMCacheGetOrSet('autoprestige').textContent = i18next.t(
@@ -774,7 +777,7 @@ export const visualUpdateBuildings = () => {
           mult: format(
             Decimal.pow(
               10,
-              Decimal.log(G.transcendPointGain.add(1), 10)
+              Decimal.log(calculateTranscendPointGain().add(1), 10)
                 - Decimal.log(player.transcendPoints.add(1), 10)
             ),
             2,
@@ -862,7 +865,7 @@ export const visualUpdateBuildings = () => {
           mult: format(
             Decimal.pow(
               10,
-              Decimal.log(G.reincarnationPointGain.add(1), 10)
+              Decimal.log(calculateReincarnationPointGain().add(1), 10)
                 - Decimal.log(player.reincarnationPoints.add(1), 10)
             ),
             2,

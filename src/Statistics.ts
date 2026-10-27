@@ -208,6 +208,7 @@ import {
   calculateMultiplierStats,
   calculateRefineryAlchemyExponent,
   calculateRefineryAlchemyMultiplier,
+  calculateReincarnationPointGain,
   format,
   formatAsPercentIncrease,
   player
@@ -2287,7 +2288,7 @@ export const allObtainiumStats: DecimalStatLineCategory = {
       i18n: 'ReincarnationUpgrade9',
       stat: () =>
         (player.upgrades[69] > 0)
-          ? Math.min(10, Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5).toNumber())
+          ? Math.min(10, Decimal.pow(Decimal.log(calculateReincarnationPointGain().add(10), 10), 0.5).toNumber())
           : 1 // Reincarnation Upgrade 9
     },
     {
@@ -2459,7 +2460,7 @@ export const allObtainiumStatsProduct = () =>
     .mul(getLevelReward('obtainium'))
     .mul(
       (player.upgrades[69] > 0)
-        ? Math.min(10, Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5).toNumber())
+        ? Math.min(10, Decimal.pow(Decimal.log(calculateReincarnationPointGain().add(10), 10), 0.5).toNumber())
         : 1
     )
     .mul((player.upgrades[72] > 0) ? Math.min(50, 1 + 2 * sumContents(player.challengecompletions.slice(6, 11))) : 1)

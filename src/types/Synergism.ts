@@ -562,13 +562,6 @@ export interface GlobalVariables {
   crystalUpgradesCost: number[]
   crystalUpgradeCostIncrement: number[]
 
-  prestigePointGain: Decimal
-
-  transcendPointGain: Decimal
-  reincarnationPointGain: Decimal
-
-  producePerSecondDiamonds: Decimal
-
   currentTab: Tabs
 
   ordinals: readonly [

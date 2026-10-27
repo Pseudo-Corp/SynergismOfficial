@@ -2980,20 +2980,19 @@ export const resourceGain = (dt: number): void => {
     player.coinsTotal = player.coinsTotal.add(addcoin)
   }
 
-  resetCurrency(accelMultStats.acceleratorEffect)
   if (player.upgrades[93] === 1 && player.coinsThisPrestige.gte(G.d1e16)) {
     player.prestigePoints = player.prestigePoints.add(
-      Decimal.floor(G.prestigePointGain.dividedBy(4000).times(dt / 0.025))
+      Decimal.floor(calculatePrestigePointGain(accelMultStats.acceleratorEffect).dividedBy(4000).times(dt / 0.025))
     )
   }
   if (player.upgrades[100] === 1 && player.coinsThisTranscension.gte(G.d1e100)) {
     player.transcendPoints = player.transcendPoints.add(
-      Decimal.floor(G.transcendPointGain.dividedBy(4000).times(dt / 0.025))
+      Decimal.floor(calculateTranscendPointGain().dividedBy(4000).times(dt / 0.025))
     )
   }
   if (player.cubeUpgrades[28] > 0 && player.transcendShards.gte(G.d1e300)) {
     player.reincarnationPoints = player.reincarnationPoints.add(
-      Decimal.floor(G.reincarnationPointGain.dividedBy(4000).times(dt / 0.025))
+      Decimal.floor(calculateReincarnationPointGain().dividedBy(4000).times(dt / 0.025))
     )
   }
   const diamondProduction = calculateDiamondProduction(crystalMultiplier, diamondsOwned)
@@ -3147,69 +3146,66 @@ export const resourceGain = (dt: number): void => {
   }
 }
 
-export const resetCurrency = (acceleratorEffect: Decimal): void => {
-  let prestigePow = 0.5 + player.challengecompletions[5] / 100
-  let transcendPow = 0.03
+const prestigeAcceleratorMultiplierCap = Decimal.pow(10, 1e33)
 
-  // Calculates the conversion exponent for resets (Challenges 5 and 10 reduce the exponent accordingly).
+export const calculatePrestigePointGain = (acceleratorEffect?: Decimal) => {
+  let prestigePow = 0.5 + player.challengecompletions[5] / 100
   if (player.currentChallenge.transcension === 5) {
     prestigePow = 0.01
   }
   if (player.currentChallenge.reincarnation === 10) {
     prestigePow = 1e-4
-    transcendPow = 0.001
   }
-  prestigePow *= challenge15CorruptionEffect('deflation')
-  // Prestige Point Formulae
-  G.prestigePointGain = Decimal.floor(
-    Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow)
+  const deflation = challenge15CorruptionEffect('deflation')
+  const gain = Decimal.floor(
+    Decimal.pow(player.coinsThisPrestige.dividedBy(1e12), prestigePow * deflation)
   )
   if (
-    player.upgrades[16] > 0.5
-    && player.currentChallenge.transcension !== 5
-    && player.currentChallenge.reincarnation !== 10
+    gain.eq(0)
+    || player.upgrades[16] < 0.5
+    || player.currentChallenge.transcension === 5
+    || player.currentChallenge.reincarnation === 10
   ) {
-    G.prestigePointGain = G.prestigePointGain.times(
-      Decimal.min(
-        Decimal.pow(10, 1e33),
-        Decimal.pow(
-          acceleratorEffect,
-          (1 / 3) * challenge15CorruptionEffect('deflation')
-        )
-      )
-    )
+    return gain
   }
+  return gain.times(
+    Decimal.min(
+      prestigeAcceleratorMultiplierCap,
+      Decimal.pow(acceleratorEffect ?? calculateAcceleratorStats().acceleratorEffect, deflation / 3)
+    )
+  )
+}
 
-  // Transcend Point Formulae
-  G.transcendPointGain = Decimal.floor(
+export const calculateTranscendPointGain = () => {
+  const transcendPow = player.currentChallenge.reincarnation === 10 ? 0.001 : 0.03
+  const gain = Decimal.floor(
     Decimal.pow(player.coinsThisTranscension.dividedBy(1e100), transcendPow)
   )
   if (
-    player.upgrades[44] > 0.5
-    && player.currentChallenge.transcension !== 5
-    && player.currentChallenge.reincarnation !== 10
+    player.upgrades[44] < 0.5
+    || player.currentChallenge.transcension === 5
+    || player.currentChallenge.reincarnation === 10
   ) {
-    G.transcendPointGain = G.transcendPointGain.times(
-      Decimal.min(1e6, Decimal.pow(1.01, player.transcendCount))
-    )
+    return gain
   }
+  return gain.times(Decimal.min(1e6, Decimal.pow(1.01, player.transcendCount)))
+}
 
-  // Reincarnation Point Formulae
-  G.reincarnationPointGain = Decimal.floor(
+export const calculateReincarnationPointGain = () => {
+  if (player.currentChallenge.ascension === 12) {
+    return new Decimal()
+  }
+  let gain = Decimal.floor(
     Decimal.pow(player.transcendShards.dividedBy(1e300), 0.01)
   )
   if (player.currentChallenge.reincarnation !== 0) {
-    G.reincarnationPointGain = Decimal.pow(G.reincarnationPointGain, 0.01)
+    gain = Decimal.pow(gain, 0.01)
   }
-  G.reincarnationPointGain = G.reincarnationPointGain.times(
-    +getAchievementReward('particleGain')
-  )
+  gain = gain.times(+getAchievementReward('particleGain'))
   if (player.upgrades[65] > 0.5) {
-    G.reincarnationPointGain = G.reincarnationPointGain.times(5)
+    gain = gain.times(5)
   }
-  if (player.currentChallenge.ascension === 12) {
-    G.reincarnationPointGain = new Decimal()
-  }
+  return gain
 }
 
 export const resetCheck = async (
@@ -3218,7 +3214,7 @@ export const resetCheck = async (
   leaving = false
 ): Promise<void> => {
   if (i === 'prestige') {
-    if (player.coinsThisPrestige.gte(G.d1e16) || G.prestigePointGain.gte(G.d100)) {
+    if (player.coinsThisPrestige.gte(G.d1e16) || calculatePrestigePointGain().gte(G.d100)) {
       if (manual) {
         void resetConfirmation('prestige')
       } else {
@@ -3230,7 +3226,7 @@ export const resetCheck = async (
   if (i === 'transcension') {
     if (
       (player.coinsThisTranscension.gte(G.d1e100)
-        || G.transcendPointGain.gte(G.d0_5))
+        || calculateTranscendPointGain().gte(G.d0_5))
       && player.currentChallenge.transcension === 0
     ) {
       if (manual) {
@@ -3293,7 +3289,7 @@ export const resetCheck = async (
 
   if (i === 'reincarnation') {
     if (
-      G.reincarnationPointGain.gt(G.d0_5)
+      calculateReincarnationPointGain().gt(G.d0_5)
       && player.currentChallenge.transcension === 0
       && player.currentChallenge.reincarnation === 0
     ) {
@@ -4126,7 +4122,7 @@ const tack = (dt: number) => {
       player.toggles[15]
       && getLevelMilestone('autoPrestige') === 1
       && player.coinsThisPrestige.gte(G.d1e16)
-      && G.prestigePointGain.gte(
+      && calculatePrestigePointGain().gte(
         player.prestigePoints.times(Decimal.pow(10, player.prestigeamount))
       )
     ) {
@@ -4154,7 +4150,7 @@ const tack = (dt: number) => {
       && player.upgrades[89] === 1
       && player.currentChallenge.transcension === 0
       && player.coinsThisTranscension.gte(G.d1e100)
-      && G.transcendPointGain.gte(
+      && calculateTranscendPointGain().gte(
         player.transcendPoints.times(Decimal.pow(10, player.transcendamount))
       )
     ) {
@@ -4200,7 +4196,7 @@ const tack = (dt: number) => {
         && player.currentChallenge.transcension === 0
         && player.currentChallenge.reincarnation === 0
         && player.transcendShards.gte(G.d1e300)
-        && G.reincarnationPointGain.gte(
+        && calculateReincarnationPointGain().gte(
           player.reincarnationPoints
             .add(1)
             .times(Decimal.pow(10, player.reincarnationamount))

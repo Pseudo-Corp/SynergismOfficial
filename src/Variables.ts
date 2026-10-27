@@ -51,13 +51,6 @@ export const Globals: GlobalVariables = {
   crystalUpgradesCost: [6, 15, 20, 40, 100, 200, 500, 1000],
   crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
 
-  prestigePointGain: new Decimal(),
-
-  transcendPointGain: new Decimal(),
-  reincarnationPointGain: new Decimal(),
-
-  producePerSecondDiamonds: new Decimal(),
-
   currentTab: Tabs.Buildings,
 
   // dprint-ignore
