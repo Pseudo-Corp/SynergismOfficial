@@ -534,37 +534,37 @@
         "name": "金牛座",
         "description": "这税，绝对是狗——够呛！",
         "effectNotMaxed": "使税收除以 <<silver|{{oldValue}} →>> <<gold|{{newValue}}>>。",
-        "effectMaxed": "Taxes are divided by <<gold|{{maxValue}}>>."
+        "effectMaxed": "使税收除以<<gold|{{maxValue}}>>。"
       },
       "gemini": {
         "name": "双子座",
         "description": "我将用最直白、最直接、最不绕弯子的方式告诉你：做不到。",
-        "effectNotMaxed": "当紫进度条充满后：<<silver|{{oldValue}} →>> <<gold|{{newValue}}>> 神肴进度条点数。",
-        "effectNotMaxed2": "On Purple Bar Fill: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Red Ambrosia Bar Points.",
-        "effectMaxed": "On Purple Bar Fill: <<gold|{{maxValue}}>> Ambrosia Bar Points.",
-        "effectMaxed2": "On Purple Bar Fill: <<gold|{{maxValue}}>> Red Ambrosia Bar Points."
+        "effectNotMaxed": "当紫进度条充满后：获得 <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> 神肴进度条点数。",
+        "effectNotMaxed2": "当紫进度条充满后：获得 <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> 红进度条点数。",
+        "effectMaxed": "当紫进度条充满后：获得 <<gold|{{maxValue}}>>神肴进度条点数。",
+        "effectMaxed2": "当紫进度条充满后：获得<<gold|{{maxValue}}>>红进度条点数。"
       },
       "cancer": {
         "name": "巨蟹座",
-        "description": "Particularly compatible with Gemini.",
+        "description": "与双子座特别合得来。",
         "effectNotMaxed": "当神肴进度条或红进度条充满后：获得 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> 紫进度条点数。",
-        "effectMaxed": "On Ambrosia or Red Bar fill: Gain <<gold|+{{maxValue}}>> Purple Bar Points."
+        "effectMaxed": "当神肴进度条或红进度条充满后：获得<<gold|+{{maxValue}}>>紫进度条点数。"
       },
       "leo": {
         "name": "狮子座",
-        "description": "Particularly likes to forage blueberries.",
-        "effectNotMaxed": "If you have at least five unassigned Blueberries: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Ambrosia Luck per unassigned Blueberry (Current: <<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>).",
-        "effectMaxed": "If you have at least five unassigned Blueberries: <<gold|{{maxValue}}>> Ambrosia Luck per unassigned Blueberry (Current: <<gold|{{maxValue2}}>>)."
+        "description": "特别喜欢采食蓝莓。",
+        "effectNotMaxed": "如果您至少有五个未花费的蓝莓：每个未花费的蓝莓增加 <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> 神肴之运(当前效果：<<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>)。",
+        "effectMaxed": "如果您至少有五个未花费的蓝莓：每个未花费的蓝莓增加<<gold|{{maxValue}}>>神肴之运(当前效果：<<gold|{{maxValue2}}>>)。"
       },
       "virgo": {
         "name": "处女座",
-        "description": "It was the best of times. It still is, but it used to too.",
-        "effectNotMaxed": "For each assigned Blueberry: <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> Salvage (Current: <<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>).",
-        "effectMaxed": "For each assigned Blueberry: <<gold|{{maxValue}}>> Salvage (Current: <<gold|{{maxValue2}}>>)."
+        "description": "那是最好的时代。现在还是，不过，以前也是。",
+        "effectNotMaxed": "每个已花费的蓝莓：<<silver|{{oldValue}} →>> <<gold|{{newValue}}>> 回收(当前效果：<<silver|{{oldValue2}} →>> <<gold|{{newValue2}}>>)。",
+        "effectMaxed": "每个已花费的蓝莓：<<gold|{{maxValue}}>>回收(当前效果：<<gold|{{maxValue2}}>>)。"
       },
       "libra": {
         "name": "天秤座",
-        "description": "Strongly dislikes: irregularities in the pension fund.",
+        "description": "强烈反感：养老基金里的违规操作。",
         "effectNotMaxed": "You <<silver|can't →>> <<gold|can>> enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar.",
         "effectMaxed": "You can enable overflow reactions in the Encabulator. Excess reacts at 10% efficiency if the other reactant is available; the rest returns to its regular bar."
       },
