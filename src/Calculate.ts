@@ -274,9 +274,9 @@ const calculateFastForwardResourcesGlobal = (
   return Decimal.max(baseResource * fastForwardAmount, resourceMult.times(deltaTime))
 }
 
-export const calculatePotionValue = (resourceMult: Decimal, baseResource: number) => {
+export const calculatePotionValue = (resourceMult: Decimal, baseResource: number, speedMult?: number) => {
   const potionTimeValue = 7_200
-  const fastForwardMult = calculateFastForwardResourcesGlobal(potionTimeValue, resourceMult, baseResource)
+  const fastForwardMult = calculateFastForwardResourcesGlobal(potionTimeValue, resourceMult, baseResource, speedMult)
   const potionMultipliers = getGQUpgradeEffect('potionBuff', 'potionPowerMult')
     * getGQUpgradeEffect('potionBuff2', 'potionPowerMult')
     * getGQUpgradeEffect('potionBuff3', 'potionPowerMult')
@@ -285,7 +285,7 @@ export const calculatePotionValue = (resourceMult: Decimal, baseResource: number
   return fastForwardMult.times(potionMultipliers)
 }
 
-export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
+export const calculateResearchAutomaticObtainium = (deltaTime: number, speedMult?: number) => {
   if (player.currentChallenge.ascension === 14) {
     return new Decimal()
   }
@@ -301,7 +301,7 @@ export const calculateResearchAutomaticObtainium = (deltaTime: number) => {
   const useTimer = false
   const baseObtainium = calculateBaseObtainium()
   const resourceMult = calculateObtainium(useTimer, baseObtainium)
-  const globalSpeedMult = calculateGlobalSpeedMult()
+  const globalSpeedMult = speedMult ?? calculateGlobalSpeedMult()
 
   const researchVal = calculateFastForwardResourcesGlobal(deltaTime, resourceMult, baseObtainium, globalSpeedMult)
 

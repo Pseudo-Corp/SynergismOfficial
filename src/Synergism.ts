@@ -18,7 +18,7 @@ import {
   tickChallengeSweep,
   useChallenge13Modifiers
 } from './Challenges'
-import { btoa, DateNow, isMobile, memoize, PerformanceNow } from './Utility'
+import { btoa, DateNow, isMobile, PerformanceNow } from './Utility'
 import { blankGlobals, buildingBaseProduction, Globals as G } from './Variables'
 
 import {
@@ -4030,11 +4030,11 @@ const tack = (dt: number) => {
     generateAntsAndCrumbs(dt)
 
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
-    const timerSpeedMult = memoize(calculateGlobalSpeedMult)
+    const timerSpeedMult = () => timeMult
     addTimers('prestige', dt, timerSpeedMult)
     addTimers('transcension', dt, timerSpeedMult)
     addTimers('reincarnation', dt, timerSpeedMult)
-    addTimers('autoPotion', dt)
+    addTimers('autoPotion', dt, timerSpeedMult)
     addTimers('ascension', dt)
     addTimers('quarks', dt)
     addTimers('goldenQuarks', dt)
@@ -4055,7 +4055,7 @@ const tack = (dt: number) => {
     /*Triggers automatic obtainium gain if research [2x11] is unlocked,
         Otherwise it just calculates obtainium multiplier values. */
     if (player.researches[61] === 1) {
-      automaticTools('addObtainium', dt)
+      automaticTools('addObtainium', dt, timeMult)
     } else {
       calculateObtainium()
     }

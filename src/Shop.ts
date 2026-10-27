@@ -2269,14 +2269,16 @@ export const useConsumable = (
   input: ShopUpgradeNames,
   automatic = false,
   used = 1,
-  spend = true
+  spend = true,
+  speedMult?: number
 ) => {
   const infiniteAutoBrew = PCoinUpgradeEffects.AUTO_POTION_FREE_POTIONS_QOL
 
   if (input === 'offeringPotion') {
     let offeringPotionValue = calculatePotionValue(
       calculateOfferingsDecimal(),
-      calculateBaseOfferings()
+      calculateBaseOfferings(),
+      speedMult
     )
 
     if (
@@ -2309,7 +2311,8 @@ export const useConsumable = (
     const baseObtainium = calculateBaseObtainium()
     let obtainiumPotionValue = calculatePotionValue(
       calculateObtainium(false, baseObtainium),
-      baseObtainium
+      baseObtainium,
+      speedMult
     )
 
     if (

@@ -461,7 +461,8 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
             'offeringPotion',
             true,
             amountOfPotions,
-            toggleOfferingOn
+            toggleOfferingOn,
+            globalSpeedMult?.()
           )
         }
 
@@ -474,7 +475,8 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
             'obtainiumPotion',
             true,
             amountOfPotions,
-            toggleObtainiumOn
+            toggleObtainiumOn,
+            globalSpeedMult?.()
           )
         }
       }
@@ -518,7 +520,7 @@ let autoSacrificeInterval = 1
  * @param input
  * @param time
  */
-export const automaticTools = (input: AutoToolInput, time: number) => {
+export const automaticTools = (input: AutoToolInput, time: number, globalSpeedMult?: number) => {
   switch (input) {
     case 'addObtainium': {
       // If in challenge 14, abort and do not award obtainium
@@ -526,7 +528,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
         break
       }
 
-      let obtainiumGain = calculateResearchAutomaticObtainium(time)
+      let obtainiumGain = calculateResearchAutomaticObtainium(time, globalSpeedMult)
       if (
         player.singularityChallenges.taxmanLastStand.enabled
         && player.singularityChallenges.taxmanLastStand.completions >= 2
