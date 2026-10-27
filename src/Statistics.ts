@@ -580,6 +580,70 @@ export const allCubeStats: NumberStatLineCategory = {
   ]
 }
 
+export const allCubeStatsProduct = (ascensionSpeedMult?: number) => {
+  const ascensionTimeRatio = player.ascensionCounter / G.ASCENSION_RESET_THRESHOLD
+  const oneMindUnlocked = getGQUpgradeEffect('oneMind', 'unlocked')
+  const ascensionSpeed = oneMindUnlocked ? ascensionSpeedMult ?? calculateAscensionSpeedMult() : 1
+  return Math.min(
+    1e300,
+    calculateEventCubeGain()
+      * PCoinUpgradeEffects.CUBE_BUFF
+      * (getAchievementReward('ascensionRewardScaling')
+        ? Math.min(1, ascensionTimeRatio) * Math.max(1, ascensionTimeRatio)
+        : Math.min(1, ascensionTimeRatio))
+      * campaignTokenBonuses.tutorial().cubeBonus
+      * campaignTokenBonuses.cube()
+      * (G.challenge15Rewards.cube1.value
+        * G.challenge15Rewards.cube2.value
+        * G.challenge15Rewards.cube3.value
+        * G.challenge15Rewards.cube4.value
+        * G.challenge15Rewards.cube5.value)
+      * getRuneEffects('infiniteAscent', 'cubeMult')
+      * (1 + player.platonicUpgrades[10])
+      * Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9])
+      * calculateCubeMultFromPowder()
+      * (1 / calculateSingularityDebuff('Cubes'))
+      * getShopUpgradeEffects('shopPanthema', 'cubeMult')
+      * getShopUpgradeEffects('seasonPassY', 'globalCubeMult')
+      * getShopUpgradeEffects('seasonPassZ', 'globalCubeMult')
+      * getShopUpgradeEffects('seasonPassInfinity', 'globalCubeMult')
+      * getShopUpgradeEffects('shopCashGrabUltra', 'cubesMult')
+      * getShopUpgradeEffects('shopEXUltra', 'cubeMult')
+      * getGQUpgradeEffect('starterPack', 'cubeMult')
+      * getGQUpgradeEffect('singCubes1', 'cubeMult')
+      * getGQUpgradeEffect('singCubes2', 'cubeMult')
+      * getGQUpgradeEffect('singCubes3', 'cubeMult')
+      * getGQUpgradeEffect('singCitadel', 'cubeMult')
+      * getGQUpgradeEffect('singCitadel2', 'cubeMult')
+      * getGQUpgradeEffect('platonicDelta', 'cubeMult')
+      * (1 + 0.25 * +G.isEvent * player.cubeUpgrades[58])
+      * (1 + 1 * player.cubeUpgrades[66] * (1 - player.platonicUpgrades[15]))
+      * calculateTotalOcteractCubeBonus()
+      * getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
+      * calculateAmbrosiaCubeMult()
+      * getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaHyperflux', 'hyperFlux')
+      * getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaCubes4', 'cubes')
+      * getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
+      * calculateRedAmbrosiaCubes()
+      * (player.singularityChallenges.limitedTime.enabled
+        ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
+        : 1)
+      * (oneMindUnlocked
+        ? Math.pow(
+          ascensionSpeed,
+          1 + (ascensionSpeed >= 1 ? getPurpleAmbrosiaUpgradeEffects('aquarius', 'infiniteTranscriptionExponent') : 0)
+        ) / G.MIND_DIVISOR
+        : 1)
+      * (1 + calculateEventBuff(BuffType.Cubes))
+  )
+}
+
 export const allWowCubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -667,6 +731,50 @@ export const allWowCubeStats: NumberStatLineCategory = {
   ]
 }
 
+export const allWowCubeStatsProduct = (
+  ascensionEffectiveLevel = ascensionEffectiveCorruptionLevel(),
+  allCubeMultiplier = calculateAllCubeMultiplier()
+) =>
+  Math.min(
+    1e300,
+    calculateCubeBank()
+      * corruptionCubeBase('cubes')
+      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'cubes')
+        ? corruptionCubeRate('cubes', ascensionEffectiveLevel)
+        : 0)
+      * G.challenge15Rewards.wowCubes.value
+      * calculateCubePlatonicBlessing('cubes')
+      * allCubeMultiplier
+      * getLevelReward('wowCubes')
+      * (+getAchievementReward('wowCubeGain'))
+      * getShopUpgradeEffects('seasonPass', 'wowCubeMult')
+      * getTalismanEffects('wowSquare').oddDimBonus
+      * ((1 + player.researches[119] / 1000)
+        * (1 + player.researches[120] / 200)
+        * (1 + player.researches[137] / 100)
+        * (1 + (0.9 * player.researches[152]) / 100)
+        * (1 + (0.8 * player.researches[167]) / 100)
+        * (1 + (0.7 * player.researches[182]) / 100)
+        * (1
+          + (1 / 500) * player.researches[192] * calculateTrueAntLevel(AntUpgrades.Mortuus))
+        * (1 + (0.6 * player.researches[197]) / 100))
+      * (1 + (0.004 / 100) * player.researches[200])
+      * getAntUpgradeEffect(AntUpgrades.WowCubes).wowCubes
+      * ((1 + 0.04 * player.cubeUpgrades[1])
+        * (1 + 0.04 * player.cubeUpgrades[11])
+        * (1 + 0.4 * player.cubeUpgrades[30]))
+      * (1
+        + 0.01
+          * Decimal.log(player.ascendShards.add(1), 4)
+          * Math.min(1, player.constantUpgrades[10]))
+      * getRuneSpiritEffect('duplication').wowCubes
+      * calculateCubeMultiplierPlatonicBlessing()
+      * corruptionScaledCubeStats.cubes.Platonic1x1(ascensionEffectiveLevel)
+      * getRuneEffects('antiquities', 'cubeBonus')
+      * (1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]
+        - player.cubeUpgrades[63])
+  )
+
 const cubeTauPowerStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Misc,
@@ -727,6 +835,31 @@ export const allTesseractStats: NumberStatLineCategory = {
   ]
 }
 
+export const allTesseractStatsProduct = (
+  ascensionEffectiveLevel = ascensionEffectiveCorruptionLevel(),
+  allCubeMultiplier = calculateAllCubeMultiplier()
+) =>
+  Math.min(
+    1e300,
+    calculateCubeBank()
+      * corruptionCubeBase('tesseracts')
+      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'tesseracts')
+        ? corruptionCubeRate('tesseracts', ascensionEffectiveLevel)
+        : 0)
+      * G.challenge15Rewards.wowTesseracts.value
+      * calculateCubePlatonicBlessing('tesseracts')
+      * allCubeMultiplier
+      * getLevelReward('wowTesseracts')
+      * (+getAchievementReward('wowTesseractGain'))
+      * getShopUpgradeEffects('seasonPass', 'wowTesseractMult')
+      * getTalismanEffects('wowSquare').evenDimBonus
+      * (1 + 0.01 * Decimal.log(player.ascendShards.add(1), 4) * Math.min(1, player.constantUpgrades[10]))
+      * (1 + 0.4 * player.cubeUpgrades[30])
+      * corruptionScaledCubeStats.tesseracts.CubeUpgrade4x8(ascensionEffectiveLevel)
+      * calculateTesseractMultiplierPlatonicBlessing()
+      * corruptionScaledCubeStats.tesseracts.Platonic1x2(ascensionEffectiveLevel)
+  )
+
 export const allHypercubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -768,6 +901,29 @@ export const allHypercubeStats: NumberStatLineCategory = {
   ]
 }
 
+export const allHypercubeStatsProduct = (
+  ascensionEffectiveLevel = ascensionEffectiveCorruptionLevel(),
+  allCubeMultiplier = calculateAllCubeMultiplier()
+) =>
+  Math.min(
+    1e300,
+    calculateCubeBank()
+      * corruptionCubeBase('hypercubes')
+      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'hypercubes')
+        ? corruptionCubeRate('hypercubes', ascensionEffectiveLevel)
+        : 0)
+      * G.challenge15Rewards.wowHypercubes.value
+      * calculateCubePlatonicBlessing('hypercubes')
+      * allCubeMultiplier
+      * getLevelReward('wowHyperCubes')
+      * (+getAchievementReward('wowHypercubeGain'))
+      * getShopUpgradeEffects('seasonPass2', 'wowHypercubeMult')
+      * getTalismanEffects('wowSquare').oddDimBonus
+      * calculateHypercubeMultiplierPlatonicBlessing()
+      * corruptionScaledCubeStats.hypercubes.Platonic1x3(ascensionEffectiveLevel)
+      * getHepteractEffects('hyperrealism').hypercubeMultiplier
+  )
+
 export const allPlatonicCubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -805,6 +961,28 @@ export const allPlatonicCubeStats: NumberStatLineCategory = {
   ]
 }
 
+export const allPlatonicCubeStatsProduct = (
+  ascensionEffectiveLevel = ascensionEffectiveCorruptionLevel(),
+  allCubeMultiplier = calculateAllCubeMultiplier()
+) =>
+  Math.min(
+    1e300,
+    calculateCubeBank()
+      * corruptionCubeBase('platonics')
+      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'platonics')
+        ? corruptionCubeRate('platonics', ascensionEffectiveLevel)
+        : 0)
+      * G.challenge15Rewards.wowPlatonicCubes.value
+      * calculateCubePlatonicBlessing('platonics')
+      * allCubeMultiplier
+      * getLevelReward('wowPlatonicCubes')
+      * (+getAchievementReward('wowPlatonicGain'))
+      * getShopUpgradeEffects('seasonPass2', 'wowPlatonicMult')
+      * getTalismanEffects('wowSquare').evenDimBonus
+      * calculatePlatonicMultiplierPlatonicBlessing()
+      * corruptionScaledCubeStats.platonics.Platonic1x4(ascensionEffectiveLevel)
+  )
+
 export const allHepteractCubeStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -833,6 +1011,26 @@ export const allHepteractCubeStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allHepteractCubeStatsProduct = (
+  ascensionEffectiveLevel = ascensionEffectiveCorruptionLevel(),
+  allCubeMultiplier = calculateAllCubeMultiplier()
+) =>
+  Math.min(
+    1e300,
+    calculateCubeBank()
+      * corruptionCubeBase('hepteracts')
+      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'hepteracts')
+        ? corruptionCubeRate('hepteracts', ascensionEffectiveLevel)
+        : 0)
+      * G.challenge15Rewards.wowHepteracts.value
+      * calculateCubePlatonicBlessing('hepteracts')
+      * allCubeMultiplier
+      * getLevelReward('wowHepteractCubes')
+      * (+getAchievementReward('wowHepteractGain'))
+      * getShopUpgradeEffects('seasonPass3', 'wowHepteractMult')
+      * getTalismanEffects('wowSquare').oddDimBonus
+  )
 
 export const allOcteractCubeStats: NumberStatLineCategory = {
   kind: 'number',
@@ -1021,6 +1219,69 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
   ]
 }
 
+export const allOcteractCubeStatsProduct = (
+  ascensionEffectiveLevel = ascensionEffectiveCorruptionLevel(),
+  activeEffectiveLevel = activeEffectiveCorruptionLevel(),
+  ascensionSpeedMult = calculateAscensionSpeedMult()
+) =>
+  Math.min(
+    1e300,
+    calculateCubeBank()
+      * corruptionCubeBase('octeracts')
+      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'octeracts')
+        ? corruptionCubeRate('octeracts', ascensionEffectiveLevel)
+        : 0)
+      * G.challenge15Rewards.wowOcteracts.value
+      * calculateCubePlatonicBlessing('octeracts')
+      * calculateEventCubeGain()
+      * PCoinUpgradeEffects.CUBE_BUFF
+      * getLevelReward('wowOcteracts')
+      * campaignTokenBonuses.octeract()
+      * getShopUpgradeEffects('seasonPass3', 'wowOcteractMult')
+      * getShopUpgradeEffects('seasonPassY', 'wowOcteractMult')
+      * getShopUpgradeEffects('seasonPassZ', 'wowOcteractMult')
+      * getShopUpgradeEffects('seasonPassLost', 'wowOcteractMult')
+      * getTalismanEffects('wowSquare').evenDimBonus
+      * corruptionScaledCubeStats.octeracts.CookieUpgrade20(activeEffectiveLevel)
+      * corruptionScaledCubeStats.octeracts.DivinePack(activeEffectiveLevel)
+      * getGQUpgradeEffect('singCubes1', 'cubeMult')
+      * getGQUpgradeEffect('singCubes2', 'cubeMult')
+      * getGQUpgradeEffect('singCubes3', 'cubeMult')
+      * getGQUpgradeEffect('singOcteractGain', 'octeractMult')
+      * getGQUpgradeEffect('singOcteractGain2', 'octeractMult')
+      * getGQUpgradeEffect('singOcteractGain3', 'octeractMult')
+      * getGQUpgradeEffect('singOcteractGain4', 'octeractMult')
+      * getGQUpgradeEffect('singOcteractGain5', 'octeractMult')
+      * getGQUpgradeEffect('singOcteractPatreonBonus', 'octeractMult')
+      * getOcteractUpgradeEffect('octeractStarter', 'octeractMult')
+      * getOcteractUpgradeEffect('octeractGain', 'octeractMult')
+      * getOcteractUpgradeEffect('octeractGain2', 'octeractMult')
+      * derpsmithCornucopiaBonus()
+      * getOcteractUpgradeEffect('octeractAscensionsOcteractGain', 'octeractMult')
+      * (1 + calculateEventBuff(BuffType.Octeract))
+      * getGQUpgradeEffect('platonicDelta', 'cubeMult')
+      * getSingularityChallengeEffect('noSingularityUpgrades', 'cubes')
+      * getShopUpgradeEffects('seasonPassInfinity', 'wowOcteractMult')
+      * calculateAmbrosiaCubeMult()
+      * getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaCubes1', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaLuckCube1', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaCubes2', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaCubes3', 'cubes')
+      * getAmbrosiaUpgradeEffects('ambrosiaCubes4', 'cubes')
+      * getRedAmbrosiaUpgradeEffects('tutorial', 'cubeMult')
+      * calculateRedAmbrosiaCubes()
+      * getShopUpgradeEffects('shopCashGrabUltra', 'cubesMult')
+      * getShopUpgradeEffects('shopEXUltra', 'cubeMult')
+      * (Math.pow(
+        ascensionSpeedMult,
+        ascensionSpeedMult < 1 || !getGQUpgradeEffect('oneMind', 'unlocked')
+          ? 1 / 2
+          : getOcteractUpgradeEffect('octeractOneMindImprover', 'ascendSpeedExponent')
+      ))
+  )
+
 const corruptionCubeStatCategories: Record<CorruptionCubeType, NumberStatLineCategory> = {
   cubes: allWowCubeStats,
   tesseracts: allTesseractStats,
@@ -1148,6 +1409,25 @@ export const allBaseOfferingStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allBaseOfferingStatsSum = () =>
+  Math.min(
+    1e300,
+    1
+      + PCoinUpgradeEffects.BASE_OFFERING_BUFF
+      + (player.prestigeCount > 0 ? 1 : 0)
+      + (player.transcendCount > 0 ? 3 : 0)
+      + (player.reincarnationCount > 0 ? 5 : 0)
+      + ((player.challengecompletions[2] > 0) ? 2 : 0)
+      + calculateOfferingPotionBaseOfferings().amount
+      + ((player.upgrades[62] > 0) ? Math.min(12, (1 / 50) * sumContents(player.challengecompletions)) : 0)
+      + (0.4 * player.researches[24])
+      + (0.6 * player.researches[25])
+      + ((player.researches[95] > 0) ? 15 : 0)
+      + getAmbrosiaUpgradeEffects('ambrosiaBaseOffering1', 'offering')
+      + getAmbrosiaUpgradeEffects('ambrosiaBaseOffering2', 'offering')
+      + getShopUpgradeEffects('offeringEX3', 'baseOfferings')
+  )
 
 export const allOfferingStats: DecimalStatLineCategory = {
   kind: 'decimal',
@@ -1392,6 +1672,81 @@ export const allOfferingStats: DecimalStatLineCategory = {
   ]
 }
 
+export const allOfferingStatsProduct = (baseOfferings = calculateBaseOfferings()) =>
+  new Decimal(1)
+    .mul(baseOfferings)
+    .mul(1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5)
+    .mul(+getAchievementReward('offeringBonus'))
+    .mul(getLevelReward('offerings'))
+    .mul(getRuneEffects('superiorIntellect', 'offeringMult'))
+    .mul(
+      1 + 1 / 50 * player.challengecompletions[6]
+        + 1 / 25 * player.challengecompletions[8]
+        + 1 / 25 * player.challengecompletions[10]
+    )
+    .mul(1 + 0.2 * player.upgrades[38])
+    .mul(
+      1
+        + player.upgrades[75] * 2
+          * Math.min(1, Math.pow(Decimal.min(player.maxObtainium, 1e10).toNumber() / 30000000, 0.5))
+    )
+    .mul(1 + player.researches[119] / 200)
+    .mul(getShopUpgradeEffects('offeringEX', 'offeringMult'))
+    .mul(getShopUpgradeEffects('cashGrab', 'offeringMult'))
+    .mul(1 + (1 / 10000) * sumContents(player.challengecompletions) * player.researches[85])
+    .mul(getAntUpgradeEffect(AntUpgrades.Offerings).offeringMult)
+    .mul(calculateOfferingCubeBlessing())
+    .mul(1 + 0.02 * player.constantUpgrades[3])
+    .mul(
+      1 + 0.0003 * talismans.midas.level * player.researches[149]
+        + 0.0004 * talismans.midas.level * player.researches[179]
+    )
+    .mul(campaignTokenBonuses.tutorial().offeringBonus)
+    .mul(campaignTokenBonuses.offering())
+    .mul(1 + 0.12 * player.challengecompletions[12])
+    .mul(getRuneSpiritEffect('thrift').offerings)
+    .mul(1 + (0.01 / 100) * player.researches[200])
+    .mul(1 + 0.05 * player.cubeUpgrades[46])
+    .mul(1 + (0.02 / 100) * player.cubeUpgrades[50])
+    .mul(1 + player.platonicUpgrades[5])
+    .mul(1 + 2.5 * player.platonicUpgrades[10])
+    .mul(1 + 5 * player.platonicUpgrades[15])
+    .mul(G.challenge15Rewards.offering.value)
+    .mul(Decimal.pow(10, getRuneEffects('antiquities', 'offeringLog10')))
+    .mul(getShopUpgradeEffects('shopPanthema', 'offeringMult'))
+    .mul(1 / calculateSingularityDebuff('Offering'))
+    .mul(getGQUpgradeEffect('starterPack', 'offeringMult'))
+    .mul(getGQUpgradeEffect('singOfferings1', 'offeringMult'))
+    .mul(getGQUpgradeEffect('singOfferings2', 'offeringMult'))
+    .mul(getGQUpgradeEffect('singOfferings3', 'offeringMult'))
+    .mul(getGQUpgradeEffect('singCitadel', 'offeringMult'))
+    .mul(getGQUpgradeEffect('singCitadel2', 'offeringMult'))
+    .mul(1 + player.cubeUpgrades[54] / 100)
+    .mul((player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1)
+    .mul(getOcteractUpgradeEffect('octeractOfferings1', 'offeringMult'))
+    .mul(calculateTotalOcteractOfferingBonus())
+    .mul(getAmbrosiaUpgradeEffects('ambrosiaOffering1', 'offeringMult'))
+    .mul(getRedAmbrosiaUpgradeEffects('tutorial', 'offeringMult'))
+    .mul(calculateRedAmbrosiaOffering())
+    .mul(Math.pow(1.04, player.cubeUpgrades[72] * sumOfTalismanRarities()))
+    .mul(getShopUpgradeEffects('cashGrab2', 'offeringMult'))
+    .mul(getShopUpgradeEffects('offeringEX2', 'offeringMult'))
+    .mul(getShopUpgradeEffects('offeringEX3', 'offeringMult'))
+    .mul(getShopUpgradeEffects('shopEXUltra', 'offeringMult'))
+    .mul(getPurpleReactorUpgradeEffects('offerings', 'offeringMultiplier'))
+    .mul(G.dOne.div(corruptionEffect(activeCorruptionLevel(), 'drought')))
+    .mul(
+      (player.singularityChallenges.limitedTime.enabled)
+        ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
+        : 1
+    )
+    .mul(
+      player.singularityChallenges.taxmanLastStand.enabled
+        ? Math.pow(2.5, -Math.min(500, Math.floor(1 + Math.max(0, Decimal.log(player.obtainium, 10)))))
+        : 1
+    )
+    .mul(1 + calculateEventBuff(BuffType.Offering))
+
 export const firstFiveRuneEffectivenessStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -1445,6 +1800,23 @@ export const firstFiveRuneEffectivenessStats: NumberStatLineCategory = {
   ]
 }
 
+export const firstFiveRuneEffectivenessStatsProduct = () =>
+  Math.min(
+    1e300,
+    (1 + player.researches[4] / 10 * (1 + player.challengecompletions[14]))
+      * (1 + player.researches[21] / 100)
+      * (1 + player.researches[90] / 100)
+      * (1 + player.researches[131] / 200)
+      * (1 + ((player.researches[146] / 200) * 4) / 5)
+      * (1 + ((player.researches[161] / 200) * 3) / 5)
+      * (1 + ((player.researches[176] / 200) * 2) / 5)
+      * (1 + ((player.researches[191] / 200) * 1) / 5)
+      * (1 + 0.01 * Decimal.log(player.stats.talismanShardsThisAscension.add(1), 4)
+          * Math.min(1, player.constantUpgrades[9]))
+      * G.challenge15Rewards.runeBonus.value
+      * calculateRuneEffectivenessCubeBlessing()
+  )
+
 export const runeEffectivenessStatsSI: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -1455,6 +1827,12 @@ export const runeEffectivenessStatsSI: NumberStatLineCategory = {
     }
   ]
 }
+
+export const runeEffectivenessStatsSIProduct = () =>
+  Math.min(
+    1e300,
+    1 + player.researches[84] / 200
+  )
 
 export const allQuarkStats: NumberStatLineCategory = {
   kind: 'number',
@@ -1652,6 +2030,59 @@ export const allQuarkStats: NumberStatLineCategory = {
   ]
 }
 
+export const allQuarkStatsProduct = () =>
+  Math.min(
+    1e300,
+    (1 + getGlobalBonus() / 100)
+      * (1 + getPersonalBonus() / 100)
+      * (+getAchievementReward('quarkGain'))
+      * getLevelReward('quarks')
+      * getTalismanEffects('plastic').quarkBonus
+      * (player.platonicUpgrades[5] > 0 ? 1.05 : 1)
+      * (player.platonicUpgrades[10] > 0 ? 1.1 : 1)
+      * (player.platonicUpgrades[15] > 0 ? 1.15 : 1)
+      * getShopUpgradeEffects('shopPanthema', 'quarkMult')
+      * (player.challenge15Exponent >= G.challenge15Rewards.quarks.requirement ? G.challenge15Rewards.quarks.value : 1)
+      * campaignTokenBonuses.quark()
+      * (getShopUpgradeEffects('infiniteAscent', 'runeUnlocked') ? getRuneEffects('infiniteAscent', 'quarkMult') : 1)
+      * (player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
+        ? getHepteractEffects('quark').quarkMultiplier
+        : 1)
+      * calculateQuarkMultFromPowder()
+      * (1 + player.singularityCount / 10)
+      * getGQUpgradeEffect('favoriteUpgrade', 'quarkMult')
+      * (1 + 0.001 * player.cubeUpgrades[53])
+      * (1 + (1 / 10000) * player.cubeUpgrades[68] + 0.05 * Math.floor(player.cubeUpgrades[68] / 1000))
+      * calculateSingularityQuarkMilestoneMultiplier()
+      * (player.singularityCount >= 200 ? Math.pow(1 + (player.singularityCount - 199) / 20, 2) : 1)
+      * calculateTotalOcteractQuarkBonus()
+      * getOcteractUpgradeEffect('octeractStarter', 'quarkMult')
+      * getOcteractUpgradeEffect('octeractQuarkGain', 'quarkMult')
+      * getOcteractUpgradeEffect('octeractQuarkGain2', 'quarkMult')
+      * (1
+        + getGQUpgradeEffect('intermediatePack', 'packQuarkAdd')
+        + getGQUpgradeEffect('advancedPack', 'packQuarkAdd')
+        + getGQUpgradeEffect('expertPack', 'packQuarkAdd')
+        + getGQUpgradeEffect('masterPack', 'packQuarkAdd')
+        + getGQUpgradeEffect('divinePack', 'packQuarkAdd'))
+      * getGQUpgradeEffect('singQuarkImprover1', 'quarkMult')
+      * calculateAmbrosiaQuarkMult()
+      * getAmbrosiaUpgradeEffects('ambrosiaTutorial', 'quarks')
+      * getAmbrosiaUpgradeEffects('ambrosiaQuarks1', 'quarks')
+      * getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1', 'quarks')
+      * getAmbrosiaUpgradeEffects('ambrosiaLuckQuark1', 'quarks')
+      * getAmbrosiaUpgradeEffects('ambrosiaQuarks2', 'quarks')
+      * getAmbrosiaUpgradeEffects('ambrosiaQuarks3', 'quarks')
+      * getAmbrosiaUpgradeEffects('ambrosiaQuarks4', 'quarks')
+      * getRedAmbrosiaUpgradeEffects('viscount', 'quarkBonus')
+      * getShopUpgradeEffects('shopCashGrabUltra', 'quarkMult')
+      * getSingularityChallengeEffect('limitedTime', 'quarkMult')
+      * getSingularityChallengeEffect('sadisticPrequel', 'quarkMult')
+      * (player.highestSingularityCount === 0 ? 1.25 : 1)
+      * (G.isEvent ? 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind) : 1)
+      * getPurpleReactorUpgradeEffects('lifetimeHoneyQuarks', 'quarkMultiplier')
+  )
+
 export const allBaseObtainiumStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -1705,6 +2136,20 @@ export const allBaseObtainiumStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allBaseObtainiumStatsSum = () =>
+  Math.min(
+    1e300,
+    1
+      + PCoinUpgradeEffects.BASE_OBTAINIUM_BUFF
+      + calculateObtainiumPotionBaseObtainium().amount
+      + ((player.reincarnationcounter >= 2) ? player.researches[63] : 0)
+      + ((player.reincarnationcounter >= 5) ? 2 * player.researches[64] : 0)
+      + ((player.highestSingularityCount > 0) ? 3 : 0)
+      + Math.floor(player.singularityCount / 10)
+      + getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium1', 'obtainium')
+      + getAmbrosiaUpgradeEffects('ambrosiaBaseObtainium2', 'obtainium')
+  )
 
 export const allObtainiumIgnoreDRStats: DecimalStatLineCategory = {
   kind: 'decimal',
@@ -1795,6 +2240,32 @@ export const allObtainiumIgnoreDRStats: DecimalStatLineCategory = {
     }
   ]
 }
+
+export const allObtainiumIgnoreDRStatsProduct = (baseObtainium = calculateBaseObtainium()) =>
+  new Decimal(1)
+    .mul(baseObtainium)
+    .mul(1 + (4 / 100) * player.cubeUpgrades[42])
+    .mul(1 + (3 / 100) * player.cubeUpgrades[43])
+    .mul(campaignTokenBonuses.tutorial().obtainiumBonus)
+    .mul(campaignTokenBonuses.obtainium())
+    .mul(G.challenge15Rewards.obtainium.value)
+    .mul(1 + player.platonicUpgrades[5])
+    .mul(1 + 1.5 * player.platonicUpgrades[9])
+    .mul(1 + 2.5 * player.platonicUpgrades[10])
+    .mul(1 + 5 * player.platonicUpgrades[15])
+    .mul(Math.pow(10, getRuneEffects('antiquities', 'obtainiumLog10')))
+    .mul(1 + player.cubeUpgrades[55] / 100)
+    .mul((player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1)
+    .mul(getRedAmbrosiaUpgradeEffects('tutorial', 'obtainiumMult'))
+    .mul(calculateRedAmbrosiaObtainium())
+    .mul(Math.pow(1.04, player.cubeUpgrades[71] * sumOfTalismanRarities()))
+    .mul(getShopUpgradeEffects('obtainiumEX3', 'immaculateObtainiuMult'))
+    .mul(
+      (player.singularityChallenges.limitedTime.enabled)
+        ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
+        : 1
+    )
+    .mul(1 + calculateEventBuff(BuffType.Obtainium))
 
 export const allObtainiumStats: DecimalStatLineCategory = {
   kind: 'decimal',
@@ -1981,6 +2452,61 @@ export const allObtainiumStats: DecimalStatLineCategory = {
   ]
 }
 
+export const allObtainiumStatsProduct = () =>
+  new Decimal(1)
+    .mul(Math.max(1, Math.pow(Decimal.log(player.transcendShards.add(1), 10) / 300, 2)))
+    .mul(+getAchievementReward('obtainiumBonus'))
+    .mul(getLevelReward('obtainium'))
+    .mul(
+      (player.upgrades[69] > 0)
+        ? Math.min(10, Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5).toNumber())
+        : 1
+    )
+    .mul((player.upgrades[72] > 0) ? Math.min(50, 1 + 2 * sumContents(player.challengecompletions.slice(6, 11))) : 1)
+    .mul(
+      (player.upgrades[74] > 0)
+        ? 1 + 4 * Math.min(1, Math.pow(Decimal.min(player.maxOfferings, 1e10).toNumber() / 100000, 0.5))
+        : 1
+    )
+    .mul(1 + player.researches[65] / 5)
+    .mul(1 + player.researches[76] / 10)
+    .mul(1 + player.researches[81] / 10)
+    .mul(1 + player.researches[119] / 200)
+    .mul(getShopUpgradeEffects('cashGrab', 'obtainiumMult'))
+    .mul(getShopUpgradeEffects('obtainiumEX', 'obtainiumMult'))
+    .mul(getRuneEffects('superiorIntellect', 'obtainiumMult'))
+    .mul(getAntUpgradeEffect(AntUpgrades.Obtainium).obtainiumMult)
+    .mul(calculateObtainiumCubeBlessing())
+    .mul(1 + 0.04 * player.constantUpgrades[4])
+    .mul(1 + 0.1 * player.cubeUpgrades[3])
+    .mul(1 + 0.5 * player.challengecompletions[12])
+    .mul(getRuneSpiritEffect('superiorIntellect').obtainium)
+    .mul(1 + (0.03 * Decimal.log(player.uncommonFragments.add(1), 4)) * player.researches[144])
+    .mul(1 + 0.0002 * player.cubeUpgrades[50])
+    .mul(getShopUpgradeEffects('shopPanthema', 'obtainiumMult'))
+    .mul(getGQUpgradeEffect('starterPack', 'obtainiumMult'))
+    .mul(getGQUpgradeEffect('singObtainium1', 'obtainiumMult'))
+    .mul(getGQUpgradeEffect('singObtainium2', 'obtainiumMult'))
+    .mul(getGQUpgradeEffect('singObtainium3', 'obtainiumMult'))
+    .mul(getGQUpgradeEffect('singCitadel', 'obtainiumMult'))
+    .mul(getGQUpgradeEffect('singCitadel2', 'obtainiumMult'))
+    .mul(getShopUpgradeEffects('cashGrab2', 'obtainiumMult'))
+    .mul(getShopUpgradeEffects('obtainiumEX2', 'obtainiumMult'))
+    .mul(getShopUpgradeEffects('obtainiumEX3', 'obtainiumMult'))
+    .mul(calculateTotalOcteractObtainiumBonus())
+    .mul(getOcteractUpgradeEffect('octeractObtainium1', 'obtainiumMult'))
+    .mul(getAmbrosiaUpgradeEffects('ambrosiaObtainium1', 'obtainiumMult'))
+    .mul(getShopUpgradeEffects('shopEXUltra', 'obtainiumMult'))
+    .mul(getPurpleReactorUpgradeEffects('obtainium', 'obtainiumMultiplier'))
+    .mul(G.dOne.div(corruptionEffect(activeCorruptionLevel(), 'obtainium')))
+    .mul((player.currentChallenge.ascension === 14) ? 0 : 1)
+    .mul(1 / calculateSingularityDebuff('Obtainium'))
+    .mul(
+      player.singularityChallenges.taxmanLastStand.enabled
+        ? Math.pow(2.5, -Math.min(500, Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))))
+        : 1
+    )
+
 // For use in displaying the second half of Obtainium Multiplier Stats
 const obtainiumDR: DecimalStatLineCategory = {
   kind: 'decimal',
@@ -2020,6 +2546,16 @@ export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: bool
     ]
   }
 }
+
+export const offeringObtainiumTimeModifiersProduct = (time: number, timeMultCheck: boolean, globalSpeedMult?: number) =>
+  Math.min(
+    1e300,
+    Math.min(1, time / G.GLOBAL_RESET_THRESHOLD)
+      * (timeMultCheck ? Math.max(1, time / G.GLOBAL_RESET_THRESHOLD) : 1)
+      * (getGQUpgradeEffect('halfMind', 'unlocked')
+        ? (globalSpeedMult ?? calculateGlobalSpeedMult()) / G.MIND_DIVISOR
+        : 1)
+  )
 
 const combinedObtainiumDRTimeModifiers = (time: number, timeMultCheck: boolean): DecimalStatLineCategory => {
   return {
@@ -2090,6 +2626,22 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
   ]
 }
 
+export const antSacrificeRewardStatsProduct = () =>
+  new Decimal(1)
+    .mul(+getAchievementReward('sacrificeMult'))
+    .mul(getAntUpgradeEffect(AntUpgrades.AntSacrifice).antSacrificeMultiplier)
+    .mul(1 + player.researches[103] / 20)
+    .mul(1 + player.researches[104] / 20)
+    .mul(getRuneBlessingEffect('prism').antSacrificeMult)
+    .mul(1 + (1 / 50) * player.challengecompletions[10])
+    .mul(1 + (1 / 50) * player.researches[122])
+    .mul(1 + (3 / 100) * player.researches[133])
+    .mul(1 + (2 / 100) * player.researches[163])
+    .mul(1 + (1 / 100) * player.researches[193])
+    .mul(1 + (1 / 4) * player.upgrades[40])
+    .mul(calculateAntSacrificeCubeBlessing())
+    .mul(1 + calculateEventBuff(BuffType.AntSacrifice))
+
 // Add a stat to this if you do not want the multiplier to be affected by >100 or <1 Diminishing Returns
 export const allGlobalSpeedIgnoreDRStats: NumberStatLineCategory = {
   kind: 'number',
@@ -2128,6 +2680,18 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allGlobalSpeedIgnoreDRStatsProduct = () =>
+  Math.min(
+    1e300,
+    calculateGlobalSpeedPlatonicBlessing()
+      * (1.0 / calculateSingularityDebuff('Global Speed'))
+      * getGQUpgradeEffect('intermediatePack', 'globalSpeedMult')
+      * getOcteractUpgradeEffect('octeractImprovedGlobalSpeed', 'globalSpeedMult')
+      * getSingularityChallengeEffect('limitedTime', 'ascensionSpeed')
+      * getShopUpgradeEffects('shopChronometerS', 'globalSpeedMult')
+      * (1 + calculateEventBuff(BuffType.GlobalSpeed))
+  )
 
 export const allGlobalSpeedStats: NumberStatLineCategory = {
   kind: 'number',
@@ -2214,6 +2778,30 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allGlobalSpeedStatsProduct = () =>
+  Math.min(
+    1e300,
+    getRuneEffects('speed', 'globalSpeed')
+      * (1 + (1 / 300) * Decimal.log10(player.maxObtainium.plus(1)) * player.upgrades[70])
+      * (1 + player.researches[121] / 50)
+      * (1 + 0.015 * player.researches[136])
+      * (1 + 0.012 * player.researches[151])
+      * (1 + 0.009 * player.researches[166])
+      * (1 + 0.006 * player.researches[181])
+      * (1 + 0.003 * player.researches[196])
+      * getRuneBlessingEffect('speed').globalSpeed
+      * getRuneSpiritEffect('speed').globalSpeed
+      * calculateGlobalSpeedCubeBlessing()
+      * (1 + player.cubeUpgrades[18] / 5)
+      * getAntUpgradeEffect(AntUpgrades.Mortuus).globalSpeed
+      * getTalismanEffects('chronos').globalSpeed
+      * G.challenge15Rewards.globalSpeed.value
+      * (1 + 0.01 * player.cubeUpgrades[52])
+      * getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'globalSpeedMult')
+      * challenge15CorruptionEffect('dilation')
+      * getPurpleReactorUpgradeEffects('lifetimeHoneyGlobalSpeed', 'globalSpeedMultiplier')
+  )
 
 // Use in the second part of the Stats for Nerds for Global Speed
 const allGlobalSpeedDRStats: NumberStatLineCategory = {
@@ -2346,6 +2934,41 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
   ]
 }
 
+export const allAscensionSpeedStatsProduct = (activeEffectiveLevel?: number) =>
+  Math.min(
+    1e300,
+    getAntUpgradeEffect(AntUpgrades.Mortuus2).ascensionSpeed
+      * getTalismanEffects('polymath').ascensionSpeedBonus
+      * getShopUpgradeEffects('chronometer', 'ascensionSpeedMult')
+      * getShopUpgradeEffects('chronometer2', 'ascensionSpeedMult')
+      * getShopUpgradeEffects('chronometer3', 'ascensionSpeedMult')
+      * getHepteractEffects('chronos').ascensionSpeed
+      * (1
+        + 0.01 * (player.currentChallenge.ascension === 15
+            ? 20
+            : Math.min(20, activeEffectiveLevel ?? activeEffectiveCorruptionLevel()))
+          * player.platonicUpgrades[15])
+      * G.challenge15Rewards.ascensionSpeed.value
+      * (1 + (1 / 400) * player.cubeUpgrades[59])
+      * getGQUpgradeEffect('intermediatePack', 'ascensionSpeedMult')
+      * getShopUpgradeEffects('chronometerZ', 'ascensionSpeedMult')
+      * getOcteractUpgradeEffect('octeractImprovedAscensionSpeed', 'ascensionSpeedMult')
+      * getOcteractUpgradeEffect('octeractImprovedAscensionSpeed2', 'ascensionSpeedMult')
+      * getShopUpgradeEffects('chronometerInfinity', 'ascensionSpeedMult')
+      * Math.pow(
+        getSingularityChallengeEffect('limitedAscensions', 'ascensionSpeedMult'),
+        1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))
+      )
+      * getShopUpgradeEffects('shopPanthema', 'ascensionSpeedMult')
+      * getSingularityChallengeEffect('limitedTime', 'ascensionSpeed')
+      * getShopUpgradeEffects('shopChronometerS', 'ascensionSpeedMult')
+      * (1 / calculateExalt3Penalty())
+      * getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'ascensionSpeedMult')
+      * (1 / calculateSingularityDebuff('Ascension Speed'))
+      * (1 + calculateEventBuff(BuffType.AscensionSpeed))
+      * getPurpleReactorUpgradeEffects('lifetimeHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
+  )
+
 const allAscensionSpeedPowerStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Misc,
@@ -2409,6 +3032,21 @@ export const allAdditiveLuckMultStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allAdditiveLuckMultStatsSum = () =>
+  Math.min(
+    1e300,
+    1
+      + getSingularityChallengeEffect('noSingularityUpgrades', 'additiveLuckMult')
+      + calculateDilatedFiveLeafBonus()
+      + getShopUpgradeEffects('shopAmbrosiaLuckMultiplier4', 'additiveAmbrosiaLuckMult')
+      + getSingularityChallengeEffect('noAmbrosiaUpgrades', 'additiveLuckMult')
+      + (0.001 * player.cubeUpgrades[77])
+      + getAmbrosiaUpgradeEffects('ambrosiaLuck4', 'ambrosiaLuckPercentage')
+      + getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'additiveLuckMult')
+      + getTalismanEffects('horseShoe').luckPercentage
+      + (G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0)
+  )
 
 export const allAmbrosiaLuckStats: NumberStatLineCategory = {
   kind: 'number',
@@ -2559,6 +3197,40 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
   ]
 }
 
+export const allAmbrosiaLuckStatsSum = () =>
+  Math.min(
+    1e300,
+    100
+      + PCoinUpgradeEffects.AMBROSIA_LUCK_BUFF
+      + getLevelReward('ambrosiaLuck')
+      + campaignTokenBonuses.ambrosiaLuck()
+      + calculateSingularityAmbrosiaLuckMilestoneBonus()
+      + getShopUpgradeEffects('shopAmbrosiaLuck1', 'ambrosiaLuck')
+      + getShopUpgradeEffects('shopAmbrosiaLuck2', 'ambrosiaLuck')
+      + getShopUpgradeEffects('shopAmbrosiaLuck3', 'ambrosiaLuck')
+      + getShopUpgradeEffects('shopAmbrosiaLuck4', 'ambrosiaLuck')
+      + getShopUpgradeEffects('shopPanthema', 'ambrosiaLuck')
+      + calculateAmbrosiaLuckSingularityUpgrade()
+      + calculateAmbrosiaLuckOcteractUpgrade()
+      + getAmbrosiaUpgradeEffects('ambrosiaLuck1', 'ambrosiaLuck')
+      + getAmbrosiaUpgradeEffects('ambrosiaLuck2', 'ambrosiaLuck')
+      + getAmbrosiaUpgradeEffects('ambrosiaLuck3', 'ambrosiaLuck')
+      + getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1', 'ambrosiaLuck')
+      + getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1', 'ambrosiaLuck')
+      + (player.highestSingularityCount >= 131 ? 131 : 0)
+      + (player.highestSingularityCount >= 269 ? 269 : 0)
+      + getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck')
+      + getSingularityChallengeEffect('noAmbrosiaUpgrades', 'ambrosiaLuck')
+      + getRedAmbrosiaUpgradeEffects('regularLuck', 'ambrosiaLuck')
+      + getRedAmbrosiaUpgradeEffects('regularLuck2', 'ambrosiaLuck')
+      + getRedAmbrosiaUpgradeEffects('viscount', 'luckBonus')
+      + (2 * player.cubeUpgrades[77])
+      + calculateCookieUpgrade29Luck()
+      + getShopUpgradeEffects('shopAmbrosiaUltra', 'ambrosiaLuck')
+      + getRuneEffects('horseShoe', 'ambrosiaLuck')
+      + getPurpleAmbrosiaUpgradeEffects('leo', 'unassignedBlueberyLuck')
+  )
+
 // Attach to the end of allAmbrosiaLuckStats when displaying.
 const ambrosiaLuckModifiers: NumberStatLineCategory = {
   kind: 'number',
@@ -2610,6 +3282,18 @@ export const allAmbrosiaBlueberryStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allAmbrosiaBlueberryStatsSum = () =>
+  Math.min(
+    1e300,
+    (+(player.singularityChallenges.noSingularityUpgrades.completions > 0) * 3)
+      + getGQUpgradeEffect('blueberries', 'blueberries')
+      + getOcteractUpgradeEffect('octeractBlueberries', 'blueberries')
+      + getRedAmbrosiaUpgradeEffects('blueberries', 'blueberries')
+      + calculateSingularityMilestoneBlueberries()
+      + getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberries')
+      + getSingularityChallengeEffect('barDependence', 'blueberries')
+  )
 
 export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
   kind: 'number',
@@ -2706,6 +3390,32 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
   ]
 }
 
+export const allAmbrosiaGenerationSpeedStatsProduct = () =>
+  Math.min(
+    1e300,
+    (player.singularityChallenges.noSingularityUpgrades.completions > 0 ? 1 : 0)
+      * PCoinUpgradeEffects.AMBROSIA_GENERATION_BUFF
+      * campaignTokenBonuses.blueberrySpeed()
+      * getShopUpgradeEffects('shopAmbrosiaGeneration1', 'ambrosiaGenerationMult')
+      * getShopUpgradeEffects('shopAmbrosiaGeneration2', 'ambrosiaGenerationMult')
+      * getShopUpgradeEffects('shopAmbrosiaGeneration3', 'ambrosiaGenerationMult')
+      * getShopUpgradeEffects('shopAmbrosiaGeneration4', 'ambrosiaGenerationMult')
+      * getShopUpgradeEffects('shopPanthema', 'ambrosiaGenerationMult')
+      * calculateAmbrosiaGenerationSingularityUpgrade()
+      * calculateAmbrosiaGenerationOcteractUpgrade()
+      * getAmbrosiaUpgradeEffects('ambrosiaPatreon', 'blueberryGeneration')
+      * getSingularityChallengeEffect('oneChallengeCap', 'blueberrySpeedMult')
+      * getSingularityChallengeEffect('noAmbrosiaUpgrades', 'blueberrySpeedMult')
+      * getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed', 'blueberryGenerationSpeed')
+      * getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed2', 'blueberryGenerationSpeed')
+      * (1 + 0.02 * player.cubeUpgrades[76])
+      * getShopUpgradeEffects('shopCashGrabUltra', 'ambrosiaGenerationMult')
+      * getPurpleReactorUpgradeEffects('tutorial', 'ambrosiaGeneration')
+      * (G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1)
+      * getPurpleReactorUpgradeEffects('lifetimeHoneyAmbrosia', 'ambrosiaGenerationSpeed')
+      * getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult')
+  )
+
 const ambrosiaGenerationSpeedModifiers: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -2747,6 +3457,17 @@ export const allPowderMultiplierStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allPowderMultiplierStatsProduct = () =>
+  Math.min(
+    1e300,
+    (1 / 100)
+      * (+getAchievementReward('overfluxConversionRate'))
+      * G.challenge15Rewards.powder.value
+      * getShopUpgradeEffects('powderEX', 'orbToPowderConversionMult')
+      * (1 + 0.01 * player.platonicUpgrades[16])
+      * (1 + calculateEventBuff(BuffType.PowderConversion))
+  )
 
 export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
@@ -2816,6 +3537,26 @@ export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
   ]
 }
 
+export const allGoldenQuarkMultiplierStatsProduct = () =>
+  Math.min(
+    1e300,
+    calculateBaseGoldenQuarks(player.singularityCount)
+      * PCoinUpgradeEffects.GOLDEN_QUARK_BUFF
+      * campaignTokenBonuses.goldenQuark()
+      * (1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2)
+      * getGQUpgradeEffect('goldenQuarks1', 'goldenQuarkMult')
+      * (1 + 0.12 * player.cubeUpgrades[69])
+      * getSingularityChallengeEffect('noSingularityUpgrades', 'goldenQuarks')
+      * (player.highestSingularityCount >= 100
+        ? 1 + Math.min(1, player.highestSingularityCount / 250)
+        : 1)
+      * (1 + 0.025 * (calculateMaxSingularityLookahead(true) - 1))
+      * calculateImmaculateAlchemyBonus()
+      * (1 + getGlobalBonus() / 100)
+      * (1 + getPersonalBonus() / 100)
+      * (1 + calculateEventBuff(BuffType.GoldenQuark))
+  )
+
 export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -2871,6 +3612,23 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allGoldenQuarkPurchaseCostStatsProduct = () =>
+  Math.min(
+    1e300,
+    10000
+      * (1 / PCoinUpgradeEffects.GOLDEN_QUARK_BUFF)
+      * (1 - (0.3 * player.cubeUpgrades[60]) / 10000)
+      * getGQUpgradeEffect('goldenQuarks2', 'goldenQuarkCostMult')
+      * getOcteractUpgradeEffect('octeractGQCostReduce', 'goldenQuarkCostMult')
+      * (player.highestSingularityCount >= 100
+        ? Math.max(0.5, 1 - (0.5 * player.highestSingularityCount) / 250)
+        : 1)
+      * (1 / calculateImmaculateAlchemyBonus())
+      * (1 / (1 + getGlobalBonus() / 100))
+      * (1 / (1 + getPersonalBonus() / 100))
+      * (1 / (1 + calculateEventBuff(BuffType.GoldenQuark)))
+  )
 
 const allAddCodeEffectStats: NumberStatLineCategory = {
   kind: 'number',
@@ -2959,6 +3717,20 @@ export const allAddCodeTimerStats: NumberStatLineCategory = {
   ]
 }
 
+export const allAddCodeTimerStatsProduct = () =>
+  Math.min(
+    1e300,
+    3600
+      * getShopUpgradeEffects('calculator4', 'addCodeIntervalMult')
+      * (1 - Math.min(
+        0.6,
+        (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 800 : 0)
+          + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 800 : 0)
+      ))
+      * getRuneEffects('antiquities', 'addCodeCooldownReduction')
+      * (1 / addCodeSingularityPerkBonus().intervalDivisor)
+  )
+
 export const allAddCodeCapacityStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -3008,6 +3780,18 @@ export const allAddCodeCapacityStats: NumberStatLineCategory = {
   ]
 }
 
+export const allAddCodeCapacityStatsSum = () =>
+  Math.min(
+    1e300,
+    86400
+      + getShopUpgradeEffects('calculator2', 'addCodeCapacity')
+      + getShopUpgradeEffects('calculator4', 'addCodeCapacity')
+      + getShopUpgradeEffects('calculator5', 'addCodeCapacity')
+      + getShopUpgradeEffects('calculator6', 'addCodeCapacity')
+      + getShopUpgradeEffects('calculator7', 'addCodeCapacity')
+      + addCodeSingularityPerkBonus().addCodeCapacity
+  )
+
 export const allAddCodeCapacityMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -3022,6 +3806,12 @@ export const allAddCodeCapacityMultiplierStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allAddCodeCapacityMultiplierStatsProduct = () =>
+  Math.min(
+    1e300,
+    PCoinUpgradeEffects.ADD_CODE_CAP_BUFF
+  )
 
 export const allLuckConversionStats: NumberStatLineCategory = {
   kind: 'number',
@@ -3069,6 +3859,19 @@ export const allLuckConversionStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allLuckConversionStatsSum = () =>
+  Math.min(
+    1e300,
+    20
+      + getRedAmbrosiaUpgradeEffects('conversionImprovement1', 'conversionImprovement')
+      + getRedAmbrosiaUpgradeEffects('conversionImprovement2', 'conversionImprovement')
+      + getRedAmbrosiaUpgradeEffects('conversionImprovement3', 'conversionImprovement')
+      + getShopUpgradeEffects('shopRedLuck1', 'luckConversionRatio')
+      + getShopUpgradeEffects('shopRedLuck2', 'luckConversionRatio')
+      + getShopUpgradeEffects('shopRedLuck3', 'luckConversionRatio')
+      + getShopUpgradeEffects('shopRedLuck4', 'luckConversionRatio')
+  )
 
 export const allRedAmbrosiaLuckStats: NumberStatLineCategory = {
   kind: 'number',
@@ -3137,6 +3940,28 @@ export const allRedAmbrosiaLuckStats: NumberStatLineCategory = {
   ]
 }
 
+export const allRedAmbrosiaLuckStatsSum = (
+  ambrosiaLuck = calculateAmbrosiaLuck(),
+  luckConversion = calculateLuckConversion()
+) =>
+  Math.min(
+    1e300,
+    100
+      + PCoinUpgradeEffects.RED_LUCK_BUFF
+      + getLevelReward('redAmbrosiaLuck')
+      + Math.floor((ambrosiaLuck - 100) / luckConversion)
+      + getRedAmbrosiaUpgradeEffects('redLuck', 'redAmbrosiaLuck')
+      + getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redLuck')
+      + getShopUpgradeEffects('shopRedLuck1', 'redLuck')
+      + getShopUpgradeEffects('shopRedLuck2', 'redLuck')
+      + getShopUpgradeEffects('shopRedLuck3', 'redLuck')
+      + getShopUpgradeEffects('shopRedLuck4', 'redLuck')
+      + getShopUpgradeEffects('shopPanthema', 'redLuck')
+      + getRedAmbrosiaUpgradeEffects('viscount', 'redLuckBonus')
+      + getRuneEffects('horseShoe', 'redLuck')
+      + getTalismanEffects('horseShoe').redLuck
+  )
+
 export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -3197,6 +4022,24 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allRedAmbrosiaGenerationSpeedStatsProduct = () =>
+  Math.min(
+    1e300,
+    (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0 ? 1 : 0)
+      * (1 + 0.02 * player.cubeUpgrades[76])
+      * PCoinUpgradeEffects.RED_GENERATION_BUFF
+      * getLevelReward('redAmbrosiaGeneration')
+      * getAmbrosiaUpgradeEffects('ambrosiaPatreon', 'blueberryGeneration')
+      * getRedAmbrosiaUpgradeEffects('redGenerationSpeed', 'redAmbrosiaGenerationSpeed')
+      * getRedAmbrosiaUpgradeEffects('redGenerationSpeed2', 'redAmbrosiaGenerationSpeed')
+      * getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed', 'blueberryGenerationSpeed')
+      * getRedAmbrosiaUpgradeEffects('blueberryGenerationSpeed2', 'blueberryGenerationSpeed')
+      * getSingularityChallengeEffect('noAmbrosiaUpgrades', 'redSpeedMult')
+      * getPurpleReactorUpgradeEffects('tutorial', 'redAmbrosiaGeneration')
+      * getPurpleReactorUpgradeEffects('lifetimeHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
+      * getPurpleAmbrosiaUpgradeEffects('aries', 'universalBarPointMult')
+  )
 
 export const allShopTablets: NumberStatLineCategory = {
   kind: 'number',
@@ -3262,30 +4105,25 @@ export const allShopTablets: NumberStatLineCategory = {
   ]
 }
 
-/**
- * Do NOT add anything here without adding it to @see {allTalismanRuneBonusStats}
- */
-export const allTalismanRuneBonusStatsSum = () => {
-  return (
-    1
-    + +getAchievementReward('talismanPower')
-    + (player.researches[106] / 1000)
-    + (player.researches[107] / 1000)
-    + (2 * player.researches[118] / 1000)
-    + (0.004 * Math.floor(player.researches[200] / 10000))
-    + (0.006 * Math.floor(player.cubeUpgrades[50] / 10000))
-    + (G.challenge15Rewards.talismanBonus.value - 1)
-    + getGQUpgradeEffect('singTalismanBonusRunes1', 'talismanRuneEffect')
-    + getGQUpgradeEffect('singTalismanBonusRunes2', 'talismanRuneEffect')
-    + getGQUpgradeEffect('singTalismanBonusRunes3', 'talismanRuneEffect')
-    + getGQUpgradeEffect('singTalismanBonusRunes4', 'talismanRuneEffect')
-    + getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel', 'talismanBonusRuneLevel')
-    + getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect')
+export const allShopTabletsSum = () =>
+  Math.min(
+    1e300,
+    getRedAmbrosiaUpgradeEffects('infiniteShopUpgrades', 'freeLevels')
+      + (player.highestSingularityCount >= 280
+        ? Math.floor(0.8 * (player.highestSingularityCount - 200))
+        : player.highestSingularityCount >= 250
+        ? Math.floor(0.5 * (player.highestSingularityCount - 200))
+        : 0)
+      + getGQUpgradeEffect('singInfiniteShopUpgrades', 'infinityVouchers')
+      + getOcteractUpgradeEffect('octeractInfiniteShopUpgrades', 'infinityVouchers')
+      + getShopUpgradeEffects('shopInfiniteShopUpgrades', 'infiniteVouchers')
+      + getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1', 'freeLevels')
+      + getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades2', 'freeLevels')
+      + getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades3', 'freeLevels')
   )
-}
 
 /**
- * Do NOT add anything here without adding it to @see {allTalismanRuneBonusStatsSum}
+ * Do NOT add anything here without adding it to @see {allTalismanRuneBonusStats}
  */
 const allTalismanRuneBonusStats: NumberStatLineCategory = {
   kind: 'number',
@@ -3349,6 +4187,25 @@ const allTalismanRuneBonusStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allTalismanRuneBonusStatsSum = () =>
+  Math.min(
+    1e300,
+    1
+      + (+getAchievementReward('talismanPower'))
+      + (player.researches[106] / 1000)
+      + (player.researches[107] / 1000)
+      + (2 * player.researches[118] / 1000)
+      + (0.004 * Math.floor(player.researches[200] / 10000))
+      + (0.006 * Math.floor(player.cubeUpgrades[50] / 10000))
+      + (G.challenge15Rewards.talismanBonus.value - 1)
+      + getGQUpgradeEffect('singTalismanBonusRunes1', 'talismanRuneEffect')
+      + getGQUpgradeEffect('singTalismanBonusRunes2', 'talismanRuneEffect')
+      + getGQUpgradeEffect('singTalismanBonusRunes3', 'talismanRuneEffect')
+      + getGQUpgradeEffect('singTalismanBonusRunes4', 'talismanRuneEffect')
+      + getAmbrosiaUpgradeEffects('ambrosiaTalismanBonusRuneLevel', 'talismanBonusRuneLevel')
+      + getSingularityChallengeEffect('taxmanLastStand', 'talismanRuneEffect')
+  )
 
 const posSalvagePerkSings = [230, 245, 260, 275, 290]
 const negSalvagePerkSings = [75, 85, 105, 125, 155, 185, 215, 245, 260, 275]
@@ -3431,6 +4288,28 @@ export const positiveSalvageStats: NumberStatLineCategory = {
   ]
 }
 
+export const positiveSalvageStatsSum = () =>
+  Math.min(
+    1e300,
+    (+getAchievementReward('salvage'))
+      + getLevelReward('salvage')
+      + getLevelMilestone('salvageChallengeBuff')
+      + (7 * player.upgrades[61])
+      + getRuneEffects('thrift', 'salvage')
+      + (0.3 * player.challengecompletions[6]
+        + 0.3 * player.challengecompletions[7]
+        + 0.4 * player.challengecompletions[8]
+        + 0.5 * player.challengecompletions[9])
+      + getAntUpgradeEffect(AntUpgrades.Salvage).salvage
+      + calculateSalvageCubeBlessing()
+      + (3 * player.cubeUpgrades[2])
+      + getHepteractEffects('abyss').salvage
+      + Math.min(50, 5 * player.highestSingularityCount)
+      + getRuneEffects('infiniteAscent', 'salvage')
+      + getRedAmbrosiaUpgradeEffects('salvageYinYang', 'positiveSalvage')
+      + getPurpleAmbrosiaUpgradeEffects('virgo', 'assignedBlueberrySalvage')
+  )
+
 export const positiveSalvageStatMultiplier: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -3451,6 +4330,14 @@ export const positiveSalvageStatMultiplier: NumberStatLineCategory = {
     }
   ]
 }
+
+export const positiveSalvageStatMultiplierSum = () =>
+  Math.min(
+    1e300,
+    1
+      + (posSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100)
+      + getTalismanEffects('achievement').positiveSalvageMult
+  )
 
 const constructionResearches = [56, 57, 58, 59, 60] as const
 const mythosUpgrade8Construction = 0.2
@@ -3497,6 +4384,18 @@ export const constructionStats: NumberStatLineCategory = {
   ]
 }
 
+export const constructionStatsSum = () =>
+  Math.min(
+    1e300,
+    baseConstruction
+      + (mythosUpgrade8Construction * player.upgrades[48])
+      + getRuneEffects('thrift', 'construction')
+      + (0.05 * constructionResearches.reduce((sum, index) => sum + player.researches[index], 0))
+      + getAntUpgradeEffect(AntUpgrades.BuildingCostScale).construction
+      + challenge15PlatonicConstruction()
+      + G.challenge15Rewards.construction.value
+  )
+
 export const constructionMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -3508,6 +4407,12 @@ export const constructionMultiplierStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const constructionMultiplierStatsProduct = () =>
+  Math.min(
+    1e300,
+    player.currentChallenge.ascension === 15 && player.platonicUpgrades[13] > 0 ? 3 : 1
+  )
 
 const constructionBuildingStats: NumberStatLineCategory = {
   kind: 'number',
@@ -3613,6 +4518,22 @@ export const freeAcceleratorAdditiveStats: NumberStatLineCategory = {
   ]
 }
 
+export const freeAcceleratorAdditiveStatsSum = (totalAcceleratorBoost = calculateTotalAcceleratorBoost()) =>
+  Math.min(
+    1e300,
+    (player.upgrades[8] !== 0 ? Math.floor(getBuildingOwned('multiplier') / 7) : 0)
+      + ((player.upgrades[21] !== 0 ? 5 : 0)
+        + (player.upgrades[22] !== 0 ? 4 : 0)
+        + (player.upgrades[23] !== 0 ? 3 : 0)
+        + (player.upgrades[24] !== 0 ? 2 : 0)
+        + (player.upgrades[25] !== 0 ? 1 : 0))
+      + (player.upgrades[32] !== 0 ? Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25))) : 0)
+      + (player.upgrades[45] !== 0 ? Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10))) : 0)
+      + (+getAchievementReward('accelerators'))
+      + (5 * player.challengecompletions[2])
+      + (totalAcceleratorBoost * calculateAcceleratorsPerBoost())
+  )
+
 export const freeAcceleratorMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -3657,6 +4578,24 @@ export const freeAcceleratorMultiplierStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const freeAcceleratorMultiplierStatsProduct = () =>
+  Math.min(
+    1e300,
+    (player.unlocks.prestige ? getRuneEffects('speed', 'multiplicativeAccelerators') : 1)
+      * challenge14ResearchMultiplier(1)
+      * (1
+        + player.researches[6] / 20
+        + player.researches[7] / 25
+        + player.researches[8] / 40
+        + 3 * player.researches[9] / 200
+        + player.researches[10] / 200)
+      * (1 + player.researches[86] / 20)
+      * lateResearchMultiplier([126, 141, 156, 171, 186])
+      * (1 + 0.01 * player.cubeUpgrades[50] / 100)
+      * Math.pow(1.01, sumDiamondUpgradesOneToFive())
+      * (isMythosUpgrade10Active() ? 1.25 : 1)
+  )
 
 export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
   kind: 'number',
@@ -3712,6 +4651,20 @@ export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const freeMultiplierAdditiveStatsSum = (totalAcceleratorBoost?: number) =>
+  Math.min(
+    1e300,
+    (player.upgrades[7] > 0 ? Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', 4) + 1, 10))) : 0)
+      + (player.upgrades[9] > 0 ? Math.floor(getBuildingOwned('accelerator') / 10) : 0)
+      + diamondUpgradesOneToFive.filter((i) => player.upgrades[i] > 0).length
+      + (player.upgrades[33] > 0 ? totalAcceleratorBoost ?? calculateTotalAcceleratorBoost() : 0)
+      + (player.upgrades[49] > 0 ? Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10))) : 0)
+      + (player.upgrades[68] > 0 ? calculateParticleUpgrade8FreeMultipliers() : 0)
+      + (player.challengecompletions[1] > 0 ? 1 : 0)
+      + (+getAchievementReward('multipliers'))
+      + (20 * player.researches[94] * Math.floor(sumOfRuneLevels() / 8))
+  )
 
 export const freeMultiplierMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
@@ -3769,6 +4722,27 @@ export const freeMultiplierMultiplierStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const freeMultiplierMultiplierStatsProduct = () =>
+  Math.min(
+    1e300,
+    Math.pow(1.01, sumDiamondUpgradesOneToFive())
+      * (1 + 0.03 * player.upgrades[34] + 0.02 * player.upgrades[35])
+      * challenge14ResearchMultiplier(2)
+      * (1
+        + player.researches[11] / 20
+        + player.researches[12] / 25
+        + player.researches[13] / 40
+        + 3 * player.researches[14] / 200
+        + player.researches[15] / 200)
+      * getRuneEffects('duplication', 'multiplicativeMultipliers')
+      * (1 + player.researches[87] / 20)
+      * lateResearchMultiplier([128, 143, 158, 173, 188])
+      * (1 + 0.01 * player.cubeUpgrades[50] / 100)
+      * getAntUpgradeEffect(AntUpgrades.Multipliers).multiplierMult
+      * calculateMultiplierCubeBlessing()
+      * (isMythosUpgrade10Active() ? 1.25 : 1)
+  )
 
 const createFreeAccelMultFinalStats = (type: 'accelerator' | 'multiplier'): NumberStatLineCategory => ({
   kind: 'number',
@@ -3833,6 +4807,15 @@ export const freeAcceleratorBoostAdditiveStats: NumberStatLineCategory = {
   ]
 }
 
+export const freeAcceleratorBoostAdditiveStatsSum = () =>
+  Math.min(
+    1e300,
+    (player.upgrades[26] > 0.5 ? 1 : 0)
+      + (player.upgrades[31] > 0.5 ? Math.floor(getTotalBuildingsOwned('coin') / 2000) : 0)
+      + (+getAchievementReward('accelBoosts'))
+      + (player.researches[93] * Math.floor(sumOfRuneLevels() / 20))
+  )
+
 export const freeAcceleratorBoostMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -3872,6 +4855,19 @@ export const freeAcceleratorBoostMultiplierStats: NumberStatLineCategory = {
   ]
 }
 
+export const freeAcceleratorBoostMultiplierStatsProduct = () =>
+  Math.min(
+    1e300,
+    challenge14ResearchMultiplier(3)
+      * (1 + player.researches[16] / 20 + player.researches[17] / 20)
+      * (1 + player.researches[88] / 20)
+      * getAntUpgradeEffect(AntUpgrades.AcceleratorBoosts).acceleratorBoostMult
+      * lateResearchMultiplier([127, 142, 157, 172, 187])
+      * (1 + 0.01 * player.cubeUpgrades[50] / 100)
+      * getHepteractEffects('acceleratorBoost').acceleratorBoostMultiplier
+      * (player.upgrades[73] > 0.5 && player.currentChallenge.reincarnation !== 0 ? 2 : 1)
+  )
+
 export const negativeSalvageStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -3889,6 +4885,13 @@ export const negativeSalvageStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const negativeSalvageStatsSum = () =>
+  Math.min(
+    1e300,
+    calculateSingularityDebuff('Salvage')
+      + getRedAmbrosiaUpgradeEffects('salvageYinYang', 'negativeSalvage')
+  )
 
 export const negativeSalvageStatMultiplier: NumberStatLineCategory = {
   kind: 'number',
@@ -3915,6 +4918,15 @@ export const negativeSalvageStatMultiplier: NumberStatLineCategory = {
     }
   ]
 }
+
+export const negativeSalvageStatMultiplierSum = () =>
+  Math.min(
+    1e300,
+    1
+      + (-negSalvagePerkSings.filter((x) => x <= player.highestSingularityCount).length / 100)
+      + getTalismanEffects('achievement').negativeSalvageMult
+      + (player.platonicUpgrades[13] > 0 ? -0.5 : 0)
+  )
 
 export const antSpeedStats: DecimalStatLineCategory = {
   kind: 'decimal',
@@ -4057,6 +5069,51 @@ export const antSpeedStats: DecimalStatLineCategory = {
   ]
 }
 
+export const antSpeedStatsProduct = (globalSpeedMult = calculateGlobalSpeedMult()) =>
+  new Decimal(1)
+    .mul(
+      canGenerateAntCrumbs()
+        ? 1
+        : 0
+    )
+    .mul(globalSpeedMult > 1 ? Decimal.pow(globalSpeedMult, 1 + 3 * player.upgrades[79]) : globalSpeedMult)
+    .mul(+getAchievementReward('antSpeed'))
+    .mul(calculateAntSpeedMultFromELO())
+    .mul(getAntUpgradeEffect(AntUpgrades.AntSpeed).antSpeed)
+    .mul(1 + 0.6 * player.upgrades[39])
+    .mul(1 + 4 * player.upgrades[76])
+    .mul(
+      (player.upgrades[77] > 0)
+        ? Decimal.pow(1 + player.upgrades[77] / 250, player.ants.producers[AntProducers.Workers].purchased)
+        : 1
+    )
+    .mul((player.upgrades[78] > 0) ? 1 + 0.005 * Math.pow(Decimal.log10(player.maxOfferings.add(1)), 2) : 1)
+    .mul(Decimal.pow(1 + player.researches[96] / 5000, player.ants.producers[AntProducers.Workers].purchased))
+    .mul(1 + player.researches[117] * player.ants.antSacrificeCount / 10000)
+    .mul(1 + player.researches[147] * Decimal.log10(player.ants.crumbs.add(10)))
+    .mul(1 + player.researches[177] * Decimal.log10(player.ants.crumbs.add(10)))
+    .mul(getRuneEffects('superiorIntellect', 'antSpeed'))
+    .mul(Decimal.pow(Decimal.max(1, player.obtainium), getRuneBlessingEffect('superiorIntellect').obtToAntExponent))
+    .mul(Decimal.pow(1.1, player.challengecompletions[9]))
+    .mul(Decimal.pow(1e5, player.challengecompletions[11]))
+    .mul(calculateAntSpeedCubeBlessing())
+    .mul(1 + 0.1 * Decimal.log(player.ascendShards.add(1), 10) * player.constantUpgrades[5])
+    .mul(G.challenge15Rewards.antSpeed.value)
+    .mul(Decimal.pow(1 + (1 / 100) * player.platonicUpgrades[12], sumContents(player.highestchallengecompletions)))
+    .mul(
+      player.highestSingularityCount >= 100
+        ? 1e12
+        : player.highestSingularityCount >= 70
+        ? 1e6
+        : player.highestSingularityCount >= 40
+        ? 1e3
+        : player.highestSingularityCount >= 1
+        ? 4.44
+        : 1
+    )
+    .mul(Decimal.pow(1 + player.cubeUpgrades[65] / 250, player.ants.producers[AntProducers.Workers].purchased))
+    .mul(getOcteractUpgradeEffect('octeractStarter', 'antSpeedMult'))
+
 export const antELOStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -4133,6 +5190,30 @@ export const antELOStats: NumberStatLineCategory = {
   ]
 }
 
+export const antELOStatsSum = () =>
+  Math.min(
+    1e300,
+    player.ants.producers[AntProducers.Workers].purchased
+      + (+getAchievementReward('antELOAdditive'))
+      + getLevelReward('ants')
+      + (player.upgrades[80] === 0
+        ? 0
+        : 10 * Math.min(50, player.ants.antSacrificeCount)
+          + 5 * Math.min(50, Math.max(player.ants.antSacrificeCount - 50, 0))
+          + Math.min(250, Math.max(0, player.ants.antSacrificeCount - 100)))
+      + (100 * player.challengecompletions[10])
+      + getShopUpgradeEffects('antSpeed', 'antELO')
+      + (25 * player.researches[108])
+      + (25 * player.researches[109])
+      + (2 * player.researches[120])
+      + (50 * player.researches[123])
+      + (0.02 * player.researches[169])
+      + (666 * player.researches[178])
+      + getAntUpgradeEffect(AntUpgrades.AntSacrifice).elo
+      + getAntUpgradeEffect(AntUpgrades.AntELO).antELO
+      + calculateSingularityPerkELO()
+  )
+
 export const additiveAntELOMultStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -4198,6 +5279,23 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
   ]
 }
 
+export const additiveAntELOMultStatsSum = () =>
+  Math.min(
+    1e300,
+    1
+      + (+getAchievementReward('antELOAdditiveMultiplier'))
+      + (player.ants.producers[AntProducers.Queens].purchased > 0 ? 0.01 : 0)
+      + (player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 0.01 : 0)
+      + (player.ants.producers[AntProducers.Almighties].purchased > 0 ? 0.01 : 0)
+      + (player.ants.producers[AntProducers.Disciples].purchased > 0 ? 0.02 : 0)
+      + (player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 0.02 : 0)
+      + (player.currentChallenge.ascension === 15 ? 0.05 * player.platonicUpgrades[12] : 0)
+      + (-corruptionEffect(activeCorruptionLevel(), 'blunders'))
+      + calculateSingularityDebuff('Ant ELO')
+      + singularityELOBonusMult()
+      + getPurpleReactorUpgradeEffects('lifetimeHoneyAntELO', 'additiveAntELOPercent')
+  )
+
 const effectiveAntELOStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -4213,6 +5311,13 @@ const effectiveAntELOStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const effectiveAntELOStatsProduct = (baseELO = calculateBaseAntELO(), eloMult = calculateELOMult()) =>
+  Math.min(
+    1e300,
+    baseELO
+      * eloMult
+  )
 
 export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
   kind: 'number',
@@ -4291,6 +5396,28 @@ export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
   ]
 }
 
+export const rebornELOCreationSpeedMultStatsProduct = (effectiveAntELO = calculateEffectiveAntELO()) =>
+  Math.min(
+    1e300,
+    0.01
+      * effectiveAntELO
+      * (1 + 0.1 * player.upgrades[124])
+      * (1 + player.researches[110] / 50)
+      * (1 + player.researches[120] / 250)
+      * (1 + player.researches[148] / 50)
+      * (player.ants.producers[AntProducers.Queens].purchased > 0 ? 1.15 : 1)
+      * (player.ants.producers[AntProducers.LordRoyals].purchased > 0 ? 1.25 : 1)
+      * (player.ants.producers[AntProducers.Almighties].purchased > 0 ? 1.4 : 1)
+      * (player.ants.producers[AntProducers.Disciples].purchased > 0 ? 2 : 1)
+      * (player.ants.producers[AntProducers.HolySpirit].purchased > 0 ? 3 : 1)
+      * thresholdModifiers().rebornSpeedMult
+      * getTalismanEffects('mortuus').antBonus
+      * calculateAntELOCubeBlessing()
+      * (1 + player.platonicUpgrades[12] / 10)
+      * ((player.singularityChallenges.limitedTime.enabled && runes.antiquities.level === 0) ? 5 : 1)
+      * getPurpleReactorUpgradeEffects('lifetimeHoneyRebornELOSpeed', 'rebornELOSpeedMult')
+  )
+
 export const ascensionCountMultStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -4338,6 +5465,23 @@ export const ascensionCountMultStats: NumberStatLineCategory = {
   ]
 }
 
+export const ascensionCountMultStatsProduct = (ascensionSpeedMult?: number) =>
+  Math.min(
+    1e300,
+    (1 + +getAchievementReward('ascensionCountAdditive'))
+      * (+getAchievementReward('ascensionCountMultiplier'))
+      * G.challenge15Rewards.ascensions.value
+      * (player.platonicUpgrades[15] > 0 ? 2 : 1)
+      * (1 + player.platonicUpgrades[16] * 0.02 * (1 + Math.min(1, player.overfluxPowder / 100000)))
+      * (1 + player.singularityCount / 10)
+      * getGQUpgradeEffect('ascensions', 'ascensionCountMult')
+      * getOcteractUpgradeEffect('octeractAscensions', 'ascensionCountMult')
+      * getOcteractUpgradeEffect('octeractAscensions2', 'ascensionCountMult')
+      * (getGQUpgradeEffect('oneMind', 'unlocked')
+        ? (ascensionSpeedMult ?? calculateAscensionSpeedMult()) / G.MIND_DIVISOR
+        : 1)
+  )
+
 const cubeBankStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -4380,6 +5524,18 @@ const cubeBankStats: NumberStatLineCategory = {
     }
   ]
 }
+
+const cubeBankStatsSum = () =>
+  Math.min(
+    1e300,
+    calculateCubeBankSources().transcensionChallenges.reduce((total, tier) => total + tier.amount, 0)
+      + calculateCubeBankSources().reincarnationChallenges.amount
+      + calculateCubeBankSources().ants
+      + calculateCubeBankSources().cubeUpgrades
+      + calculateCubeBankSources().finiteDescent
+      + calculateCubeBankSources().achievements
+      + calculateCubeBankSources().advancedPack
+  )
 
 const cubeBankMultiplierStats: NumberStatLineCategory = {
   kind: 'number',
@@ -4466,6 +5622,24 @@ export const freeCorruptionLevelStats: NumberStatLineCategory = {
   ]
 }
 
+export const freeCorruptionLevelStatsSum = () =>
+  Math.min(
+    1e300,
+    (player.platonicUpgrades[5] > 0 ? 1 : 0)
+      + (player.platonicUpgrades[10] > 0 ? 1 : 0)
+      + (player.platonicUpgrades[15] > 0 ? 1 : 0)
+      + (0.2 * player.platonicUpgrades[17])
+      + (getGQUpgradeEffect('corruptionFourteen', 'unlocked') ? 1 : 0)
+      + getGQUpgradeEffect('corruptionFifteen', 'freeCorruptionLevel')
+      + getGQUpgradeEffect('expertPack', 'freeCorruptionLevels')
+      + getGQUpgradeEffect('masterPack', 'freeCorruptionLevels')
+      + (0.5 * getOcteractUpgradeEffect('octeractCorruption', 'corruptionLevelCapIncrease'))
+      + getSingularityChallengeEffect('oneChallengeCap', 'freeCorruptionLevel')
+      + player.cubeUpgrades[74]
+      + getTalismanEffects('cookieGrandma').freeCorruptionLevel
+      + getRuneEffects('finiteDescent', 'corruptionFreeLevels')
+  )
+
 /**
  * This is different from 'Purple Ambrosia Generation', by the way.
  * "Purple" is the base resource used for Purple Ambrosia stuff.
@@ -4500,6 +5674,16 @@ export const allEncabulatorSpeedStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allEncabulatorSpeedStatsSum = () =>
+  Math.min(
+    1e300,
+    12
+      + getPurpleReactorUpgradeEffects('purpleHalfLife1', 'encabulatorSpeed')
+      + getPurpleReactorUpgradeEffects('purpleHalfLife2', 'encabulatorSpeed')
+      + getPurpleReactorUpgradeEffects('purpleHalfLife3', 'encabulatorSpeed')
+      + getPurpleReactorUpgradeEffects('purpleHalfLife4', 'encabulatorSpeed')
+  )
 
 /**
  * Purple Reactants are Ambrosia and Red Ambrosia Bar Points (ABP, RABP)
@@ -4541,6 +5725,17 @@ export const allPurpleReactantCapacityStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allPurpleReactantCapacityStatsSum = () =>
+  Math.min(
+    1e300,
+    1000000000
+      + PCoinUpgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF
+      + getPurpleReactorUpgradeEffects('purpleCapacityExpander1', 'ambrosiaCapacity')
+      + getPurpleReactorUpgradeEffects('purpleCapacityExpander2', 'ambrosiaCapacity')
+      + getPurpleReactorUpgradeEffects('purpleCapacityExpander3', 'ambrosiaCapacity')
+      + getPurpleReactorUpgradeEffects('purpleCapacityExpander4', 'ambrosiaCapacity')
+  )
 
 export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
   kind: 'number',
@@ -4607,6 +5802,23 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
   ]
 }
 
+export const allPurpleHoneyLuckStatsSum = () =>
+  Math.min(
+    1e300,
+    100
+      + PCoinUpgradeEffects.PURPLE_LUCK_BUFF
+      + getLevelReward('purpleHoneyLuck')
+      + getTalismanEffects('purpleGem').purpleHoneyLuck
+      + calculateIrish3PurpleLuck()
+      + getPurpleReactorUpgradeEffects('purpleHoneyLuck1', 'purpleHoneyLuck')
+      + getPurpleReactorUpgradeEffects('purpleHoneyLuck2', 'purpleHoneyLuck')
+      + getPurpleReactorUpgradeEffects('purpleHoneyLuck3', 'purpleHoneyLuck')
+      + getPurpleReactorUpgradeEffects('purpleHoneyLuck4', 'purpleHoneyLuck')
+      + getSingularityChallengeEffect('taxmanLastStand', 'purpleHoneyLuck')
+      + getSingularityChallengeEffect('barDependence', 'purpleHoneyLuck')
+      + getRuneEffects('horseShoe', 'purpleHoneyLuck')
+  )
+
 export const allPurpleHoneyEfficiencyStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Addition,
@@ -4644,6 +5856,20 @@ export const allPurpleHoneyEfficiencyStats: NumberStatLineCategory = {
   ]
 }
 
+export const allPurpleHoneyEfficiencyStatsSum = (
+  efficientBlueberryPurpleEfficiency = calculateEfficientBlueberryPurpleEfficiency()
+) =>
+  Math.min(
+    1e300,
+    1
+      + PCoinUpgradeEffects.PURPLE_HONEY_BUFF
+      + efficientBlueberryPurpleEfficiency
+      + getPurpleReactorUpgradeEffects('purpleEfficiency1', 'purpleEfficiency')
+      + getPurpleReactorUpgradeEffects('purpleEfficiency2', 'purpleEfficiency')
+      + getPurpleReactorUpgradeEffects('purpleEfficiency3', 'purpleEfficiency')
+      + getPurpleReactorUpgradeEffects('purpleEfficiency4', 'purpleEfficiency')
+  )
+
 export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -4678,6 +5904,18 @@ export const allPurpleHoneyProgressRequirementStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allPurpleHoneyProgressRequirementStatsProduct = () =>
+  Math.min(
+    1e300,
+    250000
+      * calculateSingularityPurpleBarSizeMultiplier()
+      * getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction1', 'purpleHoneyRequirementMult')
+      * getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction2', 'purpleHoneyRequirementMult')
+      * getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction3', 'purpleHoneyRequirementMult')
+      * getPurpleReactorUpgradeEffects('purpleHoneyRequirementReduction4', 'purpleHoneyRequirementMult')
+      * getSingularityChallengeEffect('taxmanLastStand', 'purpleBarSize')
+  )
 
 const allMiscStats: NumberStatLineCategory = {
   kind: 'number',
@@ -4883,6 +6121,49 @@ export const allTaxExponentStats: NumberStatLineCategory = {
   ]
 }
 
+export const allTaxExponentStatsProduct = () =>
+  Math.min(
+    1e300,
+    getRuneEffects('duplication', 'taxReduction')
+      * getRuneEffects('thrift', 'taxReduction')
+      * (1 + getTalismanEffects('exemption').taxReduction)
+      * (player.currentChallenge.reincarnation === 6
+        ? 3 * Math.pow(1 + player.challengecompletions[6] / 25, 2)
+        : 1)
+      * (player.currentChallenge.reincarnation === 9 ? 0.005 : 1)
+      * (useChallenge13Modifiers()
+        ? 400 * (1 + 1 / 6 * player.challengecompletions[13]) * Math.pow(1.05, challenge13EffectiveCompletions())
+        : 1)
+      * (player.currentChallenge.ascension === 15 ? 0.000005 : 1)
+      * (player.challengecompletions[6] > 0 ? 1 / 1.075 : 1)
+      * Math.pow(0.965, player.challengecompletions[6])
+      * Math.pow(0.966, player.challengecompletions[13])
+      * G.challenge15Rewards.taxes.value
+      * ((1 - 0.06 * player.researches[51])
+        * (1 - 0.05 * player.researches[52])
+        * (1 - 0.05 * player.researches[53])
+        * (1 - 0.05 * player.researches[54])
+        * (1 - 0.05 * player.researches[55]))
+      * Math.pow(0.98, 3 / 5 * Decimal.log(player.rareFragments.add(1), 10) * player.researches[159])
+      * (1 - 0.666 * player.researches[200] / 100000)
+      * getAntUpgradeEffect(AntUpgrades.Taxes).taxReduction
+      * (1
+        / Math.pow(
+          1 + Decimal.log(player.ascendShards.add(1), 10),
+          1 + 1 / 300 * player.challengecompletions[10] * player.upgrades[125] + 0.1 * player.platonicUpgrades[5]
+            + 0.2 * player.platonicUpgrades[10] + calculateTaxPlatonicBlessing()
+        ))
+      * (player.upgrades[121] > 0 ? 0.5 : 1)
+      * (1 - 0.666 * player.cubeUpgrades[50] / 100000)
+      * (+getAchievementReward('taxReduction'))
+      * campaignTokenBonuses.tax()
+      * (1 / getPurpleAmbrosiaUpgradeEffects('taurus', 'taxDivisor'))
+      * (player.highestSingularityCount >= 281 ? 0.5 : 1)
+      * (player.singularityChallenges.taxmanLastStand.enabled
+        ? (player.unlocks.ascensions ? 4 : 1) * (player.highestchallengecompletions[14] > 0 ? 5 : 1)
+        : 1)
+  )
+
 const allTaxCapStats: DecimalStatLineCategory = {
   kind: 'decimal',
   type: StatLineTypes.Misc,
@@ -4988,6 +6269,40 @@ export const allCoinMultiplierStats: DecimalStatLineCategory = {
   ]
 }
 
+export const allCoinMultiplierStatsProduct = (
+  multiplierEffect = calculateMultiplierStats().multiplierEffect,
+  acceleratorEffect = calculateAcceleratorStats().acceleratorEffect,
+  totalAccelerator?: number
+) =>
+  new Decimal(1)
+    .mul(multiplierEffect)
+    .mul(acceleratorEffect)
+    .mul(calculateCrystalCoinMultiplier())
+    .mul(calculateBuildingPowerCoinMultiplier())
+    .mul(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier)
+    .mul(
+      player.highestSingularityCount > 0
+        ? Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.highestSingularityCount + 1, 2)
+        : 1
+    )
+    .mul(player.upgrades[6] > 0.5 ? calculateFirstSixCoinUpgradeMultiplier() : 1)
+    .mul(
+      player.upgrades[11] > 0.5 && player.currentChallenge.reincarnation !== 7
+        ? Decimal.pow(1.02, totalAccelerator ?? calculateAcceleratorCounts().totalAccelerator)
+        : 1
+    )
+    .mul(player.upgrades[12] > 0.5 ? Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)) : 1)
+    .mul(player.upgrades[20] > 0.5 ? Decimal.pow(getTotalBuildingsOwned('coin') / 4 + 1, 10) : 1)
+    .mul(
+      player.upgrades[41] > 0.5
+        ? Decimal.min(1e30, Decimal.pow(player.transcendPoints.add(4), 1 / 2))
+        : 1
+    )
+    .mul(player.upgrades[43] > 0.5 ? Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)) : 1)
+    .mul(player.currentChallenge.reincarnation === 6 ? challenge6CoinPenalty : 1)
+    .mul(player.currentChallenge.reincarnation === 7 ? challenge7CoinPenalty : 1)
+    .mul(player.currentChallenge.reincarnation === 9 ? challenge9CoinPenalty : 1)
+
 export const allCoinExponentStats: NumberStatLineCategory = {
   kind: 'number',
   type: StatLineTypes.Multiplication,
@@ -5039,6 +6354,23 @@ export const allCoinExponentStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const allCoinExponentStatsProduct = () =>
+  Math.min(
+    1e300,
+    (1 + 0.001 * player.researches[17])
+      * (1 + 0.025 * player.upgrades[123])
+      * (player.currentChallenge.ascension === 15 && player.platonicUpgrades[5] > 0 ? 1.1 : 1)
+      * (player.currentChallenge.ascension === 15 && player.platonicUpgrades[14] > 0
+        ? 1
+          + (0.5 * Decimal.log(player.coins.add(1), 10))
+            / (1e7 + Decimal.log(player.coins.add(1), 10))
+        : 1)
+      * (player.currentChallenge.ascension === 15 && player.platonicUpgrades[15] > 0 ? 1.1 : 1)
+      * G.challenge15Rewards.coinExponent.value
+      * corruptionEffect(activeCorruptionLevel(), 'recession')
+      * challenge15CorruptionEffect('recession')
+  )
 
 const allCoinProductionStats: DecimalStatLineCategory = {
   kind: 'decimal',
@@ -5877,14 +7209,14 @@ const loadCoinStats = () => {
     'coinStats',
     'statCoin',
     'CoinStat',
-    () => calculateTotalStat(allCoinMultiplierStats)
+    () => allCoinMultiplierStatsProduct()
   )
   loadStatistics(
     allCoinExponentStats,
     'coinStats',
     'statCoin2',
     'CoinStat2',
-    () => calculateTotalStat(allCoinExponentStats),
+    () => allCoinExponentStatsProduct(),
     'Total2'
   )
   loadStatistics(allCoinProductionStats, 'coinStats', 'statCoin3', 'CoinStat3', () => 0, '', false)
@@ -5940,7 +7272,7 @@ const loadFreeAccelMultStats = () => {
     'freeAccelerators',
     'statFreeAccelAdd',
     'FreeAcceleratorStatAdditive',
-    () => calculateTotalStat(freeAcceleratorAdditiveStats),
+    () => freeAcceleratorAdditiveStatsSum(),
     'AdditiveTotal'
   )
   loadStatistics(
@@ -5948,7 +7280,7 @@ const loadFreeAccelMultStats = () => {
     'freeAccelerators',
     'statFreeAccelMult',
     'FreeAcceleratorStatMultiplier',
-    () => calculateTotalStat(freeAcceleratorMultiplierStats),
+    () => freeAcceleratorMultiplierStatsProduct(),
     'MultiplierTotal'
   )
   loadStatistics(
@@ -5963,7 +7295,7 @@ const loadFreeAccelMultStats = () => {
     'freeMultipliers',
     'statFreeMultAdd',
     'FreeMultiplierStatAdditive',
-    () => calculateTotalStat(freeMultiplierAdditiveStats),
+    () => freeMultiplierAdditiveStatsSum(),
     'AdditiveTotal'
   )
   loadStatistics(
@@ -5971,7 +7303,7 @@ const loadFreeAccelMultStats = () => {
     'freeMultipliers',
     'statFreeMultMult',
     'FreeMultiplierStatMultiplier',
-    () => calculateTotalStat(freeMultiplierMultiplierStats),
+    () => freeMultiplierMultiplierStatsProduct(),
     'MultiplierTotal'
   )
   loadStatistics(
@@ -5986,7 +7318,7 @@ const loadFreeAccelMultStats = () => {
     'freeAcceleratorBoosts',
     'statFreeBoostAdd',
     'FreeAcceleratorBoostStatAdditive',
-    () => calculateTotalStat(freeAcceleratorBoostAdditiveStats),
+    () => freeAcceleratorBoostAdditiveStatsSum(),
     'AdditiveTotal'
   )
   loadStatistics(
@@ -6021,6 +7353,14 @@ const firstFiveRuneSalvageStats: NumberStatLineCategory = {
     }
   ]
 }
+
+export const firstFiveRuneSalvageStatsSum = (totalSalvage = calculateTotalSalvage()) =>
+  Math.min(
+    1e300,
+    totalSalvage
+      + calculateBadOfferingsSalvage()
+      + calculateChallenge15RuneSalvage()
+  )
 
 const loadSalvageStats = () => {
   loadPositiveSalvageStats()
@@ -6097,7 +7437,7 @@ const loadStatisticsCubeBankStats = () => {
     'cubeBankStats',
     'statCB',
     'CubeBankStat',
-    () => calculateTotalStat(cubeBankStats)
+    () => cubeBankStatsSum()
   )
   loadStatistics(
     cubeBankMultiplierStats,

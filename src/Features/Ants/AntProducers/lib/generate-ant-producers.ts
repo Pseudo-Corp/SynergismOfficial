@@ -11,9 +11,9 @@ export const canGenerateAntCrumbs = (): boolean => {
   return player.challengecompletions[8] > 0 || player.cubeUpgrades[48] > 0
 }
 
-export const generateAntsAndCrumbs = (dt: number): void => {
+export const generateAntsAndCrumbs = (dt: number, globalSpeedMult?: number): void => {
   // TODO: Place somewhere in Ants.
-  const antSpeedMult = calculateActualAntSpeedMult()
+  const antSpeedMult = calculateActualAntSpeedMult(globalSpeedMult)
 
   for (let antType = LAST_ANT_PRODUCER; antType > AntProducers.Workers; antType--) {
     const baseGeneration = calculateBaseAntsToBeGenerated(antType, antSpeedMult)

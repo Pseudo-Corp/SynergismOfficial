@@ -56,3 +56,10 @@ Please do not write comments. You suck at writing.
 
 Don't use <select> menus. These are incompatible for some users, such as
 those using a Steamdeck.
+
+## Stats for Nerds
+
+If you are adding a `statLine` to Stats for Nerds, and the main stat category is being used for real computation in any way, then you must add it to the unrolled calculation as well. If you are creating a new stat category that you intend on calculating out, you must create an unrolled calculation function.
+
+Optional Parameters: Suppose you have `statLine`
+categories A and B. Calculating B requires calculating all of A for a single line. This might be expensive, and is sometimes not even needed. In the unrolled calculation function for B, create an optional param whose default value is the unrolled calculation function for A. If A and B are calculated in the same method call somewhere, always pass the result of A into B.

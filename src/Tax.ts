@@ -17,7 +17,7 @@ import { awardUngroupedAchievement } from './Achievements'
 import { totalStartingChallengeCompletions, useChallenge13Modifiers } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
-import { allTaxExponentStats, calculateTotalStat } from './Statistics'
+import { allTaxExponentStatsProduct } from './Statistics'
 
 // im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
 export const challenge13EffectiveCompletions = () => {
@@ -30,7 +30,7 @@ export const challenge13EffectiveCompletions = () => {
 }
 
 // Cap the calculation overflow bug || httpsnet
-export const calculateTaxExponent = () => Math.max(1e-300, calculateTotalStat(allTaxExponentStats))
+export const calculateTaxExponent = () => Math.max(1e-300, allTaxExponentStatsProduct())
 
 export const calculateFlatTaxCapIncrease = (buildingPowerCoinMultiplier = calculateBuildingPowerCoinMultiplier()) => {
   return Decimal.log(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 10)
@@ -50,14 +50,21 @@ const getCoinProducerInputs = (): CoinProducerInputs => ({
 })
 
 export const calculateTax = (
-  stats: Pick<AccelMultStats, 'effectiveFreeAccelerator'> = calculateAcceleratorCounts(),
+  stats:
+    & Pick<AccelMultStats, 'effectiveFreeAccelerator'>
+    & Partial<Pick<AccelMultStats, 'multiplierEffect' | 'acceleratorEffect' | 'totalAccelerator'>> =
+      calculateAcceleratorCounts(),
   { coinsOwned, firstMythosOwned, firstDiamondOwned }: CoinProducerInputs = getCoinProducerInputs(),
   buildingPowerCoinMultiplier = calculateBuildingPowerCoinMultiplier(undefined, sumBuildingsOwned(coinsOwned))
 ) => {
   // To 2020 Platonic: Why the HELL is this done here???
   const totalCoinOwned = sumBuildingsOwned(coinsOwned)
   const first6CoinUp = calculateFirstSixCoinUpgradeMultiplier(totalCoinOwned)
-  const coinMultiplier = calculateGlobalCoinMultiplier()
+  const coinMultiplier = calculateGlobalCoinMultiplier(
+    stats.multiplierEffect,
+    stats.acceleratorEffect,
+    stats.totalAccelerator
+  )
   const tierInputs = {
     first6CoinUp,
     effectiveFreeAccelerator: stats.effectiveFreeAccelerator,

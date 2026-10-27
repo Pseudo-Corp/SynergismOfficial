@@ -29,10 +29,9 @@ import {
   goldenQuarkUpgrades
 } from './singularity'
 import {
-  allAddCodeCapacityMultiplierStats,
-  allAddCodeCapacityStats,
-  allAddCodeTimerStats,
-  calculateTotalStat,
+  allAddCodeCapacityMultiplierStatsProduct,
+  allAddCodeCapacityStatsSum,
+  allAddCodeTimerStatsProduct,
   synergismStage
 } from './Statistics'
 import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from './Synergism'
@@ -878,8 +877,8 @@ export const addCodeSingularityPerkBonus = (): { intervalDivisor: number; addCod
   }
 }
 
-export const addCodeMaxCapacityAdditive = () => calculateTotalStat(allAddCodeCapacityStats)
-export const addCodeMaxCapacityMultiplicative = () => calculateTotalStat(allAddCodeCapacityMultiplierStats)
+export const addCodeMaxCapacityAdditive = () => allAddCodeCapacityStatsSum()
+export const addCodeMaxCapacityMultiplicative = () => allAddCodeCapacityMultiplierStatsProduct()
 
 export const addCodeMaxCapacity = () => {
   const additiveValue = addCodeMaxCapacityAdditive()
@@ -887,7 +886,7 @@ export const addCodeMaxCapacity = () => {
   return Math.floor(additiveValue * multiplier)
 }
 
-export const addCodeInterval = () => calculateTotalStat(allAddCodeTimerStats)
+export const addCodeInterval = () => allAddCodeTimerStatsProduct()
 
 export const addCodeMaxUses = (): number => {
   const maxTime = addCodeMaxCapacity() // in seconds

@@ -1,4 +1,4 @@
-import { calculateTotalStat, rebornELOCreationSpeedMultStats } from '../../../../../../../Statistics'
+import { rebornELOCreationSpeedMultStatsProduct } from '../../../../../../../Statistics'
 import { player } from '../../../../../../../Synergism'
 import { geometricSeries } from '../../../../../../../Utility'
 import {
@@ -15,7 +15,8 @@ export const calculateAvailableRebornELO = () => {
   return Math.max(0, pool - alreadyActivated)
 }
 
-export const rebornELOCreationSpeedMult = () => calculateTotalStat(rebornELOCreationSpeedMultStats)
+export const rebornELOCreationSpeedMult = (effectiveAntELO?: number) =>
+  rebornELOCreationSpeedMultStatsProduct(effectiveAntELO)
 
 const calculateTotalProductionForRebornELO = (rebornELO: number) => {
   const stage = calculateRebornELOThresholds(rebornELO)

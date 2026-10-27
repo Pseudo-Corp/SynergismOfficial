@@ -86,7 +86,8 @@ const awardAmbrosiaBarFill = (globalSpeedMult?: () => number) => {
  * @returns Ambrosia Bar Points granted by Red Ambrosia Accelerator
  */
 const awardRedAmbrosiaBarFill = () => {
-  const redAmbrosiaLuck = calculateRedAmbrosiaRewardLuck()
+  const baseRedLuck = calculateRedAmbrosiaLuck()
+  const redAmbrosiaLuck = calculateRedAmbrosiaRewardLuck(baseRedLuck)
   const RNG = seededRandom(Seed.RedAmbrosia)
   const redAmbrosiaMult = Math.floor(redAmbrosiaLuck / 100)
   const luckMult = RNG < redAmbrosiaLuck / 100 - Math.floor(redAmbrosiaLuck / 100) ? 1 : 0
@@ -101,7 +102,6 @@ const awardRedAmbrosiaBarFill = () => {
   player.purpleHoneyProgress += getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill')
 
   // Red-Blue Ultrafusion uses base Red Luck, not TWO MIND reward luck
-  const baseRedLuck = calculateRedAmbrosiaLuck()
   const acceleratorMult = Math.floor(baseRedLuck / 100)
     + (RNG < baseRedLuck / 100 - Math.floor(baseRedLuck / 100) ? 1 : 0)
   const acceleratorSeconds = acceleratorMult

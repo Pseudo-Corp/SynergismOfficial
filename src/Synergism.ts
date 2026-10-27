@@ -118,7 +118,7 @@ import {
   sacrificeOfferings,
   updateAllRuneLevelsFromEXP
 } from './Runes'
-import { allCoinExponentStats, allCoinMultiplierStats, c15RewardUpdate, calculateTotalStat } from './Statistics'
+import { allCoinExponentStatsProduct, allCoinMultiplierStatsProduct, c15RewardUpdate } from './Statistics'
 import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
@@ -2358,9 +2358,10 @@ export const calculateAcceleratorPower = (totalAcceleratorBoost: number): number
 
 export const calculateMultiplierStats = (
   viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
-  construction?: number
+  construction?: number,
+  totalAcceleratorBoost?: number
 ) => {
-  const freeMultiplier = calculateFreeAccelMult('multiplier')
+  const freeMultiplier = calculateFreeAccelMult('multiplier', totalAcceleratorBoost)
   const effectiveFreeMultiplier = calculateEffectiveFreeAccelMult(freeMultiplier, viscosity)
   const totalMultiplier = getBuildingOwned('multiplier', 0, construction) / viscosity + effectiveFreeMultiplier
   const multiplierPower = calculateMultiplierPower()
@@ -2375,9 +2376,10 @@ export const calculateMultiplierStats = (
 
 export const calculateAcceleratorCounts = (
   viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
-  construction?: number
+  construction?: number,
+  totalAcceleratorBoost?: number
 ) => {
-  const freeAccelerator = calculateFreeAccelMult('accelerator')
+  const freeAccelerator = calculateFreeAccelMult('accelerator', totalAcceleratorBoost)
   const effectiveFreeAccelerator = calculateEffectiveFreeAccelMult(freeAccelerator, viscosity)
   return {
     freeAccelerator,
@@ -2394,7 +2396,8 @@ export const calculateAcceleratorStats = (
 ) => {
   const { freeAccelerator, effectiveFreeAccelerator, totalAccelerator } = calculateAcceleratorCounts(
     viscosity,
-    construction
+    construction,
+    totalAcceleratorBoost
   )
   const acceleratorPower = calculateAcceleratorPower(totalAcceleratorBoost)
 
@@ -2404,7 +2407,8 @@ export const calculateAcceleratorStats = (
   } else if (player.currentChallenge.transcension === 1) {
     acceleratorEffect = Decimal.pow(
       acceleratorPower,
-      totalAccelerator + (totalMultiplier ?? calculateMultiplierStats(viscosity).totalMultiplier)
+      totalAccelerator
+        + (totalMultiplier ?? calculateMultiplierStats(viscosity, construction, totalAcceleratorBoost).totalMultiplier)
     )
   } else {
     acceleratorEffect = Decimal.pow(acceleratorPower, totalAccelerator)
@@ -2423,7 +2427,7 @@ export const calculateAccelMultStats = (construction = calculateConstruction()) 
   const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
   const freeAcceleratorBoost = calculateFreeAcceleratorBoosts()
   const totalAcceleratorBoost = calculateTotalAcceleratorBoost(freeAcceleratorBoost, construction)
-  const multiplierStats = calculateMultiplierStats(viscosity, construction)
+  const multiplierStats = calculateMultiplierStats(viscosity, construction, totalAcceleratorBoost)
   return {
     viscosity,
     freeAcceleratorBoost,
@@ -2592,10 +2596,14 @@ export const crystalUpgrade3CrystalMultiplier = (
   return Decimal.pow(baseToUse, crystalProducersOwned)
 }
 
-export const calculateGlobalCoinMultiplier = () =>
+export const calculateGlobalCoinMultiplier = (
+  multiplierEffect?: Decimal,
+  acceleratorEffect?: Decimal,
+  totalAccelerator?: number
+) =>
   Decimal.pow(
-    calculateTotalStat(allCoinMultiplierStats),
-    calculateTotalStat(allCoinExponentStats)
+    allCoinMultiplierStatsProduct(multiplierEffect, acceleratorEffect, totalAccelerator),
+    allCoinExponentStatsProduct()
   )
 
 export interface CoinTierInputs {
@@ -4041,7 +4049,7 @@ const tack = (dt: number) => {
     // Adds Resources (coins, ants, etc)
     const timeMult = calculateGlobalSpeedMult()
     resourceGain(dt * timeMult)
-    generateAntsAndCrumbs(dt)
+    generateAntsAndCrumbs(dt, timeMult)
 
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
     const timerSpeedMult = () => timeMult
