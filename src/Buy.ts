@@ -96,22 +96,32 @@ interface QuadraticCurveConstants {
   scale: Decimal
 }
 
-const createQuadraticCostCurve = (
-  { growth, log10Growth, scale }: QuadraticCurveConstants,
-  threshold: number
-): CostCurve => ({
-  growth,
-  log10Growth,
-  scale,
-  exponentBetween: (from, to) => {
+class QuadraticCostCurve implements CostCurve {
+  readonly growth: number
+  readonly log10Growth: number
+  readonly scale: Decimal
+  readonly threshold: number
+
+  constructor ({ growth, log10Growth, scale }: QuadraticCurveConstants, threshold: number) {
+    this.growth = growth
+    this.log10Growth = log10Growth
+    this.scale = scale
+    this.threshold = threshold
+  }
+
+  exponentBetween (from: number, to: number) {
+    const threshold = this.threshold
     const start = Math.max(from, threshold)
     return to - from + (start < to ? (Math.pow(to - threshold, 2) - Math.pow(start - threshold, 2)) / threshold : 0)
-  },
-  countForExponent: (exponent) =>
-    exponent <= threshold
+  }
+
+  countForExponent (exponent: number) {
+    const threshold = this.threshold
+    return exponent <= threshold
       ? exponent
       : (threshold + Math.sqrt(4 * threshold * exponent - 3 * Math.pow(threshold, 2))) / 2
-})
+  }
+}
 
 const softcapExponentBetween = (slope: number, cap: number, from: number, to: number) =>
   slope * cap / 8 * Math.pow(from / cap, 8) * Math.expm1(8 * Math.log1p((to - from) / from))
@@ -307,7 +317,7 @@ const getBuildingCostCurve = (
   const constants = player.currentChallenge.reincarnation === 8
     ? challenge8QuadraticCurveConstants
     : quadraticCurveConstants
-  return createQuadraticCostCurve(constants[type][index], threshold)
+  return new QuadraticCostCurve(constants[type][index], threshold)
 }
 
 const getAccelMultCostCurve = (type: keyof typeof accelMultData): CostCurve => {
