@@ -19,6 +19,7 @@ import {
   calculateBuildingPower,
   calculateFirstSixCoinUpgradeMultiplier,
   calculateGlobalMythosMultiplier,
+  calculateReincarnationPointGain,
   crystalUpgrade3Base,
   crystalUpgrade3CrystalMultiplier,
   crystalUpgrade3MaxBase,
@@ -301,11 +302,10 @@ const upgradetexts = [
     ),
   () => format(calculateParticleUpgrade8FreeMultipliers()),
   () => {
-    const a = Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
-    const b = Decimal.pow(Decimal.log(G.reincarnationPointGain.add(10), 10), 0.5)
+    const a = Decimal.pow(Decimal.log(calculateReincarnationPointGain().add(10), 10), 0.5).toNumber()
     return {
-      x: format(Math.min(10, new Decimal(a).toNumber()), 2),
-      y: format(Math.min(3, new Decimal(b).toNumber()), 2)
+      x: format(Math.min(10, a), 2),
+      y: format(Math.min(3, a), 2)
     }
   },
   () => format(1 / 3 * Decimal.log10(player.maxObtainium.plus(1)), 2, true),

@@ -19,7 +19,13 @@ import { runeSpirits } from './RuneSpirits'
 import { maxQuarkUpgradeAP, quarkUpgradeAP } from './Shop'
 import { calculateGQUpgradeAP, getGQUpgradeEffect, maxGoldenQuarkUpgradeAP } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
-import { format, player } from './Synergism'
+import {
+  calculatePrestigePointGain,
+  calculateReincarnationPointGain,
+  calculateTranscendPointGain,
+  format,
+  player
+} from './Synergism'
 import { calculateSynthesisUpgradeAP, maxSynthesisUpgradeAP } from './Synthesis'
 import { Tabs } from './Tabs'
 import { maxTalismansRarityAP, talismans } from './Talismans'
@@ -771,89 +777,101 @@ const achievements: Achievement[] = [
   },
   {
     pointValue: 5,
-    unlockCondition: () => G.prestigePointGain.gte(G.dOne),
+    unlockCondition: () => calculatePrestigePointGain().gte(G.dOne),
     group: 'prestigePointGain',
     checkReset: () => player.highestSingularityCount >= 2,
     steamAchievementId: 'GROUPED_DIAMONDS_1'
   },
   {
     pointValue: 10,
-    unlockCondition: () => G.prestigePointGain.gte(G.d1e6),
+    unlockCondition: () => calculatePrestigePointGain().gte(G.d1e6),
     group: 'prestigePointGain',
     reward: { crystalMultiplier: () => Math.max(1, Decimal.log(player.prestigePoints, Math.E)) },
     checkReset: () => player.highestSingularityCount >= 3
   },
   {
     pointValue: 15,
-    unlockCondition: () => G.prestigePointGain.gte(G.d1e100),
+    unlockCondition: () => calculatePrestigePointGain().gte(G.d1e100),
     group: 'prestigePointGain',
     checkReset: () => player.highestSingularityCount >= 3
   },
-  { pointValue: 20, unlockCondition: () => G.prestigePointGain.gte(G.d1e1000), group: 'prestigePointGain' },
-  { pointValue: 25, unlockCondition: () => G.prestigePointGain.gte(G.d1e10000), group: 'prestigePointGain' },
-  { pointValue: 30, unlockCondition: () => G.prestigePointGain.gte(G.d1e77777), group: 'prestigePointGain' },
-  { pointValue: 35, unlockCondition: () => G.prestigePointGain.gte(G.d1e250000), group: 'prestigePointGain' },
+  { pointValue: 20, unlockCondition: () => calculatePrestigePointGain().gte(G.d1e1000), group: 'prestigePointGain' },
+  { pointValue: 25, unlockCondition: () => calculatePrestigePointGain().gte(G.d1e10000), group: 'prestigePointGain' },
+  { pointValue: 30, unlockCondition: () => calculatePrestigePointGain().gte(G.d1e77777), group: 'prestigePointGain' },
+  { pointValue: 35, unlockCondition: () => calculatePrestigePointGain().gte(G.d1e250000), group: 'prestigePointGain' },
   {
     pointValue: 5,
-    unlockCondition: () => G.transcendPointGain.gte(G.dOne),
+    unlockCondition: () => calculateTranscendPointGain().gte(G.dOne),
     group: 'transcendPointGain',
     checkReset: () => player.highestSingularityCount >= 2,
     steamAchievementId: 'GROUPED_MYTHOS_1'
   },
   {
     pointValue: 10,
-    unlockCondition: () => G.transcendPointGain.gte(G.d1e6),
+    unlockCondition: () => calculateTranscendPointGain().gte(G.d1e6),
     group: 'transcendPointGain',
     checkReset: () => player.highestSingularityCount >= 3
   },
   {
     pointValue: 15,
-    unlockCondition: () => G.transcendPointGain.gte(G.d1e50),
+    unlockCondition: () => calculateTranscendPointGain().gte(G.d1e50),
     group: 'transcendPointGain',
     reward: { taxReduction: () => 0.95 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => G.transcendPointGain.gte(G.d1e308),
+    unlockCondition: () => calculateTranscendPointGain().gte(G.d1e308),
     group: 'transcendPointGain',
     reward: { taxReduction: () => 0.95 }
   },
   {
     pointValue: 25,
-    unlockCondition: () => G.transcendPointGain.gte(G.d1e1500),
+    unlockCondition: () => calculateTranscendPointGain().gte(G.d1e1500),
     group: 'transcendPointGain',
     reward: { taxReduction: () => 0.9 }
   },
-  { pointValue: 30, unlockCondition: () => G.transcendPointGain.gte(G.d1e25000), group: 'transcendPointGain' },
-  { pointValue: 35, unlockCondition: () => G.transcendPointGain.gte(G.d1e100000), group: 'transcendPointGain' },
+  { pointValue: 30, unlockCondition: () => calculateTranscendPointGain().gte(G.d1e25000), group: 'transcendPointGain' },
+  {
+    pointValue: 35,
+    unlockCondition: () => calculateTranscendPointGain().gte(G.d1e100000),
+    group: 'transcendPointGain'
+  },
   {
     pointValue: 5,
-    unlockCondition: () => G.reincarnationPointGain.gte(G.dOne),
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.dOne),
     group: 'reincarnationPointGain',
     reward: { particleGain: () => 2 },
     checkReset: () => player.highestSingularityCount >= 3,
     steamAchievementId: 'GROUPED_PARTICLES_1'
   },
-  { pointValue: 10, unlockCondition: () => G.reincarnationPointGain.gte(G.d1e5), group: 'reincarnationPointGain' },
-  { pointValue: 15, unlockCondition: () => G.reincarnationPointGain.gte(G.d1e30), group: 'reincarnationPointGain' },
+  {
+    pointValue: 10,
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.d1e5),
+    group: 'reincarnationPointGain'
+  },
+  {
+    pointValue: 15,
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.d1e30),
+    group: 'reincarnationPointGain'
+  },
   {
     pointValue: 20,
-    unlockCondition: () => G.reincarnationPointGain.gte(G.d1e200),
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.d1e200),
     group: 'reincarnationPointGain'
   },
   {
     pointValue: 25,
-    unlockCondition: () => G.reincarnationPointGain.gte(G.d1e1500),
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.d1e1500),
     group: 'reincarnationPointGain'
   },
   {
     pointValue: 30,
-    unlockCondition: () => G.reincarnationPointGain.gte(G.d1e5000),
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.d1e5000),
     group: 'reincarnationPointGain'
   },
   {
     pointValue: 35,
-    unlockCondition: () => G.reincarnationPointGain.gte(G.d1e7777),
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.d1e7777),
     group: 'reincarnationPointGain'
   },
   {
@@ -2025,35 +2043,51 @@ const achievements: Achievement[] = [
     group: 'fifthOwnedCoin',
     steamAchievementId: 'GROUPED_ALCHEMIES_2'
   },
-  { pointValue: 40, unlockCondition: () => G.prestigePointGain.gte(G.d1e10000000), group: 'prestigePointGain' },
-  { pointValue: 45, unlockCondition: () => G.prestigePointGain.gte(G.d1e10000000000), group: 'prestigePointGain' },
+  {
+    pointValue: 40,
+    unlockCondition: () => calculatePrestigePointGain().gte(G.d1e10000000),
+    group: 'prestigePointGain'
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => calculatePrestigePointGain().gte(G.d1e10000000000),
+    group: 'prestigePointGain'
+  },
   {
     pointValue: 50,
-    unlockCondition: () => G.prestigePointGain.gte(G.d1e10000000000000),
+    unlockCondition: () => calculatePrestigePointGain().gte(G.d1e10000000000000),
     group: 'prestigePointGain',
     steamAchievementId: 'GROUPED_DIAMONDS_2'
   },
-  { pointValue: 40, unlockCondition: () => G.transcendPointGain.gte(G.d1e2500000), group: 'transcendPointGain' },
-  { pointValue: 45, unlockCondition: () => G.transcendPointGain.gte(G.d1e2500000000), group: 'transcendPointGain' },
+  {
+    pointValue: 40,
+    unlockCondition: () => calculateTranscendPointGain().gte(G.d1e2500000),
+    group: 'transcendPointGain'
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => calculateTranscendPointGain().gte(G.d1e2500000000),
+    group: 'transcendPointGain'
+  },
   {
     pointValue: 50,
-    unlockCondition: () => G.transcendPointGain.gte(G.d1e2500000000000),
+    unlockCondition: () => calculateTranscendPointGain().gte(G.d1e2500000000000),
     group: 'transcendPointGain',
     steamAchievementId: 'GROUPED_MYTHOS_2'
   },
   {
     pointValue: 40,
-    unlockCondition: () => G.reincarnationPointGain.gte(G.d1e100000),
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.d1e100000),
     group: 'reincarnationPointGain'
   },
   {
     pointValue: 45,
-    unlockCondition: () => G.reincarnationPointGain.gte(G.d1e100000000),
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.d1e100000000),
     group: 'reincarnationPointGain'
   },
   {
     pointValue: 50,
-    unlockCondition: () => G.reincarnationPointGain.gte(G.d1e100000000000),
+    unlockCondition: () => calculateReincarnationPointGain().gte(G.d1e100000000000),
     group: 'reincarnationPointGain',
     steamAchievementId: 'GROUPED_PARTICLES_2'
   },
