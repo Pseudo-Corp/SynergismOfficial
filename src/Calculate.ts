@@ -247,7 +247,7 @@ export const calculateObtainium = (timeMultUsed = true, baseObtainium = calculat
   const timeMultiplier = timeMultUsed
     ? calculateGlobalTimerModifiers(
       player.reincarnationcounter,
-      Boolean(getAchievementReward('obtainiumTimerMultiplier'))
+      getAchievementReward('obtainiumTimerMultiplier')
     )
     : 1
 
@@ -1374,7 +1374,7 @@ export const calculateCubeBankSources = () => {
     ants: getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked,
     cubeUpgrades: cubeUpgradeCubeBankAmount(),
     finiteDescent: getRuneEffects('finiteDescent', 'cubesBanked'),
-    achievements: +getAchievementReward('cubesBanked'),
+    achievements: getAchievementReward('cubesBanked'),
     advancedPack: getGQUpgradeEffect('advancedPack', 'cubesBanked'),
     reincarnationChallenges: {
       completions: reincarnationCompletions,

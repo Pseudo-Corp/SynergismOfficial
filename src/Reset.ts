@@ -11,6 +11,7 @@ import { renderAutoAscendRules } from './AutoAscensionUI'
 import {
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
+  CoinBuilding,
   getTesseractBuildingsOwned,
   grantCurveBuildings
 } from './Buy'
@@ -381,7 +382,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
 
 export const updatePrestigeCount = (count: number) => {
   let multiplier = 1
-  multiplier *= +getAchievementReward('prestigeCountMultiplier')
+  multiplier *= getAchievementReward('prestigeCountMultiplier')
   multiplier *= 1 + 0.05 * player.challengecompletions[5]
 
   const prestigeToAdd = Math.floor(count * multiplier)
@@ -393,7 +394,7 @@ export const updatePrestigeCount = (count: number) => {
 
 export const updateTranscensionCount = (count: number) => {
   let multiplier = 1
-  multiplier *= +getAchievementReward('transcensionCountMultiplier')
+  multiplier *= getAchievementReward('transcensionCountMultiplier')
   multiplier *= 1 + 0.15 * player.challengecompletions[7]
 
   const transcendToAdd = Math.floor(count * multiplier)
@@ -408,7 +409,7 @@ export const updateTranscensionCount = (count: number) => {
 
 export const updateReincarnationCount = (count: number) => {
   let multiplier = 1
-  multiplier *= +getAchievementReward('reincarnationCountMultiplier')
+  multiplier *= getAchievementReward('reincarnationCountMultiplier')
   multiplier *= 1 + 0.2 * player.challengecompletions[12]
 
   const reincarnationToAdd = Math.floor(count * multiplier)
@@ -911,7 +912,7 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   applyStartingChallengeCompletions()
   if (player.highestSingularityCount >= 2) { // Singularity 2
     player.transcendPoints = Decimal.fromString('1001')
-    grantCurveBuildings('coin', 0, 1)
+    grantCurveBuildings('coin', CoinBuilding.Workers, 1)
     player.unlocks.coinone = true
     player.unlocks.cointwo = true
     player.unlocks.cointhree = true

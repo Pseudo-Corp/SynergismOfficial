@@ -47,7 +47,7 @@ import { CloseModal, Confirm, createFitties, MEDIUM_MODAL_UPDATE_TICK, Modal, re
 import { formatS, isMobile, timeRemainingMinutes } from './Utility'
 import { Globals as G } from './Variables'
 
-const ascensionStatsUnlocked = () => Boolean(getAchievementReward('statTracker')) || player.highestSingularityCount > 0
+const ascensionStatsUnlocked = () => getAchievementReward('statTracker') || player.highestSingularityCount > 0
 const singularityStatsUnlocked = () => player.highestSingularityCount > 0
 const ambrosiaUnlocked = () => player.singularityChallenges.noSingularityUpgrades.completions > 0
 

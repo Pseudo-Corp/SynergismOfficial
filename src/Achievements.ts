@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
-import { getBuildingOwned, getBuildingsOwned } from './Buy'
+import { CoinBuilding, getBuildingOwned, getBuildingsOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokens } from './Campaign'
 import { activeCorruptionLevel, ascensionEffectiveCorruptionLevel } from './Corruptions'
@@ -226,81 +226,80 @@ export type AchievementGroups =
   | 'ungrouped'
   | 'addCodesUsed'
 
-type AchievementRewards =
-  | 'acceleratorPower'
-  | 'accelerators'
-  | 'multipliers'
-  | 'accelBoosts'
-  | 'crystalMultiplier'
-  | 'taxReduction'
-  | 'particleGain'
-  | 'conversionExponent'
-  | 'chronosTalisman'
-  | 'midasTalisman'
-  | 'metaphysicsTalisman'
-  | 'polymathTalisman'
-  | 'talismanPower'
-  | 'sacrificeMult'
-  | 'antSpeed'
-  | 'antSacrificeUnlock'
-  | 'preserveAnthillCount'
-  | 'preserveAnthillCountSingularity'
-  | 'antAutobuyers'
-  | 'inceptusAutobuy'
-  | 'fortunaeAutobuy'
-  | 'tributumAutobuy'
-  | 'celeritasAutobuy'
-  | 'exploratoremAutobuy'
-  | 'sacrificiumAutobuy'
-  | 'experientiaAutobuy'
-  | 'hicAutobuy'
-  | 'scientiaAutobuy'
-  | 'praemoenioAutobuy'
-  | 'phylacteriumAutobuy'
-  | 'antELOAdditive'
-  | 'antELOAdditiveMultiplier'
-  | 'wowSquareTalisman'
-  | 'ascensionCountMultiplier'
-  | 'ascensionCountAdditive'
-  | 'wowCubeGain'
-  | 'wowTesseractGain'
-  | 'wowHypercubeGain'
-  | 'wowPlatonicGain'
-  | 'quarkGain'
-  | 'wowHepteractGain'
-  | 'cubesBanked'
-  | 'constUpgrade1Buff'
-  | 'constUpgrade2Buff'
-  | 'platonicToHypercubes'
-  | 'statTracker'
-  | 'ascensionRewardScaling'
-  | 'overfluxConversionRate'
-  | 'diamondUpgrade18'
-  | 'diamondUpgrade19'
-  | 'diamondUpgrade20'
-  | 'prestigeCountMultiplier'
-  | 'transcensionCountMultiplier'
-  | 'reincarnationCountMultiplier'
-  | 'duplicationRuneUnlock'
-  | 'prismRuneUnlock'
-  | 'thriftRuneUnlock'
-  | 'salvage'
-  | 'offeringBonus'
-  | 'obtainiumBonus'
-  | 'transcendToPrestige'
-  | 'reincarnationToTranscend'
-  | 'antSacrificeCountMultiplier'
-  | 'freeAntUpgrades'
-  | 'autoAntSacrifice'
-  | 'antSpeed2UpgradeImprover'
-  | 'antSacrificeToReincarnation'
-  | 'obtainiumTimerMultiplier'
+interface AchievementRewardValues {
+  acceleratorPower: number
+  accelerators: number
+  multipliers: number
+  accelBoosts: number
+  crystalMultiplier: number
+  taxReduction: number
+  particleGain: number
+  conversionExponent: number
+  chronosTalisman: boolean
+  midasTalisman: boolean
+  metaphysicsTalisman: boolean
+  polymathTalisman: boolean
+  talismanPower: number
+  sacrificeMult: number
+  antSpeed: number
+  antSacrificeUnlock: boolean
+  preserveAnthillCount: boolean
+  preserveAnthillCountSingularity: boolean
+  antAutobuyers: number
+  inceptusAutobuy: boolean
+  fortunaeAutobuy: boolean
+  tributumAutobuy: boolean
+  celeritasAutobuy: boolean
+  exploratoremAutobuy: boolean
+  sacrificiumAutobuy: boolean
+  experientiaAutobuy: boolean
+  hicAutobuy: boolean
+  scientiaAutobuy: boolean
+  praemoenioAutobuy: boolean
+  phylacteriumAutobuy: boolean
+  antELOAdditive: number
+  antELOAdditiveMultiplier: number
+  wowSquareTalisman: boolean
+  ascensionCountMultiplier: number
+  ascensionCountAdditive: number
+  wowCubeGain: number
+  wowTesseractGain: number
+  wowHypercubeGain: number
+  wowPlatonicGain: number
+  quarkGain: number
+  wowHepteractGain: number
+  cubesBanked: number
+  constUpgrade1Buff: number
+  constUpgrade2Buff: number
+  platonicToHypercubes: number
+  statTracker: boolean
+  ascensionRewardScaling: boolean
+  overfluxConversionRate: number
+  diamondUpgrade18: boolean
+  diamondUpgrade19: boolean
+  diamondUpgrade20: boolean
+  prestigeCountMultiplier: number
+  transcensionCountMultiplier: number
+  reincarnationCountMultiplier: number
+  duplicationRuneUnlock: boolean
+  prismRuneUnlock: boolean
+  thriftRuneUnlock: boolean
+  salvage: number
+  offeringBonus: number
+  obtainiumBonus: number
+  transcendToPrestige: boolean
+  reincarnationToTranscend: boolean
+  antSacrificeCountMultiplier: number
+  freeAntUpgrades: number
+  autoAntSacrifice: boolean
+  antSpeed2UpgradeImprover: number
+  antSacrificeToReincarnation: boolean
+  obtainiumTimerMultiplier: boolean
+}
 
-type CoinOwnedAchievementRewards = 'accelerators' | 'multipliers' | 'accelBoosts'
+type AchievementRewards = keyof AchievementRewardValues
 
-type AchievementReward =
-  & Partial<Record<Exclude<AchievementRewards, CoinOwnedAchievementRewards>, () => number>>
-  & Partial<Record<CoinOwnedAchievementRewards, (coinsOwned?: readonly number[]) => number>>
+type AchievementReward = Partial<Record<AchievementRewards, () => number>>
 
 interface Achievement {
   pointValue: number
@@ -588,192 +587,724 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
 
 export const progressiveAchievementKeys = Object.keys(progressiveAchievements) as ProgressiveAchievements[]
 
+export enum AchievementId {
+  ParticipationTrophy = 0,
+  FirstOwnedCoinTier1 = 1,
+  FirstOwnedCoinTier2 = 2,
+  FirstOwnedCoinTier3 = 3,
+  FirstOwnedCoinTier4 = 4,
+  FirstOwnedCoinTier5 = 5,
+  FirstOwnedCoinTier6 = 6,
+  FirstOwnedCoinTier7 = 7,
+  SecondOwnedCoinTier1 = 8,
+  SecondOwnedCoinTier2 = 9,
+  SecondOwnedCoinTier3 = 10,
+  SecondOwnedCoinTier4 = 11,
+  SecondOwnedCoinTier5 = 12,
+  SecondOwnedCoinTier6 = 13,
+  SecondOwnedCoinTier7 = 14,
+  ThirdOwnedCoinTier1 = 15,
+  ThirdOwnedCoinTier2 = 16,
+  ThirdOwnedCoinTier3 = 17,
+  ThirdOwnedCoinTier4 = 18,
+  ThirdOwnedCoinTier5 = 19,
+  ThirdOwnedCoinTier6 = 20,
+  ThirdOwnedCoinTier7 = 21,
+  FourthOwnedCoinTier1 = 22,
+  FourthOwnedCoinTier2 = 23,
+  FourthOwnedCoinTier3 = 24,
+  FourthOwnedCoinTier4 = 25,
+  FourthOwnedCoinTier5 = 26,
+  FourthOwnedCoinTier6 = 27,
+  FourthOwnedCoinTier7 = 28,
+  FifthOwnedCoinTier1 = 29,
+  FifthOwnedCoinTier2 = 30,
+  FifthOwnedCoinTier3 = 31,
+  FifthOwnedCoinTier4 = 32,
+  FifthOwnedCoinTier5 = 33,
+  FifthOwnedCoinTier6 = 34,
+  FifthOwnedCoinTier7 = 35,
+  PrestigePointGainTier1 = 36,
+  PrestigePointGainTier2 = 37,
+  PrestigePointGainTier3 = 38,
+  PrestigePointGainTier4 = 39,
+  PrestigePointGainTier5 = 40,
+  PrestigePointGainTier6 = 41,
+  PrestigePointGainTier7 = 42,
+  TranscendPointGainTier1 = 43,
+  TranscendPointGainTier2 = 44,
+  TranscendPointGainTier3 = 45,
+  TranscendPointGainTier4 = 46,
+  TranscendPointGainTier5 = 47,
+  TranscendPointGainTier6 = 48,
+  TranscendPointGainTier7 = 49,
+  ReincarnationPointGainTier1 = 50,
+  ReincarnationPointGainTier2 = 51,
+  ReincarnationPointGainTier3 = 52,
+  ReincarnationPointGainTier4 = 53,
+  ReincarnationPointGainTier5 = 54,
+  ReincarnationPointGainTier6 = 55,
+  ReincarnationPointGainTier7 = 56,
+  PrestigeNoMult = 57,
+  TranscendNoMult = 58,
+  ReincarnationNoMult = 59,
+  PrestigeNoAccelerator = 60,
+  TranscendNoAccelerator = 61,
+  ReincarnationNoAccelerator = 62,
+  DiamondSearch = 63,
+  PrestigeNoCoinUpgrade = 64,
+  TranscendNoCoinUpgrade = 65,
+  TranscendNoCoinDiamondUpgrade = 66,
+  ReincarnationNoCoinUpgrade = 67,
+  ReincarnationNoCoinDiamondUpgrade = 68,
+  ReincarnationNoCoinDiamondMythosUpgrade = 69,
+  ReincarnationMinimumUpgrades = 70,
+  GenerationAch1 = 71,
+  GenerationAch2 = 72,
+  GenerationAch3 = 73,
+  GenerationAch4 = 74,
+  Chal1NoGen = 75,
+  Chal2NoGen = 76,
+  Chal3NoGen = 77,
+  Challenge1Tier1 = 78,
+  Challenge1Tier2 = 79,
+  Challenge1Tier3 = 80,
+  Challenge1Tier4 = 81,
+  Challenge1Tier5 = 82,
+  Challenge1Tier6 = 83,
+  Challenge1Tier7 = 84,
+  Challenge2Tier1 = 85,
+  Challenge2Tier2 = 86,
+  Challenge2Tier3 = 87,
+  Challenge2Tier4 = 88,
+  Challenge2Tier5 = 89,
+  Challenge2Tier6 = 90,
+  Challenge2Tier7 = 91,
+  Challenge3Tier1 = 92,
+  Challenge3Tier2 = 93,
+  Challenge3Tier3 = 94,
+  Challenge3Tier4 = 95,
+  Challenge3Tier5 = 96,
+  Challenge3Tier6 = 97,
+  Challenge3Tier7 = 98,
+  Challenge4Tier1 = 99,
+  Challenge4Tier2 = 100,
+  Challenge4Tier3 = 101,
+  Challenge4Tier4 = 102,
+  Challenge4Tier5 = 103,
+  Challenge4Tier6 = 104,
+  Challenge4Tier7 = 105,
+  Challenge5Tier1 = 106,
+  Challenge5Tier2 = 107,
+  Challenge5Tier3 = 108,
+  Challenge5Tier4 = 109,
+  Challenge5Tier5 = 110,
+  Challenge5Tier6 = 111,
+  Challenge5Tier7 = 112,
+  Challenge6Tier1 = 113,
+  Challenge6Tier2 = 114,
+  Challenge6Tier3 = 115,
+  Challenge6Tier4 = 116,
+  Challenge6Tier5 = 117,
+  Challenge6Tier6 = 118,
+  Challenge6Tier7 = 119,
+  Challenge7Tier1 = 120,
+  Challenge7Tier2 = 121,
+  Challenge7Tier3 = 122,
+  Challenge7Tier4 = 123,
+  Challenge7Tier5 = 124,
+  Challenge7Tier6 = 125,
+  Challenge7Tier7 = 126,
+  Challenge8Tier1 = 127,
+  Challenge8Tier2 = 128,
+  Challenge8Tier3 = 129,
+  Challenge8Tier4 = 130,
+  Challenge8Tier5 = 131,
+  Challenge8Tier6 = 132,
+  Challenge8Tier7 = 133,
+  Challenge9Tier1 = 134,
+  Challenge9Tier2 = 135,
+  Challenge9Tier3 = 136,
+  Challenge9Tier4 = 137,
+  Challenge9Tier5 = 138,
+  Challenge9Tier6 = 139,
+  Challenge9Tier7 = 140,
+  Challenge10Tier1 = 141,
+  Challenge10Tier2 = 142,
+  Challenge10Tier3 = 143,
+  Challenge10Tier4 = 144,
+  Challenge10Tier5 = 145,
+  Challenge10Tier6 = 146,
+  Challenge10Tier7 = 147,
+  AcceleratorsTier1 = 148,
+  AcceleratorsTier2 = 149,
+  AcceleratorsTier3 = 150,
+  AcceleratorsTier4 = 151,
+  AcceleratorsTier5 = 152,
+  AcceleratorsTier6 = 153,
+  AcceleratorsTier7 = 154,
+  MultipliersTier1 = 155,
+  MultipliersTier2 = 156,
+  MultipliersTier3 = 157,
+  MultipliersTier4 = 158,
+  MultipliersTier5 = 159,
+  MultipliersTier6 = 160,
+  MultipliersTier7 = 161,
+  AcceleratorBoostsTier1 = 162,
+  AcceleratorBoostsTier2 = 163,
+  AcceleratorBoostsTier3 = 164,
+  AcceleratorBoostsTier4 = 165,
+  AcceleratorBoostsTier5 = 166,
+  AcceleratorBoostsTier6 = 167,
+  AcceleratorBoostsTier7 = 168,
+  AntCrumbsTier1 = 169,
+  AntCrumbsTier2 = 170,
+  AntCrumbsTier3 = 171,
+  AntCrumbsTier4 = 172,
+  AntCrumbsTier5 = 173,
+  AntCrumbsTier6 = 174,
+  AntCrumbsTier7 = 175,
+  SacMultTier1 = 176,
+  SacMultTier2 = 177,
+  SacMultTier3 = 178,
+  SacMultTier4 = 179,
+  SacMultTier5 = 180,
+  SacMultTier6 = 181,
+  SacMultTier7 = 182,
+  AscensionCountTier1 = 183,
+  AscensionCountTier2 = 184,
+  AscensionCountTier3 = 185,
+  AscensionCountTier4 = 186,
+  AscensionCountTier5 = 187,
+  AscensionCountTier6 = 188,
+  AscensionCountTier7 = 189,
+  ConstantTier1 = 190,
+  ConstantTier2 = 191,
+  ConstantTier3 = 192,
+  ConstantTier4 = 193,
+  ConstantTier5 = 194,
+  ConstantTier6 = 195,
+  ConstantTier7 = 196,
+  Challenge11Tier1 = 197,
+  Challenge11Tier2 = 198,
+  Challenge11Tier3 = 199,
+  Challenge11Tier4 = 200,
+  Challenge11Tier5 = 201,
+  Challenge11Tier6 = 202,
+  Challenge11Tier7 = 203,
+  Challenge12Tier1 = 204,
+  Challenge12Tier2 = 205,
+  Challenge12Tier3 = 206,
+  Challenge12Tier4 = 207,
+  Challenge12Tier5 = 208,
+  Challenge12Tier6 = 209,
+  Challenge12Tier7 = 210,
+  Challenge13Tier1 = 211,
+  Challenge13Tier2 = 212,
+  Challenge13Tier3 = 213,
+  Challenge13Tier4 = 214,
+  Challenge13Tier5 = 215,
+  Challenge13Tier6 = 216,
+  Challenge13Tier7 = 217,
+  Challenge14Tier1 = 218,
+  Challenge14Tier2 = 219,
+  Challenge14Tier3 = 220,
+  Challenge14Tier4 = 221,
+  Challenge14Tier5 = 222,
+  Challenge14Tier6 = 223,
+  Challenge14Tier7 = 224,
+  AscensionScoreTier1 = 225,
+  AscensionScoreTier2 = 226,
+  AscensionScoreTier3 = 227,
+  AscensionScoreTier4 = 228,
+  AscensionScoreTier5 = 229,
+  AscensionScoreTier6 = 230,
+  AscensionScoreTier7 = 231,
+  SpeedBlessingTier1 = 232,
+  SpeedBlessingTier2 = 233,
+  SpeedBlessingTier3 = 234,
+  SpeedSpiritTier1 = 235,
+  SpeedSpiritTier2 = 236,
+  SpeedSpiritTier3 = 237,
+  MetaChallenged = 238,
+  SeeingRed = 239,
+  Ascended = 240,
+  VerySlow = 241,
+  VeryFast = 242,
+  Unsmith = 243,
+  Smith = 244,
+  HighlyBlessed = 245,
+  OneCubeOfMany = 246,
+  ExtraChallenging = 247,
+  SeeingRedNoBlue = 248,
+  Overtaxed = 249,
+  ThousandSuns = 250,
+  ThousandMoons = 251,
+  SadisticAch = 252,
+  AscensionScoreTier8 = 253,
+  AscensionScoreTier9 = 254,
+  AscensionScoreTier10 = 255,
+  AscensionScoreTier11 = 256,
+  AscensionScoreTier12 = 257,
+  AscensionScoreTier13 = 258,
+  AscensionScoreTier14 = 259,
+  AscensionCountTier8 = 260,
+  AscensionCountTier9 = 261,
+  AscensionCountTier10 = 262,
+  AscensionCountTier11 = 263,
+  AscensionCountTier12 = 264,
+  AscensionCountTier13 = 265,
+  AscensionCountTier14 = 266,
+  ConstantTier8 = 267,
+  ConstantTier9 = 268,
+  ConstantTier10 = 269,
+  ConstantTier11 = 270,
+  ConstantTier12 = 271,
+  ConstantTier13 = 272,
+  ConstantTier14 = 273,
+  SingularityCountTier1 = 274,
+  SingularityCountTier2 = 275,
+  SingularityCountTier3 = 276,
+  SingularityCountTier4 = 277,
+  SingularityCountTier5 = 278,
+  SingularityCountTier6 = 279,
+  SingularityCountTier7 = 280,
+  FirstOwnedCoinTier8 = 281,
+  FirstOwnedCoinTier9 = 282,
+  FirstOwnedCoinTier10 = 283,
+  SecondOwnedCoinTier8 = 284,
+  SecondOwnedCoinTier9 = 285,
+  SecondOwnedCoinTier10 = 286,
+  ThirdOwnedCoinTier8 = 287,
+  ThirdOwnedCoinTier9 = 288,
+  ThirdOwnedCoinTier10 = 289,
+  FourthOwnedCoinTier8 = 290,
+  FourthOwnedCoinTier9 = 291,
+  FourthOwnedCoinTier10 = 292,
+  FifthOwnedCoinTier8 = 293,
+  FifthOwnedCoinTier9 = 294,
+  FifthOwnedCoinTier10 = 295,
+  PrestigePointGainTier8 = 296,
+  PrestigePointGainTier9 = 297,
+  PrestigePointGainTier10 = 298,
+  TranscendPointGainTier8 = 299,
+  TranscendPointGainTier9 = 300,
+  TranscendPointGainTier10 = 301,
+  ReincarnationPointGainTier8 = 302,
+  ReincarnationPointGainTier9 = 303,
+  ReincarnationPointGainTier10 = 304,
+  Challenge1Tier8 = 305,
+  Challenge1Tier9 = 306,
+  Challenge1Tier10 = 307,
+  Challenge2Tier8 = 308,
+  Challenge2Tier9 = 309,
+  Challenge2Tier10 = 310,
+  Challenge3Tier8 = 311,
+  Challenge3Tier9 = 312,
+  Challenge3Tier10 = 313,
+  Challenge4Tier8 = 314,
+  Challenge4Tier9 = 315,
+  Challenge4Tier10 = 316,
+  Challenge5Tier8 = 317,
+  Challenge5Tier9 = 318,
+  Challenge5Tier10 = 319,
+  Challenge6Tier8 = 320,
+  Challenge6Tier9 = 321,
+  Challenge6Tier10 = 322,
+  Challenge7Tier8 = 323,
+  Challenge7Tier9 = 324,
+  Challenge7Tier10 = 325,
+  Challenge8Tier8 = 326,
+  Challenge8Tier9 = 327,
+  Challenge8Tier10 = 328,
+  Challenge9Tier8 = 329,
+  Challenge9Tier9 = 330,
+  Challenge9Tier10 = 331,
+  Challenge10Tier8 = 332,
+  Challenge10Tier9 = 333,
+  Challenge10Tier10 = 334,
+  AcceleratorsTier8 = 335,
+  AcceleratorsTier9 = 336,
+  AcceleratorsTier10 = 337,
+  MultipliersTier8 = 338,
+  MultipliersTier9 = 339,
+  MultipliersTier10 = 340,
+  AcceleratorBoostsTier8 = 341,
+  AcceleratorBoostsTier9 = 342,
+  AcceleratorBoostsTier10 = 343,
+  AntCrumbsTier8 = 344,
+  AntCrumbsTier9 = 345,
+  AntCrumbsTier10 = 346,
+  SacMultTier8 = 347,
+  SacMultTier9 = 348,
+  SacMultTier10 = 349,
+  AscensionCountTier15 = 350,
+  AscensionCountTier16 = 351,
+  AscensionCountTier17 = 352,
+  AscensionCountTier18 = 353,
+  AscensionCountTier19 = 354,
+  AscensionCountTier20 = 355,
+  ConstantTier15 = 356,
+  ConstantTier16 = 357,
+  ConstantTier17 = 358,
+  ConstantTier18 = 359,
+  ConstantTier19 = 360,
+  ConstantTier20 = 361,
+  Challenge11Tier8 = 362,
+  Challenge11Tier9 = 363,
+  Challenge11Tier10 = 364,
+  Challenge11Tier11 = 365,
+  Challenge11Tier12 = 366,
+  Challenge12Tier8 = 367,
+  Challenge12Tier9 = 368,
+  Challenge12Tier10 = 369,
+  Challenge12Tier11 = 370,
+  Challenge12Tier12 = 371,
+  Challenge13Tier8 = 372,
+  Challenge13Tier9 = 373,
+  Challenge13Tier10 = 374,
+  Challenge13Tier11 = 375,
+  Challenge13Tier12 = 376,
+  Challenge14Tier8 = 377,
+  Challenge14Tier9 = 378,
+  Challenge14Tier10 = 379,
+  Challenge14Tier11 = 380,
+  Challenge14Tier12 = 381,
+  SpeedBlessingTier4 = 382,
+  SpeedBlessingTier5 = 383,
+  SpeedBlessingTier6 = 384,
+  SpeedBlessingTier7 = 385,
+  SpeedBlessingTier8 = 386,
+  SpeedBlessingTier9 = 387,
+  SpeedBlessingTier10 = 388,
+  SpeedSpiritTier4 = 389,
+  SpeedSpiritTier5 = 390,
+  SpeedSpiritTier6 = 391,
+  SpeedSpiritTier7 = 392,
+  SpeedSpiritTier8 = 393,
+  SpeedSpiritTier9 = 394,
+  SpeedSpiritTier10 = 395,
+  RuneLevelTier1 = 396,
+  RuneLevelTier2 = 397,
+  RuneLevelTier3 = 398,
+  RuneLevelTier4 = 399,
+  RuneLevelTier5 = 400,
+  RuneLevelTier6 = 401,
+  RuneLevelTier7 = 402,
+  RuneLevelTier8 = 403,
+  RuneLevelTier9 = 404,
+  RuneLevelTier10 = 405,
+  RuneLevelTier11 = 406,
+  RuneLevelTier12 = 407,
+  RuneLevelTier13 = 408,
+  RuneLevelTier14 = 409,
+  RuneLevelTier15 = 410,
+  RuneFreeLevelTier1 = 411,
+  RuneFreeLevelTier2 = 412,
+  RuneFreeLevelTier3 = 413,
+  RuneFreeLevelTier4 = 414,
+  RuneFreeLevelTier5 = 415,
+  RuneFreeLevelTier6 = 416,
+  RuneFreeLevelTier7 = 417,
+  RuneFreeLevelTier8 = 418,
+  RuneFreeLevelTier9 = 419,
+  RuneFreeLevelTier10 = 420,
+  RuneFreeLevelTier11 = 421,
+  RuneFreeLevelTier12 = 422,
+  RuneFreeLevelTier13 = 423,
+  RuneFreeLevelTier14 = 424,
+  RuneFreeLevelTier15 = 425,
+  CampaignTokensTier1 = 426,
+  CampaignTokensTier2 = 427,
+  CampaignTokensTier3 = 428,
+  CampaignTokensTier4 = 429,
+  CampaignTokensTier5 = 430,
+  CampaignTokensTier6 = 431,
+  CampaignTokensTier7 = 432,
+  CampaignTokensTier8 = 433,
+  CampaignTokensTier9 = 434,
+  CampaignTokensTier10 = 435,
+  PrestigeCountTier1 = 436,
+  PrestigeCountTier2 = 437,
+  PrestigeCountTier3 = 438,
+  PrestigeCountTier4 = 439,
+  PrestigeCountTier5 = 440,
+  PrestigeCountTier6 = 441,
+  PrestigeCountTier7 = 442,
+  PrestigeCountTier8 = 443,
+  PrestigeCountTier9 = 444,
+  PrestigeCountTier10 = 445,
+  PrestigeCountTier11 = 446,
+  PrestigeCountTier12 = 447,
+  PrestigeCountTier13 = 448,
+  PrestigeCountTier14 = 449,
+  PrestigeCountTier15 = 450,
+  TranscensionCountTier1 = 451,
+  TranscensionCountTier2 = 452,
+  TranscensionCountTier3 = 453,
+  TranscensionCountTier4 = 454,
+  TranscensionCountTier5 = 455,
+  TranscensionCountTier6 = 456,
+  TranscensionCountTier7 = 457,
+  TranscensionCountTier8 = 458,
+  TranscensionCountTier9 = 459,
+  TranscensionCountTier10 = 460,
+  TranscensionCountTier11 = 461,
+  TranscensionCountTier12 = 462,
+  TranscensionCountTier13 = 463,
+  TranscensionCountTier14 = 464,
+  TranscensionCountTier15 = 465,
+  ReincarnationCountTier1 = 466,
+  ReincarnationCountTier2 = 467,
+  ReincarnationCountTier3 = 468,
+  ReincarnationCountTier4 = 469,
+  ReincarnationCountTier5 = 470,
+  ReincarnationCountTier6 = 471,
+  ReincarnationCountTier7 = 472,
+  ReincarnationCountTier8 = 473,
+  ReincarnationCountTier9 = 474,
+  ReincarnationCountTier10 = 475,
+  ReincarnationCountTier11 = 476,
+  ReincarnationCountTier12 = 477,
+  ReincarnationCountTier13 = 478,
+  ReincarnationCountTier14 = 479,
+  ReincarnationCountTier15 = 480,
+  SacCountTier1 = 481,
+  SacCountTier2 = 482,
+  SacCountTier3 = 483,
+  SacCountTier4 = 484,
+  SacCountTier5 = 485,
+  SacCountTier6 = 486,
+  SacCountTier7 = 487,
+  SacCountTier8 = 488,
+  SacCountTier9 = 489,
+  SacCountTier10 = 490,
+  SacCountTier11 = 491,
+  SacCountTier12 = 492,
+  SacCountTier13 = 493,
+  AddCodesUsedTier1 = 494,
+  AddCodesUsedTier2 = 495,
+  AddCodesUsedTier3 = 496,
+  AddCodesUsedTier4 = 497,
+  AddCodesUsedTier5 = 498,
+  AddCodesUsedTier6 = 499,
+  AddCodesUsedTier7 = 500,
+  AddCodesUsedTier8 = 501,
+  AddCodesUsedTier9 = 502,
+  AddCodesUsedTier10 = 503,
+  AddCodesUsedTier11 = 504,
+  AddCodesUsedTier12 = 505,
+  AddCodesUsedTier13 = 506,
+  AddCodesUsedTier14 = 507,
+  AddCodesUsedTier15 = 508
+}
+
 const achievements: Achievement[] = [
   { pointValue: 5, unlockCondition: () => true, group: 'ungrouped' }, // Free Achievement Perhaps?
   {
     pointValue: 5,
-    unlockCondition: () => getBuildingOwned('coin', 0) >= 1,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 1,
     group: 'firstOwnedCoin',
     steamAchievementId: 'GROUPED_WORKERS_1'
   },
-  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 0) >= 10, group: 'firstOwnedCoin' },
+  {
+    pointValue: 10,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 10,
+    group: 'firstOwnedCoin'
+  },
   {
     pointValue: 15,
-    unlockCondition: () => getBuildingOwned('coin', 0) >= 100,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 100,
     group: 'firstOwnedCoin',
     reward: { acceleratorPower: () => 0.001 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => getBuildingOwned('coin', 0) >= 1000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 1000,
     group: 'firstOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => getBuildingOwned('coin', 0) >= 5000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 5000,
     group: 'firstOwnedCoin',
-    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[0] / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Workers) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => getBuildingOwned('coin', 0) >= 10000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 10000,
     group: 'firstOwnedCoin',
-    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[0] / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Workers) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => getBuildingOwned('coin', 0) >= 20000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 20000,
     group: 'firstOwnedCoin',
-    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[0] / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Workers) / 2000) }
   },
   {
     pointValue: 5,
-    unlockCondition: () => getBuildingOwned('coin', 1) >= 1,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 1,
     group: 'secondOwnedCoin',
     steamAchievementId: 'GROUPED_INVESTMENTS_1'
   },
-  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 1) >= 10, group: 'secondOwnedCoin' },
+  {
+    pointValue: 10,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 10,
+    group: 'secondOwnedCoin'
+  },
   {
     pointValue: 15,
-    unlockCondition: () => getBuildingOwned('coin', 1) >= 100,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 100,
     group: 'secondOwnedCoin',
     reward: { acceleratorPower: () => 0.0015 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => getBuildingOwned('coin', 1) >= 500,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 500,
     group: 'secondOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => getBuildingOwned('coin', 1) >= 5000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 5000,
     group: 'secondOwnedCoin',
-    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[1] / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Investments) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => getBuildingOwned('coin', 1) >= 10000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 10000,
     group: 'secondOwnedCoin',
-    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[1] / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Investments) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => getBuildingOwned('coin', 1) >= 20000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 20000,
     group: 'secondOwnedCoin',
-    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[1] / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Investments) / 2000) }
   },
   {
     pointValue: 5,
-    unlockCondition: () => getBuildingOwned('coin', 2) >= 1,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 1,
     group: 'thirdOwnedCoin',
     steamAchievementId: 'GROUPED_PRINTERS_1'
   },
-  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 2) >= 10, group: 'thirdOwnedCoin' },
+  {
+    pointValue: 10,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 10,
+    group: 'thirdOwnedCoin'
+  },
   {
     pointValue: 15,
-    unlockCondition: () => getBuildingOwned('coin', 2) >= 100,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 100,
     group: 'thirdOwnedCoin',
     reward: { acceleratorPower: () => 0.002 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => getBuildingOwned('coin', 2) >= 333,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 333,
     group: 'thirdOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => getBuildingOwned('coin', 2) >= 5000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 5000,
     group: 'thirdOwnedCoin',
-    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[2] / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Printers) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => getBuildingOwned('coin', 2) >= 10000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 10000,
     group: 'thirdOwnedCoin',
-    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[2] / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Printers) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => getBuildingOwned('coin', 2) >= 20000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 20000,
     group: 'thirdOwnedCoin',
-    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[2] / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Printers) / 2000) }
   },
   {
     pointValue: 5,
-    unlockCondition: () => getBuildingOwned('coin', 3) >= 1,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 1,
     group: 'fourthOwnedCoin',
     steamAchievementId: 'GROUPED_MINTS_1'
   },
-  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 3) >= 10, group: 'fourthOwnedCoin' },
+  {
+    pointValue: 10,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 10,
+    group: 'fourthOwnedCoin'
+  },
   {
     pointValue: 15,
-    unlockCondition: () => getBuildingOwned('coin', 3) >= 100,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 100,
     group: 'fourthOwnedCoin',
     reward: { acceleratorPower: () => 0.002 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => getBuildingOwned('coin', 3) >= 333,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 333,
     group: 'fourthOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => getBuildingOwned('coin', 3) >= 5000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 5000,
     group: 'fourthOwnedCoin',
-    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[3] / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', CoinBuilding.CoinMints) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => getBuildingOwned('coin', 3) >= 10000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 10000,
     group: 'fourthOwnedCoin',
-    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[3] / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', CoinBuilding.CoinMints) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => getBuildingOwned('coin', 3) >= 20000,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 20000,
     group: 'fourthOwnedCoin',
-    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[3] / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', CoinBuilding.CoinMints) / 2000) }
   },
   {
     pointValue: 5,
-    unlockCondition: () => getBuildingOwned('coin', 4) >= 1,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 1,
     group: 'fifthOwnedCoin',
     steamAchievementId: 'GROUPED_ALCHEMIES_1'
   },
-  { pointValue: 10, unlockCondition: () => getBuildingOwned('coin', 4) >= 10, group: 'fifthOwnedCoin' },
+  {
+    pointValue: 10,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 10,
+    group: 'fifthOwnedCoin'
+  },
   {
     pointValue: 15,
-    unlockCondition: () => getBuildingOwned('coin', 4) >= 66,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 66,
     group: 'fifthOwnedCoin',
     reward: { acceleratorPower: () => 0.003 }
   },
   {
     pointValue: 20,
-    unlockCondition: () => getBuildingOwned('coin', 4) >= 200,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 200,
     group: 'fifthOwnedCoin',
     checkReset: () => player.highestSingularityCount >= 2
   },
   {
     pointValue: 25,
-    unlockCondition: () => getBuildingOwned('coin', 4) >= 6666,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 6666,
     group: 'fifthOwnedCoin',
-    reward: { accelerators: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[4] / 500) }
+    reward: { accelerators: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Alchemies) / 500) }
   },
   {
     pointValue: 30,
-    unlockCondition: () => getBuildingOwned('coin', 4) >= 17777,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 17777,
     group: 'fifthOwnedCoin',
-    reward: { multipliers: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[4] / 1000) }
+    reward: { multipliers: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Alchemies) / 1000) }
   },
   {
     pointValue: 35,
-    unlockCondition: () => getBuildingOwned('coin', 4) >= 42777,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 42777,
     group: 'fifthOwnedCoin',
-    reward: { accelBoosts: (coinsOwned = getBuildingsOwned('coin')) => Math.floor(coinsOwned[4] / 2000) }
+    reward: { accelBoosts: () => Math.floor(getBuildingOwned('coin', CoinBuilding.Alchemies) / 2000) }
   },
   {
     pointValue: 5,
@@ -2003,43 +2534,83 @@ const achievements: Achievement[] = [
     group: 'singularityCount',
     steamAchievementId: 'GROUPED_SINGULARITY_2'
   },
-  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 0) >= 1e5, group: 'firstOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 0) >= 1e6, group: 'firstOwnedCoin' },
+  {
+    pointValue: 40,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 1e5,
+    group: 'firstOwnedCoin'
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 1e6,
+    group: 'firstOwnedCoin'
+  },
   {
     pointValue: 50,
-    unlockCondition: () => getBuildingOwned('coin', 0) >= 1e8,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Workers) >= 1e8,
     group: 'firstOwnedCoin',
     steamAchievementId: 'GROUPED_WORKERS_2'
   },
-  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 1) >= 1e6, group: 'secondOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 1) >= 1e8, group: 'secondOwnedCoin' },
+  {
+    pointValue: 40,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 1e6,
+    group: 'secondOwnedCoin'
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 1e8,
+    group: 'secondOwnedCoin'
+  },
   {
     pointValue: 50,
-    unlockCondition: () => getBuildingOwned('coin', 1) >= 1e9,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Investments) >= 1e9,
     group: 'secondOwnedCoin',
     steamAchievementId: 'GROUPED_INVESTMENTS_2'
   },
-  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 2) >= 1e7, group: 'thirdOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 2) >= 1e8, group: 'thirdOwnedCoin' },
+  {
+    pointValue: 40,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 1e7,
+    group: 'thirdOwnedCoin'
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 1e8,
+    group: 'thirdOwnedCoin'
+  },
   {
     pointValue: 50,
-    unlockCondition: () => getBuildingOwned('coin', 2) >= 5e9,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Printers) >= 5e9,
     group: 'thirdOwnedCoin',
     steamAchievementId: 'GROUPED_PRINTERS_2'
   },
-  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 3) >= 1e8, group: 'fourthOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 3) >= 1e9, group: 'fourthOwnedCoin' },
+  {
+    pointValue: 40,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 1e8,
+    group: 'fourthOwnedCoin'
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 1e9,
+    group: 'fourthOwnedCoin'
+  },
   {
     pointValue: 50,
-    unlockCondition: () => getBuildingOwned('coin', 3) >= 2e10,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.CoinMints) >= 2e10,
     group: 'fourthOwnedCoin',
     steamAchievementId: 'GROUPED_MINTS_2'
   },
-  { pointValue: 40, unlockCondition: () => getBuildingOwned('coin', 4) >= 1e9, group: 'fifthOwnedCoin' },
-  { pointValue: 45, unlockCondition: () => getBuildingOwned('coin', 4) >= 2e10, group: 'fifthOwnedCoin' },
+  {
+    pointValue: 40,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 1e9,
+    group: 'fifthOwnedCoin'
+  },
+  {
+    pointValue: 45,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 2e10,
+    group: 'fifthOwnedCoin'
+  },
   {
     pointValue: 50,
-    unlockCondition: () => getBuildingOwned('coin', 4) >= 1e12,
+    unlockCondition: () => getBuildingOwned('coin', CoinBuilding.Alchemies) >= 1e12,
     group: 'fifthOwnedCoin',
     steamAchievementId: 'GROUPED_ALCHEMIES_2'
   },
@@ -3089,187 +3660,187 @@ export const ungroupedAchievementData: Record<UngroupedAchievementNames, Ungroup
   participationTrophy: {
     order: 0,
     displayCondition: () => true,
-    achievementID: 0
+    achievementID: AchievementId.ParticipationTrophy
   },
   prestigeNoMult: {
     order: 1,
     displayCondition: () => player.prestigeCount > 0,
-    achievementID: 57
+    achievementID: AchievementId.PrestigeNoMult
   },
   transcendNoMult: {
     order: 3,
     displayCondition: () => player.transcendCount > 0,
-    achievementID: 58
+    achievementID: AchievementId.TranscendNoMult
   },
   reincarnationNoMult: {
     order: 5,
     displayCondition: () => player.reincarnationCount > 0,
-    achievementID: 59
+    achievementID: AchievementId.ReincarnationNoMult
   },
   prestigeNoAccelerator: {
     order: 2,
     displayCondition: () => player.prestigeCount > 0,
-    achievementID: 60
+    achievementID: AchievementId.PrestigeNoAccelerator
   },
   transcendNoAccelerator: {
     order: 4,
     displayCondition: () => player.transcendCount > 0,
-    achievementID: 61
+    achievementID: AchievementId.TranscendNoAccelerator
   },
   reincarnationNoAccelerator: {
     order: 6,
     displayCondition: () => player.reincarnationCount > 0,
-    achievementID: 62
+    achievementID: AchievementId.ReincarnationNoAccelerator
   },
   diamondSearch: {
     order: 7,
     displayCondition: () => player.transcendCount > 0,
-    achievementID: 63
+    achievementID: AchievementId.DiamondSearch
   },
   prestigeNoCoinUpgrade: {
     order: 8,
     displayCondition: () => player.prestigeCount > 0,
-    achievementID: 64
+    achievementID: AchievementId.PrestigeNoCoinUpgrade
   },
   transcendNoCoinUpgrade: {
     order: 9,
     displayCondition: () => player.transcendCount > 0,
-    achievementID: 65
+    achievementID: AchievementId.TranscendNoCoinUpgrade
   },
   transcendNoCoinDiamondUpgrade: {
     order: 10,
     displayCondition: () => player.transcendCount > 0,
-    achievementID: 66
+    achievementID: AchievementId.TranscendNoCoinDiamondUpgrade
   },
   reincarnationNoCoinUpgrade: {
     order: 11,
     displayCondition: () => player.reincarnationCount > 0,
-    achievementID: 67
+    achievementID: AchievementId.ReincarnationNoCoinUpgrade
   },
   reincarnationNoCoinDiamondUpgrade: {
     order: 12,
     displayCondition: () => player.reincarnationCount > 0,
-    achievementID: 68
+    achievementID: AchievementId.ReincarnationNoCoinDiamondUpgrade
   },
   reincarnationNoCoinDiamondMythosUpgrade: {
     order: 13,
     displayCondition: () => player.reincarnationCount > 0,
-    achievementID: 69
+    achievementID: AchievementId.ReincarnationNoCoinDiamondMythosUpgrade
   },
   reincarnationMinimumUpgrades: {
     order: 14,
     displayCondition: () => player.reincarnationCount > 0,
-    achievementID: 70
+    achievementID: AchievementId.ReincarnationMinimumUpgrades
   },
   generationAch1: {
     order: 15,
     displayCondition: () => player.prestigeCount > 0,
-    achievementID: 71
+    achievementID: AchievementId.GenerationAch1
   },
   generationAch2: {
     order: 16,
     displayCondition: () => player.prestigeCount > 0,
-    achievementID: 72
+    achievementID: AchievementId.GenerationAch2
   },
   generationAch3: {
     order: 17,
     displayCondition: () => player.prestigeCount > 0,
-    achievementID: 73
+    achievementID: AchievementId.GenerationAch3
   },
   generationAch4: {
     order: 18,
     displayCondition: () => player.prestigeCount > 0,
-    achievementID: 74
+    achievementID: AchievementId.GenerationAch4
   },
   chal1NoGen: {
     order: 19,
     displayCondition: () => player.transcendCount > 0,
-    achievementID: 75
+    achievementID: AchievementId.Chal1NoGen
   },
   chal2NoGen: {
     order: 20,
     displayCondition: () => player.transcendCount > 0,
-    achievementID: 76
+    achievementID: AchievementId.Chal2NoGen
   },
   chal3NoGen: {
     order: 21,
     displayCondition: () => player.transcendCount > 0,
-    achievementID: 77
+    achievementID: AchievementId.Chal3NoGen
   },
   metaChallenged: {
     order: 22,
     displayCondition: () => player.ascensionCount > 0,
-    achievementID: 238
+    achievementID: AchievementId.MetaChallenged
   },
   seeingRed: {
     order: 23,
     displayCondition: () => player.unlocks.talismans,
-    achievementID: 239
+    achievementID: AchievementId.SeeingRed
   },
   ascended: {
     order: 24,
     displayCondition: () => player.challengecompletions[14] > 0,
-    achievementID: 240
+    achievementID: AchievementId.Ascended
   },
   verySlow: {
     order: 25,
     displayCondition: () => player.challengecompletions[12] > 0,
-    achievementID: 241
+    achievementID: AchievementId.VerySlow
   },
   veryFast: {
     order: 26,
     displayCondition: () => player.challengecompletions[12] > 0,
-    achievementID: 242
+    achievementID: AchievementId.VeryFast
   },
   unsmith: {
     order: 27,
     displayCondition: () => true,
-    achievementID: 243
+    achievementID: AchievementId.Unsmith
   },
   smith: {
     order: 28,
     displayCondition: () => true,
-    achievementID: 244
+    achievementID: AchievementId.Smith
   },
   highlyBlessed: {
     order: 29,
     displayCondition: () => player.unlocks.blessings,
-    achievementID: 245
+    achievementID: AchievementId.HighlyBlessed
   },
   oneCubeOfMany: {
     order: 30,
     displayCondition: () => player.ascensionCount > 0,
-    achievementID: 246
+    achievementID: AchievementId.OneCubeOfMany
   },
   extraChallenging: {
     order: 31,
     displayCondition: () => player.challengecompletions[11] >= 20,
-    achievementID: 247
+    achievementID: AchievementId.ExtraChallenging
   },
   seeingRedNoBlue: {
     order: 32,
     displayCondition: () => player.challengecompletions[14] > 0,
-    achievementID: 248
+    achievementID: AchievementId.SeeingRedNoBlue
   },
   overtaxed: {
     order: 33,
     displayCondition: () => player.challengecompletions[12] > 0,
-    achievementID: 249
+    achievementID: AchievementId.Overtaxed
   },
   thousandSuns: {
     order: 34,
     displayCondition: () => player.challengecompletions[14] > 0,
-    achievementID: 250
+    achievementID: AchievementId.ThousandSuns
   },
   thousandMoons: {
     order: 35,
     displayCondition: () => player.challengecompletions[14] > 0,
-    achievementID: 251
+    achievementID: AchievementId.ThousandMoons
   },
   sadisticAch: {
     order: 36,
     displayCondition: () => player.challengecompletions[14] > 0,
-    achievementID: 252
+    achievementID: AchievementId.SadisticAch
   }
 }
 
@@ -3294,333 +3865,240 @@ const achievementsByGroup: Record<AchievementGroups, number[]> = achievements
 const achievementGroupKeys = Object.keys(achievementsByGroup)
   .filter((k) => k !== 'ungrouped') as Exclude<AchievementGroups, 'ungrouped'>[]
 
-const achievementsByReward: Record<AchievementRewards, number[]> = achievements
-  .reduce((rewards, achievement, index) => {
-    if (achievement.reward) {
-      for (const rewardType of Object.keys(achievement.reward) as AchievementRewards[]) {
-        if (!rewards[rewardType]) {
-          rewards[rewardType] = []
-        }
-        rewards[rewardType].push(index)
-      }
-    }
-    return rewards
-  }, {} as Record<AchievementRewards, number[]>)
-
-const sumCoinOwnedAchievementRewards = (reward: CoinOwnedAchievementRewards): number => {
-  let coinsOwned: readonly number[] | undefined
-  return achievementsByReward[reward].reduce((sum, index) => {
-    if (!player.achievements[index]) {
-      return sum
-    }
-    coinsOwned ??= getBuildingsOwned('coin')
-    return sum + achievements[index].reward![reward]!(coinsOwned)
-  }, 0)
-}
-
-const achRewards: Record<AchievementRewards, () => number | boolean> = {
-  acceleratorPower: (): number => {
-    return achievementsByReward.acceleratorPower.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.acceleratorPower!() : 0),
-      0
+const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] } = {
+  acceleratorPower: () =>
+    0.001 * player.achievements[AchievementId.FirstOwnedCoinTier3]
+    + 0.0015 * player.achievements[AchievementId.SecondOwnedCoinTier3]
+    + 0.002 * player.achievements[AchievementId.ThirdOwnedCoinTier3]
+    + 0.002 * player.achievements[AchievementId.FourthOwnedCoinTier3]
+    + 0.003 * player.achievements[AchievementId.FifthOwnedCoinTier3]
+    + 0.01 * player.achievements[AchievementId.AcceleratorsTier2],
+  accelerators: () => {
+    const coinBuildings = getBuildingsOwned('coin')
+    return (
+      player.achievements[AchievementId.FirstOwnedCoinTier5] * Math.floor(coinBuildings[CoinBuilding.Workers] / 500)
+      + player.achievements[AchievementId.SecondOwnedCoinTier5] * Math.floor(coinBuildings[CoinBuilding.Investments] / 500)
+      + player.achievements[AchievementId.ThirdOwnedCoinTier5] * Math.floor(coinBuildings[CoinBuilding.Printers] / 500)
+      + player.achievements[AchievementId.FourthOwnedCoinTier5] * Math.floor(coinBuildings[CoinBuilding.CoinMints] / 500)
+      + player.achievements[AchievementId.FifthOwnedCoinTier5] * Math.floor(coinBuildings[CoinBuilding.Alchemies] / 500)
+      + 2 * player.achievements[AchievementId.PrestigeNoAccelerator]
+      + 4 * player.achievements[AchievementId.TranscendNoAccelerator]
+      + 8 * player.achievements[AchievementId.ReincarnationNoAccelerator]
+      + 5 * player.achievements[AchievementId.AcceleratorsTier4]
+      + 12 * player.achievements[AchievementId.AcceleratorsTier5]
+      + 25 * player.achievements[AchievementId.AcceleratorsTier6]
+      + 50 * player.achievements[AchievementId.AcceleratorsTier7]
     )
   },
-  accelerators: (): number => sumCoinOwnedAchievementRewards('accelerators'),
-  multipliers: (): number => sumCoinOwnedAchievementRewards('multipliers'),
-  accelBoosts: (): number => sumCoinOwnedAchievementRewards('accelBoosts'),
-  crystalMultiplier: (): number => {
-    return achievementsByReward.crystalMultiplier.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.crystalMultiplier!() : 1),
-      1
+  multipliers: () => {
+    const coinBuildings = getBuildingsOwned('coin')
+    return (
+      player.achievements[AchievementId.FirstOwnedCoinTier6] * Math.floor(coinBuildings[CoinBuilding.Workers] / 1000)
+      + player.achievements[AchievementId.SecondOwnedCoinTier6] * Math.floor(coinBuildings[CoinBuilding.Investments] / 1000)
+      + player.achievements[AchievementId.ThirdOwnedCoinTier6] * Math.floor(coinBuildings[CoinBuilding.Printers] / 1000)
+      + player.achievements[AchievementId.FourthOwnedCoinTier6] * Math.floor(coinBuildings[CoinBuilding.CoinMints] / 1000)
+      + player.achievements[AchievementId.FifthOwnedCoinTier6] * Math.floor(coinBuildings[CoinBuilding.Alchemies] / 1000)
+      + player.achievements[AchievementId.PrestigeNoMult]
+      + 2 * player.achievements[AchievementId.TranscendNoMult]
+      + 4 * player.achievements[AchievementId.ReincarnationNoMult]
+      + player.achievements[AchievementId.MultipliersTier2]
+      + player.achievements[AchievementId.MultipliersTier4]
+      + 3 * player.achievements[AchievementId.MultipliersTier5]
+      + 6 * player.achievements[AchievementId.MultipliersTier6]
+      + 10 * player.achievements[AchievementId.MultipliersTier7]
     )
   },
-  quarkGain: (): number => {
-    return achievementsByReward.quarkGain.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.quarkGain!() : 1),
-      1
+  accelBoosts: () => {
+    const coinBuildings = getBuildingsOwned('coin')
+    return (
+      player.achievements[AchievementId.FirstOwnedCoinTier7] * Math.floor(coinBuildings[CoinBuilding.Workers] / 2000)
+      + player.achievements[AchievementId.SecondOwnedCoinTier7] * Math.floor(coinBuildings[CoinBuilding.Investments] / 2000)
+      + player.achievements[AchievementId.ThirdOwnedCoinTier7] * Math.floor(coinBuildings[CoinBuilding.Printers] / 2000)
+      + player.achievements[AchievementId.FourthOwnedCoinTier7] * Math.floor(coinBuildings[CoinBuilding.CoinMints] / 2000)
+      + player.achievements[AchievementId.FifthOwnedCoinTier7] * Math.floor(coinBuildings[CoinBuilding.Alchemies] / 2000)
     )
   },
-  taxReduction: (): number => {
-    return achievementsByReward.taxReduction.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.taxReduction!() : 1),
-      1
+  crystalMultiplier: () =>
+    1
+    + player.achievements[AchievementId.PrestigePointGainTier2]
+      * Math.max(0, Decimal.log(player.prestigePoints, Math.E) - 1),
+  quarkGain: () =>
+    (1 + 0.05 * player.achievements[AchievementId.ThousandSuns])
+    * (1 + 0.05 * player.achievements[AchievementId.ThousandMoons])
+    * (1 + 0.1 * player.achievements[AchievementId.AscensionCountTier14] * Math.min(player.ascensionCount / 1e15, 1)),
+  taxReduction: () =>
+    (1 - 0.05 * player.achievements[AchievementId.TranscendPointGainTier3])
+    * (1 - 0.05 * player.achievements[AchievementId.TranscendPointGainTier4])
+    * (1 - 0.1 * player.achievements[AchievementId.TranscendPointGainTier5])
+    * (1 - 0.04 * player.achievements[AchievementId.Challenge1Tier5])
+    * (1 - 0.04 * player.achievements[AchievementId.Challenge2Tier5])
+    * (1 - 0.04 * player.achievements[AchievementId.Challenge3Tier5])
+    * (1 - 0.04 * player.achievements[AchievementId.Challenge4Tier5])
+    * (1 - 0.04 * player.achievements[AchievementId.Challenge5Tier5])
+    * (1 - 0.05 * player.achievements[AchievementId.Challenge6Tier5])
+    * Math.pow(
+      0.9925,
+      player.achievements[AchievementId.Challenge6Tier6]
+        * (player.challengecompletions[6] + player.challengecompletions[7] + player.challengecompletions[8]
+          + player.challengecompletions[9] + player.challengecompletions[10])
     )
-  },
-  particleGain: (): number => {
-    return achievementsByReward.particleGain.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.particleGain!() : 1),
-      1
-    )
-  },
-  chronosTalisman: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.chronosTalisman[0]])
-  },
-  midasTalisman: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.midasTalisman[0]])
-  },
-  metaphysicsTalisman: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.metaphysicsTalisman[0]])
-  },
-  polymathTalisman: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.polymathTalisman[0]])
-  },
-  wowSquareTalisman: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.wowSquareTalisman[0]])
-  },
-  conversionExponent: (): number => {
-    return achievementsByReward.conversionExponent.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.conversionExponent!() : 0),
-      0
-    )
-  },
-  talismanPower: (): number => {
-    return achievementsByReward.talismanPower.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.talismanPower!() : 0),
-      0
-    )
-  },
-  sacrificeMult: (): number => {
-    return achievementsByReward.sacrificeMult.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.sacrificeMult!() : 1),
-      1
-    )
-  },
-  antSpeed: (): number => {
-    return achievementsByReward.antSpeed.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.antSpeed!() : 1),
-      1
-    )
-  },
-  antSacrificeUnlock: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.antSacrificeUnlock[0]])
-  },
-  antAutobuyers: (): number => {
-    return achievementsByReward.antAutobuyers.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.antAutobuyers!() : 0),
-      0
-    )
-  },
-  preserveAnthillCount: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.preserveAnthillCount[0]])
-  },
-  preserveAnthillCountSingularity: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.preserveAnthillCountSingularity[0]])
-  },
-  inceptusAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.inceptusAutobuy[0]])
-  },
-  fortunaeAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.fortunaeAutobuy[0]])
-  },
-  tributumAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.tributumAutobuy[0]])
-  },
-  celeritasAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.celeritasAutobuy[0]])
-  },
-  exploratoremAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.exploratoremAutobuy[0]])
-  },
-  sacrificiumAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.sacrificiumAutobuy[0]])
-  },
-  experientiaAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.experientiaAutobuy[0]])
-  },
-  hicAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.hicAutobuy[0]])
-  },
-  scientiaAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.scientiaAutobuy[0]])
-  },
-  praemoenioAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.praemoenioAutobuy[0]])
-  },
-  phylacteriumAutobuy: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.phylacteriumAutobuy[0]])
-  },
-  antELOAdditive: (): number => {
-    return achievementsByReward.antELOAdditive.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.antELOAdditive!() : 0),
-      0
-    )
-  },
-  antELOAdditiveMultiplier: (): number => {
-    return achievementsByReward.antELOAdditiveMultiplier.reduce(
-      (prod, index) =>
-        prod + (player.achievements[index] ? achievements[index].reward!.antELOAdditiveMultiplier!() : 0),
-      0
-    )
-  },
-  ascensionCountMultiplier: (): number => {
-    return achievementsByReward.ascensionCountMultiplier.reduce(
-      (prod, index) =>
-        prod * (player.achievements[index] ? achievements[index].reward!.ascensionCountMultiplier!() : 1),
-      1
-    )
-  },
-  ascensionCountAdditive: (): number => {
-    return achievementsByReward.ascensionCountAdditive.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.ascensionCountAdditive!() : 0),
-      0
-    )
-  },
-  wowCubeGain: (): number => {
-    return achievementsByReward.wowCubeGain.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.wowCubeGain!() : 1),
-      1
-    )
-  },
-  wowTesseractGain: (): number => {
-    return achievementsByReward.wowTesseractGain.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.wowTesseractGain!() : 1),
-      1
-    )
-  },
-  wowHypercubeGain: (): number => {
-    return achievementsByReward.wowHypercubeGain.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.wowHypercubeGain!() : 1),
-      1
-    )
-  },
-  wowPlatonicGain: (): number => {
-    return achievementsByReward.wowPlatonicGain.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.wowPlatonicGain!() : 1),
-      1
-    )
-  },
-  wowHepteractGain: (): number => {
-    return achievementsByReward.wowHepteractGain.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.wowHepteractGain!() : 1),
-      1
-    )
-  },
-  cubesBanked: (): number => {
-    return achievementsByReward.cubesBanked.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.cubesBanked!() : 0),
-      0
-    )
-  },
-  ascensionRewardScaling: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.ascensionRewardScaling[0]])
-  },
-  constUpgrade1Buff: (): number => {
-    return achievementsByReward.constUpgrade1Buff.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.constUpgrade1Buff!() : 0),
-      0
-    )
-  },
-  constUpgrade2Buff: (): number => {
-    return achievementsByReward.constUpgrade2Buff.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.constUpgrade2Buff!() : 0),
-      0
-    )
-  },
-  platonicToHypercubes: (): number => {
-    return achievementsByReward.platonicToHypercubes.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.platonicToHypercubes!() : 0),
-      0
-    )
-  },
-  statTracker: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.statTracker[0]])
-  },
-  overfluxConversionRate: (): number => {
-    return achievementsByReward.overfluxConversionRate.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.overfluxConversionRate!() : 1),
-      1
-    )
-  },
-  diamondUpgrade18: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.diamondUpgrade18[0]])
-  },
-  diamondUpgrade19: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.diamondUpgrade19[0]])
-  },
-  diamondUpgrade20: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.diamondUpgrade20[0]])
-  },
-  prestigeCountMultiplier: (): number => {
-    return achievementsByReward.prestigeCountMultiplier.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.prestigeCountMultiplier!() : 1),
-      1
-    )
-  },
-  transcensionCountMultiplier: (): number => {
-    return achievementsByReward.transcensionCountMultiplier.reduce(
-      (prod, index) =>
-        prod * (player.achievements[index] ? achievements[index].reward!.transcensionCountMultiplier!() : 1),
-      1
-    )
-  },
-  reincarnationCountMultiplier: (): number => {
-    return achievementsByReward.reincarnationCountMultiplier.reduce(
-      (prod, index) =>
-        prod * (player.achievements[index] ? achievements[index].reward!.reincarnationCountMultiplier!() : 1),
-      1
-    )
-  },
-  duplicationRuneUnlock: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.duplicationRuneUnlock[0]])
-  },
-  offeringBonus: (): number => {
-    return achievementsByReward.offeringBonus.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.offeringBonus!() : 1),
-      1
-    )
-  },
-  obtainiumBonus: (): number => {
-    return achievementsByReward.obtainiumBonus.reduce(
-      (prod, index) => prod * (player.achievements[index] ? achievements[index].reward!.obtainiumBonus!() : 1),
-      1
-    )
-  },
-  salvage: (): number => {
-    return achievementsByReward.salvage.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.salvage!() : 0),
-      0
-    )
-  },
-  prismRuneUnlock: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.prismRuneUnlock[0]])
-  },
-  thriftRuneUnlock: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.thriftRuneUnlock[0]])
-  },
-  transcendToPrestige: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.transcendToPrestige[0]])
-  },
-  reincarnationToTranscend: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.reincarnationToTranscend[0]])
-  },
-  freeAntUpgrades: (): number => {
-    return achievementsByReward.freeAntUpgrades.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.freeAntUpgrades!() : 0),
-      0
-    )
-  },
-  antSacrificeCountMultiplier: (): number => {
-    return achievementsByReward.antSacrificeCountMultiplier.reduce(
-      (prod, index) =>
-        prod * (player.achievements[index] ? achievements[index].reward!.antSacrificeCountMultiplier!() : 1),
-      1
-    )
-  },
-  autoAntSacrifice: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.autoAntSacrifice[0]])
-  },
-  antSpeed2UpgradeImprover: (): number => {
-    return achievementsByReward.antSpeed2UpgradeImprover.reduce(
-      (sum, index) => sum + (player.achievements[index] ? achievements[index].reward!.antSpeed2UpgradeImprover!() : 0),
-      0
-    )
-  },
-  antSacrificeToReincarnation: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.antSacrificeToReincarnation[0]])
-  },
-  obtainiumTimerMultiplier: (): boolean => {
-    return Boolean(player.achievements[achievementsByReward.obtainiumTimerMultiplier[0]])
-  }
+    * (1 - 0.05 * player.achievements[AchievementId.Challenge7Tier5])
+    * (1 - 0.05 * player.achievements[AchievementId.Challenge8Tier5]),
+  particleGain: () => 1 + player.achievements[AchievementId.ReincarnationPointGainTier1],
+  chronosTalisman: () => Boolean(player.achievements[AchievementId.Challenge7Tier7]),
+  midasTalisman: () => Boolean(player.achievements[AchievementId.Challenge8Tier7]),
+  metaphysicsTalisman: () => Boolean(player.achievements[AchievementId.Challenge9Tier7]),
+  polymathTalisman: () => Boolean(player.achievements[AchievementId.Challenge10Tier7]),
+  wowSquareTalisman: () => Boolean(player.achievements[AchievementId.AscensionCountTier4]),
+  conversionExponent: () =>
+    0.01 * player.achievements[AchievementId.GenerationAch1]
+    + 0.01 * player.achievements[AchievementId.GenerationAch2]
+    + 0.01 * player.achievements[AchievementId.GenerationAch3]
+    + 0.01 * player.achievements[AchievementId.GenerationAch4]
+    + 0.01 * player.achievements[AchievementId.Chal1NoGen]
+    + 0.01 * player.achievements[AchievementId.Chal2NoGen]
+    + 0.01 * player.achievements[AchievementId.Chal3NoGen],
+  talismanPower: () =>
+    0.02 * player.achievements[AchievementId.Challenge9Tier2]
+    + 0.02 * player.achievements[AchievementId.Challenge9Tier3]
+    + 0.025 * player.achievements[AchievementId.Challenge10Tier4]
+    + 0.025 * player.achievements[AchievementId.Challenge10Tier5]
+    + 0.01 * player.achievements[AchievementId.Challenge11Tier7]
+    + 0.01 * player.achievements[AchievementId.Challenge12Tier7]
+    + 0.01 * player.achievements[AchievementId.Challenge13Tier7],
+  sacrificeMult: () => 1 + 0.25 * player.achievements[AchievementId.Challenge9Tier4],
+  antSpeed: () =>
+    (1 + player.achievements[AchievementId.AntCrumbsTier1] * (Decimal.log(player.ants.crumbs.plus(10), 10) - 1))
+    * (1 + 0.2 * player.achievements[AchievementId.AntCrumbsTier3])
+    * (1 + 0.25 * player.achievements[AchievementId.AntCrumbsTier4])
+    * (1 + 0.4 * player.achievements[AchievementId.AntCrumbsTier5])
+    * (1 + player.achievements[AchievementId.AntCrumbsTier6] * player.ants.immortalELO / 1000),
+  antSacrificeUnlock: () => Boolean(player.achievements[AchievementId.AntCrumbsTier5]),
+  antAutobuyers: () =>
+    player.achievements[AchievementId.AntCrumbsTier5]
+    + player.achievements[AchievementId.SacMultTier1]
+    + player.achievements[AchievementId.SacMultTier2]
+    + player.achievements[AchievementId.SacMultTier3]
+    + player.achievements[AchievementId.SacMultTier4]
+    + player.achievements[AchievementId.SacMultTier5]
+    + player.achievements[AchievementId.SacMultTier6]
+    + player.achievements[AchievementId.SacMultTier7]
+    + player.achievements[AchievementId.SacMultTier10],
+  preserveAnthillCount: () => Boolean(player.achievements[AchievementId.AscensionCountTier2]),
+  preserveAnthillCountSingularity: () => Boolean(player.achievements[AchievementId.SacCountTier10]),
+  inceptusAutobuy: () => Boolean(player.achievements[AchievementId.SacMultTier1]),
+  fortunaeAutobuy: () => Boolean(player.achievements[AchievementId.SacMultTier1]),
+  tributumAutobuy: () => Boolean(player.achievements[AchievementId.SacMultTier2]),
+  celeritasAutobuy: () => Boolean(player.achievements[AchievementId.SacMultTier3]),
+  exploratoremAutobuy: () => Boolean(player.achievements[AchievementId.SacMultTier3]),
+  sacrificiumAutobuy: () => Boolean(player.achievements[AchievementId.SacMultTier4]),
+  experientiaAutobuy: () => Boolean(player.achievements[AchievementId.Challenge9Tier4]),
+  hicAutobuy: () => Boolean(player.achievements[AchievementId.SacCountTier2]),
+  scientiaAutobuy: () => Boolean(player.achievements[AchievementId.AntCrumbsTier6]),
+  praemoenioAutobuy: () => Boolean(player.achievements[AchievementId.SacCountTier4]),
+  phylacteriumAutobuy: () => Boolean(player.achievements[AchievementId.SacCountTier6]),
+  antELOAdditive: () => 25 * player.achievements[AchievementId.SacCountTier5],
+  antELOAdditiveMultiplier: () => 0.01 * player.achievements[AchievementId.SacCountTier4],
+  ascensionCountMultiplier: () =>
+    (1 + 0.8 * player.achievements[AchievementId.AscensionCountTier5] * ascensionEffectiveCorruptionLevel())
+    * (1 + 0.1 * player.achievements[AchievementId.AscensionCountTier8])
+    * (1 + 0.1 * player.achievements[AchievementId.AscensionCountTier9])
+    * (1
+      + player.achievements[AchievementId.ReincarnationCountTier9]
+        * Math.min(0.25, 0.25 * player.ascensionCounter / 1e6)),
+  ascensionCountAdditive: () =>
+    player.achievements[AchievementId.AscensionCountTier6] * (player.ascensionCounter > 10 ? 100 : 0)
+    + player.achievements[AchievementId.AscensionCountTier7]
+      * (player.ascensionCounter > 10 ? 2 * player.ascensionCounterReal : 0)
+    + 2 * player.achievements[AchievementId.Challenge11Tier6] * player.ascensionCounter
+    + 2 * player.achievements[AchievementId.Challenge12Tier6] * player.ascensionCounter
+    + 2 * player.achievements[AchievementId.Challenge13Tier6] * player.ascensionCounter
+    + 2 * player.achievements[AchievementId.Challenge14Tier6] * player.ascensionCounter,
+  wowCubeGain: () =>
+    (1 + 2 * player.achievements[AchievementId.AscensionCountTier7] * Math.min(1, player.ascensionCount / 5e8))
+    * (1 + player.achievements[AchievementId.ConstantTier4] * Decimal.log(player.ascendShards.add(1), 10) / 400)
+    * (1
+      + 249 * player.achievements[AchievementId.ConstantTier6]
+        * Math.min(1, Decimal.log(player.ascendShards.plus(1), 10) / 100000))
+    * (1 + 0.1 * player.achievements[AchievementId.AscensionScoreTier9]),
+  wowTesseractGain: () =>
+    (1
+      + 249 * player.achievements[AchievementId.ConstantTier6]
+        * Math.min(1, Decimal.log(player.ascendShards.plus(1), 10) / 100000))
+    * (1 + 0.1 * player.achievements[AchievementId.AscensionScoreTier10]),
+  wowHypercubeGain: () => 1 + 0.1 * player.achievements[AchievementId.AscensionScoreTier8],
+  wowPlatonicGain: () =>
+    (1
+      + 19 * player.achievements[AchievementId.ConstantTier7]
+        * Math.min(1, Decimal.log(player.ascendShards.plus(1), 10) / 100000))
+    * (1 + 2 * player.achievements[AchievementId.Challenge14Tier6] * Math.min(1, player.ascensionCount / 2.674e9))
+    * (1 + 0.1 * player.achievements[AchievementId.AscensionScoreTier11]),
+  wowHepteractGain: () =>
+    (1 + 0.1 * player.achievements[AchievementId.AscensionScoreTier13])
+    * (1
+      + player.achievements[AchievementId.ConstantTier11]
+        * Math.min(Decimal.log(player.ascendShards.add(1), 10) / 1e6, 1)),
+  cubesBanked: () =>
+    50 * player.achievements[AchievementId.AscensionScoreTier14] * player.hepteracts.abyss.TIMES_CAP_EXTENDED
+    + player.achievements[AchievementId.ConstantTier8]
+      * Math.min(2000, Math.floor(Decimal.log(player.ascendShards.add(1), 10) / 50)),
+  ascensionRewardScaling: () => Boolean(player.achievements[AchievementId.Challenge12Tier1]),
+  constUpgrade1Buff: () => 0.01 * player.achievements[AchievementId.ConstantTier11],
+  constUpgrade2Buff: () => 0.01 * player.achievements[AchievementId.ConstantTier11],
+  platonicToHypercubes: () =>
+    player.achievements[AchievementId.ConstantTier12] * Math.min(1, Decimal.log(player.ascendShards.add(1), 10) / 1e6),
+  statTracker: () => Boolean(player.achievements[AchievementId.Challenge11Tier1]),
+  overfluxConversionRate: () =>
+    (1 + 0.05 * player.achievements[AchievementId.AscensionScoreTier11])
+    * (1 + 0.05 * player.achievements[AchievementId.AscensionScoreTier12]),
+  diamondUpgrade18: () => Boolean(player.achievements[AchievementId.Challenge7Tier1]),
+  diamondUpgrade19: () => Boolean(player.achievements[AchievementId.Challenge8Tier1]),
+  diamondUpgrade20: () => Boolean(player.achievements[AchievementId.Challenge9Tier1]),
+  prestigeCountMultiplier: () =>
+    (1
+      + player.achievements[AchievementId.PrestigeCountTier2]
+        * Math.max(0, Math.floor(Math.log10(player.prestigeCount))))
+    * (1
+      + player.achievements[AchievementId.ReincarnationCountTier9]
+        * Math.min(3, 0.25 + 2.75 * player.prestigecounter / 1e6)),
+  transcensionCountMultiplier: () =>
+    (1 + player.achievements[AchievementId.PrestigeCountTier9] * Math.min(3, 0.25 + 2.75 * player.prestigecounter / 10))
+    * (1
+      + player.achievements[AchievementId.TranscensionCountTier2]
+        * Math.max(0, Math.floor(Math.log10(player.transcendCount)))),
+  reincarnationCountMultiplier: () =>
+    (1
+      + player.achievements[AchievementId.TranscensionCountTier9]
+        * Math.min(3, 0.25 + 2.75 * player.prestigecounter / 1000))
+    * (1
+      + player.achievements[AchievementId.ReincarnationCountTier2]
+        * Math.max(0, Math.floor(Math.log10(player.reincarnationCount)))),
+  duplicationRuneUnlock: () => Boolean(player.achievements[AchievementId.PrestigeCountTier3]),
+  offeringBonus: () =>
+    1
+    + 0.02 * player.achievements[AchievementId.PrestigeCountTier4]
+      * Math.max(1, 1 + Math.floor(Math.log10(player.prestigeCount))),
+  obtainiumBonus: () =>
+    1
+    + 0.02 * player.achievements[AchievementId.ReincarnationCountTier3]
+      * Math.max(1, 1 + Math.floor(Math.log10(player.reincarnationCount))),
+  salvage: () =>
+    2 * player.achievements[AchievementId.TranscensionCountTier3]
+    * Math.max(1, 1 + Math.floor(Math.log10(player.transcendCount))),
+  prismRuneUnlock: () => Boolean(player.achievements[AchievementId.TranscensionCountTier4]),
+  thriftRuneUnlock: () => Boolean(player.achievements[AchievementId.ReincarnationCountTier5]),
+  transcendToPrestige: () => Boolean(player.achievements[AchievementId.PrestigeCountTier7]),
+  reincarnationToTranscend: () => Boolean(player.achievements[AchievementId.TranscensionCountTier7]),
+  freeAntUpgrades: () =>
+    2 * player.achievements[AchievementId.AscensionCountTier1]
+    + player.achievements[AchievementId.SacCountTier1],
+  antSacrificeCountMultiplier: () =>
+    (1 + player.achievements[AchievementId.AscensionCountTier2])
+    * (1 + player.achievements[AchievementId.SacCountTier2]),
+  autoAntSacrifice: () => Boolean(player.achievements[AchievementId.SacCountTier3]),
+  antSpeed2UpgradeImprover: () => player.achievements[AchievementId.SacCountTier6] * achievementLevel,
+  antSacrificeToReincarnation: () => Boolean(player.achievements[AchievementId.SacCountTier12]),
+  obtainiumTimerMultiplier: () => Boolean(player.achievements[AchievementId.ReincarnationCountTier2])
 }
 
 export let achievementPoints = 0
@@ -3797,7 +4275,7 @@ export const toNextAchievementLevelEXP = () => {
   }
 }
 
-export const getAchievementReward = (rewardType: AchievementRewards): number | boolean => {
+export const getAchievementReward = <K extends AchievementRewards>(rewardType: K): AchievementRewardValues[K] => {
   return achRewards[rewardType]()
 }
 

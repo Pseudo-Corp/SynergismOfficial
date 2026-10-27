@@ -2,7 +2,14 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, getAchievementReward } from './Achievements'
 import { buyAutobuyers, buyGenerator } from './Automation'
-import { buyUpgrades, getBuildingOwned, getTesseractBuildingsOwned, getTotalBuildingsOwned } from './Buy'
+import {
+  buyUpgrades,
+  CoinBuilding,
+  getBuildingOwned,
+  getTesseractBuildingsOwned,
+  getTotalBuildingsOwned,
+  MythosBuilding
+} from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateGlobalSpeedMult,
@@ -53,14 +60,14 @@ const crystalupgdesc: Record<number, () => Record<string, string>> = {
 const constantUpgDesc: Record<number, () => Record<string, string>> = {
   1: () => ({
     level: format(
-      5 + 100 * +getAchievementReward('constUpgrade1Buff') + 0.1 * player.platonicUpgrades[18],
+      5 + 100 * getAchievementReward('constUpgrade1Buff') + 0.1 * player.platonicUpgrades[18],
       1,
       true
     )
   }),
   2: () => ({
     max: format(
-      10 + 100 * +getAchievementReward('constUpgrade2Buff') + getShopUpgradeEffects('constantEX', 'maxPercentIncrease')
+      10 + 100 * getAchievementReward('constUpgrade2Buff') + getShopUpgradeEffects('constantEX', 'maxPercentIncrease')
         + 100
           * (G.challenge15Rewards.exponent.value - 1)
         + 0.3 * player.platonicUpgrades[18],
@@ -160,17 +167,18 @@ const upgradetexts = [
   () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
   () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
   () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
-  () => Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', 4) + 1, 10))),
+  () => Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', CoinBuilding.Alchemies) + 1, 10))),
   () => format(Math.floor(getBuildingOwned('multiplier') / 7), 0, true),
   () => format(Math.floor(getBuildingOwned('accelerator') / 10), 0, true),
-  () => format(Decimal.pow(2, Math.min(50, getBuildingOwned('coin', 1) / 15)), 2),
+  () => format(Decimal.pow(2, Math.min(50, getBuildingOwned('coin', CoinBuilding.Investments) / 15)), 2),
   () => format(Decimal.pow(1.02, calculateAccelMultStats().totalAccelerator), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
   () =>
     format(
       Decimal.min(
         1e50,
-        Decimal.pow(player.firstGeneratedMythos.add(getBuildingOwned('mythos', 0)).add(1), 4 / 3).times(1e22)
+        Decimal.pow(player.firstGeneratedMythos.add(getBuildingOwned('mythos', MythosBuilding.Augments)).add(1), 4 / 3)
+          .times(1e22)
       ),
       2
     ),
@@ -396,9 +404,9 @@ export const upgradeRequirements = [
   // Diamond Upgrades 16-20
   () => player.unlocks.reincarnate,
   () => player.unlocks.reincarnate,
-  () => Boolean(getAchievementReward('diamondUpgrade18')),
-  () => Boolean(getAchievementReward('diamondUpgrade19')),
-  () => Boolean(getAchievementReward('diamondUpgrade20')),
+  () => getAchievementReward('diamondUpgrade18'),
+  () => getAchievementReward('diamondUpgrade19'),
+  () => getAchievementReward('diamondUpgrade20'),
   // Mythos Upgrade 1-5
   () => player.unlocks.transcend,
   () => player.unlocks.transcend,
@@ -791,7 +799,7 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
   1: () => ({
     x: format(
       Decimal.pow(
-        1.05 + +getAchievementReward('constUpgrade1Buff') + 0.001 * player.platonicUpgrades[18],
+        1.05 + getAchievementReward('constUpgrade1Buff') + 0.001 * player.platonicUpgrades[18],
         player.constantUpgrades[1]
       ),
       2,
@@ -804,7 +812,7 @@ const constUpgEffect: Record<number, () => Record<string, string>> = {
         1
           + 0.001
             * Math.min(
-              100 + 1000 * +getAchievementReward('constUpgrade2Buff')
+              100 + 1000 * getAchievementReward('constUpgrade2Buff')
                 + 10 * getShopUpgradeEffects('constantEX', 'maxPercentIncrease')
                 + 3 * player.platonicUpgrades[18] + 1000 * (G.challenge15Rewards.exponent.value - 1),
               player.constantUpgrades[2]

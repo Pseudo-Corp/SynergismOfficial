@@ -20,7 +20,7 @@ export const resetPlayerAntSacrificeCounts = (resetTier: AntSacrificeTiers) => {
   } else {
     let sacrificeAdd = 1
     sacrificeAdd += player.researches[116] // 5x16: +1 per level
-    sacrificeAdd *= +getAchievementReward('antSacrificeCountMultiplier')
+    sacrificeAdd *= getAchievementReward('antSacrificeCountMultiplier')
     player.ants.antSacrificeCount += sacrificeAdd
     if (getAchievementReward('antSacrificeToReincarnation')) {
       updateReincarnationCount(sacrificeAdd)

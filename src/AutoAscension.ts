@@ -247,7 +247,7 @@ const protocolModifierShortIds = Object.fromEntries(
 ) as Record<ProtocolModifierKey, keyof typeof protocolModifierIds>
 
 const protocolModifierUnlocks: Record<ProtocolModifierKey, () => boolean> = {
-  antSacrifice: () => Boolean(getAchievementReward('autoAntSacrifice')),
+  antSacrifice: () => getAchievementReward('autoAntSacrifice'),
   challengeSweep: () => player.researches[150] > 0,
   cubeOpens: () => player.highestSingularityCount >= 10,
   tesseractBuildings: () => player.researches[190] > 0,

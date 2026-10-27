@@ -13,6 +13,38 @@ import { crystalupgradedescriptions, upgradeRequirements, upgradeupdate } from '
 import { smallestInc } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
 
+export enum CoinBuilding {
+  Workers = 0,
+  Investments = 1,
+  Printers = 2,
+  CoinMints = 3,
+  Alchemies = 4
+}
+
+export enum DiamondBuilding {
+  Refineries = 0,
+  CoalPlants = 1,
+  CoalRigs = 2,
+  Pickaxes = 3,
+  PandorasBoxes = 4
+}
+
+export enum MythosBuilding {
+  Augments = 0,
+  Enchantments = 1,
+  Wizards = 2,
+  Oracles = 3,
+  Grandmasters = 4
+}
+
+export enum ParticleBuilding {
+  Protons = 0,
+  Elements = 1,
+  Pulsars = 2,
+  Quasars = 3,
+  GalacticNuclei = 4
+}
+
 const producerData = {
   coin: {
     name: 'Coin',
