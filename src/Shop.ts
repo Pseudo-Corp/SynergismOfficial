@@ -249,8 +249,9 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.offeringPotion'),
     effects: () => 7200, // skipSeconds
     effectDescription: () => {
+      const baseOfferings = calculateBaseOfferings()
       const amount = format(
-        calculatePotionValue(calculateOfferingsDecimal(), calculateBaseOfferings()),
+        calculatePotionValue(calculateOfferingsDecimal(baseOfferings), baseOfferings),
         2,
         true
       )
@@ -2275,9 +2276,10 @@ export const useConsumable = (
   const infiniteAutoBrew = PCoinUpgradeEffects.AUTO_POTION_FREE_POTIONS_QOL
 
   if (input === 'offeringPotion') {
+    const baseOfferings = calculateBaseOfferings()
     let offeringPotionValue = calculatePotionValue(
-      calculateOfferingsDecimal(),
-      calculateBaseOfferings(),
+      calculateOfferingsDecimal(baseOfferings),
+      baseOfferings,
       speedMult
     )
 

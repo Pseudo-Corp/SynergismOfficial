@@ -12,8 +12,7 @@ import { platonicCorruptionScaling } from './Platonic'
 import { getGQUpgradeEffect } from './singularity'
 import {
   calculateCorruptionCubeMultiplierParts,
-  calculateTotalStat,
-  freeCorruptionLevelStats,
+  freeCorruptionLevelStatsSum,
   hasCorruptionScaledCubeStats
 } from './Statistics'
 import { format, player } from './Synergism'
@@ -246,7 +245,7 @@ export const normalizeCorruptionLevel = (level: number) => {
   return validateNonnegativeInteger(level) ? Math.min(level, maxCorruptionLevel()) : 0
 }
 
-export const corruptionFreeLevels = () => calculateTotalStat(freeCorruptionLevelStats)
+export const corruptionFreeLevels = () => freeCorruptionLevelStatsSum()
 
 export const effectiveCorruptionLevel = (level: number) => {
   return level + corruptionFreeLevels()

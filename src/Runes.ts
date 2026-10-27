@@ -24,7 +24,7 @@ import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { createShopUpgradeTypeIcon, getShopUpgradeEffects, ShopUpgradeGroups } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { calculateTotalStat, firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
+import { firstFiveRuneEffectivenessStatsProduct, runeEffectivenessStatsSIProduct } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { toggleAutoSacrifice } from './Toggles'
@@ -269,11 +269,11 @@ const horseShoeOOMIncrease = () => {
 }
 
 export const firstFiveEffectiveRuneLevelMult = () => {
-  return calculateTotalStat(firstFiveRuneEffectivenessStats)
+  return firstFiveRuneEffectivenessStatsProduct()
 }
 
 export const SIEffectiveRuneLevelMult = () => {
-  return calculateTotalStat(runeEffectivenessStatsSI)
+  return runeEffectivenessStatsSIProduct()
 }
 
 const universalRuneEXPMult = (purchasedLevels: number, salvage = calculateTotalSalvage()): Decimal => {

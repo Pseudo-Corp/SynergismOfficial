@@ -56,7 +56,7 @@ export const showSacrifice = () => {
     rebornELOTimeRemaining.innerHTML = '<br>' // Break imitates "no text" in this case
   } else {
     rebornELOPerSecond.innerHTML = i18next.t('ants.rebornELOPerSecond', {
-      x: format(rebornELOCreationSpeedMult(), 2, true)
+      x: format(rebornELOCreationSpeedMult(effectiveELO), 2, true)
     })
     rebornELOTimeRemaining.innerHTML = i18next.t('ants.rebornELOTimeToMax', {
       x: format(calculateSecondsToMaxRebornELO(), 0, true)
