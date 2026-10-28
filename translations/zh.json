@@ -2656,7 +2656,7 @@
       "exalts": {
         "name": "递进式成就 - 拔擢阶层完成数",
         "description": "每次完成拔擢都可以获得成就点数！",
-        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>有限飞升挑战：{{num3}}/{{cap3}}成就点数<br>无夸克升级：{{num4}}/{{cap4}}成就点数<br>无八阶方块效果：{{num5}}/{{cap5}}成就点数<br>无神肴升级：{{num6}}/{{cap6}}成就点数<br>奇点大竞速赛：{{num7}}/{{cap7}}成就点数<br>虐待狂拔擢 III：{{num8}}/{{cap8}}成就点数<br>税务官的最后阵地：{{num9}}/{{cap9}}成就点数<br>填充进度条：{{num10}}/{{cap10}}成就点数"
+        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>有限飞升挑战：{{num3}}/{{cap3}}成就点数<br>无夸克升级：{{num4}}/{{cap4}}成就点数<br>无八阶方块效果：{{num5}}/{{cap5}}成就点数<br>无神肴升级：{{num6}}/{{cap6}}成就点数<br>奇点竞速大赛：{{num7}}/{{cap7}}成就点数<br>虐待狂拔擢 III：{{num8}}/{{cap8}}成就点数<br>税务官的最后阵地：{{num9}}/{{cap9}}成就点数<br>填充进度条：{{num10}}/{{cap10}}成就点数"
       },
       "singularityUpgrades": {
         "name": "递进式成就 - 金夸克升级",
@@ -4298,7 +4298,7 @@
         "name": "“每日”代码额外奖励",
         "hasLevel2": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，额外获得num:((0.2))级金夸克 I，num:((0.2))级金夸克 II和1级金夸克 III，另外再使获得的免费等级数量翻倍！",
         "hasLevel1": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，还可以额外获得num:((0.2))级金夸克 I，num:((0.2))级金夸克 II和1级金夸克 III。",
-        "default": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，且效果随着奇点次数而增长！"
+        "default": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，且次数随着奇点次数而增长！"
       },
       "generousOrbs": {
         "name": "慷慨之珠",
@@ -4552,35 +4552,35 @@
       "locked": "未解锁",
       "daily": {
         "section": "“每日”代码",
-        "rolls": "Code 'daily': {{rolls}} Rolls ({{additive}} Additive × {{multiplier}} Mult)",
-        "allMaxed": "All upgrades have reached their free level cap. Code 'daily' will not roll for free upgrades.",
-        "perRoll": "Per Roll",
-        "chance": "Chance",
-        "capped": "Capped",
-        "flatBonus": "↳ +{{amount}} free levels guaranteed",
+        "rolls": "“每日”代码：{{rolls}}次 ({{additive}}相加部分×{{multiplier}}相乘部分)",
+        "allMaxed": "所有升级都达到了免费等级上限。“每日”代码无法再获得免费等级。",
+        "perRoll": "每次",
+        "chance": "概率",
+        "capped": "已达上限",
+        "flatBonus": "↳ 免费等级必定增加{{amount}}级",
         "requirements": {
-          "noAmbrosiaUpgrades1": "↳ Requirement: 'No Ambrosia Upgrades' EXALT Tier 1 Completed",
-          "limitedTime1": "↳ Requirement: 'The Grand Singularity Speedrun!' EXALT Tier 1 Completed",
-          "sadisticPrequel1": "↳ Requirement: 'SADISTIC EXALT III - The Prequel' EXALT Tier 1 Completed",
-          "taxmanLastStand1": "↳ Requirement: 'The Taxman's Last Stand' EXALT Tier 1 Completed"
+          "noAmbrosiaUpgrades1": "↳ 需要：完成第1阶层的“无神肴升级”拔擢",
+          "limitedTime1": "↳ 需要：完成第1阶层的“奇点竞速大赛”拔擢",
+          "sadisticPrequel1": "↳ 需要：完成第1阶层的“虐待狂拔擢 III - 前传”拔擢",
+          "taxmanLastStand1": "↳ 需要：完成第1阶层的“税务官的最后阵地”拔擢"
         }
       },
       "add": {
-        "section": "Code 'add'",
-        "uses": "Code 'add': {{uses}} / {{max}} uses available",
-        "requirement": "Requirement: Reach Singularity {{singularity}}",
-        "perAdd": "Per Add",
-        "fromAvailable": "From Available Adds"
+        "section": "“增加”代码",
+        "uses": "“增加”代码：{{uses}} / {{max}}次使用次数",
+        "requirement": "需要：达到{{singularity}}次奇点",
+        "perAdd": "每次增加",
+        "fromAvailable": "当前“增加”代码共可获得"
       },
       "milestones": {
-        "section": "Milestones",
-        "summary": "Granted once, the first time you reach each Singularity.",
-        "milestone": "Milestone",
-        "singularity": "Singularity {{singularity}}",
-        "reward": "Reward",
-        "status": "Status",
-        "obtained": "Obtained",
-        "notObtained": "Not Yet"
+        "section": "里程碑",
+        "summary": "首次达到相应奇点时获得，只能获得一次。",
+        "milestone": "里程碑",
+        "singularity": "{{singularity}}次奇点",
+        "reward": "奖励",
+        "status": "状态",
+        "obtained": "已获得",
+        "notObtained": "未获得"
       }
     },
     "data": {
@@ -4648,13 +4648,13 @@
       },
       "corruptionFourteen": {
         "name": "腐化等级-十四",
-        "description": "Buy this to gain +1 free Corruption level. :)",
+        "description": "购买后使免费腐化等级增加1级。:)",
         "effectHave": "您已使免费腐化等级增加1级。{{m}}",
         "effectHaveNot": "您未使免费腐化等级增加1级。{{m}}"
       },
       "corruptionFifteen": {
         "name": "腐化等级-十五",
-        "description": "Adds +1 FREE Corruption level, no matter what. :)",
+        "description": "无论如何，都会使免费腐化等级增加1级。:)",
         "effectHave": "您已使免费腐化等级增加1级。{{m}}",
         "effectHaveNot": "您未使免费腐化等级增加1级。{{m}}"
       },
@@ -4755,7 +4755,7 @@
       },
       "divinePack": {
         "name": "神圣礼包",
-        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 35, including free levels, up to num:((10)) levels!",
+        "description": "哦哦哦哦哦。使夸克获取数量增加10%(可以与其他礼包叠加)，腐化等级超过35以后(包括免费等级)，超出部分每级使惊奇八阶方块获取数量变为原来的num:((1.3))倍，最多计算10级！",
         "effectHave": "您找到了生存的理由。当前惊奇八阶方块加成：增加{{n}}",
         "effectHaveNot": "您暂未发觉生存的理由。"
       },
@@ -4848,7 +4848,7 @@
       },
       "platonicTau": {
         "name": "PLATONIC·陶",
-        "description": "Placed in the wrong upgrade section, this raises all Cube gains to the power of num:((1.01))!",
+        "description": "放在了错误的升级区域，它会使所有类型的方盒、立方和方块的获取数量变为原来的num:((1.01))次方！",
         "effectHave": "已购买该升级",
         "effectHaveNot": "未购买该升级"
       },
@@ -4866,7 +4866,7 @@
       },
       "platonicPhi": {
         "name": "PLATONIC·斐",
-        "description": "时间的力量也可以向着过去变得更加强大。在本次奇点中，每经过一天，“每日”代码获得的免费金夸克升级增加5级，最高为第十天增加50级。",
+        "description": "时间的力量也可以向着过去变得更加强大。在本次奇点中，每经过一天，“每日”代码获得的免费金夸克升级增加5次，最高为第十天增加50次。",
         "effectHave": "已购买该升级",
         "effectHaveNot": "未购买该升级"
       },
@@ -4916,10 +4916,10 @@
         "effectHaveNot": "您未嘎了最后的嘎克"
       },
       "wowPass5": {
-        "name": "Selling Quark Upgrades while Purple",
-        "description": "I am currently purple, so please leave the Quarks on the counter. Thanks.",
-        "effectHave": "The Quack Merchant, despite being Purple, will sell you Quark Upgrades! Quaaack",
-        "effectHaveNot": "The Quack Merchant is Purple, but isn't selling Quark Upgrades at this time."
+        "name": "紫色期间照常出售夸克升级",
+        "description": "本人正处于紫色状态，夸克放在柜台上即可。谢谢。",
+        "effectHave": "嘎克商人虽然处于紫色状态，但仍然照常出售夸克升级！嘎嘎嘎",
+        "effectHaveNot": "嘎克商人处于紫色状态，目前不出售夸克升级。"
       },
       "blueberries": {
         "name": "蓝莓！",
@@ -5049,7 +5049,7 @@
       "description": "<b> <<gold | 奇点电梯可以让您在 1-{{limit}} 之间改变当前生效的奇点次数！ >> </b><br>您可以选择 1- <b> {{limit}}</b> 之间任意的奇点次数，但是选择比当前奇点相同或更高的奇点次数会强制进行奇点重置。",
       "targetSingularity": "目标奇点：{{target}}",
       "selectTarget": "选择目标奇点",
-      "teleportButton": "Teleport!",
+      "teleportButton": "传送！",
       "teleportButtonHigher": "加！",
       "teleportButtonStay": "重新开始！",
       "teleportButtonLower": "减！",
@@ -5075,29 +5075,29 @@
   },
   "general": {
     "purchasePrompt": {
-      "levels": "Levels to buy",
+      "levels": "购买的等级",
       "resource": {
-        "goldenQuarks": "Golden Quarks to spend",
-        "octeracts": "Octeracts to spend",
-        "ambrosia": "Ambrosia to spend",
-        "redAmbrosia": "Red Ambrosia to spend",
-        "purpleAmbrosia": "Purple Ambrosia to spend"
+        "goldenQuarks": "要花费的金夸克数量",
+        "octeracts": "要花费的八阶方块数量",
+        "ambrosia": "要花费的神肴数量",
+        "redAmbrosia": "要花费的红神肴数量",
+        "purpleAmbrosia": "要花费的紫神肴数量"
       },
-      "hint": "Enter levels or a resource budget.",
-      "hint2": "Type -1 in either box to buy MAX.",
+      "hint": "输入等级或者资源数量。",
+      "hint2": "在任意输入框输入-1，可以购买最大数量。",
       "summary": {
-        "goldenQuarks": "Buy {{levels}} levels for {{cost}} Golden Quarks.",
-        "octeracts": "Buy {{levels}} levels for {{cost}} Octeracts.",
-        "ambrosia": "Buy {{levels}} levels for {{cost}} Ambrosia.",
-        "redAmbrosia": "Buy {{levels}} levels for {{cost}} Red Ambrosia.",
-        "purpleAmbrosia": "Buy {{levels}} levels for {{cost}} Purple Ambrosia."
+        "goldenQuarks": "花费{{cost}}金夸克购买{{levels}}级。",
+        "octeracts": "花费{{cost}}八阶方块购买{{levels}}级。",
+        "ambrosia": "花费{{cost}}神肴购买{{levels}}级。",
+        "redAmbrosia": "花费{{cost}}红神肴购买{{levels}}级。",
+        "purpleAmbrosia": "花费{{cost}}紫神肴购买{{levels}}级。"
       },
       "affordable": {
-        "goldenQuarks": "You can afford {{levels}} levels for {{cost}} Golden Quarks.",
-        "octeracts": "You can afford {{levels}} levels for {{cost}} Octeracts.",
-        "ambrosia": "You can afford {{levels}} levels for {{cost}} Ambrosia.",
-        "redAmbrosia": "You can afford {{levels}} levels for {{cost}} Red Ambrosia.",
-        "purpleAmbrosia": "You can afford {{levels}} levels for {{cost}} Purple Ambrosia."
+        "goldenQuarks": "您有{{cost}}金夸克，可以购买{{levels}}级。",
+        "octeracts": "您有{{cost}}八阶方块，可以购买{{levels}}级。",
+        "ambrosia": "您有{{cost}}神肴，可以购买{{levels}}级。",
+        "redAmbrosia": "您有{{cost}}红神肴，可以购买{{levels}}级。",
+        "purpleAmbrosia": "您有{{cost}}紫神肴，可以购买{{levels}}级。"
       },
       "invalid": "Enter a positive whole number, or -1 to buy MAX!",
       "unavailable": "You can't purchase any levels with selected levels or budget."
@@ -6296,11 +6296,11 @@
       "octeractImprovedDaily2": {
         "name": "再度加强“每日”代码效果",
         "description": "Derpsmith实现了超高速乘法。使“每日”代码获得的免费金夸克升级增加1%！",
-        "effect": "“每日”代码可以额外提供{{n}}级免费金夸克升级。"
+        "effect": "“每日”代码可以额外提供{{n}}次免费金夸克升级。"
       },
       "octeractImprovedDaily3": {
         "name": "超级加强“每日”代码效果",
-        "description": "Derpsmith永不自满。使“每日”代码获得的免费金夸克升级增加1级和增加num:((0.5))%！",
+        "description": "Derpsmith永不自满。使“每日”代码获得的免费金夸克升级增加1次和增加num:((0.5))%！",
         "effect": "“每日”代码可以额外提供{{n}}次免费金夸克升级。"
       },
       "octeractImprovedQuarkHept": {
@@ -6990,7 +6990,7 @@
         "UniqueReward8": "第15次 - 您可能猜到了！第4次免费获得1颗<<var(--blueberry-box-color)|蓝的莓>>！"
       },
       "limitedTime": {
-        "name": "奇点大竞速赛！",
+        "name": "奇点竞速大赛！",
         "description": "<i>时间，时间从未意味着永恒。</i>您需要在现实结构迅速崩溃的前提下通过目标奇点。",
         "timeMod1": "<<red|⏱ 时间限制：{{time}}秒>>",
         "timeMod2": "<<gold|⚠>> 超过时间限制以后，难得素获取数量、祭品获取数量和所有类型的方盒、立方和方块获取数量将每秒除以<<red|{{perSecondDivisor}}>>。",
@@ -7010,7 +7010,7 @@
         "ScalingReward1": "使<<cyan|夸克获取数量>>增加6%！",
         "ScalingReward2": "使“每日”代码获得的<<orange|免费金夸克升级>>增加6%！",
         "ScalingReward3": "40成就点数！",
-        "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费金夸克升级！",
+        "UniqueReward1": "第1次 - 使“每日”代码可以多提供50次免费金夸克升级！",
         "UniqueReward2": "第5次 - 新的<<orchid|夸克升级>>！",
         "UniqueReward3": "第10次 - 另一个新的<<orchid|夸克升级>>！",
         "UniqueReward4": "第15次 - 特别虐待的<<gray|夸克升级>>！"
@@ -7253,7 +7253,7 @@
       "ModuleHyperflux": "神肴 - 惊奇方盒终极工业生产模块：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的方盒升级：",
-      "Exalt6": "拔擢 - 奇点大竞速赛 - 超时惩罚：",
+      "Exalt6": "拔擢 - 奇点竞速大赛 - 超时惩罚：",
       "Event": "活动加成：",
       "OneMind": "一心倍率：",
       "Total": "所有类型的方盒、立方和方块获取数量总倍率："
@@ -7511,7 +7511,7 @@
       "RedAmbrosia": "由红神肴“制取”的祭品升级：",
       "Event": "活动加成：",
       "DroughtCorruption": "'Less Fruitful Harvests' Corruption:",
-      "Exalt6Penalty": "拔擢 - 奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "拔擢 - 奇点竞速大赛 - 超时惩罚：",
       "TaxmanDebuff": "拔擢 - 税务官的最后阵地 - ☢ 辐射惩罚：",
       "Jack": "夸克升级 - 全能高手：",
       "Total": "祭品获取数量倍率：",
@@ -7577,7 +7577,7 @@
       "AmbrosiaQuarks3": "神肴 - 夸克模块 III：",
       "AmbrosiaQuarks4": "Ambrosia - Quark Capstone:",
       "CashGrabQuarkBonus": "夸克升级 - 终极昂贵物品夸克加成：",
-      "LimitedTimeChallenge": "拔擢 - 奇点大竞速赛：",
+      "LimitedTimeChallenge": "拔擢 - 奇点竞速大赛：",
       "SadisticPrequel": "拔擢 - 虐待狂拔擢 III - 前传：",
       "Viscount": "成为子爵的加成：",
       "FirstSingularityBonus": "首次进入奇点加成：",
@@ -7620,7 +7620,7 @@
       "ObtainiumEX3": "夸克升级 - 最终难得素升级[每25级]：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的难得素升级：",
-      "Exalt6Penalty": "拔擢 - 奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "拔擢 - 奇点竞速大赛 - 超时惩罚：",
       "Event": "活动加成：",
       "Total": "不受效果衰减影响的难得素总倍率："
     },
@@ -7680,7 +7680,7 @@
       "RareEarthMetalsCorruption": "'Rare Earth Metals' Corruption:",
       "Challenge14": "挑战14 - 无研究挑战：",
       "SingularityDebuff": "奇点惩罚：",
-      "Exalt6Penalty": "拔擢 - 奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "拔擢 - 奇点竞速大赛 - 超时惩罚：",
       "TaxmanDebuff": "拔擢 - 税务官的最后阵地 - ☼ 十亿日照惩罚：",
       "Jack": "夸克升级 - 全能高手：",
       "Event": "活动加成：",
@@ -7716,7 +7716,7 @@
       "SingularityDebuff": "奇点惩罚：",
       "IntermediatePack": "金夸克升级 - 中级礼包：",
       "OcteractGlobalSpeed": "八阶方块 - 禁忌时钟：",
-      "LimitedTimeChallenge": "拔擢 - 奇点大竞速赛：",
+      "LimitedTimeChallenge": "拔擢 - 奇点竞速大赛：",
       "ChronometerShop": "夸克升级 - 真·时计·终：",
       "Event": "活动加成：",
       "Total": "不受效果衰减影响的全局速度总倍率："
@@ -7846,7 +7846,7 @@
       "ChronometerINF": "夸克升级 - 时计·终：",
       "LimitedAscensionsDebuff": "拔擢 - 有限飞升挑战 - 飞升次数惩罚：",
       "LimitedAscensionsBuff": "拔擢 - 有限飞升挑战：",
-      "LimitedTimeChallenge": "拔擢 - 奇点大竞速赛：",
+      "LimitedTimeChallenge": "拔擢 - 奇点竞速大赛：",
       "ChronometerS": "夸克升级 - 真·时计·终：",
       "ExponentialScalingFast": "飞升的速度指数(基础值超过1时)：",
       "ExponentialScalingSlow": "飞升的速度指数(基础值低于1时)：",
@@ -8361,7 +8361,7 @@
       "PlatonicUpgrade12": "PLATONIC升级3x2：",
       "MortuusTalisman": "蚂蚁标本护身符：",
       "ThresholdModifiers": "阈值倍率：",
-      "Exalt6": "拔擢 - 奇点大竞速赛 - Derpsmith的小加成：",
+      "Exalt6": "拔擢 - 奇点竞速大赛 - Derpsmith的小加成：",
       "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "重生强度分的产生速度总倍率："
     },
