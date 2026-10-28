@@ -1,0 +1,71 @@
+diff --git a/node_modules/steamworks-ffi-node/dist/internal/SteamOverlay.js b/node_modules/steamworks-ffi-node/dist/internal/SteamOverlay.js
+index e327062..c3b55a3 100644
+--- a/node_modules/steamworks-ffi-node/dist/internal/SteamOverlay.js
++++ b/node_modules/steamworks-ffi-node/dist/internal/SteamOverlay.js
+@@ -247,38 +247,28 @@ class SteamOverlay {
+             };
+             // Handle window resize/move — 'resized'/'moved' are completion events.
+             // On KDE/KWin they may not fire during live drag; add throttled fallbacks.
+-            let resizeThrottle = null;
+-            const syncOverlayFrameThrottled = () => {
+-                if (resizeThrottle)
+-                    return;
+-                resizeThrottle = setTimeout(() => {
+-                    resizeThrottle = null;
+-                    syncOverlayFrame();
+-                }, 100);
++            let settleTimer = null;
++            const hideUntilSettled = (reason) => {
++                hideOverlay(reason);
++                clearTimeout(settleTimer);
++                settleTimer = setTimeout(() => {
++                    settleTimer = null;
++                    if (!browserWindow.isDestroyed() && browserWindow.isVisible() && !browserWindow.isMinimized()) {
++                        syncOverlayFrame();
++                        showOverlay("settled");
++                    }
++                }, 250);
+             };
+-            browserWindow.on("resized", syncOverlayFrame);
+-            browserWindow.on("resize", syncOverlayFrameThrottled);
+-            browserWindow.on("moved", syncOverlayFrame);
+-            browserWindow.on("move", syncOverlayFrameThrottled);
+-            // Handle maximize/unmaximize — WM needs a moment to finalize bounds
+-            browserWindow.on("maximize", () => setTimeout(syncOverlayFrame, 100));
+-            browserWindow.on("unmaximize", () => setTimeout(syncOverlayFrame, 100));
++            browserWindow.on("resize", () => hideUntilSettled("resize"));
++            browserWindow.on("move", () => hideUntilSettled("move"));
++            browserWindow.on("maximize", () => hideUntilSettled("maximize"));
++            browserWindow.on("unmaximize", () => hideUntilSettled("unmaximize"));
++            browserWindow.on("enter-full-screen", () => hideUntilSettled("enter-full-screen"));
++            browserWindow.on("leave-full-screen", () => hideUntilSettled("leave-full-screen"));
+             // Minimize → hide overlay
+             browserWindow.on("minimize", () => hideOverlay("minimize"));
+-            // Restore from minimize → show overlay, then sync frame after WM settles.
+-            // On Linux/Gamescope the 'show' event fires BEFORE 'restore' during the restore
+-            // animation with wrong bounds (y=0); the 200ms delay lets the WM finalize position.
+-            browserWindow.on("restore", () => {
+-                showOverlay("restore");
+-                setTimeout(syncOverlayFrame, process.platform === "linux" ? 200 : 0);
+-            });
+-            // On Linux: 'hide' fires alongside 'minimize' and 'show' fires alongside 'restore'
+-            // but the overlayVisible dedup flag prevents double calls.
+-            // We still need both events for hide-to-tray / open-from-tray support.
+-            browserWindow.on("show", () => {
+-                showOverlay("show");
+-                syncOverlayFrame();
+-            });
++            browserWindow.on("restore", () => hideUntilSettled("restore"));
++            browserWindow.on("show", () => hideUntilSettled("show"));
+             browserWindow.on("hide", () => hideOverlay("hide"));
+             // Do NOT hide the overlay on blur. When the Steam overlay (Shift+Tab)
+             // opens, it steals focus from the Electron window, firing a blur event.
+@@ -286,7 +276,7 @@ class SteamOverlay {
+             // Visibility is already managed by minimize / restore / show / hide events.
+             // On focus, sync the overlay frame position in case the window moved.
+             browserWindow.on("focus", () => {
+-                if (!browserWindow.isMinimized()) {
++                if (!browserWindow.isMinimized() && !settleTimer) {
+                     showOverlay("focus");
+                     syncOverlayFrame();
+                 }
