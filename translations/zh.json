@@ -9058,36 +9058,36 @@
       "verificationFailed": "无法验证您的设备。请重试。"
     },
     "purchases": {
-      "productUnavailable": "This product isn't available right now. Please try again later.",
-      "orderFailed": "Could not start the purchase: {{error}}",
-      "accountUnavailable": "Your account could not be verified. Please try again.",
-      "verifyFailed": "Could not verify your purchase: {{error}}",
-      "success": "Purchase successful! Your PseudoCoins have been credited.",
-      "subscriptionSuccess": "Subscription successful! Your perks have been applied."
+      "productUnavailable": "该产品目前不可用。请稍后重试。",
+      "orderFailed": "无法发起购买：{{error}}",
+      "accountUnavailable": "无法验证您的账户。请重试。",
+      "verifyFailed": "无法验证您的购买：{{error}}",
+      "success": "购买成功！您的伪币已到账。",
+      "subscriptionSuccess": "订阅成功！您的加成已经生效。"
     }
   },
   "pseudoCoins": {
     "purchaseAuth": {
-      "signInRequiredTitle": "Account Required",
-      "signInRequiredBody": "Sign in or create an account to continue with this purchase. After you finish, the purchase will resume automatically.",
-      "createAccount": "Create Account",
-      "login": "Login"
+      "signInRequiredTitle": "需要账户",
+      "signInRequiredBody": "登录或创建账户以继续购买。完成后，购买将自动恢复。",
+      "createAccount": "创建帐户",
+      "login": "登录"
     },
     "balances": {
-      "pseudoCoins": "PseudoCoins:",
-      "lotus": "Lotus:",
-      "loadingPseudoCoins": "Loading PseudoCoins",
-      "refresh": "Refresh PseudoCoin balance",
-      "loadingLotus": "Loading Lotus"
+      "pseudoCoins": "伪币：",
+      "lotus": "莲花：",
+      "loadingPseudoCoins": "正在加载伪币",
+      "refresh": "刷新伪币余额",
+      "loadingLotus": "正在加载莲花"
     },
     "buyButton": "购买！<<gold|花费{{amount}}伪币>>",
     "currEffect": "当前等级：",
     "nextEffect": "下级：",
-    "subscriptionPricePerMonth": "{{price}} / month",
-    "manageSubscription": "Manage Subscription",
-    "subscriptionUpdated": "Your subscription and its bonuses have been updated!",
-    "subscriptionSubscribe": "Subscribe - {{price}}",
-    "subscriptionSubscribeSteam": "Subscribe with Steam - {{price}}",
+    "subscriptionPricePerMonth": "每月{{price}}",
+    "manageSubscription": "管理订阅",
+    "subscriptionUpdated": "您的订阅和加成已更新！",
+    "subscriptionSubscribe": "订阅 - {{price}}",
+    "subscriptionSubscribeSteam": "使用Steam订阅 - {{price}}",
     "subscriptionUpgradePrice": "↑ (+{{price}})",
     "subscriptionRenews": "下次扣费：{{date}}",
     "subscriptionYouAreHere": "您在此处！",
@@ -9100,12 +9100,12 @@
       "applyTips": "使用打赏！",
       "applyTipsPrompt": "您想要使用多少打赏？每个打赏价值1分钟离线时间。您拥有{{tips}}个打赏。您一次最多可以使用num:((1440))个打赏。",
       "confirmActivation": "您将花费{{cost}}伪币启用{{name}}。您确定要继续吗？",
-      "confirmFreeActivation": "You are about to activate one of your free {{name}}s. No PseudoCoins will be spent. Continue?",
+      "confirmFreeActivation": "您将启用免费的{{name}}。这不会花费伪币。您确定要继续吗？",
       "cancelled": "已取消购买。",
-      "activate": "Activate",
-      "activateFree": "Activate for Free",
-      "freeBells": "<<green|You have {{x}} free Bell(s)>>",
-      "cost": "<<gold|{{cost}} PseudoCoins>>",
+      "activate": "启用",
+      "activateFree": "免费启用",
+      "freeBells": "<<green|您拥有{{x}}个免费时光铃>>",
+      "cost": "<<gold|{{cost}}伪币>>",
       "currentAmountNone": "当前数量： <<#8f8|无生效的消耗品>>",
       "currentAmountSome": "当前数量：<<#8f8|{{amount}}>>",
       "currentTimersNone": "结束时间：<<#8f8|--:--:-->>",
@@ -9113,7 +9113,7 @@
       "globalEvent": "全局活动",
       "globalEventActive": "全局活动：{{events}}",
       "globalEventNone": "剩余时间: <<#8f8|--:--:-->>",
-      "globalEventPage": "Open {{name}}",
+      "globalEventPage": "打开{{name}}活动界面",
       "globalEventSome": "剩余时间: <<#8f8|{{time}}>>"
     },
     "timeSkips": {
@@ -9129,9 +9129,9 @@
         "title": "神肴 - 时间跳跃",
         "description": "使神肴进度条点数和红进度条点数的计时直接增加相应现实时间！"
       },
-      "duration": "+{{time}} hours",
+      "duration": "+{{time}}小时",
       "warning": "<<gold|⚠>>购买后需要经过几秒才能生效！<<gold|⚠>>",
-      "connectionLost": "Lost connection while buying your time skip. It will finish the next time you load the game."
+      "connectionLost": "购买时间跳跃时连接中断。下次加载游戏时将完成购买。"
     },
     "lotus": {
       "name": "回生莲花",
@@ -9143,9 +9143,9 @@
       "boxText2": "使用莲花可以跳过等待！",
       "boxText3": "每一朵莲花持续5分钟。",
       "useLotus": "使用莲花！",
-      "collapseSection": "Collapse Lotus section",
-      "expandSection": "Expand Lotus section",
-      "amount": "+{{amount}} Lotus",
+      "collapseSection": "折叠莲花部分",
+      "expandSection": "展开莲花部分",
+      "amount": "+{{amount}}莲花",
       "buyConfirm": "您将花费{{cost}}伪币购买{{name}}。您确定要继续吗？",
       "useConfirm": "您将使用一朵回生莲花。莲花数量将减少1朵，效果持续生效5分钟，无需等待就能直接获得重生强度分。您确定要继续吗？",
       "useConfirmMulti": "由于您已经启用了该效果，使用莲花将使持续时间增加5分钟。",
@@ -9165,15 +9165,15 @@
     "note2": "不试试看点击上面某项<span style=\"color:gold;\">金色</span>文字吗？随时都可以取消哦！",
     "reset": "重置快捷键",
     "mobile": {
-      "open": "Open mobile hotkeys",
-      "close": "Close mobile hotkeys",
-      "title": "Hotkeys",
-      "move": "Move hotkeys: drag, use arrow keys, or tap for the next corner",
-      "moveHint": "Drag to a corner. Swipe sideways to tuck away.",
-      "dock": "Tuck hotkeys into the side of the screen",
-      "restore": "Restore hotkeys: tap or swipe inward",
-      "shortcutOn": "Hotkey Shortcut: ON",
-      "shortcutOff": "Hotkey Shortcut: OFF"
+      "open": "打开移动端快捷键",
+      "close": "关闭移动端快捷键",
+      "title": "快捷键",
+      "move": "移动快捷操作：拖动，使用方向键，或轻触以切换到下个角落",
+      "moveHint": "拖动到角落。横向滑动即可收起。",
+      "dock": "将快捷键收至屏幕侧边",
+      "restore": "恢复快捷键：轻触或向内滑动",
+      "shortcutOn": "快捷键快捷方式：开启",
+      "shortcutOff": "快捷键快捷方式：关闭"
     },
     "names": {
       "buyAccelerators": "购买加速器",
@@ -9202,10 +9202,10 @@
     },
     "hotkeysON": "快捷键：开",
     "hotkeysOFF": "快捷键：关",
-    "invalidKey": "That key can't be used as a hotkey! Try a standard keyboard key instead."
+    "invalidKey": "该按键不能用作快捷键！请使用标准键盘的按键。"
   },
   "versionChangeAnnouncements": {
     "ants": "蚂蚁进行了大量重制和平衡调整，因此您的蚁丘进度也进行了相应调整！",
-    "sept13Refund": "Due to the Purple Ambrosia Update, some of your Quark Upgrades have been refunded! Refund amount: <<cyan|+{{amount}}>>"
+    "sept13Refund": "由于紫神肴升级，您的部分夸克升级已经返还！返还数量：<<cyan|{{amount}}>>"
   }
 }
