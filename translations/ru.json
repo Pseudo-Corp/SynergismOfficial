@@ -113,7 +113,7 @@
       },
       "ambrosiaCubeQuark1": {
         "name": "Гибридный Модуль Амброзии: Кубы-Кварки I",
-        "description": "Гибридный модуль первого поколения. Даёт +0.01% Кварков за уровень за количество цифр во всех видах кубов.",
+        "description": "Гибридный модуль первого поколения. Даёт +num:((0.01))% Кварков за уровень за количество цифр во всех видах кубов.",
         "effect": "Этот гибридный модуль первого поколения увеличивает получение Кварков на {{amount}}%"
       },
       "ambrosiaLuckQuark1": {
@@ -355,7 +355,7 @@
     "amount": "Амброзия:<<red|{{redAmbrosia}}>> Текущая | <<red|{{lifetimeRedAmbrosia}}>> За всё время",
     "purchaseWarning": "<<gold | ⚠>> В отличие от Модулей Голубики, возврат этого улучшения <<red | НЕВОЗМОЖЕН>>.",
     "perGen": "В данный момент получаете <<red|{{guaranteed}}>> Красной Амброзии с вероятностью <<red|{{extraChance}}%>> на ещё одну. [<<red|Удача: {{ambrosiaLuck}}>>]",
-    "redAmbrosiaBuyPrompt": "Сколько Красной Амброзии вы хотели бы потратить? У вас {{amount}} Красной Амброзии. Введите -1, чтобы использовать максимум!",
+    "redAmbrosiaBuyPrompt": "Сколько уровней вы хотите купить? Вы можете купить до {{amount}} уровней. Введите -1, чтобы использовать всё!",
     "purchaseNoLongerAffordable": "You no longer have enough Red Ambrosia to buy a level. Autosynthesis may have spent it while the purchase prompt was open. No levels were purchased.",
     "notUnlocked": "Завершите Без Амброзии, Уровень 1!",
     "redAmbrosiaCost": "Стоимость следующего уровня: <<red | {{amount}}>> Красной Амброзии",
@@ -387,8 +387,8 @@
         "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow2": {
-        "name": "Больше Уровней Улучшений Голубики 2-го Ряда!",
-        "description": "За исключением Стабилизатора Сингулярности, добавляет один эффективный уровень ко всем Модулям Голубики, находящимся во 2-ом ряду, за уровень.",
+        "name": "Больше Уровней Улучшений Голубики!",
+        "description": "Добавить один эффективный уровень за уровень ко всем Модулям Голубики на третьем ряду, исключая первый столбец и гибридные модули, которые дают Удачу Амброзии.",
         "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow3": {
@@ -440,13 +440,13 @@
       "redAmbrosiaObtainium": {
         "name": "Обтаниума \"\"из\"\" Красной Амброзии",
         "description": "Я не знаю каким образом вы можете сделать из красного синее, но вы можете.",
-        "effect": "When purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100.",
+        "effect": "Увеличивает Обтаиниум в 1 + (За всё время)^num:((0.6)) / 100 раз после покупки.",
         "effectEnabled": "Multiplies your Obtainium gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<pink|+{{amount}}>>]"
       },
       "redAmbrosiaOffering": {
         "name": "Подношения \"\"\"из\"\"\" Красной Амброзии",
         "description": "Ну, в принципе звучит логично.",
-        "effect": "When purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100.",
+        "effect": "Увеличивает Подношения в 1 + (За всё время)^num:((0.6)) / 100 раз после покупки.",
         "effectEnabled": "Multiplies your Offerings gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<orange|+{{amount}}>>]"
       },
       "redAmbrosiaCubeImprover": {
@@ -1223,21 +1223,21 @@
       "302": "Реинкарнация...?: Реинкарнируйте хотя бы ради 1e100 000 частиц.",
       "303": "Сто тысяч миллионов долларов: Реинкарнируйте хотя бы ради 1e100 000 000 [1e1e8] частиц.",
       "304": "Зарплата размером с двенадцатизначный логарифм: Реинкарнируйте хотя бы ради 1e100 000 000 000 [1e1e11] частиц.",
-      "305": "Моноизотопный: Выполните [Без Множителей] 1000 раз.",
-      "306": "Поднялся в одиночку: Выполните [Без Множителей] 9000 раз.",
-      "307": "Сила Одного: Выполните [Без Множителей] 9001 раз.",
-      "308": "TREE^-1(n): Выполните [Без Ускорителей] 1000 раз.",
-      "309": "TREE^-1(TREE^-1(n)): Выполните [Без Ускорителей] 9000 раз.",
-      "310": "O(1): Выполните [Без Ускорителей] 9001 раз.",
-      "311": "Да я это в кино видел: Выполните [Без Осколков] 1000 раз.",
+      "305": "Моноизотопный: Выполните [Без Множителей] num:((200)) раз.",
+      "306": "Поднялся в одиночку: Выполните [Без Множителей] num:((300)) раз.",
+      "307": "Сила Одного: Выполните [Без Множителей] num:((400)) раз.",
+      "308": "TREE^-1(n): Выполните [Без Ускорителей] num:((200)) раз.",
+      "309": "TREE^-1(TREE^-1(n)): Выполните [Без Ускорителей] num:((300)) раз.",
+      "310": "O(1): Выполните [Без Ускорителей] num:((400)) раз.",
+      "311": "Да я это в кино видел: Выполните [Без Осколков] num:((200)) раз.",
       "312": "Достижение 312: Выполните [Без Осколков] 9000 раз.",
-      "313": "Достижение 313: Выполните [Без Осколков] 9001 раз.",
+      "313": "Достижение 313: Выполните [Без Осколков] num:((400)) раз.",
       "314": "Последствия экономии: Выполните [Стоимость+] 1000 раз.",
       "315": "Были катастрофическими: Выполните [Стоимость+] 9000 раз.",
-      "316": "Для расы муравьёв: Выполните [Стоимость+] 9001 раз.",
+      "316": "Для расы муравьёв: Выполните [Стоимость+] num:((400)) раз.",
       "317": "491 карат: Выполните [Меньше Алмазов] 1000 раз.",
       "318": "Искусственно уменьшенные алмазы: Выполните [Меньше Алмазов] 9000 раз.",
-      "319": "Алмазы неразрушимы: Выполните [Меньше Алмазов] 9001 раз.",
+      "319": "Алмазы неразрушимы: Выполните [Меньше Алмазов] num:((400)) раз.",
       "320": "Тарифы: Выполните {[Налоги+]} 40 раз.",
       "321": "Местный налог: Выполните {[Налоги+]} 80 раз.",
       "322": "Смерти и налоги: Выполните {[Налоги+]} 120 раз.",
@@ -6249,8 +6249,8 @@
       "octeractStarter": {
         "name": "Октеракты для Чайников",
         "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 40% More Octeracts, And 100,000x Ant Speed...",
-        "effectDisabled": "You have not yet paid your respects to Derpsmith. No rewards for you!",
-        "effectEnabled": "You have paid respects to Derpsmith. {{amount}} Quarks, {{amount2}} Octeracts and {{amount3}}x Ant Speed as promised!"
+        "effectDisabled": "Вы ещё не расплатились уважением Кукузнецу. Никаких наград!",
+        "effectEnabled": "Вы расплатились уважением Кукузнецу. {{amount}} Кварков, {{amount2}} Октерактов и {{amount3}}x к Скорости Муравьям. Как и было обещано!"
       },
       "octeractGain": {
         "name": "Когенезис Октерактов",
@@ -6275,7 +6275,7 @@
       },
       "octeractCorruption": {
         "name": "ЭКСТРА ПЛОТНЫЕ Порчи",
-        "description": "Adds num:((0.5)) free Corruption levels per level. Derpsmith approves.",
+        "description": "Добавляет num:((0.5)) бесплатных уровней к Уровню Порчи за уровень. Кукузнец одобряет.",
         "effect": "Лимит уровня Порчи увеличен на {{n}}"
       },
       "octeractGQCostReduce": {
@@ -6366,7 +6366,7 @@
       },
       "octeractSingUpgradeCap": {
         "name": "Перезаписывающие Указатели",
-        "description": "Derpsmith encountered a SegFault after reassigning null... +1 to level cap on certain Golden Quark Upgrades per level!",
+        "description": "Кукузнец столкнулся с SegFault после переназначения null... +1 к максимальному уровню некоторых Улучшений Золотых Кварков за уровень!",
         "effect": "Some Golden Quark Upgrades have +{{n}} max level!"
       },
       "octeractOfferings1": {
@@ -7979,7 +7979,7 @@
       "AchievementPoints": "Очки Достижений:",
       "CubeUpgrade6x10": "Улучшение Кубов 6x10:",
       "GoldenQuarks2": "Golden Quark Upgrade - Golden Quarks II:",
-      "OcteractCostReduce": "Octeracts - Extra WIMPY Golden Quark Costs!:",
+      "OcteractCostReduce": "Октеракты - Более МЕЛКИЕ стоимости Золотых Кварков!:",
       "GoldenRevolution2": "Золотая Революция II:",
       "ImmaculateAlchemy": "Безупречная Алхимия:",
       "GlobalSubscriber": "1 / Global Bonus from our Wonderful Subscribers:",
@@ -8053,7 +8053,7 @@
       "Total": "Ambrosia Luck per 1 Red Luck:"
     },
     "redAmbrosiaLuckStats": {
-      "title": "Red Luck",
+      "title": "Красная Удача",
       "Base": "Базовое Значение:",
       "SynergismLevel": "Synergism Level Reward:",
       "PseudoCoins": "Улучшения ПсевдоМонет:",
