@@ -3454,24 +3454,24 @@
       "restrictions": {
         "intro": "协同前辈们所经历的腐化远比您现在的严酷。在那些阴险的惩罚下，尽可能收集更多金币，证明自己的实力！",
         "modifiers": {
-          "viscosity": "☆ <<orange|粘性>>：使免费加速器和加倍器变为原来的<<gold|{{value}}>>次方",
-          "dilation": "☆ <<orange|时间膨胀>>：使全局速度变为原来的<<gold|{{value}}>>倍",
-          "hyperchallenge": "☆ <<orange|极致挑战方盒>>：使挑战1至挑战10的目标指数变为原来的<<gold|{{value}}>>倍",
-          "illiteracy": "☆ <<orange|Defunded Education>>: Obtainium multipliers are raised to <<gold|^{{value}}>>",
-          "illiteracyImproved": "☆ <<orange|Defunded Education>>: Obtainium multipliers are raised to <<gold|^{{value}}>>, improving up to <<gold|^{{max}}>> as you gain Obtainium",
-          "drought": "☆ <<orange|Drought>>: Salvage for the first five Runes <<gold|{{value}}>>",
-          "recession": "☆ <<orange|Recession>>: Coin gain is raised to <<gold|^{{value}}>>",
-          "recessionImproved": "☆ <<orange|Recession>>: Coin gain is raised to <<gold|^{{value}}>>, improving up to <<gold|^{{max}}>> as you gain Coins",
-          "deflation": "☆ <<orange|Crystal Mine Collapse>>: Diamond gain exponent <<gold|×{{value}}>>",
-          "extinction": "☆ <<orange|The Second Meteor>>: Ant Upgrade levels <<gold|÷{{value}}>>",
-          "spirit": "☆ <<orange|Hearty Spirits>>: Spirit Power <<gold|×{{value}}>><br>(The difficulty of Corruptions gave these players a fighting <i>spirit</i>...)"
+          "viscosity": "☆ <<orange|粘性>>：使免费加速器和加倍器变为原来的<<gold|{{value}}次方>>",
+          "dilation": "☆ <<orange|时间膨胀>>：使全局速度变为原来的<<gold|{{value}}倍>>",
+          "hyperchallenge": "☆ <<orange|极致挑战方盒>>：使挑战1至挑战10的目标指数变为原来的<<gold|{{value}}倍>>",
+          "illiteracy": "☆ <<orange|削减教育经费>>：使难得素获取数量变为原来的<<gold|{{value}}次方>>",
+          "illiteracyImproved": "☆ <<orange|削减教育经费>>：使难得素获取数量变为原来的<<gold|{{value}}次方>>，随着您获得难得素，最高可以变为原来的<<gold|{{max}}次方>>",
+          "drought": "☆ <<orange|干旱>>：使前五个符文的回收 <<gold|{{value}}>>",
+          "recession": "☆ <<orange|衰退>>：使金币获取数量变为原来的<<gold|{{value}}次方>>",
+          "recessionImproved": "☆ <<orange|衰退>>：使金币获取数量变为原来的<<gold|{{value}}次方>>，随着您获得金币，最高可以变为原来的<<gold|{{max}}次方>>",
+          "deflation": "☆ <<orange|水晶矿难>>：使钻石获取数量的指数变为原来的<<gold|{{value}}倍>>",
+          "extinction": "☆ <<orange|陨石再临>>：使蚂蚁升级的等级除以<<gold|{{value}}>>",
+          "spirit": "☆ <<orange|魂灵充盈>>：魂灵强度变为原来的<<gold|{{value}}倍>><br>(腐化的难度激发了玩家们的战斗之<i>魂</i>……)"
         },
-        "extraIntro": "Oh, and these modifiers are thrown in too. Just to add a twist. Enjoy!",
+        "extraIntro": "哦，对了，还有下面这些。加点料罢了。尽情享受吧！",
         "extras": {
-          "antSpeed": "☆ Ant Speed <<gold|^num:((0.5))>>",
-          "fortunae": "☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>>",
-          "tax": "☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>>",
-          "construction": "☆ <<lime|+num:((1.5)) Construction>> per maxed Platonic Upgrade (currently <<lime|+{{value}}>>)"
+          "antSpeed": "☆ 使蚂蚁速度变为原来的<<gold|num:((0.5))次方>>",
+          "fortunae": "☆ 使财富蚁的效果变为原来的<<gold|0.0001>>倍",
+          "tax": "☆ 使税负减少<<pink|num:((99.9995))%>>",
+          "construction": "每个满级的PLATONIC方盒升级使<<lime|建造力增加num:((1.5))>> (当前效果：<<lime|增加{{value}}>>)"
         }
       },
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
@@ -3488,7 +3488,7 @@
         "3": " "
       },
       "noGoal": "没有目标，根据您在此挑战中的最高金币数量获得奖励。",
-      "legend": "Legends say that if you best this Challenge you get a special cube with seven dimensions. They say legends are <i>forged</i>, not born."
+      "legend": "传说，只要能通过这个挑战，就能获得七维的特殊立方。而人们说，传说并非天生就有，而是需要<i>铸就</i>的。"
     },
     "header": "正常游戏是不是已经让您觉得太简单了？试试这些吧！[点击图标以查看挑战详情！]",
     "autoChallengeSweepOn": "自动扫荡挑战[开]",
@@ -3515,7 +3515,7 @@
     "perCompletionBonus": "每次完成奖励",
     "hypercubeOneTimeBonus": "完成挑战后可以获得1个惊奇五阶立方(首次完成奖励)",
     "ascensionBankAdd": "完成挑战后方盒库的数量增加{{x}}。",
-    "ascensionBankMultiply": "Completing the challenge multiplies the Cube Bank by x{{x}}.",
+    "ascensionBankMultiply": "完成该挑战可以使方盒库变为原来的{{x}}倍。",
     "firstTimeBonus": "完成挑战后可以获得{{x}}[首次完成奖励]！",
     "firstTimeBonusQuarks": "完成挑战后可以获得{{x}}夸克[首次完成奖励]！"
   },
@@ -3688,7 +3688,7 @@
       "cost": "花费：{{value1}}惊奇方盒[可提升{{value2}}级]",
       "level": "等级：{{value1}}/{{value2}}",
       "maxLevel": "花费：0惊奇方盒。此升级已满级！真惊奇",
-      "selectUpgrade": "Hover, focus, or tap a Cube Upgrade to view its details."
+      "selectUpgrade": "鼠标停在方盒升级上，或者聚焦方盒升级，或者轻触方盒升级，即可查看详情。"
     },
     "noCubesOpened": "好吧。不开了。",
     "howManyCubesOpen": "您想要开启多少？您目前拥有{{x}}！\n您可以输入想要开启的百分比，例如输入“50%”或“100%”。\n您还可以输入以-开头的数字，意味着保留相应数字不开启，并开启剩下的所有(同样可以使用%格式)。",
@@ -3920,14 +3920,14 @@
     "automaticOff": "自动：关",
     "autoModeCheapest": "自动模式：花费",
     "autoModeManual": "自动模式：手动",
-    "maxedResearchesShow": "Maxed Researches: SHOW",
-    "maxedResearchesHide": "Maxed Researches: HIDE",
+    "maxedResearchesShow": "满级研究：显示",
+    "maxedResearchesHide": "满级研究：隐藏",
     "hoverToBuyOn": "鼠标停留购买[开]",
     "hoverToBuyOff": "鼠标停留购买[关]",
     "hover": "将鼠标停在格子上可获得有关研究的详情！",
     "resets": "到达下一阶的重置时它将重置。",
-    "resetsOnAscension": "Resets upon <<orange|Ascension>>.",
-    "resetsOnSingularity": "Resets upon <span class=\"rainbowText\">Singularity</span>.",
+    "resetsOnAscension": "<<orange|飞升>>时重置。",
+    "resetsOnSingularity": "<span class=\"rainbowText\">进入奇点</span>时重置。",
     "doesNotReset": "永不重置！"
   },
   "shop": {
@@ -3981,9 +3981,9 @@
       "improveQuarkHept3": "您可能会疑惑我为什么不自用，而是选择向您出售。好吧……每级使惊奇七阶立方·夸克的指数增加num:((0.01))！",
       "improveQuarkHept4": "每级使惊奇七阶立方·夸克的指数增加num:((0.01))……您应该知道10的num:((0.01))次方是num:((1.023))吧？",
       "shopImprovedDaily": "嘿，那边的那位，对，就是你！夸克让印记商人们很高兴。每级使“每日”代码的夸克获取数量增加5%。",
-      "shopImprovedDaily2": "每级使“每日”代码获得的免费金夸克升级增加1级，获得的金夸克数量增加20%！",
-      "shopImprovedDaily3": "每级使“每日”代码获得的免费金夸克升级增加1级，获得的金夸克数量增加15%！",
-      "shopImprovedDaily4": "每级使“每日”代码获得的免费金夸克升级增加1级，获得的金夸克数量增加100%！",
+      "shopImprovedDaily2": "每级使“每日”代码获得的免费金夸克升级增加1次，获得的金夸克数量增加20%！",
+      "shopImprovedDaily3": "每级使“每日”代码获得的免费金夸克升级增加1次，获得的金夸克数量增加15%！",
+      "shopImprovedDaily4": "每级使“每日”代码获得的免费金夸克升级增加1次，获得的金夸克数量增加100%！",
       "offeringEX3": "[由无限公司提供]每级使祭品获取数量增加num:((1.2))%，效果叠乘！(倍率为num:((1.012))^等级)。每25级还会使基础祭品获取数量增加1！",
       "obtainiumEX3": "[由无限公司提供]每级使难得素获取数量增加num:((1.2))%，效果叠乘！(倍率为num:((1.012))^等级)。每25级还可以使无瑕难得素倍率增加6%！(num:((1.06))^[等级/25])",
       "chronometerInfinity": "[由无限公司提供]每级使飞升的速度增加num:((0.6))%，效果叠乘！(倍率为num:((1.006))^等级)。每40级还可以使飞升的速度指数发生变化，如果它超过1，则增加num:((0.001))，反之减少num:((0.001))(具体请查看高玩特供统计)！",
@@ -4002,7 +4002,7 @@
       "shopRedLuck1": "由赌博魔神自己持有的次级小型骰子。每级使红运增加num:((0.05))。每20级还会使神肴之运转换成红运的比率减少num:((0.01))。",
       "shopRedLuck2": "这个看起来似乎重心偏移了，不知道发生了什么。每级使红运增加num:((0.075))。每20级还会使神肴之运转换成红运的比率减少num:((0.01))。",
       "shopRedLuck3": "拾取时，该骰子暂时从现实中消失，然后以六点朝上的状态重新出现。每级使红运增加num:((0.1))。每20级还会使神肴之运转换成红运的比率减少num:((0.01))。",
-      "shopRedLuck4": "You don't even need to touch this dice. At once, it simulates a world where you roll a six. +num:((0.2)) Red Luck per level. Every 100 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by num:((0.01)).",
+      "shopRedLuck4": "您甚至不用触碰这颗骰子。它会立刻模拟出一个您掷出六点的世界。每级使红运增加num:((0.2))。每100级还会使神肴之运转换成红运的比率减少num:((0.01))。",
       "shopAmbrosiaLuckMultiplier4": "每级使神肴之运增加1%！就这么简单。",
       "shopOcteractAmbrosiaLuck": "每级使神肴之运增加1，且该效果乘以您的惊奇八阶方块的数量级！",
       "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使神肴进度条点数获取速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得num:((10000000))神肴为止。",
@@ -4016,7 +4016,7 @@
       "shopInfiniteShopUpgrades": "印在蓝色铭牌‌上的商店代金券。每完成1阶层拔擢，每级该升级就使“无限公司”相关商店升级的有效等级增加num:((0.01))，向下取整。",
       "shopHorseShoe": "马蹄铁的保护效果很好！使马蹄铁符文增加3级免费等级，且每级马蹄铁符文都可以使奇点惩罚(除了回收以外)减少num:((0.1))%，效果相互叠加，上限：减少30%！",
       "shopPanthema": "太空王牌！",
-      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((50000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((25))>> Red Bar Points per level of this upgrade!"
+      "shopPurpleBarRebate": "当紫进度条充满后，每级获得<<var(--blueberry-text-color)|num:((50000))>>神肴进度条点数和<<var(--red-text-color)|num:((25))>>红进度条点数！"
     },
     "maxed": "已满级！",
     "bought": "已购买！",
@@ -4031,7 +4031,7 @@
     "singularityQuarkAmount": "拥有：{{amount}}",
     "buyYerPotions": "买点药剂！",
     "header": "欢迎来到夸克商店，您肯定想不到这里会有些什么！",
-    "testingOnlyUpgrade": "⚠ Testing version: This upgrade would normally be hidden because you have not unlocked it yet.",
+    "testingOnlyUpgrade": "⚠ 测试版本：该升级通常会被隐藏，因为您还没有解锁它。",
     "shopConfirmationOn": "商店确认框：开",
     "shopConfirmationOff": "商店确认框：关",
     "hideMaxedOn": "隐藏满级物品：开",
@@ -4096,9 +4096,9 @@
       "improveQuarkHept4": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
       "improveQuarkHept5": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
       "shopImprovedDaily": "“每日”代码的夸克获取数量增加<<cyan|{{amount}}>>。",
-      "shopImprovedDaily2": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<gold|{{amount2}}>>。",
-      "shopImprovedDaily3": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<gold|{{amount2}}>>。",
-      "shopImprovedDaily4": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<gold|{{amount2}}>>。",
+      "shopImprovedDaily2": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>次，且金夸克获取数量增加<<gold|{{amount2}}>>。",
+      "shopImprovedDaily3": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>次，且金夸克获取数量增加<<gold|{{amount2}}>>。",
+      "shopImprovedDaily4": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>次，且金夸克获取数量增加<<gold|{{amount2}}>>。",
       "offeringEX3": "祭品获取数量增加<<goldenrod|{{amount}}>>！另外，基础祭品获取数量也增加<<goldenrod|{{amount2}}>>！",
       "obtainiumEX3": "难得素获取数量增加<<pink|{{amount}}>>，并且无瑕难得素增加<<cyan|{{amount2}}>>！",
       "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}>>。飞升的速度指数变化数值增加<<orange|{{amount2}}>>。",
@@ -4117,7 +4117,7 @@
       "shopRedLuck1": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
       "shopRedLuck2": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
       "shopRedLuck3": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
-      "shopRedLuck4": "<<red|+{{amount}} Red Luck>>, <<crimson|-{{amount2}} Luck Conversion Ratio>>",
+      "shopRedLuck4": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
       "shopCashGrabUltra": "使<<lightblue|神肴进度条点数获取速度增加{{amount}}>>。另外，使<<white|所有类型的方盒、立方和方块获取数量增加{{amount2}}>>！最后，使<<cyan|夸克获取数量增加{{amount3}}>>！",
       "shopAmbrosiaAccelerator": "使神肴进度条点数需求减少<<lightblue|{{amount}}>>。",
       "shopEXUltra": "神肴使<<orange|祭品获取数量>>、<<orchid|难得素获取数量>>和<<white|方盒获取数量>>增加<<gold|{{amount}}>>！",
@@ -4138,7 +4138,7 @@
       "shopPanthemaAmbrosiaGeneration": "神肴进度条点数增加{{amount}}！(每点神肴进度条获取速度增加{{amount2}})",
       "shopPanthemaAmbrosiaLuck": "神肴之运增加{{amount}}！(每级神肴之运增加{{amount2}})",
       "shopPanthemaRedLuck": "红运增加{{amount}}！(每级红运增加{{amount2}})",
-      "shopPurpleBarRebate": "On Purple Bar fill: gain <<var(--blueberry-text-color)|+{{ambrosiaBarPointsPerFill}}>> Ambrosia Bar Points and <<red|+{{redAmbrosiaBarPointsPerFill}}>> Red Bar Points."
+      "shopPurpleBarRebate": "当紫进度条充满后：获得<<var(--blueberry-text-color)|{{ambrosiaBarPointsPerFill}}>>神肴进度条点数和<<red|{{redAmbrosiaBarPointsPerFill}}>>红进度条点数。"
     },
     "names": {
       "offeringPotion": "祭品药剂",
@@ -4213,7 +4213,7 @@
       "shopRedLuck1": "赌博魔神的低阶骰子",
       "shopRedLuck2": "赌博魔神的骰子",
       "shopRedLuck3": "赌博魔神的高阶骰子",
-      "shopRedLuck4": "Elite Class Dice of Asmodeus",
+      "shopRedLuck4": "赌博魔神的超级骰子",
       "shopCashGrabUltra": "终极昂贵物品",
       "shopAmbrosiaAccelerator": "神肴加速器！",
       "shopEXUltra": "额外·终",
@@ -4225,37 +4225,37 @@
       "shopInfiniteShopUpgrades": "蓝色无限商店代金券",
       "shopHorseShoe": "马蹄铁奇点惩罚",
       "shopPanthema": "全能高手",
-      "shopPurpleBarRebate": "Purple Bar Rebates"
+      "shopPurpleBarRebate": "紫进度条返利"
     },
     "sections": {
-      "offerings": "Offerings & Obtainium",
-      "challenges": "Challenges",
-      "ascension": "Ascension",
-      "quarks": "Quarks & Codes",
-      "hepteracts": "Hepteracts & Warps",
-      "ambrosia": "Ambrosia",
-      "singularity": "Singularity",
-      "oddities": "Oddities"
+      "offerings": "祭品和难得素",
+      "challenges": "挑战",
+      "ascension": "飞升",
+      "quarks": "夸克和代码",
+      "hepteracts": "七阶立方和跃迁",
+      "ambrosia": "神肴",
+      "singularity": "奇点",
+      "oddities": "奇异"
     },
     "familyNames": {
-      "offeringEX": "Offering EX",
-      "obtainiumEX": "Obtainium EX",
-      "cashGrab": "Cash Grab",
-      "instantChallenge": "Instant Challenges",
-      "challengeTome": "Challenge Tomes",
-      "seasonPass": "Season Passes",
-      "chronometer": "Chronometers",
-      "calculator": "PL-AT Calculators",
-      "improveQuarkHept": "Quark Hepteracts",
-      "cubeToQuark": "Quark-Enriched Cubes",
-      "shopImprovedDaily": "Improved Daily Code",
-      "infiniteAscent": "Infinite Ascent",
-      "powderEX": "Overflux Powder",
-      "extraWarp": "Daily Warps",
-      "shopAmbrosiaGeneration1": "Ambrosia Generation",
-      "shopAmbrosiaLuck1": "Ambrosia Luck",
-      "shopAmbrosiaLuckMultiplier4": "Ambrosia Luck Amplifiers",
-      "shopRedLuck1": "Dice of Asmodeus"
+      "offeringEX": "额外祭品",
+      "obtainiumEX": "额外难得素",
+      "cashGrab": "昂贵物品",
+      "instantChallenge": "立即完成挑战",
+      "challengeTome": "挑战后传",
+      "seasonPass": "季票",
+      "chronometer": "时计",
+      "calculator": "PL-AT计算器",
+      "improveQuarkHept": "惊奇七阶立方·夸克",
+      "cubeToQuark": "富含夸克的方盒",
+      "shopImprovedDaily": "加强“每日”代码效果",
+      "infiniteAscent": "无限晋升",
+      "powderEX": "超通量粉",
+      "extraWarp": "每日跃迁",
+      "shopAmbrosiaGeneration1": "产生神肴",
+      "shopAmbrosiaLuck1": "神肴之运",
+      "shopAmbrosiaLuckMultiplier4": "神肴之运倍率",
+      "shopRedLuck1": "赌博魔神的骰子"
     }
   },
   "singularity": {
@@ -4269,18 +4269,18 @@
       "ascensionReset": "您没能抵挡住异教的诱惑。为了以防万一，飞升进度进行了一次性的重置……",
       "multiBuyPurchased": "一次性升级了{{levels}}级，多重购买真是太棒了！"
     },
-    "goldenQuarkUpgradeAP": "Golden Quark Upgrade AP: <<gold|{{current}}/{{max}}>>",
+    "goldenQuarkUpgradeAP": "金夸克升级成就点数：<<gold|{{current}}/{{max}}>>",
     "perks": {
       "levelInfo": "等级 {{level}} - (奇点 {{singularity}})",
-      "previewInfo": "Unlocks at Singularity <<gold|{{singularity}}>>",
-      "nextLevelInfo": "Next level at Singularity <<gold|{{singularity}}>>",
-      "highestLevel": "<<orchid|This Perk is at its highest possible level.>>",
-      "new": "<<limegreen|[NEW!]>>",
-      "upgraded": "<<gold|[UPGRADED!]>>",
-      "nextSoon": "<<white|[Upgrades Soon!]>>",
+      "previewInfo": "在<<gold|{{singularity}}>>次奇点时解锁",
+      "nextLevelInfo": "下一级需要<<gold|{{singularity}}>>次奇点",
+      "highestLevel": "<<orchid|该特权已经达到最高等级。>>",
+      "new": "<<limegreen|[新！]>>",
+      "upgraded": "<<gold|[已升级！]>>",
+      "nextSoon": "<<white|[即将升级！]>>",
       "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点</span><br/>。",
-      "treeLabel": "Singularity Perk progression tree",
-      "treePerkLabel": "$t({{name}}), unlocked at Singularity {{singularity}}",
+      "treeLabel": "奇点特权进度树",
+      "treePerkLabel": "$t({{name}})，在{{singularity}}次奇点时解锁",
       "usesCurrentSing": "该特权与您当前奇点次数有关。如果次数降低，特权等级可能会<<crimson|降低>>",
       "welcometoSingularity": {
         "name": "欢迎来到奇点时代！",
@@ -4431,8 +4431,8 @@
         "default": "受到爱尔兰之运更多祝福的蚂蚁可以使<<limegreen|神肴之运再增加{{percent}}%>>！每级特权使加成数值增加<<limegreen|1%>>。"
       },
       "irishAnt3": {
-        "name": "Irish Ants III",
-        "default": "Ants blessed with a purple luck of the Irish grant <<var(--purple-text-color)|+{{amt}} Purple Honey Luck>>! (<<var(--purple-text-color)|+{{amt2}}>> per Singularity past 280)"
+        "name": "爱尔兰蚂蚁 III",
+        "default": "受到爱尔兰紫蜜之运祝福的蚂蚁可以使<<var(--purple-text-color)|紫蜜之运增加{{amt}}>>！(超过280次奇点后，每次奇点使该数值<<var(--purple-text-color)|增加{{amt2}}>>)"
       },
       "overclocked": {
         "name": "超载",
@@ -4447,12 +4447,12 @@
         "default": "半固态蓝莓跟普通蓝莓一样。您可以额外获得{{i}}蓝莓，用它们来购买更多升级！"
       },
       "efficientBlueberries": {
-        "name": "Efficient Blueberries",
-        "default": "For every 2 Blueberries, add <<var(--purple-text-color)|{{amt2}}>> base Purple Honey per extraction. Currently: <<var(--purple-text-color)|+{{amt}}>>"
+        "name": "高效蓝莓",
+        "default": "每有2蓝莓，每次提取获得的基础紫蜜数量就增加<<var(--purple-text-color)|{{amt2}}>>。当前效果：<<var(--purple-text-color)|增加{{amt}}>>"
       },
       "reactorSpeedup": {
-        "name": "282+ Years of Work Experience",
-        "default": "The Purple Bar in the Encabulator requires <<var(--purple-text-color)|{{amt}}>> Purple Bar Points to fill!"
+        "name": "超过282年的工作经验",
+        "default": "使恩卡布器的紫进度条点数需求 <<var(--purple-text-color)|{{amt}}>>！"
       },
       "goldenRevolution": {
         "name": "金之革命",
@@ -4541,17 +4541,17 @@
       "noMinimum": "无进入奇点次数要求",
       "costNextLevel": "下一级的花费：{{amount}}金夸克",
       "spentGQ": "金夸克花费总数：{{spent}}",
-      "overclockLevels": "Max Level is increased by {{levels}} (Overclock)",
-      "upgradeAPMaxOverclock": "You get <<gold|+{{amount}}>> AP for reaching level {{level}}! {{check}}"
+      "overclockLevels": "等级上限增加{{levels}}(超载效果)",
+      "upgradeAPMaxOverclock": "达到{{level}}级后可以获得<<gold|{{amount}}>>成就点数！{{check}}"
     },
     "freeUpgradeInfo": {
-      "button": "Free Upgrades Info",
-      "title": "Free Golden Quark Upgrade Levels",
-      "upgrade": "Upgrade",
-      "freeLevels": "Free Levels",
-      "locked": "Locked",
+      "button": "免费升级信息",
+      "title": "免费金夸克升级等级",
+      "upgrade": "升级",
+      "freeLevels": "免费等级",
+      "locked": "未解锁",
       "daily": {
-        "section": "Code 'daily'",
+        "section": "“每日”代码",
         "rolls": "Code 'daily': {{rolls}} Rolls ({{additive}} Additive × {{multiplier}} Mult)",
         "allMaxed": "All upgrades have reached their free level cap. Code 'daily' will not roll for free upgrades.",
         "perRoll": "Per Roll",
@@ -6290,8 +6290,8 @@
       },
       "octeractImprovedDaily": {
         "name": "加强“每日”代码效果",
-        "description": "Derpsmith使用技术手段调整源代码，使“每日”代码获得的免费金夸克升级增加1级。",
-        "effect": "“每日”代码可以额外提供{{n}}级免费金夸克升级。"
+        "description": "Derpsmith使用技术手段调整源代码，使“每日”代码获得的免费金夸克升级增加1次。",
+        "effect": "“每日”代码可以额外提供{{n}}次免费金夸克升级。"
       },
       "octeractImprovedDaily2": {
         "name": "再度加强“每日”代码效果",
@@ -6301,7 +6301,7 @@
       "octeractImprovedDaily3": {
         "name": "超级加强“每日”代码效果",
         "description": "Derpsmith永不自满。使“每日”代码获得的免费金夸克升级增加1级和增加num:((0.5))%！",
-        "effect": "“每日”代码可以额外提供{{n}}级免费金夸克升级。"
+        "effect": "“每日”代码可以额外提供{{n}}次免费金夸克升级。"
       },
       "octeractImprovedQuarkHept": {
         "name": "我希望惊奇七阶立方·夸克的效果还能增加。",
@@ -8660,7 +8660,7 @@
         "11": "使所有腐化的增长速度减慢2.5%。",
         "12": "使所有腐化的增长速度减慢2.5%。在挑战15中，每级可以使蚂蚁强度分增加5%！(效果与其他效果叠加)。每级使重生强度分的产生速度增加10%！另外，每完成1次挑战，每级该升级还可以使蚂蚁速度增加1%。",
         "13": "负数<<green|回收>>数值降低50%，且使所有腐化的增长速度减慢2.5%！在挑战15中，建造力变为原来的三倍！",
-        "14": "使所有腐化的增长速度减慢2.5%。在挑战15中，大萧条 II金币获取数量的指数根据金币数量，至多乘以num:((1.5))。",
+        "14": "使所有腐化的增长速度减慢2.5%。在挑战15中，衰退的金币获取数量指数根据金币数量，至多乘以num:((1.5))。",
         "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, and +1 free Corruption level! Talk about a deep dive.",
         "16": "每级该升级使超通量粉转换效率增加1%，使飞升次数获取数量增加2%，并且根据超通量粉的数量(上限num:((100000)))最多还可以使飞升次数获取数量再增加2%。另外，超立方建筑产量变为(超通量粉数量+1)^(10*等级)倍，无上限。",
         "17": "每级使免费腐化等级增加num:((0.2))，最高增加4。",
