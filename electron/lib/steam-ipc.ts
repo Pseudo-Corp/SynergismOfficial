@@ -127,6 +127,9 @@ export function initializeSteam (): boolean {
 }
 
 export function enableSteamOverlay () {
+  // The library's mirror window caps the game at 30 fps and stutters, so only macOS uses it.
+  // https://github.com/ArtyProf/steamworks-ffi-node/issues/64
+  // https://github.com/ArtyProf/steamworks-ffi-node/issues/57
   if (process.platform === 'darwin') {
     app.on('browser-window-created', (_, window) => {
       steamClient?.addElectronSteamOverlay(window)
@@ -134,8 +137,13 @@ export function enableSteamOverlay () {
     return
   }
 
+  // Steam hooks the graphics device in the game's own process, so Chromium's GPU process has to run there.
+  // https://partner.steamgames.com/doc/features/overlay#requirements
+  // https://github.com/ArtyProf/steamworks-ffi-node/issues/57
   app.commandLine.appendSwitch('in-process-gpu')
-  app.commandLine.appendSwitch('disable-direct-composition')
+  // The overlay needs full-frame redraws, otherwise text behind it flickers.
+  // https://partner.steamgames.com/doc/features/overlay#FAQ
+  app.commandLine.appendSwitch('ui-disable-partial-swap')
 
   app.on('browser-window-created', (_, window) => {
     const repaintInterval = setInterval(() => {
