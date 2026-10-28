@@ -2742,13 +2742,13 @@
     },
     "challengeProgress": {
       "line": "{{check}}$t({{name}})({{comps}}/{{maxComps}})：<<gold|{{amount}}>> / <<gold|{{required}}>>{{resource}}",
-      "challenge15Line": "$t({{name}}): <<gold|{{score}}>> Score (<<gold|{{current}}>>/<<gold|{{required}}>> Coins)",
-      "challenge15ProjectedLine": "$t({{name}}): <<gold|{{score}}>> → <<gold|{{projectedScore}}>> Score",
-      "challenge15AutoLine": "$t({{name}}): <<gold|{{score}}>> Score",
+      "challenge15Line": "$t({{name}})：<<gold|{{score}}>>分(<<gold|{{current}}>>/<<gold|{{required}}>>金币)",
+      "challenge15ProjectedLine": "$t({{name}})：<<gold|{{score}}>> → <<gold|{{projectedScore}}>> 分",
+      "challenge15AutoLine": "$t({{name}})：<<gold|{{score}}>>分",
       "resources": {
-        "coins": "Coins",
-        "transcendShards": "Mythos Shards",
-        "challenge10Completions": "Challenge 10 Completions"
+        "coins": "金币",
+        "transcendShards": "神话碎片",
+        "challenge10Completions": "挑战10完成次数"
       }
     }
   },
@@ -3183,7 +3183,7 @@
   "challenges": {
     "1": {
       "name": "无加倍器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Multipliers Challenge",
+      "progressName": "无加倍器挑战",
       "flavor": "加倍器让游戏的进度有点太快了。它们可以走了！",
       "restrictions": "立即超越，需要达到目标，但加倍器将视为加速器。<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 加速器效果也减少了。且随着挑战完成次数增加，减少的数值还会继续增加！<br>☆ 加倍器会提供与加速器效果相同的金币产量加成。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
@@ -3202,7 +3202,7 @@
     },
     "2": {
       "name": "无加速器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Accelerators Challenge",
+      "progressName": "无加速器挑战",
       "flavor": "加速器？谁要就拿去，不过是无用之物而已。",
       "restrictions": "立即超越，需要达到目标，但加速器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果降至<<gold|num:((1.25))>>，且加倍器加成的效果降至<<gold|+num:((0.0012))>>。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
@@ -3221,7 +3221,7 @@
     },
     "3": {
       "name": "无碎片挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Shards Challenge",
+      "progressName": "无碎片挑战",
       "flavor": "很好，您是不是在想，我还能玩出什么花样来？",
       "restrictions": "立即超越，需要达到目标，但您无法产生水晶或神话碎片。<br>☆ 炼油厂不产生水晶。<br>☆ 强化不产生神话碎片。<br>☆ 加速器效果超过1时，减少<<gold|50%>>。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
@@ -3240,9 +3240,9 @@
     },
     "4": {
       "name": "花费增加挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Cost+ Challenge",
+      "progressName": "花费增加挑战",
       "flavor": "您腰包越来越鼓了。但，没有通货膨胀？您想多了！",
-      "restrictions": "立即超越，需要达到目标，但金币和钻石建筑，加速器和加倍器的花费变得更高。<br>☆ 金币建筑和钻石建筑的建造力除以<<gold|num:((2))>>。<br>☆ 加速器和加倍器的花费分别在<<gold|num:((25))>>和<<gold|num:((15))>>次购买后，开始以超指数速度增长！",
+      "restrictions": "立即超越，需要达到目标，但金币和钻石建筑，加速器和加倍器的花费变得更高。<br>☆ 金币建筑和钻石建筑的建造力除以<<gold|num:((2))>>。<br>☆ 加速器和加倍器的花费分别在<<gold|num:((25))>>和<<gold|num:((15))>>次购买后，开始以平方速度增长",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "加速器花费增长减缓5次购买。当前效果：",
@@ -3259,7 +3259,7 @@
     },
     "5": {
       "name": "钻石减少挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Reduced Diamonds Challenge",
+      "progressName": "钻石减少挑战",
       "flavor": "您想过钻石是怎么来的吗？",
       "restrictions": "立即超越，需要达到目标，但转生时获得的钻石数量大幅度减少！<br>☆ 钻石获取数量变为<<gold|金币数量^num:((0.01))>>。",
       "goal": "目标：在挑战中达到{{value}}金币。",
@@ -3278,7 +3278,7 @@
     },
     "6": {
       "name": "税收增加挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Higher Tax Challenge",
+      "progressName": "税收增加挑战",
       "flavor": "据说，您最近在转世……税务官如是说",
       "restrictions": "立即转世，需要达到目标，但需要缴纳更多税收！<br>☆ 税负变为原来的 <<gold|3 * (1 + 该挑战完成次数 / 25)^2>> 倍<br>☆ 金币产量除以<<gold|num:((1e250))>>。",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
@@ -3297,7 +3297,7 @@
     },
     "7": {
       "name": "无加倍器/加速器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Multipliers/Accelerators Challenge",
+      "progressName": "无加倍器/加速器挑战",
       "flavor": "憎恨我，怨恨我，然后，再来到我眼前吧。",
       "restrictions": "立即转世，需要达到目标，但加速器和加倍器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 建筑能量超过1时，减少<<gold|95%>>。<br>☆ 金币产量除以<<gold|num:((1e1250))>>。",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
@@ -3316,7 +3316,7 @@
     },
     "8": {
       "name": "花费暴增挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Cost++ Challenge",
+      "progressName": "花费暴增挑战",
       "flavor": "转世了，您以为通货膨胀从此就消失了吗？太天真了。",
       "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Construction is divided by <<gold|num:((5))>> for Coin, Diamond and Mythos Buildings",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
