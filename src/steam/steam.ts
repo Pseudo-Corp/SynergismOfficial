@@ -1,7 +1,6 @@
-import type { CallbackReturns } from 'steamworks.js/callbacks'
-import type { callback } from 'steamworks.js/client'
+import type { MicroTxnAuthorizationResponseEvent } from 'steamworks-ffi-node'
 
-export type MicroTxnAuthorizationResponse = CallbackReturns[callback.SteamCallback.MicroTxnAuthorizationResponse]
+export type MicroTxnAuthorizationResponse = MicroTxnAuthorizationResponseEvent
 
 export interface SteamGetUserInfoResponse {
   country: string

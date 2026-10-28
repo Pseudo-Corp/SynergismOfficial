@@ -14,9 +14,7 @@ contextBridge.exposeInMainWorld('steam', {
   setRichPresence: (key, value) => ipcRenderer.invoke('steam:setRichPresence', key, value),
   getSessionTicket: () => ipcRenderer.invoke('steam:getSessionTicket'),
   /**
-   * @param {(response: import('steamworks.js/callbacks').CallbackReturns[
-   *  import('steamworks.js/client').callback.SteamCallback.MicroTxnAuthorizationResponse
-   * ]) => void} callback
+   * @param {(response: import('steamworks-ffi-node').MicroTxnAuthorizationResponseEvent) => void} callback
    */
   onMicroTxnAuthorizationResponse: (callback) => {
     ipcRenderer.once('steam:microTxnAuthorizationResponse', (_, response) => callback(response))

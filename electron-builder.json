@@ -10,6 +10,11 @@
     "dist/**/*",
     "electron/**/*"
   ],
+  "asarUnpack": [
+    "node_modules/steamworks-ffi-node/**",
+    "node_modules/koffi/**",
+    "node_modules/@koromix/**"
+  ],
   "extraMetadata": {
     "main": "electron/main.ts",
     "type": "module"
@@ -27,8 +32,8 @@
     ],
     "icon": "dist/Pictures/electron-logo.ico",
     "artifactName": "${productName}-${os}-${arch}.${ext}",
-    "extraFiles": [
-      { "from": "node_modules/steamworks.js/dist/win64/steam_api64.dll", "to": "." }
+    "extraResources": [
+      { "from": "steamworks_sdk/redistributable_bin/win64", "to": "steamworks_sdk/redistributable_bin/win64" }
     ]
   },
   "nsis": {
@@ -51,10 +56,10 @@
     "icon": "Pictures/icon.icns",
     "category": "public.app-category.games",
     "artifactName": "${productName}-${os}-${arch}.${ext}",
-    "extraFiles": [
-      { "from": "node_modules/steamworks.js/dist/osx/libsteam_api.dylib", "to": "." }
+    "extraResources": [
+      { "from": "steamworks_sdk/redistributable_bin/osx", "to": "steamworks_sdk/redistributable_bin/osx" }
     ],
-    "x64ArchFiles": "{**/steamworksjs.darwin-*.node,**/libsteam_api.dylib}"
+    "x64ArchFiles": "{**/steam-overlay.node,**/koffi.node,**/libsteam_api.dylib}"
   },
   "linux": {
     "maintainer": "Khafra <support@synergism.cc>",
@@ -67,8 +72,8 @@
     "icon": "build/icons",
     "category": "Game",
     "artifactName": "${productName}-${os}-${arch}.${ext}",
-    "extraFiles": [
-      { "from": "node_modules/steamworks.js/dist/linux64/libsteam_api.so", "to": "." }
+    "extraResources": [
+      { "from": "steamworks_sdk/redistributable_bin/linux64", "to": "steamworks_sdk/redistributable_bin/linux64" }
     ]
   }
 }
