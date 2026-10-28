@@ -126,11 +126,35 @@ export function initializeSteam (): boolean {
   })
 }
 
+async function writeSteamScreenshot () {
+  const window = BrowserWindow.getAllWindows()[0]
+  if (!steamClient || !window) return
+
+  const image = await window.webContents.capturePage()
+  const scaleFactor = Math.max(...image.getScaleFactors())
+  const { width, height } = image.getSize(scaleFactor)
+  const bgra = image.toBitmap({ scaleFactor })
+  const rgb = Buffer.allocUnsafe(width * height * 3)
+
+  for (let i = 0, j = 0; j < rgb.length; i += 4, j += 3) {
+    rgb[j] = bgra[i + 2]
+    rgb[j + 1] = bgra[i + 1]
+    rgb[j + 2] = bgra[i]
+  }
+
+  steamClient.screenshots.writeScreenshot(rgb, width, height)
+}
+
 export function enableSteamOverlay () {
   // The library's mirror window caps the game at 30 fps and stutters, so only macOS uses it.
   // https://github.com/ArtyProf/steamworks-ffi-node/issues/64
   // https://github.com/ArtyProf/steamworks-ffi-node/issues/57
   if (process.platform === 'darwin') {
+    steamClient?.screenshots.hookScreenshots(true)
+    steamClient?.screenshots.onScreenshotRequested(() => {
+      writeSteamScreenshot().catch((error: unknown) => console.error('Failed to write Steam screenshot:', error))
+    })
+
     app.on('browser-window-created', (_, window) => {
       steamClient?.addElectronSteamOverlay(window)
     })

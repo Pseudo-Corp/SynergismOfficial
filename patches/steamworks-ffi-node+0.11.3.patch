@@ -1,8 +1,43 @@
 diff --git a/node_modules/steamworks-ffi-node/dist/internal/SteamOverlay.js b/node_modules/steamworks-ffi-node/dist/internal/SteamOverlay.js
-index e327062..c3b55a3 100644
+index e327062..8dfce29 100644
 --- a/node_modules/steamworks-ffi-node/dist/internal/SteamOverlay.js
 +++ b/node_modules/steamworks-ffi-node/dist/internal/SteamOverlay.js
-@@ -247,38 +247,28 @@ class SteamOverlay {
+@@ -188,33 +188,8 @@ class SteamOverlay {
+                     SteamLogger_1.SteamLogger.debug(`[Steam Overlay] Could not set up Linux window properties: ${e}`);
+                 }
+             }
+-            SteamLogger_1.SteamLogger.debug("[Steam Overlay] Overlay window created, setting up frame subscription...");
+-            let captureActive = true;
+-            let frameCount = 0;
+-            // Prevent Chromium from pausing the renderer when the native overlay
+-            // window occludes the Electron window (macOS occlusion tracking).
+-            // Without this, rAF and beginFrameSubscription stop firing while the
+-            // Steam overlay is open, causing the native window to show a frozen frame.
++            SteamLogger_1.SteamLogger.debug("[Steam Overlay] Overlay window created");
+             browserWindow.webContents.setBackgroundThrottling(false);
+-            // setFrameRate controls the paint rate in offscreen rendering (OSR) mode.
+-            // On non-OSR windows setFrameRate has no effect but the subscription still
+-            // fires in sync with the compositor — more efficient than the old
+-            // setInterval + capturePage() approach (no forced GPU→CPU readback stalls).
+-            browserWindow.webContents.setFrameRate(fps);
+-            const frameSubscription = (image) => {
+-                if (!captureActive || !this.overlayWindow || !this.nativeModule)
+-                    return;
+-                const size = image.getSize();
+-                if (size.width > 0 && size.height > 0) {
+-                    frameCount++;
+-                    if (frameCount <= 3) {
+-                        SteamLogger_1.SteamLogger.debug(`[Steam Overlay] Frame ${frameCount}: ${size.width}x${size.height}`);
+-                    }
+-                    this.nativeModule.renderFrame(this.overlayWindow, image.getBitmap(), size.width, size.height);
+-                }
+-            };
+-            SteamLogger_1.SteamLogger.debug(`[Steam Overlay] Starting frame subscription at ${fps} FPS`);
+-            browserWindow.webContents.beginFrameSubscription(false, frameSubscription);
+             // Function to sync overlay window frame with Electron's CONTENT area
+             // Overlay window is borderless, so it only covers the content, not title bar
+             const syncOverlayFrame = () => {
+@@ -247,38 +222,28 @@ class SteamOverlay {
              };
              // Handle window resize/move — 'resized'/'moved' are completion events.
              // On KDE/KWin they may not fire during live drag; add throttled fallbacks.
@@ -60,7 +95,7 @@ index e327062..c3b55a3 100644
              browserWindow.on("hide", () => hideOverlay("hide"));
              // Do NOT hide the overlay on blur. When the Steam overlay (Shift+Tab)
              // opens, it steals focus from the Electron window, firing a blur event.
-@@ -286,7 +276,7 @@ class SteamOverlay {
+@@ -286,25 +251,14 @@ class SteamOverlay {
              // Visibility is already managed by minimize / restore / show / hide events.
              // On focus, sync the overlay frame position in case the window moved.
              browserWindow.on("focus", () => {
@@ -69,3 +104,172 @@ index e327062..c3b55a3 100644
                      showOverlay("focus");
                      syncOverlayFrame();
                  }
+             });
+-            // Handle window close.
+-            // IMPORTANT: on macOS the 'close' event fires even when the window is
+-            // only being hidden (red X + e.preventDefault() in the app's close handler).
+-            // Calling endFrameSubscription() here would permanently kill the subscription,
+-            // so frames would never arrive after the window is re-shown.
+-            // We only hide the native overlay; captureActive stays true so the
+-            // subscription resumes automatically when the compositor starts rendering again.
+-            // Electron cleans up the subscription automatically when webContents is destroyed.
+             browserWindow.on("close", () => {
+                 hideOverlay("close");
+             });
+-            browserWindow.on("closed", () => {
+-                captureActive = false;
+-            });
+             // Position overlay window over Electron window initially
+             syncOverlayFrame();
+             // Show the overlay window (it floats above Electron but ignores mouse)
+diff --git a/node_modules/steamworks-ffi-node/dist/internal/SteamScreenshotManager.d.ts b/node_modules/steamworks-ffi-node/dist/internal/SteamScreenshotManager.d.ts
+index 0aa9a03..02658d9 100644
+--- a/node_modules/steamworks-ffi-node/dist/internal/SteamScreenshotManager.d.ts
++++ b/node_modules/steamworks-ffi-node/dist/internal/SteamScreenshotManager.d.ts
+@@ -61,7 +61,20 @@ export declare class SteamScreenshotManager {
+      * @param libraryLoader - The Steam library loader for FFI calls
+      * @param apiCore - The Steam API core for lifecycle management
+      */
++    private screenshotRequestedCallbackObject;
++    private screenshotRequestedVTable;
++    private screenshotRequestedCallbackFunctions;
++    private screenshotRequestedHandlers;
+     constructor(libraryLoader: SteamLibraryLoader, apiCore: SteamAPICore);
++    /**
++     * Subscribe to ScreenshotRequested_t, sent instead of a Steam capture while
++     * screenshots are hooked with `hookScreenshots(true)`.
++     *
++     * @returns A function that removes the handler
++     */
++    onScreenshotRequested(handler: () => void): () => void;
++    private registerScreenshotRequestedCallback;
++    cleanup(): void;
+     /**
+      * Gets the ISteamScreenshots interface pointer
+      *
+diff --git a/node_modules/steamworks-ffi-node/dist/internal/SteamScreenshotManager.js b/node_modules/steamworks-ffi-node/dist/internal/SteamScreenshotManager.js
+index 70a3e43..39cdaac 100644
+--- a/node_modules/steamworks-ffi-node/dist/internal/SteamScreenshotManager.js
++++ b/node_modules/steamworks-ffi-node/dist/internal/SteamScreenshotManager.js
+@@ -1,7 +1,10 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.SteamScreenshotManager = void 0;
++const koffi = require("koffi");
++const SteamLibraryLoader_1 = require("./SteamLibraryLoader");
+ const SteamLogger_1 = require("./SteamLogger");
++const callbackTypes_1 = require("./callbackTypes");
+ const types_1 = require("../types");
+ /**
+  * Manager for Steam Screenshots API operations
+@@ -60,9 +63,74 @@ class SteamScreenshotManager {
+     constructor(libraryLoader, apiCore) {
+         /** Cached screenshots interface pointer */
+         this.screenshotsInterface = null;
++        this.screenshotRequestedCallbackObject = null;
++        this.screenshotRequestedVTable = null;
++        this.screenshotRequestedCallbackFunctions = [];
++        this.screenshotRequestedHandlers = [];
+         this.libraryLoader = libraryLoader;
+         this.apiCore = apiCore;
+     }
++    onScreenshotRequested(handler) {
++        this.registerScreenshotRequestedCallback();
++        this.screenshotRequestedHandlers.push(handler);
++        return () => {
++            const index = this.screenshotRequestedHandlers.indexOf(handler);
++            if (index > -1) {
++                this.screenshotRequestedHandlers.splice(index, 1);
++            }
++        };
++    }
++    registerScreenshotRequestedCallback() {
++        if (this.screenshotRequestedCallbackObject)
++            return;
++        try {
++            const dispatch = () => {
++                for (const handler of this.screenshotRequestedHandlers) {
++                    try {
++                        handler();
++                    }
++                    catch (error) {
++                        SteamLogger_1.SteamLogger.error('[Steamworks] Error in ScreenshotRequested handler:', error);
++                    }
++                }
++            };
++            const runCallback = (_selfPtr, _pvParam) => dispatch();
++            const runCallbackResult = (_selfPtr, _pvParam, _bIOFailure, _hSteamAPICall) => dispatch();
++            const getCallbackSizeBytes = (_selfPtr) => 1;
++            this.screenshotRequestedCallbackFunctions = [
++                koffi.register(runCallback, SteamLibraryLoader_1.FnCallbackRunPtr),
++                koffi.register(runCallbackResult, SteamLibraryLoader_1.FnCallbackRunResultPtr),
++                koffi.register(getCallbackSizeBytes, SteamLibraryLoader_1.FnGetCallbackSizeBytesPtr),
++            ];
++            this.screenshotRequestedVTable = koffi.alloc('void*', 3);
++            koffi.encode(this.screenshotRequestedVTable, koffi.array('void*', 3), this.screenshotRequestedCallbackFunctions);
++            this.screenshotRequestedCallbackObject = koffi.alloc(SteamLibraryLoader_1.CCallbackBase, 1);
++            koffi.encode(this.screenshotRequestedCallbackObject, SteamLibraryLoader_1.CCallbackBase, {
++                vfptr: this.screenshotRequestedVTable,
++                m_nCallbackFlags: 0,
++                _pad: [0, 0, 0],
++                m_iCallback: callbackTypes_1.K_I_SCREENSHOT_REQUESTED,
++            });
++            this.libraryLoader.SteamAPI_RegisterCallback(this.screenshotRequestedCallbackObject, callbackTypes_1.K_I_SCREENSHOT_REQUESTED);
++        }
++        catch (error) {
++            this.screenshotRequestedCallbackObject = null;
++            SteamLogger_1.SteamLogger.error('[Steamworks] Failed to register ScreenshotRequested callback:', error);
++        }
++    }
++    cleanup() {
++        if (!this.screenshotRequestedCallbackObject)
++            return;
++        this.libraryLoader.SteamAPI_UnregisterCallback(this.screenshotRequestedCallbackObject);
++        for (const func of this.screenshotRequestedCallbackFunctions) {
++            if (func) {
++                koffi.unregister(func);
++            }
++        }
++        this.screenshotRequestedCallbackObject = null;
++        this.screenshotRequestedCallbackFunctions = [];
++        this.screenshotRequestedHandlers = [];
++    }
+     /**
+      * Gets the ISteamScreenshots interface pointer
+      *
+diff --git a/node_modules/steamworks-ffi-node/dist/internal/callbackTypes/SteamCallbackIds.d.ts b/node_modules/steamworks-ffi-node/dist/internal/callbackTypes/SteamCallbackIds.d.ts
+index 8177d45..6586442 100644
+--- a/node_modules/steamworks-ffi-node/dist/internal/callbackTypes/SteamCallbackIds.d.ts
++++ b/node_modules/steamworks-ffi-node/dist/internal/callbackTypes/SteamCallbackIds.d.ts
+@@ -55,4 +55,6 @@ export declare const K_I_DURATION_CONTROL = 167;
+ export declare const K_I_MICRO_TXN_AUTHORIZATION_RESPONSE = 152;
+ /** Callback for GetTicketForWebApiResponse_t */
+ export declare const K_I_GET_TICKET_FOR_WEB_API_RESPONSE = 168;
++/** Callback for ScreenshotRequested_t */
++export declare const K_I_SCREENSHOT_REQUESTED = 2302;
+ //# sourceMappingURL=SteamCallbackIds.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/steamworks-ffi-node/dist/internal/callbackTypes/SteamCallbackIds.js b/node_modules/steamworks-ffi-node/dist/internal/callbackTypes/SteamCallbackIds.js
+index 257e895..b103348 100644
+--- a/node_modules/steamworks-ffi-node/dist/internal/callbackTypes/SteamCallbackIds.js
++++ b/node_modules/steamworks-ffi-node/dist/internal/callbackTypes/SteamCallbackIds.js
+@@ -76,4 +76,6 @@ exports.K_I_DURATION_CONTROL = 167; // k_iSteamUserCallbacks + 67
+ exports.K_I_MICRO_TXN_AUTHORIZATION_RESPONSE = 152; // k_iSteamUserCallbacks + 52
+ /** Callback for GetTicketForWebApiResponse_t */
+ exports.K_I_GET_TICKET_FOR_WEB_API_RESPONSE = 168; // k_iSteamUserCallbacks + 68
++/** Callback for ScreenshotRequested_t */
++exports.K_I_SCREENSHOT_REQUESTED = 2302; // k_iSteamScreenshotsCallbacks + 2
+ //# sourceMappingURL=SteamCallbackIds.js.map
+\ No newline at end of file
+diff --git a/node_modules/steamworks-ffi-node/dist/steam.js b/node_modules/steamworks-ffi-node/dist/steam.js
+index 832f758..6f5797a 100644
+--- a/node_modules/steamworks-ffi-node/dist/steam.js
++++ b/node_modules/steamworks-ffi-node/dist/steam.js
+@@ -159,6 +159,7 @@ class SteamworksSDK {
+         //    MUST happen before SteamAPI_Shutdown() so Steam doesn't fire callbacks
+         //    into freed Koffi function pointers.
+         this.user.cleanup();
++        this.screenshots.cleanup();
+         // 6. Call SteamAPI_Shutdown() + lib.unload() (dlclose).
+         this.apiCore.shutdown();
+         // 7. Release Koffi's internal state (parser type names + async broker),
