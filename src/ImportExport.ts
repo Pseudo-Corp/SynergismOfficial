@@ -1,10 +1,12 @@
 import i18next from 'i18next'
 import LZString from 'lz-string'
 import {
+  AchievementGroup,
   awardAchievementGroup,
   awardUngroupedAchievement,
   resetAchievements,
-  syncSteamAchievements
+  syncSteamAchievements,
+  UngroupedAchievement
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
@@ -483,10 +485,10 @@ export const promocodes = async (input: string | null, amount?: number) => {
       quarks: format(player.worlds.applyBonus(quarks), 2, true)
     })
   } else if (input === ':unsmith:' || input === 'unsmith') {
-    awardUngroupedAchievement('unsmith')
+    awardUngroupedAchievement(UngroupedAchievement.Unsmith)
     el.textContent = i18next.t('importexport.promocodes.unsmith')
   } else if (input === ':antismith:' || input === 'smith' || input === 'antismith' || input === ':smith:') {
-    awardUngroupedAchievement('smith')
+    awardUngroupedAchievement(UngroupedAchievement.Smith)
     el.textContent = i18next.t('importexport.promocodes.antismith')
   } else if (input === 'Khafra' && !player.codes.get(26)) {
     player.codes.set(26, true)
@@ -649,7 +651,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     // Calculator Maxed: you don't need to insert anything!
     if (getShopUpgradeEffects('calculator', 'autoFill')) {
       player.stats.totalAddCodesUsed += realAttemptsUsed
-      awardAchievementGroup('addCodesUsed')
+      awardAchievementGroup(AchievementGroup.AddCodesUsed)
       player.worlds.add(actualQuarks, true, true)
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
@@ -700,7 +702,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     }
 
     player.stats.totalAddCodesUsed += realAttemptsUsed
-    awardAchievementGroup('addCodesUsed')
+    awardAchievementGroup(AchievementGroup.AddCodesUsed)
     player.rngCode = v
 
     if (first + second === +addPrompt) {

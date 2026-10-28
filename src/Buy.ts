@@ -1,5 +1,5 @@
 import Decimal from 'break_infinity.js'
-import { awardAchievementGroup } from './Achievements'
+import { AchievementGroup, awardAchievementGroup } from './Achievements'
 import {
   buildingConstructionSoftcap,
   calculateAccelMultConstructionEffect,
@@ -569,11 +569,11 @@ export const buyBuilding = (
     player[`prestigeno${type}` as const] = false
     player[`transcendno${type}` as const] = false
     player[`reincarnateno${type}` as const] = false
-    awardAchievementGroup(`${type}s` as const)
+    awardAchievementGroup(type === 'accelerator' ? AchievementGroup.Accelerators : AchievementGroup.Multipliers)
   } else if (type === 'acceleratorBoost') {
     player.transcendnoaccelerator = false
     player.reincarnatenoaccelerator = false
-    awardAchievementGroup('acceleratorBoosts')
+    awardAchievementGroup(AchievementGroup.AcceleratorBoosts)
   }
 }
 

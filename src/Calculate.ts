@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
+import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { getBuildingOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -354,11 +354,11 @@ export const calculateGlobalSpeedMult = () => {
   // Achievement Stuffs
   // One second in 100 years
   if (totalTimeMultiplier < 1 / (3600 * 24 * 365 * 100)) {
-    awardUngroupedAchievement('verySlow')
+    awardUngroupedAchievement(UngroupedAchievement.VerySlow)
   }
   // One hour in a second
   if (totalTimeMultiplier > 3600) {
-    awardUngroupedAchievement('veryFast')
+    awardUngroupedAchievement(UngroupedAchievement.VeryFast)
   }
 
   return totalTimeMultiplier

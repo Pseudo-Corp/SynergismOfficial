@@ -1,6 +1,11 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardAchievementGroup, awardUngroupedAchievement } from './Achievements'
+import {
+  AchievementGroup,
+  awardAchievementGroup,
+  awardUngroupedAchievement,
+  UngroupedAchievement
+} from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
 import { resetTiers } from './Reset'
@@ -252,8 +257,8 @@ const updateLevelsFromEXP = (bless: RuneBlessingKeys) => {
   }
 
   if (bless === 'speed') {
-    awardAchievementGroup('speedBlessing')
-    awardUngroupedAchievement('highlyBlessed')
+    awardAchievementGroup(AchievementGroup.SpeedBlessing)
+    awardUngroupedAchievement(UngroupedAchievement.HighlyBlessed)
   }
 }
 

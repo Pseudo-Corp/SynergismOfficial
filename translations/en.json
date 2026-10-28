@@ -1432,9 +1432,6 @@
       "3": {
         "acceleratorPower": "+num:((0.1))% Accelerator Power"
       },
-      "4": {
-        "workerAutobuyer": "Start with the Worker Autobuyer unlocked!"
-      },
       "5": {
         "accelerators": "+1 Free Accelerator per 500 Workers owned"
       },
@@ -1446,9 +1443,6 @@
       },
       "10": {
         "acceleratorPower": "+num:((0.15))% Accelerator Power"
-      },
-      "11": {
-        "investmentAutobuyer": "Start with the Investment Autobuyer unlocked!"
       },
       "12": {
         "accelerators": "+1 Free Accelerator per 500 Investments owned"
@@ -1462,9 +1456,6 @@
       "17": {
         "acceleratorPower": "+num:((0.2))% Accelerator Power"
       },
-      "18": {
-        "printerAutobuyer": "Start with the Printer Autobuyer unlocked!"
-      },
       "19": {
         "accelerators": "+1 Free Accelerator per 500 Printers owned"
       },
@@ -1476,9 +1467,6 @@
       },
       "24": {
         "acceleratorPower": "+num:((0.2))% Accelerator Power"
-      },
-      "25": {
-        "mintAutobuyer": "Start with the Mint Autobuyer unlocked!"
       },
       "26": {
         "accelerators": "+1 Free Accelerator per 500 Coin Mints owned"
@@ -1492,9 +1480,6 @@
       "31": {
         "acceleratorPower": "+num:((0.3))% Accelerator Power"
       },
-      "32": {
-        "alchemyAutobuyer": "Start with the Alchemy Autobuyer unlocked!"
-      },
       "33": {
         "accelerators": "+1 Free Accelerator per 500 Alchemies owned"
       },
@@ -1504,20 +1489,8 @@
       "35": {
         "accelBoosts": "+1 Free Accelerator Boost per num:((2000)) Alchemies owned"
       },
-      "36": {
-        "offeringPrestigeTimer": "Prestige gives more Offerings based on time spent! (+100% per 10 seconds)"
-      },
       "37": {
         "crystalMultiplier": "Crystal production multiplier based on log(Diamonds)"
-      },
-      "38": {
-        "duplicationRuneUnlock": "Permanently unlock the Duplication Rune!"
-      },
-      "43": {
-        "autoPrestigeFeature": "Unlock the Auto Prestige Feature!"
-      },
-      "44": {
-        "prismRuneUnlock": "Permanently unlock the Prism Rune!"
       },
       "45": {
         "taxReduction": "Tax scaling is reduced by 5%"
@@ -1530,9 +1503,6 @@
       },
       "50": {
         "particleGain": "Permanently double your Particle Gain!"
-      },
-      "53": {
-        "multiplicativeObtainium": "Obtainium gain is increased by +num:((0.125))% for each Rune level"
       },
       "57": {
         "multipliers": "+1 free Multiplier"
@@ -1573,88 +1543,20 @@
       "77": {
         "conversionExponent": "+1% Conversion Exponent on all generator upgrades!"
       },
-      "78": {
-        "refineryAutobuy": "Unlock the Refinery Autobuyer!"
-      },
-      "79": {
-        "crystalUpgrade1Autobuy": "Unlock the Autobuyer for the first Crystal Upgrade!"
-      },
-      "80": {
-        "salvage": "Salvage +3",
-        "multAutobuyer": "Start with the Multiplier Autobuyer unlocked!"
-      },
       "82": {
         "taxReduction": "Tax scaling reduced by 4%"
-      },
-      "84": {
-        "multiplicativeObtainium": "Obtainium xnum:((1.05))"
-      },
-      "85": {
-        "coalPlantAutobuy": "Unlock the Coal Plant Autobuyer!"
-      },
-      "86": {
-        "crystalUpgrade2Autobuy": "Unlock the Autobuyer for the second Crystal Upgrade!"
-      },
-      "87": {
-        "salvage": "+3 Salvage",
-        "accelAutobuyer": "Start with the Accelerator Autobuyer unlocked!"
       },
       "89": {
         "taxReduction": "Tax scaling reduced by 4%"
       },
-      "91": {
-        "multiplicativeObtainium": "Obtainium gain xnum:((1.05))"
-      },
-      "92": {
-        "coalRigAutobuy": "Unlock the Coal Rig Autobuyer!"
-      },
-      "93": {
-        "crystalUpgrade3Autobuy": "Unlock the Autobuyer for the third Crystal Upgrade!"
-      },
-      "94": {
-        "salvage": "+4 Salvage"
-      },
       "96": {
         "taxReduction": "Tax scaling reduced by 4%"
-      },
-      "98": {
-        "multiplicativeObtainium": "Obtainium gain xnum:((1.05))"
-      },
-      "99": {
-        "pickaxeAutobuy": "Unlock the Pickaxe Autobuyer!"
-      },
-      "100": {
-        "crystalUpgrade4Autobuy": "Unlock the Autobuyer for the fourth Crystal Upgrade!"
-      },
-      "101": {
-        "salvage": "+5 Salvage"
-      },
-      "102": {
-        "thriftRuneUnlock": "Permanently unlock the Thrift Rune!"
       },
       "103": {
         "taxReduction": "Tax scaling reduced by 4%"
       },
-      "105": {
-        "multiplicativeObtainium": "Obtainium gain xnum:((1.05))"
-      },
-      "106": {
-        "pandorasBoxAutobuy": "Unlock the Pandora's Box Autobuyer!"
-      },
-      "107": {
-        "crystalUpgrade5Autobuy": "Unlock the Autobuyer for the fifth Crystal Upgrade!"
-      },
-      "108": {
-        "salvage": "+5 Salvage"
-      },
       "110": {
         "taxReduction": "Tax scaling reduced by 4%"
-      },
-      "112": {
-        "multiplicativeObtainium": "Obtainium gain xnum:((1.05))"
-      },
-      "115": {
-        "salvage": "+5 Salvage"
       },
       "117": {
         "taxReduction": "Tax scaling reduced by 5%"
@@ -1662,76 +1564,45 @@
       "118": {
         "taxReduction": "Tax scaling reduced by num:((0.5))% per Reincarnation Challenge clear (multiplicative)"
       },
-      "119": {
-        "exemptionTalisman": "Unlock the Exemption Talisman!"
-      },
       "120": {
         "diamondUpgrade18": "Unlock the 18th Diamond Upgrade!"
       },
-      "122": {
-        "salvage": "+5 Salvage"
-      },
       "124": {
         "taxReduction": "Tax scaling reduced by 5%"
-      },
-      "125": {
-        "multiplicativeObtainium": "Obtainium gain xnum:((1.05))"
       },
       "126": {
         "chronosTalisman": "Unlock the Chronos Talisman!"
       },
       "127": {
-        "diamondUpgrade19": "Unlock the 19th Diamond Upgrade!",
-        "antHillUnlock": "Unlock the <span class='rainbowText'>Anthill!</span>"
-      },
-      "129": {
-        "salvage": "+6 Salvage"
+        "diamondUpgrade19": "Unlock the 19th Diamond Upgrade!"
       },
       "131": {
         "taxReduction": "Tax scaling reduced by 5%"
-      },
-      "132": {
-        "multiplicativeObtainium": "Obtainium gain xnum:((1.05))"
       },
       "133": {
         "midasTalisman": "Unlock the Midas Talisman!"
       },
       "134": {
-        "diamondUpgrade20": "Unlock the 20th Diamond Upgrade!",
-        "blessingUnlock": "Unlock Rune Blessings!",
-        "talismanUnlock": "Also, unlock Talismans!"
+        "diamondUpgrade20": "Unlock the 20th Diamond Upgrade!"
       },
       "135": {
         "talismanPower": "+2% Talisman Power"
       },
       "136": {
-        "talismanPower": "+2% Talisman Power",
-        "salvage": "+7 Salvage"
+        "talismanPower": "+2% Talisman Power"
       },
       "137": {
         "sacrificeMult": "xnum:((1.25)) Sacrifice Rewards!",
         "experientiaAutobuy": "Unlock the <i>Experientia</i> Ant Upgrade Autobuyer!"
       },
-      "139": {
-        "multiplicativeObtainium": "Obtainium gain xnum:((1.05))"
-      },
       "140": {
         "metaphysicsTalisman": "Unlock the Metaphysics Talisman!"
-      },
-      "141": {
-        "ascensionUnlock": "Unlock the Ascension reset tier! Requires at least 1 {[Sadistic I]} clear."
-      },
-      "143": {
-        "salvage": "+7 Salvage"
       },
       "144": {
         "talismanPower": "+num:((2.5))% Talisman Power"
       },
       "145": {
         "talismanPower": "+num:((2.5))% Talisman Power"
-      },
-      "146": {
-        "multiplicativeObtainium": "Obtainium gain xnum:((1.05))"
       },
       "147": {
         "polymathTalisman": "Unlock the Polymath Talisman!"
@@ -1822,12 +1693,10 @@
         "wowSquareTalisman": "Unlock the Wow Square Talisman!"
       },
       "187": {
-        "ascensionCountMultiplier": "Gain more Ascension Count based on Corruption level, including free levels [+80% per level]",
-        "multiplicativeOffering": "Offerings multiplier based on Ascension Count"
+        "ascensionCountMultiplier": "Gain more Ascension Count based on Corruption level, including free levels [+80% per level]"
       },
       "188": {
-        "ascensionCountAdditive": "If your Ascension is at least 10 seconds long, add +100 Base Ascension Count!",
-        "multiplicativeObtainium": "Gain more Obtainium based on Ascension Count [up to x2 at 5 million Ascension Count]"
+        "ascensionCountAdditive": "If your Ascension is at least 10 seconds long, add +100 Base Ascension Count!"
       },
       "189": {
         "ascensionCountAdditive": "Ascension Count multiplier based on excess time",
@@ -1844,20 +1713,7 @@
         "wowPlatonicGain": "Gain more Platonic Cubes based on your Constant [up to x20 at num:((1e100000)) Constant]"
       },
       "197": {
-        "statTracker": "Unlock a Stat Tracker at the top of your screen!",
-        "tesseractUnlock": "Unlock gaining Tesseracts from Ascending!"
-      },
-      "198": {
-        "wowCubeGain": "Cube gain xnum:((1.02))"
-      },
-      "199": {
-        "wowCubeGain": "Cube gain xnum:((1.02))"
-      },
-      "200": {
-        "wowCubeGain": "Cube gain xnum:((1.02))"
-      },
-      "201": {
-        "wowCubeGain": "Cube gain xnum:((1.02))"
+        "statTracker": "Unlock a Stat Tracker at the top of your screen!"
       },
       "202": {
         "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
@@ -1866,20 +1722,7 @@
         "talismanPower": "+1% Talisman Power"
       },
       "204": {
-        "ascensionRewardScaling": "Ascensions give more cubes of all types based on your Ascension time [+10% per second]",
-        "spiritUnlock": "Unlock Spirits, in the Runes tab!"
-      },
-      "205": {
-        "wowTesseractGain": "Tesseract gain xnum:((1.02))"
-      },
-      "206": {
-        "wowTesseractGain": "Tesseract gain xnum:((1.02))"
-      },
-      "207": {
-        "wowTesseractGain": "Tesseract gain xnum:((1.02))"
-      },
-      "208": {
-        "wowTesseractGain": "Tesseract gain xnum:((1.02))"
+        "ascensionRewardScaling": "Ascensions give more cubes of all types based on your Ascension time [+10% per second]"
       },
       "209": {
         "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
@@ -1887,73 +1730,20 @@
       "210": {
         "talismanPower": "+1% Talisman Power"
       },
-      "211": {
-        "wowHypercubeGain": "Hypercube gain xnum:((1.05))",
-        "hypercubeUnlock": "Unlock gaining Hypercubes from Ascending!"
-      },
-      "212": {
-        "wowHypercubeGain": "Hypercube gain xnum:((1.02))"
-      },
-      "213": {
-        "wowHypercubeGain": "Hypercube gain xnum:((1.02))"
-      },
-      "214": {
-        "wowHypercubeGain": "Hypercube gain xnum:((1.02))"
-      },
-      "215": {
-        "wowHypercubeGain": "Hypercube gain xnum:((1.02))"
-      },
       "216": {
         "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time"
       },
       "217": {
         "talismanPower": "+1% Talisman Power"
       },
-      "218": {
-        "wowPlatonicGain": "Platonic Cubes xnum:((1.05))",
-        "platonicUnlock": "Unlock gaining Platonic Cubes from Ascending!"
-      },
-      "219": {
-        "wowPlatonicGain": "Platonic Cube gain xnum:((1.02))"
-      },
-      "220": {
-        "wowPlatonicGain": "Platonic Cubes gain xnum:((1.02))"
-      },
-      "221": {
-        "wowPlatonicGain": "Platonic Cubes gain xnum:((1.02))"
-      },
-      "222": {
-        "wowPlatonicGain": "Platonic Cubes gain xnum:((1.02))"
-      },
       "223": {
         "ascensionCountAdditive": "Add +2 Base Ascension Count per second of Ascension time",
         "wowPlatonicGain": "Gain more Platonic Cubes based on Ascension Count [up to x3 at num:((2.674e9)) Ascension Count]"
       },
-      "233": {
-        "salvage": "+2 Salvage"
-      },
-      "235": {
-        "salvage": "+2 Salvage"
-      },
-      "237": {
-        "salvage": "+3 Salvage"
-      },
-      "240": {
-        "allCubeGain": "All Cube Gain xnum:((1.2))"
-      },
-      "245": {
-        "salvage": "+3 Salvage"
-      },
       "250": {
-        "allCubeGain": "All Cube Gain xnum:((1.05))",
-        "multiplicativeObtainium": "Obtainium xnum:((1.1))",
-        "multiplicativeOffering": "Offerings xnum:((1.5))",
         "quarkGain": "Quark Gain xnum:((1.05))"
       },
       "251": {
-        "allCubeGain": "All Cube Gain xnum:((1.05))",
-        "multiplicativeObtainium": "Obtainium xnum:((1.5))",
-        "multiplicativeOffering": "Offerings xnum:((1.1))",
         "quarkGain": "Quark Gain xnum:((1.05))"
       },
       "253": {
@@ -1970,7 +1760,6 @@
         "overfluxConversionRate": "Overflux Powder conversion xnum:((1.05))"
       },
       "257": {
-        "allCubeGain": "All Cube Gain xnum:((1.1))",
         "overfluxConversionRate": "Overflux Powder conversion xnum:((1.05))"
       },
       "258": {
@@ -1984,18 +1773,6 @@
       },
       "261": {
         "ascensionCountMultiplier": "Ascension Count xnum:((1.1))"
-      },
-      "262": {
-        "allCubeGain": "All Cube Gain xnum:((1.1))"
-      },
-      "263": {
-        "allCubeGain": "All Cube Gain xnum:((1.1))"
-      },
-      "264": {
-        "allCubeGain": "All Cube Gain multiplier based on Ascension Count [up to xnum:((1.2)) at num:((8e12)) Ascension Count]"
-      },
-      "265": {
-        "allCubeGain": "All Cube Gain multiplier based on Ascension Count [up to xnum:((1.2)) at num:((1.6e14)) Ascension Count]"
       },
       "266": {
         "quarkGain": "Quark gain multiplier based on Ascension Count [up to xnum:((1.1)) at num:((1e15)) Ascension Count]"
@@ -2013,81 +1790,6 @@
       },
       "349": {
         "antAutobuyers": "Automatically buy HOLY SPIRIT OF ANT GOD Ants!"
-      },
-      "382": {
-        "salvage": "+3 Salvage"
-      },
-      "384": {
-        "salvage": "+4 Salvage"
-      },
-      "386": {
-        "salvage": "+5 Salvage"
-      },
-      "388": {
-        "salvage": "+6 Salvage"
-      },
-      "390": {
-        "salvage": "+4 Salvage"
-      },
-      "392": {
-        "salvage": "+5 Salvage"
-      },
-      "394": {
-        "salvage": "+6 Salvage"
-      },
-      "396": {
-        "salvage": "+1 Salvage"
-      },
-      "398": {
-        "salvage": "+2 Salvage"
-      },
-      "400": {
-        "salvage": "+3 Salvage"
-      },
-      "402": {
-        "salvage": "+4 Salvage"
-      },
-      "404": {
-        "salvage": "+5 Salvage"
-      },
-      "406": {
-        "salvage": "+6 Salvage"
-      },
-      "407": {
-        "salvage": "+2 Salvage"
-      },
-      "408": {
-        "salvage": "+7 Salvage"
-      },
-      "409": {
-        "salvage": "+2 Salvage"
-      },
-      "410": {
-        "salvage": "+8 Salvage"
-      },
-      "411": {
-        "salvage": "+1 Salvage"
-      },
-      "413": {
-        "salvage": "+2 Salvage"
-      },
-      "415": {
-        "salvage": "+2 Salvage"
-      },
-      "417": {
-        "salvage": "+3 Salvage"
-      },
-      "419": {
-        "salvage": "+4 Salvage"
-      },
-      "421": {
-        "salvage": "+5 Salvage"
-      },
-      "423": {
-        "salvage": "+6 Salvage"
-      },
-      "425": {
-        "salvage": "+7 Salvage"
       },
       "437": {
         "prestigeCountMultiplier": "Gain +100% more Prestige Count per digit in your Prestige Count (additive)!"
@@ -2160,159 +1862,6 @@
       "492": {
         "antSacrificeToReincarnation": "For each Anthill you sacrifice, you gain a Reincarnation! This cascades if you also get a Transcension per Reincarnation, and so on."
       }
-    },
-    "rewards": {
-      "3": "Gain +.10% to Accelerator Power.",
-      "4": "Start Transcensions/Challenges with Worker Autobuyer unlocked.",
-      "5": "Gain +1 Accelerator per 500 Workers owned.",
-      "6": "Gain +1 Multiplier per num:((1000)) Workers owned.",
-      "7": "Gain +1 Accelerator Boost per num:((2000)) workers owned.",
-      "10": "Gain +.15% to Accelerator Power.",
-      "11": "Start Transcensions/Challenges with Investment Autobuyer unlocked.",
-      "12": "Gain +1 Accelerator per 500 Investments owned.",
-      "13": "Gain +1 Multiplier per num:((1000)) Investments owned.",
-      "14": "Gain +1 Accelerator Boost per num:((2000)) Investments owned.",
-      "17": "Gain +.20% to Accelerator Power.",
-      "18": "Start Transcensions/Challenges with Printer Autobuyer unlocked.",
-      "19": "Gain +1 Accelerator per 500 Printers owned.",
-      "20": "Gain +1 Multiplier per num:((1000)) Printers owned.",
-      "21": "Gain +1 Accelerator Boost per num:((2000)) Printers owned.",
-      "24": "Gain +.25% to Accelerator Power.",
-      "25": "Start Transcensions/Challenges with Coin Mint Autobuyer unlocked.",
-      "26": "Gain +1 Accelerator per 500 Mints owned.",
-      "27": "Gain +1 Multiplier per num:((1000)) Mints owned.",
-      "28": "Gain +1 Accelerator Boost per num:((2000)) Mints owned.",
-      "31": "Gain +.30% to Accelerator Power.",
-      "32": "Start Transcensions/Challenges with Alchemy Autobuyer unlocked.",
-      "33": "Gain 10% more Offerings from resets || +1 Accelerator per 500 Alchemies!",
-      "34": "Gain 15% more Offerings from resets (stacks multiplicatively!) || +1 Multiplier per num:((1000)) Alchemies!",
-      "35": "Gain 25% more Offerings from resets (stacks multiplicatively!) || +1 Accelerator Boost per num:((2000)) Alchemies!",
-      "36": "Multiply Crystal Production by 2x.",
-      "37": "Multiply Crystal Production by the common logarithm of owned Diamonds. Prestiges give more Offerings based on time spent (Up to +15 at 1800 seconds)",
-      "38": "Unlock the Duplication rune!",
-      "43": "Accelerator Boosts can be purchased from any screen. Unlock the Auto-Prestige feature.",
-      "44": "Unlock the Prism Rune! Transcensions give more Offerings based on time spent (Up to +15 at 1800 seconds)",
-      "45": "Reduce tax scaling by up to 5%, depending on the length of Prestige.",
-      "46": "Reduce tax scaling by up to another 5%, depending on length of Prestige.",
-      "47": "Reduce tax scaling by up to ANOTHER 10%, depending on length of Prestige!",
-      "50": "Unlock new Atomic production and unlock 3 new incredibly difficult Challenges! Gain 2x particles on all future Reincarnations!",
-      "51": "Manual Reincarnations give +4 Obtainium (unaffected by multipliers except time multiplier)!",
-      "52": "Reincarnations give more Offerings based on time spent (Up to +25 at 1800 seconds)",
-      "53": "Increase the amount of Obtainium gained through all features by num:((0.125))% additive for each rune level.",
-      "57": "Gain +1, +1% free Multipliers!",
-      "58": "Gain +1, +1% more free Multipliers!",
-      "59": "Gain +1, +1% more, MORE free Multipliers!",
-      "60": "Gain +2, +1% free Accelerators!",
-      "61": "Gain +2, +1% more free Accelerators!",
-      "62": "Gain +2, +1% more, MORE free Accelerators!",
-      "71": "+1% Conversion Exponent on all generator upgrades!",
-      "72": "+1% Conversion Exponent on all generator upgrades!",
-      "73": "+1% Conversion Exponent on all generator upgrades!",
-      "74": "+1% Conversion Exponent on all generator upgrades!",
-      "75": "+1% Conversion Exponent on all generator upgrades!",
-      "76": "+1% Conversion Exponent on all generator upgrades!",
-      "77": "+1% Conversion Exponent on all generator upgrades! They're in overdrive now!",
-      "78": "Start Transcensions/Challenges with 1 Refinery and automatically buy Refineries.",
-      "79": "Automatically buy the first Crystal upgrade if you can afford it!",
-      "80": "Start Transcensions/Challenges with Multiplier Autobuyer unlocked. +5% Offering recycle.",
-      "82": "Delay tax growth by 4%.",
-      "84": "+1% Obtainium (stacks additively with other achievement rewards)",
-      "85": "Start Transcensions/Challenges with 1 Coal Plant and automatically buy Coal Plants.",
-      "86": "Automatically buy the second Crystal upgrade if you can afford it!",
-      "87": "Start Transcensions/Challenges with Accelerator Autobuyer unlocked. +5% Offering recycle.",
-      "89": "Delay tax growth by 4%.",
-      "91": "+3% Obtainium (stacks additively with other Achievement rewards)",
-      "92": "Start Transcensions/Challenges with 1 Coal Rig and automatically buy Coal Rigs.",
-      "93": "Automatically buy the third Crystal upgrade if you can afford it!",
-      "94": "+5% Offering recycle.",
-      "96": "Delay tax growth by 4%.",
-      "98": "+5% Obtainium (stacks additively with other achievement rewards)",
-      "99": "Start Transcensions/Challenges with 1 Diamond Pickaxe and automatically buy Diamond Pickaxes.",
-      "100": "Automatically buy the fourth Crystal upgrade if you can afford it!",
-      "101": "+5% Offering recycle.",
-      "102": "Unlock the Thrift rune!",
-      "103": "Delay tax growth by 4%.",
-      "105": "+7% Obtainium (stacks additively with other achievement rewards)",
-      "106": "Start Transcensions/Challenges with 1 Pandora's Box and automatically buy Pandora's Boxes.",
-      "107": "Automatically buy the fifth Crystal upgrade if you can afford it!",
-      "108": "+5% Offering recycle.",
-      "110": "Delay tax growth by 4%.",
-      "112": "+9% Obtainium (stacks additively with other achievement rewards)",
-      "115": "+5% Offering recycle.",
-      "117": "Delay tax growth by num:((5.66))%.",
-      "118": "Each Reincarnation Challenge completion delays tax growth by num:((0.75))% per level, multiplicative. Effect: {{x}}x",
-      "119": "+11% Obtainium. Unlock a nice trinket somewhere...",
-      "122": "+num:((7.5))% Offering recycle.",
-      "124": "Delay tax growth by num:((5.66))%. Unlock 5 new incredibly powerful Researches!",
-      "126": "+13% Obtainium. You get an accessory to commemorate this moment!",
-      "127": "Unlock 20 new incredibly expensive yet good Researches. Unlock the [Anthill] feature!",
-      "128": "Make Researches go Cost-- with num:((1.5))x Obtainium!",
-      "129": "+num:((7.5))% Offering recycle. Gain another num:((1.25))x Obtainium multiplier!",
-      "131": "Delay tax growth by num:((5.66))%.",
-      "132": "Permanently gain +25% more sacrifice reward!",
-      "133": "+15% Obtainium. Obtain the gift of Midas himself.",
-      "134": "Unlock 10 newer incredibly expensive yet good Researches. Unlock <Talismans> in the Runes Tab!",
-      "135": "Talisman positive bonuses are now +num:((0.02)) stronger per level.",
-      "136": "Talisman positive bonuses are now +num:((0.02)) even stronger per level.",
-      "137": "Permanently gain +25% more sacrifice reward!",
-      "140": "+17% Obtainium. Lazy joke about not leaking talismans here [You get a new one]",
-      "141": "Unlock a new reset tier!",
-      "147": "+19% Obtainium (Achievement total is up to 100%!). Gain the Polymath Talisman!",
-      "169": "ALL Ant speed multiplied by {{x}}",
-      "171": "+num:((16.666))% ALL Ant speed!",
-      "172": "Gain more Ants the longer your Reincarnation lasts (Max speed achieved in 2 hours)",
-      "173": "Unlock Ant Sacrifice, allowing you to reset your Ants and Ant upgrades in exchange for amazing rewards! Automatically buy Worker Ants.",
-      "174": "Ant Multiplier from sacrifice is multiplied by another logarithm: x{{x}}",
-      "176": "Unlock Tier 2 Ant autobuy, and autobuy Inceptus and Fortunae Ants! Add +25 Base Ant ELO.",
-      "177": "Unlock Tier 3 Ant autobuy, and autobuy Tributum Ants! Add +50 Base Ant ELO.",
-      "178": "Unlock Tier 4 Ant autobuy, and autobuy Celeritas and Multa Ants! Add +75 Base Ant ELO.",
-      "179": "Unlock Tier 5 Ant autobuy, and autobuy Sacrificium Ants! Add +100 Base Ant ELO.",
-      "180": "Unlock Tier 6 Ant autobuy, and autobuy Hic and Experientia Ants! Add +1% Base Ant ELO.",
-      "181": "Unlock Tier 7 Ant autobuy, and autobuy Praemoenio Ants! Add +2% Base Ant ELO.",
-      "182": "Unlock Tier 8 Ant autobuy, and autobuy Scientia and Phylacterium Ants! Add +3% Base Ant ELO.",
-      "186": "Unlock the powers of a 'Wow Square' Talisman. Sounds cool!",
-      "188": "Gain +100 Ascension count for all Ascensions longer than 10 seconds. Also: Obtainium +{{x}}% [Max: 100% at 5M Ascensions]",
-      "189": "Gain 20% of Excess time after 10 seconds each Ascension as a linear multiplier to Ascension count. Also: Cubes +{{x}}% [Max: 200% at 500M Ascensions]",
-      "193": "Gain {{x}}% more Cubes on Ascension!",
-      "195": "Gain {{x}}% more Cubes and Tesseracts on Ascension! Multiplicative with the other Ach. bonus [MAX: num:((25000))% at enum:((100000)) Const]",
-      "196": "Gain {{x}}% more Platonic Cubes on Ascension! [MAX: num:((2000))% at enum:((100000)) Const]",
-      "197": "You will unlock a stat tracker for Ascensions.",
-      "198": "Gain +4% Cubes on Ascension!",
-      "199": "Gain +4% Cubes on Ascension!",
-      "200": "Gain +4% Cubs on Ascension! Did I spell that wrong? You bet I did.",
-      "201": "Gain +3% Cubes on Ascension!",
-      "202": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Tesseracts +{{x}}% [Max: 200% at 1B Ascensions]",
-      "204": "You will gain 25% of Excess time after 10 seconds each Ascension as a linear multiplier to rewards.",
-      "205": "Gain +4% Tesseracts on Ascension!",
-      "206": "Gain +4% Tesseracts on Ascension!",
-      "207": "Gain +4% Tesseracts on Ascension!",
-      "208": "Gain +3% Tesseracts on Ascension!",
-      "209": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count.",
-      "211": "You will gain 25% MORE Excess time (Total: 50%) after 10 seconds each Ascension as a linear multiplier to rewards.",
-      "212": "Gain +4% Hypercubes on Ascension!",
-      "213": "Gain +4% Hypercubes on Ascension!",
-      "214": "Gain +4% Hypercubes on Ascension!",
-      "215": "Gain +3% Hypercubes on Ascension!",
-      "216": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Hypercubes +{{x}}% [Max: 200% at 2B Ascensions]",
-      "218": "You gain gain 50% MORE MORE excess time (Total: 100%) after 10 seconds each Ascension as a linear multiplier to rewards.",
-      "219": "Gain +4% Platonic Cubes on Ascension!",
-      "220": "Gain +4% Platonic Cubes on Ascension!",
-      "221": "Gain +4% Platonic Cubes on Ascension!",
-      "222": "Gain +3% Platonic Cubes on Ascension!",
-      "223": "Gain 20% of Excess time after 10 seconds each Ascensions as a linear multiplier to Ascension count. Also: Platonic Cubes +{{x}}% [Max: 200% at num:((2.674))B Ascensions]",
-      "240": "Ascension Cube Gain Multipliers is VERY slightly affected by global speed multipliers: {{x}}x (Min: num:((1.10))x, Max: num:((1.50))x)",
-      "250": "You gain a permanent +60% Obtainium and Offering bonus, with +6% all Cube types! Quark Gain xnum:((1.05))!",
-      "251": "You gain a permanent +100% Obtainium and Offering bonus, with +10% all Cube types! Quark Gain xnum:((1.05))!",
-      "253": "You will gain +10% Hypercubes! Why? I don't know.",
-      "260": "You will gain 10% more Ascension count, forever!",
-      "261": "You will gain 10% more Ascension count, forever!",
-      "262": "Ascensions are {{x}}% faster! Max: +10%",
-      "263": "Ascensions are {{x}}% faster! Max: +10%",
-      "264": "Hepteracts +{{x}}% [Max: 40% at 8T Ascensions]!",
-      "265": "Hepteracts +{{x}}% [Max: 20% at 160T Ascensions]!",
-      "266": "Quarks +{{x}}% [Max: num:((1.10))x at 1Qa (num:((1e15))) Ascensions]!",
-      "270": "Hepteract Gain is boosted by {{x}}% [Max: 100% at num:((1e1000000)) const], Constant Upgrade 1 boosted to num:((1.06)) (from num:((1.05))), Constant Upgrade 2 boosted to num:((1.11)) (from num:((1.10))).",
-      "271": "When you open a Platonic Cube, gain {{x}} Hypercubes, rounded down [Max: 1 at num:((1e1000000)) Const]"
     },
     "groupNames": {
       "firstOwnedCoin": "Workers",
