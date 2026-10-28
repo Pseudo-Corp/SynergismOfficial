@@ -7,7 +7,7 @@ want, though!
 Thank you! */
 
 import i18next from 'i18next'
-import { awardUngroupedAchievement, getAchievementReward } from './Achievements'
+import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
 import { quarkHandler } from './Quark'
 import { getShopUpgradeEffects } from './Shop'
 import { format, player } from './Synergism'
@@ -182,7 +182,7 @@ export class WowCubes extends Cube {
     let toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
 
     if (value === 1 && player.cubeBlessings.accelerator >= 2e11) {
-      awardUngroupedAchievement('oneCubeOfMany')
+      awardUngroupedAchievement(UngroupedAchievement.OneCubeOfMany)
     }
 
     if (!free) {

@@ -12,7 +12,7 @@ import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardAchievementGroup, getAchievementReward, updateProgressiveCache } from './Achievements'
+import { AchievementGroup, awardAchievementGroup, getAchievementReward, updateProgressiveCache } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokenBonuses } from './Campaign'
@@ -955,7 +955,7 @@ const updateRuneLevelAchievementProgress = (force = false, sourcedFromUpdate = f
     return
   }
 
-  awardAchievementGroup('runeLevel')
+  awardAchievementGroup(AchievementGroup.RuneLevel)
   updateProgressiveCache('runeLevel', sourcedFromUpdate)
   runeLevelAchievementsDirty = false
 }

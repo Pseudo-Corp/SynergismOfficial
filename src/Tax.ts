@@ -20,7 +20,7 @@ import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
-import { awardUngroupedAchievement } from './Achievements'
+import { awardUngroupedAchievement, UngroupedAchievement } from './Achievements'
 import { totalStartingChallengeCompletions, useChallenge13Modifiers } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
@@ -142,7 +142,7 @@ export const awardOvertaxedAchievement = ({ maxexponent, flatMaxExponentIncrease
     // as soon as the challenge is opened you don't have enough tax reducers to have max exponent above 100000
     // so for the achievement description to make sense i think it should require at least 1 challenge completion || Dorijanko
     if (challenge13EffectiveCompletions() >= 1) {
-      awardUngroupedAchievement('overtaxed')
+      awardUngroupedAchievement(UngroupedAchievement.Overtaxed)
     }
   }
 }

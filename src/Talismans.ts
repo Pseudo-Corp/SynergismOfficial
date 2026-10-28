@@ -1,6 +1,11 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
+import {
+  achievementPoints,
+  awardUngroupedAchievement,
+  getAchievementReward,
+  UngroupedAchievement
+} from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
@@ -2503,7 +2508,7 @@ export const buyTalismanResources = (
       player[`${type}s` as const] = player[`${type}s` as const].add(talismanResourcesData.buyAmount)
     }
     if (type === 'mythicalFragment' && player.mythicalFragments.gte(G.d1e25)) {
-      awardUngroupedAchievement('seeingRed')
+      awardUngroupedAchievement(UngroupedAchievement.SeeingRed)
     }
 
     player.obtainium = player.obtainium.sub(talismanResourcesData.obtainiumCost)

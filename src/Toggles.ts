@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import {
   awardUngroupedAchievement,
+  UngroupedAchievement,
   updateAllGroupedAchievementProgress,
   updateAllProgressiveAchievementProgress,
   updateAllUngroupedAchievementProgress
@@ -163,7 +164,7 @@ export const toggleChallenges = (i: number, auto = false) => {
     player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0
     && player.currentChallenge.ascension !== 0
   ) {
-    awardUngroupedAchievement('metaChallenged')
+    awardUngroupedAchievement(UngroupedAchievement.MetaChallenged)
   }
 }
 
@@ -483,7 +484,7 @@ export const toggleAchievementScreen = (indexStr: string) => {
     }
   }
 
-  awardUngroupedAchievement('participationTrophy')
+  awardUngroupedAchievement(UngroupedAchievement.ParticipationTrophy)
 
   updateAllGroupedAchievementProgress()
   updateAllUngroupedAchievementProgress()

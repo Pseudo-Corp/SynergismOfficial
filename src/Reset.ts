@@ -1,10 +1,12 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import {
+  AchievementGroup,
   awardAchievementGroup,
   awardUngroupedAchievement,
   challengeAchievementCheck,
-  getAchievementReward
+  getAchievementReward,
+  UngroupedAchievement
 } from './Achievements'
 import { applyPendingAutoAscendProtocol, printRules, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
@@ -388,7 +390,7 @@ export const updatePrestigeCount = (count: number) => {
   const prestigeToAdd = Math.floor(count * multiplier)
   if (prestigeToAdd > 0) {
     player.prestigeCount += prestigeToAdd
-    awardAchievementGroup('prestigeCount')
+    awardAchievementGroup(AchievementGroup.PrestigeCount)
   }
 }
 
@@ -400,7 +402,7 @@ export const updateTranscensionCount = (count: number) => {
   const transcendToAdd = Math.floor(count * multiplier)
   if (transcendToAdd > 0) {
     player.transcendCount += transcendToAdd
-    awardAchievementGroup('transcensionCount')
+    awardAchievementGroup(AchievementGroup.TranscensionCount)
   }
   if (getAchievementReward('transcendToPrestige')) {
     updatePrestigeCount(transcendToAdd)
@@ -415,7 +417,7 @@ export const updateReincarnationCount = (count: number) => {
   const reincarnationToAdd = Math.floor(count * multiplier)
   if (reincarnationToAdd > 0) {
     player.reincarnationCount += reincarnationToAdd
-    awardAchievementGroup('reincarnationCount')
+    awardAchievementGroup(AchievementGroup.ReincarnationCount)
   }
   if (getAchievementReward('reincarnationToTranscend')) {
     updateTranscensionCount(reincarnationToAdd)
@@ -509,7 +511,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       updateTranscensionCount(1)
     }
 
-    awardAchievementGroup('transcensionCount')
+    awardAchievementGroup(AchievementGroup.TranscensionCount)
 
     player.prestigePoints = new Decimal()
     player.transcendPoints = player.transcendPoints.add(transcendPointGain)
@@ -540,8 +542,8 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   ) {
     // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
 
-    awardAchievementGroup('ascensionCount')
-    awardUngroupedAchievement('ascended')
+    awardAchievementGroup(AchievementGroup.AscensionCount)
+    awardUngroupedAchievement(UngroupedAchievement.Ascended)
 
     const awardReincarnationPoints = !(
       input === 'reincarnationChallenge'
@@ -574,7 +576,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.fourthGeneratedParticles = new Decimal()
     player.fifthGeneratedParticles = new Decimal()
 
-    awardAchievementGroup('reincarnationCount')
+    awardAchievementGroup(AchievementGroup.ReincarnationCount)
 
     player.transcendPoints = new Decimal()
     if (awardReincarnationPoints) {
@@ -614,7 +616,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.stats.talismanShardsThisAscension = new Decimal()
     player.coinsThisAscension = Decimal.fromString('100')
     if (player.challengecompletions[10] > 0) {
-      awardAchievementGroup('ascensionScore')
+      awardAchievementGroup(AchievementGroup.AscensionScore)
     }
     // reset auto challenges
     challengeExit('transcension')
@@ -703,8 +705,8 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     }
 
     calculateObtainium()
-    awardAchievementGroup('ascensionCount')
-    awardUngroupedAchievement('ascended')
+    awardAchievementGroup(AchievementGroup.AscensionCount)
+    awardUngroupedAchievement(UngroupedAchievement.Ascended)
 
     player.ascensionCounterRealReal = 0
     resetCubeRateTracking()
@@ -905,7 +907,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
  * Computes which achievements in 274-280 are achievable given current singularity number
  */
 export const updateSingularityAchievements = (): void => {
-  awardAchievementGroup('singularityCount')
+  awardAchievementGroup(AchievementGroup.SingularityCount)
 }
 
 const updateSingularityMilestoneAwards = (singularityReset = true): void => {

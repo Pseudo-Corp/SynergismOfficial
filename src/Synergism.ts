@@ -22,6 +22,7 @@ import { btoa, DateNow, isMobile, PerformanceNow } from './Utility'
 import { blankGlobals, buildingBaseProduction, Globals as G } from './Variables'
 
 import {
+  AchievementGroup,
   AchievementId,
   achievementPoints,
   awardAchievementGroup,
@@ -35,6 +36,7 @@ import {
   progressiveAchievementKeys,
   resetAchievementCheck,
   syncSteamAchievements,
+  UngroupedAchievement,
   updateAchievementPoints,
   updateAllGroupedAchievementProgress,
   updateAllProgressiveAchievementProgress,
@@ -3067,7 +3069,7 @@ export const resourceGain = (dt: number): void => {
   )
 
   if (player.ascensionCount > 0) {
-    awardAchievementGroup('constant')
+    awardAchievementGroup(AchievementGroup.Constant)
   }
 
   const autoChallengeCompLimit = getShopUpgradeEffects('instantChallenge2', 'unlocked')
@@ -3442,7 +3444,7 @@ export const resetCheck = async (
       if (player.challenge15Exponent >= 1e15) {
         player.unlocks.hepteracts = true
       }
-      awardUngroupedAchievement('sadisticAch')
+      awardUngroupedAchievement(UngroupedAchievement.SadisticAch)
     }
 
     if (
@@ -3645,9 +3647,9 @@ export const updateAll = (): void => {
     revealStuff()
   }
 
-  awardAchievementGroup('antCrumbs')
-  awardUngroupedAchievement('thousandSuns')
-  awardUngroupedAchievement('thousandMoons')
+  awardAchievementGroup(AchievementGroup.AntCrumbs)
+  awardUngroupedAchievement(UngroupedAchievement.ThousandSuns)
+  awardUngroupedAchievement(UngroupedAchievement.ThousandMoons)
 
   // Autobuy "Upgrades" Tab
   autoUpgrades()
@@ -3863,7 +3865,7 @@ export const updateAll = (): void => {
   if (player.cubeUpgrades[49] > 0) {
     const eloGain = calculateImmortalELOGain()
     player.ants.immortalELO += eloGain
-    awardAchievementGroup('sacMult')
+    awardAchievementGroup(AchievementGroup.SacMult)
   }
 
   if (isAutoAscendRunning()) {
@@ -3904,7 +3906,7 @@ export const slowUpdates = (): void => {
 
   buildingAchievementCheck()
   updateAllRuneLevelsFromEXP({ forceAchievementCheck: false })
-  awardAchievementGroup('runeFreeLevel')
+  awardAchievementGroup(AchievementGroup.RuneFreeLevel)
 
   for (const key of periodicProgressiveAchievementKeys) {
     updateProgressiveCache(key)

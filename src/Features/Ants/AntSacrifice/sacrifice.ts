@@ -1,5 +1,10 @@
 import i18next from 'i18next'
-import { awardAchievementGroup, awardUngroupedAchievement } from '../../../Achievements'
+import {
+  AchievementGroup,
+  awardAchievementGroup,
+  awardUngroupedAchievement,
+  UngroupedAchievement
+} from '../../../Achievements'
 import { resetHistoryAdd, type ResetHistoryEntryAntSacrifice } from '../../../History'
 import { AntSacrificeTiers } from '../../../Reset'
 import { player } from '../../../Synergism'
@@ -69,15 +74,15 @@ export const sacrificeAnts = () => {
     player.legendaryFragments = player.legendaryFragments.add(sacRewards.talismanCraftItems.legendaryFragment)
     player.mythicalFragments = player.mythicalFragments.add(sacRewards.talismanCraftItems.mythicalFragment)
   }
-  awardAchievementGroup('sacMult')
+  awardAchievementGroup(AchievementGroup.SacMult)
   // Now we're safe to reset the ants.
   resetAnts(AntSacrificeTiers.sacrifice)
   resetHistoryAdd('ants', historyEntry)
 
   if (player.mythicalFragments.gte(G.d1e25)) {
-    awardUngroupedAchievement('seeingRed')
+    awardUngroupedAchievement(UngroupedAchievement.SeeingRed)
   }
   if (player.currentChallenge.ascension === 14 && player.mythicalFragments.gte(G.d1e11)) {
-    awardUngroupedAchievement('seeingRedNoBlue')
+    awardUngroupedAchievement(UngroupedAchievement.SeeingRedNoBlue)
   }
 }

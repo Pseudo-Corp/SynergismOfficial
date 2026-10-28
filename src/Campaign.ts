@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { awardAchievementGroup } from './Achievements'
+import { AchievementGroup, awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { inheritanceTokens, singularityBonusTokenMult } from './Calculate'
 import { getOcteractUpgradeEffect } from './Octeracts'
@@ -75,7 +75,7 @@ export const updateTokens = () => {
     + getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
     + getOcteractUpgradeEffect('octeractBonusTokens4', 'initialTokenBonus')
   campaignTokens = Math.floor(tokens * tokenMultiplier())
-  awardAchievementGroup('campaignTokens')
+  awardAchievementGroup(AchievementGroup.CampaignTokens)
 }
 
 export const earnCampaignTokens = (level: number, c10Completions: number) => {

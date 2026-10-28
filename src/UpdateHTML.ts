@@ -2,14 +2,15 @@ import Decimal from 'break_infinity.js'
 import fitty, { type FittyInstance } from 'fitty'
 import i18next from 'i18next'
 import {
-  type AchievementGroups,
   AchievementId,
   getAchievementReward,
-  groupedAchievementData,
+  groupedAchievementElementIds,
+  groupedAchievements,
+  progressiveAchievementElementIds,
   progressiveAchievementKeys,
   progressiveAchievements,
-  ungroupedAchievementData,
-  ungroupedAchievementKeys
+  ungroupedAchievementElementIds,
+  ungroupedAchievements
 } from './Achievements'
 import { isAutoAscendRunning, isAutoAscendUnlocked } from './AutoAscension'
 import {
@@ -233,6 +234,14 @@ const updateChallengeProgress = () => {
   }
 }
 
+const setAchievementIconDisplay = (elementId: string, shouldDisplay: boolean) => {
+  const img = DOMCacheGetOrSet(elementId)
+  img.style.display = shouldDisplay ? 'block' : 'none'
+  if (img.parentElement) {
+    img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+  }
+}
+
 export const revealStuff = () => {
   document.documentElement.dataset.coinOne = player.unlocks.coinone ? 'true' : 'false'
   document.documentElement.dataset.coinTwo = player.unlocks.cointwo ? 'true' : 'false'
@@ -340,38 +349,26 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.autoTranscend = player.upgrades[89] === 1 ? 'true' : 'false'
 
-  for (const groupedAch of Object.keys(groupedAchievementData) as (Exclude<AchievementGroups, 'ungrouped'>)[]) {
-    const capitalizedName = groupedAch.charAt(0).toUpperCase() + groupedAch.slice(1)
-    const img = DOMCacheGetOrSet(`achievementGroup${capitalizedName}`)
-    const shouldDisplay = groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0
-
-    img.style.display = shouldDisplay ? 'block' : 'none'
-    if (img.parentElement) {
-      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
-    }
+  const showAllAchievements = player.highestSingularityCount > 0
+  for (let group = 0; group < groupedAchievements.length; group++) {
+    setAchievementIconDisplay(
+      groupedAchievementElementIds[group],
+      showAllAchievements || groupedAchievements[group].displayCondition()
+    )
   }
 
-  for (const ungroupedAch of ungroupedAchievementKeys) {
-    const capitalizedName = ungroupedAch.charAt(0).toUpperCase() + ungroupedAch.slice(1)
-    const img = DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`)
-    const shouldDisplay = ungroupedAchievementData[ungroupedAch].displayCondition()
-      || player.highestSingularityCount > 0
-
-    img.style.display = shouldDisplay ? 'block' : 'none'
-    if (img.parentElement) {
-      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
-    }
+  for (let ungrouped = 0; ungrouped < ungroupedAchievements.length; ungrouped++) {
+    setAchievementIconDisplay(
+      ungroupedAchievementElementIds[ungrouped],
+      showAllAchievements || ungroupedAchievements[ungrouped].displayCondition()
+    )
   }
 
   for (const progAch of progressiveAchievementKeys) {
-    const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
-    const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`)
-    const shouldDisplay = progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0
-
-    img.style.display = shouldDisplay ? 'block' : 'none'
-    if (img.parentElement) {
-      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
-    }
+    setAchievementIconDisplay(
+      progressiveAchievementElementIds[progAch],
+      showAllAchievements || progressiveAchievements[progAch].displayCondition()
+    )
   }
 
   for (const rune of runesKeys) {

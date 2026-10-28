@@ -1,4 +1,4 @@
-import { awardAchievementGroup, getAchievementReward } from '../../../../Achievements'
+import { AchievementGroup, awardAchievementGroup, getAchievementReward } from '../../../../Achievements'
 import { AntSacrificeTiers, updateReincarnationCount } from '../../../../Reset'
 import { player } from '../../../../Synergism'
 import { sacrificeCountHTML } from '../../HTML/updates/sacrifice'
@@ -25,7 +25,7 @@ export const resetPlayerAntSacrificeCounts = (resetTier: AntSacrificeTiers) => {
     if (getAchievementReward('antSacrificeToReincarnation')) {
       updateReincarnationCount(sacrificeAdd)
     }
-    awardAchievementGroup('sacCount')
+    awardAchievementGroup(AchievementGroup.SacCount)
   }
 
   // If you reset the game
