@@ -6206,7 +6206,7 @@
     "costTesseracts": "花费：{{tesseracts}}超立方",
     "autoTesseract": "自动购买至少保留{{tesseracts}}超立方[在上方输入设置数值]。",
     "autoAscensionTesseract": "飞升时，自动购买至少保留{{percent}}%超立方[在上方输入设置数值]。",
-    "excessiveWealth": "由于您的财富过多，需要减少<<gold|{{div}}>>的金币产量用于缴税！<br> {{- warning}}",
+    "excessiveWealth": "由于您的财富过多，金币产量除以<<gold|{{div}}>>用于缴税！<br> {{- warning}}",
     "constantHover": "选择图标可以获得升级描述。"
   },
   "octeract": {
