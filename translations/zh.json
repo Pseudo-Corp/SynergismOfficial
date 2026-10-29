@@ -273,7 +273,7 @@
       },
       "ambrosiaBrickOfLead": {
         "name": "铅砖",
-        "description": "我总将它藏在帽子里。它每级会降低你 2% 的神肴进度条点数生成速度，但作为补偿，它会赐予你神肴之运！同时，它每级还会使全局速度、拔擢速度和奇点速度减慢 1%。 <<lightgoldenrodyellow| <i>这东西对某个特定的拔擢或许大有裨益…… </i> >>",
+        "description": "我总将它藏在帽子里。它每级会降低你 2% 的神肴进度条点数生成速度，但作为补偿，它会赐予你神肴之运！同时，它每级还会使全局速度、飞升的速度和奇点速度减慢 1%。 <<lightgoldenrodyellow| <i>这东西对某个特定的拔擢或许大有裨益…… </i> >>",
         "effect": "神肴进度条点数需求×{{blueberryGen}}，神肴之运增加{{luckMult}}。全局速度、飞升的速度和奇点速度×{{singularitySpeed}}"
       },
       "ambrosiaFreeLuckUpgrades": {
