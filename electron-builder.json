@@ -55,6 +55,7 @@
     ],
     "icon": "Pictures/icon.icns",
     "category": "public.app-category.games",
+    "hardenedRuntime": false,
     "artifactName": "${productName}-${os}-${arch}.${ext}",
     "extraResources": [
       { "from": "steamworks_sdk/redistributable_bin/osx", "to": "steamworks_sdk/redistributable_bin/osx" }

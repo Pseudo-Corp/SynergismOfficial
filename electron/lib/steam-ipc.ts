@@ -127,12 +127,11 @@ export function initializeSteam (): boolean {
 }
 
 export function enableSteamOverlay () {
-  // The library's mirror window caps the game at 30 fps and stutters, so only macOS uses it.
-  // https://github.com/ArtyProf/steamworks-ffi-node/issues/64
-  // https://github.com/ArtyProf/steamworks-ffi-node/issues/57
   if (process.platform === 'darwin') {
     app.on('browser-window-created', (_, window) => {
-      steamClient?.addElectronSteamOverlay(window)
+      if (steamClient?.addElectronSteamOverlay(window)) {
+        window.webContents.endFrameSubscription()
+      }
     })
     return
   }
