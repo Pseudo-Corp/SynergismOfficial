@@ -203,7 +203,7 @@
       },
       "ambrosiaHyperflux": {
         "name": "惊奇方盒终极工业生产",
-        "description": "Platonic升级4x4每有1级，每级该升级就可以使所有3-7阶方盒和立方获取数量增加1%(效果叠乘！！！)",
+        "description": "Platonic方盒升级4x4每有1级，每级该升级就可以使所有3-7阶方盒和立方获取数量增加1%(效果叠乘！！！)",
         "effect": "该模块使(3-7阶)的方盒、立方和方块获取数量增加{{amount}}%！"
       },
       "ambrosiaBaseObtainium1": {
@@ -273,8 +273,8 @@
       },
       "ambrosiaBrickOfLead": {
         "name": "铅砖",
-        "description": "我总将它藏在帽子里。它每级会降低你 2% 的神肴进度条点数生成速度，但作为补偿，它会赐予你神肴之运！同时，它每级还会使全局速度、拔擢速度和奇点速度减慢 1%。 <<lightgoldenrodyellow| <i>这东西对某个特定的拔擢或许大有裨益…… </i> >>",
-        "effect": "神肴进度条需求x{{blueberryGen}}，神肴之运增加{{luckMult}}。全局、飞升、奇点速度x{{singularitySpeed}}"
+        "description": "我总将它藏在帽子里。它每级会使神肴进度条点数生成速度降低2%，但作为补偿，您可以获得神肴之运！同时，它每级还会使全局速度、飞升的速度和奇点速度减慢1%。 <<lightgoldenrodyellow| <i>这东西对某个特定的拔擢或许大有裨益…… </i> >>",
+        "effect": "神肴进度条点数需求×{{blueberryGen}}，神肴之运增加{{luckMult}}。全局速度、飞升的速度和奇点速度×{{singularitySpeed}}"
       },
       "ambrosiaFreeLuckUpgrades": {
         "name": "绿而再绿的神肴绿草",
@@ -725,7 +725,7 @@
       "sections": {
         "intro": "介绍",
         "reactor": "紫色恩卡布器升级",
-        "honeyPower": "紫蜜加成升级",
+        "honeyPower": "紫蜜之力升级",
         "resources": "资源升级",
         "miscellaneous": "杂项"
       },
@@ -734,7 +734,7 @@
         "halfLife": "恩卡布器速度",
         "efficiency": "效率",
         "honeyLuck": "紫蜜之运",
-        "requirementReduction": "减少紫色进度条点数上限",
+        "requirementReduction": "减少紫进度条点数上限",
         "lifetimeHoneyBonuses": "紫蜜总数加成"
       },
       "level": "{{current}}/{{max}}",
@@ -793,8 +793,8 @@
       "purpleHalfLife1": {
         "name": "纯天然有机催化剂 I",
         "flavor": "不含任何化学物质！",
-        "effectNotMaxed": "恩卡布器速度 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
-        "effectMaxed": "恩卡布器速度 <<gold|+{{maxValue}}>>。"
+        "effectNotMaxed": "使恩卡布器速度 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
+        "effectMaxed": "使恩卡布器速度 <<gold|+{{maxValue}}>>。"
       },
       "purpleHalfLife2": {
         "name": "纯天然有机催化剂 II",
@@ -811,112 +811,112 @@
       "paperweight": {
         "name": "是成就点数镇纸，老兄",
         "flavor": "真的镇不住纸。",
-        "effectNotMaxed": "This paperweight does nothing, except give you a little AP.",
-        "effectMaxed": "Yup. Still nothing but AP."
+        "effectNotMaxed": "镇纸除了给您成就点数以外，什么用都没有。",
+        "effectMaxed": "嗯。只有成就点数。"
       },
       "purpleCapacityExpander1": {
-        "name": "Reactant Storage Expansion I",
-        "flavor": "More storage means potentially more Purple Honey creation!",
-        "effectNotMaxedAmbrosia": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Ambrosia Bar Point storage capacity.",
-        "effectNotMaxedRed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Red Bar Point storage capacity.",
-        "effectMaxedAmbrosia": "<<gold|+{{maxValue}}>> Ambrosia Bar Point storage capacity.",
-        "effectMaxedRed": "<<gold|+{{maxValue}}>> Red Bar Point storage capacity."
+        "name": "反应物存储延展 I",
+        "flavor": "存储空间越大，就越有可能获得更多紫蜜！",
+        "effectNotMaxedAmbrosia": "使神肴进度条点数存储上限 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
+        "effectNotMaxedRed": "使红进度条点数存储上限 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>。",
+        "effectMaxedAmbrosia": "使神肴进度条点数存储上限 <<gold|+{{maxValue}}>>。",
+        "effectMaxedRed": "使红进度条点数存储上限 <<gold|+{{maxValue}}>>。"
       },
       "purpleCapacityExpander2": {
-        "name": "Reactant Storage Expansion II",
-        "flavor": "Storage does grow on trees!"
+        "name": "反应物存储延展 II",
+        "flavor": "存储空间还真能从树上长出来！"
       },
       "purpleCapacityExpander3": {
-        "name": "Reactant Storage Expansion III",
-        "flavor": "You gotta spend Honey to make (more) Honey."
+        "name": "反应物存储延展 III",
+        "flavor": "欲先取之，必先予之，对紫蜜也适用。"
       },
       "purpleCapacityExpander4": {
-        "name": "Reactant Storage Expansion IV",
-        "flavor": "It's questionable how much more space your Encabulator can take."
+        "name": "反应物存储延展 IV",
+        "flavor": "恩卡布器到底能占据多少空间，实在难以确定。"
       },
       "purpleHoneyRequirementReduction1": {
-        "name": "Purple Bar Size Reduction I",
-        "flavor": "Making the bar shorter makes it fill faster? Why aren't we funding this?",
-        "effectNotMaxed": "<<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> Purple Bar Points required to fill the Purple bar.",
-        "effectMaxed": "<<gold|{{maxPercent}}>> Purple Bar Points required to fill the Purple bar."
+        "name": "减少紫进度条点数上限 I",
+        "flavor": "进度条越短就越快充满？这个项目我们投了！",
+        "effectNotMaxed": "使紫进度条点数需求 <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>>。",
+        "effectMaxed": "使紫进度条点数需求 <<gold|{{maxPercent}}>>。"
       },
       "purpleHoneyRequirementReduction2": {
-        "name": "Purple Bar Size Reduction II",
-        "flavor": "More Purple, less wait."
+        "name": "减少紫进度条点数上限 II",
+        "flavor": "更多紫色，更少等待。"
       },
       "purpleHoneyRequirementReduction3": {
-        "name": "Purple Bar Size Reduction III",
-        "flavor": "Is the Purple Bar getting smaller, or am I just getting larger?"
+        "name": "减少紫进度条点数上限 III",
+        "flavor": "是紫进度条变短了，还是我变大了？"
       },
       "purpleHoneyRequirementReduction4": {
-        "name": "Purple Bar Size Reduction IV",
-        "flavor": "Bend space, but not time, to make the Purple Bar fill up faster."
+        "name": "减少紫进度条点数上限 IV",
+        "flavor": "只扭曲空间，不动时间，让紫进度条更快充满。"
       },
       "obtainium": {
-        "name": "Obtainium Purpling",
-        "flavor": "Let me shift the hue down a bit for you.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Obtainium.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Obtainium."
+        "name": "紫化难得素",
+        "flavor": "我来帮你把色相调低一点。",
+        "effectNotMaxed": "使难得素获取数量 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>。",
+        "effectMaxed": "使难得素获取数量 <<gold|+{{maxPercent}}>>。"
       },
       "offerings": {
-        "name": "Offerings but Purple",
-        "flavor": "They're Purple for an amazing reason!",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Offerings.",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Offerings."
+        "name": "祭品，但是紫色",
+        "flavor": "它们之所以呈紫色，原因令人惊叹！",
+        "effectNotMaxed": "使祭品获取数量 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>。",
+        "effectMaxed": "使祭品获取数量 <<gold|+{{maxPercent}}>>。"
       },
       "lifetimeHoneyQuarks": {
-        "name": "Honey Power: Quarks",
-        "flavor": "Oh, honey honey!",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Quarks",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Quarks, from your Lifetime Honey stat."
+        "name": "紫蜜之力：夸克",
+        "flavor": "哦，亲爱的蜂蜜！",
+        "effectNotMaxed": "使夸克获取数量 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使夸克获取数量 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyGlobalSpeed": {
-        "name": "Honey Power: Global Speed",
-        "flavor": "We're not going faster, the Earth is just spinning without us.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Global Speed",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Global Speed, from your Lifetime Honey stat."
+        "name": "紫蜜之力：全局速度",
+        "flavor": "我们并未加速，只是地球在独自旋转，没带上我们。",
+        "effectNotMaxed": "使全局速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使全局速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyAscensionSpeed": {
-        "name": "Honey Power: Ascension Speed",
-        "flavor": "The flavor of this Honey is ascendent.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ascension Speed",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ascension Speed, from your Lifetime Honey stat."
+        "name": "紫蜜之力：飞升的速度",
+        "flavor": "这种紫蜜的味道十分出众。",
+        "effectNotMaxed": "使飞升的速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使飞升的速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyAmbrosia": {
-        "name": "Honey Power: Ambrosia",
-        "flavor": "Lathering your Ambrosia with Honey is like putting bacon on your hotdog.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ambrosia Bar Points",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ambrosia Bar Points, from your Lifetime Honey stat."
+        "name": "紫蜜之力：神肴",
+        "flavor": "紫蜜和神肴，就像豆浆油条一样绝配。",
+        "effectNotMaxed": "使神肴进度条点数获取速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使神肴进度条点数获取速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyRedAmbrosia": {
-        "name": "Honey Power: Red Ambrosia",
-        "flavor": "Lathering your Red Ambrosia with Honey is like putting red bacon on your red hotdog. Wait.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Red Bar Points",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Red Bar Points, from your Lifetime Honey stat."
+        "name": "紫蜜之力：红神肴",
+        "flavor": "紫蜜和红神肴，就像红豆浆和红油条……等等，不对。",
+        "effectNotMaxed": "使红进度条点数获取速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使红进度条点数获取速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyAntELO": {
-        "name": "Honey Power: Ant ELO",
-        "flavor": "Honey attracts Ants better than your Galactic Crumbs do.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Ant ELO",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Ant ELO, from your Lifetime Honey stat."
+        "name": "紫蜜之力：蚂蚁强度分",
+        "flavor": "紫蜜比银河碎屑还能吸引蚂蚁。",
+        "effectNotMaxed": "使蚂蚁强度分 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使蚂蚁强度分 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "lifetimeHoneyRebornELOSpeed": {
-        "name": "Honey Power: Reborn ELO Speed",
-        "flavor": "Too much honey will have you catching up to Ant God quicker.",
-        "effectNotMaxed": "<<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>> Reborn ELO Speed",
-        "effectMaxed": "<<gold|+{{maxPercent}}>> Reborn ELO Speed, from your Lifetime Honey stat."
+        "name": "紫蜜之力：重生强度分的产生速度",
+        "flavor": "吃多一些紫蜜，就能更快追上蚁神。",
+        "effectNotMaxed": "使重生强度分的产生速度 <<silver|+{{oldPercent}} →>> <<gold|+{{newPercent}}>>",
+        "effectMaxed": "使重生强度分的产生速度 <<gold|+{{maxPercent}}>>，数值受紫蜜总数影响。"
       },
       "purpleQuarkGain": {
-        "name": "Lab-Grown Quarks",
-        "flavor": "Looks, feels, tastes and <i>is</i> just like a Quark.",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Quarks per extracted Purple Honey",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Quarks per extracted Purple Honey",
-        "disclaimer": "<<gold | ⚠>> This perk only works if your current Singularity is at least 1 hour long, and you are not in the 'Bar Charging' EXALT! The lab takes some time warming up, after all."
+        "name": "实验室培育的夸克",
+        "flavor": "外观、触感、味道乃至<i>本质</i>，都是夸克。",
+        "effectNotMaxed": "每次提取紫蜜时 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>夸克",
+        "effectMaxed": "每次提取紫蜜时 <<gold|+{{maxValue}}>>夸克",
+        "disclaimer": "<<gold | ⚠>>该加成只有在当前奇点至少持续1个小时，且并未进行“填充进度条”拔擢时生效！实验室预热毕竟是需要一些时间的。"
       }
     }
   },
   "achievements": {
-    "showProgressDetails": "Show achievement progress details",
+    "showProgressDetails": "显示成就进度详情",
     "descriptions": {
       "0": "成就猎人: 打开成就界面。",
       "1": "一个忠实的雇员：雇佣第1个工人。",
@@ -1977,7 +1977,7 @@
         "wowHepteractGain": "使惊奇七阶立方获取数量变为原来的num:((1.1))倍"
       },
       "259": {
-        "cubesBanked": "Banked Cubes based on Abyss Hepteract expansions [+num:((50)) per expansion]"
+        "cubesBanked": "使方盒库的数量根据惊奇七阶立方·深渊的延展次数增加 [每次延展增加num:((50))]"
       },
       "260": {
         "ascensionCountMultiplier": "飞升次数变为原来的num:((1.1))倍"
@@ -2001,7 +2001,7 @@
         "quarkGain": "基于飞升次数的夸克获取数量倍率[在num:((1e15))次飞升时达到上限num:((1.1))倍]"
       },
       "267": {
-        "cubesBanked": "Banked Cubes based on Constant [+1 per num:((50)) Constant exponent, up to +num:((2000))]"
+        "cubesBanked": "使方盒库的数量根据数学常数增加 [数学常数的指数每有num:((50))就增加1，最高增加num:((2000))]"
       },
       "270": {
         "wowHepteractGain": "根据数学常数的惊奇七阶立方获取数量倍率[在num:((1e1000000))数学常数时达到上限2倍]",
@@ -2121,7 +2121,7 @@
       },
       "467": {
         "reincarnationCountMultiplier": "转世次数每有一个数量级，就使转世次数获取数量增加100%(效果相互叠加)！",
-        "obtainiumTimerMultiplier": "Gain +100% more Obtainium every 10 seconds in your current Reincarnation, increasing continuously!"
+        "obtainiumTimerMultiplier": "本次转世每经过10秒，难得素获取数量就增加100%，它会持续增长下去！"
       },
       "468": {
         "obtainiumBonus": "转世次数每有一个数量级，就使难得素获取数量增加2%(效果相互叠加)！"
@@ -2416,7 +2416,7 @@
       "wowHypercubeGain": "• 使惊奇五阶立方获取数量变为原来的{{val}}倍",
       "wowPlatonicGain": "• 使PLATONIC方盒获取数量变为原来的{{val}}倍",
       "wowHepteractGain": "• 使惊奇七阶立方获取数量变为原来的{{val}}倍",
-      "cubesBanked": "• Banked Cubes +{{val}}",
+      "cubesBanked": "• 使方盒库的数量增加{{val}}",
       "ascensionRewardScaling": "• 飞升奖励增长{{unlock}}",
       "constUpgrade1Buff": "• 数学常数升级1的效果增加{{val}}",
       "constUpgrade2Buff": "• 数学常数升级2的效果增加{{val}}",
@@ -2429,7 +2429,7 @@
       "overfluxConversionRate": "• 超通量粉转换效率变为原来的{{val}}倍"
     },
     "levelPreview": {
-      "levelsUntilUnlock": "Unlocks in <<gold|{{count}}>> more Synergism Levels."
+      "levelsUntilUnlock": "协同效应等级再增加<<gold|{{count}}>>级后解锁。"
     },
     "levelRewards": {
       "minLevel": "最低需求等级：{{level}}",
@@ -2500,14 +2500,14 @@
         "effect": "当前效果：红运增加{{luck}}"
       },
       "redAmbrosiaGeneration": {
-        "name": "Red Ambrosia Generation",
-        "description": "For each level past 279, gain +1% Red Bar Point production! I like stats with symbols next to them.",
-        "effect": "Current Effect: +{{percent}} Red Ambrosia Generation"
+        "name": "产生红神肴",
+        "description": "当协同效应等级超过279级以后，超出部分每级使红进度条点数获取速度增加1%！我喜欢有符号的数据。",
+        "effect": "当前效果：红进度条点数获取速度增加{{percent}}"
       },
       "purpleHoneyLuck": {
-        "name": "Purple Honey Luck",
-        "description": "For each level past 299, gain +1 Purple Honey Luck!",
-        "effect": "Current Effect: +{{luck}} Purple Honey Luck"
+        "name": "紫蜜之运",
+        "description": "当协同效应等级超过299级以后，超出部分每级获得1紫蜜之运！",
+        "effect": "当前效果：紫蜜之运增加{{luck}}"
       }
     },
     "levelMilestones": {
@@ -2624,9 +2624,9 @@
         "apSource": "在num:((25000))级之前，每有250级免费等级，就获得1成就点数。<br>num:((25000))级至num:((150000))级之间，每有750级免费等级，就获得1成就点数。<br>num:((150000))级至num:((500000))级之间，每有num:((2500))级免费等级，就获得1成就点数。"
       },
       "quarkUpgrades": {
-        "name": "Progressive Achievement - Quark Upgrades",
-        "description": "Gain AP for each Quark upgrade you've maxxed!",
-        "apSource": "For each upgrade leveled to the max: +4 AP"
+        "name": "递进式成就 - 夸克升级",
+        "description": "根据满级的夸克升级数量获得成就点数！",
+        "apSource": "只要相应升级的等级达到了等级上限，则获得4成就点数。"
       },
       "antMasteries": {
         "name": "递进式成就 - 蚂蚁专精",
@@ -2656,7 +2656,7 @@
       "exalts": {
         "name": "递进式成就 - 拔擢阶层完成数",
         "description": "每次完成拔擢都可以获得成就点数！",
-        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>有限飞升挑战：{{num3}}/{{cap3}}成就点数<br>无夸克升级：{{num4}}/{{cap4}}成就点数<br>无八阶方块效果：{{num5}}/{{cap5}}成就点数<br>无神肴升级：{{num6}}/{{cap6}}成就点数<br>奇点大竞速赛：{{num7}}/{{cap7}}成就点数<br>虐待狂拔擢 III：{{num8}}/{{cap8}}成就点数<br>税务官的最后阵地：{{num9}}/{{cap9}}成就点数<br>填充进度条：{{num10}}/{{cap10}}成就点数"
+        "apSource": "无金夸克升级：{{num1}}/{{cap1}}成就点数<br>挑战上限恒为一：{{num2}}/{{cap2}}成就点数<br>有限飞升挑战：{{num3}}/{{cap3}}成就点数<br>无夸克升级：{{num4}}/{{cap4}}成就点数<br>无八阶方块效果：{{num5}}/{{cap5}}成就点数<br>无神肴升级：{{num6}}/{{cap6}}成就点数<br>奇点竞速大赛：{{num7}}/{{cap7}}成就点数<br>虐待狂拔擢 III：{{num8}}/{{cap8}}成就点数<br>税务官的最后阵地：{{num9}}/{{cap9}}成就点数<br>填充进度条：{{num10}}/{{cap10}}成就点数"
       },
       "singularityUpgrades": {
         "name": "递进式成就 - 金夸克升级",
@@ -2679,14 +2679,14 @@
         "apSource": "每个稀有度获得5成就点数。护身符解锁后稀有度至少为1。"
       },
       "purpleHoneyUpgrades": {
-        "name": "Progressive Achievement - Purple Honey Upgrades",
-        "description": "Gain various AP for each Purple Honey upgrade maxxed, or levels purchased!",
-        "apSource": "Check out <i>The Purple</i> Subtab in Singularity for more info. AP is rounded down."
+        "name": "递进式成就 - 紫蜜升级",
+        "description": "根据满级或者相应等级的紫蜜升级数量获得成就点数！",
+        "apSource": "查看奇点的<i>紫色</i>子面板，了解更多信息。成就点数向下取整。"
       },
       "purpleAmbrosiaUpgrades": {
         "name": "递进式成就 - 紫神肴升级",
-        "description": "Gain AP from Synthesis Upgrades, Purple Ambrosia Upgrades, and Purple Enchantments!",
-        "apSource": "Synthesis Upgrades: up to +50 AP per upgrade as levels are purchased.<br>Purple Ambrosia Upgrades: +12 AP per maxxed upgrade.<br>Purple Enchantments (Blueberry Modules): +5 AP per maxxed enchantment."
+        "description": "通过合成升级、紫神肴升级和紫神肴附魔获得成就点数！",
+        "apSource": "合成升级：每个升级最多增加50成就点数，随等级增加。<br>紫神肴升级：每个满级升级增加12成就点数。<br>紫神肴附魔(蓝莓模块)：每个满级附魔增加5成就点数。"
       }
     },
     "alerts": {
@@ -2698,13 +2698,13 @@
     "ungroupedExtraRewards": "这个成就拥有额外奖励！",
     "totalPoints": "成就点数：{{x}}/{{y}} [{{z}}%]",
     "achievementPoints": "您有{{x}}成就点数！",
-    "achievementPointsMobile": "Achievement Points (AP): {{x}}",
+    "achievementPointsMobile": "成就点数：{{x}}",
     "rewardGainMessage": "奖励：{{x}}成就点数。{{y}}夸克！{{z}}",
     "completed": "已完成！",
     "notification": "您解锁了成就：{{m}}",
     "quarkBonus": "每500成就点数使夸克获取数量增加0.01倍！目前夸克倍率：<<cyan|{{multiplier}}倍>>",
     "achievementLevel": "基于成就点数，您目前的协同效应为<span class=\"rainbowText\">{{level}}</span>级",
-    "achievementLevelMobile": "Synergism Level <span class=\"rainbowText\">{{level}}</span>",
+    "achievementLevelMobile": "协同效应<span class=\"rainbowText\">{{level}}</span>级",
     "achievementToNextLevel": "需要{{AP}}成就点数才能达到{{level}}级",
     "levelUpNotification": "升级了！协同效应等级从{{old}}提升为{{new}}",
     "complete": "&nbsp;&nbsp;第{{tier}}阶(已完成)",
@@ -2712,14 +2712,14 @@
   },
   "reset": {
     "buttonLabels": {
-      "prestige": "Prestige",
-      "transcension": "Transcend",
-      "reincarnation": "Reincarnate",
-      "transcensionChallenge": "Exit Challenge",
-      "reincarnationChallenge": "Exit Reincarnation Challenge",
-      "ascensionChallenge": "Exit Ascension Challenge",
-      "ascension": "Ascend",
-      "singularity": "Enter the Singularity"
+      "prestige": "转生",
+      "transcension": "超越",
+      "reincarnation": "转世",
+      "transcensionChallenge": "退出挑战",
+      "reincarnationChallenge": "退出转世挑战",
+      "ascensionChallenge": "退出飞升挑战",
+      "ascension": "飞升",
+      "singularity": "进入奇点"
     },
     "details": {
       "prestige": "重置金币、金币生产者、金币升级、水晶，获得钻石和一些祭品。需要：{{amount}}/num:((1e16))金币 || 花费时间：{{timeSpent}}秒。",
@@ -2741,14 +2741,14 @@
       "singularity": "您愿意放弃目前的一切荣耀，踏上更大挑战的征途吗？蚁神将赐予您{{gqAmount}}金夸克。花费时间：{{timeSpent}}秒。"
     },
     "challengeProgress": {
-      "line": "{{check}} $t({{name}}) ({{comps}}/{{maxComps}}): <<gold|{{amount}}>> / <<gold|{{required}}>> {{resource}}",
-      "challenge15Line": "$t({{name}}): <<gold|{{score}}>> Score (<<gold|{{current}}>>/<<gold|{{required}}>> Coins)",
-      "challenge15ProjectedLine": "$t({{name}}): <<gold|{{score}}>> → <<gold|{{projectedScore}}>> Score",
-      "challenge15AutoLine": "$t({{name}}): <<gold|{{score}}>> Score",
+      "line": "{{check}}$t({{name}})({{comps}}/{{maxComps}})：<<gold|{{amount}}>> / <<gold|{{required}}>>{{resource}}",
+      "challenge15Line": "$t({{name}})：<<gold|{{score}}>>分(<<gold|{{current}}>>/<<gold|{{required}}>>金币)",
+      "challenge15ProjectedLine": "$t({{name}})：<<gold|{{score}}>> → <<gold|{{projectedScore}}>> 分",
+      "challenge15AutoLine": "$t({{name}})：<<gold|{{score}}>>分",
       "resources": {
-        "coins": "Coins",
-        "transcendShards": "Mythos Shards",
-        "challenge10Completions": "Challenge 10 Completions"
+        "coins": "金币",
+        "transcendShards": "神话碎片",
+        "challenge10Completions": "挑战10完成次数"
       }
     }
   },
@@ -3183,7 +3183,7 @@
   "challenges": {
     "1": {
       "name": "无加倍器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Multipliers Challenge",
+      "progressName": "无加倍器挑战",
       "flavor": "加倍器让游戏的进度有点太快了。它们可以走了！",
       "restrictions": "立即超越，需要达到目标，但加倍器将视为加速器。<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 加速器效果也减少了。且随着挑战完成次数增加，减少的数值还会继续增加！<br>☆ 加倍器会提供与加速器效果相同的金币产量加成。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
@@ -3202,7 +3202,7 @@
     },
     "2": {
       "name": "无加速器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Accelerators Challenge",
+      "progressName": "无加速器挑战",
       "flavor": "加速器？谁要就拿去，不过是无用之物而已。",
       "restrictions": "立即超越，需要达到目标，但加速器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果降至<<gold|num:((1.25))>>，且加倍器加成的效果降至<<gold|+num:((0.0012))>>。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
@@ -3221,7 +3221,7 @@
     },
     "3": {
       "name": "无碎片挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Shards Challenge",
+      "progressName": "无碎片挑战",
       "flavor": "很好，您是不是在想，我还能玩出什么花样来？",
       "restrictions": "立即超越，需要达到目标，但您无法产生水晶或神话碎片。<br>☆ 炼油厂不产生水晶。<br>☆ 强化不产生神话碎片。<br>☆ 加速器效果超过1时，减少<<gold|50%>>。",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
@@ -3240,9 +3240,9 @@
     },
     "4": {
       "name": "花费增加挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Cost+ Challenge",
+      "progressName": "花费增加挑战",
       "flavor": "您腰包越来越鼓了。但，没有通货膨胀？您想多了！",
-      "restrictions": "立即超越，需要达到目标，但金币和钻石建筑，加速器和加倍器的花费变得更高。<br>☆ 金币建筑和钻石建筑的建造力除以<<gold|num:((2))>>。<br>☆ 加速器和加倍器的花费分别在<<gold|num:((25))>>和<<gold|num:((15))>>次购买后，开始以超指数速度增长！",
+      "restrictions": "立即超越，需要达到目标，但金币和钻石建筑，加速器和加倍器的花费变得更高。<br>☆ 金币建筑和钻石建筑的建造力除以<<gold|num:((2))>>。<br>☆ 加速器和加倍器的花费分别在<<gold|num:((25))>>和<<gold|num:((15))>>次购买后，开始以平方速度增长",
       "goal": "目标：在挑战中达到 {{value}} 金币。",
       "per": {
         "1": "加速器花费增长减缓5次购买。当前效果：",
@@ -3259,7 +3259,7 @@
     },
     "5": {
       "name": "钻石减少挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Reduced Diamonds Challenge",
+      "progressName": "钻石减少挑战",
       "flavor": "您想过钻石是怎么来的吗？",
       "restrictions": "立即超越，需要达到目标，但转生时获得的钻石数量大幅度减少！<br>☆ 钻石获取数量变为<<gold|金币数量^num:((0.01))>>。",
       "goal": "目标：在挑战中达到{{value}}金币。",
@@ -3278,7 +3278,7 @@
     },
     "6": {
       "name": "税收增加挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Higher Tax Challenge",
+      "progressName": "税收增加挑战",
       "flavor": "据说，您最近在转世……税务官如是说",
       "restrictions": "立即转世，需要达到目标，但需要缴纳更多税收！<br>☆ 税负变为原来的 <<gold|3 * (1 + 该挑战完成次数 / 25)^2>> 倍<br>☆ 金币产量除以<<gold|num:((1e250))>>。",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
@@ -3297,7 +3297,7 @@
     },
     "7": {
       "name": "无加倍器/加速器挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Multipliers/Accelerators Challenge",
+      "progressName": "无加倍器/加速器挑战",
       "flavor": "憎恨我，怨恨我，然后，再来到我眼前吧。",
       "restrictions": "立即转世，需要达到目标，但加速器和加倍器将完全失效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 建筑能量超过1时，减少<<gold|95%>>。<br>☆ 金币产量除以<<gold|num:((1e1250))>>。",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
@@ -3316,9 +3316,9 @@
     },
     "8": {
       "name": "花费暴增挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Cost++ Challenge",
+      "progressName": "花费暴增挑战",
       "flavor": "转世了，您以为通货膨胀从此就消失了吗？太天真了。",
-      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Construction is divided by <<gold|num:((5))>> for Coin, Diamond and Mythos Buildings",
+      "restrictions": "立即转世，需要达到目标，但它比花费增加挑战还要难！<br>☆ 加速器和加倍器的价格增长速度<<gold|翻倍>>，并且<<gold|立刻>>以平方速度增长<br>☆ 建筑成本增长也会影响神话建筑！<br>☆ 建筑成本增长速度<<gold|翻倍>><br>☆ 金币建筑、钻石建筑和神话建筑的建造力除以<<gold|num:((5))>>",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
         "1": "基础建筑能量增加num:((0.25))！当前效果：",
@@ -3335,7 +3335,7 @@
     },
     "9": {
       "name": "无符文挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Runes Challenge",
+      "progressName": "无符文挑战",
       "flavor": "我敢打赌，您根本没注意到棱柱符文消失了。",
       "restrictions": "立即转世，需要达到目标，但符文永远只有1级时的效果。<br>☆ 金币产量除以<<gold|num:((1e2000000))>>。您可能需要一些银河碎屑。<br>☆ 作为补偿，税负减少<<pink|num:((99.5))%>>。",
       "goal": "目标：在挑战中达到{{value}}金币。",
@@ -3354,7 +3354,7 @@
     },
     "10": {
       "name": "虐待狂挑战 I || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Sadistic Challenge I",
+      "progressName": "虐待狂挑战 I",
       "flavor": "生而为人，我很抱歉。您在地上看到一张便条：“您可能需要num:((1e300))银河碎屑才能考虑这个挑战。试着献祭蚁丘，掌控蚂蚁，与蚁神合为一体，这样才有机会完成挑战。”",
       "restrictions": "立即转世，需要达到目标，但前五个挑战的限制将混合起来同时生效！<br>☆ 加速器效果常时为<<gold|1>>！<br>☆ 加倍器效果常时为<<gold|1>>！<br>☆ 金币建筑和钻石建筑的限制与花费增加挑战相同。<br>☆ 钻石获取数量变为<<gold| 金币数量^0.0001>>。<br>☆ 神话获取数量变为<<gold| 金币数量^num:((0.001))>>。",
       "goal": "目标：在挑战中达到{{value}}金币。",
@@ -3373,7 +3373,7 @@
     },
     "11": {
       "name": "蚂蚁减少挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Reduced Ants Challenge",
+      "progressName": "蚂蚁减少挑战",
       "flavor": "二十一世纪的蚂蚁大战将所有技艺娴熟的蚂蚁都抹杀了。",
       "restrictions": "需要达到目标，但只有免费蚂蚁升级等级才有效。<br>☆ 在该挑战中，每次完成挑战8，都可以使免费蚂蚁升级等级<<gold|增加3>>。<br>☆ 在该挑战中，每次完成挑战9，都可以使免费蚂蚁升级等级<<gold|增加5>>！",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
@@ -3382,7 +3382,7 @@
         "2": "蚂蚁速度每完成1次变为原来的num:((1e5))倍！当前效果：",
         "3": "使前五个符文的符文升级系数增加1！当前效果："
       },
-      "first": "Unlock 15 Researches, and unlock the ability to open Tesseracts! You also get to 'Corrupt' your game with Corruption levels!",
+      "first": "解锁15个研究，并且可以打开惊奇超立方了！您还可以利用腐化等级使游戏“腐化”！",
       "start": "开始<[(蚂蚁减少挑战)]>",
       "current": {
         "1": "免费蚂蚁等级增加{{value}}",
@@ -3392,7 +3392,7 @@
     },
     "12": {
       "name": "无转世挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Reincarnation Challenge",
+      "progressName": "无转世挑战",
       "flavor": "总之就是不行，别问原因，没有原因。",
       "restrictions": "立即飞升，需要达到目标，但您无法获得粒子，也无法进行转世！<br>☆ 蚂蚁速度变为原来的<<gold|num:((0.75))次方>>。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
@@ -3401,7 +3401,7 @@
         "2": "祭品获取数量增加12%！当前效果：",
         "3": "转世时，转世次数获取数量增加20%！当前效果："
       },
-      "first": "Unlock 15 Researches, and unlock the mystical Spirit Power! Find these in the Runes tab.",
+      "first": "解锁15个研究，以及神秘的魂灵之力！您可以在“符文”选项卡中找到它们。",
       "start": "开始<[(无转世挑战)]>",
       "current": {
         "1": "难得素获取数量增加{{value}}%",
@@ -3411,7 +3411,7 @@
     },
     "13": {
       "name": "税收激增挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "Tax+++ Challenge",
+      "progressName": "税收激增挑战",
       "flavor": "祝您好运，税务局又归来了。",
       "restrictions": "立即飞升，需要达到目标，但税收高得多，且随着挑战的完成次数增加而更高。<br>☆ 蚂蚁速度变为原来的<<gold|num:((0.23))次方>>。<br>☆ 每完成1次任意超越或转世挑战后，税负变为原来的<<gold|num:((1.05))>>倍，但飞升后初始完成的挑战不计入。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
@@ -3420,7 +3420,7 @@
         "2": "护身符等级上限增加6级！当前效果：",
         "3": "魂灵强度增加3%！当前效果："
       },
-      "first": "Unlock 15 Researches, and unlock the power of the Hypercube!",
+      "first": "解锁15个研究，以及五阶立方的力量！",
       "start": "开始<[(税收激增挑战)]>",
       "current": {
         "1": "税负减少{{value}}%",
@@ -3430,7 +3430,7 @@
     },
     "14": {
       "name": "无研究挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
-      "progressName": "No Research Challenge",
+      "progressName": "无研究挑战",
       "flavor": "这个维度没能跨越黑暗时代。很多人甚至不敢越雷池一步。",
       "restrictions": "立即飞升，需要达到目标，但您无法获得难得素，也无法进行研究。<br>☆ 蚂蚁速度变为原来的<<gold|num:((0.2))次方>>。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
@@ -3439,7 +3439,7 @@
         "2": "每个时刻自动购买的研究数量增加1！当前效果： ",
         "3": "使前五个符文的符文升级系数增加num:((1.5))！当前效果："
       },
-      "first": "Unlock 15 Researches, and discover a new type of ideal cube - a Platonic one perhaps?",
+      "first": "解锁15个研究，发现新型的PLATONIC方盒！",
       "start": "开始<[(无研究挑战)]>",
       "current": {
         "1": "效果增加{{value}}%",
@@ -3449,29 +3449,29 @@
     },
     "15": {
       "name": "虐待狂挑战 II",
-      "progressName": "SADISTIC CHALLENGE II",
+      "progressName": "虐待狂挑战 II",
       "flavor": "袖手旁观是人类最大的原罪。",
       "restrictions": {
-        "intro": "Older Synergists lived within much harsher Corruptions than you do. Prove yourself by getting as many Coins as you can, with their devious modifiers!",
+        "intro": "协同前辈们所经历的腐化远比您现在的严酷。在那些阴险的惩罚下，尽可能收集更多金币，证明自己的实力！",
         "modifiers": {
-          "viscosity": "☆ <<orange|Viscosity>>: Free Accelerators and Multipliers are raised to <<gold|^{{value}}>>",
-          "dilation": "☆ <<orange|Time Dilation>>: Global Speed <<gold|×{{value}}>>",
-          "hyperchallenge": "☆ <<orange|The Hyperchallenge Cube>>: Challenge 1-10 requirement exponents <<gold|×{{value}}>>",
-          "illiteracy": "☆ <<orange|Defunded Education>>: Obtainium multipliers are raised to <<gold|^{{value}}>>",
-          "illiteracyImproved": "☆ <<orange|Defunded Education>>: Obtainium multipliers are raised to <<gold|^{{value}}>>, improving up to <<gold|^{{max}}>> as you gain Obtainium",
-          "drought": "☆ <<orange|Drought>>: Salvage for the first five Runes <<gold|{{value}}>>",
-          "recession": "☆ <<orange|Recession>>: Coin gain is raised to <<gold|^{{value}}>>",
-          "recessionImproved": "☆ <<orange|Recession>>: Coin gain is raised to <<gold|^{{value}}>>, improving up to <<gold|^{{max}}>> as you gain Coins",
-          "deflation": "☆ <<orange|Crystal Mine Collapse>>: Diamond gain exponent <<gold|×{{value}}>>",
-          "extinction": "☆ <<orange|The Second Meteor>>: Ant Upgrade levels <<gold|÷{{value}}>>",
-          "spirit": "☆ <<orange|Hearty Spirits>>: Spirit Power <<gold|×{{value}}>><br>(The difficulty of Corruptions gave these players a fighting <i>spirit</i>...)"
+          "viscosity": "☆ <<orange|粘性>>：使免费加速器和加倍器变为原来的<<gold|{{value}}次方>>",
+          "dilation": "☆ <<orange|时间膨胀>>：使全局速度变为原来的<<gold|{{value}}倍>>",
+          "hyperchallenge": "☆ <<orange|极致挑战方盒>>：使挑战1至挑战10的目标指数变为原来的<<gold|{{value}}倍>>",
+          "illiteracy": "☆ <<orange|削减教育经费>>：使难得素获取数量变为原来的<<gold|{{value}}次方>>",
+          "illiteracyImproved": "☆ <<orange|削减教育经费>>：使难得素获取数量变为原来的<<gold|{{value}}次方>>，随着您获得难得素，最高可以变为原来的<<gold|{{max}}次方>>",
+          "drought": "☆ <<orange|干旱>>：使前五个符文的回收 <<gold|{{value}}>>",
+          "recession": "☆ <<orange|衰退>>：使金币产量变为原来的<<gold|{{value}}次方>>",
+          "recessionImproved": "☆ <<orange|衰退>>：使金币产量变为原来的<<gold|{{value}}次方>>，随着您获得金币，最高可以变为原来的<<gold|{{max}}次方>>",
+          "deflation": "☆ <<orange|水晶矿难>>：使钻石获取数量的指数变为原来的<<gold|{{value}}倍>>",
+          "extinction": "☆ <<orange|陨石再临>>：使蚂蚁升级的等级除以<<gold|{{value}}>>",
+          "spirit": "☆ <<orange|魂灵充盈>>：魂灵强度变为原来的<<gold|{{value}}倍>><br>(腐化的难度激发了玩家们的战斗之<i>魂</i>……)"
         },
-        "extraIntro": "Oh, and these modifiers are thrown in too. Just to add a twist. Enjoy!",
+        "extraIntro": "哦，对了，还有下面这些。加点料罢了。尽情享受吧！",
         "extras": {
-          "antSpeed": "☆ Ant Speed <<gold|^num:((0.5))>>",
-          "fortunae": "☆ Fortunae Formicidae effect is multiplied by <<gold|0.0001>>",
-          "tax": "☆ Your Tax burden is reduced by <<pink|num:((99.9995))%>>",
-          "construction": "☆ <<lime|+num:((1.5)) Construction>> per maxed Platonic Upgrade (currently <<lime|+{{value}}>>)"
+          "antSpeed": "☆ 使蚂蚁速度变为原来的<<gold|num:((0.5))次方>>",
+          "fortunae": "☆ 使财富蚁的效果变为原来的<<gold|0.0001>>倍",
+          "tax": "☆ 使税负减少<<pink|num:((99.9995))%>>",
+          "construction": "每个满级的PLATONIC方盒升级使<<lime|建造力增加num:((1.5))>> (当前效果：<<lime|增加{{value}}>>)"
         }
       },
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
@@ -3488,7 +3488,7 @@
         "3": " "
       },
       "noGoal": "没有目标，根据您在此挑战中的最高金币数量获得奖励。",
-      "legend": "Legends say that if you best this Challenge you get a special cube with seven dimensions. They say legends are <i>forged</i>, not born."
+      "legend": "传说，只要能通过这个挑战，就能获得七维的特殊立方。而人们说，传说并非天生就有，而是需要<i>铸就</i>的。"
     },
     "header": "正常游戏是不是已经让您觉得太简单了？试试这些吧！[点击图标以查看挑战详情！]",
     "autoChallengeSweepOn": "自动扫荡挑战[开]",
@@ -3515,7 +3515,7 @@
     "perCompletionBonus": "每次完成奖励",
     "hypercubeOneTimeBonus": "完成挑战后可以获得1个惊奇五阶立方(首次完成奖励)",
     "ascensionBankAdd": "完成挑战后方盒库的数量增加{{x}}。",
-    "ascensionBankMultiply": "Completing the challenge multiplies the Cube Bank by x{{x}}.",
+    "ascensionBankMultiply": "完成该挑战可以使方盒库变为原来的{{x}}倍。",
     "firstTimeBonus": "完成挑战后可以获得{{x}}[首次完成奖励]！",
     "firstTimeBonusQuarks": "完成挑战后可以获得{{x}}夸克[首次完成奖励]！"
   },
@@ -3688,7 +3688,7 @@
       "cost": "花费：{{value1}}惊奇方盒[可提升{{value2}}级]",
       "level": "等级：{{value1}}/{{value2}}",
       "maxLevel": "花费：0惊奇方盒。此升级已满级！真惊奇",
-      "selectUpgrade": "Hover, focus, or tap a Cube Upgrade to view its details."
+      "selectUpgrade": "鼠标停在方盒升级上，或者聚焦方盒升级，或者轻触方盒升级，即可查看详情。"
     },
     "noCubesOpened": "好吧。不开了。",
     "howManyCubesOpen": "您想要开启多少？您目前拥有{{x}}！\n您可以输入想要开启的百分比，例如输入“50%”或“100%”。\n您还可以输入以-开头的数字，意味着保留相应数字不开启，并开启剩下的所有(同样可以使用%格式)。",
@@ -3920,14 +3920,14 @@
     "automaticOff": "自动：关",
     "autoModeCheapest": "自动模式：花费",
     "autoModeManual": "自动模式：手动",
-    "maxedResearchesShow": "Maxed Researches: SHOW",
-    "maxedResearchesHide": "Maxed Researches: HIDE",
+    "maxedResearchesShow": "满级研究：显示",
+    "maxedResearchesHide": "满级研究：隐藏",
     "hoverToBuyOn": "鼠标停留购买[开]",
     "hoverToBuyOff": "鼠标停留购买[关]",
     "hover": "将鼠标停在格子上可获得有关研究的详情！",
     "resets": "到达下一阶的重置时它将重置。",
-    "resetsOnAscension": "Resets upon <<orange|Ascension>>.",
-    "resetsOnSingularity": "Resets upon <span class=\"rainbowText\">Singularity</span>.",
+    "resetsOnAscension": "<<orange|飞升>>时重置。",
+    "resetsOnSingularity": "<span class=\"rainbowText\">进入奇点</span>时重置。",
     "doesNotReset": "永不重置！"
   },
   "shop": {
@@ -3981,9 +3981,9 @@
       "improveQuarkHept3": "您可能会疑惑我为什么不自用，而是选择向您出售。好吧……每级使惊奇七阶立方·夸克的指数增加num:((0.01))！",
       "improveQuarkHept4": "每级使惊奇七阶立方·夸克的指数增加num:((0.01))……您应该知道10的num:((0.01))次方是num:((1.023))吧？",
       "shopImprovedDaily": "嘿，那边的那位，对，就是你！夸克让印记商人们很高兴。每级使“每日”代码的夸克获取数量增加5%。",
-      "shopImprovedDaily2": "每级使“每日”代码获得的免费金夸克升级增加1级，获得的金夸克数量增加20%！",
-      "shopImprovedDaily3": "每级使“每日”代码获得的免费金夸克升级增加1级，获得的金夸克数量增加15%！",
-      "shopImprovedDaily4": "每级使“每日”代码获得的免费金夸克升级增加1级，获得的金夸克数量增加100%！",
+      "shopImprovedDaily2": "每级使“每日”代码获得的免费金夸克升级增加1次，获得的金夸克数量增加20%！",
+      "shopImprovedDaily3": "每级使“每日”代码获得的免费金夸克升级增加1次，获得的金夸克数量增加15%！",
+      "shopImprovedDaily4": "每级使“每日”代码获得的免费金夸克升级增加1次，获得的金夸克数量增加100%！",
       "offeringEX3": "[由无限公司提供]每级使祭品获取数量增加num:((1.2))%，效果叠乘！(倍率为num:((1.012))^等级)。每25级还会使基础祭品获取数量增加1！",
       "obtainiumEX3": "[由无限公司提供]每级使难得素获取数量增加num:((1.2))%，效果叠乘！(倍率为num:((1.012))^等级)。每25级还可以使无瑕难得素倍率增加6%！(num:((1.06))^[等级/25])",
       "chronometerInfinity": "[由无限公司提供]每级使飞升的速度增加num:((0.6))%，效果叠乘！(倍率为num:((1.006))^等级)。每40级还可以使飞升的速度指数发生变化，如果它超过1，则增加num:((0.001))，反之减少num:((0.001))(具体请查看高玩特供统计)！",
@@ -4002,7 +4002,7 @@
       "shopRedLuck1": "由赌博魔神自己持有的次级小型骰子。每级使红运增加num:((0.05))。每20级还会使神肴之运转换成红运的比率减少num:((0.01))。",
       "shopRedLuck2": "这个看起来似乎重心偏移了，不知道发生了什么。每级使红运增加num:((0.075))。每20级还会使神肴之运转换成红运的比率减少num:((0.01))。",
       "shopRedLuck3": "拾取时，该骰子暂时从现实中消失，然后以六点朝上的状态重新出现。每级使红运增加num:((0.1))。每20级还会使神肴之运转换成红运的比率减少num:((0.01))。",
-      "shopRedLuck4": "You don't even need to touch this dice. At once, it simulates a world where you roll a six. +num:((0.2)) Red Luck per level. Every 100 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by num:((0.01)).",
+      "shopRedLuck4": "您甚至不用触碰这颗骰子。它会立刻模拟出一个您掷出六点的世界。每级使红运增加num:((0.2))。每100级还会使神肴之运转换成红运的比率减少num:((0.01))。",
       "shopAmbrosiaLuckMultiplier4": "每级使神肴之运增加1%！就这么简单。",
       "shopOcteractAmbrosiaLuck": "每级使神肴之运增加1，且该效果乘以您的惊奇八阶方块的数量级！",
       "shopCashGrabUltra": "象征性地支付一点费用，根据神肴数量，每级至多使神肴进度条点数获取速度增加15%，方盒获取数量增加120%，夸克获取数量增加8%。效果增长非线性，直到一共获得num:((10000000))神肴为止。",
@@ -4016,7 +4016,7 @@
       "shopInfiniteShopUpgrades": "印在蓝色铭牌‌上的商店代金券。每完成1阶层拔擢，每级该升级就使“无限公司”相关商店升级的有效等级增加num:((0.01))，向下取整。",
       "shopHorseShoe": "马蹄铁的保护效果很好！使马蹄铁符文增加3级免费等级，且每级马蹄铁符文都可以使奇点惩罚(除了回收以外)减少num:((0.1))%，效果相互叠加，上限：减少30%！",
       "shopPanthema": "太空王牌！",
-      "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((50000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((25))>> Red Bar Points per level of this upgrade!"
+      "shopPurpleBarRebate": "当紫进度条充满后，每级获得<<var(--blueberry-text-color)|num:((50000))>>神肴进度条点数和<<var(--red-text-color)|num:((25))>>红进度条点数！"
     },
     "maxed": "已满级！",
     "bought": "已购买！",
@@ -4031,7 +4031,7 @@
     "singularityQuarkAmount": "拥有：{{amount}}",
     "buyYerPotions": "买点药剂！",
     "header": "欢迎来到夸克商店，您肯定想不到这里会有些什么！",
-    "testingOnlyUpgrade": "⚠ Testing version: This upgrade would normally be hidden because you have not unlocked it yet.",
+    "testingOnlyUpgrade": "⚠ 测试版本：该升级通常会被隐藏，因为您还没有解锁它。",
     "shopConfirmationOn": "商店确认框：开",
     "shopConfirmationOff": "商店确认框：关",
     "hideMaxedOn": "隐藏满级物品：开",
@@ -4096,9 +4096,9 @@
       "improveQuarkHept4": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
       "improveQuarkHept5": "惊奇七阶立方·夸克的指数增加<<cyan|{{amount}}>>。",
       "shopImprovedDaily": "“每日”代码的夸克获取数量增加<<cyan|{{amount}}>>。",
-      "shopImprovedDaily2": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<gold|{{amount2}}>>。",
-      "shopImprovedDaily3": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<gold|{{amount2}}>>。",
-      "shopImprovedDaily4": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>级，且金夸克获取数量增加<<gold|{{amount2}}>>。",
+      "shopImprovedDaily2": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>次，且金夸克获取数量增加<<gold|{{amount2}}>>。",
+      "shopImprovedDaily3": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>次，且金夸克获取数量增加<<gold|{{amount2}}>>。",
+      "shopImprovedDaily4": "“每日”代码获得的免费金夸克升级增加<<turquoise|{{amount1}}>>次，且金夸克获取数量增加<<gold|{{amount2}}>>。",
       "offeringEX3": "祭品获取数量增加<<goldenrod|{{amount}}>>！另外，基础祭品获取数量也增加<<goldenrod|{{amount2}}>>！",
       "obtainiumEX3": "难得素获取数量增加<<pink|{{amount}}>>，并且无瑕难得素增加<<cyan|{{amount2}}>>！",
       "chronometerInfinity": "飞升的速度增加<<orange|{{amount}}>>。飞升的速度指数变化数值增加<<orange|{{amount2}}>>。",
@@ -4117,7 +4117,7 @@
       "shopRedLuck1": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
       "shopRedLuck2": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
       "shopRedLuck3": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
-      "shopRedLuck4": "<<red|+{{amount}} Red Luck>>, <<crimson|-{{amount2}} Luck Conversion Ratio>>",
+      "shopRedLuck4": "使<<red|红运增加{{amount}}>>，<<crimson|神肴之运转换成红运的比率减少{{amount2}}>>",
       "shopCashGrabUltra": "使<<lightblue|神肴进度条点数获取速度增加{{amount}}>>。另外，使<<white|所有类型的方盒、立方和方块获取数量增加{{amount2}}>>！最后，使<<cyan|夸克获取数量增加{{amount3}}>>！",
       "shopAmbrosiaAccelerator": "使神肴进度条点数需求减少<<lightblue|{{amount}}>>。",
       "shopEXUltra": "神肴使<<orange|祭品获取数量>>、<<orchid|难得素获取数量>>和<<white|方盒获取数量>>增加<<gold|{{amount}}>>！",
@@ -4138,7 +4138,7 @@
       "shopPanthemaAmbrosiaGeneration": "神肴进度条点数增加{{amount}}！(每点神肴进度条获取速度增加{{amount2}})",
       "shopPanthemaAmbrosiaLuck": "神肴之运增加{{amount}}！(每级神肴之运增加{{amount2}})",
       "shopPanthemaRedLuck": "红运增加{{amount}}！(每级红运增加{{amount2}})",
-      "shopPurpleBarRebate": "On Purple Bar fill: gain <<var(--blueberry-text-color)|+{{ambrosiaBarPointsPerFill}}>> Ambrosia Bar Points and <<red|+{{redAmbrosiaBarPointsPerFill}}>> Red Bar Points."
+      "shopPurpleBarRebate": "当紫进度条充满后：获得<<var(--blueberry-text-color)|{{ambrosiaBarPointsPerFill}}>>神肴进度条点数和<<red|{{redAmbrosiaBarPointsPerFill}}>>红进度条点数。"
     },
     "names": {
       "offeringPotion": "祭品药剂",
@@ -4213,7 +4213,7 @@
       "shopRedLuck1": "赌博魔神的低阶骰子",
       "shopRedLuck2": "赌博魔神的骰子",
       "shopRedLuck3": "赌博魔神的高阶骰子",
-      "shopRedLuck4": "Elite Class Dice of Asmodeus",
+      "shopRedLuck4": "赌博魔神的超级骰子",
       "shopCashGrabUltra": "终极昂贵物品",
       "shopAmbrosiaAccelerator": "神肴加速器！",
       "shopEXUltra": "额外·终",
@@ -4225,37 +4225,37 @@
       "shopInfiniteShopUpgrades": "蓝色无限商店代金券",
       "shopHorseShoe": "马蹄铁奇点惩罚",
       "shopPanthema": "全能高手",
-      "shopPurpleBarRebate": "Purple Bar Rebates"
+      "shopPurpleBarRebate": "紫进度条返利"
     },
     "sections": {
-      "offerings": "Offerings & Obtainium",
-      "challenges": "Challenges",
-      "ascension": "Ascension",
-      "quarks": "Quarks & Codes",
-      "hepteracts": "Hepteracts & Warps",
-      "ambrosia": "Ambrosia",
-      "singularity": "Singularity",
-      "oddities": "Oddities"
+      "offerings": "祭品和难得素",
+      "challenges": "挑战",
+      "ascension": "飞升",
+      "quarks": "夸克和代码",
+      "hepteracts": "七阶立方和跃迁",
+      "ambrosia": "神肴",
+      "singularity": "奇点",
+      "oddities": "奇异"
     },
     "familyNames": {
-      "offeringEX": "Offering EX",
-      "obtainiumEX": "Obtainium EX",
-      "cashGrab": "Cash Grab",
-      "instantChallenge": "Instant Challenges",
-      "challengeTome": "Challenge Tomes",
-      "seasonPass": "Season Passes",
-      "chronometer": "Chronometers",
-      "calculator": "PL-AT Calculators",
-      "improveQuarkHept": "Quark Hepteracts",
-      "cubeToQuark": "Quark-Enriched Cubes",
-      "shopImprovedDaily": "Improved Daily Code",
-      "infiniteAscent": "Infinite Ascent",
-      "powderEX": "Overflux Powder",
-      "extraWarp": "Daily Warps",
-      "shopAmbrosiaGeneration1": "Ambrosia Generation",
-      "shopAmbrosiaLuck1": "Ambrosia Luck",
-      "shopAmbrosiaLuckMultiplier4": "Ambrosia Luck Amplifiers",
-      "shopRedLuck1": "Dice of Asmodeus"
+      "offeringEX": "额外祭品",
+      "obtainiumEX": "额外难得素",
+      "cashGrab": "昂贵物品",
+      "instantChallenge": "立即完成挑战",
+      "challengeTome": "挑战后传",
+      "seasonPass": "季票",
+      "chronometer": "时计",
+      "calculator": "PL-AT计算器",
+      "improveQuarkHept": "惊奇七阶立方·夸克",
+      "cubeToQuark": "富含夸克的方盒",
+      "shopImprovedDaily": "加强“每日”代码效果",
+      "infiniteAscent": "无限晋升",
+      "powderEX": "超通量粉",
+      "extraWarp": "每日跃迁",
+      "shopAmbrosiaGeneration1": "产生神肴",
+      "shopAmbrosiaLuck1": "神肴之运",
+      "shopAmbrosiaLuckMultiplier4": "神肴之运倍率",
+      "shopRedLuck1": "赌博魔神的骰子"
     }
   },
   "singularity": {
@@ -4269,18 +4269,18 @@
       "ascensionReset": "您没能抵挡住异教的诱惑。为了以防万一，飞升进度进行了一次性的重置……",
       "multiBuyPurchased": "一次性升级了{{levels}}级，多重购买真是太棒了！"
     },
-    "goldenQuarkUpgradeAP": "Golden Quark Upgrade AP: <<gold|{{current}}/{{max}}>>",
+    "goldenQuarkUpgradeAP": "金夸克升级成就点数：<<gold|{{current}}/{{max}}>>",
     "perks": {
       "levelInfo": "等级 {{level}} - (奇点 {{singularity}})",
-      "previewInfo": "Unlocks at Singularity <<gold|{{singularity}}>>",
-      "nextLevelInfo": "Next level at Singularity <<gold|{{singularity}}>>",
-      "highestLevel": "<<orchid|This Perk is at its highest possible level.>>",
-      "new": "<<limegreen|[NEW!]>>",
-      "upgraded": "<<gold|[UPGRADED!]>>",
-      "nextSoon": "<<white|[Upgrades Soon!]>>",
+      "previewInfo": "在<<gold|{{singularity}}>>次奇点时解锁",
+      "nextLevelInfo": "下一级需要<<gold|{{singularity}}>>次奇点",
+      "highestLevel": "<<orchid|该特权已经达到最高等级。>>",
+      "new": "<<limegreen|[新！]>>",
+      "upgraded": "<<gold|[已升级！]>>",
+      "nextSoon": "<<white|[即将升级！]>>",
       "header": "您的最高奇点次数为<span style=\"color: gold\">{{ord}}次奇点</span><br/>。",
-      "treeLabel": "Singularity Perk progression tree",
-      "treePerkLabel": "$t({{name}}), unlocked at Singularity {{singularity}}",
+      "treeLabel": "奇点特权进度树",
+      "treePerkLabel": "$t({{name}})，在{{singularity}}次奇点时解锁",
       "usesCurrentSing": "该特权与您当前奇点次数有关。如果次数降低，特权等级可能会<<crimson|降低>>",
       "welcometoSingularity": {
         "name": "欢迎来到奇点时代！",
@@ -4298,7 +4298,7 @@
         "name": "“每日”代码额外奖励",
         "hasLevel2": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，额外获得num:((0.2))级金夸克 I，num:((0.2))级金夸克 II和1级金夸克 III，另外再使获得的免费等级数量翻倍！",
         "hasLevel1": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，还可以额外获得num:((0.2))级金夸克 I，num:((0.2))级金夸克 II和1级金夸克 III。",
-        "default": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，且效果随着奇点次数而增长！"
+        "default": "输入“每日”代码后可以获得金夸克和随机金夸克升级的免费等级，且次数随着奇点次数而增长！"
       },
       "generousOrbs": {
         "name": "慷慨之珠",
@@ -4431,8 +4431,8 @@
         "default": "受到爱尔兰之运更多祝福的蚂蚁可以使<<limegreen|神肴之运再增加{{percent}}%>>！每级特权使加成数值增加<<limegreen|1%>>。"
       },
       "irishAnt3": {
-        "name": "Irish Ants III",
-        "default": "Ants blessed with a purple luck of the Irish grant <<var(--purple-text-color)|+{{amt}} Purple Honey Luck>>! (<<var(--purple-text-color)|+{{amt2}}>> per Singularity past 280)"
+        "name": "爱尔兰蚂蚁 III",
+        "default": "受到爱尔兰紫蜜之运祝福的蚂蚁可以使<<var(--purple-text-color)|紫蜜之运增加{{amt}}>>！(超过280次奇点后，每次奇点使该数值<<var(--purple-text-color)|增加{{amt2}}>>)"
       },
       "overclocked": {
         "name": "超载",
@@ -4447,12 +4447,12 @@
         "default": "半固态蓝莓跟普通蓝莓一样。您可以额外获得{{i}}蓝莓，用它们来购买更多升级！"
       },
       "efficientBlueberries": {
-        "name": "Efficient Blueberries",
-        "default": "For every 2 Blueberries, add <<var(--purple-text-color)|{{amt2}}>> base Purple Honey per extraction. Currently: <<var(--purple-text-color)|+{{amt}}>>"
+        "name": "高效蓝莓",
+        "default": "每有2蓝莓，每次提取获得的基础紫蜜数量就增加<<var(--purple-text-color)|{{amt2}}>>。当前效果：<<var(--purple-text-color)|增加{{amt}}>>"
       },
       "reactorSpeedup": {
-        "name": "282+ Years of Work Experience",
-        "default": "The Purple Bar in the Encabulator requires <<var(--purple-text-color)|{{amt}}>> Purple Bar Points to fill!"
+        "name": "超过282年的工作经验",
+        "default": "使恩卡布器的紫进度条点数需求 <<var(--purple-text-color)|{{amt}}>>！"
       },
       "goldenRevolution": {
         "name": "金之革命",
@@ -4468,7 +4468,7 @@
       },
       "platonicClones": {
         "name": "PLATONIC桌面点击之克隆",
-        "default": "每次飞升自动购买PLATONIC升级，且不花费难得素和祭品！"
+        "default": "每次飞升自动购买PLATONIC方盒升级，且不花费难得素和祭品！"
       },
       "platSigma": {
         "name": "PL-AT Σ",
@@ -4541,46 +4541,46 @@
       "noMinimum": "无进入奇点次数要求",
       "costNextLevel": "下一级的花费：{{amount}}金夸克",
       "spentGQ": "金夸克花费总数：{{spent}}",
-      "overclockLevels": "Max Level is increased by {{levels}} (Overclock)",
-      "upgradeAPMaxOverclock": "You get <<gold|+{{amount}}>> AP for reaching level {{level}}! {{check}}"
+      "overclockLevels": "等级上限增加{{levels}}(超载效果)",
+      "upgradeAPMaxOverclock": "达到{{level}}级后可以获得<<gold|{{amount}}>>成就点数！{{check}}"
     },
     "freeUpgradeInfo": {
-      "button": "Free Upgrades Info",
-      "title": "Free Golden Quark Upgrade Levels",
-      "upgrade": "Upgrade",
-      "freeLevels": "Free Levels",
-      "locked": "Locked",
+      "button": "免费升级信息",
+      "title": "免费金夸克升级等级",
+      "upgrade": "升级",
+      "freeLevels": "免费等级",
+      "locked": "未解锁",
       "daily": {
-        "section": "Code 'daily'",
-        "rolls": "Code 'daily': {{rolls}} Rolls ({{additive}} Additive × {{multiplier}} Mult)",
-        "allMaxed": "All upgrades have reached their free level cap. Code 'daily' will not roll for free upgrades.",
-        "perRoll": "Per Roll",
-        "chance": "Chance",
-        "capped": "Capped",
-        "flatBonus": "↳ +{{amount}} free levels guaranteed",
+        "section": "“每日”代码",
+        "rolls": "“每日”代码：{{rolls}}次 ({{additive}}相加部分×{{multiplier}}相乘部分)",
+        "allMaxed": "所有升级都达到了免费等级上限。“每日”代码无法再获得免费等级。",
+        "perRoll": "每次",
+        "chance": "概率",
+        "capped": "已达上限",
+        "flatBonus": "↳ 免费等级必定增加{{amount}}级",
         "requirements": {
-          "noAmbrosiaUpgrades1": "↳ Requirement: 'No Ambrosia Upgrades' EXALT Tier 1 Completed",
-          "limitedTime1": "↳ Requirement: 'The Grand Singularity Speedrun!' EXALT Tier 1 Completed",
-          "sadisticPrequel1": "↳ Requirement: 'SADISTIC EXALT III - The Prequel' EXALT Tier 1 Completed",
-          "taxmanLastStand1": "↳ Requirement: 'The Taxman's Last Stand' EXALT Tier 1 Completed"
+          "noAmbrosiaUpgrades1": "↳ 需要：完成第1阶层的“无神肴升级”拔擢",
+          "limitedTime1": "↳ 需要：完成第1阶层的“奇点竞速大赛”拔擢",
+          "sadisticPrequel1": "↳ 需要：完成第1阶层的“虐待狂拔擢 III - 前传”拔擢",
+          "taxmanLastStand1": "↳ 需要：完成第1阶层的“税务官的最后阵地”拔擢"
         }
       },
       "add": {
-        "section": "Code 'add'",
-        "uses": "Code 'add': {{uses}} / {{max}} uses available",
-        "requirement": "Requirement: Reach Singularity {{singularity}}",
-        "perAdd": "Per Add",
-        "fromAvailable": "From Available Adds"
+        "section": "“增加”代码",
+        "uses": "“增加”代码：{{uses}} / {{max}}次使用次数",
+        "requirement": "需要：达到{{singularity}}次奇点",
+        "perAdd": "每次增加",
+        "fromAvailable": "当前“增加”代码共可获得"
       },
       "milestones": {
-        "section": "Milestones",
-        "summary": "Granted once, the first time you reach each Singularity.",
-        "milestone": "Milestone",
-        "singularity": "Singularity {{singularity}}",
-        "reward": "Reward",
-        "status": "Status",
-        "obtained": "Obtained",
-        "notObtained": "Not Yet"
+        "section": "里程碑",
+        "summary": "首次达到相应奇点时获得，只能获得一次。",
+        "milestone": "里程碑",
+        "singularity": "{{singularity}}次奇点",
+        "reward": "奖励",
+        "status": "状态",
+        "obtained": "已获得",
+        "notObtained": "未获得"
       }
     },
     "data": {
@@ -4648,13 +4648,13 @@
       },
       "corruptionFourteen": {
         "name": "腐化等级-十四",
-        "description": "Buy this to gain +1 free Corruption level. :)",
+        "description": "购买后使免费腐化等级增加1级。:)",
         "effectHave": "您已使免费腐化等级增加1级。{{m}}",
         "effectHaveNot": "您未使免费腐化等级增加1级。{{m}}"
       },
       "corruptionFifteen": {
         "name": "腐化等级-十五",
-        "description": "Adds +1 FREE Corruption level, no matter what. :)",
+        "description": "无论如何，都会使免费腐化等级增加1级。:)",
         "effectHave": "您已使免费腐化等级增加1级。{{m}}",
         "effectHaveNot": "您未使免费腐化等级增加1级。{{m}}"
       },
@@ -4755,7 +4755,7 @@
       },
       "divinePack": {
         "name": "神圣礼包",
-        "description": "OHHHHH. Gain +10% Quarks, additive with other packs, and multiply Octeract gain by num:((1.3)) per Corruption level above 35, including free levels, up to num:((10)) levels!",
+        "description": "哦哦哦哦哦。使夸克获取数量增加10%(可以与其他礼包叠加)，腐化等级超过35以后(包括免费等级)，超出部分每级使惊奇八阶方块获取数量变为原来的num:((1.3))倍，最多计算10级！",
         "effectHave": "您找到了生存的理由。当前惊奇八阶方块加成：增加{{n}}",
         "effectHaveNot": "您暂未发觉生存的理由。"
       },
@@ -4848,7 +4848,7 @@
       },
       "platonicTau": {
         "name": "PLATONIC·陶",
-        "description": "Placed in the wrong upgrade section, this raises all Cube gains to the power of num:((1.01))!",
+        "description": "放在了错误的升级区域，它会使所有类型的方盒、立方和方块的获取数量变为原来的num:((1.01))次方！",
         "effectHave": "已购买该升级",
         "effectHaveNot": "未购买该升级"
       },
@@ -4866,7 +4866,7 @@
       },
       "platonicPhi": {
         "name": "PLATONIC·斐",
-        "description": "时间的力量也可以向着过去变得更加强大。在本次奇点中，每经过一天，“每日”代码获得的免费金夸克升级增加5级，最高为第十天增加50级。",
+        "description": "时间的力量也可以向着过去变得更加强大。在本次奇点中，每经过一天，“每日”代码获得的免费金夸克升级增加5次，最高为第十天增加50次。",
         "effectHave": "已购买该升级",
         "effectHaveNot": "未购买该升级"
       },
@@ -4916,10 +4916,10 @@
         "effectHaveNot": "您未嘎了最后的嘎克"
       },
       "wowPass5": {
-        "name": "Selling Quark Upgrades while Purple",
-        "description": "I am currently purple, so please leave the Quarks on the counter. Thanks.",
-        "effectHave": "The Quack Merchant, despite being Purple, will sell you Quark Upgrades! Quaaack",
-        "effectHaveNot": "The Quack Merchant is Purple, but isn't selling Quark Upgrades at this time."
+        "name": "紫色期间照常出售夸克升级",
+        "description": "本人正处于紫色状态，夸克放在柜台上即可。谢谢。",
+        "effectHave": "嘎克商人虽然处于紫色状态，但仍然照常出售夸克升级！嘎嘎嘎",
+        "effectHaveNot": "嘎克商人处于紫色状态，目前不出售夸克升级。"
       },
       "blueberries": {
         "name": "蓝莓！",
@@ -5049,7 +5049,7 @@
       "description": "<b> <<gold | 奇点电梯可以让您在 1-{{limit}} 之间改变当前生效的奇点次数！ >> </b><br>您可以选择 1- <b> {{limit}}</b> 之间任意的奇点次数，但是选择比当前奇点相同或更高的奇点次数会强制进行奇点重置。",
       "targetSingularity": "目标奇点：{{target}}",
       "selectTarget": "选择目标奇点",
-      "teleportButton": "Teleport!",
+      "teleportButton": "传送！",
       "teleportButtonHigher": "加！",
       "teleportButtonStay": "重新开始！",
       "teleportButtonLower": "减！",
@@ -5075,32 +5075,32 @@
   },
   "general": {
     "purchasePrompt": {
-      "levels": "Levels to buy",
+      "levels": "购买的等级",
       "resource": {
-        "goldenQuarks": "Golden Quarks to spend",
-        "octeracts": "Octeracts to spend",
-        "ambrosia": "Ambrosia to spend",
-        "redAmbrosia": "Red Ambrosia to spend",
-        "purpleAmbrosia": "Purple Ambrosia to spend"
+        "goldenQuarks": "要花费的金夸克数量",
+        "octeracts": "要花费的八阶方块数量",
+        "ambrosia": "要花费的神肴数量",
+        "redAmbrosia": "要花费的红神肴数量",
+        "purpleAmbrosia": "要花费的紫神肴数量"
       },
-      "hint": "Enter levels or a resource budget.",
-      "hint2": "Type -1 in either box to buy MAX.",
+      "hint": "输入等级或者资源数量。",
+      "hint2": "在任意输入框输入-1，可以购买最大数量。",
       "summary": {
-        "goldenQuarks": "Buy {{levels}} levels for {{cost}} Golden Quarks.",
-        "octeracts": "Buy {{levels}} levels for {{cost}} Octeracts.",
-        "ambrosia": "Buy {{levels}} levels for {{cost}} Ambrosia.",
-        "redAmbrosia": "Buy {{levels}} levels for {{cost}} Red Ambrosia.",
-        "purpleAmbrosia": "Buy {{levels}} levels for {{cost}} Purple Ambrosia."
+        "goldenQuarks": "花费{{cost}}金夸克购买{{levels}}级。",
+        "octeracts": "花费{{cost}}八阶方块购买{{levels}}级。",
+        "ambrosia": "花费{{cost}}神肴购买{{levels}}级。",
+        "redAmbrosia": "花费{{cost}}红神肴购买{{levels}}级。",
+        "purpleAmbrosia": "花费{{cost}}紫神肴购买{{levels}}级。"
       },
       "affordable": {
-        "goldenQuarks": "You can afford {{levels}} levels for {{cost}} Golden Quarks.",
-        "octeracts": "You can afford {{levels}} levels for {{cost}} Octeracts.",
-        "ambrosia": "You can afford {{levels}} levels for {{cost}} Ambrosia.",
-        "redAmbrosia": "You can afford {{levels}} levels for {{cost}} Red Ambrosia.",
-        "purpleAmbrosia": "You can afford {{levels}} levels for {{cost}} Purple Ambrosia."
+        "goldenQuarks": "您有{{cost}}金夸克，可以购买{{levels}}级。",
+        "octeracts": "您有{{cost}}八阶方块，可以购买{{levels}}级。",
+        "ambrosia": "您有{{cost}}神肴，可以购买{{levels}}级。",
+        "redAmbrosia": "您有{{cost}}红神肴，可以购买{{levels}}级。",
+        "purpleAmbrosia": "您有{{cost}}紫神肴，可以购买{{levels}}级。"
       },
-      "invalid": "Enter a positive whole number, or -1 to buy MAX!",
-      "unavailable": "You can't purchase any levels with selected levels or budget."
+      "invalid": "输入正整数，或者直接输入-1购买最大数量！",
+      "unavailable": "输入该数值不会购买任何等级。"
     },
     "youAreInThe": "您目前已进入了 <<gold|{{number}} 奇点>>",
     "validation": {
@@ -5114,25 +5114,25 @@
     },
     "cancelled": "好吧，下次再说。",
     "level": "等级",
-    "upgrade": "Upgrade!",
-    "levelWithRatio": "Level {{level}}/{{max}}",
+    "upgrade": "升级！",
+    "levelWithRatio": "等级 {{level}}/{{max}}",
     "minimum": "最少需要进入奇点次数",
     "spent": "花费",
     "OK": "好",
     "Cancel": "取消",
-    "Back": "Back",
-    "closeNotification": "Close notification",
-    "announcement": "Announcement",
-    "closeAnnouncement": "Close announcement",
+    "Back": "返回",
+    "closeNotification": "关闭通知",
+    "announcement": "公告",
+    "closeAnnouncement": "关闭公告",
     "autoOnBracket": "自动[开]",
     "autoOffBracket": "自动[关]",
     "softCapped": "(已达软上限)",
     "maxed": "(已满级)",
-    "maxedUpgradesShow": "Maxed Upgrades: SHOW",
-    "fullyCapped": "Max level and free level cap reached",
-    "upgradeAPMax": "You get <<gold|+{{amount}}>> AP for maxing this upgrade! {{check}}",
-    "upgradeAPFreeLevelCap": "You get <<gold|+{{amount}}>> AP for capping this upgrade's free levels! {{check}}",
-    "maxedUpgradesHide": "Maxed Upgrades: HIDE",
+    "maxedUpgradesShow": "满级升级：显示",
+    "fullyCapped": "满级且达到免费等级上限",
+    "upgradeAPMax": "该升级满级后可以获得<<gold|{{amount}}>>成就点数！{{check}}",
+    "upgradeAPFreeLevelCap": "该升级免费等级达到上限后可以获得<<gold|{{amount}}>>成就点数！{{check}}",
+    "maxedUpgradesHide": "满级升级：隐藏",
     "affordable": "(可购买)",
     "enabled": "（已启用）",
     "effectiveLevel": "有效等级：{{level}}",
@@ -5150,8 +5150,8 @@
     "off": "关",
     "buyOne": "购买1个",
     "buyMax": "购买最大",
-    "buyCustom": "Buy: {{amount}}",
-    "buyPercentage": "Buy Percentage:",
+    "buyCustom": "购买：{{amount}}",
+    "buyPercentage": "购买比例：",
     "languageChange": "已变更语言。",
     "resources": {
       "offering": "祭品",
@@ -5205,10 +5205,10 @@
       "24": "获得1个加倍器，2个加速器，然后再获得1%的免费加倍器及加速器。",
       "25": "获得1个加倍器，1个加速器，然后再获得1%的免费加倍器及加速器。",
       "26": "获得1个免费加速器加成。",
-      "27": "根据本次转生的金币获取数量增加加速符文的免费等级。(最高增加100)",
+      "27": "根据本次转生的金币产量增加加速符文的免费等级。(最高增加100)",
       "28": "每购买400个金币生产者，就使重叠符文的免费等级增加1。(最高增加100)",
       "29": "每购买400个金币生产者，就使加速符文的免费等级增加1。(最高增加100)",
-      "30": "根据本次转生的金币获取数量增加重叠符文的免费等级。(最高增加100)",
+      "30": "根据本次转生的金币产量增加重叠符文的免费等级。(最高增加100)",
       "31": "每购买num:((2000))个金币生产者就获得1个免费加速器加成。",
       "32": "根据未花费的钻石获得免费加速器。",
       "33": "每拥有一个加速器加成就获得1个免费加倍器。",
@@ -5226,7 +5226,7 @@
       "45": "根据神话碎片数量获得免费加速器。",
       "46": "加速器加成效果增加5%。",
       "47": "根据成就点数增加神话碎片产量。",
-      "48": "Gain +num:((0.2)) Construction, to make buildings and such cheaper!",
+      "48": "使建造力增加num:((0.2))，让建筑变得更便宜！",
       "49": "根据未花费的神话获得免费加倍器。",
       "50": "仅在挑战时加速器和加倍器数量增加25%。",
       "51": "根据拥有的加速器加成数量增加神话建筑产量。",
@@ -5394,7 +5394,7 @@
       "45": "效果：增加{{x}}个加速器！",
       "46": "效果：加速器加成效果增加5%！",
       "47": "效果：神话生产者产量变为{{x}}倍",
-      "48": "Effect: +num:((0.2)) Construction!",
+      "48": "效果：建造力增加num:((0.2))！",
       "49": "效果：通过魔法获得了{{x}}加倍器！",
       "50": "效果：好处很明显，但必须在挑战中才能生效！",
       "51": "效果：神话生产者产量变为{{x}}倍！",
@@ -5443,54 +5443,54 @@
       "automation": "自动化升级",
       "particles": "粒子升级"
     },
-    "buyAll": "Buy All",
-    "showPurchased": "Purchased Upgrades: SHOW",
-    "hidePurchased": "Purchased Upgrades: HIDE",
+    "buyAll": "全部购买",
+    "showPurchased": "已购买升级：显示",
+    "hidePurchased": "已购买升级：隐藏",
     "hover": "将鼠标停在升级图标上可获得相关详情！",
     "hoverOverUpgrade": "把鼠标停在升级上可以查看详细信息！",
     "bought": "已购买！"
   },
   "headerLayout": {
-    "small": "S",
-    "medium": "M",
-    "large": "L",
-    "xlarge": "XL",
-    "tall": "1x2",
-    "size": "Module size",
-    "hide": "Hide",
-    "reset": "Reset Layout",
-    "resetConfirm": "Reset the header to its default layout? Your current arrangement will be lost.",
-    "done": "Done",
-    "hint": "Drag a module to move it anywhere in the header, or drop it onto another module to share one spot: two modules stack at size S, or up to four reset buttons share a cell, each in any of its four slots. Click or tap a module to resize or hide it, or a loadout to choose its icon.",
-    "hidden": "Hidden modules (click or tap to show, or drag into the header):",
-    "loadoutIcon": "Choose an icon for loadout {{x}}",
-    "owned": "Owned: {{x}}",
-    "bellActive": "{{amount}}x {{time}}",
-    "codeNext": "Next: {{time}}",
-    "timeCodeMultiplier": "x{{x}}",
+    "small": "小",
+    "medium": "中",
+    "large": "大",
+    "xlarge": "特大",
+    "tall": "两栏",
+    "size": "模块大小",
+    "hide": "隐藏",
+    "reset": "重置布局",
+    "resetConfirm": "要将顶栏重置为默认布局吗？将丢失当前的布局。",
+    "done": "完成",
+    "hint": "拖动模块，可以把它移至顶栏中的任意位置，也可以把它拖放到另一个模块上，共用同一位置：同一格内可以放下两个小尺寸的模块，或者至多四个重置按钮，且每个按钮都可以在该格内任意调整位置。点击或轻触模块可调整它的大小或隐藏它，点击或轻触预设可以选择图标。",
+    "hidden": "已隐藏的模块(点击或轻触可以显示，或者拖动到顶栏)：",
+    "loadoutIcon": "选择预设{{x}}的图标",
+    "owned": "拥有：{{x}}",
+    "bellActive": "{{amount}}× {{time}}",
+    "codeNext": "下一个：{{time}}",
+    "timeCodeMultiplier": "×{{x}}",
     "quarkBonus": "+{{x}}%",
     "perSecond": "{{x}}/s",
     "modules": {
-      "transcensionChallengeProgress": "Transcension Challenge progress",
-      "reincarnationChallengeProgress": "Reincarnation Challenge progress",
-      "ascensionChallengeProgress": "Ascension Challenge progress",
-      "happyHourBell": "Happy Hour Bell",
-      "lotus": "Lotus Timer",
-      "blueberries": "Blueberries",
-      "dailyCode": "Daily Code",
-      "addCode": "Add Code",
-      "timeCode": "Time Code",
-      "corruptionLevel": "Corruption Level (current/highest settable)",
-      "achievementPoints": "Achievement Points",
-      "quarkBonus": "Subscriber Quark Bonus",
-      "ambrosiaLoadouts": "Ambrosia Loadouts",
-      "ambrosiaLoadoutPage": "Ambrosia Loadouts (8 per page, click to switch)"
+      "transcensionChallengeProgress": "超越挑战进度",
+      "reincarnationChallengeProgress": "转世挑战进度",
+      "ascensionChallengeProgress": "飞升挑战进度",
+      "happyHourBell": "快乐时光铃",
+      "lotus": "莲花计时",
+      "blueberries": "蓝莓",
+      "dailyCode": "“每日”代码",
+      "addCode": "“增加”代码",
+      "timeCode": "“时间”代码",
+      "corruptionLevel": "腐化等级(当前等级/最高可设置)",
+      "achievementPoints": "成就点数",
+      "quarkBonus": "订阅者夸克加成",
+      "ambrosiaLoadouts": "神肴预设",
+      "ambrosiaLoadoutPage": "神肴预设(每页8个，点击切换)"
     }
   },
   "tabs": {
-    "hideTab": "Hide tab",
-    "showTab": "Show tab",
-    "doneEditing": "Done",
+    "hideTab": "隐藏选项卡",
+    "showTab": "显示选项卡",
+    "doneEditing": "完成",
     "main": {
       "buildings": "建筑",
       "upgrades": "升级",
@@ -5521,7 +5521,7 @@
     "runes": {
       "runes": "符文",
       "talismans": "护身符",
-      "divinity": "Divinity",
+      "divinity": "神圣",
       "blessings": "祝福",
       "spirits": "魂灵"
     },
@@ -5549,7 +5549,7 @@
       "perks-penalties": "特权 / 惩罚",
       "octeracts": "惊奇八阶方块",
       "ambrosia": "神肴",
-      "purple": "The Purple"
+      "purple": "紫色"
     },
     "settings": {
       "languages": "🌐游戏语言🌐",
@@ -5576,34 +5576,34 @@
       "subscriptions": "订阅",
       "upgrades": "购买升级",
       "consumables": "消耗品及活动",
-      "checkout": "Checkout",
+      "checkout": "结账",
       "checkoutStripe": "使用Stripe支付",
-      "checkoutXsolla": "Checkout",
+      "checkoutXsolla": "结账",
       "support": "需要帮助吗？",
-      "termsOfService": "Terms of Service",
-      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "服务条款",
+      "privacyPolicy": "隐私政策",
       "khafraDiscord": "在Discord上联系Khafra",
       "platonicDiscord": "在Discord上联系Platonic",
-      "agreeTOS": "You must accept the terms of service first!"
+      "agreeTOS": "您必须先接受服务条款！"
     }
   },
   "offlineProgress": {
     "loading": "加载离线进度...",
     "prestigeCount": "转生次数：+<<cyan|{{value}}>>",
     "currentPrestigeTimer": "当前转生时间：+<<cyan|{{value}}>>秒",
-    "offeringsGenerated": "产生的祭品数量: <<orange|{{value}}>>",
+    "offeringsGenerated": "产生的祭品数量：<<orange|{{value}}>>",
     "transcensionCount": "超越次数：+<<var(--orchid-text-color);|{{value}}>>",
     "currentTranscensionCounter": "当前超越时间：+<<var(--orchid-text-color);|{{value}}>>秒",
     "reincarnationCount": "转世次数：+<<limegreen|{{value}}>>",
     "currentReincarnationTimer": "当前转世时间：+<<limegreen|{{value}}>>秒",
-    "obtainiumGenerated": "产生的难得素数量: <<pink|{{value}}>>",
+    "obtainiumGenerated": "产生的难得素数量：<<pink|{{value}}>>",
     "ingameAntSacTimer": "游戏内的蚂蚁计时：+<<var(--red-text-color);|{{value}}>>秒",
     "realAntSacTimer": "现实时间的蚂蚁计时：+<<var(--red-text-color);|{{value}}>>秒",
     "currentAscensionTimer": "当前飞升时间：+<<gold|{{value}}>>秒",
     "exportQuarks": "导出可获得的夸克数量：+<<goldenrod|{{value}}>>",
     "ambrosia": "神肴：+<<orange|{{value}}>> | 神肴进度条点数 +<<lightblue|{{value2}}>>",
     "redAmbrosia": "红神肴：+<<red|{{value}}>> | 红进度条点数 +<<red|{{value2}}>>",
-    "purpleHoney": "Purple Honey: +<<var(--purple-text-color)|{{value}}>>"
+    "purpleHoney": "紫蜜：+<<var(--purple-text-color)|{{value}}>>"
   },
   "fastForward": {
     "global": "您的全局相关内容推进了{{time}}秒！",
@@ -5632,41 +5632,41 @@
   },
   "corruptions": {
     "names": {
-      "construction": "Construction (Rocky Foundations)",
+      "construction": "建造力(地基不稳)",
       "viscosity": "加倍器和加速器(粘性)",
-      "salvage": "Salvage Reduction (Bad Offerings)",
+      "salvage": "减少回收(劣质祭品)",
       "drought": "减少祭品(欠收)",
       "hyperchallenge": "挑战10目标增长速度(极致挑战)",
       "illiteracy": "增加研究花费(科盲)",
-      "obtainium": "Obtainium Reduction (Rare Earth Metals)",
+      "obtainium": "减少难得素(稀土金属)",
       "recession": "金币指数(大萧条 II)",
-      "blunders": "Ant ELO (Blunders)"
+      "blunders": "蚂蚁强度分(大漏着)"
     },
     "descriptions": {
-      "construction": "Guess we gotta burn down the house.",
+      "construction": "看来我们得把房子烧了。",
       "viscosity": "您感到昏昏欲睡……",
-      "salvage": "Not even Ant God would want these!",
+      "salvage": "连蚁神都不会想要这些东西！",
       "drought": "农田<i>收拾不了了</i>！",
       "hyperchallenge": "翻译翻译，什么叫挑战？",
       "illiteracy": "至少阿尔伯特不会提出膨胀理论了。",
-      "obtainium": "More like... UNObtainium. Hah.",
+      "obtainium": "更加……难得了。哈。",
       "recession": "2025年的股灾又来了一次。",
-      "blunders": "Checkmated by a mysterious \"Derpsmith\"..."
+      "blunders": "被神秘的“Derpsmith”将死了……"
     },
     "effectDescriptions": {
-      "construction": "Construction is divided by",
-      "viscosity": "The number of Accelerators and Multipliers (free and purchased) counted by their Coin multipliers and by Upgrades is divided by",
-      "salvage": "Salvage for the first five Runes is changed by",
-      "drought": "Offering gain is divided by",
-      "hyperchallenge": "Challenge 10's requirement exponent is multiplied by",
-      "illiteracy": "Costs of Researches that reset on Ascension are multiplied by",
-      "obtainium": "Obtainium gain is divided by",
-      "recession": "Coin gain is raised to the power of",
-      "blunders": "Ant ELO is reduced by (additive, Ant ELO cannot go below 0)"
+      "construction": "使建造力除以",
+      "viscosity": "计算对应的金币倍率和升级时，使加速器和加倍器(无论免费还是购买)的数量除以",
+      "salvage": "使前五个符文的回收变化",
+      "drought": "使祭品获取数量除以",
+      "hyperchallenge": "使挑战10的目标指数乘以",
+      "illiteracy": "在飞升时重置的研究花费乘以",
+      "obtainium": "使难得素获取数量除以",
+      "recession": "金币产量的指数变为",
+      "blunders": "蚂蚁强度分减少(按加减法计算，蚂蚁强度分不能低于0)"
     },
     "modal": {
-      "scaling": "<<lime|Difficulty scaling: ×{{scaling}} per level (maxed Platonic Upgrades)>>",
-      "levelFormula": "(L = Level):",
+      "scaling": "<<lime|难度增长速度：每级×{{scaling}} (满级的PLATONIC方盒升级)>>",
+      "levelFormula": "(L = 等级)：",
       "currentMarker": "L = {{level}} ▶",
       "nextMarker": "◀ L = {{level}}",
       "firstRange": "0 ≤ L ≤ {{to}}",
@@ -5721,55 +5721,55 @@
       }
     },
     "breakdown": {
-      "current": "This Ascension<br>L = {{level}}",
-      "next": "Next Ascension<br>L = {{level}}",
+      "current": "本次飞升<br>L = {{level}}",
+      "next": "下次飞升<br>L = {{level}}",
       "cubeFormula": {
-        "cubes": "Total multiplier = Base × Corruption × Global Cube × Wow! Cube multipliers × Corruption-scaling upgrades",
-        "tesseracts": "Total multiplier = Base × Corruption × Global Cube × Wow! Tesseract multipliers × Corruption-scaling upgrades",
-        "hypercubes": "Total multiplier = Base × Corruption × Global Cube × Wow! Hypercube multipliers × Corruption-scaling upgrades",
-        "platonics": "Total multiplier = Base × Corruption × Global Cube × Platonic Cube multipliers × Corruption-scaling upgrades",
-        "hepteracts": "Total multiplier = Base × Corruption × Global Cube × Hepteract multipliers",
-        "octeracts": "Total multiplier = Base × Corruption × shared cube sources × Octeract multipliers × Corruption-scaling upgrades"
+        "cubes": "总倍率=基础倍率×腐化倍率×全局方盒倍率×惊奇方盒倍率×随腐化等级增长的升级数值",
+        "tesseracts": "总倍率=基础倍率×腐化倍率×全局方盒倍率×惊奇超立方倍率×随腐化等级增长的升级数值",
+        "hypercubes": "总倍率=基础倍率×腐化倍率×全局方盒倍率×惊奇五阶立方倍率×随腐化等级增长的升级数值",
+        "platonics": "总倍率=基础倍率×腐化倍率×全局方盒倍率×PLATONIC方盒倍率×随腐化等级增长的升级数值",
+        "hepteracts": "总倍率=基础倍率×腐化倍率×全局方盒倍率×七阶立方倍率",
+        "octeracts": "总倍率=基础倍率×腐化倍率×共用方盒源×八阶方块倍率×随腐化等级增长的升级数值"
       },
-      "effectiveLevel": "Level + free levels",
-      "rate": "Corruption",
-      "base": "Base Multiplier",
+      "effectiveLevel": "腐化等级+免费等级",
+      "rate": "腐化倍率",
+      "base": "基础倍率",
       "global": {
-        "cubes": "Global Cube",
-        "tesseracts": "Global Cube",
-        "hypercubes": "Global Cube",
-        "platonics": "Global Cube",
-        "hepteracts": "Global Cube",
-        "octeracts": "Shared cube sources"
+        "cubes": "全局方盒倍率",
+        "tesseracts": "全局方盒倍率",
+        "hypercubes": "全局方盒倍率",
+        "platonics": "全局方盒倍率",
+        "hepteracts": "全局方盒倍率",
+        "octeracts": "共用方盒源"
       },
       "specific": {
-        "cubes": "Wow! Cube multipliers",
-        "tesseracts": "Wow! Tesseract multipliers",
-        "hypercubes": "Wow! Hypercube multipliers",
-        "platonics": "Platonic Cube multipliers",
-        "hepteracts": "Hepteract multipliers",
-        "octeracts": "Octeract multipliers"
+        "cubes": "惊奇方盒倍率",
+        "tesseracts": "惊奇超立方倍率",
+        "hypercubes": "惊奇五阶立方倍率",
+        "platonics": "PLATONIC方盒倍率",
+        "hepteracts": "七阶立方倍率",
+        "octeracts": "八阶方块倍率"
       },
-      "scaling": "Corruption-scaling upgrades",
-      "locked": "Locked",
-      "unlock": "Unlocks at level {{level}} (level {{base}} minus your free levels).",
-      "unlockC15": "Unlocks at level {{level}} (level {{base}} minus your free levels) and with the Challenge 15 Hepteract reward.",
-      "otherMultipliers": "Excludes the Ascension time bonus. See Statistics for every source of each multiplier.",
-      "source": "Source",
-      "completions": "Completions",
-      "perCompletion": "Per completion",
-      "amount": "Amount",
-      "total": "Total",
+      "scaling": "随腐化等级增长的升级数值",
+      "locked": "未解锁",
+      "unlock": "{{level}}级腐化时解锁({{base}}级减去免费等级)。",
+      "unlockC15": "{{level}}级腐化时解锁({{base}}级减去免费等级)，另外还需要挑战15的七阶立方奖励。",
+      "otherMultipliers": "已排除飞升时间的加成。各项倍率的来源参见高玩特供统计。",
+      "source": "来源",
+      "completions": "完成次数",
+      "perCompletion": "每次完成",
+      "amount": "数量",
+      "total": "总共",
       "bankSources": {
-        "transcensionChallenges": "Challenges 1-5 (#{{from}}-{{to}})",
-        "transcensionChallengesFrom": "Challenges 1-5 (#{{from}}+)",
-        "reincarnationChallenges": "Challenges 6-9",
-        "challengeTen": "Challenge 10",
-        "ants": "Ants",
-        "cubeUpgrades": "Cube Upgrades 3x1, 4x1, 5x1",
-        "finiteDescent": "Finite Descent Rune",
-        "achievements": "Achievements",
-        "advancedPack": "Advanced Pack"
+        "transcensionChallenges": "挑战1至挑战5 (第{{from}}次至第{{to}}次)",
+        "transcensionChallengesFrom": "挑战1至挑战5 (第{{from}}次以上)",
+        "reincarnationChallenges": "挑战6至挑战9",
+        "challengeTen": "挑战10",
+        "ants": "蚂蚁",
+        "cubeUpgrades": "方盒升级3x1、4x1、5x1",
+        "finiteDescent": "有限降阶符文",
+        "achievements": "成就",
+        "advancedPack": "高级礼包"
       }
     },
     "effectSummary": {
@@ -5777,79 +5777,79 @@
       "viscosity": "÷{{value}}",
       "salvage": "{{value}}",
       "drought": "÷{{value}}",
-      "hyperchallenge": "x{{value}}",
-      "illiteracy": "x{{value}}",
+      "hyperchallenge": "×{{value}}",
+      "illiteracy": "×{{value}}",
       "obtainium": "÷{{value}}",
       "recession": "^{{value}}",
       "blunders": "−{{value}}%"
     },
     "effectNames": {
-      "construction": "Construction",
-      "viscosity": "Accel. and Multipliers",
-      "salvage": "Salvage (first five Runes)",
-      "drought": "Offering gain",
-      "hyperchallenge": "Challenge 10 Reqs.",
-      "illiteracy": "Research costs",
-      "obtainium": "Obtainium gain",
-      "recession": "Coin gain",
-      "blunders": "Ant ELO"
+      "construction": "建造力",
+      "viscosity": "加速器和加倍器",
+      "salvage": "回收(前五个符文)",
+      "drought": "祭品获取数量",
+      "hyperchallenge": "挑战10目标",
+      "illiteracy": "研究花费",
+      "obtainium": "难得素获取数量",
+      "recession": "金币产量",
+      "blunders": "蚂蚁强度分"
     },
     "exitCorruption": {
       "name": "清除腐化",
       "description": "这个罪恶的世界解脱了。",
       "current": "使当前和下次飞升的腐化等级回到0级。不会重置当前的飞升。",
-      "currentHighest": "Set the next Ascension to level {{level}}, your highest cleared level. This Ascension also drops to that level if it is higher. Does not reset your current Ascension.",
+      "currentHighest": "把下次飞升设为最高已通过等级，{{level}}级腐化。当前飞升的腐化等级如果更高，也会变为该数值。不会重置当前的飞升。",
       "planned": "按下清除腐化按钮，再确认清除，即可执行。",
       "multiplier": "注意：如果您需要这么做的话，显然您是贪多嚼不烂了。"
     },
     "max": "最大",
     "tiers": {
-      "notCorrupted": "Not Corrupted",
-      "level": "Corruption Level <<gold|{{level}}>>",
-      "levelChange": "Corruption Level <<silver|{{old}} →>> <<gold|{{new}}>>",
-      "levelOverwritten": "<<crimson|Your Corruption level ({{level}}) is overwritten to 0 while you are in an Ascension Challenge. Neither its modifiers nor its rewards apply. You will return to it once you leave.>>",
-      "freeLevels": "Rewards are moved forward <<gold|{{free}}>> levels, thanks to your Free Levels!",
+      "notCorrupted": "未腐化",
+      "level": "腐化等级 <<gold|{{level}}>>",
+      "levelChange": "腐化等级 <<silver|{{old}} →>> <<gold|{{new}}>>",
+      "levelOverwritten": "<<crimson|在飞升挑战期间，腐化等级({{level}})会变为0，惩罚和奖励均不生效。离开挑战后恢复。>>",
+      "freeLevels": "由于免费等级的效果，奖励相当于增加了<<gold|{{free}}>>级腐化！",
       "tokens": {
-        "selectLevel": "Select a level to start earning Tokens!",
-        "level": "Level {{level}} Tokens: {{earned}}",
-        "completions": "<<gold|{{completions}}>> Challenge 10 completions × {{rate}} Tokens (+{{tokens}} Tokens)",
-        "first": "<<gray|✗ First completion bonus: +{{amount}} Tokens>>",
-        "firstEarned": "<<lime|✓>> First completion bonus: <<lime|+{{amount}} Tokens>>"
+        "selectLevel": "增加级别以获得代币！",
+        "level": "{{level}}级代币：{{earned}}",
+        "completions": "挑战10完成<<gold|{{completions}}>>次 × {{rate}}代币(增加{{tokens}}代币)",
+        "first": "<<gray|✗ 首次完成奖励：增加{{amount}}代币>>",
+        "firstEarned": "<<lime|✓>> 首次完成奖励：<<lime|增加{{amount}}代币>>"
       },
-      "summary": "Level {{level}}",
-      "legacySummary": "Tier {{tier}}, Level {{level}}",
-      "levelInput": "Corruption level for next Ascension",
-      "highestCleared": "Highest level cleared: <<gold|{{level}}>>",
-      "nextUnlock": "Complete Challenge 10 at level {{level}} to unlock level {{unlock}}.",
-      "nextUnlockRange": "You can climb up to {{step}} levels past your highest cleared level (up to level {{level}}).",
-      "requiresChallenge11": "Complete Challenge 11 to change your Corruption level.",
-      "cubeBank": "Cube Bank",
-      "cubeMultipliersHeading": "Cube multipliers (this Ascension → next):",
-      "cubeMultipliersHeadingSame": "Cube multipliers:",
-      "effectsHeading": "Corruption effects (this Ascension → next):",
-      "effectsHeadingSame": "Corruption effects:",
-      "cubeValue": "x{{value}}",
-      "locked": "<<gray|Locked>>",
+      "summary": "{{level}}级",
+      "legacySummary": "{{tier}}阶，{{level}}级",
+      "levelInput": "下次飞升的腐化等级",
+      "highestCleared": "最高已通过等级：<<gold|{{level}}>>级",
+      "nextUnlock": "完成{{level}}级腐化的挑战10可以解锁{{unlock}}级。",
+      "nextUnlockRange": "您可以在最高已通过等级的基础上，一次性增加{{step}}级(最高{{level}}级)。",
+      "requiresChallenge11": "完成挑战11以后就可以更改腐化等级。",
+      "cubeBank": "方盒库",
+      "cubeMultipliersHeading": "方盒倍率(当前飞升→下次飞升)：",
+      "cubeMultipliersHeadingSame": "方盒倍率：",
+      "effectsHeading": "腐化效果(当前飞升→下次飞升)：",
+      "effectsHeadingSame": "腐化效果：",
+      "cubeValue": "×{{value}}",
+      "locked": "<<gray|未解锁>>",
       "arrow": "→",
       "cubes": {
-        "cubes": "Wow! Cubes",
-        "tesseracts": "Wow! Tesseracts",
-        "hypercubes": "Wow! Hypercubes",
-        "platonics": "Platonic Cubes",
-        "hepteracts": "Hepteracts",
-        "octeracts": "Octeracts"
+        "cubes": "惊奇方盒",
+        "tesseracts": "惊奇超立方",
+        "hypercubes": "惊奇五阶立方",
+        "platonics": "PLATONIC方盒",
+        "hepteracts": "七阶立方",
+        "octeracts": "八阶方块"
       }
     },
     "corrStatsBtn": "腐化状态",
-    "corrTokensBtn": "Corruption Tokens",
-    "corrAutoAscendBtn": "Auto Ascensions",
-    "clickInfo": "<<var(--orchid-text-color)|Hover over or tap the icons to view Corruption info!>>",
+    "corrTokensBtn": "腐化代币",
+    "corrAutoAscendBtn": "自动飞升",
+    "clickInfo": "<<var(--orchid-text-color)|鼠标停在图标上，或者轻触图标，即可查看腐化信息！>>",
     "cleanse": "清除腐化",
     "confirm": "确认清除",
     "resetProgress": {
-      "button": "Reset Corruption Progress [TESTING ONLY]",
-      "confirm": "Reset your Corruption progress? Your current and next level, highest cleared level and all Corruption Tokens earned from levels go back to 0. Auto Ascension rules are kept.",
-      "done": "Corruption progress has been reset."
+      "button": "重置腐化进度[仅用于测试]",
+      "confirm": "您确定要重置腐化进度吗？您当前的腐化等级，下次飞升的腐化等级，最高已通过等级和腐化代币将全部清零。但自动飞升规则将仍然保留。",
+      "done": "腐化进度已重置。"
     },
     "intro": "不入虎穴，焉得虎子。",
     "traitInfo": "选择您想要使用的腐化等级。请明智地进行选择！<<var(--red-text-color)|切记，贪多嚼不烂……>>",
@@ -5857,211 +5857,211 @@
     "autoAscend": {
       "on": "自动飞升[开]",
       "off": "自动飞升[关]",
-      "requiresC10": "Auto Ascension Rules will not run until you complete Challenge 10.",
+      "requiresC10": "完成过挑战10以后自动飞升规则才能运行。",
       "status": {
-        "heading": "Status",
-        "corruption": "Corruption Level",
-        "c10": "Challenge 10 Completions",
-        "ascensionChallenge": "Ascension Challenge",
-        "none": "None",
-        "timeInGame": "Ascension Timer",
-        "timeReal": "This Attempt (Real)",
-        "lastFired": "Last Rule Fired"
+        "heading": "状态",
+        "corruption": "腐化等级",
+        "c10": "挑战10完成次数",
+        "ascensionChallenge": "飞升挑战",
+        "none": "无",
+        "timeInGame": "飞升的计时",
+        "timeReal": "本次尝试(实际时间)",
+        "lastFired": "最后触发的规则"
       },
       "loadouts": {
-        "heading": "Corruption Loadouts",
-        "help": "Each Loadout stores a Corruption level. Auto Ascension Rules can go to a Loadout's level or change it."
+        "heading": "腐化预设",
+        "help": "每个预设都可以存储一个腐化等级。自动飞升规则可以设为某个预设的腐化等级，也可以更改它。"
       },
       "rules": {
         "ui": {
-          "heading": "Auto Ascension Rules",
-          "slots": "{{count}} / {{max}} rules",
-          "empty": "You have no rules yet. Rules are checked from top to bottom, and the first rule that applies decides your next Ascension. Click a rule to disable or enable it.",
-          "addRule": "Add Rule!",
-          "newTitle": "New Auto Ascension Rule",
-          "editTitle": "Edit Rule {{number}}",
-          "nameLabel": "Name (optional, up to 16 characters)",
-          "namePlaceholder": "Rule {{number}}",
-          "conditionHeading": "1. When should you Ascend?",
-          "protocolHeading": "2. What happens on Ascension?",
-          "protocolHelp": "Unless you enter an Ascension Challenge, this rule takes you out of the one you are in.",
-          "exceptionHeading": "3. Exception (optional)",
-          "exceptionHelp": "If the exception is true, this rule does not run even when its condition is met. Leave it empty for no exception.",
-          "previewHeading": "Preview",
-          "ruleTextLabel": "Rule text (paste a rule here to load it)",
-          "copyRule": "Copy Rule",
-          "pasteRule": "Paste Rule",
-          "ruleCopied": "Rule copied to clipboard.",
+          "heading": "自动飞升规则",
+          "slots": "已有 {{count}} / {{max}} 条",
+          "empty": "您还没有规则。规则按从上到下的顺序逐一确认，第一条适用的规则将对下一次飞升生效。点击规则来禁用或启用它。",
+          "addRule": "新增规则！",
+          "newTitle": "新增自动飞升规则",
+          "editTitle": "编辑规则{{number}}",
+          "nameLabel": "名称(可选，最多16个字符)",
+          "namePlaceholder": "规则{{number}}",
+          "conditionHeading": "1. 进行飞升的条件",
+          "protocolHeading": "2. 飞升时进行的操作",
+          "protocolHelp": "除非您进入飞升挑战，否则这条规则会让您退出当前所在的挑战。",
+          "exceptionHeading": "3. 例外情况(可选)",
+          "exceptionHelp": "如果例外情况满足，即使满足前面的条件，也不会执行该规则。留空表示无例外。",
+          "previewHeading": "预览",
+          "ruleTextLabel": "规则文本(在此处粘贴规则以载入)",
+          "copyRule": "复制规则",
+          "pasteRule": "粘贴规则",
+          "ruleCopied": "规则已复制到剪贴板。",
           "palette": {
-            "copyButton": "Copy Rules",
-            "exportFileButton": "Export to File",
-            "pasteButton": "Paste Rules",
-            "importFileButton": "Import from File",
-            "confirm": "Importing replaces your first {{count}} rules with the imported ones. Continue?",
-            "imported": "Imported {{count}} rules into slots 1 to {{count}}.",
-            "importedAbridged": "Imported {{count}} rules into slots 1 to {{count}}. The last {{dropped}} did not fit in your {{slots}} rule slots and were left out.",
-            "empty": "There are no rules to import.",
-            "nothingToExport": "You have no rules to export.",
-            "copied": "Rules copied to clipboard.",
-            "exportedFile": "Rules exported to a file.",
-            "copyFailed": "Could not copy your rules to the clipboard.",
-            "exportFileFailed": "Could not export your rules to a file.",
-            "pasteFailed": "Could not read the clipboard. Try importing from a file instead."
+            "copyButton": "复制规则",
+            "exportFileButton": "导出到文件",
+            "pasteButton": "粘贴规则",
+            "importFileButton": "从文件导入",
+            "confirm": "导入会将您的前{{count}}条规则替换为将要导入的规则。您确定要继续吗？",
+            "imported": "已将{{count}}条规则导入至第1条规则到第{{count}}条规则。",
+            "importedAbridged": "已将{{count}}条规则导入至第1条规则到第{{count}}条规则。最后{{dropped}}条规则超出{{slots}}个规则槽位限制，已被排除。",
+            "empty": "没有可导入的规则。",
+            "nothingToExport": "没有要导出的规则。",
+            "copied": "规则已复制到剪贴板。",
+            "exportedFile": "规则已导出到文件。",
+            "copyFailed": "无法将规则复制到剪贴板。",
+            "exportFileFailed": "无法将规则导出到文件。",
+            "pasteFailed": "无法读取剪贴板。请尝试从文件导入。"
           },
-          "previewIncomplete": "Add at least one comparison and choose a protocol to finish this rule.",
-          "comparisonCount": "{{count}} / {{max}} comparisons",
-          "addComparison": "+ Comparison",
-          "addGroup": "+ Group",
-          "removeGroup": "Remove group",
-          "remove": "Remove",
+          "previewIncomplete": "添加至少一个比较条件并选择一个操作方案以完成此规则。",
+          "comparisonCount": "{{count}} / {{max}} 个比较条件",
+          "addComparison": "+ 比较条件",
+          "addGroup": "+ 分组",
+          "removeGroup": "移除分组",
+          "remove": "移除",
           "group": {
-            "and": "ALL of these are true",
-            "or": "ANY of these is true"
+            "and": "以下条件全部成立",
+            "or": "以下条件任何一个成立"
           },
-          "is": "is true",
-          "isNot": "is false",
-          "not": "NOT",
-          "and": "AND",
-          "or": "OR",
-          "when": "When",
-          "unless": "unless",
+          "is": "成立",
+          "isNot": "不成立",
+          "not": "没有",
+          "and": "且",
+          "or": "或",
+          "when": "当",
+          "unless": "时，除非",
           "cubeStall": {
-            "wowCubes": "Seconds since Cubes per second went up",
-            "wowTesseracts": "Seconds since Tesseracts per second went up",
-            "wowHypercubes": "Seconds since Hypercubes per second went up",
-            "wowPlatonicCubes": "Seconds since Platonic Cubes per second went up",
-            "wowHepteracts": "Seconds since Hepteracts per second went up"
+            "wowCubes": "距离上次方盒产量增加的秒数",
+            "wowTesseracts": "距离上次超立方产量增加的秒数",
+            "wowHypercubes": "距离上次五阶立方产量增加的秒数",
+            "wowPlatonicCubes": "距离上次PLATONIC方盒产量增加的秒数",
+            "wowHepteracts": "距离上次七阶立方产量增加的秒数"
           },
-          "stallTolerance": "by at least {{percent}}%",
-          "stallToleranceLabel": "Minimum rise (%)",
-          "challengeCompletions": "Completions",
-          "challengeScore": "Score",
+          "stallTolerance": "至少{{percent}}%",
+          "stallToleranceLabel": "最小涨幅(%)",
+          "challengeCompletions": "完成次数",
+          "challengeScore": "分数",
           "variables": {
-            "cc": "Challenge Completions (Score for Challenge 15)",
-            "stall": "Seconds since a Cube type per second last went up",
-            "t": "Ascension Time, In-game (seconds, needs a C10 completion)",
-            "rt": "This Attempt, Real (seconds)",
-            "sg": "Current Singularity",
-            "gs": "Game Section",
-            "cb": "Cube Bank",
-            "hb": "Happy Hour Bells active",
-            "tc": "Current Transcension Challenge",
-            "rc": "Current Reincarnation Challenge",
-            "ac": "Current Ascension Challenge",
-            "ch": "In any Challenge",
-            "tch": "In a Transcension Challenge",
-            "rch": "In a Reincarnation Challenge",
-            "ach": "In an Ascension Challenge",
-            "m10": "Challenge 10 Completions maxed",
-            "m11": "Challenge 11 Completions maxed",
-            "m12": "Challenge 12 Completions maxed",
-            "m13": "Challenge 13 Completions maxed",
-            "m14": "Challenge 14 Completions maxed",
-            "elo": "Reborn ELO is saturated",
-            "x": "In any EXALT",
-            "exalt": "In EXALT"
+            "cc": "挑战完成次数(挑战15分数)",
+            "stall": "距离上次特定类型方盒产量增加的秒数",
+            "t": "游戏内飞升时间(单位为秒，需要完成过挑战10)",
+            "rt": "当次飞升的现实时间(秒)",
+            "sg": "当前奇点",
+            "gs": "游戏阶段",
+            "cb": "方盒库",
+            "hb": "快乐时光铃激活数量",
+            "tc": "当前超越挑战",
+            "rc": "当前转世挑战",
+            "ac": "当前飞升挑战",
+            "ch": "在任何挑战中",
+            "tch": "在超越挑战中",
+            "rch": "在转世挑战中",
+            "ach": "在飞升挑战中",
+            "m10": "挑战10完成次数达到上限",
+            "m11": "挑战11完成次数达到上限",
+            "m12": "挑战12完成次数达到上限",
+            "m13": "挑战13完成次数达到上限",
+            "m14": "挑战14完成次数达到上限",
+            "elo": "重生强度分达到上限",
+            "x": "在任何拔擢中",
+            "exalt": "在特定拔擢中"
           },
           "protocols": {
-            "choose": "Choose what to do...",
-            "ascend": "Ascend (keep Corruption level)",
-            "ascensionChallenge": "Enter Ascension Challenge",
-            "nextAscensionChallenge": "Enter next unfinished Ascension Challenge (11 to 15)",
-            "corruption": "Set Corruption level to",
-            "corruptionLoadout": "Set Corruption level to a Loadout's level",
-            "corruptionUnlocked": "Set Corruption level to highest unlocked",
-            "corruptionCleared": "Set Corruption level to highest cleared",
-            "corruptionClimb": "Climb Corruption level by",
-            "corruptionDowngrade": "Downgrade Corruption level by",
-            "corruptionCleanse": "Cleanse Corruption (set to level 0)"
+            "choose": "选择要进行的操作……",
+            "ascend": "飞升(保持腐化等级)",
+            "ascensionChallenge": "进入飞升挑战",
+            "nextAscensionChallenge": "进入下一个未完成的飞升挑战(挑战11至15)",
+            "corruption": "将腐化等级设置为",
+            "corruptionLoadout": "将腐化等级设置为特定腐化预设等级",
+            "corruptionUnlocked": "将腐化等级设置为最高已解锁等级",
+            "corruptionCleared": "将腐化等级设置为最高已通过等级",
+            "corruptionClimb": "使腐化等级增加",
+            "corruptionDowngrade": "使腐化等级降低",
+            "corruptionCleanse": "将腐化等级清零"
           },
-          "loadoutsHelp": "Optional: after Ascending, also change these Loadouts. A Loadout picked above uses its level from before this change. Increases stop at your highest unlocked level, and decreases stop at 0.",
-          "loadoutSlot": "Loadout {{slot}}",
+          "loadoutsHelp": "可选：飞升时也更改腐化预设。上方预设中的等级仍然沿用更改前的等级。增加腐化等级不会超过最高已解锁等级，降低等级不会低于0。",
+          "loadoutSlot": "预设{{slot}}",
           "loadoutOps": {
-            "set": "set to",
-            "increase": "increase by",
-            "decrease": "decrease by"
+            "set": "设为",
+            "increase": "增加",
+            "decrease": "减少"
           },
           "loadoutWrites": {
-            "set": "Loadout {{slot}} set to {{value}}",
-            "increase": "Loadout {{slot}} increased by {{value}}",
-            "decrease": "Loadout {{slot}} decreased by {{value}}"
+            "set": "把预设{{slot}}设为{{value}}级",
+            "increase": "使预设{{slot}}增加{{value}}级",
+            "decrease": "使预设{{slot}}降低{{value}}级"
           },
-          "addLoadout": "+ Loadout change",
-          "modifiersHelp": "Optional: after Ascending, also change these settings. An Ambrosia Loadout is skipped if it is already loaded or cannot be afforded, so your Ambrosia bar progress is kept.",
+          "addLoadout": "+ 更改预设",
+          "modifiersHelp": "可选：飞升时也更改以下设置。 会跳过已载入或者无法承担花费的神肴预设，以保留神肴进度条的进度。",
           "modifiers": {
-            "antSacrifice": "Auto Ant Sacrifice",
-            "challengeSweep": "Challenge Sweep",
-            "cubeOpens": "Auto Open Cubes (all types)",
-            "tesseractBuildings": "Auto Tesseract Buildings",
-            "cubeUpgrades": "Auto Cube Upgrades",
-            "platonicUpgrades": "Auto Platonic Upgrades",
-            "hepteracts": "Auto Hepteract Crafting (all)"
+            "antSacrifice": "蚂蚁自动献祭",
+            "challengeSweep": "自动扫荡挑战",
+            "cubeOpens": "自动开启方盒(所有类型)",
+            "tesseractBuildings": "自动超立方建筑",
+            "cubeUpgrades": "自动方盒升级",
+            "platonicUpgrades": "自动PLATONIC方盒升级",
+            "hepteracts": "自动锻造七阶立方(所有类型)"
           },
-          "ambrosiaLoadout": "Ambrosia Loadout",
-          "ambrosiaLoadoutSlot": "Ambrosia Loadout {{slot}}",
-          "ambrosiaLoadoutWrite": "Ambrosia Loadout {{slot}} loaded",
+          "ambrosiaLoadout": "切换神肴预设",
+          "ambrosiaLoadoutSlot": "神肴预设{{slot}}",
+          "ambrosiaLoadoutWrite": "载入神肴预设{{slot}}",
           "modifierStates": {
-            "keep": "No change",
-            "enable": "Enable",
-            "disable": "Disable"
+            "keep": "无变化",
+            "enable": "启用",
+            "disable": "禁用"
           },
-          "save": "Save Rule",
-          "cancel": "Cancel",
-          "edit": "Edit",
-          "delete": "Delete",
-          "ruleOn": "ON",
-          "ruleOff": "OFF",
-          "disableHint": "Click this rule to disable it.",
-          "enableHint": "This rule is disabled and is skipped. Click this rule to enable it.",
-          "moveUp": "Move rule up",
-          "moveDown": "Move rule down",
+          "save": "保存规则",
+          "cancel": "取消",
+          "edit": "编辑",
+          "delete": "删除",
+          "ruleOn": "开",
+          "ruleOff": "关",
+          "disableHint": "点击此规则以禁用。",
+          "enableHint": "此规则已被禁用并跳过。点击此规则以启用。",
+          "moveUp": "上移规则",
+          "moveDown": "下移规则",
           "errors": {
-            "invalidNumber": "Fix the highlighted numbers first. They must be 0 or higher, Challenge Completions, Singularities, Cube Bank, Bells, Corruption and Loadout levels must be whole numbers, and climbs, downgrades and Loadout increases or decreases must be at least 1.",
-            "emptyCondition": "Add at least one comparison to the condition.",
-            "noProtocol": "Choose what happens on Ascension.",
-            "noSlots": "All of your rule slots are in use.",
-            "nameTooLong": "Rule names can be at most 16 characters long.",
-            "incompleteRule": "Finish the rule before copying it.",
-            "copyFailed": "Could not copy the rule to the clipboard.",
-            "pasteFailed": "Could not read the clipboard. Paste into the rule text box instead."
+            "invalidNumber": "请更改高亮显示的数字。它们必须不小于0，挑战完成次数，奇点次数，方盒库，快乐时光铃，腐化等级和预设等级需要为自然数，增加或降低腐化等级与腐化预设等级时，必须至少为1级。",
+            "emptyCondition": "至少添加一个比较条件。",
+            "noProtocol": "选择飞升时进行的操作。",
+            "noSlots": "规则槽位已满。",
+            "nameTooLong": "规则名称至多可以有16个字符。",
+            "incompleteRule": "先完成规则，再来复制。",
+            "copyFailed": "无法将规则复制到剪贴板。",
+            "pasteFailed": "无法读取剪贴板。请将规则粘贴到文本框中。"
           }
         },
         "errors": {
-          "unexpectedToken": "Line {{line}}, column {{column}}: Unexpected or missing symbol.",
-          "unknownRule": "Line {{line}}, column {{column}}: Unknown rule ID.",
-          "unknownExalt": "Line {{line}}, column {{column}}: Unknown EXALT ID.",
-          "expectedComparator": "Line {{line}}, column {{column}}: Expected a comparison (>=, >, <=, <, =, !=).",
-          "expectedEquality": "Line {{line}}, column {{column}}: Current Challenge comparisons must use = or !=.",
-          "invalidChallenge": "Line {{line}}, column {{column}}: Invalid Challenge. Use 1 to 5 for tc, 6 to 10 for rc and 11 to 15 for ac.",
-          "expectedNumber": "Line {{line}}, column {{column}}: Expected a number.",
-          "invalidTolerance": "Line {{line}}, column {{column}}: Expected a minimum rise of 0% or more after '@', like sc>=30@3.",
-          "invalidStage": "Line {{line}}, column {{column}}: Invalid Game Section. Use a Game Section number from 0 up, like gs>=12.",
-          "unclosedParen": "Line {{line}}, column {{column}}: Missing closing parenthesis.",
-          "expectedProtocol": "Line {{line}}, column {{column}}: Expected an exception after '~' or a protocol after ':' (asc, c=11 to c=15, c=next, l=<level>, l=s1 to l=s8, l+<amount>, l-<amount>, l=max, l=clr or l=cln).",
-          "unknownProtocol": "Line {{line}}, column {{column}}: Unknown protocol. Use asc, c=<challenge>, c=next, l=<level>, l=s<loadout>, l+<amount> or l-<amount>.",
-          "invalidProtocolValue": "Line {{line}}, column {{column}}: Invalid protocol value. Challenges must be 11 to 15 or next, levels a whole number, s1 to s8, max, clr or cln, and climbs or downgrades a whole number of at least 1.",
-          "invalidName": "Line {{line}}, column {{column}}: The rule name is not a valid quoted name.",
-          "nameTooLong": "Line {{line}}, column {{column}}: Rule names can be at most 16 characters long.",
-          "unknownModifier": "Line {{line}}, column {{column}}: Unknown modifier. Use as (Auto Ant Sacrifice), cs (Challenge Sweep), co (Auto Open Cubes), tb (Auto Tesseract Buildings), cu (Auto Cube Upgrades), pu (Auto Platonic Upgrades), ha (Auto Hepteract Crafting), al (Ambrosia Loadout) or s1 to s8 (Loadout).",
-          "invalidModifierValue": "Line {{line}}, column {{column}}: Modifiers must be set to 1 (enable) or 0 (disable).",
-          "duplicateModifier": "Line {{line}}, column {{column}}: This modifier is already set for this rule.",
-          "invalidLoadout": "Line {{line}}, column {{column}}: Loadouts are s1 to s8. Set a Loadout to a whole number of 0 or higher (s3=25), or increase or decrease it by a whole number of at least 1 (s3+2, s3-2).",
-          "duplicateLoadout": "Line {{line}}, column {{column}}: This Loadout is already changed by this rule.",
-          "invalidAmbrosiaLoadout": "Line {{line}}, column {{column}}: Ambrosia Loadouts are al=1 to al=16.",
-          "tooManyComparisons": "Line {{line}}, column {{column}}: A condition or exception can have at most 16 comparisons.",
-          "ruleTooLong": "Line {{line}}: Rule is too long."
+          "unexpectedToken": "行{{line}}，列{{column}}：意外或缺失的符号。",
+          "unknownRule": "行{{line}}，列{{column}}：未知的规则ID。",
+          "unknownExalt": "行{{line}}，列{{column}}：未知的拔擢ID。",
+          "expectedComparator": "行{{line}}，列{{column}}：应为比较表达式 (>=, >, <=, <, =, !=)。",
+          "expectedEquality": "行{{line}}，列{{column}}：“当前挑战”的比较表达式应为 = 或者 != 。",
+          "invalidChallenge": "行{{line}}，列{{column}}：挑战ID不合法。请使用1至5表示超越挑战，6至10表示转世挑战，11至15表示飞升挑战。",
+          "expectedNumber": "行{{line}}，列{{column}}：应为数字。",
+          "invalidTolerance": "行{{line}}，列{{column}}：'@'之后的最小涨幅至少应为0%，例如sc>=30@3。",
+          "invalidStage": "行{{line}}，列{{column}}：游戏阶段不合法。游戏阶段应使用0及以上的数字，例如gs>=12。",
+          "unclosedParen": "行{{line}}，列{{column}}：缺少右括号。",
+          "expectedProtocol": "行{{line}}，列{{column}}：'~'后应有例外情况，或者':'后接操作方案 (asc, c=11 至 c=15, c=next, l=<level>, l=s1 至 l=s8, l+<amount>, l-<amount>, l=max, l=clr 或者 l=cln)。",
+          "unknownProtocol": "行{{line}}，列{{column}}：未知操作方案。使用asc, c=<challenge>, c=next, l=<level>, l=s<loadout>, l+<amount> 或者 l-<amount>。",
+          "invalidProtocolValue": "行{{line}}，列{{column}}：操作方案赋值不合法。挑战赋值应为11至15或者next，腐化等级赋值应为自然数, s1至s8, max, clr或者cln，增加或降低腐化等级时应为自然数，且至少为1。",
+          "invalidName": "行{{line}}，列{{column}}：规则名不是有效的带引号名称。",
+          "nameTooLong": "行{{line}}，列{{column}}：规则名称至多可以有16个字符。",
+          "unknownModifier": "行{{line}}，列{{column}}：未知的设置。请使用as(蚂蚁自动献祭)，cs(自动扫荡挑战)，co(自动开启方盒)，tb(自动超立方建筑)，cu(自动方盒升级)，pu(自动PLATONIC方盒升级)，ha(自动锻造七阶立方)，al(切换神肴预设)，或者s1至s8(腐化预设)。",
+          "invalidModifierValue": "行{{line}}，列{{column}}：设置应设为1(启用)或者0(禁用)。",
+          "duplicateModifier": "行{{line}}，列{{column}}：此设置已被此规则更改。",
+          "invalidLoadout": "行{{line}}，列{{column}}：腐化预设为 s1 至 s8。将预设等级设为0或者更高的自然数 (s3=25)，或者，增加或降低预设等级时为自然数，且至少为1 (s3+2, s3-2)。",
+          "duplicateLoadout": "行{{line}}，列{{column}}：此预设已被此规则更改。",
+          "invalidAmbrosiaLoadout": "行{{line}}，列{{column}}：神肴预设为 al=1 至 al=16。",
+          "tooManyComparisons": "行{{line}}，列{{column}}：飞升条件或者例外情况至多有16个比较条件。",
+          "ruleTooLong": "行{{line}}：规则过长。"
         }
       }
     },
     "loadoutApplied": "已载入该腐化等级。飞升后即可生效。",
     "toggles": {
-      "autoIncrease": "Move up to each newly unlocked level automatically",
-      "cleanseToHighest": "Cleanse to your highest cleared level instead of level 0",
-      "rulesFirst": "Auto Ascension Rules apply before these toggles",
-      "timerPreserved": "Ascending without a Challenge 10 completion keeps your Ascension Timer. Rules comparing Ascension Time only apply once you have a Challenge 10 completion. To time an attempt, use This Attempt instead."
+      "autoIncrease": "自动设为新解锁的等级",
+      "cleanseToHighest": "清除腐化时等级设为最高已通过等级",
+      "rulesFirst": "自动飞升规则在这些开关之前生效",
+      "timerPreserved": "未完成挑战10时进行飞升，会保留飞升的计时。只有在完成挑战10以后，比较飞升时间的规则才能生效。如果要记录某次尝试的时间，请参考“本次尝试”的数值。"
     },
     "controls": {
-      "climbing": "Climbing"
+      "climbing": "攀升"
     }
   },
   "footnotes": {
@@ -6086,10 +6086,10 @@
     "research": "欢迎来到研究！不知道该选择什么吗？我个人建议先研究<<limegreen;|绿色边框>>的升级。"
   },
   "buildings": {
-    "construction": "Construction: <<yellow|{{amount}}>>",
-    "constructionBonus": "These Buildings have a base Softcap of <<yellow|{{amount}}>> owned, which is multiplied by Construction",
-    "hyperscaling": "Price exponents start growing <<yellow|quadratically>> past <<yellow|{{threshold}}>> owned",
-    "accelMultConstruction": "Accelerators, Multipliers and Accelerator Boosts benefit from <<yellow|√Construction>> (<<yellow|×{{amount}}>>) <br> Accelerators scale <<yellow|quadratically>> past <<yellow|{{accelerators}}>> bought <br> Multipliers scale <<yellow|quadratically>> past <<yellow|{{multipliers}}>> bought <br> Accelerator Boosts scale <<yellow|cubically>> past <<yellow|{{boosts}}>> bought",
+    "construction": "建造力：<<yellow|{{amount}}>>",
+    "constructionBonus": "这些建筑有<<yellow|{{amount}}>>的软上限，它会乘以建造力",
+    "hyperscaling": "拥有数量超过<<yellow|{{threshold}}>>以后，花费指数开始以<<yellow|平方速度>>增长",
+    "accelMultConstruction": "加速器、加倍器和加速器加成也受<<yellow|建造力数值的平方根>>影响 (<<yellow|×{{amount}}>>)<br>加速器数量超过<<yellow|{{accelerators}}>>以后，花费开始以<<yellow|平方速度>>增长<br>加倍器数量超过<<yellow|{{multipliers}}>>以后，花费开始以<<yellow|平方速度>>增长<br>加速器加成数量超过<<yellow|{{boosts}}>>以后，花费开始以<<yellow|平方速度>>增长",
     "coinInformation": "您拥有<<gold|{{coins}}金币>> [<<gold|每秒增加{{coinsPerSecond}}>>] <br> 获取总数：<<gold|{{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "您只有100个金币。您刚好可以花费它雇佣1个工人！",
@@ -6124,11 +6124,11 @@
     "multiplierPower": "加倍器效果：{{power}}x <br> 加倍器倍率：{{mult}}倍",
     "acceleratorBoost": "花费钻石，使加速器效果增加{{amount}}%，免费的加速器增加{{accelsPerBoost}}个。",
     "coinsPerSecond": "金币每秒产量：{{coins}}",
-    "buy": "Buy",
-    "enableAllAutomation": "Enable all autobuyers",
-    "disableAllAutomation": "Disable all autobuyers",
-    "hideAutomated": "Automated Buildings: HIDE",
-    "showAutomated": "Automated Buildings: SHOW",
+    "buy": "购买",
+    "enableAllAutomation": "启用所有自动购买器",
+    "disableAllAutomation": "禁用所有自动购买器",
+    "hideAutomated": "启用自动购买的建筑：隐藏",
+    "showAutomated": "启用自动购买的建筑：显示",
     "costCoins": "花费：{{coins}}金币。",
     "costDiamonds": "花费：{{diamonds}}钻石。",
     "names": {
@@ -6139,8 +6139,8 @@
       "alchemies": "炼金术：{{amount}} [+{{gain}}]",
       "accelerators": "加速器：{{amount}} [+{{gain}}]",
       "multipliers": "加倍器：{{amount}} [+{{gain}}]",
-      "viscosityEffective": "<<orange|Effective: {{amount}} [+{{gain}}] (÷{{viscosity}} Viscosity)>>",
-      "freeHardcap": "<<crimson|Free amount hardcapped at {{cap}}>>",
+      "viscosityEffective": "<<orange|有效：{{amount}} [+{{gain}}] (÷{{viscosity}}粘性)>>",
+      "freeHardcap": "<<crimson|免费数量硬上限为{{cap}}>>",
       "acceleratorBoost": "加速器加成：{{amount}} [+{{gain}}]",
       "refineries": "炼油厂：{{amount}} [+{{gain}}]",
       "coalPlants": "煤电厂：{{amount}} [+{{gain}}]",
@@ -6206,28 +6206,28 @@
     "costTesseracts": "花费：{{tesseracts}}超立方",
     "autoTesseract": "自动购买至少保留{{tesseracts}}超立方[在上方输入设置数值]。",
     "autoAscensionTesseract": "飞升时，自动购买至少保留{{percent}}%超立方[在上方输入设置数值]。",
-    "excessiveWealth": "由于您的财富过多，需要减少<<gold|{{div}}>>的金币产量用于缴税！<br> {{- warning}}",
+    "excessiveWealth": "由于您的财富过多，金币产量除以<<gold|{{div}}>>用于缴税！<br> {{- warning}}",
     "constantHover": "选择图标可以获得升级描述。"
   },
   "octeract": {
-    "octeractUpgradeAP": "Octeract Upgrade AP: <<gold|{{current}}/{{max}}>>",
+    "octeractUpgradeAP": "八阶方块升级成就点数：<<gold|{{current}}/{{max}}>>",
     "freeUpgradeInfo": {
-      "button": "Free Upgrades Info",
-      "title": "Free Octeract Upgrade Levels",
-      "summary": "Octeract upgrades gain free levels from code 'daily'.",
-      "upgrade": "Upgrade",
-      "nextDaily": "Next 'daily'",
-      "freeLevels": "Free Levels",
-      "locked": "Locked",
-      "capped": "Capped",
+      "button": "免费升级信息",
+      "title": "免费八阶方块升级等级",
+      "summary": "您可以通过“每日”代码获得八阶方块升级的免费等级。",
+      "upgrade": "升级",
+      "nextDaily": "下次“每日”代码",
+      "freeLevels": "免费等级",
+      "locked": "未解锁",
+      "capped": "已达上限",
       "requirements": {
-        "singularity": "↳ Requirement: Reach Singularity {{singularity}}",
-        "redAmbrosiaFreeAccumulator": "↳ Requirement: Purchase 'Red Digital Octeract Accumulator Accumulator'"
+        "singularity": "↳ 需要：达到{{singularity}}次奇点",
+        "redAmbrosiaFreeAccumulator": "↳ 需要：购买红色“八进制数码累加器”累加器"
       },
       "formulas": {
-        "octeractGain": "↳ max(Level / 100, (Level × Free Levels / {{divisor}})^0.5)",
-        "octeractGain2": "↳ max(Level / 100, (Level² × Free Levels / 125,000)^0.333)",
-        "octeractAscensionsOcteractGain": "↳ Set by 'Red Digital Octeract Accumulator Accumulator', which also raises the cap"
+        "octeractGain": "↳ 等级/100和(等级 × 免费等级 / {{divisor}})^0.5)中的较大值",
+        "octeractGain2": "↳ 等级/100和(等级² × 免费等级 / 125,000)^0.333)中的较大值",
+        "octeractAscensionsOcteractGain": "↳ 由红色“八进制数码累加器”累加器决定，同时也会提高上限"
       }
     },
     "buyLevel": {
@@ -6243,7 +6243,7 @@
       "spentOcteracts": "已花费惊奇八阶方块数量：{{spent}}"
     },
     "map": {
-      "ariaLabel": "Octeract upgrade network"
+      "ariaLabel": "八阶方块升级网络"
     },
     "data": {
       "octeractStarter": {
@@ -6275,7 +6275,7 @@
       },
       "octeractCorruption": {
         "name": "更多腐化",
-        "description": "Adds num:((0.5)) free Corruption levels per level. Derpsmith approves.",
+        "description": "每级使免费腐化等级增加num:((0.5))级。Derpsmith表示赞同。",
         "effect": "免费腐化等级增加{{n}}级"
       },
       "octeractGQCostReduce": {
@@ -6290,18 +6290,18 @@
       },
       "octeractImprovedDaily": {
         "name": "加强“每日”代码效果",
-        "description": "Derpsmith使用技术手段调整源代码，使“每日”代码获得的免费金夸克升级增加1级。",
-        "effect": "“每日”代码可以额外提供{{n}}级免费金夸克升级。"
+        "description": "Derpsmith使用技术手段调整源代码，使“每日”代码获得的免费金夸克升级增加1次。",
+        "effect": "“每日”代码可以额外提供{{n}}次免费金夸克升级。"
       },
       "octeractImprovedDaily2": {
         "name": "再度加强“每日”代码效果",
         "description": "Derpsmith实现了超高速乘法。使“每日”代码获得的免费金夸克升级增加1%！",
-        "effect": "“每日”代码可以额外提供{{n}}级免费金夸克升级。"
+        "effect": "“每日”代码可以额外提供{{n}}次免费金夸克升级。"
       },
       "octeractImprovedDaily3": {
         "name": "超级加强“每日”代码效果",
-        "description": "Derpsmith永不自满。使“每日”代码获得的免费金夸克升级增加1级和增加num:((0.5))%！",
-        "effect": "“每日”代码可以额外提供{{n}}级免费金夸克升级。"
+        "description": "Derpsmith永不自满。使“每日”代码获得的免费金夸克升级增加1次和增加num:((0.5))%！",
+        "effect": "“每日”代码可以额外提供{{n}}次免费金夸克升级。"
       },
       "octeractImprovedQuarkHept": {
         "name": "我希望惊奇七阶立方·夸克的效果还能增加。",
@@ -6538,7 +6538,7 @@
       "name": "节俭",
       "description": "有了这个符文以后，您总能找到划算的交易，连祭品都可以更多回收了。",
       "lockedDescription": "该符文未解锁！转世num:((10000))次即可解锁它。您还可以获得一个成就！",
-      "construction": "<<lime | Construction +{{val}}>> (num:((0.03)) × (1 + ln(1 + Power))²)",
+      "construction": "<<lime|使建造力增加{{val}}>> (num:((0.03)) × (1 + ln(1 + 符文强度))²)",
       "salvage": "<<limegreen|使回收增加{{val}}>> (增加 num:((5.756)) * log_10(1 + 符文强度 / 10))",
       "taxReduction": "<<lightgray|使税收增长速度减少{{val}}%>> (上限：减少99%)",
       "values": "使建造力增加 num:((0.03)) × (1 + ln(1 + 符文强度))²，每级增加更多回收(以对数形式变化)，税收增长速度随着等级逐渐减少(上限：99%)！",
@@ -6583,7 +6583,7 @@
       "lockedDescription": "该符文未解锁！您需要购买<<var(--purple-text-color)|射手座>>紫神肴升级后才能解锁。",
       "ambrosiaLuck": "<<limegreen|使神肴之运增加{{val}}>> (每有1符文强度就增加2)",
       "redLuck": "<<red|使红运增加{{val}}>> (每有1符文强度就增加num:((0.4)))",
-      "purpleHoneyLuck": "<<var(--purple-text-color)|{{val}} Purple Honey Luck>> (+num:((0.2)) per Power)",
+      "purpleHoneyLuck": "<<var(--purple-text-color)|使紫蜜之运增加{{val}}>> (每有1符文强度就增加num:((0.2)))",
       "values": "每级使神肴之运增加1，红运增加num:((0.2))，紫蜜之运增加num:((0.2))。",
       "effect": "马蹄铁符文的加成：使神肴之运增加{{val}}，红运增加{{val2}}，紫蜜之运增加{{val3}}。"
     },
@@ -6592,7 +6592,7 @@
       "description": "店主说这是晋升。那个<i>大骗子</i>！",
       "lockedDescription": "该符文未解锁！说实话，我也不知道怎么解锁。",
       "corruptionLevels": "<<lightgray|使免费腐化等级增加{{val}}级>> (上限为增加1级)",
-      "cubesBanked": "<<orange | +{{val}} Banked Cubes>> (up to +1,000)",
+      "cubesBanked": "<<orange|使方盒库的数量增加{{val}}>> (最高增加1000)",
       "infiniteAscentLevels": "<<lightgoldenrodyellow|使无限晋升符文的免费等级增加{{val}}级>> (每有2符文强度就增加1级)",
       "values": "使方盒库的数量至多增加num:((1000))，免费腐化等级至多增加1级，每两级还可以使无限晋升符文的免费等级增加1级。太棒了！",
       "effect": "本次飞升中，使方盒库的数量增加{{val}}，免费腐化等级增加{{val2}}级，无限晋升符文的免费等级增加{{val3}}级。"
@@ -6721,10 +6721,10 @@
         "signature": "<<crimson|签名>>：使红运增加<<crimson|{{val}}>>。"
       },
       "purpleGem": {
-        "name": "Purple Gem",
-        "description": "Shines bright like a diamond.",
-        "inscription": "<<gold|Inscription>>: Gain <<gold|+{{val}}>> Purple Honey Luck.",
-        "signature": "<<crimson|Signature>>: <<crimson|num:((-20))%>> cost for Purple Ambrosia Synthesis."
+        "name": "紫色宝石",
+        "description": "如钻石般闪耀。",
+        "inscription": "<<gold|铭文>>：使紫蜜之运<<gold|增加{{val}}>>。",
+        "signature": "<<crimson|签名>>：使合成紫神肴的花费<<crimson|减少num:((20))%>>。"
       },
       "shards": {
         "shard": "护身符碎片",
@@ -6772,12 +6772,12 @@
         "horseShoe": "马蹄铁符文额外等级：<<orange|{{x}}>>"
       },
       "mobile": {
-        "currentRarity": "Current Rarity: {{rarity}} (Tier {{num}})",
-        "nextRarity": "Next Rarity: {{rarity}} at level {{level}}",
-        "maxRarity": "You've reached the highest rarity possible for this Talisman!",
-        "beforeMythical": "Get to Mythical rarity (Tier 6) to unlock the Talisman's Signature!",
-        "freeRuneLevels": "Free Rune Levels",
-        "nextLevelCost": "Next Level Cost"
+        "currentRarity": "当前稀有度：{{rarity}} ({{num}}阶)",
+        "nextRarity": "下一级稀有度：{{level}}级时变为{{rarity}}",
+        "maxRarity": "该护身符的稀有度已经达到最大！",
+        "beforeMythical": "到达神迹稀有度(6阶)以后可以解锁护身符的签名！",
+        "freeRuneLevels": "免费符文等级",
+        "nextLevelCost": "下一级花费"
       }
     },
     "blessings": {
@@ -6896,24 +6896,24 @@
     "maxLevel": "已满级！",
     "TNL": "<<orange|{{offerings}}祭品>>升{{levelAmount}}级",
     "salvageModal": {
-      "global": "Global Salvage: <<lightgreen|{{amount}}>>",
-      "badOfferings": "<<crimson|Corruptions - Bad Offerings: {{amount}}>>",
-      "challenge15": "<<crimson|Challenge 15 Penalty: {{amount}}>>",
-      "total": "Salvage for this Rune: <<gold|{{amount}}>> (Offerings needed divided by {{mult}})",
-      "totalNegative": "Salvage for this Rune: <<gold|{{amount}}>> (Offerings needed multiplied by {{div}})"
+      "global": "全局回收：<<lightgreen|{{amount}}>>",
+      "badOfferings": "<<crimson|腐化 - 劣质祭品：{{amount}}>>",
+      "challenge15": "<<crimson|挑战15惩罚：{{amount}}>>",
+      "total": "该符文的回收：<<gold|{{amount}}>> (使需要的祭品数量除以{{mult}})",
+      "totalNegative": "该符文的回收：<<gold|{{amount}}>> (使需要的祭品数量乘以{{div}})"
     }
   },
   "singularityChallenge": {
     "modal": {
-      "enter": "Enter EXALT",
-      "exit": "Exit EXALT"
+      "enter": "进入拔擢",
+      "exit": "退出拔擢"
     },
     "enterChallenge": {
       "lowSingularity": "Derpsmith阻止了您进入挑战。先进入更多次奇点吧。",
       "confirmation": "您将要进行{{name}}。您的奇点时长不会重置，但您将回到奇点的开头，确定要继续吗？",
       "decline": "Derpsmith点了点头。准备好以后再来吧……",
       "acceptSuccess": "您正在进行第{{tier}}次{{name}}！您目前相当于进入了{{singReq}}次奇点。购买蚁神之古物后可以完成挑战！",
-      "acceptFailure": "Derpsmith表示您已经在进行奇点挑战，为了现实的安全着想，您不可以再进行挑战了。"
+      "acceptFailure": "Derpsmith表示您已经在进行拔擢，为了现实的安全着想，您不可以再进行拔擢了。"
     },
     "exitChallenge": {
       "incompleteWarning": "注意：您的阶层完成数不会增加，因为您还没有购买古物。",
@@ -6990,7 +6990,7 @@
         "UniqueReward8": "第15次 - 您可能猜到了！第4次免费获得1颗<<var(--blueberry-box-color)|蓝的莓>>！"
       },
       "limitedTime": {
-        "name": "奇点大竞速赛！",
+        "name": "奇点竞速大赛！",
         "description": "<i>时间，时间从未意味着永恒。</i>您需要在现实结构迅速崩溃的前提下通过目标奇点。",
         "timeMod1": "<<red|⏱ 时间限制：{{time}}秒>>",
         "timeMod2": "<<gold|⚠>> 超过时间限制以后，难得素获取数量、祭品获取数量和所有类型的方盒、立方和方块获取数量将每秒除以<<red|{{perSecondDivisor}}>>。",
@@ -7010,7 +7010,7 @@
         "ScalingReward1": "使<<cyan|夸克获取数量>>增加6%！",
         "ScalingReward2": "使“每日”代码获得的<<orange|免费金夸克升级>>增加6%！",
         "ScalingReward3": "40成就点数！",
-        "UniqueReward1": "第1次 - 使“每日”代码可以多提供50级免费金夸克升级！",
+        "UniqueReward1": "第1次 - 使“每日”代码可以多提供50次免费金夸克升级！",
         "UniqueReward2": "第5次 - 新的<<orchid|夸克升级>>！",
         "UniqueReward3": "第10次 - 另一个新的<<orchid|夸克升级>>！",
         "UniqueReward4": "第15次 - 特别虐待的<<gray|夸克升级>>！"
@@ -7035,19 +7035,19 @@
         "UniqueReward3": "第10次 - 解锁<<var(--purple-text-color)|紫色宝石>>"
       },
       "barDependence": {
-        "name": "Bar Charging",
-        "description": "You no longer gain time normally! Instead, fill the Bars to gain time!",
-        "warning": "<<gold | ⚠>> While in the EXALT, your Ambrosia and Purple Bars will not grant Ambrosia or Purple Honey.",
-        "barIntro": "Ambrosia Bars and the Purple Bar have fixed lengths, which are divided by your lifetime amount of those values, increased with completions.",
-        "barIntro2": "Each Ambrosia or Red Ambrosia a Bar would normally grant is converted into time instead, so Luck (and TWO MIND) still matters!",
-        "barMod1": "<<var(--blueberry-text-color)|Ambrosia Bar: +0.01 seconds of Global Time per Ambrosia (Average: +{{secs}} seconds)>> (Requirement is fixed at <<var(--blueberry-text-color)|{{req}} ABP>>)",
-        "barMod2": "<<red|Red Bar: +0.05 seconds of Ascension Time per Red Ambrosia (Average: +{{secs}} seconds)>> (Requirement is fixed at <<red|{{req}} RABP>>)",
-        "barMod3": "<<var(--purple-text-color)|Purple Bar: Grants the effect of both bars once per 100 Purple Honey Luck, with remaining Luck giving a chance at +1>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
-        "ScalingReward1": "<<var(--purple-text-color)|Purple Ambrosia Synthesis>> costs -5%",
-        "ScalingReward2": "+1 <<var(--blueberry-text-color)|Blueberry>>. Yes, really.",
-        "ScalingReward3": "50 Achievement Points!",
-        "UniqueReward1": "1st - <<var(--purple-text-color)|+50 Purple Honey Luck>>. This will be changed, one day.",
-        "UniqueReward2": "2nd - Unlock a new <<orchid|Quark Upgrade>>! Neigh."
+        "name": "填充进度条",
+        "description": "您无法正常获得时间！改为进度条充满后才获得时间！",
+        "warning": "<<gold|⚠>> 在该拔擢中，神肴进度条或紫进度条充满后，无法获得神肴或紫蜜。",
+        "barIntro": "神肴进度条和紫进度条的需求变为固定值，且它会除以相应数值的总数，并随着阶层完成数而增加。",
+        "barIntro2": "进度条本应该产生的神肴或红神肴会转化为时间，所以各类型“运”(和二心)仍然很重要！",
+        "barMod1": "<<var(--blueberry-text-color)|神肴进度条：每获得1神肴，就使全局时间增加0.01秒(平均值：增加{{secs}}秒)>>(进度条点数需求固定为<<var(--blueberry-text-color)|{{req}}神肴进度条点数>>)",
+        "barMod2": "<<red|红进度条：每获得1红神肴，就使飞升时间增加0.05秒(平均值：增加{{secs}}秒)>>(进度条点数需求固定为<<red|{{req}}红进度条点数>>)",
+        "barMod3": "<<var(--purple-text-color)|紫进度条：每有100紫蜜之运，就各触发一次两个进度条的效果，不足100紫蜜之运的部分也会相应按概率触发>>(进度条点数需求固定为<<var(--purple-text-color)|{{req}}紫进度条点数>>)",
+        "ScalingReward1": "使<<var(--purple-text-color)|合成紫神肴>>的花费减少5%",
+        "ScalingReward2": "获得1<<var(--blueberry-text-color)|蓝莓>>。是真的，不说笑。",
+        "ScalingReward3": "50成就点数！",
+        "UniqueReward1": "第1次 - <<var(--purple-text-color)|使紫蜜之运增加50>>。以后会改动的。",
+        "UniqueReward2": "第2次 - 解锁新的 <<orchid|夸克升级>>！(嘶鸣声)"
       },
       "noQuarkUpgrades": {
         "name": "推销员失踪案",
@@ -7085,7 +7085,7 @@
       "lighterDark": "浅暗模式",
       "light": "光明模式",
       "dracula": "德古拉模式",
-      "oled": "OLED Mode"
+      "oled": "OLED模式"
     },
     "currentIconSet": "当前图标样式",
     "notation": {
@@ -7094,11 +7094,11 @@
       "pureEngineering": "纯工程计数法"
     },
     "currentNotation": "当前计数法",
-    "appearance": "Appearance",
-    "font": "Game Font",
+    "appearance": "外观",
+    "font": "游戏字体",
     "fonts": {
-      "default": "Default",
-      "monospace": "Monospace"
+      "default": "默认",
+      "monospace": "等宽"
     },
     "iconSets": {
       "default": "默认",
@@ -7107,8 +7107,8 @@
       "monotonous": "单调"
     },
     "statSymbol": "名称标识符号",
-    "testingDtMultiplier": "[TESTING] Game Speed",
-    "testingDtMultiplierValue": "{{x}}x",
+    "testingDtMultiplier": "[测试]游戏速度",
+    "testingDtMultiplierValue": "{{x}}倍",
     "statSymbols": {
       "enabled": "启用 (♻ / Ɑ / ☇ 等)",
       "disabled": "禁用(名称上不显示标识符号)"
@@ -7157,14 +7157,14 @@
     }
   },
   "statistics": {
-    "clickIconInstruction": "Click on an icon to view the Stats Breakdown!",
+    "clickIconInstruction": "点击图标查看统计数据明细！",
     "subtabs": {
       "misc": "杂项数据",
       "baseOffering": "基础祭品获取数量",
       "offeringMult": "祭品获取数量倍率",
       "salvage": "回收",
-      "construction": "Construction",
-      "freeAccelMult": "Free Accels & Mults",
+      "construction": "建造力",
+      "freeAccelMult": "免费加速器和加倍器",
       "baseObtainium": "基础难得素获取数量",
       "runeEffectMult": "符文强度",
       "obtIgnoreDR": "无瑕难得素",
@@ -7180,8 +7180,8 @@
       "talismanRuneBonusMult": "护身符强度",
       "ascMult": "飞升的速度倍率",
       "ascCountMult": "飞升次数倍率",
-      "freeCorruptionLevels": "Free Corruption Levels",
-      "cubeBank": "Cube Bank",
+      "freeCorruptionLevels": "免费腐化等级",
+      "cubeBank": "方盒库",
       "globalCubeMult": "全局方盒倍率",
       "cubeMult": "方盒倍率",
       "tessMult": "超立方倍率",
@@ -7200,22 +7200,22 @@
       "luckConversion": "神肴之运转换比率",
       "redAmbrosiaLuck": "红运",
       "redAmbrosiaGenMult": "红进度条点数",
-      "purpleHoneyEfficiency": "Purple Honey Efficiency",
-      "purpleHalfLife": "Encabulator Speed",
-      "purpleReactantCapacity": "Ambrosia Bar Point Capacity",
-      "purpleHoneyLuck": "Purple Honey Luck",
-      "purpleHoneyProgressRequirement": "Purple Bar Points Required",
+      "purpleHoneyEfficiency": "紫蜜效率",
+      "purpleHalfLife": "恩卡布器速度",
+      "purpleReactantCapacity": "神肴进度条点数存储上限",
+      "purpleHoneyLuck": "紫蜜之运",
+      "purpleHoneyProgressRequirement": "紫进度条需求",
       "shopVouchers": "商店代金券",
-      "coins": "Coin Production",
-      "taxes": "Tax Exponent",
+      "coins": "金币产量",
+      "taxes": "税收指数",
       "generate": "生成统计数据报告"
     },
     "globalCubeMultiplierStats": {
       "title": "所有类型的方盒、立方和方块倍率",
-      "EventCubeGain": "Event - Bonus Cube Gain:",
+      "EventCubeGain": "活动 - 方盒获取加成：",
       "PseudoCoins": "伪币升级：",
       "AscensionTime": "飞升时间倍率：",
-      "TutorialBonus": "Corruption Tokens - First Token Bonus:",
+      "TutorialBonus": "腐化代币 - 首次获得代币加成：",
       "Campaign": "腐化代币 - 方盒加成：",
       "Challenge15": "挑战15-所有类型的方盒、立方和方块获取数量 I-V加成：",
       "SunMoon": "[烈日千阳]和[静月千阴]成就倍率：",
@@ -7249,11 +7249,11 @@
       "ModuleQuarkCube1": "神肴 - 夸克-方盒混合模块 I：",
       "ModuleCubes2": "神肴 - 方盒模块 II：",
       "ModuleCubes3": "神肴 - 方盒模块 III：",
-      "ModuleCubes4": "Ambrosia - Cube^4:",
+      "ModuleCubes4": "神肴 - 方盒^4：",
       "ModuleHyperflux": "神肴 - 惊奇方盒终极工业生产模块：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的方盒升级：",
-      "Exalt6": "拔擢 - 奇点大竞速赛 - 超时惩罚：",
+      "Exalt6": "拔擢 - 奇点竞速大赛 - 超时惩罚：",
       "Event": "活动加成：",
       "OneMind": "一心倍率：",
       "Total": "所有类型的方盒、立方和方块获取数量总倍率："
@@ -7263,10 +7263,10 @@
       "CubeBank": "方盒库：",
       "AchievementBonus": "惊奇方盒成就的加成：",
       "SynergismLevel": "协同效应等级的奖励：",
-      "BaseMultiplier": "Base Multiplier:",
-      "Corruption": "Corruption (per Cube Bank point):",
-      "Challenge15Bonus": "Challenge 15 Reward:",
-      "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
+      "BaseMultiplier": "基础倍率：",
+      "Corruption": "腐化倍率(每个方盒库的加成)：",
+      "Challenge15Bonus": "挑战15奖励：",
+      "PlatonicBlessing": "PLATONIC的祝福 - 高分塑像：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass1": "夸克升级 - 季票：",
       "WowSquare": "惊奇正方形 - 签名的加成：",
@@ -7293,11 +7293,11 @@
       "title": "惊奇超立方倍率",
       "AchievementBonus": "惊奇超立方成就的加成：",
       "SynergismLevel": "协同效应等级的奖励：",
-      "CubeBank": "Cube Bank:",
-      "BaseMultiplier": "Base Multiplier:",
-      "Corruption": "Corruption (per Cube Bank point):",
-      "Challenge15Bonus": "Challenge 15 Reward:",
-      "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
+      "CubeBank": "方盒库：",
+      "BaseMultiplier": "基础倍率：",
+      "Corruption": "腐化倍率(每个方盒库的加成)：",
+      "Challenge15Bonus": "挑战15奖励：",
+      "PlatonicBlessing": "PLATONIC的祝福 - 高分塑像：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass1": "夸克升级 - 季票：",
       "WowSquare": "惊奇正方形 - 铭文的加成：",
@@ -7310,19 +7310,19 @@
       "Achievement255": "成就255的加成：",
       "PlatonicCube": "PLATONIC方盒：",
       "Platonic1x2": "PLATONIC方盒升级1x2：",
-      "Tau": "Platonic TAU Power:",
+      "Tau": "PLATONIC·陶倍率：",
       "Total": "惊奇超立方总倍率：",
-      "Total2": "Final Tesseract Multiplier:"
+      "Total2": "惊奇超立方最终倍率："
     },
     "hypercubeMultiplierStats": {
       "title": "惊奇五阶立方倍率",
       "AchievementBonus": "惊奇五阶立方成就的加成：",
       "SynergismLevel": "协同效应等级的奖励：",
-      "CubeBank": "Cube Bank:",
-      "BaseMultiplier": "Base Multiplier:",
-      "Corruption": "Corruption (per Cube Bank point):",
-      "Challenge15Bonus": "Challenge 15 Reward:",
-      "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
+      "CubeBank": "方盒库：",
+      "BaseMultiplier": "基础倍率：",
+      "Corruption": "腐化倍率(每个方盒库的加成)：",
+      "Challenge15Bonus": "挑战15奖励：",
+      "PlatonicBlessing": "PLATONIC的祝福 - 高分塑像：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass2": "夸克升级 - 季票2：",
       "WowSquare": "惊奇正方形 - 签名的加成：",
@@ -7334,19 +7334,19 @@
       "PlatonicCube": "PLATONIC方盒：",
       "Platonic1x3": "PLATONIC方盒升级1x3：",
       "HyperrealHepteract": "惊奇七阶立方·超真实加成：",
-      "Tau": "Platonic TAU Power:",
+      "Tau": "PLATONIC·陶倍率：",
       "Total": "惊奇五阶立方总倍率：",
-      "Total2": "Final Hypercube Multiplier:"
+      "Total2": "惊奇五阶立方最终倍率："
     },
     "platonicMultiplierStats": {
       "title": "PLATONIC方盒倍率",
       "AchievementBonus": "PLATONIC方盒成就的加成：",
       "SynergismLevel": "协同效应等级的奖励：",
-      "CubeBank": "Cube Bank:",
-      "BaseMultiplier": "Base Multiplier:",
-      "Corruption": "Corruption (per Cube Bank point):",
-      "Challenge15Bonus": "Challenge 15 Reward:",
-      "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
+      "CubeBank": "方盒库：",
+      "BaseMultiplier": "基础倍率：",
+      "Corruption": "腐化倍率(每个方盒库的加成)：",
+      "Challenge15Bonus": "挑战15奖励：",
+      "PlatonicBlessing": "PLATONIC的祝福 - 高分塑像：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass2": "夸克升级 - 季票2：",
       "WowSquare": "惊奇正方形 - 铭文的加成：",
@@ -7356,19 +7356,19 @@
       "Achievement257": "成就257的加成：",
       "PlatonicCube": "PLATONIC方盒：",
       "Platonic1x4": "PLATONIC方盒升级1x4：",
-      "Tau": "Platonic TAU Power:",
+      "Tau": "PLATONIC·陶倍率：",
       "Total": "PLATONIC方盒总倍率：",
-      "Total2": "Final Platonic Cube Multiplier:"
+      "Total2": "PLATONIC方盒最终倍率："
     },
     "hepteractMultiplierStats": {
       "title": "惊奇七阶立方倍率",
       "AchievementBonus": "惊奇七阶立方成就的加成：",
       "SynergismLevel": "协同效应等级的奖励：",
-      "CubeBank": "Cube Bank:",
-      "BaseMultiplier": "Base Multiplier:",
-      "Corruption": "Corruption (per Cube Bank point):",
-      "Challenge15Bonus": "Challenge 15 Reward:",
-      "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
+      "CubeBank": "方盒库：",
+      "BaseMultiplier": "基础倍率：",
+      "Corruption": "腐化倍率(每个方盒库的加成)：",
+      "Challenge15Bonus": "挑战15奖励：",
+      "PlatonicBlessing": "PLATONIC的祝福 - 高分塑像：",
       "GlobalCube": "所有类型的方盒、立方和方块倍率：",
       "SeasonPass3": "夸克升级 - 季票3：",
       "WowSquare": "惊奇正方形 - 签名的加成：",
@@ -7376,19 +7376,19 @@
       "Achievement264": "成就264的加成：",
       "Achievement265": "成就265的加成：",
       "Achievement270": "成就270的加成：",
-      "Tau": "Platonic TAU Power:",
+      "Tau": "PLATONIC·陶倍率：",
       "Total": "惊奇七阶立方总倍率：",
-      "Total2": "Final Hepteract Multiplier:"
+      "Total2": "惊奇七阶立方最终倍率："
     },
     "octeractMultiplierStats": {
       "title": "惊奇八阶方块倍率",
       "SynergismLevel": "协同效应等级的奖励：",
-      "CubeBank": "Cube Bank:",
-      "BaseMultiplier": "Base Multiplier:",
-      "Corruption": "Corruption (per Cube Bank point):",
-      "Challenge15Bonus": "Challenge 15 Reward:",
-      "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
-      "EventCubeGain": "Event - Bonus Cube Gain:",
+      "CubeBank": "方盒库：",
+      "BaseMultiplier": "基础倍率：",
+      "Corruption": "腐化倍率(每个方盒库的加成)：",
+      "Challenge15Bonus": "挑战15奖励：",
+      "PlatonicBlessing": "PLATONIC的祝福 - 高分塑像：",
+      "EventCubeGain": "活动 - 方盒获取加成：",
       "PseudoCoins": "伪币升级：",
       "Campaign": "腐化代币 - 八阶方块加成：",
       "SeasonPass3": "夸克升级 - 季票3：",
@@ -7423,15 +7423,15 @@
       "ModuleQuarkCube1": "神肴 - 夸克-方盒混合模块 I：",
       "ModuleCubes2": "神肴 - 方盒模块 II：",
       "ModuleCubes3": "神肴 - 方盒模块 III：",
-      "ModuleCubes4": "Ambrosia - Cube^4:",
+      "ModuleCubes4": "神肴 - 方盒^4：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的方盒升级：",
       "CashGrabUltra": "夸克升级 - 终极昂贵物品：",
       "EXUltra": "夸克升级 - 额外·终方盒加成：",
       "AscensionSpeed": "飞升的速度倍率：",
-      "Tau": "Platonic TAU Power:",
+      "Tau": "PLATONIC·陶倍率：",
       "Total": "惊奇八阶方块总倍率：",
-      "Total2": "Final Octeract Multiplier:"
+      "Total2": "惊奇八阶方块最终倍率："
     },
     "baseOfferingStats": {
       "title": "基础祭品获取数量之和",
@@ -7506,12 +7506,12 @@
       "OfferingEX2": "夸克升级 - 额外祭品2：",
       "OfferingINF": "夸克升级 - 最终祭品升级：",
       "EXUltra": "夸克升级 - 额外·终祭品加成：",
-      "PurpleHoneyUpgrade": "Purple Honey - Offerings but Purple:",
+      "PurpleHoneyUpgrade": "紫蜜 - 祭品，但是紫色：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的祭品升级：",
       "Event": "活动加成：",
-      "DroughtCorruption": "'Less Fruitful Harvests' Corruption:",
-      "Exalt6Penalty": "拔擢 - 奇点大竞速赛 - 超时惩罚：",
+      "DroughtCorruption": "“欠收”腐化：",
+      "Exalt6Penalty": "拔擢 - 奇点竞速大赛 - 超时惩罚：",
       "TaxmanDebuff": "拔擢 - 税务官的最后阵地 - ☢ 辐射惩罚：",
       "Jack": "夸克升级 - 全能高手：",
       "Total": "祭品获取数量倍率：",
@@ -7575,16 +7575,16 @@
       "AmbrosiaLuckQuark1": "神肴 - 神肴之运-夸克混合模块 I：",
       "AmbrosiaQuarks2": "神肴 - 夸克模块 II：",
       "AmbrosiaQuarks3": "神肴 - 夸克模块 III：",
-      "AmbrosiaQuarks4": "Ambrosia - Quark Capstone:",
+      "AmbrosiaQuarks4": "神肴 - 夸克顶点：",
       "CashGrabQuarkBonus": "夸克升级 - 终极昂贵物品夸克加成：",
-      "LimitedTimeChallenge": "拔擢 - 奇点大竞速赛：",
+      "LimitedTimeChallenge": "拔擢 - 奇点竞速大赛：",
       "SadisticPrequel": "拔擢 - 虐待狂拔擢 III - 前传：",
       "Viscount": "成为子爵的加成：",
       "FirstSingularityBonus": "首次进入奇点加成：",
       "Event": "活动及消耗品加成：",
       "GlobalSubscriber": "来自尊贵订阅者的全局加成：",
       "AccountBonus": "协同放置个人账户加成：",
-      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "紫蜜总数 - 紫蜜之力：",
       "Total": "夸克获取数量总倍率："
     },
     "baseObtainiumStats": {
@@ -7610,7 +7610,7 @@
       "CampaignBonus": "腐化代币 - 难得素加成：",
       "ChallengeBonus": "挑战15 - 难得素加成：",
       "PlatonicALPHA": "PLATONIC·阿尔法：",
-      "PlatonicUpgrade9": "PLATONIC升级2x4：",
+      "PlatonicUpgrade9": "PLATONIC方盒升级2x4：",
       "PlatonicBETA": "PLATONIC·贝塔：",
       "PlatonicOMEGA": "PLATONIC·欧米伽：",
       "Antiquities": "蚁神之古物：",
@@ -7620,7 +7620,7 @@
       "ObtainiumEX3": "夸克升级 - 最终难得素升级[每25级]：",
       "RedAmbrosiaTutorial": "红神肴 - 教程升级：",
       "RedAmbrosia": "由红神肴“制取”的难得素升级：",
-      "Exalt6Penalty": "拔擢 - 奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "拔擢 - 奇点竞速大赛 - 超时惩罚：",
       "Event": "活动加成：",
       "Total": "不受效果衰减影响的难得素总倍率："
     },
@@ -7656,7 +7656,7 @@
       "SpiritPower": "卓越智慧魂灵：",
       "Research6x19": "研究6x19：",
       "PlatonicALPHA": "PLATONIC·阿尔法：",
-      "PlatonicUpgrade9": "PLATONIC升级2x4：",
+      "PlatonicUpgrade9": "PLATONIC方盒升级2x4：",
       "PlatonicBETA": "PLATONIC·贝塔：",
       "PlatonicOMEGA": "PLATONIC·欧米伽：",
       "CubeUpgrade5x10": "方盒升级5x10：",
@@ -7676,11 +7676,11 @@
       "OcteractObtainium1": "八阶方块 - 难得素之涌：",
       "AmbrosiaObtainium1": "神肴 - 基于随机数的难得素加成：",
       "EXUltraObtainium": "夸克升级 - 额外·终难得素加成：",
-      "PurpleHoneyUpgrade": "Purple Honey - Obtainium Purpling:",
-      "RareEarthMetalsCorruption": "'Rare Earth Metals' Corruption:",
+      "PurpleHoneyUpgrade": "紫蜜 - 紫化难得素：",
+      "RareEarthMetalsCorruption": "“稀土金属”腐化：",
       "Challenge14": "挑战14 - 无研究挑战：",
       "SingularityDebuff": "奇点惩罚：",
-      "Exalt6Penalty": "拔擢 - 奇点大竞速赛 - 超时惩罚：",
+      "Exalt6Penalty": "拔擢 - 奇点竞速大赛 - 超时惩罚：",
       "TaxmanDebuff": "拔擢 - 税务官的最后阵地 - ☼ 十亿日照惩罚：",
       "Jack": "夸克升级 - 全能高手：",
       "Event": "活动加成：",
@@ -7716,7 +7716,7 @@
       "SingularityDebuff": "奇点惩罚：",
       "IntermediatePack": "金夸克升级 - 中级礼包：",
       "OcteractGlobalSpeed": "八阶方块 - 禁忌时钟：",
-      "LimitedTimeChallenge": "拔擢 - 奇点大竞速赛：",
+      "LimitedTimeChallenge": "拔擢 - 奇点竞速大赛：",
       "ChronometerShop": "夸克升级 - 真·时计·终：",
       "Event": "活动加成：",
       "Total": "不受效果衰减影响的全局速度总倍率："
@@ -7745,82 +7745,82 @@
       "FastSpeedDR": "全局速度超过100倍时的软上限指数：",
       "SlowSpeedDR": "全局速度低于1倍时的软上限指数：",
       "ImmaculateSpeedMult": "无瑕全局速度倍率：",
-      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "紫蜜总数 - 紫蜜之力：",
       "Total": "全局速度倍率：",
       "Total2": "全局速度最终倍率："
     },
     "coinStats": {
-      "title": "Coin Production",
-      "Multipliers": "Multipliers:",
-      "Accelerators": "Accelerators:",
-      "Crystals": "Crystals:",
-      "BuildingPower": "Building Power:",
-      "AntUpgrade": "Ants - Fortunae Formicidae:",
-      "Singularity": "Singularity (Golden Quarks and Highest Singularity):",
-      "CoinUpgrade6": "Coin Upgrade 6:",
-      "CoinUpgrade11": "Coin Upgrade 11:",
-      "CoinUpgrade12": "Coin Upgrade 12:",
-      "CoinUpgrade20": "Coin Upgrade 20:",
-      "MythosUpgrade1": "Mythos Upgrade 1:",
-      "MythosUpgrade3": "Mythos Upgrade 3:",
-      "Challenge6Active": "In Challenge 6:",
-      "Challenge7Active": "In Challenge 7:",
-      "Challenge9Active": "In Challenge 9:",
-      "Total": "Total Coin Multiplier (before exponents):",
-      "Research1x17": "Research 1x17:",
-      "CoinUpgrade23": "Coin Upgrade 23:",
-      "PlatonicUpgrade5": "Platonic Upgrade 5 (Challenge 15):",
-      "PlatonicUpgrade14": "Platonic Upgrade 14 (Challenge 15):",
-      "PlatonicUpgrade15": "Platonic Upgrade 15 (Challenge 15):",
-      "Challenge15": "Challenge 15 Reward:",
-      "Challenge15Recession": "Challenge 15 - Recession:",
-      "Recession": "'Great Depression II' Corruption:",
-      "Total2": "Total Coin Exponent:",
-      "Producer1": "Workers-only Multiplier:",
-      "Producer1Total": "Workers Total Multiplier:",
-      "Producer2": "Investments-only Multiplier:",
-      "Producer2Total": "Investments Total Multiplier:",
-      "Producer3": "Printers-only Multiplier:",
-      "Producer3Total": "Printers Total Multiplier:",
-      "Producer4": "Coin Mints-only Multiplier:",
-      "Producer4Total": "Coin Mints Total Multiplier:",
-      "RefineryAlchemy": "Generation Upgrades 6-10 (Refineries):",
-      "Producer5": "Alchemies-only Multiplier:",
-      "Producer5Total": "Alchemies Total Multiplier:",
-      "GrossPerSecond": "Coins per Second (before tax):",
-      "TaxDivisor": "Tax Divisor:",
-      "NetPerSecond": "Coins per Second (after tax):"
+      "title": "金币产量",
+      "Multipliers": "加倍器：",
+      "Accelerators": "加速器：",
+      "Crystals": "水晶：",
+      "BuildingPower": "建筑能量：",
+      "AntUpgrade": "蚂蚁 - 财富蚁：",
+      "Singularity": "奇点(金夸克和最高奇点次数)：",
+      "CoinUpgrade6": "金币升级6：",
+      "CoinUpgrade11": "金币升级11：",
+      "CoinUpgrade12": "金币升级12：",
+      "CoinUpgrade20": "金币升级20：",
+      "MythosUpgrade1": "神话升级1：",
+      "MythosUpgrade3": "神话升级3：",
+      "Challenge6Active": "在挑战6中：",
+      "Challenge7Active": "在挑战7中：",
+      "Challenge9Active": "在挑战9中：",
+      "Total": "金币总倍率(计算指数前)：",
+      "Research1x17": "研究1x17：",
+      "CoinUpgrade23": "金币升级23：",
+      "PlatonicUpgrade5": "PLATONIC方盒升级5 (挑战15)：",
+      "PlatonicUpgrade14": "PLATONIC方盒升级14 (挑战15)：",
+      "PlatonicUpgrade15": "PLATONIC方盒升级15 (挑战15)：",
+      "Challenge15": "挑战15奖励：",
+      "Challenge15Recession": "挑战15 - 衰退：",
+      "Recession": "“大萧条 II”腐化：",
+      "Total2": "总金币指数：",
+      "Producer1": "仅限工人的倍率：",
+      "Producer1Total": "工人总倍率：",
+      "Producer2": "仅限投资的倍率：",
+      "Producer2Total": "投资总倍率：",
+      "Producer3": "仅限打印机的倍率：",
+      "Producer3Total": "打印机总倍率：",
+      "Producer4": "仅限铸币厂的倍率：",
+      "Producer4Total": "铸币厂总倍率：",
+      "RefineryAlchemy": "发生器升级6-10(炼油厂)：",
+      "Producer5": "仅限炼金术的倍率：",
+      "Producer5Total": "炼金术总倍率：",
+      "GrossPerSecond": "每秒金币(税前)：",
+      "TaxDivisor": "税收除数：",
+      "NetPerSecond": "每秒金币(税后)："
     },
     "taxStats": {
-      "title": "Tax Reduction",
-      "DuplicationRune": "Duplication Rune:",
-      "ThriftRune": "Thrift Rune:",
-      "ExemptionTalisman": "Exemption Talisman:",
-      "Challenge6Active": "In Challenge 6:",
-      "Challenge9Active": "In Challenge 9:",
-      "Challenge13Active": "In Challenge 13:",
-      "Challenge15Active": "In Challenge 15:",
-      "Challenge6FirstCompletion": "Challenge 6 First Completion:",
-      "Challenge6": "Challenge 6 Completions:",
-      "Challenge13": "Challenge 13 Completions:",
-      "Challenge15": "Challenge 15 Reward:",
-      "Researches": "Researches 3x1 - 3x5:",
-      "Research7x9": "Research 7x9 (Rare Fragments):",
-      "Research8x25": "Research 8x25:",
-      "AntUpgrade": "Ants - Tributum Formicidae:",
-      "Constant": "Constant (Ascension):",
-      "CoinUpgrade21": "Coin Upgrade 21:",
-      "CubeUpgrade5x10": "Cube Upgrade 5x10:",
-      "Achievements": "Achievements:",
-      "Campaign": "Campaign Tokens:",
-      "Taurus": "Purple Ambrosia - Taurus:",
-      "SingularityPerk": "Singularity Perk - Accountants Clicking at Your Desktop:",
-      "TaxmanLastStand": "EXALT - The Taxman's Last Stand:",
-      "Total": "Total Tax Multiplier:",
-      "MaxExponent": "Tax Cap (log10 of production):",
-      "FlatCapIncrease": "Tax-exempt Cap Increase (Ants + Building Power):",
-      "ProductionExponent": "Current Production (log10):",
-      "TaxDivisor": "Current Tax Divisor:"
+      "title": "减少税收",
+      "DuplicationRune": "重叠符文：",
+      "ThriftRune": "节俭符文：",
+      "ExemptionTalisman": "免税护身符：",
+      "Challenge6Active": "在挑战6中：",
+      "Challenge9Active": "在挑战9中：",
+      "Challenge13Active": "在挑战13中：",
+      "Challenge15Active": "在挑战15中：",
+      "Challenge6FirstCompletion": "完成第1次挑战6：",
+      "Challenge6": "挑战6完成次数：",
+      "Challenge13": "挑战13完成次数：",
+      "Challenge15": "挑战15奖励：",
+      "Researches": "研究3x1至3x5：",
+      "Research7x9": "研究7x9 (稀有碎片)：",
+      "Research8x25": "研究8x25：",
+      "AntUpgrade": "蚂蚁 - 示威蚁：",
+      "Constant": "数学常数(飞升)：",
+      "CoinUpgrade21": "金币升级21：",
+      "CubeUpgrade5x10": "方盒升级5x10：",
+      "Achievements": "成就：",
+      "Campaign": "腐化代币：",
+      "Taurus": "紫神肴 - 金牛座：",
+      "SingularityPerk": "奇点特权 - 在桌面点击的会计师：",
+      "TaxmanLastStand": "拔擢 - 税务官的最后阵地：",
+      "Total": "税收总倍率：",
+      "MaxExponent": "税收上限(产量取log10)：",
+      "FlatCapIncrease": "免税上限增加(蚂蚁及建筑能量)：",
+      "ProductionExponent": "当前产量(log10)：",
+      "TaxDivisor": "当前税收除数："
     },
     "ascensionSpeedMultiplierStats": {
       "title": "飞升的速度倍率",
@@ -7846,13 +7846,13 @@
       "ChronometerINF": "夸克升级 - 时计·终：",
       "LimitedAscensionsDebuff": "拔擢 - 有限飞升挑战 - 飞升次数惩罚：",
       "LimitedAscensionsBuff": "拔擢 - 有限飞升挑战：",
-      "LimitedTimeChallenge": "拔擢 - 奇点大竞速赛：",
+      "LimitedTimeChallenge": "拔擢 - 奇点竞速大赛：",
       "ChronometerS": "夸克升级 - 真·时计·终：",
       "ExponentialScalingFast": "飞升的速度指数(基础值超过1时)：",
       "ExponentialScalingSlow": "飞升的速度指数(基础值低于1时)：",
       "SingularityDebuff": "奇点惩罚：",
       "AmbrosiaBrickOfLead": "神肴 - 铅砖：",
-      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "紫蜜总数 - 紫蜜之力：",
       "Total": "飞升的速度基础倍率：",
       "Total2": "飞升的速度最终倍率："
     },
@@ -7871,7 +7871,7 @@
       "Total": "神肴之运总倍率(效果叠加)："
     },
     "ambrosiaLuckStats": {
-      "PurpleAmbrosiaLeo": "Purple Ambrosia - Leo:",
+      "PurpleAmbrosiaLeo": "紫神肴 - 狮子座：",
       "title": "神肴之运",
       "Base": "基础值：",
       "SynergismLevel": "协同效应等级的奖励：",
@@ -7911,13 +7911,13 @@
       "SingBlueberries": "金夸克升级 - 蓝莓！：",
       "ConglomerateBerries": "凝结蓝莓(奇点特权)：",
       "NoAmbrosiaUpgrades": "拔擢 - 无神肴升级：",
-      "BarDependence": "EXALT - Bar Charging:",
+      "BarDependence": "拔擢 - 填充进度条：",
       "OcteractBlueberries": "八阶方块 - 蓝色的莓！：",
       "RedAmbrosiaBlueberries": "红神肴 - 蓝色的……莓？：",
       "Total": "拥有的蓝莓总数："
     },
     "ambrosiaGenerationStats": {
-      "PurpleAmbrosiaAries": "Purple Ambrosia - Aries:",
+      "PurpleAmbrosiaAries": "紫神肴 - 白羊座：",
       "title": "神肴进度条点数",
       "Default": "每秒默认值：",
       "PseudoCoins": "伪币升级：",
@@ -7937,8 +7937,8 @@
       "CookieUpgrade26": "饼干升级26[Cx26]加成：",
       "Event": "活动加成：",
       "CashGrabUltra": "夸克升级 - 终极昂贵物品蓝莓加成：",
-      "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
-      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
+      "PurpleHoneyUpgrade1": "紫蜜 - 紫色家伙的问候：",
+      "LifetimePurpleHoneyPower": "紫蜜总数 - 紫蜜之力：",
       "Total": "每秒神肴进度条点数：",
       "BlueberryCount": "拥有的蓝莓数量：",
       "Total2": "最终每秒神肴进度条点数："
@@ -7951,7 +7951,7 @@
       "ShopPowderEX": "夸克升级 - 额外超通量粉：",
       "Achievement256": "成就256的加成：",
       "Achievement257": "成就257的加成：",
-      "PlatonicUpgrade4x1": "PLATONIC升级4x1：",
+      "PlatonicUpgrade4x1": "PLATONIC方盒升级4x1：",
       "Event": "活动加成：",
       "Total": "1超通量珠可以转换成的超通量粉数量："
     },
@@ -7965,7 +7965,7 @@
       "CookieUpgrade19": "饼干升级19[Cx19]：",
       "NoSingularityUpgrades": "拔擢 - 无金夸克升级：",
       "GoldenRevolution2": "金之革命 I：",
-      "FastForwards": "“提前看到”金夸克/八阶方块升级：",
+      "FastForwards": "“提前看到”八阶方块升级：",
       "ImmaculateAlchemy": "完美炼金术特权：",
       "Event": "活动加成：",
       "GlobalSubscriber": "来自尊贵订阅者的全局加成：",
@@ -8020,7 +8020,7 @@
     "nextAdd": "{{time}}秒可以恢复1次“增加”代码使用次数",
     "miscStats": {
       "title": "杂项统计",
-      "FirstPlayed": "First Played:",
+      "FirstPlayed": "首次游玩时间：",
       "PrestigeCount": "转生次数：",
       "FastestPrestige": "最快转生时间：",
       "MaxOfferings": "祭品最大数量：",
@@ -8037,8 +8037,8 @@
       "TotalQuarks": "夸克获取总数：",
       "QuarkTimer": "导出夸克奖励计时：",
       "QuarkTimerMax": "导出夸克奖励计时上限：",
-      "HighestPurpleHoney": "Highest Stored Purple Honey:",
-      "PurpleHoneySpentUpgrades": "Purple Honey Spent on Upgrades:"
+      "HighestPurpleHoney": "单次最多的紫蜜数量：",
+      "PurpleHoneySpentUpgrades": "用于升级的紫蜜数量："
     },
     "luckConversionStats": {
       "title": "神肴之运转换比率",
@@ -8049,7 +8049,7 @@
       "ShopRedLuck1": "夸克升级 - 赌博魔神的低阶骰子：",
       "ShopRedLuck2": "夸克升级 - 赌博魔神的骰子：",
       "ShopRedLuck3": "夸克升级 - 赌博魔神的高阶骰子：",
-      "ShopRedLuck4": "Quark Upgrade: Elite Class Dice of Asmodeus",
+      "ShopRedLuck4": "夸克升级 - 赌博魔神的超级骰子：",
       "Total": "1红运需要的神肴之运数量："
     },
     "redAmbrosiaLuckStats": {
@@ -8063,7 +8063,7 @@
       "ShopRedLuck1": "夸克升级 - 赌博魔神的低阶骰子：",
       "ShopRedLuck2": "夸克升级 - 赌博魔神的骰子：",
       "ShopRedLuck3": "夸克升级 - 赌博魔神的高阶骰子：",
-      "ShopRedLuck4": "Quark Upgrade: Elite Class Dice of Asmodeus",
+      "ShopRedLuck4": "夸克升级 - 赌博魔神的超级骰子：",
       "Jack": "夸克升级 - 全能高手：",
       "Viscount": "成为子爵的加成：",
       "HorseShoeRune": "马蹄铁符文加成：",
@@ -8071,24 +8071,24 @@
       "Total": "红运总数："
     },
     "redAmbrosiaGenerationStats": {
-      "CookieUpgrade26": "Cookie Upgrade 26 (Cx26):",
-      "PurpleAmbrosiaAries": "Purple Ambrosia - Aries:",
+      "CookieUpgrade26": "饼干升级26[Cx26]：",
+      "PurpleAmbrosiaAries": "紫神肴 - 白羊座：",
       "title": "红进度条点数",
       "PseudoCoins": "伪币升级：",
       "Base": "每秒默认值：",
-      "SynergismLevelReward": "Synergism Level Reward:",
-      "PatreonBonus": "Ambrosia - Shameless, Ambrosial Subscriber Advertisement:",
-      "RedAmbrosiaUpgrade": "Red Ambrosia - The Sands of Time",
-      "RedAmbrosiaUpgrade2": "Red Ambrosia - The Sands of Time II",
+      "SynergismLevelReward": "协同效应等级的奖励：",
+      "PatreonBonus": "神肴 - 厚颜的神肴订阅广告：",
+      "RedAmbrosiaUpgrade": "红神肴 - 时之沙：",
+      "RedAmbrosiaUpgrade2": "红神肴 - 时之沙 II：",
       "BlueberrySpeed": "神肴提供的获取速度(超过num:((1000)))后受到(num:((0.5))次方的惩罚)：",
       "RedAmbrosia": "红神肴 - 千年之红神肴：",
-      "RedAmbrosia2": "Red Ambrosia - Era of Red Ambrosia:",
+      "RedAmbrosia2": "红神肴 - 红神肴时代：",
       "Exalt5": "拔擢 - 无神肴升级：",
-      "PurpleHoneyUpgrade1": "Purple Honey - The Purple Guy's Greeting:",
-      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
-      "BlueberryCount": "Number of Blueberries Owned:",
+      "PurpleHoneyUpgrade1": "紫蜜 - 紫色家伙的问候：",
+      "LifetimePurpleHoneyPower": "紫蜜总数 - 紫蜜之力：",
+      "BlueberryCount": "拥有的蓝莓数量：",
       "Total": "每秒红进度条点数：",
-      "Total2": "Final Red Bar Points/s:"
+      "Total2": "最终每秒红进度条点数："
     },
     "shopVoucherStats": {
       "title": "“无限公司”夸克升级的免费等级",
@@ -8103,7 +8103,7 @@
       "Blue": "蓝色代金券[夸克]：",
       "Indigo": "靛蓝代金券[神肴1]：",
       "Violet": "紫罗兰代金券[神肴2]：",
-      "Periwinkle": "Periwinkle Vouchers [Ambrosia 3]:",
+      "Periwinkle": "浅蓝紫色代金券[神肴3]：",
       "Total": "免费等级总数："
     },
     "talismanRuneBonusMultiplierStats": {
@@ -8129,108 +8129,108 @@
       "extraInfo": "回收使符文、祝福和魂灵的经验值获取数量变为原来的<br><<yellow|10^(回收 / 30)>>倍 <br> <<crimson|如果回收为负数，将改为使符文经验值获取数量除以该数值。>>"
     },
     "constructionStats": {
-      "title": "Construction",
-      "extraInfo": "Every Coin, Crystal, Mythos and Particle Building has a base Softcap of <<yellow|num:((1000))>> owned, which is multiplied by Construction. The quadratic scaling thresholds of Accelerators and Multipliers, and the cost scaling delay of Accelerator Boosts, are multiplied by <<yellow|√Construction>> as well. <br> Each Building costs a fixed multiple more than the last until you own as many as its Softcap. Past that, the price exponent grows <<yellow|quadratically>>. <br> <<lime|Past the Softcap, the price exponent gains an extra (Owned - Softcap)² / Softcap, so more Construction both delays the quadratic scaling and makes it grow more slowly.>> <br> Challenges 4 and 10 divide Coin and Crystal Building Construction by num:((2)), and Challenge 8 divides Coin, Crystal and Mythos Building Construction by num:((5)) (Challenge 8 takes priority). <br> <<crimson|The 'Rocky Foundations' Corruption divides Construction for everything.>>"
+      "title": "建造力",
+      "extraInfo": "每种金币建筑，水晶建筑，神话建筑和粒子建筑都拥有<<yellow|num:((1000))>>的基础软上限，它还会乘以建造力。加速器、加倍器的平方速度增长阈值，和加速器加成的花费增长减缓，也会乘以<<yellow|建造力的平方根>>。<br>每个建筑的花费都是上一个的固定倍数，直到拥有的数量达到软上限。超过软上限后，价格将以<<yellow|平方速度>>增长。<br><<lime|超过软上限后，花费指数会额外增加 (拥有数量 - 软上限)² / 软上限，因此增加建造力既能使平方速度增长延后出现，也能减缓它的增长。>><br>挑战4和挑战10会使金币建筑和钻石建筑的建造力除以num:((2))，挑战8会使金币建筑、钻石建筑和神话建筑的建造力除以num:((5)) (挑战8优先生效)。<br><<crimson|“地基不稳”腐化则会减少所有建筑的建造力。>>"
     },
     "constructionBase": {
-      "title": "Construction Sources",
-      "Base": "Base:",
-      "MythosUpgrade8": "Mythos Upgrade 8:",
-      "ThriftRune": "Thrift Rune:",
-      "Researches": "Researches 3x6 - 3x10:",
-      "AntUpgrade": "Ant Upgrade - Hic Formicidae:",
-      "Challenge15Platonic": "Challenge 15 - Maxed Platonic Upgrades:",
-      "Challenge15Reward": "Challenge 15 Reward - Construction:",
-      "Total": "Additive Construction:",
-      "PlatonicUpgrade13": "Challenge 15 - Platonic Upgrade 3x3:",
-      "Total2": "Total Construction:"
+      "title": "建造力来源",
+      "Base": "基础值：",
+      "MythosUpgrade8": "神话升级8：",
+      "ThriftRune": "节俭符文：",
+      "Researches": "研究3x6至3x10：",
+      "AntUpgrade": "蚂蚁 - 建筑蚁：",
+      "Challenge15Platonic": "挑战15 - 满级的PLATONIC方盒升级：",
+      "Challenge15Reward": "挑战15奖励 - 建造力：",
+      "Total": "相加后的建造力：",
+      "PlatonicUpgrade13": "挑战15 - PLATONIC方盒升级3x3：",
+      "Total2": "总建造力："
     },
     "constructionBuildings": {
-      "title": "Construction by Building (after Challenge and Corruption penalties)",
-      "CoinBuildings": "Coin Buildings:",
-      "CrystalBuildings": "Crystal Buildings:",
-      "MythosBuildings": "Mythos Buildings:",
-      "ParticleBuildings": "Particle Buildings:",
-      "Accelerators": "Accelerators:",
-      "Multipliers": "Multipliers:",
-      "AcceleratorBoosts": "Accelerator Boosts:"
+      "title": "不同建筑的建造力(计算挑战和腐化惩罚后)",
+      "CoinBuildings": "金币建筑：",
+      "CrystalBuildings": "水晶建筑：",
+      "MythosBuildings": "神话建筑：",
+      "ParticleBuildings": "粒子建筑：",
+      "Accelerators": "加速器：",
+      "Multipliers": "加倍器：",
+      "AcceleratorBoosts": "加速器加成："
     },
     "freeAccelMultStats": {
-      "title": "Free Accelerators, Multipliers and Accelerator Boosts",
-      "extraInfo": "Free Accelerators and Multipliers are (Additive sources × Multipliers), raised to the Challenge 15 exponent. Hepteracts and Challenge 15 rewards are applied afterwards. The Viscosity Corruption then divides the number of Accelerators and Multipliers (free and purchased) counted by their Coin multipliers and by Upgrades, with free Accelerators and Multipliers capped at num:((1e300)) before Viscosity and num:((1e100)) after. Free Accelerator Boosts are Additive sources × Multipliers."
+      "title": "免费加速器，加倍器和加速器加成",
+      "extraInfo": "免费加速器和加倍器按照 (相加部分 × 相乘部分)^挑战15的指数 来计算，然后再计算七阶立方和挑战15的奖励，接着粘性腐化会在计算对应的金币倍率和升级时，减少加速器和加倍器(无论免费还是购买)的数量，计算粘性腐化前免费加速器和加倍器最多为num:((1e300))，之后最多为num:((1e100))。免费加速器加成按照 相加部分 × 相乘部分 来计算。"
     },
     "freeAccelerators": {
-      "title": "Free Accelerators",
-      "CoinUpgrade8": "Coin Upgrade 8:",
-      "DiamondUpgrades1to5": "Diamond Upgrades 1-5:",
-      "DiamondUpgrade12": "Diamond Upgrade 12:",
-      "MythosUpgrade5": "Mythos Upgrade 5:",
-      "Achievements": "Achievements:",
-      "Challenge2": "Challenge 2:",
-      "AcceleratorBoosts": "Accelerator Boosts:",
-      "AdditiveTotal": "Base Free Accelerators:",
-      "SpeedRune": "Speed Rune:",
-      "Research1x1": "Research 1x1:",
-      "Researches1x6to1x10": "Researches 1x6-1x10:",
-      "Research4x11": "Research 4x11:",
-      "LateResearches": "Researches 6x1, 6x16, 7x6, 7x21, 8x11, 8x25:",
-      "CubeUpgrade50": "Cube Upgrade 5x10:",
-      "MythosUpgrade10": "Mythos Upgrade 10:",
-      "MultiplierTotal": "Free Accelerator Multiplier:",
-      "ViscosityExponent": "Challenge 15 - Viscosity:",
-      "Hepteract": "Accelerator Hepteract:",
-      "Challenge15": "Challenge 15 Reward:",
-      "HepteractMultiplier": "Accelerator Hepteract Multiplier:",
-      "Total": "Total Free Accelerators:"
+      "title": "免费加速器",
+      "CoinUpgrade8": "金币升级8：",
+      "DiamondUpgrades1to5": "钻石升级1-5：",
+      "DiamondUpgrade12": "钻石升级12：",
+      "MythosUpgrade5": "神话升级5：",
+      "Achievements": "成就：",
+      "Challenge2": "挑战2：",
+      "AcceleratorBoosts": "加速器加成：",
+      "AdditiveTotal": "基础免费加速器：",
+      "SpeedRune": "加速符文：",
+      "Research1x1": "研究1x1：",
+      "Researches1x6to1x10": "研究1x6至1x10：",
+      "Research4x11": "研究4x11：",
+      "LateResearches": "研究6x1、6x16、7x6、7x21、8x11、8x25：",
+      "CubeUpgrade50": "方盒升级5x10：",
+      "MythosUpgrade10": "神话升级10：",
+      "MultiplierTotal": "免费加速器倍率：",
+      "ViscosityExponent": "挑战15 - 粘性：",
+      "Hepteract": "惊奇七阶立方·加速器：",
+      "Challenge15": "挑战15奖励：",
+      "HepteractMultiplier": "惊奇七阶立方·加速器倍率：",
+      "Total": "免费加速器总数："
     },
     "freeMultipliers": {
-      "title": "Free Multipliers",
-      "CoinUpgrade7": "Coin Upgrade 7:",
-      "CoinUpgrade9": "Coin Upgrade 9:",
-      "DiamondUpgrades1to5": "Diamond Upgrades 1-5:",
-      "DiamondUpgrade13": "Diamond Upgrade 13:",
-      "MythosUpgrade9": "Mythos Upgrade 9:",
-      "ParticleUpgrade8": "Particle Upgrade 8:",
-      "Challenge1": "Challenge 1:",
-      "Achievements": "Achievements:",
-      "Research4x19": "Research 4x19:",
-      "AdditiveTotal": "Base Free Multipliers:",
-      "DiamondUpgrades14and15": "Diamond Upgrades 14 and 15:",
-      "Research1x2": "Research 1x2:",
-      "Researches1x11to1x15": "Researches 1x11-1x15:",
-      "DuplicationRune": "Duplication Rune:",
-      "Research4x12": "Research 4x12:",
-      "LateResearches": "Researches 6x3, 6x18, 7x8, 7x23, 8x13, 8x25:",
-      "CubeUpgrade50": "Cube Upgrade 5x10:",
-      "AntUpgrade": "Exploratorem Formicidae:",
-      "CubeBlessing": "Aphrodite Tributes:",
-      "MythosUpgrade10": "Mythos Upgrade 10:",
-      "MultiplierTotal": "Free Multiplier Multiplier:",
-      "ViscosityExponent": "Challenge 15 - Viscosity:",
-      "Hepteract": "Multiplier Hepteract:",
-      "Challenge15": "Challenge 15 Reward:",
-      "HepteractMultiplier": "Multiplier Hepteract Multiplier:",
-      "Total": "Total Free Multipliers:"
+      "title": "免费加倍器",
+      "CoinUpgrade7": "金币升级7：",
+      "CoinUpgrade9": "金币升级9：",
+      "DiamondUpgrades1to5": "钻石升级1-5：",
+      "DiamondUpgrade13": "钻石升级13：",
+      "MythosUpgrade9": "神话升级9：",
+      "ParticleUpgrade8": "粒子升级8：",
+      "Challenge1": "挑战1：",
+      "Achievements": "成就：",
+      "Research4x19": "研究4x19：",
+      "AdditiveTotal": "基础免费加倍器：",
+      "DiamondUpgrades14and15": "钻石升级14和15：",
+      "Research1x2": "研究1x2：",
+      "Researches1x11to1x15": "研究1x11至1x15：",
+      "DuplicationRune": "重叠符文：",
+      "Research4x12": "研究4x12：",
+      "LateResearches": "研究6x3、6x18、7x8、7x23、8x13、8x25：",
+      "CubeUpgrade50": "方盒升级5x10：",
+      "AntUpgrade": "加倍蚁：",
+      "CubeBlessing": "阿佛洛狄忒的贡品：",
+      "MythosUpgrade10": "神话升级10：",
+      "MultiplierTotal": "免费加倍器倍率：",
+      "ViscosityExponent": "挑战15 - 粘性：",
+      "Hepteract": "惊奇七阶立方·加倍器：",
+      "Challenge15": "挑战15奖励：",
+      "HepteractMultiplier": "惊奇七阶立方·加倍器倍率：",
+      "Total": "免费加倍器总数："
     },
     "freeAcceleratorBoosts": {
-      "title": "Free Accelerator Boosts",
-      "DiamondUpgrade6": "Diamond Upgrade 6:",
-      "DiamondUpgrade11": "Diamond Upgrade 11:",
-      "Achievements": "Achievements:",
-      "Research4x18": "Research 4x18:",
-      "AdditiveTotal": "Base Free Accelerator Boosts:",
-      "Research1x3": "Research 1x3:",
-      "Researches1x16and1x17": "Researches 1x16 and 1x17:",
-      "Research4x13": "Research 4x13:",
-      "AntUpgrade": "Celeritas Formicidae:",
-      "LateResearches": "Researches 6x2, 6x17, 7x7, 7x22, 8x12, 8x25:",
-      "CubeUpgrade50": "Cube Upgrade 5x10:",
-      "Hepteract": "Accelerator Boost Hepteract:",
-      "ParticleUpgrade13": "Particle Upgrade 13:",
-      "Total": "Total Free Accelerator Boosts:"
+      "title": "免费加速器加成",
+      "DiamondUpgrade6": "钻石升级6：",
+      "DiamondUpgrade11": "钻石升级11：",
+      "Achievements": "成就：",
+      "Research4x18": "研究4x18：",
+      "AdditiveTotal": "基础免费加速器加成：",
+      "Research1x3": "研究1x3：",
+      "Researches1x16and1x17": "研究1x16和1x17：",
+      "Research4x13": "研究4x13：",
+      "AntUpgrade": "迅捷蚁：",
+      "LateResearches": "研究6x2、6x17、7x7、7x22、8x12、8x25：",
+      "CubeUpgrade50": "方盒升级5x10：",
+      "Hepteract": "惊奇七阶立方·加速器加成：",
+      "ParticleUpgrade13": "粒子升级13：",
+      "Total": "免费加速器加成总数："
     },
     "salvagePositive": {
-      "PurpleAmbrosiaVirgo": "Purple Ambrosia - Virgo:",
+      "PurpleAmbrosiaVirgo": "紫神肴 - 处女座：",
       "title": "正数回收",
       "BaseMultiplier": "基础正数回收倍率",
       "AchievementTalisman": "成就护身符 - 回收加成：",
@@ -8256,7 +8256,7 @@
       "BaseMultiplier": "基础负数回收倍率",
       "SingularityPerk": "奇点特权 - 在桌面点击的回收人：",
       "AchievementTalisman": "成就护身符 - 回收加成：",
-      "PlatonicUpgrade13": "Platonic Upgrade 3x3:",
+      "PlatonicUpgrade13": "PLATONIC方盒升级3x3：",
       "SingularityDebuff": "奇点惩罚：",
       "RedAmbrosiaYinYang": "红神肴 - 阴：",
       "Total": "负数回收：",
@@ -8264,14 +8264,14 @@
       "Total2": "总负数回收："
     },
     "salvageTotal": {
-      "Total": "Total Salvage:"
+      "Total": "回收总数："
     },
     "salvageFirstFive": {
-      "title": "First Five Runes Salvage",
-      "GlobalSalvage": "Global Salvage:",
-      "BadOfferings": "Corruptions - Bad Offerings:",
-      "Challenge15Penalty": "Challenge 15 Penalty:",
-      "Total": "First Five Runes Salvage:"
+      "title": "前五个符文的回收",
+      "GlobalSalvage": "全局回收：",
+      "BadOfferings": "腐化 - 劣质祭品：",
+      "Challenge15Penalty": "挑战15惩罚：",
+      "Total": "前五个符文的回收："
     },
     "antSpeedMultStats": {
       "title": "蚂蚁速度倍率",
@@ -8295,7 +8295,7 @@
       "CubeTribute": "阿尔忒弥斯的贡品加成：",
       "ConstantUpgrade": "数学常数升级5：",
       "Challenge15": "挑战15奖励 - 蚂蚁速度：",
-      "PlatonicUpgrade": "PLATONIC升级3x2：",
+      "PlatonicUpgrade": "PLATONIC方盒升级3x2：",
       "SingularityPerk": "奇点特权 - 蚁神的聚宝盆：",
       "CookieUpgrade": "饼干升级15[Cx15]：",
       "OcteractUpgrade": "萌新的惊奇八阶方块：",
@@ -8329,13 +8329,13 @@
       "AntAlmighties": "购买过全能蚁：",
       "AntDisciples": "购买过神使蚁：",
       "AntHolySpirit": "购买过蚁神圣灵蚁：",
-      "PlatonicUpgrade12": "PLATONIC升级3x2：",
+      "PlatonicUpgrade12": "PLATONIC方盒升级3x2：",
       "SingularityPerk": "奇点特权 - 高级的……作弊手法？",
-      "BlundersCorruption": "'Blunders' Corruption:",
+      "BlundersCorruption": "“大漏着”腐化：",
       "SingularityDebuff": "奇点惩罚：",
-      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
+      "LifetimePurpleHoneyPower": "紫蜜总数 - 紫蜜之力：",
       "Total": "蚂蚁强度分总倍率：",
-      "extraInfo": "The Total Ant ELO Multiplier can never go below <<yellow|{{min}}%>>, no matter how many penalties apply."
+      "extraInfo": "无论有多少惩罚生效，蚂蚁强度分总倍率都不会低于<<yellow|{{min}}%>>。"
     },
     "effectiveAntELOStats": {
       "title": "蚂蚁有效强度分",
@@ -8358,11 +8358,11 @@
       "Research5x10": "研究5x10：",
       "Research5x20": "研究5x20：",
       "Research6x23": "研究6x23：",
-      "PlatonicUpgrade12": "PLATONIC升级3x2：",
+      "PlatonicUpgrade12": "PLATONIC方盒升级3x2：",
       "MortuusTalisman": "蚂蚁标本护身符：",
       "ThresholdModifiers": "阈值倍率：",
-      "Exalt6": "拔擢 - 奇点大竞速赛 - Derpsmith的小加成：",
-      "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
+      "Exalt6": "拔擢 - 奇点竞速大赛 - Derpsmith的小加成：",
+      "LifetimePurpleHoneyPower": "紫蜜总数 - 紫蜜之力：",
       "Total": "重生强度分的产生速度总倍率："
     },
     "ascensionCountMultiplierStats": {
@@ -8371,7 +8371,7 @@
       "AchievementMultiplier": "飞升次数成就倍率：",
       "Challenge15": "挑战15奖励：",
       "PlatonicOMEGA": "PLATONIC·欧米伽：",
-      "PlatonicUpgrade16": "PLATONIC升级4x1：",
+      "PlatonicUpgrade16": "PLATONIC方盒升级4x1：",
       "SingularityCount": "奇点特权 - 无限成长：",
       "SingularityUpgrade": "金夸克升级 - 更多飞升次数：",
       "OcteractUpgrade1": "八阶方块 - 保修失效：",
@@ -8380,91 +8380,91 @@
       "Total": "本次飞升获得的飞升次数："
     },
     "cubeBankStats": {
-      "title": "Cube Bank",
-      "TranscensionChallenges": "Challenges 1-5:",
-      "ReincarnationChallenges": "Challenges 6-9:",
-      "Ants": "Ants:",
-      "CubeUpgrades": "Cube Upgrades 3x1, 4x1, 5x1:",
-      "FiniteDescent": "Finite Descent Rune:",
-      "Achievements": "Achievements:",
-      "AdvancedPack": "Golden Quark Upgrade - Advanced Pack:",
-      "Total": "Cube Bank before Challenge 10:",
-      "ChallengeTen": "Challenge 10:",
-      "Total2": "Total Cube Bank:"
+      "title": "方盒库",
+      "TranscensionChallenges": "挑战1至挑战5：",
+      "ReincarnationChallenges": "挑战6至挑战9：",
+      "Ants": "蚂蚁：",
+      "CubeUpgrades": "方盒升级3x1、4x1、5x1：",
+      "FiniteDescent": "有限降阶符文：",
+      "Achievements": "成就：",
+      "AdvancedPack": "金夸克升级 - 高级礼包：",
+      "Total": "计算挑战10加成之前的方盒库数量：",
+      "ChallengeTen": "挑战10：",
+      "Total2": "方盒库总数："
     },
     "freeCorruptionLevelStats": {
-      "title": "Free Corruption Levels",
-      "PlatonicALPHA": "Platonic ALPHA:",
-      "PlatonicBETA": "Platonic BETA:",
-      "PlatonicOMEGA": "Platonic OMEGA:",
-      "PlatonicUpgrade4x2": "Platonic Upgrade 4x2:",
-      "CorruptionFourteen": "Golden Quark Upgrade - Corruption Fourteen:",
-      "CorruptionFifteen": "Golden Quark Upgrade - Corruption Fifteen:",
-      "ExpertPack": "Golden Quark Upgrade - Expert Pack:",
-      "MasterPack": "Golden Quark Upgrade - Master Pack:",
-      "OcteractCorruption": "Octeracts - Octeract Corruption:",
-      "OneChallengeCap": "EXALT - One Challenge Caps:",
-      "CubeUpgradeCx24": "Cube Upgrade 8x4 (Cx24):",
-      "CookieGrandma": "Cookie Grandma Talisman:",
-      "FiniteDescent": "Finite Descent Rune:",
-      "Total": "Total Free Corruption Levels:"
+      "title": "免费腐化等级",
+      "PlatonicALPHA": "PLATONIC·阿尔法：",
+      "PlatonicBETA": "PLATONIC·贝塔：",
+      "PlatonicOMEGA": "PLATONIC·欧米伽：",
+      "PlatonicUpgrade4x2": "PLATONIC方盒升级4x2：",
+      "CorruptionFourteen": "金夸克升级 - 腐化等级-十四：",
+      "CorruptionFifteen": "金夸克升级 - 腐化等级-十五：",
+      "ExpertPack": "金夸克升级 - 专家礼包：",
+      "MasterPack": "金夸克升级 - 大师礼包：",
+      "OcteractCorruption": "八阶方块 - 更多腐化：",
+      "OneChallengeCap": "拔擢 - 挑战上限恒为一：",
+      "CubeUpgradeCx24": "饼干升级24[Cx24]：",
+      "CookieGrandma": "饼干奶奶护身符：",
+      "FiniteDescent": "有限降阶符文：",
+      "Total": "免费腐化总等级："
     },
     "purpleHoneyEfficiencyStats": {
-      "title": "Purple Honey Efficiency",
-      "Base": "Base Purple Honey per Extraction:",
-      "SingularityPerk": "Singularity Perk - Efficient Blueberries:",
-      "PseudoCoins": "PseudoCoin Upgrade:",
-      "PurpleHoneyUpgrade1": "Purple Honey - Chroma-Encabulator Efficiency I:",
-      "PurpleHoneyUpgrade2": "Purple Honey - Chroma-Encabulator Efficiency II:",
-      "PurpleHoneyUpgrade3": "Purple Honey - Chroma-Encabulator Efficiency III:",
-      "PurpleHoneyUpgrade4": "Purple Honey - Chroma-Encabulator Efficiency IV:",
-      "Total": "Total Base Purple Honey per Extraction:"
+      "title": "紫蜜效率",
+      "Base": "每次提取获得的基础紫蜜数量：",
+      "SingularityPerk": "奇点特权 - 高效蓝莓：",
+      "PseudoCoins": "伪币升级：",
+      "PurpleHoneyUpgrade1": "紫蜜 - 色度-恩卡布器效率 I：",
+      "PurpleHoneyUpgrade2": "紫蜜 - 色度-恩卡布器效率 II：",
+      "PurpleHoneyUpgrade3": "紫蜜 - 色度-恩卡布器效率 III：",
+      "PurpleHoneyUpgrade4": "紫蜜 - 色度-恩卡布器效率 IV：",
+      "Total": "每次提取获得的基础紫蜜总量："
     },
     "purpleHalfLifeStats": {
-      "title": "Encabulator Speed",
-      "Base": "Base Encabulator Speed:",
-      "PurpleHoneyUpgrade1": "Purple Honey - All-Natural, Organic Catalyzer I:",
-      "PurpleHoneyUpgrade2": "Purple Honey - All-Natural, Organic Catalyzer II:",
-      "PurpleHoneyUpgrade3": "Purple Honey - All-Natural, Organic Catalyzer III:",
-      "PurpleHoneyUpgrade4": "Purple Honey - All-Natural, Organic Catalyzer IV:",
-      "Total": "Total Encabulator Speed:"
+      "title": "恩卡布器速度",
+      "Base": "基础恩卡布器速度：",
+      "PurpleHoneyUpgrade1": "紫蜜 - 纯天然有机催化剂 I：",
+      "PurpleHoneyUpgrade2": "紫蜜 - 纯天然有机催化剂 II：",
+      "PurpleHoneyUpgrade3": "紫蜜 - 纯天然有机催化剂 III：",
+      "PurpleHoneyUpgrade4": "紫蜜 - 纯天然有机催化剂 IV：",
+      "Total": "恩卡布器总速度："
     },
     "purpleReactantCapacityStats": {
-      "title": "Ambrosia Bar Point Capacity (Red: 1/1,000)",
-      "Base": "Base Ambrosia Bar Point Capacity:",
-      "PseudoCoins": "PseudoCoin Upgrade:",
-      "PurpleHoneyUpgrade1": "Purple Honey - Reactant Storage Expansion I:",
-      "PurpleHoneyUpgrade2": "Purple Honey - Reactant Storage Expansion II:",
-      "PurpleHoneyUpgrade3": "Purple Honey - Reactant Storage Expansion III:",
-      "PurpleHoneyUpgrade4": "Purple Honey - Reactant Storage Expansion IV:",
-      "Total": "Total Ambrosia Bar Point Capacity:"
+      "title": "神肴进度条点数存储上限(红进度条为该值的1/1000)",
+      "Base": "神肴进度条点数存储基础上限：",
+      "PseudoCoins": "伪币升级：",
+      "PurpleHoneyUpgrade1": "紫蜜 - 反应物存储延展 I：",
+      "PurpleHoneyUpgrade2": "紫蜜 - 反应物存储延展 II：",
+      "PurpleHoneyUpgrade3": "紫蜜 - 反应物存储延展 III：",
+      "PurpleHoneyUpgrade4": "紫蜜 - 反应物存储延展 IV：",
+      "Total": "神肴进度条点数存储总上限："
     },
     "purpleHoneyLuckStats": {
-      "title": "Purple Honey Luck",
-      "Base": "Base Purple Honey Luck:",
-      "SynergismLevelReward": "Synergism Level Reward:",
-      "PseudoCoins": "PseudoCoin Upgrade:",
-      "IrishAnt3": "Singularity Perk - Irish Ants III",
-      "PurpleGem": "Talisman - Purple Gem Inscription:",
-      "PurpleHoneyUpgrade1": "Purple Honey - Purple Honey Luck I",
-      "PurpleHoneyUpgrade2": "Purple Honey - Purple Honey Luck II",
-      "PurpleHoneyUpgrade3": "Purple Honey - Purple Honey Luck III",
-      "PurpleHoneyUpgrade4": "Purple Honey - Purple Honey Luck IV",
-      "TaxmanLastStand": "EXALT - The Taxman's Last Stand:",
-      "BarDependence": "EXALT - Bar Charging:",
-      "HorseShoeRune": "Horse Shoe Rune Bonus:",
-      "Total": "Total Purple Honey Luck:"
+      "title": "紫蜜之运",
+      "Base": "基础紫蜜之运：",
+      "SynergismLevelReward": "协同效应等级的奖励：",
+      "PseudoCoins": "伪币升级：",
+      "IrishAnt3": "奇点特权 - 爱尔兰蚂蚁 III：",
+      "PurpleGem": "护身符 - 紫色宝石的铭文：",
+      "PurpleHoneyUpgrade1": "紫蜜 - 紫蜜之运 I：",
+      "PurpleHoneyUpgrade2": "紫蜜 - 紫蜜之运 II：",
+      "PurpleHoneyUpgrade3": "紫蜜 - 紫蜜之运 III：",
+      "PurpleHoneyUpgrade4": "紫蜜 - 紫蜜之运 IV：",
+      "TaxmanLastStand": "拔擢 - 税务官的最后阵地：",
+      "BarDependence": "拔擢 - 填充进度条：",
+      "HorseShoeRune": "马蹄铁符文加成：",
+      "Total": "紫蜜之运总数："
     },
     "purpleHoneyProgressRequirementStats": {
-      "title": "Purple Bar Points Required",
-      "Base": "Base Purple Bar Point Requirement:",
-      "SingularityPerk": "Singularity Perk - 282+ Years of Work Experience:",
-      "PurpleHoneyUpgrade1": "Purple Honey - Purple Bar Size Reduction I:",
-      "PurpleHoneyUpgrade2": "Purple Honey - Purple Bar Size Reduction II:",
-      "PurpleHoneyUpgrade3": "Purple Honey - Purple Bar Size Reduction III:",
-      "PurpleHoneyUpgrade4": "Purple Honey - Purple Bar Size Reduction IV:",
-      "TaxmanLastStand": "EXALT - The Taxman's Last Stand:",
-      "Total": "Total Purple Bar Points Required:"
+      "title": "紫进度条需求",
+      "Base": "基础紫进度条需求：",
+      "SingularityPerk": "奇点特权 - 超过282年的工作经验：",
+      "PurpleHoneyUpgrade1": "紫蜜 - 减少紫进度条点数上限 I：",
+      "PurpleHoneyUpgrade2": "紫蜜 - 减少紫进度条点数上限 II：",
+      "PurpleHoneyUpgrade3": "紫蜜 - 减少紫进度条点数上限 III：",
+      "PurpleHoneyUpgrade4": "紫蜜 - 减少紫进度条点数上限 IV：",
+      "TaxmanLastStand": "拔擢 - 税务官的最后阵地：",
+      "Total": "紫进度条总需求："
     },
     "gameStage": "当前游戏所处部分：{{stage}}"
   },
@@ -8565,12 +8565,12 @@
         "8": "柯罗诺斯塑像×{{amount}}：<<cyan|无瑕>>全局速度增加{{bonus}}(不受效果衰减影响)"
       },
       "highScoringStatue": {
-        "cubes": "x{{bonus}} Cubes",
-        "tesseracts": "x{{bonus}} Tesseracts",
-        "hypercubes": "x{{bonus}} Hypercubes",
-        "platonics": "x{{bonus}} Platonics",
-        "hepteracts": "x{{bonus}} Hepteracts",
-        "octeracts": "x{{bonus}} Octeracts"
+        "cubes": "惊奇方盒获取数量×{{bonus}}",
+        "tesseracts": "惊奇超立方获取数量×{{bonus}}",
+        "hypercubes": "惊奇五阶立方获取数量×{{bonus}}",
+        "platonics": "PLATONIC方盒获取数量×{{bonus}}",
+        "hepteracts": "惊奇七阶立方获取数量×{{bonus}}",
+        "octeracts": "惊奇八阶方块获取数量×{{bonus}}"
       },
       "asterisk": "* 五阶立方塑像无法对伊里斯的恩赐和摩洛克的恩赐生效，因为他们并不崇拜它的美丽。"
     },
@@ -8589,7 +8589,7 @@
         "accelerator": "• 加速器：+{{amount}} [无瑕！]",
         "multiplier": "• 加倍器：+{{amount}} [无瑕！]",
         "runeExp": "• 祭品提供的符文经验值：+{{amount}}",
-        "runeBonus": "• 符文强度：增加{{amount}}",
+        "runeBonus": "• 符文强度：+{{amount}}",
         "cube2": "• 所有类型的方盒、立方和方块获取数量 II：+{{amount}}",
         "transcendChallengeReduction": "• 挑战1至挑战5目标增长速度：{{amount}}",
         "reincarnationChallengeReduction": "• 挑战6至挑战10目标增长速度：{{amount}}",
@@ -8599,18 +8599,18 @@
         "cube3": "• 所有类型的方盒、立方和方块获取数量 III：+{{amount}}",
         "talismanBonus": "• 护身符免费符文等级加成：+{{amount}}",
         "globalSpeed": "• 全局速度：+{{amount}}",
-        "blessingBonus": "• 祝福强度：增加{{amount}}",
+        "blessingBonus": "• 祝福强度：+{{amount}}",
         "constantBonus": "• 超立方建筑产量：+{{amount}}",
         "cube4": "• 所有类型的方盒、立方和方块获取数量 IV：+{{amount}}",
-        "spiritBonus": "• 魂灵强度：增加{{amount}}",
-        "wowCubes": "• 3D Reward - Wow! Cubes: x{{amount}}",
-        "wowTesseracts": "• 4D Reward - Wow! Tesseracts: x{{amount}}",
-        "wowHypercubes": "• 5D Reward - Wow! Hypercubes: x{{amount}}",
-        "wowPlatonicCubes": "• 6D Reward - Platonic Cubes: x{{amount}}",
-        "wowHepteracts": "• 7D Reward - Hepteracts: x{{amount}}",
-        "wowOcteracts": "• 8D Reward - Octeracts: x{{amount}}",
+        "spiritBonus": "• 魂灵强度：+{{amount}}",
+        "wowCubes": "• 3维奖励 - 惊奇方盒获取数量×{{amount}}",
+        "wowTesseracts": "• 4维奖励 - 惊奇超立方获取数量×{{amount}}",
+        "wowHypercubes": "• 5维奖励 - 惊奇五阶立方获取数量×{{amount}}",
+        "wowPlatonicCubes": "• 6维奖励 - PLATONIC方盒获取数量×{{amount}}",
+        "wowHepteracts": "• 7维奖励 - 惊奇七阶立方获取数量×{{amount}}",
+        "wowOcteracts": "• 8维奖励 - 惊奇八阶方块获取数量×{{amount}}",
         "quarks": "• 夸克获取数量：+{{amount}}",
-        "construction": "• Construction: +{{amount}}",
+        "construction": "• 建造力：+{{amount}}",
         "hepteractsUnlocked": "• 惊奇七阶立方：已解锁！",
         "challengeHepteractUnlocked": "• 惊奇七阶立方·挑战：已解锁！",
         "cube5": "• 所有类型的方盒、立方和方块获取数量 V：+{{amount}}",
@@ -8627,11 +8627,11 @@
         "descriptionDivisor": "===升级效果===",
         "descriptionDefault": "点击图标以查看信息！",
         "costDivisor": "===升级花费===",
-        "modalTitle": "Platonic Upgrade {{index}}",
-        "buyButton": "Buy",
-        "modalCanBuy": "Affordable",
-        "modalCannotBuy": "Not affordable",
-        "modalMaxed": "Maxed",
+        "modalTitle": "PLATONIC方盒升级{{index}}",
+        "buyButton": "购买",
+        "modalCanBuy": "可购买",
+        "modalCannotBuy": "无法购买",
+        "modalMaxed": "已满级",
         "upgradeLevel": "等级：{{a}}/{{b}} [+{{c}}级]",
         "upgradeLevelMaxed": "等级：{{a}}/{{b}}[已达最大]",
         "offeringCost": "{{a}}/{{b}}祭品",
@@ -8644,24 +8644,24 @@
         "platonicCanBuy": "===资源充足！点击购买！===",
         "platonicCannotBuy": "===资源不足，无法购买！===",
         "platonicCanBuyMaxed": "===等级已达最大===",
-        "currentBonus": "Current: +{{num}}%"
+        "currentBonus": "当前效果：增加{{num}}%"
       },
       "descriptions": {
         "1": "每有一级腐化等级(包括免费等级)，每级就可以使惊奇方盒获取数量增加1%！",
         "2": "每有一级腐化等级(包括免费等级)，每级就可以使超立方获取数量增加2%！",
         "3": "每有一级腐化等级(包括免费等级)，每级就可以使惊奇五阶立方获取数量增加3%！",
         "4": "每有一级腐化等级(包括免费等级)，每级就可以使PLATONIC方盒获取数量增加4%！",
-        "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +1 free Corruption level!",
+        "5": "使数学常数减缓税收的指数增加num:((0.10))，数学常数产量翻倍，夸克获取数量变为原来的num:((1.05))倍，转世挑战次数上限增加10次，飞升挑战次数上限增加5次，无瑕难得素倍率和无瑕祭品倍率翻倍，免费腐化等级增加1级，在挑战15中金币产量变为原来的num:((1.10))次方！",
         "6": "在挑战15中，使粘性的效果指数乘以 (1 + 该升级等级 / 30)。满级后，使所有腐化的增长速度减慢2.5%。",
         "7": "全局速度低于1倍时，使它变为原来的 (1 - (该升级等级 / 20)) 次方，该升级不影响无瑕倍率。满级后，使所有腐化的增长速度减慢2.5%。",
-        "8": "在挑战15中，使极致挑战的效果指数除以 (1 + 该升级等级 * num:((0.4)))。满级后，使所有腐化的增长速度减慢2.5%。",
+        "8": "在挑战15中，使极致挑战方盒的效果指数除以 (1 + 该升级等级 * num:((0.4)))。满级后，使所有腐化的增长速度减慢2.5%。",
         "9": "使无瑕难得素倍率变为原来的num:((2.5))倍，且所有腐化的增长速度减慢2.5%。在挑战15中，使削减教育经费的指数乘以 (1 + log10(难得素当前数量 + 1) / 100)，最高到num:((1e100))难得素。",
-        "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, and +1 free Corruption level!",
+        "10": "使数学常数减缓税收的指数增加num:((0.20))，数学常数产量变为原来的10倍，夸克获取数量变为原来的num:((1.10))倍，转世挑战次数上限增加10次，飞升挑战次数上限增加5次，无瑕难得素倍率和无瑕祭品倍率变为原来的num:((3.5))倍，所有类型的方盒及立方获取数量翻倍，免费腐化等级增加1级，在挑战15中蚂蚁产量变为原来的num:((1.25))次方！",
         "11": "使所有腐化的增长速度减慢2.5%。",
         "12": "使所有腐化的增长速度减慢2.5%。在挑战15中，每级可以使蚂蚁强度分增加5%！(效果与其他效果叠加)。每级使重生强度分的产生速度增加10%！另外，每完成1次挑战，每级该升级还可以使蚂蚁速度增加1%。",
         "13": "负数<<green|回收>>数值降低50%，且使所有腐化的增长速度减慢2.5%！在挑战15中，建造力变为原来的三倍！",
-        "14": "使所有腐化的增长速度减慢2.5%。在挑战15中，大萧条 II金币获取数量的指数根据金币数量，至多乘以num:((1.5))。",
-        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, and +1 free Corruption level! Talk about a deep dive.",
+        "14": "使所有腐化的增长速度减慢2.5%。在挑战15中，衰退的金币产量指数根据金币数量，至多乘以num:((1.5))。",
+        "15": "您开始找寻深渊的起始了。在挑战15中使金币指数增加num:((0.10))。使挑战15的分数增加25%，每级腐化等级(包括免费等级)使飞升的速度增加1%(上限：20%，在挑战15中常时为上限)，每次完成挑战9就使所有3-7阶方盒和立方获取数量增加1%(相互叠乘)，使夸克获取数量变为原来的num:((1.15))倍，超立方建筑产量变为原来的num:((1e250))倍，飞升次数获取数量翻倍，转世挑战次数上限增加30，飞升挑战次数上限增加20，无瑕难得素倍率和无瑕祭品倍率变为原来的6倍，免费腐化等级增加1级！聊聊继续深入的事吧。",
         "16": "每级该升级使超通量粉转换效率增加1%，使飞升次数获取数量增加2%，并且根据超通量粉的数量(上限num:((100000)))最多还可以使飞升次数获取数量再增加2%。另外，超立方建筑产量变为(超通量粉数量+1)^(10*等级)倍，无上限。",
         "17": "每级使免费腐化等级增加num:((0.2))，最高增加4。",
         "18": "每级使数学常数升级1的基础效果百分比增加num:((0.1))%，并使数学常数升级2的基础上限百分比增加num:((0.3))%！",
@@ -8761,9 +8761,9 @@
     "expandedInventory": "延展完毕。上限变为{{x}}。",
     "orbEffect": "超通量珠效果：开启方盒及立方时额外获得{{x}}%夸克。",
     "orbBreakdown": {
-      "base": "Orbs: ×{{base}} (max ×{{cap}})",
-      "shop": "× {{x}} from Quark Gain Cube Improvement 2",
-      "warp": "× {{x}} from Auto Warp"
+      "base": "超通量珠：×{{base}} (最高×{{cap}})",
+      "shop": "×{{x}} (开启方盒和立方的夸克获取数量增加2)",
+      "warp": "×{{x}} (自动跃迁)"
     },
     "orbsPurchasedToday": "今日购买的超通量珠数量：{{x}}。",
     "amalgamate": "您可以在此处融合出超通量珠。[注意：所有超通量珠将在当天后粉碎]",
@@ -8773,7 +8773,7 @@
     "gainedPowder": "由于商店升级的效果，您还立即获得了{{x}}超通量粉。",
     "purchasedOrbs": "您购买了{{x}}超通量珠[效果增加{{y}}%]。{{z}}祝您开心！",
     "powderEffect": "超通量粉效果：所有类型的方盒、立方和方块获取数量增加{{x}}%[叠乘]，夸克获取数量增加{{y}}%[叠乘]",
-    "powderEffectExtended": "超通量粉效果：所有类型的方盒、立方和方块获取数量增加{{x}}%[叠乘]，夸克获取数量增加{{y}}%[叠乘]，飞升次数增加{{z}}%，超立方建筑产量变为{{a}}倍[Platonic升级4x1的效果]",
+    "powderEffectExtended": "超通量粉效果：所有类型的方盒、立方和方块获取数量增加{{x}}%[叠乘]，夸克获取数量增加{{y}}%[叠乘]，飞升次数增加{{z}}%，超立方建筑产量变为{{a}}倍[Platonic方盒升级4x1的效果]",
     "powderLumps": "您拥有{{x}}超通量粉。",
     "expiredOrbs": "粉碎的超通量珠可以转换为超通量粉，比率为：每超通量粉需要{{x}}超通量珠！",
     "dayWarpsRemaining": "今日剩余的时空跃迁次数：{{x}}",
@@ -8793,10 +8793,10 @@
   "importexport": {
     "copiedSave": "存档已导出至剪贴板！",
     "copiedFile": "存档已导出！",
-    "exportedFile": "Save file exported!",
+    "exportedFile": "存档文件已导出！",
     "exportFailed": "导出失败！",
     "unableCopySave": "无法将存档导出至剪贴板。",
-    "unableExportSave": "Unable to export the save file.",
+    "unableExportSave": "无法导出存档文件。",
     "reloadDeletePrompt": "下个确认框将删除存档\n如果您不想这么做，请取消",
     "resetPrompt": "如果想要删除存档，请正确回答以下问题：{{a}}加{{b}}等于多少？(提示：答案为{{sum}})",
     "wrongAnswer": "回答错误，不会删除存档！",
@@ -8879,7 +8879,7 @@
   },
   "main": {
     "transferredFromLZ": "成功将存档转换为新格式！",
-    "notSynergismCC": "You are playing on an outdated version. The game will only receive updates on <a href=\"https://synergism.cc\" target=\"_blank\">https://synergism.cc</a>.",
+    "notSynergismCC": "您游玩的版本过时了。游戏只在<a href=\"https://synergism.cc\" target=\"_blank\">https://synergism.cc</a>上更新。",
     "allCorruptionsZero": "下次飞升时腐化等级将归零。",
     "corruptionLoadoutApplied": "已载入第{{x}}个腐化预设：下次飞升时腐化等级为{{y}}级。",
     "ascendPrompt": "进行飞升将重置您的建筑，(部分)符文和护身符，升级，大部分研究，蚁丘次数，不朽强度分，以及超越挑战和转世挑战的完成次数，获得惊奇方盒。您还可以保留商店升级。您确定要继续吗？",
@@ -8898,12 +8898,12 @@
     "singularityConfirm2": "您……真的想要进入奇点吗？",
     "singularityConfirm3": "您是真的真的确定了吗？一旦这么做将再也无法反悔(除非您有旧的存档文件)！这是最后一次向您确认。",
     "noAntiquity": "哼，请带着古物再来。谢谢。————蚁神",
-    "insideSingularityChallenge": "Derpsmith提醒您，您还在奇点挑战中。您可以在奇点选项卡下点击相应挑战的图标退出挑战。",
+    "insideSingularityChallenge": "Derpsmith提醒您，您还在拔擢中。您可以在拔擢选项卡下点击相应图标退出。",
     "gameBeat": "很好。您已经到了奇点之眼。我很满意。但这也意味着您无法继续前进了。除非有什么更强的力量，为您开辟新道路……",
     "exitAscensionChallenge": "您真的确定要退出飞升挑战吗？退出后，您必须完成挑战10以后才能再次进行飞升挑战！",
     "buyResearch3x11": "[未解锁 - 请先购买研究3x11]",
     "statSymbolConfirm": "您想要切换名称标识符号吗？",
-    "monospaceFontConfirm": "Would you like to toggle the game font?"
+    "monospaceFontConfirm": "您想要切换游戏字体吗？"
   },
   "history": {
     "perSecondOn": "每秒产量：开",
@@ -8925,16 +8925,16 @@
     "download": "下载",
     "loadSave": "载入存档",
     "delete": "删除",
-    "rename": "Rename",
-    "refresh": "Refresh",
-    "refreshing": "Refreshing...",
-    "refreshSavePrompt": "Overwrite \"{{name}}\" with your current save? The existing cloud save will be lost.",
-    "refreshedSave": "\"{{name}}\" was overwritten with your current save",
-    "notRefreshed": "Your cloud save could not be refreshed. Please try again.",
-    "renameSavePrompt": "Enter a new name for this cloud save (1-255 characters):",
-    "invalidSaveName": "Save names must be between 1 and 255 characters and cannot be blank.",
-    "duplicateSaveName": "A cloud save already has that name. Please choose a different name.",
-    "notRenamed": "Your cloud save could not be renamed. Please try again.",
+    "rename": "重命名",
+    "refresh": "刷新",
+    "refreshing": "正在刷新……",
+    "refreshSavePrompt": "使用当前存档覆盖“{{name}}”吗？将丢失现有的云存档。",
+    "refreshedSave": "“{{name}}”已被当前存档覆盖",
+    "notRefreshed": "您的云存档无法刷新。请重试。",
+    "renameSavePrompt": "请输入该云存档的新名称(1-255个字符)：",
+    "invalidSaveName": "存档名称必须在1到255个字符之间，且不能为空。",
+    "duplicateSaveName": "已有相同名称的云存档。请选择不同的名称。",
+    "notRenamed": "您的云存档无法重命名。请重试。",
     "noSaves": "暂无可用的存档",
     "noSaveFound": "找不到该ID对应的存档。云存档列表已刷新。",
     "downloadComplete": "下载完毕",
@@ -8949,43 +8949,43 @@
     "helloNoUser": "您好！",
     "helloUser": "您好，<<gold|{{username}}>>！",
     "logoutLabel": "注销",
-    "logoutConfirm": "Are you sure you want to log out?",
+    "logoutConfirm": "您确定要注销吗？",
     "loggedInBut": "您已登录，但无法获取您的个人资料。",
     "loggedInButError": "您已登录，但获取您的个人资料时出错：{{error}}",
     "loginNotAvailable": "这里无法登录，请前往<a href=\"https://synergism.cc\">https://synergism.cc</a>！",
-    "linkedAccounts": "Linked accounts: {{accounts}}",
+    "linkedAccounts": "已连接的账号：{{accounts}}",
     "platforms": {
-      "email": "Email",
+      "email": "电子邮箱",
       "discord": "Discord",
       "patreon": "Patreon",
       "steam": "Steam"
     },
     "email": {
-      "verified": "<<lime|✔ Email verified>>",
-      "notVerified": "<<orange|⚠ Email not verified>>"
+      "verified": "<<lime|✔ 已验证电子邮箱>>",
+      "notVerified": "<<orange|⚠ 未验证电子邮箱>>"
     },
     "actions": {
-      "login": "Login",
-      "register": "Create Account",
-      "forgotPassword": "Forgot Password",
-      "resendVerification": "Resend Verification Email",
-      "changePassword": "Change Password"
+      "login": "登录",
+      "register": "创建帐户",
+      "forgotPassword": "忘记密码",
+      "resendVerification": "重新发送验证邮件",
+      "changePassword": "更改密码"
     },
     "fields": {
-      "email": "Email Address",
-      "password": "Password",
-      "currentPassword": "Current Password",
-      "newPassword": "New Password",
-      "confirmPassword": "Confirm Password"
+      "email": "电子邮箱地址",
+      "password": "密码",
+      "currentPassword": "当前密码",
+      "newPassword": "新密码",
+      "confirmPassword": "确认密码"
     },
     "forms": {
-      "register": "Register",
-      "login": "Login",
-      "sendResetPasswordEmail": "Send Reset Password Email",
-      "sendVerificationEmail": "Send Verification Email",
-      "changePassword": "Change Password",
-      "completeCaptcha": "Please complete the captcha first.",
-      "requestFailed": "Could not submit the account form: {{error}}"
+      "register": "注册",
+      "login": "登录",
+      "sendResetPasswordEmail": "发送重置密码邮件",
+      "sendVerificationEmail": "发送验证邮件",
+      "changePassword": "更改密码",
+      "completeCaptcha": "请先完成验证码验证。",
+      "requestFailed": "无法提交账户表单：{{error}}"
     },
     "bonuses": {
       "transcendedBaller": "Transcended Baller<<gold|(或更高)>>",
@@ -9039,55 +9039,55 @@
   },
   "mobile": {
     "updates": {
-      "check": "Check for Updates",
-      "checking": "Checking for updates...",
-      "upToDate": "Your app is up to date.",
-      "available": "Update {{version}} is available.",
-      "confirm": "Update {{version}} is available. Download and install it now? Your progress will be saved and the app will reload.",
-      "downloading": "Downloading update...",
-      "installing": "Saving progress and applying update...",
-      "storeUpdateRequired": "Please update Synergism from your app store to get the latest version.",
-      "unavailable": "This update is not currently available for your app. Please try again later.",
-      "saveFailed": "Your progress could not be saved. Please try updating again after the game has finished loading.",
-      "failed": "Could not check for or apply an update. Please check your connection and try again."
+      "check": "检查更新",
+      "checking": "正在检查更新……",
+      "upToDate": "应用已是最新版本。",
+      "available": "可以更新至{{version}}。",
+      "confirm": "可以更新至{{version}}。您想要立即下载并安装吗？您的进度将自动保存，应用将会重新加载。",
+      "downloading": "正在下载更新……",
+      "installing": "正在保存进度并应用更新……",
+      "storeUpdateRequired": "请从应用商店中更新协同放置以获取最新版本。",
+      "unavailable": "此更新目前尚不适用于您的应用。请稍后重试。",
+      "saveFailed": "无法保存您的进度。请在游戏完成加载后再尝试更新。",
+      "failed": "无法检查或应用更新。请检查您的网络连接后重试。"
     },
     "header": {
-      "resize": "Resize header"
+      "resize": "调整顶栏大小"
     },
     "auth": {
-      "verificationFailed": "We couldn't verify your device. Please try again."
+      "verificationFailed": "无法验证您的设备。请重试。"
     },
     "purchases": {
-      "productUnavailable": "This product isn't available right now. Please try again later.",
-      "orderFailed": "Could not start the purchase: {{error}}",
-      "accountUnavailable": "Your account could not be verified. Please try again.",
-      "verifyFailed": "Could not verify your purchase: {{error}}",
-      "success": "Purchase successful! Your PseudoCoins have been credited.",
-      "subscriptionSuccess": "Subscription successful! Your perks have been applied."
+      "productUnavailable": "该产品目前不可用。请稍后重试。",
+      "orderFailed": "无法发起购买：{{error}}",
+      "accountUnavailable": "无法验证您的账户。请重试。",
+      "verifyFailed": "无法验证您的购买：{{error}}",
+      "success": "购买成功！您的伪币已到账。",
+      "subscriptionSuccess": "订阅成功！您的加成已经生效。"
     }
   },
   "pseudoCoins": {
     "purchaseAuth": {
-      "signInRequiredTitle": "Account Required",
-      "signInRequiredBody": "Sign in or create an account to continue with this purchase. After you finish, the purchase will resume automatically.",
-      "createAccount": "Create Account",
-      "login": "Login"
+      "signInRequiredTitle": "需要账户",
+      "signInRequiredBody": "登录或创建账户以继续购买。完成后，购买将自动恢复。",
+      "createAccount": "创建帐户",
+      "login": "登录"
     },
     "balances": {
-      "pseudoCoins": "PseudoCoins:",
-      "lotus": "Lotus:",
-      "loadingPseudoCoins": "Loading PseudoCoins",
-      "refresh": "Refresh PseudoCoin balance",
-      "loadingLotus": "Loading Lotus"
+      "pseudoCoins": "伪币：",
+      "lotus": "莲花：",
+      "loadingPseudoCoins": "正在加载伪币",
+      "refresh": "刷新伪币余额",
+      "loadingLotus": "正在加载莲花"
     },
     "buyButton": "购买！<<gold|花费{{amount}}伪币>>",
     "currEffect": "当前等级：",
     "nextEffect": "下级：",
-    "subscriptionPricePerMonth": "{{price}} / month",
-    "manageSubscription": "Manage Subscription",
-    "subscriptionUpdated": "Your subscription and its bonuses have been updated!",
-    "subscriptionSubscribe": "Subscribe - {{price}}",
-    "subscriptionSubscribeSteam": "Subscribe with Steam - {{price}}",
+    "subscriptionPricePerMonth": "每月{{price}}",
+    "manageSubscription": "管理订阅",
+    "subscriptionUpdated": "您的订阅和加成已更新！",
+    "subscriptionSubscribe": "订阅 - {{price}}",
+    "subscriptionSubscribeSteam": "使用Steam订阅 - {{price}}",
     "subscriptionUpgradePrice": "↑ (+{{price}})",
     "subscriptionRenews": "下次扣费：{{date}}",
     "subscriptionYouAreHere": "您在此处！",
@@ -9100,12 +9100,12 @@
       "applyTips": "使用打赏！",
       "applyTipsPrompt": "您想要使用多少打赏？每个打赏价值1分钟离线时间。您拥有{{tips}}个打赏。您一次最多可以使用num:((1440))个打赏。",
       "confirmActivation": "您将花费{{cost}}伪币启用{{name}}。您确定要继续吗？",
-      "confirmFreeActivation": "You are about to activate one of your free {{name}}s. No PseudoCoins will be spent. Continue?",
+      "confirmFreeActivation": "您将启用免费的{{name}}。这不会花费伪币。您确定要继续吗？",
       "cancelled": "已取消购买。",
-      "activate": "Activate",
-      "activateFree": "Activate for Free",
-      "freeBells": "<<green|You have {{x}} free Bell(s)>>",
-      "cost": "<<gold|{{cost}} PseudoCoins>>",
+      "activate": "启用",
+      "activateFree": "免费启用",
+      "freeBells": "<<green|您拥有{{x}}个免费时光铃>>",
+      "cost": "<<gold|{{cost}}伪币>>",
       "currentAmountNone": "当前数量： <<#8f8|无生效的消耗品>>",
       "currentAmountSome": "当前数量：<<#8f8|{{amount}}>>",
       "currentTimersNone": "结束时间：<<#8f8|--:--:-->>",
@@ -9113,7 +9113,7 @@
       "globalEvent": "全局活动",
       "globalEventActive": "全局活动：{{events}}",
       "globalEventNone": "剩余时间: <<#8f8|--:--:-->>",
-      "globalEventPage": "Open {{name}}",
+      "globalEventPage": "打开{{name}}活动界面",
       "globalEventSome": "剩余时间: <<#8f8|{{time}}>>"
     },
     "timeSkips": {
@@ -9129,9 +9129,9 @@
         "title": "神肴 - 时间跳跃",
         "description": "使神肴进度条点数和红进度条点数的计时直接增加相应现实时间！"
       },
-      "duration": "+{{time}} hours",
+      "duration": "+{{time}}小时",
       "warning": "<<gold|⚠>>购买后需要经过几秒才能生效！<<gold|⚠>>",
-      "connectionLost": "Lost connection while buying your time skip. It will finish the next time you load the game."
+      "connectionLost": "购买时间跳跃时连接中断。下次加载游戏时将完成购买。"
     },
     "lotus": {
       "name": "回生莲花",
@@ -9143,9 +9143,9 @@
       "boxText2": "使用莲花可以跳过等待！",
       "boxText3": "每一朵莲花持续5分钟。",
       "useLotus": "使用莲花！",
-      "collapseSection": "Collapse Lotus section",
-      "expandSection": "Expand Lotus section",
-      "amount": "+{{amount}} Lotus",
+      "collapseSection": "折叠莲花部分",
+      "expandSection": "展开莲花部分",
+      "amount": "+{{amount}}莲花",
       "buyConfirm": "您将花费{{cost}}伪币购买{{name}}。您确定要继续吗？",
       "useConfirm": "您将使用一朵回生莲花。莲花数量将减少1朵，效果持续生效5分钟，无需等待就能直接获得重生强度分。您确定要继续吗？",
       "useConfirmMulti": "由于您已经启用了该效果，使用莲花将使持续时间增加5分钟。",
@@ -9165,15 +9165,15 @@
     "note2": "不试试看点击上面某项<span style=\"color:gold;\">金色</span>文字吗？随时都可以取消哦！",
     "reset": "重置快捷键",
     "mobile": {
-      "open": "Open mobile hotkeys",
-      "close": "Close mobile hotkeys",
-      "title": "Hotkeys",
-      "move": "Move hotkeys: drag, use arrow keys, or tap for the next corner",
-      "moveHint": "Drag to a corner. Swipe sideways to tuck away.",
-      "dock": "Tuck hotkeys into the side of the screen",
-      "restore": "Restore hotkeys: tap or swipe inward",
-      "shortcutOn": "Hotkey Shortcut: ON",
-      "shortcutOff": "Hotkey Shortcut: OFF"
+      "open": "打开移动端快捷键",
+      "close": "关闭移动端快捷键",
+      "title": "快捷键",
+      "move": "移动快捷操作：拖动，使用方向键，或轻触以切换到下个角落",
+      "moveHint": "拖动到角落。横向滑动即可收起。",
+      "dock": "将快捷键收至屏幕侧边",
+      "restore": "恢复快捷键：轻触或向内滑动",
+      "shortcutOn": "快捷键快捷方式：开启",
+      "shortcutOff": "快捷键快捷方式：关闭"
     },
     "names": {
       "buyAccelerators": "购买加速器",
@@ -9202,10 +9202,10 @@
     },
     "hotkeysON": "快捷键：开",
     "hotkeysOFF": "快捷键：关",
-    "invalidKey": "That key can't be used as a hotkey! Try a standard keyboard key instead."
+    "invalidKey": "该按键不能用作快捷键！请使用标准键盘的按键。"
   },
   "versionChangeAnnouncements": {
     "ants": "蚂蚁进行了大量重制和平衡调整，因此您的蚁丘进度也进行了相应调整！",
-    "sept13Refund": "Due to the Purple Ambrosia Update, some of your Quark Upgrades have been refunded! Refund amount: <<cyan|+{{amount}}>>"
+    "sept13Refund": "由于紫神肴升级，您的部分夸克升级已经返还！返还数量：<<cyan|{{amount}}>>"
   }
 }

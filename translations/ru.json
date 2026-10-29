@@ -7,11 +7,11 @@
   },
   "save": {
     "loadFailed": "Не удалось загрузить сохранение. {{reason}}",
-    "storageLoadFailed": "The app could not read your saved game from device storage. Autosaving has been disabled to protect it. Close and reopen the app, then try again.",
+    "storageLoadFailed": "Не удалось обработать ваше сохранение на вашем хранилище. Автосохранение будет выключено, пока вы не перезапустите приложение.",
     "saveToClipboard": "Вы уверены, что хотите включить копирование сохранения в буфер обмена?",
-    "playOffline": "Play Offline",
-    "recoveryExport": "Export savefile",
-    "recoveryImport": "Load from file"
+    "playOffline": "Играть без интернета",
+    "recoveryExport": "Экспортировать файл сохранения",
+    "recoveryImport": "Загрузить из файла"
   },
   "ambrosia": {
     "upgradeAP": "Red & Purple Ambrosia Upgrade AP: <<gold|{{current}}/{{max}}>>",
@@ -37,19 +37,19 @@
       "luckExplanation": "Every <<lime|100>> Luck guarantees 1 Ambrosia per fill.",
       "noAmbrosiaUpgradesBonus": "<<red|$t(singularityChallenge.data.noAmbrosiaUpgrades.name)>>: <<var(--amber-text-color)|+{{amount}}>> Ambrosia on Bar Fill",
       "redLuckExplanation": "Every <<red|100>> Red Luck guarantees 1 Red Ambrosia per fill.",
-      "luckTitle": "Ambrosia Luck",
-      "redLuckTitle": "Red Luck",
+      "luckTitle": "Удача Амброзии",
+      "redLuckTitle": "Красная удача",
       "noBonuses": "<<gray|No bonuses yet.>>",
       "fillGain": "+{{amount}}",
       "fillGainRange": "+{{min}}-{{max}}",
-      "ambrosiaProgress": "Ambrosia generation progress",
-      "redAmbrosiaProgress": "Red Ambrosia generation progress",
-      "progress": "{{current}} / {{required}} (+{{rate}}/s)",
+      "ambrosiaProgress": "Прогресс формирования Амброзии",
+      "redAmbrosiaProgress": "Прогресс формирования Красной Амброзии",
+      "progress": "{{current}} / {{required}} (+{{rate}}/с)",
       "progressPoints": "{{current}} / {{required}} Bar Points (+{{rate}}/s)",
-      "generationLocked": "Generation locked",
-      "leoBonus": "Ambrosia Luck <<lime|+{{luck}}>>",
+      "generationLocked": "Формирование заблокировано",
+      "leoBonus": "Удача Амброзии <<lime|+{{luck}}>>",
       "leoInactive": "Leo <<gray|inactive>> (needs 5 unspent)",
-      "virgoBonus": "Salvage <<lime|+{{salvage}}>>",
+      "virgoBonus": "Утилизация <<lime|+{{salvage}}>>",
       "honeyBonus": "Base Purple Honey per extraction <<var(--purple-text-color)|+{{honey}}>>",
       "barBonus": "Bar Points <<lightblue|+{{percent}}>>"
     },
@@ -82,7 +82,7 @@
       "freeLevelsEffectMaxed": "<<gold|+{{maxValue}}>> levels of this Blueberry Module.",
       "blueberryCostReductionEffectNotMaxed": "This Module requires <<silver|{{oldValue}} →>> <<gold|{{newValue}}>> fewer Blueberries to activate.",
       "blueberryCostReductionEffectMaxed": "This Module requires <<gold|{{maxValue}}>> fewer Blueberries to activate.",
-      "activeRequirement": "<<gold | ⚠>> Only takes effect when this Module is activated!",
+      "activeRequirement": "<<gold | ⚠>> Применяется только при активации этого модуля!",
       "cost": "Cost for next enchantment level: <<var(--purple-text-color)|{{amount}}>> Purple Ambrosia",
       "spent": "Purple Ambrosia Spent: <<var(--purple-text-color)|{{curr}}/{{max}}>>",
       "buy": "Enchant",
@@ -113,7 +113,7 @@
       },
       "ambrosiaCubeQuark1": {
         "name": "Гибридный Модуль Амброзии: Кубы-Кварки I",
-        "description": "Гибридный модуль первого поколения. Даёт +0.01% Кварков за уровень за количество цифр во всех видах кубов.",
+        "description": "Гибридный модуль первого поколения. Даёт +num:((0.01))% Кварков за уровень за количество цифр во всех видах кубов.",
         "effect": "Этот гибридный модуль первого поколения увеличивает получение Кварков на {{amount}}%"
       },
       "ambrosiaLuckQuark1": {
@@ -337,8 +337,8 @@
       "prereqBlocked": "<<red|Prerequisites are not met, so levels cannot be added.>>",
       "twoMindReset": "<<red|Activating this module also resets Ambrosia, Red, and Purple Bar progress!>>",
       "invalid": "Those levels are no longer valid. No changes were made.",
-      "max": "MAX",
-      "save": "SAVE",
+      "max": "МАКС",
+      "save": "СОХРАНИТЬ",
       "discard": "DISCARD"
     },
     "importTree": {
@@ -355,7 +355,7 @@
     "amount": "Амброзия:<<red|{{redAmbrosia}}>> Текущая | <<red|{{lifetimeRedAmbrosia}}>> За всё время",
     "purchaseWarning": "<<gold | ⚠>> В отличие от Модулей Голубики, возврат этого улучшения <<red | НЕВОЗМОЖЕН>>.",
     "perGen": "В данный момент получаете <<red|{{guaranteed}}>> Красной Амброзии с вероятностью <<red|{{extraChance}}%>> на ещё одну. [<<red|Удача: {{ambrosiaLuck}}>>]",
-    "redAmbrosiaBuyPrompt": "Сколько Красной Амброзии вы хотели бы потратить? У вас {{amount}} Красной Амброзии. Введите -1, чтобы использовать максимум!",
+    "redAmbrosiaBuyPrompt": "Сколько уровней вы хотите купить? Вы можете купить до {{amount}} уровней. Введите -1, чтобы использовать всё!",
     "purchaseNoLongerAffordable": "You no longer have enough Red Ambrosia to buy a level. Autosynthesis may have spent it while the purchase prompt was open. No levels were purchased.",
     "notUnlocked": "Завершите Без Амброзии, Уровень 1!",
     "redAmbrosiaCost": "Стоимость следующего уровня: <<red | {{amount}}>> Красной Амброзии",
@@ -387,8 +387,8 @@
         "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow2": {
-        "name": "Больше Уровней Улучшений Голубики 2-го Ряда!",
-        "description": "За исключением Стабилизатора Сингулярности, добавляет один эффективный уровень ко всем Модулям Голубики, находящимся во 2-ом ряду, за уровень.",
+        "name": "Больше Уровней Улучшений Голубики!",
+        "description": "Добавить один эффективный уровень за уровень ко всем Модулям Голубики на третьем ряду, исключая первый столбец и гибридные модули, которые дают Удачу Амброзии.",
         "effect": "This upgrade increases the effective level of (most) row 2 Blueberry Modules by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow3": {
@@ -440,13 +440,13 @@
       "redAmbrosiaObtainium": {
         "name": "Обтаниума \"\"из\"\" Красной Амброзии",
         "description": "Я не знаю каким образом вы можете сделать из красного синее, но вы можете.",
-        "effect": "When purchased, multiply your Obtainium by 1 + (Lifetime)^0.6 / 100.",
+        "effect": "Увеличивает Обтаиниум в 1 + (За всё время)^num:((0.6)) / 100 раз после покупки.",
         "effectEnabled": "Multiplies your Obtainium gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<pink|+{{amount}}>>]"
       },
       "redAmbrosiaOffering": {
         "name": "Подношения \"\"\"из\"\"\" Красной Амброзии",
         "description": "Ну, в принципе звучит логично.",
-        "effect": "When purchased, multiply your Offerings by 1 + (Lifetime)^0.6 / 100.",
+        "effect": "Увеличивает Подношения в 1 + (За всё время)^num:((0.6)) / 100 раз после покупки.",
         "effectEnabled": "Multiplies your Offerings gain by 1 + (Lifetime)^0.6 / 100. <br> [Currently: <<orange|+{{amount}}>>]"
       },
       "redAmbrosiaCubeImprover": {
@@ -502,15 +502,15 @@
       "freeObtainiumUpgrades": {
         "name": "Странная наука",
         "description": "Gain +1 free Obtainium level for Quark Upgrades per level!",
-        "effect": "+<<pink|{{amount}}>> free Obtainium levels"
+        "effect": "+<<pink|{{amount}}>> бесплатных уровней Обтаиниума"
       },
       "freeCubeUpgrades": {
         "name": "Livin' in a Box",
         "description": "Gain +1 free Cube level for Quark Upgrades per level!",
-        "effect": "+<<white|{{amount}}>> free Cube levels"
+        "effect": "+<<white|{{amount}}>> бесплатных уровней Кубов"
       },
       "freeSpeedUpgrades": {
-        "name": "The Distance",
+        "name": "Расстояние",
         "description": "Gain +1 free Speed level for Quark Upgrades per level!",
         "effect": "+<<yellow|{{amount}}>> free Speed levels"
       }
@@ -520,13 +520,13 @@
     "cancerBarFillBonus": "Cancer: <<var(--purple-text-color)|+{{points}}>> per Ambrosia/Red Bar Fill",
     "purpleAmbrosiaCost": "Cost for next level: <<var(--purple-text-color)|{{amount}}>> Purple Ambrosia",
     "purpleAmbrosiaSpent": "Purple Ambrosia spent: <<var(--purple-text-color)|{{current}}/{{max}}>>",
-    "purchaseWarning": "<<gold|⚠>> Unlike Blueberry Modules, you <<var(--purple-text-color)|CANNOT>> refund this upgrade.",
+    "purchaseWarning": "<<gold|⚠>> В отличие от Модулей Голубики, возврат этого улучшения <<var(--purple-text-color)|НЕВОЗМОЖЕН>>.",
     "purpleAmbrosiaBuyPrompt": "How many levels would you like to buy? You can buy up to {{amount}}. Type -1 to use max!",
     "notEnough": "You cannot afford another level of this upgrade.",
     "data": {
       "aries": {
         "name": "Aries",
-        "description": "Lots of momentum, potential and promise. For Ambrosia, that is.",
+        "description": "Много движения, потенциала и обещаний. Для Амброзии конечно.",
         "effectNotMaxed": "For every digit in lifetime Ambrosia, Red Ambrosia and Purple Ambrosia, ALL Bar Points generate <<silver|{{oldPercent}} →>> <<gold|{{newPercent}}>> faster (Current: <<silver|{{oldPercent2}} →>> <<gold|{{newPercent2}}>>)",
         "effectMaxed": "For every digit in lifetime Ambrosia, Red Ambrosia and Purple Ambrosia, ALL Bar Points generate <<gold|{{maxPercent}}>> faster (Current: <<gold|{{maxPercent2}}>>)"
       },
@@ -607,7 +607,7 @@
   "purpleReactor": {
     "purpleHoneyAmount": "You have <<var(--purple-text-color)|{{amount}}>> Purple Honey (<<var(--purple-text-color)|{{lifetimeAmount}}>> Lifetime)",
     "highestPurpleHoney": "Most Purple Honey at once: <<var(--purple-text-color)|{{amount}}>>",
-    "lifetimePurpleHoneyQuarks": "<<cyan|Quarks +{{amount}}>>",
+    "lifetimePurpleHoneyQuarks": "<<cyan|Кварки +{{amount}}>>",
     "lifetimePurpleHoneyGlobalSpeed": "<<lightskyblue|Global Speed +{{amount}}>>",
     "lifetimePurpleHoneyAscensionSpeed": "<<orange|Ascension Speed +{{amount}}>>",
     "lifetimePurpleHoneyAmbrosia": "<<lightblue|Ambrosia Bar Points +{{amount}}>>",
@@ -634,9 +634,9 @@
     "reactantRoutingPercentageAria": "{{percentage}}% of production routed to the Encabulator",
     "reactantTankProgress": "{{stored}} / {{capacity}}",
     "reactantTankProgressAria": "{{stored}} of {{capacity}} stored; {{percentage}}% full",
-    "reactantNetRatePositive": "+{{amount}}/s net",
-    "reactantNetRateNegative": "-{{amount}}/s net",
-    "reactantNetRateZero": "0/s net",
+    "reactantNetRatePositive": "+{{amount}}/s нетто",
+    "reactantNetRateNegative": "-{{amount}}/s нетто",
+    "reactantNetRateZero": "0/с нетто",
     "reactantRoutedRate": "Routed to storage: <<var(--reactant-bright)|{{amount}}/s>>",
     "reactantSpentRate": "Spent in Encabulator: <<var(--purple-text-color)|{{amount}}/s>>",
     "overflowExplanation": "React excess from either input tank at 10% efficiency using the other tank's reactant. Any unmatched excess returns to its regular bar.",
@@ -681,7 +681,7 @@
       "upgradeMaxed": "Maxed!",
       "upgradeAPProgress": "+{{amount}}/50 AP (+5 every {{levels}} levels)",
       "purchaseAmount": "+{{amount}}",
-      "purchaseMax": "+MAX",
+      "purchaseMax": "+МАКС",
       "upgrades": {
         "redAmbrosiaReduction": {
           "name": "Red Ambrosia Reduction",
@@ -727,7 +727,7 @@
         "reactor": "Purple Encabulator Upgrades",
         "honeyPower": "Honey Power Upgrades",
         "resources": "Resource Upgrades",
-        "miscellaneous": "Miscellaneous"
+        "miscellaneous": "Прочее"
       },
       "familyNames": {
         "capacity": "Capacity",
@@ -744,8 +744,8 @@
       "toggleUpgrades": "Upgrades",
       "closeUpgrades": "Close upgrades",
       "purchaseAmount": "+{{amount}}",
-      "purchaseMax": "+MAX",
-      "purchaseCost": "Cost: {{cost}}"
+      "purchaseMax": "+МАКС",
+      "purchaseCost": "Стоимость: {{cost}}"
     },
     "upgrades": {
       "tutorial": {
@@ -1223,21 +1223,21 @@
       "302": "Реинкарнация...?: Реинкарнируйте хотя бы ради 1e100 000 частиц.",
       "303": "Сто тысяч миллионов долларов: Реинкарнируйте хотя бы ради 1e100 000 000 [1e1e8] частиц.",
       "304": "Зарплата размером с двенадцатизначный логарифм: Реинкарнируйте хотя бы ради 1e100 000 000 000 [1e1e11] частиц.",
-      "305": "Моноизотопный: Выполните [Без Множителей] 1000 раз.",
-      "306": "Поднялся в одиночку: Выполните [Без Множителей] 9000 раз.",
-      "307": "Сила Одного: Выполните [Без Множителей] 9001 раз.",
-      "308": "TREE^-1(n): Выполните [Без Ускорителей] 1000 раз.",
-      "309": "TREE^-1(TREE^-1(n)): Выполните [Без Ускорителей] 9000 раз.",
-      "310": "O(1): Выполните [Без Ускорителей] 9001 раз.",
-      "311": "Да я это в кино видел: Выполните [Без Осколков] 1000 раз.",
+      "305": "Моноизотопный: Выполните [Без Множителей] num:((200)) раз.",
+      "306": "Поднялся в одиночку: Выполните [Без Множителей] num:((300)) раз.",
+      "307": "Сила Одного: Выполните [Без Множителей] num:((400)) раз.",
+      "308": "TREE^-1(n): Выполните [Без Ускорителей] num:((200)) раз.",
+      "309": "TREE^-1(TREE^-1(n)): Выполните [Без Ускорителей] num:((300)) раз.",
+      "310": "O(1): Выполните [Без Ускорителей] num:((400)) раз.",
+      "311": "Да я это в кино видел: Выполните [Без Осколков] num:((200)) раз.",
       "312": "Достижение 312: Выполните [Без Осколков] 9000 раз.",
-      "313": "Достижение 313: Выполните [Без Осколков] 9001 раз.",
+      "313": "Достижение 313: Выполните [Без Осколков] num:((400)) раз.",
       "314": "Последствия экономии: Выполните [Стоимость+] 1000 раз.",
       "315": "Были катастрофическими: Выполните [Стоимость+] 9000 раз.",
-      "316": "Для расы муравьёв: Выполните [Стоимость+] 9001 раз.",
+      "316": "Для расы муравьёв: Выполните [Стоимость+] num:((400)) раз.",
       "317": "491 карат: Выполните [Меньше Алмазов] 1000 раз.",
       "318": "Искусственно уменьшенные алмазы: Выполните [Меньше Алмазов] 9000 раз.",
-      "319": "Алмазы неразрушимы: Выполните [Меньше Алмазов] 9001 раз.",
+      "319": "Алмазы неразрушимы: Выполните [Меньше Алмазов] num:((400)) раз.",
       "320": "Тарифы: Выполните {[Налоги+]} 40 раз.",
       "321": "Местный налог: Выполните {[Налоги+]} 80 раз.",
       "322": "Смерти и налоги: Выполните {[Налоги+]} 120 раз.",
@@ -2712,14 +2712,14 @@
   },
   "reset": {
     "buttonLabels": {
-      "prestige": "Prestige",
-      "transcension": "Transcend",
-      "reincarnation": "Reincarnate",
-      "transcensionChallenge": "Exit Challenge",
-      "reincarnationChallenge": "Exit Reincarnation Challenge",
-      "ascensionChallenge": "Exit Ascension Challenge",
-      "ascension": "Ascend",
-      "singularity": "Enter the Singularity"
+      "prestige": "Престиж",
+      "transcension": "Выйти за пределы",
+      "reincarnation": "Реинкарнировать",
+      "transcensionChallenge": "Покинуть испытание",
+      "reincarnationChallenge": "Покинуть Испытание Реинкарнации",
+      "ascensionChallenge": "Покинуть Испытание Вознесения",
+      "ascension": "Вознестись",
+      "singularity": "Войти в Сингулярность"
     },
     "details": {
       "prestige": "Монеты, производители монет, улучшения монет и кристаллы сбросятся, но взамен вы получите алмазы и немного подношений. Требуется: {{amount}}/1e16 монет || ВРЕМЕНИ ПОТРАЧЕНО: {{timeSpent}} секунд.",
@@ -2746,8 +2746,8 @@
       "challenge15ProjectedLine": "$t({{name}}): <<gold|{{score}}>> → <<gold|{{projectedScore}}>> Score",
       "challenge15AutoLine": "$t({{name}}): <<gold|{{score}}>> Score",
       "resources": {
-        "coins": "Coins",
-        "transcendShards": "Mythos Shards",
+        "coins": "Монеты",
+        "transcendShards": "Осколки Мифов",
         "challenge10Completions": "Challenge 10 Completions"
       }
     }
@@ -3183,7 +3183,7 @@
   "challenges": {
     "1": {
       "name": "Испытание Без множителей || {{- value}} выполнений",
-      "progressName": "No Multipliers Challenge",
+      "progressName": "Испытание Без множителей",
       "flavor": "Множители чересчур ускоряют игру. Давайте мы их уберем!",
       "restrictions": "Выйдите за пределы и достигните цели, учитывая что множители считаются как ускорители. <br> ☆ Сила множителей = <<gold|1>> всё время! <br> ☆ Сила ускорителей уменьшена. Каждое завершение уменьшает ещё сильнее! <br> ☆ Каждый множитель даёт множитель производству создателю монет равных силе ускорителей.",
       "goal": "Цель: Заработать {{value}} монет в испытании.",
@@ -3202,7 +3202,7 @@
     },
     "2": {
       "name": "Испытание Без ускорителей || {{- value}} выполнений",
-      "progressName": "No Accelerators Challenge",
+      "progressName": "Испытание Без Ускорителей",
       "flavor": "Кому нужны эти ускорители? Теперь они вообще ничего не делают.",
       "restrictions": "Выйдите за пределы и достигните цели, учитывая что ускорители ничего не делают! <br> ☆ Сила ускорителей = <<gold|1>> всё время! <br> ☆ Сила множителей уменьшена до <<gold|1.25, +0.0012>> за усилитель множителей",
       "goal": "Цель: Заработать {{value}} монет в испытании.",
@@ -3316,9 +3316,9 @@
     },
     "8": {
       "name": "Испытание Стоимость++ || {{- value}} Выполнений",
-      "progressName": "Cost++ Challenge",
+      "progressName": "Испытание Стоимость++",
       "flavor": "Вы и правда подумали, что реинкарнация спасёт от инфляции?",
-      "restrictions": "Reincarnate and reach the goal except you run an even tougher version of Cost+! <br> ☆ Accelerator and Multiplier prices grow <<gold|twice>> as fast and start scaling quadratically <<gold|immediately>> <br> ☆ Building cost increases also affect Mythos Buildings! <br> ☆ Building prices grow <<gold|twice>> as fast <br> ☆ Construction is divided by <<gold|num:((5))>> for Coin, Diamond and Mythos Buildings",
+      "restrictions": "Реинкарнируйте и достигните цели, учитывая что вы проходите усложнённую версию Стоимость+! <br> ☆ Цена ускорителей и множителей увеличивается в <<gold|два>> раза быстрее и <<gold|мгновенно>> масштабируются квадратично. <br> ☆ Увеличение стоимости строений также влияет на строения мифов! <br> ☆ Стоимость строений растёт в <<gold|два>> раза быстрее <br> ☆ Конструирование Монетных, Алмазных и Мифов строений уменьшается в <<gold|num:((5))>> раз",
       "goal": "Цель: Получить {{value}} осколков мифов в испытании.",
       "per": {
         "1": "Базовая сила строений +0.25! Текущий: ",
@@ -3452,7 +3452,7 @@
       "progressName": "SADISTIC CHALLENGE II",
       "flavor": "Худшее злодеяние, которое может совершить человек, это без мучений наблюдать за страданиями других.",
       "restrictions": {
-        "intro": "Older Synergists lived within much harsher Corruptions than you do. Prove yourself by getting as many Coins as you can, with their devious modifiers!",
+        "intro": "Ветеранам Синергизма приходилось жить в более суровых Порчах, чем вы. Докажите свою ценность, накопив как можно больше Монет под влиянием коварных модификаторов!",
         "modifiers": {
           "viscosity": "☆ <<orange|Viscosity>>: Free Accelerators and Multipliers are raised to <<gold|^{{value}}>>",
           "dilation": "☆ <<orange|Time Dilation>>: Global Speed <<gold|×{{value}}>>",
@@ -3464,7 +3464,7 @@
           "recessionImproved": "☆ <<orange|Recession>>: Coin gain is raised to <<gold|^{{value}}>>, improving up to <<gold|^{{max}}>> as you gain Coins",
           "deflation": "☆ <<orange|Crystal Mine Collapse>>: Diamond gain exponent <<gold|×{{value}}>>",
           "extinction": "☆ <<orange|The Second Meteor>>: Ant Upgrade levels <<gold|÷{{value}}>>",
-          "spirit": "☆ <<orange|Hearty Spirits>>: Spirit Power <<gold|×{{value}}>><br>(The difficulty of Corruptions gave these players a fighting <i>spirit</i>...)"
+          "spirit": "<<orange|Богатый Дух>>: Сила Духов <<gold|×{{value}}>><br>(Сложность этих Порч пробуждает боевой <i>дух</i> внутри игрока...)"
         },
         "extraIntro": "Oh, and these modifiers are thrown in too. Just to add a twist. Enjoy!",
         "extras": {
@@ -5018,7 +5018,7 @@
         "upgrade2": "Platonic DELTA: {{checkMark}}",
         "upgrade3": "ONE MIND: {{checkMark}}",
         "upgrade4": "Wow! I want free upgrades to be better: {{checkMark}}",
-        "upgrade5": "EXTRA CHONKY Corruptions: {{checkMark}}",
+        "upgrade5": "ОЧЕНЬ ТОЛСТЫЕ Порчи: {{checkMark}}",
         "upgrade6": "Berries that are blue!: {{checkMark}}",
         "upgrade7": "A beginner's guide to Red Ambrosia: {{checkMark}}",
         "upgrade8": "Red Infinity Shop Voucher: {{checkMark}}",
@@ -5480,7 +5480,7 @@
       "dailyCode": "Daily Code",
       "addCode": "Add Code",
       "timeCode": "Time Code",
-      "corruptionLevel": "Corruption Level (current/highest settable)",
+      "corruptionLevel": "Уровень Порчи (текущий/наивысший)",
       "achievementPoints": "Achievement Points",
       "quarkBonus": "Subscriber Quark Bonus",
       "ambrosiaLoadouts": "Ambrosia Loadouts",
@@ -5632,29 +5632,29 @@
   },
   "corruptions": {
     "names": {
-      "construction": "Construction (Rocky Foundations)",
+      "construction": "Конструирование (Грубый Фундамент)",
       "viscosity": "Viscous Multiplier and Accelerators (Viscosity)",
-      "salvage": "Salvage Reduction (Bad Offerings)",
+      "salvage": "Снижение Утилизации (Неудовлетворительные Подношения)",
       "drought": "Less Fruitful Harvests (Drought)",
       "hyperchallenge": "The Hyperchallenge Cube (Hyperchallenge)",
       "illiteracy": "Defunded Education (Illiteracy)",
-      "obtainium": "Obtainium Reduction (Rare Earth Metals)",
+      "obtainium": "Уменьшение Обтаиниума (Редкоземельные Ископаемые)",
       "recession": "Great Depression II (Recession)",
-      "blunders": "Ant ELO (Blunders)"
+      "blunders": "ELO Муравьёв (Недоразумения)"
     },
     "descriptions": {
-      "construction": "Guess we gotta burn down the house.",
+      "construction": "Возможно пора сжигать дом.",
       "viscosity": "Вялость чувствуется по всей вселенной...",
-      "salvage": "Not even Ant God would want these!",
+      "salvage": "Даже Бог Муравьёв не позволил бы себе такое!",
       "drought": "Your farmland is <i>unsalvagable!</i>",
       "hyperchallenge": "Что находится в этом испытании?",
       "illiteracy": "Похоже Альберту всё-таки не стоило выводить Замедление.",
-      "obtainium": "More like... UNObtainium. Hah.",
+      "obtainium": "Скорее... НЕОбтаиниум. Ха.",
       "recession": "Очередная катастрофа 2025-го.",
-      "blunders": "Checkmated by a mysterious \"Derpsmith\"..."
+      "blunders": "Обыгран мистическим \"Кукузнецом\"..."
     },
     "effectDescriptions": {
-      "construction": "Construction is divided by",
+      "construction": "Конструирование делится на",
       "viscosity": "The number of Accelerators and Multipliers (free and purchased) counted by their Coin multipliers and by Upgrades is divided by",
       "salvage": "Salvage for the first five Runes is changed by",
       "drought": "Offering gain is divided by",
@@ -5701,18 +5701,18 @@
       },
       "illiteracy": {
         "low": "10^{{L}}",
-        "mid": "10^(20 + 2 × ({{L}} − 20))",
-        "high": "10^(70 + 2 × ({{L}} − 45)^1.5)"
+        "mid": "10^(20 + 2 × ({{L}} - 20))",
+        "high": "10^(70 + 2 × ({{L}} - 45)^1.5)"
       },
       "obtainium": {
         "low": "2^{{L}}",
-        "mid": "2^20 × 10^({{L}} − 20)",
-        "high": "2^20 × 10^(25 + ({{L}} − 45)^1.5)"
+        "mid": "2^20 × 10^({{L}} - 20)",
+        "high": "2^20 × 10^(25 + ({{L}} - 45)^1.5)"
       },
       "recession": {
         "low": "0.7^{{L}}",
         "mid": "0.7^{{L}}",
-        "high": "0.7^(45 + ({{L}} − 45)^1.5)"
+        "high": "0.7^(45 + ({{L}} - 45)^1.5)"
       },
       "blunders": {
         "low": "2% × {{L}}",
@@ -5825,9 +5825,9 @@
       "requiresChallenge11": "Complete Challenge 11 to change your Corruption level.",
       "cubeBank": "Cube Bank",
       "cubeMultipliersHeading": "Cube multipliers (this Ascension → next):",
-      "cubeMultipliersHeadingSame": "Cube multipliers:",
+      "cubeMultipliersHeadingSame": "Множители Кубов:",
       "effectsHeading": "Corruption effects (this Ascension → next):",
-      "effectsHeadingSame": "Corruption effects:",
+      "effectsHeadingSame": "Эффекты Порчи:",
       "cubeValue": "x{{value}}",
       "locked": "<<gray|Locked>>",
       "arrow": "→",
@@ -5859,7 +5859,7 @@
       "off": "Авто Вознесение [OFF]",
       "requiresC10": "Auto Ascension Rules will not run until you complete Challenge 10.",
       "status": {
-        "heading": "Status",
+        "heading": "Статус",
         "corruption": "Corruption Level",
         "c10": "Challenge 10 Completions",
         "ascensionChallenge": "Ascension Challenge",
@@ -5877,17 +5877,17 @@
           "heading": "Auto Ascension Rules",
           "slots": "{{count}} / {{max}} rules",
           "empty": "You have no rules yet. Rules are checked from top to bottom, and the first rule that applies decides your next Ascension. Click a rule to disable or enable it.",
-          "addRule": "Add Rule!",
-          "newTitle": "New Auto Ascension Rule",
+          "addRule": "Добавить правило!",
+          "newTitle": "Новое правило авто Вознесения",
           "editTitle": "Edit Rule {{number}}",
           "nameLabel": "Name (optional, up to 16 characters)",
           "namePlaceholder": "Rule {{number}}",
-          "conditionHeading": "1. When should you Ascend?",
-          "protocolHeading": "2. What happens on Ascension?",
+          "conditionHeading": "1. Когда Вознестись?",
+          "protocolHeading": "2. Что прозойдёт при Вознесении?",
           "protocolHelp": "Unless you enter an Ascension Challenge, this rule takes you out of the one you are in.",
-          "exceptionHeading": "3. Exception (optional)",
-          "exceptionHelp": "If the exception is true, this rule does not run even when its condition is met. Leave it empty for no exception.",
-          "previewHeading": "Preview",
+          "exceptionHeading": "3. Исключения (необязательно)",
+          "exceptionHelp": "Если исключения этого правила выполняются, тогда это правило не будет выполняться. Оставьте пустым, чтобы убрать исключения.",
+          "previewHeading": "Предпросмотр",
           "ruleTextLabel": "Rule text (paste a rule here to load it)",
           "copyRule": "Copy Rule",
           "pasteRule": "Paste Rule",
@@ -5915,8 +5915,8 @@
           "removeGroup": "Remove group",
           "remove": "Remove",
           "group": {
-            "and": "ALL of these are true",
-            "or": "ANY of these is true"
+            "and": "ВСЕ условия выполняются",
+            "or": "ЛЮБОЕ условие выполняется"
           },
           "is": "is true",
           "isNot": "is false",
@@ -5962,11 +5962,11 @@
             "exalt": "In EXALT"
           },
           "protocols": {
-            "choose": "Choose what to do...",
+            "choose": "Выберите что делать...",
             "ascend": "Ascend (keep Corruption level)",
-            "ascensionChallenge": "Enter Ascension Challenge",
+            "ascensionChallenge": "Войти в Испытание Вознесения",
             "nextAscensionChallenge": "Enter next unfinished Ascension Challenge (11 to 15)",
-            "corruption": "Set Corruption level to",
+            "corruption": "Установить уровень Порчи",
             "corruptionLoadout": "Set Corruption level to a Loadout's level",
             "corruptionUnlocked": "Set Corruption level to highest unlocked",
             "corruptionCleared": "Set Corruption level to highest cleared",
@@ -5977,9 +5977,9 @@
           "loadoutsHelp": "Optional: after Ascending, also change these Loadouts. A Loadout picked above uses its level from before this change. Increases stop at your highest unlocked level, and decreases stop at 0.",
           "loadoutSlot": "Loadout {{slot}}",
           "loadoutOps": {
-            "set": "set to",
-            "increase": "increase by",
-            "decrease": "decrease by"
+            "set": "установить",
+            "increase": "увеличить на",
+            "decrease": "уменьшить на"
           },
           "loadoutWrites": {
             "set": "Loadout {{slot}} set to {{value}}",
@@ -6088,7 +6088,7 @@
   "buildings": {
     "construction": "Construction: <<yellow|{{amount}}>>",
     "constructionBonus": "These Buildings have a base Softcap of <<yellow|{{amount}}>> owned, which is multiplied by Construction",
-    "hyperscaling": "Price exponents start growing <<yellow|quadratically>> past <<yellow|{{threshold}}>> owned",
+    "hyperscaling": "Рост степени цен становится <<yellow|квадратичным>> после <<yellow|{{threshold}}> приобретённых построек",
     "accelMultConstruction": "Accelerators, Multipliers and Accelerator Boosts benefit from <<yellow|√Construction>> (<<yellow|×{{amount}}>>) <br> Accelerators scale <<yellow|quadratically>> past <<yellow|{{accelerators}}>> bought <br> Multipliers scale <<yellow|quadratically>> past <<yellow|{{multipliers}}>> bought <br> Accelerator Boosts scale <<yellow|cubically>> past <<yellow|{{boosts}}>> bought",
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold | +{{coinsPerSecond}}/s>>] | Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
@@ -6249,8 +6249,8 @@
       "octeractStarter": {
         "name": "Октеракты для Чайников",
         "description": "Hello... I Am Derpsmith... The Ancestor Of Ant God... I Did Not Expect You To Get Here. Here Is 25% More Quarks, 40% More Octeracts, And 100,000x Ant Speed...",
-        "effectDisabled": "You have not yet paid your respects to Derpsmith. No rewards for you!",
-        "effectEnabled": "You have paid respects to Derpsmith. {{amount}} Quarks, {{amount2}} Octeracts and {{amount3}}x Ant Speed as promised!"
+        "effectDisabled": "Вы ещё не расплатились уважением Кукузнецу. Никаких наград!",
+        "effectEnabled": "Вы расплатились уважением Кукузнецу. {{amount}} Кварков, {{amount2}} Октерактов и {{amount3}}x к Скорости Муравьям. Как и было обещано!"
       },
       "octeractGain": {
         "name": "Когенезис Октерактов",
@@ -6275,7 +6275,7 @@
       },
       "octeractCorruption": {
         "name": "ЭКСТРА ПЛОТНЫЕ Порчи",
-        "description": "Adds num:((0.5)) free Corruption levels per level. Derpsmith approves.",
+        "description": "Добавляет num:((0.5)) бесплатных уровней к Уровню Порчи за уровень. Кукузнец одобряет.",
         "effect": "Лимит уровня Порчи увеличен на {{n}}"
       },
       "octeractGQCostReduce": {
@@ -6366,7 +6366,7 @@
       },
       "octeractSingUpgradeCap": {
         "name": "Перезаписывающие Указатели",
-        "description": "Derpsmith encountered a SegFault after reassigning null... +1 to level cap on certain Golden Quark Upgrades per level!",
+        "description": "Кукузнец столкнулся с SegFault после переназначения null... +1 к максимальному уровню некоторых Улучшений Золотых Кварков за уровень!",
         "effect": "Some Golden Quark Upgrades have +{{n}} max level!"
       },
       "octeractOfferings1": {
@@ -6994,7 +6994,7 @@
         "description": "<i>Время - это то, что не может существовать вечно.</i> Пройдите целевую Сингулярность, пока материя реальности вокруг вас быстро распадается.",
         "timeMod1": "<<red|⏱ Time Limit: {{time}} seconds>>",
         "timeMod2": "<<gold|⚠>> After the time limit, your Obtainium, Offering, and Cube production is divided by <<red|{{perSecondDivisor}}>> per second.",
-        "timeMod3": "Derpsmith gives you a slight boost: <<#00DDFF | 5x faster Reborn ELO Creation Speed!>> Until you buy Antiquities, at least.",
+        "timeMod3": "Кукузнец даёт вам фору: <<#00DDFF | в 5 раз быстрее создание Перерождённого ELO!>> Пока вы хотя бы не купите Антиквариат.",
         "ScalingReward1": "+12% <<orange|Global Speed>>!",
         "ScalingReward2": "+12% <<orange|Ascension Speed>>!",
         "ScalingReward3": "+2% <<cyan|Quarks>>!",
@@ -7050,7 +7050,7 @@
         "UniqueReward2": "2nd - Unlock a new <<orchid|Quark Upgrade>>! Neigh."
       },
       "noQuarkUpgrades": {
-        "name": "Disappearance of a Salesman",
+        "name": "Исчезновение продавца",
         "description": "Ээ.. А куда подевался торговец Магазина Кварков? Единственное, что вы видите, этот какой-то незнакомец со своей таинственной <i>шляпой</i>...",
         "challengeDesc": "Пройдите целевую сингулярность, но ваши улучшения из Магазина Кварков не работают. Если на них присутствует Жетон Полезности [⚙], тогда они будут работать.",
         "ScalingReward1": "<<orange|[☤]>> Quark Upgrades get +1 free level!",
@@ -7085,7 +7085,7 @@
       "lighterDark": "Тёмная Посветлее",
       "light": "Светлая",
       "dracula": "Дракула",
-      "oled": "OLED Mode"
+      "oled": "OLED режим"
     },
     "currentIconSet": "Текущий Набор Иконок",
     "notation": {
@@ -7094,11 +7094,11 @@
       "pureEngineering": "Только Инженерная"
     },
     "currentNotation": "Текущая Аннотация",
-    "appearance": "Appearance",
-    "font": "Game Font",
+    "appearance": "Оформление",
+    "font": "Шрифт",
     "fonts": {
-      "default": "Default",
-      "monospace": "Monospace"
+      "default": "Стандартный",
+      "monospace": "Моноширинный"
     },
     "iconSets": {
       "default": "Стандартная",
@@ -7163,7 +7163,7 @@
       "baseOffering": "Базовые Подношения",
       "offeringMult": "Множители Подношений",
       "salvage": "Утилизация",
-      "construction": "Construction",
+      "construction": "Конструирование",
       "freeAccelMult": "Free Accels & Mults",
       "baseObtainium": "Базовый Обтаниум",
       "runeEffectMult": "Сила рун",
@@ -7206,8 +7206,8 @@
       "purpleHoneyLuck": "Purple Honey Luck",
       "purpleHoneyProgressRequirement": "Purple Bar Points Required",
       "shopVouchers": "Купоны Магазина",
-      "coins": "Coin Production",
-      "taxes": "Tax Exponent",
+      "coins": "Производство монет",
+      "taxes": "Налоговая Степень",
       "generate": "Сгенерировать Сводку Статистики Сохранения"
     },
     "globalCubeMultiplierStats": {
@@ -7263,7 +7263,7 @@
       "CubeBank": "Сохранённые Вау! Кубы в этом вознесении:",
       "AchievementBonus": "Бонус достижения Вау! Кубов:",
       "SynergismLevel": "Награда уровня synergism:",
-      "BaseMultiplier": "Base Multiplier:",
+      "BaseMultiplier": "Базовый Множитель:",
       "Corruption": "Corruption (per Cube Bank point):",
       "Challenge15Bonus": "Challenge 15 Reward:",
       "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
@@ -7293,10 +7293,10 @@
       "title": "Множитель Вау! Тессерактов",
       "AchievementBonus": "Achievement Wow! Tesseracts Bonus:",
       "SynergismLevel": "Synergism Level Reward:",
-      "CubeBank": "Cube Bank:",
-      "BaseMultiplier": "Base Multiplier:",
+      "CubeBank": "Банк Кубов:",
+      "BaseMultiplier": "Базовый Множитель:",
       "Corruption": "Corruption (per Cube Bank point):",
-      "Challenge15Bonus": "Challenge 15 Reward:",
+      "Challenge15Bonus": "Награда за 15-е испытание:",
       "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
       "GlobalCube": "Глобальный Множитель Кубов:",
       "SeasonPass1": "Сезонный Пропуск 1:",
@@ -7318,8 +7318,8 @@
       "title": "Множитель Вау! Гиперкубов",
       "AchievementBonus": "Achievement Wow! Hypercubes Bonus:",
       "SynergismLevel": "Synergism Level Reward:",
-      "CubeBank": "Cube Bank:",
-      "BaseMultiplier": "Base Multiplier:",
+      "CubeBank": "Банк кубов:",
+      "BaseMultiplier": "Базовый множитель:",
       "Corruption": "Corruption (per Cube Bank point):",
       "Challenge15Bonus": "Challenge 15 Reward:",
       "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
@@ -7342,10 +7342,10 @@
       "title": "Множитель Вау! Платоновых Кубов",
       "AchievementBonus": "Achievement Platonic Cubes Bonus:",
       "SynergismLevel": "Synergism Level Reward:",
-      "CubeBank": "Cube Bank:",
-      "BaseMultiplier": "Base Multiplier:",
+      "CubeBank": "Банк кубов:",
+      "BaseMultiplier": "Базовый множитель:",
       "Corruption": "Corruption (per Cube Bank point):",
-      "Challenge15Bonus": "Challenge 15 Reward:",
+      "Challenge15Bonus": "Награда за 15 испытание:",
       "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
       "GlobalCube": "Глобальный Множитель Кубов:",
       "SeasonPass2": "Сезонный Пропуск 2:",
@@ -7364,10 +7364,10 @@
       "title": "Множитель Вау! Гептерактов",
       "AchievementBonus": "Achievement Hepteracts Bonus:",
       "SynergismLevel": "Synergism Level Reward:",
-      "CubeBank": "Cube Bank:",
-      "BaseMultiplier": "Base Multiplier:",
+      "CubeBank": "Банк кубов:",
+      "BaseMultiplier": "Базовый множитель:",
       "Corruption": "Corruption (per Cube Bank point):",
-      "Challenge15Bonus": "Challenge 15 Reward:",
+      "Challenge15Bonus": "Награда за 15 испытание:",
       "PlatonicBlessing": "Platonic Blessing - High-Scoring Statue:",
       "GlobalCube": "Глобальный Множитель Кубов:",
       "SeasonPass3": "Сезонный Пропуск 3:",
@@ -7522,10 +7522,10 @@
       "title": "First Five Runes - Rune Power Multiplier",
       "Research1x4": "Исследование 1x4:",
       "Research1x21": "Исследование 1x21:",
-      "Research4x15": "Research 4x15:",
+      "Research4x15": "Исследование 4x15:",
       "Research6x6": "Исследование 6x6:",
-      "Research6x21": "Research 6x21:",
-      "Research7x11": "Research 7x11:",
+      "Research6x21": "Исследование 6x21:",
+      "Research7x11": "Исследование 7x11:",
       "Research8x1": "Research 8x1:",
       "Research8x16": "Research 8x16:",
       "ConstantUpgrade9": "Constant Upgrade 9:",
@@ -7979,7 +7979,7 @@
       "AchievementPoints": "Очки Достижений:",
       "CubeUpgrade6x10": "Улучшение Кубов 6x10:",
       "GoldenQuarks2": "Golden Quark Upgrade - Golden Quarks II:",
-      "OcteractCostReduce": "Octeracts - Extra WIMPY Golden Quark Costs!:",
+      "OcteractCostReduce": "Октеракты - Более МЕЛКИЕ стоимости Золотых Кварков!:",
       "GoldenRevolution2": "Золотая Революция II:",
       "ImmaculateAlchemy": "Безупречная Алхимия:",
       "GlobalSubscriber": "1 / Global Bonus from our Wonderful Subscribers:",
@@ -8053,7 +8053,7 @@
       "Total": "Ambrosia Luck per 1 Red Luck:"
     },
     "redAmbrosiaLuckStats": {
-      "title": "Red Luck",
+      "title": "Красная Удача",
       "Base": "Базовое Значение:",
       "SynergismLevel": "Synergism Level Reward:",
       "PseudoCoins": "Улучшения ПсевдоМонет:",
@@ -8331,7 +8331,7 @@
       "AntHolySpirit": "Ant Holy Spirit Purchased:",
       "PlatonicUpgrade12": "Платоново улучение 3х2:",
       "SingularityPerk": "Singularity Perk - Advanced... Cheating Tactics?",
-      "BlundersCorruption": "'Blunders' Corruption:",
+      "BlundersCorruption": "Порча 'Недоразумения':",
       "SingularityDebuff": "Singularity Debuff:",
       "LifetimePurpleHoneyPower": "Lifetime Purple Honey Power:",
       "Total": "Общий множитель муравьиного ELO:",
@@ -8389,7 +8389,7 @@
       "Achievements": "Achievements:",
       "AdvancedPack": "Golden Quark Upgrade - Advanced Pack:",
       "Total": "Cube Bank before Challenge 10:",
-      "ChallengeTen": "Challenge 10:",
+      "ChallengeTen": "Испытание 10:",
       "Total2": "Total Cube Bank:"
     },
     "freeCorruptionLevelStats": {
@@ -8652,15 +8652,15 @@
         "3": "+0.054% Гиперкубов за уровень Порчи за уровень!",
         "4": "+2.4% Платоновых Кубов за уровень. И ничего лишнего.",
         "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +1 free Corruption level!",
-        "6": "Viscosity's exponent is multiplied by 1+(level/30), capped at ^1.",
-        "7": "Глобальная скорость ниже 1x возводится в степень ^1-(уровень/30), игнорируя Чистые множители.",
-        "8": "Эффект Куба Гипериспытаний разделён на 1+(уровень*0.4), с минимальным значением 1x.",
+        "6": "В 15-м Испытании, степень Вязкости увеличивается в 1+(уровень/30) раз. Уменьшает масштабирование Порчи на 2.5% при достижении максимального уровня.",
+        "7": "Глобальная скорость ниже 1x возводится в степень ^1-(уровень/20), игнорируя Чистые множители. Уменьшает масштабирование Порчи на 2.5% при достижении максимального уровня.",
+        "8": "В 15-м Испытании, эффект Куба Гипериспытаний уменьшается в 1+(уровень*num:((0.4))) раз. Уменьшает масштабирование Порчи на 2.5% при достижении максимального уровня.",
         "9": "Даёт 2.5x Чистого Обтаниума и умножает экспоненту Упразднённого Образования на 1+log10(Обтаниум+1)/100, достигая лимита при 1e100 Обтаниума.",
         "10": "Constant tax exponent +num:((0.20)), 10x faster Constant production, num:((1.10))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, num:((3.5))x Immaculate Obtainium and Offerings, 2x All Cubes, ^num:((1.25)) ant exponent in C15, and +1 free Corruption level!",
-        "11": "Если Обрушение Кристальной Шахты установлено на 11 или выше, Реинкарнации также будут приносить Алмазы в зависимости от производства Частиц!",
+        "11": "Масштабирование Порчи уменьшается на 2.5%.",
         "12": "For each level of Extinction, gain +0.5% more Ant ELO, per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
-        "13": "'Less Fruitful Harvests' reduces your <<green|Salvage>> by 50% less!",
-        "14": "Умножает экспоненту монет Великой Депрессии II на 1.55, но только в Испытании 15.",
+        "13": "Все отрицательные источники <<green|Утилизации>> уменьшаются на 50% и масштабирование Порчи замедляется на 2.5%! В 15-м Испытании, ваше Конструирование утраивается!",
+        "14": "Масштабирование Порчи уменьшается на 2.5%. В 15-м Испытании, степень Рецесии увеличивается до num:((1.5)) раз в зависимости от ваших Монет.",
         "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, and +1 free Corruption level! Talk about a deep dive.",
         "16": "Увеличивает коэффициент преобразования порошка на 1% за уровень, +2% счётчика Вознесений за уровень и ещё 2% в зависимости от порошка (до 100 000). Также умножает производство Строений Тессерактов на (Порошок +1)^(10 * уровень), без лимита.",
         "17": "If this is bought, Viscosity's score multiplier is raised to 3+(level*0.04) if its level is set to 10 or higher.",
@@ -8843,10 +8843,10 @@
       },
       "time": {
         "wait": "You must wait at least 15 minutes between each use.",
-        "prepare": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks! Due to how long it has been since your last attempt, the rewards are multiplied by {{y}}.",
+        "prepare": "Умеешь ли ты считать время? Давайте узнаем. Если у тебя получится нажать на кнопку 'ОК' между {{start}} и {{end}} секундами, вы получите {{quarks}} Кварков! Из-за интервала времени между последней попыткой и сейчас, награды умножены в {{y}} раз.",
         "confirm": "Press the button when you feel the time is right. Between {{start}} and {{end}} seconds, please!",
         "maxedCookie": "Because Cx11 is maxed, you will always get the rewards from this code. Just have some fun!",
-        "cancelled": "No worries! Try again when you feel like it.",
+        "cancelled": "Всё хорошо! Попробуйте снова как заходите.",
         "won": "You clicked 'OK' in {{time}} seconds! Congratulations! [+{{x}} Quarkies]",
         "lost": "You clicked 'OK' in {{time}} seconds! Unfortunately, you did not win this time. Try again soon.",
         "ambrosia": "Между вашей голубикой происходит небольшой резонанс, дающий {{blueberryTime}} реальных секунд Очков Шкалы Амброзии."
