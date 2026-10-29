@@ -44,7 +44,7 @@ export async function submitSteamMicroTxn (fd: FormData): Promise<boolean> {
     return false
   }
 
-  if (txnResponse.order_id.toString() !== orderId) {
+  if (txnResponse.orderId !== orderId) {
     return false
   }
 

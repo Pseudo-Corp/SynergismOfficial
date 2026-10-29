@@ -1271,7 +1271,8 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 #exitOffline,
 #exitFastForward,
 #checkout,
-#checkout-xsolla {
+#checkout-xsolla,
+#checkout-steam {
     width: 18em;
     min-height: auto;
     min-width: 220px;
@@ -1284,7 +1285,8 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 #exitOffline:hover,
-#checkout:not(:disabled):hover {
+#checkout:not(:disabled):hover,
+#checkout-steam:not(:disabled):hover {
     background-color: var(--purplehover-color);
 }
 
