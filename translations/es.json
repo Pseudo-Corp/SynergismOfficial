@@ -9160,6 +9160,18 @@
       "checkoutNotSynergismCC": "Please migrate to https://synergism.cc to checkout! Thank you for supporting the game!"
     }
   },
+  "feedback": {
+    "title": "Send Feedback",
+    "message": "Found a bug or have an idea? Tell us about it!",
+    "screenshot": "Screenshot (optional, up to 4 MB)",
+    "save": "Save file (optional, up to 4 MB)",
+    "attachCurrentSave": "Use my current save",
+    "submit": "Send",
+    "sending": "Sending...",
+    "sent": "Thank you! Your feedback was sent.",
+    "fileTooLarge": "Screenshots and save files can be up to 4 MB each.",
+    "failed": "Could not send your feedback: {{error}}"
+  },
   "hotkeys": {
     "note1": "Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!",
     "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
