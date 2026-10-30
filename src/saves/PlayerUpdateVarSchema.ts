@@ -1,4 +1,5 @@
 import Decimal from 'break_infinity.js'
+import i18next from 'i18next'
 import * as z from 'zod'
 import { AchievementId } from '../Achievements'
 import type { AmbrosiaUpgradeNames } from '../BlueberryUpgrades'
@@ -7,7 +8,9 @@ import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import type { HepteractKeys } from '../Hepteracts'
 import { octeractUpgradeNames, type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
 import { getGQUpgradeCumulativeCost, goldenQuarkUpgradeNames, type SingularityDataKeys } from '../singularity'
+import { format } from '../Synergism'
 import { updateResourcePredefinedLevel } from '../Talismans'
+import { Alert } from '../UpdateHTML'
 import { playerSchema } from './PlayerSchema'
 
 const getLegacyOcteractsInvested = (
@@ -332,6 +335,40 @@ export const playerUpdateVarSchema = z.preprocess(cleanseLegacyCorruptions, play
   }
   if (player.resettoggle4 !== undefined) {
     player.resetToggleModes.ascension = oldToNewToggles[player.resettoggle4] ?? 0
+  }
+
+  if (player.firstOwnedCoin !== undefined) {
+    let corruptionLevel = 0
+
+    if (player.highestSingularityCount >= 8) {
+      corruptionLevel = 45
+    } else if (player.highestSingularityCount >= 1 || player.platonicUpgrades[10] > 0) {
+      corruptionLevel = 30
+    } else if (player.platonicUpgrades[5] > 0) {
+      corruptionLevel = 22
+    } else if ((player.highestchallengecompletions[14] ?? 0) > 0) {
+      corruptionLevel = 15
+    } else if ((player.highestchallengecompletions[13] ?? 0) > 0) {
+      corruptionLevel = 7
+    } else if ((player.highestchallengecompletions[12] ?? 0) > 0) {
+      corruptionLevel = 5
+    } else if ((player.highestchallengecompletions[11] ?? 0) > 0) {
+      corruptionLevel = 3
+    }
+
+    if (player.corruptions.highestCleared < corruptionLevel) {
+      player.corruptions.highestCleared = corruptionLevel
+
+      if (player.challengecompletions[11] > 0) {
+        player.currentChallenge.ascension = 0
+        player.corruptions.used = Math.max(player.corruptions.used, corruptionLevel)
+        player.corruptions.ascensionLevel = Math.max(player.corruptions.ascensionLevel, corruptionLevel)
+        player.corruptions.next = Math.max(player.corruptions.next, corruptionLevel)
+        player.challengecompletions[10] = Math.max(player.challengecompletions[10], 1)
+      }
+
+      void Alert(i18next.t('versionChangeAnnouncements.v4-4-1-Corruptions', { level: format(corruptionLevel) }))
+    }
   }
 
   Reflect.deleteProperty(player, 'runeshards')
