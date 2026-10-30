@@ -140,6 +140,7 @@ export function enableSteamOverlay () {
   // https://partner.steamgames.com/doc/features/overlay#requirements
   // https://github.com/ArtyProf/steamworks-ffi-node/issues/57
   app.commandLine.appendSwitch('in-process-gpu')
+  app.commandLine.appendSwitch('disable-direct-composition')
   // The overlay needs full-frame redraws, otherwise text behind it flickers.
   // https://partner.steamgames.com/doc/features/overlay#FAQ
   app.commandLine.appendSwitch('ui-disable-partial-swap')
