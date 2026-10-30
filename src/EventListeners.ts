@@ -76,6 +76,7 @@ import { toggleAutobuyAntProducer } from './Features/Ants/toggles/autobuy-produc
 import { toggleAutobuyAntUpgrade } from './Features/Ants/toggles/autobuy-upgrade'
 import { toggleMaxBuyAntProducer } from './Features/Ants/toggles/max-producer-buy'
 import { toggleMaxBuyAntUpgrade } from './Features/Ants/toggles/max-upgrade-buy'
+import { registerFeedbackForm } from './Feedback'
 import { registerHeaderLayoutEditing } from './HeaderModules'
 import {
   craftHepteracts,
@@ -2253,6 +2254,8 @@ TODO: Fix this entire tab it's utter shit
 
   // Import button
   DOMCacheGetOrSet('importfile').addEventListener('change', (e) => importData(e, importSynergism))
+
+  registerFeedbackForm()
 
   // Mobile theme dropdown toggle
   if (isMobile) {

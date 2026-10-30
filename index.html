@@ -77,6 +77,31 @@
         </div>
         <div id="autoAscendSelectMenu" class="scrollbar" role="listbox" hidden></div>
     </section>
+    <section id="feedbackDialog" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle" tabindex="-1" hidden>
+        <form id="feedbackForm" class="accountForm scrollbar">
+            <div id="feedbackTitle" class="accountFormTitle" i18n="feedback.title"></div>
+            <label>
+                <span i18n="feedback.message"></span>
+                <textarea id="feedbackMessage" rows="8" maxlength="4000" required></textarea>
+            </label>
+            <label>
+                <span i18n="feedback.screenshot"></span>
+                <input id="feedbackScreenshot" type="file" accept="image/png,image/jpeg,image/webp">
+            </label>
+            <label>
+                <span i18n="feedback.save"></span>
+                <input id="feedbackSave" type="file" accept=".txt,text/plain">
+            </label>
+            <div class="accountFormButtons">
+                <button id="feedbackAttachSave" type="button" i18n="feedback.attachCurrentSave"></button>
+            </div>
+            <p id="feedbackStatus" class="accountFormStatus" role="status"></p>
+            <div class="accountFormButtons">
+                <button id="feedbackCancel" type="reset" i18n="general.Cancel"></button>
+                <button id="feedbackSubmit" type="submit" i18n="feedback.submit"></button>
+            </div>
+        </form>
+    </section>
     <button id="mobileHotkeysOpen" type="button" aria-controls="mobileHotkeysOverlay" aria-expanded="false" i18n-aria-label="hotkeys.mobile.open">
         &#9000;
     </button>
@@ -2578,6 +2603,7 @@
                         <div id="patchnotes">
                         <img alt="Patch Notes Icon" src="Pictures/Default/patchnotes.png" title="Click to read the latest patch notes!" loading="lazy">
                         </div>
+                        <button id="openFeedback" style="border: 2px solid gold" i18n="feedback.title"></button>
                     </div>
                 </div>
                 <a href="#" target="_blank" id="happyHolidays" style="color: greenyellow"></a>

@@ -150,6 +150,10 @@ const PUTHandlers = [
 ]
 
 const POSTHandlers = [
+  http.post('https://synergism.cc/feedback', async () => {
+    await delay(500)
+    return HttpResponse.json({ success: true }, { status: 201 })
+  }),
   http.post('https://synergism.cc/consumables/buy', async ({ request }) => {
     let body: unknown
 
