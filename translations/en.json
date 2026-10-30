@@ -8755,6 +8755,7 @@
   },
   "versionChangeAnnouncements": {
     "ants": "Ants have been significantly reworked/rebalanced. Your Anthill progress has been set accordingly!",
-    "sept13Refund": "Due to the Purple Ambrosia Update, some of your Quark Upgrades have been refunded! Refund amount: <<cyan|+{{amount}}>>"
+    "sept13Refund": "Due to the Purple Ambrosia Update, some of your Quark Upgrades have been refunded! Refund amount: <<cyan|+{{amount}}>>",
+    "v4-4-1-Corruptions": "Because of a recent update, your Corruption progress has been adjusted. Your Corruption level is set to <<orange|{{level}}>>, with a Challenge 10 completion instantly awarded."
   }
 }
