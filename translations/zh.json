@@ -9160,6 +9160,18 @@
       "checkoutNotSynergismCC": "请前往https://synergism.cc进行支付！感谢您支持游戏！"
     }
   },
+  "feedback": {
+    "title": "Send Feedback",
+    "message": "Found a bug or have an idea? Tell us about it!",
+    "screenshot": "Screenshot (optional, up to 4 MB)",
+    "save": "Save file (optional, up to 4 MB)",
+    "attachCurrentSave": "Use my current save",
+    "submit": "Send",
+    "sending": "Sending...",
+    "sent": "Thank you! Your feedback was sent.",
+    "fileTooLarge": "Screenshots and save files can be up to 4 MB each.",
+    "failed": "Could not send your feedback: {{error}}"
+  },
   "hotkeys": {
     "note1": "SHIFT+1至SHIFT+8可以在下次飞升时载入预设1至预设8。SHIFT+9、SHIFT+0和SHIFT+反引号键可以在下次飞升时把腐化等级设为0。这些快捷键无法修改！",
     "note2": "不试试看点击上面某项<span style=\"color:gold;\">金色</span>文字吗？随时都可以取消哦！",
