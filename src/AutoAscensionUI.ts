@@ -82,7 +82,7 @@ const uiKey = 'corruptions.autoAscend.rules.ui'
 const errorKey = 'corruptions.autoAscend.rules.errors'
 const paletteFileName = 'Synergism-AutoAscension-Rules.txt'
 
-const integerNumberRules = new Set<VariableKey>(['sg', 'cl', 'hcl', 'cb', 'hb'])
+const integerNumberRules = new Set<VariableKey>(['sg', 'aag', 'cl', 'hcl', 'cb', 'hb'])
 const groupOps: GroupOp[] = ['and', 'or']
 const protocolTypes: ProtocolType[] = [
   'ascend',
@@ -92,10 +92,19 @@ const protocolTypes: ProtocolType[] = [
   'corruptionLoadout',
   'corruptionUnlocked',
   'corruptionCleared',
+  'corruptionBest',
   'corruptionClimb',
   'corruptionDowngrade',
   'corruptionCleanse'
 ]
+
+const cubeNameKeys: Record<CubeRateKey, string> = {
+  wowCubes: 'cubes',
+  wowTesseracts: 'tesseracts',
+  wowHypercubes: 'hypercubes',
+  wowPlatonicCubes: 'platonics',
+  wowHepteracts: 'hepteracts'
+}
 
 const loadoutOpKeys: Record<LoadoutOp, string> = {
   '=': 'set',
@@ -149,6 +158,7 @@ const completionName = (challenge: number) =>
   `${challengeName(challenge)} ${i18next.t(`${uiKey}.${challenge === 15 ? 'challengeScore' : 'challengeCompletions'}`)}`
 const numberedChallengeName = (challenge: number) => `(${challenge}) ${challengeName(challenge)}`
 const maxedName = (challenge: number) => `${challengeName(challenge)} ${i18next.t(`${uiKey}.challengeMaxed`)}`
+const cubeName = (cube: CubeRateKey) => i18next.t(`corruptions.tiers.cubes.${cubeNameKeys[cube]}`)
 const cubeStallName = (cube: CubeRateKey) => i18next.t(`${uiKey}.cubeStall.${cube}`)
 const gameStageName = (stage: number) => `${stage}: ${gameStages()[stage]?.name ?? ''}`
 
@@ -316,6 +326,8 @@ const defaultProtocol = (type: ProtocolType): AutoAscendProtocol => {
     case 'corruptionClimb':
     case 'corruptionDowngrade':
       return { type, amount: 1 }
+    case 'corruptionBest':
+      return { type, cube: cubeRateKeys[0], runs: 10 }
     case 'ascend':
     case 'nextAscensionChallenge':
     case 'corruptionUnlocked':
@@ -415,6 +427,10 @@ const describeProtocol = (protocol: AutoAscendProtocol) => {
     case 'corruptionClimb':
     case 'corruptionDowngrade':
       return `${protocolName(protocol.type)} ${format(protocol.amount)}`
+    case 'corruptionBest':
+      return `${protocolName(protocol.type)} (${cubeName(protocol.cube)} ${
+        i18next.t(`${uiKey}.bestRuns`, { runs: format(protocol.runs) })
+      })`
     case 'ascend':
     case 'nextAscensionChallenge':
     case 'corruptionUnlocked':
@@ -702,7 +718,25 @@ const renderProtocolEditor = () => {
     row.append(createNumberInput(protocol.amount, true, (amount) => {
       protocol.amount = amount
     }, 1))
+  } else if (protocol?.type === 'corruptionBest') {
+    row.append(
+      createSelect(
+        cubeRateKeys.map((cube) => ({ value: cube, label: cubeName(cube) })),
+        protocol.cube,
+        (cube) => {
+          protocol.cube = cube
+          updatePreview()
+        }
+      ),
+      createElement('span', '', i18next.t(`${uiKey}.bestRunsLabel`)),
+      createNumberInput(protocol.runs, true, (runs) => {
+        protocol.runs = runs
+      }, 1)
+    )
   }
+  const protocolHelp = protocol?.type === 'corruptionBest'
+    ? [createElement('p', 'autoAscendHelp', i18next.t(`${uiKey}.bestRunsHelp`))]
+    : []
 
   const rerenderProtocol = () => {
     renderProtocolEditor()
@@ -788,6 +822,7 @@ const renderProtocolEditor = () => {
 
   container.replaceChildren(
     row,
+    ...protocolHelp,
     createElement('p', 'autoAscendHelp', i18next.t(`${uiKey}.loadoutsHelp`)),
     ...loadoutRows,
     addLoadout

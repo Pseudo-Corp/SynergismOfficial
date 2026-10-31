@@ -5493,6 +5493,7 @@
             "t": "Ascension Time, In-game (seconds, needs a C10 completion)",
             "rt": "This Attempt, Real (seconds)",
             "sg": "Current Singularity",
+            "aag": "Antiquities of Ant God level",
             "gs": "Game Section",
             "cl": "Current Corruption level",
             "hcl": "Highest cleared Corruption level",
@@ -5518,10 +5519,14 @@
             "corruptionLoadout": "Set Corruption level to a Loadout's level",
             "corruptionUnlocked": "Set Corruption level to highest unlocked",
             "corruptionCleared": "Set Corruption level to highest cleared",
+            "corruptionBest": "Set Corruption level to your best recent run's level",
             "corruptionClimb": "Climb Corruption level by",
             "corruptionDowngrade": "Downgrade Corruption level by",
             "corruptionCleanse": "Cleanse Corruption (set to level 0)"
           },
+"bestRuns": "per real second, last {{runs}} runs",
+          "bestRunsLabel": "Runs to compare",
+          "bestRunsHelp": "Picks the level of your best run by this cube type per real second, among your most recent Ascensions with a Challenge 10 completion. Ascension Challenge runs are skipped. If no run qualifies, your Corruption level is kept.",
           "loadoutsHelp": "Optional: after Ascending, also change these Loadouts. A Loadout picked above uses its level from before this change. Increases stop at your highest unlocked level, and decreases stop at 0.",
           "loadoutSlot": "Loadout {{slot}}",
           "loadoutOps": {
@@ -5564,7 +5569,7 @@
           "moveUp": "Move rule up",
           "moveDown": "Move rule down",
           "errors": {
-            "invalidNumber": "Fix the highlighted numbers first. They must be 0 or higher, Challenge Completions, Singularities, Cube Bank, Bells, Corruption and Loadout levels must be whole numbers, and climbs, downgrades and Loadout increases or decreases must be at least 1.",
+            "invalidNumber": "Fix the highlighted numbers first. They must be 0 or higher, Challenge Completions, Singularities, Antiquities of Ant God, Cube Bank, Bells, Corruption and Loadout levels must be whole numbers, and climbs, downgrades and Loadout increases or decreases must be at least 1.",
             "emptyCondition": "Add at least one comparison to the condition.",
             "noProtocol": "Choose what happens on Ascension.",
             "noSlots": "All of your rule slots are in use.",
@@ -5585,9 +5590,9 @@
           "invalidTolerance": "Line {{line}}, column {{column}}: Expected a minimum rise of 0% or more after '@', like sc>=30@3.",
           "invalidStage": "Line {{line}}, column {{column}}: Invalid Game Section. Use a Game Section number from 0 up, like gs>=12.",
           "unclosedParen": "Line {{line}}, column {{column}}: Missing closing parenthesis.",
-          "expectedProtocol": "Line {{line}}, column {{column}}: Expected an exception after '~' or a protocol after ':' (asc, c=11 to c=15, c=next, l=<level>, l=s1 to l=s8, l+<amount>, l-<amount>, l=max, l=clr or l=cln).",
-          "unknownProtocol": "Line {{line}}, column {{column}}: Unknown protocol. Use asc, c=<challenge>, c=next, l=<level>, l=s<loadout>, l+<amount> or l-<amount>.",
-          "invalidProtocolValue": "Line {{line}}, column {{column}}: Invalid protocol value. Challenges must be 11 to 15 or next, levels a whole number, s1 to s8, max, clr or cln, and climbs or downgrades a whole number of at least 1.",
+          "expectedProtocol": "Line {{line}}, column {{column}}: Expected an exception after '~' or a protocol after ':' (asc, c=11 to c=15, c=next, l=<level>, l=s1 to l=s8, l+<amount>, l-<amount>, l=max, l=clr, l=cln or l=best(<cube>,<runs>)).",
+          "unknownProtocol": "Line {{line}}, column {{column}}: Unknown protocol. Use asc, c=<challenge>, c=next, l=<level>, l=s<loadout>, l+<amount>, l-<amount> or l=best(<cube>,<runs>).",
+          "invalidProtocolValue": "Line {{line}}, column {{column}}: Invalid protocol value. Challenges must be 11 to 15 or next, levels a whole number, s1 to s8, max, clr or cln, climbs or downgrades a whole number of at least 1, and best a cube (sc, st, sh, sp or shp) and a whole number of runs of at least 1, like l=best(sc,10).",
           "invalidName": "Line {{line}}, column {{column}}: The rule name is not a valid quoted name.",
           "nameTooLong": "Line {{line}}, column {{column}}: Rule names can be at most 16 characters long.",
           "unknownModifier": "Line {{line}}, column {{column}}: Unknown modifier. Use as (Auto Ant Sacrifice), cs (Challenge Sweep), co (Auto Open Cubes), tb (Auto Tesseract Buildings), cu (Auto Cube Upgrades), pu (Auto Platonic Upgrades), ha (Auto Hepteract Crafting), al (Ambrosia Loadout) or s1 to s8 (Loadout).",
@@ -8458,8 +8463,15 @@
     "perSecondOff": "Per second: OFF",
     "historyReset": "Here's what you got from your last resets (except challenges):",
     "historySac": "Your sacrifices got you the following:",
-    "historyAsc": "Your last ascensions got you the following:",
-    "historySing": "Your last singularities got you the following:"
+    "historyAsc": "The last 20 Ascensions with at least 1 Challenge 10 completion:",
+    "historySing": "Your last singularities got you the following:",
+    "realTime": "Real: {{time}}",
+    "realTimeTitle": "Real time spent on this Ascension attempt",
+    "challenge": "C{{challenge}}",
+    "challengeCompletions": "C{{challenge}}: {{completions}}",
+    "challengeCompletionsTitle": "Challenge {{challenge}} completions after this Ascension",
+    "challenge15Score": "C15: {{score}}",
+    "challenge15ScoreTitle": "Challenge 15 score from this Ascension"
   },
   "event": {
     "aprilFools": {

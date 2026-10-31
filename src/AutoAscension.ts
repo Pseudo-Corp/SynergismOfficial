@@ -9,6 +9,7 @@ import { toggleAutoAntSacrificeEnabled } from './Features/Ants/toggles/auto-sacr
 import { hepteractKeys, toggleAutomaticHepteracts } from './Hepteracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { reset } from './Reset'
+import { runes } from './Runes'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { gameStages, synergismStageNumber } from './Statistics'
 import { player, resetCheck } from './Synergism'
@@ -41,6 +42,7 @@ const numberRules = nullPrototype(
     t: () => player.ascensionCounter,
     rt: () => player.ascensionCounterRealReal,
     sg: () => player.singularityCount,
+    aag: () => runes.antiquities.level,
     gs: () => synergismStageNumber(),
     cl: () => player.corruptions.used,
     hcl: () => player.corruptions.highestCleared,
@@ -226,6 +228,7 @@ export type AutoAscendProtocol =
   | { type: 'corruptionClimb'; amount: number }
   | { type: 'corruptionDowngrade'; amount: number }
   | { type: 'corruptionCleanse' }
+  | { type: 'corruptionBest'; cube: CubeRateKey; runs: number }
 
 type CorruptionProtocol = Exclude<
   AutoAscendProtocol,
@@ -700,6 +703,33 @@ export const parseRule = (text: string): AutoAscendRule => {
       return { type: 'ascensionChallenge', challenge }
     }
 
+    if (value === 'best') {
+      i++
+      if (peek() !== '(') {
+        return fail('unexpectedToken')
+      }
+      i++
+      const cube = peek()
+      if (!isCubeStallId(cube)) {
+        return fail('invalidProtocolValue')
+      }
+      i++
+      if (peek() !== ',') {
+        return fail('unexpectedToken')
+      }
+      i++
+      const runs = Number(peek())
+      if (peek() === '' || !Number.isInteger(runs) || runs < 1) {
+        return fail('invalidProtocolValue')
+      }
+      i++
+      if (peek() !== ')') {
+        return fail('unclosedParen')
+      }
+      i++
+      return { type: 'corruptionBest', cube: cubeStallIds[cube], runs }
+    }
+
     if (value === 'max' || value === 'clr' || value === 'cln') {
       i++
       return { type: corruptionKeywordProtocols[value] }
@@ -907,6 +937,8 @@ const printProtocol = (protocol: AutoAscendProtocol): string => {
       return `l-${protocol.amount}`
     case 'corruptionCleanse':
       return 'l=cln'
+    case 'corruptionBest':
+      return `l=best(${cubeStallShortIds[protocol.cube]},${protocol.runs})`
     default: {
       const unreachable: never = protocol
       return unreachable
@@ -933,6 +965,31 @@ export const printRules = (rules: AutoAscendRule[]) => rules.map(printRule).join
 
 let pendingCorruptionProtocol: CorruptionProtocol | null = null
 
+const bestRecentCorruptionLevel = ({ cube, runs }: Extract<CorruptionProtocol, { type: 'corruptionBest' }>) => {
+  let level = player.corruptions.next
+  let bestRate = Number.NEGATIVE_INFINITY
+  let counted = 0
+  for (let i = player.history.ascend.length - 1; i >= 0 && counted < runs; i--) {
+    const entry = player.history.ascend[i]
+    if (
+      entry.kind !== 'ascend'
+      || entry.currentChallenge !== undefined
+      || typeof entry.usedCorruptions !== 'number'
+      || entry.realSeconds === undefined
+      || entry.realSeconds <= 0
+    ) {
+      continue
+    }
+    counted++
+    const rate = entry[cube] / entry.realSeconds
+    if (rate > bestRate) {
+      bestRate = rate
+      level = entry.usedCorruptions
+    }
+  }
+  return level
+}
+
 const corruptionProtocolLevel = (protocol: CorruptionProtocol) => {
   switch (protocol.type) {
     case 'corruption':
@@ -949,6 +1006,8 @@ const corruptionProtocolLevel = (protocol: CorruptionProtocol) => {
       return Math.max(0, player.corruptions.used - protocol.amount)
     case 'corruptionCleanse':
       return 0
+    case 'corruptionBest':
+      return bestRecentCorruptionLevel(protocol)
     default: {
       const unreachable: never = protocol
       return unreachable
@@ -968,10 +1027,11 @@ export const applyPendingAutoAscendProtocol = (challengeTenCompleted: boolean) =
 }
 
 const ascend = () => {
-  if (player.currentChallenge.ascension !== 0) {
+  const challenge = player.currentChallenge.ascension
+  if (challenge !== 0) {
     void resetCheck('ascensionChallenge', false, true, false)
     challengeExit('ascension')
-    reset('ascensionChallenge', false)
+    reset('ascensionChallenge', false, undefined, challenge)
   } else {
     reset('ascension', false)
   }
@@ -1000,13 +1060,14 @@ const enterAscensionChallenge = (challenge: AscensionChallenge | null) => {
     return
   }
 
-  if (player.currentChallenge.ascension !== 0) {
+  const leftChallenge = player.currentChallenge.ascension
+  if (leftChallenge !== 0) {
     void resetCheck('ascensionChallenge', false, true, false)
   }
   challengeExit('transcension')
   challengeExit('reincarnation')
   challengeExit('ascension')
-  toggleChallenges(challenge, true)
+  toggleChallenges(challenge, true, leftChallenge)
 }
 
 const runAutoAscendProtocol = (protocol: AutoAscendProtocol) => {

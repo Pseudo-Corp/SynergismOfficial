@@ -3492,7 +3492,7 @@ export const resetCheck = async (
     }
 
     if (resetAfter && (manual || (a !== 15 && !getShopUpgradeEffects('instantChallenge2', 'unlocked')))) {
-      reset('ascensionChallenge', false)
+      reset('ascensionChallenge', false, undefined, a)
     }
   }
 
