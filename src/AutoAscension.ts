@@ -409,7 +409,7 @@ export const getAutoAscendRuleSlots = () =>
   Math.min(maxAutoAscendRuleSlots, baseAutoAscendRuleSlots + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL)
 
 export const maxComparisonsPerExpr = 16
-export const maxRuleNameLength = 16
+export const maxRuleNameLength = 20
 const maxRuleLength = 1024
 
 const countComparisons = (expr: AutoAscendExpr): number =>
@@ -877,6 +877,15 @@ export const parseSavedRules = (text: string): AutoAscendRule[] =>
       return []
     }
   }).slice(0, maxAutoAscendRuleSlots)
+
+const defaultAutoAscendRuleText = [
+  '"In-game seconds" c10>=1&t>=15:asc',
+  '#"Real Seconds" c10>=1&rt>=15:asc',
+  '#"Climb Corruption" c10>=1:l+1',
+  '#"Declimb Corruption" c10=0&rt>=15:l-1'
+].join('\n')
+
+export const defaultAutoAscendRules = () => parseRules(defaultAutoAscendRuleText)
 
 const printCondition = (condition: AutoAscendCondition): string => {
   if (condition.rule === 'exalt') {

@@ -43,7 +43,13 @@ import {
   updateAllUngroupedAchievementProgress,
   updateProgressiveCache
 } from './Achievements'
-import { corruptionLoadoutCount, isAutoAscendRunning, isAutoAscendUnlocked, runAutoAscendRules } from './AutoAscension'
+import {
+  corruptionLoadoutCount,
+  defaultAutoAscendRules,
+  isAutoAscendRunning,
+  isAutoAscendUnlocked,
+  runAutoAscendRules
+} from './AutoAscension'
 import { autoAscendRulesUICreate, pulseAutoAscendRule, renderAutoAscendRules } from './AutoAscensionUI'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
@@ -925,7 +931,7 @@ export const player: Player = {
 
   ascendShards: new Decimal(),
   autoAscend: false,
-  autoAscendRules: [],
+  autoAscendRules: defaultAutoAscendRules(),
   autoOpenCubes: false,
   openCubes: 0,
   autoOpenTesseracts: false,

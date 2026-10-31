@@ -17,6 +17,7 @@ import {
   corruptionLoadoutSlots,
   type CubeRateKey,
   cubeRateKeys,
+  defaultAutoAscendRules,
   equalityComparatorKeys,
   exaltKeys,
   getAutoAscendRuleSlots,
@@ -1207,6 +1208,7 @@ export const autoAscendRulesUICreate = () => {
   DOMCacheGetOrSet('autoAscendPaletteCopy').addEventListener('click', () => void exportRulePalette(false))
   DOMCacheGetOrSet('autoAscendPaletteExportFile').addEventListener('click', () => void exportRulePalette(true))
   DOMCacheGetOrSet('autoAscendPalettePaste').addEventListener('click', () => void importRulePaletteFromClipboard())
+  DOMCacheGetOrSet('autoAscendPaletteReset').addEventListener('click', () => void resetRulePalette())
   const fileInput = DOMCacheGetOrSet('autoAscendPaletteFile') as HTMLInputElement
   DOMCacheGetOrSet('autoAscendPaletteImportFile').addEventListener('click', () => fileInput.click())
   fileInput.addEventListener('change', () => void importRulePaletteFromFile(fileInput))
@@ -1325,6 +1327,18 @@ const importRulePaletteFromFile = async (input: HTMLInputElement) => {
   const text = await readFileAsText(file)
   input.value = ''
   await importRulePalette(text)
+}
+
+const resetRulePalette = async () => {
+  if (player.autoAscendRules.length > 0) {
+    const confirmed = await Confirm(i18next.t(`${uiKey}.palette.resetConfirm`))
+    if (!confirmed) {
+      return
+    }
+  }
+  player.autoAscendRules = defaultAutoAscendRules()
+  renderAutoAscendRules()
+  void Notification(i18next.t(`${uiKey}.palette.resetDone`), 5000)
 }
 
 const exportRulePalette = async (toFile: boolean) => {
