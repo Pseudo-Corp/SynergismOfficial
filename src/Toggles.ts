@@ -102,7 +102,7 @@ export const toggleSettings = (toggle: HTMLElement) => {
       : i18next.t('general.autoOffBracket')
   }
 
-  toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+  toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'var(--green-color)' : 'var(--red-color)'}`
   updateBuildingAutomationButtons()
 }
 
@@ -171,7 +171,7 @@ export const toggleBuyAmount = (quantity: BuyAmount, type: ToggleBuy) => {
   player[`${type}buyamount` as const] = quantity
   const a = buyAmountNames[quantity.toString().length - 1]
 
-  DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = 'Green'
+  DOMCacheGetOrSet(`${type}${a}`).style.backgroundColor = 'var(--green-background-color)'
   if (quantity !== 1) {
     DOMCacheGetOrSet(`${type}one`).style.backgroundColor = ''
   }
@@ -202,7 +202,9 @@ export const toggleShops = (toggle?: upgradeAutos) => {
   // toggle provided: we do not want to update every button
   if (toggle) {
     player.shoptoggles[toggle] = !player.shoptoggles[toggle]
-    DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'green' : 'red'
+    DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle]
+      ? 'var(--green-color)'
+      : 'var(--red-color)'
 
     if (player.shoptoggles[toggle]) {
       DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
@@ -212,7 +214,7 @@ export const toggleShops = (toggle?: upgradeAutos) => {
   } else {
     const keys = Object.keys(player.shoptoggles) as (keyof Player['shoptoggles'])[]
     for (const key of keys) {
-      const color = player.shoptoggles[key] ? 'green' : 'red'
+      const color = player.shoptoggles[key] ? 'var(--green-color)' : 'var(--red-color)'
 
       if (player.shoptoggles[key]) {
         DOMCacheGetOrSet(`${key}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
@@ -283,10 +285,10 @@ export const toggleautobuytesseract = () => {
 
   if (player.tesseractAutoBuyerToggle) {
     DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOn')
-    DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
+    DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid var(--green-color)'
   } else {
     DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t('runes.talismans.autoBuyOff')
-    DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
+    DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid var(--red-color)'
   }
 }
 
@@ -320,7 +322,7 @@ export const toggleauto = () => {
         : i18next.t('general.autoOffBracket')
     }
 
-    toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'green' : 'red'}`
+    toggle.style.border = `2px solid ${player.toggles[+toggleId] ? 'var(--green-color)' : 'var(--red-color)'}`
   }
 
   const tesseractAutos = document.querySelectorAll<HTMLElement>('*[id^="tesseractAutoToggle"]')
@@ -330,10 +332,10 @@ export const toggleauto = () => {
 
     if (player.autoTesseracts[j + 1]) {
       auto.textContent = i18next.t('general.autoOnBracket')
-      auto.style.border = '2px solid green'
+      auto.style.border = '2px solid var(--green-color)'
     } else {
       auto.textContent = i18next.t('general.autoOffBracket')
-      auto.style.border = '2px solid red'
+      auto.style.border = '2px solid var(--red-color)'
     }
   }
 
@@ -391,13 +393,13 @@ export const toggleAutoSacrifice = (index: number) => {
       player.autoSacrificeToggle = false
       label.setAttribute('i18n', 'runes.blessings.autoRuneOff')
       label.textContent = i18next.t('runes.blessings.autoRuneOff')
-      el.style.border = '2px solid red'
+      el.style.border = '2px solid var(--red-color)'
       player.autoSacrifice = 0
     } else {
       player.autoSacrificeToggle = true
       label.setAttribute('i18n', 'runes.blessings.autoRuneOn')
       label.textContent = i18next.t('runes.blessings.autoRuneOn')
-      el.style.border = '2px solid green'
+      el.style.border = '2px solid var(--green-color)'
     }
   } else if (
     index <= G.MAX_AUTO_SACRIFICE_RUNE
@@ -411,7 +413,9 @@ export const toggleAutoSacrifice = (index: number) => {
     }
   }
   for (let i = 1; i <= G.MAX_AUTO_SACRIFICE_RUNE; i++) {
-    DOMCacheGetOrSet(`${indexToRune[i]}Rune`).style.backgroundColor = player.autoSacrifice === i ? 'orange' : ''
+    DOMCacheGetOrSet(`${indexToRune[i]}Rune`).style.backgroundColor = player.autoSacrifice === i
+      ? 'var(--orange-background-color)'
+      : ''
   }
 }
 
@@ -419,12 +423,12 @@ export const toggleAutoBuyFragment = () => {
   const el = DOMCacheGetOrSet('toggleautoBuyFragments')
   if (player.autoBuyFragment) {
     el.textContent = i18next.t('runes.talismans.autoBuyOff')
-    el.style.border = '2px solid orange'
-    el.style.color = 'white'
+    el.style.border = '2px solid var(--orange-color)'
+    el.style.color = 'var(--white-color)'
   } else {
     el.textContent = i18next.t('runes.talismans.autoBuyOn')
-    el.style.border = '2px solid white'
-    el.style.color = 'orange'
+    el.style.border = '2px solid var(--white-color)'
+    el.style.color = 'var(--orange-color)'
   }
 
   player.autoBuyFragment = !player.autoBuyFragment
@@ -475,10 +479,10 @@ export const toggleAchievementScreen = (indexStr: string) => {
     const a = DOMCacheGetOrSet(`toggleAchievementSubTab${i}`)
     const b = DOMCacheGetOrSet(`achievementContainer${i}`)
     if (i === index) {
-      a.style.border = '2px solid gold'
+      a.style.border = '2px solid var(--gold-color)'
       b.style.display = 'flex'
     } else {
-      a.style.border = '2px solid silver'
+      a.style.border = '2px solid var(--silver-color)'
       b.style.display = 'none'
     }
   }
@@ -497,10 +501,10 @@ export const toggleRuneScreen = (indexStr: string) => {
     const a = DOMCacheGetOrSet(`toggleRuneSubTab${i}`)
     const b = DOMCacheGetOrSet(`runeContainer${i}`)
     if (i === index) {
-      a.style.border = '2px solid gold'
+      a.style.border = '2px solid var(--gold-color)'
       b.style.display = 'flex'
     } else {
-      a.style.border = '2px solid silver'
+      a.style.border = '2px solid var(--silver-color)'
       b.style.display = 'none'
     }
   }
@@ -532,10 +536,10 @@ export const toggleautofortify = () => {
   const el = DOMCacheGetOrSet('toggleautofortify')
   if (player.autoFortifyToggle) {
     el.textContent = i18next.t('runes.autoFortifyOff')
-    el.style.border = '2px solid red'
+    el.style.border = '2px solid var(--red-color)'
   } else {
     el.textContent = i18next.t('runes.autoFortifyOn')
-    el.style.border = '2px solid green'
+    el.style.border = '2px solid var(--green-color)'
   }
 
   player.autoFortifyToggle = !player.autoFortifyToggle
@@ -545,10 +549,10 @@ export const toggleMaxPlat = () => {
   const el = DOMCacheGetOrSet('maxPlatToggle')
   if (player.maxPlatToggle) {
     el.textContent = i18next.t('toggles.maxPlatOff')
-    el.style.color = 'white'
+    el.style.color = 'var(--white-color)'
   } else {
     el.textContent = i18next.t('toggles.maxPlatOn')
-    el.style.color = 'yellow'
+    el.style.color = 'var(--yellow-color)'
   }
 
   player.maxPlatToggle = !player.maxPlatToggle
@@ -705,10 +709,10 @@ export const autoCubeUpgradesToggle = (toggle = true) => {
   const el = DOMCacheGetOrSet('toggleAutoCubeUpgrades')
   if (player.autoCubeUpgradesToggle) {
     el.textContent = i18next.t('toggles.autoUpgradeOn')
-    el.style.border = '2px solid green'
+    el.style.border = '2px solid var(--green-color)'
   } else {
     el.textContent = i18next.t('toggles.autoUpgradeOff')
-    el.style.border = '2px solid red'
+    el.style.border = '2px solid var(--red-color)'
   }
 }
 
@@ -719,10 +723,10 @@ export const autoPlatonicUpgradesToggle = (toggle = true) => {
   const el = DOMCacheGetOrSet('toggleAutoPlatonicUpgrades')
   if (player.autoPlatonicUpgradesToggle) {
     el.textContent = i18next.t('toggles.autoUpgradeOn')
-    el.style.border = '2px solid green'
+    el.style.border = '2px solid var(--green-color)'
   } else {
     el.textContent = i18next.t('toggles.autoUpgradeOff')
-    el.style.border = '2px solid red'
+    el.style.border = '2px solid var(--red-color)'
   }
 }
 
@@ -780,7 +784,7 @@ export const toggleAutoChallengesIgnore = (i: number) => {
     player.autoChallengeToggles[i] = !player.autoChallengeToggles[i]
 
     const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore')
-    el.style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red'
+    el.style.border = player.autoChallengeToggles[i] ? '2px solid var(--green-color)' : '2px solid var(--red-color)'
 
     if (i >= 11 && i <= 15) {
       if (player.autoChallengeToggles[i]) {
@@ -811,10 +815,10 @@ const autoChallengeStateTexts: Record<AutoChallengeStates, () => string> = {
 export const toggleAutoChallengeRun = () => {
   const el = DOMCacheGetOrSet('toggleAutoChallengeStart')
   if (player.autoChallengeRunning) {
-    el.style.border = '2px solid red'
+    el.style.border = '2px solid var(--red-color)'
     el.textContent = i18next.t('challenges.autoChallengeSweepOff')
   } else {
-    el.style.border = '2px solid gold'
+    el.style.border = '2px solid var(--gold-color)'
     el.textContent = i18next.t('challenges.autoChallengeSweepOn')
   }
 
@@ -827,7 +831,7 @@ export const toggleAutoChallengeModeText = (mode: AutoChallengeStates) => {
 
 export const setAutoAscendResetActiveText = () => {
   const a = DOMCacheGetOrSet('ascensionAutoEnable')
-  a.style.border = `2px solid ${player.autoAscend ? 'green' : 'red'}`
+  a.style.border = `2px solid ${player.autoAscend ? 'var(--green-color)' : 'var(--red-color)'}`
   a.textContent = player.autoAscend
     ? i18next.t('corruptions.autoAscend.on')
     : i18next.t('corruptions.autoAscend.off')
@@ -845,12 +849,12 @@ export const toggleautoopensCubes = (i: number) => {
       const oci = DOMCacheGetOrSet('cubeOpensInput')
       if (player.autoOpenCubes) {
         oc.textContent = i18next.t('wowCubes.autoOff')
-        oc.style.border = '1px solid red'
-        oci.style.border = '1px solid red'
+        oc.style.border = '1px solid var(--red-color)'
+        oci.style.border = '1px solid var(--red-color)'
       } else {
         oc.textContent = i18next.t('wowCubes.autoOn', { percent: format(player.openCubes, 0) })
-        oc.style.border = '1px solid green'
-        oci.style.border = '1px solid green'
+        oc.style.border = '1px solid var(--green-color)'
+        oci.style.border = '1px solid var(--green-color)'
       }
 
       player.autoOpenCubes = !player.autoOpenCubes
@@ -859,12 +863,12 @@ export const toggleautoopensCubes = (i: number) => {
       const oci = DOMCacheGetOrSet('tesseractsOpensInput')
       if (player.autoOpenTesseracts) {
         oc.textContent = i18next.t('wowCubes.autoOff')
-        oc.style.border = '1px solid red'
-        oci.style.border = '1px solid red'
+        oc.style.border = '1px solid var(--red-color)'
+        oci.style.border = '1px solid var(--red-color)'
       } else {
         oc.textContent = i18next.t('wowCubes.autoOn', { percent: format(player.openTesseracts, 0) })
-        oc.style.border = '1px solid green'
-        oci.style.border = '1px solid green'
+        oc.style.border = '1px solid var(--green-color)'
+        oci.style.border = '1px solid var(--green-color)'
       }
 
       player.autoOpenTesseracts = !player.autoOpenTesseracts
@@ -873,12 +877,12 @@ export const toggleautoopensCubes = (i: number) => {
       const oci = DOMCacheGetOrSet('hypercubesOpensInput')
       if (player.autoOpenHypercubes) {
         oc.textContent = i18next.t('wowCubes.autoOff')
-        oc.style.border = '1px solid red'
-        oci.style.border = '1px solid red'
+        oc.style.border = '1px solid var(--red-color)'
+        oci.style.border = '1px solid var(--red-color)'
       } else {
         oc.textContent = i18next.t('wowCubes.autoOn', { percent: format(player.openHypercubes, 0) })
-        oc.style.border = '1px solid green'
-        oci.style.border = '1px solid green'
+        oc.style.border = '1px solid var(--green-color)'
+        oci.style.border = '1px solid var(--green-color)'
       }
 
       player.autoOpenHypercubes = !player.autoOpenHypercubes
@@ -887,12 +891,12 @@ export const toggleautoopensCubes = (i: number) => {
       const oci = DOMCacheGetOrSet('platonicCubeOpensInput')
       if (player.autoOpenPlatonicsCubes) {
         oc.textContent = i18next.t('wowCubes.autoOff')
-        oc.style.border = '1px solid red'
-        oci.style.border = '1px solid red'
+        oc.style.border = '1px solid var(--red-color)'
+        oci.style.border = '1px solid var(--red-color)'
       } else {
         oc.textContent = i18next.t('wowCubes.autoOn', { percent: format(player.openPlatonicsCubes, 0) })
-        oc.style.border = '1px solid green'
-        oci.style.border = '1px solid green'
+        oc.style.border = '1px solid var(--green-color)'
+        oci.style.border = '1px solid var(--green-color)'
       }
 
       player.autoOpenPlatonicsCubes = !player.autoOpenPlatonicsCubes
@@ -925,10 +929,10 @@ export const toggleAutoTesseracts = (i: number) => {
   const el = DOMCacheGetOrSet(`tesseractAutoToggle${i}`)
   if (player.autoTesseracts[i]) {
     el.textContent = i18next.t('general.autoOffBracket')
-    el.style.border = '2px solid red'
+    el.style.border = '2px solid var(--red-color)'
   } else {
     el.textContent = i18next.t('general.autoOnBracket')
-    el.style.border = '2px solid green'
+    el.style.border = '2px solid var(--green-color)'
   }
 
   player.autoTesseracts[i] = !player.autoTesseracts[i]

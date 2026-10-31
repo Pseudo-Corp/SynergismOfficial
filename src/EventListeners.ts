@@ -894,13 +894,13 @@ export const generateEventHandlers = () => {
     warp.textContent = 'Click here to warp time! [TESTING ONLY]'
     warp.setAttribute(
       'style',
-      'width: auto; height: 30px; border: 6px solid gold;'
+      'width: auto; height: 30px; border: 6px solid var(--gold-color);'
     )
     warp.addEventListener('click', () => timeWarp())
     dayReset.textContent = 'Click to force a new day! [TESTING ONLY]'
     dayReset.setAttribute(
       'style',
-      'width: auto; height: 30px; border: 6px solid orange;'
+      'width: auto; height: 30px; border: 6px solid var(--orange-color);'
     )
     dayReset.addEventListener('click', () => forcedDailyReset())
 
@@ -912,7 +912,7 @@ export const generateEventHandlers = () => {
     corruptionReset.textContent = i18next.t('corruptions.resetProgress.button')
     corruptionReset.setAttribute(
       'style',
-      'width: auto; height: 30px; border: 2px solid crimson;'
+      'width: auto; height: 30px; border: 2px solid var(--crimson-color);'
     )
     corruptionReset.addEventListener('click', () => resetCorruptionProgress())
     DOMCacheGetOrSet('corruptionDisplays').after(corruptionReset)
@@ -940,56 +940,56 @@ export const generateEventHandlers = () => {
       input: 'prestige',
       label: i18next.t('reset.buttonLabels.prestige'),
       action: () => resetCheck('prestige'),
-      borderColor: 'cyan'
+      borderColor: 'var(--cyan-color)'
     },
     {
       id: 'transcendbtn',
       input: 'transcension',
       label: i18next.t('reset.buttonLabels.transcension'),
       action: () => resetCheck('transcension'),
-      borderColor: 'orchid'
+      borderColor: 'var(--orchid-color)'
     },
     {
       id: 'reincarnatebtn',
       input: 'reincarnation',
       label: i18next.t('reset.buttonLabels.reincarnation'),
       action: () => resetCheck('reincarnation'),
-      borderColor: 'green'
+      borderColor: 'var(--green-color)'
     },
     {
       id: 'challengebtn',
       input: 'transcensionChallenge',
       label: i18next.t('reset.buttonLabels.transcensionChallenge'),
       action: () => resetCheck('transcensionChallenge', undefined, true),
-      borderColor: 'orchid'
+      borderColor: 'var(--orchid-color)'
     },
     {
       id: 'reincarnatechallengebtn',
       input: 'reincarnationChallenge',
       label: i18next.t('reset.buttonLabels.reincarnationChallenge'),
       action: () => resetCheck('reincarnationChallenge', undefined, true),
-      borderColor: 'green'
+      borderColor: 'var(--green-color)'
     },
     {
       id: 'ascendChallengeBtn',
       input: 'ascensionChallenge',
       label: i18next.t('reset.buttonLabels.ascensionChallenge'),
       action: () => resetCheck('ascensionChallenge'),
-      borderColor: 'orange'
+      borderColor: 'var(--orange-color)'
     },
     {
       id: 'ascendbtn',
       input: 'ascension',
       label: i18next.t('reset.buttonLabels.ascension'),
       action: () => resetCheck('ascension'),
-      borderColor: 'orange'
+      borderColor: 'var(--orange-color)'
     },
     {
       id: 'singularitybtn',
       input: 'singularity',
       label: i18next.t('reset.buttonLabels.singularity'),
       action: () => resetCheck('singularity'),
-      borderColor: 'lightgoldenrodyellow'
+      borderColor: 'var(--lightgoldenrodyellow-color)'
     }
   ] satisfies Array<
     { id: string; input: resetNames; label: string; action: () => void | Promise<void>; borderColor: string }
@@ -1075,7 +1075,7 @@ export const generateEventHandlers = () => {
     registerPurchasableModal({
       element: buyUpgrade,
       html: () => crystalUpgradeHTML(index),
-      style: { borderColor: 'cyan' },
+      style: { borderColor: 'var(--cyan-color)' },
       buy: () => {
         buyCrystalUpgrades(index)
         crystalupgradedescriptions(index)
@@ -1110,7 +1110,7 @@ export const generateEventHandlers = () => {
     registerPurchasableModal({
       element: buyConstantUpgrade,
       html: () => constantUpgradeHTML(index + 1),
-      style: { borderColor: 'gold' },
+      style: { borderColor: 'var(--gold-color)' },
       buy: () => {
         buyConstantUpgrades(index + 1)
         constantUpgradeDescriptions(index + 1)
@@ -1271,7 +1271,7 @@ export const generateEventHandlers = () => {
           () => `${researchModalHTML(index, false, buyMaxOverride)}${modalBuyButtonsHTML()}`,
           event.clientX,
           event.clientY,
-          { borderColor: 'limegreen' },
+          { borderColor: 'var(--limegreen-color)' },
           MEDIUM_MODAL_UPDATE_TICK,
           {
             targetElement: research,
@@ -1321,7 +1321,7 @@ export const generateEventHandlers = () => {
     registerPurchasableModal({
       element: buyAllAntUpgradesButton,
       html: allAntUpgradeHTML,
-      style: { borderColor: 'crimson' },
+      style: { borderColor: 'var(--crimson-color)' },
       buy: buyAntUpgrades,
       mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllUpgrades') }],
       updateInterval: MEDIUM_MODAL_UPDATE_TICK
@@ -1329,7 +1329,7 @@ export const generateEventHandlers = () => {
     registerPurchasableModal({
       element: buyAllAntProducersButton,
       html: allAntProducerHTML,
-      style: { borderColor: 'gold' },
+      style: { borderColor: 'var(--gold-color)' },
       buy: buyAntProducersAndMasteries,
       mobileButtons: [{ action: 'buyAll', label: i18next.t('ants.buyAllProducers') }],
       updateInterval: MEDIUM_MODAL_UPDATE_TICK
@@ -1351,7 +1351,7 @@ export const generateEventHandlers = () => {
     })
 
     const antMastery = DOMCacheGetOrSet(`antMastery${ant + 1}`)
-    const blendedColor = `color-mix(in srgb, ${antProducerData[ant].color} 75%, lime 25%)`
+    const blendedColor = `color-mix(in srgb, ${antProducerData[ant].color} 75%, var(--lime-color) 25%)`
     antMastery.style.setProperty(
       '--glow-color',
       blendedColor
@@ -1370,13 +1370,13 @@ export const generateEventHandlers = () => {
 
     antUpgrade.style.setProperty(
       '--glow-color',
-      `color-mix(in srgb, ${antUpgradeData[upgrade].antUpgradeHTML.color} 75%, crimson 25%)`
+      `color-mix(in srgb, ${antUpgradeData[upgrade].antUpgradeHTML.color} 75%, var(--crimson-color) 25%)`
     )
 
     registerPurchasableModal({
       element: antUpgrade,
       html: () => antUpgradeHTML(upgrade),
-      style: { borderColor: 'burlywood' },
+      style: { borderColor: 'var(--burlywood-color)' },
       buy: () => buyAntUpgrade(upgrade, player.ants.toggles.maxBuyUpgrades),
       mobileButtons: [{ action: 'buy', label: i18next.t('general.upgrade') }]
     })
@@ -1404,12 +1404,12 @@ export const generateEventHandlers = () => {
   // Part 3.5: Leaderboard
   DOMCacheGetOrSet('antLeaderboardToggle').addEventListener('click', () => toggleLeaderboardMode())
   DOMCacheGetOrSet('antLeaderboardValueAmount').addEventListener('mousemove', (e: MouseEvent) => {
-    Modal(() => antCornerStageHTML(), e.clientX, e.clientY, { borderColor: 'orange' })
+    Modal(() => antCornerStageHTML(), e.clientX, e.clientY, { borderColor: 'var(--orange-color)' })
   })
   DOMCacheGetOrSet('antLeaderboardValueAmount').addEventListener('mouseleave', () => CloseModal())
 
   DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').addEventListener('mousemove', (e: MouseEvent) => {
-    Modal(() => antCornerQuarkHTML(), e.clientX, e.clientY, { borderColor: 'cyan' })
+    Modal(() => antCornerQuarkHTML(), e.clientX, e.clientY, { borderColor: 'var(--cyan-color)' })
   })
   DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').addEventListener('mouseleave', () => CloseModal())
 
@@ -1424,7 +1424,7 @@ export const generateEventHandlers = () => {
 
   // WOW! Cubes Tab
   // Part 1: Cube Upgrades
-  const cubeUpgradeModalStyle = { borderColor: 'gold' }
+  const cubeUpgradeModalStyle = { borderColor: 'var(--gold-color)' }
   const desktopCubeUpgradeModal = (index: number, cubeUpgrade: HTMLElement, x: number, y: number) => {
     cubeUpgradeDesc(index)
     const image = cubeUpgrade.querySelector('img')
@@ -1558,7 +1558,7 @@ export const generateEventHandlers = () => {
       registerPurchasableModal({
         element: platonicUpgrade,
         html: () => platonicUpgradeModalHTML(upgradeIndex, platonicUpgrade.style.cssText),
-        style: { borderColor: 'orchid' },
+        style: { borderColor: 'var(--orchid-color)' },
         buy: () => {
           buyPlatonicUpgrades(upgradeIndex)
         },
@@ -1742,12 +1742,12 @@ TODO: Fix this entire tab it's utter shit
     const showPotionModal = (x: number, y: number) => {
       Modal(
         () =>
-          `<span style="color: gold">${shopUpgrades[key].name()}</span><br><br>
-          <span style="color: plum">${shopUpgrades[key].description()}</span><br><br>
-          <span style="color: limegreen">${shopUpgrades[key].effectDescription()}</span>`,
+          `<span style="color: var(--gold-color)">${shopUpgrades[key].name()}</span><br><br>
+          <span style="color: var(--plum-color)">${shopUpgrades[key].description()}</span><br><br>
+          <span style="color: var(--limegreen-color)">${shopUpgrades[key].effectDescription()}</span>`,
         x,
         y,
-        { borderColor: 'gold' },
+        { borderColor: 'var(--gold-color)' },
         MEDIUM_MODAL_UPDATE_TICK,
         icon
       )
@@ -1853,7 +1853,7 @@ TODO: Fix this entire tab it's utter shit
     registerPurchasableModal({
       element: DOMCacheGetOrSet(key),
       html: () => upgradeGQToString(key),
-      style: { borderColor: 'gold' },
+      style: { borderColor: 'var(--gold-color)' },
       buy: (event, action) => buyGQUpgradeLevel(key, event, action === 'max')
     })
   }
@@ -1886,7 +1886,7 @@ TODO: Fix this entire tab it's utter shit
           () => singularityPerkModalHTML(perk, perkIconSrc()),
           event.clientX,
           event.clientY,
-          { borderColor: 'gold' },
+          { borderColor: 'var(--gold-color)' },
           MEDIUM_MODAL_UPDATE_TICK,
           singularityPerkElement
         )
@@ -1899,7 +1899,7 @@ TODO: Fix this entire tab it's utter shit
         () => singularityPerkModalHTML(perk, perkIconSrc()),
         event.clientX,
         event.clientY,
-        { borderColor: 'gold' },
+        { borderColor: 'var(--gold-color)' },
         MEDIUM_MODAL_UPDATE_TICK,
         singularityPerkElement
       )
@@ -1910,7 +1910,7 @@ TODO: Fix this entire tab it's utter shit
         () => singularityPerkModalHTML(perk, perkIconSrc()),
         perkRect.x,
         perkRect.y + perkRect.height / 2,
-        { borderColor: 'gold' },
+        { borderColor: 'var(--gold-color)' },
         MEDIUM_MODAL_UPDATE_TICK,
         singularityPerkElement
       )
@@ -1927,7 +1927,7 @@ TODO: Fix this entire tab it's utter shit
     registerPurchasableModal({
       element: DOMCacheGetOrSet(key),
       html: () => upgradeOcteractToString(key),
-      style: { borderColor: 'lightseagreen' },
+      style: { borderColor: 'var(--lightseagreen-color)' },
       buy: (event, action) => buyOcteractUpgradeLevel(key, event, action === 'max')
     })
   }
@@ -1953,7 +1953,7 @@ TODO: Fix this entire tab it's utter shit
             }`,
           event.clientX,
           event.clientY,
-          { borderColor: 'gold' },
+          { borderColor: 'var(--gold-color)' },
           MEDIUM_MODAL_UPDATE_TICK,
           {
             targetElement: element,
@@ -1996,7 +1996,7 @@ TODO: Fix this entire tab it's utter shit
     registerPurchasableModal({
       element,
       html: () => ambrosiaUpgradeToString(key),
-      style: { borderColor: 'blue' },
+      style: { borderColor: 'var(--blue-color)' },
       buy: (event, action) => {
         const target = event.target instanceof Element ? event.target : null
         if (
@@ -2023,7 +2023,7 @@ TODO: Fix this entire tab it's utter shit
         () => ambrosiaEditToString(key),
         event.clientX,
         event.clientY,
-        { borderColor: 'orange' },
+        { borderColor: 'var(--orange-color)' },
         MEDIUM_MODAL_UPDATE_TICK,
         {
           targetElement: element,
@@ -2117,7 +2117,7 @@ TODO: Fix this entire tab it's utter shit
     registerPurchasableModal({
       element: DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`),
       html: () => redAmbrosiaUpgradeToString(key),
-      style: { borderColor: 'red' },
+      style: { borderColor: 'var(--red-color)' },
       buy: (event, action) => buyRedAmbrosiaUpgradeLevel(key, event, action === 'max'),
       onOpen: () => highlightRedAmbrosiaTargets(key),
       onClose: resetHighlights
@@ -2135,7 +2135,7 @@ TODO: Fix this entire tab it's utter shit
     registerPurchasableModal({
       element,
       html: () => purpleAmbrosiaUpgradeToString(key),
-      style: { borderColor: 'purple' },
+      style: { borderColor: 'var(--purple-color)' },
       buy: (event, action) => buyPurpleAmbrosiaUpgradeLevel(key, event, action === 'max')
     })
   })

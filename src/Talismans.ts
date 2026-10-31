@@ -52,7 +52,7 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShard',
     spanId: 'talismanShardInventory',
-    color: 'yellow',
+    color: 'var(--yellow-color)',
     playerKey: 'talismanShards'
   },
   commonFragment: {
@@ -63,7 +63,7 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardCommon',
     spanId: 'commonFragmentInventory',
-    color: 'white',
+    color: 'var(--white-color)',
     playerKey: 'commonFragments'
   },
   uncommonFragment: {
@@ -74,7 +74,7 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardUncommon',
     spanId: 'uncommonFragmentInventory',
-    color: 'lime',
+    color: 'var(--lime-color)',
     playerKey: 'uncommonFragments'
   },
   rareFragment: {
@@ -85,7 +85,7 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardRare',
     spanId: 'rareFragmentInventory',
-    color: 'aqua',
+    color: 'var(--aqua-color)',
     playerKey: 'rareFragments'
   },
   epicFragment: {
@@ -96,7 +96,7 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardEpic',
     spanId: 'epicFragmentInventory',
-    color: 'plum',
+    color: 'var(--plum-color)',
     playerKey: 'epicFragments'
   },
   legendaryFragment: {
@@ -107,7 +107,7 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardLegendary',
     spanId: 'legendaryFragmentInventory',
-    color: 'orange',
+    color: 'var(--orange-color)',
     playerKey: 'legendaryFragments'
   },
   mythicalFragment: {
@@ -118,7 +118,7 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
     },
     i18n: 'talismanShardMythic',
     spanId: 'mythicalFragmentInventory',
-    color: 'crimson',
+    color: 'var(--crimson-color)',
     playerKey: 'mythicalFragments'
   }
 }
@@ -1084,7 +1084,7 @@ export const getTalismanEffects = <T extends TalismanKeys>(
 export const talismanRarityInfo = (t: TalismanKeys): void => {
   DOMCacheGetOrSet('rarityInfoTexts').style.display = 'block'
 
-  const title = `<span style="color: lightgoldenrodyellow">${
+  const title = `<span style="color: var(--lightgoldenrodyellow-color)">${
     i18next.t('runes.talismans.rarityInfo.title', {
       talismanName: i18next.t(`runes.talismans.${t}.name`)
     })
@@ -1094,7 +1094,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   const levelCap = talismans[t].maxLevel
   const rarity = talismans[t].rarity
 
-  const common = `<span style="color: white">${
+  const common = `<span style="color: var(--white-color)">${
     i18next.t('runes.talismans.rarityInfo.common')
   } <span class="rarityReqNum">
   ${rarity === 1 ? '▶ ' : ''}
@@ -1102,7 +1102,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const uncommon = `<span style="color: limegreen">${
+  const uncommon = `<span style="color: var(--limegreen-color)">${
     i18next.t('runes.talismans.rarityInfo.uncommon')
   } <span class="rarityReqNum">
   ${rarity === 2 ? '▶ ' : ''}
@@ -1114,7 +1114,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const rare = `<span style="color: lightblue">${
+  const rare = `<span style="color: var(--lightblue-color)">${
     i18next.t('runes.talismans.rarityInfo.rare')
   } <span class="rarityReqNum">
   ${rarity === 3 ? '▶ ' : ''}
@@ -1126,7 +1126,9 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const epic = `<span style="color: plum">${i18next.t('runes.talismans.rarityInfo.epic')} <span class="rarityReqNum">
+  const epic = `<span style="color: var(--plum-color)">${
+    i18next.t('runes.talismans.rarityInfo.epic')
+  } <span class="rarityReqNum">
   ${rarity === 4 ? '▶ ' : ''}
   ${
     i18next.t('runes.talismans.rarityInfo.levelReq', {
@@ -1136,7 +1138,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const legendary = `<span style="color: orange">${
+  const legendary = `<span style="color: var(--orange-color)">${
     i18next.t('runes.talismans.rarityInfo.legendary')
   } <span class="rarityReqNum">
   ${rarity === 5 ? '▶ ' : ''}
@@ -1148,7 +1150,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const mythic = `<span style="color: crimson">${
+  const mythic = `<span style="color: var(--crimson-color)">${
     i18next.t('runes.talismans.rarityInfo.mythic')
   } <span class="rarityReqNum">
   ${rarity === 6 ? '▶ ' : ''}
@@ -1160,7 +1162,7 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const extraordinary = `<span style="color: cyan">${
+  const extraordinary = `<span style="color: var(--cyan-color)">${
     i18next.t('runes.talismans.rarityInfo.extraordinary')
   } <span class="rarityReqNum">
   ${rarity === 7 ? '▶ ' : ''}
@@ -1272,7 +1274,7 @@ export const updateWebTalismanCostHTML = (t: TalismanKeys) => {
   const g = DOMCacheGetOrSet('talismanMythicalFragmentCost')
 
   DOMCacheGetOrSet('talismanLevelUpSummary').textContent = i18next.t('runes.resourcesToLevelup')
-  DOMCacheGetOrSet('talismanLevelUpSummary').style.color = 'silver'
+  DOMCacheGetOrSet('talismanLevelUpSummary').style.color = 'var(--silver-color)'
 
   const nextCost = getTalismanCost(t, talismans[t].level)
   a.textContent = format(nextCost.shard, 0, false)
@@ -1300,15 +1302,15 @@ export const updateTalismanCostHTML = (t: TalismanKeys) => {
 }
 
 const talismanRarityColors = [
-  { border: 'white', level: 'white' },
-  { border: 'limegreen', level: 'limegreen' },
-  { border: 'lightblue', level: 'lightblue' },
-  { border: 'plum', level: 'plum' },
-  { border: 'orange', level: 'darkorange' },
-  { border: 'crimson', level: 'var(--crimson-text-color)' },
-  { border: 'cyan', level: 'cyan' },
-  { border: 'lightgoldenrodyellow', level: 'lightgoldenrodyellow' },
-  { border: 'gold', level: 'gold' }
+  { border: 'var(--white-color)', level: 'var(--white-color)' },
+  { border: 'var(--limegreen-color)', level: 'var(--limegreen-color)' },
+  { border: 'var(--lightblue-color)', level: 'var(--lightblue-color)' },
+  { border: 'var(--plum-color)', level: 'var(--plum-color)' },
+  { border: 'var(--orange-color)', level: 'var(--darkorange-color)' },
+  { border: 'var(--crimson-color)', level: 'var(--crimson-text-color)' },
+  { border: 'var(--cyan-color)', level: 'var(--cyan-color)' },
+  { border: 'var(--lightgoldenrodyellow-color)', level: 'var(--lightgoldenrodyellow-color)' },
+  { border: 'var(--gold-color)', level: 'var(--gold-color)' }
 ]
 
 const updateWebTalismanDisplay = (t: TalismanKeys) => {
@@ -1325,40 +1327,40 @@ const updateWebTalismanDisplay = (t: TalismanKeys) => {
   la.textContent = `${format(talisman.level)}/${format(getTalismanLevelCap(t))}`
   const rarity = talisman.rarity
   if (rarity === 1) {
-    ti.style.border = '3px solid white'
-    la.style.color = 'white'
+    ti.style.border = '3px solid var(--white-color)'
+    la.style.color = 'var(--white-color)'
   }
   if (rarity === 2) {
-    ti.style.border = '3px solid limegreen'
-    la.style.color = 'limegreen'
+    ti.style.border = '3px solid var(--limegreen-color)'
+    la.style.color = 'var(--limegreen-color)'
   }
   if (rarity === 3) {
-    ti.style.border = '3px solid lightblue'
-    la.style.color = 'lightblue'
+    ti.style.border = '3px solid var(--lightblue-color)'
+    la.style.color = 'var(--lightblue-color)'
   }
   if (rarity === 4) {
-    ti.style.border = '3px solid plum'
-    la.style.color = 'plum'
+    ti.style.border = '3px solid var(--plum-color)'
+    la.style.color = 'var(--plum-color)'
   }
   if (rarity === 5) {
-    ti.style.border = '3px solid orange'
-    la.style.color = 'darkorange'
+    ti.style.border = '3px solid var(--orange-color)'
+    la.style.color = 'var(--darkorange-color)'
   }
   if (rarity === 6) {
-    ti.style.border = '3px solid crimson'
+    ti.style.border = '3px solid var(--crimson-color)'
     la.style.color = 'var(--crimson-text-color)'
   }
   if (rarity === 7) {
-    ti.style.border = '3px solid cyan'
-    la.style.color = 'cyan'
+    ti.style.border = '3px solid var(--cyan-color)'
+    la.style.color = 'var(--cyan-color)'
   }
   if (rarity === 8) {
-    ti.style.border = '3px solid lightgoldenrodyellow'
+    ti.style.border = '3px solid var(--lightgoldenrodyellow-color)'
     la.style.color = ''
     la.classList.add('godlikeText')
   }
   if (rarity === 9) {
-    ti.style.border = '3px solid gold'
+    ti.style.border = '3px solid var(--gold-color)'
     la.style.color = ''
     la.classList.add('perfectText')
   }
@@ -1430,9 +1432,9 @@ const updateMobileTalismanDisplay = (t: TalismanKeys) => {
     const elm = DOMCacheGetOrSet(`mobile${t}Cost${item}Talisman`)
     elm.textContent = format(itemCosts[item], 0, false)
     if ((player[talismanResourceData[item].playerKey] as Decimal).gte(itemCosts[item])) {
-      elm.style.color = 'lightgreen'
+      elm.style.color = 'var(--lightgreen-color)'
       elm.style.fontWeight = 'bold'
-      elm.style.border = '2px solid limegreen'
+      elm.style.border = '2px solid var(--limegreen-color)'
     } else {
       elm.style.color = ''
       elm.style.fontWeight = ''
@@ -1529,12 +1531,12 @@ export const generateWebLeftTalismanHTML = () => {
   const toggleautoBuyFragments = document.createElement('button')
   toggleautoBuyFragments.id = 'toggleautoBuyFragments'
   toggleautoBuyFragments.className = 'autoBuyFragments'
-  toggleautoBuyFragments.style.border = '2px solid white'
+  toggleautoBuyFragments.style.border = '2px solid var(--white-color)'
   toggleautoBuyFragments.addEventListener('click', () => toggleAutoBuyFragment())
 
   const buyTalismanAll = document.createElement('button')
   buyTalismanAll.id = 'buyTalismanAll'
-  buyTalismanAll.style.border = '2px solid white'
+  buyTalismanAll.style.border = '2px solid var(--white-color)'
   buyTalismanAll.setAttribute('i18n', 'runes.talismans.buyAll')
   buyTalismanAll.textContent = i18next.t('runes.talismans.buyAll')
 
@@ -1663,8 +1665,8 @@ export const generateWebCenterTalismansHTML = () => {
     const talismansLevelUpButton = document.createElement('button')
     talismansLevelUpButton.className = 'talismanBtn'
     talismansLevelUpButton.id = `level${key}Once`
-    talismansLevelUpButton.style.color = 'silver'
-    talismansLevelUpButton.style.border = '2px solid white'
+    talismansLevelUpButton.style.color = 'var(--silver-color)'
+    talismansLevelUpButton.style.border = '2px solid var(--white-color)'
     talismansLevelUpButton.setAttribute('i18n', 'runes.talismans.fortify')
     talismansLevelUpButton.textContent = i18next.t('runes.talismans.fortify')
 
@@ -1682,8 +1684,8 @@ export const generateWebCenterTalismansHTML = () => {
     const talismansLevelUpButton2 = document.createElement('button')
     talismansLevelUpButton2.className = 'talismanBtn'
     talismansLevelUpButton2.id = `level${key}ToRarityIncrease`
-    talismansLevelUpButton2.style.color = 'gold'
-    talismansLevelUpButton2.style.border = '2px solid orangered'
+    talismansLevelUpButton2.style.color = 'var(--gold-color)'
+    talismansLevelUpButton2.style.border = '2px solid var(--orangered-color)'
     talismansLevelUpButton2.setAttribute('i18n', 'runes.talismans.enhance')
     talismansLevelUpButton2.textContent = i18next.t('runes.talismans.enhance')
 
@@ -1701,8 +1703,8 @@ export const generateWebCenterTalismansHTML = () => {
     const talismansLevelUpButton3 = document.createElement('button')
     talismansLevelUpButton3.className = 'talismanBtn'
     talismansLevelUpButton3.id = `level${key}ToMax`
-    talismansLevelUpButton3.style.color = 'plum'
-    talismansLevelUpButton3.style.border = '2px solid white'
+    talismansLevelUpButton3.style.color = 'var(--plum-color)'
+    talismansLevelUpButton3.style.border = '2px solid var(--white-color)'
     talismansLevelUpButton3.setAttribute('i18n', 'runes.talismans.respec')
     talismansLevelUpButton3.textContent = i18next.t('runes.talismans.respec')
 
@@ -1735,7 +1737,7 @@ export const generateWebCenterTalismansHTML = () => {
 
   const talismanDescription = document.createElement('p')
   talismanDescription.id = 'talismanDescription'
-  talismanDescription.style.color = 'silver'
+  talismanDescription.style.color = 'var(--silver-color)'
   talismanEffect.appendChild(talismanDescription)
 
   const talismanInscriptionBonus = document.createElement('p')
@@ -1748,22 +1750,22 @@ export const generateWebCenterTalismansHTML = () => {
 
   const talismanSpeedEffect = document.createElement('p')
   talismanSpeedEffect.id = 'talismanSpeedEffect'
-  talismanSpeedEffect.style.color = 'cyan'
+  talismanSpeedEffect.style.color = 'var(--cyan-color)'
   talismanEffect.appendChild(talismanSpeedEffect)
 
   const talismanDuplicationEffect = document.createElement('p')
   talismanDuplicationEffect.id = 'talismanDuplicationEffect'
-  talismanDuplicationEffect.style.color = 'plum'
+  talismanDuplicationEffect.style.color = 'var(--plum-color)'
   talismanEffect.appendChild(talismanDuplicationEffect)
 
   const talismanPrismEffect = document.createElement('p')
   talismanPrismEffect.id = 'talismanPrismEffect'
-  talismanPrismEffect.style.color = 'lightblue'
+  talismanPrismEffect.style.color = 'var(--lightblue-color)'
   talismanEffect.appendChild(talismanPrismEffect)
 
   const talismanThriftEffect = document.createElement('p')
   talismanThriftEffect.id = 'talismanThriftEffect'
-  talismanThriftEffect.style.color = 'lightgreen'
+  talismanThriftEffect.style.color = 'var(--lightgreen-color)'
   talismanEffect.appendChild(talismanThriftEffect)
 
   const talismanSuperiorIntellectEffect = document.createElement('p')
@@ -1773,32 +1775,32 @@ export const generateWebCenterTalismansHTML = () => {
 
   const talismanInfiniteAscentEffect = document.createElement('p')
   talismanInfiniteAscentEffect.id = 'talismanInfiniteAscentEffect'
-  talismanInfiniteAscentEffect.style.color = 'lightgoldenrodyellow'
+  talismanInfiniteAscentEffect.style.color = 'var(--lightgoldenrodyellow-color)'
   talismanEffect.appendChild(talismanInfiniteAscentEffect)
 
   const talismanAntiquitiesEffect = document.createElement('p')
   talismanAntiquitiesEffect.id = 'talismanAntiquitiesEffect'
-  talismanAntiquitiesEffect.style.color = 'orchid'
+  talismanAntiquitiesEffect.style.color = 'var(--orchid-color)'
   talismanEffect.appendChild(talismanAntiquitiesEffect)
 
   const talismanHorseShoeEffect = document.createElement('p')
   talismanHorseShoeEffect.id = 'talismanHorseShoeEffect'
-  talismanHorseShoeEffect.style.color = 'burlywood'
+  talismanHorseShoeEffect.style.color = 'var(--burlywood-color)'
   talismanEffect.appendChild(talismanHorseShoeEffect)
 
   const talismanFiniteDescentEffect = document.createElement('p')
   talismanFiniteDescentEffect.id = 'talismanFiniteDescentEffect'
-  talismanFiniteDescentEffect.style.color = 'lightgray'
+  talismanFiniteDescentEffect.style.color = 'var(--lightgray-color)'
   talismanEffect.appendChild(talismanFiniteDescentEffect)
 
   const talismanTopHatEffect = document.createElement('p')
   talismanTopHatEffect.id = 'talismanTopHatEffect'
-  talismanTopHatEffect.style.color = 'gainsboro'
+  talismanTopHatEffect.style.color = 'var(--gainsboro-color)'
   talismanEffect.appendChild(talismanTopHatEffect)
 
   const talismanNoResetText = document.createElement('p')
   talismanNoResetText.id = 'talismanNoResetText'
-  talismanNoResetText.style.color = 'pink'
+  talismanNoResetText.style.color = 'var(--pink-color)'
   talismanEffect.appendChild(talismanNoResetText)
 
   talismansModify.appendChild(talismanEffect)
@@ -1811,7 +1813,7 @@ export const generateWebCenterTalismansHTML = () => {
 
   const talismanLevelUpSummary = document.createElement('p')
   talismanLevelUpSummary.id = 'talismanLevelUpSummary'
-  talismanLevelUpSummary.style.color = 'silver'
+  talismanLevelUpSummary.style.color = 'var(--silver-color)'
   talismanLevelUpCost.appendChild(talismanLevelUpSummary)
 
   const table = document.createElement('table')
@@ -1826,7 +1828,7 @@ export const generateWebCenterTalismansHTML = () => {
   const cell2 = document.createElement('td')
   const talismanShardCost = document.createElement('p')
   talismanShardCost.id = 'talismanShardCost'
-  talismanShardCost.style.color = 'yellow'
+  talismanShardCost.style.color = 'var(--yellow-color)'
   cell2.appendChild(talismanShardCost)
 
   const cell3 = document.createElement('td')
@@ -1838,7 +1840,7 @@ export const generateWebCenterTalismansHTML = () => {
   const cell4 = document.createElement('td')
   const talismanCommonFragmentCost = document.createElement('p')
   talismanCommonFragmentCost.id = 'talismanCommonFragmentCost'
-  talismanCommonFragmentCost.style.color = 'white'
+  talismanCommonFragmentCost.style.color = 'var(--white-color)'
   cell4.appendChild(talismanCommonFragmentCost)
 
   const cell5 = document.createElement('td')
@@ -1850,7 +1852,7 @@ export const generateWebCenterTalismansHTML = () => {
   const cell6 = document.createElement('td')
   const talismanUncommonFragmentCost = document.createElement('p')
   talismanUncommonFragmentCost.id = 'talismanUncommonFragmentCost'
-  talismanUncommonFragmentCost.style.color = 'limegreen'
+  talismanUncommonFragmentCost.style.color = 'var(--limegreen-color)'
   cell6.appendChild(talismanUncommonFragmentCost)
 
   const cell7 = document.createElement('td')
@@ -1885,7 +1887,7 @@ export const generateWebCenterTalismansHTML = () => {
   const cell10 = document.createElement('td')
   const talismanEpicFragmentCost = document.createElement('p')
   talismanEpicFragmentCost.id = 'talismanEpicFragmentCost'
-  talismanEpicFragmentCost.style.color = 'plum'
+  talismanEpicFragmentCost.style.color = 'var(--plum-color)'
   cell10.appendChild(talismanEpicFragmentCost)
 
   const cell11 = document.createElement('td')
@@ -1897,7 +1899,7 @@ export const generateWebCenterTalismansHTML = () => {
   const cell12 = document.createElement('td')
   const talismanLegendaryFragmentCost = document.createElement('p')
   talismanLegendaryFragmentCost.id = 'talismanLegendaryFragmentCost'
-  talismanLegendaryFragmentCost.style.color = 'orange'
+  talismanLegendaryFragmentCost.style.color = 'var(--orange-color)'
   cell12.appendChild(talismanLegendaryFragmentCost)
 
   const cell13 = document.createElement('td')
@@ -2009,13 +2011,13 @@ export const generateMobileTopTalismansHTML = () => {
   const toggleautoBuyFragments = document.createElement('button')
   toggleautoBuyFragments.id = 'toggleautoBuyFragments'
   toggleautoBuyFragments.className = 'autoBuyFragments'
-  toggleautoBuyFragments.style.border = '2px solid white'
+  toggleautoBuyFragments.style.border = '2px solid var(--white-color)'
   toggleautoBuyFragments.addEventListener('click', () => toggleAutoBuyFragment())
   mobileTalismanShardHead.appendChild(toggleautoBuyFragments)
 
   const buyTalismanAll = document.createElement('button')
   buyTalismanAll.id = 'buyTalismanAll'
-  buyTalismanAll.style.border = '2px solid white'
+  buyTalismanAll.style.border = '2px solid var(--white-color)'
   buyTalismanAll.setAttribute('i18n', 'runes.talismans.buyAll')
   buyTalismanAll.textContent = i18next.t('runes.talismans.buyAll')
   buyTalismanAll.addEventListener('click', () => buyAllTalismanResources())
@@ -2102,7 +2104,7 @@ export const generateMobileTopTalismansHTML = () => {
     const toBuyCostOffering = document.createElement('p')
     toBuyCostOffering.id = `mobileTalismanToBuyCostOffering${item}`
     toBuyCostOffering.textContent = '0'
-    toBuyCostOffering.style.color = 'orange'
+    toBuyCostOffering.style.color = 'var(--orange-color)'
     toBuyCostOfferingContainer.appendChild(toBuyCostOffering)
 
     container.appendChild(toBuyCostOfferingContainer)
@@ -2119,7 +2121,7 @@ export const generateMobileTopTalismansHTML = () => {
     const toBuyCostObtainium = document.createElement('p')
     toBuyCostObtainium.id = `mobileTalismanToBuyCostObtainium${item}`
     toBuyCostObtainium.textContent = '0'
-    toBuyCostObtainium.style.color = 'pink'
+    toBuyCostObtainium.style.color = 'var(--pink-color)'
     toBuyCostObtainiumContainer.appendChild(toBuyCostObtainium)
 
     container.appendChild(toBuyCostObtainiumContainer)
@@ -2174,7 +2176,7 @@ export const generateMobileMainTalismansHTML = () => {
     const talisman = document.createElement('div')
     talisman.className = 'mobileTalismanContainer'
     talisman.id = `${key}TalismanContainer`
-    talisman.style.border = '2px solid white'
+    talisman.style.border = '2px solid var(--white-color)'
     talisman.style.borderRadius = '8px'
     talisman.style.margin = '2px'
 
@@ -2236,7 +2238,7 @@ export const generateMobileMainTalismansHTML = () => {
 
     const runebonusTitleText = document.createElement('p')
     runebonusTitleText.textContent = i18next.t('runes.talismans.mobile.freeRuneLevels')
-    runebonusTitleText.style.color = 'orange'
+    runebonusTitleText.style.color = 'var(--orange-color)'
     runeBonusesSection.appendChild(runebonusTitleText)
 
     const runeBonusesContainer = document.createElement('div')
@@ -2275,7 +2277,7 @@ export const generateMobileMainTalismansHTML = () => {
 
     const costTitleText = document.createElement('p')
     costTitleText.textContent = i18next.t('runes.talismans.mobile.nextLevelCost')
-    costTitleText.style.color = 'orchid'
+    costTitleText.style.color = 'var(--orchid-color)'
     costSection.appendChild(costTitleText)
 
     const costContainer = document.createElement('div')
@@ -2313,8 +2315,8 @@ export const generateMobileMainTalismansHTML = () => {
     const fortifyButton = document.createElement('button')
     fortifyButton.className = 'talismanBtn'
     fortifyButton.id = `level${key}Once`
-    fortifyButton.style.color = 'silver'
-    fortifyButton.style.border = '2px solid white'
+    fortifyButton.style.color = 'var(--silver-color)'
+    fortifyButton.style.border = '2px solid var(--white-color)'
     fortifyButton.setAttribute('i18n', 'runes.talismans.fortify')
     fortifyButton.textContent = i18next.t('runes.talismans.fortify')
     fortifyButton.addEventListener(
@@ -2327,8 +2329,8 @@ export const generateMobileMainTalismansHTML = () => {
     const enhanceButton = document.createElement('button')
     enhanceButton.className = 'talismanBtn'
     enhanceButton.id = `level${key}ToRarityIncrease`
-    enhanceButton.style.color = 'gold'
-    enhanceButton.style.border = '2px solid orangered'
+    enhanceButton.style.color = 'var(--gold-color)'
+    enhanceButton.style.border = '2px solid var(--orangered-color)'
     enhanceButton.setAttribute('i18n', 'runes.talismans.enhance')
     enhanceButton.textContent = i18next.t('runes.talismans.enhance')
     enhanceButton.addEventListener(
@@ -2340,8 +2342,8 @@ export const generateMobileMainTalismansHTML = () => {
     const respecButton = document.createElement('button')
     respecButton.className = 'talismanBtn'
     respecButton.id = `level${key}ToMax`
-    respecButton.style.color = 'plum'
-    respecButton.style.border = '2px solid white'
+    respecButton.style.color = 'var(--plum-color)'
+    respecButton.style.border = '2px solid var(--white-color)'
     respecButton.setAttribute('i18n', 'runes.talismans.respec')
     respecButton.textContent = i18next.t('runes.talismans.respec')
     respecButton.addEventListener(
@@ -2438,7 +2440,7 @@ export const toggleTalismanBuy = (i = player.buyTalismanShardPercent) => {
     x = 'Hundred'
   }
 
-  DOMCacheGetOrSet(`talisman${x}`).style.backgroundColor = 'green'
+  DOMCacheGetOrSet(`talisman${x}`).style.backgroundColor = 'var(--green-background-color)'
 }
 
 export const updateTalismanInventory = () => {

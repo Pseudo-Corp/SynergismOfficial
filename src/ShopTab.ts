@@ -536,7 +536,7 @@ const updateShopDetail = () => {
   if (item.maxLevel === 1) {
     const bought = tierMaxed(selectedTier)
     updateTextContentIfChanged(levelEl, bought ? i18next.t('shop.bought') : i18next.t('shop.notBought'))
-    levelEl.style.color = bought ? 'gold' : 'white'
+    levelEl.style.color = bought ? 'var(--gold-color)' : 'var(--white-color)'
   } else {
     updateTextContentIfChanged(
       levelEl,
@@ -545,7 +545,7 @@ const updateShopDetail = () => {
         y: format(item.maxLevel)
       })
     )
-    levelEl.style.color = tierMaxed(selectedTier) ? 'gold' : 'white'
+    levelEl.style.color = tierMaxed(selectedTier) ? 'var(--gold-color)' : 'var(--white-color)'
   }
 
   const buyButton = DOMCacheGetOrSet('shopDetailBuy')

@@ -11,7 +11,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     baseCost: Decimal.fromString('1'),
     costIncrease: 3,
     baseProduction: Decimal.fromNumber(0.01),
-    color: '#AB8654',
+    color: 'var(--hex-ab8654-color)',
     additionalTexts: [
       {
         text: () =>
@@ -58,7 +58,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     baseCost: Decimal.fromString('10'),
     costIncrease: 10,
     baseProduction: Decimal.fromNumber(1.5e-4),
-    color: '#B77D48',
+    color: 'var(--hex-b77d48-color)',
     additionalTexts: [
       {
         text: () =>
@@ -74,7 +74,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     baseCost: Decimal.fromString('1e5'),
     costIncrease: 1e2,
     baseProduction: Decimal.fromNumber(5e-6),
-    color: '#C2783D',
+    color: 'var(--hex-c2783d-color)',
     additionalTexts: [
       {
         text: () =>
@@ -90,7 +90,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     baseCost: Decimal.fromString('1e12'),
     costIncrease: 1e4,
     baseProduction: Decimal.fromNumber(3e-5),
-    color: '#CA7035',
+    color: 'var(--hex-ca7035-color)',
     additionalTexts: [
       {
         text: () =>
@@ -106,7 +106,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     baseCost: Decimal.fromString('1e145'),
     costIncrease: 1e8,
     baseProduction: Decimal.fromNumber(1e-30),
-    color: '#D26B2D',
+    color: 'var(--hex-d26b2d-color)',
     additionalTexts: [
       {
         text: () =>
@@ -130,7 +130,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     baseCost: Decimal.fromString('1e700'),
     costIncrease: 1e16,
     baseProduction: Decimal.fromNumber(1e-90),
-    color: '#DC6623',
+    color: 'var(--hex-dc6623-color)',
     additionalTexts: [
       {
         text: () =>
@@ -154,7 +154,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     baseCost: Decimal.fromString('1e5000'),
     costIncrease: 1e32,
     baseProduction: Decimal.fromString('1e-600'),
-    color: '#E76118',
+    color: 'var(--hex-e76118-color)',
     additionalTexts: [
       {
         text: () =>
@@ -178,7 +178,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     baseCost: Decimal.fromString('1e25000'),
     costIncrease: 1e64,
     baseProduction: Decimal.fromString('1e-3500'),
-    color: '#F65D09',
+    color: 'var(--hex-f65d09-color)',
     additionalTexts: [
       {
         text: () =>
@@ -202,7 +202,7 @@ export const antProducerData: Record<AntProducers, AntProducerData> = {
     baseCost: Decimal.fromString('1e1000000'),
     costIncrease: 1e128,
     baseProduction: Decimal.fromString('1e-110000'),
-    color: '#FFFFFF',
+    color: 'var(--white-color)',
     additionalTexts: [
       {
         text: () =>

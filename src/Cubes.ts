@@ -123,16 +123,16 @@ export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
     value1: format(player.cubeUpgrades[i]!, 0, true),
     value2: format(maxLevel, 0, true)
   })
-  d.style.color = 'white'
+  d.style.color = 'var(--white-color)'
 
   // This conditional is true only in the case where you can buy zero levels.
   if (Number(player.wowCubes) < metaData.cost) {
     c.style.color = 'var(--crimson-text-color)'
   }
   if (player.cubeUpgrades[i] === maxLevel) {
-    c.style.color = 'gold'
+    c.style.color = 'var(--gold-color)'
     c.textContent = i18next.t('cubes.cubeMetadata.maxLevel')
-    d.style.color = 'plum'
+    d.style.color = 'var(--plum-color)'
   }
 }
 

@@ -15,7 +15,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('100'),
     costIncreaseExponent: 1,
     antUpgradeHTML: {
-      color: 'crimson'
+      color: 'var(--crimson-color)'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
     exemptFromCorruption: false,
@@ -46,7 +46,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('100'),
     costIncreaseExponent: 1,
     antUpgradeHTML: {
-      color: 'yellow'
+      color: 'var(--yellow-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
@@ -81,7 +81,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1000'),
     costIncreaseExponent: 1,
     antUpgradeHTML: {
-      color: 'lightgray'
+      color: 'var(--lightgray-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
@@ -104,7 +104,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1000'),
     costIncreaseExponent: 1,
     antUpgradeHTML: {
-      color: 'cyan'
+      color: 'var(--cyan-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
@@ -129,7 +129,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e5'),
     costIncreaseExponent: 2,
     antUpgradeHTML: {
-      color: 'pink'
+      color: 'var(--pink-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
@@ -152,7 +152,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e6'),
     costIncreaseExponent: 2,
     antUpgradeHTML: {
-      color: 'orange'
+      color: 'var(--orange-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
@@ -175,7 +175,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e11'),
     costIncreaseExponent: 2,
     antUpgradeHTML: {
-      color: 'lime'
+      color: 'var(--lime-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
@@ -207,7 +207,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e15'),
     costIncreaseExponent: 3,
     antUpgradeHTML: {
-      color: 'green'
+      color: 'var(--green-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
@@ -230,7 +230,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e20'),
     costIncreaseExponent: 3,
     antUpgradeHTML: {
-      color: 'cyan'
+      color: 'var(--cyan-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
@@ -253,7 +253,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e6'),
     costIncreaseExponent: 2,
     antUpgradeHTML: {
-      color: 'pink'
+      color: 'var(--pink-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: false,
@@ -276,7 +276,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e120'),
     costIncreaseExponent: 20,
     antUpgradeHTML: {
-      color: 'crimson'
+      color: 'var(--crimson-color)'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
     exemptFromCorruption: false,
@@ -304,7 +304,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e300'),
     costIncreaseExponent: 100,
     antUpgradeHTML: {
-      color: 'gray'
+      color: 'var(--gray-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: true,
@@ -330,7 +330,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e70'),
     costIncreaseExponent: 4,
     antUpgradeHTML: {
-      color: '#FF766A'
+      color: 'var(--hex-ff766a-color)'
     },
     minimumResetTier: AntSacrificeTiers.sacrifice,
     exemptFromCorruption: false,
@@ -365,7 +365,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e37777'),
     costIncreaseExponent: 2000,
     antUpgradeHTML: {
-      color: 'darkgray'
+      color: 'var(--darkgray-color)'
     },
     minimumResetTier: AntSacrificeTiers.singularity,
     exemptFromCorruption: true,
@@ -400,7 +400,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     baseCost: Decimal.fromString('1e300'),
     costIncreaseExponent: 2,
     antUpgradeHTML: {
-      color: 'orange'
+      color: 'var(--orange-color)'
     },
     minimumResetTier: AntSacrificeTiers.ascension,
     exemptFromCorruption: true,
@@ -431,7 +431,7 @@ export const antUpgradeData: { [K in AntUpgrades]: AntUpgradeData<K> } = {
     intro: () => i18next.t('ants.upgrades.wowCubes.intro'),
     description: () => i18next.t('ants.upgrades.wowCubes.description'),
     antUpgradeHTML: {
-      color: '#66FFFF'
+      color: 'var(--hex-66ffff-color)'
     },
     effect: (n: number) => {
       return {

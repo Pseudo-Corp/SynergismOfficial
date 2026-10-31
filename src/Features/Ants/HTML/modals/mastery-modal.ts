@@ -8,11 +8,11 @@ import { antProducerData } from '../../AntProducers/data/data'
 import type { AntProducers } from '../../structs/structs'
 
 export const antMasteryHTML = (ant: AntProducers): string => {
-  const nameColor = `color-mix(in srgb, ${antProducerData[ant].color} 60%, lime 40%)`
+  const nameColor = `color-mix(in srgb, ${antProducerData[ant].color} 60%, var(--lime-color) 40%)`
   const nameHTML = `<span style="font-size: 1.2em; color: ${nameColor}" class="titleTextFont">${
     i18next.t(`ants.mastery.${ant}.name`)
   }</span>`
-  const flavorHTML = `<i><span style="color: lightgray" class="titleTextFont">${
+  const flavorHTML = `<i><span style="color: var(--lightgray-color)" class="titleTextFont">${
     i18next.t(`ants.mastery.${ant}.flavor`)
   }</span></i>`
 
@@ -60,7 +60,7 @@ export const antMasteryHTML = (ant: AntProducers): string => {
     const autoBuyer: AntProducers = +getAchievementReward('antAutobuyers') - 1
     let autoBuyerHTML = ''
     if (autoBuyer >= ant && player.ants.masteries[ant].mastery < player.ants.masteries[ant].highestMastery) {
-      autoBuyerHTML = `<span style="color:lime">${i18next.t('ants.mastery.alreadyPurchased')}</span><br>`
+      autoBuyerHTML = `<span style="color:var(--lime-color)">${i18next.t('ants.mastery.alreadyPurchased')}</span><br>`
     }
 
     const reqELO = antMasteryData[ant].totalELORequirements[level]

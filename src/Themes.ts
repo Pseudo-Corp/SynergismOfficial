@@ -65,7 +65,7 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     body.style.removeProperty('--hepteract-bar-red')
     body.style.removeProperty('--hepteract-bar-yellow')
     body.style.removeProperty('--hepteract-bar-green')
-    body.classList.remove('textOutline')
+    body.classList.remove('lightTheme')
     // body.classList.add('bodycolor');
     DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = ''
     DOMCacheGetOrSet('actualPotionShop').style.borderColor = ''
@@ -86,23 +86,23 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     DOMCacheGetOrSet('importFileButton').style.backgroundColor = ''
     DOMCacheGetOrSet('switchTheme2').style.borderColor = 'darkslategray'
 
-    DOMCacheGetOrSet('versionnumber').style.color = 'fuchsia'
-    DOMCacheGetOrSet('singularitytab').style.color = 'red'
-    DOMCacheGetOrSet('traitstab').style.color = 'red'
-    DOMCacheGetOrSet('cubetab').style.color = 'red'
-    DOMCacheGetOrSet('ascTimeAccel').style.color = 'royalblue'
-    DOMCacheGetOrSet('buildinghotkeys').style.color = 'lightgray'
-    DOMCacheGetOrSet('buildinghotkeys2').style.color = 'lightgray'
-    DOMCacheGetOrSet('antwelcome').style.color = 'lightslategrey'
-    DOMCacheGetOrSet('confirmationToggleTitle').style.color = 'pink'
-    DOMCacheGetOrSet('specialActionsTitle').style.color = 'pink'
-    DOMCacheGetOrSet('themesTitle').style.color = 'pink'
-    DOMCacheGetOrSet('notationTitle').style.color = 'pink'
-    DOMCacheGetOrSet('hepteractWelcome').style.color = 'pink'
-    DOMCacheGetOrSet('confirmationdisclaimer').style.color = 'plum'
-    DOMCacheGetOrSet('hypercubeWelcome').style.color = '#ff004c' // Hypercube colors
-    DOMCacheGetOrSet('hypercubeQuantity').style.color = '#ff004c'
-    DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#ff004c'
+    DOMCacheGetOrSet('versionnumber').style.color = 'var(--fuchsia-color)'
+    DOMCacheGetOrSet('singularitytab').style.color = 'var(--red-color)'
+    DOMCacheGetOrSet('traitstab').style.color = 'var(--red-color)'
+    DOMCacheGetOrSet('cubetab').style.color = 'var(--red-color)'
+    DOMCacheGetOrSet('ascTimeAccel').style.color = 'var(--royalblue-color)'
+    DOMCacheGetOrSet('buildinghotkeys').style.color = 'var(--lightgray-color)'
+    DOMCacheGetOrSet('buildinghotkeys2').style.color = 'var(--lightgray-color)'
+    DOMCacheGetOrSet('antwelcome').style.color = 'var(--lightslategrey-color)'
+    DOMCacheGetOrSet('confirmationToggleTitle').style.color = 'var(--pink-color)'
+    DOMCacheGetOrSet('specialActionsTitle').style.color = 'var(--pink-color)'
+    DOMCacheGetOrSet('themesTitle').style.color = 'var(--pink-color)'
+    DOMCacheGetOrSet('notationTitle').style.color = 'var(--pink-color)'
+    DOMCacheGetOrSet('hepteractWelcome').style.color = 'var(--pink-color)'
+    DOMCacheGetOrSet('confirmationdisclaimer').style.color = 'var(--plum-color)'
+    DOMCacheGetOrSet('hypercubeWelcome').style.color = 'var(--hex-ff004c-color)' // Hypercube colors
+    DOMCacheGetOrSet('hypercubeQuantity').style.color = 'var(--hex-ff004c-color)'
+    DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = 'var(--hex-ff004c-color)'
   } else {
     if (themeNumber === Theme.Light) {
       DOMCacheGetOrSet('logo').setAttribute('src', 'Pictures/logoLight.png')
@@ -166,50 +166,7 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
 
     themeButton.textContent = i18next.t('settings.themes.lighterDark')
   } else if (themeNumber === Theme.Light) { // 'Light Mode'
-    body.classList.add('textOutline')
-    body.style.setProperty('--header-color', '#736e8d')
-    body.style.setProperty('--bg-color', '#7c7891')
-    body.style.setProperty('--alert-color', '#646175')
-    body.style.setProperty('--history-lines', '#156e71')
-    body.style.setProperty('--box-color', '#646175')
-    body.style.setProperty('--boxmain-bordercolor', '#d894d8')
-    body.style.setProperty('--button-color', '#136062')
-    body.style.setProperty('--hover-color', '#187c7f')
-    body.style.setProperty('--blackbtn-color', '#105254')
-    body.style.setProperty('--buttonbuy-color', '#4c495a')
-    body.style.setProperty('--buildings-canbuy-color', '#9794a8')
-    body.style.setProperty('--buildings-hover-color', '#b2b0bf')
-    body.style.setProperty('--blessings-canbuy-color', '#6c687f')
-    body.style.setProperty('--blessings-hover-color', '#7c7990')
-    body.style.setProperty('--tab-color', '#105254')
-    body.style.setProperty('--singtab-color', '#00d')
-    body.style.setProperty('--hoversing-color', '#1052B6')
-    body.style.setProperty('--hepteract-bar-empty', '#858199')
-    body.style.setProperty('--hepteract-bar-red', '#ea1741')
-    body.style.setProperty('--hepteract-bar-yellow', '#cc0')
-    body.style.setProperty('--hepteract-bar-green', 'limegreen')
-    DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
-    DOMCacheGetOrSet('switchTheme2').style.borderColor = '#284242' // Special Cases
-    body.style.setProperty('--green-text-color', 'limegreen')
-    body.style.setProperty('--red-text-color', '#f55')
-    body.style.setProperty('--maroon-text-color', '#ff5656')
-    body.style.setProperty('--crimson-text-color', '#f7617d')
-    body.style.setProperty('--orchid-text-color', '#dd7dda')
-    body.style.setProperty('--darkorchid-text-color', '#cf9ee8')
-    body.style.setProperty('--darkcyan-text-color', 'turquoise')
-    body.style.setProperty('--lightseagreen-text-color', 'limegreen')
-    body.style.setProperty('--orangered-text-color', '#f74')
-    body.style.setProperty('--gray-text-color', '#a5a5a5')
-    DOMCacheGetOrSet('antwelcome').style.color = '#b1b1b1'
-    DOMCacheGetOrSet('versionnumber').style.color = '#ff5aff'
-    DOMCacheGetOrSet('singularitytab').style.color = '#ff5252'
-    DOMCacheGetOrSet('traitstab').style.color = '#ff5252'
-    DOMCacheGetOrSet('cubetab').style.color = '#ff5252'
-    DOMCacheGetOrSet('ascTimeAccel').style.color = '#97b0ff'
-    DOMCacheGetOrSet('hypercubeWelcome').style.color = '#f58'
-    DOMCacheGetOrSet('hypercubeQuantity').style.color = '#f58'
-    DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#f58'
-
+    body.classList.add('lightTheme')
     themeButton.textContent = i18next.t('settings.themes.light')
   } else if (themeNumber === Theme.Dracula) { // 'Dracula Mode'
     body.style.setProperty('--header-color', '#0a0a11')

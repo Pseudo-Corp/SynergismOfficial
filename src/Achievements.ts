@@ -3796,7 +3796,9 @@ const createGroupedAchievementDescription = (group: AchievementGroups) => {
         const rewardValue = achRewards[rewardGroup]()
 
         if (typeof rewardValue === 'boolean') {
-          extraBonuses += `<span style="color:${hasAch ? 'green' : 'crimson'}">Tier ${currTier + 1} • ${
+          extraBonuses += `<span style="color:${hasAch ? 'var(--green-color)' : 'var(--crimson-color)'}">Tier ${
+            currTier + 1
+          } • ${
             i18next.t(`achievements.achievementRewards.${index}.${rewardGroup}`, {
               unlock: hasAch
                 ? i18next.t('achievements.rewardTypes.unlocked')
@@ -3805,9 +3807,9 @@ const createGroupedAchievementDescription = (group: AchievementGroups) => {
           }</span><br>`
         }
         if (typeof rewardValue === 'number') {
-          extraBonuses += `<span style="color:${achTier - currTier === 1 ? 'green' : 'crimson'}">Tier ${
-            currTier + 1
-          } • ${
+          extraBonuses += `<span style="color:${
+            achTier - currTier === 1 ? 'var(--green-color)' : 'var(--crimson-color)'
+          }">Tier ${currTier + 1} • ${
             i18next.t(`achievements.achievementRewards.${index}.${rewardGroup}`, {
               val: format(rewardFunction(), 3, false)
             })
@@ -3822,13 +3824,13 @@ const createGroupedAchievementDescription = (group: AchievementGroups) => {
         const rewardValue = getAchieveReward[rewardGroup](achievementManager.achievementMap)
 
         if (typeof rewardValue === 'boolean') {
-          extraBonuses += `Tier ${currTier + 1} <span style="color:${rewardValue ? 'green' : 'maroon'}">${
+          extraBonuses += `Tier ${currTier + 1} <span style="color:${rewardValue ? 'var(--green-color)' : 'var(--maroon-color)'}">${
             i18next.t(`achievements.rewardTypes.${rewardType}`, {
               unlock: rewardValue ? i18next.t('achievements.rewardTypes.unlocked') : i18next.t('achievements.rewardTypes.locked')
             })
           }</span><br>`
         } else if (typeof rewardValue === 'number') {
-          extraBonuses += `Tier ${currTier + 1} <span style="color:${achTier - currTier === 1 ? 'green' : 'maroon'}">${
+          extraBonuses += `Tier ${currTier + 1} <span style="color:${achTier - currTier === 1 ? 'var(--green-color)' : 'var(--maroon-color)'}">${
             i18next.t(`achievements.rewardTypes.${rewardType}`, {
               val: format(rewardFunction(), 2, false)
             })
@@ -3839,14 +3841,14 @@ const createGroupedAchievementDescription = (group: AchievementGroups) => {
     currTier += 1
   }
   if (achTier === currTier) {
-    groupName += `<b style='color: gold'>${
+    groupName += `<b style='color: var(--gold-color)'>${
       i18next.t('achievements.complete', {
         tier: achTier
       })
     }</b>`
     groupName = `<span class='rainbowText'>${groupName}</span>`
   } else {
-    groupName += `<b style='color: gold'>${
+    groupName += `<b style='color: var(--gold-color)'>${
       i18next.t('achievements.tier', {
         tier: achTier
       })
@@ -3892,13 +3894,13 @@ const generateUngroupedDescription = (name: UngroupedAchievementNames) => {
       const rewardValue = achRewards[rewardGroup]()
 
       if (typeof rewardValue === 'boolean') {
-        extraText += `<span style="color:${hasAch ? 'green' : 'maroon'}">${
+        extraText += `<span style="color:${hasAch ? 'var(--green-color)' : 'var(--maroon-color)'}">${
           i18next.t(`achievements.achievementRewards.${index}.${rewardType}`, {
             unlock: i18next.t('achievements.rewardTypes.unlocked')
           })
         }</span><br>`
       } else if (typeof rewardValue === 'number') {
-        extraText += `<span style="color:${hasAch ? 'green' : 'maroon'}">${
+        extraText += `<span style="color:${hasAch ? 'var(--green-color)' : 'var(--maroon-color)'}">${
           i18next.t(`achievements.achievementRewards.${index}.${rewardType}`, {
             val: format(rewardFunction(), 3, false)
           })
@@ -3969,7 +3971,7 @@ export const generateAchievementHTMLs = memoize(() => {
     img.style.cursor = 'pointer'
     img.tabIndex = 0
 
-    registerAchievementModal(img, createGroupedAchievementDescription.bind(null, k), 'cyan')
+    registerAchievementModal(img, createGroupedAchievementDescription.bind(null, k), 'var(--cyan-color)')
 
     // attach to the table
     div.appendChild(img)
@@ -3997,7 +3999,7 @@ export const generateAchievementHTMLs = memoize(() => {
     img.style.cursor = 'pointer'
     img.tabIndex = 0
 
-    registerAchievementModal(img, () => generateUngroupedDescription(k), 'white', null)
+    registerAchievementModal(img, () => generateUngroupedDescription(k), 'var(--white-color)', null)
 
     // attach to the table
     div.appendChild(img)
@@ -4026,7 +4028,7 @@ export const generateAchievementHTMLs = memoize(() => {
     img.style.cursor = 'pointer'
     img.tabIndex = 0
 
-    registerAchievementModal(img, () => generateProgressiveAchievementDescription(k), 'turquoise')
+    registerAchievementModal(img, () => generateProgressiveAchievementDescription(k), 'var(--turquoise-color)')
 
     // attach to the table
     div.appendChild(img)

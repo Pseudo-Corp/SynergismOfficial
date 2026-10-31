@@ -408,8 +408,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.speed.description'),
     valueText: () => i18next.t('runes.speed.values'),
     runeHTMLStyle: {
-      borderColor: 'maroon',
-      nameColor: 'tomato'
+      borderColor: 'var(--maroon-color)',
+      nameColor: 'var(--tomato-color)'
     }
   },
   duplication: {
@@ -452,8 +452,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.duplication.description'),
     valueText: () => i18next.t('runes.duplication.values'),
     runeHTMLStyle: {
-      borderColor: 'purple',
-      nameColor: 'orchid'
+      borderColor: 'var(--purple-color)',
+      nameColor: 'var(--orchid-color)'
     }
   },
   prism: {
@@ -490,8 +490,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.prism.description'),
     valueText: () => i18next.t('runes.prism.values'),
     runeHTMLStyle: {
-      borderColor: 'lightblue',
-      nameColor: 'cyan'
+      borderColor: 'var(--lightblue-color)',
+      nameColor: 'var(--cyan-color)'
     }
   },
   thrift: {
@@ -533,7 +533,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     valueText: () => i18next.t('runes.thrift.values'),
     runeHTMLStyle: {
       borderColor: 'darkgreen',
-      nameColor: 'lime'
+      nameColor: 'var(--lime-color)'
     }
   },
   superiorIntellect: {
@@ -574,8 +574,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.superiorIntellect.description'),
     valueText: () => i18next.t('runes.superiorIntellect.values'),
     runeHTMLStyle: {
-      borderColor: 'blue',
-      nameColor: 'turquoise'
+      borderColor: 'var(--blue-color)',
+      nameColor: 'var(--turquoise-color)'
     }
   },
   infiniteAscent: {
@@ -606,7 +606,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       })
       if (player.highestSingularityCount >= 30) {
         const salvageCoefficient = 0.025 * salvagePerkLevels.filter((x) => x <= player.highestSingularityCount).length
-        const salvageText = `<span style="color: lightgoldenrodyellow">${
+        const salvageText = `<span style="color: var(--lightgoldenrodyellow-color)">${
           i18next.t('runes.infiniteAscent.salvage', {
             val: format(salvage, 2, true),
             val2: format(salvageCoefficient, 3, true)
@@ -626,8 +626,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.infiniteAscent.description'),
     valueText: () => i18next.t('runes.infiniteAscent.values'),
     runeHTMLStyle: {
-      borderColor: 'gold',
-      nameColor: 'lightgoldenrodyellow'
+      borderColor: 'var(--gold-color)',
+      nameColor: 'var(--lightgoldenrodyellow-color)'
     }
   },
   antiquities: {
@@ -679,8 +679,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.antiquities.description'),
     valueText: () => i18next.t('runes.antiquities.values'),
     runeHTMLStyle: {
-      borderColor: 'white',
-      nameColor: 'gainsboro'
+      borderColor: 'var(--white-color)',
+      nameColor: 'var(--gainsboro-color)'
     }
   },
   horseShoe: {
@@ -722,7 +722,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     valueText: () => i18next.t('runes.horseShoe.values'),
     runeHTMLStyle: {
       borderColor: 'saddlebrown',
-      nameColor: 'peru'
+      nameColor: 'var(--peru-color)'
     }
   },
   finiteDescent: {
@@ -831,8 +831,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.topHat.description'),
     valueText: () => i18next.t('runes.topHat.values'),
     runeHTMLStyle: {
-      borderColor: 'white',
-      nameColor: 'gainsboro'
+      borderColor: 'var(--white-color)',
+      nameColor: 'var(--gainsboro-color)'
     }
   }
 }
@@ -1058,10 +1058,10 @@ export const focusedRuneHTML = (rune: RuneKeys) => {
     name: runes[rune].name()
   })
 
-  const nameHTML = `<span style="color: orange">${name}</span>`
+  const nameHTML = `<span style="color: var(--orange-color)">${name}</span>`
 
   const description = runes[rune].description()
-  const descriptionHTML = `<span style="color: lightgray">${description}</span>`
+  const descriptionHTML = `<span style="color: var(--lightgray-color)">${description}</span>`
   const effectiveLevelHTML = i18next.t('runes.runeEffectiveLevel', {
     level: format(getRuneEffectiveLevel(rune), 2, false)
   })
@@ -1112,10 +1112,10 @@ export const focusedRuneHTML = (rune: RuneKeys) => {
 
 export const focusedRuneLockedHTML = (rune: RuneKeys) => {
   const name = i18next.t('runes.lockedRuneModal')
-  const nameHTML = `<span style="color: gray">${name}</span>`
+  const nameHTML = `<span style="color: var(--gray-color)">${name}</span>`
 
   const lockedDescription = i18next.t(`runes.${rune}.lockedDescription`)
-  const lockedDescriptionHTML = `<span style="color: lightcoral">${lockedDescription}</span>`
+  const lockedDescriptionHTML = `<span style="color: var(--lightcoral-color)">${lockedDescription}</span>`
 
   return `${nameHTML}<br>${lockedDescriptionHTML}`
 }
@@ -1197,7 +1197,7 @@ export const generateWebRunesHTML = () => {
     // Add custom property for glow color
     runesDiv.style.setProperty(
       '--glow-color',
-      `color-mix(in srgb, ${runes[key].runeHTMLStyle.borderColor} 50%, orange 50%)`
+      `color-mix(in srgb, ${runes[key].runeHTMLStyle.borderColor} 50%, var(--orange-color) 50%)`
     )
 
     runesDiv.addEventListener(
@@ -1243,7 +1243,7 @@ export const generateWebRunesHTML = () => {
     runeFreeLevel.className = 'runeTypeElement'
     runeFreeLevel.id = `${key}RuneFreeLevel`
     runeFreeLevel.textContent = '0'
-    runeFreeLevel.style.color = 'white'
+    runeFreeLevel.style.color = 'var(--white-color)'
 
     runesDiv.appendChild(runeFreeLevel)
 
@@ -1268,21 +1268,21 @@ export const generateWebRunesHTML = () => {
     const lockedRunesDiv = document.createElement('div')
     lockedRunesDiv.className = 'runeType runeTypeLocked'
     lockedRunesDiv.id = `${key}RuneLockedContainer`
-    lockedRunesDiv.style.border = '2px solid lightgray'
+    lockedRunesDiv.style.border = '2px solid var(--lightgray-color)'
     lockedRunesDiv.style.borderRadius = '8px'
     lockedRunesDiv.style.margin = '2px'
 
     lockedRunesDiv.addEventListener(
       'mousemove',
       (e) => {
-        Modal(() => focusedRuneLockedHTML(key), e.clientX, e.clientY, { borderColor: 'gray' })
+        Modal(() => focusedRuneLockedHTML(key), e.clientX, e.clientY, { borderColor: 'var(--gray-color)' })
       }
     )
     lockedRunesDiv.addEventListener('focus', () => {
       const element = DOMCacheGetOrSet(`${key}RuneLockedContainer`)
       const elmRect = element.getBoundingClientRect()
       Modal(() => focusedRuneLockedHTML(key), elmRect.x, elmRect.y + elmRect.height / 2, {
-        borderColor: 'gray'
+        borderColor: 'var(--gray-color)'
       })
     })
     lockedRunesDiv.addEventListener('mouseout', CloseModal)
@@ -1346,42 +1346,42 @@ export const generateMobileRunesHTML = () => {
     level.className = 'runeTypeElementMobile'
     level.id = `${key}RuneLevel`
     level.textContent = '0 [+0]'
-    level.style.color = 'white'
+    level.style.color = 'var(--white-color)'
     runesDiv.appendChild(level)
 
     const coefficientText = document.createElement('p')
     coefficientText.className = 'runeTypeElementMobile'
     coefficientText.id = `${key}RuneCoefficient`
     coefficientText.textContent = '1'
-    coefficientText.style.color = 'white'
+    coefficientText.style.color = 'var(--white-color)'
     runesDiv.appendChild(coefficientText)
 
     const increasePerLevelText = document.createElement('p')
     increasePerLevelText.className = 'runeTypeElementMobile'
     increasePerLevelText.id = `${key}RuneIncreasePerLevel`
     increasePerLevelText.textContent = '1'
-    increasePerLevelText.style.color = 'white'
+    increasePerLevelText.style.color = 'var(--white-color)'
     runesDiv.appendChild(increasePerLevelText)
 
     const runePower = document.createElement('p')
     runePower.className = 'runeTypeElementMobile'
     runePower.id = `${key}RunePower`
     runePower.textContent = '1'
-    runePower.style.color = 'white'
+    runePower.style.color = 'var(--white-color)'
     runesDiv.appendChild(runePower)
 
     const runeEffects = document.createElement('p')
     runeEffects.className = 'runeTypeElementMobile'
     runeEffects.id = `${key}RuneEffects`
     runeEffects.textContent = '1'
-    runeEffects.style.color = 'white'
+    runeEffects.style.color = 'var(--white-color)'
     runesDiv.appendChild(runeEffects)
 
     const runeCost = document.createElement('p')
     runeCost.className = 'runeTypeElementMobile'
     runeCost.id = `${key}RuneCost`
     runeCost.textContent = '1'
-    runeCost.style.color = 'white'
+    runeCost.style.color = 'var(--white-color)'
     runesDiv.appendChild(runeCost)
 
     // Sacrifice button on the righthand side of the div
@@ -1399,7 +1399,7 @@ export const generateMobileRunesHTML = () => {
     const lockedRunesDiv = document.createElement('div')
     lockedRunesDiv.className = 'runeTypeMobile runeTypeLocked'
     lockedRunesDiv.id = `${key}RuneLockedContainer`
-    lockedRunesDiv.style.border = '2px solid lightgray'
+    lockedRunesDiv.style.border = '2px solid var(--lightgray-color)'
     lockedRunesDiv.style.borderRadius = '8px'
     lockedRunesDiv.style.margin = '2px'
 

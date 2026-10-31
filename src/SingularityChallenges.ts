@@ -303,7 +303,7 @@ export class SingularityChallenge {
   toString (): string {
     const color = this.completions === this.maxCompletions
       ? 'var(--orchid-text-color)'
-      : 'white'
+      : 'var(--white-color)'
     const enabled = this.enabled
       ? `<span style="color: var(--red-text-color)">${
         i18next.t(
@@ -311,13 +311,13 @@ export class SingularityChallenge {
         )
       }</span>`
       : ''
-    return `<span style="color: gold">${this.name}</span> ${enabled}
+    return `<span style="color: var(--gold-color)">${this.name}</span> ${enabled}
       ${
       i18next.t(
         'singularityChallenge.toString.tiersCompleted'
       )
     }: <span style="color: ${color}">${this.completions}/${this.maxCompletions}</span>
-      <span style="color: pink">${
+      <span style="color: var(--pink-color)">${
       i18next.t(
         'singularityChallenge.toString.canEnter',
         {
@@ -326,7 +326,7 @@ export class SingularityChallenge {
         }
       )
     }</span>
-    <span style="color: gold">${
+    <span style="color: var(--gold-color)">${
       i18next.t(
         'singularityChallenge.toString.currentTierSingularity'
       )
@@ -336,7 +336,7 @@ export class SingularityChallenge {
         this.completions
       )
     }</span></span>
-    <span style="color: lightblue">${
+    <span style="color: var(--lightblue-color)">${
       this.alternateDescription !== undefined ? this.alternateDescription() : this.description
     }</span>`
   }
@@ -379,7 +379,7 @@ export class SingularityChallenge {
   }
 
   public updateIconHTML (): void {
-    const color = this.enabled ? 'orchid' : ''
+    const color = this.enabled ? 'var(--orchid-background-color)' : ''
     DOMCacheGetOrSet(this.HTMLTag).style.backgroundColor = color
   }
 

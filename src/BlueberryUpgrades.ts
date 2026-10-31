@@ -1783,13 +1783,13 @@ const purpleAmbrosiaEnchantmentToString = (upgradeKey: AmbrosiaUpgradeNames): st
   const enchantment = ambrosiaUpgrades[upgradeKey].purpleAmbrosiaEnchantment
   const level = getPurpleAmbrosiaEnchantmentLevel(upgradeKey)
   const isMaxLevel = level >= enchantment.maxLevel
-  const levelColor = isMaxLevel ? 'plum' : 'white'
+  const levelColor = isMaxLevel ? 'var(--plum-color)' : 'var(--white-color)'
   const enchantmentIconClass = enchantment.type === 'blueberryCostReduction'
     ? ' class="purpleAmbrosiaEnchantmentIconType2"'
     : ''
   const effectDescription = getPurpleAmbrosiaEnchantmentEffectDescription(enchantment, level)
   const activeRequirementHTML = enchantment.type === 'freeLevels'
-    ? `<br><span style="color:gray">${i18next.t('ambrosia.purpleAmbrosia.activeRequirement')}</span>`
+    ? `<br><span style="color:var(--gray-color)">${i18next.t('ambrosia.purpleAmbrosia.activeRequirement')}</span>`
     : ''
   const costHTML = isMaxLevel
     ? ''
@@ -1805,7 +1805,7 @@ const purpleAmbrosiaEnchantmentToString = (upgradeKey: AmbrosiaUpgradeNames): st
     ? `<button class="modalBtnBuy" data-modal-action="${PURPLE_AMBROSIA_ENCHANTMENT_ACTION}">${
       i18next.t('ambrosia.purpleAmbrosia.buy')
     }</button>`
-    : `<span style="color:lightgray">${i18next.t('ambrosia.purpleAmbrosia.desktopBuy')}</span>`
+    : `<span style="color:var(--lightgray-color)">${i18next.t('ambrosia.purpleAmbrosia.desktopBuy')}</span>`
 
   return `<div class="purpleAmbrosiaEnchantmentModal">
     <div class="purpleAmbrosiaEnchantmentTitle">
@@ -1818,7 +1818,7 @@ const purpleAmbrosiaEnchantmentToString = (upgradeKey: AmbrosiaUpgradeNames): st
       maxLevel: format(enchantment.maxLevel, 0, true)
     })
   }</span><br>
-    <span style="color:white">${effectDescription}</span>${activeRequirementHTML}<br>
+    <span style="color:var(--white-color)">${effectDescription}</span>${activeRequirementHTML}<br>
     ${costHTML}
     ${
     i18next.t('ambrosia.purpleAmbrosia.spent', {
@@ -1835,7 +1835,7 @@ const getAmbrosiaUpgradeNameHTML = (upgradeKey: AmbrosiaUpgradeNames): string =>
     ? i18next.t('ambrosia.moduleActive')
     : i18next.t('ambrosia.moduleInactive')
 
-  return `<span style="color: gold">${ambrosiaUpgrades[upgradeKey].name()}</span> ${activeStatus}`
+  return `<span style="color: var(--gold-color)">${ambrosiaUpgrades[upgradeKey].name()}</span> ${activeStatus}`
 }
 
 const ambrosiaUpgradePrerequisitesHTML = (upgradeKey: AmbrosiaUpgradeNames): string => {
@@ -1848,7 +1848,7 @@ const ambrosiaUpgradePrerequisitesHTML = (upgradeKey: AmbrosiaUpgradeNames): str
     // Use the purchased level checked when buying; bonus levels do not count.
     const current = ambrosiaUpgrades[key].level
     const met = current >= required
-    connectorColors.push(met ? 'var(--lime-text-color)' : 'red')
+    connectorColors.push(met ? 'var(--lime-text-color)' : 'var(--red-color)')
     const icon = DOMCacheGetOrSet(key).querySelector('img') as HTMLImageElement
     const name = ambrosiaUpgrades[key].name()
     const levels = i18next.t('ambrosia.prerequisiteDetails.levels', {
@@ -1889,11 +1889,11 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
   const costNextLevel = getAmbrosiaUpgradeCostTNL(upgradeKey)
   const maxLevel = `/${format(upgrade.maxLevel, 0, true)}`
   const isMaxLevel = upgrade.maxLevel === upgrade.level
-  const color = isMaxLevel ? 'plum' : 'white'
+  const color = isMaxLevel ? 'var(--plum-color)' : 'var(--white-color)'
 
   const redAmbrosiaFreeLevels = getRedAmbrosiaFreeLevels(upgradeKey)
   const redAmbrosiaFreeLevelInfo = redAmbrosiaFreeLevels > 0
-    ? `<span style="color: pink"> [+${format(redAmbrosiaFreeLevels, 0, true)}]</span>`
+    ? `<span style="color: var(--pink-color)"> [+${format(redAmbrosiaFreeLevels, 0, true)}]</span>`
     : ''
   const purpleAmbrosiaFreeLevels = getPurpleAmbrosiaFreeLevels(upgradeKey)
   const purpleAmbrosiaFreeLevelInfo = purpleAmbrosiaFreeLevels > 0
@@ -1907,8 +1907,8 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
     format(upgrade.level, 0, true)
   }${maxLevel}${redAmbrosiaFreeLevelInfo}${purpleAmbrosiaFreeLevelInfo}</span>`
   const preReqHTML = ambrosiaUpgradePrerequisitesHTML(upgradeKey)
-  const descriptionHTML = `<span style="color: lightblue">${upgrade.description()}</span>`
-  const effectsHTML = `<span style="color: gold">${effectsDescription}</span>`
+  const descriptionHTML = `<span style="color: var(--lightblue-color)">${upgrade.description()}</span>`
+  const effectsHTML = `<span style="color: var(--gold-color)">${effectsDescription}</span>`
   const costNextLevelHTML = i18next.t('ambrosia.ambrosiaCost', {
     amount: format(costNextLevel, 0, true)
   })
@@ -1916,14 +1916,16 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
   const hasPurchasedBlueberryCostReduction = upgrade.purpleAmbrosiaEnchantment.type === 'blueberryCostReduction'
     && getPurpleAmbrosiaEnchantmentLevel(upgradeKey) > 0
   const blueberryCostAmountHTML = hasPurchasedBlueberryCostReduction
-    ? `<span style="color:gray;text-decoration:line-through">${upgrade.blueberryCost}</span> <span style="color:var(--blueberry-text-color)">${blueberryCost}</span>`
+    ? `<span style="color:var(--gray-color);text-decoration:line-through">${upgrade.blueberryCost}</span> <span style="color:var(--blueberry-text-color)">${blueberryCost}</span>`
     : `<span style="color:var(--blueberry-text-color)">${blueberryCost}</span>`
   const blueberryCostHTML = `${i18next.t('ambrosia.blueberryCost')} ${blueberryCostAmountHTML}`
   const spentAmbrosiaHTML = `${i18next.t('general.spent')} ${
     i18next.t('ambrosia.ambrosia')
-  }: <span style="color:orange">${format(player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested, 0, true)}</span>`
+  }: <span style="color:var(--orange-color)">${
+    format(player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested, 0, true)
+  }</span>`
   const ignoreEXALTHTML = upgrade.ignoreEXALT
-    ? `<br><span style="color: orchid"> ${i18next.t('ambrosia.ignoreEXALT')}</span>`
+    ? `<br><span style="color: var(--orchid-color)"> ${i18next.t('ambrosia.ignoreEXALT')}</span>`
     : ''
   const purpleAmbrosiaEnchantmentHTML = purpleAmbrosiaEnchantmentToString(upgradeKey)
 

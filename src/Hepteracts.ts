@@ -578,7 +578,7 @@ export const setAutomaticHepteractTexts = () => {
     HTML.textContent = player.hepteracts[hept].AUTO
       ? i18next.t('general.autoOnColon')
       : i18next.t('general.autoOffColon')
-    HTML.style.border = `2px solid ${player.hepteracts[hept].AUTO ? 'green' : 'red'}`
+    HTML.style.border = `2px solid ${player.hepteracts[hept].AUTO ? 'var(--green-color)' : 'var(--red-color)'}`
   }
 }
 
@@ -589,7 +589,7 @@ export const toggleAutomaticHepteracts = (hept: HepteractKeys, newValue?: boolea
   player.hepteracts[hept].AUTO = newValue ?? !player.hepteracts[hept].AUTO
 
   HTML.textContent = player.hepteracts[hept].AUTO ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
-  HTML.style.border = `2px solid ${player.hepteracts[hept].AUTO ? 'green' : 'red'}`
+  HTML.style.border = `2px solid ${player.hepteracts[hept].AUTO ? 'var(--green-color)' : 'var(--red-color)'}`
 }
 
 export const resetHepteracts = (tier: keyof typeof resetTiers) => {
@@ -803,7 +803,7 @@ export const toggleAutoBuyOrbs = (newValue?: boolean, firstLoad = false) => {
   }
 
   HTML.textContent = player.overfluxOrbsAutoBuy ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
-  HTML.style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'green' : 'red'}`
+  HTML.style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'var(--green-color)' : 'var(--red-color)'}`
 }
 
 /**
@@ -875,7 +875,7 @@ export const overfluxPowderWarp = async (auto: boolean) => {
       const a = await Confirm(i18next.t('hepteracts.useAllWarpsPrompt'))
       if (a) {
         DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOffColon')
-        DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
+        DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--red-color)'
         player.autoWarpCheck = false
         player.dailyPowderResetUses = 0
         return Alert(i18next.t('hepteracts.machineCooldown'))
@@ -888,7 +888,7 @@ export const overfluxPowderWarp = async (auto: boolean) => {
       const a = await Confirm(i18next.t('hepteracts.boostQuarksPrompt'))
       if (a) {
         DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
-        DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
+        DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--green-color)'
         player.autoWarpCheck = true
         if (player.dailyPowderResetUses === 0) {
           return Alert(i18next.t('hepteracts.machineOverdrive'))

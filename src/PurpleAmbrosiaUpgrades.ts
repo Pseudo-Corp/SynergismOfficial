@@ -480,22 +480,22 @@ export const purpleAmbrosiaUpgradeToString = (upgradeKey: PurpleAmbrosiaNames): 
   const costNextLevel = getPurpleAmbrosiaUpgradeCostTNL(upgradeKey)
   const maxLevel = `/${format(upgrade.maxLevel, 0, true)}`
   const isMaxLevel = upgrade.maxLevel === upgrade.level
-  const color = isMaxLevel ? 'plum' : 'white'
+  const color = isMaxLevel ? 'var(--plum-color)' : 'var(--white-color)'
 
   const name = upgrade.name()
-  const nameSpan = `<span style="color: gold">${name}</span>`
+  const nameSpan = `<span style="color: var(--gold-color)">${name}</span>`
   const levelSpan = `<span style="color: ${color}"> ${i18next.t('general.level')} ${
     format(upgrade.level, 0, true)
   }${maxLevel}</span>`
-  const descriptionSpan = `<span style="color: lightgray">${upgrade.description()}</span>`
+  const descriptionSpan = `<span style="color: var(--lightgray-color)">${upgrade.description()}</span>`
 
   let effectSpan = ''
   if (isMaxLevel) {
     const effect = getPurpleAmbrosiaUpgradeMaxedDescription(upgradeKey)
-    effectSpan = `<span style="color: white">${effect}</span>`
+    effectSpan = `<span style="color: var(--white-color)">${effect}</span>`
   } else {
     const effect = getPurpleAmbrosiaUpgradeNotMaxedDescription(upgradeKey)
-    effectSpan = `<span style="color: white">${effect}</span>`
+    effectSpan = `<span style="color: var(--white-color)">${effect}</span>`
   }
 
   const costNextLevelSpan = i18next.t('purpleAmbrosia.purpleAmbrosiaCost', {

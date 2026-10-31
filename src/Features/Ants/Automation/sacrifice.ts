@@ -30,7 +30,7 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
         curr: format(player.antSacrificeTimerReal, 2, true, false),
         req: format(player.ants.toggles.autoSacrificeThreshold, 2, true)
       }),
-    modeHTMLcolor: 'lightgray'
+    modeHTMLcolor: 'var(--lightgray-color)'
   },
   [AutoSacrificeModes.ImmortalELOGain]: {
     sacrificeCheck: () => {
@@ -43,7 +43,7 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
         curr: format(antSacrificeRewards().immortalELO, 0, true),
         req: format(player.ants.toggles.autoSacrificeThreshold, 0, true)
       }),
-    modeHTMLcolor: 'crimson'
+    modeHTMLcolor: 'var(--crimson-color)'
   },
   [AutoSacrificeModes.MaxRebornELO]: {
     sacrificeCheck: () => {
@@ -57,7 +57,7 @@ export const autoSacrificeData: Record<AutoSacrificeModes, AutoSacrificeModeData
         curr: format(rebornELOToGain, 0, true)
       })
     },
-    modeHTMLcolor: '#00DDFF'
+    modeHTMLcolor: 'var(--hex-00ddff-color)'
   }
 }
 

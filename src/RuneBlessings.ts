@@ -363,10 +363,10 @@ export const updateRuneBlessingHTML = (bless: RuneBlessingKeys) => {
 
 export const focusedRuneBlessingHTML = (bless: RuneBlessingKeys) => {
   const name = runeBlessings[bless].name()
-  const nameHTML = `<span style="color: orchid">${name}</span>`
+  const nameHTML = `<span style="color: var(--orchid-color)">${name}</span>`
 
   const description = runeBlessings[bless].description()
-  const descriptionHTML = `<span style="color: lightgray">${description}</span>`
+  const descriptionHTML = `<span style="color: var(--lightgray-color)">${description}</span>`
 
   const blessingPowerHTML = i18next.t('runes.blessings.effectiveBlessingPower', {
     power: format(getRuneBlessingPower(bless), 0, true)
@@ -432,7 +432,7 @@ export const generateWebRuneBlessingsHTML = () => {
     runesDiv.style.margin = '2px'
     runesDiv.style.setProperty(
       '--glow-color',
-      `color-mix(in srgb, ${runes[key].runeHTMLStyle.borderColor} 50%, orchid 50%)`
+      `color-mix(in srgb, ${runes[key].runeHTMLStyle.borderColor} 50%, var(--orchid-color) 50%)`
     )
     runesDiv.addEventListener(
       'mousemove',
@@ -536,42 +536,42 @@ export const generateMobileRuneBlessingsHTML = () => {
     level.className = 'runeTypeElementMobile'
     level.id = `${key}RuneBlessingLevel`
     level.textContent = '0 [+0]'
-    level.style.color = 'white'
+    level.style.color = 'var(--white-color)'
     runesDiv.appendChild(level)
 
     const coefficientText = document.createElement('p')
     coefficientText.className = 'runeTypeElementMobile'
     coefficientText.id = `${key}RuneBlessingCoefficient`
     coefficientText.textContent = '1'
-    coefficientText.style.color = 'white'
+    coefficientText.style.color = 'var(--white-color)'
     runesDiv.appendChild(coefficientText)
 
     const increasePerLevelText = document.createElement('p')
     increasePerLevelText.className = 'runeTypeElementMobile'
     increasePerLevelText.id = `${key}RuneBlessingIncreasePerLevel`
     increasePerLevelText.textContent = '1'
-    increasePerLevelText.style.color = 'white'
+    increasePerLevelText.style.color = 'var(--white-color)'
     runesDiv.appendChild(increasePerLevelText)
 
     const runePower = document.createElement('p')
     runePower.className = 'runeTypeElementMobile'
     runePower.id = `${key}RuneBlessingPower`
     runePower.textContent = '1'
-    runePower.style.color = 'white'
+    runePower.style.color = 'var(--white-color)'
     runesDiv.appendChild(runePower)
 
     const runeEffects = document.createElement('p')
     runeEffects.className = 'runeTypeElementMobile'
     runeEffects.id = `${key}RuneBlessingEffects`
     runeEffects.textContent = '1'
-    runeEffects.style.color = 'white'
+    runeEffects.style.color = 'var(--white-color)'
     runesDiv.appendChild(runeEffects)
 
     const runeCost = document.createElement('p')
     runeCost.className = 'runeTypeElementMobile'
     runeCost.id = `${key}RuneBlessingCost`
     runeCost.textContent = '1'
-    runeCost.style.color = 'white'
+    runeCost.style.color = 'var(--white-color)'
     runesDiv.appendChild(runeCost)
 
     const sacrificeButton = document.createElement('button')
