@@ -143,6 +143,37 @@ body {
     --hepteract-bar-green: green;
     --scrollbar-color: #444;
     --scrollbar-bg-color: #111;
+    --white-color: white;
+    --whitesmoke-color: whitesmoke;
+    --lightgray-color: lightgray;
+    --silver-color: silver;
+    --gray-color: gray;
+    --ivory-color: ivory;
+    --gold-color: gold;
+    --goldenrod-color: goldenrod;
+    --yellow-color: yellow;
+    --lightgoldenrodyellow-color: lightgoldenrodyellow;
+    --orange-color: orange;
+    --darkorange-color: darkorange;
+    --red-color: red;
+    --crimson-color: crimson;
+    --maroon-color: maroon;
+    --pink-color: pink;
+    --plum-color: plum;
+    --orchid-color: orchid;
+    --violet-color: violet;
+    --fuchsia-color: fuchsia;
+    --purple-color: purple;
+    --green-color: green;
+    --lime-color: lime;
+    --limegreen-color: limegreen;
+    --lightgreen-color: lightgreen;
+    --cyan-color: cyan;
+    --lightseagreen-color: lightseagreen;
+    --deepskyblue-color: deepskyblue;
+    --lightblue-color: lightblue;
+    --royalblue-color: royalblue;
+    --blue-color: blue;
     --transition: 0;
     --transition-extra: 0.15s;
 }
@@ -154,10 +185,6 @@ body.loading {
 .bodycolor {
     color: var(--text-color);
     background-color: var(--bg-color);
-}
-
-.textOutline:not(button):not(#importFileButton) {
-    text-shadow: -1px 0 #67647a, 0 1px #67647a, 1px 0 #67647a, 0 -1px #67647a;
 }
 
 .mainText { color: var(--text-color); }
@@ -233,7 +260,7 @@ html[data-legacyicons="true"] {
 }
 
 a {
-    color: white;
+    color: var(--white-color);
     text-decoration: none;
 }
 
@@ -242,7 +269,7 @@ a:hover {
 }
 
 a:visited {
-    color: white;
+    color: var(--white-color);
 }
 
 label {
@@ -261,12 +288,12 @@ textarea {
 }
 
 input:disabled {
-    color: gray;
+    color: var(--gray-color);
 }
 
 input {
     min-height: 20px;
-    color: white;
+    color: var(--white-color);
     padding: 0 0 0 0.2em;
     background-color: var(--blackbtn-color);
 }
@@ -277,7 +304,7 @@ input[type="checkbox"] {
 
 button {
     min-height: 30px;
-    color: white;
+    color: var(--white-color);
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
@@ -390,10 +417,10 @@ body button.active-subtab:active:not(:disabled):not(.disable-hover-color) {
     min-width: calc(140px + 10em);
     min-height: calc(40px + 5em);
     overflow: hidden;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     border-radius: 5px;
     font-size: min(1em, 24px);
-    color: white;
+    color: var(--white-color);
     background-color: var(--alert-color);
 }
 
@@ -403,10 +430,10 @@ body button.active-subtab:active:not(:disabled):not(.disable-hover-color) {
     z-index: 6969;
     width: 33%;
     overflow: hidden;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     border-radius: 5px;
     font-size: min(1em, 24px);
-    color: white;
+    color: var(--white-color);
     background-color: var(--alert-color);
 }
 
@@ -462,9 +489,9 @@ html[data-mobile="true"] #mobileHotkeysOpen:not([hidden]) {
     min-width: 52px;
     height: 52px;
     min-height: 52px;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     border-radius: 8px;
-    color: gold;
+    color: var(--gold-color);
     font-size: 1.65rem;
     line-height: 1;
     background-color: var(--alert-color);
@@ -503,9 +530,9 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     max-height: min(60vh, 440px, var(--mobile-hotkeys-available-height, 100vh));
     padding: 10px;
     overflow: hidden;
-    color: white;
+    color: var(--white-color);
     background-color: var(--alert-color);
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     border-radius: 14px;
     box-shadow: 0 6px 24px rgb(0 0 0 / 60%);
     pointer-events: auto;
@@ -542,9 +569,9 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     min-width: 44px;
     height: 72px;
     padding: 0;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     border-radius: 12px 0 0 12px;
-    color: gold;
+    color: var(--gold-color);
     background-color: var(--alert-color);
     box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
     font-size: 2rem;
@@ -583,7 +610,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     padding: 4px 0;
     border: 0;
     border-radius: 5px;
-    color: gold;
+    color: var(--gold-color);
     background: transparent;
     font-size: 1.1em;
     line-height: 1.2;
@@ -598,7 +625,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 #mobileHotkeysHint {
     flex-shrink: 0;
     margin: 0;
-    color: lightgray;
+    color: var(--lightgray-color);
     font-size: 0.75rem;
     line-height: 1.3;
 }
@@ -608,7 +635,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     width: 44px;
     min-width: 44px;
     min-height: 44px;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     border-radius: 5px;
     font-size: 1.4rem;
     line-height: 1;
@@ -628,7 +655,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 #mobileHotkeysOpen:focus-visible,
 #mobileHotkeysCard button:focus-visible,
 #mobileHotkeysRestore:focus-visible {
-    outline: 2px solid cyan;
+    outline: 2px solid var(--cyan-color);
     outline-offset: 2px;
 }
 
@@ -646,7 +673,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     gap: 8px;
     min-height: 54px;
     padding: 6px;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     border-radius: 5px;
     text-align: left;
 }
@@ -658,7 +685,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     overflow-wrap: anywhere;
     border: 1px solid #555;
     border-radius: 4px;
-    color: gold;
+    color: var(--gold-color);
     font-size: 0.8em;
     line-height: 1.1;
     text-align: center;
@@ -714,7 +741,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     font-size: 0;
     line-height: 0;
     z-index: 1;
-    color: white;
+    color: var(--white-color);
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
@@ -726,9 +753,9 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 .notification-item > .notifx:focus-visible {
-    outline: 2px solid gold;
+    outline: 2px solid var(--gold-color);
     outline-offset: 2px;
-    border-color: gold;
+    border-color: var(--gold-color);
 }
 
 .notification-item > .notifx:active {
@@ -754,9 +781,9 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     min-height: min(min(20em, 600px), 100vh);
     max-width: 100vw;
     max-height: 100vh;
-    color: white;
+    color: var(--white-color);
     background-color: var(--alert-color);
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     border-radius: 5px;
     font-size: min(1em, 24px);
     padding: 15px;
@@ -794,7 +821,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 
 #prompt_text {
     background-color: #171717;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     border-radius: 5px;
     font-size: 1em;
     grid-area: lbl;
@@ -805,7 +832,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 #confirm > button,
 #alert > button,
 #prompt > button {
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
 }
 
 #confirm {
@@ -878,7 +905,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 
 #infoAlertTitle {
     margin: 0;
-    color: gold;
+    color: var(--gold-color);
     font-weight: bold;
     text-align: center;
 }
@@ -895,7 +922,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 
 #ok_infoAlert {
     min-width: 8em;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
 }
 
 #infoAlertSections {
@@ -907,16 +934,16 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 
 #infoAlertSections > button {
     padding: 2px 10px;
-    border: 2px solid gray;
+    border: 2px solid var(--gray-color);
 }
 
 #infoAlertSections > button[aria-pressed="true"] {
-    border-color: gold;
-    color: gold;
+    border-color: var(--gold-color);
+    color: var(--gold-color);
 }
 
 .freeUpgradeInfoSummary {
-    color: orange;
+    color: var(--orange-color);
 }
 
 .freeUpgradeInfoMaxed {
@@ -941,20 +968,20 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 .freeUpgradeInfoTable th {
-    color: gold;
-    border-bottom: 1px solid gold;
+    color: var(--gold-color);
+    border-bottom: 1px solid var(--gold-color);
 }
 
 .freeUpgradeInfoTable td[colspan] {
     padding-left: 1.5em;
     text-align: left;
     font-size: 0.9em;
-    color: lightblue;
+    color: var(--lightblue-color);
 }
 
 .freeUpgradeInfoInactive,
 .freeUpgradeInfoTable .freeUpgradeInfoInactive td {
-    color: gray;
+    color: var(--gray-color);
 }
 
 #purchasePrompt {
@@ -979,7 +1006,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 #purchasePromptTitle {
-    color: gold;
+    color: var(--gold-color);
     font-weight: bold;
 }
 
@@ -999,10 +1026,10 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     width: 100%;
     min-width: 0;
     padding: 0.4em;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     border-radius: 5px;
     background-color: #171717;
-    color: white;
+    color: var(--white-color);
     font-size: 1em;
 }
 
@@ -1014,7 +1041,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 
 .purchasePromptButtons > button {
     min-width: 6em;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
 }
 
 #ok_purchasePrompt:disabled {
@@ -1059,9 +1086,9 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     min-width: min(min(30em, 800px), 100%);
     max-width: 100%;
     padding: 15px;
-    color: white;
+    color: var(--white-color);
     background-color: var(--alert-color);
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     border-radius: 5px;
     font-size: min(1em, 24px);
 }
@@ -1089,7 +1116,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 .announcement-content a {
-    color: cyan;
+    color: var(--cyan-color);
     text-decoration: underline;
 
     /* Bare URLs are unbreakable words and would otherwise widen the card */
@@ -1110,7 +1137,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     font-family: inherit;
     font-size: 0;
     line-height: 0;
-    color: white;
+    color: var(--white-color);
     transition: background-color var(--transition-extra), border-color var(--transition-extra);
     cursor: pointer;
     background-color: var(--button-color);
@@ -1123,9 +1150,9 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 .announcement-close:focus-visible {
-    outline: 2px solid gold;
+    outline: 2px solid var(--gold-color);
     outline-offset: 2px;
-    border-color: gold;
+    border-color: var(--gold-color);
 }
 
 .announcement-close > img {
@@ -1157,7 +1184,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     flex-direction: column;
     align-items: center;
     gap: 0.5em;
-    color: white;
+    color: var(--white-color);
     text-align: center;
 }
 
@@ -1167,18 +1194,18 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 #preloadExportSave {
-    border: 2px solid gold;
-    color: gold;
+    border: 2px solid var(--gold-color);
+    color: var(--gold-color);
 }
 
 #preloadImportSave {
-    border: 2px solid limegreen;
-    color: lightgreen;
+    border: 2px solid var(--limegreen-color);
+    color: var(--lightgreen-color);
 }
 
 #preloadDeleteGame {
-    border: 2px solid red;
-    color: pink;
+    border: 2px solid var(--red-color);
+    color: var(--pink-color);
 }
 
 #preloadPlayOffline {
@@ -1189,8 +1216,8 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     z-index: 1;
     font-size: 2em;
     padding: 0.5em 1.5em;
-    border: 2px solid limegreen;
-    color: lightgreen;
+    border: 2px solid var(--limegreen-color);
+    color: var(--lightgreen-color);
 }
 
 #offlineBlur {
@@ -1220,7 +1247,7 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     transform: translate(-50%, 0%);
     background-color: var(--alert-color);
     border-radius: 5px;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     padding: 15px;
     margin-top: max(0px, calc(10vh - 15px));
     max-height: 90vh;
@@ -1279,9 +1306,9 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     padding: 6px 0;
     z-index: 3;
     margin-top: 20px;
-    border: 2px solid ivory;
+    border: 2px solid var(--ivory-color);
     background-color: var(--purplebtn-color);
-    color: white;
+    color: var(--white-color);
 }
 
 #exitOffline:hover,
@@ -1315,8 +1342,8 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
 }
 
 #transcensionChallengeProgress { color: var(--orchid-text-color); }
-#reincarnationChallengeProgress { color: limegreen; }
-#ascensionChallengeProgress { color: orange; }
+#reincarnationChallengeProgress { color: var(--limegreen-color); }
+#ascensionChallengeProgress { color: var(--orange-color); }
 
 #mainHeader {
     flex-shrink: 0;
@@ -1359,7 +1386,7 @@ nav button {
     line-height: 1em;
     font-size: min(1em, 20px);
     padding: 1px;
-    color: white;
+    color: var(--white-color);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border-bottom: none;
@@ -1378,7 +1405,7 @@ nav button {
 
 /* Motion-independent cue that the tab row is in edit mode */
 #tabrow.tab-edit-mode {
-    outline: 2px dashed gold;
+    outline: 2px dashed var(--gold-color);
     outline-offset: 2px;
 }
 
@@ -1388,10 +1415,10 @@ nav button {
     min-width: 120px;
     margin: 4px 0;
     padding: 6px 12px;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     border-radius: 5px;
     background-color: var(--purplebtn-color);
-    color: white;
+    color: var(--white-color);
 }
 
 #tabEditDone:hover {
@@ -1425,10 +1452,10 @@ nav button {
     justify-content: center;
     width: 18px;
     height: 18px;
-    border: 1px solid white;
+    border: 1px solid var(--white-color);
     border-radius: 50%;
     background-color: #c30000;
-    color: white;
+    color: var(--white-color);
     font-size: 14px;
     font-weight: bold;
     line-height: 1;
@@ -1477,43 +1504,43 @@ nav button {
 }
 
 #buildingstab {
-    border-color: orange;
+    border-color: var(--orange-color);
 }
 
 #upgradestab {
-    border-color: orange;
+    border-color: var(--orange-color);
 }
 
 #settingstab {
-    color: white;
-    border-color: white;
+    color: var(--white-color);
+    border-color: var(--white-color);
 }
 
 #achievementstab {
-    border-color: white;
+    border-color: var(--white-color);
 }
 
 #runestab {
-    border-color: cyan;
+    border-color: var(--cyan-color);
 }
 
 #challengetab {
-    border-color: plum;
+    border-color: var(--plum-color);
 }
 
 #researchtab {
-    border-color: green;
+    border-color: var(--green-color);
 }
 
 #shoptab {
-    border-color: white;
+    border-color: var(--white-color);
     background-color: var(--shoptab-color);
 }
 
 #singularitytab {
-    border-color: lightgoldenrodyellow;
+    border-color: var(--lightgoldenrodyellow-color);
     background-color: var(--singtab-color);
-    color: red;
+    color: var(--red-color);
 }
 
 #singularitytab:hover {
@@ -1529,7 +1556,7 @@ button.isEvent:hover {
 }
 
 #anttab {
-    border-color: maroon;
+    border-color: var(--maroon-color);
 }
 
 #cubetab {
@@ -1538,8 +1565,8 @@ button.isEvent:hover {
 }
 
 #traitstab {
-    border-color: orange;
-    color: red;
+    border-color: var(--orange-color);
+    color: var(--red-color);
 }
 
 .subTabWrapper {
@@ -1662,7 +1689,7 @@ button.isEvent:hover {
 p#buildinghotkeys,
 p#buildinghotkeys2 {
     margin-top: 15px;
-    color: lightgray;
+    color: var(--lightgray-color);
     text-align: center;
 }
 
@@ -1680,7 +1707,7 @@ p#buildinghotkeys2 {
     position: relative;
     text-align: center;
     padding: 0;
-    color: gold;
+    color: var(--gold-color);
     margin: 0 auto;
     max-width: 1500px;
 }
@@ -1753,7 +1780,7 @@ p#buildinghotkeys2 {
 .mobileUpgradeBox {
     display: flex;
     flex-direction: column;
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     gap: 1%;
     overflow: hidden;
 }
@@ -1777,7 +1804,7 @@ p#buildinghotkeys2 {
 .mobileUpgradeIconAndCost button {
     flex: 1;
     min-width: 0;
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     margin-left: 1%;
 }
 
@@ -1797,7 +1824,7 @@ p#buildinghotkeys2 {
     margin: 0;
 }
 
-#upgradeeffect { color: pink; }
+#upgradeeffect { color: var(--pink-color); }
 
 #settings {
     position: relative;
@@ -1870,7 +1897,7 @@ p#appearanceSettingsTitle {
 
 .appearanceSetting > p {
     margin: 0;
-    color: pink;
+    color: var(--pink-color);
 }
 
 .appearanceSetting > .promocodeButton {
@@ -1884,14 +1911,14 @@ p#appearanceSettingsTitle {
 #saveStringInput {
     width: 100%;
     padding: 1px;
-    border: 1px solid white;
+    border: 1px solid var(--white-color);
 }
 
 #importFileButton {
     font-size: 0.75em;
     padding: 0.05em;
-    border: 2px solid white;
-    color: white;
+    border: 2px solid var(--white-color);
+    color: var(--white-color);
     cursor: pointer;
     background-color: var(--button-color);
 }
@@ -1965,19 +1992,19 @@ div.addCodeBox {
 
 #addCode {
     flex-grow: 3;
-    border: 2px solid green;
+    border: 2px solid var(--green-color);
 }
 
 #addCodeAll {
     flex-grow: 1;
-    border: 2px solid green;
+    border: 2px solid var(--green-color);
     border-left: none;
     border-right: none;
 }
 
 #addCodeOne {
     flex-grow: 1;
-    border: 2px solid green;
+    border: 2px solid var(--green-color);
 }
 
 p#promocodeinfo {
@@ -1986,7 +2013,7 @@ p#promocodeinfo {
 
 p#promocodeStatus {
     width: 100%;
-    color: goldenrod;
+    color: var(--goldenrod-color);
     white-space: pre-line;
 }
 
@@ -2119,7 +2146,7 @@ p#promocodeStatus {
     width: 15em;
     min-width: 15em;
     border-radius: 8px;
-    border: 1px solid white;
+    border: 1px solid var(--white-color);
     background-color: var(--buttonbuy-color);
     cursor: default;
 }
@@ -2201,7 +2228,7 @@ p#promocodeStatus {
 .buttonRow.mobile > div:not(.buildingSpacer):not(.buildingAutomationControls) {
     gap: 6px;
     padding: 8px 0;
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     border-radius: 6px;
     padding-right: 6px;
 }
@@ -2259,7 +2286,7 @@ p#promocodeStatus {
     padding: 6px;
     border-radius: 6px;
     background-color: #0a2a0a;
-    color: lightblue;
+    color: var(--lightblue-color);
     font-size: 0.8em;
     line-height: 1.1;
     white-space: normal;
@@ -2281,7 +2308,7 @@ p#promocodeStatus {
     position: relative;
     text-align: center;
     padding: 0;
-    color: whitesmoke;
+    color: var(--whitesmoke-color);
 }
 
 #achievements {
@@ -2420,7 +2447,7 @@ p#promocodeStatus {
     font-size: 1em;
     text-shadow: 2px 2px 4px #000;
     z-index: 999;
-    color: white;
+    color: var(--white-color);
     font-weight: bold;
     display: flex;
     flex-direction: column;
@@ -2429,7 +2456,7 @@ p#promocodeStatus {
 }
 
 .achievement-fraction-numerator {
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid var(--white-color);
     padding-bottom: 1px;
     min-width: 1em;
     text-align: center;
@@ -2454,7 +2481,7 @@ p#promocodeStatus {
 }
 
 .achievement-ap-overlay.gold-text {
-    color: gold;
+    color: var(--gold-color);
 }
 
 #showAchievementProgress {
@@ -2464,7 +2491,7 @@ p#promocodeStatus {
     justify-content: center;
     cursor: pointer;
     text-align: center;
-    border: 2px solid orange;
+    border: 2px solid var(--orange-color);
 }
 
 .achievementSearchIcon {
@@ -2489,7 +2516,7 @@ p#promocodeStatus {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: gold;
+    color: var(--gold-color);
     font-size: 1.1em;
     flex-wrap: wrap;
 }
@@ -2580,14 +2607,14 @@ p#promocodeStatus {
 }
 
 .constructionInfo {
-    color: white;
+    color: var(--white-color);
     text-align: center;
 }
 
 #prestige {
     position: relative;
     padding: 0;
-    color: cyan;
+    color: var(--cyan-color);
     flex-direction: column;
     align-items: center;
     max-width: 1600px;
@@ -2597,7 +2624,7 @@ p#promocodeStatus {
 #crystalupgrades {
     width: 50em;
     max-width: 1000px;
-    color: white;
+    color: var(--white-color);
     text-align: center;
 }
 
@@ -2620,8 +2647,8 @@ p#promocodeStatus {
 }
 
 #prestigeamount {
-    color: white;
-    border: 1px solid cyan;
+    color: var(--white-color);
+    border: 1px solid var(--cyan-color);
     background-color: var(--blackbtn-color);
 }
 
@@ -2630,7 +2657,7 @@ p#promocodeStatus {
 }
 
 #autoprestige {
-    color: white;
+    color: var(--white-color);
 }
 
 p#prestigehotkeys {
@@ -2749,7 +2776,7 @@ p#prestigehotkeys {
 .runeTypeMobile > button {
     min-width: 100px;
     text-align: center;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     cursor: default;
 }
 
@@ -2804,7 +2831,7 @@ img.runeTypeElement:hover {
 
 .antSacrificeRewardLocked {
     opacity: 0.5;
-    border-color: gray !important;
+    border-color: var(--gray-color) !important;
 }
 
 .antSacrificeRewardImageLocked {
@@ -2874,7 +2901,7 @@ img.runeTypeElement:hover {
 
 #toggleautofortify {
     min-width: 125px;
-    border: 2px solid red;
+    border: 2px solid var(--red-color);
 }
 
 #talismanFragmentCost {
@@ -2920,7 +2947,7 @@ img.runeTypeElement:hover {
 .fragmentBtn {
     width: 5em;
     min-width: 80px;
-    color: orange;
+    color: var(--orange-color);
     cursor: default;
 }
 
@@ -3008,7 +3035,7 @@ img.runeTypeElement:hover {
 }
 
 .mobileTalismanShardSection {
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     width: 90%;
 }
 
@@ -3017,7 +3044,7 @@ img.runeTypeElement:hover {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: 2px solid orange;
+    border: 2px solid var(--orange-color);
 }
 
 .mobileTalismanShardHead > button {
@@ -3038,7 +3065,7 @@ img.runeTypeElement:hover {
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
-    border: 2px solid orange;
+    border: 2px solid var(--orange-color);
 }
 
 .mobileTalismanShardContainer {
@@ -3087,7 +3114,7 @@ img.runeTypeElement:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid silver;
+    border: 2px solid var(--silver-color);
     border-radius: 8px;
 }
 
@@ -3135,7 +3162,7 @@ img.runeTypeElement:hover {
 }
 
 #transcension > .buttonRow {
-    color: plum;
+    color: var(--plum-color);
 }
 
 #transcendshardbonus {
@@ -3155,8 +3182,8 @@ img.runeTypeElement:hover {
 }
 
 #transcendamount {
-    color: white;
-    border: 1px solid plum;
+    color: var(--white-color);
+    border: 1px solid var(--plum-color);
     background-color: var(--blackbtn-color);
 }
 
@@ -3211,10 +3238,10 @@ p#transcendhotkeys {
     min-width: 200px;
 }
 
-#toggleAutoChallengeStart { border: 2px solid gold; }
+#toggleAutoChallengeStart { border: 2px solid var(--gold-color); }
 
 #startChallenge {
-    border: 2px solid red;
+    border: 2px solid var(--red-color);
     font-size: 1.1em;
     min-width: 300px;
     min-height: 75px;
@@ -3225,7 +3252,7 @@ p#transcendhotkeys {
     background-color: var(--hover-color);
 }
 
-#retryChallenge { border: 2px solid plum; }
+#retryChallenge { border: 2px solid var(--plum-color); }
 
 /* Hide the last 3 buttons until the user clicks on a challenge */
 #toggleAutoChallengeIgnore,
@@ -3238,7 +3265,7 @@ p#transcendhotkeys {
     flex-wrap: wrap;
     gap: 4px;
     align-self: center;
-    color: white;
+    color: var(--white-color);
     text-align: center;
 }
 
@@ -3283,14 +3310,14 @@ p#transcendhotkeys {
     height: auto;
 }
 
-#challengeName { color: white; }
-#challengeFlavor { color: plum; }
+#challengeName { color: var(--white-color); }
+#challengeFlavor { color: var(--plum-color); }
 #challengeRestrictions { color: var(--crimson-text-color); }
-#challengeGoal { color: gold; }
+#challengeGoal { color: var(--gold-color); }
 #challengePerCompletionRewards { color: var(--text-color); }
-*[id^="challengePer"] { color: pink; }
-#challengeFirst1 { color: orange; }
-#challengeQuarkBonus { color: cyan; }
+*[id^="challengePer"] { color: var(--pink-color); }
+#challengeFirst1 { color: var(--orange-color); }
+#challengeQuarkBonus { color: var(--cyan-color); }
 
 #challengeTimersText {
     display: flex;
@@ -3302,7 +3329,7 @@ p#transcendhotkeys {
 }
 
 #challengeTimersText > input {
-    border: 2px solid orchid;
+    border: 2px solid var(--orchid-color);
     width: 10em;
     min-width: 180px;
     max-width: 100%;
@@ -3321,7 +3348,7 @@ p#transcendhotkeys {
 
 #challengehotkeys { color: var(--gray-text-color); }
 #challengewarning { color: var(--crimson-text-color); }
-#challengewarningreincarnation { color: limegreen; }
+#challengewarningreincarnation { color: var(--limegreen-color); }
 
 .challenge {
     background-color: var(--button-color);
@@ -3343,7 +3370,7 @@ p#transcendhotkeys {
 #reincarnation {
     position: relative;
     padding: 0;
-    color: limegreen;
+    color: var(--limegreen-color);
     flex-direction: column;
     align-items: center;
     max-width: 1600px;
@@ -3377,8 +3404,8 @@ p#transcendhotkeys {
 }
 
 #reincarnationamount {
-    color: white;
-    border: 1px solid green;
+    color: var(--white-color);
+    border: 1px solid var(--green-color);
     background-color: var(--blackbtn-color);
 }
 
@@ -3389,7 +3416,7 @@ p#transcendhotkeys {
 }
 
 #reincarnationinfo {
-    color: lime;
+    color: var(--lime-color);
 }
 
 p#reincarnatehotkeys {
@@ -3529,8 +3556,8 @@ p#reincarnatehotkeys {
     display: flex;
     align-items: stretch;
     margin-top: 10px;
-    border: 3px solid plum;
-    color: white;
+    border: 3px solid var(--plum-color);
+    color: var(--white-color);
     text-align: left;
 }
 
@@ -3541,14 +3568,14 @@ p#reincarnatehotkeys {
     overflow-y: auto;
     width: 26em;
     max-height: 70vh;
-    border-right: 1px solid plum;
+    border-right: 1px solid var(--plum-color);
     scrollbar-width: thin;
 }
 
 .shopSectionHeader {
     flex-shrink: 0;
     margin: 8px 8px 2px;
-    color: plum;
+    color: var(--plum-color);
     font-size: 0.75em;
     text-transform: uppercase;
     letter-spacing: 0.12em;
@@ -3560,7 +3587,7 @@ p#reincarnatehotkeys {
     align-items: stretch;
     background: none;
     border-left: 3px solid transparent;
-    color: white;
+    color: var(--white-color);
 }
 
 .shopFamilyRow:hover {
@@ -3568,7 +3595,7 @@ p#reincarnatehotkeys {
 }
 
 .shopFamilyRow.shopFamilySelected {
-    border-left-color: cyan;
+    border-left-color: var(--cyan-color);
     background-color: rgb(0 255 255 / 10%);
 }
 
@@ -3581,7 +3608,7 @@ p#reincarnatehotkeys {
     padding: 4px 8px;
     background: none;
     border: none;
-    color: white;
+    color: var(--white-color);
     font: inherit;
     text-align: left;
     cursor: pointer;
@@ -3614,7 +3641,7 @@ p#reincarnatehotkeys {
     height: 22px;
     padding: 1px;
     background: none;
-    border: 1px solid gray;
+    border: 1px solid var(--gray-color);
     border-radius: 2px;
     cursor: pointer;
 }
@@ -3625,25 +3652,25 @@ p#reincarnatehotkeys {
 }
 
 .shopTierShortcutUnfinished {
-    border-color: cyan;
+    border-color: var(--cyan-color);
 }
 
 .shopTierShortcutMaxed {
-    border-color: gold;
+    border-color: var(--gold-color);
 }
 
 .shopFamilyRowCost {
-    color: gold;
+    color: var(--gold-color);
     font-size: 0.8em;
     font-variant-numeric: tabular-nums;
 }
 
 .shopFamilyRowCost.shopCantAfford {
-    color: gray;
+    color: var(--gray-color);
 }
 
 .shopFamilyRowCost.shopFamilyMaxed {
-    color: orchid;
+    color: var(--orchid-color);
 }
 
 #shopDetail {
@@ -3675,8 +3702,8 @@ p#reincarnatehotkeys {
     gap: 2px;
     padding: 5px 8px;
     background: none;
-    border: 1px solid gray;
-    color: white;
+    border: 1px solid var(--gray-color);
+    color: var(--white-color);
     font: inherit;
     font-size: 0.8em;
     cursor: pointer;
@@ -3688,12 +3715,12 @@ p#reincarnatehotkeys {
 }
 
 .shopTierChip.shopTierSelected {
-    border-color: cyan;
+    border-color: var(--cyan-color);
     box-shadow: 0 0 6px cyan;
 }
 
 .shopTierChip.shopTierMaxed {
-    border-color: gold;
+    border-color: var(--gold-color);
 }
 
 .shopTestingOnly {
@@ -3704,7 +3731,7 @@ p#reincarnatehotkeys {
     box-sizing: border-box;
     max-width: 48ch;
     padding: 6px 8px;
-    border: 2px solid red;
+    border: 2px solid var(--red-color);
     border-radius: 3px;
     background-color: rgb(128 0 0 / 35%);
     color: #ffb3b3;
@@ -3715,15 +3742,15 @@ p#reincarnatehotkeys {
     font-size: 1.1em;
 }
 
-#quarkdescription { color: plum; }
-#quarkeffect { color: limegreen; }
-#quarkRefundable { color: goldenrod; }
+#quarkdescription { color: var(--plum-color); }
+#quarkeffect { color: var(--limegreen-color); }
+#quarkRefundable { color: var(--goldenrod-color); }
 
 #shopDetailBuy {
     width: auto;
     min-width: 220px;
     padding: 0 12px;
-    border: 2px solid cyan;
+    border: 2px solid var(--cyan-color);
 }
 
 #actualPotionShop > div,
@@ -3739,7 +3766,7 @@ p#reincarnatehotkeys {
 
 #shoptop {
     grid-area: shoptop;
-    color: whitesmoke;
+    color: var(--whitesmoke-color);
     font-size: 1.2em;
 }
 
@@ -3756,7 +3783,7 @@ p#reincarnatehotkeys {
 #actualPotionShop {
     display: flex;
     padding: 5px;
-    border: 3px solid yellow;
+    border: 3px solid var(--yellow-color);
     background-color: var(--box-color);
     gap: 5px;
     flex-wrap: wrap;
@@ -3821,7 +3848,7 @@ p#reincarnatehotkeys {
 
 #goldenQuarkamount {
     font-size: 1.2em;
-    color: gold;
+    color: var(--gold-color);
     margin-left: 5px;
 }
 
@@ -3951,24 +3978,24 @@ p#reincarnatehotkeys {
 }
 
 .enabledAntToggle {
-    border-color: green;
+    border-color: var(--green-color);
 }
 
 .disabledAntToggle {
-    border-color: crimson;
+    border-color: var(--crimson-color);
 }
 
 .singlePurchaseAnt {
-    border-color: white;
+    border-color: var(--white-color);
 }
 
 .maxPurchaseAnt {
-    border-color: gold;
+    border-color: var(--gold-color);
 }
 
 .buyAllAntBtn {
     border-width: 2px;
-    border-color: gold;
+    border-color: var(--gold-color);
 }
 
 .antToggleBtn {
@@ -4090,7 +4117,7 @@ p#reincarnatehotkeys {
     min-width: 0;
     min-height: 30px;
     font-size: 0.9em;
-    color: white;
+    color: var(--white-color);
     background: #030606;
     border: 1px solid #00a6af;
 }
@@ -4205,7 +4232,7 @@ p#reincarnatehotkeys {
     width: min(190px, 80%);
     min-height: 34px;
     margin: 0 0 9px;
-    color: white;
+    color: var(--white-color);
     background: #05090a;
     border-color: #00cbd2;
     border-radius: 7px;
@@ -4222,7 +4249,7 @@ p#reincarnatehotkeys {
 }
 
 #altar .antSacrificePanelTitle {
-    color: gold;
+    color: var(--gold-color);
 }
 
 #altar p {
@@ -4270,7 +4297,7 @@ p#reincarnatehotkeys {
 #antSacrificeTimer {
     padding: 1px 0.5em;
     font-size: 1.05em;
-    color: gold;
+    color: var(--gold-color);
 }
 
 .canAntSacrifice {
@@ -4454,7 +4481,7 @@ p#reincarnatehotkeys {
 }
 
 #toggleLotusSection:hover {
-    color: white;
+    color: var(--white-color);
     background-color: #713068;
 }
 
@@ -4677,7 +4704,7 @@ p#reincarnatehotkeys {
     font-size: 1em;
     font-weight: 700;
     text-transform: uppercase;
-    border: 3px solid #ffd700;
+    border: 3px solid var(--gold-color);
     border-radius: 7px;
     box-shadow:
         inset 0 0 0 3px #b38d00,
@@ -4724,22 +4751,22 @@ p#reincarnatehotkeys {
 .antSacrificeRewardTalisman,
 #antSacrificeOffering,
 #antSacrificeTalismanShard {
-    color: gold;
+    color: var(--gold-color);
 }
 
 .antSacrificeRewardObtainium,
 #antSacrificeObtainium {
-    color: pink;
+    color: var(--pink-color);
 }
 
 .antSacrificeRewardCommon,
 #antSacrificeCommonFragment {
-    color: white;
+    color: var(--white-color);
 }
 
 .antSacrificeRewardUncommon,
 #antSacrificeUncommonFragment {
-    color: limegreen;
+    color: var(--limegreen-color);
 }
 
 .antSacrificeRewardRare,
@@ -4749,17 +4776,17 @@ p#reincarnatehotkeys {
 
 .antSacrificeRewardEpic,
 #antSacrificeEpicFragment {
-    color: plum;
+    color: var(--plum-color);
 }
 
 .antSacrificeRewardLegendary,
 #antSacrificeLegendaryFragment {
-    color: orange;
+    color: var(--orange-color);
 }
 
 .antSacrificeRewardMythical,
 #antSacrificeMythicalFragment {
-    color: crimson;
+    color: var(--crimson-color);
 }
 
 #autoAntSacrifice {
@@ -4972,7 +4999,7 @@ p#reincarnatehotkeys {
 
 .antLeaderboardToggleBtn {
     padding: 8px 16px;
-    color: white;
+    color: var(--white-color);
     border: 2px solid #666;
     border-radius: 4px;
     cursor: pointer;
@@ -5019,7 +5046,7 @@ p#reincarnatehotkeys {
 #antLeaderboardTable th {
     background-color: #3a3a3a;
     font-weight: bold;
-    color: #fff;
+    color: var(--white-color);
 }
 
 #antLeaderboardTable tr {
@@ -5112,7 +5139,7 @@ p#reincarnatehotkeys {
 .autoOpensInput {
     width: 8em;
     min-width: 100px;
-    color: white;
+    color: var(--white-color);
     background-color: var(--blackbtn-color);
     z-index: 1;
 }
@@ -5260,7 +5287,7 @@ p[id$="BlessingsTotal"] {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: gold;
+    color: var(--gold-color);
     font-size: 1.1em;
 }
 
@@ -5272,7 +5299,7 @@ p[id$="BlessingsTotal"] {
 }
 
 .cubeUpgradeModalDescription {
-    color: lightblue;
+    color: var(--lightblue-color);
     line-height: 1.35;
 }
 
@@ -5285,15 +5312,15 @@ p[id$="BlessingsTotal"] {
 }
 
 .cubeUpgradeModalCost.maxed {
-    color: gold;
+    color: var(--gold-color);
 }
 
 .cubeUpgradeModalLevel {
-    color: white;
+    color: var(--white-color);
 }
 
 .cubeUpgradeModalLevel.maxed {
-    color: plum;
+    color: var(--plum-color);
 }
 
 .cubeUpgradeToggles {
@@ -5341,7 +5368,7 @@ p[id$="BlessingsTotal"] {
 }
 
 button.language-select {
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     width: 12em;
     min-width: 150px;
     min-height: 40px;
@@ -5384,13 +5411,13 @@ button.language-select span.lang-name {
 }
 
 #versionnumber {
-    color: fuchsia;
+    color: var(--fuchsia-color);
 }
 
 #ascension {
     position: relative;
     padding: 0;
-    color: orange;
+    color: var(--orange-color);
     flex-direction: column;
     align-items: center;
     max-width: 1600px;
@@ -5424,7 +5451,7 @@ button.language-select span.lang-name {
 #constUpgradeLevel,
 #constUpgradeCost,
 #constUpgradeEffect1 {
-    color: white;
+    color: var(--white-color);
 }
 
 #tesseractautobuytoggle,
@@ -5436,7 +5463,7 @@ button.language-select span.lang-name {
 }
 
 #tesseractAmount {
-    color: white;
+    color: var(--white-color);
     border: 1px solid var(--tesseract-color);
     background-color: var(--blackbtn-color);
 }
@@ -5552,18 +5579,18 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .statNumber {
-    color: yellow;
+    color: var(--yellow-color);
     float: right;
 }
 
 .statPortion.statTotal {
-    color: orange;
+    color: var(--orange-color);
     font-weight: bold;
     font-size: 1em;
 }
 
 .statNumber.statTotal {
-    color: deepskyblue;
+    color: var(--deepskyblue-color);
 }
 
 .constUpgrade {
@@ -5607,7 +5634,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .historySubTab {
-    color: white;
+    color: var(--white-color);
 }
 
 .historySubTab p:first-of-type {
@@ -5688,7 +5715,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .onOffToggle {
     text-align: center;
     padding: 5px;
-    border: 2px solid red;
+    border: 2px solid var(--red-color);
     margin-top: 8px;
 }
 
@@ -5739,8 +5766,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     width: 25em;
     min-width: 325px;
     max-width: 350px;
-    border: 1px solid yellow;
-    color: gold;
+    border: 1px solid var(--yellow-color);
+    color: var(--gold-color);
 }
 
 .runeEffectTexts {
@@ -5751,8 +5778,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .runeButtonsBuyAll {
     width: 10em;
     min-width: 120px;
-    border: 1px solid yellow;
-    color: gold;
+    border: 1px solid var(--yellow-color);
+    color: var(--gold-color);
 }
 
 #toggle36,
@@ -5778,16 +5805,16 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     min-width: 100px;
     width: 5em;
     font-size: 0.8em;
-    border: 2px solid crimson;
-    color: white;
+    border: 2px solid var(--crimson-color);
+    color: var(--white-color);
 }
 
 #buyRuneSpiritInput {
     min-width: 100px;
     width: 5em;
     font-size: 0.8em;
-    border: 2px solid orange;
-    color: white;
+    border: 2px solid var(--orange-color);
+    color: var(--white-color);
 }
 
 /* Credit: gwabo_ */
@@ -5887,7 +5914,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #corruptionInfo1 {
-    color: yellow;
+    color: var(--yellow-color);
     text-align: center;
 }
 
@@ -5937,7 +5964,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     max-width: calc(100% - 20px);
     margin: 0 10px;
     padding: 12px 24px;
-    color: white;
+    color: var(--white-color);
     background-color: var(--box-color);
     text-align: center;
 }
@@ -6021,7 +6048,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .corruptionDetailsModalFormula {
-    color: orchid;
+    color: var(--orchid-color);
 }
 
 .corruptionFormulaActive {
@@ -6032,7 +6059,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     margin: 0 auto;
     max-width: 100%;
     border-collapse: collapse;
-    color: white;
+    color: var(--white-color);
     font-size: 0.9em;
 }
 
@@ -6054,12 +6081,12 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .corruptionBreakdown tr:last-child td {
-    border-top: 1px solid gray;
-    color: gold;
+    border-top: 1px solid var(--gray-color);
+    color: var(--gold-color);
 }
 
 .corruptionBreakdownNote {
-    color: silver;
+    color: var(--silver-color);
     font-size: 0.9em;
 }
 
@@ -6079,16 +6106,16 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .corruptionFormulaCurrent {
-    color: gold;
+    color: var(--gold-color);
     text-align: right;
 }
 
 .corruptionFormulaNext {
-    color: white;
+    color: var(--white-color);
 }
 
 .corrDesc {
-    color: white;
+    color: var(--white-color);
     min-width: 240px;
     margin: 0 auto;
     text-align: center;
@@ -6105,24 +6132,24 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .corruptionMax {
-    border: 2px solid green;
+    border: 2px solid var(--green-color);
     width: 3.5em;
 }
 
 .corruptionUp {
-    border: 1px solid green;
+    border: 1px solid var(--green-color);
     min-width: 30px;
     width: 1.5em;
 }
 
 .corruptionDown {
-    border: 1px solid red;
+    border: 1px solid var(--red-color);
     min-width: 30px;
     width: 1.5em;
 }
 
 .corruptionReset {
-    border: 2px solid red;
+    border: 2px solid var(--red-color);
     width: 3.5em;
 }
 
@@ -6155,7 +6182,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #autoAscendRules > .corruptionTierHeading {
-    color: orange;
+    color: var(--orange-color);
 }
 
 .corruptionRulesNote {
@@ -6178,7 +6205,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     box-sizing: border-box;
     width: 100%;
     padding: 8px 12px;
-    border: 1px solid orange;
+    border: 1px solid var(--orange-color);
     border-radius: 4px;
     background-color: var(--box-color);
 }
@@ -6186,7 +6213,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 #autoAscendStatus > .corruptionTierHeading,
 #corruptionLoadouts > .corruptionTierHeading {
     margin-top: 0;
-    color: orange;
+    color: var(--orange-color);
 }
 
 #corruptionLoadoutList {
@@ -6212,7 +6239,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .corruptionLoadoutId {
-    color: orange;
+    color: var(--orange-color);
 }
 
 .corruptionLoadoutRow > .autoAscendNumber {
@@ -6268,7 +6295,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     align-items: center;
     gap: 8px;
     padding: 6px 8px;
-    border: 1px solid orange;
+    border: 1px solid var(--orange-color);
     border-radius: 4px;
     background-color: var(--box-color);
     color: var(--text-color);
@@ -6283,37 +6310,37 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 @keyframes auto-ascend-rule-pulse {
     0%,
     50% {
-        border-color: lime;
+        border-color: var(--lime-color);
         box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
     }
 
     25%,
     75% {
-        border-color: lime;
+        border-color: var(--lime-color);
         box-shadow: 0 0 12px 3px rgb(0 255 0 / 65%);
     }
 
     100% {
-        border-color: orange;
+        border-color: var(--orange-color);
         box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .autoAscendRuleItem.autoAscendRuleFired {
-        border-color: lime;
+        border-color: var(--lime-color);
         animation: none;
     }
 }
 
 .autoAscendRuleNumber {
-    color: orange;
+    color: var(--orange-color);
     font-weight: bold;
 }
 
 .autoAscendRuleName {
     flex: 1;
-    color: orange;
+    color: var(--orange-color);
     font-weight: bold;
     overflow-wrap: anywhere;
     cursor: help;
@@ -6330,7 +6357,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .autoAscendRuleModal > .autoAscendRuleModalName {
-    color: orange;
+    color: var(--orange-color);
     font-weight: bold;
 }
 
@@ -6389,7 +6416,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .autoAscendEditorFooter > button {
     min-width: 44px;
     padding: 0 8px;
-    border: 1px solid orange;
+    border: 1px solid var(--orange-color);
     border-radius: 3px;
 }
 
@@ -6420,7 +6447,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     max-height: 100%;
     overflow-y: auto;
     padding: 16px;
-    border: 2px solid orange;
+    border: 2px solid var(--orange-color);
     border-radius: 6px;
     background-color: var(--alert-color);
     color: var(--text-color);
@@ -6438,7 +6465,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .autoAscendEditorHeader > h3,
 .autoAscendStep > h4 {
     margin: 0;
-    color: orange;
+    color: var(--orange-color);
 }
 
 .autoAscendEditorFooter {
@@ -6456,7 +6483,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     flex-direction: column;
     gap: 6px;
     padding: 8px;
-    border-left: 3px solid darkorange;
+    border-left: 3px solid var(--darkorange-color);
     background-color: rgb(255 165 0 / 4%);
 }
 
@@ -6501,7 +6528,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    border: 1px solid orange;
+    border: 1px solid var(--orange-color);
     border-radius: 3px;
     background-color: var(--alert-color);
     box-shadow: 0 4px 12px rgb(0 0 0 / 60%);
@@ -6526,7 +6553,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .autoAscendSelectOption[aria-selected="true"] {
-    color: orange;
+    color: var(--orange-color);
 }
 
 .autoAscendNumber {
@@ -6619,7 +6646,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     flex-direction: column;
     gap: 4px;
     margin: 4px 0;
-    color: white;
+    color: var(--white-color);
 }
 
 .corruptionTierHeading {
@@ -6695,18 +6722,18 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     grid-column: 3;
     text-align: right;
     white-space: nowrap;
-    color: silver;
+    color: var(--silver-color);
 }
 
 .corruptionTierRows .corruptionStatArrow {
     grid-column: 4;
-    color: silver;
+    color: var(--silver-color);
 }
 
 .corruptionTierRows .corruptionStatNext {
     grid-column: 5;
     white-space: nowrap;
-    color: gold;
+    color: var(--gold-color);
 }
 
 .corruptionTierRows .corruptionStatCentered {
@@ -6757,8 +6784,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #corruptionLevelInput {
     width: 5em;
-    border: 1px solid orange;
-    color: gold;
+    border: 1px solid var(--orange-color);
+    color: var(--gold-color);
     background-color: var(--blackbtn-color);
 }
 
@@ -6781,7 +6808,7 @@ img.corruptionImg.small {
 .corrImport {
     min-height: 20px;
     min-width: 40px;
-    border: 1px solid green;
+    border: 1px solid var(--green-color);
     width: 100%;
 }
 
@@ -6797,7 +6824,7 @@ img.corruptionImg.small {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: white;
+    color: var(--white-color);
     cursor: pointer;
 }
 
@@ -6814,7 +6841,7 @@ img.corruptionImg.small {
     width: 100px;
     margin: 0;
     transform: translateY(-50%);
-    border: 2px solid green;
+    border: 2px solid var(--green-color);
     visibility: hidden;
 }
 
@@ -6878,18 +6905,18 @@ header .img,
     width: auto;
 }
 
-header #quarkDisplay { color: white; }
-header #coinDisplay { color: gold; }
-header #diamondDisplay { color: cyan; }
-header #offeringDisplay { color: gold; }
-header #mythosDisplay { color: plum; }
-header #mythosshardDisplay { color: plum; }
-header #particlesDisplay { color: limegreen; }
-header #obtainiumDisplay { color: pink; }
-header #goldenQuarkHeaderDisplay { color: gold; }
+header #quarkDisplay { color: var(--white-color); }
+header #coinDisplay { color: var(--gold-color); }
+header #diamondDisplay { color: var(--cyan-color); }
+header #offeringDisplay { color: var(--gold-color); }
+header #mythosDisplay { color: var(--plum-color); }
+header #mythosshardDisplay { color: var(--plum-color); }
+header #particlesDisplay { color: var(--limegreen-color); }
+header #obtainiumDisplay { color: var(--pink-color); }
+header #goldenQuarkHeaderDisplay { color: var(--gold-color); }
 header #octeractHeaderDisplay { color: var(--lightseagreen-text-color); }
-header #achievementPointsHeaderDisplay { color: white; }
-header #quarkBonusHeaderDisplay { color: gold; }
+header #achievementPointsHeaderDisplay { color: var(--white-color); }
+header #quarkBonusHeaderDisplay { color: var(--gold-color); }
 
 header #ambrosiaHeaderDisplay,
 #rainbowAmbrosiaHeader[data-ambrosia="ambrosiaHeader"] .statDisplay { color: var(--amber-text-color); }
@@ -7062,10 +7089,10 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     margin-left: 0;
 }
 
-#happyHourBellHeaderTimer { color: gold; }
-#lotusHeaderTimer { color: violet; }
-#dailyCodeHeaderUses { color: lime; }
-#addCodeHeaderUses { color: cyan; }
+#happyHourBellHeaderTimer { color: var(--gold-color); }
+#lotusHeaderTimer { color: var(--violet-color); }
+#dailyCodeHeaderUses { color: var(--lime-color); }
+#addCodeHeaderUses { color: var(--cyan-color); }
 #timeCodeHeaderUses { color: var(--lightseagreen-text-color); }
 
 .headerLoadoutSlots {
@@ -7079,13 +7106,13 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     height: 1.75em;
     padding: 0 0.25em;
     font-size: inherit;
-    border: 2px solid blue;
+    border: 2px solid var(--blue-color);
 }
 
 .headerLoadoutSlot.headerLoadoutActive {
     background-color: #1d4ed8;
-    border-color: deepskyblue;
-    color: white;
+    border-color: var(--deepskyblue-color);
+    color: var(--white-color);
     font-weight: bold;
 }
 
@@ -7132,7 +7159,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .headerLoadoutIcons > button[aria-pressed="true"] {
-    border-color: gold;
+    border-color: var(--gold-color);
     background-color: var(--purplebtn-color);
 }
 
@@ -7172,7 +7199,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 #mainHeader.headerEditMode .headerModule.headerModuleSelected {
-    outline: 2px solid gold;
+    outline: 2px solid var(--gold-color);
     outline-offset: 1px;
 }
 
@@ -7197,7 +7224,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     position: fixed;
     z-index: 1000;
     box-sizing: border-box;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     border-radius: 3px;
     background-color: #ffd70033;
     pointer-events: none;
@@ -7223,12 +7250,12 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     border: 1px solid #ffffff80;
     border-radius: 5px;
     background-color: var(--button-color);
-    color: white;
+    color: var(--white-color);
 }
 
 #headerEditToolbar button[aria-pressed="true"],
 #headerEditToolbar #headerEditDone {
-    border-color: gold;
+    border-color: var(--gold-color);
     background-color: var(--purplebtn-color);
 }
 
@@ -7273,7 +7300,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 #headerTray.headerTrayDropTarget {
-    border-color: gold;
+    border-color: var(--gold-color);
     background-color: #ffd7001a;
 }
 
@@ -7289,23 +7316,23 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 #ascC10 {
-    color: limegreen;
+    color: var(--limegreen-color);
 }
 
 #ascTimeAccel {
-    color: royalblue;
+    color: var(--royalblue-color);
 }
 
 #ascAscensionTimeAccel {
-    color: orange;
+    color: var(--orange-color);
 }
 
 #ascSingularityCount {
-    color: gold;
+    color: var(--gold-color);
 }
 
 #ascSingLen {
-    color: gold;
+    color: var(--gold-color);
 }
 
 #tabBorder {
@@ -7332,7 +7359,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .challengePortion {
     width: 26em;
     max-width: 450px;
-    color: white;
+    color: var(--white-color);
     margin: 0;
 }
 
@@ -7391,7 +7418,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     flex-direction: column;
     margin-bottom: auto;
     padding: 5px 10px;
-    color: white;
+    color: var(--white-color);
     text-align: left;
     font-size: 1em;
     white-space: pre-wrap;
@@ -7413,7 +7440,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: gold;
+    color: var(--gold-color);
     font-size: 1.1em;
 }
 
@@ -7425,17 +7452,17 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .platonicUpgradeModalDescription {
-    color: white;
+    color: var(--white-color);
     line-height: 1.35;
 }
 
 .platonicUpgradeModalLevel {
-    color: cyan;
+    color: var(--cyan-color);
 }
 
 .platonicUpgradeModalLevel.maxed,
 .platonicUpgradeModalStatus.maxed {
-    color: gold;
+    color: var(--gold-color);
 }
 
 .platonicUpgradeModalCosts {
@@ -7503,7 +7530,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .hepteractGrid button {
-    border: 2px solid pink;
+    border: 2px solid var(--pink-color);
     width: 100%;
     min-height: 26px;
     height: 1.4em;
@@ -7519,7 +7546,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .autoHepteractText {
     margin-bottom: 5px;
-    color: lightgoldenrodyellow;
+    color: var(--lightgoldenrodyellow-color);
     text-align: center;
 }
 
@@ -7537,7 +7564,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .meter > span {
     display: block;
     height: 100%;
-    color: white;
+    color: var(--white-color);
 }
 
 .progressBar {
@@ -7554,7 +7581,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .progressText {
     position: absolute;
-    color: white;
+    color: var(--white-color);
     line-height: 1;
     z-index: 2;
     left: 50%;
@@ -7602,7 +7629,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .actualHotkey {
     padding: 1px 15px;
-    color: gold;
+    color: var(--gold-color);
     min-height: 2em;
 }
 
@@ -7645,7 +7672,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 /* Singularity Elevator Styles */
 .singularityElevatorContainer {
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     border-radius: 8px;
     padding: 20px;
     margin: 20px auto;
@@ -7682,14 +7709,14 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .elevatorInput:focus {
     outline: none;
-    border-color: orange;
+    border-color: var(--orange-color);
 }
 
 .elevatorButton {
     --glow-color: gold;
 
     transition: background-color 0.2s ease, color 0.2s ease !important;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     border-radius: 6px;
     padding: 12px 24px;
     color: var(--text-color);
@@ -7701,7 +7728,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .elevatorInput {
     background-color: var(--input-color);
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     border-radius: 4px;
     padding: 8px 12px;
     color: var(--text-color);
@@ -7719,7 +7746,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .elevatorButton:hover {
     background-color: white !important;
-    border: 2px solid lightgoldenrodyellow;
+    border: 2px solid var(--lightgoldenrodyellow-color);
     color: black;
     box-shadow:
         0 0 15px var(--glow-color),
@@ -7740,7 +7767,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 #elevatorSettings {
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -7888,7 +7915,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     box-sizing: border-box;
     width: 16px;
     height: 16px;
-    border: 3px solid white;
+    border: 3px solid var(--white-color);
     border-radius: 50%;
     background-color: var(--box-color);
     box-shadow: 0 0 6px var(--octeract-line-color);
@@ -8006,7 +8033,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     box-shadow:
         0 0 0 2px var(--box-color),
         0 0 13px lightseagreen;
-    outline: 2px dotted lightseagreen;
+    outline: 2px dotted var(--lightseagreen-color);
     outline-offset: 2px;
 }
 
@@ -8019,7 +8046,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 #octeractUpgradeContainer .octeractUpgrade:hover,
 #octeractUpgradeContainer .octeractUpgrade:focus-visible {
-    outline: 2px solid white;
+    outline: 2px solid var(--white-color);
     outline-offset: 3px;
     transform: translateY(-2px) scale(1.05);
 }
@@ -8110,7 +8137,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .toggleMaxedUpgrades {
-    border: 2px solid green;
+    border: 2px solid var(--green-color);
     min-width: 15em;
 }
 
@@ -8126,7 +8153,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     right: 0;
     padding: 5px;
     margin: 2px;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
 }
 
 #octeractUpgradeFooter {
@@ -8306,7 +8333,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 #blueberryDisplay {
-    color: lightblue;
+    color: var(--lightblue-color);
 }
 
 #blueberryDisplay > p {
@@ -8357,7 +8384,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     min-height: inherit;
     padding: 0 96px;
     overflow-wrap: anywhere;
-    color: white;
+    color: var(--white-color);
     font-weight: bold;
     text-align: center;
     text-shadow: 0 1px 2px rgb(0 0 0 / 80%);
@@ -8368,7 +8395,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     position: absolute;
     top: 50%;
     left: 28px;
-    color: white;
+    color: var(--white-color);
     font-weight: bold;
     white-space: nowrap;
     text-shadow: 0 1px 2px rgb(0 0 0 / 80%);
@@ -8386,7 +8413,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 #pixelProgressBar {
-    border-color: maroon;
+    border-color: var(--maroon-color);
 }
 
 #pixelProgress {
@@ -8437,7 +8464,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     height: 100%;
     min-height: 0;
     overflow: hidden;
-    color: white;
+    color: var(--white-color);
     font-size: 16px;
     text-align: left;
 }
@@ -8532,7 +8559,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .synthesisConversion {
     grid-area: conversion;
     margin: 0;
-    color: lightgray;
+    color: var(--lightgray-color);
     font-size: 16px;
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.02em;
@@ -8541,7 +8568,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .synthesisConversionRed {
-    color: red;
+    color: var(--red-color);
 }
 
 .synthesisConversionPurple {
@@ -8620,37 +8647,37 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .synthesisUpgradeTitle {
-    color: white;
+    color: var(--white-color);
     font-weight: bold;
     line-height: 1.1;
 }
 
 .synthesisUpgradeLevel {
-    color: lightgray;
+    color: var(--lightgray-color);
     font-variant-numeric: tabular-nums;
     text-align: right;
     white-space: nowrap;
 }
 
 .synthesisUpgradeFlavor {
-    color: silver;
+    color: var(--silver-color);
     font-style: italic;
 }
 
 .synthesisUpgradeEffect {
-    color: white;
+    color: var(--white-color);
 }
 
 .synthesisUpgradeEffectMaxed {
-    color: plum;
+    color: var(--plum-color);
 }
 
 .synthesisUpgradeNextCost {
-    color: lightgray;
+    color: var(--lightgray-color);
 }
 
 .synthesisUpgradeAP {
-    color: gold;
+    color: var(--gold-color);
 }
 
 .synthesisUpgradePurchaseButtons,
@@ -8679,14 +8706,14 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     min-height: 34px;
     padding: 3px 10px;
     border: 2px solid var(--purple-text-color);
-    color: white;
+    color: var(--white-color);
     line-height: 1.3;
     white-space: pre-line;
 }
 
 .synthesisUpgradePurchaseButton:disabled {
     border-color: #555;
-    color: gray;
+    color: var(--gray-color);
     cursor: not-allowed;
 }
 
@@ -8763,7 +8790,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .synthesisBalance,
 .synthesisProductStat {
-    color: lightgray;
+    color: var(--lightgray-color);
     font-size: 16px;
     font-variant-numeric: tabular-nums;
     line-height: 1.15;
@@ -8842,7 +8869,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .synthesisCraftableTitle {
     margin: 0;
-    color: lightgray;
+    color: var(--lightgray-color);
     font-size: 16px;
     font-weight: bold;
     text-align: center;
@@ -8875,7 +8902,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     border: 2px solid var(--purple-text-color);
     border-radius: 2px;
     background-color: var(--button-color);
-    color: white;
+    color: var(--white-color);
     font: inherit;
     line-height: 1.2;
     overflow-wrap: anywhere;
@@ -8890,7 +8917,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .synthesisCraftButtonRow > button:disabled {
     border-color: #555;
     background-color: var(--box-color);
-    color: gray;
+    color: var(--gray-color);
     cursor: not-allowed;
 }
 
@@ -8931,7 +8958,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     align-items: stretch;
     border-left: 3px solid transparent;
     background: none;
-    color: white;
+    color: var(--white-color);
 }
 
 .purpleUpgradeFamilyRow:where(:hover) {
@@ -8952,7 +8979,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     padding: 5px 8px;
     border: 0;
     background: none;
-    color: white;
+    color: var(--white-color);
     font: inherit;
     text-align: left;
     cursor: pointer;
@@ -8990,7 +9017,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     width: 26px;
     height: 26px;
     padding: 2px;
-    border: 1px solid gray;
+    border: 1px solid var(--gray-color);
     border-radius: 2px;
     background: none;
     cursor: pointer;
@@ -9008,11 +9035,11 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .purpleUpgradeCantAfford {
-    color: gray;
+    color: var(--gray-color);
 }
 
 .purpleUpgradeFamilyMaxed {
-    color: gold;
+    color: var(--gold-color);
 }
 
 #purpleUpgradeDetail {
@@ -9041,9 +9068,9 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     gap: 3px;
     min-width: 70px;
     padding: 6px 8px;
-    border: 1px solid gray;
+    border: 1px solid var(--gray-color);
     background: none;
-    color: white;
+    color: var(--white-color);
     font: inherit;
     font-size: 0.75em;
     cursor: pointer;
@@ -9063,7 +9090,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .purpleUpgradeTierShortcutMaxed,
 .purpleUpgradeTierMaxed {
-    border-color: gold;
+    border-color: var(--gold-color);
 }
 
 #purpleUpgradeDetailText {
@@ -9089,8 +9116,8 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 #purpleUpgradeDetailButtons > button:disabled {
-    border-color: gray;
-    color: gray;
+    border-color: var(--gray-color);
+    color: var(--gray-color);
     cursor: not-allowed;
 }
 
@@ -9212,30 +9239,30 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     height: 30px;
     cursor: pointer;
     text-align: center;
-    border: 2px solid orange;
+    border: 2px solid var(--orange-color);
 }
 
 .blueberryLoadoutSlot {
     height: 32px;
     width: 32px;
-    border: 2px solid blue;
+    border: 2px solid var(--blue-color);
 }
 
 .blueberryLoadoutSlot.activeBlueberryLoadout {
     background-color: #1d4ed8;
-    border-color: deepskyblue;
-    color: white;
+    border-color: var(--deepskyblue-color);
+    color: var(--white-color);
     font-weight: bold;
 }
 
 #ambrosiaEditLevels.ambrosiaEditingToggled {
     background-color: #4a2c00;
-    border-color: gold;
-    color: gold;
+    border-color: var(--gold-color);
+    color: var(--gold-color);
 }
 
 #blueberryUpgradeContainer.ambrosiaEditing .blueberryUpgrade {
-    outline: 1px dashed orange;
+    outline: 1px dashed var(--orange-color);
     outline-offset: -1px;
 }
 
@@ -9259,17 +9286,17 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .ambrosiaEditModal .ambrosiaEditSave {
-    border-color: lime;
+    border-color: var(--lime-color);
 }
 
 .ambrosiaEditModal .ambrosiaEditDiscard {
-    border-color: crimson;
+    border-color: var(--crimson-color);
 }
 
 .blueberryLoadoutSetting {
     height: 32px;
     width: 192px;
-    border: 2px solid blue;
+    border: 2px solid var(--blue-color);
 }
 
 .rainbowBorder {
@@ -9316,17 +9343,17 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 @keyframes rainbow-border {
-    0% { border-color: #f00; }
+    0% { border-color: var(--red-color); }
     16.67% { border-color: #ff7f00; }
-    33.33% { border-color: #ff0; }
-    50% { border-color: #0f0; }
-    66.67% { border-color: #00f; }
+    33.33% { border-color: var(--yellow-color); }
+    50% { border-color: var(--lime-color); }
+    66.67% { border-color: var(--blue-color); }
     83.33% { border-color: #8b00ff; }
-    100% { border-color: #f00; }
+    100% { border-color: var(--red-color); }
 }
 
 .talismanRarityRainbowBorder {
-    border: 2px solid #f00;
+    border: 2px solid var(--red-color);
     animation: rainbow-border 2s linear infinite;
 }
 
@@ -9502,7 +9529,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     align-items: center;
     justify-content: center;
     gap: 10px;
-    color: gold;
+    color: var(--gold-color);
     font-size: 1.1em;
     flex-wrap: wrap;
 }
@@ -9514,11 +9541,11 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .singularityPerkModalLevel {
-    color: lightgoldenrodyellow;
+    color: var(--lightgoldenrodyellow-color);
 }
 
 .singularityPerkModalNextLevel {
-    color: white;
+    color: var(--white-color);
 }
 
 .singularityPerkModalDescription {
@@ -9632,13 +9659,13 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .singularityPerkRecentlyUpgraded {
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
 
     --singularity-perk-recent-glow: 0 0 4px gold;
 }
 
 .singularityPerkRecentlyUnlocked {
-    border: 2px solid limegreen;
+    border: 2px solid var(--limegreen-color);
 
     --singularity-perk-recent-glow: 0 0 4px limegreen;
 }
@@ -9675,7 +9702,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .newPerk:focus-visible,
 .oldPerk:focus-visible {
-    outline: 2px solid white;
+    outline: 2px solid var(--white-color);
     outline-offset: 2px;
 }
 
@@ -9703,7 +9730,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .event-title {
     margin: 0 0 10px;
-    color: #ffd700;
+    color: var(--gold-color);
 }
 
 #event-bonus,
@@ -9753,7 +9780,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .consumableButton,
 #apply-tips {
-    border: 2px solid #ffd700;
+    border: 2px solid var(--gold-color);
     background-color: #ffd700;
     color: black;
     cursor: pointer;
@@ -9782,7 +9809,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .blueberryPrereq {
-    outline: 2px solid red;
+    outline: 2px solid var(--red-color);
     outline-offset: -2px;
 }
 
@@ -9791,7 +9818,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .redAmbrosiaTarget {
-    outline: 2px solid red;
+    outline: 2px solid var(--red-color);
     outline-offset: -2px;
 }
 
@@ -9805,7 +9832,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .ambrosiaPrerequisiteHeading {
     display: block;
     margin-bottom: 4px;
-    color: lightgray;
+    color: var(--lightgray-color);
     font-size: 0.875em;
 }
 
@@ -9942,7 +9969,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     grid-row: var(--ambrosia-arrow-row);
     display: flex;
     padding: 2px;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
 }
 
 .ambrosiaDependencyTarget > img {
@@ -10065,14 +10092,14 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .maxBlueberryLevel,
 .maxRedAmbrosiaLevel,
 .maxPurpleAmbrosiaLevel {
-    color: orchid;
+    color: var(--orchid-color);
     font-weight: bold;
 }
 
 .notMaxBlueberryLevel,
 .notMaxRedAmbrosiaLevel,
 .notMaxPurpleAmbrosiaLevel {
-    color: white;
+    color: var(--white-color);
 }
 
 /* Stolen from https://codepen.io/mike-schultz/pen/NgQvGO */
@@ -10133,7 +10160,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 #accountActions > button {
-    border: 2px solid red;
+    border: 2px solid var(--red-color);
     min-width: 150px;
     min-height: 30px;
     margin: 2px;
@@ -10156,11 +10183,11 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     max-width: 100%;
     margin: 5px auto;
     padding: 5px 10px;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
 }
 
 .accountFormTitle {
-    color: gold;
+    color: var(--gold-color);
     text-align: center;
 }
 
@@ -10181,11 +10208,11 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .accountFormStatus[data-state="error"] {
-    color: crimson;
+    color: var(--crimson-color);
 }
 
 .accountFormStatus[data-state="success"] {
-    color: lime;
+    color: var(--lime-color);
 }
 
 .accountFormButtons {
@@ -10201,7 +10228,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     gap: 6px;
     min-height: 28px;
     padding: 3px 8px;
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
 }
 
 .accountFormButtons > button:disabled {
@@ -10233,22 +10260,22 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     max-height: 100%;
     overflow-y: auto;
     padding: 16px;
-    color: white;
+    color: var(--white-color);
     background-color: var(--alert-color);
 }
 
 #feedbackMessage {
     padding: 4px;
-    color: white;
+    color: var(--white-color);
     background-color: var(--blackbtn-color);
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     resize: vertical;
 }
 
 #feedbackForm input::file-selector-button {
-    color: white;
+    color: var(--white-color);
     background-color: var(--button-color);
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     cursor: pointer;
 }
 
@@ -10276,12 +10303,12 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 #accountSubTab div#right.scrollbarX #transfer {
     min-width: 100px;
     min-height: 30px;
-    border: 2px solid purple;
+    border: 2px solid var(--purple-color);
     margin: 2px;
 }
 
 #accountSubTab div#right.scrollbarX #transfer {
-    border: 2px solid pink;
+    border: 2px solid var(--pink-color);
 }
 
 .spinner {
@@ -10323,7 +10350,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid var(--white-color);
     padding-bottom: 5px;
     padding-top: 0;
 }
@@ -10383,7 +10410,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .details-actions .btn-download {
     background: var(--success-color, #28a745);
-    color: white;
+    color: var(--white-color);
 }
 
 .details-actions .btn-download:hover {
@@ -10392,7 +10419,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .details-actions .btn-load {
     background: var(--primary-color, #007bff);
-    color: white;
+    color: var(--white-color);
 }
 
 .details-actions .btn-load:hover {
@@ -10401,7 +10428,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .details-actions .btn-rename {
     background: var(--secondary-color, #6c757d);
-    color: white;
+    color: var(--white-color);
 }
 
 .details-actions .btn-rename:hover {
@@ -10410,7 +10437,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .details-actions .btn-refresh {
     background: var(--info-color, #17a2b8);
-    color: white;
+    color: var(--white-color);
 }
 
 .details-actions .btn-refresh:hover {
@@ -10419,7 +10446,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .details-actions .btn-delete {
     background: var(--danger-color, #dc3545);
-    color: white;
+    color: var(--white-color);
 }
 
 .details-actions .btn-delete:hover {
@@ -10488,7 +10515,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     padding: 0 8px 12px;
     border-bottom: 1px solid rgb(176 0 176 / 55%);
     background-color: transparent;
-    color: lightgray;
+    color: var(--lightgray-color);
     font-size: 0.9em;
     font-variant-numeric: tabular-nums;
     line-height: 1.4;
@@ -10663,7 +10690,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .purpleReactorPanelLabel {
     min-width: 0;
     margin: 0;
-    color: gray;
+    color: var(--gray-color);
     font-size: 0.72em;
     letter-spacing: 0.12em;
     line-height: 1.1;
@@ -10681,7 +10708,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     flex: 1 1 auto;
     min-width: 0;
     margin: 0;
-    color: lightgray;
+    color: var(--lightgray-color);
     font-size: 0.8em;
     line-height: 1.2;
 }
@@ -10738,7 +10765,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--white-color);
     font-weight: bold;
     font-variant-numeric: tabular-nums;
     text-shadow: 0 1px 2px black;
@@ -10973,7 +11000,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .purpleReactantPercentageSlider:focus-visible {
-    outline: 2px solid white;
+    outline: 2px solid var(--white-color);
 }
 
 .purpleReactantPercentageSlider::-webkit-slider-runnable-track {
@@ -10995,7 +11022,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     width: 18px;
     height: 18px;
     margin-top: -6px;
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     border-radius: 50%;
     background-color: var(--reactant-bright);
     box-shadow: 0 0 7px rgb(var(--reactant-rgb) / 75%);
@@ -11018,7 +11045,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .purpleReactantPercentageSlider::-moz-range-thumb {
     width: 18px;
     height: 18px;
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     border-radius: 50%;
     background-color: var(--reactant-bright);
     box-shadow: 0 0 7px rgb(var(--reactant-rgb) / 75%);
@@ -11028,7 +11055,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     display: flex;
     justify-content: space-between;
     padding: 0 4px;
-    color: silver;
+    color: var(--silver-color);
     font-size: 0.7em;
     font-variant-numeric: tabular-nums;
     line-height: 1;
@@ -11306,7 +11333,7 @@ form input:hover {
 }
 
 #manage-subscription-holder > form > input[type="submit"] {
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     background-color: var(--box-color);
     width: 200px;
     height: 40px;
@@ -11320,7 +11347,7 @@ form input:hover {
 .subscriptionManager:focus-within > div { display: flex; }
 
 .subscriptionManager > button {
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     width: 200px;
     height: 40px;
     margin: 5px;
@@ -11330,7 +11357,7 @@ form input:hover {
     position: absolute;
     display: none;
     flex-direction: column;
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     margin-top: 50px;
     background-color: var(--box-color);
 }
@@ -11349,7 +11376,7 @@ form input:hover {
 }
 
 .subscriptionWebsite {
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     background-color: darkgoldenrod;
     color: var(--text-color);
     margin: 2px;
@@ -11357,7 +11384,7 @@ form input:hover {
 }
 
 .subscriptionCancel {
-    border: 1px solid red;
+    border: 1px solid var(--red-color);
     background-color: maroon;
     color: var(--text-color);
     margin: 2px;
@@ -11373,14 +11400,13 @@ form input:hover {
 .pseudoCoinContainer {
     margin: 10px 10px 0 0;
     border: 1px solid #ccc;
-    border: 2px solid orchid;
+    border: 2px solid var(--orchid-color);
     text-align: center;
 }
 
 .subscriptionContainer {
     margin: 0;
-    border: 1px solid lightgoldenrodyellow;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -11429,7 +11455,7 @@ form input:hover {
 }
 
 #pseudoCoins > #supportContainer > a {
-    border: 1px solid gold;
+    border: 1px solid var(--gold-color);
     padding: 4px 8px;
 }
 
@@ -11464,9 +11490,9 @@ form input:hover {
     width: 75%;
     padding: 10px;
     background-color: black;
-    color: white;
+    color: var(--white-color);
     cursor: pointer;
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     font-size: 1.2em;
     overflow-wrap: break-word;
     margin-bottom: 5px;
@@ -11485,7 +11511,7 @@ html[data-mobile="false"] .pseudoCoinButton {
 #cart {
     width: fit-content;
     margin: 5px auto 0;
-    border: 2px solid white;
+    border: 2px solid var(--white-color);
     border-radius: 5px;
 }
 
@@ -11520,7 +11546,7 @@ html[data-mobile="false"] .pseudoCoinButton {
 .cartListElementContainer > button {
     min-height: unset;
     height: 50%;
-    border: 2px solid green;
+    border: 2px solid var(--green-color);
     border-radius: 2px;
 }
 
@@ -11674,7 +11700,7 @@ html[data-mobile="false"] .pseudoCoinButton {
     display: flex;
     flex-wrap: wrap;
     gap: 2px 16px;
-    color: pink;
+    color: var(--pink-color);
 }
 
 .consumableBuy {
@@ -11759,7 +11785,7 @@ html[data-mobile="false"] .pseudoCoinButton {
 }
 
 #upgradeGrid > div[data-id].active {
-    outline: 2px solid white;
+    outline: 2px solid var(--white-color);
 }
 
 #pseudoCoinBalanceDisplay {
@@ -11807,11 +11833,11 @@ html[data-mobile="false"] .pseudoCoinButton {
 }
 
 .pseudoCoinBalanceValue {
-    color: gold;
+    color: var(--gold-color);
 }
 
 .lotusBalanceValue {
-    color: pink;
+    color: var(--pink-color);
 }
 
 #upgradeInfo {
@@ -11873,7 +11899,7 @@ html[data-mobile="false"] .pseudoCoinButton {
 
 #buy {
     width: 100%;
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     font-size: 1.2em;
 }
 
@@ -12505,7 +12531,7 @@ html[data-mobile="true"] .hideOnMobile {
     width: 60px;
     height: 30px;
     background-color: var(--button-color);
-    border: 2px solid gold;
+    border: 2px solid var(--gold-color);
     margin: 5px auto;
     text-align: center;
 }
@@ -12545,7 +12571,7 @@ html[data-mobile="true"] .hideOnMobile {
 
 .resetModalTitle {
     font-size: 1.15em;
-    color: gold;
+    color: var(--gold-color);
 }
 
 .resetModalTitle img,
@@ -12559,7 +12585,7 @@ html[data-mobile="true"] .hideOnMobile {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    color: gold;
+    color: var(--gold-color);
 }
 
 .resetModalInfo {
@@ -12612,7 +12638,7 @@ html[data-mobile="true"] .hideOnMobile {
 }
 
 .rainbow-border-highlight {
-    border: 3px solid #f00;
+    border: 3px solid var(--red-color);
     border-radius: 5px;
     padding: 5px;
     animation: rainbow-border 2s linear infinite;
@@ -13910,7 +13936,7 @@ html[data-mobile="true"] .hideOnMobile {
         width: auto;
         max-height: 40vh;
         border-right: none;
-        border-bottom: 1px solid plum;
+        border-bottom: 1px solid var(--plum-color);
     }
 
     #shopDetail {
@@ -14003,4 +14029,875 @@ html[data-mobile="true"] .hideOnMobile {
             width: 100%;
         }
     }
+}
+
+body.lightTheme {
+    color-scheme: light;
+
+    --white-color: #191922;
+    --whitesmoke-color: #25252e;
+    --gainsboro-color: #2f2f39;
+    --lightgray-color: #3a3a45;
+    --lightgrey-color: #3a3a45;
+    --silver-color: #454550;
+    --darkgray-color: #4c4c56;
+    --gray-color: #55555f;
+    --grey-color: #55555f;
+    --lightslategray-color: #4a5a6a;
+    --lightslategrey-color: #4a5a6a;
+    --ivory-color: #605c04;
+    --beige-color: #605c04;
+    --honeydew-color: #2b6b2b;
+    --gold-color: #695803;
+    --goldenrod-color: #735503;
+    --darkgoldenrod-color: #765402;
+    --yellow-color: #5d5d00;
+    --khaki-color: #5f5c04;
+    --lightgoldenrodyellow-color: #5f5c04;
+    --wheat-color: #7d5003;
+    --bisque-color: #7d5003;
+    --burlywood-color: #7c5000;
+    --peru-color: #83500c;
+    --orange-color: #7e5002;
+    --orangered-color: #a82b01;
+    --darkorange-color: #8a4901;
+    --tomato-color: #a8301a;
+    --red-color: #b80000;
+    --crimson-color: #b5012d;
+    --maroon-color: #800000;
+    --brown-color: #a52a2a;
+    --rosybrown-color: #7a5252;
+    --lightcoral-color: #9d363b;
+    --pink-color: #903f53;
+    --plum-color: #7d457e;
+    --orchid-color: #942c92;
+    --darkorchid-color: #8b1fbd;
+    --violet-color: #932a95;
+    --fuchsia-color: #a100a1;
+    --magenta-color: #a100a1;
+    --purple-color: #800080;
+    --mediumpurple-color: #6a3fb5;
+    --slateblue-color: #5149ba;
+    --green-color: #026901;
+    --greenyellow-color: #406400;
+    --lime-color: #026901;
+    --limegreen-color: #036906;
+    --palegreen-color: #016912;
+    --lightgreen-color: #016912;
+    --aqua-color: #056464;
+    --aquamarine-color: #02664e;
+    --turquoise-color: #06655d;
+    --teal-color: #006464;
+    --cyan-color: #056464;
+    --lightseagreen-color: #046560;
+    --deepskyblue-color: #016183;
+    --lightskyblue-color: #036089;
+    --skyblue-color: #06617c;
+    --lightblue-color: #056277;
+    --steelblue-color: #125d92;
+    --cornflowerblue-color: #2f5bb5;
+    --royalblue-color: #2c4fc5;
+    --blue-color: #00f;
+    --blueviolet-color: #6a1fc2;
+    --header-color: #eceef2;
+    --bg-color: #f6f7f9;
+    --alert-color: #fff;
+    --history-lines: #e3e5ea;
+    --box-color: #fff;
+    --boxmain-bordercolor: var(--plum-color);
+    --blueberry-box-color: #2a58bd;
+    --purple-box-color: var(--purple-color);
+    --button-color: #fff;
+    --hover-color: #e2e5ea;
+    --blackbtn-color: #fff;
+    --purplebtn-color: #f3e0f3;
+    --purplehover-color: #eccfec;
+    --buttonbuy-color: #eceef2;
+    --buildings-canbuy-color: #d9e8fb;
+    --buildings-hover-color: #c5dcf9;
+    --blessings-canbuy-color: #e3edfb;
+    --blessings-hover-color: #d9e8fb;
+    --tab-color: #fff;
+    --singtab-color: #e4e4f7;
+    --buttonimg-color: #fff;
+    --hoversing-color: #d6d6f0;
+    --shoptab-color: #f3e0f3;
+    --hovershop-color: #eccfec;
+    --hepteract-bar-empty: #e6e8ed;
+    --hepteract-bar-red: #f7b9b9;
+    --hepteract-bar-yellow: #f5e28a;
+    --hepteract-bar-green: #b4e4b4;
+    --scrollbar-color: #7c7c8c;
+    --scrollbar-bg-color: #eceef2;
+    --text-color: var(--white-color);
+    --green-text-color: var(--green-color);
+    --lime-text-color: var(--lime-color);
+    --lightseagreen-text-color: var(--lightseagreen-color);
+    --red-text-color: var(--red-color);
+    --maroon-text-color: var(--maroon-color);
+    --crimson-text-color: var(--crimson-color);
+    --orchid-text-color: var(--orchid-color);
+    --darkorchid-text-color: var(--darkorchid-color);
+    --violet-text-color: var(--violet-color);
+    --darkcyan-text-color: var(--cyan-color);
+    --orangered-text-color: var(--orangered-color);
+    --gray-text-color: var(--gray-color);
+    --amber-text-color: var(--goldenrod-color);
+    --lightgoldenrodyellow-text-color: var(--lightgoldenrodyellow-color);
+    --purple-text-color: var(--fuchsia-color);
+    --blueberry-text-color: #5149ba;
+    --darkgold-color: var(--goldenrod-color);
+    --wowcube-color: var(--gold-color);
+    --tesseract-color: var(--orange-color);
+    --hypercube-color: var(--crimson-color);
+    --platonic-color: var(--orchid-color);
+    --hepteract-color: #6a3fb5;
+    --success-color: #c4e9c4;
+    --success-hover: #b4e2b4;
+    --primary-color: #c5dcf9;
+    --primary-hover: #b5d2f7;
+    --secondary-color: #e2e5ea;
+    --secondary-hover: #d5d8e0;
+    --info-color: #bdeef1;
+    --info-hover: #a9e8ec;
+    --danger-color: #fbcfd7;
+    --danger-hover: #f9bcc8;
+
+    [style^="color:white"], [style*=" color:white"], [style*=";color:white"], [style^="color: white"], [style*=" color: white"], [style*=";color: white"] { color: var(--white-color) !important; }
+    [style*="solid white"], [style*="border-color:white"], [style*="border-color: white"] { border-color: var(--white-color) !important; }
+    [style^="color:whitesmoke"], [style*=" color:whitesmoke"], [style*=";color:whitesmoke"], [style^="color: whitesmoke"], [style*=" color: whitesmoke"], [style*=";color: whitesmoke"] { color: var(--whitesmoke-color) !important; }
+    [style*="solid whitesmoke"], [style*="border-color:whitesmoke"], [style*="border-color: whitesmoke"] { border-color: var(--whitesmoke-color) !important; }
+    [style^="color:gainsboro"], [style*=" color:gainsboro"], [style*=";color:gainsboro"], [style^="color: gainsboro"], [style*=" color: gainsboro"], [style*=";color: gainsboro"] { color: var(--gainsboro-color) !important; }
+    [style*="solid gainsboro"], [style*="border-color:gainsboro"], [style*="border-color: gainsboro"] { border-color: var(--gainsboro-color) !important; }
+    [style^="color:lightgray"], [style*=" color:lightgray"], [style*=";color:lightgray"], [style^="color: lightgray"], [style*=" color: lightgray"], [style*=";color: lightgray"] { color: var(--lightgray-color) !important; }
+    [style*="solid lightgray"], [style*="border-color:lightgray"], [style*="border-color: lightgray"] { border-color: var(--lightgray-color) !important; }
+    [style^="color:lightgrey"], [style*=" color:lightgrey"], [style*=";color:lightgrey"], [style^="color: lightgrey"], [style*=" color: lightgrey"], [style*=";color: lightgrey"] { color: var(--lightgrey-color) !important; }
+    [style*="solid lightgrey"], [style*="border-color:lightgrey"], [style*="border-color: lightgrey"] { border-color: var(--lightgrey-color) !important; }
+    [style^="color:silver"], [style*=" color:silver"], [style*=";color:silver"], [style^="color: silver"], [style*=" color: silver"], [style*=";color: silver"] { color: var(--silver-color) !important; }
+    [style*="solid silver"], [style*="border-color:silver"], [style*="border-color: silver"] { border-color: var(--silver-color) !important; }
+    [style^="color:darkgray"], [style*=" color:darkgray"], [style*=";color:darkgray"], [style^="color: darkgray"], [style*=" color: darkgray"], [style*=";color: darkgray"] { color: var(--darkgray-color) !important; }
+    [style*="solid darkgray"], [style*="border-color:darkgray"], [style*="border-color: darkgray"] { border-color: var(--darkgray-color) !important; }
+    [style^="color:gray"], [style*=" color:gray"], [style*=";color:gray"], [style^="color: gray"], [style*=" color: gray"], [style*=";color: gray"] { color: var(--gray-color) !important; }
+    [style*="solid gray"], [style*="border-color:gray"], [style*="border-color: gray"] { border-color: var(--gray-color) !important; }
+    [style^="color:grey"], [style*=" color:grey"], [style*=";color:grey"], [style^="color: grey"], [style*=" color: grey"], [style*=";color: grey"] { color: var(--grey-color) !important; }
+    [style*="solid grey"], [style*="border-color:grey"], [style*="border-color: grey"] { border-color: var(--grey-color) !important; }
+    [style^="color:lightslategray"], [style*=" color:lightslategray"], [style*=";color:lightslategray"], [style^="color: lightslategray"], [style*=" color: lightslategray"], [style*=";color: lightslategray"] { color: var(--lightslategray-color) !important; }
+    [style*="solid lightslategray"], [style*="border-color:lightslategray"], [style*="border-color: lightslategray"] { border-color: var(--lightslategray-color) !important; }
+    [style^="color:lightslategrey"], [style*=" color:lightslategrey"], [style*=";color:lightslategrey"], [style^="color: lightslategrey"], [style*=" color: lightslategrey"], [style*=";color: lightslategrey"] { color: var(--lightslategrey-color) !important; }
+    [style*="solid lightslategrey"], [style*="border-color:lightslategrey"], [style*="border-color: lightslategrey"] { border-color: var(--lightslategrey-color) !important; }
+    [style^="color:ivory"], [style*=" color:ivory"], [style*=";color:ivory"], [style^="color: ivory"], [style*=" color: ivory"], [style*=";color: ivory"] { color: var(--ivory-color) !important; }
+    [style*="solid ivory"], [style*="border-color:ivory"], [style*="border-color: ivory"] { border-color: var(--ivory-color) !important; }
+    [style^="color:beige"], [style*=" color:beige"], [style*=";color:beige"], [style^="color: beige"], [style*=" color: beige"], [style*=";color: beige"] { color: var(--beige-color) !important; }
+    [style*="solid beige"], [style*="border-color:beige"], [style*="border-color: beige"] { border-color: var(--beige-color) !important; }
+    [style^="color:honeydew"], [style*=" color:honeydew"], [style*=";color:honeydew"], [style^="color: honeydew"], [style*=" color: honeydew"], [style*=";color: honeydew"] { color: var(--honeydew-color) !important; }
+    [style*="solid honeydew"], [style*="border-color:honeydew"], [style*="border-color: honeydew"] { border-color: var(--honeydew-color) !important; }
+    [style^="color:gold"], [style*=" color:gold"], [style*=";color:gold"], [style^="color: gold"], [style*=" color: gold"], [style*=";color: gold"] { color: var(--gold-color) !important; }
+    [style*="solid gold"], [style*="border-color:gold"], [style*="border-color: gold"] { border-color: var(--gold-color) !important; }
+    [style^="color:goldenrod"], [style*=" color:goldenrod"], [style*=";color:goldenrod"], [style^="color: goldenrod"], [style*=" color: goldenrod"], [style*=";color: goldenrod"] { color: var(--goldenrod-color) !important; }
+    [style*="solid goldenrod"], [style*="border-color:goldenrod"], [style*="border-color: goldenrod"] { border-color: var(--goldenrod-color) !important; }
+    [style^="color:darkgoldenrod"], [style*=" color:darkgoldenrod"], [style*=";color:darkgoldenrod"], [style^="color: darkgoldenrod"], [style*=" color: darkgoldenrod"], [style*=";color: darkgoldenrod"] { color: var(--darkgoldenrod-color) !important; }
+    [style*="solid darkgoldenrod"], [style*="border-color:darkgoldenrod"], [style*="border-color: darkgoldenrod"] { border-color: var(--darkgoldenrod-color) !important; }
+    [style^="color:yellow"], [style*=" color:yellow"], [style*=";color:yellow"], [style^="color: yellow"], [style*=" color: yellow"], [style*=";color: yellow"] { color: var(--yellow-color) !important; }
+    [style*="solid yellow"], [style*="border-color:yellow"], [style*="border-color: yellow"] { border-color: var(--yellow-color) !important; }
+    [style^="color:khaki"], [style*=" color:khaki"], [style*=";color:khaki"], [style^="color: khaki"], [style*=" color: khaki"], [style*=";color: khaki"] { color: var(--khaki-color) !important; }
+    [style*="solid khaki"], [style*="border-color:khaki"], [style*="border-color: khaki"] { border-color: var(--khaki-color) !important; }
+    [style^="color:lightgoldenrodyellow"], [style*=" color:lightgoldenrodyellow"], [style*=";color:lightgoldenrodyellow"], [style^="color: lightgoldenrodyellow"], [style*=" color: lightgoldenrodyellow"], [style*=";color: lightgoldenrodyellow"] { color: var(--lightgoldenrodyellow-color) !important; }
+    [style*="solid lightgoldenrodyellow"], [style*="border-color:lightgoldenrodyellow"], [style*="border-color: lightgoldenrodyellow"] { border-color: var(--lightgoldenrodyellow-color) !important; }
+    [style^="color:bisque"], [style*=" color:bisque"], [style*=";color:bisque"], [style^="color: bisque"], [style*=" color: bisque"], [style*=";color: bisque"] { color: var(--bisque-color) !important; }
+    [style*="solid bisque"], [style*="border-color:bisque"], [style*="border-color: bisque"] { border-color: var(--bisque-color) !important; }
+    [style^="color:burlywood"], [style*=" color:burlywood"], [style*=";color:burlywood"], [style^="color: burlywood"], [style*=" color: burlywood"], [style*=";color: burlywood"] { color: var(--burlywood-color) !important; }
+    [style*="solid burlywood"], [style*="border-color:burlywood"], [style*="border-color: burlywood"] { border-color: var(--burlywood-color) !important; }
+    [style^="color:peru"], [style*=" color:peru"], [style*=";color:peru"], [style^="color: peru"], [style*=" color: peru"], [style*=";color: peru"] { color: var(--peru-color) !important; }
+    [style*="solid peru"], [style*="border-color:peru"], [style*="border-color: peru"] { border-color: var(--peru-color) !important; }
+    [style^="color:orange"], [style*=" color:orange"], [style*=";color:orange"], [style^="color: orange"], [style*=" color: orange"], [style*=";color: orange"] { color: var(--orange-color) !important; }
+    [style*="solid orange"], [style*="border-color:orange"], [style*="border-color: orange"] { border-color: var(--orange-color) !important; }
+    [style^="color:orangered"], [style*=" color:orangered"], [style*=";color:orangered"], [style^="color: orangered"], [style*=" color: orangered"], [style*=";color: orangered"] { color: var(--orangered-color) !important; }
+    [style*="solid orangered"], [style*="border-color:orangered"], [style*="border-color: orangered"] { border-color: var(--orangered-color) !important; }
+    [style^="color:darkorange"], [style*=" color:darkorange"], [style*=";color:darkorange"], [style^="color: darkorange"], [style*=" color: darkorange"], [style*=";color: darkorange"] { color: var(--darkorange-color) !important; }
+    [style*="solid darkorange"], [style*="border-color:darkorange"], [style*="border-color: darkorange"] { border-color: var(--darkorange-color) !important; }
+    [style^="color:tomato"], [style*=" color:tomato"], [style*=";color:tomato"], [style^="color: tomato"], [style*=" color: tomato"], [style*=";color: tomato"] { color: var(--tomato-color) !important; }
+    [style*="solid tomato"], [style*="border-color:tomato"], [style*="border-color: tomato"] { border-color: var(--tomato-color) !important; }
+    [style^="color:red"], [style*=" color:red"], [style*=";color:red"], [style^="color: red"], [style*=" color: red"], [style*=";color: red"] { color: var(--red-color) !important; }
+    [style*="solid red"], [style*="border-color:red"], [style*="border-color: red"] { border-color: var(--red-color) !important; }
+    [style^="color:crimson"], [style*=" color:crimson"], [style*=";color:crimson"], [style^="color: crimson"], [style*=" color: crimson"], [style*=";color: crimson"] { color: var(--crimson-color) !important; }
+    [style*="solid crimson"], [style*="border-color:crimson"], [style*="border-color: crimson"] { border-color: var(--crimson-color) !important; }
+    [style^="color:maroon"], [style*=" color:maroon"], [style*=";color:maroon"], [style^="color: maroon"], [style*=" color: maroon"], [style*=";color: maroon"] { color: var(--maroon-color) !important; }
+    [style*="solid maroon"], [style*="border-color:maroon"], [style*="border-color: maroon"] { border-color: var(--maroon-color) !important; }
+    [style^="color:brown"], [style*=" color:brown"], [style*=";color:brown"], [style^="color: brown"], [style*=" color: brown"], [style*=";color: brown"] { color: var(--brown-color) !important; }
+    [style*="solid brown"], [style*="border-color:brown"], [style*="border-color: brown"] { border-color: var(--brown-color) !important; }
+    [style^="color:rosybrown"], [style*=" color:rosybrown"], [style*=";color:rosybrown"], [style^="color: rosybrown"], [style*=" color: rosybrown"], [style*=";color: rosybrown"] { color: var(--rosybrown-color) !important; }
+    [style*="solid rosybrown"], [style*="border-color:rosybrown"], [style*="border-color: rosybrown"] { border-color: var(--rosybrown-color) !important; }
+    [style^="color:lightcoral"], [style*=" color:lightcoral"], [style*=";color:lightcoral"], [style^="color: lightcoral"], [style*=" color: lightcoral"], [style*=";color: lightcoral"] { color: var(--lightcoral-color) !important; }
+    [style*="solid lightcoral"], [style*="border-color:lightcoral"], [style*="border-color: lightcoral"] { border-color: var(--lightcoral-color) !important; }
+    [style^="color:pink"], [style*=" color:pink"], [style*=";color:pink"], [style^="color: pink"], [style*=" color: pink"], [style*=";color: pink"] { color: var(--pink-color) !important; }
+    [style*="solid pink"], [style*="border-color:pink"], [style*="border-color: pink"] { border-color: var(--pink-color) !important; }
+    [style^="color:plum"], [style*=" color:plum"], [style*=";color:plum"], [style^="color: plum"], [style*=" color: plum"], [style*=";color: plum"] { color: var(--plum-color) !important; }
+    [style*="solid plum"], [style*="border-color:plum"], [style*="border-color: plum"] { border-color: var(--plum-color) !important; }
+    [style^="color:orchid"], [style*=" color:orchid"], [style*=";color:orchid"], [style^="color: orchid"], [style*=" color: orchid"], [style*=";color: orchid"] { color: var(--orchid-color) !important; }
+    [style*="solid orchid"], [style*="border-color:orchid"], [style*="border-color: orchid"] { border-color: var(--orchid-color) !important; }
+    [style^="color:darkorchid"], [style*=" color:darkorchid"], [style*=";color:darkorchid"], [style^="color: darkorchid"], [style*=" color: darkorchid"], [style*=";color: darkorchid"] { color: var(--darkorchid-color) !important; }
+    [style*="solid darkorchid"], [style*="border-color:darkorchid"], [style*="border-color: darkorchid"] { border-color: var(--darkorchid-color) !important; }
+    [style^="color:violet"], [style*=" color:violet"], [style*=";color:violet"], [style^="color: violet"], [style*=" color: violet"], [style*=";color: violet"] { color: var(--violet-color) !important; }
+    [style*="solid violet"], [style*="border-color:violet"], [style*="border-color: violet"] { border-color: var(--violet-color) !important; }
+    [style^="color:fuchsia"], [style*=" color:fuchsia"], [style*=";color:fuchsia"], [style^="color: fuchsia"], [style*=" color: fuchsia"], [style*=";color: fuchsia"] { color: var(--fuchsia-color) !important; }
+    [style*="solid fuchsia"], [style*="border-color:fuchsia"], [style*="border-color: fuchsia"] { border-color: var(--fuchsia-color) !important; }
+    [style^="color:magenta"], [style*=" color:magenta"], [style*=";color:magenta"], [style^="color: magenta"], [style*=" color: magenta"], [style*=";color: magenta"] { color: var(--magenta-color) !important; }
+    [style*="solid magenta"], [style*="border-color:magenta"], [style*="border-color: magenta"] { border-color: var(--magenta-color) !important; }
+    [style^="color:purple"], [style*=" color:purple"], [style*=";color:purple"], [style^="color: purple"], [style*=" color: purple"], [style*=";color: purple"] { color: var(--purple-color) !important; }
+    [style*="solid purple"], [style*="border-color:purple"], [style*="border-color: purple"] { border-color: var(--purple-color) !important; }
+    [style^="color:mediumpurple"], [style*=" color:mediumpurple"], [style*=";color:mediumpurple"], [style^="color: mediumpurple"], [style*=" color: mediumpurple"], [style*=";color: mediumpurple"] { color: var(--mediumpurple-color) !important; }
+    [style*="solid mediumpurple"], [style*="border-color:mediumpurple"], [style*="border-color: mediumpurple"] { border-color: var(--mediumpurple-color) !important; }
+    [style^="color:slateblue"], [style*=" color:slateblue"], [style*=";color:slateblue"], [style^="color: slateblue"], [style*=" color: slateblue"], [style*=";color: slateblue"] { color: var(--slateblue-color) !important; }
+    [style*="solid slateblue"], [style*="border-color:slateblue"], [style*="border-color: slateblue"] { border-color: var(--slateblue-color) !important; }
+    [style^="color:green"], [style*=" color:green"], [style*=";color:green"], [style^="color: green"], [style*=" color: green"], [style*=";color: green"] { color: var(--green-color) !important; }
+    [style*="solid green"], [style*="border-color:green"], [style*="border-color: green"] { border-color: var(--green-color) !important; }
+    [style^="color:greenyellow"], [style*=" color:greenyellow"], [style*=";color:greenyellow"], [style^="color: greenyellow"], [style*=" color: greenyellow"], [style*=";color: greenyellow"] { color: var(--greenyellow-color) !important; }
+    [style*="solid greenyellow"], [style*="border-color:greenyellow"], [style*="border-color: greenyellow"] { border-color: var(--greenyellow-color) !important; }
+    [style^="color:lime"], [style*=" color:lime"], [style*=";color:lime"], [style^="color: lime"], [style*=" color: lime"], [style*=";color: lime"] { color: var(--lime-color) !important; }
+    [style*="solid lime"], [style*="border-color:lime"], [style*="border-color: lime"] { border-color: var(--lime-color) !important; }
+    [style^="color:limegreen"], [style*=" color:limegreen"], [style*=";color:limegreen"], [style^="color: limegreen"], [style*=" color: limegreen"], [style*=";color: limegreen"] { color: var(--limegreen-color) !important; }
+    [style*="solid limegreen"], [style*="border-color:limegreen"], [style*="border-color: limegreen"] { border-color: var(--limegreen-color) !important; }
+    [style^="color:palegreen"], [style*=" color:palegreen"], [style*=";color:palegreen"], [style^="color: palegreen"], [style*=" color: palegreen"], [style*=";color: palegreen"] { color: var(--palegreen-color) !important; }
+    [style*="solid palegreen"], [style*="border-color:palegreen"], [style*="border-color: palegreen"] { border-color: var(--palegreen-color) !important; }
+    [style^="color:lightgreen"], [style*=" color:lightgreen"], [style*=";color:lightgreen"], [style^="color: lightgreen"], [style*=" color: lightgreen"], [style*=";color: lightgreen"] { color: var(--lightgreen-color) !important; }
+    [style*="solid lightgreen"], [style*="border-color:lightgreen"], [style*="border-color: lightgreen"] { border-color: var(--lightgreen-color) !important; }
+    [style^="color:aqua"], [style*=" color:aqua"], [style*=";color:aqua"], [style^="color: aqua"], [style*=" color: aqua"], [style*=";color: aqua"] { color: var(--aqua-color) !important; }
+    [style*="solid aqua"], [style*="border-color:aqua"], [style*="border-color: aqua"] { border-color: var(--aqua-color) !important; }
+    [style^="color:aquamarine"], [style*=" color:aquamarine"], [style*=";color:aquamarine"], [style^="color: aquamarine"], [style*=" color: aquamarine"], [style*=";color: aquamarine"] { color: var(--aquamarine-color) !important; }
+    [style*="solid aquamarine"], [style*="border-color:aquamarine"], [style*="border-color: aquamarine"] { border-color: var(--aquamarine-color) !important; }
+    [style^="color:turquoise"], [style*=" color:turquoise"], [style*=";color:turquoise"], [style^="color: turquoise"], [style*=" color: turquoise"], [style*=";color: turquoise"] { color: var(--turquoise-color) !important; }
+    [style*="solid turquoise"], [style*="border-color:turquoise"], [style*="border-color: turquoise"] { border-color: var(--turquoise-color) !important; }
+    [style^="color:teal"], [style*=" color:teal"], [style*=";color:teal"], [style^="color: teal"], [style*=" color: teal"], [style*=";color: teal"] { color: var(--teal-color) !important; }
+    [style*="solid teal"], [style*="border-color:teal"], [style*="border-color: teal"] { border-color: var(--teal-color) !important; }
+    [style^="color:cyan"], [style*=" color:cyan"], [style*=";color:cyan"], [style^="color: cyan"], [style*=" color: cyan"], [style*=";color: cyan"] { color: var(--cyan-color) !important; }
+    [style*="solid cyan"], [style*="border-color:cyan"], [style*="border-color: cyan"] { border-color: var(--cyan-color) !important; }
+    [style^="color:lightseagreen"], [style*=" color:lightseagreen"], [style*=";color:lightseagreen"], [style^="color: lightseagreen"], [style*=" color: lightseagreen"], [style*=";color: lightseagreen"] { color: var(--lightseagreen-color) !important; }
+    [style*="solid lightseagreen"], [style*="border-color:lightseagreen"], [style*="border-color: lightseagreen"] { border-color: var(--lightseagreen-color) !important; }
+    [style^="color:deepskyblue"], [style*=" color:deepskyblue"], [style*=";color:deepskyblue"], [style^="color: deepskyblue"], [style*=" color: deepskyblue"], [style*=";color: deepskyblue"] { color: var(--deepskyblue-color) !important; }
+    [style*="solid deepskyblue"], [style*="border-color:deepskyblue"], [style*="border-color: deepskyblue"] { border-color: var(--deepskyblue-color) !important; }
+    [style^="color:lightskyblue"], [style*=" color:lightskyblue"], [style*=";color:lightskyblue"], [style^="color: lightskyblue"], [style*=" color: lightskyblue"], [style*=";color: lightskyblue"] { color: var(--lightskyblue-color) !important; }
+    [style*="solid lightskyblue"], [style*="border-color:lightskyblue"], [style*="border-color: lightskyblue"] { border-color: var(--lightskyblue-color) !important; }
+    [style^="color:skyblue"], [style*=" color:skyblue"], [style*=";color:skyblue"], [style^="color: skyblue"], [style*=" color: skyblue"], [style*=";color: skyblue"] { color: var(--skyblue-color) !important; }
+    [style*="solid skyblue"], [style*="border-color:skyblue"], [style*="border-color: skyblue"] { border-color: var(--skyblue-color) !important; }
+    [style^="color:lightblue"], [style*=" color:lightblue"], [style*=";color:lightblue"], [style^="color: lightblue"], [style*=" color: lightblue"], [style*=";color: lightblue"] { color: var(--lightblue-color) !important; }
+    [style*="solid lightblue"], [style*="border-color:lightblue"], [style*="border-color: lightblue"] { border-color: var(--lightblue-color) !important; }
+    [style^="color:steelblue"], [style*=" color:steelblue"], [style*=";color:steelblue"], [style^="color: steelblue"], [style*=" color: steelblue"], [style*=";color: steelblue"] { color: var(--steelblue-color) !important; }
+    [style*="solid steelblue"], [style*="border-color:steelblue"], [style*="border-color: steelblue"] { border-color: var(--steelblue-color) !important; }
+    [style^="color:cornflowerblue"], [style*=" color:cornflowerblue"], [style*=";color:cornflowerblue"], [style^="color: cornflowerblue"], [style*=" color: cornflowerblue"], [style*=";color: cornflowerblue"] { color: var(--cornflowerblue-color) !important; }
+    [style*="solid cornflowerblue"], [style*="border-color:cornflowerblue"], [style*="border-color: cornflowerblue"] { border-color: var(--cornflowerblue-color) !important; }
+    [style^="color:royalblue"], [style*=" color:royalblue"], [style*=";color:royalblue"], [style^="color: royalblue"], [style*=" color: royalblue"], [style*=";color: royalblue"] { color: var(--royalblue-color) !important; }
+    [style*="solid royalblue"], [style*="border-color:royalblue"], [style*="border-color: royalblue"] { border-color: var(--royalblue-color) !important; }
+    [style^="color:blue"], [style*=" color:blue"], [style*=";color:blue"], [style^="color: blue"], [style*=" color: blue"], [style*=";color: blue"] { color: var(--blue-color) !important; }
+    [style*="solid blue"], [style*="border-color:blue"], [style*="border-color: blue"] { border-color: var(--blue-color) !important; }
+    [style^="color:blueviolet"], [style*=" color:blueviolet"], [style*=";color:blueviolet"], [style^="color: blueviolet"], [style*=" color: blueviolet"], [style*=";color: blueviolet"] { color: var(--blueviolet-color) !important; }
+    [style*="solid blueviolet"], [style*="border-color:blueviolet"], [style*="border-color: blueviolet"] { border-color: var(--blueviolet-color) !important; }
+    [style^="color:#fff"], [style*=" color:#fff"], [style*=";color:#fff"], [style^="color: #fff"], [style*=" color: #fff"], [style*=";color: #fff"] { color: var(--white-color) !important; }
+    [style*="solid #fff"], [style*="border-color:#fff"], [style*="border-color: #fff"] { border-color: var(--white-color) !important; }
+    [style^="color:#ffffff"], [style*=" color:#ffffff"], [style*=";color:#ffffff"], [style^="color: #ffffff"], [style*=" color: #ffffff"], [style*=";color: #ffffff"] { color: var(--white-color) !important; }
+    [style*="solid #ffffff"], [style*="border-color:#ffffff"], [style*="border-color: #ffffff"] { border-color: var(--white-color) !important; }
+    [style^="color:#ccc"], [style*=" color:#ccc"], [style*=";color:#ccc"], [style^="color: #ccc"], [style*=" color: #ccc"], [style*=";color: #ccc"] { color: var(--lightgray-color) !important; }
+    [style*="solid #ccc"], [style*="border-color:#ccc"], [style*="border-color: #ccc"] { border-color: var(--lightgray-color) !important; }
+    [style^="color:#bbb"], [style*=" color:#bbb"], [style*=";color:#bbb"], [style^="color: #bbb"], [style*=" color: #bbb"], [style*=";color: #bbb"] { color: var(--silver-color) !important; }
+    [style*="solid #bbb"], [style*="border-color:#bbb"], [style*="border-color: #bbb"] { border-color: var(--silver-color) !important; }
+    [style^="color:#999"], [style*=" color:#999"], [style*=";color:#999"], [style^="color: #999"], [style*=" color: #999"], [style*=";color: #999"] { color: var(--gray-color) !important; }
+    [style*="solid #999"], [style*="border-color:#999"], [style*="border-color: #999"] { border-color: var(--gray-color) !important; }
+    [style^="color:#00DDFF"], [style*=" color:#00DDFF"], [style*=";color:#00DDFF"], [style^="color: #00DDFF"], [style*=" color: #00DDFF"], [style*=";color: #00DDFF"] { color: var(--cyan-color) !important; }
+    [style*="solid #00DDFF"], [style*="border-color:#00DDFF"], [style*="border-color: #00DDFF"] { border-color: var(--cyan-color) !important; }
+    [style^="color:rgb(0, 221, 255)"], [style*=" color:rgb(0, 221, 255)"], [style*=";color:rgb(0, 221, 255)"], [style^="color: rgb(0, 221, 255)"], [style*=" color: rgb(0, 221, 255)"], [style*=";color: rgb(0, 221, 255)"] { color: var(--cyan-color) !important; }
+    [style*="solid rgb(0, 221, 255)"], [style*="border-color:rgb(0, 221, 255)"], [style*="border-color: rgb(0, 221, 255)"] { border-color: var(--cyan-color) !important; }
+    [style^="color:#66ffff"], [style*=" color:#66ffff"], [style*=";color:#66ffff"], [style^="color: #66ffff"], [style*=" color: #66ffff"], [style*=";color: #66ffff"] { color: var(--cyan-color) !important; }
+    [style*="solid #66ffff"], [style*="border-color:#66ffff"], [style*="border-color: #66ffff"] { border-color: var(--cyan-color) !important; }
+    [style^="color:#8f8"], [style*=" color:#8f8"], [style*=";color:#8f8"], [style^="color: #8f8"], [style*=" color: #8f8"], [style*=";color: #8f8"] { color: var(--lightgreen-color) !important; }
+    [style*="solid #8f8"], [style*="border-color:#8f8"], [style*="border-color: #8f8"] { border-color: var(--lightgreen-color) !important; }
+    [style^="color:rgb(136, 255, 136)"], [style*=" color:rgb(136, 255, 136)"], [style*=";color:rgb(136, 255, 136)"], [style^="color: rgb(136, 255, 136)"], [style*=" color: rgb(136, 255, 136)"], [style*=";color: rgb(136, 255, 136)"] { color: var(--lightgreen-color) !important; }
+    [style*="solid rgb(136, 255, 136)"], [style*="border-color:rgb(136, 255, 136)"], [style*="border-color: rgb(136, 255, 136)"] { border-color: var(--lightgreen-color) !important; }
+    [style^="color:#ff6b6b"], [style*=" color:#ff6b6b"], [style*=";color:#ff6b6b"], [style^="color: #ff6b6b"], [style*=" color: #ff6b6b"], [style*=";color: #ff6b6b"] { color: var(--red-color) !important; }
+    [style*="solid #ff6b6b"], [style*="border-color:#ff6b6b"], [style*="border-color: #ff6b6b"] { border-color: var(--red-color) !important; }
+    [style^="color:#ff766a"], [style*=" color:#ff766a"], [style*=";color:#ff766a"], [style^="color: #ff766a"], [style*=" color: #ff766a"], [style*=";color: #ff766a"] { color: var(--red-color) !important; }
+    [style*="solid #ff766a"], [style*="border-color:#ff766a"], [style*="border-color: #ff766a"] { border-color: var(--red-color) !important; }
+    [style^="color:#ff004c"], [style*=" color:#ff004c"], [style*=";color:#ff004c"], [style^="color: #ff004c"], [style*=" color: #ff004c"], [style*=";color: #ff004c"] { color: var(--crimson-color) !important; }
+    [style*="solid #ff004c"], [style*="border-color:#ff004c"], [style*="border-color: #ff004c"] { border-color: var(--crimson-color) !important; }
+    [style^="color:rgb(255, 0, 76)"], [style*=" color:rgb(255, 0, 76)"], [style*=";color:rgb(255, 0, 76)"], [style^="color: rgb(255, 0, 76)"], [style*=" color: rgb(255, 0, 76)"], [style*=";color: rgb(255, 0, 76)"] { color: var(--crimson-color) !important; }
+    [style*="solid rgb(255, 0, 76)"], [style*="border-color:rgb(255, 0, 76)"], [style*="border-color: rgb(255, 0, 76)"] { border-color: var(--crimson-color) !important; }
+    [style^="color:rgb(0, 255, 76)"], [style*=" color:rgb(0, 255, 76)"], [style*=";color:rgb(0, 255, 76)"], [style^="color: rgb(0, 255, 76)"], [style*=" color: rgb(0, 255, 76)"], [style*=";color: rgb(0, 255, 76)"] { color: var(--green-color) !important; }
+    [style*="solid rgb(0, 255, 76)"], [style*="border-color:rgb(0, 255, 76)"], [style*="border-color: rgb(0, 255, 76)"] { border-color: var(--green-color) !important; }
+    [style^="color:#ffbf00"], [style*=" color:#ffbf00"], [style*=";color:#ffbf00"], [style^="color: #ffbf00"], [style*=" color: #ffbf00"], [style*=";color: #ffbf00"] { color: var(--goldenrod-color) !important; }
+    [style*="solid #ffbf00"], [style*="border-color:#ffbf00"], [style*="border-color: #ffbf00"] { border-color: var(--goldenrod-color) !important; }
+    [style^="color:rgb(255, 191, 0)"], [style*=" color:rgb(255, 191, 0)"], [style*=";color:rgb(255, 191, 0)"], [style^="color: rgb(255, 191, 0)"], [style*=" color: rgb(255, 191, 0)"], [style*=";color: rgb(255, 191, 0)"] { color: var(--goldenrod-color) !important; }
+    [style*="solid rgb(255, 191, 0)"], [style*="border-color:rgb(255, 191, 0)"], [style*="border-color: rgb(255, 191, 0)"] { border-color: var(--goldenrod-color) !important; }
+    [style^="color:#ff5900"], [style*=" color:#ff5900"], [style*=";color:#ff5900"], [style^="color: #ff5900"], [style*=" color: #ff5900"], [style*=";color: #ff5900"] { color: var(--orangered-color) !important; }
+    [style*="solid #ff5900"], [style*="border-color:#ff5900"], [style*="border-color: #ff5900"] { border-color: var(--orangered-color) !important; }
+    [style^="color:#4A90E2"], [style*=" color:#4A90E2"], [style*=";color:#4A90E2"], [style^="color: #4A90E2"], [style*=" color: #4A90E2"], [style*=";color: #4A90E2"] { color: var(--steelblue-color) !important; }
+    [style*="solid #4A90E2"], [style*="border-color:#4A90E2"], [style*="border-color: #4A90E2"] { border-color: var(--steelblue-color) !important; }
+    [style^="color:#F5A623"], [style*=" color:#F5A623"], [style*=";color:#F5A623"], [style^="color: #F5A623"], [style*=" color: #F5A623"], [style*=";color: #F5A623"] { color: var(--orange-color) !important; }
+    [style*="solid #F5A623"], [style*="border-color:#F5A623"], [style*="border-color: #F5A623"] { border-color: var(--orange-color) !important; }
+    [style^="color:#D0021B"], [style*=" color:#D0021B"], [style*=";color:#D0021B"], [style^="color: #D0021B"], [style*=" color: #D0021B"], [style*=";color: #D0021B"] { color: var(--red-color) !important; }
+    [style*="solid #D0021B"], [style*="border-color:#D0021B"], [style*="border-color: #D0021B"] { border-color: var(--red-color) !important; }
+    [style^="color:#7ED321"], [style*=" color:#7ED321"], [style*=";color:#7ED321"], [style^="color: #7ED321"], [style*=" color: #7ED321"], [style*=";color: #7ED321"] { color: var(--limegreen-color) !important; }
+    [style*="solid #7ED321"], [style*="border-color:#7ED321"], [style*="border-color: #7ED321"] { border-color: var(--limegreen-color) !important; }
+    [style^="color:#AB8654"], [style*=" color:#AB8654"], [style*=";color:#AB8654"], [style^="color: #AB8654"], [style*=" color: #AB8654"], [style*=";color: #AB8654"] { color: var(--burlywood-color) !important; }
+    [style*="solid #AB8654"], [style*="border-color:#AB8654"], [style*="border-color: #AB8654"] { border-color: var(--burlywood-color) !important; }
+    [style^="color:#B77D48"], [style*=" color:#B77D48"], [style*=";color:#B77D48"], [style^="color: #B77D48"], [style*=" color: #B77D48"], [style*=";color: #B77D48"] { color: var(--burlywood-color) !important; }
+    [style*="solid #B77D48"], [style*="border-color:#B77D48"], [style*="border-color: #B77D48"] { border-color: var(--burlywood-color) !important; }
+    [style^="color:#C2783D"], [style*=" color:#C2783D"], [style*=";color:#C2783D"], [style^="color: #C2783D"], [style*=" color: #C2783D"], [style*=";color: #C2783D"] { color: var(--peru-color) !important; }
+    [style*="solid #C2783D"], [style*="border-color:#C2783D"], [style*="border-color: #C2783D"] { border-color: var(--peru-color) !important; }
+    [style^="color:#CA7035"], [style*=" color:#CA7035"], [style*=";color:#CA7035"], [style^="color: #CA7035"], [style*=" color: #CA7035"], [style*=";color: #CA7035"] { color: var(--peru-color) !important; }
+    [style*="solid #CA7035"], [style*="border-color:#CA7035"], [style*="border-color: #CA7035"] { border-color: var(--peru-color) !important; }
+    [style^="color:#D26B2D"], [style*=" color:#D26B2D"], [style*=";color:#D26B2D"], [style^="color: #D26B2D"], [style*=" color: #D26B2D"], [style*=";color: #D26B2D"] { color: var(--darkorange-color) !important; }
+    [style*="solid #D26B2D"], [style*="border-color:#D26B2D"], [style*="border-color: #D26B2D"] { border-color: var(--darkorange-color) !important; }
+    [style^="color:#DC6623"], [style*=" color:#DC6623"], [style*=";color:#DC6623"], [style^="color: #DC6623"], [style*=" color: #DC6623"], [style*=";color: #DC6623"] { color: var(--darkorange-color) !important; }
+    [style*="solid #DC6623"], [style*="border-color:#DC6623"], [style*="border-color: #DC6623"] { border-color: var(--darkorange-color) !important; }
+    [style^="color:#E76118"], [style*=" color:#E76118"], [style*=";color:#E76118"], [style^="color: #E76118"], [style*=" color: #E76118"], [style*=";color: #E76118"] { color: var(--orangered-color) !important; }
+    [style*="solid #E76118"], [style*="border-color:#E76118"], [style*="border-color: #E76118"] { border-color: var(--orangered-color) !important; }
+    [style^="color:#F65D09"], [style*=" color:#F65D09"], [style*=";color:#F65D09"], [style^="color: #F65D09"], [style*=" color: #F65D09"], [style*=";color: #F65D09"] { color: var(--orangered-color) !important; }
+    [style*="solid #F65D09"], [style*="border-color:#F65D09"], [style*="border-color: #F65D09"] { border-color: var(--orangered-color) !important; }
+    [style^="color:color-mix"], [style*=" color:color-mix"], [style*=";color:color-mix"], [style^="color: color-mix"], [style*=" color: color-mix"], [style*=";color: color-mix"] { color: var(--white-color) !important; }
+    [style*="solid color-mix"], [style*="border-color:color-mix"], [style*="border-color: color-mix"] { border-color: var(--white-color) !important; }
+    [style^="color:wheat"], [style*=" color:wheat"], [style*=";color:wheat"], [style^="color: wheat"], [style*=" color: wheat"], [style*=";color: wheat"] { color: var(--wheat-color) !important; }
+    [style*="solid wheat"], [style*="border-color:wheat"], [style*="border-color: wheat"] { border-color: var(--wheat-color) !important; }
+    [style^="color:Silver"], [style*=" color:Silver"], [style*=";color:Silver"], [style^="color: Silver"], [style*=" color: Silver"], [style*=";color: Silver"] { color: var(--silver-color) !important; }
+    [style*="solid Silver"], [style*="border-color:Silver"], [style*="border-color: Silver"] { border-color: var(--silver-color) !important; }
+    [style^="color:Pink"], [style*=" color:Pink"], [style*=";color:Pink"], [style^="color: Pink"], [style*=" color: Pink"], [style*=";color: Pink"] { color: var(--pink-color) !important; }
+    [style*="solid Pink"], [style*="border-color:Pink"], [style*="border-color: Pink"] { border-color: var(--pink-color) !important; }
+    [style^="color:Gold"], [style*=" color:Gold"], [style*=";color:Gold"], [style^="color: Gold"], [style*=" color: Gold"], [style*=";color: Gold"] { color: var(--gold-color) !important; }
+    [style*="solid Gold"], [style*="border-color:Gold"], [style*="border-color: Gold"] { border-color: var(--gold-color) !important; }
+    [style^="color:Yellow"], [style*=" color:Yellow"], [style*=";color:Yellow"], [style^="color: Yellow"], [style*=" color: Yellow"], [style*=";color: Yellow"] { color: var(--yellow-color) !important; }
+    [style*="solid Yellow"], [style*="border-color:Yellow"], [style*="border-color: Yellow"] { border-color: var(--yellow-color) !important; }
+    [style^="color:#FFFFFF"], [style*=" color:#FFFFFF"], [style*=";color:#FFFFFF"], [style^="color: #FFFFFF"], [style*=" color: #FFFFFF"], [style*=";color: #FFFFFF"] { color: var(--white-color) !important; }
+    [style*="solid #FFFFFF"], [style*="border-color:#FFFFFF"], [style*="border-color: #FFFFFF"] { border-color: var(--white-color) !important; }
+    [style^="color:#FF766A"], [style*=" color:#FF766A"], [style*=";color:#FF766A"], [style^="color: #FF766A"], [style*=" color: #FF766A"], [style*=";color: #FF766A"] { color: var(--red-color) !important; }
+    [style*="solid #FF766A"], [style*="border-color:#FF766A"], [style*="border-color: #FF766A"] { border-color: var(--red-color) !important; }
+    [style^="color:#66FFFF"], [style*=" color:#66FFFF"], [style*=";color:#66FFFF"], [style^="color: #66FFFF"], [style*=" color: #66FFFF"], [style*=";color: #66FFFF"] { color: var(--cyan-color) !important; }
+    [style*="solid #66FFFF"], [style*="border-color:#66FFFF"], [style*="border-color: #66FFFF"] { border-color: var(--cyan-color) !important; }
+    :not(img)[style*="background-color:white"], :not(img)[style*="background-color: white"], :not(img)[style*="background:white"], :not(img)[style*="background: white"] { background-color: #d5d8e0 !important; }
+    :not(img)[style*="background-color:black"], :not(img)[style*="background-color: black"], :not(img)[style*="background:black"], :not(img)[style*="background: black"] { background-color: #d5d8e0 !important; }
+    :not(img)[style*="background-color:#333"], :not(img)[style*="background-color: #333"], :not(img)[style*="background:#333"], :not(img)[style*="background: #333"] { background-color: #d5d8e0 !important; }
+    :not(img)[style*="background-color:rgb(51, 51, 51)"], :not(img)[style*="background-color: rgb(51, 51, 51)"], :not(img)[style*="background:rgb(51, 51, 51)"], :not(img)[style*="background: rgb(51, 51, 51)"] { background-color: #d5d8e0 !important; }
+    :not(img)[style*="background-color:#555"], :not(img)[style*="background-color: #555"], :not(img)[style*="background:#555"], :not(img)[style*="background: #555"] { background-color: #d5d8e0 !important; }
+    :not(img)[style*="background-color:rgb(85, 85, 85)"], :not(img)[style*="background-color: rgb(85, 85, 85)"], :not(img)[style*="background:rgb(85, 85, 85)"], :not(img)[style*="background: rgb(85, 85, 85)"] { background-color: #d5d8e0 !important; }
+    :not(img)[style*="background-color:#2f2f2f"], :not(img)[style*="background-color: #2f2f2f"], :not(img)[style*="background:#2f2f2f"], :not(img)[style*="background: #2f2f2f"] { background-color: #d5d8e0 !important; }
+    :not(img)[style*="background-color:rgb(47, 47, 47)"], :not(img)[style*="background-color: rgb(47, 47, 47)"], :not(img)[style*="background:rgb(47, 47, 47)"], :not(img)[style*="background: rgb(47, 47, 47)"] { background-color: #d5d8e0 !important; }
+    :not(img)[style*="background-color:#1f1f1f"], :not(img)[style*="background-color: #1f1f1f"], :not(img)[style*="background:#1f1f1f"], :not(img)[style*="background: #1f1f1f"] { background-color: #eceef2 !important; }
+    :not(img)[style*="background-color:rgb(31, 31, 31)"], :not(img)[style*="background-color: rgb(31, 31, 31)"], :not(img)[style*="background:rgb(31, 31, 31)"], :not(img)[style*="background: rgb(31, 31, 31)"] { background-color: #eceef2 !important; }
+    :not(img)[style*="background-color:rgba(0,0,0,0.2)"], :not(img)[style*="background-color: rgba(0,0,0,0.2)"], :not(img)[style*="background:rgba(0,0,0,0.2)"], :not(img)[style*="background: rgba(0,0,0,0.2)"] { background-color: #eceef2 !important; }
+    :not(img)[style*="background-color:crimson"], :not(img)[style*="background-color: crimson"], :not(img)[style*="background:crimson"], :not(img)[style*="background: crimson"] { background-color: #fbcfd7 !important; }
+    :not(img)[style*="background-color:#fa3e3e"], :not(img)[style*="background-color: #fa3e3e"], :not(img)[style*="background:#fa3e3e"], :not(img)[style*="background: #fa3e3e"] { background-color: #fbcfd7 !important; }
+    :not(img)[style*="background-color:rgb(250, 62, 62)"], :not(img)[style*="background-color: rgb(250, 62, 62)"], :not(img)[style*="background:rgb(250, 62, 62)"], :not(img)[style*="background: rgb(250, 62, 62)"] { background-color: #fbcfd7 !important; }
+    :not(img)[style*="background-color:maroon"], :not(img)[style*="background-color: maroon"], :not(img)[style*="background:maroon"], :not(img)[style*="background: maroon"] { background-color: #f8d0d0 !important; }
+    :not(img)[style*="background-color:brown"], :not(img)[style*="background-color: brown"], :not(img)[style*="background:brown"], :not(img)[style*="background: brown"] { background-color: #efd5c8 !important; }
+    :not(img)[style*="background-color:orange"], :not(img)[style*="background-color: orange"], :not(img)[style*="background:orange"], :not(img)[style*="background: orange"] { background-color: #ffdca8 !important; }
+    :not(img)[style*="background-color:gold"], :not(img)[style*="background-color: gold"], :not(img)[style*="background:gold"], :not(img)[style*="background: gold"] { background-color: #f6e7a1 !important; }
+    :not(img)[style*="background-color:#b59410"], :not(img)[style*="background-color: #b59410"], :not(img)[style*="background:#b59410"], :not(img)[style*="background: #b59410"] { background-color: #f6e7a1 !important; }
+    :not(img)[style*="background-color:lightgoldenrodyellow"], :not(img)[style*="background-color: lightgoldenrodyellow"], :not(img)[style*="background:lightgoldenrodyellow"], :not(img)[style*="background: lightgoldenrodyellow"] { background-color: #f4f0ae !important; }
+    :not(img)[style*="background-color:green"], :not(img)[style*="background-color: green"], :not(img)[style*="background:green"], :not(img)[style*="background: green"] { background-color: #c4e9c4 !important; }
+    :not(img)[style*="background-color:limegreen"], :not(img)[style*="background-color: limegreen"], :not(img)[style*="background:limegreen"], :not(img)[style*="background: limegreen"] { background-color: #c4edc4 !important; }
+    :not(img)[style*="background-color:cyan"], :not(img)[style*="background-color: cyan"], :not(img)[style*="background:cyan"], :not(img)[style*="background: cyan"] { background-color: #bdeef1 !important; }
+    :not(img)[style*="background-color:cornflowerblue"], :not(img)[style*="background-color: cornflowerblue"], :not(img)[style*="background:cornflowerblue"], :not(img)[style*="background: cornflowerblue"] { background-color: #c9d9f8 !important; }
+    :not(img)[style*="background-color:orchid"], :not(img)[style*="background-color: orchid"], :not(img)[style*="background:orchid"], :not(img)[style*="background: orchid"] { background-color: #f3cdf1 !important; }
+    :not(img)[style*="background-color:purple"], :not(img)[style*="background-color: purple"], :not(img)[style*="background:purple"], :not(img)[style*="background: purple"] { background-color: #eccfec !important; }
+}
+
+body.lightTheme .active-subtab,
+body.lightTheme button.active-subtab,
+body.lightTheme button.active-subtab:hover:not(:disabled):not(.disable-hover-color),
+body.lightTheme button.active-subtab:active:not(:disabled):not(.disable-hover-color),
+body.lightTheme .mobileSubTabIcon.active-subtab,
+body.lightTheme .mobileSubTabIconContainer.active-subtab > .mobileSubTabIcon,
+body.lightTheme #savegame[disabled],
+body.lightTheme .canAntSacrifice,
+html[data-mobile="true"] body.lightTheme nav.navbar #tabrow > button.mobileTabIconButton.active-tab {
+    background-color: #fbcfd7;
+}
+
+body.lightTheme #corrStatsBtn.active-subtab,
+body.lightTheme #corrTokensBtn.active-subtab,
+body.lightTheme #corrAutoAscendBtn.active-subtab {
+    background-color: #c5dcf9;
+}
+
+body.lightTheme #toggleSingularitySubTab6.active-subtab {
+    color: var(--purple-text-color);
+}
+
+body.lightTheme #prompt_text,
+body.lightTheme .purchasePromptInputs > input,
+body.lightTheme #autoSacrificeAntMode,
+body.lightTheme #autoAntSacrificeAmount,
+body.lightTheme #immortalELOInfoToggleButton,
+body.lightTheme .pseudoCoinButton,
+body.lightTheme #upgradeGrid > div,
+body.lightTheme .ambrosiaLedgerProgress,
+body.lightTheme .purpleReactorProgressBar,
+body.lightTheme nav.navbar > button.mobile-menu-toggle {
+    background: #fff;
+}
+
+body.lightTheme #offlineBlur {
+    background-color: var(--bg-color);
+}
+
+body.lightTheme #tabrow.tab-edit-mode > button.tabRemoveable > .tabCloseButton {
+    border-color: #fff;
+    color: #fff;
+}
+
+body.lightTheme #tabrow.tab-edit-mode > button.tabRemoveable:hover > .tabCloseButton.tabCloseButtonToggled,
+body.lightTheme #tabrow.tab-edit-mode > button.tabRemoveable:focus-visible > .tabCloseButton.tabCloseButtonToggled {
+    background-color: #147a32;
+}
+
+body.lightTheme button.isEvent:hover,
+body.lightTheme .subscriptionWebsite {
+    background-color: #f6e7a1;
+}
+
+body.lightTheme .buttonRow.mobile > div > .auto,
+body.lightTheme .constUpgradeAuto,
+body.lightTheme .antLeaderboardCurrentSacrifice,
+body.lightTheme *[class^="hoveredBlueberryLoadout"] div[class^="bbPurchasedLoadout"] {
+    background-color: #c4e9c4;
+}
+
+body.lightTheme .challengeActive,
+body.lightTheme .constUpgradeAvailable:hover {
+    background-color: #eccfec;
+}
+
+body.lightTheme .challengeActive:hover,
+body.lightTheme .constUpgradeAvailable {
+    background-color: #f3e0f3;
+}
+
+body.lightTheme #researchtable .researchRoomba > img {
+    background-color: #c96a00;
+}
+
+body.lightTheme .shopFamilyRow:hover,
+body.lightTheme .purpleUpgradeFamilyRow:where(:hover),
+body.lightTheme #antSacrificeRewards .antSacrificeRewardColumn:hover {
+    background-color: rgb(0 0 0 / 6%);
+}
+
+body.lightTheme .shopTestingOnly,
+body.lightTheme #shopTestingOnlyWarning,
+body.lightTheme .subscriptionCancel {
+    background-color: #f8d0d0;
+}
+
+body.lightTheme #shopTestingOnlyWarning,
+body.lightTheme .announcement-header {
+    color: var(--red-color);
+}
+
+body.lightTheme #toggleLotusSection,
+body.lightTheme #use-lotus-collapsed,
+body.lightTheme #use-lotus {
+    border-color: var(--orchid-color);
+    background: #fdf3fc;
+    color: var(--orchid-color);
+}
+
+body.lightTheme #toggleLotusSection:hover {
+    background-color: #f3e0f3;
+    color: var(--orchid-color);
+}
+
+body.lightTheme .antLeaderboardToggleBtn:hover,
+body.lightTheme #actualSingularityUpgradeContainer:hover .singularityUpgradeAffordable,
+body.lightTheme #octeractUpgradeContainer:hover .octeractUpgradeAffordable,
+body.lightTheme .pseudoCoinButton:hover,
+body.lightTheme nav.navbar > button.mobile-menu-toggle:hover,
+body.lightTheme nav.navbar > button.mobile-menu-toggle:focus {
+    background: var(--hover-color);
+}
+
+body.lightTheme #antLeaderboardTable th {
+    background-color: var(--hover-color);
+}
+
+body.lightTheme #antLeaderboardTable tr {
+    background-color: #fff;
+}
+
+body.lightTheme .sacrificeAntsContainer,
+body.lightTheme #lotusCorner,
+body.lightTheme #consumablesGrid,
+body.lightTheme .antSacrificeRewardColumn,
+body.lightTheme .purpleReactorProgressBar {
+    box-shadow: none;
+}
+
+body.lightTheme .headerLoadoutSlot.headerLoadoutActive,
+body.lightTheme .blueberryLoadoutSlot.activeBlueberryLoadout {
+    background-color: #c5dcf9;
+}
+
+body.lightTheme .headerLoadoutSlot[data-icon] > span,
+body.lightTheme .blueberryLoadoutSlot[data-icon] > span {
+    color: #fff;
+}
+
+body.lightTheme .ambrosiaLedgerProgress > div,
+body.lightTheme #ambrosiaContainerProgress {
+    background: linear-gradient(to right, #b5d2f7, #b0ecee);
+}
+
+body.lightTheme #pixelProgress,
+body.lightTheme #redAmbrosiaContainerProgress {
+    background: linear-gradient(to right, #f7c1c1, #f9d0d0);
+}
+
+body.lightTheme #purpleHoneyProgressFill > .purpleReactorProgressFill {
+    background: linear-gradient(to right, #c5d2f9, #eccfec);
+}
+
+body.lightTheme #purpleHoneyProgressFill > .purpleReactorProgressFill:last-child {
+    background: linear-gradient(to right, #eccfec, #f9d0d0);
+}
+
+body.lightTheme #ambrosiaProgressText,
+body.lightTheme #pixelProgressText,
+body.lightTheme .ambrosiaLedgerProgressGain,
+body.lightTheme .purpleReactorProgressText,
+body.lightTheme .purpleHoneyGain,
+body.lightTheme .achievement-ap-overlay {
+    text-shadow: none;
+}
+
+body.lightTheme .blueberryUpgrade .level-overlay,
+body.lightTheme .redAmbrosiaUpgrade .level-overlay,
+body.lightTheme .purpleAmbrosiaUpgrade .level-overlay {
+    background-color: rgb(255 255 255 / 90%);
+    text-shadow: none;
+}
+
+body.lightTheme .blueberryUpgrade img.dimmed,
+body.lightTheme .redAmbrosiaUpgrade img.dimmed,
+body.lightTheme .purpleAmbrosiaUpgrade img.dimmed {
+    background: none;
+}
+
+body.lightTheme .tieredAchievementType img.dimmed,
+body.lightTheme .ungroupedAchievementType img.dimmed,
+body.lightTheme .progressiveAchievementType img.dimmed {
+    background: none;
+    opacity: 0.15;
+}
+
+body.lightTheme #ambrosiaEditLevels.ambrosiaEditingToggled {
+    background-color: #f6e7a1;
+}
+
+body.lightTheme .purpleReactantTankAmbrosia {
+    --reactant-dark: var(--blueberry-box-color);
+    --reactant-bright: var(--cyan-color);
+    --reactant-rgb: 5 100 100;
+}
+
+body.lightTheme .purpleReactantTankRed {
+    --reactant-dark: var(--maroon-color);
+    --reactant-bright: var(--red-color);
+    --reactant-rgb: 184 0 0;
+}
+
+body.lightTheme .purpleReactantPercentageSlider::-webkit-slider-runnable-track {
+    background:
+        linear-gradient(
+            90deg,
+            var(--reactant-bright) 0 var(--routing-percentage),
+            #d5d8e0 var(--routing-percentage) 100%
+        );
+    box-shadow: none;
+}
+
+body.lightTheme .purpleReactantPercentageSlider::-moz-range-track {
+    background-color: #d5d8e0;
+    box-shadow: none;
+}
+
+body.lightTheme .synthesisSourceRed {
+    --synthesis-resource-color: var(--red-color);
+}
+
+body.lightTheme .synthesisSourceHoney {
+    --synthesis-resource-color: var(--fuchsia-color);
+}
+
+body.lightTheme .bellConsumable {
+    --consumable-accent: var(--gold-color);
+}
+
+body.lightTheme .lotusConsumable {
+    --consumable-accent: var(--orchid-color);
+}
+
+body.lightTheme #eloCorner .antSacrificePanelTitle,
+body.lightTheme #immortalELOInfoToggleButton {
+    border-color: var(--cyan-color);
+}
+
+body.lightTheme #eloCorner .antSacrificePanelTitle {
+    color: var(--cyan-color);
+}
+
+body.lightTheme #antSacrificeRewards .antSacrificePanelTitle,
+body.lightTheme .corruptionFormulaActive {
+    color: var(--orchid-color);
+}
+
+body.lightTheme .antSacrificeRewardRare,
+body.lightTheme #antSacrificeRareFragment {
+    color: var(--deepskyblue-color);
+}
+
+body.lightTheme #headerEditHint,
+body.lightTheme #headerTrayLabel {
+    color: var(--lightgray-color);
+}
+
+body.lightTheme .headerConsumableOwned {
+    color: var(--silver-color);
+}
+
+body.lightTheme #globalEventBonus,
+body.lightTheme #globalEventTimer,
+body.lightTheme .consumableRewards td:nth-child(3) {
+    color: var(--lightgreen-color);
+}
+
+body.lightTheme .campaignTokenRewardSumModal > div,
+body.lightTheme #corruptionAscensionControls,
+body.lightTheme .autoAscendSelect,
+body.lightTheme .autoAscendNumber,
+body.lightTheme #autoAscendRuleText,
+body.lightTheme .headerCell,
+body.lightTheme .headerButtonSlot,
+body.lightTheme .headerLoadoutIcons > button,
+body.lightTheme #headerEditToolbar button,
+body.lightTheme #headerTray,
+body.lightTheme .pseudoCoinContainer,
+body.lightTheme .pseudoCoinText {
+    border-color: #7c7c8c;
+}
+
+body.lightTheme #mainHeader.headerEditMode [data-header-slot] {
+    outline-color: #7c7c8c;
+}
+
+body.lightTheme #autoSacrificeAntMode,
+body.lightTheme #autoAntSacrificeAmount {
+    border-color: var(--cyan-color);
+}
+
+body.lightTheme .antLeaderboardToggleBtn[data-mode="daily"] {
+    border-color: #2a8f6f;
+}
+
+body.lightTheme .antLeaderboardToggleBtn[data-mode="allTime"] {
+    border-color: #c96a00;
+}
+
+body.lightTheme .antLeaderboardToggleBtn[data-mode="overview"] {
+    border-color: var(--cyan-color);
+}
+
+body.lightTheme #octeractUpgradeContainer {
+    --octeract-line-color: var(--lightseagreen-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="core"] {
+    --octeract-line-color: var(--turquoise-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="goldenQuarks"] {
+    --octeract-line-color: var(--gold-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="quarks"] {
+    --octeract-line-color: var(--deepskyblue-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="daily"],
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="freeLevels"] {
+    --octeract-line-color: var(--pink-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="ascensions"],
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="corruption"] {
+    --octeract-line-color: var(--silver-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="speed"] {
+    --octeract-line-color: var(--darkorchid-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="tokens"] {
+    --octeract-line-color: var(--crimson-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="resources"] {
+    --octeract-line-color: var(--aquamarine-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="potions"] {
+    --octeract-line-color: var(--lime-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="shop"] {
+    --octeract-line-color: var(--green-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="talismans"] {
+    --octeract-line-color: var(--royalblue-color);
+}
+
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="blueberries"],
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="ambrosiaLuck"],
+body.lightTheme #octeractUpgradeContainer [data-octeract-line="ambrosiaGeneration"] {
+    --octeract-line-color: var(--darkorange-color);
+}
+
+body.lightTheme .transcendedBallerGradient {
+    --gradient-start: var(--orchid-color);
+    --gradient-end: #7a2f7a;
+}
+
+body.lightTheme .reincarnatedBallerGradient {
+    --gradient-start: var(--green-color);
+    --gradient-end: var(--greenyellow-color);
+}
+
+body.lightTheme .ascendedBallerGradient {
+    --gradient-start: var(--orange-color);
+    --gradient-end: var(--yellow-color);
+}
+
+body.lightTheme .singularityGradient {
+    --gradient-start: var(--gold-color);
+    --gradient-end: var(--lightgoldenrodyellow-color);
+}
+
+body.lightTheme .bellGradient {
+    --gradient-start: var(--gold-color);
+    --gradient-end: var(--goldenrod-color);
+}
+
+body.lightTheme .lotusGradient {
+    --gradient-start: var(--purple-color);
+    --gradient-end: var(--pink-color);
+}
+
+body.lightTheme .rainbowText {
+    background-image: linear-gradient(90deg, #b5012d, #8a4901, #5d5d00, #026901, #2c4fc5, #800080, #b5012d, #8a4901);
+}
+
+body.lightTheme .godlikeText {
+    background-image: linear-gradient(90deg, #932a95, #a8166a, #a100a1, #5f1f7a, #a100a1, #a8166a, #932a95, #a8166a, #a100a1, #5f1f7a);
+}
+
+body.lightTheme .perfectText {
+    background-image: linear-gradient(90deg, #6a1fc2, #8b1fbd, #695803, #5d5d00, #695803, #8b1fbd, #6a1fc2, #8b1fbd, #695803, #5d5d00);
+}
+
+body.lightTheme .singularityPerkTreeConnection {
+    stroke: #8a6a00;
+}
+
+body.lightTheme .singularityPerkTreeConnectionNew {
+    stroke: var(--gold-color);
+}
+
+body.lightTheme .singularityPerkNextUpgrade {
+    --singularity-perk-upcoming-glow: 0 0 4px var(--white-color);
+}
+
+body.lightTheme .hamburger-line,
+html[data-mobile="true"] body.lightTheme #mobileHeaderResizeHandle:focus-visible::before,
+body.lightTheme.mobileHeaderIsResizing #mobileHeaderResizeHandle::before {
+    background-color: var(--white-color);
+}
+
+body.lightTheme nav.navbar #tabrow {
+    background: rgb(246 247 249 / 95%);
+}
+
+body.lightTheme img {
+    --button-color: #2a2a35;
+    --buttonbuy-color: #2a2a35;
+    --buttonimg-color: #2a2a35;
+    --blackbtn-color: #2a2a35;
+    --hover-color: #454552;
+    --bg-color: #2a2a35;
+    --box-color: #2a2a35;
+    --tab-color: #2a2a35;
+
+    background-color: #2a2a35;
+    border-radius: 3px;
+}
+
+body.lightTheme [style*="background-image"] {
+    background-color: #2a2a35;
+    border-radius: 3px;
+}
+
+body.lightTheme .antLeaderboardCurrentSacrifice {
+    border-color: var(--green-color) !important;
+    background-color: #c4e9c4 !important;
+}
+
+body.lightTheme #pseudoCoinUpgradeName {
+    background-color: #f6e7a1;
+}
+
+body.lightTheme #apply-tips:not(:hover) {
+    border-color: var(--purple-color);
+}
+
+body.lightTheme #accountInfo button[style*="background-color"] {
+    color: #fff !important;
+}
+
+body.lightTheme #accountInfo button[style*="rgb(255, 66, 77)"] {
+    background-color: #c7252e !important;
+}
+
+body.lightTheme .oldPerk,
+body.lightTheme #lotusInventory {
+    border-color: var(--goldenrod-color);
+}
+
+body.lightTheme #lotusInventory {
+    border-color: var(--orchid-color);
+}
+
+body.lightTheme .synthesisUpgradeRegion,
+body.lightTheme .synthesisUpgradeCard {
+    border-color: var(--purple-color);
+}
+
+body.lightTheme .ambrosiaPrerequisite {
+    --ambrosia-prerequisite-color: var(--red-color);
+}
+
+body.lightTheme .ambrosiaResourceModifiers,
+body.lightTheme #headerTray > .headerModule,
+body.lightTheme #mainHeader.headerEditMode .headerProgress[hidden]:not(.headerModuleLocked) {
+    opacity: 1;
+}
+
+body.lightTheme .runeTypeLocked,
+body.lightTheme #headerEditToolbar button:disabled,
+body.lightTheme .buttonRow.mobile > div > .buildingPurchaseBtn:not(.buildingPurchaseBtnAvailable) {
+    opacity: 0.75;
+}
+
+body.lightTheme .purpleReactorHeader,
+body.lightTheme .purplePopupHeader,
+body.lightTheme .synthesisUpgradeModalTitle {
+    border-color: var(--purple-color);
+}
+
+body.lightTheme .spinner {
+    border-color: #d5d8e0;
+    border-top-color: var(--steelblue-color);
 }

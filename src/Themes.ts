@@ -65,7 +65,7 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
     body.style.removeProperty('--hepteract-bar-red')
     body.style.removeProperty('--hepteract-bar-yellow')
     body.style.removeProperty('--hepteract-bar-green')
-    body.classList.remove('textOutline')
+    body.classList.remove('lightTheme')
     // body.classList.add('bodycolor');
     DOMCacheGetOrSet('actualPotionShop').style.backgroundColor = ''
     DOMCacheGetOrSet('actualPotionShop').style.borderColor = ''
@@ -166,50 +166,7 @@ export const toggleTheme = (initial = false, themeNumber: Theme = Theme.Dark, ch
 
     themeButton.textContent = i18next.t('settings.themes.lighterDark')
   } else if (themeNumber === Theme.Light) { // 'Light Mode'
-    body.classList.add('textOutline')
-    body.style.setProperty('--header-color', '#736e8d')
-    body.style.setProperty('--bg-color', '#7c7891')
-    body.style.setProperty('--alert-color', '#646175')
-    body.style.setProperty('--history-lines', '#156e71')
-    body.style.setProperty('--box-color', '#646175')
-    body.style.setProperty('--boxmain-bordercolor', '#d894d8')
-    body.style.setProperty('--button-color', '#136062')
-    body.style.setProperty('--hover-color', '#187c7f')
-    body.style.setProperty('--blackbtn-color', '#105254')
-    body.style.setProperty('--buttonbuy-color', '#4c495a')
-    body.style.setProperty('--buildings-canbuy-color', '#9794a8')
-    body.style.setProperty('--buildings-hover-color', '#b2b0bf')
-    body.style.setProperty('--blessings-canbuy-color', '#6c687f')
-    body.style.setProperty('--blessings-hover-color', '#7c7990')
-    body.style.setProperty('--tab-color', '#105254')
-    body.style.setProperty('--singtab-color', '#00d')
-    body.style.setProperty('--hoversing-color', '#1052B6')
-    body.style.setProperty('--hepteract-bar-empty', '#858199')
-    body.style.setProperty('--hepteract-bar-red', '#ea1741')
-    body.style.setProperty('--hepteract-bar-yellow', '#cc0')
-    body.style.setProperty('--hepteract-bar-green', 'limegreen')
-    DOMCacheGetOrSet('actualPotionShop').style.borderColor = '#dd0'
-    DOMCacheGetOrSet('switchTheme2').style.borderColor = '#284242' // Special Cases
-    body.style.setProperty('--green-text-color', 'limegreen')
-    body.style.setProperty('--red-text-color', '#f55')
-    body.style.setProperty('--maroon-text-color', '#ff5656')
-    body.style.setProperty('--crimson-text-color', '#f7617d')
-    body.style.setProperty('--orchid-text-color', '#dd7dda')
-    body.style.setProperty('--darkorchid-text-color', '#cf9ee8')
-    body.style.setProperty('--darkcyan-text-color', 'turquoise')
-    body.style.setProperty('--lightseagreen-text-color', 'limegreen')
-    body.style.setProperty('--orangered-text-color', '#f74')
-    body.style.setProperty('--gray-text-color', '#a5a5a5')
-    DOMCacheGetOrSet('antwelcome').style.color = '#b1b1b1'
-    DOMCacheGetOrSet('versionnumber').style.color = '#ff5aff'
-    DOMCacheGetOrSet('singularitytab').style.color = '#ff5252'
-    DOMCacheGetOrSet('traitstab').style.color = '#ff5252'
-    DOMCacheGetOrSet('cubetab').style.color = '#ff5252'
-    DOMCacheGetOrSet('ascTimeAccel').style.color = '#97b0ff'
-    DOMCacheGetOrSet('hypercubeWelcome').style.color = '#f58'
-    DOMCacheGetOrSet('hypercubeQuantity').style.color = '#f58'
-    DOMCacheGetOrSet('hypercubeBlessingsTotal').style.color = '#f58'
-
+    body.classList.add('lightTheme')
     themeButton.textContent = i18next.t('settings.themes.light')
   } else if (themeNumber === Theme.Dracula) { // 'Dracula Mode'
     body.style.setProperty('--header-color', '#0a0a11')
