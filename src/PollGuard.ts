@@ -1,11 +1,30 @@
+import { clearEvent } from './Event'
+import { DateNow, PerformanceNow } from './Utility'
+
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-const maxClockLeadMs = 1000 * 60 * 60 * 12
 const probeDelayMs = 5000
 const probeMinimumElapsedMs = 4000
-const maxPollingDurationMs = 1000 * 60 * 60 * 24 * 30
+const maxClockRate = 2
+const serverDateSlackMs = 30_000
+const strikesToStop = 3
+const pollCreditPerInterval = 4
 
-let pollsStopped = false
+export let pollsStopped = false
+
+let lastServerDate = 0
+let lastServerClocks = { wall: 0, mono: 0 }
+let serverStrikes = 0
+
+const stopPolls = () => {
+  pollsStopped = true
+  clearEvent()
+}
+
+const readClocks = () => ({ wall: DateNow(), mono: PerformanceNow() })
+
+const elapsedSince = (clocks: ReturnType<typeof readClocks>) =>
+  Math.max(DateNow() - clocks.wall, PerformanceNow() - clocks.mono)
 
 const daysSinceEpoch = (year: number, month: number, day: number) => {
   const shiftedYear = month <= 1 ? year - 1 : year
@@ -45,14 +64,28 @@ export const checkServerDate = (response: Response) => {
     return
   }
 
-  if (Date.now() - parseHttpDate(header) > maxClockLeadMs) {
-    pollsStopped = true
+  const serverDate = parseHttpDate(header)
+
+  if (Number.isNaN(serverDate) || serverDate <= lastServerDate) {
+    return
+  }
+
+  const isFast = elapsedSince(lastServerClocks) > maxClockRate * (serverDate - lastServerDate) + serverDateSlackMs
+
+  serverStrikes = isFast ? serverStrikes + 1 : 0
+  lastServerDate = serverDate
+  lastServerClocks = readClocks()
+
+  if (serverStrikes === strikesToStop) {
+    stopPolls()
   }
 }
 
 export const startSpeedProbe = async () => {
+  let strikes = 0
+
   while (!pollsStopped) {
-    const start = Date.now()
+    const clocks = readClocks()
 
     await new Promise<void>((resolve) => {
       const int = setInterval(() => {
@@ -61,21 +94,31 @@ export const startSpeedProbe = async () => {
       }, probeDelayMs)
     })
 
-    if (Date.now() - start < probeMinimumElapsedMs) {
-      pollsStopped = true
+    strikes = elapsedSince(clocks) < probeMinimumElapsedMs ? strikes + 1 : 0
+
+    if (strikes === strikesToStop) {
+      stopPolls()
     }
   }
 }
 
 export const guardPoll = (poll: () => void, interval: number) => {
-  let remainingCalls = Math.floor(maxPollingDurationMs / interval)
+  let clocks = readClocks()
+  let credit = 0
 
   return () => {
-    if (pollsStopped || remainingCalls === 0) {
+    if (pollsStopped) {
       return
     }
 
-    remainingCalls--
+    credit = Math.max(credit, pollCreditPerInterval * elapsedSince(clocks) / interval) - 1
+    clocks = readClocks()
+
+    if (credit < 0) {
+      stopPolls()
+      return
+    }
+
     poll()
   }
 }

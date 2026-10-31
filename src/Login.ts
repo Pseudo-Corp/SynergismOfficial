@@ -12,11 +12,11 @@ import {
   calculateRedAmbrosiaGenerationSpeed
 } from './Calculate'
 import { isSynergismCC } from './Config'
-import { updateGlobalsIsEvent } from './Event'
+import { clearEvent, updateGlobalsIsEvent } from './Event'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
-import { checkServerDate, guardPoll } from './PollGuard'
+import { checkServerDate, guardPoll, pollsStopped } from './PollGuard'
 import { updateBellButton, updateLotusDisplay } from './purchases/ConsumablesTab'
 import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
@@ -742,6 +742,12 @@ async function handleWebSocket () {
     return
   }
 
+  if (pollsStopped) {
+    resetWebSocket()
+    clearEvent()
+    return
+  }
+
   const url = 'wss://synergism.cc/consumables/connect'
 
   if (PLATFORM === 'mobile') {
@@ -794,7 +800,9 @@ async function handleWebSocket () {
 
     interval = setInterval(
       (ws_: WebSocket) => {
-        ws_.send('ping')
+        if (!pollsStopped) {
+          ws_.send('ping')
+        }
       },
       30_000,
       ws
