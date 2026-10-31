@@ -4278,7 +4278,7 @@
       "new": "<<limegreen|[新！]>>",
       "upgraded": "<<gold|[已升级！]>>",
       "nextSoon": "<<white|[即将升级！]>>",
-      "header": "您的最高奇点次数为<span style=\"color: var(--gold-color)\">{{ord}}次奇点</span><br/>。",
+      "header": "The highest Singularity you've reached is the <span style=\"color: var(--gold-color)\">{{ord}} Singularity.</span><br/>",
       "treeLabel": "奇点特权进度树",
       "treePerkLabel": "$t({{name}})，在{{singularity}}次奇点时解锁",
       "usesCurrentSing": "该特权与您当前奇点次数有关。如果次数降低，特权等级可能会<<crimson|降低>>",
@@ -6114,7 +6114,7 @@
       "20": "我想，您早已强到连<<gray|税务官>>都拦不住了吧？",
       "21": "有时您会想，蚁神靠吃金币过活可能会更划算。毕竟金币您有的是。",
       "22": "蚁神，Derpsmith，那个金色家伙，还有<<cyan|Platonic>>……这几位都是些什么来头啊？",
-      "23": "10的<<gold|10000000000000000000>><<orange|000000000000000000>><<brown|000000000000000000>><<grey|000000000000000>>次方",
+      "23": "10 to the <<gold|10,000,000,000,000,000,000>><<orange|,000,000,000,000,000,000>><<brown|,000,000,000,000,000,000>><<grey|,000,000,000,000,000>>",
       "24": "他们该写写您的财富的故事。只需要一支<<grey|终极妙笔>>就够了。",
       "25": "我的名字无人知晓，我的事迹永世称道。",
       "26": "金币真多啊(笑"
@@ -8576,10 +8576,10 @@
     },
     "platonicUpgrades": {
       "c15Rewards": {
-        "requiredExponent": "在挑战15中获得<span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{coins}}</span>金币后可以提升指数！",
+        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
         "nextReward": "下一类奖励需要<<white|{{exponent}}>>指数。",
         "allUnlocked": "您解锁了挑战15<<gold|所有>>类型的奖励！",
-        "0": "挑战15最高达到的指数：<span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{exponent}}</span>",
+        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{exponent}}</span>",
         "cube1": "• 所有类型的方盒、立方和方块获取数量 I：+{{amount}}",
         "ascensions": "• 飞升次数：+{{amount}}",
         "coinExponent": "• 金币指数：+{{amount}}",
@@ -9174,7 +9174,7 @@
   },
   "hotkeys": {
     "note1": "SHIFT+1至SHIFT+8可以在下次飞升时载入预设1至预设8。SHIFT+9、SHIFT+0和SHIFT+反引号键可以在下次飞升时把腐化等级设为0。这些快捷键无法修改！",
-    "note2": "不试试看点击上面某项<span style=\"color:var(--gold-color);\">金色</span>文字吗？随时都可以取消哦！",
+    "note2": "Why don't you try clicking on one of the item's <span style=\"color:var(--gold-color);\">gold</span> text above to get started? You can always cancel!",
     "reset": "重置快捷键",
     "mobile": {
       "open": "打开移动端快捷键",
