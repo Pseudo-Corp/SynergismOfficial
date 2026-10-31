@@ -2257,20 +2257,15 @@ TODO: Fix this entire tab it's utter shit
 
   registerFeedbackForm()
 
-  // Mobile theme dropdown toggle
-  if (isMobile) {
-    const themeArea = DOMCacheGetOrSet('themeArea')
-    DOMCacheGetOrSet('theme').addEventListener('click', () => {
-      themeArea.classList.toggle('open')
-    })
-  }
+  const themeArea = DOMCacheGetOrSet('themeArea')
+  DOMCacheGetOrSet('theme').addEventListener('click', () => {
+    themeArea.classList.toggle('open')
+  })
 
   for (const themeNumber of themeValues) {
     DOMCacheGetOrSet(`switchTheme${themeNumber}`).addEventListener('click', () => {
       toggleTheme(false, themeNumber, true)
-      if (isMobile) {
-        DOMCacheGetOrSet('themeArea').classList.remove('open')
-      }
+      themeArea.classList.remove('open')
     })
   }
 
