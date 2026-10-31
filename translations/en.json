@@ -5494,6 +5494,8 @@
             "rt": "This Attempt, Real (seconds)",
             "sg": "Current Singularity",
             "gs": "Game Section",
+            "cl": "Current Corruption level",
+            "hcl": "Highest cleared Corruption level",
             "cb": "Cube Bank",
             "hb": "Happy Hour Bells active",
             "tc": "Current Transcension Challenge",

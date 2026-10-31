@@ -82,7 +82,7 @@ const uiKey = 'corruptions.autoAscend.rules.ui'
 const errorKey = 'corruptions.autoAscend.rules.errors'
 const paletteFileName = 'Synergism-AutoAscension-Rules.txt'
 
-const integerNumberRules = new Set<VariableKey>(['sg', 'cb', 'hb'])
+const integerNumberRules = new Set<VariableKey>(['sg', 'cl', 'hcl', 'cb', 'hb'])
 const groupOps: GroupOp[] = ['and', 'or']
 const protocolTypes: ProtocolType[] = [
   'ascend',
