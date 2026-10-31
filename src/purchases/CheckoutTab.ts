@@ -258,7 +258,7 @@ async function initializePayPal_OneTime (selector: string | HTMLElement) {
     style: {
       shape: 'rect',
       layout: 'vertical',
-      color: 'var(--gold-color)',
+      color: 'gold',
       label: 'paypal'
     },
 

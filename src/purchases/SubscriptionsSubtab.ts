@@ -515,7 +515,7 @@ export const initializePayPal_Subscription = async () => {
       style: {
         shape: 'rect',
         layout: 'vertical',
-        color: 'var(--gold-color)',
+        color: 'gold',
         label: 'paypal'
       },
 
