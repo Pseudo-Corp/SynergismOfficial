@@ -14286,15 +14286,12 @@ body.lightTheme {
     --danger-hover: #f9bcc8;
 }
 
-body.lightTheme .active-subtab,
+body.lightTheme :not(img).active-subtab,
 body.lightTheme button.active-subtab,
 body.lightTheme button.active-subtab:hover:not(:disabled):not(.disable-hover-color),
 body.lightTheme button.active-subtab:active:not(:disabled):not(.disable-hover-color),
-body.lightTheme .mobileSubTabIcon.active-subtab,
-body.lightTheme .mobileSubTabIconContainer.active-subtab > .mobileSubTabIcon,
 body.lightTheme #savegame[disabled],
-body.lightTheme .canAntSacrifice,
-html[data-mobile="true"] body.lightTheme nav.navbar #tabrow > button.mobileTabIconButton.active-tab {
+body.lightTheme .canAntSacrifice {
     background-color: #fbcfd7;
 }
 
@@ -14341,20 +14338,10 @@ body.lightTheme .subscriptionWebsite {
 }
 
 body.lightTheme .buttonRow.mobile > div > .auto,
-body.lightTheme .constUpgradeAuto,
 body.lightTheme .antLeaderboardCurrentSacrifice,
+body.lightTheme .mobileUpgradeBox.green-background,
 body.lightTheme *[class^="hoveredBlueberryLoadout"] div[class^="bbPurchasedLoadout"] {
     background-color: #c4e9c4;
-}
-
-body.lightTheme .challengeActive,
-body.lightTheme .constUpgradeAvailable:hover {
-    background-color: #eccfec;
-}
-
-body.lightTheme .challengeActive:hover,
-body.lightTheme .constUpgradeAvailable {
-    background-color: #f3e0f3;
 }
 
 body.lightTheme #researchtable .researchRoomba > img {
@@ -14710,6 +14697,10 @@ body.lightTheme nav.navbar #tabrow {
     background: rgb(246 247 249 / 95%);
 }
 
+body.lightTheme .mobileTabIconButton.active-tab > .mobileTabIcon {
+    background-color: transparent;
+}
+
 body.lightTheme img {
     --white-background-color: white;
     --black-background-color: black;
@@ -14724,6 +14715,8 @@ body.lightTheme img {
     --cornflowerblue-background-color: cornflowerblue;
     --orchid-background-color: orchid;
     --purple-background-color: purple;
+    --green-text-color: green;
+    --purplebtn-color: purple;
     --button-color: #2a2a35;
     --buttonbuy-color: #2a2a35;
     --buttonimg-color: #2a2a35;
@@ -14733,13 +14726,15 @@ body.lightTheme img {
     --box-color: #2a2a35;
     --tab-color: #2a2a35;
 
-    background-color: #2a2a35;
     border-radius: 3px;
 }
 
 body.lightTheme [style*="background-image"] {
-    background-color: #2a2a35;
     border-radius: 3px;
+}
+
+:where(body.lightTheme img, body.lightTheme [style*="background-image"]) {
+    background-color: #2a2a35;
 }
 
 body.lightTheme .antLeaderboardCurrentSacrifice {
