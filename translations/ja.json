@@ -2940,8 +2940,8 @@
     "perks": {
       "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
       "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
-      "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>",
-      "description": "(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
+      "header": "The highest Singularity you've reached is the <span style=\"color: var(--gold-color)\">{{ord}} Singularity.</span><br/>",
+      "description": "(Hover for more details. Perks in <span style=\"color: var(--gold-color)\">gold text</span> were added or improved in this Singularity)",
       "welcometoSingularity": {
         "name": "Welcome to Singularity!",
         "default": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!"
@@ -6354,10 +6354,10 @@
     },
     "platonicUpgrades": {
       "c15Rewards": {
-        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: gold; font-size: 1.2em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
+        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: 1.2em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
         "nextReward": "Next reward type requires <<white | {{exponent}}>> Exponent.",
         "allUnlocked": "You have unlocked <<gold | all>> reward types from Challenge 15!",
-        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: gold; font-size: 1.2em;\">{{exponent}}</span>",
+        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: 1.2em;\">{{exponent}}</span>",
         "cube1": "• All Cube Types I: +{{amount}}",
         "ascensions": "• Ascension Count: +{{amount}}",
         "coinExponent": "• Coin Exponent: +{{amount}}",
@@ -6713,7 +6713,7 @@
   },
   "hotkeys": {
     "note1": "Loadouts correspond from SHIFT + 0 to SHIFT + 8 and SHIFT + BACKQUOTE. But you can't change it!",
-    "note2": "Why don't you try clicking on one of the item's <span style=\"color:gold;\">gold</span> text above to get started? You can always cancel!",
+    "note2": "Why don't you try clicking on one of the item's <span style=\"color:var(--gold-color);\">gold</span> text above to get started? You can always cancel!",
     "reset": "Reset Hotkeys",
     "names": {
       "buyAccelerators": "Buy Accelerators",

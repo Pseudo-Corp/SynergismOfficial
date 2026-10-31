@@ -105,15 +105,15 @@ export const hasUnreadMessages = (): boolean => {
 const getMessageTypeColor = (type: Message['type']): string => {
   switch (type) {
     case 'info':
-      return '#4A90E2'
+      return 'var(--hex-4a90e2-color)'
     case 'warning':
-      return '#F5A623'
+      return 'var(--hex-f5a623-color)'
     case 'error':
-      return '#D0021B'
+      return 'var(--hex-d0021b-color)'
     case 'success':
-      return '#7ED321'
+      return 'var(--hex-7ed321-color)'
     default:
-      return '#4A90E2'
+      return 'var(--hex-4a90e2-color)'
   }
 }
 
@@ -141,9 +141,9 @@ const updateMessagesNotificationBadge = () => {
     badge = document.createElement('span')
     badge.className = 'messages-notification-badge'
     badge.style.cssText = `
-      background-color: #fa3e3e;
+      background-color: var(--hex-fa3e3e-background-color);
       border-radius: 2px;
-      color: white;
+      color: var(--white-color);
       padding: 1px 3px;
       font-size: 10px;
       position: absolute;
@@ -185,7 +185,7 @@ const updateMessagesUI = () => {
         border-radius: 8px;
         margin: 10px 0;
         padding: 15px;
-        background: rgba(0,0,0,0.2);
+        background: var(--message-background-color);
         position: relative;
       ">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
@@ -199,21 +199,21 @@ const updateMessagesUI = () => {
             class="mark-read-btn" 
             data-message-id="${message.id}"
             style="
-              background: #333;
+              background: var(--hex-333-background-color);
               border: 1px solid #666;
-              color: white;
+              color: var(--white-color);
               padding: 4px 8px;
               border-radius: 4px;
               cursor: pointer;
               font-size: 12px;
             "
-            onmouseover="this.style.background='#555'"
-            onmouseout="this.style.background='#333'"
+            onmouseover="this.style.background='var(--hex-555-background-color)'"
+            onmouseout="this.style.background='var(--hex-333-background-color)'"
           >
             Mark Read
           </button>
         </div>
-        <div style="color: #ccc; margin-bottom: 8px; white-space: pre-wrap;">
+        <div style="color: var(--hex-ccc-color); margin-bottom: 8px; white-space: pre-wrap;">
           ${message.content}
         </div>
         <div style="
@@ -221,7 +221,7 @@ const updateMessagesUI = () => {
           justify-content: space-between; 
           align-items: center; 
           font-size: 12px; 
-          color: #999;
+          color: var(--hex-999-color);
         ">
           <span>Priority: ${message.priority}</span>
           <span>${new Date(message.created_at).toLocaleDateString()}</span>

@@ -401,12 +401,12 @@ const getResearchDetails = (index: number, auto = false, buyMaxOverride?: boolea
     x: format(obtainiumCost.ceil(), 0, false),
     y: format(levelToBuy - player.researches[index], 0, true)
   })
-  let costColor = 'limegreen'
-  let levelColor = 'white'
+  let costColor = 'var(--limegreen-color)'
+  let levelColor = 'var(--white-color)'
 
   if (isResearchMaxed(index)) {
-    costColor = 'Gold'
-    levelColor = 'plum'
+    costColor = 'var(--gold-color)'
+    levelColor = 'var(--plum-color)'
     costText += i18next.t('researches.maxed')
   } else if (player.obtainium.lt(obtainiumCost)) {
     costColor = 'var(--crimson-text-color)'
@@ -586,6 +586,6 @@ export const toggleMaxedResearches = (): void => {
   toggle.setAttribute('aria-pressed', `${hideMaxed}`)
   toggle.setAttribute('i18n', i18nKey)
   toggle.textContent = i18next.t(i18nKey)
-  toggle.style.border = `2px solid ${hideMaxed ? 'red' : 'green'}`
+  toggle.style.border = `2px solid ${hideMaxed ? 'var(--red-color)' : 'var(--green-color)'}`
   DOMCacheGetOrSet('researchtable').classList.toggle('hideMaxedResearches', hideMaxed)
 }

@@ -551,7 +551,7 @@ export const resetHistoryTogglePerSecond = () => {
   } else {
     button.textContent = i18next.t('history.perSecondOff')
   }
-  button.style.borderColor = player.historyShowPerSecond ? 'green' : 'red'
+  button.style.borderColor = player.historyShowPerSecond ? 'var(--green-color)' : 'var(--red-color)'
 }
 
 const isLegacyCorruptionTierState = (

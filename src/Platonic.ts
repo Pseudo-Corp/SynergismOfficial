@@ -459,32 +459,32 @@ export const createPlatonicDescription = (index: number) => {
   )
 
   DOMCacheGetOrSet('platonicOfferingCost').style.color = upgradeCosts.affordable.offerings
-    ? 'lime'
+    ? 'var(--lime-color)'
     : 'var(--crimson-text-color)'
   DOMCacheGetOrSet('platonicObtainiumCost').style.color = upgradeCosts.affordable.obtainium
-    ? 'lime'
+    ? 'var(--lime-color)'
     : 'var(--crimson-text-color)'
   DOMCacheGetOrSet('platonicCubeCost').style.color = upgradeCosts.affordable.cubes
-    ? 'lime'
+    ? 'var(--lime-color)'
     : 'var(--crimson-text-color)'
   DOMCacheGetOrSet('platonicTesseractCost').style.color = upgradeCosts.affordable.tesseracts
-    ? 'lime'
+    ? 'var(--lime-color)'
     : 'var(--crimson-text-color)'
   DOMCacheGetOrSet('platonicHypercubeCost').style.color = upgradeCosts.affordable.hypercubes
-    ? 'lime'
+    ? 'var(--lime-color)'
     : 'var(--crimson-text-color)'
   DOMCacheGetOrSet('platonicPlatonicCost').style.color = upgradeCosts.affordable.platonics
-    ? 'lime'
+    ? 'var(--lime-color)'
     : 'var(--crimson-text-color)'
   DOMCacheGetOrSet('platonicHepteractCost').style.color = upgradeCosts.affordable.abyssals
-    ? 'lime'
+    ? 'var(--lime-color)'
     : 'var(--crimson-text-color)'
 
   if (player.platonicUpgrades[index] < platUpgradeBaseCosts[index].maxLevel) {
-    DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'cyan'
+    DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'var(--cyan-color)'
 
     if (resourceCheck.canBuy) {
-      DOMCacheGetOrSet('platonicCanBuy').style.color = 'gold'
+      DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--gold-color)'
       DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t(
         'wowCubes.platonicUpgrades.descriptionBox.platonicCanBuy'
       )
@@ -497,7 +497,7 @@ export const createPlatonicDescription = (index: number) => {
   }
 
   if (player.platonicUpgrades[index] === platUpgradeBaseCosts[index].maxLevel) {
-    DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'gold'
+    DOMCacheGetOrSet('platonicUpgradeLevel').style.color = 'var(--gold-color)'
     DOMCacheGetOrSet('platonicCanBuy').style.color = 'var(--orchid-text-color)'
     DOMCacheGetOrSet('platonicCanBuy').textContent = i18next.t(
       'wowCubes.platonicUpgrades.descriptionBox.platonicCanBuyMaxed'

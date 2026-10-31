@@ -2245,7 +2245,7 @@ export function toggleMaxedGoldenQuarkUpgrades (): void {
   toggle.setAttribute('aria-pressed', `${hideMaxed}`)
   toggle.setAttribute('i18n', i18nKey)
   toggle.textContent = i18next.t(i18nKey)
-  toggle.style.border = `2px solid ${hideMaxed ? 'red' : 'green'}`
+  toggle.style.border = `2px solid ${hideMaxed ? 'var(--red-color)' : 'var(--green-color)'}`
 
   for (const key of goldenQuarkUpgradeNames) {
     if (key !== 'offeringAutomatic') {
@@ -2665,14 +2665,14 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   const freeLevelsWithMult = player.goldenQuarkUpgrades[upgradeKey].freeLevel * freeLevelMult
   const totalEffectiveLevels = actualGQUpgradeTotalLevels(upgradeKey)
   const color = computeGQUpgradeMaxLevel(upgradeKey) === goldenQuarkUpgrades[upgradeKey].level
-    ? 'plum'
-    : 'white'
+    ? 'var(--plum-color)'
+    : 'var(--white-color)'
 
   // Upgrade Name Text
-  const nameHTML = `<span style="color: gold">${name}</span>`
+  const nameHTML = `<span style="color: var(--gold-color)">${name}</span>`
 
   // Upgrade Description Text
-  const descriptionHTML = `<span style="color: lightblue">${description}</span>`
+  const descriptionHTML = `<span style="color: var(--lightblue-color)">${description}</span>`
 
   // 'Minimum Singularity' Text
   const minReqColor = player.highestSingularityCount < upgrade.minimumSingularity
@@ -2688,17 +2688,17 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
 
   // Level Text
   const freeMultText = freeLevelMult > 1
-    ? `<span style="color: crimson"> (x${format(freeLevelMult, 2, true)})</span>`
+    ? `<span style="color: var(--crimson-color)"> (x${format(freeLevelMult, 2, true)})</span>`
     : ''
 
   let freeLevelText = freeLevelsWithMult > 0
-    ? `<span style="color: orange"> [+${
+    ? `<span style="color: var(--orange-color)"> [+${
       format(player.goldenQuarkUpgrades[upgradeKey].freeLevel, 2, true)
     }${freeMultText}]</span>`
     : ''
 
   if (freeLevelsWithMult > goldenQuarkUpgrades[upgradeKey].level) {
-    freeLevelText = `${freeLevelText}<span style="color: lightgray"> ${
+    freeLevelText = `${freeLevelText}<span style="color: var(--lightgray-color)"> ${
       i18next.t(
         'general.softCapped'
       )
@@ -2706,7 +2706,7 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   }
 
   const effectiveLevelText = totalEffectiveLevels !== goldenQuarkUpgrades[upgradeKey].level
-    ? `<br><b><span style="color: white">${
+    ? `<br><b><span style="color: var(--white-color)">${
       i18next.t('general.effectiveLevel', {
         level: format(totalEffectiveLevels, 2, true)
       })
@@ -2717,7 +2717,7 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     && isDailyFreeUpgradeCapped(upgradeKey as DailyFreeUpgradeKey)
     && goldenQuarkUpgrades[upgradeKey].level >= computeGQUpgradeMaxLevel(upgradeKey)
   const fullyCappedText = fullyCapped
-    ? `<span style="color: gold" role="img" aria-label="${i18next.t('general.fullyCapped')}"> ★</span>`
+    ? `<span style="color: var(--gold-color)" role="img" aria-label="${i18next.t('general.fullyCapped')}"> ★</span>`
     : ''
 
   const levelText = `<span style="color: ${color}">${i18next.t('general.level')} ${
@@ -2726,13 +2726,13 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
 
   const overclockLevels = computeGQUpgradeMaxLevel(upgradeKey) - upgrade.maxLevel
   const overclockHTML = overclockLevels > 0
-    ? `<br><span style="color: orchid">${
+    ? `<br><span style="color: var(--orchid-color)">${
       i18next.t('singularity.toString.overclockLevels', { levels: format(overclockLevels, 0, true) })
     }</span>`
     : ''
 
   // Upgrade Effect Text
-  const upgradeEffectHTML = `<span style="color: gold">${effectDesc}</span>`
+  const upgradeEffectHTML = `<span style="color: var(--gold-color)">${effectDesc}</span>`
 
   // TNL Cost Text
   const costHTML = computeGQUpgradeMaxLevel(upgradeKey) === goldenQuarkUpgrades[upgradeKey].level
@@ -2740,7 +2740,7 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     : i18next.t('singularity.toString.costNextLevel', { amount: format(costNextLevel, 0, true) })
 
   const investedGQHTML = player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested > 0
-    ? `<br><span style="color: orange">${
+    ? `<br><span style="color: var(--orange-color)">${
       i18next.t('singularity.toString.spentGQ', {
         spent: format(player.goldenQuarkUpgrades[upgradeKey].goldenQuarksInvested, 0, true)
       })
@@ -2749,7 +2749,7 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
 
   // QoL Text
   const qualityOfLifeText = upgrade.qualityOfLife
-    ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>`
+    ? `<br><span style="color: var(--orchid-color)">${i18next.t('general.alwaysEnabled')}</span>`
     : ''
 
   const maxLevelAPCheck = goldenQuarkUpgrades[upgradeKey].level >= upgrade.maxLevel ? '✔' : '✖'

@@ -205,7 +205,7 @@ export const campaignTokenBonuses = {
 const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRewardDisplay> = {
   tutorial: {
     tokenRequirement: 0,
-    color: 'white',
+    color: 'var(--white-color)',
     reward: () => ({
       cube: formatAsPercentIncrease(campaignTokenBonuses.tutorial().cubeBonus),
       obtainium: formatAsPercentIncrease(campaignTokenBonuses.tutorial().obtainiumBonus),
@@ -214,63 +214,63 @@ const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRe
   },
   cube: {
     tokenRequirement: 0,
-    color: 'white',
+    color: 'var(--white-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.cube())
   },
   obtainium: {
     tokenRequirement: 0,
-    color: 'pink',
+    color: 'var(--pink-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.obtainium())
   },
   offering: {
     tokenRequirement: 0,
-    color: 'orange',
+    color: 'var(--orange-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.offering())
   },
   quark: {
     tokenRequirement: 100,
-    color: 'cyan',
+    color: 'var(--cyan-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.quark())
   },
   tax: {
     tokenRequirement: 250,
-    color: 'lightgray',
+    color: 'var(--lightgray-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.tax()),
     otherUnlockRequirement: () => (player.challengecompletions[13] > 0)
   },
   c15: {
     tokenRequirement: 250,
-    color: 'lightgoldenrodyellow',
+    color: 'var(--lightgoldenrodyellow-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.c15()),
     otherUnlockRequirement: () => (player.challengecompletions[14] > 0)
   },
   rune6: {
     tokenRequirement: 500,
-    color: 'lightgoldenrodyellow',
+    color: 'var(--lightgoldenrodyellow-color)',
     reward: () => String(campaignTokenBonuses.rune6()),
     otherUnlockRequirement: () => (getShopUpgradeEffects('infiniteAscent', 'runeUnlocked'))
   },
   goldenQuark: {
     tokenRequirement: 500,
-    color: 'gold',
+    color: 'var(--gold-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.goldenQuark()),
     otherUnlockRequirement: () => (player.highestSingularityCount > 0)
   },
   octeract: {
     tokenRequirement: 1000,
-    color: 'teal',
+    color: 'var(--teal-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.octeract()),
     otherUnlockRequirement: () => (player.highestSingularityCount > 7)
   },
   ambrosiaLuck: {
     tokenRequirement: 2000,
-    color: 'limegreen',
+    color: 'var(--limegreen-color)',
     reward: () => format(campaignTokenBonuses.ambrosiaLuck(), 2, true),
     otherUnlockRequirement: () => (player.singularityChallenges.noSingularityUpgrades.completions > 0)
   },
   blueberrySpeed: {
     tokenRequirement: 2000,
-    color: 'lightblue',
+    color: 'var(--lightblue-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.blueberrySpeed()),
     otherUnlockRequirement: () => (player.singularityChallenges.noSingularityUpgrades.completions > 0)
   }
@@ -352,7 +352,7 @@ export const createCampaignTokenRewardEventHandlers = () => {
   registerCampaignTokenRewardModal(
     DOMCacheGetOrSet('campaignTokenRewardIcon-sum'),
     () => campaignTokenRewardSumModalHTML(campaignTokenRewardSumTexts()),
-    'gold'
+    'var(--gold-color)'
   )
 }
 

@@ -42,7 +42,7 @@ export const antCornerStageHTML = () => {
     }
   }
   const closingHTML = i18next.t('ants.leaderboard.stageModal.toNextStage', { x: format(eloToNextStage, 0, true) })
-  const disclaimerHTML = `<span style="font-size: 0.8em; color: gray;">${
+  const disclaimerHTML = `<span style="font-size: 0.8em; color: var(--gray-color);">${
     i18next.t('ants.leaderboard.stageModal.disclaimer')
   }</span>`
   return `${introHTML}<br><br>${tranchHTML}<br>${closingHTML}<br>${disclaimerHTML}`

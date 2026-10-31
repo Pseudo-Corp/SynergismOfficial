@@ -408,7 +408,7 @@ export const challengeDisplay = (i: number) => {
   }
   if (player.ascensionCount === 0) {
     descriptor = 'Quarks'
-    j.style.color = 'cyan'
+    j.style.color = 'var(--cyan-color)'
   }
   if (
     player.challengecompletions[i] >= player.highestchallengecompletions[i]
@@ -457,7 +457,7 @@ export const challengeDisplay = (i: number) => {
     el.style.display = i <= (autoAscensionChallengeSweepUnlock() ? 15 : 10) && player.researches[150] > 0
       ? 'block'
       : 'none'
-    el.style.border = player.autoChallengeToggles[i] ? '2px solid green' : '2px solid red'
+    el.style.border = player.autoChallengeToggles[i] ? '2px solid var(--green-color)' : '2px solid var(--red-color)'
 
     if (i >= 11 && i <= 15) {
       if (player.autoChallengeToggles[i]) {
@@ -477,10 +477,10 @@ export const challengeDisplay = (i: number) => {
   const ella = DOMCacheGetOrSet('toggleAutoChallengeStart')
   if (player.autoChallengeRunning) {
     ella.textContent = i18next.t('challenges.autoChallengeSweepOn')
-    ella.style.border = '2px solid gold'
+    ella.style.border = '2px solid var(--gold-color)'
   } else {
     ella.textContent = i18next.t('challenges.autoChallengeSweepOff')
-    ella.style.border = '2px solid red'
+    ella.style.border = '2px solid var(--red-color)'
   }
 }
 

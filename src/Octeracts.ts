@@ -1072,7 +1072,7 @@ export const toggleMaxedOcteractUpgrades = (): void => {
   toggle.setAttribute('aria-pressed', `${hideMaxed}`)
   toggle.setAttribute('i18n', i18nKey)
   toggle.textContent = i18next.t(i18nKey)
-  toggle.style.border = `2px solid ${hideMaxed ? 'red' : 'green'}`
+  toggle.style.border = `2px solid ${hideMaxed ? 'var(--red-color)' : 'var(--green-color)'}`
 
   for (const key of octeractUpgradeNames) {
     updateOcteractUpgradeVisibility(key)
@@ -1315,17 +1315,17 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
   const maxLevel = `/${format(upgrade.maxLevel, 0, true)}`
 
   const isMaxLevel = upgrade.maxLevel === octeractUpgrades[upgradeKey].level
-  const color = isMaxLevel ? 'plum' : 'white'
+  const color = isMaxLevel ? 'var(--plum-color)' : 'var(--white-color)'
 
-  const nameHTML = `<span style="color: gold">${name}</span>`
-  const descriptionHTML = `<span style="color: lightblue">${upgrade.description()}</span>`
+  const nameHTML = `<span style="color: var(--gold-color)">${name}</span>`
+  const descriptionHTML = `<span style="color: var(--lightblue-color)">${upgrade.description()}</span>`
 
   const freeLevelMultText = freeLevelMult > 1
-    ? `<span style="color: crimson"> (x${format(freeLevelMult, 2, true)})</span>`
+    ? `<span style="color: var(--crimson-color)"> (x${format(freeLevelMult, 2, true)})</span>`
     : ''
 
   let freeLevelText = player.octUpgrades[upgradeKey].freeLevel > 0
-    ? `<span style="color: orange"> [+${
+    ? `<span style="color: var(--orange-color)"> [+${
       format(player.octUpgrades[upgradeKey].freeLevel, 3, true)
     }${freeLevelMultText}]</span>`
     : ''
@@ -1338,7 +1338,7 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
 
   const effectiveLevelText = totalEffectiveLevels
       !== octeractUpgrades[upgradeKey].level + player.octUpgrades[upgradeKey].freeLevel
-    ? `<br><b><span style="color: white">${
+    ? `<br><b><span style="color: var(--white-color)">${
       i18next.t('general.effectiveLevel', {
         level: format(totalEffectiveLevels, 3, true)
       })
@@ -1349,7 +1349,7 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     && isOcteractFreeLevelAtHighestCap(upgradeKey as DailyOcteractFreeUpgradeKey)
     && isMaxLevel
   const fullyCappedText = fullyCapped
-    ? `<span style="color: gold" role="img" aria-label="${i18next.t('general.fullyCapped')}"> ★</span>`
+    ? `<span style="color: var(--gold-color)" role="img" aria-label="${i18next.t('general.fullyCapped')}"> ★</span>`
     : ''
 
   const levelHTML = `<span style="color: ${color}"> ${i18next.t('general.level')} ${
@@ -1366,13 +1366,15 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
   }
 
   const affordableInfo = isMaxLevel
-    ? `<span style="color: plum"> ${i18next.t('general.maxed')}</span>`
+    ? `<span style="color: var(--plum-color)"> ${i18next.t('general.maxed')}</span>`
     : isAffordable
     ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>`
-    : `<span style="color: yellow"> ${i18next.t('octeract.toString.becomeAffordable', { n: affordTime })}</span>`
+    : `<span style="color: var(--yellow-color)"> ${
+      i18next.t('octeract.toString.becomeAffordable', { n: affordTime })
+    }</span>`
 
   const totalLevels = actualOcteractUpgradeTotalLevels(upgradeKey)
-  const effectHTML = `<span style="color: gold">${upgrade.effectDescription(totalLevels)}</span>`
+  const effectHTML = `<span style="color: var(--gold-color)">${upgrade.effectDescription(totalLevels)}</span>`
 
   const costHTML = (octeractUpgrades[upgradeKey].level === upgrade.maxLevel && upgrade.maxLevel !== -1)
     ? ''
@@ -1383,7 +1385,7 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     } ${affordableInfo}`
 
   const investedOcteractsHTML = player.octUpgrades[upgradeKey].octeractsInvested > 0
-    ? `<br><span style="color: turquoise">${
+    ? `<br><span style="color: var(--turquoise-color)">${
       i18next.t('octeract.toString.spentOcteracts', {
         spent: format(player.octUpgrades[upgradeKey].octeractsInvested, 2)
       })
@@ -1391,7 +1393,7 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     : ''
 
   const qualityOfLifeText = upgrade.qualityOfLife
-    ? `<br><span style="color: orchid">${i18next.t('general.alwaysEnabled')}</span>`
+    ? `<br><span style="color: var(--orchid-color)">${i18next.t('general.alwaysEnabled')}</span>`
     : ''
 
   const maxLevelAPHTML = `<br>${

@@ -840,7 +840,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         newValue: format(0.10 + 0.005 * (lv + 1), 3)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyQuarks', 'quarkMultiplier')
@@ -851,7 +851,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         maxValue: format(0.15, 2)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     apValue: {
       perLevelAP: 1,
@@ -880,7 +880,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         newValue: format(0.1 + 0.01 * (lv + 1), 2)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyGlobalSpeed', 'globalSpeedMultiplier')
@@ -891,7 +891,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         maxValue: format(0.25, 2)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     apValue: {
       perLevelAP: 1,
@@ -923,7 +923,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         newValue: format(0.08 + 0.008 * (lv + 1), 3)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyAscensionSpeed', 'ascensionSpeedMultiplier')
@@ -934,7 +934,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         maxValue: format(0.16, 2)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     apValue: {
       perLevelAP: 1,
@@ -963,7 +963,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         newValue: format(0.02 + 0.002 * (lv + 1), 3)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyAmbrosia', 'ambrosiaGenerationSpeed')
@@ -974,7 +974,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         maxValue: format(0.04, 2)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     apValue: {
       perLevelAP: 1,
@@ -1006,7 +1006,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         newValue: format(0.02 + 0.002 * (lv + 1), 3)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyRedAmbrosia', 'redAmbrosiaGenerationSpeed')
@@ -1017,7 +1017,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         maxValue: format(0.05, 2)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     apValue: {
       perLevelAP: 1,
@@ -1046,7 +1046,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         newPercent: formatAsPercentIncrease(1.0001 + 0.00001 * (purpleReactorUpgrades.lifetimeHoneyAntELO.level + 1), 3)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyAntELO', 'additiveAntELOPercent')
@@ -1057,7 +1057,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         maxPercent: formatAsPercentIncrease(1.0006, 2)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     apValue: {
       perLevelAP: 1,
@@ -1086,7 +1086,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         newValue: format(0.04 + 0.004 * (lv + 1), 3, true)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     maxedEffectsDescription: () => {
       const effect = getPurpleReactorUpgradeEffects('lifetimeHoneyRebornELOSpeed', 'rebornELOSpeedMult')
@@ -1097,7 +1097,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         maxValue: format(0.24, 2)
       })
 
-      return `${effectText}<br><span style="color: orchid">${formulaText}</span>`
+      return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
     },
     apValue: {
       perLevelAP: 1,
@@ -1254,24 +1254,24 @@ export const purpleReactorUpgradeToString = (upgradeKey: PurpleReactorNames): st
   const upgrade = purpleReactorUpgrades[upgradeKey]
   const maxLevel = `/${format(upgrade.maxLevel, 0, true)}`
   const isMaxLevel = upgrade.maxLevel === upgrade.level
-  const color = isMaxLevel ? 'plum' : 'white'
+  const color = isMaxLevel ? 'var(--plum-color)' : 'var(--white-color)'
 
   const name = i18next.t(`purpleReactor.upgrades.${upgradeKey}.name`)
-  const nameSpan = `<span style="color: gold">${name}</span>`
+  const nameSpan = `<span style="color: var(--gold-color)">${name}</span>`
   const levelSpan = `<span style="color: ${color}"> ${i18next.t('general.level')} ${
     format(upgrade.level, 0, true)
   }${maxLevel}</span>`
 
   const flavor = i18next.t(`purpleReactor.upgrades.${upgradeKey}.flavor`)
-  const flavorSpan = `<span style="color: lightgray">${flavor}</span>`
+  const flavorSpan = `<span style="color: var(--lightgray-color)">${flavor}</span>`
 
   let effectSpan = ''
   if (upgrade.level === upgrade.maxLevel) {
     const effect = getPurpleReactorUpgradeMaxedDescription(upgradeKey)
-    effectSpan = `<span style="color: white">${effect}</span>`
+    effectSpan = `<span style="color: var(--white-color)">${effect}</span>`
   } else {
     const effect = getPurpleReactorUpgradeNotMaxedDescription(upgradeKey)
-    effectSpan = `<span style="color: white">${effect}</span>`
+    effectSpan = `<span style="color: var(--white-color)">${effect}</span>`
   }
 
   const spentSpan = i18next.t('purpleReactor.purpleHoneySpent', {

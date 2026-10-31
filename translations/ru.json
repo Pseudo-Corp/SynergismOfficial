@@ -4278,7 +4278,7 @@
       "new": "<<limegreen|[NEW!]>>",
       "upgraded": "<<gold|[UPGRADED!]>>",
       "nextSoon": "<<white|[Upgrades Soon!]>>",
-      "header": "The highest Singularity you've reached is the <span style=\"color: var(--gold-color)\">{{ord}} Singularity.</span><br/>",
+      "header": "Ваша Наивысшая Сингулярность: <span style=\"color: var(--gold-color)\">{{ord}} Сингулярность.</span><br/>",
       "treeLabel": "Singularity Perk progression tree",
       "treePerkLabel": "$t({{name}}), unlocked at Singularity {{singularity}}",
       "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",
@@ -8576,10 +8576,10 @@
     },
     "platonicUpgrades": {
       "c15Rewards": {
-        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
+        "requiredExponent": "Получите <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: 1.2em;\">{{coins}}</span> Монет в Испытании 15, чтобы получить больше Экспоненты!",
         "nextReward": "Следующий тип наград требует Экспоненту <<white | {{exponent}}>>.",
         "allUnlocked": "Вы разблокировали <<gold | все> типы наград из Испытания 15!",
-        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{exponent}}</span>",
+        "0": "Лучшая Экспонента Испытания 15: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: 1.2em;\">{{exponent}}</span>",
         "cube1": "• Все Кубы I: +{{amount}}",
         "ascensions": "• Счётчик Вознесений: +{{amount}}",
         "coinExponent": "• Экспонента Монет: +{{amount}}",
@@ -9174,7 +9174,7 @@
   },
   "hotkeys": {
     "note1": "Заготовки соответствуют клавишам SHIFT + 0 по SHIFT + 8 и SHIFT + BACKQUOTE. Эти назначения изменить нельзя!",
-    "note2": "Why don't you try clicking on one of the item's <span style=\"color:var(--gold-color);\">gold</span> text above to get started? You can always cancel!",
+    "note2": "Для начала, почему бы вам не попробовать кликнуть на один из <span style=\"color:var(--gold-color);\">золотых</span> текстов выше? Вы всегда можете отменить этого действие!",
     "reset": "Сброс Горячих Клавиш",
     "mobile": {
       "open": "Open mobile hotkeys",

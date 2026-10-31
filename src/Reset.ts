@@ -161,7 +161,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
   const resetDetails: ResetDetailsView = {
     rewards: [],
     infoText: '',
-    infoColor: 'white'
+    infoColor: 'var(--white-color)'
   }
   const addCurrencyReward = (icon: string, text: string) => {
     resetDetails.rewards.push({ src: `Pictures/${iconSet}/${icon}`, text })
@@ -177,7 +177,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
         amount: format(player.coinsThisPrestige),
         timeSpent: format(player.prestigecounter)
       })
-      resetDetails.infoColor = 'turquoise'
+      resetDetails.infoColor = 'var(--turquoise-color)'
       break
     case 'transcension':
       addCurrencyReward('Mythos.png', `+${format(G.transcendPointGain)}`)
@@ -194,11 +194,11 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
         amount: format(player.transcendShards),
         timeSpent: format(player.reincarnationcounter)
       })
-      resetDetails.infoColor = 'limegreen'
+      resetDetails.infoColor = 'var(--limegreen-color)'
       break
     case 'transcensionChallenge':
       if (transcensionChallenge !== 0) {
-        resetDetails.infoColor = 'aquamarine'
+        resetDetails.infoColor = 'var(--aquamarine-color)'
         resetDetails.infoText = i18next.t('reset.details.transcensionChallenge.in', {
           n: transcensionChallenge,
           amount: format(player.coinsThisTranscension),
@@ -216,7 +216,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       if (reincarnationChallenge !== 0) {
         const goal = reincarnationChallenge >= 9 ? 'coins' : 'transcendShards'
 
-        resetDetails.infoColor = 'silver'
+        resetDetails.infoColor = 'var(--silver-color)'
         resetDetails.infoText = i18next.t(`reset.details.reincarnationChallenge.in.${goal}`, {
           n: reincarnationChallenge,
           amount: format(player[goal]),
@@ -236,7 +236,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       break
     case 'ascensionChallenge':
       resetDetails.infoText = i18next.t('reset.details.ascensionChallenge')
-      resetDetails.infoColor = 'gold'
+      resetDetails.infoColor = 'var(--gold-color)'
       break
     case 'ascension':
       resetDetails.rewards.push(...ascensionResetRewards(iconSet))
@@ -244,14 +244,14 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
         timeSpent: format(player.ascensionCounter, 0, false),
         realTimeSpent: format(player.ascensionCounterRealReal, 0, false)
       })
-      resetDetails.infoColor = 'gold'
+      resetDetails.infoColor = 'var(--gold-color)'
       break
     case 'singularity':
       resetDetails.infoText = i18next.t('reset.details.singularity', {
         gqAmount: format(calculateGoldenQuarks(), 2, true),
         timeSpent: format(player.singularityCounter, 0, false)
       })
-      resetDetails.infoColor = 'lightgoldenrodyellow'
+      resetDetails.infoColor = 'var(--lightgoldenrodyellow-color)'
   }
 
   return resetDetails

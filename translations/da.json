@@ -1341,8 +1341,8 @@
         "perks": {
             "levelInfo": "Level {{level}} - (Singularity {{singularity}})",
             "improvedIn": "An existing Perk will be improved in Singularity {{sing}}",
-            "header": "The highest Singularity you've reached is the <span style=\"color: gold\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
-            "description": "(Hover for more details. Perks in <span style=\"color: gold\">gold text</span> were added or improved in this Singularity)",
+            "header": "The highest Singularity you've reached is the <span style=\"color: var(--gold-color)\">{{ord}} Singularity.</span><br/>Here is the list of perks you have acquired to compensate the penalties",
+            "description": "(Hover for more details. Perks in <span style=\"color: var(--gold-color)\">gold text</span> were added or improved in this Singularity)",
             "welcometoSingularity": {
                 "name": "Welcome to Singularity!",
                 "default": "Welcome to the Singularity! As a perk for reaching this milestone: you can now autocraft Hepteracts (when you unlock them again) and Platonic Upgrades will BuyMax if they are affordable!"

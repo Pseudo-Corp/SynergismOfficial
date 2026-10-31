@@ -8576,10 +8576,10 @@
     },
     "platonicUpgrades": {
       "c15Rewards": {
-        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
+        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: 1.2em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
         "nextReward": "Next reward type requires <<white | {{exponent}}>> Exponent.",
         "allUnlocked": "You have unlocked <<gold | all>> reward types from Challenge 15!",
-        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{exponent}}</span>",
+        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: 1.2em;\">{{exponent}}</span>",
         "cube1": "• All Cube Types I: +{{amount}}",
         "ascensions": "• Ascension Count: +{{amount}}",
         "coinExponent": "• Coin Exponent: +{{amount}}",

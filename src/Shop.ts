@@ -151,7 +151,7 @@ interface UpgradeTypeInfo {
 
 export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
   [ShopUpgradeGroups.Offering]: {
-    HTMLColor: 'orange',
+    HTMLColor: 'var(--orange-color)',
     symbol: '☤',
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeOfferingLevels')
@@ -160,7 +160,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
       + getAmbrosiaUpgradeEffects('ambrosiaFreeOfferingUpgrades', 'freeOfferingUpgrades')
   },
   [ShopUpgradeGroups.Obtainium]: {
-    HTMLColor: 'pink',
+    HTMLColor: 'var(--pink-color)',
     symbol: '❍',
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeObtainiumLevels')
@@ -169,7 +169,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
       + getAmbrosiaUpgradeEffects('ambrosiaFreeObtainiumUpgrades', 'freeObtainiumUpgrades')
   },
   [ShopUpgradeGroups.Cubes]: {
-    HTMLColor: 'magenta',
+    HTMLColor: 'var(--magenta-color)',
     symbol: '⬢',
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeCubeLevels')
@@ -178,7 +178,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
       + getAmbrosiaUpgradeEffects('ambrosiaFreeCubeUpgrades', 'freeCubeUpgrades')
   },
   [ShopUpgradeGroups.Speed]: {
-    HTMLColor: 'yellow',
+    HTMLColor: 'var(--yellow-color)',
     symbol: '⧗',
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeSpeedLevels')
@@ -186,29 +186,29 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
       + getRedAmbrosiaUpgradeEffects('freeSpeedUpgrades', 'levels')
   },
   [ShopUpgradeGroups.Quark]: {
-    HTMLColor: 'cyan',
+    HTMLColor: 'var(--cyan-color)',
     symbol: '❂',
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeQuarkLevel')
       + getAmbrosiaUpgradeEffects('ambrosiaFreeQuarkUpgrades', 'freeQuarkUpgrades')
   },
   [ShopUpgradeGroups.AmbrosiaLuck]: {
-    HTMLColor: 'lime',
+    HTMLColor: 'var(--lime-color)',
     symbol: '☘',
     bonusLevels: () => getAmbrosiaUpgradeEffects('ambrosiaFreeLuckUpgrades', 'freeLuckUpgrades')
   },
   [ShopUpgradeGroups.RedAmbrosiaLuck]: {
-    HTMLColor: 'red',
+    HTMLColor: 'var(--red-color)',
     symbol: '⚅',
     bonusLevels: () => getAmbrosiaUpgradeEffects('ambrosiaFreeRedLuckUpgrades', 'freeRedLuckUpgrades')
   },
   [ShopUpgradeGroups.AmbrosiaGeneration]: {
-    HTMLColor: 'lightblue',
+    HTMLColor: 'var(--lightblue-color)',
     symbol: '◊',
     bonusLevels: () => getAmbrosiaUpgradeEffects('ambrosiaFreeGenerationUpgrades', 'freeGenerationUpgrades')
   },
   [ShopUpgradeGroups.InfinityUpgrades]: {
-    HTMLColor: 'lightgoldenrodyellow',
+    HTMLColor: 'var(--lightgoldenrodyellow-color)',
     symbol: '\u221E',
     bonusLevels: () =>
       calculateFreeShopInfinityUpgrades()
@@ -216,7 +216,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
       + getRuneEffects('topHat', 'freeInfinityLevels')
   },
   [ShopUpgradeGroups.Utility]: {
-    HTMLColor: 'white',
+    HTMLColor: 'var(--white-color)',
     symbol: '⚙',
     bonusLevels: () => 0
   }

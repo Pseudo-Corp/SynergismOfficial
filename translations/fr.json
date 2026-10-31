@@ -4278,7 +4278,7 @@
       "new": "<<limegreen|[NOUVEAU !]>>",
       "upgraded": "<<gold|[AMÉLIORÉ !]>>",
       "nextSoon": "<<white|[Amélioration bientôt !]>>",
-      "header": "The highest Singularity you've reached is the <span style=\"color: var(--gold-color)\">{{ord}} Singularity.</span><br/>",
+      "header": "La plus haute Singularité atteinte est la <span style=\"color: var(--gold-color)\">{{ord}} Singularité.</span><br/>",
       "treeLabel": "Arbre de progression des Privilèges de Singularité",
       "treePerkLabel": "$t({{name}}), débloqué à la Singularité {{singularity}}",
       "usesCurrentSing": "Ce Privilège utilise votre nombre actuel de Singularités. Son niveau peut <<crimson|baisser>> si vous êtes dans une Singularité inférieure.",
@@ -8576,10 +8576,10 @@
     },
     "platonicUpgrades": {
       "c15Rewards": {
-        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
+        "requiredExponent": "Gagnez <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{coins}}</span> Pièces dans le Défi 15 pour gagner plus d'Exposant !",
         "nextReward": "Le prochain type de récompense nécessite <<white | {{exponent}}>> d'Exposant.",
         "allUnlocked": "Vous avez débloqué <<gold | tous>> les types de récompenses du Défi 15 !",
-        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{exponent}}</span>",
+        "0": "Meilleur Exposant du Défi 15 : <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{exponent}}</span>",
         "cube1": "• Tous types de Cubes I : +{{amount}}",
         "ascensions": "• Nombre d'Ascensions : +{{amount}}",
         "coinExponent": "• Exposant des Pièces : +{{amount}}",
@@ -9174,7 +9174,7 @@
   },
   "hotkeys": {
     "note1": "MAJ + 1 à MAJ + 8 chargent les Configurations de Corruption 1 à 8 pour la prochaine Ascension. MAJ + 9, MAJ + 0 et MAJ + ACCENT GRAVE règlent la prochaine Ascension au niveau de Corruption 0. Ces raccourcis ne sont pas modifiables !",
-    "note2": "Why don't you try clicking on one of the item's <span style=\"color:var(--gold-color);\">gold</span> text above to get started? You can always cancel!",
+    "note2": "Pourquoi ne pas cliquer sur l'un des textes en <span style=\"color:var(--gold-color);\">or</span> ci-dessus pour commencer ? Vous pouvez toujours annuler !",
     "reset": "Réinitialiser les raccourcis",
     "mobile": {
       "open": "Ouvrir les raccourcis mobiles",

@@ -318,7 +318,7 @@ export const initializeMobileHotkeyPanel = (renderActions: () => void) => {
       toggle.setAttribute('aria-pressed', `${enabled}`)
       toggle.setAttribute('i18n', i18nKey)
       toggle.textContent = i18next.t(i18nKey)
-      toggle.style.border = `2px solid ${enabled ? 'green' : 'red'}`
+      toggle.style.border = `2px solid ${enabled ? 'var(--green-color)' : 'var(--red-color)'}`
     }
 
     toggle.addEventListener('click', () => {

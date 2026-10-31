@@ -617,26 +617,32 @@ export const htmlInserts = () => {
 // TODO(not @KhafraDev): cache the elements and stop getting them every time?
 export const buttoncolorchange = () => {
   DOMCacheGetOrSet('prestigebtn').style.backgroundColor = player.toggles[15] && getLevelMilestone('autoPrestige') === 1
-    ? 'green'
+    ? 'var(--green-background-color)'
     : ''
 
   DOMCacheGetOrSet('transcendbtn').style.backgroundColor =
-    player.toggles[21] && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0) ? 'green' : ''
+    player.toggles[21] && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0)
+      ? 'var(--green-background-color)'
+      : ''
 
   DOMCacheGetOrSet('reincarnatebtn').style.backgroundColor = player.toggles[27] && player.researches[46] > 0.5
       && (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0)
-    ? 'green'
+    ? 'var(--green-background-color)'
     : ''
 
-  DOMCacheGetOrSet('challengebtn').style.backgroundColor = player.currentChallenge.transcension === 0 ? '' : 'purple'
+  DOMCacheGetOrSet('challengebtn').style.backgroundColor = player.currentChallenge.transcension === 0
+    ? ''
+    : 'var(--purple-background-color)'
 
   DOMCacheGetOrSet('reincarnatechallengebtn').style.backgroundColor = player.currentChallenge.reincarnation === 0
     ? ''
-    : 'purple'
+    : 'var(--purple-background-color)'
 
-  DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = player.currentChallenge.ascension === 0 ? '' : 'purple'
+  DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = player.currentChallenge.ascension === 0
+    ? ''
+    : 'var(--purple-background-color)'
 
-  DOMCacheGetOrSet('ascendbtn').style.backgroundColor = isAutoAscendRunning() ? 'green' : ''
+  DOMCacheGetOrSet('ascendbtn').style.backgroundColor = isAutoAscendRunning() ? 'var(--green-background-color)' : ''
 
   DOMCacheGetOrSet('singularitybtn').style.filter = runes.antiquities.level > 0
     ? ''
@@ -759,10 +765,10 @@ export const buttoncolorchange = () => {
               + G.crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2)
           )
         )
-        ? 'purple'
+        ? 'var(--purple-background-color)'
         : ''
     } else {
-      f.style.backgroundColor = 'green'
+      f.style.backgroundColor = 'var(--green-background-color)'
     }
     if (getLevelMilestone('tier2CrystalAutobuy') === 0) {
       g.style.backgroundColor = player.prestigeShards.gte(
@@ -772,10 +778,10 @@ export const buttoncolorchange = () => {
               + G.crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2)
           )
         )
-        ? 'purple'
+        ? 'var(--purple-background-color)'
         : ''
     } else {
-      g.style.backgroundColor = 'green'
+      g.style.backgroundColor = 'var(--green-background-color)'
     }
     if (getLevelMilestone('tier3CrystalAutobuy') === 0) {
       h.style.backgroundColor = player.prestigeShards.gte(
@@ -785,10 +791,10 @@ export const buttoncolorchange = () => {
               + G.crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2)
           )
         )
-        ? 'purple'
+        ? 'var(--purple-background-color)'
         : ''
     } else {
-      h.style.backgroundColor = 'green'
+      h.style.backgroundColor = 'var(--green-background-color)'
     }
     if (getLevelMilestone('tier4CrystalAutobuy') === 0) {
       if (
@@ -800,12 +806,12 @@ export const buttoncolorchange = () => {
           )
         )
       ) {
-        i.style.backgroundColor = 'purple'
+        i.style.backgroundColor = 'var(--purple-background-color)'
       } else {
         i.style.backgroundColor = ''
       }
     } else {
-      i.style.backgroundColor = 'green'
+      i.style.backgroundColor = 'var(--green-background-color)'
     }
     if (getLevelMilestone('tier5CrystalAutobuy') === 0) {
       if (
@@ -817,12 +823,12 @@ export const buttoncolorchange = () => {
           )
         )
       ) {
-        j.style.backgroundColor = 'purple'
+        j.style.backgroundColor = 'var(--purple-background-color)'
       } else {
         j.style.backgroundColor = ''
       }
     } else {
-      j.style.backgroundColor = 'green'
+      j.style.backgroundColor = 'var(--green-background-color)'
     }
   }
 
@@ -994,10 +1000,10 @@ export const updateChallengeLevel = (k: number) => {
   const fixDisplay1 = document.getElementsByClassName('purpleach') as HTMLCollectionOf<HTMLElement>
   const fixDisplay2 = document.getElementsByClassName('redach') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < fixDisplay1.length; i++) {
-    fixDisplay1[i].style.backgroundColor = 'purple' // Sets the appropriate achs to purple
+    fixDisplay1[i].style.backgroundColor = 'var(--purple-background-color)' // Sets the appropriate achs to purple
   }
   for (let i = 0; i < fixDisplay2.length; i++) {
-    fixDisplay2[i].style.backgroundColor = 'maroon' // Sets the appropriate achs to maroon (red)
+    fixDisplay2[i].style.backgroundColor = 'var(--maroon-background-color)' // Sets the appropriate achs to maroon (red)
   }
   for (let i = 1; i < 281; i++) {
     if (player.achievements[i] > 0.5) {
@@ -1060,9 +1066,9 @@ const updateAscensionStats = () => {
         player.singularityChallenges.limitedTime.enabled
         && player.singChallengeTimer > calculateExalt6TimeLimit(player.singularityChallenges.limitedTime.completions)
       ) {
-        dom.style.color = 'red'
+        dom.style.color = 'var(--red-color)'
       } else {
-        dom.style.color = 'white'
+        dom.style.color = 'var(--white-color)'
       }
     }
   }
