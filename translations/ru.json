@@ -4278,7 +4278,7 @@
       "new": "<<limegreen|[NEW!]>>",
       "upgraded": "<<gold|[UPGRADED!]>>",
       "nextSoon": "<<white|[Upgrades Soon!]>>",
-      "header": "Ваша Наивысшая Сингулярность: <span style=\"color: var(--gold-color)\">{{ord}} Сингулярность.</span><br/>",
+      "header": "The highest Singularity you've reached is the <span style=\"color: var(--gold-color)\">{{ord}} Singularity.</span><br/>",
       "treeLabel": "Singularity Perk progression tree",
       "treePerkLabel": "$t({{name}}), unlocked at Singularity {{singularity}}",
       "usesCurrentSing": "This perk uses your current Singularity count. The level of this perk may <<crimson|decrease>> if you are in a lower Singularity.",
@@ -8576,10 +8576,10 @@
     },
     "platonicUpgrades": {
       "c15Rewards": {
-        "requiredExponent": "Получите <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: 1.2em;\">{{coins}}</span> Монет в Испытании 15, чтобы получить больше Экспоненты!",
+        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
         "nextReward": "Следующий тип наград требует Экспоненту <<white | {{exponent}}>>.",
         "allUnlocked": "Вы разблокировали <<gold | все> типы наград из Испытания 15!",
-        "0": "Лучшая Экспонента Испытания 15: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: 1.2em;\">{{exponent}}</span>",
+        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{exponent}}</span>",
         "cube1": "• Все Кубы I: +{{amount}}",
         "ascensions": "• Счётчик Вознесений: +{{amount}}",
         "coinExponent": "• Экспонента Монет: +{{amount}}",
@@ -8647,10 +8647,10 @@
         "currentBonus": "Current: +{{num}}%"
       },
       "descriptions": {
-        "1": "+0.0090% Кубов за уровень Порчи за уровень!",
-        "2": "+0.018% Тессерактов за уровень Порчи за уровень!",
-        "3": "+0.054% Гиперкубов за уровень Порчи за уровень!",
-        "4": "+2.4% Платоновых Кубов за уровень. И ничего лишнего.",
+        "1": "+1% больше Вау! Кубов за уровень за каждый Уровень Порчи, включая бесплатные уровни!",
+        "2": "+2% больше Вау! Тессерактов за уровень за каждый Уровень Порчи, включая бесплатные уровни!",
+        "3": "+3% больше Вау! Гиперкубов за уровень за каждый Уровень Порчи, включая бесплатные уровни!",
+        "4": "+4% больше Платоновых Кубов за уровень за каждый Уровень Порчи, включая бесплатные уровни!",
         "5": "Constant tax exponent +num:((0.10)), 2x faster Constant production, num:((1.05))x Quarks, +10 Reincarnation Challenge Cap, +5 Ascension Challenge Cap, 2x Immaculate Obtainium and Offerings, ^num:((1.10)) coin gain in C15, as well as +1 free Corruption level!",
         "6": "В 15-м Испытании, степень Вязкости увеличивается в 1+(уровень/30) раз. Уменьшает масштабирование Порчи на 2.5% при достижении максимального уровня.",
         "7": "Глобальная скорость ниже 1x возводится в степень ^1-(уровень/20), игнорируя Чистые множители. Уменьшает масштабирование Порчи на 2.5% при достижении максимального уровня.",
@@ -8663,7 +8663,7 @@
         "14": "Масштабирование Порчи уменьшается на 2.5%. В 15-м Испытании, степень Рецесии увеличивается до num:((1.5)) раз в зависимости от ваших Монет.",
         "15": "Вы встали на путь поиска начала бездны. Степень Монет +num:((0.10)) в 15-м Испытании, +25% к Счёту 15-о Испытании, +1% к Скорости Вознесения за Уровень Порчи, включая бесплатные уровни (Макс. 20%, всегда максимум в 15-м Испытании), +1% к 3D-7D (Кубы-Гептеракты) Кубам за каждое И9 Выполнение (Перемножается), num:((1.15))x Кварков, num:((1e250)) к множителю Построений Тессерактов, 2x к Счётчику Вознесения, +30 к пределу Испытаний Реинкарнаций, +20 к Испытаниям Вознесения, 6x Безупречного Обтаиниума и Подношений, а, и ещё +1 бесплатный Уровень Порчи! Вот это я понимаю глубокое погружение.",
         "16": "Увеличивает коэффициент преобразования порошка на 1% за уровень, +2% счётчика Вознесений за уровень и ещё 2% в зависимости от порошка (до 100 000). Также умножает производство Строений Тессерактов на (Порошок +1)^(10 * уровень), без лимита.",
-        "17": "If this is bought, Viscosity's score multiplier is raised to 3+(level*0.04) if its level is set to 10 or higher.",
+        "17": "Даёт +num:((0.2)) бесплатных Уровней Порчи за каждый уровень этого улучшения (вплоть до +4).",
         "18": "Увеличивает базовый процент Улучшения Константы 1 на 0.1% и лимит базового процента Улучшения Константы 2 на 0.3% за уровень!",
         "19": "Увеличивает экспоненту убывающей полезности Гептеракта Хроноса на уровень/750 (примерно 0.00133). (Базовая: 1/6)",
         "20": "Знаете, возможно, некоторые вещи лучше не покупать."
@@ -9174,7 +9174,7 @@
   },
   "hotkeys": {
     "note1": "Заготовки соответствуют клавишам SHIFT + 0 по SHIFT + 8 и SHIFT + BACKQUOTE. Эти назначения изменить нельзя!",
-    "note2": "Для начала, почему бы вам не попробовать кликнуть на один из <span style=\"color:var(--gold-color);\">золотых</span> текстов выше? Вы всегда можете отменить этого действие!",
+    "note2": "Why don't you try clicking on one of the item's <span style=\"color:var(--gold-color);\">gold</span> text above to get started? You can always cancel!",
     "reset": "Сброс Горячих Клавиш",
     "mobile": {
       "open": "Open mobile hotkeys",
