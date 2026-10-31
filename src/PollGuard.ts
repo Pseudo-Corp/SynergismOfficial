@@ -84,6 +84,7 @@ export const checkServerDate = (response: Response) => {
 export const startSpeedProbe = async () => {
   let strikes = 0
 
+  // eslint-disable-next-line no-unmodified-loop-condition
   while (!pollsStopped) {
     const clocks = readClocks()
 
