@@ -997,11 +997,11 @@ export const tabRow = new TabRow()
 document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
-  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings', mobileIcon: 'Buildings.png', activeColor: 'orange' })
+  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings', mobileIcon: 'Buildings.png', activeColor: 'var(--orange-background-color)' })
     .setType(Tabs.Buildings)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades', mobileIcon: 'Upgrades.png', activeColor: 'orange' })
+  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades', mobileIcon: 'Upgrades.png', activeColor: 'var(--orange-background-color)' })
     .setType(Tabs.Upgrades)
     .makeDraggable()
     .makeRemoveable(),
@@ -1010,7 +1010,7 @@ tabRow.appendButton(
     id: 'achievementstab',
     i18n: 'tabs.main.achievements',
     mobileIcon: 'Achievements.png',
-    activeColor: 'white',
+    activeColor: 'var(--white-background-color)',
     activeTextColor: 'black'
   })
     // .setUnlockedState(() => player.unlocks.prestige)
@@ -1022,7 +1022,7 @@ tabRow.appendButton(
     id: 'runestab',
     i18n: 'tabs.main.runes',
     mobileIcon: 'Runes.png',
-    activeColor: 'cornflowerblue'
+    activeColor: 'var(--cornflowerblue-background-color)'
   })
     .setUnlockedState(() => player.unlocks.prestige)
     .setType(Tabs.Runes)
@@ -1033,7 +1033,7 @@ tabRow.appendButton(
     id: 'challengetab',
     i18n: 'tabs.main.challenges',
     mobileIcon: 'Challenges.png',
-    activeColor: 'purple'
+    activeColor: 'var(--purple-background-color)'
   })
     .setUnlockedState(() => player.unlocks.transcend)
     .setType(Tabs.Challenges)
@@ -1044,7 +1044,7 @@ tabRow.appendButton(
     id: 'researchtab',
     i18n: 'tabs.main.research',
     mobileIcon: 'Research.png',
-    activeColor: 'green'
+    activeColor: 'var(--green-background-color)'
   })
     .setUnlockedState(() => player.unlocks.reincarnate)
     .setType(Tabs.Research)
@@ -1055,7 +1055,7 @@ tabRow.appendButton(
     id: 'anttab',
     i18n: 'tabs.main.antHill',
     mobileIcon: 'Anthill.png',
-    activeColor: 'brown'
+    activeColor: 'var(--brown-background-color)'
   })
     .setUnlockedState(() => player.unlocks.anthill)
     .setType(Tabs.AntHill)
@@ -1066,7 +1066,7 @@ tabRow.appendButton(
     id: 'cubetab',
     i18n: 'tabs.main.wowCubes',
     mobileIcon: 'WowCubes.png',
-    activeColor: 'purple'
+    activeColor: 'var(--purple-background-color)'
   })
     .setUnlockedState(() => player.unlocks.ascensions)
     .setType(Tabs.WowCubes)
@@ -1077,7 +1077,7 @@ tabRow.appendButton(
     id: 'traitstab',
     i18n: 'tabs.main.corruption',
     mobileIcon: 'Corruption.png',
-    activeColor: 'orange'
+    activeColor: 'var(--orange-background-color)'
   })
     .setUnlockedState(() => isCorruptionTabUnlocked())
     .setType(Tabs.Corruption)
@@ -1088,7 +1088,7 @@ tabRow.appendButton(
     id: 'singularitytab',
     i18n: 'tabs.main.singularity',
     mobileIcon: 'Singularity.png',
-    activeColor: 'lightgoldenrodyellow'
+    activeColor: 'var(--lightgoldenrodyellow-background-color)'
   })
     .setUnlockedState(() => player.highestSingularityCount > 0)
     .setType(Tabs.Singularity)
@@ -1098,7 +1098,7 @@ tabRow.appendButton(
     id: 'settingstab',
     i18n: 'tabs.main.settings',
     mobileIcon: 'Settings.png',
-    activeColor: 'white',
+    activeColor: 'var(--white-background-color)',
     activeTextColor: 'black'
   })
     .setType(Tabs.Settings)
@@ -1108,7 +1108,7 @@ tabRow.appendButton(
     id: 'shoptab',
     i18n: 'tabs.main.shop',
     mobileIcon: 'Shop.png',
-    activeColor: 'cyan'
+    activeColor: 'var(--cyan-background-color)'
   })
     .setUnlockedState(() => player.unlocks.reincarnate || player.highestSingularityCount > 0)
     .setType(Tabs.Shop)
@@ -1119,7 +1119,7 @@ tabRow.appendButton(
     id: 'eventtab',
     i18n: 'tabs.main.unsmith',
     mobileIcon: 'Events.png',
-    activeColor: 'limegreen'
+    activeColor: 'var(--limegreen-background-color)'
   })
     .setType(Tabs.Event)
     .makeDraggable()
@@ -1128,7 +1128,7 @@ tabRow.appendButton(
     id: 'pseudoCoinstab',
     i18n: 'tabs.main.purchase',
     mobileIcon: 'PseudoCoins.png',
-    activeColor: 'orchid'
+    activeColor: 'var(--orchid-background-color)'
   })
     .setType(Tabs.Purchase)
     .makeDraggable()

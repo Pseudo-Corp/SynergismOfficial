@@ -356,7 +356,7 @@ const cubeGainSourceLines = [
   {
     i18n: 'EventCubeGain',
     stat: () => calculateEventCubeGain(),
-    color: 'lime'
+    color: 'var(--lime-color)'
   }
 ]
 
@@ -368,7 +368,7 @@ export const allCubeStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.CUBE_BUFF,
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
@@ -422,7 +422,7 @@ export const allCubeStats: NumberStatLineCategory = {
     {
       i18n: 'SingDebuff',
       stat: () => 1 / calculateSingularityDebuff('Cubes'),
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'Jack',
@@ -547,7 +547,7 @@ export const allCubeStats: NumberStatLineCategory = {
         }
         return exaltPenalty
       },
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'OneMind',
@@ -562,12 +562,12 @@ export const allCubeStats: NumberStatLineCategory = {
           : 0
         return Math.pow(ascensionSpeed, 1 + aquariusExponent) / G.MIND_DIVISOR
       },
-      color: 'magenta'
+      color: 'var(--magenta-color)'
     },
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.Cubes),
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     }
   ]
@@ -585,7 +585,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
     {
       i18n: 'SynergismLevel',
       stat: () => getLevelReward('wowCubes'),
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'AchievementBonus',
@@ -683,7 +683,7 @@ export const allTesseractStats: NumberStatLineCategory = {
     {
       i18n: 'SynergismLevel',
       stat: () => getLevelReward('wowTesseracts'),
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'AchievementBonus',
@@ -732,7 +732,7 @@ export const allHypercubeStats: NumberStatLineCategory = {
     {
       i18n: 'SynergismLevel',
       stat: () => getLevelReward('wowHyperCubes'),
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'AchievementBonus',
@@ -773,7 +773,7 @@ export const allPlatonicCubeStats: NumberStatLineCategory = {
     {
       i18n: 'SynergismLevel',
       stat: () => getLevelReward('wowPlatonicCubes'),
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'AchievementBonus',
@@ -810,7 +810,7 @@ export const allHepteractCubeStats: NumberStatLineCategory = {
     {
       i18n: 'SynergismLevel',
       stat: () => getLevelReward('wowHepteractCubes'),
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'AchievementBonus',
@@ -836,13 +836,13 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.CUBE_BUFF,
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
       i18n: 'SynergismLevel',
       stat: () => getLevelReward('wowOcteracts'),
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'Campaign',
@@ -935,7 +935,7 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.Octeract),
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     },
     {
@@ -1075,7 +1075,7 @@ export const allBaseOfferingStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.BASE_OFFERING_BUFF, // PseudoCoin Upgrade
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true,
       acc: 0
     },
@@ -1273,7 +1273,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
     {
       i18n: 'SingularityDebuff',
       stat: () => 1 / calculateSingularityDebuff('Offering'), // Singularity Debuff
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'StarterPack',
@@ -1355,7 +1355,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
       i18n: 'DroughtCorruption',
       stat: () => G.dOne.div(corruptionEffect(activeCorruptionLevel(), 'drought')),
       format: () => `/${format(corruptionEffect(activeCorruptionLevel(), 'drought'), 2)}`,
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'Exalt6Penalty',
@@ -1363,7 +1363,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
         (player.singularityChallenges.limitedTime.enabled)
           ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
           : 1, // Singularity Speedrun Penalty
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'TaxmanDebuff',
@@ -1374,12 +1374,12 @@ export const allOfferingStats: DecimalStatLineCategory = {
         const obtainiumDigits = Math.floor(1 + Math.max(0, Decimal.log(player.obtainium, 10)))
         return Math.pow(2.5, -Math.min(500, obtainiumDigits)) // Taxman Debuff
       },
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.Offering), // Event
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     }
   ]
@@ -1456,13 +1456,13 @@ export const allQuarkStats: NumberStatLineCategory = {
     {
       i18n: 'GlobalSubscriber',
       stat: () => 1 + getGlobalBonus() / 100,
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
       i18n: 'AccountBonus',
       stat: () => 1 + getPersonalBonus() / 100,
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
@@ -1613,7 +1613,7 @@ export const allQuarkStats: NumberStatLineCategory = {
     {
       i18n: 'Viscount',
       stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'quarkBonus'),
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'CashGrabQuarkBonus',
@@ -1630,12 +1630,12 @@ export const allQuarkStats: NumberStatLineCategory = {
     {
       i18n: 'FirstSingularityBonus',
       stat: () => player.highestSingularityCount === 0 ? 1.25 : 1,
-      color: 'cyan'
+      color: 'var(--cyan-color)'
     },
     {
       i18n: 'Event',
       stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.Quark) + calculateEventBuff(BuffType.OneMind) : 1,
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     },
     {
@@ -1657,7 +1657,7 @@ export const allBaseObtainiumStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.BASE_OBTAINIUM_BUFF, // PseudoCoin Upgrade
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true,
       acc: 0
     },
@@ -1754,7 +1754,7 @@ export const allObtainiumIgnoreDRStats: DecimalStatLineCategory = {
     {
       i18n: 'CubeUpgradeCx12',
       stat: () => (player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1, // Cube Upgrade 7x2 (Cx12)
-      color: 'cyan'
+      color: 'var(--cyan-color)'
     },
     {
       i18n: 'RedAmbrosiaTutorial',
@@ -1778,12 +1778,12 @@ export const allObtainiumIgnoreDRStats: DecimalStatLineCategory = {
         (player.singularityChallenges.limitedTime.enabled)
           ? calculateExalt6Penalty(player.singularityChallenges.limitedTime.completions, player.singChallengeTimer)
           : 1, // Singularity Challenge 6 Penalty
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.Obtainium), // Event Buff
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     }
   ]
@@ -1948,17 +1948,17 @@ export const allObtainiumStats: DecimalStatLineCategory = {
       i18n: 'RareEarthMetalsCorruption',
       stat: () => G.dOne.div(corruptionEffect(activeCorruptionLevel(), 'obtainium')),
       format: () => `/${format(corruptionEffect(activeCorruptionLevel(), 'obtainium'), 2)}`,
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'Challenge14',
       stat: () => (player.currentChallenge.ascension === 14) ? 0 : 1, // Challenge 14: No Obtainium
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'SingularityDebuff',
       stat: () => 1 / calculateSingularityDebuff('Obtainium'), // Singularity Debuff
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'TaxmanDebuff',
@@ -1969,7 +1969,7 @@ export const allObtainiumStats: DecimalStatLineCategory = {
         const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
         return Math.pow(2.5, -Math.min(500, offeringDigits)) // Taxman Debuff
       },
-      color: 'red'
+      color: 'var(--red-color)'
     }
   ]
 }
@@ -1982,7 +1982,7 @@ const obtainiumDR: DecimalStatLineCategory = {
     {
       i18n: 'ObtainiumDR',
       stat: () => challenge15CorruptionEffect('illiteracy'),
-      color: 'orange'
+      color: 'var(--orange-color)'
     },
     {
       i18n: 'ImmaculateObtainium',
@@ -2000,7 +2000,7 @@ export const offeringObtainiumTimeModifiers = (time: number, timeMultCheck: bool
       {
         i18n: 'ThresholdPenalty',
         stat: () => Math.min(1, time / G.GLOBAL_RESET_THRESHOLD),
-        color: 'red'
+        color: 'var(--red-color)'
       },
       {
         i18n: 'TimeMultiplier',
@@ -2077,7 +2077,7 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.AntSacrifice),
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     }
   ]
@@ -2095,7 +2095,7 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLineCategory = {
     {
       i18n: 'SingularityDebuff',
       stat: () => 1.0 / calculateSingularityDebuff('Global Speed'),
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'IntermediatePack',
@@ -2116,7 +2116,7 @@ export const allGlobalSpeedIgnoreDRStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.GlobalSpeed), // Event
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     }
   ]
@@ -2194,12 +2194,12 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'AmbrosiaBrickOfLead',
       stat: () => getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'globalSpeedMult'), // Ambrosia Brick of Lead
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'SpacialDilation',
       stat: () => challenge15CorruptionEffect('dilation'), // Spacial Dilation
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'LifetimePurpleHoneyPower',
@@ -2314,22 +2314,22 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'LimitedAscensionsDebuff',
       stat: () => 1 / calculateExalt3Penalty(), // EXALT Debuff
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'AmbrosiaBrickOfLead',
       stat: () => getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'ascensionSpeedMult'), // Ambrosia Brick of Lead
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'SingularityDebuff',
       stat: () => 1 / calculateSingularityDebuff('Ascension Speed'),
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.AscensionSpeed), // Event
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     },
     {
@@ -2397,7 +2397,7 @@ export const allAdditiveLuckMultStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => G.isEvent ? calculateEventBuff(BuffType.AmbrosiaLuck) : 0, // Event
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     }
   ]
@@ -2415,13 +2415,13 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.AMBROSIA_LUCK_BUFF, // Platonic Coin Upgrade
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
       i18n: 'SynergismLevel',
       stat: () => getLevelReward('ambrosiaLuck'), // Synergism Level
-      color: 'green',
+      color: 'var(--green-color)',
       acc: 0
     },
     {
@@ -2523,7 +2523,7 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     {
       i18n: 'Viscount',
       stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'luckBonus'), // Viscount Red Ambrosia Upgrade
-      color: 'red',
+      color: 'var(--red-color)',
       acc: 0
     },
     {
@@ -2615,7 +2615,7 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.AMBROSIA_GENERATION_BUFF, // Platonic Coin Upgrade
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
@@ -2685,7 +2685,7 @@ export const allAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => G.isEvent ? 1 + calculateEventBuff(BuffType.BlueberryTime) : 1, // Event Bonus
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     },
     {
@@ -2735,7 +2735,7 @@ export const allPowderMultiplierStats: NumberStatLineCategory = {
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.PowderConversion), // Event bonus
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     }
   ]
@@ -2752,7 +2752,7 @@ export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
@@ -2793,17 +2793,17 @@ export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
     {
       i18n: 'GlobalSubscriber',
       stat: () => 1 + getGlobalBonus() / 100,
-      color: 'gold'
+      color: 'var(--gold-color)'
     },
     {
       i18n: 'AccountBonus',
       stat: () => 1 + getPersonalBonus() / 100,
-      color: 'gold'
+      color: 'var(--gold-color)'
     },
     {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.GoldenQuark), // Event
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     }
   ]
@@ -2820,7 +2820,7 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => 1 / PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
@@ -2849,17 +2849,17 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
     {
       i18n: 'GlobalSubscriber',
       stat: () => 1 / (1 + getGlobalBonus() / 100),
-      color: 'gold'
+      color: 'var(--gold-color)'
     },
     {
       i18n: 'AccountBonus',
       stat: () => 1 / (1 + getPersonalBonus() / 100),
-      color: 'gold'
+      color: 'var(--gold-color)'
     },
     {
       i18n: 'Event',
       stat: () => 1 / (1 + calculateEventBuff(BuffType.GoldenQuark)),
-      color: 'lime',
+      color: 'var(--lime-color)',
       displayCriterion: () => true
     }
   ]
@@ -2879,7 +2879,7 @@ const allAddCodeEffectStats: NumberStatLineCategory = {
           return addCodeStuff.maxQuarks
         }
       },
-      color: 'cyan'
+      color: 'var(--cyan-color)'
     },
     {
       i18n: 'AscensionTime',
@@ -2887,7 +2887,7 @@ const allAddCodeEffectStats: NumberStatLineCategory = {
         const addCodeStuff = addCodeBonuses()
         return addCodeStuff.ascensionTimer
       },
-      color: 'orange'
+      color: 'var(--orange-color)'
     },
     {
       i18n: 'GoldenQuarks',
@@ -2895,7 +2895,7 @@ const allAddCodeEffectStats: NumberStatLineCategory = {
         const addCodeStuff = addCodeBonuses()
         return addCodeStuff.gqTimer
       },
-      color: 'lightgoldenrodyellow'
+      color: 'var(--lightgoldenrodyellow-color)'
     },
     {
       i18n: 'Octeracts',
@@ -2903,7 +2903,7 @@ const allAddCodeEffectStats: NumberStatLineCategory = {
         const addCodeStuff = addCodeBonuses()
         return addCodeStuff.octeractTime
       },
-      color: 'lightseagreen'
+      color: 'var(--lightseagreen-color)'
     },
     {
       i18n: 'Ambrosia',
@@ -2911,7 +2911,7 @@ const allAddCodeEffectStats: NumberStatLineCategory = {
         const addCodeStuff = addCodeBonuses()
         return addCodeStuff.blueberryTime
       },
-      color: 'lightblue'
+      color: 'var(--lightblue-color)'
     }
   ]
 }
@@ -2927,7 +2927,7 @@ export const allAddCodeTimerStats: NumberStatLineCategory = {
     {
       i18n: 'Calculator4',
       stat: () => getShopUpgradeEffects('calculator4', 'addCodeIntervalMult'), // PL-AT δ discount (4% per level)
-      color: 'lime'
+      color: 'var(--lime-color)'
     },
     {
       i18n: 'SingularityCount',
@@ -2937,17 +2937,17 @@ export const allAddCodeTimerStats: NumberStatLineCategory = {
           (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 800 : 0)
             + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 800 : 0)
         ), // Singularity Count reduction (max 60%)
-      color: 'lime'
+      color: 'var(--lime-color)'
     },
     {
       i18n: 'Antiquities',
       stat: () => getRuneEffects('antiquities', 'addCodeCooldownReduction'), // Antiquities rune reduction (20%)
-      color: 'lime'
+      color: 'var(--lime-color)'
     },
     {
       i18n: 'SingularityPerkBonus',
       stat: () => 1 / addCodeSingularityPerkBonus().intervalDivisor, // Singularity Perk bonus (increases with higher singularity milestones)
-      color: 'lime'
+      color: 'var(--lime-color)'
     }
   ]
 }
@@ -2965,38 +2965,38 @@ export const allAddCodeCapacityStats: NumberStatLineCategory = {
     {
       i18n: 'Calculator2',
       stat: () => getShopUpgradeEffects('calculator2', 'addCodeCapacity'), // PL-AT X (30 mins/lv)
-      color: 'lime',
+      color: 'var(--lime-color)',
       acc: 0
     },
     {
       i18n: 'Calculator4Max',
       stat: () => getShopUpgradeEffects('calculator4', 'addCodeCapacity'), // PL-AT δ Maxed (3 Hours)
-      color: 'lime',
+      color: 'var(--lime-color)',
       acc: 0
     },
     {
       i18n: 'Calculator5',
       stat: () => getShopUpgradeEffects('calculator5', 'addCodeCapacity'), // PL-AT Γ (1 mins/lv, +80 mins Maxed)
-      color: 'lime',
+      color: 'var(--lime-color)',
       acc: 0
     },
     {
       i18n: 'Calculator6Max',
       stat: () => getShopUpgradeEffects('calculator6', 'addCodeCapacity'), // PL-AT _ Maxed (3 hours)
-      color: 'lime',
+      color: 'var(--lime-color)',
       acc: 0
     },
     {
       i18n: 'Calculator7Max',
       stat: () => getShopUpgradeEffects('calculator7', 'addCodeCapacity'), // PL-AT ΩΩ Maxed (3 hours)
-      color: 'lime',
+      color: 'var(--lime-color)',
       acc: 0
     },
     {
       i18n: 'SingularityPerk',
       stat: () => addCodeSingularityPerkBonus().addCodeCapacity, // Singularity Perk bonus
       acc: 0,
-      color: 'lime'
+      color: 'var(--lime-color)'
     }
   ]
 }
@@ -3009,7 +3009,7 @@ export const allAddCodeCapacityMultiplierStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.ADD_CODE_CAP_BUFF, // PseudoCoin Upgrade
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true,
       acc: 0
     }
@@ -3074,13 +3074,13 @@ export const allRedAmbrosiaLuckStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.RED_LUCK_BUFF, // PseudoCoin Upgrade
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
       i18n: 'SynergismLevel',
       stat: () => getLevelReward('redAmbrosiaLuck'), // Synergism Level
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'LuckConversion',
@@ -3117,7 +3117,7 @@ export const allRedAmbrosiaLuckStats: NumberStatLineCategory = {
     {
       i18n: 'Viscount',
       stat: () => getRedAmbrosiaUpgradeEffects('viscount', 'redLuckBonus'), // Viscount Red Ambrosia Upgrade
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'HorseShoeRune',
@@ -3145,7 +3145,7 @@ export const allRedAmbrosiaGenerationSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.RED_GENERATION_BUFF, // PseudoCoin Upgrade
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
@@ -3200,7 +3200,7 @@ export const allShopTablets: NumberStatLineCategory = {
       i18n: 'Red',
       stat: () => getRedAmbrosiaUpgradeEffects('infiniteShopUpgrades', 'freeLevels'), // Red Ambrosia Upgrade
       acc: 0,
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'Orange',
@@ -3214,37 +3214,37 @@ export const allShopTablets: NumberStatLineCategory = {
         }
       },
       acc: 0,
-      color: 'orange'
+      color: 'var(--orange-color)'
     },
     {
       i18n: 'Yellow',
       stat: () => getGQUpgradeEffect('singInfiniteShopUpgrades', 'infinityVouchers'), // Singularity Upgrade
       acc: 0,
-      color: 'yellow'
+      color: 'var(--yellow-color)'
     },
     {
       i18n: 'Green',
       stat: () => getOcteractUpgradeEffect('octeractInfiniteShopUpgrades', 'infinityVouchers'), // Octeract Upgrade
       acc: 0,
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'Blue',
       stat: () => getShopUpgradeEffects('shopInfiniteShopUpgrades', 'infiniteVouchers'), // Shop Upgrade
       acc: 0,
-      color: 'lightblue'
+      color: 'var(--lightblue-color)'
     },
     {
       i18n: 'Indigo',
       stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1', 'freeLevels'), // Blueberry Upgrade
       acc: 0,
-      color: 'orchid'
+      color: 'var(--orchid-color)'
     },
     {
       i18n: 'Violet',
       stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades2', 'freeLevels'), // Blueberry Upgrade 2
       acc: 0,
-      color: 'violet'
+      color: 'var(--violet-color)'
     },
     {
       i18n: 'Periwinkle',
@@ -3770,7 +3770,7 @@ const createFreeAccelMultFinalStats = (type: 'accelerator' | 'multiplier'): Numb
       i18n: 'ViscosityExponent',
       stat: () => challenge15CorruptionEffect('viscosity'),
       format: (stat) => `^${format(stat, 3, true)}`,
-      color: 'red',
+      color: 'var(--red-color)',
       displayCriterion: () => challenge15CorruptionEffect('viscosity') !== 1
     },
     {
@@ -3871,7 +3871,7 @@ export const negativeSalvageStats: NumberStatLineCategory = {
     {
       i18n: 'SingularityDebuff',
       stat: () => calculateSingularityDebuff('Salvage'), // Singularity Debuff
-      color: 'red',
+      color: 'var(--red-color)',
       acc: 0
     },
     {
@@ -4170,12 +4170,12 @@ export const additiveAntELOMultStats: NumberStatLineCategory = {
     {
       i18n: 'BlundersCorruption',
       stat: () => -corruptionEffect(activeCorruptionLevel(), 'blunders'),
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'SingularityDebuff',
       stat: () => calculateSingularityDebuff('Ant ELO'),
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'SingularityPerk',
@@ -4197,7 +4197,7 @@ const effectiveAntELOStats: NumberStatLineCategory = {
     {
       i18n: 'BaseELO',
       stat: () => calculateBaseAntELO(),
-      color: 'gold'
+      color: 'var(--gold-color)'
     },
     {
       i18n: 'AdditiveMultiplier',
@@ -4274,7 +4274,7 @@ export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
     {
       i18n: 'Exalt6',
       stat: () => (player.singularityChallenges.limitedTime.enabled && runes.antiquities.level === 0) ? 5 : 1,
-      color: 'orchid'
+      color: 'var(--orchid-color)'
     },
     {
       i18n: 'LifetimePurpleHoneyPower',
@@ -4508,7 +4508,7 @@ export const allPurpleReactantCapacityStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.PURPLE_REACTOR_CAPACITY_BUFF,
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     // Purple Honey - Reactant Storage Expansion I
@@ -4547,7 +4547,7 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.PURPLE_LUCK_BUFF,
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     // Synergism Level Reward
@@ -4610,7 +4610,7 @@ export const allPurpleHoneyEfficiencyStats: NumberStatLineCategory = {
     {
       i18n: 'PseudoCoins',
       stat: () => PCoinUpgradeEffects.PURPLE_HONEY_BUFF,
-      color: 'gold',
+      color: 'var(--gold-color)',
       displayCriterion: () => true
     },
     {
@@ -4687,62 +4687,62 @@ const allMiscStats: NumberStatLineCategory = {
     {
       i18n: 'PrestigeCount',
       stat: () => player.prestigeCount,
-      color: 'cyan'
+      color: 'var(--cyan-color)'
     },
     {
       i18n: 'FastestPrestige',
       stat: () => 1000 * player.fastestprestige,
-      color: 'cyan'
+      color: 'var(--cyan-color)'
     },
     {
       i18n: 'RuneSum',
       stat: () => sumOfRuneLevels(),
-      color: 'orange'
+      color: 'var(--orange-color)'
     },
     {
       i18n: 'TranscendCount',
       stat: () => player.transcendCount,
-      color: 'orchid'
+      color: 'var(--orchid-color)'
     },
     {
       i18n: 'FastestTranscend',
       stat: () => 1000 * player.fastesttranscend,
-      color: 'orchid'
+      color: 'var(--orchid-color)'
     },
     {
       i18n: 'ReincarnationCount',
       stat: () => player.reincarnationCount,
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'FastestReincarnation',
       stat: () => 1000 * player.fastestreincarnate,
-      color: 'green'
+      color: 'var(--green-color)'
     },
     {
       i18n: 'AscensionCount',
       stat: () => player.ascensionCount,
-      color: 'orange'
+      color: 'var(--orange-color)'
     },
     {
       i18n: 'QuarksThisSingularity',
       stat: () => player.quarksThisSingularity,
-      color: 'cyan'
+      color: 'var(--cyan-color)'
     },
     {
       i18n: 'TotalQuarks',
       stat: () => player.totalQuarksEver + player.quarksThisSingularity,
-      color: 'cyan'
+      color: 'var(--cyan-color)'
     },
     {
       i18n: 'QuarkTimer',
       stat: () => player.quarkstimer,
-      color: 'yellow'
+      color: 'var(--yellow-color)'
     },
     {
       i18n: 'QuarkTimerMax',
       stat: () => 90000 + 18000 * player.researches[195],
-      color: 'yellow'
+      color: 'var(--yellow-color)'
     },
     {
       i18n: 'HighestPurpleHoney',
@@ -5189,7 +5189,7 @@ export const displayStats = (btn: HTMLElement) => {
       statsEl.style.display = 'none'
       statsEl.classList.remove('activeStats')
     } else {
-      e.style.backgroundColor = 'crimson'
+      e.style.backgroundColor = 'var(--crimson-background-color)'
       statsEl.style.display = 'block'
       statsEl.classList.add('activeStats')
     }
@@ -5358,7 +5358,7 @@ export const loadStatisticsUpdate = (statsId?: string) => {
   }
 }
 
-const backgroundColors = ['#1f1f1f', '']
+const backgroundColors = ['var(--hex-1f1f1f-background-color)', '']
 
 const loadStatistics = (
   statsObj: NumberStatLineCategory | DecimalStatLineCategory,
@@ -5382,7 +5382,7 @@ const loadStatistics = (
       statLine.id = statHTMLName
       statLine.className = 'statPortion'
       statLine.classList.add(specificClass)
-      statLine.style.color = line.color ?? 'white'
+      statLine.style.color = line.color ?? 'var(--white-color)'
       // statLine.style.backgroundColor = createdStatLines % 2 === 0 ? '#1f1f1f' : ''
       statLine.textContent = i18next.t(`statistics.${parentDiv}.${key}`)
 
@@ -5402,7 +5402,7 @@ const loadStatistics = (
     if (displayLine || !PROD) {
       statLine.style.display = 'block'
       statLine.style.backgroundColor = backgroundColors[numberDisplayedLines % backgroundColors.length]
-      statLine.style.border = displayLine ? '' : '1px solid red'
+      statLine.style.border = displayLine ? '' : '1px solid var(--red-color)'
       numberDisplayedLines++
       const accuracy = line.acc ?? 3
       statNumber.textContent = line.format?.(num) ?? format(num, accuracy, true)
@@ -5423,7 +5423,7 @@ const loadStatistics = (
     statTotal.id = statTotalHTMLName
     statTotal.className = 'statPortion'
     statTotal.classList.add('statTotal')
-    statTotal.style.backgroundColor = '#2f2f2f'
+    statTotal.style.backgroundColor = 'var(--hex-2f2f2f-background-color)'
     statTotal.textContent = i18next.t(`statistics.${parentDiv}.${summativeName}`)
 
     const statTotalNum = document.createElement('span')
@@ -6001,12 +6001,12 @@ const firstFiveRuneSalvageStats: NumberStatLineCategory = {
     {
       i18n: 'BadOfferings',
       stat: () => calculateBadOfferingsSalvage(),
-      color: 'red'
+      color: 'var(--red-color)'
     },
     {
       i18n: 'Challenge15Penalty',
       stat: () => calculateChallenge15RuneSalvage(),
-      color: 'red'
+      color: 'var(--red-color)'
     }
   ]
 }

@@ -9,12 +9,12 @@ import type { AntProducers } from '../../structs/structs'
 export const antProducerHTML = (ant: AntProducers) => {
   let nameText = i18next.t(`ants.producers.${ant}.name`)
   if (player.ants.masteries[ant].mastery > 0) {
-    nameText += ` <span style="color:green">[★${player.ants.masteries[ant].mastery}]</span>`
+    nameText += ` <span style="color:var(--green-color)">[★${player.ants.masteries[ant].mastery}]</span>`
   }
   const nameHTML = `<span style="font-size: 1.2em; color: ${
     antProducerData[ant].color
   }" class="titleTextFont">${nameText}</span>`
-  const flavorHTML = `<i><span class="titleTextFont" style="color: lightgray">${
+  const flavorHTML = `<i><span class="titleTextFont" style="color: var(--lightgray-color)">${
     i18next.t(`ants.producers.${ant}.flavor`)
   }</span></i>`
 

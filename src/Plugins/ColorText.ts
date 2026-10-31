@@ -8,6 +8,15 @@ export default {
       return value
     }
 
-    return value.replace(/<<(.*?)\|(.*?)>>/g, '<span style="color:$1">$2</span>')
+    return value
+      .replace(
+        /(?<!<)<<\s*#(\w+)\s*\|(.*?)>>/g,
+        (_, hex: string, text: string) => `<span style="color:var(--hex-${hex.toLowerCase()}-color, #${hex})">${text}</span>`
+      )
+      .replace(
+        /(?<!<)<<\s*(\w+)\s*;?\s*\|(.*?)>>/g,
+        (_, color: string, text: string) => `<span style="color:var(--${color.toLowerCase()}-color, ${color})">${text}</span>`
+      )
+      .replace(/<<(.*?)\|(.*?)>>/g, '<span style="color:$1">$2</span>')
   }
 } as Module

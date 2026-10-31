@@ -94,7 +94,7 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
     i18n: 'coin',
     unlockHTMLClass: '',
     autoToggle: 'coin',
-    color: 'gold',
+    color: 'var(--gold-color)',
     ariaLabelledBy: 'cointext'
   },
   [UpgradeCategories.Diamond]: {
@@ -103,7 +103,7 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
     i18n: 'diamond',
     unlockHTMLClass: 'prestigeunlock',
     autoToggle: 'prestige',
-    color: 'cyan',
+    color: 'var(--cyan-color)',
     ariaLabelledBy: 'prestigetext'
   },
   [UpgradeCategories.Mythos]: {
@@ -112,7 +112,7 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
     i18n: 'mythos',
     unlockHTMLClass: 'transcendunlock',
     autoToggle: 'transcend',
-    color: 'plum',
+    color: 'var(--plum-color)',
     ariaLabelledBy: 'transcendtext'
   },
   [UpgradeCategories.Particle]: {
@@ -122,7 +122,7 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
     unlockHTMLClass: 'particleUpgradeResearch',
     autoToggle: 'reincarnate',
     autoToggleExtraClass: 'cubeUpgrade8',
-    color: 'limegreen',
+    color: 'var(--limegreen-color)',
     ariaLabelledBy: 'reincarnationtext'
   },
   [UpgradeCategories.Autobuyer]: {
@@ -131,7 +131,7 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
     i18n: 'automation',
     unlockHTMLClass: 'prestigeunlock',
     autoToggle: '',
-    color: 'crimson',
+    color: 'var(--crimson-color)',
     ariaLabelledBy: 'autobuyertext'
   },
   [UpgradeCategories.Generator]: {
@@ -140,7 +140,7 @@ const categoryData: Record<UpgradeCategories, CategoryData> = {
     i18n: 'generator',
     unlockHTMLClass: 'prestigeunlock',
     autoToggle: 'generators',
-    color: 'lightgray',
+    color: 'var(--lightgray-color)',
     ariaLabelledBy: 'generatortext'
   }
 }
@@ -512,10 +512,10 @@ export const upgradeDescriptionHTML = (i: number) => {
   }
 
   let descriptionText = i18next.t(`upgrades.descriptions.${i}`)
-  let descColor = 'white'
+  let descColor = 'var(--white-color)'
   if (player.upgrades[i]) {
     descriptionText += ` ${i18next.t('upgrades.bought')}`
-    descColor = 'gold'
+    descColor = 'var(--gold-color)'
   }
 
   const descHTML = `<span style="color:${descColor}">${descriptionText}</span>`
@@ -524,25 +524,25 @@ export const upgradeDescriptionHTML = (i: number) => {
   let costColor = ''
   if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106) || (i <= 125 && i >= 121)) {
     currency = 'Coins'
-    costColor = 'yellow'
+    costColor = 'var(--yellow-color)'
   }
   if ((i <= 40 && i >= 21) || (i <= 105 && i >= 101) || (i <= 115 && i >= 111) || (i <= 87 && i >= 81)) {
     currency = 'Diamonds'
-    costColor = 'cyan'
+    costColor = 'var(--cyan-color)'
   }
   if ((i <= 60 && i >= 41) || (i <= 120 && i >= 116) || (i <= 93 && i >= 88)) {
     currency = 'Mythos'
-    costColor = 'plum'
+    costColor = 'var(--plum-color)'
   }
   if ((i <= 80 && i >= 61) || (i <= 100 && i >= 94)) {
     currency = 'Particles'
-    costColor = 'limegreen'
+    costColor = 'var(--limegreen-color)'
   }
 
   const costText = `Cost: ${format(Decimal.pow(10, G.upgradeCosts[i]))} ${currency}`
   const costHTML = `<span style="color:${costColor}">${costText}</span>`
   const effectText = upgradeeffects(i)
-  const effectHTML = `<span style="color:gold">${effectText}</span>`
+  const effectHTML = `<span style="color:var(--gold-color)">${effectText}</span>`
   return `${descHTML}<br>${costHTML}<br>${effectHTML}`
 }
 
@@ -551,19 +551,19 @@ export const updateMobileUpgradeDescription = (i: number) => {
   let costColor = ''
   if ((i <= 20 && i >= 1) || (i <= 110 && i >= 106) || (i <= 125 && i >= 121)) {
     currency = 'Coins'
-    costColor = 'yellow'
+    costColor = 'var(--yellow-color)'
   }
   if ((i <= 40 && i >= 21) || (i <= 105 && i >= 101) || (i <= 115 && i >= 111) || (i <= 87 && i >= 81)) {
     currency = 'Diamonds'
-    costColor = 'cyan'
+    costColor = 'var(--cyan-color)'
   }
   if ((i <= 60 && i >= 41) || (i <= 120 && i >= 116) || (i <= 93 && i >= 88)) {
     currency = 'Mythos'
-    costColor = 'plum'
+    costColor = 'var(--plum-color)'
   }
   if ((i <= 80 && i >= 61) || (i <= 100 && i >= 94)) {
     currency = 'Particles'
-    costColor = 'limegreen'
+    costColor = 'var(--limegreen-color)'
   }
 
   if (!player.upgrades[i]) {
@@ -571,13 +571,13 @@ export const updateMobileUpgradeDescription = (i: number) => {
     DOMCacheGetOrSet(`upg${i}Cost`).innerHTML = `<span style="color:${costColor}">${costText}</span>`
   } else {
     const boughtText = i18next.t('upgrades.bought')
-    DOMCacheGetOrSet(`upg${i}Cost`).innerHTML = `<span style="color: gold">${boughtText}</span>`
+    DOMCacheGetOrSet(`upg${i}Cost`).innerHTML = `<span style="color: var(--gold-color)">${boughtText}</span>`
   }
 
   let descText = i18next.t(`upgrades.descriptions.${i}`)
   DOMCacheGetOrSet(`upg${i}Description`).innerHTML = descText
 
-  const effectText = `<span style="color: gold">${upgradeeffects(i)}</span>`
+  const effectText = `<span style="color: var(--gold-color)">${upgradeeffects(i)}</span>`
   DOMCacheGetOrSet(`upg${i}Effect`).innerHTML = effectText
 }
 
@@ -753,7 +753,7 @@ export const togglePurchasedUpgrades = () => {
   toggle.setAttribute('aria-pressed', `${hidePurchased}`)
   toggle.setAttribute('i18n', i18nKey)
   toggle.textContent = i18next.t(i18nKey)
-  toggle.style.border = `2px solid ${hidePurchased ? 'red' : 'green'}`
+  toggle.style.border = `2px solid ${hidePurchased ? 'var(--red-color)' : 'var(--green-color)'}`
 
   for (const data of Object.values(categoryData)) {
     for (const id of data.upgradeIds) {
@@ -1011,7 +1011,7 @@ const createUpgradeSectionButtons = (category: UpgradeCategories) => {
   const buyAllBtn = document.createElement('button')
   buyAllBtn.classList.add('buyAllUpgradeButton')
   buyAllBtn.setAttribute('i18n-label', `Buy all affordable upgrades in ${data.i18n} section`)
-  buyAllBtn.style.border = '2px solid green'
+  buyAllBtn.style.border = '2px solid var(--green-color)'
   buyAllBtn.textContent = i18next.t('upgrades.buyAll')
 
   buyAllBtn.addEventListener('click', () => buyUpgradeByCategory(category, false))
@@ -1027,7 +1027,7 @@ const createUpgradeSectionButtons = (category: UpgradeCategories) => {
     }
     toggleAutoBtn.ariaPressed = 'true'
     toggleAutoBtn.setAttribute('aria-label', `Toggle ${data.autoToggle} auto-upgrader`)
-    toggleAutoBtn.style.border = '2px solid green'
+    toggleAutoBtn.style.border = '2px solid var(--green-color)'
 
     toggleAutoBtn.addEventListener('click', () => {
       toggleShops(data.autoToggle as upgradeAutos)
@@ -1063,7 +1063,7 @@ const createWebUpgradesTable = (category: UpgradeCategories) => {
           () => upgradeDescriptionHTML(id),
           e.clientX,
           e.clientY,
-          { borderColor: 'gold' }
+          { borderColor: 'var(--gold-color)' }
         ))
       btn.addEventListener('mouseout', CloseModal)
 
@@ -1109,7 +1109,7 @@ const createMobileUpgradesDiv = (category: UpgradeCategories) => {
     const img = document.createElement('img')
     img.id = `upg${id}Image`
     img.src = spritePlaceholder
-    img.style.backgroundColor = 'black'
+    img.style.backgroundColor = 'var(--black-background-color)'
     iconAndCostDiv.appendChild(img)
 
     const costButton = document.createElement('button')
@@ -1126,7 +1126,7 @@ const createMobileUpgradesDiv = (category: UpgradeCategories) => {
 
     const descriptionP = document.createElement('p')
     descriptionP.id = `upg${id}Description`
-    descriptionP.style.color = 'lightblue'
+    descriptionP.style.color = 'var(--lightblue-color)'
     descriptionP.classList.add('fitText')
 
     elm.appendChild(descriptionP)

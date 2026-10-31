@@ -231,7 +231,7 @@ function clickHandler (this: HTMLButtonElement) {
   Notification(`Added ${productName} to the cart!`)
 }
 
-const colors = ['gold', 'cyan', 'magenta', 'red']
+const colors = ['var(--gold-color)', 'var(--cyan-color)', 'var(--magenta-color)', 'var(--red-color)']
 
 const constructFeatureList = ({ features }: SubscriptionProduct) => {
   const ul = document.createElement('ul')
@@ -240,7 +240,7 @@ const constructFeatureList = ({ features }: SubscriptionProduct) => {
 
   for (let i = 0; i < features.length; i++) {
     const feature = features[i]
-    const color = colors[i] ?? 'blue'
+    const color = colors[i] ?? 'var(--blue-color)'
 
     const li = document.createElement('li')
     li.style.color = color
@@ -283,7 +283,7 @@ const noSubscriptionButton = (product: SubscriptionProduct) => {
 }
 
 const downgradeButton = (product: SubscriptionProduct) => {
-  return `<button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: maroon">
+  return `<button data-id="${product.id}" data-name="${product.name}" data-downgrade class="pseudoCoinButton" style="background-color: var(--maroon-background-color)">
     Downgrade
     </button>`
 }
@@ -294,14 +294,14 @@ const currentSubscriptionBox = (sub: Exclude<SubscriptionMetadata, null>) => {
       i18next.t('pseudoCoins.subscriptionRenews', { date: new Date(sub.endDate).toLocaleDateString() })
     }</span>`
     : ''
-  return `<button data-name="current-subscription" class="pseudoCoinButton" style="background-color: #b59410">
+  return `<button data-name="current-subscription" class="pseudoCoinButton" style="background-color: var(--hex-b59410-background-color)">
     ${i18next.t('pseudoCoins.subscriptionYouAreHere')}${endDateText}
   </button>`
 }
 
 const upgradeButton = (product: SubscriptionProduct, currentSubTier: number) => {
   const currentPrice = subscriptionProducts.find((v) => v.tier === currentSubTier)?.price ?? 0
-  return `<button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton" style="background-color: green">
+  return `<button data-id="${product.id}" data-name="${product.name}" data-upgrade class="pseudoCoinButton" style="background-color: var(--green-background-color)">
     ${
     i18next.t('pseudoCoins.subscriptionUpgradePrice', {
       price: formatSubscriptionPrice(product.price - currentPrice)
@@ -515,7 +515,7 @@ export const initializePayPal_Subscription = async () => {
       style: {
         shape: 'rect',
         layout: 'vertical',
-        color: 'gold',
+        color: 'var(--gold-color)',
         label: 'paypal'
       },
 

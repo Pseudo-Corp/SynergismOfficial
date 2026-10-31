@@ -97,7 +97,7 @@ export const showPurchaseAuthModal = (): Promise<boolean> => {
     html,
     window.innerWidth / 2,
     window.innerHeight / 2,
-    { borderColor: 'gold' },
+    { borderColor: 'var(--gold-color)' },
     1000,
     {
       buttonClick: (button) => {

@@ -440,12 +440,12 @@ export async function handleLogin () {
       const hasTier3 = (sub?.tier ?? 0) >= 3 || (discord && account.member.roles?.includes(ASCENDED_BALLER))
       const hasTier4 = (sub?.tier ?? 0) >= 4 || (discord && account.member.roles?.includes(OMEGA_BALLER))
 
-      const checkMark = '<span style="color: lime">[✔]</span>'
-      const exMark = '<span style="color: crimson">[✖]</span>'
+      const checkMark = '<span style="color: var(--lime-color)">[✔]</span>'
+      const exMark = '<span style="color: var(--crimson-color)">[✖]</span>'
 
       const createLineHTML = (i18nKey: string, value: number, statusCheck: boolean, nameClasses: string[]) => {
         const classesForName = ['bonus-line-name', ...nameClasses].join(' ')
-        const style = nameClasses.length > 0 ? '' : 'color: gold'
+        const style = nameClasses.length > 0 ? '' : 'color: var(--gold-color)'
         return `<div class="personal-bonus-line">
           <span class="${classesForName}" style="${style}">${i18next.t(`account.bonuses.${i18nKey}`)}</span>
           <span class="bonus-line-right">
@@ -561,7 +561,7 @@ export async function handleLogin () {
               </svg>`
           },
           patreon: {
-            color: '#FF424D',
+            color: 'var(--hex-ff424d-color)',
             logo:
               `<svg width="20" height="20" viewBox="0 0 436 476" fill="none" xmlns="http://www.w3.org/2000/svg" style="vertical-align: middle; margin-right: 8px;">
                 <path d="M436 143.371C436 64.203 373.797 2 294.629 2C215.461 2 153.258 64.203 153.258 143.371C153.258 222.539 215.461 284.742 294.629 284.742C373.797 284.742 436 222.539 436 143.371ZM0 474H74.8139V2H0V474Z" fill="white"/>

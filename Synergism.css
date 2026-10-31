@@ -145,35 +145,113 @@ body {
     --scrollbar-bg-color: #111;
     --white-color: white;
     --whitesmoke-color: whitesmoke;
+    --gainsboro-color: gainsboro;
     --lightgray-color: lightgray;
+    --lightgrey-color: lightgrey;
     --silver-color: silver;
+    --darkgray-color: darkgray;
     --gray-color: gray;
+    --grey-color: grey;
+    --lightslategray-color: lightslategray;
+    --lightslategrey-color: lightslategrey;
     --ivory-color: ivory;
+    --beige-color: beige;
+    --honeydew-color: honeydew;
     --gold-color: gold;
     --goldenrod-color: goldenrod;
+    --darkgoldenrod-color: darkgoldenrod;
     --yellow-color: yellow;
+    --khaki-color: khaki;
     --lightgoldenrodyellow-color: lightgoldenrodyellow;
+    --wheat-color: wheat;
+    --bisque-color: bisque;
+    --burlywood-color: burlywood;
+    --peru-color: peru;
     --orange-color: orange;
+    --orangered-color: orangered;
     --darkorange-color: darkorange;
+    --tomato-color: tomato;
     --red-color: red;
     --crimson-color: crimson;
     --maroon-color: maroon;
+    --brown-color: brown;
+    --rosybrown-color: rosybrown;
+    --lightcoral-color: lightcoral;
     --pink-color: pink;
     --plum-color: plum;
     --orchid-color: orchid;
+    --darkorchid-color: darkorchid;
     --violet-color: violet;
     --fuchsia-color: fuchsia;
+    --magenta-color: magenta;
     --purple-color: purple;
+    --mediumpurple-color: mediumpurple;
+    --slateblue-color: slateblue;
     --green-color: green;
+    --greenyellow-color: greenyellow;
     --lime-color: lime;
     --limegreen-color: limegreen;
+    --palegreen-color: palegreen;
     --lightgreen-color: lightgreen;
+    --aqua-color: aqua;
+    --aquamarine-color: aquamarine;
+    --turquoise-color: turquoise;
+    --teal-color: teal;
     --cyan-color: cyan;
     --lightseagreen-color: lightseagreen;
     --deepskyblue-color: deepskyblue;
+    --lightskyblue-color: lightskyblue;
+    --skyblue-color: skyblue;
     --lightblue-color: lightblue;
+    --steelblue-color: steelblue;
+    --cornflowerblue-color: cornflowerblue;
     --royalblue-color: royalblue;
     --blue-color: blue;
+    --blueviolet-color: blueviolet;
+    --hex-00ddff-color: #0df;
+    --hex-00ff4c-color: #00ff4c;
+    --hex-4a90e2-color: #4a90e2;
+    --hex-66ffff-color: #6ff;
+    --hex-7ed321-color: #7ed321;
+    --hex-8f8-color: #8f8;
+    --hex-999-color: #999;
+    --hex-ab8654-color: #ab8654;
+    --hex-b77d48-color: #b77d48;
+    --hex-c2783d-color: #c2783d;
+    --hex-ca7035-color: #ca7035;
+    --hex-ccc-color: #ccc;
+    --hex-d0021b-color: #d0021b;
+    --hex-d26b2d-color: #d26b2d;
+    --hex-dc6623-color: #dc6623;
+    --hex-e76118-color: #e76118;
+    --hex-f5a623-color: #f5a623;
+    --hex-f65d09-color: #f65d09;
+    --hex-ff004c-color: #ff004c;
+    --hex-ff424d-color: #ff424d;
+    --hex-ff5900-color: #ff5900;
+    --hex-ff6b6b-color: #ff6b6b;
+    --hex-ff766a-color: #ff766a;
+    --hex-ffbf00-color: #ffbf00;
+    --white-background-color: white;
+    --black-background-color: black;
+    --crimson-background-color: crimson;
+    --maroon-background-color: maroon;
+    --brown-background-color: brown;
+    --orange-background-color: orange;
+    --lightgoldenrodyellow-background-color: lightgoldenrodyellow;
+    --green-background-color: green;
+    --limegreen-background-color: limegreen;
+    --cyan-background-color: cyan;
+    --cornflowerblue-background-color: cornflowerblue;
+    --orchid-background-color: orchid;
+    --purple-background-color: purple;
+    --hex-1f1f1f-background-color: #1f1f1f;
+    --hex-2f2f2f-background-color: #2f2f2f;
+    --hex-333-background-color: #333;
+    --hex-555-background-color: #555;
+    --hex-b59410-background-color: #b59410;
+    --hex-fa3e3e-background-color: #fa3e3e;
+    --message-background-color: rgb(0 0 0 / 20%);
     --transition: 0;
     --transition-extra: 0.15s;
 }
@@ -14099,6 +14177,50 @@ body.lightTheme {
     --royalblue-color: #2c4fc5;
     --blue-color: #00f;
     --blueviolet-color: #6a1fc2;
+    --hex-00ddff-color: var(--cyan-color);
+    --hex-00ff4c-color: var(--green-color);
+    --hex-4a90e2-color: var(--steelblue-color);
+    --hex-66ffff-color: var(--cyan-color);
+    --hex-7ed321-color: var(--limegreen-color);
+    --hex-8f8-color: var(--lightgreen-color);
+    --hex-999-color: var(--gray-color);
+    --hex-ab8654-color: var(--burlywood-color);
+    --hex-b77d48-color: var(--burlywood-color);
+    --hex-c2783d-color: var(--peru-color);
+    --hex-ca7035-color: var(--peru-color);
+    --hex-ccc-color: var(--lightgray-color);
+    --hex-d0021b-color: var(--red-color);
+    --hex-d26b2d-color: var(--darkorange-color);
+    --hex-dc6623-color: var(--darkorange-color);
+    --hex-e76118-color: var(--orangered-color);
+    --hex-f5a623-color: var(--orange-color);
+    --hex-f65d09-color: var(--orangered-color);
+    --hex-ff004c-color: var(--crimson-color);
+    --hex-ff424d-color: #c7252e;
+    --hex-ff5900-color: var(--orangered-color);
+    --hex-ff6b6b-color: var(--red-color);
+    --hex-ff766a-color: var(--red-color);
+    --hex-ffbf00-color: var(--goldenrod-color);
+    --white-background-color: #d5d8e0;
+    --black-background-color: #d5d8e0;
+    --crimson-background-color: #fbcfd7;
+    --maroon-background-color: #f8d0d0;
+    --brown-background-color: #efd5c8;
+    --orange-background-color: #ffdca8;
+    --lightgoldenrodyellow-background-color: #f4f0ae;
+    --green-background-color: #c4e9c4;
+    --limegreen-background-color: #c4edc4;
+    --cyan-background-color: #bdeef1;
+    --cornflowerblue-background-color: #c9d9f8;
+    --orchid-background-color: #f3cdf1;
+    --purple-background-color: #eccfec;
+    --hex-1f1f1f-background-color: #eceef2;
+    --hex-2f2f2f-background-color: #d5d8e0;
+    --hex-333-background-color: #d5d8e0;
+    --hex-555-background-color: #d5d8e0;
+    --hex-b59410-background-color: #f6e7a1;
+    --hex-fa3e3e-background-color: #fbcfd7;
+    --message-background-color: #eceef2;
     --header-color: #eceef2;
     --bg-color: #f6f7f9;
     --alert-color: #fff;
@@ -14162,239 +14284,6 @@ body.lightTheme {
     --info-hover: #a9e8ec;
     --danger-color: #fbcfd7;
     --danger-hover: #f9bcc8;
-
-    [style^="color:white"], [style*=" color:white"], [style*=";color:white"], [style^="color: white"], [style*=" color: white"], [style*=";color: white"] { color: var(--white-color) !important; }
-    [style*="solid white"], [style*="border-color:white"], [style*="border-color: white"] { border-color: var(--white-color) !important; }
-    [style^="color:whitesmoke"], [style*=" color:whitesmoke"], [style*=";color:whitesmoke"], [style^="color: whitesmoke"], [style*=" color: whitesmoke"], [style*=";color: whitesmoke"] { color: var(--whitesmoke-color) !important; }
-    [style*="solid whitesmoke"], [style*="border-color:whitesmoke"], [style*="border-color: whitesmoke"] { border-color: var(--whitesmoke-color) !important; }
-    [style^="color:gainsboro"], [style*=" color:gainsboro"], [style*=";color:gainsboro"], [style^="color: gainsboro"], [style*=" color: gainsboro"], [style*=";color: gainsboro"] { color: var(--gainsboro-color) !important; }
-    [style*="solid gainsboro"], [style*="border-color:gainsboro"], [style*="border-color: gainsboro"] { border-color: var(--gainsboro-color) !important; }
-    [style^="color:lightgray"], [style*=" color:lightgray"], [style*=";color:lightgray"], [style^="color: lightgray"], [style*=" color: lightgray"], [style*=";color: lightgray"] { color: var(--lightgray-color) !important; }
-    [style*="solid lightgray"], [style*="border-color:lightgray"], [style*="border-color: lightgray"] { border-color: var(--lightgray-color) !important; }
-    [style^="color:lightgrey"], [style*=" color:lightgrey"], [style*=";color:lightgrey"], [style^="color: lightgrey"], [style*=" color: lightgrey"], [style*=";color: lightgrey"] { color: var(--lightgrey-color) !important; }
-    [style*="solid lightgrey"], [style*="border-color:lightgrey"], [style*="border-color: lightgrey"] { border-color: var(--lightgrey-color) !important; }
-    [style^="color:silver"], [style*=" color:silver"], [style*=";color:silver"], [style^="color: silver"], [style*=" color: silver"], [style*=";color: silver"] { color: var(--silver-color) !important; }
-    [style*="solid silver"], [style*="border-color:silver"], [style*="border-color: silver"] { border-color: var(--silver-color) !important; }
-    [style^="color:darkgray"], [style*=" color:darkgray"], [style*=";color:darkgray"], [style^="color: darkgray"], [style*=" color: darkgray"], [style*=";color: darkgray"] { color: var(--darkgray-color) !important; }
-    [style*="solid darkgray"], [style*="border-color:darkgray"], [style*="border-color: darkgray"] { border-color: var(--darkgray-color) !important; }
-    [style^="color:gray"], [style*=" color:gray"], [style*=";color:gray"], [style^="color: gray"], [style*=" color: gray"], [style*=";color: gray"] { color: var(--gray-color) !important; }
-    [style*="solid gray"], [style*="border-color:gray"], [style*="border-color: gray"] { border-color: var(--gray-color) !important; }
-    [style^="color:grey"], [style*=" color:grey"], [style*=";color:grey"], [style^="color: grey"], [style*=" color: grey"], [style*=";color: grey"] { color: var(--grey-color) !important; }
-    [style*="solid grey"], [style*="border-color:grey"], [style*="border-color: grey"] { border-color: var(--grey-color) !important; }
-    [style^="color:lightslategray"], [style*=" color:lightslategray"], [style*=";color:lightslategray"], [style^="color: lightslategray"], [style*=" color: lightslategray"], [style*=";color: lightslategray"] { color: var(--lightslategray-color) !important; }
-    [style*="solid lightslategray"], [style*="border-color:lightslategray"], [style*="border-color: lightslategray"] { border-color: var(--lightslategray-color) !important; }
-    [style^="color:lightslategrey"], [style*=" color:lightslategrey"], [style*=";color:lightslategrey"], [style^="color: lightslategrey"], [style*=" color: lightslategrey"], [style*=";color: lightslategrey"] { color: var(--lightslategrey-color) !important; }
-    [style*="solid lightslategrey"], [style*="border-color:lightslategrey"], [style*="border-color: lightslategrey"] { border-color: var(--lightslategrey-color) !important; }
-    [style^="color:ivory"], [style*=" color:ivory"], [style*=";color:ivory"], [style^="color: ivory"], [style*=" color: ivory"], [style*=";color: ivory"] { color: var(--ivory-color) !important; }
-    [style*="solid ivory"], [style*="border-color:ivory"], [style*="border-color: ivory"] { border-color: var(--ivory-color) !important; }
-    [style^="color:beige"], [style*=" color:beige"], [style*=";color:beige"], [style^="color: beige"], [style*=" color: beige"], [style*=";color: beige"] { color: var(--beige-color) !important; }
-    [style*="solid beige"], [style*="border-color:beige"], [style*="border-color: beige"] { border-color: var(--beige-color) !important; }
-    [style^="color:honeydew"], [style*=" color:honeydew"], [style*=";color:honeydew"], [style^="color: honeydew"], [style*=" color: honeydew"], [style*=";color: honeydew"] { color: var(--honeydew-color) !important; }
-    [style*="solid honeydew"], [style*="border-color:honeydew"], [style*="border-color: honeydew"] { border-color: var(--honeydew-color) !important; }
-    [style^="color:gold"], [style*=" color:gold"], [style*=";color:gold"], [style^="color: gold"], [style*=" color: gold"], [style*=";color: gold"] { color: var(--gold-color) !important; }
-    [style*="solid gold"], [style*="border-color:gold"], [style*="border-color: gold"] { border-color: var(--gold-color) !important; }
-    [style^="color:goldenrod"], [style*=" color:goldenrod"], [style*=";color:goldenrod"], [style^="color: goldenrod"], [style*=" color: goldenrod"], [style*=";color: goldenrod"] { color: var(--goldenrod-color) !important; }
-    [style*="solid goldenrod"], [style*="border-color:goldenrod"], [style*="border-color: goldenrod"] { border-color: var(--goldenrod-color) !important; }
-    [style^="color:darkgoldenrod"], [style*=" color:darkgoldenrod"], [style*=";color:darkgoldenrod"], [style^="color: darkgoldenrod"], [style*=" color: darkgoldenrod"], [style*=";color: darkgoldenrod"] { color: var(--darkgoldenrod-color) !important; }
-    [style*="solid darkgoldenrod"], [style*="border-color:darkgoldenrod"], [style*="border-color: darkgoldenrod"] { border-color: var(--darkgoldenrod-color) !important; }
-    [style^="color:yellow"], [style*=" color:yellow"], [style*=";color:yellow"], [style^="color: yellow"], [style*=" color: yellow"], [style*=";color: yellow"] { color: var(--yellow-color) !important; }
-    [style*="solid yellow"], [style*="border-color:yellow"], [style*="border-color: yellow"] { border-color: var(--yellow-color) !important; }
-    [style^="color:khaki"], [style*=" color:khaki"], [style*=";color:khaki"], [style^="color: khaki"], [style*=" color: khaki"], [style*=";color: khaki"] { color: var(--khaki-color) !important; }
-    [style*="solid khaki"], [style*="border-color:khaki"], [style*="border-color: khaki"] { border-color: var(--khaki-color) !important; }
-    [style^="color:lightgoldenrodyellow"], [style*=" color:lightgoldenrodyellow"], [style*=";color:lightgoldenrodyellow"], [style^="color: lightgoldenrodyellow"], [style*=" color: lightgoldenrodyellow"], [style*=";color: lightgoldenrodyellow"] { color: var(--lightgoldenrodyellow-color) !important; }
-    [style*="solid lightgoldenrodyellow"], [style*="border-color:lightgoldenrodyellow"], [style*="border-color: lightgoldenrodyellow"] { border-color: var(--lightgoldenrodyellow-color) !important; }
-    [style^="color:bisque"], [style*=" color:bisque"], [style*=";color:bisque"], [style^="color: bisque"], [style*=" color: bisque"], [style*=";color: bisque"] { color: var(--bisque-color) !important; }
-    [style*="solid bisque"], [style*="border-color:bisque"], [style*="border-color: bisque"] { border-color: var(--bisque-color) !important; }
-    [style^="color:burlywood"], [style*=" color:burlywood"], [style*=";color:burlywood"], [style^="color: burlywood"], [style*=" color: burlywood"], [style*=";color: burlywood"] { color: var(--burlywood-color) !important; }
-    [style*="solid burlywood"], [style*="border-color:burlywood"], [style*="border-color: burlywood"] { border-color: var(--burlywood-color) !important; }
-    [style^="color:peru"], [style*=" color:peru"], [style*=";color:peru"], [style^="color: peru"], [style*=" color: peru"], [style*=";color: peru"] { color: var(--peru-color) !important; }
-    [style*="solid peru"], [style*="border-color:peru"], [style*="border-color: peru"] { border-color: var(--peru-color) !important; }
-    [style^="color:orange"], [style*=" color:orange"], [style*=";color:orange"], [style^="color: orange"], [style*=" color: orange"], [style*=";color: orange"] { color: var(--orange-color) !important; }
-    [style*="solid orange"], [style*="border-color:orange"], [style*="border-color: orange"] { border-color: var(--orange-color) !important; }
-    [style^="color:orangered"], [style*=" color:orangered"], [style*=";color:orangered"], [style^="color: orangered"], [style*=" color: orangered"], [style*=";color: orangered"] { color: var(--orangered-color) !important; }
-    [style*="solid orangered"], [style*="border-color:orangered"], [style*="border-color: orangered"] { border-color: var(--orangered-color) !important; }
-    [style^="color:darkorange"], [style*=" color:darkorange"], [style*=";color:darkorange"], [style^="color: darkorange"], [style*=" color: darkorange"], [style*=";color: darkorange"] { color: var(--darkorange-color) !important; }
-    [style*="solid darkorange"], [style*="border-color:darkorange"], [style*="border-color: darkorange"] { border-color: var(--darkorange-color) !important; }
-    [style^="color:tomato"], [style*=" color:tomato"], [style*=";color:tomato"], [style^="color: tomato"], [style*=" color: tomato"], [style*=";color: tomato"] { color: var(--tomato-color) !important; }
-    [style*="solid tomato"], [style*="border-color:tomato"], [style*="border-color: tomato"] { border-color: var(--tomato-color) !important; }
-    [style^="color:red"], [style*=" color:red"], [style*=";color:red"], [style^="color: red"], [style*=" color: red"], [style*=";color: red"] { color: var(--red-color) !important; }
-    [style*="solid red"], [style*="border-color:red"], [style*="border-color: red"] { border-color: var(--red-color) !important; }
-    [style^="color:crimson"], [style*=" color:crimson"], [style*=";color:crimson"], [style^="color: crimson"], [style*=" color: crimson"], [style*=";color: crimson"] { color: var(--crimson-color) !important; }
-    [style*="solid crimson"], [style*="border-color:crimson"], [style*="border-color: crimson"] { border-color: var(--crimson-color) !important; }
-    [style^="color:maroon"], [style*=" color:maroon"], [style*=";color:maroon"], [style^="color: maroon"], [style*=" color: maroon"], [style*=";color: maroon"] { color: var(--maroon-color) !important; }
-    [style*="solid maroon"], [style*="border-color:maroon"], [style*="border-color: maroon"] { border-color: var(--maroon-color) !important; }
-    [style^="color:brown"], [style*=" color:brown"], [style*=";color:brown"], [style^="color: brown"], [style*=" color: brown"], [style*=";color: brown"] { color: var(--brown-color) !important; }
-    [style*="solid brown"], [style*="border-color:brown"], [style*="border-color: brown"] { border-color: var(--brown-color) !important; }
-    [style^="color:rosybrown"], [style*=" color:rosybrown"], [style*=";color:rosybrown"], [style^="color: rosybrown"], [style*=" color: rosybrown"], [style*=";color: rosybrown"] { color: var(--rosybrown-color) !important; }
-    [style*="solid rosybrown"], [style*="border-color:rosybrown"], [style*="border-color: rosybrown"] { border-color: var(--rosybrown-color) !important; }
-    [style^="color:lightcoral"], [style*=" color:lightcoral"], [style*=";color:lightcoral"], [style^="color: lightcoral"], [style*=" color: lightcoral"], [style*=";color: lightcoral"] { color: var(--lightcoral-color) !important; }
-    [style*="solid lightcoral"], [style*="border-color:lightcoral"], [style*="border-color: lightcoral"] { border-color: var(--lightcoral-color) !important; }
-    [style^="color:pink"], [style*=" color:pink"], [style*=";color:pink"], [style^="color: pink"], [style*=" color: pink"], [style*=";color: pink"] { color: var(--pink-color) !important; }
-    [style*="solid pink"], [style*="border-color:pink"], [style*="border-color: pink"] { border-color: var(--pink-color) !important; }
-    [style^="color:plum"], [style*=" color:plum"], [style*=";color:plum"], [style^="color: plum"], [style*=" color: plum"], [style*=";color: plum"] { color: var(--plum-color) !important; }
-    [style*="solid plum"], [style*="border-color:plum"], [style*="border-color: plum"] { border-color: var(--plum-color) !important; }
-    [style^="color:orchid"], [style*=" color:orchid"], [style*=";color:orchid"], [style^="color: orchid"], [style*=" color: orchid"], [style*=";color: orchid"] { color: var(--orchid-color) !important; }
-    [style*="solid orchid"], [style*="border-color:orchid"], [style*="border-color: orchid"] { border-color: var(--orchid-color) !important; }
-    [style^="color:darkorchid"], [style*=" color:darkorchid"], [style*=";color:darkorchid"], [style^="color: darkorchid"], [style*=" color: darkorchid"], [style*=";color: darkorchid"] { color: var(--darkorchid-color) !important; }
-    [style*="solid darkorchid"], [style*="border-color:darkorchid"], [style*="border-color: darkorchid"] { border-color: var(--darkorchid-color) !important; }
-    [style^="color:violet"], [style*=" color:violet"], [style*=";color:violet"], [style^="color: violet"], [style*=" color: violet"], [style*=";color: violet"] { color: var(--violet-color) !important; }
-    [style*="solid violet"], [style*="border-color:violet"], [style*="border-color: violet"] { border-color: var(--violet-color) !important; }
-    [style^="color:fuchsia"], [style*=" color:fuchsia"], [style*=";color:fuchsia"], [style^="color: fuchsia"], [style*=" color: fuchsia"], [style*=";color: fuchsia"] { color: var(--fuchsia-color) !important; }
-    [style*="solid fuchsia"], [style*="border-color:fuchsia"], [style*="border-color: fuchsia"] { border-color: var(--fuchsia-color) !important; }
-    [style^="color:magenta"], [style*=" color:magenta"], [style*=";color:magenta"], [style^="color: magenta"], [style*=" color: magenta"], [style*=";color: magenta"] { color: var(--magenta-color) !important; }
-    [style*="solid magenta"], [style*="border-color:magenta"], [style*="border-color: magenta"] { border-color: var(--magenta-color) !important; }
-    [style^="color:purple"], [style*=" color:purple"], [style*=";color:purple"], [style^="color: purple"], [style*=" color: purple"], [style*=";color: purple"] { color: var(--purple-color) !important; }
-    [style*="solid purple"], [style*="border-color:purple"], [style*="border-color: purple"] { border-color: var(--purple-color) !important; }
-    [style^="color:mediumpurple"], [style*=" color:mediumpurple"], [style*=";color:mediumpurple"], [style^="color: mediumpurple"], [style*=" color: mediumpurple"], [style*=";color: mediumpurple"] { color: var(--mediumpurple-color) !important; }
-    [style*="solid mediumpurple"], [style*="border-color:mediumpurple"], [style*="border-color: mediumpurple"] { border-color: var(--mediumpurple-color) !important; }
-    [style^="color:slateblue"], [style*=" color:slateblue"], [style*=";color:slateblue"], [style^="color: slateblue"], [style*=" color: slateblue"], [style*=";color: slateblue"] { color: var(--slateblue-color) !important; }
-    [style*="solid slateblue"], [style*="border-color:slateblue"], [style*="border-color: slateblue"] { border-color: var(--slateblue-color) !important; }
-    [style^="color:green"], [style*=" color:green"], [style*=";color:green"], [style^="color: green"], [style*=" color: green"], [style*=";color: green"] { color: var(--green-color) !important; }
-    [style*="solid green"], [style*="border-color:green"], [style*="border-color: green"] { border-color: var(--green-color) !important; }
-    [style^="color:greenyellow"], [style*=" color:greenyellow"], [style*=";color:greenyellow"], [style^="color: greenyellow"], [style*=" color: greenyellow"], [style*=";color: greenyellow"] { color: var(--greenyellow-color) !important; }
-    [style*="solid greenyellow"], [style*="border-color:greenyellow"], [style*="border-color: greenyellow"] { border-color: var(--greenyellow-color) !important; }
-    [style^="color:lime"], [style*=" color:lime"], [style*=";color:lime"], [style^="color: lime"], [style*=" color: lime"], [style*=";color: lime"] { color: var(--lime-color) !important; }
-    [style*="solid lime"], [style*="border-color:lime"], [style*="border-color: lime"] { border-color: var(--lime-color) !important; }
-    [style^="color:limegreen"], [style*=" color:limegreen"], [style*=";color:limegreen"], [style^="color: limegreen"], [style*=" color: limegreen"], [style*=";color: limegreen"] { color: var(--limegreen-color) !important; }
-    [style*="solid limegreen"], [style*="border-color:limegreen"], [style*="border-color: limegreen"] { border-color: var(--limegreen-color) !important; }
-    [style^="color:palegreen"], [style*=" color:palegreen"], [style*=";color:palegreen"], [style^="color: palegreen"], [style*=" color: palegreen"], [style*=";color: palegreen"] { color: var(--palegreen-color) !important; }
-    [style*="solid palegreen"], [style*="border-color:palegreen"], [style*="border-color: palegreen"] { border-color: var(--palegreen-color) !important; }
-    [style^="color:lightgreen"], [style*=" color:lightgreen"], [style*=";color:lightgreen"], [style^="color: lightgreen"], [style*=" color: lightgreen"], [style*=";color: lightgreen"] { color: var(--lightgreen-color) !important; }
-    [style*="solid lightgreen"], [style*="border-color:lightgreen"], [style*="border-color: lightgreen"] { border-color: var(--lightgreen-color) !important; }
-    [style^="color:aqua"], [style*=" color:aqua"], [style*=";color:aqua"], [style^="color: aqua"], [style*=" color: aqua"], [style*=";color: aqua"] { color: var(--aqua-color) !important; }
-    [style*="solid aqua"], [style*="border-color:aqua"], [style*="border-color: aqua"] { border-color: var(--aqua-color) !important; }
-    [style^="color:aquamarine"], [style*=" color:aquamarine"], [style*=";color:aquamarine"], [style^="color: aquamarine"], [style*=" color: aquamarine"], [style*=";color: aquamarine"] { color: var(--aquamarine-color) !important; }
-    [style*="solid aquamarine"], [style*="border-color:aquamarine"], [style*="border-color: aquamarine"] { border-color: var(--aquamarine-color) !important; }
-    [style^="color:turquoise"], [style*=" color:turquoise"], [style*=";color:turquoise"], [style^="color: turquoise"], [style*=" color: turquoise"], [style*=";color: turquoise"] { color: var(--turquoise-color) !important; }
-    [style*="solid turquoise"], [style*="border-color:turquoise"], [style*="border-color: turquoise"] { border-color: var(--turquoise-color) !important; }
-    [style^="color:teal"], [style*=" color:teal"], [style*=";color:teal"], [style^="color: teal"], [style*=" color: teal"], [style*=";color: teal"] { color: var(--teal-color) !important; }
-    [style*="solid teal"], [style*="border-color:teal"], [style*="border-color: teal"] { border-color: var(--teal-color) !important; }
-    [style^="color:cyan"], [style*=" color:cyan"], [style*=";color:cyan"], [style^="color: cyan"], [style*=" color: cyan"], [style*=";color: cyan"] { color: var(--cyan-color) !important; }
-    [style*="solid cyan"], [style*="border-color:cyan"], [style*="border-color: cyan"] { border-color: var(--cyan-color) !important; }
-    [style^="color:lightseagreen"], [style*=" color:lightseagreen"], [style*=";color:lightseagreen"], [style^="color: lightseagreen"], [style*=" color: lightseagreen"], [style*=";color: lightseagreen"] { color: var(--lightseagreen-color) !important; }
-    [style*="solid lightseagreen"], [style*="border-color:lightseagreen"], [style*="border-color: lightseagreen"] { border-color: var(--lightseagreen-color) !important; }
-    [style^="color:deepskyblue"], [style*=" color:deepskyblue"], [style*=";color:deepskyblue"], [style^="color: deepskyblue"], [style*=" color: deepskyblue"], [style*=";color: deepskyblue"] { color: var(--deepskyblue-color) !important; }
-    [style*="solid deepskyblue"], [style*="border-color:deepskyblue"], [style*="border-color: deepskyblue"] { border-color: var(--deepskyblue-color) !important; }
-    [style^="color:lightskyblue"], [style*=" color:lightskyblue"], [style*=";color:lightskyblue"], [style^="color: lightskyblue"], [style*=" color: lightskyblue"], [style*=";color: lightskyblue"] { color: var(--lightskyblue-color) !important; }
-    [style*="solid lightskyblue"], [style*="border-color:lightskyblue"], [style*="border-color: lightskyblue"] { border-color: var(--lightskyblue-color) !important; }
-    [style^="color:skyblue"], [style*=" color:skyblue"], [style*=";color:skyblue"], [style^="color: skyblue"], [style*=" color: skyblue"], [style*=";color: skyblue"] { color: var(--skyblue-color) !important; }
-    [style*="solid skyblue"], [style*="border-color:skyblue"], [style*="border-color: skyblue"] { border-color: var(--skyblue-color) !important; }
-    [style^="color:lightblue"], [style*=" color:lightblue"], [style*=";color:lightblue"], [style^="color: lightblue"], [style*=" color: lightblue"], [style*=";color: lightblue"] { color: var(--lightblue-color) !important; }
-    [style*="solid lightblue"], [style*="border-color:lightblue"], [style*="border-color: lightblue"] { border-color: var(--lightblue-color) !important; }
-    [style^="color:steelblue"], [style*=" color:steelblue"], [style*=";color:steelblue"], [style^="color: steelblue"], [style*=" color: steelblue"], [style*=";color: steelblue"] { color: var(--steelblue-color) !important; }
-    [style*="solid steelblue"], [style*="border-color:steelblue"], [style*="border-color: steelblue"] { border-color: var(--steelblue-color) !important; }
-    [style^="color:cornflowerblue"], [style*=" color:cornflowerblue"], [style*=";color:cornflowerblue"], [style^="color: cornflowerblue"], [style*=" color: cornflowerblue"], [style*=";color: cornflowerblue"] { color: var(--cornflowerblue-color) !important; }
-    [style*="solid cornflowerblue"], [style*="border-color:cornflowerblue"], [style*="border-color: cornflowerblue"] { border-color: var(--cornflowerblue-color) !important; }
-    [style^="color:royalblue"], [style*=" color:royalblue"], [style*=";color:royalblue"], [style^="color: royalblue"], [style*=" color: royalblue"], [style*=";color: royalblue"] { color: var(--royalblue-color) !important; }
-    [style*="solid royalblue"], [style*="border-color:royalblue"], [style*="border-color: royalblue"] { border-color: var(--royalblue-color) !important; }
-    [style^="color:blue"], [style*=" color:blue"], [style*=";color:blue"], [style^="color: blue"], [style*=" color: blue"], [style*=";color: blue"] { color: var(--blue-color) !important; }
-    [style*="solid blue"], [style*="border-color:blue"], [style*="border-color: blue"] { border-color: var(--blue-color) !important; }
-    [style^="color:blueviolet"], [style*=" color:blueviolet"], [style*=";color:blueviolet"], [style^="color: blueviolet"], [style*=" color: blueviolet"], [style*=";color: blueviolet"] { color: var(--blueviolet-color) !important; }
-    [style*="solid blueviolet"], [style*="border-color:blueviolet"], [style*="border-color: blueviolet"] { border-color: var(--blueviolet-color) !important; }
-    [style^="color:#fff"], [style*=" color:#fff"], [style*=";color:#fff"], [style^="color: #fff"], [style*=" color: #fff"], [style*=";color: #fff"] { color: var(--white-color) !important; }
-    [style*="solid #fff"], [style*="border-color:#fff"], [style*="border-color: #fff"] { border-color: var(--white-color) !important; }
-    [style^="color:#ffffff"], [style*=" color:#ffffff"], [style*=";color:#ffffff"], [style^="color: #ffffff"], [style*=" color: #ffffff"], [style*=";color: #ffffff"] { color: var(--white-color) !important; }
-    [style*="solid #ffffff"], [style*="border-color:#ffffff"], [style*="border-color: #ffffff"] { border-color: var(--white-color) !important; }
-    [style^="color:#ccc"], [style*=" color:#ccc"], [style*=";color:#ccc"], [style^="color: #ccc"], [style*=" color: #ccc"], [style*=";color: #ccc"] { color: var(--lightgray-color) !important; }
-    [style*="solid #ccc"], [style*="border-color:#ccc"], [style*="border-color: #ccc"] { border-color: var(--lightgray-color) !important; }
-    [style^="color:#bbb"], [style*=" color:#bbb"], [style*=";color:#bbb"], [style^="color: #bbb"], [style*=" color: #bbb"], [style*=";color: #bbb"] { color: var(--silver-color) !important; }
-    [style*="solid #bbb"], [style*="border-color:#bbb"], [style*="border-color: #bbb"] { border-color: var(--silver-color) !important; }
-    [style^="color:#999"], [style*=" color:#999"], [style*=";color:#999"], [style^="color: #999"], [style*=" color: #999"], [style*=";color: #999"] { color: var(--gray-color) !important; }
-    [style*="solid #999"], [style*="border-color:#999"], [style*="border-color: #999"] { border-color: var(--gray-color) !important; }
-    [style^="color:#00DDFF"], [style*=" color:#00DDFF"], [style*=";color:#00DDFF"], [style^="color: #00DDFF"], [style*=" color: #00DDFF"], [style*=";color: #00DDFF"] { color: var(--cyan-color) !important; }
-    [style*="solid #00DDFF"], [style*="border-color:#00DDFF"], [style*="border-color: #00DDFF"] { border-color: var(--cyan-color) !important; }
-    [style^="color:rgb(0, 221, 255)"], [style*=" color:rgb(0, 221, 255)"], [style*=";color:rgb(0, 221, 255)"], [style^="color: rgb(0, 221, 255)"], [style*=" color: rgb(0, 221, 255)"], [style*=";color: rgb(0, 221, 255)"] { color: var(--cyan-color) !important; }
-    [style*="solid rgb(0, 221, 255)"], [style*="border-color:rgb(0, 221, 255)"], [style*="border-color: rgb(0, 221, 255)"] { border-color: var(--cyan-color) !important; }
-    [style^="color:#66ffff"], [style*=" color:#66ffff"], [style*=";color:#66ffff"], [style^="color: #66ffff"], [style*=" color: #66ffff"], [style*=";color: #66ffff"] { color: var(--cyan-color) !important; }
-    [style*="solid #66ffff"], [style*="border-color:#66ffff"], [style*="border-color: #66ffff"] { border-color: var(--cyan-color) !important; }
-    [style^="color:#8f8"], [style*=" color:#8f8"], [style*=";color:#8f8"], [style^="color: #8f8"], [style*=" color: #8f8"], [style*=";color: #8f8"] { color: var(--lightgreen-color) !important; }
-    [style*="solid #8f8"], [style*="border-color:#8f8"], [style*="border-color: #8f8"] { border-color: var(--lightgreen-color) !important; }
-    [style^="color:rgb(136, 255, 136)"], [style*=" color:rgb(136, 255, 136)"], [style*=";color:rgb(136, 255, 136)"], [style^="color: rgb(136, 255, 136)"], [style*=" color: rgb(136, 255, 136)"], [style*=";color: rgb(136, 255, 136)"] { color: var(--lightgreen-color) !important; }
-    [style*="solid rgb(136, 255, 136)"], [style*="border-color:rgb(136, 255, 136)"], [style*="border-color: rgb(136, 255, 136)"] { border-color: var(--lightgreen-color) !important; }
-    [style^="color:#ff6b6b"], [style*=" color:#ff6b6b"], [style*=";color:#ff6b6b"], [style^="color: #ff6b6b"], [style*=" color: #ff6b6b"], [style*=";color: #ff6b6b"] { color: var(--red-color) !important; }
-    [style*="solid #ff6b6b"], [style*="border-color:#ff6b6b"], [style*="border-color: #ff6b6b"] { border-color: var(--red-color) !important; }
-    [style^="color:#ff766a"], [style*=" color:#ff766a"], [style*=";color:#ff766a"], [style^="color: #ff766a"], [style*=" color: #ff766a"], [style*=";color: #ff766a"] { color: var(--red-color) !important; }
-    [style*="solid #ff766a"], [style*="border-color:#ff766a"], [style*="border-color: #ff766a"] { border-color: var(--red-color) !important; }
-    [style^="color:#ff004c"], [style*=" color:#ff004c"], [style*=";color:#ff004c"], [style^="color: #ff004c"], [style*=" color: #ff004c"], [style*=";color: #ff004c"] { color: var(--crimson-color) !important; }
-    [style*="solid #ff004c"], [style*="border-color:#ff004c"], [style*="border-color: #ff004c"] { border-color: var(--crimson-color) !important; }
-    [style^="color:rgb(255, 0, 76)"], [style*=" color:rgb(255, 0, 76)"], [style*=";color:rgb(255, 0, 76)"], [style^="color: rgb(255, 0, 76)"], [style*=" color: rgb(255, 0, 76)"], [style*=";color: rgb(255, 0, 76)"] { color: var(--crimson-color) !important; }
-    [style*="solid rgb(255, 0, 76)"], [style*="border-color:rgb(255, 0, 76)"], [style*="border-color: rgb(255, 0, 76)"] { border-color: var(--crimson-color) !important; }
-    [style^="color:rgb(0, 255, 76)"], [style*=" color:rgb(0, 255, 76)"], [style*=";color:rgb(0, 255, 76)"], [style^="color: rgb(0, 255, 76)"], [style*=" color: rgb(0, 255, 76)"], [style*=";color: rgb(0, 255, 76)"] { color: var(--green-color) !important; }
-    [style*="solid rgb(0, 255, 76)"], [style*="border-color:rgb(0, 255, 76)"], [style*="border-color: rgb(0, 255, 76)"] { border-color: var(--green-color) !important; }
-    [style^="color:#ffbf00"], [style*=" color:#ffbf00"], [style*=";color:#ffbf00"], [style^="color: #ffbf00"], [style*=" color: #ffbf00"], [style*=";color: #ffbf00"] { color: var(--goldenrod-color) !important; }
-    [style*="solid #ffbf00"], [style*="border-color:#ffbf00"], [style*="border-color: #ffbf00"] { border-color: var(--goldenrod-color) !important; }
-    [style^="color:rgb(255, 191, 0)"], [style*=" color:rgb(255, 191, 0)"], [style*=";color:rgb(255, 191, 0)"], [style^="color: rgb(255, 191, 0)"], [style*=" color: rgb(255, 191, 0)"], [style*=";color: rgb(255, 191, 0)"] { color: var(--goldenrod-color) !important; }
-    [style*="solid rgb(255, 191, 0)"], [style*="border-color:rgb(255, 191, 0)"], [style*="border-color: rgb(255, 191, 0)"] { border-color: var(--goldenrod-color) !important; }
-    [style^="color:#ff5900"], [style*=" color:#ff5900"], [style*=";color:#ff5900"], [style^="color: #ff5900"], [style*=" color: #ff5900"], [style*=";color: #ff5900"] { color: var(--orangered-color) !important; }
-    [style*="solid #ff5900"], [style*="border-color:#ff5900"], [style*="border-color: #ff5900"] { border-color: var(--orangered-color) !important; }
-    [style^="color:#4A90E2"], [style*=" color:#4A90E2"], [style*=";color:#4A90E2"], [style^="color: #4A90E2"], [style*=" color: #4A90E2"], [style*=";color: #4A90E2"] { color: var(--steelblue-color) !important; }
-    [style*="solid #4A90E2"], [style*="border-color:#4A90E2"], [style*="border-color: #4A90E2"] { border-color: var(--steelblue-color) !important; }
-    [style^="color:#F5A623"], [style*=" color:#F5A623"], [style*=";color:#F5A623"], [style^="color: #F5A623"], [style*=" color: #F5A623"], [style*=";color: #F5A623"] { color: var(--orange-color) !important; }
-    [style*="solid #F5A623"], [style*="border-color:#F5A623"], [style*="border-color: #F5A623"] { border-color: var(--orange-color) !important; }
-    [style^="color:#D0021B"], [style*=" color:#D0021B"], [style*=";color:#D0021B"], [style^="color: #D0021B"], [style*=" color: #D0021B"], [style*=";color: #D0021B"] { color: var(--red-color) !important; }
-    [style*="solid #D0021B"], [style*="border-color:#D0021B"], [style*="border-color: #D0021B"] { border-color: var(--red-color) !important; }
-    [style^="color:#7ED321"], [style*=" color:#7ED321"], [style*=";color:#7ED321"], [style^="color: #7ED321"], [style*=" color: #7ED321"], [style*=";color: #7ED321"] { color: var(--limegreen-color) !important; }
-    [style*="solid #7ED321"], [style*="border-color:#7ED321"], [style*="border-color: #7ED321"] { border-color: var(--limegreen-color) !important; }
-    [style^="color:#AB8654"], [style*=" color:#AB8654"], [style*=";color:#AB8654"], [style^="color: #AB8654"], [style*=" color: #AB8654"], [style*=";color: #AB8654"] { color: var(--burlywood-color) !important; }
-    [style*="solid #AB8654"], [style*="border-color:#AB8654"], [style*="border-color: #AB8654"] { border-color: var(--burlywood-color) !important; }
-    [style^="color:#B77D48"], [style*=" color:#B77D48"], [style*=";color:#B77D48"], [style^="color: #B77D48"], [style*=" color: #B77D48"], [style*=";color: #B77D48"] { color: var(--burlywood-color) !important; }
-    [style*="solid #B77D48"], [style*="border-color:#B77D48"], [style*="border-color: #B77D48"] { border-color: var(--burlywood-color) !important; }
-    [style^="color:#C2783D"], [style*=" color:#C2783D"], [style*=";color:#C2783D"], [style^="color: #C2783D"], [style*=" color: #C2783D"], [style*=";color: #C2783D"] { color: var(--peru-color) !important; }
-    [style*="solid #C2783D"], [style*="border-color:#C2783D"], [style*="border-color: #C2783D"] { border-color: var(--peru-color) !important; }
-    [style^="color:#CA7035"], [style*=" color:#CA7035"], [style*=";color:#CA7035"], [style^="color: #CA7035"], [style*=" color: #CA7035"], [style*=";color: #CA7035"] { color: var(--peru-color) !important; }
-    [style*="solid #CA7035"], [style*="border-color:#CA7035"], [style*="border-color: #CA7035"] { border-color: var(--peru-color) !important; }
-    [style^="color:#D26B2D"], [style*=" color:#D26B2D"], [style*=";color:#D26B2D"], [style^="color: #D26B2D"], [style*=" color: #D26B2D"], [style*=";color: #D26B2D"] { color: var(--darkorange-color) !important; }
-    [style*="solid #D26B2D"], [style*="border-color:#D26B2D"], [style*="border-color: #D26B2D"] { border-color: var(--darkorange-color) !important; }
-    [style^="color:#DC6623"], [style*=" color:#DC6623"], [style*=";color:#DC6623"], [style^="color: #DC6623"], [style*=" color: #DC6623"], [style*=";color: #DC6623"] { color: var(--darkorange-color) !important; }
-    [style*="solid #DC6623"], [style*="border-color:#DC6623"], [style*="border-color: #DC6623"] { border-color: var(--darkorange-color) !important; }
-    [style^="color:#E76118"], [style*=" color:#E76118"], [style*=";color:#E76118"], [style^="color: #E76118"], [style*=" color: #E76118"], [style*=";color: #E76118"] { color: var(--orangered-color) !important; }
-    [style*="solid #E76118"], [style*="border-color:#E76118"], [style*="border-color: #E76118"] { border-color: var(--orangered-color) !important; }
-    [style^="color:#F65D09"], [style*=" color:#F65D09"], [style*=";color:#F65D09"], [style^="color: #F65D09"], [style*=" color: #F65D09"], [style*=";color: #F65D09"] { color: var(--orangered-color) !important; }
-    [style*="solid #F65D09"], [style*="border-color:#F65D09"], [style*="border-color: #F65D09"] { border-color: var(--orangered-color) !important; }
-    [style^="color:color-mix"], [style*=" color:color-mix"], [style*=";color:color-mix"], [style^="color: color-mix"], [style*=" color: color-mix"], [style*=";color: color-mix"] { color: var(--white-color) !important; }
-    [style*="solid color-mix"], [style*="border-color:color-mix"], [style*="border-color: color-mix"] { border-color: var(--white-color) !important; }
-    [style^="color:wheat"], [style*=" color:wheat"], [style*=";color:wheat"], [style^="color: wheat"], [style*=" color: wheat"], [style*=";color: wheat"] { color: var(--wheat-color) !important; }
-    [style*="solid wheat"], [style*="border-color:wheat"], [style*="border-color: wheat"] { border-color: var(--wheat-color) !important; }
-    [style^="color:Silver"], [style*=" color:Silver"], [style*=";color:Silver"], [style^="color: Silver"], [style*=" color: Silver"], [style*=";color: Silver"] { color: var(--silver-color) !important; }
-    [style*="solid Silver"], [style*="border-color:Silver"], [style*="border-color: Silver"] { border-color: var(--silver-color) !important; }
-    [style^="color:Pink"], [style*=" color:Pink"], [style*=";color:Pink"], [style^="color: Pink"], [style*=" color: Pink"], [style*=";color: Pink"] { color: var(--pink-color) !important; }
-    [style*="solid Pink"], [style*="border-color:Pink"], [style*="border-color: Pink"] { border-color: var(--pink-color) !important; }
-    [style^="color:Gold"], [style*=" color:Gold"], [style*=";color:Gold"], [style^="color: Gold"], [style*=" color: Gold"], [style*=";color: Gold"] { color: var(--gold-color) !important; }
-    [style*="solid Gold"], [style*="border-color:Gold"], [style*="border-color: Gold"] { border-color: var(--gold-color) !important; }
-    [style^="color:Yellow"], [style*=" color:Yellow"], [style*=";color:Yellow"], [style^="color: Yellow"], [style*=" color: Yellow"], [style*=";color: Yellow"] { color: var(--yellow-color) !important; }
-    [style*="solid Yellow"], [style*="border-color:Yellow"], [style*="border-color: Yellow"] { border-color: var(--yellow-color) !important; }
-    [style^="color:#FFFFFF"], [style*=" color:#FFFFFF"], [style*=";color:#FFFFFF"], [style^="color: #FFFFFF"], [style*=" color: #FFFFFF"], [style*=";color: #FFFFFF"] { color: var(--white-color) !important; }
-    [style*="solid #FFFFFF"], [style*="border-color:#FFFFFF"], [style*="border-color: #FFFFFF"] { border-color: var(--white-color) !important; }
-    [style^="color:#FF766A"], [style*=" color:#FF766A"], [style*=";color:#FF766A"], [style^="color: #FF766A"], [style*=" color: #FF766A"], [style*=";color: #FF766A"] { color: var(--red-color) !important; }
-    [style*="solid #FF766A"], [style*="border-color:#FF766A"], [style*="border-color: #FF766A"] { border-color: var(--red-color) !important; }
-    [style^="color:#66FFFF"], [style*=" color:#66FFFF"], [style*=";color:#66FFFF"], [style^="color: #66FFFF"], [style*=" color: #66FFFF"], [style*=";color: #66FFFF"] { color: var(--cyan-color) !important; }
-    [style*="solid #66FFFF"], [style*="border-color:#66FFFF"], [style*="border-color: #66FFFF"] { border-color: var(--cyan-color) !important; }
-    :not(img)[style*="background-color:white"], :not(img)[style*="background-color: white"], :not(img)[style*="background:white"], :not(img)[style*="background: white"] { background-color: #d5d8e0 !important; }
-    :not(img)[style*="background-color:black"], :not(img)[style*="background-color: black"], :not(img)[style*="background:black"], :not(img)[style*="background: black"] { background-color: #d5d8e0 !important; }
-    :not(img)[style*="background-color:#333"], :not(img)[style*="background-color: #333"], :not(img)[style*="background:#333"], :not(img)[style*="background: #333"] { background-color: #d5d8e0 !important; }
-    :not(img)[style*="background-color:rgb(51, 51, 51)"], :not(img)[style*="background-color: rgb(51, 51, 51)"], :not(img)[style*="background:rgb(51, 51, 51)"], :not(img)[style*="background: rgb(51, 51, 51)"] { background-color: #d5d8e0 !important; }
-    :not(img)[style*="background-color:#555"], :not(img)[style*="background-color: #555"], :not(img)[style*="background:#555"], :not(img)[style*="background: #555"] { background-color: #d5d8e0 !important; }
-    :not(img)[style*="background-color:rgb(85, 85, 85)"], :not(img)[style*="background-color: rgb(85, 85, 85)"], :not(img)[style*="background:rgb(85, 85, 85)"], :not(img)[style*="background: rgb(85, 85, 85)"] { background-color: #d5d8e0 !important; }
-    :not(img)[style*="background-color:#2f2f2f"], :not(img)[style*="background-color: #2f2f2f"], :not(img)[style*="background:#2f2f2f"], :not(img)[style*="background: #2f2f2f"] { background-color: #d5d8e0 !important; }
-    :not(img)[style*="background-color:rgb(47, 47, 47)"], :not(img)[style*="background-color: rgb(47, 47, 47)"], :not(img)[style*="background:rgb(47, 47, 47)"], :not(img)[style*="background: rgb(47, 47, 47)"] { background-color: #d5d8e0 !important; }
-    :not(img)[style*="background-color:#1f1f1f"], :not(img)[style*="background-color: #1f1f1f"], :not(img)[style*="background:#1f1f1f"], :not(img)[style*="background: #1f1f1f"] { background-color: #eceef2 !important; }
-    :not(img)[style*="background-color:rgb(31, 31, 31)"], :not(img)[style*="background-color: rgb(31, 31, 31)"], :not(img)[style*="background:rgb(31, 31, 31)"], :not(img)[style*="background: rgb(31, 31, 31)"] { background-color: #eceef2 !important; }
-    :not(img)[style*="background-color:rgba(0,0,0,0.2)"], :not(img)[style*="background-color: rgba(0,0,0,0.2)"], :not(img)[style*="background:rgba(0,0,0,0.2)"], :not(img)[style*="background: rgba(0,0,0,0.2)"] { background-color: #eceef2 !important; }
-    :not(img)[style*="background-color:crimson"], :not(img)[style*="background-color: crimson"], :not(img)[style*="background:crimson"], :not(img)[style*="background: crimson"] { background-color: #fbcfd7 !important; }
-    :not(img)[style*="background-color:#fa3e3e"], :not(img)[style*="background-color: #fa3e3e"], :not(img)[style*="background:#fa3e3e"], :not(img)[style*="background: #fa3e3e"] { background-color: #fbcfd7 !important; }
-    :not(img)[style*="background-color:rgb(250, 62, 62)"], :not(img)[style*="background-color: rgb(250, 62, 62)"], :not(img)[style*="background:rgb(250, 62, 62)"], :not(img)[style*="background: rgb(250, 62, 62)"] { background-color: #fbcfd7 !important; }
-    :not(img)[style*="background-color:maroon"], :not(img)[style*="background-color: maroon"], :not(img)[style*="background:maroon"], :not(img)[style*="background: maroon"] { background-color: #f8d0d0 !important; }
-    :not(img)[style*="background-color:brown"], :not(img)[style*="background-color: brown"], :not(img)[style*="background:brown"], :not(img)[style*="background: brown"] { background-color: #efd5c8 !important; }
-    :not(img)[style*="background-color:orange"], :not(img)[style*="background-color: orange"], :not(img)[style*="background:orange"], :not(img)[style*="background: orange"] { background-color: #ffdca8 !important; }
-    :not(img)[style*="background-color:gold"], :not(img)[style*="background-color: gold"], :not(img)[style*="background:gold"], :not(img)[style*="background: gold"] { background-color: #f6e7a1 !important; }
-    :not(img)[style*="background-color:#b59410"], :not(img)[style*="background-color: #b59410"], :not(img)[style*="background:#b59410"], :not(img)[style*="background: #b59410"] { background-color: #f6e7a1 !important; }
-    :not(img)[style*="background-color:lightgoldenrodyellow"], :not(img)[style*="background-color: lightgoldenrodyellow"], :not(img)[style*="background:lightgoldenrodyellow"], :not(img)[style*="background: lightgoldenrodyellow"] { background-color: #f4f0ae !important; }
-    :not(img)[style*="background-color:green"], :not(img)[style*="background-color: green"], :not(img)[style*="background:green"], :not(img)[style*="background: green"] { background-color: #c4e9c4 !important; }
-    :not(img)[style*="background-color:limegreen"], :not(img)[style*="background-color: limegreen"], :not(img)[style*="background:limegreen"], :not(img)[style*="background: limegreen"] { background-color: #c4edc4 !important; }
-    :not(img)[style*="background-color:cyan"], :not(img)[style*="background-color: cyan"], :not(img)[style*="background:cyan"], :not(img)[style*="background: cyan"] { background-color: #bdeef1 !important; }
-    :not(img)[style*="background-color:cornflowerblue"], :not(img)[style*="background-color: cornflowerblue"], :not(img)[style*="background:cornflowerblue"], :not(img)[style*="background: cornflowerblue"] { background-color: #c9d9f8 !important; }
-    :not(img)[style*="background-color:orchid"], :not(img)[style*="background-color: orchid"], :not(img)[style*="background:orchid"], :not(img)[style*="background: orchid"] { background-color: #f3cdf1 !important; }
-    :not(img)[style*="background-color:purple"], :not(img)[style*="background-color: purple"], :not(img)[style*="background:purple"], :not(img)[style*="background: purple"] { background-color: #eccfec !important; }
 }
 
 body.lightTheme .active-subtab,
@@ -14822,6 +14711,19 @@ body.lightTheme nav.navbar #tabrow {
 }
 
 body.lightTheme img {
+    --white-background-color: white;
+    --black-background-color: black;
+    --crimson-background-color: crimson;
+    --maroon-background-color: maroon;
+    --brown-background-color: brown;
+    --orange-background-color: orange;
+    --lightgoldenrodyellow-background-color: lightgoldenrodyellow;
+    --green-background-color: green;
+    --limegreen-background-color: limegreen;
+    --cyan-background-color: cyan;
+    --cornflowerblue-background-color: cornflowerblue;
+    --orchid-background-color: orchid;
+    --purple-background-color: purple;
     --button-color: #2a2a35;
     --buttonbuy-color: #2a2a35;
     --buttonimg-color: #2a2a35;
@@ -14851,14 +14753,6 @@ body.lightTheme #pseudoCoinUpgradeName {
 
 body.lightTheme #apply-tips:not(:hover) {
     border-color: var(--purple-color);
-}
-
-body.lightTheme #accountInfo button[style*="background-color"] {
-    color: #fff !important;
-}
-
-body.lightTheme #accountInfo button[style*="rgb(255, 66, 77)"] {
-    background-color: #c7252e !important;
 }
 
 body.lightTheme .oldPerk,

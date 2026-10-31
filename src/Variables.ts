@@ -366,7 +366,7 @@ export const Globals: GlobalVariables = {
       value: 1,
       baseValue: 1,
       requirement: 1e11,
-      HTMLColor: 'lightgoldenrodyellow'
+      HTMLColor: 'var(--lightgoldenrodyellow-color)'
     },
     construction: {
       value: 0,
@@ -379,13 +379,13 @@ export const Globals: GlobalVariables = {
       value: 0,
       baseValue: 0,
       requirement: 1e15,
-      HTMLColor: 'pink'
+      HTMLColor: 'var(--pink-color)'
     },
     challengeHepteractUnlocked: {
       value: 0,
       baseValue: 0,
       requirement: 2e15,
-      HTMLColor: 'red'
+      HTMLColor: 'var(--red-color)'
     },
     cube5: {
       value: 1,
@@ -411,32 +411,32 @@ export const Globals: GlobalVariables = {
       value: 0,
       baseValue: 0,
       requirement: 3.33e16,
-      HTMLColor: 'orange'
+      HTMLColor: 'var(--orange-color)'
     },
     acceleratorBoostHepteractUnlocked: {
       value: 0,
       baseValue: 0,
       requirement: 3.33e16,
-      HTMLColor: 'cyan'
+      HTMLColor: 'var(--cyan-color)'
     },
     multiplierHepteractUnlocked: {
       value: 0,
       baseValue: 0,
       requirement: 3.33e16,
-      HTMLColor: 'pink'
+      HTMLColor: 'var(--pink-color)'
     },
     freeOrbs: {
       value: 0,
       baseValue: 0,
       requirement: 2e17,
-      HTMLColor: 'pink',
+      HTMLColor: 'var(--pink-color)',
       doNotUsePercentage: true
     },
     ascensionSpeed: {
       value: 1,
       baseValue: 1,
       requirement: 1.5e18,
-      HTMLColor: 'orange'
+      HTMLColor: 'var(--orange-color)'
     }
   },
 

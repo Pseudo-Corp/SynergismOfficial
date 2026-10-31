@@ -102,7 +102,7 @@ const renderRow = (entries: Entry[]): string =>
   renderAutomationControl()
   + entries.map((e) => 'spacer' in e ? renderSpacer(e.infoId) : renderBuilding(e)).join('')
 
-const goldStyle = 'color: gold'
+const goldStyle = 'color: var(--gold-color)'
 
 const coinNames = ['Worker', 'Investment', 'Printer', 'Coin Mint', 'Alchemy']
 const diamondNames = ['Refinery', 'Coal Plant', 'Coal Rig', 'Pickaxe', 'Pandora\'s Box']
@@ -135,8 +135,8 @@ const coinRow: Entry[] = [
     toggleIdAttr: '6',
     statsId: 'buildtext12',
     containerClass: 'coinunlock1',
-    descStyle: 'color: yellow',
-    statsStyle: 'color: cyan'
+    descStyle: 'color: var(--yellow-color)',
+    statsStyle: 'color: var(--cyan-color)'
   },
   {
     imgId: 'multiplier',
@@ -148,8 +148,8 @@ const coinRow: Entry[] = [
     toggleIdAttr: '7',
     statsId: 'buildtext14',
     containerClass: 'coinunlock2',
-    descStyle: 'color: yellow',
-    statsStyle: 'color: pink'
+    descStyle: 'color: var(--yellow-color)',
+    statsStyle: 'color: var(--pink-color)'
   },
   {
     imgId: 'acceleratorboost',
@@ -163,7 +163,7 @@ const coinRow: Entry[] = [
     containerClass: 'prestigeunlock',
     imgExtraClass: 'prestigeunlock',
     descExtraClass: 'prestigeunlock',
-    descStyle: 'color: cyan',
+    descStyle: 'color: var(--cyan-color)',
     buyExtraClass: 'prestigeunlock',
     statsExtraClass: 'prestigeunlock crimsonText',
     fitStats: false
@@ -315,7 +315,7 @@ const updateBuildingVisibility = (row: HTMLElement, autobuyers: HTMLElement[]) =
   visibilityControl.textContent = i18next.t(
     hideAutomated ? 'buildings.hideAutomated' : 'buildings.showAutomated'
   )
-  visibilityControl.style.border = `2px solid ${hideAutomated ? 'red' : 'green'}`
+  visibilityControl.style.border = `2px solid ${hideAutomated ? 'var(--red-color)' : 'var(--green-color)'}`
 }
 
 export const updateBuildingAutomationButtons = () => {
@@ -330,7 +330,7 @@ export const updateBuildingAutomationButtons = () => {
     control.textContent = i18next.t(
       allEnabled ? 'buildings.disableAllAutomation' : 'buildings.enableAllAutomation'
     )
-    control.style.border = `2px solid ${allEnabled ? 'green' : 'red'}`
+    control.style.border = `2px solid ${allEnabled ? 'var(--green-color)' : 'var(--red-color)'}`
     control.setAttribute('aria-pressed', `${allEnabled}`)
 
     if (row) {

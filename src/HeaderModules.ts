@@ -598,7 +598,7 @@ const openLoadoutIconPicker = <T extends string>(
       choices.map((icon) => option(icon, image(icon))).join('')
     }</div>`
 
-  Modal(() => html, event.clientX, event.clientY, { borderColor: 'gold' }, MEDIUM_MODAL_UPDATE_TICK, {
+  Modal(() => html, event.clientX, event.clientY, { borderColor: 'var(--gold-color)' }, MEDIUM_MODAL_UPDATE_TICK, {
     targetElement: button,
     buttonClick: (choice) => {
       const icon = choices.find((candidate) => candidate === choice.dataset.modalAction)

@@ -528,7 +528,7 @@ export const visualUpdateBuildings = () => {
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`buildtext${2 * i - 1}`)
-      nameElement.style.color = player[`${ith}OwnedCoin` as const] > coinConstruction ? 'red' : ''
+      nameElement.style.color = player[`${ith}OwnedCoin` as const] > coinConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${coinNames[i - 1]}`,
         {
@@ -553,7 +553,7 @@ export const visualUpdateBuildings = () => {
     }
 
     const acceleratorElement = DOMCacheGetOrSet('buildtext11')
-    acceleratorElement.style.color = player.acceleratorBought > getAccelMultScalingThreshold('accelerator') ? 'red' : ''
+    acceleratorElement.style.color = player.acceleratorBought > getAccelMultScalingThreshold('accelerator') ? 'var(--red-color)' : ''
     const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
     acceleratorElement.innerHTML = i18next.t(
       'buildings.names.accelerators',
@@ -573,7 +573,7 @@ export const visualUpdateBuildings = () => {
     )
 
     const multiplierElement = DOMCacheGetOrSet('buildtext13')
-    multiplierElement.style.color = player.multiplierBought > getAccelMultScalingThreshold('multiplier') ? 'red' : ''
+    multiplierElement.style.color = player.multiplierBought > getAccelMultScalingThreshold('multiplier') ? 'var(--red-color)' : ''
     multiplierElement.innerHTML = i18next.t(
       'buildings.names.multipliers',
       {
@@ -594,7 +594,7 @@ export const visualUpdateBuildings = () => {
     const acceleratorBoostElement = DOMCacheGetOrSet('buildtext15')
     acceleratorBoostElement.style.color =
       player.acceleratorBoostBought > getAccelMultScalingThreshold('acceleratorBoost')
-        ? 'red'
+        ? 'var(--red-color)'
         : ''
     acceleratorBoostElement.textContent = i18next.t(
       'buildings.names.acceleratorBoost',
@@ -673,7 +673,7 @@ export const visualUpdateBuildings = () => {
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`prestigetext${2 * i - 1}`)
-      nameElement.style.color = player[`${ith}OwnedDiamonds` as const] > diamondConstruction ? 'red' : ''
+      nameElement.style.color = player[`${ith}OwnedDiamonds` as const] > diamondConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${diamondNames[i - 1]}`,
         {
@@ -738,7 +738,7 @@ export const visualUpdateBuildings = () => {
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`transcendtext${2 * i - 1}`)
-      nameElement.style.color = player[`${ith}OwnedMythos` as const] > mythosConstruction ? 'red' : ''
+      nameElement.style.color = player[`${ith}OwnedMythos` as const] > mythosConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${mythosNames[i - 1]}`,
         {
@@ -800,7 +800,7 @@ export const visualUpdateBuildings = () => {
       const place = G[`produce${particleUpper[i - 1]}` as const]
 
       const nameElement = DOMCacheGetOrSet(`reincarnationtext${i}`)
-      nameElement.style.color = player[`${ith}OwnedParticles` as const] > particleConstruction ? 'red' : ''
+      nameElement.style.color = player[`${ith}OwnedParticles` as const] > particleConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${particleNames[i - 1]}`,
         {
@@ -1228,8 +1228,8 @@ export const visualUpdateCubes = () => {
 
     // Change color of requirement text if 1 or less required :D
     DOMCacheGetOrSet(`${name}QuarksOpenRequirement`).style.color = Math.max(1, toNextQuark[name]) === 1
-      ? 'gold'
-      : 'white'
+      ? 'var(--gold-color)'
+      : 'var(--white-color)'
   }
 
   // TODO: this code is fucking terrible holy shit. Also pretty sure there's a bug.

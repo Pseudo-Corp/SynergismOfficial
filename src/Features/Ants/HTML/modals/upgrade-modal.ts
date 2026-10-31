@@ -15,7 +15,7 @@ import type { AntUpgrades } from '../../AntUpgrades/structs/structs'
 export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
   const upgradeData = antUpgradeData[antUpgrade]
   const nameHTML = `<span style="font-size: 1.2em;" class="titleTextFont">${upgradeData.name()}</span>`
-  const introHTML = `<i><span class="titleTextFont" style="color: lightgray">${upgradeData.intro()}</span></i>`
+  const introHTML = `<i><span class="titleTextFont" style="color: var(--lightgray-color)">${upgradeData.intro()}</span></i>`
 
   const freeLevels = computeFreeAntUpgradeLevels()
   const levelHTML = `<span class="crimsonText">${
@@ -24,12 +24,12 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
 
   let challengeHTML = ''
   if (player.currentChallenge.ascension === 11) {
-    challengeHTML = `<br><span style="color: orange">${i18next.t('ants.challenge11Modifier')}</span>`
+    challengeHTML = `<br><span style="color: var(--orange-color)">${i18next.t('ants.challenge11Modifier')}</span>`
   }
 
   let extinctionHTML = ''
   if (player.currentChallenge.ascension === 15 && !upgradeData.exemptFromCorruption) {
-    extinctionHTML = `<br><span style="color: #00DDFF">${
+    extinctionHTML = `<br><span style="color: var(--hex-00ddff-color)">${
       i18next.t('ants.corruptionDivisor', {
         y: format(challenge15CorruptionEffect('extinction'), 2, true)
       })
@@ -38,7 +38,7 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
 
   let exemptHTML = ''
   if (upgradeData.exemptFromCorruption) {
-    exemptHTML = `<br><span style="color: #00DDFF">${i18next.t('ants.upgrades.ignoreCorruption')}</span>`
+    exemptHTML = `<br><span style="color: var(--hex-00ddff-color)">${i18next.t('ants.upgrades.ignoreCorruption')}</span>`
   }
   const effectiveLevelHTML = `<span><b>${
     i18next.t('ants.effectiveLevel', { level: format(calculateTrueAntLevel(antUpgrade), 2, true) })
@@ -46,7 +46,7 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
 
   const descriptionHTML = `<span>${upgradeData.description()}</span>`
 
-  const effectHTML = `<span style="color: gold">${upgradeData.effectDescription()}</span>`
+  const effectHTML = `<span style="color: var(--gold-color)">${upgradeData.effectDescription()}</span>`
 
   let costHTML: string
   const maxBuy = getMaxPurchasableAntUpgrades(antUpgrade, player.ants.crumbs)
@@ -63,18 +63,18 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
 
   let autoHTML: string
   if (upgradeData.autobuy()) {
-    autoHTML = `<span style="color: lightgreen">${i18next.t('ants.upgrades.automationUnlocked')}</span>`
+    autoHTML = `<span style="color: var(--lightgreen-color)">${i18next.t('ants.upgrades.automationUnlocked')}</span>`
   } else {
-    autoHTML = `<span style="color: gray">${upgradeData.lockedAutoDescription()}</span>`
+    autoHTML = `<span style="color: var(--gray-color)">${upgradeData.lockedAutoDescription()}</span>`
   }
 
   let resetHTML: string
   if (upgradeData.minimumResetTier === AntSacrificeTiers.sacrifice) {
-    resetHTML = `<span style="color: crimson">${i18next.t('ants.upgrades.sacrificeReset')}</span>`
+    resetHTML = `<span style="color: var(--crimson-color)">${i18next.t('ants.upgrades.sacrificeReset')}</span>`
   } else if (upgradeData.minimumResetTier === AntSacrificeTiers.ascension) {
-    resetHTML = `<span style="color: orange">${i18next.t('ants.upgrades.ascensionReset')}</span>`
+    resetHTML = `<span style="color: var(--orange-color)">${i18next.t('ants.upgrades.ascensionReset')}</span>`
   } else {
-    resetHTML = `<span style="color: lightgoldenrodyellow">${i18next.t('ants.upgrades.singularityReset')}</span>`
+    resetHTML = `<span style="color: var(--lightgoldenrodyellow-color)">${i18next.t('ants.upgrades.singularityReset')}</span>`
   }
 
   return `${nameHTML}<br>${introHTML}<br><br>

@@ -207,7 +207,7 @@ function updateItemList () {
     <div class="cartListElementContainer" key="${product.id}">
       <img src="Pictures/Default/BackedQuark.png" width="32px" height="32px" alt="Backed Quark" />
       <span class="cartListElement">${product.name}</span>
-      <span style="color:cyan">
+      <span style="color:var(--cyan-color)">
         ${product.quantity > 0 ? `x${product.quantity}` : ''}
       </span>
       <button id="add" ${product.subscription ? 'disabled' : ''}>+</button>
@@ -258,7 +258,7 @@ async function initializePayPal_OneTime (selector: string | HTMLElement) {
     style: {
       shape: 'rect',
       layout: 'vertical',
-      color: 'gold',
+      color: 'var(--gold-color)',
       label: 'paypal'
     },
 

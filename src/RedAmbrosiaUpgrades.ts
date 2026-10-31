@@ -693,14 +693,14 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
   const costNextLevel = getRedAmbrosiaUpgradeCostTNL(upgradeKey)
   const maxLevel = `/${format(upgrade.maxLevel, 0, true)}`
   const isMaxLevel = upgrade.maxLevel === upgrade.level
-  const color = isMaxLevel ? 'plum' : 'white'
+  const color = isMaxLevel ? 'var(--plum-color)' : 'var(--white-color)'
 
-  const nameSpan = `<span style="color: gold">${upgrade.name()}</span>`
+  const nameSpan = `<span style="color: var(--gold-color)">${upgrade.name()}</span>`
   const levelSpan = `<span style="color: ${color}"> ${i18next.t('general.level')} ${
     format(upgrade.level, 0, true)
   }${maxLevel}</span>`
-  const descriptionSpan = `<span style="color: lightblue">${upgrade.description()}</span>`
-  const rewardDescSpan = `<span style="color: gold">${getRedAmbrosiaUpgradeEffectsDescription(upgradeKey)}</span>`
+  const descriptionSpan = `<span style="color: var(--lightblue-color)">${upgrade.description()}</span>`
+  const rewardDescSpan = `<span style="color: var(--gold-color)">${getRedAmbrosiaUpgradeEffectsDescription(upgradeKey)}</span>`
 
   const costNextLevelSpan = i18next.t('redAmbrosia.redAmbrosiaCost', {
     amount: format(costNextLevel, 0, true)

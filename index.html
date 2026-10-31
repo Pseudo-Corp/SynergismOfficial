@@ -186,9 +186,9 @@
         </div>
     </div>
     <div id="offlineContainer" style="display: none;">
-        <p id="offlineTimer" class="offlineText" style="color: plum"></p>
-        <p id="progressbardescription" class="offlineText" style="color: yellow" i18n="offlineProgress.loading"></p>
-        <div class="offlineStats scrollbar" style="color: white">
+        <p id="offlineTimer" class="offlineText" style="color: var(--plum-color)"></p>
+        <p id="progressbardescription" class="offlineText" style="color: var(--yellow-color)" i18n="offlineProgress.loading"></p>
+        <div class="offlineStats scrollbar" style="color: var(--white-color)">
             <div class="offlineStat prestigeunlock" id="offlinePrestigeCountDiv">
               <img src="Pictures/Default/BackedPrestige.png" class="offlineStatIcon">
               <span id="offlinePrestigeCount" class="offlineStatElement" i18n="offlineProgress.prestigeCount"></span>
@@ -256,7 +256,7 @@
     </div>
     <div id="fastForwardContainer" style="display: none">
         <p id="fastForwardTimer" class="offlineText"></p>
-        <div class="offlineStats scrollbar" style="color: white">
+        <div class="offlineStats scrollbar" style="color: var(--white-color)">
             <div class="fastForwardStat globalSkip" id="fastForwardPrestigeCountDiv">
                 <img src="Pictures/Default/BackedPrestige.png" class="offlineStatIcon">
                 <span id="fastForwardPrestigeCount" class="offlineStatElement"></span>
@@ -513,17 +513,17 @@
     <main>
         <div id="buildings" class="tab">
             <div class="subTabWrapper">
-                <button id="switchToCoinBuilding" class="active-subtab" style="border: 2px solid yellow;"><span class="subTabButtonText fitText" i18n="tabs.buildings.coin"></span></button>
-                <button class="prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid cyan"><span class="subTabButtonText fitText" i18n="tabs.buildings.diamond"></span></button>
-                <button class="transcendunlock" id="switchToMythosBuilding" style="border: 2px solid plum"><span class="subTabButtonText fitText" i18n="tabs.buildings.mythos"></span></button>
-                <button class="reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid greenyellow"><span class="subTabButtonText fitText" i18n="tabs.buildings.particle"></span></button>
-                <button class="ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid orange"><span class="subTabButtonText fitText" i18n="tabs.buildings.tesseract"></span></button>
+                <button id="switchToCoinBuilding" class="active-subtab" style="border: 2px solid var(--yellow-color);"><span class="subTabButtonText fitText" i18n="tabs.buildings.coin"></span></button>
+                <button class="prestigeunlock" id="switchToDiamondBuilding" style="border: 2px solid var(--cyan-color)"><span class="subTabButtonText fitText" i18n="tabs.buildings.diamond"></span></button>
+                <button class="transcendunlock" id="switchToMythosBuilding" style="border: 2px solid var(--plum-color)"><span class="subTabButtonText fitText" i18n="tabs.buildings.mythos"></span></button>
+                <button class="reincarnationunlock" id="switchToParticleBuilding" style="border: 2px solid var(--greenyellow-color)"><span class="subTabButtonText fitText" i18n="tabs.buildings.particle"></span></button>
+                <button class="ascendunlock" id="switchToTesseractBuilding" style="border: 2px solid var(--orange-color)"><span class="subTabButtonText fitText" i18n="tabs.buildings.tesseract"></span></button>
             </div>
             <div id="coinBuildings">
                 <div id="buyamountcoin">
                     <table class="coinunlock3" id="coinbuyamount" title="Toggle amount to buy">
                         <tr>
-                        <td><img id="coinone" alt="One Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinOne.png" style="background-color: green;" loading="lazy"></td>
+                        <td><img id="coinone" alt="One Coin Building" class="buyAmountBtn" src="Pictures/Default/CoinOne.png" style="background-color: var(--green-background-color);" loading="lazy"></td>
                         <td><img id="cointen" alt="Ten Coin buildings" class="buyAmountBtn" src="Pictures/Default/CoinTen.png" loading="lazy"></td>
                         <td><img id="coinhundred" alt="100 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinHundred.png" loading="lazy"></td>
                         <td><img id="cointhousand" alt="1000 Coin Buildings" class="buyAmountBtn" src="Pictures/Default/CoinThousand.png" loading="lazy"></td>
@@ -548,7 +548,7 @@
                 <div class="buttonRow"></div>
 
                 <div id="buildingtext">
-                    <p class="prestigeunlock" id="taxinfo" style="color: orange;"></p>
+                    <p class="prestigeunlock" id="taxinfo" style="color: var(--orange-color);"></p>
                     <p class="prestigeunlock" id="buildinghotkeys" i18n="footnotes.buildings"></p>
                     <p class="prestigeunlock" id="buildinghotkeys2" i18n="footnotes.buildings2"></p>
                 </div>
@@ -557,7 +557,7 @@
                 <div id="buyamountcrystal">
                     <table id="crystalbuyamount" title="Toggle amount to buy">
                         <tr>
-                        <td><img id="crystalone" alt="One Crystal Building" class="buyAmountBtn" src="Pictures/Default/CrystalOne.png" style="background-color: green;" loading="lazy"></td>
+                        <td><img id="crystalone" alt="One Crystal Building" class="buyAmountBtn" src="Pictures/Default/CrystalOne.png" style="background-color: var(--green-background-color);" loading="lazy"></td>
                         <td><img id="crystalten" alt="Ten Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalTen.png" loading="lazy"></td>
                         <td><img id="crystalhundred" alt="100 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalHundred.png" loading="lazy"></td>
                         <td><img id="crystalthousand" alt="1000 Crystal Buildings" class="buyAmountBtn" src="Pictures/Default/CrystalThousand.png" loading="lazy"></td>
@@ -573,7 +573,7 @@
 
                 <div class="buttonRow"></div>
 
-                <p id="prestigeshardinfo" style="color: lightblue; text-align: center">You have 1.39e+100394 Prestige Shards, providing 1,214,593 multiplier power boosts.</p>
+                <p id="prestigeshardinfo" style="color: var(--lightblue-color); text-align: center">You have 1.39e+100394 Prestige Shards, providing 1,214,593 multiplier power boosts.</p>
 
                 <div id="crystalupgrades">
                     <table id="crystalupgradestable" style="padding: 0; font-size: 0;">
@@ -595,7 +595,7 @@
 
                 <div class="resetautomation" id="autocrystalbuild">
                     <button class="auto" id="toggle15" toggleid="15" format="Auto Prestige [$]">Automatic Prestige &amp; Customization Being Developed!</button>
-                    <button class="autoPrestige" id="prestigeautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                    <button class="autoPrestige" id="prestigeautotoggle" style="border:2px solid var(--green-color);" i18n="toggles.modeAmount"></button>
                     <input class="transcendunlock autoPrestige" type="number" id="prestigeamount" min="1" max="999999999" defaultValue="1">
                     <p class="transcendunlock autoPrestige mainText" id="autoprestige"></p>
                     <p id="prestigehotkeys" class="grayText" i18n="footnotes.crystals"></p>
@@ -605,7 +605,7 @@
                 <div id="buyamountmythos">
                     <table id="mythosbuyamount" title="Toggle amount to buy">
                         <tr>
-                        <td><img id="mythosone" alt="One Mythos Building" class="buyAmountBtn" src="Pictures/Default/MythosOne.png" style="background-color: green;" loading="lazy"></td>
+                        <td><img id="mythosone" alt="One Mythos Building" class="buyAmountBtn" src="Pictures/Default/MythosOne.png" style="background-color: var(--green-background-color);" loading="lazy"></td>
                         <td><img id="mythosten" alt="Ten Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosTen.png" loading="lazy"></td>
                         <td><img id="mythoshundred" alt="100 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosHundred.png" loading="lazy"></td>
                         <td><img id="mythosthousand" alt="1000 Mythos Buildings" class="buyAmountBtn" src="Pictures/Default/MythosThousand.png" loading="lazy"></td>
@@ -621,12 +621,12 @@
 
                 <div class="buttonRow"></div>
 
-                <p id="transcendshardinfo" style="color:pink;"></p>
-                <p id="transcendshardbonus" style="color: limegreen;" i18n="buildings.eachMultiplierBoost"></p>
+                <p id="transcendshardinfo" style="color:var(--pink-color);"></p>
+                <p id="transcendshardbonus" style="color: var(--limegreen-color);" i18n="buildings.eachMultiplierBoost"></p>
 
                 <div class="resetautomation">
                     <button class="auto" id="toggle21" toggleid="21" format="Auto Transcend [$]"></button>
-                    <button class="autoTranscend" id="transcendautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                    <button class="autoTranscend" id="transcendautotoggle" style="border:2px solid var(--green-color);" i18n="toggles.modeAmount"></button>
                     <input class="transcendunlock autoTranscend" type="number" id="transcendamount" min="1" max="999999999" defaultValue="1">
                     <p class="transcendunlock autoTranscend" id="autotranscend"></p>
                 </div>
@@ -637,7 +637,7 @@
                 <div id="buyamountparticle">
                     <table id="particlebuyamount" title="Toggle amount to buy">
                         <tr>
-                        <td><img id="particleone" alt="One Particle Building" class="buyAmountBtn" src="Pictures/Default/ParticleOne.png" style="background-color: green;" loading="lazy"></td>
+                        <td><img id="particleone" alt="One Particle Building" class="buyAmountBtn" src="Pictures/Default/ParticleOne.png" style="background-color: var(--green-background-color);" loading="lazy"></td>
                         <td><img id="particleten" alt="Ten Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleTen.png" loading="lazy"></td>
                         <td><img id="particlehundred" alt="100 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleHundred.png" loading="lazy"></td>
                         <td><img id="particlethousand" alt="1000 Particle Buildings" class="buyAmountBtn" src="Pictures/Default/ParticleThousand.png" loading="lazy"></td>
@@ -654,15 +654,15 @@
                 <div class="buttonRow"></div>
 
                 <div id="reincarnationTexts">
-                    <p id="reincarnationshardinfo" class="fitText" style="color:lime;"></p>
-                    <p id="reincarnationCrystalInfo" class="fitText research39" style="color: cyan;">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
-                    <p id="reincarnationMythosInfo" class="fitText" style="color:plum;">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
+                    <p id="reincarnationshardinfo" class="fitText" style="color:var(--lime-color);"></p>
+                    <p id="reincarnationCrystalInfo" class="fitText research39" style="color: var(--cyan-color);">Thanks to research 3x9, you also multiply Crystal producion by 1.</p>
+                    <p id="reincarnationMythosInfo" class="fitText" style="color:var(--plum-color);">Thanks to research 3x10, you also multiply Mythos Shard production by 1.</p>
                 </div>
 
                 <div class="resetautomation" id="reincarnateautomation">
                     <div>
                         <button class="auto" id="toggle27" toggleid="27" format="Auto Reincarnate [$]"></button>
-                        <button id="reincarnateautotoggle" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                        <button id="reincarnateautotoggle" style="border:2px solid var(--green-color);" i18n="toggles.modeAmount"></button>
                         <input class="reincarnationunlock" type="number" id="reincarnationamount" min="1" max="999999999" defaultValue="1">
                         <p class="reincarnationunlock mainText" id="autoreincarnate"></p>
                     </div>
@@ -673,7 +673,7 @@
                 <div id="buyAmountTesseract">
                     <table id="buyTesseractToggles" title="Toggle amount to buy">
                         <tr>
-                            <td><img id="tesseractone" alt="One Tesseract Building" class="buyAmountBtn" src="Pictures/Default/TesseractOne.png" style="background-color: green;" loading="lazy"></td>
+                            <td><img id="tesseractone" alt="One Tesseract Building" class="buyAmountBtn" src="Pictures/Default/TesseractOne.png" style="background-color: var(--green-background-color);" loading="lazy"></td>
                             <td><img id="tesseractten" alt="Ten Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractTen.png" loading="lazy"></td>
                             <td><img id="tesseracthundred" alt="100 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractHundred.png" loading="lazy"></td>
                             <td><img id="tesseractthousand" alt="1000 Tesseract Buildings" class="buyAmountBtn" src="Pictures/Default/TesseractThousand.png" loading="lazy"></td>
@@ -686,8 +686,8 @@
                 <div class="buttonRow"></div>
 
                 <div id="tesseractTexts">
-                    <p id="tesseractInfo" style="color:plum;">You have 0 Wow! Tesseracts. Gain more through completing Challenge 10 each ascension.</p>
-                    <p id="ascendShardInfo" style="color: orange;">You have a mathematical constant of 3. I Wonder what it's for!</p>
+                    <p id="tesseractInfo" style="color:var(--plum-color);">You have 0 Wow! Tesseracts. Gain more through completing Challenge 10 each ascension.</p>
+                    <p id="ascendShardInfo" style="color: var(--orange-color);">You have a mathematical constant of 3. I Wonder what it's for!</p>
                 </div>
 
                 <div id="ascendConstantUpgrades">
@@ -725,14 +725,14 @@
                             </td>
                         </tr>
                     </table>
-                    <p id="constUpgradeDescription" style="color: gold" i18n="buildings.constantHover"></p>
+                    <p id="constUpgradeDescription" style="color: var(--gold-color)" i18n="buildings.constantHover"></p>
                     <p class="mainText" id="constUpgradeLevel">Current Level: <span id="constUpgradeLevel2" class="orchidText">---</span></p>
                     <p class="mainText" id="constUpgradeCost">Cost: <span id="constUpgradeCost2" class="orchidText">---</span> from your Constant</p>
                     <p class="mainText" id="constUpgradeEffect1">Current Effect: <span id="constUpgradeEffect2" class="orchidText">---</span></p>
                 </div>
                 <div class="resetautomation" id="ascendautomation">
-                    <button class="research190" id="tesseractautobuytoggle" style="border:2px solid red;" i18n="runes.talismans.autoBuyOff"></button>
-                    <button class="research190" id="tesseractautobuymode" style="border:2px solid green;" i18n="toggles.modeAmount"></button>
+                    <button class="research190" id="tesseractautobuytoggle" style="border:2px solid var(--red-color);" i18n="runes.talismans.autoBuyOff"></button>
+                    <button class="research190" id="tesseractautobuymode" style="border:2px solid var(--green-color);" i18n="toggles.modeAmount"></button>
                     <input class="tesseractautobuyamount research190" type="number" id="tesseractAmount" min="1" max="999999999" defaultValue="1">
                     <p class="tesseractautobuyamount research190 mainText" id="autotessbuyeramount"></p>
                 </div>
@@ -744,16 +744,16 @@
             <div id="upgradeReferenceHeader" class="subTabWrapper mobileIconSubTabWrapper showOnMobile"></div>
 
             <div id="upgradeTopBtns">
-                <button id="buyAllUpgrades" style="border: 2px solid gold;" i18n="upgrades.buyAll"></button>
-                <button id="togglePurchasedUpgrades" style="border: 2px solid green;" aria-pressed="false" i18n="upgrades.showPurchased"></button>
-                <button class="auto hideOnMobile" id="toggle9" toggleid="9" format="Hover-to-Buy [$]" style="border:2px solid green"></button>
+                <button id="buyAllUpgrades" style="border: 2px solid var(--gold-color);" i18n="upgrades.buyAll"></button>
+                <button id="togglePurchasedUpgrades" style="border: 2px solid var(--green-color);" aria-pressed="false" i18n="upgrades.showPurchased"></button>
+                <button class="auto hideOnMobile" id="toggle9" toggleid="9" format="Hover-to-Buy [$]" style="border:2px solid var(--green-color)"></button>
             </div>
 
             <div id="upgradesFlex">
             </div>
 
             <div id="upgradesAppendix" class="hideOnMobile" aria-live="polite">
-                <p id="upgradeTabHover" style="color: beige" i18n="upgrades.hover"></p>
+                <p id="upgradeTabHover" style="color: var(--beige-color)" i18n="upgrades.hover"></p>
                 <p id="upgradehotkeys" class="grayText" i18n="footnotes.upgrade"></p>
             </div>
         </div>
@@ -764,14 +764,14 @@
 
         <div id="statistics" class="tab">
             <div id="achievementsToggle" class="subTabWrapper">
-                <button id="toggleAchievementSubTab1" class="active-subtab" style="border: 2px solid gold"><span class="subTabButtonText fitText" i18n="tabs.achievements.achievements"></span></button>
-                <button id="toggleAchievementSubTab2" style="border: 2px solid silver"><span class="subTabButtonText fitText" i18n="tabs.achievements.rewards"></span></button>
+                <button id="toggleAchievementSubTab1" class="active-subtab" style="border: 2px solid var(--gold-color)"><span class="subTabButtonText fitText" i18n="tabs.achievements.achievements"></span></button>
+                <button id="toggleAchievementSubTab2" style="border: 2px solid var(--silver-color)"><span class="subTabButtonText fitText" i18n="tabs.achievements.rewards"></span></button>
             </div>
             <div id="achievementHeader">
                 <div class="NotificationToggle">
                     <p class="mainText" id="achievementprogress" style="font-size: 1.2em;"></p>
                     <img class="achNotification" id="achnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
-                    <button class="auto nonSquare" id="toggle34" toggleid="34" format="[$]" style="border: 2px solid green">[ON]</button>
+                    <button class="auto nonSquare" id="toggle34" toggleid="34" format="[$]" style="border: 2px solid var(--green-color)">[ON]</button>
                     <button id="showAchievementProgress" i18n-aria-label="achievements.showProgressDetails">
                         <svg class="achievementSearchIcon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                             <circle cx="11" cy="11" r="6"></circle>
@@ -779,10 +779,10 @@
                         </svg>
                     </button>
                 </div>
-                <p id="achievementQuarkBonus" style="color: goldenrod">-</p>
+                <p id="achievementQuarkBonus" style="color: var(--goldenrod-color)">-</p>
                 <div id="achievementTNLInfo" style="width: 25%">
                     <p id="achievementTNLText" style="font-size: 1em; text-align: start;"></p>
-                    <div id="achievementProgressBar" style="width: 100%; height: 16px; background-color: #333; border-radius: 4px; overflow: hidden; margin-top: 4px;">
+                    <div id="achievementProgressBar" style="width: 100%; height: 16px; background-color: var(--hex-333-background-color); border-radius: 4px; overflow: hidden; margin-top: 4px;">
                         <div id="achievementProgressFill" style="height: 100%; background: linear-gradient(45deg, #228B22, #32CD32, #228B22, #32CD32); background-size: 200% 200%; animation: gradientShift 2s ease-in-out infinite; width: 75%; transition: width 0.3s ease;"></div>
                     </div>
                 </div>
@@ -822,24 +822,24 @@
 
         <div id="runes" class="tab">
             <div id="runesToggle" class="subTabWrapper">
-                <button class="offeringAuto" id="toggleautosacrifice" style="border: 2px solid orangered">
+                <button class="offeringAuto" id="toggleautosacrifice" style="border: 2px solid var(--orangered-color)">
                     <span id="toggleAutoSacrificeText" class="subTabButtonText fitText"></span>
                 </button>
-                <button id="toggleRuneSubTab1" class="active-subtab" style="border: 2px solid gold"><span class="subTabButtonText fitText" i18n="tabs.runes.runes"></span></button>
-                <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid silver"><span class="subTabButtonText fitText" i18n="tabs.runes.talismans"></span></button>
-                <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid silver"><span class="subTabButtonText fitText" i18n="tabs.runes.divinity"></span></button>
+                <button id="toggleRuneSubTab1" class="active-subtab" style="border: 2px solid var(--gold-color)"><span class="subTabButtonText fitText" i18n="tabs.runes.runes"></span></button>
+                <button class="chal9" id="toggleRuneSubTab2" style="border: 2px solid var(--silver-color)"><span class="subTabButtonText fitText" i18n="tabs.runes.talismans"></span></button>
+                <button class="chal9" id="toggleRuneSubTab3" style="border: 2px solid var(--silver-color)"><span class="subTabButtonText fitText" i18n="tabs.runes.divinity"></span></button>
             </div>
             <div id="runesHeader">
                 <div id="offeringDetails" class="subTabHeaderDetails">
-                    <p id="offeringCount" style="color: yellow; font-size: 1.2em;"></p>
-                    <p id="offeringRecycleInfo" style="color: limegreen;"></p>
+                    <p id="offeringCount" style="color: var(--yellow-color); font-size: 1.2em;"></p>
+                    <p id="offeringRecycleInfo" style="color: var(--limegreen-color);"></p>
                 </div>
             </div>
             <div id="runeContainer1">
                 <div id="buyamountoffering">
                     <table id="offeringbuyamount" title="Toggle the number of levels to buy per sacrifice" style="font-size: 0;">
                         <tr>
-                        <td><img id="offeringone" alt="One Rune Level" class="buyAmountBtn" src="Pictures/Default/OfferingOne.png" style="background-color: green;" loading="lazy"></td>
+                        <td><img id="offeringone" alt="One Rune Level" class="buyAmountBtn" src="Pictures/Default/OfferingOne.png" style="background-color: var(--green-background-color);" loading="lazy"></td>
                         <td><img id="offeringten" alt="Ten Rune Levels" class="buyAmountBtn" src="Pictures/Default/OfferingTen.png" loading="lazy"></td>
                         <td><img id="offeringhundred" alt="100 Rune Levels" class="buyAmountBtn" src="Pictures/Default/OfferingHundred.png" loading="lazy"></td>
                         <td><img id="offeringthousand" alt="1000 Rune Levels" class="buyAmountBtn" src="Pictures/Default/OfferingThousand.png" loading="lazy"></td>
@@ -854,7 +854,7 @@
                 </div>
 
                 <div id="runeFooter" aria-live="polite" class="hideOnMobile">
-                    <p id="focusedRuneLevelInfo" style="color: orchid" i18n="runes.hover"></p>
+                    <p id="focusedRuneLevelInfo" style="color: var(--orchid-color)" i18n="runes.hover"></p>
                     <p id="runeHotkeys" class="grayText" i18n="footnotes.runes"></p>
                 </div>
             </div>
@@ -868,7 +868,7 @@
                         <button class="auto" id="toggle36" toggleid="36" format="Auto: $"></button>
                         <button id="buyAllBlessings" class="runeButtons runeButtonsBuyAll" i18n="runes.blessings.allIncreaseLevel"></button>
                         <input type="number" id="buyRuneBlessingInput" min="1" max="999999999" defaultValue="1">
-                        <span id="buyRuneBlessingToggle" style="color: yellow"></span>
+                        <span id="buyRuneBlessingToggle" style="color: var(--yellow-color)"></span>
                     </div>
 
                     <div id="runeBlessings">
@@ -882,7 +882,7 @@
                         <button class="auto" id="toggle37" toggleid="37" format="Auto: $"></button>
                         <button id="buyAllSpirits" class="runeButtons runeButtonsBuyAll" i18n="runes.blessings.allIncreaseLevel"></button>
                         <input type="number" id="buyRuneSpiritInput" min="1" max="999999999" defaultValue="1">
-                        <span id="buyRuneSpiritToggleValue" style="color: yellow"></span>
+                        <span id="buyRuneSpiritToggleValue" style="color: var(--yellow-color)"></span>
                     </div>
 
                     <div id="runeSpirits">
@@ -894,12 +894,12 @@
 
         <div id="challenges" class="tab">
             <div id="challengesTabsToggle" class="subTabWrapper singChallengesTabs">
-                <button id="toggleChallengesSubTab1" class="active-subtab" style="border: 2px solid green; color: white;"><span class="subTabButtonText fitText" i18n="tabs.challenges.normal"></span></button>
-                <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid purple; color: gold"><span class="subTabButtonText fitText" i18n="tabs.challenges.exalt"></span></button>
+                <button id="toggleChallengesSubTab1" class="active-subtab" style="border: 2px solid var(--green-color); color: var(--white-color);"><span class="subTabButtonText fitText" i18n="tabs.challenges.normal"></span></button>
+                <button id="toggleChallengesSubTab2" class="singChallenges" style="border: 2px solid var(--purple-color); color: var(--gold-color)"><span class="subTabButtonText fitText" i18n="tabs.challenges.exalt"></span></button>
             </div>
             <!-- You call containers "Steamed Wrappers" despite the fact they contain multiple elements? -->
             <div id="challengesWrapper1">
-                <p id="challengeIntroduction" style="color: white" i18n="challenges.header"></p>
+                <p id="challengeIntroduction" style="color: var(--white-color)" i18n="challenges.header"></p>
                 <div id="challengesAutoToggles">
                     <button class="research150" id="toggleAutoChallengeStart"></button>
                     <button id="retryChallenge"></button>
@@ -980,7 +980,7 @@
                             <input type="number" class="research150" id="enterAutoChallengeTimerInput" min="0.1" max="999999999" defaultValue="2">
                             <span id="autoIncrementerAmount" class="research150"></span>
                             <p id="autoChallengeMinimums" i18n="challenges.minimumTimer"></p>
-                            <p class="research150" id="autoChallengeType" style="color: lightgoldenrodyellow"></p>
+                            <p class="research150" id="autoChallengeType" style="color: var(--lightgoldenrodyellow-color)"></p>
                         </div>
                     </div>
                     <div id="oneChallengeDetails" style="display:none">
@@ -1059,10 +1059,10 @@
 
         <div id="research" class="tab">
             <div id="researchToggles">
-                <button id="toggleresearchbuy" style="color: white;border: 2px solid pink">Upgrade: 1 Level</button>
-                <button class="autoResearch" id="toggleautoresearch" style="color: white; border: 2px solid blue">Automatic: OFF</button>
-                <button class="autoResearchMode" id="toggleautoresearchmode" style="color: white; border: 2px solid red">Automatic mode: Manual</button>
-                <button class="auto" id="toggle38" toggleid="38" format="Hover-to-Buy [$]" style="border:2px solid green">Hover-To-Buy: Off</button>
+                <button id="toggleresearchbuy" style="color: var(--white-color);border: 2px solid var(--pink-color)">Upgrade: 1 Level</button>
+                <button class="autoResearch" id="toggleautoresearch" style="color: var(--white-color); border: 2px solid var(--blue-color)">Automatic: OFF</button>
+                <button class="autoResearchMode" id="toggleautoresearchmode" style="color: var(--white-color); border: 2px solid var(--red-color)">Automatic mode: Manual</button>
+                <button class="auto" id="toggle38" toggleid="38" format="Hover-to-Buy [$]" style="border:2px solid var(--green-color)">Hover-To-Buy: Off</button>
                 <button class="toggleMaxedUpgrades" id="toggleMaxedResearches" aria-pressed="false" i18n="researches.maxedResearchesShow"></button>
             </div>
 
@@ -1289,34 +1289,34 @@
                 </div>
             </div>
             <div class="researchDetails" aria-live="polite">
-                <p id="researchinfo2" style="color:pink" i18n="researches.hover"></p>
-                <p id="researchcost" style="color:pink"></p>
-                <p id="researchinfo3" style="color:white;"></p>
+                <p id="researchinfo2" style="color:var(--pink-color)" i18n="researches.hover"></p>
+                <p id="researchcost" style="color:var(--pink-color)"></p>
+                <p id="researchinfo3" style="color:var(--white-color);"></p>
                 <p id="researchinfo4"></p>
             </div>
             <div class="researchDetails">
-            <p id="automaticobtainium" style="color: lightblue" i18n="main.buyResearch3x11"></p>
-            <p id="researchhotkeys" style="color: white" i18n="footnotes.research"></p>
+            <p id="automaticobtainium" style="color: var(--lightblue-color)" i18n="main.buyResearch3x11"></p>
+            <p id="researchhotkeys" style="color: var(--white-color)" i18n="footnotes.research"></p>
             </div>
         </div>
 
         <div id="ants" class="tab">
             <div id="antsWrapper">
                 <div id="antSubtabs" class="subTabWrapper">
-                    <button id="toggleAntSubtab1" class="active-subtab" style="border: 2px solid burlywood"><span class="subTabButtonText fitText" i18n="tabs.ants.anthill"></span></button>
-                    <button id="toggleAntSubtab2" style="border: 2px solid purple"><span class="subTabButtonText fitText" i18n="tabs.ants.altar"></span></button>
-                    <button id="toggleAntSubtab3" class="sacrificeUnlock" style="border: 2px solid cyan"><span class="subTabButtonText fitText" i18n="tabs.ants.quarkCorner"></span></button>
+                    <button id="toggleAntSubtab1" class="active-subtab" style="border: 2px solid var(--burlywood-color)"><span class="subTabButtonText fitText" i18n="tabs.ants.anthill"></span></button>
+                    <button id="toggleAntSubtab2" style="border: 2px solid var(--purple-color)"><span class="subTabButtonText fitText" i18n="tabs.ants.altar"></span></button>
+                    <button id="toggleAntSubtab3" class="sacrificeUnlock" style="border: 2px solid var(--cyan-color)"><span class="subTabButtonText fitText" i18n="tabs.ants.quarkCorner"></span></button>
                 </div>
 
                 <div id="antSubtab1">
                     <div id="antsWelcomeTexts" class="introTextContainer">
-                        <p id="antwelcome" style="color: lightslategrey" i18n="ants.header" class="introText"></p>
-                        <p id="antdescription" style="color: plum" i18n="ants.hover"></p>
+                        <p id="antwelcome" style="color: var(--lightslategrey-color)" i18n="ants.header" class="introText"></p>
+                        <p id="antdescription" style="color: var(--plum-color)" i18n="ants.hover"></p>
                         <p id="crumbcount" class="crimsonText"></p>
-                        <p id="crumbsPerSecond" style="color: maroon"></p>
-                        <p id="crumbCoinMultiplier" style="color: yellow"></p>
-                        <p id="crumbTaxExemptionInfo" style="color: orange" i18n="ants.crumbsCoinTaxExempt"></p>
-                        <p id="challenge8AntLocked" style="color: red; font-size: 1.3em" i18n="ants.challenge8Lock"></p>
+                        <p id="crumbsPerSecond" style="color: var(--maroon-color)"></p>
+                        <p id="crumbCoinMultiplier" style="color: var(--yellow-color)"></p>
+                        <p id="crumbTaxExemptionInfo" style="color: var(--orange-color)" i18n="ants.crumbsCoinTaxExempt"></p>
+                        <p id="challenge8AntLocked" style="color: var(--red-color); font-size: 1.3em" i18n="ants.challenge8Lock"></p>
                     </div>
 
                     <div id="antProducersContainer">
@@ -1403,8 +1403,8 @@
                             <img src="Pictures/Achievements/Rewards/Ants.png" alt="">
                             <span class="antAltarHeaderCircuit"></span>
                         </span>
-                        <p id="antAltarWelcome" style="color: lightslategrey" class="introText" i18n="ants.altarHeader"></p>
-                        <p id="antAltarDescription" style="color: plum" i18n="ants.altarDetails"></p>
+                        <p id="antAltarWelcome" style="color: var(--lightslategrey-color)" class="introText" i18n="ants.altarHeader"></p>
+                        <p id="antAltarDescription" style="color: var(--plum-color)" i18n="ants.altarDetails"></p>
                         <span class="antAltarHeaderDecoration antAltarHeaderDecorationRight" aria-hidden="true">
                             <img src="Pictures/Achievements/Rewards/Ants.png" alt="">
                             <span class="antAltarHeaderCircuit"></span>
@@ -1412,7 +1412,7 @@
                     </div>
                     <div id="sacrificeAntsLocked" class="sacrificeAntsLocked">
                         <div id="sacrificeUnlockTexts">
-                            <p id="sacrificeLockedText" style="color: crimson"></p>
+                            <p id="sacrificeLockedText" style="color: var(--crimson-color)"></p>
                             <p id="sacrificeUnlockCondition" i18n="ants.altar.locked.altarRequirements"></p>
                         </div>
                     </div>
@@ -1475,7 +1475,7 @@
                                 </div>
                                 <span id="autoAntSacrifice"></span>
                                 <div id="otherAutoSac">
-                                    <div class="additionalAutoSacOptionsLocked" id="additionalAutoSacOptionsLocked" style="font-size: 1.15em; color: greenyellow" i18n="ants.altar.additionalAutoSacOptions.info"></div>
+                                    <div class="additionalAutoSacOptionsLocked" id="additionalAutoSacOptionsLocked" style="font-size: 1.15em; color: var(--greenyellow-color)" i18n="ants.altar.additionalAutoSacOptions.info"></div>
                                     <div class="additionalAutoSacOptions" id="additionalAutoSacOptions">
                                         <label class="antSacToggle">
                                             <input type="checkbox" id="alwaysMaxRebornELOToggle" class="antSacToggleInput">
@@ -1593,8 +1593,8 @@
                 </div>
                 <div id="antSubtab3" class="none">
                     <div id="antCompendiumWelcomeTexts" class="introTextContainer">
-                        <p id="antCompendiumWelcome" style="color: lightslategrey" class="introText" i18n="ants.compendiumHeader"></p>
-                        <p id="antCompendiumDescription" style="color: cyan" i18n="ants.compendiumDetails"></p>
+                        <p id="antCompendiumWelcome" style="color: var(--lightslategrey-color)" class="introText" i18n="ants.compendiumHeader"></p>
+                        <p id="antCompendiumDescription" style="color: var(--cyan-color)" i18n="ants.compendiumDetails"></p>
                     </div>
                     <div id="antSacrificeCompendium">
                         <p style="font-size: 1.3em;" i18n="ants.altar.titles.compendium"></p>
@@ -1635,8 +1635,8 @@
                 <button id="switchCubeSubTab2" class="cubeSwitchTabBtn chal11" style="border: 2px solid var(--tesseract-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.tesseract"></span></button>
                 <button id="switchCubeSubTab3" class="cubeSwitchTabBtn chal13" style="border: 2px solid var(--hypercube-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.hypercube"></span></button>
                 <button id="switchCubeSubTab4" class="cubeSwitchTabBtn chal14" style="border: 2px solid var(--platonic-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.platonic"></span></button>
-                <button id="switchCubeSubTab5" class="cubeSwitchTabBtn" style="border: 2px solid white;"><span class="subTabButtonText fitText" i18n="tabs.cubes.cubeUpgrades"></span></button>
-                <button id="switchCubeSubTab6" class="cubeSwitchTabBtn chal14" style="border: 2px solid orchid;"><span class="subTabButtonText fitText" i18n="tabs.cubes.challenge15"></span></button>
+                <button id="switchCubeSubTab5" class="cubeSwitchTabBtn" style="border: 2px solid var(--white-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.cubeUpgrades"></span></button>
+                <button id="switchCubeSubTab6" class="cubeSwitchTabBtn chal14" style="border: 2px solid var(--orchid-color);"><span class="subTabButtonText fitText" i18n="tabs.cubes.challenge15"></span></button>
                 <button id="switchCubeSubTab7" class="cubeSwitchTabBtn hepteracts" style="border: 2px solid var(--hepteract-color)"><span class="subTabButtonText fitText" i18n="tabs.cubes.hepteract"></span></button>
             </div>
             <div id="cubesWrapper">
@@ -1644,25 +1644,25 @@
                     <div class="cubesToQuark">
                         <div class="cubeToQuark">
                             <p id="cubeToQuarkTimer" i18n="wowCubes.quarks.quarkTitle"></p>
-                            <p id="cubeToQuarkTimerValue" style="color: cyan" i18n="wowCubes.quarks.resetInfo"></p>
+                            <p id="cubeToQuarkTimerValue" style="color: var(--cyan-color)" i18n="wowCubes.quarks.resetInfo"></p>
                         </div>
                         <div class="cubeToQuark">
-                            <p id="cubeQuarksToday" style="color: white"></p>
+                            <p id="cubeQuarksToday" style="color: var(--white-color)"></p>
                             <p id="cubeQuarksOpenRequirement"></p>
                             <p id="cubeQuarksOpenToday"></p>
                         </div>
                         <div class="cubeToQuark">
-                            <p id="tesseractQuarksToday" class="chal11" style="color: white"></p>
+                            <p id="tesseractQuarksToday" class="chal11" style="color: var(--white-color)"></p>
                             <p id="tesseractQuarksOpenRequirement" class="chal11"></p>
                             <p id="tesseractQuarksOpenToday" class="chal11"></p>
                         </div>
                         <div class="cubeToQuark">
-                            <p id="hypercubeQuarksToday" class="chal13" style="color: white"></p>
+                            <p id="hypercubeQuarksToday" class="chal13" style="color: var(--white-color)"></p>
                             <p id="hypercubeQuarksOpenRequirement" class="chal13"></p>
                             <p id="hypercubeQuarksOpenToday" class="chal13"></p>
                         </div>
                         <div class="cubeToQuark">
-                            <p id="platonicCubeQuarksToday" class="chal14" style="color: white"></p>
+                            <p id="platonicCubeQuarksToday" class="chal14" style="color: var(--white-color)"></p>
                             <p id="platonicCubeQuarksOpenRequirement" class="chal14"></p>
                             <p id="platonicCubeQuarksOpenToday" class="chal14"></p>
                         </div>
@@ -1670,8 +1670,8 @@
                 </div>
                 <div id="cubeTab1" class="cubeTab" style="display: flex">
                     <span id="cubeWelcome" class="cubePlacement1 wowcubeText" i18n="wowCubes.cubes.intro"></span>
-                    <span id="cubeExpository1" class="cubePlacement2" style="color: white" i18n="wowCubes.cubes.instructions"></span>
-                    <span id="cubeExpository2" class="cubePlacement3" style="color: limegreen" i18n="wowCubes.greenText"></span>
+                    <span id="cubeExpository1" class="cubePlacement2" style="color: var(--white-color)" i18n="wowCubes.cubes.instructions"></span>
+                    <span id="cubeExpository2" class="cubePlacement3" style="color: var(--limegreen-color)" i18n="wowCubes.greenText"></span>
 
                     <div class="openGrid">
                         <img class="openImage" src="Pictures/Default/WowCube.png" loading="lazy">
@@ -1684,8 +1684,8 @@
                                 <button class="cubeBtn" id="openCustomCube" i18n="wowCubes.openCustom"></button>
                                 <button class="cubeBtn" id="openMostCube" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens autoOpenCubes" id="openCubes" style="border: 1px solid red" title="On Ascension will open % of Cubes&#013Cx1 is required"></button>
-                                    <input class="autoOpensInput autoOpenCubes" type="number" id="cubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openCubes" style="border: 1px solid var(--red-color)" title="On Ascension will open % of Cubes&#013Cx1 is required"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="cubeOpensInput" style="border: 1px solid var(--red-color)" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1697,37 +1697,37 @@
                                 <td>
                                     <img id="cube1Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="cubeAcceleratorBonus" style="color: yellow"></td>
+                                <td id="cubeAcceleratorBonus" style="color: var(--yellow-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="cube2Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="cubeMultiplierBonus" style="color: pink"></td>
+                                <td id="cubeMultiplierBonus" style="color: var(--pink-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="cube3Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="cubeOfferingBonus" style="color: orange"></td>
+                                <td id="cubeOfferingBonus" style="color: var(--orange-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="cube4Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="cubeSalvageBonus" style="color: limegreen"></td>
+                                <td id="cubeSalvageBonus" style="color: var(--limegreen-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="cube5Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="cubeObtainiumBonus" style="color: aquamarine"></td>
+                                <td id="cubeObtainiumBonus" style="color: var(--aquamarine-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="cube6Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="cubeAntSpeedBonus" style="color: brown"></td>
+                                <td id="cubeAntSpeedBonus" style="color: var(--brown-color)"></td>
                             </tr>
                             <tr>
                                 <td>
@@ -1739,19 +1739,19 @@
                                 <td>
                                     <img id="cube8Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="cubeAntELOBonus" style="color: plum"></td>
+                                <td id="cubeAntELOBonus" style="color: var(--plum-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="cube9Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="cubeRuneEffectBonus" style="color: bisque"></td>
+                                <td id="cubeRuneEffectBonus" style="color: var(--bisque-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="cube10Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="cubeGlobalSpeedBonus" style="color: silver"></td>
+                                <td id="cubeGlobalSpeedBonus" style="color: var(--silver-color)"></td>
                             </tr>
                         </table>
                     </div>
@@ -1762,8 +1762,8 @@
                 </div>
                 <div id="cubeTab2" class="cubeTab" style="display: none">
                     <span id="tesseractWelcome" class="cubePlacement1 wowtesseractText" i18n="wowCubes.tesseracts.intro"></span>
-                    <span id="tesseractExpository1" class="cubePlacement2" style="color: white" i18n="wowCubes.tesseracts.instructions"></span>
-                    <span id="tesseractExpository2" class="cubePlacement3" style="color: limegreen" i18n="wowCubes.greenText"></span>
+                    <span id="tesseractExpository1" class="cubePlacement2" style="color: var(--white-color)" i18n="wowCubes.tesseracts.instructions"></span>
+                    <span id="tesseractExpository2" class="cubePlacement3" style="color: var(--limegreen-color)" i18n="wowCubes.greenText"></span>
 
                     <div class="openGrid">
                         <img class="openImage" src="Pictures/Default/WowTessaract.png" loading="lazy">
@@ -1776,8 +1776,8 @@
                                 <button id="openCustomTesseract" class="cubeBtn" i18n="wowCubes.openCustom"></button>
                                 <button id="openMostTesseract" class="cubeBtn" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens autoOpenCubes" id="openTesseracts" style="border: 1px solid red" title="On Ascension will open % of Tesseracts&#013Cant work with amount Mode (Auto Tesseract Buildings)"></button>
-                                    <input class="autoOpensInput autoOpenCubes" type="number" id="tesseractsOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openTesseracts" style="border: 1px solid var(--red-color)" title="On Ascension will open % of Tesseracts&#013Cant work with amount Mode (Auto Tesseract Buildings)"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="tesseractsOpensInput" style="border: 1px solid var(--red-color)" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1789,37 +1789,37 @@
                                 <td>
                                     <img id="tesseract1Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="tesseractAcceleratorBonus" style="color: yellow"></td>
+                                <td id="tesseractAcceleratorBonus" style="color: var(--yellow-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="tesseract2Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="tesseractMultiplierBonus" style="color: pink"></td>
+                                <td id="tesseractMultiplierBonus" style="color: var(--pink-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="tesseract3Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="tesseractOfferingBonus" style="color: orange"></td>
+                                <td id="tesseractOfferingBonus" style="color: var(--orange-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="tesseract4Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="tesseractSalvageBonus" style="color: limegreen"></td>
+                                <td id="tesseractSalvageBonus" style="color: var(--limegreen-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="tesseract5Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="tesseractObtainiumBonus" style="color: aquamarine"></td>
+                                <td id="tesseractObtainiumBonus" style="color: var(--aquamarine-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="tesseract6Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="tesseractAntSpeedBonus" style="color: brown"></td>
+                                <td id="tesseractAntSpeedBonus" style="color: var(--brown-color)"></td>
                             </tr>
                             <tr>
                                 <td>
@@ -1831,19 +1831,19 @@
                                 <td>
                                     <img id="tesseract8Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="tesseractAntELOBonus" style="color: plum"></td>
+                                <td id="tesseractAntELOBonus" style="color: var(--plum-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="tesseract9Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="tesseractRuneEffectBonus" style="color: bisque"></td>
+                                <td id="tesseractRuneEffectBonus" style="color: var(--bisque-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                 <img id="tesseract10Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="tesseractGlobalSpeedBonus" style="color: silver"></td>
+                                <td id="tesseractGlobalSpeedBonus" style="color: var(--silver-color)"></td>
                             </tr>
                         </table>
                     </div>
@@ -1851,8 +1851,8 @@
                 </div>
                 <div id="cubeTab3" class="cubeTab" style="display: none">
                     <span id="hypercubeWelcome" class="cubePlacement1 wowhypercubeText" i18n="wowCubes.hypercubes.intro"></span>
-                    <span id="hypercubeExpository1" class="cubePlacement2" style="color: white" i18n="wowCubes.hypercubes.instructions"></span>
-                    <span id="hypercubeExpository2" class="cubePlacement3" style="color: limegreen" i18n="wowCubes.greenText"></span>
+                    <span id="hypercubeExpository1" class="cubePlacement2" style="color: var(--white-color)" i18n="wowCubes.hypercubes.instructions"></span>
+                    <span id="hypercubeExpository2" class="cubePlacement3" style="color: var(--limegreen-color)" i18n="wowCubes.greenText"></span>
 
                     <div class="openGrid">
                         <img class="openImage" src="Pictures/Default/WowHypercube.png" loading="lazy">
@@ -1865,8 +1865,8 @@
                                 <button id="openCustomHypercube" class="cubeBtn" i18n="wowCubes.openCustom"></button>
                                 <button id="openMostHypercube" class="cubeBtn" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens autoOpenCubes" id="openHypercubes" style="border: 1px solid red" title="On Ascension will open % of Hypercubes"></button>
-                                    <input class="autoOpensInput autoOpenCubes" type="number" id="hypercubesOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openHypercubes" style="border: 1px solid var(--red-color)" title="On Ascension will open % of Hypercubes"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="hypercubesOpensInput" style="border: 1px solid var(--red-color)" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1878,37 +1878,37 @@
                                 <td>
                                     <img id="hypercube1Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="hypercubeAcceleratorBonus" style="color: yellow"></td>
+                                <td id="hypercubeAcceleratorBonus" style="color: var(--yellow-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="hypercube2Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="hypercubeMultiplierBonus" style="color: pink"></td>
+                                <td id="hypercubeMultiplierBonus" style="color: var(--pink-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="hypercube3Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="hypercubeOfferingBonus" style="color: orange"></td>
+                                <td id="hypercubeOfferingBonus" style="color: var(--orange-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="hypercube4Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="hypercubeSalvageBonus" style="color: limegreen"></td>
+                                <td id="hypercubeSalvageBonus" style="color: var(--limegreen-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="hypercube5Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="hypercubeObtainiumBonus" style="color: aquamarine"></td>
+                                <td id="hypercubeObtainiumBonus" style="color: var(--aquamarine-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="hypercube6Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="hypercubeAntSpeedBonus" style="color: brown"></td>
+                                <td id="hypercubeAntSpeedBonus" style="color: var(--brown-color)"></td>
                             </tr>
                             <tr>
                                 <td>
@@ -1920,19 +1920,19 @@
                                 <td>
                                     <img id="hypercube8Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="hypercubeAntELOBonus" style="color: plum"></td>
+                                <td id="hypercubeAntELOBonus" style="color: var(--plum-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="hypercube9Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="hypercubeRuneEffectBonus" style="color: bisque"></td>
+                                <td id="hypercubeRuneEffectBonus" style="color: var(--bisque-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                 <img id="hypercube10Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="hypercubeGlobalSpeedBonus" style="color: silver"></td>
+                                <td id="hypercubeGlobalSpeedBonus" style="color: var(--silver-color)"></td>
                             </tr>
                         </table>
                     </div>
@@ -1940,8 +1940,8 @@
                 </div>
                 <div id="cubeTab4" class="cubeTab" style="display: none">
                     <span id="platonicCubeWelcome" class="cubePlacement1 wowplatonicText" i18n="wowCubes.platonics.intro"></span>
-                    <span id="platonicCubeExpository1" class="cubePlacement2" style="color: white" i18n="wowCubes.platonics.instructions"></span>
-                    <span id="platonicCubeExpository2" class="cubePlacement3" style="color: limegreen" i18n="wowCubes.greenText"></span>
+                    <span id="platonicCubeExpository1" class="cubePlacement2" style="color: var(--white-color)" i18n="wowCubes.platonics.instructions"></span>
+                    <span id="platonicCubeExpository2" class="cubePlacement3" style="color: var(--limegreen-color)" i18n="wowCubes.greenText"></span>
 
                     <div class="openGrid">
                         <img class="openImage" src="Pictures/Default/PlatonicCube.png" loading="lazy">
@@ -1954,8 +1954,8 @@
                                 <button id="openCustomPlatonicCube" class="cubeBtn" i18n="wowCubes.openCustom"></button>
                                 <button id="openMostPlatonicCube" class="cubeBtn" i18n="wowCubes.openAll"></button>
                                 <div class="autoOpensBtn">
-                                    <button class="autoOpens autoOpenCubes" id="openPlatonicCube" style="border: 1px solid red" title="On Ascension will open % of Platonic Cubes"></button>
-                                    <input class="autoOpensInput autoOpenCubes" type="number" id="platonicCubeOpensInput" style="border: 1px solid red" min="0" max="100" defaultValue="0">
+                                    <button class="autoOpens autoOpenCubes" id="openPlatonicCube" style="border: 1px solid var(--red-color)" title="On Ascension will open % of Platonic Cubes"></button>
+                                    <input class="autoOpensInput autoOpenCubes" type="number" id="platonicCubeOpensInput" style="border: 1px solid var(--red-color)" min="0" max="100" defaultValue="0">
                                 </div>
                             </div>
                         </div>
@@ -1967,25 +1967,25 @@
                                 <td>
                                     <img id="platonicCube1Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="platonicCubeMultiplierBonus" style="color: lightgoldenrodyellow"></td>
+                                <td id="platonicCubeMultiplierBonus" style="color: var(--lightgoldenrodyellow-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="platonicCube2Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="platonicTesseractMultiplierBonus" style="color: lightgoldenrodyellow"></td>
+                                <td id="platonicTesseractMultiplierBonus" style="color: var(--lightgoldenrodyellow-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="platonicCube3Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="platonicHypercubeMultiplierBonus" style="color: lightgoldenrodyellow"></td>
+                                <td id="platonicHypercubeMultiplierBonus" style="color: var(--lightgoldenrodyellow-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="platonicCube4Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="platonicPlatonicMultiplierBonus" style="color: lightgoldenrodyellow"></td>
+                                <td id="platonicPlatonicMultiplierBonus" style="color: var(--lightgoldenrodyellow-color)"></td>
                             </tr>
                             <tr>
                                 <td>
@@ -2003,13 +2003,13 @@
                                 <td>
                                     <img id="platonicCube7Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="platonicAscensionScoreBonus" style="color:orange"></td>
+                                <td id="platonicAscensionScoreBonus" style="color:var(--orange-color)"></td>
                             </tr>
                             <tr>
                                 <td>
                                     <img id="platonicCube8Image" src="Pictures/img_transparent.png" loading="lazy">
                                 </td>
-                                <td id="platonicGlobalSpeedBonus" style="color: silver"></td>
+                                <td id="platonicGlobalSpeedBonus" style="color: var(--silver-color)"></td>
                             </tr>
                         </table>
                     </div>
@@ -2020,7 +2020,7 @@
                 </div>
                 <div id="cubeTab5" class="cubeTab" style="display: none">
                     <div id="cubeTab5Wrapper">
-                        <p id="cubeAmount2" style="color: white">You have 0 Wow! Cubes</p>
+                        <p id="cubeAmount2" style="color: var(--white-color)">You have 0 Wow! Cubes</p>
                         <table id="cubeUpgradeTable">
                             <tr>
                                 <td><button id="cubeUpg1" i18n-aria-label="cubes.upgradeNames.1"><img id="cubeUpg1Image" src="Pictures/img_transparent.png" class="gridImg" alt="" loading="lazy"></button></td>
@@ -2122,14 +2122,14 @@
                         <div aria-live="polite">
                         <div class="cubeUpgradeInfo">
                             <p id="cubeUpgradeName" style="text-align:center;" i18n="cubes.cubeMetadata.selectUpgrade"></p>
-                            <p id="cubeUpgradeDescription" style="text-align: center; color: lightblue"></p>
+                            <p id="cubeUpgradeDescription" style="text-align: center; color: var(--lightblue-color)"></p>
                         </div>
-                        <p id="cubeUpgradeCost" style="text-align:center; color:pink"></p>
-                        <p id="cubeUpgradeLevel" style="text-align: center; color: crimson"></p>
+                        <p id="cubeUpgradeCost" style="text-align:center; color:var(--pink-color)"></p>
+                        <p id="cubeUpgradeLevel" style="text-align: center; color: var(--crimson-color)"></p>
                         </div>
                         <div class="cubeUpgradeToggles">
-                            <button id="toggleCubeBuy" style="text-align: center;color: white;border: 2px solid pink">Upgrade: 1 Level wow</button>
-                            <button class="autoCubeUpgrades" id="toggleAutoCubeUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                            <button id="toggleCubeBuy" style="text-align: center;color: var(--white-color);border: 2px solid var(--pink-color)">Upgrade: 1 Level wow</button>
+                            <button class="autoCubeUpgrades" id="toggleAutoCubeUpgrades" style="border: 2px solid var(--red-color)">Auto Upgrades: [OFF]</button>
                         </div>
                     </div>
                 </div>
@@ -2137,7 +2137,7 @@
                     <div id="c15Rewards" class="challengeContainer boxColor">
                         <p id="c15Reward0" class="challengePortion"></p>
                         <p id="c15RequiredExponent" class="challengePortion"></p>
-                        <p id="c15NextReward" class="challengePortion" style="color: orchid"></p>
+                        <p id="c15NextReward" class="challengePortion" style="color: var(--orchid-color)"></p>
                     </div>
                     <div class="platonicUpgradesContainer">
                         <div id="platonicUpgrades">
@@ -2172,13 +2172,13 @@
                                 </tr>
                             </table>
                             <div class="platonicUpgrades2 platonicUpgradesToggles">
-                                <button class="saveOfferings" id="maxPlatToggle" style="border: 2px solid gold" title="If ON, then attempt to buy as much of an upgrade as possible">Buy Max [ON]</button>
-                                <button class="autoPlatonicUpgrades" id="toggleAutoPlatonicUpgrades" style="border: 2px solid red">Auto Upgrades: [OFF]</button>
+                                <button class="saveOfferings" id="maxPlatToggle" style="border: 2px solid var(--gold-color)" title="If ON, then attempt to buy as much of an upgrade as possible">Buy Max [ON]</button>
+                                <button class="autoPlatonicUpgrades" id="toggleAutoPlatonicUpgrades" style="border: 2px solid var(--red-color)">Auto Upgrades: [OFF]</button>
                             </div>
                         </div>
                         <div id="platonicUpgradeDescriptions" class="platonicContainer boxColor">
                             <p class="platonicPortion" i18n="wowCubes.platonicUpgrades.descriptionBox.descriptionDivisor"></p>
-                            <p id="platonicUpgradeDescription" i18n="wowCubes.platonicUpgrades.descriptionBox.descriptionDefault" class="platonicPortion" style="color: white"></p>
+                            <p id="platonicUpgradeDescription" i18n="wowCubes.platonicUpgrades.descriptionBox.descriptionDefault" class="platonicPortion" style="color: var(--white-color)"></p>
                             <p id="platonicUpgradeLevel" class="platonicPortion">---</p>
                             <p class="platonicPortion" i18n="wowCubes.platonicUpgrades.descriptionBox.costDivisor"></p>
                             <p id="platonicOfferingCost" class="platonicPortion">---</p>
@@ -2194,14 +2194,14 @@
                 </div>
                 <div id="cubeTab7" class="cubeTab" style="display: none">
                     <span id="hepteractWelcome" class="cubePlacement1 wowhepteractText" i18n="wowCubes.hepteractForge.howDidIGetHere"></span>
-                    <span id="hepteractExpository1" class="cubePlacement2" style="color: white" i18n="wowCubes.hepteractForge.noTimeToWaste"></span>
+                    <span id="hepteractExpository1" class="cubePlacement2" style="color: var(--white-color)" i18n="wowCubes.hepteractForge.noTimeToWaste"></span>
                     <span id="hepteractExpository2" class="cubePlacement3 redText" i18n="wowCubes.hepteractForge.noPassiveBonus"></span>
                     <div class="openGrid">
                         <img class="openImage" src="Pictures/Default/Hepteract.png" loading="lazy">
                         <div class="NotificationToggle">
                             <span id="hepteractQuantity" class="wowhepteractText"></span>
                             <img class="heptNotification hepteractConfirmation" id="heptnotificationpic" alt="Notification" src="Pictures/Default/Notifications.png" title="Notifications" loading="lazy">
-                            <button class="auto nonSquare" id="toggle35" toggleid="35" format="[$]" style="border: 2px solid green">[ON]</button>
+                            <button class="auto nonSquare" id="toggle35" toggleid="35" format="[$]" style="border: 2px solid var(--green-color)">[ON]</button>
                         </div>
                     </div>
 
@@ -2302,27 +2302,27 @@
                             <img id="hepteractToQuarkImage" alt="Overflux Orbs" class="heptTypeImage" src="Pictures/img_transparent.png">
                             <button id="hepteractToQuarkTrade" i18n="wowCubes.hepteractForge.craft"></button>
                             <button id="hepteractToQuarkTradeMax" i18n="wowCubes.hepteractForge.max"></button>
-                            <button class="singularity" id="hepteractToQuarkTradeAuto" style="border: 2px solid red;"></button>
+                            <button class="singularity" id="hepteractToQuarkTradeAuto" style="border: 2px solid var(--red-color);"></button>
                             <div class="heptGridInventory" style="align-self: end;">
                                 <span class="heptGridInventoryLabel orchidText" i18n="wowCubes.hepteractForge.orbs"></span>
                                 <span class="heptGridInventoryValue orchidText" id="heptGridOrbBalance">0</span>
                             </div>
                             <div class="heptGridInventory">
-                                <span class="heptGridInventoryLabel" style="color:yellow;" i18n="wowCubes.hepteractForge.effect"></span>
-                                <span class="heptGridInventoryValue" style="color:yellow;" id="heptGridOrbEffect">0%</span>
+                                <span class="heptGridInventoryLabel" style="color:var(--yellow-color);" i18n="wowCubes.hepteractForge.effect"></span>
+                                <span class="heptGridInventoryValue" style="color:var(--yellow-color);" id="heptGridOrbEffect">0%</span>
                             </div>
                         </div>
                         <div class="hepteractType" id="overfluxPowder">
                             <img id="overfluxPowderImage" alt="Overflux Powder" class="heptTypeImage" src="Pictures/img_transparent.png">
                             <button id="powderDayWarp"  i18n="wowCubes.hepteractForge.warp"></button>
-                            <button class="autoWarp" id="warpAuto" style="border: 2px solid red;"></button>
+                            <button class="autoWarp" id="warpAuto" style="border: 2px solid var(--red-color);"></button>
                             <div class="heptGridInventory" style="align-self: end;">
                                 <span class="heptGridInventoryLabel orchidText" i18n="wowCubes.hepteractForge.powder"></span>
                                 <span class="heptGridInventoryValue orchidText" id="heptGridPowderBalance">0</span>
                             </div>
                             <div class="heptGridInventory">
-                                <span class="heptGridInventoryLabel" style="color:orange;" i18n="wowCubes.hepteractForge.warps"></span>
-                                <span class="heptGridInventoryValue" style="color:orange;" id="heptGridPowderWarps">1</span>
+                                <span class="heptGridInventoryLabel" style="color:var(--orange-color);" i18n="wowCubes.hepteractForge.warps"></span>
+                                <span class="heptGridInventoryValue" style="color:var(--orange-color);" id="heptGridPowderWarps">1</span>
                             </div>
                         </div>
                         <div>
@@ -2331,14 +2331,14 @@
                     </div>
 
                     <div id="hepteractCraftTexts">
-                        <p id="hepteractUnlockedText" style="color: white"></p>
-                        <p id="hepteractEffectText" style="color:rgb(0, 255, 76)"></p>
+                        <p id="hepteractUnlockedText" style="color: var(--white-color)"></p>
+                        <p id="hepteractEffectText" style="color:var(--hex-00ff4c-color)"></p>
                         <p id="hepteractBalanceText" class="orchidText"></p>
-                        <p id="hepteractCurrentEffectText" style="color: yellow"></p>
-                        <p id="hepteractOrbBreakdownText" style="color: yellow; display: none"></p>
-                        <p id="hepteractCostText" style="color: white"></p>
-                        <p id="hepteractBonusCapacity" style="color: orchid"></p>
-                        <p id="powderDayWarpText" style="color: orange;"></p>
+                        <p id="hepteractCurrentEffectText" style="color: var(--yellow-color)"></p>
+                        <p id="hepteractOrbBreakdownText" style="color: var(--yellow-color); display: none"></p>
+                        <p id="hepteractCostText" style="color: var(--white-color)"></p>
+                        <p id="hepteractBonusCapacity" style="color: var(--orchid-color)"></p>
+                        <p id="powderDayWarpText" style="color: var(--orange-color);"></p>
                     </div>
 
                 </div>
@@ -2409,7 +2409,7 @@
                     <div id="autoAscendRules" class="corruptionControlGroup autoAscendUnlock">
                         <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.rules.ui.heading"></p>
                         <div id="ascensionAutomationButtons">
-                            <button id="ascensionAutoEnable" class="hCenter tight" style="border: 2px solid green"></button>
+                            <button id="ascensionAutoEnable" class="hCenter tight" style="border: 2px solid var(--green-color)"></button>
                         </div>
                         <p id="autoAscendRequiresC10" class="corrDesc corruptionRulesNote" i18n="corruptions.autoAscend.requiresC10" hidden></p>
                         <p id="autoAscendRuleSlots" class="corrDesc"></p>
@@ -2475,89 +2475,89 @@
 
         <div id="settings" class="tab">
             <div class="subtabSwitcher subTabWrapper">
-                <button id="switchSettingSubTab1" class="active-subtab" style="border: 2px solid white"><span class="subTabButtonText fitText" i18n="tabs.main.settings"></span></button>
-                <button id="switchSettingSubTab2" style="border: 2px solid cyan"><span class="subTabButtonText fitText" i18n="tabs.settings.languages"></span></button>
-                <button id="switchSettingSubTab3" style="border: 2px solid gold"><span class="subTabButtonText fitText" i18n="tabs.settings.credit"></span></button>
-                <button id="switchSettingSubTab4" style="border: 2px solid orange"><span class="subTabButtonText fitText" i18n="tabs.settings.stats"></span></button>
-                <button id="switchSettingSubTab5" class="prestigeunlockib" style="border: 2px solid brown"><span class="subTabButtonText fitText" i18n="tabs.settings.resetHistory"></span></button>
-                <button id="switchSettingSubTab6" class="ascendunlockib" style="border: 2px solid darkorange"><span class="subTabButtonText fitText" i18n="tabs.settings.ascendHistory"></span></button>
-                <button id="switchSettingSubTab7" class="singularity" style="border: 2px solid darkorange"><span class="subTabButtonText fitText" i18n="tabs.settings.singularityHistory"></span></button>
-                <button id="switchSettingSubTab8" style="border: 2px solid white"><span class="subTabButtonText fitText" i18n="tabs.settings.hotkeys"></span></button>
+                <button id="switchSettingSubTab1" class="active-subtab" style="border: 2px solid var(--white-color)"><span class="subTabButtonText fitText" i18n="tabs.main.settings"></span></button>
+                <button id="switchSettingSubTab2" style="border: 2px solid var(--cyan-color)"><span class="subTabButtonText fitText" i18n="tabs.settings.languages"></span></button>
+                <button id="switchSettingSubTab3" style="border: 2px solid var(--gold-color)"><span class="subTabButtonText fitText" i18n="tabs.settings.credit"></span></button>
+                <button id="switchSettingSubTab4" style="border: 2px solid var(--orange-color)"><span class="subTabButtonText fitText" i18n="tabs.settings.stats"></span></button>
+                <button id="switchSettingSubTab5" class="prestigeunlockib" style="border: 2px solid var(--brown-color)"><span class="subTabButtonText fitText" i18n="tabs.settings.resetHistory"></span></button>
+                <button id="switchSettingSubTab6" class="ascendunlockib" style="border: 2px solid var(--darkorange-color)"><span class="subTabButtonText fitText" i18n="tabs.settings.ascendHistory"></span></button>
+                <button id="switchSettingSubTab7" class="singularity" style="border: 2px solid var(--darkorange-color)"><span class="subTabButtonText fitText" i18n="tabs.settings.singularityHistory"></span></button>
+                <button id="switchSettingSubTab8" style="border: 2px solid var(--white-color)"><span class="subTabButtonText fitText" i18n="tabs.settings.hotkeys"></span></button>
                 <button id="switchSettingSubTab9"><span class="subTabButtonText fitText" i18n="tabs.settings.account"></span></button>
-                <button class="unreadMessages" id="switchSettingSubTab10" style="border: 2px solid red"><span class="subTabButtonText fitText" i18n="tabs.settings.messages"></span></button>
+                <button class="unreadMessages" id="switchSettingSubTab10" style="border: 2px solid var(--red-color)"><span class="subTabButtonText fitText" i18n="tabs.settings.messages"></span></button>
             </div>
             <div class="subtabContent subtabDisplayFlex subtabActive" id="settingsubtab">
                 <div class="settingSubTabUpper">
                     <div id="confirmationToggleBox">
-                        <p class="prestigeunlock" id="confirmationToggleTitle" style="color: pink" i18n="settings.confirmationTitle"></p>
+                        <p class="prestigeunlock" id="confirmationToggleTitle" style="color: var(--pink-color)" i18n="settings.confirmationTitle"></p>
                         <div class="confirmationToggles">
                             <div class="confirmationToggle">
                                 <img class="prestigeunlock settingpic" src="Pictures/Default/PrestigeNoBorder.png" i18n="tabs.settings.confirmation.prestige" loading="lazy">
-                                <button class="auto square" id="toggle28" toggleid="28" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle28" toggleid="28" format="$" style="border:2px solid var(--green-color)">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="transcendunlock settingpic" src="Pictures/Default/TranscendNoBorder.png" i18n="tabs.settings.confirmation.transcend" loading="lazy">
-                                <button class="auto square" id="toggle29" toggleid="29" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle29" toggleid="29" format="$" style="border:2px solid var(--green-color)">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="reincarnationunlock settingpic" src="Pictures/Default/ReincarnateNoBorder.png" i18n="tabs.settings.confirmation.reincarnate" loading="lazy">
-                                <button class="auto square" id="toggle30" toggleid="30" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle30" toggleid="30" format="$" style="border:2px solid var(--green-color)">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="ascendunlock settingpic" src="Pictures/Default/AscensionNoBorder.png" i18n="tabs.settings.confirmation.ascension" loading="lazy">
-                                <button class="auto square" id="toggle31" toggleid="31" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle31" toggleid="31" format="$" style="border:2px solid var(--green-color)">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="sacrificeAnts settingpic" src="Pictures/Default/SacrificeNoBorder.png" i18n="tabs.settings.confirmation.sacrifice" loading="lazy">
-                                <button class="auto square" id="toggle32" toggleid="32" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle32" toggleid="32" format="$" style="border:2px solid var(--green-color)">ON</button>
                             </div>
                             <div class="confirmationToggle">
                                 <img class="singularity settingpic singularityConfirmation" id="settingpic6" src="Pictures/Default/SingularityNoBorder.png" i18n="tabs.settings.confirmation.singularity" loading="lazy">
-                                <button class="auto square" id="toggle33" toggleid="33" format="$" style="border:2px solid green">ON</button>
+                                <button class="auto square" id="toggle33" toggleid="33" format="$" style="border:2px solid var(--green-color)">ON</button>
                             </div>
                         </div>
-                        <p class="prestigeunlock" id="confirmationdisclaimer" style="color: plum" i18n="settings.noHotkeyAvailable"></p>
-                        <p id="specialActionsTitle" style="color: pink" i18n="settings.specialActions"></p>
-                        <button id="dailyCode" class="promocodeButton" style="border:2px solid green" i18n="settings.daily"></button>
+                        <p class="prestigeunlock" id="confirmationdisclaimer" style="color: var(--plum-color)" i18n="settings.noHotkeyAvailable"></p>
+                        <p id="specialActionsTitle" style="color: var(--pink-color)" i18n="settings.specialActions"></p>
+                        <button id="dailyCode" class="promocodeButton" style="border:2px solid var(--green-color)" i18n="settings.daily"></button>
                         <div id="addCodeBox" class="addCodeBox promocodeButton">
                         <button id="addCode" i18n="settings.add"></button>
                         <button id="addCodeAll" i18n="settings.addAll"></button>
                         <button id="addCodeOne" i18n="settings.add1"></button>
                         </div>
-                        <button id="timeCode" class="promocodeButton" style="border:2px solid green" i18n="settings.time"></button>
-                        <button id="promocodes" class="promocodeButton" style="border:2px solid goldenrod" i18n="settings.enterPromoCodeHere"></button>
-                        <p id="promocodeinfo" style="color: goldenrod"></p>
-                        <p id="appearanceSettingsTitle" style="color: pink" i18n="settings.appearance"></p>
+                        <button id="timeCode" class="promocodeButton" style="border:2px solid var(--green-color)" i18n="settings.time"></button>
+                        <button id="promocodes" class="promocodeButton" style="border:2px solid var(--goldenrod-color)" i18n="settings.enterPromoCodeHere"></button>
+                        <p id="promocodeinfo" style="color: var(--goldenrod-color)"></p>
+                        <p id="appearanceSettingsTitle" style="color: var(--pink-color)" i18n="settings.appearance"></p>
                         <div class="appearanceSettings">
                             <div class="appearanceSetting appearanceSettingWide">
                                 <p id="themesTitle" aria-hidden="true" i18n="settings.currentTheme"></p>
                                 <div id="themeArea" class="promocodeButton" aria-hidden="true">
-                                    <button id="theme" tabindex="-1" style="border: 2px solid white" i18n="settings.themes.dark"></button>
+                                    <button id="theme" tabindex="-1" style="border: 2px solid var(--white-color)" i18n="settings.themes.dark"></button>
                                     <div id="themeBox">
-                                        <button id="switchTheme1" style="border: 2px solid gray"  i18n="settings.themes.dark"></button>
+                                        <button id="switchTheme1" style="border: 2px solid var(--gray-color)"  i18n="settings.themes.dark"></button>
                                         <button id="switchTheme2" style="border: 2px solid darkslategray" i18n="settings.themes.darker"></button>
-                                        <button id="switchTheme3" style="border: 2px solid lightslategray" i18n="settings.themes.lighterDark"></button>
-                                        <button id="switchTheme4" style="border: 2px solid cyan" i18n="settings.themes.light"></button>
-                                        <button id="switchTheme5" style="border: 2px solid purple" i18n="settings.themes.dracula"></button>
+                                        <button id="switchTheme3" style="border: 2px solid var(--lightslategray-color)" i18n="settings.themes.lighterDark"></button>
+                                        <button id="switchTheme4" style="border: 2px solid var(--cyan-color)" i18n="settings.themes.light"></button>
+                                        <button id="switchTheme5" style="border: 2px solid var(--purple-color)" i18n="settings.themes.dracula"></button>
                                         <button id="switchTheme6" style="border: 2px solid black" i18n="settings.themes.oled"></button>
                                     </div>
                                 </div>
                             </div>
                             <div class="appearanceSetting">
                                 <p id="iconSetTitle" i18n="settings.currentIconSet"></p>
-                                <button id="iconSet" class="promocodeButton" style="border: 2px solid white"></button>
+                                <button id="iconSet" class="promocodeButton" style="border: 2px solid var(--white-color)"></button>
                             </div>
                             <div class="appearanceSetting">
                                 <p id="notationTitle" i18n="settings.currentNotation"></p>
-                                <button id="notation" class="promocodeButton" style="border: 2px solid white"></button>
+                                <button id="notation" class="promocodeButton" style="border: 2px solid var(--white-color)"></button>
                             </div>
                             <div class="appearanceSetting">
                                 <p id="monospaceFontTitle" i18n="settings.font"></p>
-                                <button id="monospaceFont" class="promocodeButton" style="border: 2px solid white"></button>
+                                <button id="monospaceFont" class="promocodeButton" style="border: 2px solid var(--white-color)"></button>
                             </div>
                             <div class="appearanceSetting hideOnMobile">
                                 <p id="statSymbolTitle" i18n="settings.statSymbol"></p>
-                                <button id="statSymbols" class="promocodeButton" style="border: 2px solid white"></button>
+                                <button id="statSymbols" class="promocodeButton" style="border: 2px solid var(--white-color)"></button>
                             </div>
                         </div>
                     </div>
@@ -2567,34 +2567,34 @@
                             <button id="checkMobileUpdates" type="button" i18n="mobile.updates.check"></button>
                             <p id="mobileUpdateStatus" class="tightText" role="status" aria-live="polite"></p>
                         </div>
-                        <p id="quarktimerdisplay" class="tightText" style="color: gold"></p>
-                        <p id="quarktimeramount" class="tightText" style="color: cyan">Quarks on export: 0 [Max 25]</p>
-                        <p id="goldenQuarkTimerDisplay" class="tightText goldenQuark3Upg" style="color: goldenrod">3600s until +1 export Gold Quark</p>
-                        <p id="goldenQuarkTimerAmount" class="tightText goldenQuark3Upg" style="color: turquoise">Golden Quarks on export: 0 [Max: 50]</p>
+                        <p id="quarktimerdisplay" class="tightText" style="color: var(--gold-color)"></p>
+                        <p id="quarktimeramount" class="tightText" style="color: var(--cyan-color)">Quarks on export: 0 [Max 25]</p>
+                        <p id="goldenQuarkTimerDisplay" class="tightText goldenQuark3Upg" style="color: var(--goldenrod-color)">3600s until +1 export Gold Quark</p>
+                        <p id="goldenQuarkTimerAmount" class="tightText goldenQuark3Upg" style="color: var(--turquoise-color)">Golden Quarks on export: 0 [Max: 50]</p>
                         <div>
                             <input type="checkbox" id="saveType" name="saveType">
-                            <label style="display: inline;color: white" for="saveType" i18n="settings.copyToClipboard"></label>
+                            <label style="display: inline;color: var(--white-color)" for="saveType" i18n="settings.copyToClipboard"></label>
                         </div>
-                        <button id="exportgame" style="border:2px solid green" i18n="settings.exportHere"></button>
+                        <button id="exportgame" style="border:2px solid var(--green-color)" i18n="settings.exportHere"></button>
                         <p id="exportinfo" class="tightText"></p>
                         <input id="saveStringInput">
                         <p id="saveString" class="tightText"></p>
-                        <p id="importgame" class="tightText" style="color: limegreen" i18n="settings.loadGameBelow"></p>
+                        <p id="importgame" class="tightText" style="color: var(--limegreen-color)" i18n="settings.loadGameBelow"></p>
                         <label id="importFileButton" for="importfile" style="font-size: 0.9em; line-height: 1.4em;" i18n="settings.loadFromFile"></label>
                         <input type="file" id="importfile" accept=".txt,text/plain" style="display: none">
-                        <button id="savegame" style="border: 2px solid plum" i18n="settings.saveManually"></button>
-                        <button id="deleteGame" style="border: 2px solid red" i18n="settings.deleteSave"></button>
-                        <p id="saveinfo" style="color: limegreen"></p>
+                        <button id="savegame" style="border: 2px solid var(--plum-color)" i18n="settings.saveManually"></button>
+                        <button id="deleteGame" style="border: 2px solid var(--red-color)" i18n="settings.deleteSave"></button>
+                        <p id="saveinfo" style="color: var(--limegreen-color)"></p>
                     </div>
                     <div id="thirdParty">
                         <div id="discord">
-                            <p style="color: gold" i18n="settings.joinDiscord"></p>
+                            <p style="color: var(--gold-color)" i18n="settings.joinDiscord"></p>
                             <button style="background: transparent">
                                 <img alt="Discord Icon" src="Pictures/Default/icon.gif" title="Click to join the official Discord!" width="100" height="100" loading="lazy">
                             </button>
                         </div>
                         <div id="patreon">
-                            <p style="color: gold" i18n="settings.joinPatreon"></p>
+                            <p style="color: var(--gold-color)" i18n="settings.joinPatreon"></p>
                             <button href="https://www.patreon.com/synergism" style="background: transparent">
                                 <img alt="Store Icon" src="Pictures/PseudoShop/GOLDEN_QUARK_BUFF.png" title="Click to support development!" loading="lazy">
                                 <p id="currentBonus">Current Bonus: 0%</p>
@@ -2603,10 +2603,10 @@
                         <div id="patchnotes">
                         <img alt="Patch Notes Icon" src="Pictures/Default/patchnotes.png" title="Click to read the latest patch notes!" loading="lazy">
                         </div>
-                        <button id="openFeedback" style="border: 2px solid gold" i18n="feedback.title"></button>
+                        <button id="openFeedback" style="border: 2px solid var(--gold-color)" i18n="feedback.title"></button>
                     </div>
                 </div>
-                <a href="#" target="_blank" id="happyHolidays" style="color: greenyellow"></a>
+                <a href="#" target="_blank" id="happyHolidays" style="color: var(--greenyellow-color)"></a>
             </div>
             <div class="subtabContent subtabDisplayFlex" id="languagesubtab">
                 <div class="languagesMenu">
@@ -2627,65 +2627,65 @@
                 <h1>Coders</h1>
                 <div id="creditList"></div>
                 <h1>Artists</h1>
-                <div id="artistList" style="color: white"></div>
+                <div id="artistList" style="color: var(--white-color)"></div>
             </div>
             <div class="subtabContent subtabDisplayFlex" id="statisticsSubTab">
                 <div id="statsForNerds">
                     <p id="mobileStatsNerdsInstruction" class="showOnMobile" i18n="statistics.clickIconInstruction"></p>
-                    <button class="statsNerds" id="kMisc" style="border: 2px solid gold; background-color: crimson;" i18n="statistics.subtabs.misc"></button>
-                    <button class="prestigeunlock statsNerds" id="kBaseOffering" style="border: 2px solid palegreen" i18n="statistics.subtabs.baseOffering"></button>
-                    <button class="prestigeunlock statsNerds" id="kOfferingMult" style="border: 2px solid palegreen" i18n="statistics.subtabs.offeringMult"></button>
-                    <button class="prestigeunlock statsNerds" id="kRuneEffectMult" style="border: 2px solid pink" i18n="statistics.subtabs.runeEffectMult"></button>
-                    <button class="prestigeunlock statsNerds" id="kSalvage" style="border: 2px solid green" i18n="statistics.subtabs.salvage"></button>
-                    <button class="prestigeunlock statsNerds" id="kConstruction" style="border: 2px solid orange" i18n="statistics.subtabs.construction"></button>
-                    <button class="prestigeunlock statsNerds" id="kFreeAccelMult" style="border: 2px solid yellow" i18n="statistics.subtabs.freeAccelMult"></button>
-                    <button class="reincarnationunlock statsNerds" id="kBaseObtainium" style="border: 2px solid pink" i18n="statistics.subtabs.baseObtainium"></button>
-                    <button class="reincarnationunlock statsNerds" id="kObtIgnoreDR" style="border: 2px solid pink" i18n="statistics.subtabs.obtIgnoreDR"></button>
-                    <button class="reincarnationunlock statsNerds" id="kObtMult" style="border: 2px solid pink" i18n="statistics.subtabs.obtMult"></button>
-                    <button class="statsNerds reincarnationunlock" id="kQuarkMult" style="border: 2px solid white" i18n="statistics.subtabs.quarkMult"></button>
-                    <button class="statsNerds reincarnationunlock" id="kGSpeedMultIgnoreDR" style="border: 2px solid blue" i18n="statistics.subtabs.gSpeedMultIgnoreDR"></button>
-                    <button class="statsNerds prestigeunlock" id="kGSpeedMult" style="border: 2px solid blue" i18n="statistics.subtabs.gSpeedMult"></button>
-                    <button class="statsNerds chal8" id="kAntSpeedMult" style="border: 2px solid crimson" i18n="statistics.subtabs.antSpeedMult"></button>
-                    <button class="statsNerds chal8" id="kAntSacrificeMult" style="border: 2px solid burlywood" i18n="statistics.subtabs.antSacrificeMult"></button>
-                    <button class="statsNerds chal8" id="kAntELO" style="border: 2px solid orchid" i18n="statistics.subtabs.antELO"></button>
-                    <button class="statsNerds chal8" id="kAdditiveAntELOMult" style="border: 2px solid orchid" i18n="statistics.subtabs.additiveAntELOMult"></button>
-                    <button class="statsNerds chal8" id="kRebornELOCreationSpeedMult" style="border: 2px solid #00DDFF" i18n="statistics.subtabs.rebornELOCreationSpeedMult"></button>
-                    <button class="statsNerds chal9" id="kTalismanRuneBonusMult" style="border: 2px solid green" i18n="statistics.subtabs.talismanRuneBonusMult"></button>
-                    <button class="statsNerds ascendunlock" id="kASCMult" style="border: 2px solid orange" i18n="statistics.subtabs.ascMult"></button>
-                    <button class="statsNerds ascendunlock" id="kACountMult" style="border: 2px solid orange" i18n="statistics.subtabs.ascCountMult"></button>
-                    <button class="statsNerds ascendunlock" id="kFreeCorruptionLevels" style="border: 2px solid orange" i18n="statistics.subtabs.freeCorruptionLevels"></button>
-                    <button class="statsNerds ascendunlock" id="kCubeBank" style="border: 2px solid khaki" i18n="statistics.subtabs.cubeBank"></button>
-                    <button class="statsNerds ascendunlock" id="kGlobalCubeMult" style="border: 2px solid khaki" i18n="statistics.subtabs.globalCubeMult"></button>
-                    <button class="statsNerds ascendunlock" id="kCubeMult" style="border: 2px solid darkgoldenrod" i18n="statistics.subtabs.cubeMult"></button>
-                    <button class="statsNerds ascendunlock" id="kTessMult" style="border: 2px solid honeydew" i18n="statistics.subtabs.tessMult"></button>
-                    <button class="statsNerds chal13" id="kHypercubeMult" style="border: 2px solid blueviolet" i18n="statistics.subtabs.hypercubeMult"></button>
-                    <button class="statsNerds chal14" id="kPlatMult" style="border: 2px solid slateblue" i18n="statistics.subtabs.platMult"></button>
-                    <button class="statsNerds hepteracts" id="kHeptMult" style="border: 2px solid rosybrown" i18n="statistics.subtabs.heptMult"></button>
-                    <button class="statsNerds hepteracts" id="kOrbPowderMult" style="border: 2px solid orchid" i18n="statistics.subtabs.orbPowderMult"></button>
-                    <button class="statsNerds singularity" id="kGQMult" style="border: 2px solid gold" i18n="statistics.subtabs.gqMult"></button>
-                    <button class="statsNerds singularity" id="kGQCost" style="border: 2px solid gold" i18n="statistics.subtabs.gqCost"></button>
-                    <button class="statsNerds" id="kAddStats" style="border: 2px solid green" i18n="statistics.subtabs.addStats"></button>
-                    <button class="statsNerds singularity" id="kOctMult" style="border: 2px solid blue" i18n="statistics.subtabs.octMult"></button>
-                    <button class="statsNerds octeracts" id="kAmbrosiaAdditiveLuckMult" style="border: 2px solid lime" i18n="statistics.subtabs.ambrosiaAdditiveLuckMult"></button>
-                    <button class="statsNerds octeracts" id="kAmbrosiaLuck" style="border: 2px solid lime" i18n="statistics.subtabs.ambrosiaLuck"></button>
+                    <button class="statsNerds" id="kMisc" style="border: 2px solid var(--gold-color); background-color: var(--crimson-background-color);" i18n="statistics.subtabs.misc"></button>
+                    <button class="prestigeunlock statsNerds" id="kBaseOffering" style="border: 2px solid var(--palegreen-color)" i18n="statistics.subtabs.baseOffering"></button>
+                    <button class="prestigeunlock statsNerds" id="kOfferingMult" style="border: 2px solid var(--palegreen-color)" i18n="statistics.subtabs.offeringMult"></button>
+                    <button class="prestigeunlock statsNerds" id="kRuneEffectMult" style="border: 2px solid var(--pink-color)" i18n="statistics.subtabs.runeEffectMult"></button>
+                    <button class="prestigeunlock statsNerds" id="kSalvage" style="border: 2px solid var(--green-color)" i18n="statistics.subtabs.salvage"></button>
+                    <button class="prestigeunlock statsNerds" id="kConstruction" style="border: 2px solid var(--orange-color)" i18n="statistics.subtabs.construction"></button>
+                    <button class="prestigeunlock statsNerds" id="kFreeAccelMult" style="border: 2px solid var(--yellow-color)" i18n="statistics.subtabs.freeAccelMult"></button>
+                    <button class="reincarnationunlock statsNerds" id="kBaseObtainium" style="border: 2px solid var(--pink-color)" i18n="statistics.subtabs.baseObtainium"></button>
+                    <button class="reincarnationunlock statsNerds" id="kObtIgnoreDR" style="border: 2px solid var(--pink-color)" i18n="statistics.subtabs.obtIgnoreDR"></button>
+                    <button class="reincarnationunlock statsNerds" id="kObtMult" style="border: 2px solid var(--pink-color)" i18n="statistics.subtabs.obtMult"></button>
+                    <button class="statsNerds reincarnationunlock" id="kQuarkMult" style="border: 2px solid var(--white-color)" i18n="statistics.subtabs.quarkMult"></button>
+                    <button class="statsNerds reincarnationunlock" id="kGSpeedMultIgnoreDR" style="border: 2px solid var(--blue-color)" i18n="statistics.subtabs.gSpeedMultIgnoreDR"></button>
+                    <button class="statsNerds prestigeunlock" id="kGSpeedMult" style="border: 2px solid var(--blue-color)" i18n="statistics.subtabs.gSpeedMult"></button>
+                    <button class="statsNerds chal8" id="kAntSpeedMult" style="border: 2px solid var(--crimson-color)" i18n="statistics.subtabs.antSpeedMult"></button>
+                    <button class="statsNerds chal8" id="kAntSacrificeMult" style="border: 2px solid var(--burlywood-color)" i18n="statistics.subtabs.antSacrificeMult"></button>
+                    <button class="statsNerds chal8" id="kAntELO" style="border: 2px solid var(--orchid-color)" i18n="statistics.subtabs.antELO"></button>
+                    <button class="statsNerds chal8" id="kAdditiveAntELOMult" style="border: 2px solid var(--orchid-color)" i18n="statistics.subtabs.additiveAntELOMult"></button>
+                    <button class="statsNerds chal8" id="kRebornELOCreationSpeedMult" style="border: 2px solid var(--hex-00ddff-color)" i18n="statistics.subtabs.rebornELOCreationSpeedMult"></button>
+                    <button class="statsNerds chal9" id="kTalismanRuneBonusMult" style="border: 2px solid var(--green-color)" i18n="statistics.subtabs.talismanRuneBonusMult"></button>
+                    <button class="statsNerds ascendunlock" id="kASCMult" style="border: 2px solid var(--orange-color)" i18n="statistics.subtabs.ascMult"></button>
+                    <button class="statsNerds ascendunlock" id="kACountMult" style="border: 2px solid var(--orange-color)" i18n="statistics.subtabs.ascCountMult"></button>
+                    <button class="statsNerds ascendunlock" id="kFreeCorruptionLevels" style="border: 2px solid var(--orange-color)" i18n="statistics.subtabs.freeCorruptionLevels"></button>
+                    <button class="statsNerds ascendunlock" id="kCubeBank" style="border: 2px solid var(--khaki-color)" i18n="statistics.subtabs.cubeBank"></button>
+                    <button class="statsNerds ascendunlock" id="kGlobalCubeMult" style="border: 2px solid var(--khaki-color)" i18n="statistics.subtabs.globalCubeMult"></button>
+                    <button class="statsNerds ascendunlock" id="kCubeMult" style="border: 2px solid var(--darkgoldenrod-color)" i18n="statistics.subtabs.cubeMult"></button>
+                    <button class="statsNerds ascendunlock" id="kTessMult" style="border: 2px solid var(--honeydew-color)" i18n="statistics.subtabs.tessMult"></button>
+                    <button class="statsNerds chal13" id="kHypercubeMult" style="border: 2px solid var(--blueviolet-color)" i18n="statistics.subtabs.hypercubeMult"></button>
+                    <button class="statsNerds chal14" id="kPlatMult" style="border: 2px solid var(--slateblue-color)" i18n="statistics.subtabs.platMult"></button>
+                    <button class="statsNerds hepteracts" id="kHeptMult" style="border: 2px solid var(--rosybrown-color)" i18n="statistics.subtabs.heptMult"></button>
+                    <button class="statsNerds hepteracts" id="kOrbPowderMult" style="border: 2px solid var(--orchid-color)" i18n="statistics.subtabs.orbPowderMult"></button>
+                    <button class="statsNerds singularity" id="kGQMult" style="border: 2px solid var(--gold-color)" i18n="statistics.subtabs.gqMult"></button>
+                    <button class="statsNerds singularity" id="kGQCost" style="border: 2px solid var(--gold-color)" i18n="statistics.subtabs.gqCost"></button>
+                    <button class="statsNerds" id="kAddStats" style="border: 2px solid var(--green-color)" i18n="statistics.subtabs.addStats"></button>
+                    <button class="statsNerds singularity" id="kOctMult" style="border: 2px solid var(--blue-color)" i18n="statistics.subtabs.octMult"></button>
+                    <button class="statsNerds octeracts" id="kAmbrosiaAdditiveLuckMult" style="border: 2px solid var(--lime-color)" i18n="statistics.subtabs.ambrosiaAdditiveLuckMult"></button>
+                    <button class="statsNerds octeracts" id="kAmbrosiaLuck" style="border: 2px solid var(--lime-color)" i18n="statistics.subtabs.ambrosiaLuck"></button>
                     <button class="statsNerds octeracts" id="kAmbrosiaBlueberries" style="border: 2px solid darkblue" i18n="statistics.subtabs.ambrosiaBlueberries"></button>
-                    <button class="statsNerds octeracts" id="kAmbrosiaGenMult" style="border: 2px solid #ffbf00" i18n="statistics.subtabs.ambrosiaGenMult"></button>
-                    <button class="statsNerds octeracts" id="kLuckConversion" style="border: 2px solid yellow" i18n="statistics.subtabs.luckConversion"></button>
-                    <button class="statsNerds octeracts" id="kRedAmbrosiaLuck" style="border: 2px solid red" i18n="statistics.subtabs.redAmbrosiaLuck"></button>
-                    <button class="statsNerds octeracts" id="kRedAmbrosiaGenMult" style="border: 2px solid red" i18n="statistics.subtabs.redAmbrosiaGenMult"></button>
-                    <button class="statsNerds octeracts" id="kShopVouchers" style="border: 2px solid cyan" i18n="statistics.subtabs.shopVouchers"></button>
-                    <button class="statsNerds" id="kCoins" style="border: 2px solid gold" i18n="statistics.subtabs.coins"></button>
-                    <button class="statsNerds prestigeunlock" id="kTaxes" style="border: 2px solid orange" i18n="statistics.subtabs.taxes"></button>
-                    <button class="statsNerds Exalt9x1" id="kPurpleHoneyEfficiency" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHoneyEfficiency"></button>
-                    <button class="statsNerds Exalt9x1" id="kPurpleHalfLife" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHalfLife"></button>
-                    <button class="statsNerds Exalt9x1" id="kPurpleReactantCapacity" style="border: 2px solid purple" i18n="statistics.subtabs.purpleReactantCapacity"></button>
-                    <button class="statsNerds Exalt9x1" id="kPurpleHoneyLuck" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHoneyLuck"></button>
-                    <button class="statsNerds Exalt9x1" id="kPurpleHoneyProgressRequirement" style="border: 2px solid purple" i18n="statistics.subtabs.purpleHoneyProgressRequirement"></button>
-                    <button id="summaryGeneration" style="border: 2px solid grey; height: 20px; width: 250px;" i18n="statistics.subtabs.generate"></button>
+                    <button class="statsNerds octeracts" id="kAmbrosiaGenMult" style="border: 2px solid var(--hex-ffbf00-color)" i18n="statistics.subtabs.ambrosiaGenMult"></button>
+                    <button class="statsNerds octeracts" id="kLuckConversion" style="border: 2px solid var(--yellow-color)" i18n="statistics.subtabs.luckConversion"></button>
+                    <button class="statsNerds octeracts" id="kRedAmbrosiaLuck" style="border: 2px solid var(--red-color)" i18n="statistics.subtabs.redAmbrosiaLuck"></button>
+                    <button class="statsNerds octeracts" id="kRedAmbrosiaGenMult" style="border: 2px solid var(--red-color)" i18n="statistics.subtabs.redAmbrosiaGenMult"></button>
+                    <button class="statsNerds octeracts" id="kShopVouchers" style="border: 2px solid var(--cyan-color)" i18n="statistics.subtabs.shopVouchers"></button>
+                    <button class="statsNerds" id="kCoins" style="border: 2px solid var(--gold-color)" i18n="statistics.subtabs.coins"></button>
+                    <button class="statsNerds prestigeunlock" id="kTaxes" style="border: 2px solid var(--orange-color)" i18n="statistics.subtabs.taxes"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleHoneyEfficiency" style="border: 2px solid var(--purple-color)" i18n="statistics.subtabs.purpleHoneyEfficiency"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleHalfLife" style="border: 2px solid var(--purple-color)" i18n="statistics.subtabs.purpleHalfLife"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleReactantCapacity" style="border: 2px solid var(--purple-color)" i18n="statistics.subtabs.purpleReactantCapacity"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleHoneyLuck" style="border: 2px solid var(--purple-color)" i18n="statistics.subtabs.purpleHoneyLuck"></button>
+                    <button class="statsNerds Exalt9x1" id="kPurpleHoneyProgressRequirement" style="border: 2px solid var(--purple-color)" i18n="statistics.subtabs.purpleHoneyProgressRequirement"></button>
+                    <button id="summaryGeneration" style="border: 2px solid var(--grey-color); height: 20px; width: 250px;" i18n="statistics.subtabs.generate"></button>
                 </div>
                 <div id="miscStats" class="statContainer activeStats">
-                    <p class="prestigeunlock statPortion" id="settingtitle3" style="color: plum; font-size: 1.2em" i18n="statistics.miscStats.title"></p>
-                    <p class="statPortion" id="gameStageStatistic" style="color: gold"></p>
+                    <p class="prestigeunlock statPortion" id="settingtitle3" style="color: var(--plum-color); font-size: 1.2em" i18n="statistics.miscStats.title"></p>
+                    <p class="statPortion" id="gameStageStatistic" style="color: var(--gold-color)"></p>
                 </div>
 
                 <div id="baseOfferingStats" class="statContainer" style = "display: none;" aria-live="polite">
@@ -2698,203 +2698,203 @@
 
                 <div id="runeEffectMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
                     <div id="runeEffectFirstFive">
-                        <div id="runeEffectMultiplierStatTitle1" class="statPortion" style="font-size: 1.2em; color:cyan" i18n="statistics.runeEffectFirstFive.title"></div>
+                        <div id="runeEffectMultiplierStatTitle1" class="statPortion" style="font-size: 1.2em; color:var(--cyan-color)" i18n="statistics.runeEffectFirstFive.title"></div>
                     </div>
                     <p id="statRuneMultSep1" class="statPortion">&nbsp;</p>
                     <div id="runeEffectSI">
-                        <div id="runeEffectMultiplierStatTitle2" class="statPortion" style="font-size: 1.2em; color: turquoise" i18n="statistics.runeEffectSI.title"></div>
+                        <div id="runeEffectMultiplierStatTitle2" class="statPortion" style="font-size: 1.2em; color: var(--turquoise-color)" i18n="statistics.runeEffectSI.title"></div>
                     </div>
                 </div>
 
                 <div id="salvageStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="salvageStatTitle" class="statPortion" style="font-size: 1.2em; color: green" i18n="statistics.salvageStats.title"></p>
+                    <p id="salvageStatTitle" class="statPortion" style="font-size: 1.2em; color: var(--green-color)" i18n="statistics.salvageStats.title"></p>
                     <p id="salvageExtra"></p>
                     <div id="salvagePositive">
-                        <div id="salvageStatsPositiveTitle" class="statPortion" style="font-size: 1.2em; color: lightgreen" i18n="statistics.salvagePositive.title"></div>
+                        <div id="salvageStatsPositiveTitle" class="statPortion" style="font-size: 1.2em; color: var(--lightgreen-color)" i18n="statistics.salvagePositive.title"></div>
                     </div>
                     <p id="statSalvageSep" class="statPortion">&nbsp;</p>
                     <div id="salvageNegative">
-                        <div id="salvageStatsNegativeTitle" class="statPortion" style="font-size: 1.2em; color: red" i18n="statistics.salvageNegative.title"></div>
+                        <div id="salvageStatsNegativeTitle" class="statPortion" style="font-size: 1.2em; color: var(--red-color)" i18n="statistics.salvageNegative.title"></div>
                     </div>
                     <p id="statSalvageSep2" class="statPortion">&nbsp;</p>
                     <div id="salvageTotal"></div>
                     <p id="statSalvageSep3" class="statPortion">&nbsp;</p>
                     <div id="salvageFirstFive">
-                        <div id="salvageStatsFirstFiveTitle" class="statPortion" style="font-size: 1.2em; color: orange" i18n="statistics.salvageFirstFive.title"></div>
+                        <div id="salvageStatsFirstFiveTitle" class="statPortion" style="font-size: 1.2em; color: var(--orange-color)" i18n="statistics.salvageFirstFive.title"></div>
                     </div>
                 </div>
 
                 <div id="constructionStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="constructionStatTitle" class="statPortion" style="font-size: 1.2em; color: orange" i18n="statistics.constructionStats.title"></p>
+                    <p id="constructionStatTitle" class="statPortion" style="font-size: 1.2em; color: var(--orange-color)" i18n="statistics.constructionStats.title"></p>
                     <p id="constructionExtra"></p>
                     <div id="constructionBase">
-                        <div id="constructionStatsBaseTitle" class="statPortion" style="font-size: 1.2em; color: gold" i18n="statistics.constructionBase.title"></div>
+                        <div id="constructionStatsBaseTitle" class="statPortion" style="font-size: 1.2em; color: var(--gold-color)" i18n="statistics.constructionBase.title"></div>
                     </div>
                     <p id="statConstructionSep" class="statPortion">&nbsp;</p>
                     <div id="constructionBuildings">
-                        <div id="constructionStatsBuildingsTitle" class="statPortion" style="font-size: 1.2em; color: lightblue" i18n="statistics.constructionBuildings.title"></div>
+                        <div id="constructionStatsBuildingsTitle" class="statPortion" style="font-size: 1.2em; color: var(--lightblue-color)" i18n="statistics.constructionBuildings.title"></div>
                     </div>
                 </div>
 
                 <div id="freeAccelMultStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="freeAccelMultStatTitle" class="statPortion" style="font-size: 1.2em; color: yellow" i18n="statistics.freeAccelMultStats.title"></p>
+                    <p id="freeAccelMultStatTitle" class="statPortion" style="font-size: 1.2em; color: var(--yellow-color)" i18n="statistics.freeAccelMultStats.title"></p>
                     <p id="freeAccelMultExtra"></p>
                     <div id="freeAccelerators">
-                        <div id="freeAcceleratorsTitle" class="statPortion" style="font-size: 1.2em; color: gold" i18n="statistics.freeAccelerators.title"></div>
+                        <div id="freeAcceleratorsTitle" class="statPortion" style="font-size: 1.2em; color: var(--gold-color)" i18n="statistics.freeAccelerators.title"></div>
                     </div>
                     <p id="statFreeAccelMultSep" class="statPortion">&nbsp;</p>
                     <div id="freeMultipliers">
-                        <div id="freeMultipliersTitle" class="statPortion" style="font-size: 1.2em; color: orange" i18n="statistics.freeMultipliers.title"></div>
+                        <div id="freeMultipliersTitle" class="statPortion" style="font-size: 1.2em; color: var(--orange-color)" i18n="statistics.freeMultipliers.title"></div>
                     </div>
                     <p id="statFreeAccelMultSep2" class="statPortion">&nbsp;</p>
                     <div id="freeAcceleratorBoosts">
-                        <div id="freeAcceleratorBoostsTitle" class="statPortion" style="font-size: 1.2em; color: cyan" i18n="statistics.freeAcceleratorBoosts.title"></div>
+                        <div id="freeAcceleratorBoostsTitle" class="statPortion" style="font-size: 1.2em; color: var(--cyan-color)" i18n="statistics.freeAcceleratorBoosts.title"></div>
                     </div>
                 </div>
 
                 <div id="baseObtainiumStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="baseObtainiumStatTitle" class="statPortion" style="font-size: 1.2em; color:pink" i18n="statistics.baseObtainiumStats.title"></p>
+                    <p id="baseObtainiumStatTitle" class="statPortion" style="font-size: 1.2em; color:var(--pink-color)" i18n="statistics.baseObtainiumStats.title"></p>
                 </div>
 
                 <div id="obtainiumIgnoreDRStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="obtainiumIgnoreDRStatTitle" class="statPortion" style="font-size: 1.2em; color:pink" i18n="statistics.obtainiumIgnoreDRStats.title"></p>
+                    <p id="obtainiumIgnoreDRStatTitle" class="statPortion" style="font-size: 1.2em; color:var(--pink-color)" i18n="statistics.obtainiumIgnoreDRStats.title"></p>
                 </div>
 
                 <div id="obtainiumMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="obtainiumStatTitle" class="statPortion" style="font-size: 1.2em; color:pink" i18n="statistics.obtainiumMultiplierStats.title"></p>
+                    <p id="obtainiumStatTitle" class="statPortion" style="font-size: 1.2em; color:var(--pink-color)" i18n="statistics.obtainiumMultiplierStats.title"></p>
                 </div>
 
                 <div id="antSpeedMultStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="antSpeedMultStatTitle" class="statPortion" style="font-size: 1.2em; color:crimson" i18n="statistics.antSpeedMultStats.title"></p>
+                    <p id="antSpeedMultStatTitle" class="statPortion" style="font-size: 1.2em; color:var(--crimson-color)" i18n="statistics.antSpeedMultStats.title"></p>
                 </div>
 
                 <div id="antSacrificeMultStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="antSacrificeMultStatTitle" class="statPortion" style="font-size: 1.2em; color:burlywood" i18n="statistics.antSacrificeMultStats.title"></p>
+                    <p id="antSacrificeMultStatTitle" class="statPortion" style="font-size: 1.2em; color:var(--burlywood-color)" i18n="statistics.antSacrificeMultStats.title"></p>
                 </div>
 
                 <div id="eloStats" class="statContainer" style="display: none;" aria-live="polite">
                     <div id="antELOStats">
-                        <div id="antELOStatTitle" class="statPortion" style="font-size: 1.2em; color:orchid" i18n="statistics.antELOStats.title"></div>
+                        <div id="antELOStatTitle" class="statPortion" style="font-size: 1.2em; color:var(--orchid-color)" i18n="statistics.antELOStats.title"></div>
                     </div>
                     <p id="statELOSep" class="statPortion">&nbsp;</p>
                     <div id="effectiveAntELOStats">
-                        <div id="effectiveAntELOStatTitle" class="statPortion" style="font-size: 1.2em; color:orchid" i18n="statistics.effectiveAntELOStats.title"></div>
+                        <div id="effectiveAntELOStatTitle" class="statPortion" style="font-size: 1.2em; color:var(--orchid-color)" i18n="statistics.effectiveAntELOStats.title"></div>
                     </div>
                 </div>
 
                 <div id="additiveAntELOMultStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="additiveAntELOStatTitle" class="statPortion" style="font-size: 1.2em; color:orchid" i18n="statistics.additiveAntELOMultStats.title"></p>
+                    <p id="additiveAntELOStatTitle" class="statPortion" style="font-size: 1.2em; color:var(--orchid-color)" i18n="statistics.additiveAntELOMultStats.title"></p>
                     <p id="additiveAntELOExtra"></p>
                 </div>
 
                 <div id="rebornELOCreationSpeedMultStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="rebornELOCreationSpeedStatTitle" class="statPortion" style="font-size: 1.2em; color:#00DDFF" i18n="statistics.rebornELOCreationSpeedMultStats.title"></p>
+                    <p id="rebornELOCreationSpeedStatTitle" class="statPortion" style="font-size: 1.2em; color:var(--hex-00ddff-color)" i18n="statistics.rebornELOCreationSpeedMultStats.title"></p>
                     <p id="rebornELOExtra"></p>
                 </div>
 
                 <div id="globalSpeedIgnoreDRStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="globalSpeedIgnoreDRStatTitle" class="statPortion" style="font-size: 1.2em; color: lightskyblue" i18n="statistics.globalSpeedIgnoreDRStats.title"></p>
+                    <p id="globalSpeedIgnoreDRStatTitle" class="statPortion" style="font-size: 1.2em; color: var(--lightskyblue-color)" i18n="statistics.globalSpeedIgnoreDRStats.title"></p>
                 </div>
 
                 <div id="globalSpeedMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="GlobalSpeedStatTitle" class="statPortion" style="color: lightskyblue; font-size: 1.2em" i18n="statistics.globalSpeedMultiplierStats.title"></p>
+                    <p id="GlobalSpeedStatTitle" class="statPortion" style="color: var(--lightskyblue-color); font-size: 1.2em" i18n="statistics.globalSpeedMultiplierStats.title"></p>
                 </div>
 
                 <div id="globalQuarkMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="GlobalQuarkStatTitle" class="statPortion" style="color: white; font-size: 1.2em" i18n="statistics.globalQuarkMultiplierStats.title"></p>
+                    <p id="GlobalQuarkStatTitle" class="statPortion" style="color: var(--white-color); font-size: 1.2em" i18n="statistics.globalQuarkMultiplierStats.title"></p>
                 </div>
 
                 <div id="talismanRuneBonusMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="talismanRuneBonusStatTitle" class="statPortion" style="color: green; font-size: 1.2em;" i18n="statistics.talismanRuneBonusMultiplierStats.title"></p>
+                    <p id="talismanRuneBonusStatTitle" class="statPortion" style="color: var(--green-color); font-size: 1.2em;" i18n="statistics.talismanRuneBonusMultiplierStats.title"></p>
                 </div>
 
                 <div id="coinStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="coinStatTitle" class="statPortion" style="color: gold; font-size: 1.2em;" i18n="statistics.coinStats.title"></p>
+                    <p id="coinStatTitle" class="statPortion" style="color: var(--gold-color); font-size: 1.2em;" i18n="statistics.coinStats.title"></p>
                 </div>
 
                 <div id="taxStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="taxStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;" i18n="statistics.taxStats.title"></p>
+                    <p id="taxStatTitle" class="statPortion" style="color: var(--orange-color); font-size: 1.2em;" i18n="statistics.taxStats.title"></p>
                 </div>
 
                 <div id="ascensionSpeedMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="asmStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;" i18n="statistics.ascensionSpeedMultiplierStats.title"></p>
+                    <p id="asmStatTitle" class="statPortion" style="color: var(--orange-color); font-size: 1.2em;" i18n="statistics.ascensionSpeedMultiplierStats.title"></p>
                 </div>
 
                 <div id="ascensionCountMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="acmStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;" i18n="statistics.ascensionCountMultiplierStats.title"></p>
+                    <p id="acmStatTitle" class="statPortion" style="color: var(--orange-color); font-size: 1.2em;" i18n="statistics.ascensionCountMultiplierStats.title"></p>
                 </div>
 
                 <div id="freeCorruptionLevelStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="fclStatTitle" class="statPortion" style="color: orange; font-size: 1.2em;" i18n="statistics.freeCorruptionLevelStats.title"></p>
+                    <p id="fclStatTitle" class="statPortion" style="color: var(--orange-color); font-size: 1.2em;" i18n="statistics.freeCorruptionLevelStats.title"></p>
                 </div>
 
                 <div id="cubeBankStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="cbStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em;" i18n="statistics.cubeBankStats.title"></p>
+                    <p id="cbStatTitle" class="statPortion" style="color: var(--lightgoldenrodyellow-color); font-size: 1.2em;" i18n="statistics.cubeBankStats.title"></p>
                 </div>
 
                 <div id="globalCubeMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="globalCubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.globalCubeMultiplierStats.title"></p>
+                    <p id="globalCubeStatTitle" class="statPortion" style="color: var(--lightgoldenrodyellow-color); font-size: 1.2em" i18n="statistics.globalCubeMultiplierStats.title"></p>
                 </div>
                 <div id="cubeMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="cubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.cubeMultiplierStats.title"></p>
+                    <p id="cubeStatTitle" class="statPortion" style="color: var(--lightgoldenrodyellow-color); font-size: 1.2em" i18n="statistics.cubeMultiplierStats.title"></p>
                 </div>
                 <div id="tesseractMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="tesseractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.tesseractMultiplierStats.title"></p>
+                    <p id="tesseractStatTitle" class="statPortion" style="color: var(--lightgoldenrodyellow-color); font-size: 1.2em" i18n="statistics.tesseractMultiplierStats.title"></p>
                 </div>
                 <div id="hypercubeMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="hypercubeStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.hypercubeMultiplierStats.title"></p>
+                    <p id="hypercubeStatTitle" class="statPortion" style="color: var(--lightgoldenrodyellow-color); font-size: 1.2em" i18n="statistics.hypercubeMultiplierStats.title"></p>
                 </div>
 
                 <div id="platonicMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="platonicStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.platonicMultiplierStats.title"></p>
+                    <p id="platonicStatTitle" class="statPortion" style="color: var(--lightgoldenrodyellow-color); font-size: 1.2em" i18n="statistics.platonicMultiplierStats.title"></p>
                 </div>
 
                 <div id="hepteractMultiplierStats" class="statContainer" style="display: none;" aria-live="polite">
-                    <p id="hepteractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.hepteractMultiplierStats.title"></p>
+                    <p id="hepteractStatTitle" class="statPortion" style="color: var(--lightgoldenrodyellow-color); font-size: 1.2em" i18n="statistics.hepteractMultiplierStats.title"></p>
                 </div>
 
                 <div id="octeractMultiplierStats" class="statContainer activeStats" style="display: none;" aria-live="polite">
-                    <p id="octeractStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.octeractMultiplierStats.title"></p>
+                    <p id="octeractStatTitle" class="statPortion" style="color: var(--lightgoldenrodyellow-color); font-size: 1.2em" i18n="statistics.octeractMultiplierStats.title"></p>
                 </div>
 
                 <div id="powderMultiplierStats" class="statContainer activeStats" style="display: none;" aria-live="polite">
-                    <p id="powderStatTitle" class="statPortion" style="color: magenta; font-size: 1.2em;" i18n="statistics.powderMultiplierStats.title"></p>
+                    <p id="powderStatTitle" class="statPortion" style="color: var(--magenta-color); font-size: 1.2em;" i18n="statistics.powderMultiplierStats.title"></p>
                 </div>
 
                 <div id="goldenQuarkMultiplierStats" class="statContainer activeStats" style="display: none;" aria-live="polite">
-                    <p id="gqmStatTitle" class="statPortion" style="color: yellow; font-size: 1.2em;" i18n="statistics.goldenQuarkMultiplierStats.title"></p>
+                    <p id="gqmStatTitle" class="statPortion" style="color: var(--yellow-color); font-size: 1.2em;" i18n="statistics.goldenQuarkMultiplierStats.title"></p>
                 </div>
 
                 <div id="goldenQuarkPurchaseCostStats" class="statContainer activeStats" style="display: none;" aria-live="polite">
-                    <p id="gqpStatTitle" class="statPortion" style="color: yellow; font-size: 1.2em;" i18n="statistics.goldenQuarkPurchaseCostStats.title"></p>
+                    <p id="gqpStatTitle" class="statPortion" style="color: var(--yellow-color); font-size: 1.2em;" i18n="statistics.goldenQuarkPurchaseCostStats.title"></p>
                 </div>
 
                 <div id="ambrosiaAdditiveLuckMultStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="ambrosiaAdditiveLuckMultStatTitle" class="statPortion" style="color: lime; font-size: 1.2em" i18n="statistics.ambrosiaAdditiveLuckMultStats.title"></p>
+                    <p id="ambrosiaAdditiveLuckMultStatTitle" class="statPortion" style="color: var(--lime-color); font-size: 1.2em" i18n="statistics.ambrosiaAdditiveLuckMultStats.title"></p>
                 </div>
 
                 <div id="ambrosiaLuckStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="ambrosiaLuckStatTitle" class="statPortion" style="color: lime; font-size: 1.2em" i18n="statistics.ambrosiaLuckStats.title"></p>
+                    <p id="ambrosiaLuckStatTitle" class="statPortion" style="color: var(--lime-color); font-size: 1.2em" i18n="statistics.ambrosiaLuckStats.title"></p>
                 </div>
 
                 <div id="ambrosiaBlueberryStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="ambrosiaBlueberryStatTitle" class="statPortion" style="color: skyblue; font-size: 1.2em" i18n="statistics.ambrosiaBlueberryStats.title"></p>
+                    <p id="ambrosiaBlueberryStatTitle" class="statPortion" style="color: var(--skyblue-color); font-size: 1.2em" i18n="statistics.ambrosiaBlueberryStats.title"></p>
                 </div>
 
                 <div id="ambrosiaGenerationStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="ambrosiaGenStatTitle" class="statPortion" style="color: lightgoldenrodyellow; font-size: 1.2em" i18n="statistics.ambrosiaGenerationStats.title"></p>
+                    <p id="ambrosiaGenStatTitle" class="statPortion" style="color: var(--lightgoldenrodyellow-color); font-size: 1.2em" i18n="statistics.ambrosiaGenerationStats.title"></p>
                 </div>
 
                 <div id="luckConversionStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="luckConversionStatTitle" class="statPortion" style="color: yellow; font-size: 1.2em" i18n="statistics.luckConversionStats.title"></p>
+                    <p id="luckConversionStatTitle" class="statPortion" style="color: var(--yellow-color); font-size: 1.2em" i18n="statistics.luckConversionStats.title"></p>
                 </div>
 
                 <div id="redAmbrosiaLuckStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="redAmbrosiaLuckStatTitle" class="statPortion" style="color: red; font-size: 1.2em" i18n="statistics.redAmbrosiaLuckStats.title"></p>
+                    <p id="redAmbrosiaLuckStatTitle" class="statPortion" style="color: var(--red-color); font-size: 1.2em" i18n="statistics.redAmbrosiaLuckStats.title"></p>
                 </div>
 
                 <div id="redAmbrosiaGenerationStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="redAmbrosiaGenStatTitle" class="statPortion" style="color: red; font-size: 1.2em" i18n="statistics.redAmbrosiaGenerationStats.title"></p>
+                    <p id="redAmbrosiaGenStatTitle" class="statPortion" style="color: var(--red-color); font-size: 1.2em" i18n="statistics.redAmbrosiaGenerationStats.title"></p>
                 </div>
 
                 <div id="purpleHoneyEfficiencyStats" class="statContainer activeStats" aria-live="polite">
@@ -2918,25 +2918,25 @@
                 </div>
 
                 <div id="shopVoucherStats" class="statContainer activeStats" aria-live="polite">
-                    <p id="shopVoucherStatTitle" class="statPortion" style="color: cyan; font-size: 1.2em" i18n="statistics.shopVoucherStats.title"></p>
+                    <p id="shopVoucherStatTitle" class="statPortion" style="color: var(--cyan-color); font-size: 1.2em" i18n="statistics.shopVoucherStats.title"></p>
                 </div>
 
                 <div id="addCodeStats" class="statContainer" style="display: none;" aria-live="polite">
 
                     <div id="addCodeEffects" aria-live="polite">
-                        <p id="addCodeStatTitle1" class="statPortion" style="color: green; font-size: 1.2em" i18n="statistics.addCodeEffects.title"></p>
+                        <p id="addCodeStatTitle1" class="statPortion" style="color: var(--green-color); font-size: 1.2em" i18n="statistics.addCodeEffects.title"></p>
                     </div>
                     <p id="statAddSep1" class="statPortion">&nbsp;</p>
 
                     <div id="addCodeTimer" aria-live="polite">
-                        <p id="addCodeStatTitle2" class="statPortion" style="color: green; font-size: 1.2em" i18n="statistics.addCodeTimer.title"></p>
+                        <p id="addCodeStatTitle2" class="statPortion" style="color: var(--green-color); font-size: 1.2em" i18n="statistics.addCodeTimer.title"></p>
                     </div>
                     <p id="statAddSep4" class="statPortion">&nbsp;</p>
 
                     <div id="addCodeCapacity" aria-live="polite">
-                        <p id="addCodeStatTitle3" class="statPortion" style="color: green; font-size: 1.2em" i18n="statistics.addCodeCapacity.title"></p>
+                        <p id="addCodeStatTitle3" class="statPortion" style="color: var(--green-color); font-size: 1.2em" i18n="statistics.addCodeCapacity.title"></p>
                     </div>
-                    <p id="stat+next" class="statPortion" style="color: gold"></p>
+                    <p id="stat+next" class="statPortion" style="color: var(--gold-color)"></p>
 
                 </div>
 
@@ -2996,14 +2996,14 @@
             </div>
             <div class="subtabContent subtabDisplayFlex" id="hotkeys">
                 <div class="hotkeys"></div>
-                <span style="color: lightblue;">Last enabled key: <span style="color: gold;" id="lastHotkey"></span> <span style="color: white;" id="lastHotkeyName"></span></span>
+                <span style="color: var(--lightblue-color);">Last enabled key: <span style="color: var(--gold-color);" id="lastHotkey"></span> <span style="color: var(--white-color);" id="lastHotkeyName"></span></span>
                 <span id="hotkeyTooltip" i18n="hotkeys.note2"></span>
                 <span class="autoAscendUnlock grayText" i18n="hotkeys.note1"></span>
                 <div class="resetHotkeys">
-                    <button id="resetHotkeys" style="border: 2px solid brown" i18n="hotkeys.reset"></button>
-                    <button class="auto" id="toggle39" toggleid="39" format="Hotkeys: $" style="border:2px solid green">Hotkeys: ON</button>
-                    <button class="auto" id="toggle40" toggleid="40" format="Number Hotkeys: $" style="border:2px solid green">Number Hotkeys: ON</button>
-                    <button class="auto" id="toggle41" toggleid="41" format="Loadouts Notify: $" style="border:2px solid green">Loadouts Notify: ON</button>
+                    <button id="resetHotkeys" style="border: 2px solid var(--brown-color)" i18n="hotkeys.reset"></button>
+                    <button class="auto" id="toggle39" toggleid="39" format="Hotkeys: $" style="border:2px solid var(--green-color)">Hotkeys: ON</button>
+                    <button class="auto" id="toggle40" toggleid="40" format="Number Hotkeys: $" style="border:2px solid var(--green-color)">Number Hotkeys: ON</button>
+                    <button class="auto" id="toggle41" toggleid="41" format="Loadouts Notify: $" style="border:2px solid var(--green-color)">Loadouts Notify: ON</button>
                 </div>
             </div>
             <div class="subtabContent subtabDisplayFlex" id="accountSubTab">
@@ -3019,7 +3019,7 @@
                     >Login with Discord</a>
                     <a
                         href="https://synergism.cc/login?with=patreon"
-                        style="display:inline-block;border: 2px solid #ff5900; padding: 6px 14px; min-width: 160px; text-align: center;"
+                        style="display:inline-block;border: 2px solid var(--hex-ff5900-color); padding: 6px 14px; min-width: 160px; text-align: center;"
                     >Login with Patreon</a>
                 </div>
                 </div>
@@ -3043,8 +3043,8 @@
             <div class="subtabContent subtabDisplayFlex" id="messagesSubTab">
                 <div style="width: 100%; max-width: 800px; margin: 0 auto;">
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <h2 style="color: #ff6b6b; margin-bottom: 10px;">📬 Unread Messages</h2>
-                        <p style="color: #ccc; font-style: italic;">Important announcements and updates from the Synergism team</p>
+                        <h2 style="color: var(--hex-ff6b6b-color); margin-bottom: 10px;">📬 Unread Messages</h2>
+                        <p style="color: var(--hex-ccc-color); font-style: italic;">Important announcements and updates from the Synergism team</p>
                     </div>
                     <div id="messagesContainer" style="max-height: 400px; overflow-y: auto;" class="scrollbar">
                         <div style="text-align: center; color: #666; font-style: italic; padding: 20px;">
@@ -3060,26 +3060,26 @@
                 <div id="actualWrapper" class="scrollbarX">
                     <div id="actualConsumables">
                         <div id="consumables" i18n="shop.buyYerPotions"></div>
-                        <div id="actualPotionShop" style="color: white">
+                        <div id="actualPotionShop" style="color: var(--white-color)">
                             <div id="offeringPotionHide">
                                 <img id="offeringPotions" alt="Offering Potions" src="Pictures/Default/OfferingPotion.png" loading="lazy" role="button" tabindex="0" aria-haspopup="dialog" i18n-aria-label="shop.names.offeringPotion" style="cursor: pointer">
                                 <p id="offeringpotionowned">Own: 2222</p>
-                                <button class="consumablebutton" id="buyofferingpotion" style="border: 2px solid white" i18n="shop.buyPotion"></button>
-                                <button class="consumablebutton" id="useofferingpotion" style="border: 2px solid orange" i18n="shop.consume"></button>
-                                <button class="consumablebutton auto" id="toggle42" toggleid="42" format="Auto Catalyze: $" style="border:2px solid red" title="Speeds up AutoPotion while enabled&#013If you run out of potions, it will refill/spend at normal rate, automatically.">Auto Use: OFF</button>
+                                <button class="consumablebutton" id="buyofferingpotion" style="border: 2px solid var(--white-color)" i18n="shop.buyPotion"></button>
+                                <button class="consumablebutton" id="useofferingpotion" style="border: 2px solid var(--orange-color)" i18n="shop.consume"></button>
+                                <button class="consumablebutton auto" id="toggle42" toggleid="42" format="Auto Catalyze: $" style="border:2px solid var(--red-color)" title="Speeds up AutoPotion while enabled&#013If you run out of potions, it will refill/spend at normal rate, automatically.">Auto Use: OFF</button>
                             </div>
                             <div id="obtainiumPotionHide">
                                 <img id="obtainiumPotions" alt="Obtainium Potions" src="Pictures/Default/ObtainiumPotion.png" loading="lazy" role="button" tabindex="0" aria-haspopup="dialog" i18n-aria-label="shop.names.obtainiumPotion" style="cursor: pointer">
                                 <p id="obtainiumpotionowned">Own: 0</p>
-                                <button class="consumablebutton" id="buyobtainiumpotion" style="border: 2px solid white" i18n="shop.buyPotion"></button>
-                                <button class="consumablebutton" id="useobtainiumpotion" style="border: 2px solid blue" i18n="shop.consume"></button>
-                                <button class="consumablebutton auto" id="toggle43" toggleid="43" format="Auto Catalyze: $" style="border:2px solid red" title="Speeds up AutoPotion while enabled&#013If you run out of potions, it will refill/spend at normal rate, automatically.">Auto Use: OFF</button>
+                                <button class="consumablebutton" id="buyobtainiumpotion" style="border: 2px solid var(--white-color)" i18n="shop.buyPotion"></button>
+                                <button class="consumablebutton" id="useobtainiumpotion" style="border: 2px solid var(--blue-color)" i18n="shop.consume"></button>
+                                <button class="consumablebutton auto" id="toggle43" toggleid="43" format="Auto Catalyze: $" style="border:2px solid var(--red-color)" title="Speeds up AutoPotion while enabled&#013If you run out of potions, it will refill/spend at normal rate, automatically.">Auto Use: OFF</button>
                             </div>
                         </div>
                         <div class="singularity" id="goldenQuarksShop">
                             <img id="buySingularityQuarks" alt="buySingularityQuarks" src="Pictures/Default/ShopGoldenQuarks.png" loading="lazy">
                             <p id="buySingularityQuarksAmount" title="Amount of Golden Quarks you have"></p>
-                            <button class="permshopbutton" id="buySingularityQuarksButton" style="border: 2px solid gold;"></button>
+                            <button class="permshopbutton" id="buySingularityQuarksButton" style="border: 2px solid var(--gold-color);"></button>
                         </div>
                     </div>
                     <div id="actualShopContainer">
@@ -3098,12 +3098,12 @@
                             </div>
                         </div>
                         <div id="shopButtons">
-                            <button id="toggleConfirmShop" style="border: 2px solid white">Shop Confirmations: ON</button>
-                            <button id="toggleHideShop" title="Only hides Non Refundable upgrades" style="border: 2px solid white">Hide Maxed: OFF</button>
-                            <button id="toggleBuyMaxShop" style="border: 2px solid white">
+                            <button id="toggleConfirmShop" style="border: 2px solid var(--white-color)">Shop Confirmations: ON</button>
+                            <button id="toggleHideShop" title="Only hides Non Refundable upgrades" style="border: 2px solid var(--white-color)">Hide Maxed: OFF</button>
+                            <button id="toggleBuyMaxShop" style="border: 2px solid var(--white-color)">
                             <span id="toggleBuyMaxShopText"></span>
                             <br>
-                            <span style="color: gold; font-size:75%;" i18n="shop.shiftClickForBuyAny"></span>
+                            <span style="color: var(--gold-color); font-size:75%;" i18n="shop.shiftClickForBuyAny"></span>
                             </button>
                         </div>
                     </div>
@@ -3113,16 +3113,16 @@
 
         <div id="singularity" class="tab">
             <div id="singularityTabsToggle" class="subTabWrapper">
-                <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid silver; color: white;"><span class="subTabButtonText fitText" i18n="tabs.singularity.info"></span></button>
-                <button id="toggleSingularitySubTab2" style="border: 2px solid gold; color: white;"><span class="subTabButtonText fitText" i18n="tabs.singularity.goldenQuarks"></span></button>
-                <button id="toggleSingularitySubTab3" style="border: 2px solid orange; color: white"><span class="subTabButtonText fitText" i18n="tabs.singularity.perks-penalties"></span></button>
-                <button id="toggleSingularitySubTab4" class="octeracts" style="border: 2px solid blue; color: white"><span class="subTabButtonText fitText" i18n="tabs.singularity.octeracts"></span></button>
-                <button id="toggleSingularitySubTab5" class="singChallenges" style="border: 2px solid #ffbf00; color: gold"><span class="subTabButtonText fitText" i18n="tabs.singularity.ambrosia"></span></button>
-                <button id="toggleSingularitySubTab6" class="singChallenges" style="border: 2px solid purple"><span class="subTabButtonText fitText" i18n="tabs.singularity.purple"></span></button>
+                <button id="toggleSingularitySubTab1" class="active-subtab" style="border: 2px solid var(--silver-color); color: var(--white-color);"><span class="subTabButtonText fitText" i18n="tabs.singularity.info"></span></button>
+                <button id="toggleSingularitySubTab2" style="border: 2px solid var(--gold-color); color: var(--white-color);"><span class="subTabButtonText fitText" i18n="tabs.singularity.goldenQuarks"></span></button>
+                <button id="toggleSingularitySubTab3" style="border: 2px solid var(--orange-color); color: var(--white-color)"><span class="subTabButtonText fitText" i18n="tabs.singularity.perks-penalties"></span></button>
+                <button id="toggleSingularitySubTab4" class="octeracts" style="border: 2px solid var(--blue-color); color: var(--white-color)"><span class="subTabButtonText fitText" i18n="tabs.singularity.octeracts"></span></button>
+                <button id="toggleSingularitySubTab5" class="singChallenges" style="border: 2px solid var(--hex-ffbf00-color); color: var(--gold-color)"><span class="subTabButtonText fitText" i18n="tabs.singularity.ambrosia"></span></button>
+                <button id="toggleSingularitySubTab6" class="singChallenges" style="border: 2px solid var(--purple-color)"><span class="subTabButtonText fitText" i18n="tabs.singularity.purple"></span></button>
             </div>
 
             <div id="singularityContainer1">
-                <div id="lockedSingularityElevator" class="singularityElevatorContainer" style="border: 2px solid gray">
+                <div id="lockedSingularityElevator" class="singularityElevatorContainer" style="border: 2px solid var(--gray-color)">
                     <p i18n="singularity.elevator.lockedTitle"></p>
                     <p id="lockedElevatorDescription" i18n="singularity.elevator.lockedDescription"></p>
                 </div>
@@ -3442,8 +3442,8 @@
                         <div id="octeractsDisplay">
                             <img src="Pictures/Default/Octeract.png" loading="lazy">
                             <p id="octeractAmount" class="lightseagreenText"></p>
-                            <p id="secondsPerOcteract" style="color: lightgoldenrodyellow"></p>
-                            <p id="octeractPerSeconds" style="color: lightgoldenrodyellow"></p>
+                            <p id="secondsPerOcteract" style="color: var(--lightgoldenrodyellow-color)"></p>
+                            <p id="octeractPerSeconds" style="color: var(--lightgoldenrodyellow-color)"></p>
                         </div>
                         <div id="totalOcteractsDisplay">
                             <p id="totalOcteractAmount"></p>
@@ -3939,11 +3939,11 @@
                             <p class="ambrosiaUpgradeUnlockHint" data-ambrosia-next="red" i18n="ambrosia.upgradeUnlockHints.red"></p>
                             <p class="ambrosiaUpgradeUnlockHint" data-ambrosia-next="purple" i18n="ambrosia.upgradeUnlockHints.purple"></p>
                             <div class="ambrosiaUpgradeActions">
-                                <button class="ambrosiaLoadoutBtn" id="refundBlueberries" style="border: 2px solid blue" i18n="ambrosia.refundWord"></button>
-                                <button class="ambrosiaLoadoutBtn" id="getBlueberries" style="border: 2px solid blue" i18n="ambrosia.exportTree.exportButton"></button>
-                                <button class="ambrosiaLoadoutBtn" id="importBlueberriesButton" for="importBlueberries" style="border: 2px solid orange" i18n="settings.loadFromFile"></button>
+                                <button class="ambrosiaLoadoutBtn" id="refundBlueberries" style="border: 2px solid var(--blue-color)" i18n="ambrosia.refundWord"></button>
+                                <button class="ambrosiaLoadoutBtn" id="getBlueberries" style="border: 2px solid var(--blue-color)" i18n="ambrosia.exportTree.exportButton"></button>
+                                <button class="ambrosiaLoadoutBtn" id="importBlueberriesButton" for="importBlueberries" style="border: 2px solid var(--orange-color)" i18n="settings.loadFromFile"></button>
                                 <input type="file" id="importBlueberries" accept=".txt,text/plain" style="display: none">
-                                <button class="ambrosiaLoadoutBtn" id="ambrosiaEditLevels" style="border: 2px solid orange">-</button>
+                                <button class="ambrosiaLoadoutBtn" id="ambrosiaEditLevels" style="border: 2px solid var(--orange-color)">-</button>
                                 <button id="showCurrAmbrosiaUpgrades">🔎</button>
                             </div>
                         </div>
@@ -4423,24 +4423,24 @@
         <div class="subtabSwitcher subTabWrapper">
             <button
             id="cartSubTab1"
-            style="border: 2px solid white"
+            style="border: 2px solid var(--white-color)"
             ><span class="subTabButtonText fitText" i18n="tabs.pseudocoins.buy"></span></button>
             <button
             id="cartSubTab2"
-            style="border: 2px solid gold"
+            style="border: 2px solid var(--gold-color)"
             ><span class="subTabButtonText fitText" i18n="tabs.pseudocoins.subscriptions"></span></button>
             <button
             id="cartSubTab3"
-            style="border: 2px solid cyan"
+            style="border: 2px solid var(--cyan-color)"
             ><span class="subTabButtonText fitText" i18n="tabs.pseudocoins.upgrades"></span></button>
             <button
             id="cartSubTab4"
-            style="border: 2px solid #8f8"
+            style="border: 2px solid var(--hex-8f8-color)"
             ><span class="subTabButtonText fitText" i18n="tabs.pseudocoins.consumables"></span></button>
             <span style="position:relative">
             <button
                 id="cartSubTab5"
-                style="display: flex; align-items: center; justify-content: center; border: 2px solid cornflowerblue; width: 100%"
+                style="display: flex; align-items: center; justify-content: center; border: 2px solid var(--cornflowerblue-color); width: 100%"
             >
                 <span class="subTabButtonTextContainer">
                     <span class="subTabButtonText fitText" i18n="tabs.pseudocoins.checkout"></span>
@@ -4449,7 +4449,7 @@
             </button>
             <span
                 id="notification-count"
-                style="background-color: #fa3e3e; border-radius: 2px; color: white; padding: 1px 3px; font-size: 10px; position: absolute; top: 0; right: 0; display: none;"
+                style="background-color: var(--hex-fa3e3e-background-color); border-radius: 2px; color: var(--white-color); padding: 1px 3px; font-size: 10px; position: absolute; top: 0; right: 0; display: none;"
             ></span>
             </span>
         </div>
@@ -4540,7 +4540,7 @@
         <div id="cartContainer">
             <div
             class="cartList scrollbar"
-            style="color: white"
+            style="color: var(--white-color)"
             >
             <div id="itemList">
             </div>
@@ -4550,7 +4550,7 @@
             <section id="tosSection" style="display:flex;margin:0 auto">
                 <input type="radio" id="tosAgree" name="tosAgree" style="margin-right:2px">
                 <label for="tosAgree">
-                I agree to the <a id="tosLink" href="https://synergism.cc/terms-of-service" target="_blank" rel="noopener noreferrer" style="color:cyan" i18n="tabs.pseudocoins.termsOfService"></a>
+                I agree to the <a id="tosLink" href="https://synergism.cc/terms-of-service" target="_blank" rel="noopener noreferrer" style="color:var(--cyan-color)" i18n="tabs.pseudocoins.termsOfService"></a>
                 </label>
             </section>
 

@@ -1521,7 +1521,7 @@ const loadSynergy = (saveString: string): boolean => {
       }
 
       const b = `${buyAmountTypes[j]}${c}`
-      DOMCacheGetOrSet(b).style.backgroundColor = 'green'
+      DOMCacheGetOrSet(b).style.backgroundColor = 'var(--green-background-color)'
     }
 
     player.roombaResearchIndex = 0
@@ -1751,24 +1751,24 @@ const loadSynergy = (saveString: string): boolean => {
       DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t(
         'runes.talismans.autoBuyOn'
       )
-      DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid green'
+      DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid var(--green-color)'
     } else {
       DOMCacheGetOrSet('tesseractautobuytoggle').textContent = i18next.t(
         'runes.talismans.autoBuyOff'
       )
-      DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid red'
+      DOMCacheGetOrSet('tesseractautobuytoggle').style.border = '2px solid var(--red-color)'
     }
 
     if (player.autoOpenCubes) {
       DOMCacheGetOrSet('openCubes').textContent = i18next.t('wowCubes.autoOn', {
         percent: format(player.openCubes, 0)
       })
-      DOMCacheGetOrSet('openCubes').style.border = '1px solid green'
-      DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid green'
+      DOMCacheGetOrSet('openCubes').style.border = '1px solid var(--green-color)'
+      DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid var(--green-color)'
     } else {
       DOMCacheGetOrSet('openCubes').textContent = i18next.t('wowCubes.autoOff')
-      DOMCacheGetOrSet('openCubes').style.border = '1px solid red'
-      DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid red'
+      DOMCacheGetOrSet('openCubes').style.border = '1px solid var(--red-color)'
+      DOMCacheGetOrSet('cubeOpensInput').style.border = '1px solid var(--red-color)'
     }
     if (player.autoOpenTesseracts) {
       DOMCacheGetOrSet('openTesseracts').textContent = i18next.t(
@@ -1777,12 +1777,12 @@ const loadSynergy = (saveString: string): boolean => {
           percent: format(player.openTesseracts, 0)
         }
       )
-      DOMCacheGetOrSet('openTesseracts').style.border = '1px solid green'
-      DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid green'
+      DOMCacheGetOrSet('openTesseracts').style.border = '1px solid var(--green-color)'
+      DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid var(--green-color)'
     } else {
       DOMCacheGetOrSet('openTesseracts').textContent = i18next.t('wowCubes.autoOff')
-      DOMCacheGetOrSet('openTesseracts').style.border = '1px solid red'
-      DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid red'
+      DOMCacheGetOrSet('openTesseracts').style.border = '1px solid var(--red-color)'
+      DOMCacheGetOrSet('tesseractsOpensInput').style.border = '1px solid var(--red-color)'
     }
     if (player.autoOpenHypercubes) {
       DOMCacheGetOrSet('openHypercubes').textContent = i18next.t(
@@ -1791,12 +1791,12 @@ const loadSynergy = (saveString: string): boolean => {
           percent: format(player.openHypercubes, 0)
         }
       )
-      DOMCacheGetOrSet('openHypercubes').style.border = '1px solid green'
-      DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid green'
+      DOMCacheGetOrSet('openHypercubes').style.border = '1px solid var(--green-color)'
+      DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid var(--green-color)'
     } else {
       DOMCacheGetOrSet('openHypercubes').textContent = i18next.t('wowCubes.autoOff')
-      DOMCacheGetOrSet('openHypercubes').style.border = '1px solid red'
-      DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid red'
+      DOMCacheGetOrSet('openHypercubes').style.border = '1px solid var(--red-color)'
+      DOMCacheGetOrSet('hypercubesOpensInput').style.border = '1px solid var(--red-color)'
     }
     if (player.autoOpenPlatonicsCubes) {
       DOMCacheGetOrSet('openPlatonicCube').textContent = i18next.t(
@@ -1805,12 +1805,12 @@ const loadSynergy = (saveString: string): boolean => {
           percent: format(player.openPlatonicsCubes, 0)
         }
       )
-      DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid green'
-      DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid green'
+      DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid var(--green-color)'
+      DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid var(--green-color)'
     } else {
       DOMCacheGetOrSet('openPlatonicCube').textContent = i18next.t('wowCubes.autoOff')
-      DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid red'
-      DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid red'
+      DOMCacheGetOrSet('openPlatonicCube').style.border = '1px solid var(--red-color)'
+      DOMCacheGetOrSet('platonicCubeOpensInput').style.border = '1px solid var(--red-color)'
     }
 
     if (player.autoResearchToggle) {
@@ -1838,52 +1838,52 @@ const loadSynergy = (saveString: string): boolean => {
     const autoSacrificeLabel = DOMCacheGetOrSet('toggleAutoSacrificeText')
     autoSacrificeLabel.setAttribute('i18n', autoSacrificeI18nKey)
     autoSacrificeLabel.textContent = i18next.t(autoSacrificeI18nKey)
-    autoSacrificeToggle.style.border = `2px solid ${player.autoSacrificeToggle ? 'green' : 'red'}`
+    autoSacrificeToggle.style.border = `2px solid ${player.autoSacrificeToggle ? 'var(--green-color)' : 'var(--red-color)'}`
     if (player.autoBuyFragment) {
       DOMCacheGetOrSet('toggleautoBuyFragments').textContent = i18next.t(
         'runes.talismans.autoBuyOn'
       )
-      DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid white'
-      DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'orange'
+      DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid var(--white-color)'
+      DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'var(--orange-color)'
     } else {
       DOMCacheGetOrSet('toggleautoBuyFragments').textContent = i18next.t(
         'runes.talismans.autoBuyOff'
       )
-      DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid orange'
-      DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'white'
+      DOMCacheGetOrSet('toggleautoBuyFragments').style.border = '2px solid var(--orange-color)'
+      DOMCacheGetOrSet('toggleautoBuyFragments').style.color = 'var(--white-color)'
     }
     if (player.autoFortifyToggle) {
       DOMCacheGetOrSet('toggleautofortify').textContent = i18next.t(
         'runes.autoFortifyOn'
       )
-      DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid green'
+      DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid var(--green-color)'
     } else {
       DOMCacheGetOrSet('toggleautofortify').textContent = i18next.t(
         'runes.autoFortifyOff'
       )
-      DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid red'
+      DOMCacheGetOrSet('toggleautofortify').style.border = '2px solid var(--red-color)'
     }
     if (player.maxPlatToggle) {
       DOMCacheGetOrSet('maxPlatToggle').textContent = i18next.t(
         'toggles.maxPlatOn'
       )
-      DOMCacheGetOrSet('maxPlatToggle').style.color = 'yellow'
+      DOMCacheGetOrSet('maxPlatToggle').style.color = 'var(--yellow-color)'
     } else {
       DOMCacheGetOrSet('maxPlatToggle').textContent = i18next.t(
         'toggles.maxPlatOff'
       )
-      DOMCacheGetOrSet('maxPlatToggle').style.color = 'white'
+      DOMCacheGetOrSet('maxPlatToggle').style.color = 'var(--white-color)'
     }
     if (player.autoAscend) {
       DOMCacheGetOrSet('ascensionAutoEnable').textContent = i18next.t(
         'corruptions.autoAscend.on'
       )
-      DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid green'
+      DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid var(--green-color)'
     } else {
       DOMCacheGetOrSet('ascensionAutoEnable').textContent = i18next.t(
         'corruptions.autoAscend.off'
       )
-      DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid red'
+      DOMCacheGetOrSet('ascensionAutoEnable').style.border = '2px solid var(--red-color)'
     }
     if (player.shopConfirmationToggle) {
       DOMCacheGetOrSet('toggleConfirmShop').textContent = i18next.t(
@@ -1941,7 +1941,7 @@ const loadSynergy = (saveString: string): boolean => {
       ? i18next.t('history.perSecondOn')
       : i18next.t('history.perSecondOff')
 
-    DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = player.historyShowPerSecond ? 'green' : 'red'
+    DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = player.historyShowPerSecond ? 'var(--green-color)' : 'var(--red-color)'
 
     // If roomba auto research is enabled and runing; Make sure there is something to try to research if possible
     if (
@@ -1964,17 +1964,17 @@ const loadSynergy = (saveString: string): boolean => {
     }
 
     if (player.autoSacrificeToggle && player.autoSacrifice > 0) {
-      DOMCacheGetOrSet(`${indexToRune[player.autoSacrifice]}Rune`).style.backgroundColor = 'orange'
+      DOMCacheGetOrSet(`${indexToRune[player.autoSacrifice]}Rune`).style.backgroundColor = 'var(--orange-background-color)'
     }
 
     if (player.autoWarpCheck) {
       DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
-      DOMCacheGetOrSet('warpAuto').style.border = '2px solid green'
+      DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--green-color)'
     } else {
       DOMCacheGetOrSet('warpAuto').textContent = i18next.t(
         'general.autoOffColon'
       )
-      DOMCacheGetOrSet('warpAuto').style.border = '2px solid red'
+      DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--red-color)'
     }
     if (player.highestSingularityCount > 0) {
       DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t(
@@ -1988,7 +1988,7 @@ const loadSynergy = (saveString: string): boolean => {
       ? i18next.t('general.autoOnColon')
       : i18next.t('general.autoOffColon')
     DOMCacheGetOrSet('hepteractToQuarkTradeAuto').style.border = `2px solid ${
-      player.overfluxOrbsAutoBuy ? 'green' : 'red'
+      player.overfluxOrbsAutoBuy ? 'var(--green-color)' : 'var(--red-color)'
     }`
     toggleAutoBuyOrbs(true, true)
 
@@ -4724,12 +4724,12 @@ window.addEventListener('load', async () => {
     // Add Discord RPC toggle to settings, after the delete save button
     const deleteBtn = DOMCacheGetOrSet('deleteGame')
     const toggleBtn = document.createElement('button')
-    toggleBtn.style.border = '2px solid red'
+    toggleBtn.style.border = '2px solid var(--red-color)'
     toggleBtn.textContent = 'Discord Rich Presence: OFF'
 
     getDiscordRpcEnabled().then((enabled) => {
       toggleBtn.textContent = `Discord Rich Presence: ${enabled ? 'ON' : 'OFF'}`
-      toggleBtn.style.border = `2px solid ${enabled ? 'green' : 'red'}`
+      toggleBtn.style.border = `2px solid ${enabled ? 'var(--green-color)' : 'var(--red-color)'}`
     })
 
     toggleBtn.addEventListener('click', async () => {
@@ -4737,7 +4737,7 @@ window.addEventListener('load', async () => {
       const next = !current
       await setDiscordRpcEnabled(next)
       toggleBtn.textContent = `Discord Rich Presence: ${next ? 'ON' : 'OFF'}`
-      toggleBtn.style.border = `2px solid ${next ? 'green' : 'red'}`
+      toggleBtn.style.border = `2px solid ${next ? 'var(--green-color)' : 'var(--red-color)'}`
     })
 
     deleteBtn.after(toggleBtn)
@@ -4755,7 +4755,7 @@ window.addEventListener('load', async () => {
     ]
 
     const sizeSelect = document.createElement('select')
-    sizeSelect.style.border = '2px solid cyan'
+    sizeSelect.style.border = '2px solid var(--cyan-color)'
     sizeSelect.style.margin = '4px'
 
     for (const preset of presets) {
@@ -4788,7 +4788,7 @@ window.addEventListener('load', async () => {
     zoomContainer.style.margin = '4px'
 
     const zoomLabel = document.createElement('span')
-    zoomLabel.style.color = 'white'
+    zoomLabel.style.color = 'var(--white-color)'
     zoomLabel.style.marginBottom = '4px'
 
     const updateZoomLabel = (factor: number) => {
@@ -4808,14 +4808,14 @@ window.addEventListener('load', async () => {
 
     const zoomDown = document.createElement('button')
     zoomDown.textContent = '\u2212'
-    zoomDown.style.border = '2px solid cyan'
+    zoomDown.style.border = '2px solid var(--cyan-color)'
     zoomDown.style.width = '32px'
     zoomDown.style.height = '32px'
     zoomDown.addEventListener('click', () => changeZoom(-0.05))
 
     const zoomUp = document.createElement('button')
     zoomUp.textContent = '+'
-    zoomUp.style.border = '2px solid cyan'
+    zoomUp.style.border = '2px solid var(--cyan-color)'
     zoomUp.style.width = '32px'
     zoomUp.style.height = '32px'
     zoomUp.addEventListener('click', () => changeZoom(0.05))

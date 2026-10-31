@@ -59,7 +59,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 0,
     defaultValue: 0,
-    nameColor: 'green'
+    nameColor: 'var(--green-color)'
   },
   quarks: {
     name: () => i18next.t('achievements.levelRewards.quarks.name'),
@@ -73,7 +73,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 20,
     defaultValue: 1,
-    nameColor: 'cyan'
+    nameColor: 'var(--cyan-color)'
   },
   offerings: {
     name: () => i18next.t('achievements.levelRewards.offerings.name'),
@@ -87,7 +87,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 0,
     defaultValue: 1,
-    nameColor: 'orange'
+    nameColor: 'var(--orange-color)'
   },
   obtainium: {
     name: () => i18next.t('achievements.levelRewards.obtainium.name'),
@@ -101,7 +101,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 15,
     defaultValue: 1,
-    nameColor: 'pink'
+    nameColor: 'var(--pink-color)'
   },
   ants: {
     name: () => i18next.t('achievements.levelRewards.ants.name'),
@@ -120,7 +120,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 60,
     defaultValue: 1,
-    nameColor: 'burlywood'
+    nameColor: 'var(--burlywood-color)'
   },
   wowCubes: {
     name: () => i18next.t('achievements.levelRewards.wowCubes.name'),
@@ -134,7 +134,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 70,
     defaultValue: 1,
-    nameColor: 'lightgrey'
+    nameColor: 'var(--lightgrey-color)'
   },
   wowTesseracts: {
     name: () => i18next.t('achievements.levelRewards.wowTesseracts.name'),
@@ -148,7 +148,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 90,
     defaultValue: 1,
-    nameColor: 'orchid'
+    nameColor: 'var(--orchid-color)'
   },
   wowHyperCubes: {
     name: () => i18next.t('achievements.levelRewards.wowHyperCubes.name'),
@@ -162,7 +162,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 110,
     defaultValue: 1,
-    nameColor: 'crimson'
+    nameColor: 'var(--crimson-color)'
   },
   wowPlatonicCubes: {
     name: () => i18next.t('achievements.levelRewards.wowPlatonicCubes.name'),
@@ -176,7 +176,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 140,
     defaultValue: 1,
-    nameColor: 'lightgoldenrodyellow'
+    nameColor: 'var(--lightgoldenrodyellow-color)'
   },
   wowHepteractCubes: {
     name: () => i18next.t('achievements.levelRewards.wowHepteractCubes.name'),
@@ -190,7 +190,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 170,
     defaultValue: 1,
-    nameColor: 'mediumpurple'
+    nameColor: 'var(--mediumpurple-color)'
   },
   wowOcteracts: {
     name: () => i18next.t('achievements.levelRewards.wowOcteracts.name'),
@@ -204,7 +204,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 210,
     defaultValue: 1,
-    nameColor: 'turquoise'
+    nameColor: 'var(--turquoise-color)'
   },
   ambrosiaLuck: {
     name: () => i18next.t('achievements.levelRewards.ambrosiaLuck.name'),
@@ -218,7 +218,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 230,
     defaultValue: 0,
-    nameColor: 'lime'
+    nameColor: 'var(--lime-color)'
   },
   redAmbrosiaLuck: {
     name: () => i18next.t('achievements.levelRewards.redAmbrosiaLuck.name'),
@@ -232,7 +232,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 260,
     defaultValue: 0,
-    nameColor: 'red'
+    nameColor: 'var(--red-color)'
   },
   redAmbrosiaGeneration: {
     name: () => i18next.t('achievements.levelRewards.redAmbrosiaGeneration.name'),
@@ -246,7 +246,7 @@ export const synergismLevelRewards: Record<SynergismLevelReward, SynergismLevelR
     },
     minLevel: 280,
     defaultValue: 1,
-    nameColor: 'red'
+    nameColor: 'var(--red-color)'
   },
   purpleHoneyLuck: {
     name: () => i18next.t('achievements.levelRewards.purpleHoneyLuck.name'),
@@ -771,7 +771,7 @@ const getLevelMilestoneDescription = (milestone: SynergismLevelMilestones) => {
       count: levelReq - achievementLevel
     })
 
-    return `<span style="color:lightblue">${name}</span><br>
+    return `<span style="color:var(--lightblue-color)">${name}</span><br>
     ${minimumLevel}<br>
     ${levelsUntilUnlock}`
   }
@@ -779,7 +779,7 @@ const getLevelMilestoneDescription = (milestone: SynergismLevelMilestones) => {
   const description = synergismLevelMilestones[milestone].description()
   const effectDesc = synergismLevelMilestones[milestone].effectDescription()
 
-  return `<span style="color:lightblue">${name}</span><br>
+  return `<span style="color:var(--lightblue-color)">${name}</span><br>
   ${minimumLevel}<br>
   ${description}<br>
   ${effectDesc}`
@@ -800,7 +800,7 @@ export const generateLevelMilestoneHTMLS = memoize(() => {
     img.style.cursor = 'pointer'
     img.tabIndex = 0
 
-    registerLevelDetailsModal(img, getLevelMilestoneDescription.bind(null, milestone), 'lightblue', 'lightblue')
+    registerLevelDetailsModal(img, getLevelMilestoneDescription.bind(null, milestone), 'var(--lightblue-color)', 'var(--lightblue-color)')
     div.appendChild(img)
     rewardTable.appendChild(div)
   }
