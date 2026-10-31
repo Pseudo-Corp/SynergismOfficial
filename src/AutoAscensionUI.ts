@@ -28,6 +28,7 @@ import {
   loadoutOps,
   type LoadoutWrite,
   maxComparisonsPerExpr,
+  maxedChallenges,
   maxRuleNameLength,
   normalizeExpr,
   type NumberRuleKey,
@@ -146,6 +147,8 @@ const loadoutSlotOptions = (slots: number[]) => slots.map((slot) => ({ value: sl
 const ambrosiaLoadoutName = (slot: number) => i18next.t(`${uiKey}.ambrosiaLoadoutSlot`, { slot })
 const completionName = (challenge: number) =>
   `${challengeName(challenge)} ${i18next.t(`${uiKey}.${challenge === 15 ? 'challengeScore' : 'challengeCompletions'}`)}`
+const numberedChallengeName = (challenge: number) => `(${challenge}) ${challengeName(challenge)}`
+const maxedName = (challenge: number) => `${challengeName(challenge)} ${i18next.t(`${uiKey}.challengeMaxed`)}`
 const cubeStallName = (cube: CubeRateKey) => i18next.t(`${uiKey}.cubeStall.${cube}`)
 const gameStageName = (stage: number) => `${stage}: ${gameStages()[stage]?.name ?? ''}`
 
@@ -284,6 +287,9 @@ const defaultCondition = (key: VariableKey): AutoAscendCondition => {
   if (key === 'cc') {
     return { rule: key, challenge: 10, op: '>=', value: 0 }
   }
+  if (key === 'mc') {
+    return { rule: key, challenge: 10, value: true }
+  }
   if (key === 'stall') {
     return { rule: key, cube: cubeRateKeys[0], tolerance: 0, op: '>=', value: 30 }
   }
@@ -359,6 +365,10 @@ const describeCondition = (condition: AutoAscendCondition) => {
     return `${completionName(condition.challenge)} ${comparatorSymbols[condition.op]} ${
       format(condition.value, 2, true)
     }`
+  }
+  if (condition.rule === 'mc') {
+    const name = maxedName(condition.challenge)
+    return condition.value ? name : `${i18next.t(`${uiKey}.not`)} ${name}`
   }
   if (condition.rule === 'stall') {
     const tolerance = condition.tolerance === 0
@@ -460,6 +470,15 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
         updatePreview()
       }
     )
+  const booleanSelect = (target: { value: boolean }) =>
+    createSelect(
+      [{ value: 'true', label: i18next.t(`${uiKey}.is`) }, { value: 'false', label: i18next.t(`${uiKey}.isNot`) }],
+      target.value ? 'true' : 'false',
+      (value) => {
+        target.value = value === 'true'
+        updatePreview()
+      }
+    )
 
   if (condition.rule === 'exalt') {
     row.append(createSelect(
@@ -510,6 +529,18 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
         condition.value = value
       })
     )
+  } else if (condition.rule === 'mc') {
+    row.append(
+      createSelect(
+        maxedChallenges.map((challenge) => ({ value: challenge, label: numberedChallengeName(challenge) })),
+        condition.challenge,
+        (challenge) => {
+          condition.challenge = challenge
+          updatePreview()
+        }
+      ),
+      booleanSelect(condition)
+    )
   } else if (condition.rule === 'stall') {
     row.append(
       createSelect(
@@ -549,14 +580,7 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
       })
     )
   } else {
-    row.append(createSelect(
-      [{ value: 'true', label: i18next.t(`${uiKey}.is`) }, { value: 'false', label: i18next.t(`${uiKey}.isNot`) }],
-      condition.value ? 'true' : 'false',
-      (value) => {
-        condition.value = value === 'true'
-        updatePreview()
-      }
-    ))
+    row.append(booleanSelect(condition))
   }
 
   const remove = createButton('×', () => {
