@@ -700,7 +700,9 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
     format(upgrade.level, 0, true)
   }${maxLevel}</span>`
   const descriptionSpan = `<span style="color: var(--lightblue-color)">${upgrade.description()}</span>`
-  const rewardDescSpan = `<span style="color: var(--gold-color)">${getRedAmbrosiaUpgradeEffectsDescription(upgradeKey)}</span>`
+  const rewardDescSpan = `<span style="color: var(--gold-color)">${
+    getRedAmbrosiaUpgradeEffectsDescription(upgradeKey)
+  }</span>`
 
   const costNextLevelSpan = i18next.t('redAmbrosia.redAmbrosiaCost', {
     amount: format(costNextLevel, 0, true)

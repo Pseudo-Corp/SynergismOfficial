@@ -1369,7 +1369,9 @@ export const upgradeOcteractToString = (upgradeKey: OcteractUpgrades): string =>
     ? `<span style="color: var(--plum-color)"> ${i18next.t('general.maxed')}</span>`
     : isAffordable
     ? `<span style="color: var(--green-text-color)"> ${i18next.t('general.affordable')}</span>`
-    : `<span style="color: var(--yellow-color)"> ${i18next.t('octeract.toString.becomeAffordable', { n: affordTime })}</span>`
+    : `<span style="color: var(--yellow-color)"> ${
+      i18next.t('octeract.toString.becomeAffordable', { n: affordTime })
+    }</span>`
 
   const totalLevels = actualOcteractUpgradeTotalLevels(upgradeKey)
   const effectHTML = `<span style="color: var(--gold-color)">${upgrade.effectDescription(totalLevels)}</span>`

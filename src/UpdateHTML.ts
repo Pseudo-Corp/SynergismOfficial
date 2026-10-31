@@ -621,20 +621,26 @@ export const buttoncolorchange = () => {
     : ''
 
   DOMCacheGetOrSet('transcendbtn').style.backgroundColor =
-    player.toggles[21] && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0) ? 'var(--green-background-color)' : ''
+    player.toggles[21] && player.upgrades[89] > 0.5 && (player.currentChallenge.transcension === 0)
+      ? 'var(--green-background-color)'
+      : ''
 
   DOMCacheGetOrSet('reincarnatebtn').style.backgroundColor = player.toggles[27] && player.researches[46] > 0.5
       && (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0)
     ? 'var(--green-background-color)'
     : ''
 
-  DOMCacheGetOrSet('challengebtn').style.backgroundColor = player.currentChallenge.transcension === 0 ? '' : 'var(--purple-background-color)'
+  DOMCacheGetOrSet('challengebtn').style.backgroundColor = player.currentChallenge.transcension === 0
+    ? ''
+    : 'var(--purple-background-color)'
 
   DOMCacheGetOrSet('reincarnatechallengebtn').style.backgroundColor = player.currentChallenge.reincarnation === 0
     ? ''
     : 'var(--purple-background-color)'
 
-  DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = player.currentChallenge.ascension === 0 ? '' : 'var(--purple-background-color)'
+  DOMCacheGetOrSet('ascendChallengeBtn').style.backgroundColor = player.currentChallenge.ascension === 0
+    ? ''
+    : 'var(--purple-background-color)'
 
   DOMCacheGetOrSet('ascendbtn').style.backgroundColor = isAutoAscendRunning() ? 'var(--green-background-color)' : ''
 

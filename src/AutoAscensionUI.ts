@@ -946,7 +946,14 @@ const registerRuleModal = (element: HTMLElement, rule: AutoAscendRule, index: nu
   if (isMobile) {
     element.addEventListener('click', (event) => {
       event.stopPropagation()
-      Modal(html, event.clientX, event.clientY, { borderColor: 'var(--orange-color)' }, MEDIUM_MODAL_UPDATE_TICK, element)
+      Modal(
+        html,
+        event.clientX,
+        event.clientY,
+        { borderColor: 'var(--orange-color)' },
+        MEDIUM_MODAL_UPDATE_TICK,
+        element
+      )
     })
     return
   }

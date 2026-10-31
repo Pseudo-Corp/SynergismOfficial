@@ -15,7 +15,8 @@ import type { AntUpgrades } from '../../AntUpgrades/structs/structs'
 export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
   const upgradeData = antUpgradeData[antUpgrade]
   const nameHTML = `<span style="font-size: 1.2em;" class="titleTextFont">${upgradeData.name()}</span>`
-  const introHTML = `<i><span class="titleTextFont" style="color: var(--lightgray-color)">${upgradeData.intro()}</span></i>`
+  const introHTML =
+    `<i><span class="titleTextFont" style="color: var(--lightgray-color)">${upgradeData.intro()}</span></i>`
 
   const freeLevels = computeFreeAntUpgradeLevels()
   const levelHTML = `<span class="crimsonText">${
@@ -38,7 +39,9 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
 
   let exemptHTML = ''
   if (upgradeData.exemptFromCorruption) {
-    exemptHTML = `<br><span style="color: var(--hex-00ddff-color)">${i18next.t('ants.upgrades.ignoreCorruption')}</span>`
+    exemptHTML = `<br><span style="color: var(--hex-00ddff-color)">${
+      i18next.t('ants.upgrades.ignoreCorruption')
+    }</span>`
   }
   const effectiveLevelHTML = `<span><b>${
     i18next.t('ants.effectiveLevel', { level: format(calculateTrueAntLevel(antUpgrade), 2, true) })
@@ -74,7 +77,9 @@ export const antUpgradeHTML = (antUpgrade: AntUpgrades) => {
   } else if (upgradeData.minimumResetTier === AntSacrificeTiers.ascension) {
     resetHTML = `<span style="color: var(--orange-color)">${i18next.t('ants.upgrades.ascensionReset')}</span>`
   } else {
-    resetHTML = `<span style="color: var(--lightgoldenrodyellow-color)">${i18next.t('ants.upgrades.singularityReset')}</span>`
+    resetHTML = `<span style="color: var(--lightgoldenrodyellow-color)">${
+      i18next.t('ants.upgrades.singularityReset')
+    }</span>`
   }
 
   return `${nameHTML}<br>${introHTML}<br><br>

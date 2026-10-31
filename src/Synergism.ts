@@ -1838,7 +1838,9 @@ const loadSynergy = (saveString: string): boolean => {
     const autoSacrificeLabel = DOMCacheGetOrSet('toggleAutoSacrificeText')
     autoSacrificeLabel.setAttribute('i18n', autoSacrificeI18nKey)
     autoSacrificeLabel.textContent = i18next.t(autoSacrificeI18nKey)
-    autoSacrificeToggle.style.border = `2px solid ${player.autoSacrificeToggle ? 'var(--green-color)' : 'var(--red-color)'}`
+    autoSacrificeToggle.style.border = `2px solid ${
+      player.autoSacrificeToggle ? 'var(--green-color)' : 'var(--red-color)'
+    }`
     if (player.autoBuyFragment) {
       DOMCacheGetOrSet('toggleautoBuyFragments').textContent = i18next.t(
         'runes.talismans.autoBuyOn'
@@ -1941,7 +1943,9 @@ const loadSynergy = (saveString: string): boolean => {
       ? i18next.t('history.perSecondOn')
       : i18next.t('history.perSecondOff')
 
-    DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = player.historyShowPerSecond ? 'var(--green-color)' : 'var(--red-color)'
+    DOMCacheGetOrSet('historyTogglePerSecondButton').style.borderColor = player.historyShowPerSecond
+      ? 'var(--green-color)'
+      : 'var(--red-color)'
 
     // If roomba auto research is enabled and runing; Make sure there is something to try to research if possible
     if (
@@ -1964,7 +1968,8 @@ const loadSynergy = (saveString: string): boolean => {
     }
 
     if (player.autoSacrificeToggle && player.autoSacrifice > 0) {
-      DOMCacheGetOrSet(`${indexToRune[player.autoSacrifice]}Rune`).style.backgroundColor = 'var(--orange-background-color)'
+      DOMCacheGetOrSet(`${indexToRune[player.autoSacrifice]}Rune`).style.backgroundColor =
+        'var(--orange-background-color)'
     }
 
     if (player.autoWarpCheck) {

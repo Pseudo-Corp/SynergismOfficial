@@ -1126,7 +1126,9 @@ export const talismanRarityInfo = (t: TalismanKeys): void => {
   </span>
   </span>`
 
-  const epic = `<span style="color: var(--plum-color)">${i18next.t('runes.talismans.rarityInfo.epic')} <span class="rarityReqNum">
+  const epic = `<span style="color: var(--plum-color)">${
+    i18next.t('runes.talismans.rarityInfo.epic')
+  } <span class="rarityReqNum">
   ${rarity === 4 ? '▶ ' : ''}
   ${
     i18next.t('runes.talismans.rarityInfo.levelReq', {

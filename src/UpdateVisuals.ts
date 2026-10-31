@@ -553,7 +553,9 @@ export const visualUpdateBuildings = () => {
     }
 
     const acceleratorElement = DOMCacheGetOrSet('buildtext11')
-    acceleratorElement.style.color = player.acceleratorBought > getAccelMultScalingThreshold('accelerator') ? 'var(--red-color)' : ''
+    acceleratorElement.style.color = player.acceleratorBought > getAccelMultScalingThreshold('accelerator')
+      ? 'var(--red-color)'
+      : ''
     const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
     acceleratorElement.innerHTML = i18next.t(
       'buildings.names.accelerators',
@@ -573,7 +575,9 @@ export const visualUpdateBuildings = () => {
     )
 
     const multiplierElement = DOMCacheGetOrSet('buildtext13')
-    multiplierElement.style.color = player.multiplierBought > getAccelMultScalingThreshold('multiplier') ? 'var(--red-color)' : ''
+    multiplierElement.style.color = player.multiplierBought > getAccelMultScalingThreshold('multiplier')
+      ? 'var(--red-color)'
+      : ''
     multiplierElement.innerHTML = i18next.t(
       'buildings.names.multipliers',
       {

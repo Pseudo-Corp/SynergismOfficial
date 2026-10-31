@@ -202,7 +202,9 @@ export const toggleShops = (toggle?: upgradeAutos) => {
   // toggle provided: we do not want to update every button
   if (toggle) {
     player.shoptoggles[toggle] = !player.shoptoggles[toggle]
-    DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle] ? 'var(--green-color)' : 'var(--red-color)'
+    DOMCacheGetOrSet(`${toggle}AutoUpgrade`).style.borderColor = player.shoptoggles[toggle]
+      ? 'var(--green-color)'
+      : 'var(--red-color)'
 
     if (player.shoptoggles[toggle]) {
       DOMCacheGetOrSet(`${toggle}AutoUpgrade`).textContent = i18next.t('general.autoOnColon')
@@ -411,7 +413,9 @@ export const toggleAutoSacrifice = (index: number) => {
     }
   }
   for (let i = 1; i <= G.MAX_AUTO_SACRIFICE_RUNE; i++) {
-    DOMCacheGetOrSet(`${indexToRune[i]}Rune`).style.backgroundColor = player.autoSacrifice === i ? 'var(--orange-background-color)' : ''
+    DOMCacheGetOrSet(`${indexToRune[i]}Rune`).style.backgroundColor = player.autoSacrifice === i
+      ? 'var(--orange-background-color)'
+      : ''
   }
 }
 

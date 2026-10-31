@@ -3796,7 +3796,9 @@ const createGroupedAchievementDescription = (group: AchievementGroups) => {
         const rewardValue = achRewards[rewardGroup]()
 
         if (typeof rewardValue === 'boolean') {
-          extraBonuses += `<span style="color:${hasAch ? 'var(--green-color)' : 'var(--crimson-color)'}">Tier ${currTier + 1} • ${
+          extraBonuses += `<span style="color:${hasAch ? 'var(--green-color)' : 'var(--crimson-color)'}">Tier ${
+            currTier + 1
+          } • ${
             i18next.t(`achievements.achievementRewards.${index}.${rewardGroup}`, {
               unlock: hasAch
                 ? i18next.t('achievements.rewardTypes.unlocked')
@@ -3805,9 +3807,9 @@ const createGroupedAchievementDescription = (group: AchievementGroups) => {
           }</span><br>`
         }
         if (typeof rewardValue === 'number') {
-          extraBonuses += `<span style="color:${achTier - currTier === 1 ? 'var(--green-color)' : 'var(--crimson-color)'}">Tier ${
-            currTier + 1
-          } • ${
+          extraBonuses += `<span style="color:${
+            achTier - currTier === 1 ? 'var(--green-color)' : 'var(--crimson-color)'
+          }">Tier ${currTier + 1} • ${
             i18next.t(`achievements.achievementRewards.${index}.${rewardGroup}`, {
               val: format(rewardFunction(), 3, false)
             })

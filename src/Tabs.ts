@@ -997,11 +997,21 @@ export const tabRow = new TabRow()
 document.getElementsByClassName('navbar').item(0)?.appendChild(tabRow)
 
 tabRow.appendButton(
-  new $Tab({ id: 'buildingstab', i18n: 'tabs.main.buildings', mobileIcon: 'Buildings.png', activeColor: 'var(--orange-background-color)' })
+  new $Tab({
+    id: 'buildingstab',
+    i18n: 'tabs.main.buildings',
+    mobileIcon: 'Buildings.png',
+    activeColor: 'var(--orange-background-color)'
+  })
     .setType(Tabs.Buildings)
     .makeDraggable()
     .makeRemoveable(),
-  new $Tab({ id: 'upgradestab', i18n: 'tabs.main.upgrades', mobileIcon: 'Upgrades.png', activeColor: 'var(--orange-background-color)' })
+  new $Tab({
+    id: 'upgradestab',
+    i18n: 'tabs.main.upgrades',
+    mobileIcon: 'Upgrades.png',
+    activeColor: 'var(--orange-background-color)'
+  })
     .setType(Tabs.Upgrades)
     .makeDraggable()
     .makeRemoveable(),

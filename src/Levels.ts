@@ -800,7 +800,12 @@ export const generateLevelMilestoneHTMLS = memoize(() => {
     img.style.cursor = 'pointer'
     img.tabIndex = 0
 
-    registerLevelDetailsModal(img, getLevelMilestoneDescription.bind(null, milestone), 'var(--lightblue-color)', 'var(--lightblue-color)')
+    registerLevelDetailsModal(
+      img,
+      getLevelMilestoneDescription.bind(null, milestone),
+      'var(--lightblue-color)',
+      'var(--lightblue-color)'
+    )
     div.appendChild(img)
     rewardTable.appendChild(div)
   }
