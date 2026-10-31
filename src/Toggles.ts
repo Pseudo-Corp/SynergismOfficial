@@ -107,7 +107,11 @@ export const toggleSettings = (toggle: HTMLElement) => {
   updateBuildingAutomationButtons()
 }
 
-export const toggleChallenges = (i: number, auto = false) => {
+export const toggleChallenges = (
+  i: number,
+  auto = false,
+  leftAscensionChallenge = player.currentChallenge.ascension
+) => {
   if (i >= 0 && i <= 5) {
     reset('transcensionChallenge', false, 'enterChallenge')
     applyChallengeInitialModifiers('transcensionChallenge', i)
@@ -143,12 +147,12 @@ export const toggleChallenges = (i: number, auto = false) => {
     if (!auto && player.toggles[31]) {
       Confirm(i18next.t('main.ascendPrompt')).then((r) => {
         if (r) {
-          return toggleChallenges(i, true)
+          return toggleChallenges(i, true, leftAscensionChallenge)
         }
       })
       return
     } else {
-      reset('ascensionChallenge', false, 'enterChallenge')
+      reset('ascensionChallenge', false, 'enterChallenge', leftAscensionChallenge)
       applyChallengeInitialModifiers('ascensionChallenge', i)
       player.currentChallenge.ascension = i
     }

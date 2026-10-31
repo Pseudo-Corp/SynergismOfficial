@@ -73,6 +73,7 @@ type LegacyCorruptionTierState = {
 }
 
 export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
+  realSeconds?: number
   c10Completions: number
   usedCorruptions: LegacyCorruptions | number[] | LegacyCorruptionTierState | number
   corruptionScore?: number
@@ -82,6 +83,8 @@ export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
   wowPlatonicCubes: number
   wowHepteracts: number
   currentChallenge?: number
+  challengeCompletions?: number
+  challenge15Score?: number
   kind: 'ascend'
 }
 
@@ -476,7 +479,12 @@ const resetHistoryRenderRow = (
     extra.push(
       `<img alt="C10" src="Pictures/${
         IconSets[player.iconSet][0]
-      }/TinyChallenge10.png" title="Challenge 10 completions">${data.c10Completions}`
+      }/TinyChallenge10.png" title="Challenge 10 completions">${data.c10Completions}`,
+      data.realSeconds === undefined
+        ? ''
+        : `<span title="${i18next.t('history.realTimeTitle')}">${
+          i18next.t('history.realTime', { time: formatTimeShort(data.realSeconds, 60) })
+        }</span>`
     )
 
     const corruptions = resetHistoryFormatCorruptions(data)
@@ -503,7 +511,7 @@ const resetHistoryRenderRow = (
   rowContentHtml += extra.reduce((acc, value) => {
     return `${acc}<td class="history-extra">${value}</td>`
   }, '')
-  rowContentHtml += `<td class="history-filler" colspan="${4 - extra.length}"></td>`
+  rowContentHtml += `<td class="history-filler" colspan="${5 - extra.length}"></td>`
 
   row.innerHTML = rowContentHtml
   return row
@@ -580,6 +588,28 @@ const resetHistoryFormatLegacyCorruptions = (usedCorruptions: LegacyCorruptions 
   return corruptions
 }
 
+const resetHistoryFormatChallenge = (
+  { currentChallenge, challengeCompletions, challenge15Score }: ResetHistoryEntryAscend
+) => {
+  if (currentChallenge === undefined) {
+    return ''
+  }
+  if (challenge15Score !== undefined) {
+    return `<span title="${i18next.t('history.challenge15ScoreTitle')}">${
+      i18next.t('history.challenge15Score', { score: format(challenge15Score, 2) })
+    }</span>`
+  }
+  if (challengeCompletions !== undefined) {
+    return `<span title="${i18next.t('history.challengeCompletionsTitle', { challenge: currentChallenge })}">${
+      i18next.t('history.challengeCompletions', {
+        challenge: currentChallenge,
+        completions: format(challengeCompletions)
+      })
+    }</span>`
+  }
+  return i18next.t('history.challenge', { challenge: currentChallenge })
+}
+
 // Helper function to format the corruption display in the ascension table.
 const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, string, string] => {
   let corruptions = ''
@@ -602,7 +632,7 @@ const resetHistoryFormatCorruptions = (data: ResetHistoryEntryAscend): [string, 
     corruptions = resetHistoryFormatLegacyCorruptions(data.usedCorruptions)
   }
 
-  const challenge = data.currentChallenge === undefined ? '' : `C${data.currentChallenge}`
+  const challenge = resetHistoryFormatChallenge(data)
 
   return [challenge, corruptions, loadout]
 }

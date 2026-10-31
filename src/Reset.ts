@@ -28,7 +28,12 @@ import {
   calculatePowderConversion
 } from './Calculate'
 import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateTokens } from './Campaign'
-import { applyStartingChallengeCompletions, challengeRequirement, resetChallengeSweep } from './Challenges'
+import {
+  applyStartingChallengeCompletions,
+  calculateChallenge15Score,
+  challengeRequirement,
+  resetChallengeSweep
+} from './Challenges'
 import {
   ascensionCorruptionLevel,
   clearCorruptionLevel,
@@ -313,7 +318,7 @@ export const updateAutoCubesOpens = (i: number) => {
   }
 }
 
-const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
+const resetAddHistoryEntry = (input: resetNames, from: string, ascensionChallenge: number) => {
   const offeringsGiven = calculateOfferings()
   const obtainiumGiven = calculateObtainium()
   const isChallenge = ['enterChallenge', 'leaveChallenge'].includes(from)
@@ -361,6 +366,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
       const corruptionMetaData = CalcCorruptionStuff()
       const historyEntry: ResetHistoryEntryAscend = {
         seconds: player.ascensionCounter,
+        realSeconds: player.ascensionCounterRealReal,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
         usedCorruptions: ascensionCorruptionLevel(),
@@ -373,8 +379,12 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
       }
 
       // If we are _leaving_ an ascension challenge, log that too.
-      if (from !== 'enterChallenge' && player.currentChallenge.ascension !== 0) {
-        historyEntry.currentChallenge = player.currentChallenge.ascension
+      if (ascensionChallenge === 15) {
+        historyEntry.currentChallenge = ascensionChallenge
+        historyEntry.challenge15Score = calculateChallenge15Score()
+      } else if (ascensionChallenge !== 0) {
+        historyEntry.currentChallenge = ascensionChallenge
+        historyEntry.challengeCompletions = player.challengecompletions[ascensionChallenge]
       }
 
       resetHistoryAdd('ascend', historyEntry)
@@ -424,9 +434,14 @@ export const updateReincarnationCount = (count: number) => {
   }
 }
 
-export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
+export const reset = (
+  input: resetNames,
+  _fast = false,
+  from = 'unknown',
+  ascensionChallenge = player.currentChallenge.ascension
+) => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
-  resetAddHistoryEntry(input, from)
+  resetAddHistoryEntry(input, from, ascensionChallenge)
 
   const prestigePointGain = calculatePrestigePointGain()
   const transcendPointGain = calculateTranscendPointGain()
