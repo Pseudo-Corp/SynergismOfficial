@@ -1,6 +1,7 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { isLoggedIn } from './Login'
+import { checkServerDate, guardPoll } from './PollGuard'
 import { Announcement } from './UpdateHTML'
 import { memoize } from './Utility'
 
@@ -41,6 +42,8 @@ const fetchMessages = async (url: string): Promise<Message[]> => {
     const response = await fetch(url, {
       credentials: 'include'
     })
+
+    checkServerDate(response)
 
     if (!response.ok) {
       console.warn('Failed to fetch messages:', response.statusText)
@@ -319,5 +322,10 @@ const checkAnnouncements = async () => {
 
 export const initializeAnnouncements = memoize(() => {
   checkAnnouncements().catch(console.error)
-  setInterval(() => checkAnnouncements().catch(console.error), ANNOUNCEMENT_POLL_INTERVAL)
+  setInterval(
+    guardPoll(() => {
+      checkAnnouncements().catch(console.error)
+    }, ANNOUNCEMENT_POLL_INTERVAL),
+    ANNOUNCEMENT_POLL_INTERVAL
+  )
 })

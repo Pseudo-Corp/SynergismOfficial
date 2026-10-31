@@ -11,6 +11,21 @@ import { xsollaHandlers } from './handlers/XsollaHandlers'
 import { messages } from './util/messages'
 import { createConsumeHandlers } from './websocket'
 
+const fetchWithoutDate = window.fetch.bind(window)
+
+window.fetch = async (input, init) => {
+  const response = await fetchWithoutDate(input, init)
+
+  if (response.redirected || response.headers.has('date')) {
+    return response
+  }
+
+  const headers = new Headers(response.headers)
+  headers.set('date', new Date().toUTCString())
+
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers })
+}
+
 interface PseudoCoinUpgrade {
   upgradeId: number
   maxLevel: number

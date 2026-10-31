@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
+import { pollsStopped } from './PollGuard'
 import { refreshQuarkBonus } from './Quark'
 import { getGQUpgradeEffect } from './singularity'
 import { getTimePinnedToLoadDate, player } from './Synergism'
@@ -101,6 +102,23 @@ export const eventPageMessageHandler = async (event: MessageEvent<{ type?: strin
   }
 }
 
+const syncEventState = () => {
+  renderEventPages()
+
+  const updateIsEventCheck = G.isEvent
+
+  updateGlobalsIsEvent()
+
+  if (G.isEvent !== updateIsEventCheck) {
+    revealStuff()
+  }
+}
+
+export const clearEvent = () => {
+  nowEvent = null
+  syncEventState()
+}
+
 export const eventCheck = async () => {
   if (!player.dayCheck) {
     return
@@ -117,19 +135,11 @@ export const eventCheck = async () => {
   nowEvent = null
 
   const now = new Date(getTimePinnedToLoadDate()).getTime()
-  if (now >= apiEvents.start && now <= apiEvents.end && apiEvents.name.length) {
+  if (!pollsStopped && now >= apiEvents.start && now <= apiEvents.end && apiEvents.name.length) {
     nowEvent = apiEvents
   }
 
-  renderEventPages()
-
-  const updateIsEventCheck = G.isEvent
-
-  updateGlobalsIsEvent()
-
-  if (G.isEvent !== updateIsEventCheck) {
-    revealStuff()
-  }
+  syncEventState()
 }
 
 export const eventBuffType: (keyof typeof BuffType)[] = [

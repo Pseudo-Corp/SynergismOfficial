@@ -12,10 +12,11 @@ import {
   calculateRedAmbrosiaGenerationSpeed
 } from './Calculate'
 import { isSynergismCC } from './Config'
-import { updateGlobalsIsEvent } from './Event'
+import { clearEvent, updateGlobalsIsEvent } from './Event'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
+import { checkServerDate, guardPoll, pollsStopped } from './PollGuard'
 import { updateBellButton, updateLotusDisplay } from './purchases/ConsumablesTab'
 import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
@@ -741,6 +742,12 @@ async function handleWebSocket () {
     return
   }
 
+  if (pollsStopped) {
+    resetWebSocket()
+    clearEvent()
+    return
+  }
+
   const url = 'wss://synergism.cc/consumables/connect'
 
   if (PLATFORM === 'mobile') {
@@ -793,7 +800,9 @@ async function handleWebSocket () {
 
     interval = setInterval(
       (ws_: WebSocket) => {
-        ws_.send('ping')
+        if (!pollsStopped) {
+          ws_.send('ping')
+        }
       },
       30_000,
       ws
@@ -1289,6 +1298,8 @@ async function decodeSave (save: string) {
   return final
 }
 
+const autoUploadInterval = 1000 * 60 * 60
+
 const initializeCloudSaves = memoize(() => {
   const subtabElement = document.querySelector('#accountSubTab div#right.scrollbarX')!
   const table = subtabElement.querySelector('#table > #dataGrid')!
@@ -1681,31 +1692,36 @@ const initializeCloudSaves = memoize(() => {
     })
   })
 
-  setInterval(async () => {
-    // Skip brand new saves
-    if (!loggedIn || achievementLevel <= 1) return
+  setInterval(
+    guardPoll(async () => {
+      // Skip brand new saves
+      if (!loggedIn || achievementLevel <= 1) return
 
-    const fileName = '[Auto] Latest Save'
-    const latestSaveExists = cloudSaves.some((save) => save.name === fileName)
+      const fileName = '[Auto] Latest Save'
+      const latestSaveExists = cloudSaves.some((save) => save.name === fileName)
 
-    try {
-      const save = await getStoredSave()
-      if (save === null) return
+      try {
+        const save = await getStoredSave()
+        if (save === null) return
 
-      const response = await uploadSave(fileName, save)
+        const response = await uploadSave(fileName, save)
 
-      // A 400 here means no slot was available.
-      if (response.status === 400) return
+        checkServerDate(response)
 
-      if (!response.ok) {
-        throw new TypeError(`Received status ${response.status}`)
+        // A 400 here means no slot was available.
+        if (response.status === 400) return
+
+        if (!response.ok) {
+          throw new TypeError(`Received status ${response.status}`)
+        }
+
+        if (!latestSaveExists) populateTable()
+      } catch (error) {
+        console.error('Failed to automatically upload cloud save', error)
       }
-
-      if (!latestSaveExists) populateTable()
-    } catch (error) {
-      console.error('Failed to automatically upload cloud save', error)
-    }
-  }, 1000 * 60 * 60)
+    }, autoUploadInterval),
+    autoUploadInterval
+  )
 
   return populateTable
 })
