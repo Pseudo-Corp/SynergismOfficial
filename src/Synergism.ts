@@ -3224,7 +3224,8 @@ export const calculateReincarnationPointGain = () => {
 export const resetCheck = async (
   i: resetNames,
   manual = true,
-  leaving = false
+  leaving = false,
+  resetAfter = true
 ): Promise<void> => {
   if (i === 'prestige') {
     if (player.coinsThisPrestige.gte(G.d1e16) || calculatePrestigePointGain().gte(G.d100)) {
@@ -3484,7 +3485,7 @@ export const resetCheck = async (
       }
     }
 
-    if (manual || (a !== 15 && !getShopUpgradeEffects('instantChallenge2', 'unlocked'))) {
+    if (resetAfter && (manual || (a !== 15 && !getShopUpgradeEffects('instantChallenge2', 'unlocked')))) {
       reset('ascensionChallenge', false)
     }
   }

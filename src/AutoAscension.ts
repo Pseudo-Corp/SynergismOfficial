@@ -53,6 +53,12 @@ const completionIds: Record<string, number> = Object.fromEntries(
   completionChallenges.map((challenge) => [`c${challenge}`, challenge])
 )
 
+export const maxedChallenges = Array.from({ length: 14 }, (_, i) => i + 1)
+
+const maxedIds: Record<string, number> = Object.fromEntries(
+  maxedChallenges.map((challenge) => [`m${challenge}`, challenge])
+)
+
 const cubeStallIds = {
   sc: 'wowCubes',
   st: 'wowTesseracts',
@@ -147,11 +153,6 @@ const booleanRules = nullPrototype(
     tch: () => player.currentChallenge.transcension !== 0,
     rch: () => player.currentChallenge.reincarnation !== 0,
     ach: () => player.currentChallenge.ascension !== 0,
-    m10: () => player.challengecompletions[10] >= getMaxChallenges(10),
-    m11: () => player.challengecompletions[11] >= getMaxChallenges(11),
-    m12: () => player.challengecompletions[12] >= getMaxChallenges(12),
-    m13: () => player.challengecompletions[13] >= getMaxChallenges(13),
-    m14: () => player.challengecompletions[14] >= getMaxChallenges(14),
     elo: () => calculateAvailableRebornELO() < 0.001,
     x: () => player.insideSingularityChallenge
   } satisfies Record<string, () => boolean>
@@ -187,6 +188,7 @@ export const exaltKeys: SingularityChallengeDataKeys[] = Object.values(exaltIds)
 export type AutoAscendCondition =
   | { rule: NumberRuleKey; op: Comparator; value: number }
   | { rule: 'cc'; challenge: number; op: Comparator; value: number }
+  | { rule: 'mc'; challenge: number; value: boolean }
   | { rule: 'stall'; cube: CubeRateKey; tolerance: number; op: Comparator; value: number }
   | { rule: ChallengeRuleKey; op: EqualityComparator; value: number }
   | { rule: BooleanRuleKey; value: boolean }
@@ -194,6 +196,7 @@ export type AutoAscendCondition =
 
 export const ruleVariableKeys: AutoAscendCondition['rule'][] = [
   'cc',
+  'mc',
   'stall',
   ...numberRuleKeys,
   ...challengeRuleKeys,
@@ -363,6 +366,9 @@ const evaluateCondition = (c: AutoAscendCondition): boolean => {
   }
   if (c.rule === 'cc') {
     return comparators[c.op](challengeCompletionValue(c.challenge), c.value)
+  }
+  if (c.rule === 'mc') {
+    return (player.challengecompletions[c.challenge] >= getMaxChallenges(c.challenge)) === c.value
   }
   if (c.rule === 'stall') {
     return comparators[c.op](cubeRateStallSeconds(c), c.value)
@@ -582,6 +588,11 @@ export const parseRule = (text: string): AutoAscendRule => {
     if (isBooleanRule(id)) {
       i++
       return { rule: id, value: !negated }
+    }
+
+    if (Object.hasOwn(maxedIds, id)) {
+      i++
+      return { rule: 'mc', challenge: maxedIds[id], value: !negated }
     }
 
     if (!negated && isChallengeRule(id)) {
@@ -842,6 +853,9 @@ const printCondition = (condition: AutoAscendCondition): string => {
   if (condition.rule === 'cc') {
     return `c${condition.challenge}${condition.op}${condition.value}`
   }
+  if (condition.rule === 'mc') {
+    return `${condition.value ? '' : '!'}m${condition.challenge}`
+  }
   if (condition.rule === 'stall') {
     const tolerance = condition.tolerance === 0 ? '' : `@${condition.tolerance}`
     return `${cubeStallShortIds[condition.cube]}${condition.op}${condition.value}${tolerance}`
@@ -953,7 +967,7 @@ export const applyPendingAutoAscendProtocol = (challengeTenCompleted: boolean) =
 
 const ascend = () => {
   if (player.currentChallenge.ascension !== 0) {
-    void resetCheck('ascensionChallenge', false, true)
+    void resetCheck('ascensionChallenge', false, true, false)
     challengeExit('ascension')
     reset('ascensionChallenge', false)
   } else {
@@ -985,7 +999,7 @@ const enterAscensionChallenge = (challenge: AscensionChallenge | null) => {
   }
 
   if (player.currentChallenge.ascension !== 0) {
-    void resetCheck('ascensionChallenge', false, true)
+    void resetCheck('ascensionChallenge', false, true, false)
   }
   challengeExit('transcension')
   challengeExit('reincarnation')

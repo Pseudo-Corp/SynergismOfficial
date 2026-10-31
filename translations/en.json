@@ -5485,8 +5485,10 @@
           "stallToleranceLabel": "Minimum rise (%)",
           "challengeCompletions": "Completions",
           "challengeScore": "Score",
+          "challengeMaxed": "Completions maxed",
           "variables": {
             "cc": "Challenge Completions (Score for Challenge 15)",
+            "mc": "Maxed Challenge",
             "stall": "Seconds since a Cube type per second last went up",
             "t": "Ascension Time, In-game (seconds, needs a C10 completion)",
             "rt": "This Attempt, Real (seconds)",
@@ -5501,11 +5503,6 @@
             "tch": "In a Transcension Challenge",
             "rch": "In a Reincarnation Challenge",
             "ach": "In an Ascension Challenge",
-            "m10": "Challenge 10 Completions maxed",
-            "m11": "Challenge 11 Completions maxed",
-            "m12": "Challenge 12 Completions maxed",
-            "m13": "Challenge 13 Completions maxed",
-            "m14": "Challenge 14 Completions maxed",
             "elo": "Reborn ELO is saturated",
             "x": "In any EXALT",
             "exalt": "In EXALT"
