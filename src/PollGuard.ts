@@ -7,6 +7,7 @@ const probeDelayMs = 5000
 const probeMinimumElapsedMs = 4000
 const maxClockRate = 2
 const serverDateSlackMs = 30_000
+const serverDateMinWindowMs = 5 * 60 * 1000
 const strikesToStop = 3
 const pollCreditPerInterval = 4
 
@@ -70,7 +71,12 @@ export const checkServerDate = (response: Response) => {
     return
   }
 
-  const isFast = elapsedSince(lastServerClocks) > maxClockRate * (serverDate - lastServerDate) + serverDateSlackMs
+  const serverElapsed = serverDate - lastServerDate
+  const isFast = elapsedSince(lastServerClocks) > maxClockRate * serverElapsed + serverDateSlackMs
+
+  if (!isFast && serverElapsed < serverDateMinWindowMs) {
+    return
+  }
 
   serverStrikes = isFast ? serverStrikes + 1 : 0
   lastServerDate = serverDate
