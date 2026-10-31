@@ -1,7 +1,7 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { allDurableConsumables, type PseudoCoinConsumableNames } from './Login'
-import { checkServerDate, pollsStopped } from './PollGuard'
+import { pollsStopped } from './PollGuard'
 import { refreshQuarkBonus } from './Quark'
 import { getGQUpgradeEffect } from './singularity'
 import { getTimePinnedToLoadDate, player } from './Synergism'
@@ -125,8 +125,6 @@ export const eventCheck = async () => {
   }
 
   const response = await fetch('https://synergism.cc/events/get')
-
-  checkServerDate(response)
 
   if (!response.ok) {
     throw new Error('God fucking dammit')
