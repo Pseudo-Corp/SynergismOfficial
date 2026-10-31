@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateCubeQuarkMultiplier, calculateQuarkMultiplier } from './Calculate'
 import { getOcteractUpgradeEffect } from './Octeracts'
+import { checkServerDate } from './PollGuard'
 import { format, player } from './Synergism'
 
 const quarkResearches = [99, 100, 125, 180, 195]
@@ -133,6 +134,9 @@ export class QuarkHandler {
 
 export const refreshQuarkBonus = async () => {
   const response = await fetch('https://synergism.cc/api/v1/quark-bonus')
+
+  checkServerDate(response)
+
   // eslint-disable-next-line no-shadow
   const { bonus } = await response.json() as { bonus: number }
 

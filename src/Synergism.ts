@@ -200,6 +200,7 @@ import { initializeAnnouncements, initializeMessages } from './Messages'
 import { blankOcteractLevelObject, clampOcteractFreeLevelsToCaps, setOcteractUpgradeLevels } from './Octeracts'
 import { clampPlatonicUpgradeLevelsToCaps, updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
+import { guardPoll, startSpeedProbe } from './PollGuard'
 import { initializePCoinCache } from './PseudoCoinUpgrades'
 import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from './PurpleAmbrosiaUpgrades'
 import { getQuarkBonus, QuarkHandler, refreshQuarkBonus } from './Quark'
@@ -3946,6 +3947,14 @@ export const slowUpdates = (): void => {
 }
 
 const fastUpdateInterval = PLATFORM === 'mobile' ? 100 : 50
+const eventPollInterval = 1000 * 60 * 5
+const quarkBonusPollInterval = 1000 * 60 * 15
+
+const pollEvents = guardPoll(() => {
+  eventCheck().catch((error: Error) => {
+    console.error(error)
+  })
+}, eventPollInterval)
 
 export const constantIntervals = (): void => {
   // Updates are suspended during offline simulation
@@ -4541,13 +4550,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   constantIntervals()
 
   eventCheck().catch(() => {})
-  setInterval(
-    () =>
-      eventCheck().catch((error: Error) => {
-        console.error(error)
-      }),
-    1000 * 60 * 5
-  )
+  setInterval(pollEvents, eventPollInterval)
   campaignTokenRewardHTMLUpdate()
   updateAllUngroupedAchievementProgress()
   updateAllGroupedAchievementProgress()
@@ -4630,9 +4633,11 @@ window.addEventListener('load', async () => {
     onAuthLinkCode((code) => claimLink(code).catch(console.error))
   }
 
+  void startSpeedProbe()
+
   refreshQuarkBonus()
     .catch(console.error)
-    .finally(() => setInterval(() => refreshQuarkBonus(), 1000 * 60 * 15))
+    .finally(() => setInterval(guardPoll(() => refreshQuarkBonus(), quarkBonusPollInterval), quarkBonusPollInterval))
 
   const playOfflineButton = DOMCacheGetOrSet('preloadPlayOffline')
   playOfflineButton.style.display = 'block'
