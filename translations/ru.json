@@ -3869,7 +3869,7 @@
       "158": "[7x8] Dupe DUPE DUPE. +0.6% Multipliers per level.",
       "159": "[7x9] Somehow, I can't explain why, you reduce your Taxes by 2% multiplicative, based on 3/5 * log10(Rare Fragments)!",
       "160": "[7x10] Want a permanent Blessing boost? I know you do. A permanent +25% Blessing Power increase.",
-      "161": "[7x11] SIGMA KAPPA: +0.3% Rune Power each level!",
+      "161": "[7x11] SIGMA KAPPA: +num:((0.3))% к Силе Рун за уровень!",
       "162": "[7x12] Больше возведения в степень! +0.0001% больше силы Inceptus за уровень!",
       "163": "[7x13] Муравьиный Бог жаждет крови: +2% Награды за Жертвоприношение Муравьёв / уровень",
       "164": "[7x14] Духи отстой, так что давайте увеличим Мощность Духов на +8% за уровень!",
@@ -3884,7 +3884,7 @@
       "173": "[7x23] Много небольших 0.4% Множителей за уровень",
       "174": "[7x24] Эпические Фрагменты увеличивают Мощность Благословений на +10% * Log10 (Эпические фрагменты + 1)",
       "175": "[7x25] Автоматическая покупка Улучшений Константы, если они доступны! Они также больше не уменьшают вашу Константу.",
-      "176": "[8x1] Row 8 baby! +0.2% Rune Power per level.",
+      "176": "[8x1] 8-й ряд, детка! +num:((0.2))% к Силе Рун за уровень.",
       "177": "[8x2] +Log10(Крошки)% к Скорости Муравьёв за уровень. Довольно крутой бафф, не правда ли?",
       "178": "[8x3] +666 базового ЭЛО за уровень! Жуткое число дьявола.",
       "179": "[8x4] +0.04% more Offerings per level per Midas Talisman level!",
@@ -3899,7 +3899,7 @@
       "188": "[8x13] You are a DUPLICATE. +0.2% Multipliers per level",
       "189": "[8x14] Легендарные Фрагменты увеличивают Мощность Духов на +15%, умноженную на Log10 (Легендарные Фрагменты + 1)",
       "190": "[8x15] Открывает Автоматизацию для всех 5 строений Тессерактов.",
-      "191": "[8x16] +0.1% Rune Power per level. Woah!",
+      "191": "[8x16] +num:((0.1))% Сила Рун за уровень. Ого!",
       "192": "[8x17] Each purchased level of Mortuus Est (the Ant Upgrade) also increases Wow! Cube reward by +0.20%",
       "193": "[8x18] +1% к наградам за Пожертвование Муравьёв за уровень.",
       "194": "[8x19] Увеличивает Мощность Духов И Благословений на +2% за уровень.",
@@ -4541,7 +4541,7 @@
       "noMinimum": "Никакой минимальной Сингулярности для покупки не требуется",
       "costNextLevel": "Стоимость следующего уровня: {{amount}} Золотых Кварков",
       "spentGQ": "Golden Quarks Spent: {{spent}}",
-      "overclockLevels": "Max Level is increased by {{levels}} (Overclock)",
+      "overclockLevels": "Максимальный уровень увеличен на +{{levels}} уровней (Разгон)",
       "upgradeAPMaxOverclock": "You get <<gold|+{{amount}}>> AP for reaching level {{level}}! {{check}}"
     },
     "freeUpgradeInfo": {
@@ -4601,7 +4601,7 @@
       },
       "starterPack": {
         "name": "Стартовый Набор",
-        "description": "Buy this! Buy This! Cube gain is permanently multiplied by 5, and gain 6x the Obtainium and Offerings from all sources.",
+        "description": "Купи это! Купи это! Прирост Кубов навсегда умножается на 5, и вы получаете в 6 раз больше Обтаниума и Подношений из всех источников.",
         "effectHave": "You have unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings.",
         "effectHaveNot": "You have not unlocked a 5x multiplier to Cubes and 6x multiplier to Obtainium and Offerings."
       },
@@ -4670,7 +4670,7 @@
       },
       "singOfferings3": {
         "name": "Буря Подношений",
-        "description": "This bar is so pristine, it'll make anyone submit their Offerings. +4% per level, to be precise.",
+        "description": "Этот слиток настолько хорош, что любой отдаст все свои Подношения. +4% за уровень, если быть точным.",
         "effect": "Навсегда увеличивает Подношения на {{n}}%."
       },
       "singObtainium1": {
@@ -4705,7 +4705,7 @@
       },
       "singCitadel": {
         "name": "Цитадель Сингулярности",
-        "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
+        "description": "Какой уникальный структурный феномен... но он даёт +2% к Обтаниуму, Подношениям и 3-7D Кубам за уровень! +1% дополнительно за каждые 10 уровней!",
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}, forever!"
       },
       "singCitadel2": {
@@ -4731,7 +4731,7 @@
       },
       "intermediatePack": {
         "name": "Промежуточный Набор",
-        "description": "Double Global Speed, Multiply Ascension Speed by 1.5, and gain +2% Quarks forever. Yum... 2% Quark Milk.",
+        "description": "Удваивает Глобальную Скорость, Умножает скорость Вознесения на num:((1.5)), а также навсегда даёт +2% Кварков. Ммм... 2%-ое Кварковое Молоко.",
         "effectHave": "Вы улучшили свой набор до промежуточного.",
         "effectHaveNot": "Вы не улучшили свой набор до промежуточного."
       },
@@ -4783,7 +4783,7 @@
       },
       "potionBuff3": {
         "name": "Графин с Зельем Сводящей с ума Нестабильности",
-        "description": "SHE'S GONNA BLOW!!!! Said Midas, the Golden Quark Salesman.",
+        "description": "ОНА ЩАС РВАНЁТ!!!! Сказал Мидас, продавец Золотых Кварков.",
         "effect": "Зелья теперь дают {{n}}x предметов!"
       },
       "singChallengeExtension": {
@@ -4803,7 +4803,7 @@
       },
       "singQuarkImprover1": {
         "name": "Штука, Предельно Улучшающая Получение Кварков",
-        "description": "A doohickey that I forgot what it looked like. +0.5% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
+        "description": "Я забыл как выглядит эта штуковина. +num:((0.5))% Кварков за уровень, перемножаемо со всеми другими бонусами! Кажется, что цена на это растёт гораздо быстрее, чем на что-либо ещё. Кстати, вы знали, что эти описания иногда бывают сколь угодно длинными?",
         "effect": "You gain {{n}} more Quarks!"
       },
       "singQuarkHepteract": {
@@ -4992,22 +4992,22 @@
         "effect": "You own {{n}} Yellow Infinity Shop Vouchers!"
       },
       "singTalismanBonusRunes1": {
-        "name": "Talisman Buff!",
+        "name": "Усиление Талисманов!",
         "description": "Gain +1% Talisman Power per level, additive to other bonuses.",
         "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes2": {
-        "name": "Talisman Buff! The second",
+        "name": "Усиление Талисманов! Второе издание",
         "description": "Gain +1% more Talisman Power per level, additive to other bonuses.",
         "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes3": {
-        "name": "Talisman Buff! The third",
+        "name": "Усиление Талисманов! Третье издание",
         "description": "Gain +1% more Talisman Power per level again, additive to other bonuses.",
         "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
       "singTalismanBonusRunes4": {
-        "name": "Talisman Buff! The fourth",
+        "name": "Усиление Талисманов! Четвёртое издание",
         "description": "Gain +1% more Talisman Power per level again, AGAIN, additive to other bonuses. Instead of adding five upgrades, Platonic gave this one twice as many levels. Game design!",
         "effect": "{{n}} more bonus Rune Levels from Talismans!"
       },
@@ -5819,7 +5819,7 @@
       "summary": "Level {{level}}",
       "legacySummary": "Tier {{tier}}, Level {{level}}",
       "levelInput": "Corruption level for next Ascension",
-      "highestCleared": "Highest level cleared: <<gold|{{level}}>>",
+      "highestCleared": "Наивысший пройденный уровень: <<gold|{{level}}>>",
       "nextUnlock": "Complete Challenge 10 at level {{level}} to unlock level {{unlock}}.",
       "nextUnlockRange": "Вы можете подняться до {{step}} уровней за пределами вашего максимального пройденного уровня (до уровня {{level}}).",
       "requiresChallenge11": "Complete Challenge 11 to change your Corruption level.",
@@ -5852,7 +5852,7 @@
       "done": "Corruption progress has been reset."
     },
     "intro": "Самая прибыльная затея - это та, на которую немногие отважились бы пуститься.",
-    "traitInfo": "Выберите уровни характеристик, с которыми вы хотите начать. Выбирайте с умом! <<var(--red-text-color)|Не откусывайте больше, чем можете прожевать...>>",
+    "traitInfo": "Выберите Уровень Порчи, с которой вы хотите начать. Выбирайте с умом! <<var(--red-text-color)|Не откусывайте больше, чем можете прожевать...>>",
     "cubeBank": "<<goldenrod|{{value}}>>",
     "autoAscend": {
       "on": "Авто Вознесение [ON]",
@@ -6503,7 +6503,7 @@
     "hover": "Эй, наведите курсор на значок руны, чтобы получить подробную информацию о том, что делает каждая из них и какие преимущества они вам дают!",
     "thanksResearches": "🜇 The effect of the first five Runes is increased by {{percent}}%",
     "offeringInvested": "<<orange | EXP: <b>{{amount}}</b>>",
-    "runeEffectiveLevel": "<b>Effective Rune Power: <<orange | {{level}}>></b>",
+    "runeEffectiveLevel": "<b>Эффективная Сила Руны: <<orange | {{level}}>></b>",
     "runeEffectiveLevelCalc": "[(<<lightgray |{{purchased}}>> + <<orange | {{free}}>>) * <<cyan|{{mult}} (Bonus Mult)>>]",
     "speed": {
       "name": "Speed",
@@ -6930,7 +6930,7 @@
     "data": {
       "noSingularityUpgrades": {
         "name": "No Golden Quark Upgrades",
-        "description": "Simply put, you have to beat the target Singularity without (most) Golden Quark Upgrades.<br/>Octeracts, Perks and <b>Quality of Life</b> Golden Quark Upgrades are preserved.",
+        "description": "Простыми словами, вам нужно пройти целевую Сингулярность без (большинства) Улучшений Золотых Кварков.<br/>Октеракты, Привилегии и <b>Улучшения Кварков Качества Жизни</b> сохранены.",
         "ScalingReward1": "+100% increase to <<yellow|ALL Cube>> gain",
         "ScalingReward2": "15 Achievement Points!",
         "UniqueReward1": "1-ое - +12% <<gold|Золотых Кварков>>!",
