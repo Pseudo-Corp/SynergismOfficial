@@ -2889,7 +2889,7 @@
       "sacrificeReset": "Этот муравей сбрасывается, когда вы совершаете жертвоприношение.",
       "ascensionReset": "Этот муравей сбрасывается, когда вы возноситесь.",
       "singularityReset": "Этот муравей сбрасывается, когда вы выполняете сингулярность.",
-      "ignoreCorruption": "[<<white|♔>>] Этот муравей не подвластен эффектам порчи.",
+      "ignoreCorruption": "[<<white|♔>>] Этот муравей не подвластен Второму Метеориту в 15-м Испытании.",
       "automationUnlocked": "Вы открыли автопокупщик для данного улучшения муравья!",
       "antSpeed": {
         "name": "Inceptus Formicidae (Начальный муравей)",
@@ -3463,7 +3463,7 @@
           "recession": "☆ <<orange|Recession>>: Coin gain is raised to <<gold|^{{value}}>>",
           "recessionImproved": "☆ <<orange|Recession>>: Coin gain is raised to <<gold|^{{value}}>>, improving up to <<gold|^{{max}}>> as you gain Coins",
           "deflation": "☆ <<orange|Crystal Mine Collapse>>: Diamond gain exponent <<gold|×{{value}}>>",
-          "extinction": "☆ <<orange|The Second Meteor>>: Ant Upgrade levels <<gold|÷{{value}}>>",
+          "extinction": "☆ <<orange|Второй Метеорит>>: Количество Улучшений Муравьёв <<gold|÷{{value}}>>",
           "spirit": "<<orange|Богатый Дух>>: Сила Духов <<gold|×{{value}}>><br>(Сложность этих Порч пробуждает боевой <i>дух</i> внутри игрока...)"
         },
         "extraIntro": "А. ну, ещё эти модификаторы подкинем. Для разнообразия. Наслаждайтесь!",
@@ -3856,7 +3856,7 @@
       "145": "[6x20] Ваши знания с муравьиной войны помогут вам автоматически получать уровни Муравья Mortuus Est.",
       "146": "[6x21] Feed your Disciples pure Obtainium to make them produce +0.4% Rune Power (to the first five runes) per level.",
       "147": "[6x22] Кормите своих Муравьёв их собственными крошками, чтобы они стали в Log(Крошки + 10) раз быстрее!",
-      "148": "[6x23] Create Reborn ELO 2% faster per level. Reborn ELO is created 2% slower per Stage. This Research doesn't quite cancel that out.",
+      "148": "[6x23] Увеличить создание Перерождённого ELO на 2% за уровень. Перерождённое ELO создаётся на 2% медленнее за каждую Стадию. Это Исследование не совсем уж оправдывает свою ценность.",
       "149": "[6x24] +0.03% Подношений за каждый уровень Талисмана Мидаса!",
       "150": "[6x25] Авто Испытания. Без лишних слов. Позволяет автоматически проходить и выполнять Испытания!",
       "151": "[7x1] A new row, old upgrade. Increase your Global Speed by +1.2% per level.",
@@ -3934,9 +3934,9 @@
     "upgradeDescriptions": {
       "offeringPotion": "Мгновенно получите эквивалент 2 часов реального времени подношений, зависит от вашего наивысшего подношения/сек и глобальной скорости!",
       "obtainiumPotion": "Мгновенно получите эквивалент 2 часов реального времени обтаниума, зависит от вашего наивысшего обтаниум/сек и глобальной скорости!",
-      "offeringEX": "Each level, get +6% more Offerings! Every 10th level multiplies the effect of this upgrade by 1.08.",
+      "offeringEX": "За каждый уровень, вы будете получать 10% больше Подношений! Каждый 10-й уровень умножает этот эффект в num:((1.12)) раз.",
       "offeringAuto": "Automatically pour Offerings into a Rune. Unlock the mechanic with the first level, and make it 1% faster per level!",
-      "obtainiumEX": "Each level, get +6% more Obtainium! Every 10th level multiplies the effect of this upgrade by 1.08.",
+      "obtainiumEX": "За каждый уровень, вы будете получать 10% больше Обтаиниума! Каждый 10-й уровень умножает этот эффект в num:((1.12)) раз.",
       "obtainiumAuto": "Automatically pour Obtainium into a Research. Unlock the mechanic with the first level. Each level also reduces the cost of Researches by 0.1% per level! (Cost is rounded up)",
       "instantChallenge": "В и Р Испытания не вызывают сбросов если включён повтор и набирают до 10 прохождений за такт. Также, при выходе из Р Испытаний, мгновенно получаете прохождение В Испытаний до высшего пройденного.",
       "antSpeed": "Each level grants +4 Ant ELO per level. Don't ask where it comes from.",
@@ -3951,7 +3951,7 @@
       "seasonPass2": "В пять раз выше цена, в два раза веселее! +1.5% Вау! Гиперкубов и Платоновых Кубов за каждый уровень.",
       "seasonPass3": "Ладно, теперь это просто нелепо. +1.5% Вау! Гептерактов и Октерактов за каждый уровень!",
       "chronometer": "Как по мне, эти Вознесения малость медленные. Почему бы мне не дать вам +1.2% к скорости таймера за уровень?",
-      "infiniteAscent": "Okay, for an exorbitant amount, you can obtain the 6th rune, which gives +0.2% Quarks and +1% all Cube types per level!",
+      "infiniteAscent": "Хорошо, за непомерную сумму вы можете получить 6-ю руну, которая даёт +num:((0.2))% Кварков и +1% ко всем типам Кубов за уровень!",
       "calculator": "PL-AT позволяет выполнить операцию сложения моментально. Только другого толка он не имеет. +14% Кварков когда используете код 'add' за уровень. Первый уровень вам даёт ответ, а последний уровень делает это автоматически!",
       "calculator2": "PL-AT X имеет увеличенный объём памяти, что позволяет вам хранить 30 дополнительных минут (1,800 секунд) для кода 'add' за уровень. Финальный уровень позволяет 'add' получить на 25% больше Кварков!",
       "calculator3": "В PL-AT Ω содержится немного Унобтаниума, что просто эпично! Но, кроме того, он уменьшает дисперсию Кварков с помощью кода 'add' на 10% за каждый уровень, что повышает вероятность получения максимального множителя. Также, используя этот код, есть возможность добавить +60 секунд к таймеру Вознесения за каждый уровень.",
@@ -4228,14 +4228,14 @@
       "shopPurpleBarRebate": "Purple Bar Rebates"
     },
     "sections": {
-      "offerings": "Offerings & Obtainium",
-      "challenges": "Challenges",
-      "ascension": "Ascension",
-      "quarks": "Quarks & Codes",
-      "hepteracts": "Hepteracts & Warps",
-      "ambrosia": "Ambrosia",
-      "singularity": "Singularity",
-      "oddities": "Oddities"
+      "offerings": "Подношения & Обтаиниум",
+      "challenges": "Испытания",
+      "ascension": "Вознесение",
+      "quarks": "Кварки & Коды",
+      "hepteracts": "Гептеракты & Варпы",
+      "ambrosia": "Амброзия",
+      "singularity": "Сингулярность",
+      "oddities": "Странности"
     },
     "familyNames": {
       "offeringEX": "Offering EX",
@@ -4654,7 +4654,7 @@
       },
       "corruptionFifteen": {
         "name": "Порчи Пятнадцатого Уровня",
-        "description": "Adds +1 FREE Corruption level, no matter what. :)",
+        "description": "Добавляет +1 БЕСПЛАТНЫЙ Уровень Порчи вне зависимости от чего-либо. :)",
         "effectHave": "Вы получили бесплатный уровень порчи. {{m}}",
         "effectHaveNot": "Вы не получили бесплатный уровень порчи. {{m}}"
       },
@@ -5665,7 +5665,7 @@
       "blunders": "Ant ELO is reduced by (additive, Ant ELO cannot go below 0)"
     },
     "modal": {
-      "scaling": "<<lime|Difficulty scaling: ×{{scaling}} per level (maxed Platonic Upgrades)>>",
+      "scaling": "<<lime|Масштабирование сложности: x{{scaling}} за уровень (макс. Платоновы Улучшения)>>",
       "levelFormula": "(L = Level):",
       "currentMarker": "L = {{level}} ▶",
       "nextMarker": "◀ L = {{level}}",
@@ -5821,7 +5821,7 @@
       "levelInput": "Corruption level for next Ascension",
       "highestCleared": "Highest level cleared: <<gold|{{level}}>>",
       "nextUnlock": "Complete Challenge 10 at level {{level}} to unlock level {{unlock}}.",
-      "nextUnlockRange": "You can climb up to {{step}} levels past your highest cleared level (up to level {{level}}).",
+      "nextUnlockRange": "Вы можете подняться до {{step}} уровней за пределами вашего максимального пройденного уровня (до уровня {{level}}).",
       "requiresChallenge11": "Complete Challenge 11 to change your Corruption level.",
       "cubeBank": "Cube Bank",
       "cubeMultipliersHeading": "Cube multipliers (this Ascension → next):",
@@ -5843,7 +5843,7 @@
     "corrStatsBtn": "Статистика Порчи",
     "corrTokensBtn": "Corruption Tokens",
     "corrAutoAscendBtn": "Auto Ascensions",
-    "clickInfo": "<<var(--orchid-text-color)|Hover over or tap the icons to view Corruption info!>>",
+    "clickInfo": "<<var(--orchid-text-color)|Наведите или нажмите на иконки, чтобы узнать больше о Порчах!>>",
     "cleanse": "Очистить",
     "confirm": "Подтвердить",
     "resetProgress": {
@@ -5860,7 +5860,7 @@
       "requiresC10": "Auto Ascension Rules will not run until you complete Challenge 10.",
       "status": {
         "heading": "Статус",
-        "corruption": "Corruption Level",
+        "corruption": "Уровень Порчи",
         "c10": "Challenge 10 Completions",
         "ascensionChallenge": "Ascension Challenge",
         "none": "None",
@@ -6088,13 +6088,13 @@
   "buildings": {
     "construction": "Construction: <<yellow|{{amount}}>>",
     "constructionBonus": "Стоимость этих построений начнёт выходить из-под контроля после покупки <<yellow|{{amount}}>> или более. Это число умножается на Конструирование",
-    "hyperscaling": "Рост степени цен становится <<yellow|квадратичным>> после <<yellow|{{threshold}}> приобретённых построек",
+    "hyperscaling": "Рост степени цен становится <<yellow|квадратичным>> после <<yellow|{{threshold}}>> приобретённых построек",
     "accelMultConstruction": "Accelerators, Multipliers and Accelerator Boosts benefit from <<yellow|√Construction>> (<<yellow|×{{amount}}>>) <br> Accelerators scale <<yellow|quadratically>> past <<yellow|{{accelerators}}>> bought <br> Multipliers scale <<yellow|quadratically>> past <<yellow|{{multipliers}}>> bought <br> Accelerator Boosts scale <<yellow|cubically>> past <<yellow|{{boosts}}>> bought",
     "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold | +{{coinsPerSecond}}/s>>] | Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "Ваши карманы пустые, но у вас есть 100 монет. За эти 100 монет вам как раз хватит нанять хотя бы одного работника!",
       "2": "Ваши работники работают усердно. Давайте мы купим инвестиции нашими монетами!",
-      "3": "A million coins! Something tells you that being a millionaire here isn't all that impressive.",
+      "3": "Миллион монет! Что-то подсказывает что быть миллионером - это лишь детские игрушки.",
       "4": "You're beyond rich, you're loaded! However, it does not feel... <<cyan | prestigious>> enough.",
       "5": "Even with your prestige, it does not do your 1 googol coins justice. You must <<orchid | transcend>> your idea of wealth.",
       "6": "1e500 coins! Weren't you dirt poor just a couple hours ago?",
@@ -6104,20 +6104,20 @@
       "10": "Remember when you had just a million coins? Pepperidge farm remembers. <<grey | Your Grandma>> remembers...",
       "11": "The three digits at the front of your total coins are called a <<orange | mantissa>>. Do they even matter in your case?",
       "12": "Your wealth is equal to the number of atoms in the universe, raised to the power of <<gold | 1,250,000>>...",
-      "13": "You see the ants from down here. However, do you see the ants from <<orange | up there>>?",
+      "13": "Вы видите муравьев отсюда. Однако, видите ли вы муравьев <<orange | сверху>>?",
       "14": "If you had a dollar for every digit in your wealth, you would be the richest person on this thing one would call <<lightblue|\"Earth\">>...",
       "15": "10^1,000,000,000,000,000 Монет! Если бы мы умножили степень в 9 раз, то в параллельной <<grey | Реальности>> вы бы переполнили вселенную монетами.",
-      "16": "An exponent so large, many wouldn't know it by name.",
+      "16": "Степень столь большая, множество бы затруднились бы назвать её.",
       "17": "Вы когда-либо задумывались почему <<gray | Налоговик>> разделяет ваши монеты? Конечный создатель этой реальности, которого вы считаете <<cyan | Платоном>> (идеал), проинструктировал его.",
       "18": "Octillions of digits in your wealth! What if there were other <<green | Octagonal>> objects in this reality? That would be silly.",
-      "19": "I still remember ye olde days, when workers were <<gold | 100 Coins>>, do you?",
+      "19": "Я до сих пор помню старые дни, когда работники стоили <<gold | 100 Монет>>, а вы?",
       "20": "Походу вы уже зашли настолько далеко что сколько бы вы ни пытались угнать от <<gray | Налоговика>>, он всегда будет преследовать вас. Верно?",
       "21": "Sometimes you wonder if the Ant God is better off just feeding off your Coins. You surely have enough.",
-      "22": "Ant God, Derpsmith, the Gold Guy, <<cyan | Platonic>>... who are all of these entities anyway?",
-      "23": "10 to the <<gold|10,000,000,000,000,000,000>><<orange|,000,000,000,000,000,000>><<brown|,000,000,000,000,000,000>><<grey|,000,000,000,000,000>>",
-      "24": "They should write stories about your wealth. It only suffices that an <<grey | Ultimate Pen>> will do.",
+      "22": "Бог Муравьёв, Кукузнец, Золотой Парень, <<cyan | Платон>>... кто эти сущности такие?",
+      "23": "10 в <<gold|10,000,000,000,000,000,000>><<orange|,000,000,000,000,000,000>><<brown|,000,000,000,000,000,000>><<grey|,000,000,000,000,000>>-й степени",
+      "24": "Они должны писать историю о вашем богатстве. Только лишь <<grey | Идеальная Ручка>> способна на такое.",
       "25": "No one will know my name, but the bards' songs will remain.",
-      "26": "That's a lot of coins lol"
+      "26": "а не много ли монет лол"
     },
     "taxWarning": "Ваш налог также ограничивает ваше получение монет до {{gain}}/сек.",
     "acceleratorPower": "Сила Ускорения: {{power}}% || Множитель Ускорения: {{mult}}x",
@@ -6527,7 +6527,7 @@
     },
     "prism": {
       "name": "Призма",
-      "description": "Has all colors of the visible light spectrum. As well as a few you cannot yet fathom.",
+      "description": "Имеет все цвета видимого спектра, а также несколько цветов, которые вы не можете узреть.",
       "lockedDescription": "This rune is locked! To unlock it, Transcend 1,000 times. You even get an Achievement for it!",
       "crystalProduction": "<<lightblue | Crystal Production {{val}}x>> (1 + (Power / 2)^2 * 2^(Power / 2) / 256)x",
       "costDivisor": "<<lightblue | Crystal Upgrade Costs /{{val}}>> (Divide by 10 every 10 Power)",
@@ -6638,16 +6638,16 @@
       "costToBuy": "Цена покупки {{name}} ({{buyAmount}}): {{obtainium}} Обтаниума и {{offerings}} Подношений.",
       "doesNotReset": "[<<white|♔>>] Этот талисман НИКОГДА не сбрасывается! Даже на сингулярности.",
       "rarity": {
-        "1": "<<white | Common>>",
-        "2": "<<green | Uncommon>>",
-        "3": "<<lightblue | Rare>>",
-        "4": "<<orchid | Epic>>",
-        "5": "<<orange | Legendary>>",
-        "6": "<<crimson | Mythic>>",
-        "7": "<<cyan | EXTRAORDINARY!>>",
-        "8": "<<lightgoldenrodyellow | GODLIKE!>>",
-        "9": "<<gold | PERFECT!>>",
-        "10": "<span class=\"rainbowText\">IMMACULATE!</span>"
+        "1": "<<white | Обычный>>",
+        "2": "<<green | Необычный>>",
+        "3": "<<lightblue | Редкий>>",
+        "4": "<<orchid | Эпический>>",
+        "5": "<<orange | Легендарный>>",
+        "6": "<<crimson | Мистический>>",
+        "7": "<<cyan | СВЕРХОРДИНАРНЫЙ!>>",
+        "8": "<<lightgoldenrodyellow | БОЖЕСТВЕННЫЙ!>>",
+        "9": "<<gold | ИДЕАЛЬНЫЙ!>>",
+        "10": "<span class=\"rainbowText\">БЕЗУПРЕЧНЫЙ!</span>"
       },
       "modifiers": {
         "positive": "{{name}}: Активна",
@@ -6655,38 +6655,38 @@
       },
       "level": "{{x}}/{{y}}",
       "exemption": {
-        "name": "The Exemption Talisman",
-        "description": "Fake Science Monthly says wearing this trinket lowers your taxes!",
+        "name": "Талисман Исключения",
+        "description": "Ежемесячник по Ложной Науке говорит, что этот талисман уменьшает ваши налоги!",
         "inscription": "<<gold | ✏>> Начертание: Ваши налоги умножаются на <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Duplication Rune."
       },
       "chronos": {
-        "name": "Talisman of Chronology",
-        "description": "<i>Time flows just a little faster when worn</i>, you read on the tag.",
+        "name": "Талисман Хронологии",
+        "description": "Читая этикету, вы видите следующее сообщение: <i>Время течёт чуточку быстрее с этим талисманом.</i>",
         "inscription": "<<gold | ✏>> Начертание: Общая Скорость увеличена на <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of the Speed Rune."
       },
       "midas": {
-        "name": "Midas Necklace",
-        "description": "If Midas turned all he touched to gold...",
+        "name": "Ожерелье Мидаса",
+        "description": "Если бы Мидас превращал всё, чего он касался, в золото...",
         "inscription": "<<gold | ✏>> Inscription: Rune Blessing Power is increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Thrift Rune."
       },
       "metaphysics": {
-        "name": "Metaphysical Gem",
-        "description": "Do you wear this, or does this wear you?",
+        "name": "Метафизический Самоцвет",
+        "description": "Вы это носите, или оно носит вас?",
         "inscription": "<<gold | ✏>> Inscription: This Talismans' Bonus Rune Levels are increased by <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: This Talismans' Bonus Rune Levels are further multiplied by <<crimson|1.07>>."
       },
       "polymath": {
-        "name": "Trinket of the Polymath",
-        "description": "Do you feel like an exiled trickster?",
+        "name": "Амулет Полиматематики",
+        "description": "Вы когда-то чувствовали себя изгнанным трюкачом?",
         "inscription": "<<gold | ✏>> Начертание: Скорость Вознесения увеличена на <<gold|{{val}}>>.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune level Coefficient of Superior Intellect Rune."
       },
       "mortuus": {
-        "name": "Preserved Ant Talisman",
-        "description": "It's said that great sacrifice was made for this Talisman to exist.",
+        "name": "Сохраненный талисман Муравья",
+        "description": "Говорят, что для этого талисмана была принесена большая жертва.",
         "inscription": "<<gold | ✏>> Inscription: Reborn ELO is created <<gold|{{val}}>> faster.",
         "signature": "<<crimson | ✎>> Signature: Add <<crimson|12>> to the Rune Level Coefficient of Prism Rune."
       },
@@ -6697,14 +6697,14 @@
         "signature": "<<crimson | ✎>> Подпись: Никакая. Походу вы не сможете подписать этот шлак из пластика."
       },
       "wowSquare": {
-        "name": "The Wow! Square",
-        "description": "For the average :unsmith:, this is a cube.",
+        "name": "Вау! Квадрат",
+        "description": "Для типичного :unsmith:, это куб.",
         "inscription": "<<gold | ✏>> Inscription: Even-Dimensional Cube Gain is increased by <<gold|{{val}}>>",
         "signature": "<<crimson | ✎>> Signature: Odd-Dimensional Cube Gain is increased by <<crimson|20%>>"
       },
       "achievement": {
-        "name": "Medal of Achievement",
-        "description": "Has serial number <i>{{num}}</i> on it.",
+        "name": "Медаль Достижения",
+        "description": "На нём серийный номер <i>{{num}}</i>.",
         "inscription": "<<gold | ✏>> Начертание: Все положительные источники Добычи дают на <<gold|{{val}}>> больше!",
         "signature": "<<crimson | ✎>> Signature: Sources of Negative Salvage effect <<crimson|{{val}}>>."
       },
@@ -6759,25 +6759,25 @@
         "perfect": "Идеальный",
         "immaculate": "Безупречный",
         "default": "Базовый!",
-        "levelReq": "≥ Level {{level}}"
+        "levelReq": "≥ Уровень {{level}}"
       },
       "bonusRuneLevels": {
-        "speed": "Bonus Speed Rune Levels: <<orange|{{x}}>>",
-        "duplication": "Bonus Duplication Rune Levels: <<orange|{{x}}>>",
-        "prism": "Bonus Prism Rune Levels: <<orange|{{x}}>>",
-        "thrift": "Bonus Thrift Rune Levels: <<orange|{{x}}>>",
-        "superiorIntellect": "Bonus Superior Intellect Rune Levels: <<orange|{{x}}>>",
-        "infiniteAscent": "Bonus Infinite Ascent Rune Levels: <<orange|{{x}}>>",
+        "speed": "Бонусные Уровни Руны Скорости: <<orange|{{x}}>>",
+        "duplication": "Бонусные Уровни Руны Дубликации: <<orange|{{x}}>>",
+        "prism": "Бонусные Уровни Руны Призмы: <<orange|{{x}}>>",
+        "thrift": "Бонусные Уровни Руны Экономии: <<orange|{{x}}>>",
+        "superiorIntellect": "Бонусные Уровни Руны Сверхинтеллекта: <<orange|{{x}}>>",
+        "infiniteAscent": "Бонусные Уровни Руны Бесконечного Восхождения: <<orange|{{x}}>>",
         "antiquities": "Bonus Antiquities of Ant God Rune Levels: <<orange|{{x}}>>",
         "horseShoe": "Bonus Horse Shoe levels: <<orange|{{x}}>>"
       },
       "mobile": {
-        "currentRarity": "Current Rarity: {{rarity}} (Tier {{num}})",
-        "nextRarity": "Next Rarity: {{rarity}} at level {{level}}",
-        "maxRarity": "You've reached the highest rarity possible for this Talisman!",
+        "currentRarity": "Текущая Редкость: {{rarity}} (Уровень {{num}})",
+        "nextRarity": "Следующая Редкость: {{rarity}} на уровне {{level}}",
+        "maxRarity": "Вы достигли наивысшего уровня редкости для этого Талисмана!",
         "beforeMythical": "Get to Mythical rarity (Tier 6) to unlock the Talisman's Signature!",
-        "freeRuneLevels": "Free Rune Levels",
-        "nextLevelCost": "Next Level Cost"
+        "freeRuneLevels": "Бесплатные Уровни Рун",
+        "nextLevelCost": "Стоимость следующего уровня"
       }
     },
     "blessings": {
