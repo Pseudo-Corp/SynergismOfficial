@@ -765,22 +765,21 @@ async function handleWebSocket () {
     }
 
     setLotusBalanceLoading()
-    const delay = PLATFORM === 'mobile'
-      ? exponentialBackoff[Math.min(tries, exponentialBackoff.length - 1)]
-      : exponentialBackoff[tries]
+    const delay = exponentialBackoff[Math.min(tries, exponentialBackoff.length - 1)]
+
+    if (PLATFORM !== 'mobile' && tries === exponentialBackoff.length) {
+      Notification(i18next.t('account.consumables.connectionFailed'))
+      resetWebSocket()
+    }
+
     tries++
 
     console.log(
       `[Consumables WS] closed: code=${event.code}, reason=${event.reason || '(none)'}, clean=${event.wasClean}; `
-        + (delay !== undefined ? `reconnecting in ${delay}ms` : 'giving up')
+        + `reconnecting in ${delay}ms`
     )
 
-    if (delay !== undefined) {
-      reconnectTimeout = setTimeout(handleWebSocket, delay)
-    } else {
-      Notification(i18next.t('account.consumables.connectionFailed'))
-      resetWebSocket()
-    }
+    reconnectTimeout = setTimeout(handleWebSocket, delay)
 
     if (interval) {
       clearInterval(interval)
