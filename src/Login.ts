@@ -20,7 +20,7 @@ import { checkServerDate, guardPoll, pollsStopped } from './PollGuard'
 import { updateBellButton, updateLotusDisplay } from './purchases/ConsumablesTab'
 import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
-import { QuarkHandler, setPersonalQuarkBonus } from './Quark'
+import { QuarkHandler, setGlobalQuarkBonus, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { flushSaveStorage, getStoredSave } from './saves/SaveStorage'
 import { format, player, saveSynergy } from './Synergism'
@@ -216,6 +216,12 @@ const messageSchema = z.preprocess(
     z.object({
       type: z.literal('happy-hour-bells'),
       amount: z.number().int().gte(0)
+    }),
+
+    /** Received when the global quark bonus changes (broadcasted to everyone) */
+    z.object({
+      type: z.literal('quark-bonus'),
+      bonus: z.number()
     }),
 
     /** A warning - should *NOT* disconnect from the WebSocket */
@@ -935,6 +941,8 @@ async function handleWebSocket () {
     } else if (data.type === 'happy-hour-bells') {
       ownedBells = data.amount
       updateBellButton()
+    } else if (data.type === 'quark-bonus') {
+      setGlobalQuarkBonus(data.bonus)
     } else {
       // eslint-disable-next-line unicorn/consistent-function-scoping
       const assertNever = (_x: never) => {

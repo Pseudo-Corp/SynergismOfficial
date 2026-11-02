@@ -3947,8 +3947,8 @@ export const slowUpdates = (): void => {
 }
 
 const fastUpdateInterval = PLATFORM === 'mobile' ? 100 : 50
-const eventPollInterval = 1000 * 60 * 5
-const quarkBonusPollInterval = 1000 * 60 * 15
+const eventPollInterval = 1000 * 60 * 30
+const quarkBonusPollInterval = 1000 * 60 * 60
 
 const pollEvents = guardPoll(() => {
   eventCheck().catch((error: Error) => {
