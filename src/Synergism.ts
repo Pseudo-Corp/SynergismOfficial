@@ -196,7 +196,7 @@ import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
 import { claimLink, handleLogin, resumePendingTimeSkips } from './Login'
-import { initializeAnnouncements, initializeMessages } from './Messages'
+import { initializeAnnouncements } from './Messages'
 import { blankOcteractLevelObject, clampOcteractFreeLevelsToCaps, setOcteractUpgradeLevels } from './Octeracts'
 import { clampPlatonicUpgradeLevelsToCaps, updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
@@ -4697,9 +4697,6 @@ window.addEventListener('load', async () => {
   generateAchievementHTMLs()
   generateLevelRewardHTMLs()
   generateLevelMilestoneHTMLS()
-
-  // Initialize messages on game load
-  initializeMessages().catch(console.error)
 
   // Dynamic Fit certain lines
   createFitties()
