@@ -38,16 +38,33 @@
                 <span i18n="corruptions.autoAscend.rules.ui.nameLabel"></span>
                 <input id="autoAscendRuleName" class="autoAscendNumber" type="text" maxlength="20" autocomplete="off">
             </label>
-            <section class="autoAscendStep">
-                <h4 i18n="corruptions.autoAscend.rules.ui.conditionHeading"></h4>
-                <div id="autoAscendConditionEditor"></div>
+            <section id="autoAscendStartStep" class="autoAscendStep">
+                <h4 i18n="corruptions.autoAscend.rules.ui.startHeading"></h4>
+                <div class="autoAscendChoices">
+                    <button id="autoAscendStartTemplate" class="autoAscendChoice" type="button" aria-pressed="false">
+                        <span class="autoAscendChoiceName" i18n="corruptions.autoAscend.rules.ui.start.template.name"></span>
+                        <span class="autoAscendChoiceDescription" i18n="corruptions.autoAscend.rules.ui.start.template.description"></span>
+                    </button>
+                    <button id="autoAscendStartCustom" class="autoAscendChoice" type="button" aria-pressed="false">
+                        <span class="autoAscendChoiceName" i18n="corruptions.autoAscend.rules.ui.start.custom.name"></span>
+                        <span class="autoAscendChoiceDescription" i18n="corruptions.autoAscend.rules.ui.start.custom.description"></span>
+                    </button>
+                </div>
             </section>
-            <section class="autoAscendStep">
+            <section id="autoAscendTemplateStep" class="autoAscendStep">
+                <h4 i18n="corruptions.autoAscend.rules.ui.templateHeading"></h4>
+                <div id="autoAscendTemplateList" class="autoAscendChoices"></div>
+            </section>
+            <section id="autoAscendProtocolStep" class="autoAscendStep">
                 <h4 i18n="corruptions.autoAscend.rules.ui.protocolHeading"></h4>
-                <p class="autoAscendHelp" i18n="corruptions.autoAscend.rules.ui.protocolHelp"></p>
                 <div id="autoAscendProtocolEditor"></div>
             </section>
-            <section class="autoAscendStep">
+            <section id="autoAscendConditionStep" class="autoAscendStep">
+                <h4 i18n="corruptions.autoAscend.rules.ui.conditionHeading"></h4>
+                <div id="autoAscendConditionEditor"></div>
+                <button id="autoAscendAddException" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.addException"></button>
+            </section>
+            <section id="autoAscendExceptionStep" class="autoAscendStep">
                 <h4 i18n="corruptions.autoAscend.rules.ui.exceptionHeading"></h4>
                 <p class="autoAscendHelp" i18n="corruptions.autoAscend.rules.ui.exceptionHelp"></p>
                 <div id="autoAscendExceptionEditor"></div>

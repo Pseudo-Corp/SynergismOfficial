@@ -6412,36 +6412,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     cursor: pointer;
 }
 
-.autoAscendRuleItem.autoAscendRuleFired {
-    animation: auto-ascend-rule-pulse 1.6s ease-out;
-}
-
-@keyframes auto-ascend-rule-pulse {
-    0%,
-    50% {
-        border-color: var(--lime-color);
-        box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
-    }
-
-    25%,
-    75% {
-        border-color: var(--lime-color);
-        box-shadow: 0 0 12px 3px rgb(0 255 0 / 65%);
-    }
-
-    100% {
-        border-color: var(--orange-color);
-        box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .autoAscendRuleItem.autoAscendRuleFired {
-        border-color: var(--lime-color);
-        animation: none;
-    }
-}
-
 .autoAscendRuleNumber {
     color: var(--orange-color);
     font-weight: bold;
@@ -6481,6 +6451,17 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     width: 14em;
 }
 
+#autoAscendProtocolEditor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+#autoAscendProtocolEditor > .autoAscendHelp {
+    margin: 0;
+}
+
 .autoAscendModifier > span {
     min-width: 10em;
 }
@@ -6518,6 +6499,76 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .autoAscendRuleModalHint {
     color: var(--gray-text-color);
+}
+
+.autoAscendRuleStatus {
+    padding: 1px 6px;
+    border: 1px solid currentcolor;
+    border-radius: 3px;
+    font-size: 0.85em;
+    white-space: nowrap;
+}
+
+.autoAscendRuleStatus:empty {
+    display: none;
+}
+
+.autoAscendRuleStatus[data-status="ready"],
+.autoAscendRuleStatusLine[data-status="ready"] {
+    color: var(--lime-text-color);
+}
+
+.autoAscendRuleStatus[data-status="behind"],
+.autoAscendRuleStatusLine[data-status="behind"],
+.autoAscendRuleStatus[data-status="excepted"],
+.autoAscendRuleStatusLine[data-status="excepted"] {
+    color: var(--amber-text-color);
+}
+
+.autoAscendRuleStatus[data-status="waiting"],
+.autoAscendRuleStatusLine[data-status="waiting"] {
+    color: var(--gray-text-color);
+}
+
+.autoAscendRuleStatus[data-status="locked"],
+.autoAscendRuleStatusLine[data-status="locked"] {
+    color: var(--red-text-color);
+}
+
+.autoAscendRuleClauses {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 4px 8px;
+    margin: 4px 0;
+}
+
+.autoAscendRuleClauseLabel {
+    color: orange;
+    font-weight: bold;
+}
+
+.autoAscendRuleChecks,
+.autoAscendRuleChecks ul {
+    margin: 0;
+    padding-left: 1.2em;
+    list-style: none;
+}
+
+.autoAscendRuleChecks {
+    padding-left: 0;
+}
+
+.autoAscendCheckMark {
+    font-weight: bold;
+}
+
+.autoAscendCheckMark[data-met="true"] {
+    color: var(--lime-text-color);
+}
+
+.autoAscendCheckMark[data-met="false"] {
+    color: var(--red-text-color);
 }
 
 #autoAscendAddRule,
@@ -6584,6 +6635,40 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .autoAscendHelp,
 .autoAscendCount {
     margin: 2px 0 6px;
+    color: var(--gray-text-color);
+}
+
+.autoAscendChoices {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
+    gap: 6px;
+}
+
+.autoAscendChoice {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 8px;
+    border: 1px solid orange;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.autoAscendChoice:hover {
+    background-color: var(--hover-color);
+}
+
+.autoAscendChoice[aria-pressed="true"] {
+    background-color: rgb(255 165 0 / 15%);
+    box-shadow: inset 0 0 0 1px orange;
+}
+
+.autoAscendChoiceName {
+    color: orange;
+    font-weight: bold;
+}
+
+.autoAscendChoiceDescription {
     color: var(--gray-text-color);
 }
 

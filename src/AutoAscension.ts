@@ -356,13 +356,27 @@ const nonCorruptionProtocolTypes = new Set<AutoAscendProtocol['type']>([
 const affectsCorruptions = (rule: AutoAscendRule) =>
   !nonCorruptionProtocolTypes.has(rule.protocol.type) || rule.loadouts.length > 0
 
-const isRuleActive = (rule: AutoAscendRule) =>
-  !rule.disabled
-  && (canChangeCorruptions() || !affectsCorruptions(rule))
-  && evaluateExpr(rule.condition)
-  && (rule.exception === null || !evaluateExpr(rule.exception))
+export type AutoAscendRuleStatus = 'off' | 'locked' | 'waiting' | 'excepted' | 'ready'
 
-const evaluateCondition = (c: AutoAscendCondition): boolean => {
+export const autoAscendRuleStatus = (rule: AutoAscendRule): AutoAscendRuleStatus => {
+  if (rule.disabled) {
+    return 'off'
+  }
+  if (affectsCorruptions(rule) && !canChangeCorruptions()) {
+    return 'locked'
+  }
+  if (!evaluateExpr(rule.condition)) {
+    return 'waiting'
+  }
+  if (rule.exception !== null && evaluateExpr(rule.exception)) {
+    return 'excepted'
+  }
+  return 'ready'
+}
+
+const isRuleActive = (rule: AutoAscendRule) => autoAscendRuleStatus(rule) === 'ready'
+
+export const evaluateCondition = (c: AutoAscendCondition): boolean => {
   if (c.rule === 'exalt') {
     return player.singularityChallenges[c.value].enabled
   }
@@ -879,7 +893,8 @@ export const parseSavedRules = (text: string): AutoAscendRule[] =>
   }).slice(0, maxAutoAscendRuleSlots)
 
 const defaultAutoAscendRuleText = [
-  '"In-game seconds" c10>=1&t>=15:asc',
+  '"Challenge 10" c10>=1:asc',
+  '#"In-game seconds" c10>=1&t>=15:asc',
   '#"Real Seconds" c10>=1&rt>=15:asc',
   '#"Climb Corruption" c10>=1:l+1',
   '#"Declimb Corruption" c10=0&rt>=15:l-1'

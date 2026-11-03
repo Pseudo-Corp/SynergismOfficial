@@ -5431,11 +5431,10 @@
           "editTitle": "Edit Rule {{number}}",
           "nameLabel": "Name (optional, up to 20 characters)",
           "namePlaceholder": "Rule {{number}}",
-          "conditionHeading": "1. When should you Ascend?",
-          "protocolHeading": "2. What happens on Ascension?",
-          "protocolHelp": "Unless you enter an Ascension Challenge, this rule takes you out of the one you are in.",
+          "conditionHeading": "2. When should this rule run?",
+          "protocolHeading": "1. What should this rule do?",
           "exceptionHeading": "3. Exception (optional)",
-          "exceptionHelp": "If the exception is true, this rule does not run even when its condition is met. Leave it empty for no exception.",
+          "exceptionHelp": "If the exception is true, this rule does not run even when its condition is met.",
           "previewHeading": "Preview",
           "ruleTextLabel": "Rule text (paste a rule here to load it)",
           "copyRule": "Copy Rule",
@@ -5460,10 +5459,53 @@
             "exportFileFailed": "Could not export your rules to a file.",
             "pasteFailed": "Could not read the clipboard. Try importing from a file instead."
           },
-          "previewIncomplete": "Add at least one comparison and choose a protocol to finish this rule.",
+          "previewIncomplete": "Choose what this rule does and add at least one comparison to finish this rule.",
           "comparisonCount": "{{count}} / {{max}} comparisons",
           "addComparison": "+ Comparison",
           "addGroup": "+ Group",
+          "addException": "+ Exception (optional)",
+          "addExtra": "+ Also change after Ascending",
+          "extras": {
+            "loadout": "Corruption Loadout"
+          },
+          "startHeading": "How do you want to start?",
+          "start": {
+            "template": {
+              "name": "Use a Template",
+              "description": "Start from a ready-made rule, then change anything you like."
+            },
+            "custom": {
+              "name": "Build Your Own",
+              "description": "Choose what the rule does, then when it runs, one step at a time."
+            }
+          },
+          "templateHeading": "Pick a template",
+          "templates": {
+            "ascendAtC10": {
+              "name": "Ascend at C10",
+              "description": "Ascend once you have this many Challenge 10 completions."
+            },
+            "outsideChallenges": {
+              "name": "Outside Challenges",
+              "description": "Ascend once you have this many Challenge 10 completions, but you aren't an Ascension Challenge."
+            },
+            "climbWhenFast": {
+              "name": "Climb When Fast",
+              "description": "If you clear Challenge 10 fast enough, climb one Corruption level."
+            },
+            "declimbWhenStuck": {
+              "name": "Declimb When Stuck",
+              "description": "If you aren't clearing Challenge 10 fast enough, lower your Corruption level by one."
+            },
+            "ascendOnStall": {
+              "name": "Ascend on Cube Stall",
+              "description": "Ascend once your Cubes per second has not gone up for 30 real seconds."
+            },
+            "bestLevel": {
+              "name": "Best Recent Level",
+              "description": "After a Challenge 10 clear and 15 real seconds, go to the Corruption level that earned the most Cubes per real second in your last 10 Ascensions."
+            }
+          },
           "removeGroup": "Remove group",
           "remove": "Remove",
           "group": {
@@ -5516,21 +5558,20 @@
           "protocols": {
             "choose": "Choose what to do...",
             "ascend": "Ascend (keep Corruption level)",
-            "ascensionChallenge": "Enter Ascension Challenge",
-            "nextAscensionChallenge": "Enter next unfinished Ascension Challenge (11 to 15)",
-            "corruption": "Set Corruption level to",
-            "corruptionLoadout": "Set Corruption level to a Loadout's level",
-            "corruptionUnlocked": "Set Corruption level to highest unlocked",
-            "corruptionCleared": "Set Corruption level to highest cleared",
-            "corruptionBest": "Set Corruption level to your best recent run's level",
-            "corruptionClimb": "Climb Corruption level by",
-            "corruptionDowngrade": "Downgrade Corruption level by",
-            "corruptionCleanse": "Cleanse Corruption (set to level 0)"
+            "ascensionChallenge": "Ascend into Ascension Challenge",
+            "nextAscensionChallenge": "Ascend into the next unfinished Ascension Challenge (11 to 15)",
+            "corruption": "Ascend at Corruption level",
+            "corruptionLoadout": "Ascend at a Loadout's Corruption level",
+            "corruptionUnlocked": "Ascend at highest unlocked Corruption level",
+            "corruptionCleared": "Ascend at highest cleared Corruption level",
+            "corruptionBest": "Ascend at your best recent run's Corruption level",
+            "corruptionClimb": "Ascend and climb Corruption level by",
+            "corruptionDowngrade": "Ascend and lower Corruption level by",
+            "corruptionCleanse": "Ascend and Cleanse Corruption (level 0)"
           },
-"bestRuns": "per real second, last {{runs}} runs",
+          "bestRuns": "per real second, last {{runs}} runs",
           "bestRunsLabel": "Runs to compare",
           "bestRunsHelp": "Picks the level of your best run by this cube type per real second, among your most recent Ascensions with a Challenge 10 completion. Ascension Challenge runs are skipped. If no run qualifies, your Corruption level is kept.",
-          "loadoutsHelp": "Optional: after Ascending, also change these Loadouts. A Loadout picked above uses its level from before this change. Increases stop at your highest unlocked level, and decreases stop at 0.",
           "loadoutSlot": "Loadout {{slot}}",
           "loadoutOps": {
             "set": "set to",
@@ -5542,8 +5583,6 @@
             "increase": "Loadout {{slot}} increased by {{value}}",
             "decrease": "Loadout {{slot}} decreased by {{value}}"
           },
-          "addLoadout": "+ Loadout change",
-          "modifiersHelp": "Optional: after Ascending, also change these settings. An Ambrosia Loadout is skipped if it is already loaded or cannot be afforded, so your Ambrosia bar progress is kept.",
           "modifiers": {
             "antSacrifice": "Auto Ant Sacrifice",
             "challengeSweep": "Challenge Sweep",
@@ -5557,7 +5596,6 @@
           "ambrosiaLoadoutSlot": "Ambrosia Loadout {{slot}}",
           "ambrosiaLoadoutWrite": "Ambrosia Loadout {{slot}} loaded",
           "modifierStates": {
-            "keep": "No change",
             "enable": "Enable",
             "disable": "Disable"
           },
@@ -5569,12 +5607,29 @@
           "ruleOff": "OFF",
           "disableHint": "Click this rule to disable it.",
           "enableHint": "This rule is disabled and is skipped. Click this rule to enable it.",
+          "ruleStatus": {
+            "ready": "Ready",
+            "behind": "Rule {{number}} first",
+            "waiting": "Waiting",
+            "excepted": "Exception",
+            "locked": "Locked",
+            "explain": {
+              "ready": "Its condition is met, so it runs next.",
+              "readyPaused": "Its condition is met, so it runs as soon as Auto Ascend is on.",
+              "behind": "Its condition is met, but Rule {{number}} is higher in the list and runs first.",
+              "waiting": "Its condition is not met yet.",
+              "excepted": "Its condition is met, but so is its exception, so it is skipped.",
+              "locked": "It changes Corruptions, which you can't do until you complete Challenge 11, so it is skipped."
+            },
+            "when": "WHEN:",
+            "except": "EXCEPT:"
+          },
           "moveUp": "Move rule up",
           "moveDown": "Move rule down",
           "errors": {
             "invalidNumber": "Fix the highlighted numbers first. They must be 0 or higher, Challenge Completions, Singularities, Antiquities of Ant God, Cube Bank, Bells, Corruption and Loadout levels must be whole numbers, and climbs, downgrades and Loadout increases or decreases must be at least 1.",
             "emptyCondition": "Add at least one comparison to the condition.",
-            "noProtocol": "Choose what happens on Ascension.",
+            "noProtocol": "Choose what this rule does.",
             "noSlots": "All of your rule slots are in use.",
             "nameTooLong": "Rule names can be at most 20 characters long.",
             "incompleteRule": "Finish the rule before copying it.",

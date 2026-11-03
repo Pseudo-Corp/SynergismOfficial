@@ -50,7 +50,7 @@ import {
   isAutoAscendUnlocked,
   runAutoAscendRules
 } from './AutoAscension'
-import { autoAscendRulesUICreate, pulseAutoAscendRule, renderAutoAscendRules } from './AutoAscensionUI'
+import { autoAscendRulesUICreate, renderAutoAscendRules, setLastFiredAutoAscendRule } from './AutoAscensionUI'
 import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
@@ -3884,7 +3884,7 @@ export const updateAll = (): void => {
   if (isAutoAscendRunning()) {
     const firedRule = runAutoAscendRules()
     if (firedRule !== -1) {
-      pulseAutoAscendRule(firedRule)
+      setLastFiredAutoAscendRule(firedRule)
     }
   }
 
