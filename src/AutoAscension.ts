@@ -2,7 +2,7 @@ import { getAchievementReward } from './Achievements'
 import { autoLoadBlueberryLoadout, MAX_BLUEBERRY_LOADOUT_COUNT } from './BlueberryUpgrades'
 import { CalcCorruptionStuff, calculateCubeBank } from './Calculate'
 import { getMaxChallenges } from './Challenges'
-import { canChangeCorruptions, maxCorruptionLevel, normalizeCorruptionLevel } from './Corruptions'
+import { canChangeCorruptions, isCorruptionUnlocked, maxCorruptionLevel, normalizeCorruptionLevel } from './Corruptions'
 import { activeHappyHourBells } from './Event'
 import { calculateAvailableRebornELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 import { toggleAutoAntSacrificeEnabled } from './Features/Ants/toggles/auto-sacrifice'
@@ -311,8 +311,9 @@ const protocolModifierSetters: Record<ProtocolModifierKey, (enabled: boolean) =>
   }
 }
 
-export const isAutoAscendUnlocked = () =>
-  player.highestSingularityCount > 0 || (player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0)
+export const isAutoAscendUnlocked = () => player.highestSingularityCount > 0 || player.cubeUpgrades[10] > 0
+
+export const isCorruptionLoadoutUnlocked = () => isAutoAscendUnlocked() && isCorruptionUnlocked()
 
 export const isAutoAscendRunning = () => player.autoAscend && player.unlocks.ascensions && isAutoAscendUnlocked()
 
@@ -353,8 +354,10 @@ const nonCorruptionProtocolTypes = new Set<AutoAscendProtocol['type']>([
   'nextAscensionChallenge'
 ])
 
-const affectsCorruptions = (rule: AutoAscendRule) =>
-  !nonCorruptionProtocolTypes.has(rule.protocol.type) || rule.loadouts.length > 0
+export const isCorruptionProtocolType = (type: AutoAscendProtocol['type']) => !nonCorruptionProtocolTypes.has(type)
+
+export const affectsCorruptions = (rule: AutoAscendRule) =>
+  isCorruptionProtocolType(rule.protocol.type) || rule.loadouts.length > 0
 
 export type AutoAscendRuleStatus = 'off' | 'locked' | 'waiting' | 'excepted' | 'ready'
 

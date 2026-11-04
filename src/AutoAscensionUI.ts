@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import {
+  affectsCorruptions,
   ascensionChallenges,
   type AutoAscendCondition,
   type AutoAscendExpr,
@@ -26,6 +27,7 @@ import {
   isAmbrosiaLoadoutUnlocked,
   isAutoAscendRunning,
   isChallengeCondition,
+  isCorruptionProtocolType,
   isProtocolModifierUnlocked,
   type LoadoutOp,
   loadoutOpMinimum,
@@ -50,7 +52,7 @@ import {
 import { getUnlockedBlueberryLoadoutCount } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getMaxChallenges } from './Challenges'
-import { activeCorruptionLevel, maxCorruptionLevel } from './Corruptions'
+import { activeCorruptionLevel, isCorruptionUnlocked, maxCorruptionLevel } from './Corruptions'
 import { readFileAsText } from './ImportExport'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { gameStages } from './Statistics'
@@ -715,7 +717,11 @@ const renderProtocolEditor = () => {
   const row = createElement('div', 'autoAscendComparison')
 
   row.append(createSelect(
-    protocolTypes.map((type) => ({ value: type, label: protocolName(type) })),
+    protocolTypes
+      .filter((type) =>
+        isCorruptionUnlocked() || type === currentDraft.protocol?.type || !isCorruptionProtocolType(type)
+      )
+      .map((type) => ({ value: type, label: protocolName(type) })),
     currentDraft.protocol?.type ?? null,
     (type) => {
       if (currentDraft.protocol === null && failedAttemptProtocols.has(type)) {
@@ -860,7 +866,9 @@ const renderProtocolEditor = () => {
 
   const freeSlot = corruptionLoadoutSlots.find((slot) => !usedSlots.has(slot))
   const extraOptions: { value: ExtraKey; label: string }[] = [
-    ...(freeSlot === undefined ? [] : [{ value: 'loadout' as const, label: i18next.t(`${uiKey}.extras.loadout`) }]),
+    ...(freeSlot === undefined || !isCorruptionUnlocked()
+      ? []
+      : [{ value: 'loadout' as const, label: i18next.t(`${uiKey}.extras.loadout`) }]),
     ...protocolModifierKeys
       .filter((key) => currentDraft.modifiers[key] === undefined && isProtocolModifierUnlocked(key))
       .map((key) => ({ value: key, label: modifierName(key) })),
@@ -961,7 +969,10 @@ const applyTemplate = (template: RuleTemplate) => {
 }
 
 const renderTemplates = () => {
-  DOMCacheGetOrSet('autoAscendTemplateList').replaceChildren(...ruleTemplates.map((template) => {
+  const templates = ruleTemplates.filter((template) =>
+    isCorruptionUnlocked() || !affectsCorruptions(parseRule(template.text))
+  )
+  DOMCacheGetOrSet('autoAscendTemplateList').replaceChildren(...templates.map((template) => {
     const button = createButton('', () => applyTemplate(template), 'autoAscendChoice')
     button.append(
       createElement('span', 'autoAscendChoiceName', templateName(template)),

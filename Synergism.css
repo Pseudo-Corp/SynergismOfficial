@@ -5963,6 +5963,11 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     background-color: var(--hover-color);
 }
 
+.campaignTokenRewardLocked {
+    filter: grayscale(1) brightness(0.35) blur(1px);
+    opacity: 0.75;
+}
+
 #campaignsTokensInfo h2 {
     margin-top: 1px;
     margin-bottom: 1px;
@@ -5988,7 +5993,23 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .campaignTokenRewardModalInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     width: 100%;
+}
+
+.campaignTokenRewardModalInfo p {
+    margin: 0;
+}
+
+.campaignTokenRewardName {
+    color: var(--gold-color);
+    font-size: 1.25em;
+}
+
+.campaignTokenRewardFlavor {
+    color: var(--lightgray-color);
 }
 
 .campaignTokenRewardSumModal {
@@ -12289,11 +12310,19 @@ html[data-chal11="false"] .chal11 {
     display: none;
 }
 
-html[data-corruption-unlock="true"] .corruptionUnlock {
+html[data-ascension-tab-unlock="true"] .ascensionTabUnlock {
     display: block;
 }
 
-html[data-corruption-unlock="false"] .corruptionUnlock {
+html[data-ascension-tab-unlock="false"] .ascensionTabUnlock {
+    display: none;
+}
+
+html[data-corruption-unlock="false"] #corruptionInfo1,
+html[data-corruption-unlock="false"] #corruptionAscensionControls,
+html[data-corruption-unlock="false"] #corruptionLoadouts,
+html[data-corruption-unlock="false"] #autoAscendStatusCorruptionLabel,
+html[data-corruption-unlock="false"] #autoAscendStatusCorruption {
     display: none;
 }
 
@@ -12582,7 +12611,9 @@ html[data-auto-ascend-unlock="true"] .autoAscendUnlock {
     display: flex;
 }
 
-html[data-auto-ascend-unlock="false"] .autoAscendUnlock {
+html[data-auto-ascend-unlock="false"] .autoAscendUnlock,
+html[data-auto-ascend-unlock="false"] #autoAscendSidebar,
+html[data-auto-ascend-unlock="true"] #autoAscendRequiresCubeUpgrade10 {
     display: none;
 }
 

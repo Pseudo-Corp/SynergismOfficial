@@ -7,7 +7,7 @@ import {
   challengeTenCubeBankMultiplier,
   reincarnationChallengeCubeBankPerCompletion
 } from './Calculate'
-import { campaignTokenRewardHTMLUpdate, corruptionLevelTokenInfo, updateTokens } from './Campaign'
+import { campaignTokenRewardHTMLUpdate, corruptionLevelTokenInfo, multipliedTokenText, updateTokens } from './Campaign'
 import { platonicCorruptionScaling } from './Platonic'
 import { getGQUpgradeEffect } from './singularity'
 import {
@@ -221,7 +221,9 @@ const corruptionClimbStep = () => {
 
 export const canChangeCorruptions = () => player.challengecompletions[11] > 0
 
-export const isCorruptionTabUnlocked = () => canChangeCorruptions() || player.highestSingularityCount > 0
+export const isCorruptionUnlocked = () => canChangeCorruptions() || player.highestSingularityCount > 0
+
+export const isAscensionTabUnlocked = () => player.unlocks.ascensions || player.highestSingularityCount > 0
 
 export const maxCorruptionLevel = () => {
   if (!canChangeCorruptions()) {
@@ -757,23 +759,26 @@ const corruptionTokenFirstLine = (amount: number, earned: boolean) => {
   return i18next.t(`corruptions.tiers.tokens.first${earned ? 'Earned' : ''}`, { amount: format(amount) })
 }
 
-const corruptionTokenUpdate = (level: number) => {
+const corruptionTokenLevelLines = (level: number) => {
   if (level === 0) {
-    DOMCacheGetOrSet('corruptionTierTokens').innerHTML = [
-      i18next.t('corruptions.tiers.tokens.selectLevel'),
-      ...corruptionTokenBlankLines
-    ].join('<br>')
-    return
+    return [i18next.t('corruptions.tiers.tokens.selectLevel'), ...corruptionTokenBlankLines]
   }
   const info = corruptionLevelTokenInfo(level)
-  const lines = [
-    i18next.t('corruptions.tiers.tokens.level', { level: format(level), earned: format(info.earned) }),
+  return [
+    multipliedTokenText('corruptions.tiers.tokens.level', info.earned, { level: format(level) }),
     i18next.t('corruptions.tiers.tokens.completions', {
       completions: format(info.completions)
     }),
     corruptionTokenFirstLine(info.first, info.firstEarned)
   ]
-  DOMCacheGetOrSet('corruptionTierTokens').innerHTML = lines.join('<br>')
+}
+
+export const corruptionTokenUpdate = (level: number) => {
+  const html = corruptionTokenLevelLines(level).join('<br>')
+  const element = DOMCacheGetOrSet('corruptionTierTokens')
+  if (element.innerHTML !== html) {
+    element.innerHTML = html
+  }
 }
 
 export const corruptionLevelScoreUpdate = () => {

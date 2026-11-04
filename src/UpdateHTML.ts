@@ -12,7 +12,7 @@ import {
   ungroupedAchievementElementIds,
   ungroupedAchievements
 } from './Achievements'
-import { isAutoAscendRunning, isAutoAscendUnlocked } from './AutoAscension'
+import { isAutoAscendRunning, isAutoAscendUnlocked, isCorruptionLoadoutUnlocked } from './AutoAscension'
 import {
   calculateSingularityUpgradePurchase,
   CoinBuilding,
@@ -35,7 +35,7 @@ import {
   challengeRequirement,
   getMaxChallenges
 } from './Challenges'
-import { isCorruptionTabUnlocked, revealCorruptions } from './Corruptions'
+import { isAscensionTabUnlocked, isCorruptionUnlocked, revealCorruptions } from './Corruptions'
 import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'
 import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
@@ -310,7 +310,8 @@ export const revealStuff = () => {
   }
 
   document.documentElement.dataset.chal11 = player.highestchallengecompletions[11] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.corruptionUnlock = isCorruptionTabUnlocked() ? 'true' : 'false'
+  document.documentElement.dataset.ascensionTabUnlock = isAscensionTabUnlocked() ? 'true' : 'false'
+  document.documentElement.dataset.corruptionUnlock = isCorruptionUnlocked() ? 'true' : 'false'
   document.documentElement.dataset.chal12 = player.highestchallengecompletions[12] > 0 ? 'true' : 'false'
   document.documentElement.dataset.spiritUnlock = player.unlocks.spirits ? 'true' : 'false'
   document.documentElement.dataset.chal13 = player.highestchallengecompletions[13] > 0 ? 'true' : 'false'
@@ -571,7 +572,7 @@ export const revealStuff = () => {
     toggle38: player.highestSingularityCount > 0, // Researchs Hover to Buy
     toggle39: player.unlocks.prestige, // Hotkeys
     toggle40: player.unlocks.prestige, // Number Hotkeys
-    toggle41: isAutoAscendUnlocked(), // Loadouts Notify
+    toggle41: isCorruptionLoadoutUnlocked(), // Loadouts Notify
     toggle42: player.highestSingularityCount >= 6, // Potion Autogenerator for Offering Potions
     toggle43: player.highestSingularityCount >= 6 // Potion Autogenerator for Obtainium Potions
   }

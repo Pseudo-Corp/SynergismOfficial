@@ -395,14 +395,6 @@ export const allCubeStats: NumberStatLineCategory = {
       }
     },
     {
-      i18n: 'TutorialBonus',
-      stat: () => campaignTokenBonuses.tutorial().cubeBonus
-    },
-    {
-      i18n: 'Campaign',
-      stat: () => campaignTokenBonuses.cube()
-    },
-    {
       i18n: 'Challenge15',
       stat: () =>
         G.challenge15Rewards.cube1.value
@@ -592,8 +584,6 @@ export const allCubeStatsProduct = (ascensionSpeedMult?: number) => {
       * (getAchievementReward('ascensionRewardScaling')
         ? Math.min(1, ascensionTimeRatio) * Math.max(1, ascensionTimeRatio)
         : Math.min(1, ascensionTimeRatio))
-      * campaignTokenBonuses.tutorial().cubeBonus
-      * campaignTokenBonuses.cube()
       * (G.challenge15Rewards.cube1.value
         * G.challenge15Rewards.cube2.value
         * G.challenge15Rewards.cube3.value
@@ -1051,10 +1041,6 @@ export const allOcteractCubeStats: NumberStatLineCategory = {
       color: 'var(--green-color)'
     },
     {
-      i18n: 'Campaign',
-      stat: () => campaignTokenBonuses.octeract()
-    },
-    {
       i18n: 'SeasonPass3',
       stat: () => getShopUpgradeEffects('seasonPass3', 'wowOcteractMult')
     },
@@ -1237,7 +1223,6 @@ export const allOcteractCubeStatsProduct = (
       * calculateEventCubeGain()
       * PCoinUpgradeEffects.CUBE_BUFF
       * getLevelReward('wowOcteracts')
-      * campaignTokenBonuses.octeract()
       * getShopUpgradeEffects('seasonPass3', 'wowOcteractMult')
       * getShopUpgradeEffects('seasonPassY', 'wowOcteractMult')
       * getShopUpgradeEffects('seasonPassZ', 'wowOcteractMult')
@@ -5191,6 +5176,10 @@ export const antELOStats: NumberStatLineCategory = {
     {
       i18n: 'SingularityPerk',
       stat: () => calculateSingularityPerkELO()
+    },
+    {
+      i18n: 'Campaign',
+      stat: () => campaignTokenBonuses.antELO()
     }
   ]
 }
@@ -5217,6 +5206,7 @@ export const antELOStatsSum = () =>
       + getAntUpgradeEffect(AntUpgrades.AntSacrifice).elo
       + getAntUpgradeEffect(AntUpgrades.AntELO).antELO
       + calculateSingularityPerkELO()
+      + campaignTokenBonuses.antELO()
   )
 
 export const additiveAntELOMultStats: NumberStatLineCategory = {

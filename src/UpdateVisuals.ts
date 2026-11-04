@@ -61,9 +61,15 @@ import {
   calculateTotalSalvage,
   freeAccelMultHardcap
 } from './Calculate'
+import { campaignTokenRewardHTMLUpdate } from './Campaign'
 import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
-import { type CorruptionCubeType, corruptionEffectsUpdate, corruptionLevelScoreUpdate } from './Corruptions'
+import {
+  type CorruptionCubeType,
+  corruptionEffectsUpdate,
+  corruptionLevelScoreUpdate,
+  corruptionTokenUpdate
+} from './Corruptions'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -1746,8 +1752,13 @@ const UpdateHeptGridValues = (hept: HepteractKeys) => {
 }
 
 export const visualUpdateCorruptions = () => {
-  if (G.currentTab !== Tabs.Corruption) {
+  if (G.currentTab !== Tabs.Ascensions) {
     return
+  }
+
+  if (getActiveSubTab() === 1) {
+    corruptionTokenUpdate(player.corruptions.next)
+    campaignTokenRewardHTMLUpdate()
   }
 
   if (getActiveSubTab() === 2) {

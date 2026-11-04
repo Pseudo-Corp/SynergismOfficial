@@ -47,7 +47,7 @@ import {
   corruptionLoadoutCount,
   defaultAutoAscendRules,
   isAutoAscendRunning,
-  isAutoAscendUnlocked,
+  isCorruptionLoadoutUnlocked,
   runAutoAscendRules
 } from './AutoAscension'
 import { autoAscendRulesUICreate, renderAutoAscendRules, setLastFiredAutoAscendRule } from './AutoAscensionUI'
@@ -4250,7 +4250,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
 
   if (event.shiftKey) {
     const slot = key === 'BACKQUOTE' ? 0 : Number(key)
-    if (isAutoAscendUnlocked() && Number.isInteger(slot)) {
+    if (isCorruptionLoadoutUnlocked() && Number.isInteger(slot)) {
       if (slot >= 1 && slot <= corruptionLoadoutCount) {
         setNextCorruptionLevel(player.corruptions.loadouts[slot - 1])
         if (player.toggles[41]) {
