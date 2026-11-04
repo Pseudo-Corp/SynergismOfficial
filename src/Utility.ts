@@ -278,7 +278,7 @@ export function memoize<Args extends unknown[], Ret> (fn: (...args: Args) => Ret
 }
 
 export const validateNonnegativeInteger = (n: number) => {
-  return Number.isFinite(n) && !Number.isNaN(n) && Number.isInteger(n)
+  return Number.isFinite(n) && !Number.isNaN(n) && Number.isInteger(n) && n >= 0
 }
 /**
  * Finds the highest (index + 1) where array[index] is less than or equal to the target number,
