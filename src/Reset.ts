@@ -8,12 +8,7 @@ import {
   getAchievementReward,
   UngroupedAchievement
 } from './Achievements'
-import {
-  applyPendingAutoAscendProtocol,
-  autoAscendResetSource,
-  printRules,
-  resetCubeRateTracking
-} from './AutoAscension'
+import { applyPendingAutoAscendProtocol, printRules, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
 import {
   buyTesseractBuilding,
@@ -764,7 +759,7 @@ export const reset = (
     if (c10Completions > 0) {
       earnCampaignTokens(ascensionCorruptionLevel(), c10Completions)
       clearCorruptionLevel(ascensionCorruptionLevel())
-      if (ascensionChallenge === 0 && from !== autoAscendResetSource) {
+      if (ascensionChallenge === 0 && from !== 'autoAscend') {
         climbCorruptionLevel(ascensionCorruptionLevel())
       }
     }

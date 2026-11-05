@@ -6382,7 +6382,10 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #corruptionAscensionControls > #corruptionAscensionDetails {
     justify-self: center;
-    grid-template-columns: auto auto minmax(4em, auto);
+}
+
+#corruptionAscensionDetailsRows .corruptionStatRow {
+    grid-template-columns: auto 1fr minmax(4em, auto);
 }
 
 #corruptionAscensionControls > #corruptionAscensionDetails[hidden] {
@@ -6886,29 +6889,26 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .corruptionTierRows {
     display: grid;
-    grid-template-columns: auto auto 7em auto 7em;
+    grid-template-columns: 1fr;
     align-items: center;
-    gap: 2px 8px;
     width: fit-content;
     margin: 0 auto;
 }
 
 .corruptionTierRows .corruptionStatRow {
-    display: contents;
+    display: grid;
+    grid-template-columns: auto 1fr 7em auto 7em;
+    align-self: stretch;
+    align-items: center;
+    column-gap: 8px;
 }
 
-@supports (grid-template-columns: subgrid) {
-    .corruptionTierRows .corruptionStatRow {
-        display: grid;
-        grid-column: 1 / -1;
-        grid-template-columns: subgrid;
-        align-self: stretch;
-        align-items: center;
-    }
+.corruptionTierRows .corruptionStatRow > * {
+    grid-row: 1;
+}
 
-    .corruptionTierRows .corruptionStatRow:nth-child(odd of :not([hidden])) {
-        background-color: #1f1f1f;
-    }
+.corruptionTierRows .corruptionStatRow:nth-child(odd of :not([hidden])) {
+    background-color: #1f1f1f;
 }
 
 .corruptionTierRows .corruptionStatRow[hidden] {
@@ -6924,7 +6924,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .corruptionTierHalf {
     grid-template-rows: auto;
     grid-auto-rows: minmax(28px, auto);
-    column-gap: 8px;
     row-gap: 2px;
     align-content: start;
 }
@@ -6995,11 +6994,14 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     visibility: hidden;
 }
 
-.corruptionCubeUnlockText,
+.corruptionCubeUnlockText {
+    display: none;
+}
+
 .corruptionCubeRowLocked > .corruptionStatCurr,
 .corruptionCubeRowLocked > .corruptionStatArrow,
 .corruptionCubeRowLocked > .corruptionStatNext {
-    display: none;
+    visibility: hidden;
 }
 
 .corruptionCubeRowLocked > .corruptionCubeUnlockText {
@@ -13392,8 +13394,11 @@ html[data-mobile="true"] .hideOnMobile {
 
 
     #corruptionTierGrid .corruptionTierHalf {
-        grid-template-columns: auto minmax(0, 1fr) 7em auto 7em;
         width: 100%;
+    }
+
+    #corruptionTierGrid .corruptionStatRow {
+        grid-template-columns: auto minmax(0, 1fr) 7em auto 7em;
     }
 
     #elevatorLockToggle,

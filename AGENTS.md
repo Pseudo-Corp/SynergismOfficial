@@ -63,3 +63,13 @@ If you are adding a `statLine` to Stats for Nerds, and the main stat category is
 
 Optional Parameters: Suppose you have `statLine`
 categories A and B. Calculating B requires calculating all of A for a single line. This might be expensive, and is sometimes not even needed. In the unrolled calculation function for B, create an optional param whose default value is the unrolled calculation function for A. If A and B are calculated in the same method call somewhere, always pass the result of A into B.
+
+## UI
+
+- DO NOT Write Subtitles in a different color. Do not write Subtitles at all unless you think it is strictly necessary. Usually a Subtitle indicates that something is unclear (write better UI). Also, remember that You Suck At Writing.
+
+- If you make a change, DO NOT write in any UI what something *used* to do. We don't care what it *used* to do, and the players definitely don't.
+
+- In general, do NOT write or implement anything that signals iterations. The version that we want to implement is the version we want to present. If you are told to undo a change, or undo something made earlier, please do a thorough job in undoing it. Leftover artifacts are very bad.
+
+- Unless strictly necessary, use 2px solid borders, or flat square borders. Do not implement Squircles in any other way.
