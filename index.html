@@ -2370,7 +2370,8 @@
                 </span>
                 <div id="corruptionTierSelected">
                     <p id="corruptionTierLevel" class="corrDesc"></p>
-                    <p id="corruptionLevelOverwritten" class="corrDesc"></p>
+                    <p id="corruptionLevelOverwritten" class="corrDesc" style="color: var(--crimson-color)"></p>
+                    <p id="corruptionLevelCap" class="corrDesc"></p>
                     <p id="corruptionHighestCleared" class="corrDesc"></p>
                     <div id="corruptionLevelControls" class="flex row center">
                         <button id="corruptionLevelMin" class="corruptionReset">0</button>
@@ -2381,10 +2382,8 @@
                         <button id="corruptionLevelUp10" class="corruptionMax">+10</button>
                         <button id="corruptionLevelMax" class="corruptionMax" i18n="corruptions.max"></button>
                     </div>
-                    <p id="corruptionLevelCap" class="corrDesc"></p>
                 </div>
                 <div id="corruptionStats" class="corruptionContainer">
-                    <p id="corrClickInfo" i18n="corruptions.clickInfo"></p>
                     <div id="corruptionTierGrid">
                         <div class="corruptionTierHalf corruptionTierRows">
                             <p id="corruptionTierEffectsHeading" class="corrDesc corruptionTierHeading"></p>
@@ -2393,7 +2392,6 @@
                         <div class="corruptionTierHalf corruptionTierRows">
                             <p id="corruptionTierCubeHeading" class="corrDesc corruptionTierHeading"></p>
                             <div id="corruptionTierCubeRows"></div>
-                            <p id="corruptionRewardFreeLevels" class="corrDesc"></p>
                         </div>
                     </div>
                 </div>
@@ -2402,7 +2400,7 @@
                     <div id="campaignsTokensInfo" aria-live="polite">
                         <p id="campaignInheritanceTokens" class="corrDesc" hidden></p>
                         <h2 id="campaignTokenCount"></h2>
-                        <div id="campaignTokenRewardIcons">
+                        <div>
                             <img id="campaignTokenRewardIcon-tutorial" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-obtainium" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-offering" src="Pictures/img_transparent.png" alt="" hidden>
@@ -2441,18 +2439,39 @@
                     </div>
                 </div>
                 <div id="corruptionAscensionControls">
+                    <div id="corruptionAscensionDetails" class="corruptionTierHalf corruptionTierRows">
+                        <p class="corrDesc corruptionTierHeading" i18n="corruptions.ascensionDetails.heading"></p>
+                        <div id="corruptionAscensionDetailsRows">
+                            <div class="corruptionStatRow">
+                                <img id="corruptionCubeBankIcon" src="Pictures/Default/TinyCubeBank.png" alt="" loading="lazy">
+                                <span class="corrDesc corruptionStatName" i18n="corruptions.tiers.cubeBank"></span>
+                                <span id="corruptionCubeBank" class="corrDesc corruptionStatValue"></span>
+                            </div>
+                            <div class="corruptionStatRow">
+                                <img src="Pictures/Default/TinyChallenge10.png" alt="" loading="lazy">
+                                <span class="corrDesc corruptionStatName" i18n="corruptions.ascensionDetails.c10"></span>
+                                <span id="corruptionAscensionC10" class="corrDesc corruptionStatValue"></span>
+                            </div>
+                            <div class="corruptionStatRow">
+                                <img src="Pictures/Default/TinyToken.png" alt="" loading="lazy">
+                                <span class="corrDesc corruptionStatName" i18n="corruptions.ascensionDetails.tokensGained"></span>
+                                <span id="corruptionAscensionTokens" class="corrDesc corruptionStatValue"></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="corruptionControlGroup">
                         <p class="corrDesc corruptionTierHeading" i18n="corruptions.controls.climbing"></p>
-                        <p class="corrDesc corruptionRulesNote" i18n="corruptions.toggles.rulesFirst"></p>
-                        <p class="corrDesc corruptionRulesNote" i18n="corruptions.toggles.timerPreserved"></p>
-                        <label class="corruptionToggle">
-                            <input type="checkbox" id="corruptionAutoIncreaseToggle">
-                            <span i18n="corruptions.toggles.autoIncrease"></span>
-                        </label>
-                        <label class="corruptionToggle">
-                            <input type="checkbox" id="corruptionCleanseToHighestToggle">
-                            <span i18n="corruptions.toggles.cleanseToHighest"></span>
-                        </label>
+                        <p class="corrDesc" i18n="corruptions.toggles.manualOnly"></p>
+                        <div class="corruptionToggleList">
+                            <label class="corruptionToggle">
+                                <input type="checkbox" id="corruptionAutoIncreaseToggle">
+                                <span i18n="corruptions.toggles.autoIncrease"></span>
+                            </label>
+                            <label class="corruptionToggle">
+                                <input type="checkbox" id="corruptionCleanseToHighestToggle">
+                                <span i18n="corruptions.toggles.cleanseToHighest"></span>
+                            </label>
+                        </div>
                         <div id="corruptionDisplays" class="flex row center">
                             <img id="corruptionExitIcon" src="Pictures/Default/CorruptExit.png" class="corruptionImg" alt="" loading="lazy">
                             <button id="corruptionCleanse" i18n="corruptions.cleanse"></button>

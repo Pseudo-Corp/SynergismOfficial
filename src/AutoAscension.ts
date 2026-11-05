@@ -1053,14 +1053,16 @@ export const applyPendingAutoAscendProtocol = (challengeTenCompleted: boolean) =
   pendingCorruptionProtocol = null
 }
 
+export const autoAscendResetSource = 'autoAscend'
+
 const ascend = () => {
   const challenge = player.currentChallenge.ascension
   if (challenge !== 0) {
     void resetCheck('ascensionChallenge', false, true, false)
     challengeExit('ascension')
-    reset('ascensionChallenge', false, undefined, challenge)
+    reset('ascensionChallenge', false, autoAscendResetSource, challenge)
   } else {
-    reset('ascension', false)
+    reset('ascension', false, autoAscendResetSource)
   }
 }
 

@@ -394,6 +394,7 @@ export interface Player {
     used: number
     ascensionLevel: number
     tokenCompletions: number[]
+    ascensionStartTokens: number
     highestCleared: number
     autoIncrease: boolean
     cleanseToHighest: boolean

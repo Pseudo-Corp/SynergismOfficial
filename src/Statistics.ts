@@ -113,6 +113,7 @@ import { type Challenge15Rewards, challenge15ScoreMultiplier, useChallenge13Modi
 import {
   activeCorruptionLevel,
   activeEffectiveCorruptionLevel,
+  ascensionCorruptionLevel,
   ascensionEffectiveCorruptionLevel,
   challenge15CorruptionEffect,
   corruptionCubeBase,
@@ -330,10 +331,6 @@ const corruptionScaledCubeStats = {
   }
 } satisfies Record<CorruptionCubeType, Record<string, (effectiveLevel: number) => number>>
 
-export const hasCorruptionScaledCubeStats = (cube: CorruptionCubeType) => {
-  return Object.keys(corruptionScaledCubeStats[cube]).length > 0
-}
-
 const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
   {
     i18n: 'CubeBank',
@@ -346,7 +343,7 @@ const corruptionCubeStatLines = (cube: CorruptionCubeType) => [
   {
     i18n: 'Corruption',
     stat: () =>
-      isCorruptionCubeUnlocked(ascensionEffectiveCorruptionLevel(), cube)
+      isCorruptionCubeUnlocked(ascensionCorruptionLevel(), cube)
         ? corruptionCubeRate(cube, ascensionEffectiveCorruptionLevel())
         : 0
   },
@@ -730,7 +727,7 @@ export const allWowCubeStatsProduct = (
     1e300,
     calculateCubeBank()
       * corruptionCubeBase('cubes')
-      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'cubes')
+      * (isCorruptionCubeUnlocked(ascensionCorruptionLevel(), 'cubes')
         ? corruptionCubeRate('cubes', ascensionEffectiveLevel)
         : 0)
       * G.challenge15Rewards.wowCubes.value
@@ -834,7 +831,7 @@ export const allTesseractStatsProduct = (
     1e300,
     calculateCubeBank()
       * corruptionCubeBase('tesseracts')
-      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'tesseracts')
+      * (isCorruptionCubeUnlocked(ascensionCorruptionLevel(), 'tesseracts')
         ? corruptionCubeRate('tesseracts', ascensionEffectiveLevel)
         : 0)
       * G.challenge15Rewards.wowTesseracts.value
@@ -900,7 +897,7 @@ export const allHypercubeStatsProduct = (
     1e300,
     calculateCubeBank()
       * corruptionCubeBase('hypercubes')
-      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'hypercubes')
+      * (isCorruptionCubeUnlocked(ascensionCorruptionLevel(), 'hypercubes')
         ? corruptionCubeRate('hypercubes', ascensionEffectiveLevel)
         : 0)
       * G.challenge15Rewards.wowHypercubes.value
@@ -960,7 +957,7 @@ export const allPlatonicCubeStatsProduct = (
     1e300,
     calculateCubeBank()
       * corruptionCubeBase('platonics')
-      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'platonics')
+      * (isCorruptionCubeUnlocked(ascensionCorruptionLevel(), 'platonics')
         ? corruptionCubeRate('platonics', ascensionEffectiveLevel)
         : 0)
       * G.challenge15Rewards.wowPlatonicCubes.value
@@ -1011,7 +1008,7 @@ export const allHepteractCubeStatsProduct = (
     1e300,
     calculateCubeBank()
       * corruptionCubeBase('hepteracts')
-      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'hepteracts')
+      * (isCorruptionCubeUnlocked(ascensionCorruptionLevel(), 'hepteracts')
         ? corruptionCubeRate('hepteracts', ascensionEffectiveLevel)
         : 0)
       * G.challenge15Rewards.wowHepteracts.value
@@ -1215,7 +1212,7 @@ export const allOcteractCubeStatsProduct = (
     1e300,
     calculateCubeBank()
       * corruptionCubeBase('octeracts')
-      * (isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'octeracts')
+      * (isCorruptionCubeUnlocked(ascensionCorruptionLevel(), 'octeracts')
         ? corruptionCubeRate('octeracts', ascensionEffectiveLevel)
         : 0)
       * G.challenge15Rewards.wowOcteracts.value
@@ -1277,44 +1274,32 @@ const corruptionCubeStatCategories: Record<CorruptionCubeType, NumberStatLineCat
   octeracts: allOcteractCubeStats
 }
 
-const cubeGainBaseStatKeys = new Set(['CubeBank', 'BaseMultiplier', 'Corruption', 'AscensionTime'])
-const cubeGainGlobalStatLines = new Set<StatLine<number>>(cubeGainSourceLines)
-
-const displayedStatProduct = (lines: StatLine<number>[]) => {
-  let product = 1
-  for (const line of lines) {
-    if (!cubeGainBaseStatKeys.has(line.i18n)) {
-      product *= line.stat()
-    }
-  }
-  return product
+type CorruptionCubeScalingStat = {
+  i18n: string
+  current: () => number
+  atLevel: (effectiveLevel: number) => number
 }
 
-export const calculateCorruptionCubeMultiplierParts = (cube: CorruptionCubeType, effectiveLevel?: number) => {
-  const scaledStats: Partial<Record<string, (effectiveLevel: number) => number>> = corruptionScaledCubeStats[cube]
-  let global = 1
-  let specific = 1
+export const corruptionCubeScalingStats = Object.fromEntries(
+  (Object.keys(corruptionCubeStatCategories) as CorruptionCubeType[]).map((cube) => {
+    const scaledStats: Partial<Record<string, (effectiveLevel: number) => number>> = corruptionScaledCubeStats[cube]
+    const stats: CorruptionCubeScalingStat[] = []
+    for (const line of corruptionCubeStatCategories[cube].lines) {
+      const atLevel = scaledStats[line.i18n]
+      if (atLevel !== undefined) {
+        stats.push({ i18n: line.i18n, current: line.stat, atLevel })
+      }
+    }
+    return [cube, stats]
+  })
+) as Record<CorruptionCubeType, CorruptionCubeScalingStat[]>
+
+export const calculateCorruptionCubeScaling = (cube: CorruptionCubeType, effectiveLevel?: number) => {
   let scaling = 1
-  for (const line of corruptionCubeStatCategories[cube].lines) {
-    if (cubeGainBaseStatKeys.has(line.i18n)) {
-      continue
-    }
-    const scaledStat = scaledStats[line.i18n]
-    if (scaledStat !== undefined) {
-      scaling *= effectiveLevel === undefined ? line.stat() : scaledStat(effectiveLevel)
-    } else if (line.i18n === 'GlobalCube') {
-      global *= displayedStatProduct(allCubeStats.lines)
-    } else if (cubeGainGlobalStatLines.has(line)) {
-      global *= line.stat()
-    } else {
-      specific *= line.stat()
-    }
+  for (const { current, atLevel } of corruptionCubeScalingStats[cube]) {
+    scaling *= effectiveLevel === undefined ? current() : atLevel(effectiveLevel)
   }
-  return {
-    global: Math.min(1e300, global),
-    specific: Math.min(1e300, specific),
-    scaling: Math.min(1e300, scaling)
-  }
+  return Math.min(1e300, scaling)
 }
 
 export const allBaseOfferingStats: NumberStatLineCategory = {

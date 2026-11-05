@@ -28,7 +28,6 @@ import {
   calculateBlueberryInventory,
   calculateBuildingConstruction,
   calculateCookieUpgrade29Luck,
-  calculateCubeBank,
   calculateCubeQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
@@ -65,6 +64,7 @@ import { campaignTokenRewardHTMLUpdate } from './Campaign'
 import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
 import {
+  corruptionAscensionDetailsUpdate,
   type CorruptionCubeType,
   corruptionEffectsUpdate,
   corruptionLevelScoreUpdate,
@@ -1769,10 +1769,7 @@ export const visualUpdateCorruptions = () => {
     return
   }
 
-  DOMCacheGetOrSet('corruptionCubeBank').innerHTML = i18next.t('corruptions.cubeBank', {
-    value: format(calculateCubeBank(), 1, true)
-  })
-
+  corruptionAscensionDetailsUpdate()
   corruptionEffectsUpdate()
   corruptionLevelScoreUpdate()
 }

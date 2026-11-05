@@ -5315,38 +5315,18 @@
     "breakdown": {
       "current": "This Ascension<br>L = {{level}}",
       "next": "Next Ascension<br>L = {{level}}",
-      "cubeFormula": {
-        "cubes": "Total multiplier = Base × Corruption × Global Cube × Wow! Cube multipliers × Corruption-scaling upgrades",
-        "tesseracts": "Total multiplier = Base × Corruption × Global Cube × Wow! Tesseract multipliers × Corruption-scaling upgrades",
-        "hypercubes": "Total multiplier = Base × Corruption × Global Cube × Wow! Hypercube multipliers × Corruption-scaling upgrades",
-        "platonics": "Total multiplier = Base × Corruption × Global Cube × Platonic Cube multipliers × Corruption-scaling upgrades",
-        "hepteracts": "Total multiplier = Base × Corruption × Global Cube × Hepteract multipliers",
-        "octeracts": "Total multiplier = Base × Corruption × shared cube sources × Octeract multipliers × Corruption-scaling upgrades"
+      "rate": "Corruption level bonus",
+      "scalingUpgrades": {
+        "Platonic1x1": "Platonic Upgrade 1x1",
+        "Platonic1x2": "Platonic Upgrade 1x2",
+        "Platonic1x3": "Platonic Upgrade 1x3",
+        "Platonic1x4": "Platonic Upgrade 1x4",
+        "CubeUpgrade4x8": "Cube Upgrade 4x8",
+        "CookieUpgrade20": "Cookie Upgrade 20",
+        "DivinePack": "Divine Pack"
       },
-      "effectiveLevel": "Level + free levels",
-      "rate": "Corruption",
-      "base": "Base Multiplier",
-      "global": {
-        "cubes": "Global Cube",
-        "tesseracts": "Global Cube",
-        "hypercubes": "Global Cube",
-        "platonics": "Global Cube",
-        "hepteracts": "Global Cube",
-        "octeracts": "Shared cube sources"
-      },
-      "specific": {
-        "cubes": "Wow! Cube multipliers",
-        "tesseracts": "Wow! Tesseract multipliers",
-        "hypercubes": "Wow! Hypercube multipliers",
-        "platonics": "Platonic Cube multipliers",
-        "hepteracts": "Hepteract multipliers",
-        "octeracts": "Octeract multipliers"
-      },
-      "scaling": "Corruption-scaling upgrades",
       "locked": "Locked",
-      "unlock": "Unlocks at level {{level}} (level {{base}} minus your free levels).",
-      "unlockC15": "Unlocks at level {{level}} (level {{base}} minus your free levels) and with the Challenge 15 Hepteract reward.",
-      "otherMultipliers": "Excludes the Ascension time bonus. See Statistics for every source of each multiplier.",
+      "unlock": "Unlocks at level {{level}}.",
       "source": "Source",
       "completions": "Completions",
       "perCompletion": "Per completion",
@@ -5399,8 +5379,8 @@
       "notCorrupted": "Not Corrupted",
       "level": "Corruption Level <<gold|{{level}}>>",
       "levelChange": "Corruption Level <<silver|{{old}} →>> <<gold|{{new}}>>",
-      "levelOverwritten": "<<crimson|Your Corruption level ({{level}}) is overwritten to 0 while you are in an Ascension Challenge. Neither its modifiers nor its rewards apply. You will return to it once you leave.>>",
-      "freeLevels": "Rewards are moved forward <<gold|{{free}}>> levels, thanks to your Free Levels!",
+      "levelOverwritten": "Corruptions disabled: <<orange|Ascension Challenge>>",
+      "freeLevels": "<<orange|[+{{free}}]>>",
       "tokens": {
         "selectLevel": "Select a level to start earning Tokens!",
         "level": "Level {{level}} Tokens: {{earned}}",
@@ -5412,17 +5392,16 @@
       "summary": "Level {{level}}",
       "legacySummary": "Tier {{tier}}, Level {{level}}",
       "levelInput": "Corruption level for next Ascension",
-      "highestCleared": "Highest level cleared: <<gold|{{level}}>>",
-      "nextUnlock": "Complete Challenge 10 at level {{level}} to unlock level {{unlock}}.",
-      "nextUnlockRange": "You can climb up to {{step}} levels past your highest cleared level (up to level {{level}}).",
+      "levelCap": "Current Level Cap: <<gold|{{level}}>>",
+      "highestCleared": "Highest Level Cleared: <<gold|{{level}}>>",
       "requiresChallenge11": "Complete Challenge 11 to change your Corruption level.",
       "cubeBank": "Cube Bank",
-      "cubeMultipliersHeading": "Cube multipliers (this Ascension → next):",
-      "cubeMultipliersHeadingSame": "Cube multipliers:",
-      "effectsHeading": "Corruption effects (this Ascension → next):",
+      "cubeMultipliersHeading": "Cube multipliers from Corruption (<<silver|this Ascension →>> <<gold|next>>):",
+      "cubeMultipliersHeadingSame": "Cube multipliers from Corruption:",
+      "effectsHeading": "Corruption effects (<<silver|this Ascension →>> <<gold|next>>):",
       "effectsHeadingSame": "Corruption effects:",
       "cubeValue": "x{{value}}",
-      "locked": "<<gray|Locked>>",
+      "unlocksAt": "<<gray|Unlocks at level {{level}}.>>",
       "arrow": "→",
       "cubes": {
         "cubes": "Wow! Cubes",
@@ -5433,10 +5412,16 @@
         "octeracts": "Octeracts"
       }
     },
+    "ascensionDetails": {
+      "heading": "This Ascension",
+      "c10": "Challenge 10 Completions",
+      "tokensGained": "Tokens Gained",
+      "tokensValue": "{{earned}}",
+      "tokensValueBonus": "{{earned}} ({{base}} +{{percent}}%)"
+    },
     "corrStatsBtn": "Corruption Stats",
     "corrTokensBtn": "Corruption Tokens",
     "corrAutoAscendBtn": "Auto Ascensions",
-    "clickInfo": "<<var(--orchid-text-color)|Hover over or tap the icons to view Corruption info!>>",
     "cleanse": "Cleanse",
     "confirm": "Confirm",
     "resetProgress": {
@@ -5445,8 +5430,7 @@
       "done": "Corruption progress has been reset."
     },
     "intro": "The most rewarding ventures are those few would dare to embark.",
-    "traitInfo": "Select the Corruption level you wish to run with. Choose wisely! <<var(--red-text-color)|Don't bite off more than you can chew...>>",
-    "cubeBank": "<<goldenrod|{{value}}>>",
+    "traitInfo": "Choose how hard you want your next Ascension to be. <<var(--red-text-color)|Don't bite off more than you can chew...>>",
     "autoAscend": {
       "on": "Auto Ascend [ON]",
       "off": "Auto Ascend [OFF]",
@@ -5711,10 +5695,9 @@
     },
     "loadoutApplied": "The level from that run has been applied. This will take effect on the next Ascension.",
     "toggles": {
-      "autoIncrease": "Move up to each newly unlocked level automatically",
-      "cleanseToHighest": "Cleanse to your highest cleared level instead of level 0",
-      "rulesFirst": "Auto Ascension Rules apply before these toggles",
-      "timerPreserved": "Ascending without a Challenge 10 completion keeps your Ascension Timer. Rules comparing Ascension Time only apply once you have a Challenge 10 completion. To time an attempt, use This Attempt instead."
+      "autoIncrease": "Set Corruption Level to highest unlocked",
+      "cleanseToHighest": "Cleanse to highest Corruption Level cleared",
+      "manualOnly": "<<gold|⚠>> Settings only apply when you manually Ascend!"
     },
     "controls": {
       "climbing": "Climbing"

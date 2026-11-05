@@ -323,6 +323,7 @@ const playerCorruptionSchema = z.object({
   next: corruptionLevelSchema.catch(() => blankSave.corruptions.next),
   ascensionLevel: z.number().int().min(0).optional().catch(undefined),
   tokenCompletions: z.number().int().min(0).catch(0).array().catch(() => [0]),
+  ascensionStartTokens: z.number().catch(() => blankSave.corruptions.ascensionStartTokens),
   highestCleared: z.number().int().min(0).optional().catch(undefined),
   autoIncrease: z.boolean().catch(() => blankSave.corruptions.autoIncrease),
   cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest),

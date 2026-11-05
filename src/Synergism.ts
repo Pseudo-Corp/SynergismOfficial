@@ -195,7 +195,12 @@ import {
   updateBlueberryLoadoutCount
 } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { campaignTokenRewardHTMLUpdate, createCampaignTokenRewardEventHandlers, updateTokens } from './Campaign'
+import {
+  campaignTokenRewardHTMLUpdate,
+  createCampaignTokenRewardEventHandlers,
+  earnCampaignTokens,
+  updateTokens
+} from './Campaign'
 import { lastUpdated, ticksPerSecond, version } from './Config'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
 import { eventCheck } from './Event'
@@ -957,6 +962,7 @@ export const player: Player = {
     used: 0,
     ascensionLevel: 0,
     tokenCompletions: [0],
+    ascensionStartTokens: 0,
     highestCleared: 0,
     autoIncrease: false,
     cleanseToHighest: false,
@@ -3367,6 +3373,7 @@ export const resetCheck = async (
     if (q === 10 && player.challengecompletions[10] > 0) {
       player.corruptions.ascensionLevel = ascensionCorruptionLevel()
       if (!isCorruptionLevelOverwritten()) {
+        earnCampaignTokens(ascensionCorruptionLevel(), player.challengecompletions[10])
         clearCorruptionLevel(player.corruptions.used)
       }
     }

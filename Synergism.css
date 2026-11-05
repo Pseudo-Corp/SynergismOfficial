@@ -5963,7 +5963,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     background-color: var(--hover-color);
 }
 
-.campaignTokenRewardLocked {
+.campaignTokenRewardLocked,
+.corruptionCubeIconLocked {
     filter: grayscale(1) brightness(0.35) blur(1px);
     opacity: 0.75;
 }
@@ -6055,7 +6056,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #corruptionAscensionControls {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
     column-gap: 2em;
     margin-top: 8px;
     padding-top: 8px;
@@ -6107,10 +6109,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     background: linear-gradient(135deg, #ff4d4d, #8b0000 30%, #ff1f5a 55%, #b30000 80%, #ff6a3d);
     mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
     pointer-events: none;
-}
-
-#corrClickInfo {
-    margin: 6px 0 0;
 }
 
 #corrStatsBtn,
@@ -6215,11 +6213,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: var(--gold-color);
 }
 
-.corruptionBreakdownNote {
-    color: var(--silver-color);
-    font-size: 0.9em;
-}
-
 .corruptionFormulaTable {
     display: grid;
     grid-template-columns: auto auto minmax(0, max-content) auto;
@@ -6284,6 +6277,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #corruptionStats {
+    margin-top: 12px;
     font-size: min(1em, 20px);
     z-index: 1;
 }
@@ -6384,6 +6378,27 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     grid-template-columns: minmax(0, 1fr) 9em;
     gap: 4px 12px;
     margin: 0;
+}
+
+#corruptionAscensionControls > #corruptionAscensionDetails {
+    justify-self: center;
+    grid-template-columns: auto auto minmax(4em, auto);
+}
+
+#corruptionAscensionControls > #corruptionAscensionDetails[hidden] {
+    display: none;
+}
+
+#corruptionAscensionControls:has(> #corruptionAscensionDetails[hidden]) > .corruptionControlGroup {
+    grid-column: 1 / -1;
+}
+
+#corruptionAscensionDetails > .corruptionTierHeading {
+    text-align: center;
+}
+
+#corruptionAscensionDetailsRows .corruptionStatRow > img:not(#corruptionCubeBankIcon) {
+    cursor: default;
 }
 
 #autoAscendStatusList > dt {
@@ -6882,6 +6897,24 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: contents;
 }
 
+@supports (grid-template-columns: subgrid) {
+    .corruptionTierRows .corruptionStatRow {
+        display: grid;
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+        align-self: stretch;
+        align-items: center;
+    }
+
+    .corruptionTierRows .corruptionStatRow:nth-child(odd of :not([hidden])) {
+        background-color: #1f1f1f;
+    }
+}
+
+.corruptionTierRows .corruptionStatRow[hidden] {
+    display: none;
+}
+
 #corruptionTierGrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -6902,16 +6935,9 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #corruptionTierEffects,
-#corruptionTierCubeRows {
+#corruptionTierCubeRows,
+#corruptionAscensionDetailsRows {
     display: contents;
-}
-
-#corruptionTierGrid #corruptionRewardFreeLevels {
-    grid-column: 1 / -1;
-    max-width: 24em;
-    margin: 6px auto 0;
-    line-height: 1.2em;
-    text-align: center;
 }
 
 #corruptionTokens {
@@ -6951,6 +6977,13 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: var(--gold-color);
 }
 
+.corruptionTierRows .corruptionStatValue {
+    grid-column: 3;
+    text-align: right;
+    white-space: nowrap;
+    color: var(--gold-color);
+}
+
 .corruptionTierRows .corruptionStatCentered {
     grid-column: 3 / -1;
     text-align: center;
@@ -6962,8 +6995,20 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     visibility: hidden;
 }
 
+.corruptionCubeUnlockText,
+.corruptionCubeRowLocked > .corruptionStatCurr,
+.corruptionCubeRowLocked > .corruptionStatArrow,
+.corruptionCubeRowLocked > .corruptionStatNext {
+    display: none;
+}
+
+.corruptionCubeRowLocked > .corruptionCubeUnlockText {
+    display: block;
+}
+
 #corruptionTierCubeRows .corruptionStatRow > img,
-#corruptionTierEffects .corruptionStatRow > img {
+#corruptionTierEffects .corruptionStatRow > img,
+#corruptionAscensionDetailsRows .corruptionStatRow > img {
     width: 26px;
     height: 26px;
     object-fit: contain;
@@ -6972,11 +7017,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .corruptionTierRows .corruptionStatRow > img,
 #corruptionExitIcon {
     cursor: help;
-}
-
-#corruptionLevelCap {
-    max-width: 34em;
-    line-height: 1.2em;
 }
 
 #corruptionTierLevel {
@@ -7002,6 +7042,14 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     border: 1px solid var(--orange-color);
     color: var(--gold-color);
     background-color: var(--blackbtn-color);
+    text-align: center;
+    appearance: textfield;
+}
+
+#corruptionLevelInput::-webkit-outer-spin-button,
+#corruptionLevelInput::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
 }
 
 img.small {
@@ -7033,6 +7081,13 @@ img.corruptionImg.small {
     margin: 0;
     border: 2px solid darkmagenta;
     z-index: 2;
+}
+
+.corruptionToggleList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
 }
 
 .corruptionToggle {
@@ -13334,6 +13389,7 @@ html[data-mobile="true"] .hideOnMobile {
         grid-template-columns: 1fr;
         row-gap: 10px;
     }
+
 
     #corruptionTierGrid .corruptionTierHalf {
         grid-template-columns: auto minmax(0, 1fr) 7em auto 7em;

@@ -1613,6 +1613,7 @@ export const generateEventHandlers = () => {
   // CORRUPTION TAB
   // Part 1: Displays
   registerCorruptionDetailsModal(DOMCacheGetOrSet('corruptionExitIcon'), 'exit')
+  registerCorruptionDetailsModal(DOMCacheGetOrSet('corruptionCubeBankIcon'), 'cubeBank')
   DOMCacheGetOrSet('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
   DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => cleanseCorruptions())
   DOMCacheGetOrSet('corruptionAutoIncreaseToggle').addEventListener('change', () => toggleCorruptionAutoIncrease())

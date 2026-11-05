@@ -8,7 +8,12 @@ import {
   getAchievementReward,
   UngroupedAchievement
 } from './Achievements'
-import { applyPendingAutoAscendProtocol, printRules, resetCubeRateTracking } from './AutoAscension'
+import {
+  applyPendingAutoAscendProtocol,
+  autoAscendResetSource,
+  printRules,
+  resetCubeRateTracking
+} from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
 import {
   buyTesseractBuilding,
@@ -27,7 +32,7 @@ import {
   calculateOfferings,
   calculatePowderConversion
 } from './Calculate'
-import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateTokens } from './Campaign'
+import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, markAscensionStartTokens, updateTokens } from './Campaign'
 import {
   applyStartingChallengeCompletions,
   calculateChallenge15Score,
@@ -37,6 +42,7 @@ import {
 import {
   ascensionCorruptionLevel,
   clearCorruptionLevel,
+  climbCorruptionLevel,
   corruptionStatsUpdate,
   normalizeCorruptionLevel
 } from './Corruptions'
@@ -758,7 +764,11 @@ export const reset = (
     if (c10Completions > 0) {
       earnCampaignTokens(ascensionCorruptionLevel(), c10Completions)
       clearCorruptionLevel(ascensionCorruptionLevel())
+      if (ascensionChallenge === 0 && from !== autoAscendResetSource) {
+        climbCorruptionLevel(ascensionCorruptionLevel())
+      }
     }
+    markAscensionStartTokens()
 
     applyPendingAutoAscendProtocol(c10Completions > 0)
     player.corruptions.used = normalizeCorruptionLevel(player.corruptions.next)
@@ -1289,6 +1299,7 @@ export const singularity = (setSingNumber = -1) => {
   player.promoCodeTiming.time = Math.max(savePromoCodeTime, DateNow())
 
   updateTokens()
+  markAscensionStartTokens()
   campaignTokenRewardHTMLUpdate()
   corruptionStatsUpdate()
   renderAutoAscendRules()

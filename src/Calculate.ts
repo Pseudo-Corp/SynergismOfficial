@@ -7,6 +7,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import {
   activeCorruptionLevel,
+  ascensionCorruptionLevel,
   ascensionEffectiveCorruptionLevel,
   challenge15CorruptionEffect,
   corruptionEffect,
@@ -1405,18 +1406,19 @@ export const calculateCubeBank = () => {
 }
 
 export const CalcCorruptionStuff = () => {
+  const ascensionLevel = ascensionCorruptionLevel()
   const ascensionEffectiveLevel = ascensionEffectiveCorruptionLevel()
   const allCubeMultiplier = calculateAllCubeMultiplier()
   const cubeGain = calculateCubeMultiplier(ascensionEffectiveLevel, allCubeMultiplier)
   const tesseractGain = calculateTesseractMultiplier(ascensionEffectiveLevel, allCubeMultiplier)
 
-  let hypercubeGain = isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'hypercubes') ? 1 : 0
+  let hypercubeGain = isCorruptionCubeUnlocked(ascensionLevel, 'hypercubes') ? 1 : 0
   hypercubeGain *= calculateHypercubeMultiplier(ascensionEffectiveLevel, allCubeMultiplier)
 
-  let platonicGain = isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'platonics') ? 1 : 0
+  let platonicGain = isCorruptionCubeUnlocked(ascensionLevel, 'platonics') ? 1 : 0
   platonicGain *= calculatePlatonicMultiplier(ascensionEffectiveLevel, allCubeMultiplier)
 
-  let hepteractGain = isCorruptionCubeUnlocked(ascensionEffectiveLevel, 'hepteracts') ? 1 : 0
+  let hepteractGain = isCorruptionCubeUnlocked(ascensionLevel, 'hepteracts') ? 1 : 0
   hepteractGain *= calculateHepteractMultiplier(ascensionEffectiveLevel, allCubeMultiplier)
 
   return {

@@ -61,7 +61,7 @@ const startingTokens = () => {
 
 export const multipliedTokenText = (key: string, base: number, params: Record<string, string> = {}) => {
   const multiplier = tokenMultiplier()
-  return multiplier > 1
+  return multiplier > 1 && base > 0
     ? i18next.t(`${key}Bonus`, {
       earned: format(base * multiplier, 2, true),
       base: format(base),
@@ -94,6 +94,12 @@ export const updateTokens = () => {
   campaignTokens = Math.floor(tokens * tokenMultiplier())
   awardAchievementGroup(AchievementGroup.CampaignTokens)
 }
+
+export const markAscensionStartTokens = () => {
+  player.corruptions.ascensionStartTokens = baseCampaignTokens
+}
+
+export const ascensionTokensGained = () => baseCampaignTokens - player.corruptions.ascensionStartTokens
 
 export const earnCampaignTokens = (level: number, c10Completions: number) => {
   let improved = false
