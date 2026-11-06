@@ -1413,7 +1413,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   shopOcteractAmbrosiaLuck: {
     name: () => i18next.t('shop.names.shopOcteractAmbrosiaLuck'),
     description: () => i18next.t('shop.upgradeDescriptions.shopOcteractAmbrosiaLuck'),
-    effects: (n) => n * (1 + Math.floor(Math.max(0, Math.log10(player.wowOcteracts)))), // ambrosiaLuck
+    effects: (n) => n * (1 + Math.floor(Math.max(0, Math.log10(player.totalWowOcteracts)))), // ambrosiaLuck
     effectDescription () {
       const effects = getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck')
       return i18next.t('shop.upgradeEffects.shopOcteractAmbrosiaLuck', { amount: format(effects) })
