@@ -6514,7 +6514,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .autoAscendRuleClauseLabel {
-    color: orange;
+    color: var(--orange-color);
     font-weight: bold;
 }
 
