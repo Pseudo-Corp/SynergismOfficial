@@ -71,10 +71,10 @@ import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { getShopUpgradeEffects } from './Shop'
 import {
-  awardSingularityMilestoneFreeUpgrades,
   calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
-  getGQUpgradeEffect
+  getGQUpgradeEffect,
+  raiseHighestSingularity
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import {
@@ -1072,7 +1072,6 @@ export const singularity = (setSingNumber = -1) => {
 
   if (setSingNumber === -1) {
     const lookahead = calculateMaxSingularityLookahead(true)
-    const incrementHighestSing = player.singularityCount === player.highestSingularityCount
 
     // Check if elevator is locked to specific target
     if (player.singularityElevatorLocked) {
@@ -1088,17 +1087,18 @@ export const singularity = (setSingNumber = -1) => {
       }
     }
 
-    if (incrementHighestSing) {
-      player.highestSingularityCount++
-      awardSingularityMilestoneFreeUpgrades(player.highestSingularityCount)
-    }
-  } else {
+    raiseHighestSingularity(player.singularityCount)
+  } else if (player.insideSingularityChallenge) {
     const incrementHighestSing = player.singularityCount === player.highestSingularityCount
       && setSingNumber > player.singularityCount && antiquitiesPurchased
     player.singularityCount = setSingNumber
     if (incrementHighestSing) {
-      player.highestSingularityCount++
-      awardSingularityMilestoneFreeUpgrades(player.highestSingularityCount)
+      raiseHighestSingularity(player.highestSingularityCount + 1)
+    }
+  } else {
+    player.singularityCount = setSingNumber
+    if (antiquitiesPurchased) {
+      raiseHighestSingularity(player.singularityCount)
     }
   }
 

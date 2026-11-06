@@ -257,6 +257,7 @@ import {
   blankGQLevelObject,
   calculateMaxSingularityLookahead,
   clampGQFreeLevelsToCaps,
+  raiseHighestSingularity,
   setGQUpgradeLevels
 } from './singularity'
 import {
@@ -1983,6 +1984,9 @@ const loadSynergy = (saveString: string): boolean => {
     initializeCurveBuildingsPaid(validatedPlayer.data)
     calculateObtainium()
     resetHistoryRenderAllTables()
+    if (G.currentSingChallenge === undefined) {
+      raiseHighestSingularity(player.singularityCount)
+    }
     updateSingularityAchievements()
 
     // Update the Sing requirements on reload for a challenge if applicable
@@ -3640,10 +3644,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
 
 export const updateAll = (): void => {
   if (runes.antiquities.level > 0) {
-    player.highestSingularityCount = Math.max(
-      player.highestSingularityCount,
-      player.singularityCount
-    )
+    raiseHighestSingularity(player.singularityCount)
   }
 
   let shouldReveal = false

@@ -351,12 +351,12 @@ export const generateExportSummary = async (): Promise<void> => {
       if (goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
         totalSingUpgradeMax += 1
       }
-      if (player.singularityCount >= singUpg.minimumSingularity) {
+      if (player.highestSingularityCount >= singUpg.minimumSingularity) {
         totalSingUpgradeUnlocked += 1
       }
 
       let unicodeSymbol = '[✖]'
-      if (player.singularityCount >= singUpg.minimumSingularity) {
+      if (player.highestSingularityCount >= singUpg.minimumSingularity) {
         if (goldenQuarkUpgrades[key].level === singUpg.maxLevel) {
           unicodeSymbol = '[★]'
         } else {

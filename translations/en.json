@@ -4617,9 +4617,7 @@
       "slowClimbToggle": "Only go up 1 Singularity",
       "nextSingInfo": "Next Singularity Info",
       "highestSingularity": "Highest Singularity: <b><<gold | {{num}}>></b>",
-      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)",
-      "lookahead": "Looking ahead at your Highest Singularity adds <b><<gold | +1>></b> to your Highest Singularity<br><b><<orange | even if you skip Singularities!>></b>",
-      "lookaheadExtra": "If you beat a Singularity higher than your Highest, <br><b><<orchid | your Highest Singularity will update to current Singularity!>></b>"
+      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)"
     }
   },
   "general": {

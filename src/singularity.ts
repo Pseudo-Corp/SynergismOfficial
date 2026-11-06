@@ -2492,9 +2492,14 @@ export const singularityMilestoneFreeUpgrades: ReadonlyArray<
   { singularity: 10, key: 'goldenQuarks3', amount: 2 }
 ]
 
-export const awardSingularityMilestoneFreeUpgrades = (reachedSingularity: number) => {
+export const raiseHighestSingularity = (reachedSingularity: number) => {
+  const previousHighest = player.highestSingularityCount
+  if (reachedSingularity <= previousHighest) {
+    return
+  }
+  player.highestSingularityCount = reachedSingularity
   for (const milestone of singularityMilestoneFreeUpgrades) {
-    if (milestone.singularity === reachedSingularity) {
+    if (milestone.singularity > previousHighest && milestone.singularity <= reachedSingularity) {
       addDailyFreeUpgradeLevels(milestone.key, milestone.amount)
     }
   }
@@ -4520,9 +4525,7 @@ export const updateSingularityElevator = (): void => {
   const lockStatus = DOMCacheGetOrSet('elevatorLockStatus')
 
   const highestSingularity = DOMCacheGetOrSet('highestSingularity')
-  const lookaheadDisplay = DOMCacheGetOrSet('lookahead')
   const maxLookahead = DOMCacheGetOrSet('maxLookahead')
-  const extraLookahead = DOMCacheGetOrSet('extraLookahead')
 
   highestSingularity.innerHTML = i18next.t('singularity.elevator.highestSingularity', {
     num: player.highestSingularityCount
@@ -4539,9 +4542,7 @@ export const updateSingularityElevator = (): void => {
 
   const theoreticalLookahead = calculateMaxSingularityLookahead(true)
 
-  lookaheadDisplay.innerHTML = i18next.t('singularity.elevator.lookahead')
   maxLookahead.innerHTML = i18next.t('singularity.elevator.maxLookahead', { num: theoreticalLookahead })
-  extraLookahead.innerHTML = i18next.t('singularity.elevator.lookaheadExtra')
 
   if (input) {
     input.max = maxTarget.toString()
