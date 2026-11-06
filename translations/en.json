@@ -6092,10 +6092,12 @@
     "secondsPerOcteract": "+1 per <<var(--orchid-text-color)|{{seconds}}>> seconds",
     "octeractsPerSecond": "<<yellow|{{octeracts}}>> per second",
     "totalGenerated": "Total Generated: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octeracts!",
+    "unspent": "Unspent: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octeracts!",
     "generatedCubeBonus": "3-7 Dimensional Cubes <<yellow|+{{cubeBonus}}%>>",
     "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}%>>",
     "generatedOfferingBonus": "Offerings <<orange|+{{offeringBonus}}%>>",
-    "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}%>>"
+    "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}%>>",
+    "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>"
   },
   "runes": {
     "runeName": "<b><<{{color}}|{{name}}>></b> Rune",

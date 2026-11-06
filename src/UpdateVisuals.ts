@@ -1973,6 +1973,7 @@ export const visualUpdateOcteracts = () => {
   const cTOQB = (calculateTotalOcteractQuarkBonus() - 1) * 100
   const cTOOB = (calculateTotalOcteractOfferingBonus() - 1) * 100
   const cTOOOB = (calculateTotalOcteractObtainiumBonus() - 1) * 100
+  const cTOLB = getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck')
   DOMCacheGetOrSet('totalOcteractAmount').innerHTML = i18next.t(
     'octeract.totalGenerated',
     {
@@ -1983,6 +1984,7 @@ export const visualUpdateOcteracts = () => {
   DOMCacheGetOrSet('totalOcteractQuarkBonus').style.display = cTOQB >= 0.001 ? '' : 'none'
   DOMCacheGetOrSet('totalOcteractOfferingBonus').style.display = cTOOB >= 0.001 ? '' : 'none'
   DOMCacheGetOrSet('totalOcteractObtainiumBonus').style.display = cTOOOB >= 0.001 ? '' : 'none'
+  DOMCacheGetOrSet('totalOcteractLuckBonus').style.display = cTOLB > 0 ? '' : 'none'
   DOMCacheGetOrSet('totalOcteractCubeBonus').innerHTML = i18next.t(
     'octeract.generatedCubeBonus',
     {
@@ -2005,6 +2007,36 @@ export const visualUpdateOcteracts = () => {
     'octeract.generatedObtainiumBonus',
     {
       obtainiumBonus: format(cTOOOB, 3, true, false)
+    }
+  )
+  DOMCacheGetOrSet('totalOcteractLuckBonus').innerHTML = i18next.t(
+    'octeract.generatedLuckBonus',
+    {
+      luckBonus: format(cTOLB, 0, true)
+    }
+  )
+
+  const cCOQB = 100 * (getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1', 'octeractQuarks') - 1)
+  const cCOLB = getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1', 'octeractAmbrosiaLuck')
+  DOMCacheGetOrSet('currentOcteractsDisplay').style.display = cCOQB > 0 || cCOLB > 0 ? '' : 'none'
+  DOMCacheGetOrSet('currentOcteractQuarkBonus').style.display = cCOQB > 0 ? '' : 'none'
+  DOMCacheGetOrSet('currentOcteractLuckBonus').style.display = cCOLB > 0 ? '' : 'none'
+  DOMCacheGetOrSet('currentOcteractAmount').innerHTML = i18next.t(
+    'octeract.unspent',
+    {
+      octeracts: format(player.wowOcteracts, 2, true, false)
+    }
+  )
+  DOMCacheGetOrSet('currentOcteractQuarkBonus').innerHTML = i18next.t(
+    'octeract.generatedQuarkBonus',
+    {
+      quarkBonus: format(cCOQB, 2, true)
+    }
+  )
+  DOMCacheGetOrSet('currentOcteractLuckBonus').innerHTML = i18next.t(
+    'octeract.generatedLuckBonus',
+    {
+      luckBonus: format(cCOLB, 2, true)
     }
   )
 }

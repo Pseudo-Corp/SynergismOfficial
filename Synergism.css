@@ -3926,7 +3926,8 @@ p#reincarnatehotkeys {
     line-height: 1;
 }
 
-#totalOcteractsDisplay {
+#totalOcteractsDisplay,
+#currentOcteractsDisplay {
     display: flex;
     flex-direction: column;
     row-gap: 6px;
@@ -3942,7 +3943,8 @@ p#reincarnatehotkeys {
     font-size: 1.2em;
 }
 
-#totalOcteractsDisplay > p {
+#totalOcteractsDisplay > p,
+#currentOcteractsDisplay > p {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -3951,7 +3953,8 @@ p#reincarnatehotkeys {
     overflow-wrap: anywhere;
 }
 
-#totalOcteractsDisplay > p > span {
+#totalOcteractsDisplay > p > span,
+#currentOcteractsDisplay > p > span {
     margin-left: auto;
 }
 
