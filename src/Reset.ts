@@ -766,7 +766,8 @@ export const reset = (
     }
     markAscensionStartTokens()
 
-    applyPendingAutoAscendProtocol(c10Completions > 0)
+    const canClimb = c10Completions > 0 || ascensionChallenge !== 0
+    applyPendingAutoAscendProtocol(canClimb)
     player.corruptions.used = normalizeCorruptionLevel(player.corruptions.next)
     player.corruptions.ascensionLevel = player.corruptions.used
 
