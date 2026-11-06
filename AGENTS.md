@@ -73,3 +73,5 @@ categories A and B. Calculating B requires calculating all of A for a single lin
 - In general, do NOT write or implement anything that signals iterations. The version that we want to implement is the version we want to present. If you are told to undo a change, or undo something made earlier, please do a thorough job in undoing it. Leftover artifacts are very bad.
 
 - Unless strictly necessary, use 2px solid borders, or flat square borders. Do not implement Squircles in any other way.
+
+- CONSISTENCY. If you think you're making a common pattern (or you are explicitly told a specific pattern) look for it in the repository: what you want to do may already be in-game somewhere. In this case you can re-use logic or functionality. This is better than reinventing the wheel, or worse, inconsistent UIs across Tabs or even Subtabs.

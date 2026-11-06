@@ -40,7 +40,8 @@ import {
   resetCorruptionProgress,
   setNextCorruptionLevel,
   toggleCorruptionAutoIncrease,
-  toggleCorruptionCleanseToHighest
+  toggleCorruptionCleanseToHighest,
+  toggleCorruptionShowRealTime
 } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
 import { eventPageMessageHandler } from './Event'
@@ -1621,6 +1622,7 @@ export const generateEventHandlers = () => {
     'change',
     () => toggleCorruptionCleanseToHighest()
   )
+  DOMCacheGetOrSet('corruptionShowRealTimeToggle').addEventListener('change', () => toggleCorruptionShowRealTime())
   for (const [id, delta] of corruptionLevelSteps) {
     DOMCacheGetOrSet(id).addEventListener('click', () => changeNextCorruptionLevel(delta))
   }

@@ -6075,13 +6075,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     margin: 0 0 2px;
 }
 
-#ascensionAutomationButtons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
-}
-
 #ascensionAutoEnable {
     width: 12em;
     min-width: 150px;
@@ -6245,11 +6238,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     line-height: 1em;
 }
 
-.corrBtn {
-    width: 30px;
-    margin: 0 auto;
-}
-
 #corruptionStats button {
     white-space: nowrap;
 }
@@ -6282,61 +6270,36 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     z-index: 1;
 }
 
-#corruptionLayout {
-    display: flex;
+#autoAscensions {
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
-    gap: 16px;
-    width: 100%;
-}
-
-#autoAscensions {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    min-height: 350px;
+    gap: 10px 2em;
     margin-top: 10px;
     font-size: min(1em, 20px);
     z-index: 1;
 }
 
 #autoAscendRules {
-    width: min(100%, 48em);
-}
-
-#autoAscendRules > .corruptionTierHeading {
-    color: var(--orange-color);
-}
-
-.corruptionRulesNote {
-    max-width: 28em;
-    margin: 0;
-    color: var(--gray-text-color);
-    text-align: center;
-}
-
-#autoAscendSidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 25em;
+    width: 44em;
     max-width: 100%;
 }
 
-#autoAscendStatus,
-#corruptionLoadouts {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid var(--orange-color);
-    border-radius: 4px;
-    background-color: var(--box-color);
+#autoAscendRulesHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 16px;
 }
 
-#autoAscendStatus > .corruptionTierHeading,
+#autoAscendRulesHeader > .corrDesc {
+    min-width: 0;
+    margin: 0;
+}
+
+#autoAscendRulesHeading,
 #corruptionLoadouts > .corruptionTierHeading {
-    margin-top: 0;
     color: var(--orange-color);
 }
 
@@ -6357,27 +6320,24 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .corruptionLoadoutName {
     overflow: hidden;
-    color: var(--gray-text-color);
+    color: var(--white-color);
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.corruptionLoadoutId {
-    color: var(--orange-color);
-}
-
-.corruptionLoadoutRow > .autoAscendNumber {
-    width: auto;
+.corruptionLoadoutRow > .corruptionLoadoutInput {
     min-width: 0;
     margin-left: auto;
     flex: 0 1 4.5em;
 }
 
-#autoAscendStatusList {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 9em;
-    gap: 4px 12px;
-    margin: 0;
+#autoAscendLastFired {
+    color: var(--gold-color);
+}
+
+#corruptionAscensionDetails > .corruptionToggle {
+    justify-self: center;
+    margin-top: 6px;
 }
 
 #corruptionAscensionControls > #corruptionAscensionDetails {
@@ -6385,15 +6345,11 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #corruptionAscensionDetailsRows .corruptionStatRow {
-    grid-template-columns: auto 1fr minmax(4em, auto);
+    grid-template-columns: auto 1fr minmax(9em, auto);
 }
 
-#corruptionAscensionControls > #corruptionAscensionDetails[hidden] {
-    display: none;
-}
-
-#corruptionAscensionControls:has(> #corruptionAscensionDetails[hidden]) > .corruptionControlGroup {
-    grid-column: 1 / -1;
+#corruptionAscensionDetailsRows .corruptionStatValue {
+    font-variant-numeric: tabular-nums;
 }
 
 #corruptionAscensionDetails > .corruptionTierHeading {
@@ -6404,34 +6360,10 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     cursor: default;
 }
 
-#autoAscendStatusList > dt {
-    overflow: hidden;
-    color: var(--gray-text-color);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: left;
-}
-
-#autoAscendStatusList > dd {
-    overflow: hidden;
-    margin: 0;
-    color: var(--text-color);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: right;
-}
-
-#autoAscendRulesEmpty {
-    max-width: 28em;
-    margin: 0;
-    text-align: center;
-}
-
 #autoAscendRuleList {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 2px;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -6442,18 +6374,23 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 8px;
-    border: 1px solid var(--orange-color);
-    border-radius: 4px;
-    background-color: var(--box-color);
+    min-height: 28px;
+    padding: 0 8px;
     color: var(--text-color);
     text-align: left;
     cursor: pointer;
 }
 
+.autoAscendRuleItem:nth-child(odd) {
+    background-color: #1f1f1f;
+}
+
 .autoAscendRuleNumber {
+    min-width: 1.5em;
     color: var(--orange-color);
     font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
 }
 
 .autoAscendRuleName {
@@ -6497,10 +6434,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     gap: 6px;
 }
 
-#autoAscendProtocolEditor > .autoAscendHelp {
-    margin: 0;
-}
-
 .autoAscendModifier > span {
     min-width: 10em;
 }
@@ -6511,11 +6444,15 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     cursor: default;
 }
 
+.autoAscendRuleActions > button {
+    min-height: 24px;
+}
+
 .autoAscendRuleState {
     min-width: 3.2em;
+    min-height: 24px;
     padding: 1px 4px;
-    border: 1px solid var(--green-text-color);
-    border-radius: 3px;
+    border: 2px solid var(--green-text-color);
     background-color: transparent;
     color: var(--green-text-color);
     font-weight: bold;
@@ -6523,7 +6460,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .autoAscendRuleDisabled {
-    border-style: dashed;
     opacity: 0.55;
 }
 
@@ -6532,18 +6468,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: var(--red-text-color);
 }
 
-.autoAscendRuleDisabled .autoAscendRuleName {
-    text-decoration: line-through;
-}
-
-.autoAscendRuleModalHint {
-    color: var(--gray-text-color);
-}
-
 .autoAscendRuleStatus {
     padding: 1px 6px;
-    border: 1px solid currentcolor;
-    border-radius: 3px;
     font-size: 0.85em;
     white-space: nowrap;
 }
@@ -6553,24 +6479,24 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .autoAscendRuleStatus[data-status="ready"],
-.autoAscendRuleStatusLine[data-status="ready"] {
+.autoAscendRuleStatusLabel[data-status="ready"] {
     color: var(--lime-text-color);
 }
 
 .autoAscendRuleStatus[data-status="behind"],
-.autoAscendRuleStatusLine[data-status="behind"],
+.autoAscendRuleStatusLabel[data-status="behind"],
 .autoAscendRuleStatus[data-status="excepted"],
-.autoAscendRuleStatusLine[data-status="excepted"] {
+.autoAscendRuleStatusLabel[data-status="excepted"] {
     color: var(--amber-text-color);
 }
 
 .autoAscendRuleStatus[data-status="waiting"],
-.autoAscendRuleStatusLine[data-status="waiting"] {
+.autoAscendRuleStatusLabel[data-status="waiting"] {
     color: var(--gray-text-color);
 }
 
 .autoAscendRuleStatus[data-status="locked"],
-.autoAscendRuleStatusLine[data-status="locked"] {
+.autoAscendRuleStatusLabel[data-status="locked"] {
     color: var(--red-text-color);
 }
 
@@ -6615,8 +6541,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .autoAscendEditorFooter > button {
     min-width: 44px;
     padding: 0 8px;
-    border: 1px solid var(--orange-color);
-    border-radius: 3px;
+    border: 2px solid var(--orange-color);
 }
 
 .autoAscendButton.autoAscendRemove {
@@ -6647,7 +6572,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     overflow-y: auto;
     padding: 16px;
     border: 2px solid var(--orange-color);
-    border-radius: 6px;
     background-color: var(--alert-color);
     color: var(--text-color);
     text-align: left;
@@ -6671,12 +6595,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     justify-content: flex-end;
 }
 
-.autoAscendHelp,
-.autoAscendCount {
-    margin: 2px 0 6px;
-    color: var(--gray-text-color);
-}
-
 .autoAscendChoices {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
@@ -6684,12 +6602,10 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .autoAscendChoice {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
     padding: 6px 8px;
-    border: 1px solid orange;
-    border-radius: 4px;
+    border: 2px solid var(--orange-color);
+    color: var(--orange-color);
+    font-weight: bold;
     text-align: left;
 }
 
@@ -6699,16 +6615,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .autoAscendChoice[aria-pressed="true"] {
     background-color: rgb(255 165 0 / 15%);
-    box-shadow: inset 0 0 0 1px orange;
-}
-
-.autoAscendChoiceName {
-    color: orange;
-    font-weight: bold;
-}
-
-.autoAscendChoiceDescription {
-    color: var(--gray-text-color);
 }
 
 .autoAscendGroup {
@@ -6716,7 +6622,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     flex-direction: column;
     gap: 6px;
     padding: 8px;
-    border-left: 3px solid var(--darkorange-color);
+    border-left: 2px solid var(--darkorange-color);
     background-color: rgb(255 165 0 / 4%);
 }
 
@@ -6737,8 +6643,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .autoAscendNumber {
     min-height: 30px;
     padding: 0 6px;
-    border: 1px solid #fff4;
-    border-radius: 3px;
+    border: 2px solid #fff4;
     background-color: var(--button-color);
     color: var(--text-color);
 }
@@ -6761,8 +6666,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    border: 1px solid var(--orange-color);
-    border-radius: 3px;
+    border: 2px solid var(--orange-color);
     background-color: var(--alert-color);
     box-shadow: 0 4px 12px rgb(0 0 0 / 60%);
 }
@@ -6793,7 +6697,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     width: 8em;
 }
 
-.autoAscendNumber.autoAscendInvalid {
+.autoAscendNumber.autoAscendInvalid,
+.corruptionLoadoutInput.autoAscendInvalid {
     border-color: var(--red-text-color);
 }
 
@@ -6819,8 +6724,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     width: 100%;
     min-height: 30px;
     padding: 0 6px;
-    border: 1px solid #fff4;
-    border-radius: 3px;
+    border: 2px solid #fff4;
     background-color: var(--button-color);
     color: var(--text-color);
     font-family: monospace;
@@ -6858,7 +6762,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
     .autoAscendEditorPanel {
         height: 100%;
-        border-radius: 0;
     }
 }
 
@@ -7039,9 +6942,10 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     margin: 2px 0;
 }
 
-#corruptionLevelInput {
+#corruptionLevelInput,
+.corruptionLoadoutInput {
     width: 5em;
-    border: 1px solid var(--orange-color);
+    border: 2px solid var(--orange-color);
     color: var(--gold-color);
     background-color: var(--blackbtn-color);
     text-align: center;
@@ -7049,7 +6953,9 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #corruptionLevelInput::-webkit-outer-spin-button,
-#corruptionLevelInput::-webkit-inner-spin-button {
+#corruptionLevelInput::-webkit-inner-spin-button,
+.corruptionLoadoutInput::-webkit-outer-spin-button,
+.corruptionLoadoutInput::-webkit-inner-spin-button {
     appearance: none;
     margin: 0;
 }
@@ -7067,13 +6973,6 @@ img.corruptionImg.small {
     min-height: 20px;
     min-width: 40px;
     border: 1px solid #5b5ddc;
-    width: 100%;
-}
-
-.corrImport {
-    min-height: 20px;
-    min-width: 40px;
-    border: 1px solid var(--green-color);
     width: 100%;
 }
 
@@ -12376,11 +12275,14 @@ html[data-ascension-tab-unlock="false"] .ascensionTabUnlock {
 }
 
 html[data-corruption-unlock="false"] #corruptionInfo1,
-html[data-corruption-unlock="false"] #corruptionAscensionControls,
-html[data-corruption-unlock="false"] #corruptionLoadouts,
-html[data-corruption-unlock="false"] #autoAscendStatusCorruptionLabel,
-html[data-corruption-unlock="false"] #autoAscendStatusCorruption {
+html[data-corruption-unlock="false"] #corruptionTierSelected,
+html[data-corruption-unlock="false"] #corruptionClimbing,
+html[data-corruption-unlock="false"] #corruptionLoadouts {
     display: none;
+}
+
+html[data-corruption-unlock="false"] #corruptionAscensionDetails {
+    grid-column: 1 / -1;
 }
 
 html[data-chal12="true"] .chal12 {
@@ -12669,7 +12571,6 @@ html[data-auto-ascend-unlock="true"] .autoAscendUnlock {
 }
 
 html[data-auto-ascend-unlock="false"] .autoAscendUnlock,
-html[data-auto-ascend-unlock="false"] #autoAscendSidebar,
 html[data-auto-ascend-unlock="true"] #autoAscendRequiresCubeUpgrade10 {
     display: none;
 }

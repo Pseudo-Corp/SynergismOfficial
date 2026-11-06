@@ -748,6 +748,7 @@ export const player: Player = {
   ascensionCounter: 0,
   ascensionCounterReal: 0,
   ascensionCounterRealReal: 0,
+  ascensionAttemptCounter: 0,
   // dprint-ignore
   cubeUpgrades: [
     null,
@@ -966,6 +967,7 @@ export const player: Player = {
     highestCleared: 0,
     autoIncrease: false,
     cleanseToHighest: false,
+    showRealTime: false,
     loadouts: Array.from({ length: corruptionLoadoutCount }, () => 0)
   },
 

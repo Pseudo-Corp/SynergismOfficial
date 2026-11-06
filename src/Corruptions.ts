@@ -19,7 +19,7 @@ import { getMaxChallenges } from './Challenges'
 import { platonicCorruptionScaling } from './Platonic'
 import { getGQUpgradeEffect } from './singularity'
 import { calculateCorruptionCubeScaling, corruptionCubeScalingStats, freeCorruptionLevelStatsSum } from './Statistics'
-import { format, player } from './Synergism'
+import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
 import { CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification } from './UpdateHTML'
 import { getElementById, isMobile, validateNonnegativeInteger } from './Utility'
@@ -157,7 +157,7 @@ const corruptionLevelEffects: { [K in CorruptionKey]: CorruptionLevelEffect<K> }
   ]
 }
 
-export const corruptionKeys = Object.keys(corruptionLevelEffects) as CorruptionKey[]
+const corruptionKeys = Object.keys(corruptionLevelEffects) as CorruptionKey[]
 
 const corruptionBandBoundary = (edge: number) => {
   return Math.floor(edge / platonicCorruptionScaling() + 1e-9)
@@ -265,7 +265,7 @@ export const normalizeCorruptionLevel = (level: number) => {
 
 export const corruptionFreeLevels = () => freeCorruptionLevelStatsSum()
 
-export const effectiveCorruptionLevel = (level: number) => {
+const effectiveCorruptionLevel = (level: number) => {
   return level + corruptionFreeLevels()
 }
 
@@ -319,6 +319,12 @@ export const toggleCorruptionCleanseToHighest = () => {
   corruptionStatsUpdate()
 }
 
+export const toggleCorruptionShowRealTime = () => {
+  player.corruptions.showRealTime = !player.corruptions.showRealTime
+  corruptionStatsUpdate()
+  corruptionAscensionDetailsUpdate()
+}
+
 export const cleanseCorruptions = () => {
   const level = player.corruptions.cleanseToHighest ? corruptionCleanseLevel() : 0
   player.corruptions.used = Math.min(player.corruptions.used, level)
@@ -343,7 +349,7 @@ export const resetCorruptionProgress = async () => {
   void Notification(i18next.t('corruptions.resetProgress.done'))
 }
 
-export const corrIcons: Record<CorruptionKey, string> = {
+const corrIcons: Record<CorruptionKey, string> = {
   construction: '/CorruptDeflation.png',
   viscosity: '/CorruptViscosity.png',
   salvage: '/CorruptDrought.png',
@@ -695,7 +701,9 @@ const corruptionLevelOverwrittenUpdate = () => {
   const element = DOMCacheGetOrSet('corruptionLevelOverwritten')
   element.style.display = isCorruptionLevelOverwritten() ? '' : 'none'
   if (isCorruptionLevelOverwritten()) {
-    element.innerHTML = i18next.t('corruptions.tiers.levelOverwritten')
+    element.innerHTML = i18next.t('corruptions.tiers.levelOverwritten', {
+      challenge: player.currentChallenge.ascension
+    })
   }
 }
 
@@ -751,6 +759,15 @@ export const corruptionAscensionDetailsUpdate = () => {
   DOMCacheGetOrSet('corruptionAscensionTokens').innerHTML = gained >= 0
     ? multipliedTokenText('corruptions.ascensionDetails.tokensValue', gained)
     : ''
+  const real = player.corruptions.showRealTime
+  DOMCacheGetOrSet('corruptionAscensionSinceSuccessful').textContent = formatTimeShort(
+    real ? player.ascensionCounterReal : player.ascensionCounter,
+    0
+  )
+  DOMCacheGetOrSet('corruptionAscensionSinceAttempted').textContent = formatTimeShort(
+    real ? player.ascensionCounterRealReal : player.ascensionAttemptCounter,
+    0
+  )
 }
 
 export const corruptionTokenUpdate = (level: number) => {
@@ -814,6 +831,7 @@ const corruptionLevelCapUpdate = () => {
     : i18next.t('corruptions.tiers.requiresChallenge11')
   getElementById<HTMLInputElement>('corruptionAutoIncreaseToggle').checked = player.corruptions.autoIncrease
   getElementById<HTMLInputElement>('corruptionCleanseToHighestToggle').checked = player.corruptions.cleanseToHighest
+  getElementById<HTMLInputElement>('corruptionShowRealTimeToggle').checked = player.corruptions.showRealTime
 }
 
 const formatCorruptionEffect = (corr: CorruptionKey, level: number) => {

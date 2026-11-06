@@ -1756,6 +1756,8 @@ export const visualUpdateCorruptions = () => {
     return
   }
 
+  corruptionAscensionDetailsUpdate()
+
   if (getActiveSubTab() === 1) {
     corruptionTokenUpdate(player.corruptions.next)
     campaignTokenRewardHTMLUpdate()
@@ -1769,7 +1771,6 @@ export const visualUpdateCorruptions = () => {
     return
   }
 
-  corruptionAscensionDetailsUpdate()
   corruptionEffectsUpdate()
   corruptionLevelScoreUpdate()
 }

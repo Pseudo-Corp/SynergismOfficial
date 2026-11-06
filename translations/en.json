@@ -5379,7 +5379,7 @@
       "notCorrupted": "Not Corrupted",
       "level": "Corruption Level <<gold|{{level}}>>",
       "levelChange": "Corruption Level <<silver|{{old}} →>> <<gold|{{new}}>>",
-      "levelOverwritten": "Corruptions disabled: <<orange|Ascension Challenge>>",
+      "levelOverwritten": "Corruptions disabled: <<orange|({{challenge}}) $t(challenges.{{challenge}}.progressName)>>",
       "freeLevels": "<<orange|[+{{free}}]>>",
       "tokens": {
         "selectLevel": "Select a level to start earning Tokens!",
@@ -5416,6 +5416,9 @@
       "heading": "This Ascension",
       "c10": "Challenge 10 Completions",
       "tokensGained": "Tokens Gained",
+      "sinceSuccessful": "Since Last Successful Ascension",
+      "sinceAttempted": "Since Last Attempted Ascension",
+      "realTime": "Show Real Time",
       "tokensValue": "{{earned}}",
       "tokensValueBonus": "{{earned}} ({{base}} +{{percent}}%)"
     },
@@ -5434,27 +5437,17 @@
     "autoAscend": {
       "on": "Auto Ascend [ON]",
       "off": "Auto Ascend [OFF]",
-      "requiresC10": "Auto Ascension Rules will not run until you complete Challenge 10.",
+      "requiresC10": "<<gold|⚠>> Auto Ascension Rules will not run until you complete Challenge 10.",
       "requiresCubeUpgrade10": "Buy Cube Upgrade 1x10 in the WOW! Cubes tab to unlock Auto Ascension Rules.",
-      "status": {
-        "heading": "Status",
-        "corruption": "Corruption Level",
-        "c10": "Challenge 10 Completions",
-        "ascensionChallenge": "Ascension Challenge",
-        "none": "None",
-        "timeInGame": "Ascension Timer",
-        "timeReal": "This Attempt (Real)",
-        "lastFired": "Last Rule Fired"
-      },
       "loadouts": {
         "heading": "Corruption Loadouts",
-        "help": "Each Loadout stores a Corruption level. Auto Ascension Rules can go to a Loadout's level or change it."
+        "slot": "Slot <<gold|{{slot}}>> (<<gold|s{{slot}}>>)"
       },
       "rules": {
         "ui": {
-          "heading": "Auto Ascension Rules",
-          "slots": "{{count}} / {{max}} rules",
-          "empty": "You have no rules yet. Rules are checked from top to bottom, and the first rule that applies decides your next Ascension. Click a rule to disable or enable it.",
+          "heading": "Auto Ascension Rules ({{count}} / {{max}})",
+          "lastFired": "Last Rule Fired:",
+          "lastFiredNone": "None",
           "addRule": "Add Rule!",
           "newTitle": "New Auto Ascension Rule",
           "editTitle": "Edit Rule {{number}}",
@@ -5463,7 +5456,6 @@
           "conditionHeading": "2. When should this rule run?",
           "protocolHeading": "1. What should this rule do?",
           "exceptionHeading": "3. Exception (optional)",
-          "exceptionHelp": "If the exception is true, this rule does not run even when its condition is met.",
           "previewHeading": "Preview",
           "ruleTextLabel": "Rule text (paste a rule here to load it)",
           "copyRule": "Copy Rule",
@@ -5489,7 +5481,6 @@
             "pasteFailed": "Could not read the clipboard. Try importing from a file instead."
           },
           "previewIncomplete": "Choose what this rule does and add at least one comparison to finish this rule.",
-          "comparisonCount": "{{count}} / {{max}} comparisons",
           "addComparison": "+ Comparison",
           "addGroup": "+ Group",
           "addException": "+ Exception (optional)",
@@ -5499,41 +5490,17 @@
           },
           "startHeading": "How do you want to start?",
           "start": {
-            "template": {
-              "name": "Use a Template",
-              "description": "Start from a ready-made rule, then change anything you like."
-            },
-            "custom": {
-              "name": "Build Your Own",
-              "description": "Choose what the rule does, then when it runs, one step at a time."
-            }
+            "template": "Use a Template",
+            "custom": "Build Your Own"
           },
           "templateHeading": "Pick a template",
           "templates": {
-            "ascendAtC10": {
-              "name": "Ascend at C10",
-              "description": "Ascend once you have this many Challenge 10 completions."
-            },
-            "outsideChallenges": {
-              "name": "Outside Challenges",
-              "description": "Ascend once you have this many Challenge 10 completions, but you aren't an Ascension Challenge."
-            },
-            "climbWhenFast": {
-              "name": "Climb When Fast",
-              "description": "If you clear Challenge 10 fast enough, climb one Corruption level."
-            },
-            "declimbWhenStuck": {
-              "name": "Declimb When Stuck",
-              "description": "If you aren't clearing Challenge 10 fast enough, lower your Corruption level by one."
-            },
-            "ascendOnStall": {
-              "name": "Ascend on Cube Stall",
-              "description": "Ascend once your Cubes per second has not gone up for 30 real seconds."
-            },
-            "bestLevel": {
-              "name": "Best Recent Level",
-              "description": "After a Challenge 10 clear and 15 real seconds, go to the Corruption level that earned the most Cubes per real second in your last 10 Ascensions."
-            }
+            "ascendAtC10": "Ascend at C10",
+            "outsideChallenges": "Outside Challenges",
+            "climbWhenFast": "Climb When Fast",
+            "declimbWhenStuck": "Declimb When Stuck",
+            "ascendOnStall": "Ascend on Cube Stall",
+            "bestLevel": "Best Recent Level"
           },
           "removeGroup": "Remove group",
           "remove": "Remove",
@@ -5564,8 +5531,10 @@
             "cc": "Challenge Completions (Score for Challenge 15)",
             "mc": "Maxed Challenge",
             "stall": "Seconds since a Cube type per second last went up",
-            "t": "Ascension Time, In-game (seconds, needs a C10 completion)",
-            "rt": "This Attempt, Real (seconds)",
+            "t": "Since Last Successful Ascension, In-game (seconds)",
+            "srt": "Since Last Successful Ascension, Real (seconds)",
+            "at": "Since Last Attempted Ascension, In-game (seconds)",
+            "rt": "Since Last Attempted Ascension, Real (seconds)",
             "sg": "Current Singularity",
             "aag": "Antiquities of Ant God level",
             "gs": "Game Section",
@@ -5600,17 +5569,16 @@
           },
           "bestRuns": "per real second, last {{runs}} runs",
           "bestRunsLabel": "Runs to compare",
-          "bestRunsHelp": "Picks the level of your best run by this cube type per real second, among your most recent Ascensions with a Challenge 10 completion. Ascension Challenge runs are skipped. If no run qualifies, your Corruption level is kept.",
-          "loadoutSlot": "Loadout {{slot}}",
+          "loadoutSlot": "Loadout Slot {{slot}}",
           "loadoutOps": {
             "set": "set to",
             "increase": "increase by",
             "decrease": "decrease by"
           },
           "loadoutWrites": {
-            "set": "Loadout {{slot}} set to {{value}}",
-            "increase": "Loadout {{slot}} increased by {{value}}",
-            "decrease": "Loadout {{slot}} decreased by {{value}}"
+            "set": "Loadout Slot {{slot}} set to {{value}}",
+            "increase": "Loadout Slot {{slot}} increased by {{value}}",
+            "decrease": "Loadout Slot {{slot}} decreased by {{value}}"
           },
           "modifiers": {
             "antSacrifice": "Auto Ant Sacrifice",
@@ -5634,8 +5602,6 @@
           "delete": "Delete",
           "ruleOn": "ON",
           "ruleOff": "OFF",
-          "disableHint": "Click this rule to disable it.",
-          "enableHint": "This rule is disabled and is skipped. Click this rule to enable it.",
           "ruleStatus": {
             "ready": "Ready",
             "behind": "Rule {{number}} first",
@@ -5656,7 +5622,7 @@
           "moveUp": "Move rule up",
           "moveDown": "Move rule down",
           "errors": {
-            "invalidNumber": "Fix the highlighted numbers first. They must be 0 or higher, Challenge Completions, Singularities, Antiquities of Ant God, Cube Bank, Bells, Corruption and Loadout levels must be whole numbers, and climbs, downgrades and Loadout increases or decreases must be at least 1.",
+            "invalidNumber": "Fix the highlighted numbers first.",
             "emptyCondition": "Add at least one comparison to the condition.",
             "noProtocol": "Choose what this rule does.",
             "noSlots": "All of your rule slots are in use.",

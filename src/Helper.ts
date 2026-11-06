@@ -358,6 +358,7 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         ? G.MIND_DIVISOR
         : calculateAscensionSpeedMult()
       player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
+      player.ascensionAttemptCounter += time * timeMultiplier * ascensionSpeedMulti
       player.ascensionCounterReal += time * timeMultiplier
       break
     }

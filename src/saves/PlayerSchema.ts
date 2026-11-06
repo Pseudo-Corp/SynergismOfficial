@@ -327,6 +327,7 @@ const playerCorruptionSchema = z.object({
   highestCleared: z.number().int().min(0).optional().catch(undefined),
   autoIncrease: z.boolean().catch(() => blankSave.corruptions.autoIncrease),
   cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest),
+  showRealTime: z.boolean().catch(() => blankSave.corruptions.showRealTime),
   loadouts: corruptionLevelSchema.catch(0).array().catch(() => []).transform((levels) =>
     Array.from({ length: corruptionLoadoutCount }, (_, i) => levels[i] ?? 0)
   )
@@ -900,6 +901,7 @@ export const playerSchema = z.object({
   ascensionCounter: z.number().default(() => blankSave.ascensionCounter),
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
+  ascensionAttemptCounter: z.number().default(() => blankSave.ascensionAttemptCounter),
   cubeUpgrades: arrayStartingWithNull(z.number())
     .transform((array) => arrayExtend(array, 'cubeUpgrades'))
     .default((): [null, ...number[]] => [...blankSave.cubeUpgrades]),

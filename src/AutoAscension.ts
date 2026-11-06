@@ -40,6 +40,8 @@ export const comparatorKeys = Object.keys(comparators) as Comparator[]
 const numberRules = nullPrototype(
   {
     t: () => player.ascensionCounter,
+    srt: () => player.ascensionCounterReal,
+    at: () => player.ascensionAttemptCounter,
     rt: () => player.ascensionCounterRealReal,
     sg: () => player.singularityCount,
     aag: () => runes.antiquities.level,
@@ -897,7 +899,7 @@ export const parseSavedRules = (text: string): AutoAscendRule[] =>
 
 const defaultAutoAscendRuleText = [
   '"Challenge 10" c10>=1:asc',
-  '#"In-game seconds" c10>=1&t>=15:asc',
+  '#"In-game Seconds" c10>=1&at>=15:asc',
   '#"Real Seconds" c10>=1&rt>=15:asc',
   '#"Climb Corruption" c10>=1:l+1',
   '#"Declimb Corruption" c10=0&rt>=15:l-1'

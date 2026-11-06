@@ -316,6 +316,7 @@ export interface Player {
   ascensionCounter: number
   ascensionCounterReal: number
   ascensionCounterRealReal: number
+  ascensionAttemptCounter: number
   autoOpenCubes: boolean
   openCubes: number
   autoOpenTesseracts: boolean
@@ -398,6 +399,7 @@ export interface Player {
     highestCleared: number
     autoIncrease: boolean
     cleanseToHighest: boolean
+    showRealTime: boolean
     loadouts: number[]
   }
 

@@ -725,6 +725,7 @@ export const reset = (
     awardUngroupedAchievement(UngroupedAchievement.Ascended)
 
     player.ascensionCounterRealReal = 0
+    player.ascensionAttemptCounter = 0
     resetCubeRateTracking()
     if (c10Completions > 0) {
       player.ascensionCounter = 0
@@ -1161,6 +1162,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.corruptions.autoIncrease = player.corruptions.autoIncrease
   hold.corruptions.highestCleared = player.corruptions.highestCleared
   hold.corruptions.cleanseToHighest = player.corruptions.cleanseToHighest
+  hold.corruptions.showRealTime = player.corruptions.showRealTime
   hold.corruptions.loadouts = [...player.corruptions.loadouts]
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
