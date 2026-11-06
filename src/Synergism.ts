@@ -604,7 +604,7 @@ export const player: Player = {
   },
 
   // create a Map with keys defaulting to false
-  codes: new Map(Array.from({ length: 48 }, (_, i) => [i + 1, false])),
+  codes: new Map(Array.from({ length: 49 }, (_, i) => [i + 1, false])),
 
   shopUpgrades: {
     offeringPotion: 1,

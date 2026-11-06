@@ -1274,6 +1274,7 @@ export const singularity = (setSingNumber = -1) => {
   const saveCode46 = player.codes.get(46) ?? false
   const saveCode47 = player.codes.get(47) ?? false
   const saveCode48 = player.codes.get(48) ?? false
+  const saveCode49 = player.codes.get(49) ?? false
   const saveRngCode = player.rngCode
   const savePromoCodeTime = player.promoCodeTiming.time
 
@@ -1291,6 +1292,7 @@ export const singularity = (setSingNumber = -1) => {
   player.codes.set(46, saveCode46)
   player.codes.set(47, saveCode47)
   player.codes.set(48, saveCode48)
+  player.codes.set(49, saveCode49)
   updateSingularityMilestoneAwards()
 
   player.rngCode = Math.max(saveRngCode, DateNow())

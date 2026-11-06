@@ -8463,6 +8463,10 @@
         "notUnlocked": "Hmmm... you aren't ready yet.",
         "overCapacity": "You can't hold more!",
         "thanks": "Thank Alonso (in Discord) for the bribe."
+      },
+      "ascensionComp": {
+        "reward": "You gained 24 real-life hours of Ascension Timer!",
+        "unavailable": "This code can't be used in your current EXALT. Try again after leaving it!"
       }
     }
   },

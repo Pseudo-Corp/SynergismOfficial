@@ -515,6 +515,17 @@ export const promocodes = async (input: string | null, amount?: number) => {
     }
 
     return Alert(i18next.t('importexport.promocodes.bribe.notUnlocked'))
+  } else if (input.toLowerCase() === 'ascensioncomp' && !player.codes.get(49)) {
+    if (
+      player.singularityChallenges.limitedTime.enabled
+      || player.singularityChallenges.barDependence.enabled
+    ) {
+      return Alert(i18next.t('importexport.promocodes.ascensionComp.unavailable'))
+    }
+
+    player.codes.set(49, true)
+    addTimers('ascension', 86400)
+    el.textContent = i18next.t('importexport.promocodes.ascensionComp.reward')
   } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
     player.dailyCodeUsed = true
     let rewardMessage = i18next.t('importexport.promocodes.daily.message')
