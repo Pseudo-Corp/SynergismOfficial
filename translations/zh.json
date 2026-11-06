@@ -9027,6 +9027,7 @@
     "consumables": {
       "connectionEstablished": "连接成功！",
       "connectionFailed": "无法重新建立连接。消耗品和消耗品相关的活动无法生效。",
+      "tooManyConnections": "Your account has too many connections open. Close the game in another tab or on another device, then come back here to reconnect.",
       "ended": "{{consumable}}已经结束！",
       "redeemed": "{{consumable}}开始了！",
       "joined": "以下消耗品生效中："
