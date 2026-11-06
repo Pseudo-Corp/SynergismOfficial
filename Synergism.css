@@ -6103,6 +6103,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     inset: 0;
     padding: 2px;
     background: linear-gradient(135deg, #ff4d4d, #8b0000 30%, #ff1f5a 55%, #b30000 80%, #ff6a3d);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); /* stylelint-disable-line property-no-vendor-prefix */
+    -webkit-mask-composite: xor; /* stylelint-disable-line property-no-vendor-prefix */
     mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
     pointer-events: none;
 }
@@ -9547,6 +9549,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .godlikeText,
 .perfectText {
     color: transparent;
+    -webkit-background-clip: text; /* stylelint-disable-line property-no-vendor-prefix */
     background-clip: text;
     animation: rainbow-animation 5s linear infinite;
 }
@@ -9582,6 +9585,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .gradientText {
     color: transparent;
     background-image: linear-gradient(90deg, var(--gradient-start), var(--gradient-end), var(--gradient-start));
+    -webkit-background-clip: text; /* stylelint-disable-line property-no-vendor-prefix */
     background-clip: text;
     background-size: 700%;
     animation: gradient-animation 5s linear infinite;
