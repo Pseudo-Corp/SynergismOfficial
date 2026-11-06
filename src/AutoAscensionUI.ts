@@ -24,6 +24,7 @@ import {
   evaluateCondition,
   exaltKeys,
   getAutoAscendRuleSlots,
+  invalidRuleNameCharacter,
   isAmbrosiaLoadoutUnlocked,
   isAutoAscendRunning,
   isChallengeCondition,
@@ -1060,6 +1061,9 @@ const saveDraft = () => {
   }
   if (draft.name.trim().length > maxRuleNameLength) {
     return showEditorError('nameTooLong')
+  }
+  if (invalidRuleNameCharacter.test(draft.name)) {
+    return showEditorError('nameNotAscii')
   }
   if (draft.protocol === null) {
     return showEditorError('noProtocol')

@@ -429,6 +429,7 @@ export const getAutoAscendRuleSlots = () =>
 
 export const maxComparisonsPerExpr = 16
 export const maxRuleNameLength = 20
+export const invalidRuleNameCharacter = /[^\x20-\x7e]/
 const maxRuleLength = 1024
 
 const countComparisons = (expr: AutoAscendExpr): number =>
@@ -474,6 +475,7 @@ type RuleParseErrorCode =
   | 'tooManyComparisons'
   | 'invalidName'
   | 'nameTooLong'
+  | 'nameNotAscii'
   | 'ruleTooLong'
 
 export class RuleParseError extends Error {
@@ -878,7 +880,11 @@ export const parseRules = (text: string): AutoAscendRule[] => {
 
   return lines.map(({ line, index }) => {
     try {
-      return parseRule(line)
+      const rule = parseRule(line)
+      if (invalidRuleNameCharacter.test(rule.name)) {
+        throw new RuleParseError('nameNotAscii', line.indexOf('"'))
+      }
+      return rule
     } catch (error) {
       if (error instanceof RuleParseError) {
         throw new RuleParseError(error.code, error.column, index + 1)

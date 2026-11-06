@@ -5625,6 +5625,7 @@
             "noProtocol": "Choose what this rule does.",
             "noSlots": "All of your rule slots are in use.",
             "nameTooLong": "Rule names can be at most 20 characters long.",
+            "nameNotAscii": "Rule names can only use English letters, numbers, spaces and standard keyboard symbols.",
             "incompleteRule": "Finish the rule before copying it.",
             "copyFailed": "Could not copy the rule to the clipboard.",
             "pasteFailed": "Could not read the clipboard. Paste into the rule text box instead."
@@ -5646,6 +5647,7 @@
           "invalidProtocolValue": "Line {{line}}, column {{column}}: Invalid protocol value. Challenges must be 11 to 15 or next, levels a whole number, s1 to s8, max, clr or cln, climbs or downgrades a whole number of at least 1, and best a cube (sc, st, sh, sp or shp) and a whole number of runs of at least 1, like l=best(sc,10).",
           "invalidName": "Line {{line}}, column {{column}}: The rule name is not a valid quoted name.",
           "nameTooLong": "Line {{line}}, column {{column}}: Rule names can be at most 20 characters long.",
+          "nameNotAscii": "Line {{line}}, column {{column}}: Rule names can only use English letters, numbers, spaces and standard keyboard symbols.",
           "unknownModifier": "Line {{line}}, column {{column}}: Unknown modifier. Use as (Auto Ant Sacrifice), cs (Challenge Sweep), co (Auto Open Cubes), tb (Auto Tesseract Buildings), cu (Auto Cube Upgrades), pu (Auto Platonic Upgrades), ha (Auto Hepteract Crafting), al (Ambrosia Loadout) or s1 to s8 (Loadout).",
           "invalidModifierValue": "Line {{line}}, column {{column}}: Modifiers must be set to 1 (enable) or 0 (disable).",
           "duplicateModifier": "Line {{line}}, column {{column}}: This modifier is already set for this rule.",
