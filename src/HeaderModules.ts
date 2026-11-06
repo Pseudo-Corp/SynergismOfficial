@@ -446,6 +446,20 @@ export const updateHeaderConsumables = () => {
 const codeTime = (layout: HeaderLayout, id: HeaderModuleId, seconds: number) =>
   sizeOf(layout, id) === 'S' ? `${format(Math.floor(seconds), 0, true)}s` : formatS(seconds)
 
+const codeTimeLongestWait = {
+  dailyCodeHeader: 86399,
+  addCodeHeader: 3599,
+  timeCodeHeader: 899
+} as const
+
+const reserveCodeTime = (layout: HeaderLayout, id: keyof typeof codeTimeLongestWait) => {
+  const element = DOMCacheGetOrSet(`${id}Next`)
+  const reserve = i18next.t('headerLayout.codeNext', { time: codeTime(layout, id, codeTimeLongestWait[id]) })
+  if (element.dataset.reserve !== reserve) {
+    element.dataset.reserve = reserve
+  }
+}
+
 export const updateHeaderInfo = () => {
   const layout = currentLayout()
 
@@ -453,6 +467,7 @@ export const updateHeaderInfo = () => {
     const midnight = new Date()
     midnight.setHours(24, 0, 0, 0)
     setHeaderText('dailyCodeHeaderUses', `${player.dailyCodeUsed ? 0 : 1}/1`)
+    reserveCodeTime(layout, 'dailyCodeHeader')
     setHeaderText(
       'dailyCodeHeaderNext',
       player.dailyCodeUsed
@@ -467,6 +482,7 @@ export const updateHeaderInfo = () => {
     const uses = addCodeAvailableUses()
     const maxUses = addCodeMaxUses()
     setHeaderText('addCodeHeaderUses', `${format(uses, 0, true)}/${format(maxUses, 0, true)}`)
+    reserveCodeTime(layout, 'addCodeHeader')
     setHeaderText(
       'addCodeHeaderNext',
       uses < maxUses
@@ -478,6 +494,7 @@ export const updateHeaderInfo = () => {
   if (editing || !layout.hidden.includes('timeCodeHeader')) {
     const uses = timeCodeAvailableUses()
     setHeaderText('timeCodeHeaderUses', `${uses}/1`)
+    reserveCodeTime(layout, 'timeCodeHeader')
     setHeaderText(
       'timeCodeHeaderNext',
       uses === 0

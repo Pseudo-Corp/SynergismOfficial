@@ -2312,8 +2312,8 @@ export const formatTimeShort = (
 ): string => {
   return (
     (seconds >= 86400 ? `${format(Math.floor(seconds / 86400))}d` : '')
-    + (seconds >= 3600 ? `${format(Math.floor(seconds / 3600) % 24)}h` : '')
-    + (seconds >= 60 ? `${format(Math.floor(seconds / 60) % 60)}m` : '')
+    + (seconds >= 3600 && seconds < 8.64e10 ? `${format(Math.floor(seconds / 3600) % 24)}h` : '')
+    + (seconds >= 60 && seconds < 8.64e8 ? `${format(Math.floor(seconds / 60) % 60)}m` : '')
     + (seconds >= 8640000
       ? ''
       : `${

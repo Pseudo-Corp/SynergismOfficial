@@ -7260,6 +7260,18 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     margin-left: 0;
 }
 
+.ascensionStats .headerTimer {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.ascensionStats .headerTimer::after {
+    content: attr(data-reserve);
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
 #happyHourBellHeaderTimer { color: var(--gold-color); }
 #lotusHeaderTimer { color: var(--violet-color); }
 #dailyCodeHeaderUses { color: var(--lime-color); }
