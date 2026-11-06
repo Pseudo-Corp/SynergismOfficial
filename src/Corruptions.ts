@@ -829,6 +829,7 @@ const corruptionLevelCapUpdate = () => {
   DOMCacheGetOrSet('corruptionLevelCap').innerHTML = canChangeCorruptions()
     ? i18next.t('corruptions.tiers.levelCap', { level: format(maxCorruptionLevel()) })
     : i18next.t('corruptions.tiers.requiresChallenge11')
+  DOMCacheGetOrSet('corruptionLevelControls').style.display = maxCorruptionLevel() === 0 ? 'none' : ''
   getElementById<HTMLInputElement>('corruptionAutoIncreaseToggle').checked = player.corruptions.autoIncrease
   getElementById<HTMLInputElement>('corruptionCleanseToHighestToggle').checked = player.corruptions.cleanseToHighest
   getElementById<HTMLInputElement>('corruptionShowRealTimeToggle').checked = player.corruptions.showRealTime
@@ -853,7 +854,6 @@ export const corruptionEffectsUpdate = () => {
 export const corruptionStatsUpdate = () => {
   corruptionLevelCapUpdate()
 
-  DOMCacheGetOrSet('corruptionLevelControls').style.display = maxCorruptionLevel() === 0 ? 'none' : ''
   getElementById<HTMLInputElement>('corruptionLevelInput').value = `${player.corruptions.next}`
 
   corruptionEffectsUpdate()
