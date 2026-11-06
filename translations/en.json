@@ -9027,6 +9027,7 @@
     "consumables": {
       "connectionEstablished": "Connection was established!",
       "connectionFailed": "Could not re-establish your connection. Consumables and events related to Consumables will not work.",
+      "tooManyConnections": "Your account has too many connections open. Close the game in another tab or on another device, then come back here to reconnect.",
       "ended": "{{consumable}} ended!",
       "redeemed": "A {{consumable}} has started!",
       "joined": "The following consumables are active:"

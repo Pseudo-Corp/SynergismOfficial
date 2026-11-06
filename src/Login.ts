@@ -707,16 +707,17 @@ const queue: string[] = []
 const exponentialBackoff = [5000, 15000, 30000, 60000]
 let tries = 0
 let reconnectTimeout: number | undefined
+let tooManyConnections = false
 
-if (PLATFORM === 'mobile') {
-  document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState !== 'visible' || !isLoggedIn()) return
-    if (ws && ws.readyState !== WebSocket.CLOSED) return
+document.addEventListener('visibilitychange', () => {
+  if (PLATFORM !== 'mobile' && !tooManyConnections) return
+  if (document.visibilityState !== 'visible' || !isLoggedIn()) return
+  if (ws && ws.readyState !== WebSocket.CLOSED) return
 
-    tries = 0
-    handleWebSocket()
-  })
-}
+  tooManyConnections = false
+  tries = 0
+  handleWebSocket()
+})
 
 function resetWebSocket () {
   for (const key of Object.keys(allDurableConsumables)) {
@@ -771,6 +772,20 @@ async function handleWebSocket () {
     }
 
     setLotusBalanceLoading()
+
+    if (event.code === 4029) {
+      tooManyConnections = true
+      Notification(i18next.t('account.consumables.tooManyConnections'))
+      resetWebSocket()
+
+      if (interval) {
+        clearInterval(interval)
+        interval = undefined
+      }
+
+      return
+    }
+
     const delay = exponentialBackoff[Math.min(tries, exponentialBackoff.length - 1)]
 
     if (PLATFORM !== 'mobile' && tries === exponentialBackoff.length) {
@@ -795,13 +810,6 @@ async function handleWebSocket () {
 
   ws.addEventListener('open', () => {
     console.log('[Consumables WS] connected')
-    tries = 0
-
-    for (const message of queue) {
-      ws?.send(message)
-    }
-
-    queue.length = 0
 
     interval = setInterval(
       (ws_: WebSocket) => {
@@ -850,6 +858,15 @@ async function handleWebSocket () {
         setFavicon('./favicon.ico')
       }
     } else if (data.type === 'join') {
+      tries = 0
+      tooManyConnections = false
+
+      for (const message of queue) {
+        ws?.send(message)
+      }
+
+      queue.length = 0
+
       Notification(i18next.t('account.consumables.connectionEstablished'), 1000)
     } else if (data.type === 'info-all') {
       resetWebSocket() // So that we can get an accurate count each time
