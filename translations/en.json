@@ -3895,7 +3895,7 @@
       },
       "invigoratedSpirits": {
         "name": "Invigorated Spirits!",
-        "default": "Your ants feel a greater emotional weight from their lost bretheren of Sacrifices past.",
+        "default": "Your ants feel a greater emotional weight from their lost brethren of Sacrifices past.",
         "line2": "For your first num:((200000)) Immortal ELO, <<orchid|{{x}}%>> of it gets added to your Ant ELO!",
         "line3": "For the next num:((1800000)) Immortal ELO, <<orchid|{{x}}%>> of it gets added."
       },
