@@ -48,6 +48,7 @@ import {
   defaultAutoAscendRules,
   isAutoAscendRunning,
   isCorruptionLoadoutUnlocked,
+  resetCubeRateTracking,
   runAutoAscendRules
 } from './AutoAscension'
 import { autoAscendRulesUICreate, renderAutoAscendRules, setLastFiredAutoAscendRule } from './AutoAscensionUI'
@@ -1274,6 +1275,7 @@ const loadSynergy = (saveString: string): boolean => {
   }
 
   Object.assign(G, createGlobals())
+  resetCubeRateTracking()
 
   if (data) {
     if ((data.exporttest === false || data.exporttest === 'NO!') && !TESTING) {

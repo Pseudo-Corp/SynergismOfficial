@@ -141,10 +141,6 @@ export const toggleChallenges = (
       || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0
         && player.currentChallenge.ascension === 0))
   ) {
-    if (player.currentChallenge.ascension === 15) {
-      void resetCheck('ascensionChallenge', false, true)
-    }
-
     /* player.toggles[31] is the toggle for whether you want Ascensions to ask Confirmation
        We have to do the confirmation in this place because some players may want to avoid accidentally entering an Ascension Challenge
        even if they have a Challenge 10 completion, to avoid accidentally losing progress.
@@ -157,6 +153,9 @@ export const toggleChallenges = (
       })
       return
     } else {
+      if (player.currentChallenge.ascension === 15) {
+        void resetCheck('ascensionChallenge', false, true)
+      }
       reset('ascensionChallenge', false, 'enterChallenge', leftAscensionChallenge)
       applyChallengeInitialModifiers('ascensionChallenge', i)
       player.currentChallenge.ascension = i

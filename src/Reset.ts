@@ -10,6 +10,7 @@ import {
 } from './Achievements'
 import { applyPendingAutoAscendProtocol, printRules, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
+import { lastBlueberryLoadout, setLastBlueberryLoadout } from './BlueberryUpgrades'
 import {
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
@@ -1070,11 +1071,7 @@ export const singularity = (setSingNumber = -1) => {
   if (setSingNumber === -1) {
     const lookahead = calculateMaxSingularityLookahead(true)
 
-    // Check if elevator is locked to specific target
-    if (player.singularityElevatorLocked) {
-      // If locked, go to the target singularity instead of advancing normally
-      player.singularityCount = player.singularityElevatorTarget
-    } else {
+    if (!player.singularityElevatorLocked) {
       // Unlocked, slow climb means just go up by one singularity
       if (player.singularityElevatorSlowClimb) {
         player.singularityCount++
@@ -1274,6 +1271,7 @@ export const singularity = (setSingNumber = -1) => {
   const saveCode49 = player.codes.get(49) ?? false
   const saveRngCode = player.rngCode
   const savePromoCodeTime = player.promoCodeTiming.time
+  const saveBlueberryLoadout = lastBlueberryLoadout
 
   importSynergism(btoa(JSON.stringify(hold)), true)
   // Techically possible to import game during reset. But that will only "hurt" that imported save
@@ -1294,6 +1292,7 @@ export const singularity = (setSingNumber = -1) => {
 
   player.rngCode = Math.max(saveRngCode, DateNow())
   player.promoCodeTiming.time = Math.max(savePromoCodeTime, DateNow())
+  setLastBlueberryLoadout(saveBlueberryLoadout)
 
   updateTokens()
   markAscensionStartTokens()
