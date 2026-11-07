@@ -34,7 +34,7 @@ export const buildingBaseProduction = {
   particle: [0.25, 0.2, 0.15, 0.1, 0.5]
 } as const
 
-export const Globals: GlobalVariables = {
+export const createGlobals = () => ({
   // this shows the logarithm of costs. ex: upgrade one will cost 1e+6 coins, upgrade 2 1e+7, etc.
   // dprint-ignore
   upgradeCosts: [
@@ -466,6 +466,6 @@ export const Globals: GlobalVariables = {
   MIND_DIVISOR: 1_000_000,
   GLOBAL_RESET_THRESHOLD: 10,
   ASCENSION_RESET_THRESHOLD: 10
-}
+} satisfies GlobalVariables)
 
-export const blankGlobals = { ...Globals }
+export const Globals: GlobalVariables = createGlobals()

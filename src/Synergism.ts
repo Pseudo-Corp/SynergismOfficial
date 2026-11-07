@@ -19,7 +19,7 @@ import {
   useChallenge13Modifiers
 } from './Challenges'
 import { btoa, DateNow, isMobile, PerformanceNow } from './Utility'
-import { blankGlobals, buildingBaseProduction, Globals as G } from './Variables'
+import { buildingBaseProduction, createGlobals, Globals as G } from './Variables'
 
 import {
   AchievementGroup,
@@ -1279,7 +1279,7 @@ const loadSynergy = (saveString: string): boolean => {
     data.exporttest = false
   }
 
-  Object.assign(G, { ...blankGlobals })
+  Object.assign(G, createGlobals())
 
   if (data) {
     if ((data.exporttest === false || data.exporttest === 'NO!') && !TESTING) {
