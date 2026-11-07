@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, net, session, shell } from 'electron'
+import { app, BrowserWindow, crashReporter, ipcMain, net, session, shell } from 'electron'
 import Store from 'electron-store'
 import windowStateKeeper from 'electron-window-state'
 import mimeTypes from 'mime-types'
@@ -25,6 +25,10 @@ if (process.platform === 'darwin') {
 if (!app.requestSingleInstanceLock()) {
   process.exit(0)
 }
+
+crashReporter.start({
+  submitURL: 'https://sentry.synergism.cc/api/2/minidump/?sentry_key=383a6a7be7754d2fbf38bcd00953c12f'
+})
 
 app.setAsDefaultProtocolClient('synergism')
 
