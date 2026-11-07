@@ -2,18 +2,23 @@ import Decimal from 'break_infinity.js'
 import fitty, { type FittyInstance } from 'fitty'
 import i18next from 'i18next'
 import {
-  type AchievementGroups,
+  AchievementId,
   getAchievementReward,
-  groupedAchievementData,
+  groupedAchievementElementIds,
+  groupedAchievements,
+  progressiveAchievementElementIds,
   progressiveAchievementKeys,
   progressiveAchievements,
-  ungroupedAchievementData,
-  ungroupedAchievementKeys
+  ungroupedAchievementElementIds,
+  ungroupedAchievements
 } from './Achievements'
-import { isAutoAscendRunning, isAutoAscendUnlocked } from './AutoAscension'
+import { isAutoAscendRunning, isAutoAscendUnlocked, isCorruptionLoadoutUnlocked } from './AutoAscension'
 import {
   calculateSingularityUpgradePurchase,
+  CoinBuilding,
+  DiamondBuilding,
   getBuildingCost,
+  getTesseractBuildingCost,
   type SingularityUpgradePurchaseOptions,
   type SingularityUpgradePurchaseQuote
 } from './Buy'
@@ -30,7 +35,7 @@ import {
   challengeRequirement,
   getMaxChallenges
 } from './Challenges'
-import { isCorruptionTabUnlocked, revealCorruptions } from './Corruptions'
+import { isAscensionTabUnlocked, isCorruptionUnlocked, revealCorruptions } from './Corruptions'
 import { canBuyAntMastery } from './Features/Ants/AntMasteries/lib/get-buyable'
 import { canGenerateAntCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
 import { getCostNextAnt } from './Features/Ants/AntProducers/lib/get-cost'
@@ -130,7 +135,7 @@ const getChallengeProgress = (challenge: number): ChallengeProgress => {
   }
 
   return {
-    amount: player.coins,
+    amount: player.coinsThisAscension,
     required: Decimal.pow(10, player.challenge15Exponent / challenge15ScoreMultiplier()),
     resource: 'coins'
   }
@@ -229,6 +234,14 @@ const updateChallengeProgress = () => {
   }
 }
 
+const setAchievementIconDisplay = (elementId: string, shouldDisplay: boolean) => {
+  const img = DOMCacheGetOrSet(elementId)
+  img.style.display = shouldDisplay ? 'block' : 'none'
+  if (img.parentElement) {
+    img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
+  }
+}
+
 export const revealStuff = () => {
   document.documentElement.dataset.coinOne = player.unlocks.coinone ? 'true' : 'false'
   document.documentElement.dataset.coinTwo = player.unlocks.cointwo ? 'true' : 'false'
@@ -249,8 +262,8 @@ export const revealStuff = () => {
   document.documentElement.dataset.reincarnationThree = player.researches[49] === 1 ? 'true' : 'false'
   document.documentElement.dataset.reincarnationFour = player.researches[50] === 1 ? 'true' : 'false'
 
-  document.documentElement.dataset.chal6 = player.achievements[113] === 1 ? 'true' : 'false'
-  document.documentElement.dataset.chal7 = player.achievements[120] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.chal6 = player.achievements[AchievementId.Challenge6Tier1] === 1 ? 'true' : 'false'
+  document.documentElement.dataset.chal7 = player.achievements[AchievementId.Challenge7Tier1] === 1 ? 'true' : 'false'
 
   const example17 = document.getElementsByClassName('chal8') as HTMLCollectionOf<HTMLElement>
   for (let i = 0; i < example17.length; i++) {
@@ -297,7 +310,8 @@ export const revealStuff = () => {
   }
 
   document.documentElement.dataset.chal11 = player.highestchallengecompletions[11] > 0 ? 'true' : 'false'
-  document.documentElement.dataset.corruptionUnlock = isCorruptionTabUnlocked() ? 'true' : 'false'
+  document.documentElement.dataset.ascensionTabUnlock = isAscensionTabUnlocked() ? 'true' : 'false'
+  document.documentElement.dataset.corruptionUnlock = isCorruptionUnlocked() ? 'true' : 'false'
   document.documentElement.dataset.chal12 = player.highestchallengecompletions[12] > 0 ? 'true' : 'false'
   document.documentElement.dataset.spiritUnlock = player.unlocks.spirits ? 'true' : 'false'
   document.documentElement.dataset.chal13 = player.highestchallengecompletions[13] > 0 ? 'true' : 'false'
@@ -336,38 +350,26 @@ export const revealStuff = () => {
 
   document.documentElement.dataset.autoTranscend = player.upgrades[89] === 1 ? 'true' : 'false'
 
-  for (const groupedAch of Object.keys(groupedAchievementData) as (Exclude<AchievementGroups, 'ungrouped'>)[]) {
-    const capitalizedName = groupedAch.charAt(0).toUpperCase() + groupedAch.slice(1)
-    const img = DOMCacheGetOrSet(`achievementGroup${capitalizedName}`)
-    const shouldDisplay = groupedAchievementData[groupedAch].displayCondition() || player.highestSingularityCount > 0
-
-    img.style.display = shouldDisplay ? 'block' : 'none'
-    if (img.parentElement) {
-      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
-    }
+  const showAllAchievements = player.highestSingularityCount > 0
+  for (let group = 0; group < groupedAchievements.length; group++) {
+    setAchievementIconDisplay(
+      groupedAchievementElementIds[group],
+      showAllAchievements || groupedAchievements[group].displayCondition()
+    )
   }
 
-  for (const ungroupedAch of ungroupedAchievementKeys) {
-    const capitalizedName = ungroupedAch.charAt(0).toUpperCase() + ungroupedAch.slice(1)
-    const img = DOMCacheGetOrSet(`ungroupedAchievement${capitalizedName}`)
-    const shouldDisplay = ungroupedAchievementData[ungroupedAch].displayCondition()
-      || player.highestSingularityCount > 0
-
-    img.style.display = shouldDisplay ? 'block' : 'none'
-    if (img.parentElement) {
-      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
-    }
+  for (let ungrouped = 0; ungrouped < ungroupedAchievements.length; ungrouped++) {
+    setAchievementIconDisplay(
+      ungroupedAchievementElementIds[ungrouped],
+      showAllAchievements || ungroupedAchievements[ungrouped].displayCondition()
+    )
   }
 
   for (const progAch of progressiveAchievementKeys) {
-    const capitalizedName = progAch.charAt(0).toUpperCase() + progAch.slice(1)
-    const img = DOMCacheGetOrSet(`progressiveAchievement${capitalizedName}`)
-    const shouldDisplay = progressiveAchievements[progAch].displayCondition() || player.highestSingularityCount > 0
-
-    img.style.display = shouldDisplay ? 'block' : 'none'
-    if (img.parentElement) {
-      img.parentElement.style.display = shouldDisplay ? 'inline-block' : 'none'
-    }
+    setAchievementIconDisplay(
+      progressiveAchievementElementIds[progAch],
+      showAllAchievements || progressiveAchievements[progAch].displayCondition()
+    )
   }
 
   for (const rune of runesKeys) {
@@ -560,7 +562,7 @@ export const revealStuff = () => {
     toggle29: player.transcendCount > 0 || player.reincarnationCount > 0, // Settings - Confirmations - Transcension
     toggle30: player.reincarnationCount > 0, // Settings - Confirmations - Reincarnation
     toggle31: player.ascensionCount > 0, // Settings - Confirmations - Ascension and Asc. Challenge
-    toggle32: Boolean(getAchievementReward('antSacrificeUnlock')), // Settings - Confirmations - Ant Sacrifice
+    toggle32: getAchievementReward('antSacrificeUnlock'), // Settings - Confirmations - Ant Sacrifice
     toggle33: player.highestSingularityCount > 0 && player.ascensionCount > 0, // Settings - Confirmations - Singularity
     toggle34: player.unlocks.coinfour, // Achievements - Notifications
     toggle35: player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
@@ -570,7 +572,7 @@ export const revealStuff = () => {
     toggle38: player.highestSingularityCount > 0, // Researchs Hover to Buy
     toggle39: player.unlocks.prestige, // Hotkeys
     toggle40: player.unlocks.prestige, // Number Hotkeys
-    toggle41: isAutoAscendUnlocked(), // Loadouts Notify
+    toggle41: isCorruptionLoadoutUnlocked(), // Loadouts Notify
     toggle42: player.highestSingularityCount >= 6, // Potion Autogenerator for Offering Potions
     toggle43: player.highestSingularityCount >= 6 // Potion Autogenerator for Obtainium Potions
   }
@@ -683,23 +685,28 @@ export const buttoncolorchange = () => {
     const h = DOMCacheGetOrSet('buyacceleratorboost')
     a.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[1] || player.upgrades[81] === 0) && player.coins.gte(getBuildingCost('coin', 0))
+      (!player.toggles[1] || player.upgrades[81] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.Workers))
     )
     b.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[2] || player.upgrades[82] === 0) && player.coins.gte(getBuildingCost('coin', 1))
+      (!player.toggles[2] || player.upgrades[82] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.Investments))
     )
     c.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[3] || player.upgrades[83] === 0) && player.coins.gte(getBuildingCost('coin', 2))
+      (!player.toggles[3] || player.upgrades[83] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.Printers))
     )
     d.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[4] || player.upgrades[84] === 0) && player.coins.gte(getBuildingCost('coin', 3))
+      (!player.toggles[4] || player.upgrades[84] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.CoinMints))
     )
     e.classList.toggle(
       'buildingPurchaseBtnAvailable',
-      (!player.toggles[5] || player.upgrades[85] === 0) && player.coins.gte(getBuildingCost('coin', 4))
+      (!player.toggles[5] || player.upgrades[85] === 0)
+        && player.coins.gte(getBuildingCost('coin', CoinBuilding.Alchemies))
     )
     f.classList.toggle(
       'buildingPurchaseBtnAvailable',
@@ -730,27 +737,27 @@ export const buttoncolorchange = () => {
     a.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[10] || getLevelMilestone('tier1CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 0))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.Refineries))
     )
     b.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[11] || getLevelMilestone('tier2CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 1))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.CoalPlants))
     )
     c.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[12] || getLevelMilestone('tier3CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 2))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.CoalRigs))
     )
     d.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[13] || getLevelMilestone('tier4CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 3))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.Pickaxes))
     )
     e.classList.toggle(
       'buildingPurchaseBtnAvailable',
       (!player.toggles[14] || getLevelMilestone('tier5CrystalAutobuy') === 0)
-        && player.prestigePoints.gte(getBuildingCost('diamond', 4))
+        && player.prestigePoints.gte(getBuildingCost('diamond', DiamondBuilding.PandorasBoxes))
     )
     let k = 0
     if (player.upgrades[73] === 1 && player.currentChallenge.reincarnation !== 0) {
@@ -890,8 +897,7 @@ export const buttoncolorchange = () => {
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'tesseract') {
     for (let i = 1; i <= 5; i++) {
-      const ascendBuilding = player[`ascendBuilding${i as OneToFive}` as const].cost
-      if (Number(player.wowTesseracts) >= ascendBuilding) {
+      if (Number(player.wowTesseracts) >= getTesseractBuildingCost(i as OneToFive)) {
         DOMCacheGetOrSet(`buyTesseracts${i}`).classList.add('buildingPurchaseBtnAvailable')
       } else {
         DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseBtnAvailable')
@@ -1022,8 +1028,6 @@ export const showCorruptionSubtab = (subTabID: string) => {
   for (const [id, panel] of Object.entries(corruptionSubtabPanels)) {
     DOMCacheGetOrSet(panel).style.display = id === subTabID ? 'flex' : 'none'
   }
-  DOMCacheGetOrSet('autoAscendSidebar').style.display = subTabID === 'autoAscend' ? '' : 'none'
-  DOMCacheGetOrSet('corruptionTierSelected').style.display = subTabID === 'autoAscend' ? 'none' : 'flex'
 }
 
 const updateAscensionStats = () => {

@@ -344,10 +344,11 @@ const getPlatonicUpgradeCosts = (index: number) => {
   }
   const buyMax = player.maxPlatToggle && player.singularityCount > 0
   const maxLevel = platUpgradeBaseCosts[index].maxLevel
+  const startLevel = Math.min(player.platonicUpgrades[index], maxLevel - 1)
   let levels = 0
 
-  while (player.platonicUpgrades[index] + levels < maxLevel) {
-    const priceMultiplier = getPlatonicUpgradePriceMultiplier(index, player.platonicUpgrades[index] + levels)
+  while (startLevel + levels < maxLevel) {
+    const priceMultiplier = getPlatonicUpgradePriceMultiplier(index, startLevel + levels)
     const nextCosts = platonicResources.map((resource) =>
       costs[resource] + Math.floor(platUpgradeBaseCosts[index][resource] * priceMultiplier)
     )

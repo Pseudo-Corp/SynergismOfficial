@@ -41,13 +41,11 @@ export const removeFromCart = (id: string) => {
 }
 
 export const clearCart = () => {
-  for (const [id, product] of cartMap.entries()) {
-    if (product.quantity > 0) {
-      product.quantity = 1 /* removeFromCart decrements quantity */
-      removeFromCart(id)
-    }
+  for (const product of cartMap.values()) {
+    product.quantity = 0
   }
 
+  inCart = 0
   updateInCartCount()
 }
 

@@ -4,6 +4,7 @@ import {
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaRewardLuck,
   calculateAscensionSpeedMult,
+  calculateBarEXALTPurpleFillChance,
   calculateEncabulatorSpeed,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
@@ -59,6 +60,7 @@ type TimerInput =
   | 'purpleReactor'
 
 const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]
+const redAmbrosiaAcceleratorMaxBarPoints = 80_000_000
 
 const awardAmbrosiaBarFill = (globalSpeedMult?: () => number) => {
   const ambrosiaLuck = calculateAmbrosiaRewardLuck()
@@ -81,10 +83,11 @@ const awardAmbrosiaBarFill = (globalSpeedMult?: () => number) => {
 }
 
 /**
- * @returns seconds of Ambrosia generation granted by Red Ambrosia Accelerator
+ * @returns Ambrosia Bar Points granted by Red Ambrosia Accelerator
  */
 const awardRedAmbrosiaBarFill = () => {
-  const redAmbrosiaLuck = calculateRedAmbrosiaRewardLuck()
+  const baseRedLuck = calculateRedAmbrosiaLuck()
+  const redAmbrosiaLuck = calculateRedAmbrosiaRewardLuck(baseRedLuck)
   const RNG = seededRandom(Seed.RedAmbrosia)
   const redAmbrosiaMult = Math.floor(redAmbrosiaLuck / 100)
   const luckMult = RNG < redAmbrosiaLuck / 100 - Math.floor(redAmbrosiaLuck / 100) ? 1 : 0
@@ -99,10 +102,11 @@ const awardRedAmbrosiaBarFill = () => {
   player.purpleHoneyProgress += getPurpleAmbrosiaUpgradeEffects('cancer', 'purpleBarPointsOnFill')
 
   // Red-Blue Ultrafusion uses base Red Luck, not TWO MIND reward luck
-  const baseRedLuck = calculateRedAmbrosiaLuck()
   const acceleratorMult = Math.floor(baseRedLuck / 100)
     + (RNG < baseRedLuck / 100 - Math.floor(baseRedLuck / 100) ? 1 : 0)
-  return acceleratorMult * getRedAmbrosiaUpgradeEffects('redAmbrosiaAccelerator', 'ambrosiaTimePerRedAmbrosia')
+  const acceleratorSeconds = acceleratorMult
+    * getRedAmbrosiaUpgradeEffects('redAmbrosiaAccelerator', 'ambrosiaTimePerRedAmbrosia')
+  return Math.min(redAmbrosiaAcceleratorMaxBarPoints, calculateAmbrosiaBarPointsGenerated(acceleratorSeconds))
 }
 
 const gainAmbrosia = (globalSpeedMult?: () => number) => {
@@ -121,7 +125,7 @@ const gainAmbrosia = (globalSpeedMult?: () => number) => {
 
 /**
  * Converts Red Ambrosia Bar Points into Red Ambrosia.
- * @returns seconds of Ambrosia generation granted by Red Ambrosia Accelerator
+ * @returns Ambrosia Bar Points granted by Red Ambrosia Accelerator
  */
 const gainRedAmbrosia = () => {
   if (player.singularityChallenges.noAmbrosiaUpgrades.completions === 0) {
@@ -129,15 +133,15 @@ const gainRedAmbrosia = () => {
   }
 
   let timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
-  let ambrosiaTimeToGrant = 0
+  let ambrosiaBarPointsToGrant = 0
 
   while (player.redAmbrosiaTime >= timeToRedAmbrosia) {
-    ambrosiaTimeToGrant += awardRedAmbrosiaBarFill()
+    ambrosiaBarPointsToGrant += awardRedAmbrosiaBarFill()
     player.redAmbrosiaTime -= timeToRedAmbrosia
     timeToRedAmbrosia = calculateRequiredRedAmbrosiaTime()
   }
 
-  return ambrosiaTimeToGrant
+  return ambrosiaBarPointsToGrant
 }
 
 /**
@@ -259,17 +263,23 @@ export const runPurpleReactor = (
     getPurpleAmbrosiaUpgradeEffects('gemini', 'redAmbrosiaBarPointsOnFill')
     + getShopUpgradeEffects('shopPurpleBarRebate', 'redAmbrosiaBarPointsPerFill')
   )
-  let ambrosiaTimeToGrant = 0
+  let ambrosiaBarPointsToGrant = 0
 
   if (completedExtractions > 0) {
     if (player.singularityChallenges.barDependence.enabled) {
-      // Each Purple Honey extracted (from Purple Honey Luck) grants the effect of both bars directly.
-      for (let i = 0; i < purpleHoneyExtracted; i++) {
-        if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
+      const fillChance = calculateBarEXALTPurpleFillChance()
+      for (let i = 0; i < completedExtractions; i++) {
+        if (
+          player.singularityChallenges.noSingularityUpgrades.completions > 0
+          && seededRandom(Seed.PurpleHoney) < fillChance
+        ) {
           awardAmbrosiaBarFill(globalSpeedMult)
         }
-        if (player.singularityChallenges.noAmbrosiaUpgrades.completions > 0) {
-          ambrosiaTimeToGrant += awardRedAmbrosiaBarFill()
+        if (
+          player.singularityChallenges.noAmbrosiaUpgrades.completions > 0
+          && seededRandom(Seed.PurpleHoney) < fillChance
+        ) {
+          ambrosiaBarPointsToGrant += awardRedAmbrosiaBarFill()
         }
       }
     } else {
@@ -295,9 +305,9 @@ export const runPurpleReactor = (
   }
 
   gainAmbrosia(globalSpeedMult)
-  ambrosiaTimeToGrant += gainRedAmbrosia()
-  if (ambrosiaTimeToGrant > 0) {
-    player.purpleHoneyProgress += reactPurpleReactants(calculateAmbrosiaBarPointsGenerated(ambrosiaTimeToGrant), 0, 0)
+  ambrosiaBarPointsToGrant += gainRedAmbrosia()
+  if (ambrosiaBarPointsToGrant > 0) {
+    player.purpleHoneyProgress += reactPurpleReactants(ambrosiaBarPointsToGrant, 0, 0)
     gainAmbrosia(globalSpeedMult)
   }
 }
@@ -348,6 +358,7 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         ? G.MIND_DIVISOR
         : calculateAscensionSpeedMult()
       player.ascensionCounter += time * timeMultiplier * ascensionSpeedMulti
+      player.ascensionAttemptCounter += time * timeMultiplier * ascensionSpeedMulti
       player.ascensionCounterReal += time * timeMultiplier
       break
     }
@@ -451,7 +462,8 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
             'offeringPotion',
             true,
             amountOfPotions,
-            toggleOfferingOn
+            toggleOfferingOn,
+            globalSpeedMult?.()
           )
         }
 
@@ -464,7 +476,8 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
             'obtainiumPotion',
             true,
             amountOfPotions,
-            toggleObtainiumOn
+            toggleObtainiumOn,
+            globalSpeedMult?.()
           )
         }
       }
@@ -501,14 +514,13 @@ const calculateAutoSacrificeInterval = () => {
   interval /= getLevelMilestone('runeAutobuyImprover')
   return interval
 }
-let autoSacrificeInterval = 1
 
 /**
  * Assortment of tools which are used when actions are automated.
  * @param input
  * @param time
  */
-export const automaticTools = (input: AutoToolInput, time: number) => {
+export const automaticTools = (input: AutoToolInput, time: number, globalSpeedMult?: number) => {
   switch (input) {
     case 'addObtainium': {
       // If in challenge 14, abort and do not award obtainium
@@ -516,7 +528,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
         break
       }
 
-      let obtainiumGain = calculateResearchAutomaticObtainium(time)
+      let obtainiumGain = calculateResearchAutomaticObtainium(time, globalSpeedMult)
       if (
         player.singularityChallenges.taxmanLastStand.enabled
         && player.singularityChallenges.taxmanLastStand.completions >= 2
@@ -543,7 +555,7 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
       // Every real life second this will trigger
       player.sacrificeTimer += time
       if (
-        player.sacrificeTimer >= autoSacrificeInterval
+        player.sacrificeTimer >= calculateAutoSacrificeInterval()
         && player.offerings.gt(new Decimal())
       ) {
         // Automatic purchase of Blessings
@@ -586,7 +598,6 @@ export const automaticTools = (input: AutoToolInput, time: number) => {
             sacrificeOfferings(indexToRune[rune], player.offerings, true)
           }
         }
-        autoSacrificeInterval = calculateAutoSacrificeInterval()
         player.sacrificeTimer = 0
       }
       break

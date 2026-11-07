@@ -3926,7 +3926,8 @@ p#reincarnatehotkeys {
     line-height: 1;
 }
 
-#totalOcteractsDisplay {
+#totalOcteractsDisplay,
+#currentOcteractsDisplay {
     display: flex;
     flex-direction: column;
     row-gap: 6px;
@@ -3942,7 +3943,8 @@ p#reincarnatehotkeys {
     font-size: 1.2em;
 }
 
-#totalOcteractsDisplay > p {
+#totalOcteractsDisplay > p,
+#currentOcteractsDisplay > p {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -3951,7 +3953,8 @@ p#reincarnatehotkeys {
     overflow-wrap: anywhere;
 }
 
-#totalOcteractsDisplay > p > span {
+#totalOcteractsDisplay > p > span,
+#currentOcteractsDisplay > p > span {
     margin-left: auto;
 }
 
@@ -5963,6 +5966,12 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     background-color: var(--hover-color);
 }
 
+.campaignTokenRewardLocked,
+.corruptionCubeIconLocked {
+    filter: grayscale(1) brightness(0.35) blur(1px);
+    opacity: 0.75;
+}
+
 #campaignsTokensInfo h2 {
     margin-top: 1px;
     margin-bottom: 1px;
@@ -5988,7 +5997,23 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .campaignTokenRewardModalInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     width: 100%;
+}
+
+.campaignTokenRewardModalInfo p {
+    margin: 0;
+}
+
+.campaignTokenRewardName {
+    color: var(--gold-color);
+    font-size: 1.25em;
+}
+
+.campaignTokenRewardFlavor {
+    color: var(--lightgray-color);
 }
 
 .campaignTokenRewardSumModal {
@@ -6034,7 +6059,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 #corruptionAscensionControls {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
     column-gap: 2em;
     margin-top: 8px;
     padding-top: 8px;
@@ -6050,13 +6076,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .corruptionControlGroup > .corruptionTierHeading {
     margin: 0 0 2px;
-}
-
-#ascensionAutomationButtons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
 }
 
 #ascensionAutoEnable {
@@ -6084,12 +6103,10 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     inset: 0;
     padding: 2px;
     background: linear-gradient(135deg, #ff4d4d, #8b0000 30%, #ff1f5a 55%, #b30000 80%, #ff6a3d);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); /* stylelint-disable-line property-no-vendor-prefix */
+    -webkit-mask-composite: xor; /* stylelint-disable-line property-no-vendor-prefix */
     mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
     pointer-events: none;
-}
-
-#corrClickInfo {
-    margin: 6px 0 0;
 }
 
 #corrStatsBtn,
@@ -6194,11 +6211,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: var(--gold-color);
 }
 
-.corruptionBreakdownNote {
-    color: var(--silver-color);
-    font-size: 0.9em;
-}
-
 .corruptionFormulaTable {
     display: grid;
     grid-template-columns: auto auto minmax(0, max-content) auto;
@@ -6231,11 +6243,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     line-height: 1em;
 }
 
-.corrBtn {
-    width: 30px;
-    margin: 0 auto;
-}
-
 #corruptionStats button {
     white-space: nowrap;
 }
@@ -6263,65 +6270,41 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #corruptionStats {
+    margin-top: 12px;
     font-size: min(1em, 20px);
     z-index: 1;
 }
 
-#corruptionLayout {
-    display: flex;
+#autoAscensions {
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: center;
-    gap: 16px;
-    width: 100%;
-}
-
-#autoAscensions {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    min-height: 350px;
+    gap: 10px 2em;
     margin-top: 10px;
     font-size: min(1em, 20px);
     z-index: 1;
 }
 
 #autoAscendRules {
-    width: min(100%, 48em);
-}
-
-#autoAscendRules > .corruptionTierHeading {
-    color: var(--orange-color);
-}
-
-.corruptionRulesNote {
-    max-width: 28em;
-    margin: 0;
-    color: var(--gray-text-color);
-    text-align: center;
-}
-
-#autoAscendSidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 25em;
+    width: 44em;
     max-width: 100%;
 }
 
-#autoAscendStatus,
-#corruptionLoadouts {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid var(--orange-color);
-    border-radius: 4px;
-    background-color: var(--box-color);
+#autoAscendRulesHeader {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 16px;
 }
 
-#autoAscendStatus > .corruptionTierHeading,
+#autoAscendRulesHeader > .corrDesc {
+    min-width: 0;
+    margin: 0;
+}
+
+#autoAscendRulesHeading,
 #corruptionLoadouts > .corruptionTierHeading {
-    margin-top: 0;
     color: var(--orange-color);
 }
 
@@ -6342,57 +6325,50 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .corruptionLoadoutName {
     overflow: hidden;
-    color: var(--gray-text-color);
+    color: var(--white-color);
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.corruptionLoadoutId {
-    color: var(--orange-color);
-}
-
-.corruptionLoadoutRow > .autoAscendNumber {
-    width: auto;
+.corruptionLoadoutRow > .corruptionLoadoutInput {
     min-width: 0;
     margin-left: auto;
     flex: 0 1 4.5em;
 }
 
-#autoAscendStatusList {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 9em;
-    gap: 4px 12px;
-    margin: 0;
+#autoAscendLastFired {
+    color: var(--gold-color);
 }
 
-#autoAscendStatusList > dt {
-    overflow: hidden;
-    color: var(--gray-text-color);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: left;
+#corruptionAscensionDetails > .corruptionToggle {
+    justify-self: center;
+    margin-top: 6px;
 }
 
-#autoAscendStatusList > dd {
-    overflow: hidden;
-    margin: 0;
-    color: var(--text-color);
+#corruptionAscensionControls > #corruptionAscensionDetails {
+    justify-self: center;
+}
+
+#corruptionAscensionDetailsRows .corruptionStatRow {
+    grid-template-columns: auto 1fr minmax(9em, auto);
+}
+
+#corruptionAscensionDetailsRows .corruptionStatValue {
     font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: right;
 }
 
-#autoAscendRulesEmpty {
-    max-width: 28em;
-    margin: 0;
+#corruptionAscensionDetails > .corruptionTierHeading {
     text-align: center;
+}
+
+#corruptionAscensionDetailsRows .corruptionStatRow > img:not(#corruptionCubeBankIcon) {
+    cursor: default;
 }
 
 #autoAscendRuleList {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 2px;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -6403,48 +6379,23 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 8px;
-    border: 1px solid var(--orange-color);
-    border-radius: 4px;
-    background-color: var(--box-color);
+    min-height: 28px;
+    padding: 0 8px;
     color: var(--text-color);
     text-align: left;
     cursor: pointer;
 }
 
-.autoAscendRuleItem.autoAscendRuleFired {
-    animation: auto-ascend-rule-pulse 1.6s ease-out;
-}
-
-@keyframes auto-ascend-rule-pulse {
-    0%,
-    50% {
-        border-color: var(--lime-color);
-        box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
-    }
-
-    25%,
-    75% {
-        border-color: var(--lime-color);
-        box-shadow: 0 0 12px 3px rgb(0 255 0 / 65%);
-    }
-
-    100% {
-        border-color: var(--orange-color);
-        box-shadow: 0 0 0 0 rgb(0 255 0 / 0%);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .autoAscendRuleItem.autoAscendRuleFired {
-        border-color: var(--lime-color);
-        animation: none;
-    }
+.autoAscendRuleItem:nth-child(odd) {
+    background-color: #1f1f1f;
 }
 
 .autoAscendRuleNumber {
+    min-width: 1.5em;
     color: var(--orange-color);
     font-weight: bold;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
 }
 
 .autoAscendRuleName {
@@ -6481,6 +6432,13 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     width: 14em;
 }
 
+#autoAscendProtocolEditor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
 .autoAscendModifier > span {
     min-width: 10em;
 }
@@ -6491,11 +6449,15 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     cursor: default;
 }
 
+.autoAscendRuleActions > button {
+    min-height: 24px;
+}
+
 .autoAscendRuleState {
     min-width: 3.2em;
+    min-height: 24px;
     padding: 1px 4px;
-    border: 1px solid var(--green-text-color);
-    border-radius: 3px;
+    border: 2px solid var(--green-text-color);
     background-color: transparent;
     color: var(--green-text-color);
     font-weight: bold;
@@ -6503,7 +6465,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 .autoAscendRuleDisabled {
-    border-style: dashed;
     opacity: 0.55;
 }
 
@@ -6512,12 +6473,72 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: var(--red-text-color);
 }
 
-.autoAscendRuleDisabled .autoAscendRuleName {
-    text-decoration: line-through;
+.autoAscendRuleStatus {
+    padding: 1px 6px;
+    font-size: 0.85em;
+    white-space: nowrap;
 }
 
-.autoAscendRuleModalHint {
+.autoAscendRuleStatus:empty {
+    display: none;
+}
+
+.autoAscendRuleStatus[data-status="ready"],
+.autoAscendRuleStatusLabel[data-status="ready"] {
+    color: var(--lime-text-color);
+}
+
+.autoAscendRuleStatus[data-status="behind"],
+.autoAscendRuleStatusLabel[data-status="behind"],
+.autoAscendRuleStatus[data-status="excepted"],
+.autoAscendRuleStatusLabel[data-status="excepted"] {
+    color: var(--amber-text-color);
+}
+
+.autoAscendRuleStatus[data-status="waiting"],
+.autoAscendRuleStatusLabel[data-status="waiting"] {
     color: var(--gray-text-color);
+}
+
+.autoAscendRuleStatus[data-status="locked"],
+.autoAscendRuleStatusLabel[data-status="locked"] {
+    color: var(--red-text-color);
+}
+
+.autoAscendRuleClauses {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 4px 8px;
+    margin: 4px 0;
+}
+
+.autoAscendRuleClauseLabel {
+    color: var(--orange-color);
+    font-weight: bold;
+}
+
+.autoAscendRuleChecks,
+.autoAscendRuleChecks ul {
+    margin: 0;
+    padding-left: 1.2em;
+    list-style: none;
+}
+
+.autoAscendRuleChecks {
+    padding-left: 0;
+}
+
+.autoAscendCheckMark {
+    font-weight: bold;
+}
+
+.autoAscendCheckMark[data-met="true"] {
+    color: var(--lime-text-color);
+}
+
+.autoAscendCheckMark[data-met="false"] {
+    color: var(--red-text-color);
 }
 
 #autoAscendAddRule,
@@ -6525,8 +6546,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .autoAscendEditorFooter > button {
     min-width: 44px;
     padding: 0 8px;
-    border: 1px solid var(--orange-color);
-    border-radius: 3px;
+    border: 2px solid var(--orange-color);
 }
 
 .autoAscendButton.autoAscendRemove {
@@ -6557,7 +6577,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     overflow-y: auto;
     padding: 16px;
     border: 2px solid var(--orange-color);
-    border-radius: 6px;
     background-color: var(--alert-color);
     color: var(--text-color);
     text-align: left;
@@ -6581,10 +6600,26 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     justify-content: flex-end;
 }
 
-.autoAscendHelp,
-.autoAscendCount {
-    margin: 2px 0 6px;
-    color: var(--gray-text-color);
+.autoAscendChoices {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
+    gap: 6px;
+}
+
+.autoAscendChoice {
+    padding: 6px 8px;
+    border: 2px solid var(--orange-color);
+    color: var(--orange-color);
+    font-weight: bold;
+    text-align: left;
+}
+
+.autoAscendChoice:hover {
+    background-color: var(--hover-color);
+}
+
+.autoAscendChoice[aria-pressed="true"] {
+    background-color: rgb(255 165 0 / 15%);
 }
 
 .autoAscendGroup {
@@ -6592,7 +6627,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     flex-direction: column;
     gap: 6px;
     padding: 8px;
-    border-left: 3px solid var(--darkorange-color);
+    border-left: 2px solid var(--darkorange-color);
     background-color: rgb(255 165 0 / 4%);
 }
 
@@ -6613,8 +6648,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .autoAscendNumber {
     min-height: 30px;
     padding: 0 6px;
-    border: 1px solid #fff4;
-    border-radius: 3px;
+    border: 2px solid #fff4;
     background-color: var(--button-color);
     color: var(--text-color);
 }
@@ -6637,8 +6671,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    border: 1px solid var(--orange-color);
-    border-radius: 3px;
+    border: 2px solid var(--orange-color);
     background-color: var(--alert-color);
     box-shadow: 0 4px 12px rgb(0 0 0 / 60%);
 }
@@ -6669,7 +6702,8 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     width: 8em;
 }
 
-.autoAscendNumber.autoAscendInvalid {
+.autoAscendNumber.autoAscendInvalid,
+.corruptionLoadoutInput.autoAscendInvalid {
     border-color: var(--red-text-color);
 }
 
@@ -6695,8 +6729,7 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     width: 100%;
     min-height: 30px;
     padding: 0 6px;
-    border: 1px solid #fff4;
-    border-radius: 3px;
+    border: 2px solid #fff4;
     background-color: var(--button-color);
     color: var(--text-color);
     font-family: monospace;
@@ -6734,7 +6767,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
     .autoAscendEditorPanel {
         height: 100%;
-        border-radius: 0;
     }
 }
 
@@ -6765,15 +6797,30 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 
 .corruptionTierRows {
     display: grid;
-    grid-template-columns: auto auto 7em auto 7em;
+    grid-template-columns: 1fr;
     align-items: center;
-    gap: 2px 8px;
     width: fit-content;
     margin: 0 auto;
 }
 
 .corruptionTierRows .corruptionStatRow {
-    display: contents;
+    display: grid;
+    grid-template-columns: auto 1fr 7em auto 7em;
+    align-self: stretch;
+    align-items: center;
+    column-gap: 8px;
+}
+
+.corruptionTierRows .corruptionStatRow > * {
+    grid-row: 1;
+}
+
+.corruptionTierRows .corruptionStatRow:nth-child(odd of :not([hidden])) {
+    background-color: #1f1f1f;
+}
+
+.corruptionTierRows .corruptionStatRow[hidden] {
+    display: none;
 }
 
 #corruptionTierGrid {
@@ -6785,7 +6832,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .corruptionTierHalf {
     grid-template-rows: auto;
     grid-auto-rows: minmax(28px, auto);
-    column-gap: 8px;
     row-gap: 2px;
     align-content: start;
 }
@@ -6796,16 +6842,9 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 }
 
 #corruptionTierEffects,
-#corruptionTierCubeRows {
+#corruptionTierCubeRows,
+#corruptionAscensionDetailsRows {
     display: contents;
-}
-
-#corruptionTierGrid #corruptionRewardFreeLevels {
-    grid-column: 1 / -1;
-    max-width: 24em;
-    margin: 6px auto 0;
-    line-height: 1.2em;
-    text-align: center;
 }
 
 #corruptionTokens {
@@ -6845,6 +6884,13 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     color: var(--gold-color);
 }
 
+.corruptionTierRows .corruptionStatValue {
+    grid-column: 3;
+    text-align: right;
+    white-space: nowrap;
+    color: var(--gold-color);
+}
+
 .corruptionTierRows .corruptionStatCentered {
     grid-column: 3 / -1;
     text-align: center;
@@ -6856,8 +6902,23 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     visibility: hidden;
 }
 
+.corruptionCubeUnlockText {
+    display: none;
+}
+
+.corruptionCubeRowLocked > .corruptionStatCurr,
+.corruptionCubeRowLocked > .corruptionStatArrow,
+.corruptionCubeRowLocked > .corruptionStatNext {
+    visibility: hidden;
+}
+
+.corruptionCubeRowLocked > .corruptionCubeUnlockText {
+    display: block;
+}
+
 #corruptionTierCubeRows .corruptionStatRow > img,
-#corruptionTierEffects .corruptionStatRow > img {
+#corruptionTierEffects .corruptionStatRow > img,
+#corruptionAscensionDetailsRows .corruptionStatRow > img {
     width: 26px;
     height: 26px;
     object-fit: contain;
@@ -6866,11 +6927,6 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
 .corruptionTierRows .corruptionStatRow > img,
 #corruptionExitIcon {
     cursor: help;
-}
-
-#corruptionLevelCap {
-    max-width: 34em;
-    line-height: 1.2em;
 }
 
 #corruptionTierLevel {
@@ -6891,11 +6947,22 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     margin: 2px 0;
 }
 
-#corruptionLevelInput {
+#corruptionLevelInput,
+.corruptionLoadoutInput {
     width: 5em;
-    border: 1px solid var(--orange-color);
+    border: 2px solid var(--orange-color);
     color: var(--gold-color);
     background-color: var(--blackbtn-color);
+    text-align: center;
+    appearance: textfield;
+}
+
+#corruptionLevelInput::-webkit-outer-spin-button,
+#corruptionLevelInput::-webkit-inner-spin-button,
+.corruptionLoadoutInput::-webkit-outer-spin-button,
+.corruptionLoadoutInput::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
 }
 
 img.small {
@@ -6914,19 +6981,19 @@ img.corruptionImg.small {
     width: 100%;
 }
 
-.corrImport {
-    min-height: 20px;
-    min-width: 40px;
-    border: 1px solid var(--green-color);
-    width: 100%;
-}
-
 #corruptionCleanse {
     width: 8em;
     min-width: 150px;
     margin: 0;
     border: 2px solid darkmagenta;
     z-index: 2;
+}
+
+.corruptionToggleList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
 }
 
 .corruptionToggle {
@@ -7196,6 +7263,18 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .headerStatText > .headerConsumableOwned {
     margin-left: 0;
+}
+
+.ascensionStats .headerTimer {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.ascensionStats .headerTimer::after {
+    content: attr(data-reserve);
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
 }
 
 #happyHourBellHeaderTimer { color: var(--gold-color); }
@@ -9470,6 +9549,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .godlikeText,
 .perfectText {
     color: transparent;
+    -webkit-background-clip: text; /* stylelint-disable-line property-no-vendor-prefix */
     background-clip: text;
     animation: rainbow-animation 5s linear infinite;
 }
@@ -9505,6 +9585,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 .gradientText {
     color: transparent;
     background-image: linear-gradient(90deg, var(--gradient-start), var(--gradient-end), var(--gradient-start));
+    -webkit-background-clip: text; /* stylelint-disable-line property-no-vendor-prefix */
     background-clip: text;
     background-size: 700%;
     animation: gradient-animation 5s linear infinite;
@@ -12204,12 +12285,23 @@ html[data-chal11="false"] .chal11 {
     display: none;
 }
 
-html[data-corruption-unlock="true"] .corruptionUnlock {
+html[data-ascension-tab-unlock="true"] .ascensionTabUnlock {
     display: block;
 }
 
-html[data-corruption-unlock="false"] .corruptionUnlock {
+html[data-ascension-tab-unlock="false"] .ascensionTabUnlock {
     display: none;
+}
+
+html[data-corruption-unlock="false"] #corruptionInfo1,
+html[data-corruption-unlock="false"] #corruptionTierSelected,
+html[data-corruption-unlock="false"] #corruptionClimbing,
+html[data-corruption-unlock="false"] #corruptionLoadouts {
+    display: none;
+}
+
+html[data-corruption-unlock="false"] #corruptionAscensionDetails {
+    grid-column: 1 / -1;
 }
 
 html[data-chal12="true"] .chal12 {
@@ -12497,7 +12589,8 @@ html[data-auto-ascend-unlock="true"] .autoAscendUnlock {
     display: flex;
 }
 
-html[data-auto-ascend-unlock="false"] .autoAscendUnlock {
+html[data-auto-ascend-unlock="false"] .autoAscendUnlock,
+html[data-auto-ascend-unlock="true"] #autoAscendRequiresCubeUpgrade10 {
     display: none;
 }
 
@@ -13219,9 +13312,13 @@ html[data-mobile="true"] .hideOnMobile {
         row-gap: 10px;
     }
 
+
     #corruptionTierGrid .corruptionTierHalf {
-        grid-template-columns: auto minmax(0, 1fr) 7em auto 7em;
         width: 100%;
+    }
+
+    #corruptionTierGrid .corruptionStatRow {
+        grid-template-columns: auto minmax(0, 1fr) 7em auto 7em;
     }
 
     #elevatorLockToggle,

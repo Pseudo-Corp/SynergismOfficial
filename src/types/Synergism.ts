@@ -2,7 +2,6 @@ import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
 import type { AutoAscendRule } from '../AutoAscension'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
-import type { BuildingType } from '../Buy'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
@@ -56,148 +55,97 @@ export interface Player {
   coinsThisPrestige: Decimal
   coinsThisTranscension: Decimal
   coinsThisReincarnation: Decimal
+  coinsThisAscension: Decimal
+  coinsThisSingularity: Decimal
   coinsTotal: Decimal
 
-  firstOwnedCoin: number
   firstGeneratedCoin: Decimal
   firstPaidCoin: Decimal
-  firstProduceCoin: number
 
-  secondOwnedCoin: number
   secondGeneratedCoin: Decimal
   secondPaidCoin: Decimal
-  secondProduceCoin: number
 
-  thirdOwnedCoin: number
   thirdGeneratedCoin: Decimal
   thirdPaidCoin: Decimal
-  thirdProduceCoin: number
 
-  fourthOwnedCoin: number
   fourthGeneratedCoin: Decimal
   fourthPaidCoin: Decimal
-  fourthProduceCoin: number
 
-  fifthOwnedCoin: number
   fifthGeneratedCoin: Decimal
   fifthPaidCoin: Decimal
-  fifthProduceCoin: number
 
-  firstOwnedDiamonds: number
   firstGeneratedDiamonds: Decimal
   firstPaidDiamonds: Decimal
-  firstProduceDiamonds: number
 
-  secondOwnedDiamonds: number
   secondGeneratedDiamonds: Decimal
   secondPaidDiamonds: Decimal
-  secondProduceDiamonds: number
 
-  thirdOwnedDiamonds: number
   thirdGeneratedDiamonds: Decimal
   thirdPaidDiamonds: Decimal
-  thirdProduceDiamonds: number
 
-  fourthOwnedDiamonds: number
   fourthGeneratedDiamonds: Decimal
   fourthPaidDiamonds: Decimal
-  fourthProduceDiamonds: number
 
-  fifthOwnedDiamonds: number
   fifthGeneratedDiamonds: Decimal
   fifthPaidDiamonds: Decimal
-  fifthProduceDiamonds: number
 
-  firstOwnedMythos: number
   firstGeneratedMythos: Decimal
   firstPaidMythos: Decimal
-  firstProduceMythos: number
 
-  secondOwnedMythos: number
   secondGeneratedMythos: Decimal
   secondPaidMythos: Decimal
-  secondProduceMythos: number
 
-  thirdOwnedMythos: number
   thirdGeneratedMythos: Decimal
   thirdPaidMythos: Decimal
-  thirdProduceMythos: number
 
-  fourthOwnedMythos: number
   fourthGeneratedMythos: Decimal
   fourthPaidMythos: Decimal
-  fourthProduceMythos: number
 
-  fifthOwnedMythos: number
   fifthGeneratedMythos: Decimal
   fifthPaidMythos: Decimal
-  fifthProduceMythos: number
 
-  firstOwnedParticles: number
   firstGeneratedParticles: Decimal
   firstPaidParticles: Decimal
-  firstProduceParticles: number
 
-  secondOwnedParticles: number
   secondGeneratedParticles: Decimal
   secondPaidParticles: Decimal
-  secondProduceParticles: number
 
-  thirdOwnedParticles: number
   thirdGeneratedParticles: Decimal
   thirdPaidParticles: Decimal
-  thirdProduceParticles: number
 
-  fourthOwnedParticles: number
   fourthGeneratedParticles: Decimal
   fourthPaidParticles: Decimal
-  fourthProduceParticles: number
 
-  fifthOwnedParticles: number
   fifthGeneratedParticles: Decimal
   fifthPaidParticles: Decimal
-  fifthProduceParticles: number
 
   ants: PlayerAnts
 
   ascendBuilding1: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
   ascendBuilding2: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
   ascendBuilding3: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
   ascendBuilding4: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
   ascendBuilding5: {
-    cost: number
-    owned: number
+    paid: number
     generated: Decimal
-    multiplier: number
   }
 
   multiplierPaid: Decimal
-  multiplierBought: number
 
   acceleratorPaid: Decimal
-  acceleratorBought: number
 
-  acceleratorBoostBought: number
   acceleratorBoostPaid: Decimal
 
   upgrades: number[]
@@ -368,6 +316,7 @@ export interface Player {
   ascensionCounter: number
   ascensionCounterReal: number
   ascensionCounterRealReal: number
+  ascensionAttemptCounter: number
   autoOpenCubes: boolean
   openCubes: number
   autoOpenTesseracts: boolean
@@ -446,9 +395,11 @@ export interface Player {
     used: number
     ascensionLevel: number
     tokenCompletions: number[]
+    ascensionStartTokens: number
     highestCleared: number
     autoIncrease: boolean
     cleanseToHighest: boolean
+    showRealTime: boolean
     loadouts: number[]
   }
 
@@ -457,7 +408,6 @@ export interface Player {
   historyShowPerSecond: boolean
 
   autoChallengeRunning: boolean
-  autoChallengeIndex: number
   autoChallengeToggles: boolean[]
   autoChallengeTimer: {
     start: number
@@ -614,73 +564,6 @@ export interface GlobalVariables {
   crystalUpgradesCost: number[]
   crystalUpgradeCostIncrement: number[]
 
-  freeAccelerator: number
-  effectiveFreeAccelerator: number
-  totalAccelerator: number
-  freeAcceleratorBoost: number
-  totalAcceleratorBoost: number
-  acceleratorPower: number
-  acceleratorEffect: Decimal
-
-  freeMultiplier: number
-  effectiveFreeMultiplier: number
-  totalMultiplier: number
-  multiplierPower: number
-  multiplierEffect: Decimal
-  challengeOneLog: number
-  totalMultiplierBoost: number
-
-  globalCoinMultiplier: Decimal
-
-  coinOneMulti: Decimal
-  coinTwoMulti: Decimal
-  coinThreeMulti: Decimal
-  coinFourMulti: Decimal
-  coinFiveMulti: Decimal
-
-  globalCrystalMultiplier: Decimal
-  globalMythosMultiplier: Decimal
-
-  challengeThreeMultiplier: Decimal
-
-  prestigePointGain: Decimal
-
-  transcendPointGain: Decimal
-  reincarnationPointGain: Decimal
-
-  produceFirst: Decimal
-  produceSecond: Decimal
-  produceThird: Decimal
-  produceFourth: Decimal
-  produceFifth: Decimal
-  produceTotal: Decimal
-
-  produceFirstDiamonds: Decimal
-  produceSecondDiamonds: Decimal
-  produceThirdDiamonds: Decimal
-  produceFourthDiamonds: Decimal
-  produceFifthDiamonds: Decimal
-  produceDiamonds: Decimal
-
-  produceFirstMythos: Decimal
-  produceSecondMythos: Decimal
-  produceThirdMythos: Decimal
-  produceFourthMythos: Decimal
-  produceFifthMythos: Decimal
-  produceMythos: Decimal
-
-  produceFirstParticles: Decimal
-  produceSecondParticles: Decimal
-  produceThirdParticles: Decimal
-  produceFourthParticles: Decimal
-  produceFifthParticles: Decimal
-  produceParticles: Decimal
-
-  producePerSecond: Decimal
-  producePerSecondDiamonds: Decimal
-  producePerSecondMythos: Decimal
-  producePerSecondParticles: Decimal
-
   currentTab: Tabs
 
   ordinals: readonly [
@@ -697,15 +580,7 @@ export interface GlobalVariables {
 
   challengeBaseRequirements: number[]
 
-  taxdivisor: Decimal
-  taxdivisorcheck: Decimal
-
-  mythosupgrade13: Decimal
-  mythosupgrade14: Decimal
-  mythosupgrade15: Decimal
   challengefocus: number
-
-  maxexponent: number
 
   talismanResourceObtainiumCosts: number[]
   talismanResourceOfferingCosts: number[]
@@ -715,25 +590,12 @@ export interface GlobalVariables {
 
   triggerChallenge: number
 
-  prevBuildingCostKey: string
-  buildingCosts: Record<BuildingType, Decimal[]>
-
   buildingSubTab: BuildingSubtab
 
   autoOfferingCounter: number
   MAX_AUTO_SACRIFICE_RUNE: number
 
-  ascendBuildingProduction: {
-    first: Decimal
-    second: Decimal
-    third: Decimal
-    fourth: Decimal
-    fifth: Decimal
-  }
-
   constUpgradeCosts: ArrayStartingWithNull<number>
-
-  globalConstantMult: Decimal
 
   c15RewardFormulae: Record<Challenge15Rewards, (e: number) => number>
   challenge15Rewards: Challenge15RewardObject

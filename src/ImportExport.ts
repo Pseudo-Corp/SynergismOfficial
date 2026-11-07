@@ -1,10 +1,12 @@
 import i18next from 'i18next'
 import LZString from 'lz-string'
 import {
+  AchievementGroup,
   awardAchievementGroup,
   awardUngroupedAchievement,
   resetAchievements,
-  syncSteamAchievements
+  syncSteamAchievements,
+  UngroupedAchievement
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateOcteractMultiplier } from './Calculate'
@@ -29,10 +31,9 @@ import {
   goldenQuarkUpgrades
 } from './singularity'
 import {
-  allAddCodeCapacityMultiplierStats,
-  allAddCodeCapacityStats,
-  allAddCodeTimerStats,
-  calculateTotalStat,
+  allAddCodeCapacityMultiplierStatsProduct,
+  allAddCodeCapacityStatsSum,
+  allAddCodeTimerStatsProduct,
   synergismStage
 } from './Statistics'
 import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from './Synergism'
@@ -484,10 +485,10 @@ export const promocodes = async (input: string | null, amount?: number) => {
       quarks: format(player.worlds.applyBonus(quarks), 2, true)
     })
   } else if (input === ':unsmith:' || input === 'unsmith') {
-    awardUngroupedAchievement('unsmith')
+    awardUngroupedAchievement(UngroupedAchievement.Unsmith)
     el.textContent = i18next.t('importexport.promocodes.unsmith')
   } else if (input === ':antismith:' || input === 'smith' || input === 'antismith' || input === ':smith:') {
-    awardUngroupedAchievement('smith')
+    awardUngroupedAchievement(UngroupedAchievement.Smith)
     el.textContent = i18next.t('importexport.promocodes.antismith')
   } else if (input === 'Khafra' && !player.codes.get(26)) {
     player.codes.set(26, true)
@@ -514,6 +515,17 @@ export const promocodes = async (input: string | null, amount?: number) => {
     }
 
     return Alert(i18next.t('importexport.promocodes.bribe.notUnlocked'))
+  } else if (input.toLowerCase() === 'ascensioncomp' && !player.codes.get(49)) {
+    if (
+      player.singularityChallenges.limitedTime.enabled
+      || player.singularityChallenges.barDependence.enabled
+    ) {
+      return Alert(i18next.t('importexport.promocodes.ascensionComp.unavailable'))
+    }
+
+    player.codes.set(49, true)
+    addTimers('ascension', 86400)
+    el.textContent = i18next.t('importexport.promocodes.ascensionComp.reward')
   } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {
     player.dailyCodeUsed = true
     let rewardMessage = i18next.t('importexport.promocodes.daily.message')
@@ -650,7 +662,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     // Calculator Maxed: you don't need to insert anything!
     if (getShopUpgradeEffects('calculator', 'autoFill')) {
       player.stats.totalAddCodesUsed += realAttemptsUsed
-      awardAchievementGroup('addCodesUsed')
+      awardAchievementGroup(AchievementGroup.AddCodesUsed)
       player.worlds.add(actualQuarks, true, true)
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
@@ -701,7 +713,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     }
 
     player.stats.totalAddCodesUsed += realAttemptsUsed
-    awardAchievementGroup('addCodesUsed')
+    awardAchievementGroup(AchievementGroup.AddCodesUsed)
     player.rngCode = v
 
     if (first + second === +addPrompt) {
@@ -878,8 +890,8 @@ export const addCodeSingularityPerkBonus = (): { intervalDivisor: number; addCod
   }
 }
 
-export const addCodeMaxCapacityAdditive = () => calculateTotalStat(allAddCodeCapacityStats)
-export const addCodeMaxCapacityMultiplicative = () => calculateTotalStat(allAddCodeCapacityMultiplierStats)
+export const addCodeMaxCapacityAdditive = () => allAddCodeCapacityStatsSum()
+export const addCodeMaxCapacityMultiplicative = () => allAddCodeCapacityMultiplierStatsProduct()
 
 export const addCodeMaxCapacity = () => {
   const additiveValue = addCodeMaxCapacityAdditive()
@@ -887,7 +899,7 @@ export const addCodeMaxCapacity = () => {
   return Math.floor(additiveValue * multiplier)
 }
 
-export const addCodeInterval = () => calculateTotalStat(allAddCodeTimerStats)
+export const addCodeInterval = () => allAddCodeTimerStatsProduct()
 
 export const addCodeMaxUses = (): number => {
   const maxTime = addCodeMaxCapacity() // in seconds

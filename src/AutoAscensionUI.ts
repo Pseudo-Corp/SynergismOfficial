@@ -1,10 +1,13 @@
 import i18next from 'i18next'
 import {
+  affectsCorruptions,
   ascensionChallenges,
   type AutoAscendCondition,
   type AutoAscendExpr,
   type AutoAscendProtocol,
   type AutoAscendRule,
+  type AutoAscendRuleStatus,
+  autoAscendRuleStatus,
   type BooleanRuleKey,
   booleanRuleKeys,
   challengeRuleChallenges,
@@ -13,21 +16,26 @@ import {
   type Comparator,
   comparatorKeys,
   completionChallenges,
-  corruptionLoadoutCount,
   corruptionLoadoutSlots,
   type CubeRateKey,
   cubeRateKeys,
+  defaultAutoAscendRules,
   equalityComparatorKeys,
+  evaluateCondition,
   exaltKeys,
   getAutoAscendRuleSlots,
+  invalidRuleNameCharacter,
   isAmbrosiaLoadoutUnlocked,
+  isAutoAscendRunning,
   isChallengeCondition,
+  isCorruptionProtocolType,
   isProtocolModifierUnlocked,
   type LoadoutOp,
   loadoutOpMinimum,
   loadoutOps,
   type LoadoutWrite,
   maxComparisonsPerExpr,
+  maxedChallenges,
   maxRuleNameLength,
   normalizeExpr,
   type NumberRuleKey,
@@ -44,12 +52,11 @@ import {
 } from './AutoAscension'
 import { getUnlockedBlueberryLoadoutCount } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { getMaxChallenges } from './Challenges'
-import { activeCorruptionLevel, maxCorruptionLevel } from './Corruptions'
+import { isCorruptionUnlocked } from './Corruptions'
 import { readFileAsText } from './ImportExport'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { gameStages } from './Statistics'
-import { format, formatTimeShort, player } from './Synergism'
+import { format, player } from './Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification } from './UpdateHTML'
 import { isMobile } from './Utility'
 
@@ -61,6 +68,10 @@ type DraftComparison = { kind: 'comparison'; condition: AutoAscendCondition }
 type DraftGroup = { kind: 'group'; op: GroupOp; children: DraftNode[] }
 type DraftNode = DraftComparison | DraftGroup
 
+type RuleStart = 'template' | 'custom'
+
+type ExtraKey = 'loadout' | 'ambrosiaLoadout' | ProtocolModifierKey
+
 type RuleDraft = {
   index: number | null
   name: string
@@ -71,9 +82,11 @@ type RuleDraft = {
   loadouts: LoadoutWrite[]
   ambrosiaLoadout: number | null
   disabled: boolean
+  exceptionOpen: boolean
+  start: RuleStart | null
 }
 
-const modifierStates = ['keep', 'enable', 'disable'] as const
+const modifierStates = ['enable', 'disable'] as const
 
 type ModifierState = typeof modifierStates[number]
 
@@ -81,7 +94,7 @@ const uiKey = 'corruptions.autoAscend.rules.ui'
 const errorKey = 'corruptions.autoAscend.rules.errors'
 const paletteFileName = 'Synergism-AutoAscension-Rules.txt'
 
-const integerNumberRules = new Set<VariableKey>(['sg', 'cb', 'hb'])
+const integerNumberRules = new Set<VariableKey>(['sg', 'aag', 'cl', 'hcl', 'cb', 'hb'])
 const groupOps: GroupOp[] = ['and', 'or']
 const protocolTypes: ProtocolType[] = [
   'ascend',
@@ -91,10 +104,19 @@ const protocolTypes: ProtocolType[] = [
   'corruptionLoadout',
   'corruptionUnlocked',
   'corruptionCleared',
+  'corruptionBest',
   'corruptionClimb',
   'corruptionDowngrade',
   'corruptionCleanse'
 ]
+
+const cubeNameKeys: Record<CubeRateKey, string> = {
+  wowCubes: 'cubes',
+  wowTesseracts: 'tesseracts',
+  wowHypercubes: 'hypercubes',
+  wowPlatonicCubes: 'platonics',
+  wowHepteracts: 'hepteracts'
+}
 
 const loadoutOpKeys: Record<LoadoutOp, string> = {
   '=': 'set',
@@ -127,8 +149,6 @@ const selectMenuSteps: Record<string, number> = { ArrowDown: 1, ArrowUp: -1 }
 let draft: RuleDraft | null = null
 let openSelect: HTMLButtonElement | null = null
 
-const rulePulseDuration = 1600
-let rulePulse: { element: Element; timeout: ReturnType<typeof setTimeout> } | null = null
 let lastFiredRule: { rule: AutoAscendRule; index: number } | null = null
 
 const isNumberRuleKey = (key: VariableKey): key is NumberRuleKey => (numberRuleKeys as string[]).includes(key)
@@ -146,11 +166,13 @@ const loadoutSlotOptions = (slots: number[]) => slots.map((slot) => ({ value: sl
 const ambrosiaLoadoutName = (slot: number) => i18next.t(`${uiKey}.ambrosiaLoadoutSlot`, { slot })
 const completionName = (challenge: number) =>
   `${challengeName(challenge)} ${i18next.t(`${uiKey}.${challenge === 15 ? 'challengeScore' : 'challengeCompletions'}`)}`
+const numberedChallengeName = (challenge: number) => `(${challenge}) ${challengeName(challenge)}`
+const maxedName = (challenge: number) => `${challengeName(challenge)} ${i18next.t(`${uiKey}.challengeMaxed`)}`
+const cubeName = (cube: CubeRateKey) => i18next.t(`corruptions.tiers.cubes.${cubeNameKeys[cube]}`)
 const cubeStallName = (cube: CubeRateKey) => i18next.t(`${uiKey}.cubeStall.${cube}`)
 const gameStageName = (stage: number) => `${stage}: ${gameStages()[stage]?.name ?? ''}`
 
-const modifierState = (enabled: boolean | undefined): ModifierState =>
-  enabled === undefined ? 'keep' : enabled ? 'enable' : 'disable'
+const modifierState = (enabled: boolean): ModifierState => enabled ? 'enable' : 'disable'
 
 const createElement = <K extends keyof HTMLElementTagNameMap>(tag: K, className = '', text = '') => {
   const element = document.createElement(tag)
@@ -284,6 +306,9 @@ const defaultCondition = (key: VariableKey): AutoAscendCondition => {
   if (key === 'cc') {
     return { rule: key, challenge: 10, op: '>=', value: 0 }
   }
+  if (key === 'mc') {
+    return { rule: key, challenge: 10, value: true }
+  }
   if (key === 'stall') {
     return { rule: key, cube: cubeRateKeys[0], tolerance: 0, op: '>=', value: 30 }
   }
@@ -310,6 +335,8 @@ const defaultProtocol = (type: ProtocolType): AutoAscendProtocol => {
     case 'corruptionClimb':
     case 'corruptionDowngrade':
       return { type, amount: 1 }
+    case 'corruptionBest':
+      return { type, cube: cubeRateKeys[0], runs: 10 }
     case 'ascend':
     case 'nextAscensionChallenge':
     case 'corruptionUnlocked':
@@ -326,6 +353,28 @@ const defaultProtocol = (type: ProtocolType): AutoAscendProtocol => {
 const newComparison = (): DraftComparison => ({
   kind: 'comparison',
   condition: { rule: 'cc', challenge: 10, op: '>=', value: 1 }
+})
+
+const ruleTemplates = [
+  { id: 'ascendAtC10', text: 'c10>=1:asc' },
+  { id: 'outsideChallenges', text: 'c10>=1~ach:asc' },
+  { id: 'climbWhenFast', text: 'c10>=1&rt<15:l+1' },
+  { id: 'declimbWhenStuck', text: 'c10=0&rt>=15:l-1' },
+  { id: 'ascendOnStall', text: 'c10>=1&sc>=30:asc' },
+  { id: 'bestLevel', text: 'c10>=1&rt>=15:l=best(sc,10)' }
+] as const
+
+type RuleTemplate = typeof ruleTemplates[number]
+
+const failedAttemptProtocols = new Set<ProtocolType>(['corruptionDowngrade', 'corruptionCleanse'])
+
+const failedAttemptCondition = (): DraftGroup => ({
+  kind: 'group',
+  op: 'and',
+  children: [
+    { kind: 'comparison', condition: { rule: 'cc', challenge: 10, op: '=', value: 0 } },
+    { kind: 'comparison', condition: { rule: 'rt', op: '>=', value: 15 } }
+  ]
 })
 
 const toDraftNode = (node: AutoAscendExpr): DraftNode =>
@@ -359,6 +408,10 @@ const describeCondition = (condition: AutoAscendCondition) => {
     return `${completionName(condition.challenge)} ${comparatorSymbols[condition.op]} ${
       format(condition.value, 2, true)
     }`
+  }
+  if (condition.rule === 'mc') {
+    const name = maxedName(condition.challenge)
+    return condition.value ? name : `${i18next.t(`${uiKey}.not`)} ${name}`
   }
   if (condition.rule === 'stall') {
     const tolerance = condition.tolerance === 0
@@ -405,6 +458,10 @@ const describeProtocol = (protocol: AutoAscendProtocol) => {
     case 'corruptionClimb':
     case 'corruptionDowngrade':
       return `${protocolName(protocol.type)} ${format(protocol.amount)}`
+    case 'corruptionBest':
+      return `${protocolName(protocol.type)} (${cubeName(protocol.cube)} ${
+        i18next.t(`${uiKey}.bestRuns`, { runs: format(protocol.runs) })
+      })`
     case 'ascend':
     case 'nextAscensionChallenge':
     case 'corruptionUnlocked':
@@ -418,24 +475,25 @@ const describeProtocol = (protocol: AutoAscendProtocol) => {
   }
 }
 
-const describeRule = (rule: AutoAscendRule) => {
-  const exception = rule.exception === null
-    ? ''
-    : ` ${i18next.t(`${uiKey}.unless`)} ${describeExpr(rule.exception)}`
+const describeAction = (rule: AutoAscendRule) => {
   const loadouts = rule.loadouts.map(({ slot, op, value }) =>
     i18next.t(`${uiKey}.loadoutWrites.${loadoutOpKeys[op]}`, { slot, value: format(value) })
   )
   const modifiers = protocolModifierKeys
     .filter((key) => rule.modifiers[key] !== undefined && isProtocolModifierUnlocked(key))
-    .map((key) => `${modifierName(key)}: ${modifierStateName(modifierState(rule.modifiers[key]))}`)
+    .map((key) => `${modifierName(key)}: ${modifierStateName(modifierState(rule.modifiers[key] === true))}`)
   const ambrosiaLoadout = rule.ambrosiaLoadout !== null && isAmbrosiaLoadoutUnlocked()
     ? [i18next.t(`${uiKey}.ambrosiaLoadoutWrite`, { slot: rule.ambrosiaLoadout })]
     : []
   const extras = [...loadouts, ...modifiers, ...ambrosiaLoadout].join(', ')
-  const modifierText = extras === '' ? '' : ` (${extras})`
-  return `${i18next.t(`${uiKey}.when`)} ${describeExpr(rule.condition)}${exception} → ${
-    describeProtocol(rule.protocol)
-  }${modifierText}`
+  return extras === '' ? describeProtocol(rule.protocol) : `${describeProtocol(rule.protocol)} (${extras})`
+}
+
+const describeRule = (rule: AutoAscendRule) => {
+  const exception = rule.exception === null
+    ? ''
+    : ` ${i18next.t(`${uiKey}.unless`)} ${describeExpr(rule.exception)}`
+  return `${i18next.t(`${uiKey}.when`)} ${describeExpr(rule.condition)}${exception} → ${describeAction(rule)}`
 }
 
 const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: () => void) => {
@@ -457,6 +515,15 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
       target.op,
       (op) => {
         target.op = op
+        updatePreview()
+      }
+    )
+  const booleanSelect = (target: { value: boolean }) =>
+    createSelect(
+      [{ value: 'true', label: i18next.t(`${uiKey}.is`) }, { value: 'false', label: i18next.t(`${uiKey}.isNot`) }],
+      target.value ? 'true' : 'false',
+      (value) => {
+        target.value = value === 'true'
         updatePreview()
       }
     )
@@ -510,6 +577,18 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
         condition.value = value
       })
     )
+  } else if (condition.rule === 'mc') {
+    row.append(
+      createSelect(
+        maxedChallenges.map((challenge) => ({ value: challenge, label: numberedChallengeName(challenge) })),
+        condition.challenge,
+        (challenge) => {
+          condition.challenge = challenge
+          updatePreview()
+        }
+      ),
+      booleanSelect(condition)
+    )
   } else if (condition.rule === 'stall') {
     row.append(
       createSelect(
@@ -549,14 +628,7 @@ const renderComparison = (node: DraftComparison, parent: DraftGroup, rerender: (
       })
     )
   } else {
-    row.append(createSelect(
-      [{ value: 'true', label: i18next.t(`${uiKey}.is`) }, { value: 'false', label: i18next.t(`${uiKey}.isNot`) }],
-      condition.value ? 'true' : 'false',
-      (value) => {
-        condition.value = value === 'true'
-        updatePreview()
-      }
-    ))
+    row.append(booleanSelect(condition))
   }
 
   const remove = createButton('×', () => {
@@ -628,12 +700,7 @@ const renderExprEditor = (containerId: string, root: DraftGroup) => {
     renderExprEditor(containerId, root)
     updatePreview()
   }
-  const count = createElement(
-    'p',
-    'autoAscendCount',
-    i18next.t(`${uiKey}.comparisonCount`, { count: countDraftComparisons(root), max: maxComparisonsPerExpr })
-  )
-  container.replaceChildren(renderGroup(root, null, root, rerender), count)
+  container.replaceChildren(renderGroup(root, null, root, rerender))
 }
 
 const renderProtocolEditor = () => {
@@ -645,12 +712,18 @@ const renderProtocolEditor = () => {
   const row = createElement('div', 'autoAscendComparison')
 
   row.append(createSelect(
-    protocolTypes.map((type) => ({ value: type, label: protocolName(type) })),
+    protocolTypes
+      .filter((type) =>
+        isCorruptionUnlocked() || type === currentDraft.protocol?.type || !isCorruptionProtocolType(type)
+      )
+      .map((type) => ({ value: type, label: protocolName(type) })),
     currentDraft.protocol?.type ?? null,
     (type) => {
+      if (currentDraft.protocol === null && failedAttemptProtocols.has(type)) {
+        currentDraft.condition = failedAttemptCondition()
+      }
       currentDraft.protocol = defaultProtocol(type)
-      renderProtocolEditor()
-      updatePreview()
+      renderEditor()
     },
     i18next.t(`${uiKey}.protocols.choose`)
   ))
@@ -678,20 +751,43 @@ const renderProtocolEditor = () => {
     row.append(createNumberInput(protocol.amount, true, (amount) => {
       protocol.amount = amount
     }, 1))
+  } else if (protocol?.type === 'corruptionBest') {
+    row.append(
+      createSelect(
+        cubeRateKeys.map((cube) => ({ value: cube, label: cubeName(cube) })),
+        protocol.cube,
+        (cube) => {
+          protocol.cube = cube
+          updatePreview()
+        }
+      ),
+      createElement('span', '', i18next.t(`${uiKey}.bestRunsLabel`)),
+      createNumberInput(protocol.runs, true, (runs) => {
+        protocol.runs = runs
+      }, 1)
+    )
+  }
+  if (protocol === null) {
+    container.replaceChildren(row)
+    return
   }
 
   const rerenderProtocol = () => {
     renderProtocolEditor()
     updatePreview()
   }
-  const usedSlots = new Set(currentDraft.loadouts.map((write) => write.slot))
-  const loadoutRows = currentDraft.loadouts.map((write) => {
-    const loadoutRow = createElement('div', 'autoAscendComparison')
+  const createRemoveButton = (onRemove: () => void) => {
     const remove = createButton('×', () => {
-      currentDraft.loadouts.splice(currentDraft.loadouts.indexOf(write), 1)
+      onRemove()
       rerenderProtocol()
     }, 'autoAscendButton autoAscendRemove')
     remove.setAttribute('aria-label', i18next.t(`${uiKey}.remove`))
+    return remove
+  }
+
+  const usedSlots = new Set(currentDraft.loadouts.map((write) => write.slot))
+  const loadoutRows = currentDraft.loadouts.map((write) => {
+    const loadoutRow = createElement('div', 'autoAscendComparison')
     loadoutRow.append(
       createSelect(
         loadoutSlotOptions(corruptionLoadoutSlots.filter((slot) => slot === write.slot || !usedSlots.has(slot))),
@@ -713,64 +809,82 @@ const renderProtocolEditor = () => {
       createNumberInput(write.value, true, (value) => {
         write.value = value
       }, loadoutOpMinimum(write.op)),
-      remove
+      createRemoveButton(() => currentDraft.loadouts.splice(currentDraft.loadouts.indexOf(write), 1))
     )
     return loadoutRow
   })
-  const addLoadout = createButton(i18next.t(`${uiKey}.addLoadout`), () => {
-    const slot = corruptionLoadoutSlots.find((candidate) => !usedSlots.has(candidate))
-    if (slot !== undefined) {
-      currentDraft.loadouts.push({ slot, op: '=', value: 0 })
-      rerenderProtocol()
-    }
-  })
-  addLoadout.disabled = usedSlots.size >= corruptionLoadoutCount
 
-  const modifierRows = protocolModifierKeys.filter(isProtocolModifierUnlocked).map((key) => {
-    const modifierRow = createElement('label', 'autoAscendComparison autoAscendModifier')
-    modifierRow.append(
-      createElement('span', '', modifierName(key)),
-      createSelect(
-        modifierStates.map((state) => ({ value: state, label: modifierStateName(state) })),
-        modifierState(currentDraft.modifiers[key]),
-        (state) => {
-          currentDraft.modifiers[key] = state === 'keep' ? undefined : state === 'enable'
-          updatePreview()
-        }
+  const modifierRows = protocolModifierKeys
+    .filter((key) => currentDraft.modifiers[key] !== undefined && isProtocolModifierUnlocked(key))
+    .map((key) => {
+      const modifierRow = createElement('div', 'autoAscendComparison autoAscendModifier')
+      modifierRow.append(
+        createElement('span', '', modifierName(key)),
+        createSelect(
+          modifierStates.map((state) => ({ value: state, label: modifierStateName(state) })),
+          modifierState(currentDraft.modifiers[key] === true),
+          (state) => {
+            currentDraft.modifiers[key] = state === 'enable'
+            updatePreview()
+          }
+        ),
+        createRemoveButton(() => {
+          currentDraft.modifiers[key] = undefined
+        })
       )
-    )
-    return modifierRow
-  })
+      return modifierRow
+    })
 
-  if (isAmbrosiaLoadoutUnlocked()) {
-    const ambrosiaRow = createElement('label', 'autoAscendComparison autoAscendModifier')
-    const slotCount = Math.max(getUnlockedBlueberryLoadoutCount(), currentDraft.ambrosiaLoadout ?? 0)
+  const ambrosiaLoadout = currentDraft.ambrosiaLoadout
+  if (ambrosiaLoadout !== null && isAmbrosiaLoadoutUnlocked()) {
+    const ambrosiaRow = createElement('div', 'autoAscendComparison autoAscendModifier')
+    const slotCount = Math.max(getUnlockedBlueberryLoadoutCount(), ambrosiaLoadout)
     ambrosiaRow.append(
       createElement('span', '', i18next.t(`${uiKey}.ambrosiaLoadout`)),
       createSelect(
-        [
-          { value: 0, label: modifierStateName('keep') },
-          ...Array.from({ length: slotCount }, (_, i) => ({ value: i + 1, label: ambrosiaLoadoutName(i + 1) }))
-        ],
-        currentDraft.ambrosiaLoadout ?? 0,
+        Array.from({ length: slotCount }, (_, i) => ({ value: i + 1, label: ambrosiaLoadoutName(i + 1) })),
+        ambrosiaLoadout,
         (slot) => {
-          currentDraft.ambrosiaLoadout = slot === 0 ? null : slot
+          currentDraft.ambrosiaLoadout = slot
           updatePreview()
         }
-      )
+      ),
+      createRemoveButton(() => {
+        currentDraft.ambrosiaLoadout = null
+      })
     )
     modifierRows.push(ambrosiaRow)
   }
 
-  container.replaceChildren(
-    row,
-    createElement('p', 'autoAscendHelp', i18next.t(`${uiKey}.loadoutsHelp`)),
-    ...loadoutRows,
-    addLoadout
-  )
-  if (modifierRows.length > 0) {
-    container.append(createElement('p', 'autoAscendHelp', i18next.t(`${uiKey}.modifiersHelp`)), ...modifierRows)
+  const freeSlot = corruptionLoadoutSlots.find((slot) => !usedSlots.has(slot))
+  const extraOptions: { value: ExtraKey; label: string }[] = [
+    ...(freeSlot === undefined || !isCorruptionUnlocked()
+      ? []
+      : [{ value: 'loadout' as const, label: i18next.t(`${uiKey}.extras.loadout`) }]),
+    ...protocolModifierKeys
+      .filter((key) => currentDraft.modifiers[key] === undefined && isProtocolModifierUnlocked(key))
+      .map((key) => ({ value: key, label: modifierName(key) })),
+    ...(ambrosiaLoadout === null && isAmbrosiaLoadoutUnlocked()
+      ? [{ value: 'ambrosiaLoadout' as const, label: i18next.t(`${uiKey}.ambrosiaLoadout`) }]
+      : [])
+  ]
+  const addExtra = (extra: ExtraKey) => {
+    if (extra === 'loadout') {
+      if (freeSlot !== undefined) {
+        currentDraft.loadouts.push({ slot: freeSlot, op: '=', value: 0 })
+      }
+    } else if (extra === 'ambrosiaLoadout') {
+      currentDraft.ambrosiaLoadout = 1
+    } else {
+      currentDraft.modifiers[extra] = true
+    }
+    rerenderProtocol()
   }
+  const addExtraMenu = extraOptions.length === 0
+    ? []
+    : [createSelect(extraOptions, null, addExtra, i18next.t(`${uiKey}.addExtra`))]
+
+  container.replaceChildren(row, ...loadoutRows, ...modifierRows, ...addExtraMenu)
 }
 
 const buildDraftRule = (): AutoAscendRule | null => {
@@ -813,10 +927,65 @@ const renderEditor = () => {
   DOMCacheGetOrSet('autoAscendRuleEditorTitle').textContent = draft.index === null
     ? i18next.t(`${uiKey}.newTitle`)
     : i18next.t(`${uiKey}.editTitle`, { number: draft.index + 1 })
-  renderExprEditor('autoAscendConditionEditor', draft.condition)
+  const awaitingProtocol = draft.protocol === null
+  const showTemplates = awaitingProtocol && draft.start === 'template'
+  DOMCacheGetOrSet('autoAscendStartStep').hidden = !awaitingProtocol
+  DOMCacheGetOrSet('autoAscendStartTemplate').setAttribute('aria-pressed', String(draft.start === 'template'))
+  DOMCacheGetOrSet('autoAscendStartCustom').setAttribute('aria-pressed', String(draft.start === 'custom'))
+  DOMCacheGetOrSet('autoAscendTemplateStep').hidden = !showTemplates
+  if (showTemplates) {
+    renderTemplates()
+  }
+  DOMCacheGetOrSet('autoAscendProtocolStep').hidden = awaitingProtocol && draft.start !== 'custom'
+  DOMCacheGetOrSet('autoAscendConditionStep').hidden = awaitingProtocol
+  DOMCacheGetOrSet('autoAscendAddException').hidden = draft.exceptionOpen
+  DOMCacheGetOrSet('autoAscendExceptionStep').hidden = awaitingProtocol || !draft.exceptionOpen
   renderProtocolEditor()
+  renderExprEditor('autoAscendConditionEditor', draft.condition)
   renderExprEditor('autoAscendExceptionEditor', draft.exception)
   updatePreview()
+}
+
+const templateName = (template: RuleTemplate) => i18next.t(`${uiKey}.templates.${template.id}`)
+
+const applyTemplate = (template: RuleTemplate) => {
+  if (draft === null) {
+    return
+  }
+  const rule = parseRule(template.text)
+  rule.name = templateName(template).slice(0, maxRuleNameLength)
+  draft = draftFromRule(draft.index, rule)
+  ;(DOMCacheGetOrSet('autoAscendRuleName') as HTMLInputElement).value = draft.name
+  renderEditor()
+  DOMCacheGetOrSet('autoAscendRuleEditor').focus()
+}
+
+const renderTemplates = () => {
+  const templates = ruleTemplates.filter((template) =>
+    isCorruptionUnlocked() || !affectsCorruptions(parseRule(template.text))
+  )
+  DOMCacheGetOrSet('autoAscendTemplateList').replaceChildren(
+    ...templates.map((template) =>
+      createButton(templateName(template), () => applyTemplate(template), 'autoAscendChoice')
+    )
+  )
+}
+
+const chooseStart = (start: RuleStart) => {
+  if (draft === null) {
+    return
+  }
+  draft.start = start
+  renderEditor()
+}
+
+const openExceptionStep = () => {
+  if (draft === null) {
+    return
+  }
+  draft.exceptionOpen = true
+  renderEditor()
+  DOMCacheGetOrSet('autoAscendExceptionEditor').querySelector('button')?.focus()
 }
 
 const draftFromRule = (index: number | null, rule: AutoAscendRule | undefined): RuleDraft => ({
@@ -828,7 +997,9 @@ const draftFromRule = (index: number | null, rule: AutoAscendRule | undefined): 
   modifiers: rule === undefined ? {} : { ...rule.modifiers },
   loadouts: rule === undefined ? [] : rule.loadouts.map((write) => ({ ...write })),
   ambrosiaLoadout: rule?.ambrosiaLoadout ?? null,
-  disabled: rule?.disabled ?? false
+  disabled: rule?.disabled ?? false,
+  exceptionOpen: index !== null || Boolean(rule?.exception),
+  start: null
 })
 
 const parseErrorMessage = (error: RuleParseError, line: number) =>
@@ -891,12 +1062,15 @@ const saveDraft = () => {
   if (draft.name.trim().length > maxRuleNameLength) {
     return showEditorError('nameTooLong')
   }
-  if (fromDraft(draft.condition) === null) {
-    return showEditorError('emptyCondition')
+  if (invalidRuleNameCharacter.test(draft.name)) {
+    return showEditorError('nameNotAscii')
+  }
+  if (draft.protocol === null) {
+    return showEditorError('noProtocol')
   }
   const rule = buildDraftRule()
   if (rule === null) {
-    return showEditorError('noProtocol')
+    return showEditorError('emptyCondition')
   }
 
   if (draft.index === null) {
@@ -935,13 +1109,63 @@ const deleteRule = (index: number) => {
 const ruleDisplayName = (rule: AutoAscendRule, index: number) =>
   rule.name === '' ? i18next.t(`${uiKey}.namePlaceholder`, { number: index + 1 }) : rule.name
 
+type RuleListStatus = AutoAscendRuleStatus | 'behind'
+
+const ruleListStatuses = () => {
+  const statuses = player.autoAscendRules.map(autoAscendRuleStatus)
+  const first = statuses.indexOf('ready')
+  return {
+    first,
+    statuses: statuses.map((status, index): RuleListStatus => status === 'ready' && index !== first ? 'behind' : status)
+  }
+}
+
+const ruleStatusLabel = (status: RuleListStatus, first: number) =>
+  status === 'off' ? '' : i18next.t(`${uiKey}.ruleStatus.${status}`, { number: first + 1 })
+
+const ruleStatusExplanation = (status: RuleListStatus, first: number) =>
+  i18next.t(`${uiKey}.ruleStatus.explain.${status === 'ready' && !isAutoAscendRunning() ? 'readyPaused' : status}`, {
+    number: first + 1
+  })
+
+const checkMark = (met: boolean) => `<span class="autoAscendCheckMark" data-met="${met}">${met ? '✓' : '✗'}</span>`
+
+const renderChecks = (expr: AutoAscendExpr): { met: boolean; html: string } => {
+  if (expr.type === 'rule') {
+    const met = evaluateCondition(expr.condition)
+    return { met, html: `<li>${checkMark(met)} ${escapeHTML(describeCondition(expr.condition))}</li>` }
+  }
+  const children = expr.children.map(renderChecks)
+  const met = expr.type === 'and' ? children.every((child) => child.met) : children.some((child) => child.met)
+  return {
+    met,
+    html: `<li>${checkMark(met)} ${escapeHTML(i18next.t(`${uiKey}.group.${expr.type}`))}<ul>${
+      children.map((child) => child.html).join('')
+    }</ul></li>`
+  }
+}
+
+const ruleClause = (labelKey: 'when' | 'except', expr: AutoAscendExpr) =>
+  `<span class="autoAscendRuleClauseLabel">${
+    i18next.t(`${uiKey}.ruleStatus.${labelKey}`)
+  }</span><ul class="autoAscendRuleChecks">${renderChecks(expr).html}</ul>`
+
 const registerRuleModal = (element: HTMLElement, rule: AutoAscendRule, index: number) => {
-  const html = () =>
-    `<div class="autoAscendRuleModal"><p class="autoAscendRuleModalName">${
+  const html = () => {
+    const { first, statuses } = ruleListStatuses()
+    const status = statuses[index]
+    const statusLine = status === 'off'
+      ? ''
+      : `<p><span class="autoAscendRuleStatusLabel" data-status="${status}">${
+        escapeHTML(ruleStatusLabel(status, first))
+      }</span>: ${escapeHTML(ruleStatusExplanation(status, first))}</p>`
+    const exception = rule.exception === null ? '' : ruleClause('except', rule.exception)
+    return `<div class="autoAscendRuleModal"><p class="autoAscendRuleModalName">${
       escapeHTML(ruleDisplayName(rule, index))
-    }</p><p>${escapeHTML(describeRule(rule))}</p><p class="autoAscendRuleModalHint">${
-      i18next.t(`${uiKey}.${rule.disabled ? 'enableHint' : 'disableHint'}`)
-    }</p></div>`
+    }</p><p>${escapeHTML(describeAction(rule))}</p><div class="autoAscendRuleClauses">${
+      ruleClause('when', rule.condition)
+    }${exception}</div>${statusLine}</div>`
+  }
 
   if (isMobile) {
     element.addEventListener('click', (event) => {
@@ -978,7 +1202,12 @@ const renderRuleItem = (rule: AutoAscendRule, index: number, total: number) => {
   state.type = 'button'
   state.setAttribute('aria-pressed', String(!rule.disabled))
   state.setAttribute('aria-label', ruleDisplayName(rule, index))
-  item.append(createElement('span', 'autoAscendRuleNumber', `${index + 1}.`), state, name)
+  item.append(
+    createElement('span', 'autoAscendRuleNumber', `${index + 1}.`),
+    state,
+    name,
+    createElement('span', 'autoAscendRuleStatus')
+  )
 
   const actions = createElement('span', 'autoAscendRuleActions')
   actions.addEventListener('click', (event) => event.stopPropagation())
@@ -999,56 +1228,37 @@ const renderRuleItem = (rule: AutoAscendRule, index: number, total: number) => {
   return item
 }
 
-export const pulseAutoAscendRule = (index: number) => {
+export const setLastFiredAutoAscendRule = (index: number) => {
   lastFiredRule = { rule: player.autoAscendRules[index], index }
-
-  if (rulePulse !== null) {
-    clearTimeout(rulePulse.timeout)
-    rulePulse.element.classList.remove('autoAscendRuleFired')
-    rulePulse = null
-  }
-
-  const element = DOMCacheGetOrSet('autoAscendRuleList').children.item(index)
-  if (element === null) {
-    return
-  }
-
-  void element.getBoundingClientRect()
-  element.classList.add('autoAscendRuleFired')
-  rulePulse = {
-    element,
-    timeout: setTimeout(() => {
-      element.classList.remove('autoAscendRuleFired')
-      rulePulse = null
-    }, rulePulseDuration)
-  }
 }
 
 export const updateAutoAscendStatus = () => {
   DOMCacheGetOrSet('autoAscendRequiresC10').hidden = player.unlocks.ascensions
-  DOMCacheGetOrSet('autoAscendStatusCorruption').textContent = `${format(activeCorruptionLevel())} / ${
-    format(maxCorruptionLevel())
-  }`
-  DOMCacheGetOrSet('autoAscendStatusC10').textContent = `${format(player.challengecompletions[10])} / ${
-    format(getMaxChallenges(10))
-  }`
-  const challenge = player.currentChallenge.ascension
-  const challengeElement = DOMCacheGetOrSet('autoAscendStatusChallenge')
-  challengeElement.textContent = challenge === 0 ? i18next.t('corruptions.autoAscend.status.none') : `C${challenge}`
-  challengeElement.title = challenge === 0 ? '' : challengeName(challenge)
-  DOMCacheGetOrSet('autoAscendStatusTime').textContent = formatTimeShort(player.ascensionCounter, 0)
-  DOMCacheGetOrSet('autoAscendStatusTimeReal').textContent = formatTimeShort(player.ascensionCounterRealReal, 0)
-  const lastFiredElement = DOMCacheGetOrSet('autoAscendStatusLastFired')
+  const lastFiredElement = DOMCacheGetOrSet('autoAscendLastFired')
   lastFiredElement.textContent = lastFiredRule === null
-    ? i18next.t('corruptions.autoAscend.status.none')
+    ? i18next.t(`${uiKey}.lastFiredNone`)
     : ruleDisplayName(lastFiredRule.rule, lastFiredRule.index)
   lastFiredElement.title = lastFiredRule === null ? '' : describeRule(lastFiredRule.rule)
+  updateRuleStatuses()
   updateCorruptionLoadouts()
+}
+
+const updateRuleStatuses = () => {
+  const chips = DOMCacheGetOrSet('autoAscendRuleList').querySelectorAll<HTMLElement>('.autoAscendRuleStatus')
+  const { first, statuses } = ruleListStatuses()
+  chips.forEach((chip, index) => {
+    const status = statuses[index]
+    const label = ruleStatusLabel(status, first)
+    if (chip.dataset.status !== status || chip.textContent !== label) {
+      chip.dataset.status = status
+      chip.textContent = label
+    }
+  })
 }
 
 const loadoutInput = (slot: number) => DOMCacheGetOrSet(`corruptionLoadoutInput${slot}`) as HTMLInputElement
 
-export const updateCorruptionLoadouts = () => {
+const updateCorruptionLoadouts = () => {
   if (DOMCacheGetOrSet('corruptionLoadoutList').childElementCount === 0) {
     return
   }
@@ -1063,7 +1273,7 @@ export const updateCorruptionLoadouts = () => {
 
 const createLoadoutRow = (slot: number) => {
   const row = createElement('label', 'corruptionLoadoutRow')
-  const input = createElement('input', 'autoAscendNumber')
+  const input = createElement('input', 'corruptionLoadoutInput')
   input.id = `corruptionLoadoutInput${slot}`
   input.type = 'number'
   input.min = '0'
@@ -1077,11 +1287,9 @@ const createLoadoutRow = (slot: number) => {
     }
   })
   input.addEventListener('blur', updateCorruptionLoadouts)
-  row.append(
-    createElement('span', 'corruptionLoadoutName', loadoutName(slot)),
-    createElement('code', 'corruptionLoadoutId', `s${slot}`),
-    input
-  )
+  const name = createElement('span', 'corruptionLoadoutName')
+  name.innerHTML = i18next.t('corruptions.autoAscend.loadouts.slot', { slot })
+  row.append(name, input)
   return row
 }
 
@@ -1089,11 +1297,10 @@ export const renderAutoAscendRules = () => {
   const rules = player.autoAscendRules
   const slots = getAutoAscendRuleSlots()
 
-  DOMCacheGetOrSet('autoAscendRuleSlots').textContent = i18next.t(`${uiKey}.slots`, {
+  DOMCacheGetOrSet('autoAscendRulesHeading').textContent = i18next.t(`${uiKey}.heading`, {
     count: rules.length,
     max: slots
   })
-  DOMCacheGetOrSet('autoAscendRulesEmpty').hidden = rules.length > 0
   DOMCacheGetOrSet('autoAscendRuleList').replaceChildren(
     ...rules.map((rule, index) => renderRuleItem(rule, index, rules.length))
   )
@@ -1155,6 +1362,7 @@ export const autoAscendRulesUICreate = () => {
   DOMCacheGetOrSet('autoAscendPaletteCopy').addEventListener('click', () => void exportRulePalette(false))
   DOMCacheGetOrSet('autoAscendPaletteExportFile').addEventListener('click', () => void exportRulePalette(true))
   DOMCacheGetOrSet('autoAscendPalettePaste').addEventListener('click', () => void importRulePaletteFromClipboard())
+  DOMCacheGetOrSet('autoAscendPaletteReset').addEventListener('click', () => void resetRulePalette())
   const fileInput = DOMCacheGetOrSet('autoAscendPaletteFile') as HTMLInputElement
   DOMCacheGetOrSet('autoAscendPaletteImportFile').addEventListener('click', () => fileInput.click())
   fileInput.addEventListener('change', () => void importRulePaletteFromFile(fileInput))
@@ -1162,6 +1370,9 @@ export const autoAscendRulesUICreate = () => {
   DOMCacheGetOrSet('autoAscendRuleEditorClose').addEventListener('click', closeEditor)
   DOMCacheGetOrSet('autoAscendRuleCancel').addEventListener('click', closeEditor)
   DOMCacheGetOrSet('autoAscendRuleSave').addEventListener('click', saveDraft)
+  DOMCacheGetOrSet('autoAscendAddException').addEventListener('click', openExceptionStep)
+  DOMCacheGetOrSet('autoAscendStartTemplate').addEventListener('click', () => chooseStart('template'))
+  DOMCacheGetOrSet('autoAscendStartCustom').addEventListener('click', () => chooseStart('custom'))
   DOMCacheGetOrSet('corruptionLoadoutList').replaceChildren(...corruptionLoadoutSlots.map(createLoadoutRow))
   renderAutoAscendRules()
 }
@@ -1273,6 +1484,18 @@ const importRulePaletteFromFile = async (input: HTMLInputElement) => {
   const text = await readFileAsText(file)
   input.value = ''
   await importRulePalette(text)
+}
+
+const resetRulePalette = async () => {
+  if (player.autoAscendRules.length > 0) {
+    const confirmed = await Confirm(i18next.t(`${uiKey}.palette.resetConfirm`))
+    if (!confirmed) {
+      return
+    }
+  }
+  player.autoAscendRules = defaultAutoAscendRules()
+  renderAutoAscendRules()
+  void Notification(i18next.t(`${uiKey}.palette.resetDone`), 5000)
 }
 
 const exportRulePalette = async (toFile: boolean) => {

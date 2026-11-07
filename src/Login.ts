@@ -16,7 +16,9 @@ import { clearEvent, updateGlobalsIsEvent } from './Event'
 import { storageGetItem, storageRemoveItem, storageSetItem } from './events/storage-events'
 import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
+import { clearUnreadMessages } from './Messages'
 import { checkServerDate, guardPoll, pollsStopped } from './PollGuard'
+import { CartTab } from './purchases/CartTab'
 import { updateBellButton, updateLotusDisplay } from './purchases/ConsumablesTab'
 import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
@@ -366,6 +368,7 @@ export async function claimLink (code: string) {
 
 export async function handleLogin () {
   const wasLoggedIn = loggedIn
+  const upgradesFetch = CartTab.upgradesFetch
 
   generateSubtabBrowser: {
     const subtabElement = DOMCacheGetOrSet('accountInfo')
@@ -615,6 +618,7 @@ export async function handleLogin () {
                 const sessionTicket = await getSessionTicket()
 
                 if (!sessionTicket) {
+                  button.dataset.loading = ''
                   await Alert(i18next.t('account.steam.failedToVerify'))
                   return
                 }
@@ -673,6 +677,10 @@ export async function handleLogin () {
     }
   }
 
+  if (loggedIn !== wasLoggedIn && CartTab.upgradesFetch === upgradesFetch) {
+    CartTab.refreshUpgrades().catch(console.error)
+  }
+
   if (loggedIn && !wasLoggedIn) {
     setLotusBalanceLoading()
     updatePseudoCoins().catch(console.error)
@@ -690,6 +698,13 @@ export async function handleLogin () {
   } else if (!loggedIn && wasLoggedIn) {
     setPseudoCoinBalanceLoading()
     setLotusBalanceLoading()
+
+    cloudSaves.length = 0
+    DOMCacheGetOrSet('dataGrid')
+      .querySelectorAll('.grid-row:not(.steam-save-row), .grid-details-row:not(.steam-details-row)')
+      .forEach((row) => row.remove())
+
+    clearUnreadMessages()
   }
 
   // Steam cloud saves work without login
@@ -758,7 +773,9 @@ async function handleWebSocket () {
   const url = 'wss://synergism.cc/consumables/connect'
 
   if (PLATFORM === 'mobile') {
-    ws = (await import('./mobile/native-websocket')).createNativeWebSocket(url)
+    const { createNativeWebSocket } = await import('./mobile/native-websocket')
+    if (!loggedIn) return
+    ws = createNativeWebSocket(url)
   } else {
     ws = new WebSocket(url)
   }
@@ -1099,6 +1116,8 @@ async function logout () {
   }
 
   await handleLogin()
+  clearTimeout(reconnectTimeout)
+  reconnectTimeout = undefined
   ws?.close()
   ws = undefined
   resetWebSocket()
@@ -1335,6 +1354,8 @@ const initializeCloudSaves = memoize(() => {
     fetch('https://synergism.cc/saves/retrieve/all')
       .then((response) => response.json())
       .then(($saves: Save[]) => {
+        if (!loggedIn) return
+
         cloudSaves.length = 0
         cloudSaves.push(...$saves)
 

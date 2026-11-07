@@ -2,13 +2,14 @@ import { getAchievementReward } from './Achievements'
 import { autoLoadBlueberryLoadout, MAX_BLUEBERRY_LOADOUT_COUNT } from './BlueberryUpgrades'
 import { CalcCorruptionStuff, calculateCubeBank } from './Calculate'
 import { getMaxChallenges } from './Challenges'
-import { canChangeCorruptions, maxCorruptionLevel, normalizeCorruptionLevel } from './Corruptions'
+import { canChangeCorruptions, isCorruptionUnlocked, maxCorruptionLevel, normalizeCorruptionLevel } from './Corruptions'
 import { activeHappyHourBells } from './Event'
 import { calculateAvailableRebornELO } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/lib/calculate'
 import { toggleAutoAntSacrificeEnabled } from './Features/Ants/toggles/auto-sacrifice'
 import { hepteractKeys, toggleAutomaticHepteracts } from './Hepteracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { reset } from './Reset'
+import { runes } from './Runes'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { gameStages, synergismStageNumber } from './Statistics'
 import { player, resetCheck } from './Synergism'
@@ -39,9 +40,14 @@ export const comparatorKeys = Object.keys(comparators) as Comparator[]
 const numberRules = nullPrototype(
   {
     t: () => player.ascensionCounter,
+    srt: () => player.ascensionCounterReal,
+    at: () => player.ascensionAttemptCounter,
     rt: () => player.ascensionCounterRealReal,
     sg: () => player.singularityCount,
+    aag: () => runes.antiquities.level,
     gs: () => synergismStageNumber(),
+    cl: () => player.corruptions.used,
+    hcl: () => player.corruptions.highestCleared,
     cb: () => calculateCubeBank(),
     hb: () => activeHappyHourBells()
   } satisfies Record<string, () => number>
@@ -51,6 +57,12 @@ export const completionChallenges = Array.from({ length: 15 }, (_, i) => i + 1)
 
 const completionIds: Record<string, number> = Object.fromEntries(
   completionChallenges.map((challenge) => [`c${challenge}`, challenge])
+)
+
+export const maxedChallenges = Array.from({ length: 14 }, (_, i) => i + 1)
+
+const maxedIds: Record<string, number> = Object.fromEntries(
+  maxedChallenges.map((challenge) => [`m${challenge}`, challenge])
 )
 
 const cubeStallIds = {
@@ -147,11 +159,6 @@ const booleanRules = nullPrototype(
     tch: () => player.currentChallenge.transcension !== 0,
     rch: () => player.currentChallenge.reincarnation !== 0,
     ach: () => player.currentChallenge.ascension !== 0,
-    m10: () => player.challengecompletions[10] >= getMaxChallenges(10),
-    m11: () => player.challengecompletions[11] >= getMaxChallenges(11),
-    m12: () => player.challengecompletions[12] >= getMaxChallenges(12),
-    m13: () => player.challengecompletions[13] >= getMaxChallenges(13),
-    m14: () => player.challengecompletions[14] >= getMaxChallenges(14),
     elo: () => calculateAvailableRebornELO() < 0.001,
     x: () => player.insideSingularityChallenge
   } satisfies Record<string, () => boolean>
@@ -187,6 +194,7 @@ export const exaltKeys: SingularityChallengeDataKeys[] = Object.values(exaltIds)
 export type AutoAscendCondition =
   | { rule: NumberRuleKey; op: Comparator; value: number }
   | { rule: 'cc'; challenge: number; op: Comparator; value: number }
+  | { rule: 'mc'; challenge: number; value: boolean }
   | { rule: 'stall'; cube: CubeRateKey; tolerance: number; op: Comparator; value: number }
   | { rule: ChallengeRuleKey; op: EqualityComparator; value: number }
   | { rule: BooleanRuleKey; value: boolean }
@@ -194,6 +202,7 @@ export type AutoAscendCondition =
 
 export const ruleVariableKeys: AutoAscendCondition['rule'][] = [
   'cc',
+  'mc',
   'stall',
   ...numberRuleKeys,
   ...challengeRuleKeys,
@@ -221,6 +230,7 @@ export type AutoAscendProtocol =
   | { type: 'corruptionClimb'; amount: number }
   | { type: 'corruptionDowngrade'; amount: number }
   | { type: 'corruptionCleanse' }
+  | { type: 'corruptionBest'; cube: CubeRateKey; runs: number }
 
 type CorruptionProtocol = Exclude<
   AutoAscendProtocol,
@@ -247,7 +257,7 @@ const protocolModifierShortIds = Object.fromEntries(
 ) as Record<ProtocolModifierKey, keyof typeof protocolModifierIds>
 
 const protocolModifierUnlocks: Record<ProtocolModifierKey, () => boolean> = {
-  antSacrifice: () => Boolean(getAchievementReward('autoAntSacrifice')),
+  antSacrifice: () => getAchievementReward('autoAntSacrifice'),
   challengeSweep: () => player.researches[150] > 0,
   cubeOpens: () => player.highestSingularityCount >= 10,
   tesseractBuildings: () => player.researches[190] > 0,
@@ -303,8 +313,9 @@ const protocolModifierSetters: Record<ProtocolModifierKey, (enabled: boolean) =>
   }
 }
 
-export const isAutoAscendUnlocked = () =>
-  player.highestSingularityCount > 0 || (player.challengecompletions[11] > 0 && player.cubeUpgrades[10] > 0)
+export const isAutoAscendUnlocked = () => player.highestSingularityCount > 0 || player.cubeUpgrades[10] > 0
+
+export const isCorruptionLoadoutUnlocked = () => isAutoAscendUnlocked() && isCorruptionUnlocked()
 
 export const isAutoAscendRunning = () => player.autoAscend && player.unlocks.ascensions && isAutoAscendUnlocked()
 
@@ -345,16 +356,32 @@ const nonCorruptionProtocolTypes = new Set<AutoAscendProtocol['type']>([
   'nextAscensionChallenge'
 ])
 
-const affectsCorruptions = (rule: AutoAscendRule) =>
-  !nonCorruptionProtocolTypes.has(rule.protocol.type) || rule.loadouts.length > 0
+export const isCorruptionProtocolType = (type: AutoAscendProtocol['type']) => !nonCorruptionProtocolTypes.has(type)
 
-const isRuleActive = (rule: AutoAscendRule) =>
-  !rule.disabled
-  && (canChangeCorruptions() || !affectsCorruptions(rule))
-  && evaluateExpr(rule.condition)
-  && (rule.exception === null || !evaluateExpr(rule.exception))
+export const affectsCorruptions = (rule: AutoAscendRule) =>
+  isCorruptionProtocolType(rule.protocol.type) || rule.loadouts.length > 0
 
-const evaluateCondition = (c: AutoAscendCondition): boolean => {
+export type AutoAscendRuleStatus = 'off' | 'locked' | 'waiting' | 'excepted' | 'ready'
+
+export const autoAscendRuleStatus = (rule: AutoAscendRule): AutoAscendRuleStatus => {
+  if (rule.disabled) {
+    return 'off'
+  }
+  if (affectsCorruptions(rule) && !canChangeCorruptions()) {
+    return 'locked'
+  }
+  if (!evaluateExpr(rule.condition)) {
+    return 'waiting'
+  }
+  if (rule.exception !== null && evaluateExpr(rule.exception)) {
+    return 'excepted'
+  }
+  return 'ready'
+}
+
+const isRuleActive = (rule: AutoAscendRule) => autoAscendRuleStatus(rule) === 'ready'
+
+export const evaluateCondition = (c: AutoAscendCondition): boolean => {
   if (c.rule === 'exalt') {
     return player.singularityChallenges[c.value].enabled
   }
@@ -363,6 +390,9 @@ const evaluateCondition = (c: AutoAscendCondition): boolean => {
   }
   if (c.rule === 'cc') {
     return comparators[c.op](challengeCompletionValue(c.challenge), c.value)
+  }
+  if (c.rule === 'mc') {
+    return (player.challengecompletions[c.challenge] >= getMaxChallenges(c.challenge)) === c.value
   }
   if (c.rule === 'stall') {
     return comparators[c.op](cubeRateStallSeconds(c), c.value)
@@ -398,7 +428,8 @@ export const getAutoAscendRuleSlots = () =>
   Math.min(maxAutoAscendRuleSlots, baseAutoAscendRuleSlots + PCoinUpgradeEffects.CORRUPTION_LOADOUT_SLOT_QOL)
 
 export const maxComparisonsPerExpr = 16
-export const maxRuleNameLength = 16
+export const maxRuleNameLength = 20
+export const invalidRuleNameCharacter = /[^\x20-\x7e]/
 const maxRuleLength = 1024
 
 const countComparisons = (expr: AutoAscendExpr): number =>
@@ -444,6 +475,7 @@ type RuleParseErrorCode =
   | 'tooManyComparisons'
   | 'invalidName'
   | 'nameTooLong'
+  | 'nameNotAscii'
   | 'ruleTooLong'
 
 export class RuleParseError extends Error {
@@ -584,6 +616,11 @@ export const parseRule = (text: string): AutoAscendRule => {
       return { rule: id, value: !negated }
     }
 
+    if (Object.hasOwn(maxedIds, id)) {
+      i++
+      return { rule: 'mc', challenge: maxedIds[id], value: !negated }
+    }
+
     if (!negated && isChallengeRule(id)) {
       i++
       const op = peek()
@@ -685,6 +722,33 @@ export const parseRule = (text: string): AutoAscendRule => {
       }
       i++
       return { type: 'ascensionChallenge', challenge }
+    }
+
+    if (value === 'best') {
+      i++
+      if (peek() !== '(') {
+        return fail('unexpectedToken')
+      }
+      i++
+      const cube = peek()
+      if (!isCubeStallId(cube)) {
+        return fail('invalidProtocolValue')
+      }
+      i++
+      if (peek() !== ',') {
+        return fail('unexpectedToken')
+      }
+      i++
+      const runs = Number(peek())
+      if (peek() === '' || !Number.isInteger(runs) || runs < 1) {
+        return fail('invalidProtocolValue')
+      }
+      i++
+      if (peek() !== ')') {
+        return fail('unclosedParen')
+      }
+      i++
+      return { type: 'corruptionBest', cube: cubeStallIds[cube], runs }
     }
 
     if (value === 'max' || value === 'clr' || value === 'cln') {
@@ -816,7 +880,11 @@ export const parseRules = (text: string): AutoAscendRule[] => {
 
   return lines.map(({ line, index }) => {
     try {
-      return parseRule(line)
+      const rule = parseRule(line)
+      if (invalidRuleNameCharacter.test(rule.name)) {
+        throw new RuleParseError('nameNotAscii', line.indexOf('"'))
+      }
+      return rule
     } catch (error) {
       if (error instanceof RuleParseError) {
         throw new RuleParseError(error.code, error.column, index + 1)
@@ -835,12 +903,25 @@ export const parseSavedRules = (text: string): AutoAscendRule[] =>
     }
   }).slice(0, maxAutoAscendRuleSlots)
 
+const defaultAutoAscendRuleText = [
+  '"Challenge 10" c10>=1:asc',
+  '#"In-game Seconds" c10>=1&at>=15:asc',
+  '#"Real Seconds" c10>=1&rt>=15:asc',
+  '#"Climb Corruption" c10>=1:l+1',
+  '#"Declimb Corruption" c10=0&rt>=15:l-1'
+].join('\n')
+
+export const defaultAutoAscendRules = () => parseRules(defaultAutoAscendRuleText)
+
 const printCondition = (condition: AutoAscendCondition): string => {
   if (condition.rule === 'exalt') {
     return `x=${exaltShortIds[condition.value]}`
   }
   if (condition.rule === 'cc') {
     return `c${condition.challenge}${condition.op}${condition.value}`
+  }
+  if (condition.rule === 'mc') {
+    return `${condition.value ? '' : '!'}m${condition.challenge}`
   }
   if (condition.rule === 'stall') {
     const tolerance = condition.tolerance === 0 ? '' : `@${condition.tolerance}`
@@ -891,6 +972,8 @@ const printProtocol = (protocol: AutoAscendProtocol): string => {
       return `l-${protocol.amount}`
     case 'corruptionCleanse':
       return 'l=cln'
+    case 'corruptionBest':
+      return `l=best(${cubeStallShortIds[protocol.cube]},${protocol.runs})`
     default: {
       const unreachable: never = protocol
       return unreachable
@@ -917,6 +1000,31 @@ export const printRules = (rules: AutoAscendRule[]) => rules.map(printRule).join
 
 let pendingCorruptionProtocol: CorruptionProtocol | null = null
 
+const bestRecentCorruptionLevel = ({ cube, runs }: Extract<CorruptionProtocol, { type: 'corruptionBest' }>) => {
+  let level = player.corruptions.next
+  let bestRate = Number.NEGATIVE_INFINITY
+  let counted = 0
+  for (let i = player.history.ascend.length - 1; i >= 0 && counted < runs; i--) {
+    const entry = player.history.ascend[i]
+    if (
+      entry.kind !== 'ascend'
+      || entry.currentChallenge !== undefined
+      || typeof entry.usedCorruptions !== 'number'
+      || entry.realSeconds === undefined
+      || entry.realSeconds <= 0
+    ) {
+      continue
+    }
+    counted++
+    const rate = entry[cube] / entry.realSeconds
+    if (rate > bestRate) {
+      bestRate = rate
+      level = entry.usedCorruptions
+    }
+  }
+  return level
+}
+
 const corruptionProtocolLevel = (protocol: CorruptionProtocol) => {
   switch (protocol.type) {
     case 'corruption':
@@ -933,6 +1041,8 @@ const corruptionProtocolLevel = (protocol: CorruptionProtocol) => {
       return Math.max(0, player.corruptions.used - protocol.amount)
     case 'corruptionCleanse':
       return 0
+    case 'corruptionBest':
+      return bestRecentCorruptionLevel(protocol)
     default: {
       const unreachable: never = protocol
       return unreachable
@@ -940,24 +1050,23 @@ const corruptionProtocolLevel = (protocol: CorruptionProtocol) => {
   }
 }
 
-export const applyPendingAutoAscendProtocol = (challengeTenCompleted: boolean) => {
+export const applyPendingAutoAscendProtocol = (canClimb: boolean) => {
   if (pendingCorruptionProtocol === null) {
     return
   }
   const level = corruptionProtocolLevel(pendingCorruptionProtocol)
-  player.corruptions.next = normalizeCorruptionLevel(
-    challengeTenCompleted ? level : Math.min(level, player.corruptions.used)
-  )
+  player.corruptions.next = normalizeCorruptionLevel(canClimb ? level : Math.min(level, player.corruptions.used))
   pendingCorruptionProtocol = null
 }
 
 const ascend = () => {
-  if (player.currentChallenge.ascension !== 0) {
-    void resetCheck('ascensionChallenge', false, true)
+  const challenge = player.currentChallenge.ascension
+  if (challenge !== 0) {
+    void resetCheck('ascensionChallenge', false, true, false)
     challengeExit('ascension')
-    reset('ascensionChallenge', false)
+    reset('ascensionChallenge', false, 'autoAscend', challenge)
   } else {
-    reset('ascension', false)
+    reset('ascension', false, 'autoAscend')
   }
 }
 
@@ -984,13 +1093,14 @@ const enterAscensionChallenge = (challenge: AscensionChallenge | null) => {
     return
   }
 
-  if (player.currentChallenge.ascension !== 0) {
-    void resetCheck('ascensionChallenge', false, true)
+  const leftChallenge = player.currentChallenge.ascension
+  if (leftChallenge !== 0) {
+    void resetCheck('ascensionChallenge', false, true, false)
   }
   challengeExit('transcension')
   challengeExit('reincarnation')
   challengeExit('ascension')
-  toggleChallenges(challenge, true)
+  toggleChallenges(challenge, true, leftChallenge)
 }
 
 const runAutoAscendProtocol = (protocol: AutoAscendProtocol) => {

@@ -12,7 +12,6 @@ import {
 import { format } from '../Synergism'
 import { changeTab, Tabs } from '../Tabs'
 import { Alert, Confirm } from '../UpdateHTML'
-import { memoize } from '../Utility'
 import { setLotusBalance, setLotusBalanceLoading } from './PseudoCoinBalances'
 import { updatePseudoCoins } from './UpgradesSubtab'
 
@@ -33,7 +32,15 @@ type TimeSkipCategories = typeof timeSkipCategories[number]
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #consumablesSection')!
 
-const initializeConsumablesTab = memoize(() => {
+let consumablesRequested = false
+
+const initializeConsumablesTab = () => {
+  if (consumablesRequested) {
+    return
+  }
+
+  consumablesRequested = true
+
   fetch('https://synergism.cc/consumables/list')
     .then((r) => r.json())
     .then((consumables: ConsumableListItems[]) => {
@@ -92,7 +99,11 @@ const initializeConsumablesTab = memoize(() => {
       updateLotusDisplay()
       updateBellButton()
     })
-})
+    .catch((error: unknown) => {
+      consumablesRequested = false
+      console.error(error)
+    })
+}
 
 const createBuyButtonHTML = (item: ConsumableListItems, label: string) => `
   <button class="consumableBuyButton" data-key="${item.internalName}" data-cost="${item.cost}" data-name="${item.name}">

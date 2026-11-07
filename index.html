@@ -36,20 +36,30 @@
             </div>
             <label class="autoAscendNameField">
                 <span i18n="corruptions.autoAscend.rules.ui.nameLabel"></span>
-                <input id="autoAscendRuleName" class="autoAscendNumber" type="text" maxlength="16" autocomplete="off">
+                <input id="autoAscendRuleName" class="autoAscendNumber" type="text" maxlength="20" autocomplete="off">
             </label>
-            <section class="autoAscendStep">
-                <h4 i18n="corruptions.autoAscend.rules.ui.conditionHeading"></h4>
-                <div id="autoAscendConditionEditor"></div>
+            <section id="autoAscendStartStep" class="autoAscendStep">
+                <h4 i18n="corruptions.autoAscend.rules.ui.startHeading"></h4>
+                <div class="autoAscendChoices">
+                    <button id="autoAscendStartTemplate" class="autoAscendChoice" type="button" aria-pressed="false" i18n="corruptions.autoAscend.rules.ui.start.template"></button>
+                    <button id="autoAscendStartCustom" class="autoAscendChoice" type="button" aria-pressed="false" i18n="corruptions.autoAscend.rules.ui.start.custom"></button>
+                </div>
             </section>
-            <section class="autoAscendStep">
+            <section id="autoAscendTemplateStep" class="autoAscendStep">
+                <h4 i18n="corruptions.autoAscend.rules.ui.templateHeading"></h4>
+                <div id="autoAscendTemplateList" class="autoAscendChoices"></div>
+            </section>
+            <section id="autoAscendProtocolStep" class="autoAscendStep">
                 <h4 i18n="corruptions.autoAscend.rules.ui.protocolHeading"></h4>
-                <p class="autoAscendHelp" i18n="corruptions.autoAscend.rules.ui.protocolHelp"></p>
                 <div id="autoAscendProtocolEditor"></div>
             </section>
-            <section class="autoAscendStep">
+            <section id="autoAscendConditionStep" class="autoAscendStep">
+                <h4 i18n="corruptions.autoAscend.rules.ui.conditionHeading"></h4>
+                <div id="autoAscendConditionEditor"></div>
+                <button id="autoAscendAddException" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.addException"></button>
+            </section>
+            <section id="autoAscendExceptionStep" class="autoAscendStep">
                 <h4 i18n="corruptions.autoAscend.rules.ui.exceptionHeading"></h4>
-                <p class="autoAscendHelp" i18n="corruptions.autoAscend.rules.ui.exceptionHelp"></p>
                 <div id="autoAscendExceptionEditor"></div>
             </section>
             <section class="autoAscendStep autoAscendPreview" aria-live="polite">
@@ -326,7 +336,7 @@
                 </span>
                 <span class="headerModule headerStat" id="ascTimeTakenStats">
                     <img src="Pictures/Default/TinyA.png" class="corruptionImg" title="Ascension Timer" loading="lazy">
-                    <span id="ascLen">x</span> <span id="unit6"></span>
+                    <span id="ascLen" class="headerTimer" data-reserve="00d00h00m00s">x</span> <span id="unit6"></span>
                 </span>
                 <span class="headerModule headerStat" id="ascC10CompletionsStats">
                     <img src="Pictures/Default/TinyChallenge10.png" class="corruptionImg" title="Challenge 10 Completions" loading="lazy">
@@ -346,11 +356,11 @@
                 </span>
                 <span class="headerModule headerStat" id="ascSingTimeTakenStats">
                     <img src="Pictures/Default/TinySTime.png" class="corruptionImg" title="Singularity Timer" loading="lazy">
-                    <span id="ascSingLen">x</span>
+                    <span id="ascSingLen" class="headerTimer" data-reserve="00d00h00m00s">x</span>
                 </span>
                 <span class="headerModule headerStat" id="ascSingChallengeTimeTakenStats">
                     <img src="Pictures/Default/TinySChalTime.png" class="corruptionImg" title="Singularity Challenge Timer" loading="lazy">
-                    <span id="ascSingChallengeLen">x</span>
+                    <span id="ascSingChallengeLen" class="headerTimer" data-reserve="00d00h00m00s">x</span>
                 </span>
             </div>
             <div class="headerGrid headerRegion" id="headerGrid">
@@ -426,15 +436,15 @@
                     </span>
                     <span class="headerModule headerStat" id="dailyCodeHeader">
                         <img src="Pictures/Default/ShopImprovedDaily.png" class="corruptionImg" i18n="headerLayout.modules.dailyCode" loading="lazy">
-                        <span class="headerStatText"><span id="dailyCodeHeaderUses"></span> <span id="dailyCodeHeaderNext" class="headerConsumableOwned"></span></span>
+                        <span class="headerStatText"><span id="dailyCodeHeaderUses"></span> <span id="dailyCodeHeaderNext" class="headerConsumableOwned headerTimer"></span></span>
                     </span>
                     <span class="headerModule headerStat" id="addCodeHeader">
                         <img src="Pictures/Default/perkitAllAddsUp.png" class="corruptionImg" i18n="headerLayout.modules.addCode" loading="lazy">
-                        <span class="headerStatText"><span id="addCodeHeaderUses"></span> <span id="addCodeHeaderNext" class="headerConsumableOwned"></span></span>
+                        <span class="headerStatText"><span id="addCodeHeaderUses"></span> <span id="addCodeHeaderNext" class="headerConsumableOwned headerTimer"></span></span>
                     </span>
                     <span class="headerModule headerStat" id="timeCodeHeader">
                         <img src="Pictures/Default/ShopChronometer.png" class="corruptionImg" i18n="headerLayout.modules.timeCode" loading="lazy">
-                        <span class="headerStatText"><span id="timeCodeHeaderUses"></span> <span id="timeCodeHeaderNext" class="headerConsumableOwned"></span></span>
+                        <span class="headerStatText"><span id="timeCodeHeaderUses"></span> <span id="timeCodeHeaderNext" class="headerConsumableOwned headerTimer"></span></span>
                     </span>
                     <span class="headerModule headerStat" id="corruptionLevelHeader">
                         <img src="Pictures/Default/CorruptHyperchallenge.png" class="corruptionImg" i18n="headerLayout.modules.corruptionLevel" loading="lazy">
@@ -2344,7 +2354,6 @@
         <div id="traits" class="tab">
             <div id="corruptionIntroduction" class="tightText" i18n="corruptions.intro"></div>
             <div id="corruptionInfo1" class="tightText" i18n="corruptions.traitInfo"></div>
-            <div id="corruptionLayout">
             <div id="corruptionSubtabs" class="flex column">
                 <span id="corrButtonRow" class="flex row center">
                     <button id="corrStatsBtn" class="active-subtab" i18n="corruptions.corrStatsBtn"></button>
@@ -2353,7 +2362,8 @@
                 </span>
                 <div id="corruptionTierSelected">
                     <p id="corruptionTierLevel" class="corrDesc"></p>
-                    <p id="corruptionLevelOverwritten" class="corrDesc"></p>
+                    <p id="corruptionLevelOverwritten" class="corrDesc" style="color: var(--crimson-color)"></p>
+                    <p id="corruptionLevelCap" class="corrDesc"></p>
                     <p id="corruptionHighestCleared" class="corrDesc"></p>
                     <div id="corruptionLevelControls" class="flex row center">
                         <button id="corruptionLevelMin" class="corruptionReset">0</button>
@@ -2364,10 +2374,8 @@
                         <button id="corruptionLevelUp10" class="corruptionMax">+10</button>
                         <button id="corruptionLevelMax" class="corruptionMax" i18n="corruptions.max"></button>
                     </div>
-                    <p id="corruptionLevelCap" class="corrDesc"></p>
                 </div>
                 <div id="corruptionStats" class="corruptionContainer">
-                    <p id="corrClickInfo" i18n="corruptions.clickInfo"></p>
                     <div id="corruptionTierGrid">
                         <div class="corruptionTierHalf corruptionTierRows">
                             <p id="corruptionTierEffectsHeading" class="corrDesc corruptionTierHeading"></p>
@@ -2376,25 +2384,24 @@
                         <div class="corruptionTierHalf corruptionTierRows">
                             <p id="corruptionTierCubeHeading" class="corrDesc corruptionTierHeading"></p>
                             <div id="corruptionTierCubeRows"></div>
-                            <p id="corruptionRewardFreeLevels" class="corrDesc"></p>
                         </div>
                     </div>
                 </div>
                 <div id="corruptionTokens" class="corruptionContainer" style="display: none">
                     <p id="corruptionTierTokens" class="corrDesc"></p>
                     <div id="campaignsTokensInfo" aria-live="polite">
+                        <p id="campaignInheritanceTokens" class="corrDesc" hidden></p>
                         <h2 id="campaignTokenCount"></h2>
-                        <div id="campaignTokenRewardIcons">
+                        <div>
                             <img id="campaignTokenRewardIcon-tutorial" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-cube" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-obtainium" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-offering" src="Pictures/img_transparent.png" alt="" hidden>
+                            <img id="campaignTokenRewardIcon-antELO" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-quark" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-tax" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-c15" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-rune6" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-goldenQuark" src="Pictures/img_transparent.png" alt="" hidden>
-                            <img id="campaignTokenRewardIcon-octeract" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-ambrosiaLuck" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-blueberrySpeed" src="Pictures/img_transparent.png" alt="" hidden>
                             <img id="campaignTokenRewardIcon-sum" src="Pictures/img_transparent.png" alt="" hidden>
@@ -2402,38 +2409,78 @@
                     </div>
                 </div>
                 <div id="autoAscensions" style="display: none">
+                    <p id="autoAscendRequiresCubeUpgrade10" class="corrDesc" i18n="corruptions.autoAscend.requiresCubeUpgrade10"></p>
                     <div id="autoAscendRules" class="corruptionControlGroup autoAscendUnlock">
-                        <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.rules.ui.heading"></p>
-                        <div id="ascensionAutomationButtons">
-                            <button id="ascensionAutoEnable" class="hCenter tight" style="border: 2px solid var(--green-color)"></button>
+                        <div id="autoAscendRulesHeader">
+                            <p id="autoAscendRulesHeading" class="corrDesc corruptionTierHeading"></p>
+                            <button id="ascensionAutoEnable" style="border: 2px solid var(--green-color)"></button>
+                            <p class="corrDesc"><span i18n="corruptions.autoAscend.rules.ui.lastFired"></span> <span id="autoAscendLastFired"></span></p>
                         </div>
-                        <p id="autoAscendRequiresC10" class="corrDesc corruptionRulesNote" i18n="corruptions.autoAscend.requiresC10" hidden></p>
-                        <p id="autoAscendRuleSlots" class="corrDesc"></p>
-                        <p id="autoAscendRulesEmpty" class="corrDesc" i18n="corruptions.autoAscend.rules.ui.empty"></p>
+                        <p id="autoAscendRequiresC10" class="corrDesc" i18n="corruptions.autoAscend.requiresC10" hidden></p>
                         <ol id="autoAscendRuleList"></ol>
-                        <button id="autoAscendAddRule" type="button" i18n="corruptions.autoAscend.rules.ui.addRule"></button>
                         <div class="autoAscendButtonRow">
+                            <button id="autoAscendAddRule" type="button" i18n="corruptions.autoAscend.rules.ui.addRule"></button>
                             <button id="autoAscendPaletteCopy" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.palette.copyButton"></button>
                             <button id="autoAscendPaletteExportFile" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.palette.exportFileButton"></button>
                             <button id="autoAscendPalettePaste" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.palette.pasteButton"></button>
                             <button id="autoAscendPaletteImportFile" class="autoAscendButton" type="button" i18n="corruptions.autoAscend.rules.ui.palette.importFileButton"></button>
                             <input id="autoAscendPaletteFile" type="file" accept=".txt,text/plain" hidden>
+                            <button id="autoAscendPaletteReset" class="autoAscendButton autoAscendRemove" type="button" i18n="corruptions.autoAscend.rules.ui.palette.resetButton"></button>
                         </div>
+                    </div>
+                    <div id="corruptionLoadouts" class="corruptionControlGroup autoAscendUnlock">
+                        <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.loadouts.heading"></p>
+                        <div id="corruptionLoadoutList"></div>
                     </div>
                 </div>
                 <div id="corruptionAscensionControls">
-                    <div class="corruptionControlGroup">
+                    <div id="corruptionAscensionDetails" class="corruptionTierHalf corruptionTierRows">
+                        <p class="corrDesc corruptionTierHeading" i18n="corruptions.ascensionDetails.heading"></p>
+                        <div id="corruptionAscensionDetailsRows">
+                            <div class="corruptionStatRow">
+                                <img id="corruptionCubeBankIcon" src="Pictures/Default/TinyCubeBank.png" alt="" loading="lazy">
+                                <span class="corrDesc corruptionStatName" i18n="corruptions.tiers.cubeBank"></span>
+                                <span id="corruptionCubeBank" class="corrDesc corruptionStatValue"></span>
+                            </div>
+                            <div class="corruptionStatRow">
+                                <img src="Pictures/Default/TinyChallenge10.png" alt="" loading="lazy">
+                                <span class="corrDesc corruptionStatName" i18n="corruptions.ascensionDetails.c10"></span>
+                                <span id="corruptionAscensionC10" class="corrDesc corruptionStatValue"></span>
+                            </div>
+                            <div class="corruptionStatRow">
+                                <img src="Pictures/Default/TinyToken.png" alt="" loading="lazy">
+                                <span class="corrDesc corruptionStatName" i18n="corruptions.ascensionDetails.tokensGained"></span>
+                                <span id="corruptionAscensionTokens" class="corrDesc corruptionStatValue"></span>
+                            </div>
+                            <div class="corruptionStatRow">
+                                <img src="Pictures/Default/TinyASuccess.png" alt="" loading="lazy">
+                                <span class="corrDesc corruptionStatName" i18n="corruptions.ascensionDetails.sinceSuccessful"></span>
+                                <span id="corruptionAscensionSinceSuccessful" class="corrDesc corruptionStatValue"></span>
+                            </div>
+                            <div class="corruptionStatRow">
+                                <img src="Pictures/Default/TinyA.png" alt="" loading="lazy">
+                                <span class="corrDesc corruptionStatName" i18n="corruptions.ascensionDetails.sinceAttempted"></span>
+                                <span id="corruptionAscensionSinceAttempted" class="corrDesc corruptionStatValue"></span>
+                            </div>
+                        </div>
+                        <label class="corruptionToggle">
+                            <input type="checkbox" id="corruptionShowRealTimeToggle">
+                            <span i18n="corruptions.ascensionDetails.realTime"></span>
+                        </label>
+                    </div>
+                    <div id="corruptionClimbing" class="corruptionControlGroup">
                         <p class="corrDesc corruptionTierHeading" i18n="corruptions.controls.climbing"></p>
-                        <p class="corrDesc corruptionRulesNote" i18n="corruptions.toggles.rulesFirst"></p>
-                        <p class="corrDesc corruptionRulesNote" i18n="corruptions.toggles.timerPreserved"></p>
-                        <label class="corruptionToggle">
-                            <input type="checkbox" id="corruptionAutoIncreaseToggle">
-                            <span i18n="corruptions.toggles.autoIncrease"></span>
-                        </label>
-                        <label class="corruptionToggle">
-                            <input type="checkbox" id="corruptionCleanseToHighestToggle">
-                            <span i18n="corruptions.toggles.cleanseToHighest"></span>
-                        </label>
+                        <p class="corrDesc" i18n="corruptions.toggles.manualOnly"></p>
+                        <div class="corruptionToggleList">
+                            <label class="corruptionToggle">
+                                <input type="checkbox" id="corruptionAutoIncreaseToggle">
+                                <span i18n="corruptions.toggles.autoIncrease"></span>
+                            </label>
+                            <label class="corruptionToggle">
+                                <input type="checkbox" id="corruptionCleanseToHighestToggle">
+                                <span i18n="corruptions.toggles.cleanseToHighest"></span>
+                            </label>
+                        </div>
                         <div id="corruptionDisplays" class="flex row center">
                             <img id="corruptionExitIcon" src="Pictures/Default/CorruptExit.png" class="corruptionImg" alt="" loading="lazy">
                             <button id="corruptionCleanse" i18n="corruptions.cleanse"></button>
@@ -2441,31 +2488,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="autoAscendSidebar" style="display: none">
-                <div id="autoAscendStatus" class="corruptionControlGroup autoAscendUnlock">
-                    <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.status.heading"></p>
-                    <dl id="autoAscendStatusList">
-                        <dt i18n="corruptions.autoAscend.status.corruption"></dt>
-                        <dd id="autoAscendStatusCorruption"></dd>
-                        <dt i18n="corruptions.autoAscend.status.c10"></dt>
-                        <dd id="autoAscendStatusC10"></dd>
-                        <dt i18n="corruptions.autoAscend.status.ascensionChallenge"></dt>
-                        <dd id="autoAscendStatusChallenge"></dd>
-                        <dt i18n="corruptions.autoAscend.status.timeInGame"></dt>
-                        <dd id="autoAscendStatusTime"></dd>
-                        <dt i18n="corruptions.autoAscend.status.timeReal"></dt>
-                        <dd id="autoAscendStatusTimeReal"></dd>
-                        <dt i18n="corruptions.autoAscend.status.lastFired"></dt>
-                        <dd id="autoAscendStatusLastFired"></dd>
-                    </dl>
-                </div>
-                <div id="corruptionLoadouts" class="corruptionControlGroup autoAscendUnlock">
-                    <p class="corrDesc corruptionTierHeading" i18n="corruptions.autoAscend.loadouts.heading"></p>
-                    <p class="corrDesc corruptionRulesNote" i18n="corruptions.autoAscend.loadouts.help"></p>
-                    <div id="corruptionLoadoutList"></div>
-                </div>
-            </div>
             </div>
         </div>
 
@@ -3130,8 +3152,6 @@
                     <div class="lookaheadInfo">
                         <p id="highestSingularity" i18n="singularity.elevator.highestSingularity"></p>
                         <p id="maxLookahead" i18n="singularity.elevator.maxLookahead"></p>
-                        <p id="lookahead" i18n="singularity.elevator.lookahead"></p>
-                        <p id="extraLookahead" i18n="singularity.elevator.lookaheadExtra"></p>
                     </div>
 
                     <div class="elevatorControls">
@@ -3447,6 +3467,12 @@
                             <p id="totalOcteractQuarkBonus"></p>
                             <p id="totalOcteractOfferingBonus"></p>
                             <p id="totalOcteractObtainiumBonus"></p>
+                            <p id="totalOcteractLuckBonus"></p>
+                        </div>
+                        <div id="currentOcteractsDisplay">
+                            <p id="currentOcteractAmount"></p>
+                            <p id="currentOcteractQuarkBonus"></p>
+                            <p id="currentOcteractLuckBonus"></p>
                         </div>
                         <div id="octeractsMultiBuyInfo">
                             <p id="octeractMultiBuyText" i18n="general.multiBuyInstructions"></p>

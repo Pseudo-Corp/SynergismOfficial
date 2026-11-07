@@ -1,8 +1,9 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
-import { corruptionLoadoutCount, parseSavedRules } from '../AutoAscension'
+import { corruptionLoadoutCount, defaultAutoAscendRules, parseSavedRules } from '../AutoAscension'
 import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
+import { getTesseractBuildingsCumulativeCost } from '../Buy'
 import { transcensionChallengeCap } from '../Challenges'
 import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
@@ -36,7 +37,7 @@ import {
 } from '../SingularityChallenges'
 import { blankSave, deepClone } from '../Synergism'
 import { noTalismanFragments } from '../Talismans'
-import type { HeaderLayout, Player } from '../types/Synergism'
+import type { HeaderLayout, OneToFive, Player } from '../types/Synergism'
 import { padArray, sumContents } from '../Utility'
 
 const decimalSchema = z.custom<DecimalSource>((value: any) => {
@@ -178,12 +179,15 @@ const antsSchema = z.object({
   }).default(() => deepClone()(blankSave.ants.toggles))
 })
 
-const ascendBuildingSchema = z.object({
-  cost: z.number(),
-  owned: z.number(),
-  generated: decimalSchema,
-  multiplier: z.number()
-})
+const ascendBuildingSchema = (index: OneToFive) =>
+  z.object({
+    paid: z.number().optional(),
+    owned: z.number().optional(),
+    generated: decimalSchema
+  }).transform(({ paid, owned, generated }) => ({
+    paid: paid ?? getTesseractBuildingsCumulativeCost(index, owned ?? 0),
+    generated
+  }))
 
 const autoChallengeTimerSchema = z.object({
   start: z.number(),
@@ -319,9 +323,11 @@ const playerCorruptionSchema = z.object({
   next: corruptionLevelSchema.catch(() => blankSave.corruptions.next),
   ascensionLevel: z.number().int().min(0).optional().catch(undefined),
   tokenCompletions: z.number().int().min(0).catch(0).array().catch(() => [0]),
+  ascensionStartTokens: z.number().catch(() => blankSave.corruptions.ascensionStartTokens),
   highestCleared: z.number().int().min(0).optional().catch(undefined),
   autoIncrease: z.boolean().catch(() => blankSave.corruptions.autoIncrease),
   cleanseToHighest: z.boolean().catch(() => blankSave.corruptions.cleanseToHighest),
+  showRealTime: z.boolean().catch(() => blankSave.corruptions.showRealTime),
   loadouts: corruptionLevelSchema.catch(0).array().catch(() => []).transform((levels) =>
     Array.from({ length: corruptionLoadoutCount }, (_, i) => levels[i] ?? 0)
   )
@@ -469,107 +475,89 @@ export const playerSchema = z.object({
   coinsThisPrestige: decimalSchema,
   coinsThisTranscension: decimalSchema,
   coinsThisReincarnation: decimalSchema,
+  coinsThisAscension: decimalSchema.prefault(() => blankSave.coinsThisAscension),
+  coinsThisSingularity: decimalSchema.prefault(() => blankSave.coinsThisSingularity),
   coinsTotal: decimalSchema,
 
-  firstOwnedCoin: z.number(),
+  firstOwnedCoin: z.number().optional(),
   firstGeneratedCoin: decimalSchema,
   firstPaidCoin: decimalSchema.optional(),
-  firstProduceCoin: z.number(),
 
-  secondOwnedCoin: z.number(),
+  secondOwnedCoin: z.number().optional(),
   secondGeneratedCoin: decimalSchema,
   secondPaidCoin: decimalSchema.optional(),
-  secondProduceCoin: z.number(),
 
-  thirdOwnedCoin: z.number(),
+  thirdOwnedCoin: z.number().optional(),
   thirdGeneratedCoin: decimalSchema,
   thirdPaidCoin: decimalSchema.optional(),
-  thirdProduceCoin: z.number(),
 
-  fourthOwnedCoin: z.number(),
+  fourthOwnedCoin: z.number().optional(),
   fourthGeneratedCoin: decimalSchema,
   fourthPaidCoin: decimalSchema.optional(),
-  fourthProduceCoin: z.number(),
 
-  fifthOwnedCoin: z.number(),
+  fifthOwnedCoin: z.number().optional(),
   fifthGeneratedCoin: decimalSchema,
   fifthPaidCoin: decimalSchema.optional(),
-  fifthProduceCoin: z.number(),
 
-  firstOwnedDiamonds: z.number(),
+  firstOwnedDiamonds: z.number().optional(),
   firstGeneratedDiamonds: decimalSchema,
   firstPaidDiamonds: decimalSchema.optional(),
-  firstProduceDiamonds: z.number(),
 
-  secondOwnedDiamonds: z.number(),
+  secondOwnedDiamonds: z.number().optional(),
   secondGeneratedDiamonds: decimalSchema,
   secondPaidDiamonds: decimalSchema.optional(),
-  secondProduceDiamonds: z.number(),
 
-  thirdOwnedDiamonds: z.number(),
+  thirdOwnedDiamonds: z.number().optional(),
   thirdGeneratedDiamonds: decimalSchema,
   thirdPaidDiamonds: decimalSchema.optional(),
-  thirdProduceDiamonds: z.number(),
 
-  fourthOwnedDiamonds: z.number(),
+  fourthOwnedDiamonds: z.number().optional(),
   fourthGeneratedDiamonds: decimalSchema,
   fourthPaidDiamonds: decimalSchema.optional(),
-  fourthProduceDiamonds: z.number(),
 
-  fifthOwnedDiamonds: z.number(),
+  fifthOwnedDiamonds: z.number().optional(),
   fifthGeneratedDiamonds: decimalSchema,
   fifthPaidDiamonds: decimalSchema.optional(),
-  fifthProduceDiamonds: z.number(),
 
-  firstOwnedMythos: z.number(),
+  firstOwnedMythos: z.number().optional(),
   firstGeneratedMythos: decimalSchema,
   firstPaidMythos: decimalSchema.optional(),
-  firstProduceMythos: z.number(),
 
-  secondOwnedMythos: z.number(),
+  secondOwnedMythos: z.number().optional(),
   secondGeneratedMythos: decimalSchema,
   secondPaidMythos: decimalSchema.optional(),
-  secondProduceMythos: z.number(),
 
-  thirdOwnedMythos: z.number(),
+  thirdOwnedMythos: z.number().optional(),
   thirdGeneratedMythos: decimalSchema,
   thirdPaidMythos: decimalSchema.optional(),
-  thirdProduceMythos: z.number(),
 
-  fourthOwnedMythos: z.number(),
+  fourthOwnedMythos: z.number().optional(),
   fourthGeneratedMythos: decimalSchema,
   fourthPaidMythos: decimalSchema.optional(),
-  fourthProduceMythos: z.number(),
 
-  fifthOwnedMythos: z.number(),
+  fifthOwnedMythos: z.number().optional(),
   fifthGeneratedMythos: decimalSchema,
   fifthPaidMythos: decimalSchema.optional(),
-  fifthProduceMythos: z.number(),
 
-  firstOwnedParticles: z.number(),
+  firstOwnedParticles: z.number().optional(),
   firstGeneratedParticles: decimalSchema,
   firstPaidParticles: decimalSchema.optional(),
-  firstProduceParticles: z.number(),
 
-  secondOwnedParticles: z.number(),
+  secondOwnedParticles: z.number().optional(),
   secondGeneratedParticles: decimalSchema,
   secondPaidParticles: decimalSchema.optional(),
-  secondProduceParticles: z.number(),
 
-  thirdOwnedParticles: z.number(),
+  thirdOwnedParticles: z.number().optional(),
   thirdGeneratedParticles: decimalSchema,
   thirdPaidParticles: decimalSchema.optional(),
-  thirdProduceParticles: z.number(),
 
-  fourthOwnedParticles: z.number(),
+  fourthOwnedParticles: z.number().optional(),
   fourthGeneratedParticles: decimalSchema,
   fourthPaidParticles: decimalSchema.optional(),
-  fourthProduceParticles: z.number(),
 
-  fifthOwnedParticles: z.number(),
+  fifthOwnedParticles: z.number().optional(),
   fifthGeneratedParticles: decimalSchema,
   fifthPaidParticles: decimalSchema.optional(),
-  fifthProduceParticles: z.number(),
 
   firstOwnedAnts: z.number().optional(),
   firstGeneratedAnts: decimalSchema.optional(),
@@ -613,19 +601,19 @@ export const playerSchema = z.object({
 
   ants: antsSchema.default(() => deepClone()(blankSave.ants)),
 
-  ascendBuilding1: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding1)),
-  ascendBuilding2: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding2)),
-  ascendBuilding3: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding3)),
-  ascendBuilding4: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding4)),
-  ascendBuilding5: ascendBuildingSchema.default(() => deepClone()(blankSave.ascendBuilding5)),
+  ascendBuilding1: ascendBuildingSchema(1).default(() => deepClone()(blankSave.ascendBuilding1)),
+  ascendBuilding2: ascendBuildingSchema(2).default(() => deepClone()(blankSave.ascendBuilding2)),
+  ascendBuilding3: ascendBuildingSchema(3).default(() => deepClone()(blankSave.ascendBuilding3)),
+  ascendBuilding4: ascendBuildingSchema(4).default(() => deepClone()(blankSave.ascendBuilding4)),
+  ascendBuilding5: ascendBuildingSchema(5).default(() => deepClone()(blankSave.ascendBuilding5)),
 
   multiplierPaid: decimalSchema.optional(),
-  multiplierBought: z.number(),
+  multiplierBought: z.number().optional(),
 
   acceleratorPaid: decimalSchema.optional(),
-  acceleratorBought: z.number(),
+  acceleratorBought: z.number().optional(),
 
-  acceleratorBoostBought: z.number(),
+  acceleratorBoostBought: z.number().optional(),
   acceleratorBoostPaid: decimalSchema.optional(),
 
   upgrades: z.number().array().transform((array) => {
@@ -913,6 +901,7 @@ export const playerSchema = z.object({
   ascensionCounter: z.number().default(() => blankSave.ascensionCounter),
   ascensionCounterReal: z.number().default(() => blankSave.ascensionCounterReal),
   ascensionCounterRealReal: z.number().default(() => blankSave.ascensionCounterRealReal),
+  ascensionAttemptCounter: z.number().default(() => blankSave.ascensionAttemptCounter),
   cubeUpgrades: arrayStartingWithNull(z.number())
     .transform((array) => arrayExtend(array, 'cubeUpgrades'))
     .default((): [null, ...number[]] => [...blankSave.cubeUpgrades]),
@@ -984,7 +973,8 @@ export const playerSchema = z.object({
 
   ascendShards: decimalSchema.default(() => deepClone()(blankSave.ascendShards)),
   autoAscend: z.boolean().default(() => blankSave.autoAscend),
-  autoAscendRules: z.string().transform((text) => parseSavedRules(text)).default(() => []).catch(() => []),
+  autoAscendRules: z.string().transform((text) => parseSavedRules(text)).default(() => defaultAutoAscendRules())
+    .catch(() => []),
   autoOpenCubes: z.boolean().default(() => blankSave.autoOpenCubes),
   openCubes: z.number().default(() => blankSave.openCubes),
   autoOpenTesseracts: z.boolean().default(() => blankSave.autoOpenTesseracts),
@@ -1012,7 +1002,6 @@ export const playerSchema = z.object({
   historyShowPerSecond: z.boolean().default(() => blankSave.historyShowPerSecond),
 
   autoChallengeRunning: z.boolean().default(() => blankSave.autoChallengeRunning),
-  autoChallengeIndex: z.number().default(() => blankSave.autoChallengeIndex),
   autoChallengeToggles: z.boolean().array().default(() => [...blankSave.autoChallengeToggles]),
   autoChallengeTimer: autoChallengeTimerSchema.transform((times) => {
     // Enforce minimum of 0.1s on old savefiles

@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { awardAchievementGroup } from './Achievements'
+import { AchievementGroup, awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { inheritanceTokens, singularityBonusTokenMult } from './Calculate'
 import { getOcteractUpgradeEffect } from './Octeracts'
@@ -11,92 +11,95 @@ import { isMobile } from './Utility'
 
 export let campaignTokens = 0
 
+let baseCampaignTokens = 0
+
 type CampaignTokenRewardNames =
   | 'tutorial'
-  | 'cube'
   | 'obtainium'
   | 'offering'
+  | 'antELO'
   | 'quark'
   | 'tax'
   | 'c15'
   | 'rune6'
   | 'goldenQuark'
-  | 'octeract'
   | 'ambrosiaLuck'
   | 'blueberrySpeed'
 
 type CampaignTokenRewardDisplay = {
   tokenRequirement: number
+  tokenCap: number
   color: string
   reward: () => Partial<Record<CampaignTokenRewardNames, string>> | string
   otherUnlockRequirement?: () => boolean
 }
 
-const bonusRune6ThresholdReqs = [500, 750, 1000, 1250, 1500, 1750, 2000, 3000, 4000, 6000, 8000, 10000]
-
-const corruptionLevelTokenRates: Array<[lastLevel: number, tokensPerCompletion: number]> = [
-  [20, 1],
-  [45, 2],
-  [Number.POSITIVE_INFINITY, 3]
-]
-
-const tokenRateOf = (level: number) => {
-  for (const [lastLevel, tokensPerCompletion] of corruptionLevelTokenRates) {
-    if (level <= lastLevel) {
-      return tokensPerCompletion
-    }
-  }
-  return 0
-}
-
-const completionTokenMultiplier = () => {
-  return singularityBonusTokenMult()
-    * getGQUpgradeEffect('singBonusTokens2', 'tokenMultiplier')
-    * getOcteractUpgradeEffect('octeractBonusTokens2', 'tokenMultiplier')
+const tokenMultiplier = () => {
+  return 1
+    + (singularityBonusTokenMult() - 1)
+    + (getGQUpgradeEffect('singBonusTokens2', 'tokenMultiplier') - 1)
+    + (getOcteractUpgradeEffect('octeractBonusTokens2', 'tokenMultiplier') - 1)
 }
 
 const firstCompletionBonusPoints = () => {
-  return (player.highestSingularityCount >= 16 ? 5 : 0)
-    + (player.highestSingularityCount >= 69 ? 10 : 0)
+  return 5
+    + (player.highestSingularityCount >= 16 ? 1 : 0)
+    + (player.highestSingularityCount >= 69 ? 1 : 0)
     + getGQUpgradeEffect('singBonusTokens1', 'firstCompletionBonusTokens')
     + getGQUpgradeEffect('singBonusTokens3', 'lastCompletionBonusTokens')
     + getOcteractUpgradeEffect('octeractBonusTokens3', 'firstCompletionBonusTokens')
     + getOcteractUpgradeEffect('octeractBonusTokens1', 'lastCompletionBonusTokens')
 }
 
-const levelTokenTerms = () => {
-  const multiplier = completionTokenMultiplier()
-  const bonusPoints = firstCompletionBonusPoints()
-  return (level: number, completions: number) => {
-    const rate = tokenRateOf(level)
-    const completionTokens = Math.floor(rate * completions * multiplier)
-    const first = Math.floor(rate * bonusPoints)
-    return { rate, completionTokens, first, earned: completionTokens + (completions >= 1 ? first : 0) }
-  }
+const levelTokens = (completions: number, first: number) => completions + (completions >= 1 ? first : 0)
+
+const startingTokens = () => {
+  return inheritanceTokens()
+    + getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
+    + getOcteractUpgradeEffect('octeractBonusTokens4', 'initialTokenBonus')
+}
+
+export const multipliedTokenText = (key: string, base: number, params: Record<string, string> = {}) => {
+  const multiplier = tokenMultiplier()
+  return multiplier > 1 && base > 0
+    ? i18next.t(`${key}Bonus`, {
+      earned: format(base * multiplier, 2, true),
+      base: format(base),
+      percent: format(100 * (multiplier - 1), 2, true),
+      ...params
+    })
+    : i18next.t(key, { earned: format(base), ...params })
 }
 
 export const corruptionLevelTokenInfo = (level: number) => {
   const completions = player.corruptions.tokenCompletions[level] ?? 0
+  const first = Math.floor(firstCompletionBonusPoints())
   return {
-    ...levelTokenTerms()(level, completions),
     completions,
-    firstEarned: completions >= 1
+    first,
+    firstEarned: completions >= 1,
+    earned: levelTokens(completions, first)
   }
 }
 
 export const updateTokens = () => {
-  const terms = levelTokenTerms()
+  const first = Math.floor(firstCompletionBonusPoints())
   const completions = player.corruptions.tokenCompletions
   let tokens = 0
   for (let level = 1; level < completions.length; level++) {
-    tokens += terms(level, completions[level] ?? 0).earned
+    tokens += levelTokens(completions[level] ?? 0, first)
   }
-  campaignTokens = tokens
-    + inheritanceTokens()
-    + getGQUpgradeEffect('singBonusTokens4', 'initialTokenBonus')
-    + getOcteractUpgradeEffect('octeractBonusTokens4', 'initialTokenBonus')
-  awardAchievementGroup('campaignTokens')
+  tokens += startingTokens()
+  baseCampaignTokens = tokens
+  campaignTokens = Math.floor(tokens * tokenMultiplier())
+  awardAchievementGroup(AchievementGroup.CampaignTokens)
 }
+
+export const markAscensionStartTokens = () => {
+  player.corruptions.ascensionStartTokens = baseCampaignTokens
+}
+
+export const ascensionTokensGained = () => baseCampaignTokens - player.corruptions.ascensionStartTokens
 
 export const earnCampaignTokens = (level: number, c10Completions: number) => {
   let improved = false
@@ -112,164 +115,152 @@ export const earnCampaignTokens = (level: number, c10Completions: number) => {
   }
 }
 
+const usableCampaignTokens = (key: CampaignTokenRewardNames) => {
+  return Math.min(campaignTokens, campaignTokenRewardDatas[key].tokenCap)
+}
+
 export const campaignTokenBonuses = {
   tutorial: () => ({
-    cubeBonus: 1 + 0.25 * +(campaignTokens > 0),
-    obtainiumBonus: 1 + 0.2 * +(campaignTokens > 0),
-    offeringBonus: 1 + 0.2 * +(campaignTokens > 0)
+    obtainiumBonus: 1 + 0.2 * usableCampaignTokens('tutorial'),
+    offeringBonus: 1 + 0.2 * usableCampaignTokens('tutorial')
   }),
-  cube: () => 1 + 2 * (1 - Math.pow(1 - 1 / 400, campaignTokens)),
-  obtainium: () => {
-    return 1
-      + 0.1 * 1 / 25 * Math.min(campaignTokens, 25)
-      + 0.4 * (1 - Math.exp(-Math.max(campaignTokens - 25, 0) / 500))
-      + 0.5 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
-  },
-  offering: () => {
-    return 1
-      + 0.1 * 1 / 25 * Math.min(campaignTokens, 25)
-      + 0.4 * (1 - Math.exp(-Math.max(campaignTokens - 25, 0) / 500))
-      + 0.5 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 5000))
-  },
+  obtainium: () => 1 + 0.01 * usableCampaignTokens('obtainium'),
+  offering: () => 1 + 0.01 * usableCampaignTokens('offering'),
+  antELO: () => usableCampaignTokens('antELO'),
   quark: () => {
     if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.quark)) {
       return 1
     }
+    const tokens = usableCampaignTokens('quark')
     return 1
-      + 0.05 * Math.min(campaignTokens - 100, 100) / 100
-      + 0.05 * (1 - Math.exp(-Math.max(campaignTokens - 200, 0) / 3000))
-      + 0.1 * (1 - Math.exp(-Math.max(campaignTokens - 2500, 0) / 10000))
+      + 0.0006 * Math.min(tokens - 100, 100)
+      + 0.06 * Math.log10(Math.max(tokens, 200) / 200)
   },
   tax: () => {
     if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.tax)) {
       return 1
     }
+    const tokens = usableCampaignTokens('tax')
     return 1
-      - 0.05 * 1 / 250 * Math.min(campaignTokens - 250, 250)
-      - 0.15 * (1 - Math.exp(-Math.max(campaignTokens - 500, 0) / 1250))
-      - 0.05 * (1 - Math.exp(-Math.max(campaignTokens - 4000, 0) / 5000))
+      - 0.05 * 1 / 250 * Math.min(tokens - 250, 250)
+      - 0.05 * Math.log2(Math.max(tokens, 500) / 500)
   },
   c15: () => {
     if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.c15)) {
       return 1
     }
+    const tokens = usableCampaignTokens('c15')
     return 1
-      + 0.05 * 1 / 250 * Math.min(campaignTokens - 250, 250)
-      + 0.95 * (1 - Math.exp(-Math.max(campaignTokens - 500, 0) / 1250))
+      + 0.05 * 1 / 250 * Math.min(tokens - 250, 250)
+      + 0.19 * Math.log2(Math.max(tokens, 500) / 500)
   },
   rune6: () => {
     if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.rune6)) {
       return 0
     }
-    for (let i = 0; i < bonusRune6ThresholdReqs.length; i++) {
-      if (campaignTokens < bonusRune6ThresholdReqs[i]) {
-        return i
-      }
-    }
-    return 12
+    return 2 + 2 * Math.floor(Math.log2(usableCampaignTokens('rune6') / 750))
   },
   goldenQuark: () => {
     if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.goldenQuark)) {
       return 1
     }
+    const tokens = usableCampaignTokens('goldenQuark')
     return 1
-      + 0.05 * 1 / 500 * Math.min(campaignTokens - 500, 500)
-      + 0.05 * (1 - Math.exp(-Math.max(campaignTokens - 1000, 0) / 2500))
-  },
-  octeract: () => {
-    if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.octeract)) {
-      return 1
-    }
-    return 1
-      + 0.1 * 1 / 1000 * Math.min(campaignTokens - 1000, 1000)
-      + 0.15 * (1 - Math.exp(-Math.max(campaignTokens - 2000, 0) / 4000))
+      + 0.05 * 1 / 500 * Math.min(tokens - 500, 500)
+      + 0.05 * Math.log(Math.max(tokens, 1000) / 1000) / Math.log(20)
   },
   ambrosiaLuck: () => {
     if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.ambrosiaLuck)) {
       return 0
     }
+    const tokens = usableCampaignTokens('ambrosiaLuck')
     return 10
-      + 40 * 1 / 2000 * Math.min(campaignTokens - 2000, 2000)
-      + 50 * (1 - Math.exp(-Math.max(campaignTokens - 4000, 0) / 2500))
+      + 40 * 1 / 2000 * Math.min(tokens - 2000, 2000)
+      + 50 * Math.log(Math.max(tokens, 4000) / 4000) / Math.log(3)
   },
   blueberrySpeed: () => {
     if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.blueberrySpeed)) {
       return 1
     }
-    return 1
-      + 0.02 * 1 / 2000 * Math.min(campaignTokens - 2000, 2000)
-      + 0.03 * (1 - Math.exp(-Math.max(campaignTokens - 4000, 0) / 2000))
+    const tokens = usableCampaignTokens('blueberrySpeed')
+    return 1.01
+      + 0.02 * 1 / 2000 * Math.min(tokens - 2000, 2000)
+      + 0.03 * Math.log10(Math.max(tokens, 4000) / 4000)
   }
 }
 
 const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRewardDisplay> = {
   tutorial: {
     tokenRequirement: 0,
+    tokenCap: 1,
     color: 'var(--white-color)',
     reward: () => ({
-      cube: formatAsPercentIncrease(campaignTokenBonuses.tutorial().cubeBonus),
       obtainium: formatAsPercentIncrease(campaignTokenBonuses.tutorial().obtainiumBonus),
       offering: formatAsPercentIncrease(campaignTokenBonuses.tutorial().offeringBonus)
     })
   },
-  cube: {
-    tokenRequirement: 0,
-    color: 'var(--white-color)',
-    reward: () => formatAsPercentIncrease(campaignTokenBonuses.cube())
-  },
   obtainium: {
     tokenRequirement: 0,
+    tokenCap: 10000,
     color: 'var(--pink-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.obtainium())
   },
   offering: {
     tokenRequirement: 0,
+    tokenCap: 10000,
     color: 'var(--orange-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.offering())
   },
+  antELO: {
+    tokenRequirement: 0,
+    tokenCap: 25000,
+    color: 'var(--orchid-color)',
+    reward: () => format(campaignTokenBonuses.antELO())
+  },
   quark: {
     tokenRequirement: 100,
+    tokenCap: 20000,
     color: 'var(--cyan-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.quark())
   },
   tax: {
     tokenRequirement: 250,
+    tokenCap: 8000,
     color: 'var(--lightgray-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.tax()),
     otherUnlockRequirement: () => (player.challengecompletions[13] > 0)
   },
   c15: {
     tokenRequirement: 250,
+    tokenCap: 16000,
     color: 'var(--lightgoldenrodyellow-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.c15()),
     otherUnlockRequirement: () => (player.challengecompletions[14] > 0)
   },
   rune6: {
-    tokenRequirement: 500,
+    tokenRequirement: 750,
+    tokenCap: 24000,
     color: 'var(--lightgoldenrodyellow-color)',
     reward: () => String(campaignTokenBonuses.rune6()),
     otherUnlockRequirement: () => (getShopUpgradeEffects('infiniteAscent', 'runeUnlocked'))
   },
   goldenQuark: {
     tokenRequirement: 500,
+    tokenCap: 20000,
     color: 'var(--gold-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.goldenQuark()),
     otherUnlockRequirement: () => (player.highestSingularityCount > 0)
   },
-  octeract: {
-    tokenRequirement: 1000,
-    color: 'var(--teal-color)',
-    reward: () => formatAsPercentIncrease(campaignTokenBonuses.octeract()),
-    otherUnlockRequirement: () => (player.highestSingularityCount > 7)
-  },
   ambrosiaLuck: {
     tokenRequirement: 2000,
+    tokenCap: 36000,
     color: 'var(--limegreen-color)',
     reward: () => format(campaignTokenBonuses.ambrosiaLuck(), 2, true),
     otherUnlockRequirement: () => (player.singularityChallenges.noSingularityUpgrades.completions > 0)
   },
   blueberrySpeed: {
     tokenRequirement: 2000,
+    tokenCap: 40000,
     color: 'var(--lightblue-color)',
     reward: () => formatAsPercentIncrease(campaignTokenBonuses.blueberrySpeed()),
     otherUnlockRequirement: () => (player.singularityChallenges.noSingularityUpgrades.completions > 0)
@@ -287,9 +278,31 @@ const campaignTokenRewardText = (key: CampaignTokenRewardNames, value: CampaignT
   return i18next.t(`campaigns.tokens.rewardTexts.${key}`, reward)
 }
 
-const campaignTokenRewardModalHTML = (iconStyle: string, rewardText: string) => {
+const campaignTokenRewardDetailHTML = (key: CampaignTokenRewardNames, value: CampaignTokenRewardDisplay) => {
+  const cap = i18next.t(`campaigns.tokens.${campaignTokens >= value.tokenCap ? 'capReached' : 'cap'}`, {
+    cap: format(value.tokenCap)
+  })
+  const formula = value.tokenCap > 1 ? `<p>${i18next.t(`campaigns.tokens.formulas.${key}`)}</p>` : ''
+  return `<p class="campaignTokenRewardName">${i18next.t(`campaigns.tokens.names.${key}`)}</p>
+    <p class="campaignTokenRewardFlavor">${i18next.t(`campaigns.tokens.flavors.${key}`)}</p>
+    <p>${campaignTokenRewardText(key, value)}</p>
+    ${formula}
+    <p>${cap}</p>`
+}
+
+const campaignTokenRewardTeaserHTML = (key: CampaignTokenRewardNames, value: CampaignTokenRewardDisplay) => {
+  const teaser = i18next.t('campaigns.tokens.teaser', {
+    required: format(value.tokenRequirement),
+    remaining: format(value.tokenRequirement - campaignTokens)
+  })
+  return `<p class="campaignTokenRewardName">${i18next.t(`campaigns.tokens.names.${key}`)}</p>
+    <p>${teaser}</p>`
+}
+
+const campaignTokenRewardModalHTML = (iconStyle: string, rewardText: string, locked = false) => {
+  const iconClass = locked ? 'campaignTokenRewardLocked' : ''
   return `<div class="campaignTokenRewardModal" data-modal-preserve="children">
-    <img src="Pictures/img_transparent.png" alt="" style='${iconStyle}' data-modal-preserve="children">
+    <img src="Pictures/img_transparent.png" alt="" style='${iconStyle}' class="${iconClass}" data-modal-preserve="children">
     <div class="campaignTokenRewardModalInfo">${rewardText}</div>
   </div>`
 }
@@ -300,9 +313,12 @@ const campaignTokenRewardSumModalHTML = (rewardTexts: string[]) => {
   </div>`
 }
 
+const campaignTokenRewardQualified = (value: CampaignTokenRewardDisplay) => {
+  return value.otherUnlockRequirement === undefined || value.otherUnlockRequirement()
+}
+
 const campaignTokenRewardUnlocked = (value: CampaignTokenRewardDisplay) => {
-  return campaignTokens >= value.tokenRequirement
-    && (value.otherUnlockRequirement === undefined || value.otherUnlockRequirement())
+  return campaignTokens >= value.tokenRequirement && campaignTokenRewardQualified(value)
 }
 
 const registerCampaignTokenRewardModal = (icon: HTMLElement, html: () => string, borderColor: string) => {
@@ -344,7 +360,10 @@ export const createCampaignTokenRewardEventHandlers = () => {
     const tokenIcon = DOMCacheGetOrSet(`campaignTokenRewardIcon-${key}`)
     registerCampaignTokenRewardModal(
       tokenIcon,
-      () => campaignTokenRewardModalHTML(tokenIcon.style.cssText, campaignTokenRewardText(key, value)),
+      () =>
+        campaignTokenRewardUnlocked(value)
+          ? campaignTokenRewardModalHTML(tokenIcon.style.cssText, campaignTokenRewardDetailHTML(key, value))
+          : campaignTokenRewardModalHTML(tokenIcon.style.cssText, campaignTokenRewardTeaserHTML(key, value), true),
       value.color
     )
   }
@@ -356,10 +375,26 @@ export const createCampaignTokenRewardEventHandlers = () => {
   )
 }
 
+const campaignTokenTotalsUpdate = () => {
+  const inherited = startingTokens()
+  const inheritanceElement = DOMCacheGetOrSet('campaignInheritanceTokens')
+  inheritanceElement.hidden = inherited <= 0
+  if (inherited > 0) {
+    const html = multipliedTokenText('campaigns.tokens.inheritance', inherited)
+    if (inheritanceElement.innerHTML !== html) {
+      inheritanceElement.innerHTML = html
+    }
+  }
+
+  const total = multipliedTokenText('campaigns.tokens.total', baseCampaignTokens, { earned: format(campaignTokens) })
+  const totalElement = DOMCacheGetOrSet('campaignTokenCount')
+  if (totalElement.innerHTML !== total) {
+    totalElement.innerHTML = total
+  }
+}
+
 export const campaignTokenRewardHTMLUpdate = () => {
-  DOMCacheGetOrSet('campaignTokenCount').textContent = i18next.t('campaigns.tokens.count', {
-    count: campaignTokens
-  })
+  campaignTokenTotalsUpdate()
 
   for (
     const [key, value] of Object.entries(campaignTokenRewardDatas) as [
@@ -367,8 +402,16 @@ export const campaignTokenRewardHTMLUpdate = () => {
       CampaignTokenRewardDisplay
     ][]
   ) {
-    DOMCacheGetOrSet(`campaignTokenRewardIcon-${key}`).hidden = !campaignTokenRewardUnlocked(value)
+    const icon = DOMCacheGetOrSet(`campaignTokenRewardIcon-${key}`)
+    const hidden = !campaignTokenRewardQualified(value)
+    if (icon.hidden !== hidden) {
+      icon.hidden = hidden
+    }
+    icon.classList.toggle('campaignTokenRewardLocked', !campaignTokenRewardUnlocked(value))
   }
 
-  DOMCacheGetOrSet('campaignTokenRewardIcon-sum').hidden = campaignTokens === 0
+  const sumIcon = DOMCacheGetOrSet('campaignTokenRewardIcon-sum')
+  if (sumIcon.hidden !== (campaignTokens === 0)) {
+    sumIcon.hidden = campaignTokens === 0
+  }
 }
