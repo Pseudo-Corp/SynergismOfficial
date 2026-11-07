@@ -149,7 +149,7 @@ const selectMenuSteps: Record<string, number> = { ArrowDown: 1, ArrowUp: -1 }
 let draft: RuleDraft | null = null
 let openSelect: HTMLButtonElement | null = null
 
-let lastFiredRule: { rule: AutoAscendRule; index: number } | null = null
+let lastFiredRule: AutoAscendRule | null = null
 
 const isNumberRuleKey = (key: VariableKey): key is NumberRuleKey => (numberRuleKeys as string[]).includes(key)
 const isChallengeRuleKey = (key: VariableKey): key is ChallengeRuleKey => (challengeRuleKeys as string[]).includes(key)
@@ -1079,6 +1079,9 @@ const saveDraft = () => {
     }
     player.autoAscendRules.push(rule)
   } else {
+    if (lastFiredRule === player.autoAscendRules[draft.index]) {
+      lastFiredRule = rule
+    }
     player.autoAscendRules[draft.index] = rule
   }
 
@@ -1229,16 +1232,17 @@ const renderRuleItem = (rule: AutoAscendRule, index: number, total: number) => {
 }
 
 export const setLastFiredAutoAscendRule = (index: number) => {
-  lastFiredRule = { rule: player.autoAscendRules[index], index }
+  lastFiredRule = player.autoAscendRules[index]
 }
 
 export const updateAutoAscendStatus = () => {
   DOMCacheGetOrSet('autoAscendRequiresC10').hidden = player.unlocks.ascensions
   const lastFiredElement = DOMCacheGetOrSet('autoAscendLastFired')
-  lastFiredElement.textContent = lastFiredRule === null
+  const lastFiredIndex = lastFiredRule === null ? -1 : player.autoAscendRules.indexOf(lastFiredRule)
+  lastFiredElement.textContent = lastFiredIndex === -1
     ? i18next.t(`${uiKey}.lastFiredNone`)
-    : ruleDisplayName(lastFiredRule.rule, lastFiredRule.index)
-  lastFiredElement.title = lastFiredRule === null ? '' : describeRule(lastFiredRule.rule)
+    : ruleDisplayName(player.autoAscendRules[lastFiredIndex], lastFiredIndex)
+  lastFiredElement.title = lastFiredIndex === -1 ? '' : describeRule(player.autoAscendRules[lastFiredIndex])
   updateRuleStatuses()
   updateCorruptionLoadouts()
 }

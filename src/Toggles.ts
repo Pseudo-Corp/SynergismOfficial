@@ -597,6 +597,8 @@ interface ChadContributor {
   artists: string[]
 }
 
+let creditsLoading = false
+
 export const setActiveSettingScreen = async (subtab: string) => {
   const subtabEl = DOMCacheGetOrSet(subtab)
   if (subtabEl.classList.contains('subtabActive')) {
@@ -611,9 +613,12 @@ export const setActiveSettingScreen = async (subtab: string) => {
     const credits = DOMCacheGetOrSet('creditList')
     const artists = DOMCacheGetOrSet('artistList')
 
-    if (credits.childElementCount > 0 || artists.childElementCount > 0) {
+    if (creditsLoading || credits.childElementCount > 0 || artists.childElementCount > 0) {
       return
     }
+
+    creditsLoading = true
+    credits.replaceChildren()
 
     try {
       const r = await fetch('https://synergism.cc/contributors')
@@ -649,6 +654,8 @@ export const setActiveSettingScreen = async (subtab: string) => {
     } catch (e) {
       const err = e as Error
       credits.appendChild(document.createTextNode(err.toString()))
+    } finally {
+      creditsLoading = false
     }
   } else if (subtab === 'messagesSubTab') {
     initializeMessages()
@@ -1005,15 +1012,12 @@ export const confirmReply = (confirm = true) => {
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
     ;(DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
   }
-  if (
-    DOMCacheGetOrSet('confirmWrapper').style.display === 'block'
-    || DOMCacheGetOrSet('promptWrapper').style.display === 'block'
-  ) {
-    if (confirm) {
-      ;(DOMCacheGetOrSet('ok_confirm') as HTMLButtonElement).click()
-    } else {
-      ;(DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click()
-    }
+  if (DOMCacheGetOrSet('confirmWrapper').style.display === 'block') {
+    ;(DOMCacheGetOrSet(confirm ? 'ok_confirm' : 'cancel_confirm') as HTMLButtonElement).click()
+    return
+  }
+  if (DOMCacheGetOrSet('promptWrapper').style.display === 'block') {
+    ;(DOMCacheGetOrSet(confirm ? 'ok_prompt' : 'cancel_prompt') as HTMLButtonElement).click()
   }
 }
 

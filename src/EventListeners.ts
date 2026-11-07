@@ -2020,7 +2020,6 @@ TODO: Fix this entire tab it's utter shit
 
       resetHighlights()
       beginAmbrosiaEdit(key)
-      highlightPrerequisites(key)
 
       Modal(
         () => ambrosiaEditToString(key),
@@ -2033,11 +2032,12 @@ TODO: Fix this entire tab it's utter shit
           buttonClick: (button) => {
             if (ambrosiaEditAction(key, button.dataset.modalAction)) {
               CloseModal()
-              resetHighlights()
             }
-          }
+          },
+          onClose: resetHighlights
         }
       )
+      highlightPrerequisites(key)
     })
   }
 
@@ -2056,6 +2056,9 @@ TODO: Fix this entire tab it's utter shit
     el.addEventListener('mouseout', () => {
       loadoutContainer.classList.remove(`hoveredBlueberryLoadout${shiftedKey}`)
       resetLoadoutOnlyDisplay()
+      if (DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').hasAttribute('show-levels')) {
+        displayLevelsBlueberry()
+      }
     })
     el.addEventListener('click', () =>
       loadoutHandler(

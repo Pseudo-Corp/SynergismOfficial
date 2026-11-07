@@ -2656,16 +2656,10 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
       elm.appendChild(levelOverlay) // Append to the element
     }
 
-    if (isInLoadout) {
-      img.classList.add('dimmed') // Apply the dimmed class
-      levelOverlay.textContent = String(level) // Set the level text
-      if (level === ambrosiaUpgrades[key].maxLevel) {
-        levelOverlay.classList.add('maxBlueberryLevel')
-      }
-    } else {
-      img.classList.add('superDimmed')
-      levelOverlay.textContent = ''
-    }
+    img.classList.toggle('dimmed', isInLoadout)
+    img.classList.toggle('superDimmed', !isInLoadout)
+    levelOverlay.classList.toggle('maxBlueberryLevel', isInLoadout && level === ambrosiaUpgrades[key].maxLevel)
+    levelOverlay.textContent = isInLoadout ? String(level) : ''
   }
 }
 

@@ -1850,6 +1850,7 @@ export const Modal = (
   }, updateInterval)
 
   modal.classList.toggle('modalBottomSheet', isMobile)
+  modal.removeAttribute('style')
   Object.assign(modal.style, styleMods)
   // Instantly update the modal once
   updateModal(HTML)

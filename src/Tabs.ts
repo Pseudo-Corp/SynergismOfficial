@@ -547,7 +547,7 @@ class TabRow extends HTMLDivElement {
   })
 
   #handlePointerDown (event: PointerEvent) {
-    if (event.button !== 0) {
+    if (event.button !== 0 || !event.isPrimary) {
       return
     }
 
@@ -1290,6 +1290,11 @@ export const updateSubTabVisibility = () => {
         tabInfo[tabRow.getCurrentTab().getType()].subtabIndex = i
       }
     }
+  }
+
+  const { subtabIndex } = tabInfo[G.currentTab]
+  if (subTabList.length > 0 && !subTabList[subtabIndex].unlocked()) {
+    changeSubTab(G.currentTab, { page: subtabIndex })
   }
 }
 

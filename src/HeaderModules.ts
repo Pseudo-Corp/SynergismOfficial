@@ -1046,7 +1046,7 @@ const showDropTarget = () => {
 }
 
 const handlePointerDown = (event: PointerEvent) => {
-  if (event.button !== 0) {
+  if (event.button !== 0 || !event.isPrimary) {
     return
   }
 
@@ -1193,7 +1193,7 @@ const handlePointerCancel = (event: PointerEvent) => {
 }
 
 const handlePointerLeave = (event: PointerEvent) => {
-  if (editing || event.pointerId !== activePointerId) {
+  if (draggedModule !== null || event.pointerId !== activePointerId) {
     return
   }
 
