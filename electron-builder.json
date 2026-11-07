@@ -34,7 +34,13 @@
     "artifactName": "${productName}-${os}-${arch}.${ext}",
     "extraResources": [
       { "from": "steamworks_sdk/redistributable_bin/win64", "to": "steamworks_sdk/redistributable_bin/win64" }
-    ]
+    ],
+    "azureSignOptions": {
+      "publisherName": "PLATONIC AND KHAFRA IDLE GAMES",
+      "endpoint": "https://eus.codesigning.azure.net",
+      "codeSigningAccountName": "synergism",
+      "certificateProfileName": "SynergismPublicTrust"
+    }
   },
   "nsis": {
     "oneClick": false,

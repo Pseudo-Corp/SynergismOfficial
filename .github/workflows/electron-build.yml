@@ -37,6 +37,9 @@ jobs:
         run: npm run electron:build:${{ matrix.platform }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AZURE_TENANT_ID: ed67cabd-a08c-49d2-a111-9d4c9e5a5f5c
+          AZURE_CLIENT_ID: 55dc3d06-84c5-49a8-b945-651d85dc94df
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
       - name: Upload Windows artifacts
         if: matrix.platform == 'win'
