@@ -18,6 +18,7 @@ import { addTimers, automaticTools } from './Helper'
 import { exportData, importSynergism, saveFilename } from './ImportExport'
 import { clearUnreadMessages } from './Messages'
 import { checkServerDate, guardPoll, pollsStopped } from './PollGuard'
+import { CartTab } from './purchases/CartTab'
 import { updateBellButton, updateLotusDisplay } from './purchases/ConsumablesTab'
 import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
@@ -367,6 +368,7 @@ export async function claimLink (code: string) {
 
 export async function handleLogin () {
   const wasLoggedIn = loggedIn
+  const upgradesFetch = CartTab.upgradesFetch
 
   generateSubtabBrowser: {
     const subtabElement = DOMCacheGetOrSet('accountInfo')
@@ -673,6 +675,10 @@ export async function handleLogin () {
     } else {
       assert(false, `unknown account type ${account.accountType}`)
     }
+  }
+
+  if (loggedIn !== wasLoggedIn && CartTab.upgradesFetch === upgradesFetch) {
+    CartTab.refreshUpgrades().catch(console.error)
   }
 
   if (loggedIn && !wasLoggedIn) {

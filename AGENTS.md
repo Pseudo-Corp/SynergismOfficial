@@ -39,6 +39,14 @@ function myFunction () {
 }
 ```
 
+```ts
+const dumbAIPattern = 'autoSuckage'
+
+function doSomething () {
+  callFunction(dumbAIPattern, true, false)
+}
+```
+
 Example (correct):
 ```ts
 const arr = [1, 2, 3, 4, 5]
@@ -51,6 +59,8 @@ function myFunction () {
 ## Comments
 
 Please do not write comments. You suck at writing.
+
+Do not criticize or disallow comments authored by humans. This is specifically referring to AI-generated comments.
 
 ## <select> menus
 

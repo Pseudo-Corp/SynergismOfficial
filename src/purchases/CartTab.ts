@@ -1,4 +1,5 @@
 import { DOMCacheGetOrSet } from '../Cache/DOM'
+import { initializePCoinCache } from '../PseudoCoinUpgrades'
 import { changeSubTab, getActiveSubTab, Tabs } from '../Tabs'
 import { assert, createDeferredPromise, type DeferredPromise, memoize, retry } from '../Utility'
 import { setEmptyProductMap } from './CartUtil'
@@ -91,12 +92,17 @@ export class CartTab {
     return productsFetch.promise
   }
 
+  static get upgradesFetch () {
+    return CartTab.#upgradesFetch?.promise
+  }
+
   static fetchUpgrades () {
     if (CartTab.#upgradesFetch) {
       return CartTab.#upgradesFetch.promise
     }
 
-    CartTab.#upgradesFetch = createDeferredPromise()
+    const upgradesFetch = createDeferredPromise<UpgradesResponse>()
+    CartTab.#upgradesFetch = upgradesFetch
 
     const url = 'https://synergism.cc/stripe/upgrades'
 
@@ -108,12 +114,31 @@ export class CartTab {
     }, { backoff: 'exponential', maxDelay: 30_000 })
       .then((response) => response.json())
       .then((upgrades: UpgradesResponse) => {
-        CartTab.#upgradesFetch?.resolve(upgrades)
-        upgradeResponse = upgrades
-      })
-      .catch((err: Error) => CartTab.#upgradesFetch?.reject(err))
+        if (CartTab.#upgradesFetch !== upgradesFetch) {
+          CartTab.fetchUpgrades().then(upgradesFetch.resolve, upgradesFetch.reject)
+          return
+        }
 
-    return CartTab.#upgradesFetch.promise
+        upgradeResponse = upgrades
+        initializePCoinCache(upgrades.playerUpgrades)
+        upgradesFetch.resolve(upgrades)
+      })
+      .catch((err: Error) => {
+        if (CartTab.#upgradesFetch !== upgradesFetch) {
+          CartTab.fetchUpgrades().then(upgradesFetch.resolve, upgradesFetch.reject)
+          return
+        }
+
+        CartTab.#upgradesFetch = undefined
+        upgradesFetch.reject(err)
+      })
+
+    return upgradesFetch.promise
+  }
+
+  static refreshUpgrades () {
+    CartTab.#upgradesFetch = undefined
+    return CartTab.fetchUpgrades()
   }
 
   #updateSubtabs () {

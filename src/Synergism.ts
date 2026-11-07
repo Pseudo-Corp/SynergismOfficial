@@ -224,7 +224,7 @@ import { blankOcteractLevelObject, clampOcteractFreeLevelsToCaps, setOcteractUpg
 import { clampPlatonicUpgradeLevelsToCaps, updatePlatonicUpgradeBG } from './Platonic'
 import { enableStatSymbols } from './Plugins/StatSymbols'
 import { guardPoll, startSpeedProbe } from './PollGuard'
-import { initializePCoinCache } from './PseudoCoinUpgrades'
+import { CartTab } from './purchases/CartTab'
 import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from './PurpleAmbrosiaUpgrades'
 import { getQuarkBonus, QuarkHandler, refreshQuarkBonus } from './Quark'
 import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './RedAmbrosiaUpgrades'
@@ -4636,7 +4636,7 @@ window.addEventListener('load', async () => {
   })
 
   try {
-    await Promise.race([initializePCoinCache(), playOffline])
+    await Promise.race([CartTab.fetchUpgrades(), playOffline])
   } catch (e) {
     console.error(e)
     const response = await Confirm(
