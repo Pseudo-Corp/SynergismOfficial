@@ -640,9 +640,6 @@ export const reset = (
     // reset challenge sweep state machine
     resetChallengeSweep()
 
-    // The start of the auto challenge to improve QoL starts with C10
-    player.autoChallengeIndex = 1
-
     // reset rest
     resetResearches('ascension')
     resetAnts(AntSacrificeTiers.ascension)
@@ -1406,9 +1403,6 @@ export const applyChallengeInitialModifiers = (
       }
       break
     case 'ascensionChallenge': {
-      if (player.highestSingularityCount >= 2 && player.autoChallengeToggles[10]) {
-        player.autoChallengeIndex = 10
-      }
       if (chalNum === 12) {
         player.reincarnationPoints = new Decimal()
       }

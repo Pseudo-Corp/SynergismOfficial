@@ -3044,8 +3044,6 @@
     "autoChallengeSweepOff": "Auto Challenge Sweep [OFF]",
     "retryChallengesOn": "Retry Challenges: ON",
     "retryChallengesOff": "Retry Challenges: OFF",
-    "autoAscRunChalOn": "Auto Ascension Run Chal.{{x}} [ON]",
-    "autoAscRunChalOff": "Auto Ascension Run Chal.{{x}} [OFF]",
     "autoRunChalOn": "Automatically Run Chal.{{x}} [ON]",
     "autoRunChalOff": "Automatically Run Chal.{{x}} [OFF]",
     "modeStart": "MODE: START",

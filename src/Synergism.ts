@@ -977,7 +977,6 @@ export const player: Player = {
   historyShowPerSecond: false,
 
   autoChallengeRunning: false,
-  autoChallengeIndex: 1,
   autoChallengeToggles: [
     false,
     true,
@@ -989,12 +988,7 @@ export const player: Player = {
     true,
     true,
     true,
-    true,
-    false,
-    false,
-    false,
-    false,
-    false
+    true
   ],
   autoChallengeTimer: {
     start: 10,

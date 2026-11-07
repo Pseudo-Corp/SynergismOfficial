@@ -408,7 +408,6 @@ export interface Player {
   historyShowPerSecond: boolean
 
   autoChallengeRunning: boolean
-  autoChallengeIndex: number
   autoChallengeToggles: boolean[]
   autoChallengeTimer: {
     start: number

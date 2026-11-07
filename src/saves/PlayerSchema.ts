@@ -1002,7 +1002,6 @@ export const playerSchema = z.object({
   historyShowPerSecond: z.boolean().default(() => blankSave.historyShowPerSecond),
 
   autoChallengeRunning: z.boolean().default(() => blankSave.autoChallengeRunning),
-  autoChallengeIndex: z.number().default(() => blankSave.autoChallengeIndex),
   autoChallengeToggles: z.boolean().array().default(() => [...blankSave.autoChallengeToggles]),
   autoChallengeTimer: autoChallengeTimerSchema.transform((times) => {
     // Enforce minimum of 0.1s on old savefiles

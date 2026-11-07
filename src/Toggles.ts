@@ -7,7 +7,7 @@ import {
   updateAllUngroupedAchievementProgress
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { type AutoChallengeStates, getChallengeConditions, resetChallengeSweep } from './Challenges'
+import { type AutoChallengeStates, getChallengeConditions, NUM_ELIGIBLE_CHALLENGES, resetChallengeSweep } from './Challenges'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { initializeMessages } from './Messages'
 import { initializeOcteractUpgradeMap } from './Octeracts'
@@ -112,6 +112,11 @@ export const toggleChallenges = (
   auto = false,
   leftAscensionChallenge = player.currentChallenge.ascension
 ) => {
+  if (i <= NUM_ELIGIBLE_CHALLENGES && !auto && player.autoChallengeRunning) {
+    toggleAutoChallengeRun()
+    resetChallengeSweep()
+  }
+
   if (i >= 0 && i <= 5) {
     reset('transcensionChallenge', false, 'enterChallenge')
     applyChallengeInitialModifiers('transcensionChallenge', i)
@@ -159,10 +164,6 @@ export const toggleChallenges = (
   }
   updateChallengeDisplay()
   getChallengeConditions()
-
-  if (i <= 10 && !auto && player.autoChallengeRunning) {
-    toggleAutoChallengeRun()
-  }
 
   if (
     player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0
@@ -785,24 +786,16 @@ export const updateAutoChallenge = (i: number) => {
 }
 
 export const toggleAutoChallengesIgnore = (i: number) => {
-  if (i <= 15) {
+  if (i <= NUM_ELIGIBLE_CHALLENGES) {
     player.autoChallengeToggles[i] = !player.autoChallengeToggles[i]
 
     const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore')
     el.style.border = player.autoChallengeToggles[i] ? '2px solid var(--green-color)' : '2px solid var(--red-color)'
 
-    if (i >= 11 && i <= 15) {
-      if (player.autoChallengeToggles[i]) {
-        el.textContent = i18next.t('challenges.autoAscRunChalOn', { x: i })
-      } else {
-        el.textContent = i18next.t('challenges.autoAscRunChalOff', { x: i })
-      }
+    if (player.autoChallengeToggles[i]) {
+      el.textContent = i18next.t('challenges.autoRunChalOn', { x: i })
     } else {
-      if (player.autoChallengeToggles[i]) {
-        el.textContent = i18next.t('challenges.autoRunChalOn', { x: i })
-      } else {
-        el.textContent = i18next.t('challenges.autoRunChalOff', { x: i })
-      }
+      el.textContent = i18next.t('challenges.autoRunChalOff', { x: i })
     }
   }
   // We can be stuck in the 'finished!' state if we don't reset it here
