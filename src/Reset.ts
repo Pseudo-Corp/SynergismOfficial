@@ -692,7 +692,9 @@ export const reset = (
 
     setResearchRoombaHighlight(0)
     player.roombaResearchIndex = 0
-    player.autoResearch = 1
+    if (player.autoResearchMode === 'cheapest') {
+      player.autoResearch = 1
+    }
 
     for (let j = 1; j <= (200); j++) {
       const id = `res${j}`

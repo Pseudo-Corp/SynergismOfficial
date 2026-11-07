@@ -42,6 +42,8 @@ interface CoinsResponse {
 
 const tab = document.querySelector<HTMLElement>('#pseudoCoins > #upgradesContainer')!
 let activeUpgrade: UpgradesList | undefined
+let upgradesById = new Map<number, UpgradesList>()
+let renderedResponse: UpgradesResponse | undefined
 let purchaseInFlight = false
 let pseudoCoinBalanceRequest = 0
 
@@ -101,7 +103,7 @@ function setActiveUpgrade (upgrade: UpgradesList) {
   effects.textContent = language.effect
 }
 
-async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
+async function purchaseUpgrade () {
   if (purchaseInFlight) {
     return
   }
@@ -125,7 +127,7 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
       return
     }
 
-    const upgrade = upgrades?.get(parsed.data.upgradeId)
+    const upgrade = upgradesById.get(parsed.data.upgradeId)
 
     if (upgrade) {
       upgrade.playerLevel = parsed.data.level
@@ -152,9 +154,9 @@ async function purchaseUpgrade (upgrades: Map<number, UpgradesList>) {
   }
 }
 
-const initializeUpgradeSubtab = memoize(() => {
-  updatePseudoCoins()
-  const grouped = upgradeResponse.upgrades.reduce((map, upgrade) => {
+function renderUpgradeGrid () {
+  renderedResponse = upgradeResponse
+  upgradesById = upgradeResponse.upgrades.reduce((map, upgrade) => {
     const current = map.get(upgrade.upgradeId)
     const playerUpgrade = upgradeResponse.playerUpgrades.find((v) => v.upgradeId === upgrade.upgradeId)
 
@@ -173,7 +175,7 @@ const initializeUpgradeSubtab = memoize(() => {
     return map
   }, new Map<number, UpgradesList>())
 
-  DOMCacheGetOrSet('upgradeGrid').replaceChildren(...[...grouped.values()].map((upgrade) => {
+  DOMCacheGetOrSet('upgradeGrid').replaceChildren(...[...upgradesById.values()].map((upgrade) => {
     const element = document.createElement('div')
     element.dataset.id = String(upgrade.upgradeId)
     element.dataset.key = upgrade.name
@@ -204,7 +206,7 @@ const initializeUpgradeSubtab = memoize(() => {
         return
       }
 
-      const upgrade = [...grouped.values()].find((u) => u.upgradeId === upgradeId)
+      const upgrade = upgradesById.get(upgradeId)
       if (upgrade) {
         setActiveUpgrade(upgrade)
       }
@@ -215,15 +217,36 @@ const initializeUpgradeSubtab = memoize(() => {
     })
   })
 
+  activeUpgrade = activeUpgrade && upgradesById.get(activeUpgrade.upgradeId)
+
+  if (activeUpgrade) {
+    setActiveUpgrade(activeUpgrade)
+    tab.querySelector(`#upgradeGrid > div[data-id="${activeUpgrade.upgradeId}"]`)!.classList.add('active')
+  }
+}
+
+const initializeUpgradeSubtab = memoize(() => {
+  updatePseudoCoins()
+
   DOMCacheGetOrSet('buy').addEventListener('click', () => {
-    purchaseUpgrade(grouped)
+    purchaseUpgrade()
   })
 })
 
 export const toggleUpgradeSubtab = () => {
   initializeUpgradeSubtab()
 
+  if (renderedResponse !== upgradeResponse) {
+    renderUpgradeGrid()
+  }
+
   tab.style.display = 'flex'
+}
+
+export const refreshUpgradeSubtab = () => {
+  if (tab.style.display === 'flex') {
+    renderUpgradeGrid()
+  }
 }
 
 export const clearUpgradeSubtab = () => {

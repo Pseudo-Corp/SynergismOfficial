@@ -14,6 +14,7 @@ import {
   getChallengeConditions,
   getMaxChallenges,
   highestChallengeRewards,
+  resetChallengeSweep,
   setChallengeFocus,
   tickChallengeSweep,
   useChallenge13Modifiers
@@ -1301,6 +1302,7 @@ const loadSynergy = (saveString: string): boolean => {
       challengeExit('transcension')
       challengeExit('reincarnation')
       challengeExit('ascension')
+      resetChallengeSweep()
       Object.assign(player, validatedPlayer.data)
       // Temp check for Quarks
       if (!player.purpleUpdateQuarkRefundAwarded) {

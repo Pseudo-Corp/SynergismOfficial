@@ -1118,6 +1118,9 @@ async function logout () {
   await handleLogin()
   clearTimeout(reconnectTimeout)
   reconnectTimeout = undefined
+  tries = 0
+  tooManyConnections = false
+  tips = 0
   ws?.close()
   ws = undefined
   resetWebSocket()

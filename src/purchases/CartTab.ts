@@ -7,7 +7,13 @@ import { clearCheckoutTab, toggleCheckoutTab } from './CheckoutTab'
 import { clearConsumablesTab, toggleConsumablesTab } from './ConsumablesTab'
 import { clearProductPage, toggleProductPage } from './ProductSubtab'
 import { clearSubscriptionPage, toggleSubscriptionPage } from './SubscriptionsSubtab'
-import { clearUpgradeSubtab, toggleUpgradeSubtab, updatePseudoCoins, type UpgradesResponse } from './UpgradesSubtab'
+import {
+  clearUpgradeSubtab,
+  refreshUpgradeSubtab,
+  toggleUpgradeSubtab,
+  updatePseudoCoins,
+  type UpgradesResponse
+} from './UpgradesSubtab'
 
 interface BaseProduct {
   name: string
@@ -121,6 +127,7 @@ export class CartTab {
 
         upgradeResponse = upgrades
         initializePCoinCache(upgrades.playerUpgrades)
+        refreshUpgradeSubtab()
         upgradesFetch.resolve(upgrades)
       })
       .catch((err: Error) => {
