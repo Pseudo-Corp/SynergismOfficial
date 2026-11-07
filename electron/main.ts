@@ -40,46 +40,50 @@ const settingsStore = new Store<{ zoomFactor: number }>({
 let mainWindow: BrowserWindow | null = null
 
 /**
- * Pending nonce for the external auth flow. Generated whenever the app opens a
+ * Pending nonces for external auth flows. Generated whenever the app opens a
  * login URL in the system browser; the backend echoes it back in the
  * synergism:// callback so we can reject deep links this app did not initiate.
  */
-let pendingAuthState: { value: string; expiresAt: number } | null = null
+const pendingAuthStates = new Map<string, number>()
 
 const AUTH_STATE_TTL_MS = 15 * 60 * 1000
 
 /** Start a new external auth flow: store a fresh nonce and add it to the login URL. */
 function withAuthState (url: URL): string {
   const state = randomBytes(32).toString('base64url')
-  pendingAuthState = { value: state, expiresAt: Date.now() + AUTH_STATE_TTL_MS }
+  pendingAuthStates.set(state, Date.now() + AUTH_STATE_TTL_MS)
   url.searchParams.set('state', state)
   return url.toString()
 }
 
 /**
  * Validate the state echoed in a synergism:// callback against the pending
- * nonce.
+ * nonces (for the British viewing, we're not talking about Epstein and Trump and
+ * Bill Gates and most other billionaires and politicians and celebrities but a
+ * unique value to key attempts by).
  */
 function consumeAuthState (provided: string | null): boolean {
-  if (provided === null || pendingAuthState === null) {
+  if (provided === null) {
     return false
   }
 
-  const { value, expiresAt } = pendingAuthState
-  if (Date.now() > expiresAt) {
-    pendingAuthState = null
-    return false
-  }
-
+  const now = Date.now()
   const providedBuf = Buffer.from(provided)
-  const expectedBuf = Buffer.from(value)
-  const matches = providedBuf.length === expectedBuf.length && timingSafeEqual(providedBuf, expectedBuf)
 
-  if (matches) {
-    pendingAuthState = null
+  for (const [state, expiresAt] of pendingAuthStates) {
+    if (now > expiresAt) {
+      pendingAuthStates.delete(state)
+      continue
+    }
+
+    const expectedBuf = Buffer.from(state)
+    if (providedBuf.length === expectedBuf.length && timingSafeEqual(providedBuf, expectedBuf)) {
+      pendingAuthStates.delete(state)
+      return true
+    }
   }
 
-  return matches
+  return false
 }
 
 /**
