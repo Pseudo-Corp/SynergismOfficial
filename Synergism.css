@@ -9653,7 +9653,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .lotusGradient {
-    --gradient-start: #ee00ee;
+    --gradient-start: #e0e;
     --gradient-end: pink;
 }
 
