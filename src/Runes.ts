@@ -521,7 +521,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.thrift.description'),
     valueText: () => i18next.t('runes.thrift.values'),
     runeHTMLStyle: {
-      borderColor: 'darkgreen',
+      borderColor: 'var(--green-color)',
       nameColor: 'var(--lime-color)'
     }
   },
@@ -710,7 +710,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.horseShoe.description'),
     valueText: () => i18next.t('runes.horseShoe.values'),
     runeHTMLStyle: {
-      borderColor: 'saddlebrown',
+      borderColor: 'var(--brown-color)',
       nameColor: 'var(--peru-color)'
     }
   },
@@ -754,8 +754,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.finiteDescent.description'),
     valueText: () => i18next.t('runes.finiteDescent.values'),
     runeHTMLStyle: {
-      borderColor: 'black',
-      nameColor: 'dimgray'
+      borderColor: 'var(--gray-color)',
+      nameColor: 'var(--darkgray-color)'
     }
   },
   topHat: {

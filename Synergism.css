@@ -125,16 +125,16 @@ body {
 
     /* Custom colors that are used for themes */
     --text-color: white;
-    --darkorchid-text-color: darkorchid;
+    --darkorchid-text-color: #b467da;
     --orchid-text-color: orchid;
     --violet-text-color: violet;
     --darkcyan-text-color: darkcyan;
-    --red-text-color: red;
-    --maroon-text-color: maroon;
+    --red-text-color: #ff3838;
+    --maroon-text-color: #ff3939;
     --orangered-text-color: orangered;
-    --crimson-text-color: crimson;
+    --crimson-text-color: #ef4b6c;
     --gray-text-color: gray;
-    --green-text-color: green;
+    --green-text-color: #009f00;
     --lime-text-color: lime;
     --lightseagreen-text-color: lightseagreen;
     --amber-text-color: #ffbf00;
@@ -149,12 +149,13 @@ body {
     --box-color: #111;
     --blueberry-box-color: #4f86f7;
     --blueberry-text-color: #88F;
-    --purple-box-color: purple;
+    --purple-box-color: #bd00bd;
     --purple-text-color: #FF29FF;
     --button-color: #171717;
     --blackbtn-color: black;
     --purplebtn-color: purple;
     --purplehover-color: #b300b2;
+    --green-fill-color: green;
     --hover-color: #333;
     --buttonbuy-color: #171717;
     --buildings-canbuy-color: #555;
@@ -202,10 +203,10 @@ body {
     --orangered-color: orangered;
     --darkorange-color: darkorange;
     --tomato-color: tomato;
-    --red-color: red;
-    --crimson-color: crimson;
-    --maroon-color: maroon;
-    --brown-color: brown;
+    --red-color: #ff3838;
+    --crimson-color: #ef4b6c;
+    --maroon-color: #ff3939;
+    --brown-color: #d86565;
     --rosybrown-color: rosybrown;
     --lightcoral-color: lightcoral;
     --pink-color: pink;
@@ -215,10 +216,10 @@ body {
     --violet-color: violet;
     --fuchsia-color: fuchsia;
     --magenta-color: magenta;
-    --purple-color: purple;
+    --purple-color: #bd00bd;
     --mediumpurple-color: mediumpurple;
     --slateblue-color: slateblue;
-    --green-color: green;
+    --green-color: #009f00;
     --greenyellow-color: greenyellow;
     --lime-color: lime;
     --limegreen-color: limegreen;
@@ -234,10 +235,10 @@ body {
     --lightskyblue-color: lightskyblue;
     --skyblue-color: skyblue;
     --lightblue-color: lightblue;
-    --steelblue-color: steelblue;
+    --steelblue-color: #548dbd;
     --cornflowerblue-color: cornflowerblue;
-    --royalblue-color: royalblue;
-    --blue-color: blue;
+    --royalblue-color: #6283e6;
+    --blue-color: #7878ff;
     --blueviolet-color: blueviolet;
     --hex-00ddff-color: #0df;
     --hex-00ff4c-color: #00ff4c;
@@ -251,14 +252,14 @@ body {
     --hex-c2783d-color: #c2783d;
     --hex-ca7035-color: #ca7035;
     --hex-ccc-color: #ccc;
-    --hex-d0021b-color: #d0021b;
+    --hex-d0021b-color: #fd3b52;
     --hex-d26b2d-color: #d26b2d;
     --hex-dc6623-color: #dc6623;
     --hex-e76118-color: #e76118;
     --hex-f5a623-color: #f5a623;
     --hex-f65d09-color: #f65d09;
     --hex-ff004c-color: #ff004c;
-    --hex-ff424d-color: #ff424d;
+    --hex-ff424d-color: #eb000e;
     --hex-ff5900-color: #ff5900;
     --hex-ff6b6b-color: #ff6b6b;
     --hex-ff766a-color: #ff766a;
@@ -280,8 +281,8 @@ body {
     --hex-2f2f2f-background-color: #2f2f2f;
     --hex-333-background-color: #333;
     --hex-555-background-color: #555;
-    --hex-b59410-background-color: #b59410;
-    --hex-fa3e3e-background-color: #fa3e3e;
+    --hex-b59410-background-color: #8c720c;
+    --hex-fa3e3e-background-color: #eb0606;
     --message-background-color: rgb(0 0 0 / 20%);
     --transition: 0;
     --transition-extra: 0.15s;
@@ -344,10 +345,15 @@ html[data-legacyicons="true"] {
     color: #fff0ff;
 }
 
+#toggleChallengesSubTab2.active-subtab > .subTabButtonText,
+#toggleSingularitySubTab5.active-subtab > .subTabButtonText {
+    color: var(--white-color);
+}
+
 #corrStatsBtn.active-subtab,
 #corrTokensBtn.active-subtab,
 #corrAutoAscendBtn.active-subtab {
-    background-color: dodgerblue;
+    background-color: #0073e3;
 }
 
 .boxColor {
@@ -1678,6 +1684,21 @@ button.isEvent:hover {
     color: var(--red-color);
 }
 
+#buildingstab.active-tab,
+#upgradestab.active-tab,
+#runestab.active-tab,
+#traitstab.active-tab,
+#singularitytab.active-tab,
+#shoptab.active-tab,
+#eventtab.active-tab,
+#pseudoCoinstab.active-tab {
+    color: black;
+}
+
+#cubetab.active-tab {
+    color: var(--white-color);
+}
+
 .subTabWrapper {
     --subtab-button-width: 150px;
     --subtab-button-height: 30px;
@@ -1892,6 +1913,10 @@ p#buildinghotkeys2 {
     border: 2px solid var(--white-color);
     gap: 1%;
     overflow: hidden;
+}
+
+.mobileUpgradeBox.green-background {
+    background-color: #006800;
 }
 
 .mobileUpgradeBox > p {
@@ -2931,7 +2956,7 @@ img.runeTypeElement:hover {
 }
 
 .runeTypeLocked {
-    opacity: 0.5;
+    opacity: 0.82;
 }
 
 .runeImageLocked {
@@ -6464,8 +6489,9 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     cursor: pointer;
 }
 
-.autoAscendRuleDisabled {
-    opacity: 0.55;
+.autoAscendRuleDisabled .autoAscendRuleNumber,
+.autoAscendRuleDisabled .autoAscendRuleName {
+    color: var(--darkgray-color);
 }
 
 .autoAscendRuleDisabled .autoAscendRuleState {
@@ -6985,7 +7011,7 @@ img.corruptionImg.small {
     width: 8em;
     min-width: 150px;
     margin: 0;
-    border: 2px solid darkmagenta;
+    border: 2px solid var(--purple-color);
     z-index: 2;
 }
 
@@ -7341,7 +7367,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     min-width: 40px;
     height: 40px;
     padding: 2px;
-    border: 2px solid #ffffff40;
+    border: 2px solid #ffffff60;
     border-radius: 5px;
     font-size: 1em;
 }
@@ -7661,7 +7687,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .platonicUpgradeModalCosts .affordable,
 .platonicUpgradeModalStatus.affordable {
-    color: var(--green-text-color);
+    color: var(--lime-text-color);
 }
 
 .platonicUpgradeModalCosts .unaffordable,
@@ -9555,7 +9581,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .rainbowText {
-    background-image: linear-gradient(90deg, #ca001f, #ffb17f, #fff200, #22b14c, #767dda, #a349a4, #ca001f, #ffb17f);
+    background-image: linear-gradient(90deg, #ff3453, #ffb17f, #fff200, #22b14c, #767dda, #bc6bbd, #ff3453, #ffb17f);
     background-size: 700%;
 }
 
@@ -9569,7 +9595,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .perfectText {
-    background-image: linear-gradient(90deg, blueviolet, mediumorchid, gold, yellow, gold, mediumorchid, blueviolet, mediumorchid, gold, yellow);
+    background-image: linear-gradient(90deg, #ab68ea, mediumorchid, gold, yellow, gold, mediumorchid, #ab68ea, mediumorchid, gold, yellow);
 }
 
 @keyframes rainbow-animation {
@@ -9603,11 +9629,11 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .transcendedBallerGradient {
     --gradient-start: orchid;
-    --gradient-end: #a741a7;
+    --gradient-end: #c365c3;
 }
 
 .reincarnatedBallerGradient {
-    --gradient-start: green;
+    --gradient-start: #009f00;
     --gradient-end: greenyellow;
 }
 
@@ -9627,7 +9653,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 }
 
 .lotusGradient {
-    --gradient-start: purple;
+    --gradient-start: #ee00ee;
     --gradient-end: pink;
 }
 
@@ -9982,6 +10008,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 #apply-tips:not(:hover) {
     border: 2px solid var(--hovershop-color);
     background-color: var(--hovershop-color);
+    color: var(--white-color);
 }
 
 @keyframes rotation {
@@ -11726,7 +11753,7 @@ html[data-mobile="false"] .pseudoCoinButton {
 }
 
 #checkout-buttons > #checkout-xsolla {
-    background-color: cadetblue;
+    background-color: #4b7d7f;
 }
 
 .cartListElementContainer > * {
@@ -12041,7 +12068,7 @@ html[data-mobile="false"] .pseudoCoinButton {
 }
 
 #pseudoCoinUpgradeName {
-    background-color: var(--darkgold-color);
+    background-color: var(--hex-b59410-background-color);
     width: 100%;
     text-align: center;
     font-size: 0.8em;
@@ -12134,7 +12161,7 @@ h3 {
 }
 
 .green-background {
-    background-color: var(--green-text-color);
+    background-color: var(--green-fill-color);
 }
 
 .purple-background {
@@ -12142,7 +12169,7 @@ h3 {
 }
 
 .green-background img {
-    background-color: var(--green-text-color);
+    background-color: var(--green-fill-color);
 }
 
 .purple-background img {
@@ -14357,6 +14384,7 @@ body.lightTheme {
     --boxmain-bordercolor: var(--plum-color);
     --blueberry-box-color: #2a58bd;
     --purple-box-color: var(--purple-color);
+    --green-fill-color: var(--green-color);
     --button-color: #fff;
     --hover-color: #e2e5ea;
     --blackbtn-color: #fff;
@@ -14431,6 +14459,11 @@ body.lightTheme #corrAutoAscendBtn.active-subtab {
 
 body.lightTheme #toggleSingularitySubTab6.active-subtab {
     color: var(--purple-text-color);
+}
+
+body.lightTheme #toggleChallengesSubTab2.active-subtab > .subTabButtonText,
+body.lightTheme #toggleSingularitySubTab5.active-subtab > .subTabButtonText {
+    color: inherit;
 }
 
 body.lightTheme #prompt_text,
@@ -14825,6 +14858,28 @@ body.lightTheme nav.navbar #tabrow {
     background: rgb(246 247 249 / 95%);
 }
 
+body.lightTheme #buildingstab.active-tab,
+body.lightTheme #upgradestab.active-tab,
+body.lightTheme #runestab.active-tab,
+body.lightTheme #shoptab.active-tab,
+body.lightTheme #eventtab.active-tab,
+body.lightTheme #pseudoCoinstab.active-tab {
+    color: var(--white-color);
+}
+
+body.lightTheme #traitstab.active-tab,
+body.lightTheme #singularitytab.active-tab {
+    color: var(--red-color);
+}
+
+body.lightTheme #cubetab.active-tab {
+    color: var(--hypercube-color);
+}
+
+body.lightTheme #checkout-buttons > #checkout-xsolla {
+    background-color: cadetblue;
+}
+
 body.lightTheme .mobileTabIconButton.active-tab > .mobileTabIcon {
     background-color: transparent;
 }
@@ -14845,6 +14900,7 @@ body.lightTheme img {
     --purple-background-color: purple;
     --green-text-color: green;
     --purplebtn-color: purple;
+    --green-fill-color: green;
     --button-color: #2a2a35;
     --buttonbuy-color: #2a2a35;
     --buttonimg-color: #2a2a35;
@@ -14876,6 +14932,7 @@ body.lightTheme #pseudoCoinUpgradeName {
 
 body.lightTheme #apply-tips:not(:hover) {
     border-color: var(--purple-color);
+    color: black;
 }
 
 body.lightTheme .oldPerk,
@@ -14906,6 +14963,15 @@ body.lightTheme .runeTypeLocked,
 body.lightTheme #headerEditToolbar button:disabled,
 body.lightTheme .buttonRow.mobile > div > .buildingPurchaseBtn:not(.buildingPurchaseBtnAvailable) {
     opacity: 0.75;
+}
+
+body.lightTheme .autoAscendRuleDisabled {
+    opacity: 0.55;
+}
+
+body.lightTheme .autoAscendRuleDisabled .autoAscendRuleNumber,
+body.lightTheme .autoAscendRuleDisabled .autoAscendRuleName {
+    color: var(--orange-color);
 }
 
 body.lightTheme .purpleReactorHeader,

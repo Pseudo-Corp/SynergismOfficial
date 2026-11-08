@@ -176,7 +176,7 @@ const updateMessagesUI = () => {
 
   if (unreadMessages.length === 0) {
     messagesContainer.innerHTML = `
-      <div style="text-align: center; color: #666; font-style: italic; padding: 20px;">
+      <div style="text-align: center; color: var(--gray-text-color); font-style: italic; padding: 20px;">
         No unread messages
       </div>
     `
