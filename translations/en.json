@@ -5166,8 +5166,6 @@
       "teaser": "Unlocks at <<gold|{{required}}>> Tokens (<<gold|{{remaining}}>> more needed)",
       "names": {
         "tutorial": "A Beginners Guide to Corruption Tokens",
-        "obtainium": "Common Earth Tokens",
-        "offering": "Cloud Seeding Tokens",
         "antELO": "Stonkfish Tokens",
         "quark": "Strange Tokens",
         "tax": "Phony Coin Tokens",
@@ -5179,8 +5177,6 @@
       },
       "flavors": {
         "tutorial": "Every Challenge 10 completion and every Corruption Level beaten grants Corruption Tokens! The more you have, the stronger you become. It's some <i> mystical </i> magic, don't question it.",
-        "obtainium": "Obtainium seems to just leap onto your Tokens.",
-        "offering": "Tokens emit some kind of particle that makes you get more Offerings.",
         "antELO": "Now you can checkmate Derpsmith in 143 moves!",
         "quark": "Both face Up AND face Down.",
         "tax": "If you just pay the Taxman these Tokens, he'll never know.",
@@ -5191,8 +5187,6 @@
         "blueberrySpeed": "Probably a pomology Ph.D student's stipend."
       },
       "formulas": {
-        "obtainium": "Formula:<br>0 – num:((10000)) Tokens: <<orchid|+1% × Tokens>>",
-        "offering": "Formula:<br>0 – num:((10000)) Tokens: <<orchid|+1% × Tokens>>",
         "antELO": "Formula:<br>0 – num:((25000)) Tokens: <<orchid|+1 × Tokens>>",
         "quark": "Formula:<br>100 – 200 Tokens: <<orchid|+num:((0.06))% × (Tokens - 100)>><br>201 – num:((20000)) Tokens: <<orchid|+6% + 6% × log10(Tokens / 200)>>",
         "tax": "Formula:<br>250 – 500 Tokens: <<orchid|-num:((0.02))% × (Tokens - 250)>><br>501 – num:((8000)) Tokens: <<orchid|-5% - 5% × log2(Tokens / 500)>>",
@@ -5204,8 +5198,6 @@
       },
       "rewardTexts": {
         "tutorial": "For earning your first Corruption Token, gain <<pink | {{obtainium}}>> more Obtainium and <<orange | {{offering}}>> more Offerings!",
-        "obtainium": "Increase Obtainium gain by <<pink | {{ reward }}>>",
-        "offering": "Increase Offering gain by <<orange | {{ reward }}>>",
         "antELO": "Increase <<orchid|Ant ELO>> by <<orchid | +{{ reward }}>>",
         "timeThreshold": "For Reset Rewards that have a penalty if you reset under a certain time, reduce that time by <<gray | {{ reward }}>> seconds (Base: 10s).",
         "quark": "Increase Quark gain by <<cyan | {{ reward }}>>",
@@ -7078,7 +7070,6 @@
       "Research5x19": "Research 5x19:",
       "ResearchTalismans": "Research 6x24 & 8x4:",
       "TutorialBonus": "Corruption Tokens - First Token Bonus:",
-      "CampaignBonus": "Corruption Tokens - Offering Bonus:",
       "Challenge12": "Challenge 12:",
       "ThriftSpirit": "Thrift Spirit Bonus:",
       "Research8x25": "Research 8x25:",
@@ -7209,7 +7200,6 @@
       "CubeUpgrade4x2": "Cube Upgrade 4x2:",
       "CubeUpgrade4x3": "Cube Upgrade 4x3:",
       "TutorialBonus": "Corruption Tokens - First Token Bonus:",
-      "CampaignBonus": "Corruption Tokens - Obtainium Bonus:",
       "ChallengeBonus": "Challenge 15 - Obtainium Bonus:",
       "PlatonicALPHA": "Platonic ALPHA:",
       "PlatonicUpgrade9": "Platonic Upgrade 9:",

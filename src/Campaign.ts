@@ -15,8 +15,6 @@ let baseCampaignTokens = 0
 
 type CampaignTokenRewardNames =
   | 'tutorial'
-  | 'obtainium'
-  | 'offering'
   | 'antELO'
   | 'quark'
   | 'tax'
@@ -30,7 +28,7 @@ type CampaignTokenRewardDisplay = {
   tokenRequirement: number
   tokenCap: number
   color: string
-  reward: () => Partial<Record<CampaignTokenRewardNames, string>> | string
+  reward: () => Record<string, string> | string
   otherUnlockRequirement?: () => boolean
 }
 
@@ -124,8 +122,6 @@ export const campaignTokenBonuses = {
     obtainiumBonus: 1 + 0.2 * usableCampaignTokens('tutorial'),
     offeringBonus: 1 + 0.2 * usableCampaignTokens('tutorial')
   }),
-  obtainium: () => 1 + 0.01 * usableCampaignTokens('obtainium'),
-  offering: () => 1 + 0.01 * usableCampaignTokens('offering'),
   antELO: () => usableCampaignTokens('antELO'),
   quark: () => {
     if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.quark)) {
@@ -198,18 +194,6 @@ const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRe
       obtainium: formatAsPercentIncrease(campaignTokenBonuses.tutorial().obtainiumBonus),
       offering: formatAsPercentIncrease(campaignTokenBonuses.tutorial().offeringBonus)
     })
-  },
-  obtainium: {
-    tokenRequirement: 0,
-    tokenCap: 10000,
-    color: 'var(--pink-color)',
-    reward: () => formatAsPercentIncrease(campaignTokenBonuses.obtainium())
-  },
-  offering: {
-    tokenRequirement: 0,
-    tokenCap: 10000,
-    color: 'var(--orange-color)',
-    reward: () => formatAsPercentIncrease(campaignTokenBonuses.offering())
   },
   antELO: {
     tokenRequirement: 0,

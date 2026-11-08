@@ -1481,10 +1481,6 @@ export const allOfferingStats: DecimalStatLineCategory = {
       stat: () => campaignTokenBonuses.tutorial().offeringBonus // Tutorial Offering Bonus
     },
     {
-      i18n: 'CampaignBonus',
-      stat: () => campaignTokenBonuses.offering() // Campaign Offering Bonus
-    },
-    {
       i18n: 'Challenge12',
       stat: () => 1 + 0.12 * player.challengecompletions[12] // Challenge 12
     },
@@ -1673,7 +1669,6 @@ export const allOfferingStatsProduct = (baseOfferings = calculateBaseOfferings()
         + 0.0004 * talismans.midas.level * player.researches[179]
     )
     .mul(campaignTokenBonuses.tutorial().offeringBonus)
-    .mul(campaignTokenBonuses.offering())
     .mul(1 + 0.12 * player.challengecompletions[12])
     .mul(getRuneSpiritEffect('thrift').offerings)
     .mul(1 + (0.01 / 100) * player.researches[200])
@@ -2143,10 +2138,6 @@ export const allObtainiumIgnoreDRStats: DecimalStatLineCategory = {
       stat: () => campaignTokenBonuses.tutorial().obtainiumBonus // Campaign Tutorial Bonus
     },
     {
-      i18n: 'CampaignBonus',
-      stat: () => campaignTokenBonuses.obtainium() // Campaign Obtainium Bonus
-    },
-    {
       i18n: 'ChallengeBonus',
       stat: () => G.challenge15Rewards.obtainium.value // Challenge 15 Reward
     },
@@ -2218,7 +2209,6 @@ export const allObtainiumIgnoreDRStatsProduct = (baseObtainium = calculateBaseOb
     .mul(1 + (4 / 100) * player.cubeUpgrades[42])
     .mul(1 + (3 / 100) * player.cubeUpgrades[43])
     .mul(campaignTokenBonuses.tutorial().obtainiumBonus)
-    .mul(campaignTokenBonuses.obtainium())
     .mul(G.challenge15Rewards.obtainium.value)
     .mul(1 + player.platonicUpgrades[5])
     .mul(1 + 1.5 * player.platonicUpgrades[9])
