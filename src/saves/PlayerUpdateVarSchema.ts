@@ -369,6 +369,12 @@ export const playerUpdateVarSchema = z.preprocess(cleanseLegacyCorruptions, play
 
       void Alert(i18next.t('versionChangeAnnouncements.v4-4-1-Corruptions', { level: format(corruptionLevel) }))
     }
+
+    if (player.singularityChallenges.barDependence.highestSingularityCompleted > 292) {
+      player.singularityChallenges.barDependence.highestSingularityCompleted = 292
+
+      void Alert(i18next.t('versionChangeAnnouncements.v4-4-1-BarCharging'))
+    }
   }
 
   Reflect.deleteProperty(player, 'runeshards')
