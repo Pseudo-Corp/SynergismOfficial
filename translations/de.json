@@ -5166,6 +5166,7 @@
       "teaser": "Unlocks at <<gold|{{required}}>> Tokens (<<gold|{{remaining}}>> more needed)",
       "names": {
         "tutorial": "A Beginners Guide to Corruption Tokens",
+        "cube": "Dimensional Tokens",
         "antELO": "Stonkfish Tokens",
         "quark": "Strange Tokens",
         "tax": "Phony Coin Tokens",
@@ -5177,6 +5178,7 @@
       },
       "flavors": {
         "tutorial": "Every Challenge 10 completion and every Corruption Level beaten grants Corruption Tokens! The more you have, the stronger you become. It's some <i> mystical </i> magic, don't question it.",
+        "cube": "Two sides of the same coin, really.",
         "antELO": "Now you can checkmate Derpsmith in 143 moves!",
         "quark": "Both face Up AND face Down.",
         "tax": "If you just pay the Taxman these Tokens, he'll never know.",
@@ -5187,6 +5189,7 @@
         "blueberrySpeed": "Probably a pomology Ph.D student's stipend."
       },
       "formulas": {
+        "cube": "Formula:<br>0 – 100 Tokens: <<white|+1% × Tokens>><br>101 – num:((10000)) Tokens: <<white|+100% + 100% × log10(Tokens / 100)>>",
         "antELO": "Formula:<br>0 – num:((25000)) Tokens: <<orchid|+1 × Tokens>>",
         "quark": "Formula:<br>100 – 200 Tokens: <<orchid|+num:((0.06))% × (Tokens - 100)>><br>201 – num:((20000)) Tokens: <<orchid|+6% + 6% × log10(Tokens / 200)>>",
         "tax": "Formula:<br>250 – 500 Tokens: <<orchid|-num:((0.02))% × (Tokens - 250)>><br>501 – num:((8000)) Tokens: <<orchid|-5% - 5% × log2(Tokens / 500)>>",
@@ -5198,6 +5201,7 @@
       },
       "rewardTexts": {
         "tutorial": "For earning your first Corruption Token, gain <<pink | {{obtainium}}>> more Obtainium and <<orange | {{offering}}>> more Offerings!",
+        "cube": "Increase Cube gain by <<white | {{ reward }}>>",
         "antELO": "Increase <<orchid|Ant ELO>> by <<orchid | +{{ reward }}>>",
         "timeThreshold": "For Reset Rewards that have a penalty if you reset under a certain time, reduce that time by <<gray | {{ reward }}>> seconds (Base: 10s).",
         "quark": "Increase Quark gain by <<cyan | {{ reward }}>>",
@@ -6812,6 +6816,7 @@
       "EventCubeGain": "Event - Bonus Cube Gain:",
       "PseudoCoins": "PseudoCoin Upgrade:",
       "AscensionTime": "Ascension Time Multiplier:",
+      "Campaign": "Corruption Tokens - Cube Bonus:",
       "Challenge15": "Challenge 15 - All Cube Bonus I-V:",
       "SunMoon": "Sun & Moon Achievement Multiplier:",
       "SpeedAchievement": "Speed Achievement:",
