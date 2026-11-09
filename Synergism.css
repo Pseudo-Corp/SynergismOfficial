@@ -1323,6 +1323,14 @@ html[data-mobile="true"] #mobileHotkeysOverlay:not([data-state="closed"]) {
     color: var(--pink-color);
 }
 
+#preloadCheckUpdates {
+    border: 2px solid var(--amber-text-color);
+}
+
+#preloadUpdateStatus:empty {
+    display: none;
+}
+
 #preloadPlayOffline {
     position: fixed;
     top: 50%;
