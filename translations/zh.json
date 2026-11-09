@@ -5484,11 +5484,11 @@
           "templateHeading": "选择模板",
           "templates": {
             "ascendAtC10": "完成挑战10后飞升",
-            "outsideChallenges": "Outside Challenges",
-            "climbWhenFast": "Climb When Fast",
-            "declimbWhenStuck": "Declimb When Stuck",
-            "ascendOnStall": "Ascend on Cube Stall",
-            "bestLevel": "Best Recent Level"
+            "outsideChallenges": "在飞升挑战之外",
+            "climbWhenFast": "足够快时提高腐化等级",
+            "declimbWhenStuck": "卡住时降低腐化等级",
+            "ascendOnStall": "方盒产量停止增长时飞升",
+            "bestLevel": "最近的最佳等级"
           },
           "removeGroup": "移除分组",
           "remove": "移除",
@@ -5498,11 +5498,11 @@
           },
           "is": "成立",
           "isNot": "不成立",
-          "not": "没有",
+          "not": "不",
           "and": "且",
           "or": "或",
           "when": "当",
-          "unless": "时，除非",
+          "unless": "时，且并非",
           "cubeStall": {
             "wowCubes": "距离上次方盒产量增加的秒数",
             "wowTesseracts": "距离上次超立方产量增加的秒数",
@@ -5514,20 +5514,20 @@
           "stallToleranceLabel": "最小涨幅(%)",
           "challengeCompletions": "完成次数",
           "challengeScore": "分数",
-          "challengeMaxed": "Completions maxed",
+          "challengeMaxed": "完成次数达到上限",
           "variables": {
             "cc": "挑战完成次数(挑战15分数)",
-            "mc": "Maxed Challenge",
+            "mc": "挑战完成次数达到上限",
             "stall": "距离上次特定类型方盒产量增加的秒数",
-            "t": "Since Last Successful Ascension, In-game (seconds)",
-            "srt": "Since Last Successful Ascension, Real (seconds)",
-            "at": "Since Last Attempted Ascension, In-game (seconds)",
-            "rt": "Since Last Attempted Ascension, Real (seconds)",
+            "t": "自上次成功飞升以来(游戏时间)",
+            "srt": "自上次成功飞升以来(现实时间)",
+            "at": "自上次尝试飞升以来(游戏时间)",
+            "rt": "自上次尝试飞升以来(现实时间)",
             "sg": "当前奇点",
-            "aag": "Antiquities of Ant God level",
+            "aag": "蚁神之古物等级",
             "gs": "游戏阶段",
-            "cl": "Current Corruption level",
-            "hcl": "Highest cleared Corruption level",
+            "cl": "当前腐化等级",
+            "hcl": "最高已通过的腐化等级",
             "cb": "方盒库",
             "hb": "快乐时光铃激活数量",
             "tc": "当前超越挑战",
@@ -5544,29 +5544,29 @@
           "protocols": {
             "choose": "选择要进行的操作……",
             "ascend": "飞升(保持腐化等级)",
-            "ascensionChallenge": "Ascend into Ascension Challenge",
-            "nextAscensionChallenge": "Ascend into the next unfinished Ascension Challenge (11 to 15)",
-            "corruption": "Ascend at Corruption level",
-            "corruptionLoadout": "Ascend at a Loadout's Corruption level",
-            "corruptionUnlocked": "Ascend at highest unlocked Corruption level",
-            "corruptionCleared": "Ascend at highest cleared Corruption level",
-            "corruptionBest": "Ascend at your best recent run's Corruption level",
-            "corruptionClimb": "Ascend and climb Corruption level by",
-            "corruptionDowngrade": "Ascend and lower Corruption level by",
-            "corruptionCleanse": "Ascend and Cleanse Corruption (level 0)"
+            "ascensionChallenge": "进行飞升，进入飞升挑战",
+            "nextAscensionChallenge": "进行飞升，进入下一个未完成的飞升挑战(挑战11至15)",
+            "corruption": "进行飞升，腐化等级为",
+            "corruptionLoadout": "进行飞升，且腐化等级设为某个预设的等级",
+            "corruptionUnlocked": "进行飞升，腐化等级为最高已解锁的腐化等级",
+            "corruptionCleared": "进行飞升，腐化等级为最高已通过的腐化等级",
+            "corruptionBest": "进行飞升，腐化等级为最近的最佳等级",
+            "corruptionClimb": "进行飞升，使腐化等级提高",
+            "corruptionDowngrade": "进行飞升，使腐化等级降低",
+            "corruptionCleanse": "进行飞升，并清除腐化(0级)"
           },
-          "bestRuns": "per real second, last {{runs}} runs",
-          "bestRunsLabel": "Runs to compare",
-          "loadoutSlot": "Loadout Slot {{slot}}",
+          "bestRuns": "(现实时间每秒)，近{{runs}}次",
+          "bestRunsLabel": "比较的次数",
+          "loadoutSlot": "预设槽位{{slot}}",
           "loadoutOps": {
             "set": "设为",
             "increase": "增加",
             "decrease": "减少"
           },
           "loadoutWrites": {
-            "set": "Loadout Slot {{slot}} set to {{value}}",
-            "increase": "Loadout Slot {{slot}} increased by {{value}}",
-            "decrease": "Loadout Slot {{slot}} decreased by {{value}}"
+            "set": "把预设槽位{{slot}}设为{{value}}级",
+            "increase": "使预设槽位{{slot}}提高{{value}}级",
+            "decrease": "使预设槽位{{slot}}降低{{value}}级"
           },
           "modifiers": {
             "antSacrifice": "蚂蚁自动献祭",
@@ -5591,21 +5591,21 @@
           "ruleOn": "开",
           "ruleOff": "关",
           "ruleStatus": {
-            "ready": "Ready",
-            "behind": "Rule {{number}} first",
-            "waiting": "Waiting",
-            "excepted": "Exception",
-            "locked": "Locked",
+            "ready": "就绪",
+            "behind": "先运行规则{{number}}",
+            "waiting": "等待中",
+            "excepted": "例外情况",
+            "locked": "未解锁",
             "explain": {
-              "ready": "Its condition is met, so it runs next.",
-              "readyPaused": "Its condition is met, so it runs as soon as Auto Ascend is on.",
-              "behind": "Its condition is met, but Rule {{number}} is higher in the list and runs first.",
-              "waiting": "Its condition is not met yet.",
-              "excepted": "Its condition is met, but so is its exception, so it is skipped.",
-              "locked": "It changes Corruptions, which you can't do until you complete Challenge 11, so it is skipped."
+              "ready": "条件已满足，接下来就会运行。",
+              "readyPaused": "条件已满足，开启自动飞升以后就会运行。",
+              "behind": "条件已满足，但规则{{number}}优先度更高，因此它先运行。",
+              "waiting": "条件未满足。",
+              "excepted": "条件已满足，但例外情况也满足，所以跳过了。",
+              "locked": "它会改变腐化等级，而您还未完成过挑战11，所以跳过了。"
             },
-            "when": "WHEN:",
-            "except": "EXCEPT:"
+            "when": "条件：",
+            "except": "例外："
           },
           "moveUp": "上移规则",
           "moveDown": "下移规则",
@@ -5656,7 +5656,7 @@
       "manualOnly": "<<gold|⚠>> Settings only apply when you manually Ascend!"
     },
     "controls": {
-      "climbing": "攀升"
+      "climbing": "提高腐化"
     }
   },
   "footnotes": {
