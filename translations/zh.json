@@ -5610,12 +5610,12 @@
           "moveUp": "上移规则",
           "moveDown": "下移规则",
           "errors": {
-            "invalidNumber": "Fix the highlighted numbers first.",
+            "invalidNumber": "请先修正高亮显示的数字。",
             "emptyCondition": "至少添加一个比较条件。",
-            "noProtocol": "Choose what this rule does.",
+            "noProtocol": "请选择规则的内容。",
             "noSlots": "规则槽位已满。",
-            "nameTooLong": "Rule names can be at most 20 characters long.",
-            "nameNotAscii": "Rule names can only use English letters, numbers, spaces and standard keyboard symbols.",
+            "nameTooLong": "规则名称至多可以有20个字符。",
+            "nameNotAscii": "规则名称只能使用英文字母、数字、空格和标准键盘符号。",
             "incompleteRule": "先完成规则，再来复制。",
             "copyFailed": "无法将规则复制到剪贴板。",
             "pasteFailed": "无法读取剪贴板。请将规则粘贴到文本框中。"
@@ -5625,25 +5625,25 @@
           "unexpectedToken": "行{{line}}，列{{column}}：意外或缺失的符号。",
           "unknownRule": "行{{line}}，列{{column}}：未知的规则ID。",
           "unknownExalt": "行{{line}}，列{{column}}：未知的拔擢ID。",
-          "expectedComparator": "行{{line}}，列{{column}}：应为比较表达式 (>=, >, <=, <, =, !=)。",
-          "expectedEquality": "行{{line}}，列{{column}}：“当前挑战”的比较表达式应为 = 或者 != 。",
+          "expectedComparator": "行{{line}}，列{{column}}：应为比较表达式 (>=，>，<=，<，=，!=)。",
+          "expectedEquality": "行{{line}}，列{{column}}：“当前挑战”的比较表达式应为=或者!=。",
           "invalidChallenge": "行{{line}}，列{{column}}：挑战ID不合法。请使用1至5表示超越挑战，6至10表示转世挑战，11至15表示飞升挑战。",
           "expectedNumber": "行{{line}}，列{{column}}：应为数字。",
           "invalidTolerance": "行{{line}}，列{{column}}：'@'之后的最小涨幅至少应为0%，例如sc>=30@3。",
           "invalidStage": "行{{line}}，列{{column}}：游戏阶段不合法。游戏阶段应使用0及以上的数字，例如gs>=12。",
           "unclosedParen": "行{{line}}，列{{column}}：缺少右括号。",
-          "expectedProtocol": "Line {{line}}, column {{column}}: Expected an exception after '~' or a protocol after ':' (asc, c=11 to c=15, c=next, l=<level>, l=s1 to l=s8, l+<amount>, l-<amount>, l=max, l=clr, l=cln or l=best(<cube>,<runs>)).",
-          "unknownProtocol": "Line {{line}}, column {{column}}: Unknown protocol. Use asc, c=<challenge>, c=next, l=<level>, l=s<loadout>, l+<amount>, l-<amount> or l=best(<cube>,<runs>).",
-          "invalidProtocolValue": "Line {{line}}, column {{column}}: Invalid protocol value. Challenges must be 11 to 15 or next, levels a whole number, s1 to s8, max, clr or cln, climbs or downgrades a whole number of at least 1, and best a cube (sc, st, sh, sp or shp) and a whole number of runs of at least 1, like l=best(sc,10).",
+          "expectedProtocol": "行{{line}}，列{{column}}：'~'后应有例外情况，或者':'后接操作方案 (asc，c=11至c=15，c=next，l=<level>，l=s1至l=s8，l+<amount>，l-<amount>，l=max，l=clr，l=cln或者l=best(<cube>,<runs>))。",
+          "unknownProtocol": "行{{line}}，列{{column}}：未知操作方案。请使用asc，c=<challenge>，c=next，l=<level>，l=s<loadout>，l+<amount>，l-<amount>或者l=best(<cube>,<runs>)。",
+          "invalidProtocolValue": "行{{line}}，列{{column}}：方案数值无效。挑战必须为11至15或next，等级必须为整数、s1至s8、max、clr或cln，提升或降低的数值必须为不小于1的整数，最佳等级必须指定某种方盒或立方(sc(方盒)、st(超立方)、sh(五阶立方)、sp(PLATONIC方盒)或shp(七阶立方))以及不小于1的整数运行次数，例如l=best(sc,10)。",
           "invalidName": "行{{line}}，列{{column}}：规则名不是有效的带引号名称。",
-          "nameTooLong": "Line {{line}}, column {{column}}: Rule names can be at most 20 characters long.",
-          "nameNotAscii": "Line {{line}}, column {{column}}: Rule names can only use English letters, numbers, spaces and standard keyboard symbols.",
+          "nameTooLong": "行{{line}}，列{{column}}：规则名称至多可以有20个字符。",
+          "nameNotAscii": "行{{line}}，列{{column}}：规则名称只能使用英文字母、数字、空格和标准键盘符号。",
           "unknownModifier": "行{{line}}，列{{column}}：未知的设置。请使用as(蚂蚁自动献祭)，cs(自动扫荡挑战)，co(自动开启方盒)，tb(自动超立方建筑)，cu(自动方盒升级)，pu(自动PLATONIC方盒升级)，ha(自动锻造七阶立方)，al(切换神肴预设)，或者s1至s8(腐化预设)。",
           "invalidModifierValue": "行{{line}}，列{{column}}：设置应设为1(启用)或者0(禁用)。",
           "duplicateModifier": "行{{line}}，列{{column}}：此设置已被此规则更改。",
-          "invalidLoadout": "行{{line}}，列{{column}}：腐化预设为 s1 至 s8。将预设等级设为0或者更高的自然数 (s3=25)，或者，增加或降低预设等级时为自然数，且至少为1 (s3+2, s3-2)。",
+          "invalidLoadout": "行{{line}}，列{{column}}：腐化预设为s1至s8。请将预设等级设为0或者更高的自然数 (s3=25)，抑或是，增加或降低预设等级时为自然数，且至少为1 (s3+2, s3-2)。",
           "duplicateLoadout": "行{{line}}，列{{column}}：此预设已被此规则更改。",
-          "invalidAmbrosiaLoadout": "行{{line}}，列{{column}}：神肴预设为 al=1 至 al=16。",
+          "invalidAmbrosiaLoadout": "行{{line}}，列{{column}}：神肴预设为al=1至al=16。",
           "tooManyComparisons": "行{{line}}，列{{column}}：飞升条件或者例外情况至多有16个比较条件。",
           "ruleTooLong": "行{{line}}：规则过长。"
         }
@@ -5651,9 +5651,9 @@
     },
     "loadoutApplied": "已载入该腐化等级。飞升后即可生效。",
     "toggles": {
-      "autoIncrease": "Set Corruption Level to highest unlocked",
-      "cleanseToHighest": "Cleanse to highest Corruption Level cleared",
-      "manualOnly": "<<gold|⚠>> Settings only apply when you manually Ascend!"
+      "autoIncrease": "将腐化等级设置为最高已解锁等级",
+      "cleanseToHighest": "清除腐化时改成设置为最高已通过等级",
+      "manualOnly": "<<gold|⚠>> 设置只在手动飞升时生效！"
     },
     "controls": {
       "climbing": "提高腐化"
@@ -5685,7 +5685,7 @@
     "constructionBonus": "这些建筑有<<yellow|{{amount}}>>的软上限，它会乘以建造力",
     "hyperscaling": "拥有数量超过<<yellow|{{threshold}}>>以后，花费指数开始以<<yellow|平方速度>>增长",
     "accelMultConstruction": "加速器、加倍器和加速器加成也受<<yellow|建造力数值的平方根>>影响 (<<yellow|×{{amount}}>>)<br>加速器数量超过<<yellow|{{accelerators}}>>以后，花费开始以<<yellow|平方速度>>增长<br>加倍器数量超过<<yellow|{{multipliers}}>>以后，花费开始以<<yellow|平方速度>>增长<br>加速器加成数量超过<<yellow|{{boosts}}>>以后，花费开始以<<yellow|平方速度>>增长",
-    "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> This Ascension: <<gold | {{thisAscension}}>> <br> This Singularity: <<gold | {{thisSingularity}}>> <br> Total Ever: <<gold | {{totalGenerated}}>>",
+    "coinInformation": "您拥有<<gold|{{coins}}金币>>[<<gold|每秒+{{coinsPerSecond}}>>]<br>本次飞升：<<gold|{{thisAscension}}>><br>本次奇点：<<gold|{{thisSingularity}}>><br>总数：<<gold|{{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "您只有100个金币。您刚好可以花费它雇佣1个工人！",
       "2": "工人真的很努力干活。我们用金币买一些投资吧！",
@@ -5941,23 +5941,23 @@
       },
       "octeractBonusTokens1": {
         "name": "Derpsmith的代币",
-        "description": "Derpsmith gives you a token of his appreciation. Every Corruption level's First completion bonus is increased by 1 Token per level!",
-        "effect": "First completion bonus +{{n}} Tokens"
+        "description": "Derpsmith将代币赠与您，以示赞赏。每有一级该升级，就使每级腐化等级的首次完成奖励增加1代币。",
+        "effect": "使首次完成奖励增加{{n}}代币"
       },
       "octeractBonusTokens2": {
         "name": "Derpsmith的代币 II",
-        "description": "Under some weird trade agreement, gain +1% more Corruption Tokens from all sources per level. Pray that the trade is not further altered.",
-        "effect": "Corruption Tokens from all sources +{{n}}%"
+        "description": "通过某种奇怪的贸易协定，每级可以使腐化代币获取数量增加1%。希望不会变卦。",
+        "effect": "使腐化代币获取数量增加{{n}}%"
       },
       "octeractBonusTokens3": {
         "name": "Derpsmith的代币 III",
-        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. Every Corruption level's First completion bonus is increased by 1 Token per level.",
-        "effect": "First completion bonus +{{n}} Tokens"
+        "description": "就算浅尝辄止，Derpsmith也会承认您的勇敢。每有一级该升级，就使每级腐化等级的首次完成奖励增加1代币。",
+        "effect": "使首次完成奖励增加{{n}}代币"
       },
       "octeractBonusTokens4": {
         "name": "Derpsmith的代币 IV",
-        "description": "Derpsmith is impressed by your dedication. +1 Token at the start of your Singularity per level.",
-        "effect": "Token gain +{{n}} at the start of your Singularity."
+        "description": "Derpsmith被您的献身精神感动了。进入奇点后，每级可以获得1个代币。",
+        "effect": "进入奇点后立刻获得{{n}}代币。"
       },
       "octeractSingUpgradeCap": {
         "name": "重写指针",
@@ -6084,12 +6084,12 @@
     "secondsPerOcteract": "每<<var(--orchid-text-color)|{{seconds}}>>秒增加1个",
     "octeractsPerSecond": "每秒增加<<yellow|{{octeracts}}>>个",
     "totalGenerated": "共产生<<var(--lightseagreen-text-color)|{{octeracts}}>>惊奇八阶方块！",
-    "unspent": "Unspent: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octeracts!",
+    "unspent": "未花费：<<var(--lightseagreen-text-color)|{{octeracts}}>>惊奇八阶方块！",
     "generatedCubeBonus": "惊奇方盒至惊奇七阶立方获取数量<<yellow|+{{cubeBonus}}%>>",
     "generatedQuarkBonus": "夸克获取数量<<cyan|+{{quarkBonus}}%>>",
     "generatedOfferingBonus": "祭品获取数量<<orange|+{{offeringBonus}}%>>",
     "generatedObtainiumBonus": "难得素获取数量<<pink|+{{obtainiumBonus}}%>>",
-    "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>"
+    "generatedLuckBonus": "神肴之运<<lime|+{{luckBonus}}>>"
   },
   "runes": {
     "runeName": "<b><<{{color}}|{{name}}>></b>符文",
@@ -6639,7 +6639,7 @@
         "barIntro2": "进度条本应该产生的神肴或红神肴会转化为时间，所以各类型“运”(和二心)仍然很重要！",
         "barMod1": "<<var(--blueberry-text-color)|神肴进度条：每获得1神肴，就使全局时间增加0.01秒(平均值：增加{{secs}}秒)>>(进度条点数需求固定为<<var(--blueberry-text-color)|{{req}}神肴进度条点数>>)",
         "barMod2": "<<red|红进度条：每获得1红神肴，就使飞升时间增加0.05秒(平均值：增加{{secs}}秒)>>(进度条点数需求固定为<<red|{{req}}红进度条点数>>)",
-        "barMod3": "<<var(--purple-text-color)|Purple Bar: Each of the Ambrosia and Red Bars has an independent chance to fill, equal to 1 - 2^(-Purple Honey Luck / 100) (Current: {{chance}}%)>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
+        "barMod3": "<<var(--purple-text-color)|紫进度条：神肴进度条和红进度条各自有独立概率触发上面的效果，概率为 1 - 2^(-紫蜜之运 / 100) (当前概率：{{chance}}%)>>(进度条点数需求固定为<<var(--purple-text-color)|{{req}}紫进度条点数>>)",
         "ScalingReward1": "使<<var(--purple-text-color)|合成紫神肴>>的花费减少5%",
         "ScalingReward2": "获得1<<var(--blueberry-text-color)|蓝莓>>。是真的，不说笑。",
         "ScalingReward3": "50成就点数！",
@@ -7910,7 +7910,7 @@
       "AntUpgrade": "蚂蚁 - 命匣蚁：",
       "AntUpgrade13": "蚂蚁 - 孽生蚁：",
       "SingularityPerk": "奇点特权 - 振奋精神！：",
-      "Campaign": "Corruption Token Bonus:",
+      "Campaign": "腐化代币加成：",
       "Total": "总蚂蚁基础强度分："
     },
     "additiveAntELOMultStats": {
@@ -8455,8 +8455,8 @@
         "thanks": "感谢Discord上Alonso提供的馈赠。"
       },
       "ascensionComp": {
-        "reward": "You gained 24 real-life hours of Ascension Timer!",
-        "unavailable": "This code can't be used in your current EXALT. Try again after leaving it!"
+        "reward": "您获得了现实时间24小时的飞升时间！",
+        "unavailable": "该代码无法在当前拔擢中使用。请退出拔擢后重试！"
       }
     }
   },
@@ -8507,15 +8507,15 @@
     "perSecondOff": "每秒产量：关",
     "historyReset": "以下为您从之前重置中获得的东西(挑战除外)：",
     "historySac": "您进行献祭获得了这些东西：",
-    "historyAsc": "The last 20 Ascensions with at least 1 Challenge 10 completion:",
+    "historyAsc": "最近20次至少完成过1次挑战10的飞升：",
     "historySing": "您之前进入奇点获得了这些东西：",
-    "realTime": "Real: {{time}}",
-    "realTimeTitle": "Real time spent on this Ascension attempt",
+    "realTime": "现实：{{time}}",
+    "realTimeTitle": "本次尝试飞升花费的现实时间",
     "challenge": "C{{challenge}}",
-    "challengeCompletions": "C{{challenge}}: {{completions}}",
-    "challengeCompletionsTitle": "Challenge {{challenge}} completions after this Ascension",
-    "challenge15Score": "C15: {{score}}",
-    "challenge15ScoreTitle": "Challenge 15 score from this Ascension"
+    "challengeCompletions": "C{{challenge}}：{{completions}}",
+    "challengeCompletionsTitle": "本次飞升后挑战{{challenge}}的完成次数",
+    "challenge15Score": "C15：{{score}}",
+    "challenge15ScoreTitle": "本次飞升后挑战15的分数"
   },
   "event": {
     "aprilFools": {
@@ -8824,7 +8824,7 @@
   "versionChangeAnnouncements": {
     "ants": "蚂蚁进行了大量重制和平衡调整，因此您的蚁丘进度也进行了相应调整！",
     "sept13Refund": "由于紫神肴升级，您的部分夸克升级已经返还！返还数量：<<cyan|{{amount}}>>",
-    "v4-4-1-Corruptions": "Because of a recent update, your Corruption progress has been adjusted. Your Corruption level is set to <<orange|{{level}}>>, with a Challenge 10 completion instantly awarded.",
-    "v4-4-1-BarCharging": "Because of balancing changes, your <<var(--purple-text-color)|Bar Charging>> EXALT completions have been set to <<orange|5>>."
+    "v4-4-1-Corruptions": "由于近期更新，您的腐化进度已进行调整。腐化等级已设为<<orange|{{level}}>>，挑战10也直接设为完成一次。",
+    "v4-4-1-BarCharging": "由于平衡性调整，您的<<var(--purple-text-color)|填充进度条>>拔擢的阶层完成数已被设为<<orange|5>>。"
   }
 }
