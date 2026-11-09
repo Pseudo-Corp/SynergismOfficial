@@ -2752,10 +2752,10 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
   ]
 }
 
-export const allGlobalSpeedStatsProduct = () =>
+export const allGlobalSpeedStatsProduct = (totalCoinOwned?: number) =>
   Math.min(
     1e300,
-    getRuneEffects('speed', 'globalSpeed')
+    getRuneEffects('speed', 'globalSpeed', totalCoinOwned)
       * (1 + (1 / 300) * Decimal.log10(player.maxObtainium.plus(1)) * player.upgrades[70])
       * (1 + player.researches[121] / 50)
       * (1 + 0.015 * player.researches[136])
@@ -2763,8 +2763,8 @@ export const allGlobalSpeedStatsProduct = () =>
       * (1 + 0.009 * player.researches[166])
       * (1 + 0.006 * player.researches[181])
       * (1 + 0.003 * player.researches[196])
-      * getRuneBlessingEffect('speed').globalSpeed
-      * getRuneSpiritEffect('speed').globalSpeed
+      * getRuneBlessingEffect('speed', totalCoinOwned).globalSpeed
+      * getRuneSpiritEffect('speed', totalCoinOwned).globalSpeed
       * calculateGlobalSpeedCubeBlessing()
       * (1 + player.cubeUpgrades[18] / 5)
       * getAntUpgradeEffect(AntUpgrades.Mortuus).globalSpeed
@@ -4555,10 +4555,10 @@ export const freeAcceleratorMultiplierStats: NumberStatLineCategory = {
   ]
 }
 
-export const freeAcceleratorMultiplierStatsProduct = () =>
+export const freeAcceleratorMultiplierStatsProduct = (totalCoinOwned?: number) =>
   Math.min(
     1e300,
-    (player.unlocks.prestige ? getRuneEffects('speed', 'multiplicativeAccelerators') : 1)
+    (player.unlocks.prestige ? getRuneEffects('speed', 'multiplicativeAccelerators', totalCoinOwned) : 1)
       * challenge14ResearchMultiplier(1)
       * (1
         + player.researches[6] / 20
@@ -4703,7 +4703,7 @@ export const freeMultiplierMultiplierStats: NumberStatLineCategory = {
   ]
 }
 
-export const freeMultiplierMultiplierStatsProduct = () =>
+export const freeMultiplierMultiplierStatsProduct = (totalCoinOwned?: number) =>
   Math.min(
     1e300,
     Math.pow(1.01, sumDiamondUpgradesOneToFive())
@@ -4715,7 +4715,7 @@ export const freeMultiplierMultiplierStatsProduct = () =>
         + player.researches[13] / 40
         + 3 * player.researches[14] / 200
         + player.researches[15] / 200)
-      * getRuneEffects('duplication', 'multiplicativeMultipliers')
+      * getRuneEffects('duplication', 'multiplicativeMultipliers', totalCoinOwned)
       * (1 + player.researches[87] / 20)
       * lateResearchMultiplier([128, 143, 158, 173, 188])
       * (1 + 0.01 * player.cubeUpgrades[50] / 100)
@@ -6106,10 +6106,10 @@ export const allTaxExponentStats: NumberStatLineCategory = {
   ]
 }
 
-export const allTaxExponentStatsProduct = () =>
+export const allTaxExponentStatsProduct = (totalCoinOwned?: number) =>
   Math.min(
     1e300,
-    getRuneEffects('duplication', 'taxReduction')
+    getRuneEffects('duplication', 'taxReduction', totalCoinOwned)
       * getRuneEffects('thrift', 'taxReduction')
       * (1 + getTalismanEffects('exemption').taxReduction)
       * (player.currentChallenge.reincarnation === 6

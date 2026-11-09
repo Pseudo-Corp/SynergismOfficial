@@ -2272,12 +2272,12 @@ export const formatDecimalAsPercentIncrease = (n: Decimal, accuracy = 2) => {
   return `${format(n.minus(1).times(100), accuracy, true)}%`
 }
 
-export const calculateAcceleratorPower = (totalAcceleratorBoost: number): number => {
+export const calculateAcceleratorPower = (totalAcceleratorBoost: number, totalCoinOwned?: number): number => {
   const tuSevenMulti = player.upgrades[46] > 0.5 ? 1.05 : 1
 
   let power = Math.pow(
     1.1
-      + getRuneEffects('speed', 'acceleratorPower')
+      + getRuneEffects('speed', 'acceleratorPower', totalCoinOwned)
       + getAchievementReward('acceleratorPower')
       + tuSevenMulti
         * (totalAcceleratorBoost / 100)
@@ -2320,7 +2320,7 @@ export const calculateMultiplierStats = (
   const freeMultiplier = calculateFreeAccelMult('multiplier', totalAcceleratorBoost, owned)
   const effectiveFreeMultiplier = calculateEffectiveFreeAccelMult(freeMultiplier, viscosity)
   const totalMultiplier = owned.multiplier / viscosity + effectiveFreeMultiplier
-  const multiplierPower = calculateMultiplierPower()
+  const multiplierPower = calculateMultiplierPower(sumBuildingsOwned(owned.coin))
   return {
     freeMultiplier,
     effectiveFreeMultiplier,
@@ -2355,7 +2355,7 @@ export const calculateAcceleratorStats = (
     owned,
     totalAcceleratorBoost
   )
-  const acceleratorPower = calculateAcceleratorPower(totalAcceleratorBoost)
+  const acceleratorPower = calculateAcceleratorPower(totalAcceleratorBoost, sumBuildingsOwned(owned.coin))
 
   let acceleratorEffect: Decimal
   if (player.currentChallenge.reincarnation === 10) {
@@ -2395,16 +2395,16 @@ export const calculateAccelMultStats = (owned = getAccelMultBuildingsOwned()) =>
 
 export type AccelMultStats = ReturnType<typeof calculateAccelMultStats>
 
-const calculateRawMultiplierBoosts = (): number => {
+const calculateRawMultiplierBoosts = (totalCoinOwned?: number): number => {
   let b = 0
   b += Decimal.log(player.transcendShards.add(1), 3)
-  b += getRuneEffects('duplication', 'multiplierBoosts')
+  b += getRuneEffects('duplication', 'multiplierBoosts', totalCoinOwned)
   b += 2 * player.challengecompletions[1]
   b *= 1 + (11 * player.researches[33]) / 100
   b *= 1 + (11 * player.researches[34]) / 100
   b *= 1 + (11 * player.researches[35]) / 100
   b *= 1 + player.researches[89] / 5
-  b *= getRuneBlessingEffect('duplication').multiplierBoosts
+  b *= getRuneBlessingEffect('duplication', totalCoinOwned).multiplierBoosts
   return b
 }
 
@@ -2414,8 +2414,8 @@ export const calculateMultiplierBoosts = (rawBoosts = calculateRawMultiplierBoos
     1 + player.challengecompletions[7] * 0.04
   )
 
-export const calculateMultiplierPower = (): number => {
-  const rawBoosts = calculateRawMultiplierBoosts()
+export const calculateMultiplierPower = (totalCoinOwned?: number): number => {
+  const rawBoosts = calculateRawMultiplierBoosts(totalCoinOwned)
   const c7 = player.challengecompletions[7] > 0.5 ? 1.25 : 1
 
   let power = 2 + 0.02 * calculateMultiplierBoosts(rawBoosts) * c7
@@ -4010,7 +4010,7 @@ const tick = () => {
 const tack = (dt: number) => {
   if (!G.timeWarp) {
     // Adds Resources (coins, ants, etc)
-    const timeMult = calculateGlobalSpeedMult()
+    const timeMult = calculateGlobalSpeedMult(getTotalBuildingsOwned('coin'))
     resourceGain(dt * timeMult)
     generateAntsAndCrumbs(dt, timeMult)
 

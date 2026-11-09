@@ -28,7 +28,7 @@ interface RuneSpiritData<K extends RuneSpiritKeys> {
   level: number
   costCoefficient: Decimal
   levelsPerOOM: number
-  effectiveLevelMult: () => number
+  effectiveLevelMult: (totalCoinOwned?: number) => number
   runeEXPPerOffering: () => Decimal
   minimalResetTier: keyof typeof resetTiers
   effects: (n: number) => RuneSpiritTypeMap[K]
@@ -49,9 +49,9 @@ const otherSpiritMultipliers = () => {
     * challenge15CorruptionEffect('spirit')
 }
 
-const spiritMultiplier = (key: RuneKeys) => {
+const spiritMultiplier = (key: RuneKeys, totalCoinOwned?: number) => {
   return (
-    (runes[key].level + runes[key].freeLevels())
+    (runes[key].level + runes[key].freeLevels(totalCoinOwned))
     * runeBlessings[key as RuneBlessingKeys].level
     * otherSpiritMultipliers()
   )
@@ -72,7 +72,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
         val: formatAsPercentIncrease(globalSpeed, 2)
       })
     },
-    effectiveLevelMult: () => spiritMultiplier('speed'),
+    effectiveLevelMult: (totalCoinOwned) => spiritMultiplier('speed', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.speed.name(),
@@ -92,7 +92,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
         val: formatAsPercentIncrease(wowCubes, 2)
       })
     },
-    effectiveLevelMult: () => spiritMultiplier('duplication'),
+    effectiveLevelMult: (totalCoinOwned) => spiritMultiplier('duplication', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.duplication.name(),
@@ -112,7 +112,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
         val: format(crystalCaps, 2, true)
       })
     },
-    effectiveLevelMult: () => spiritMultiplier('prism'),
+    effectiveLevelMult: (totalCoinOwned) => spiritMultiplier('prism', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.prism.name(),
@@ -132,7 +132,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
         val: formatAsPercentIncrease(offerings, 2)
       })
     },
-    effectiveLevelMult: () => spiritMultiplier('thrift'),
+    effectiveLevelMult: (totalCoinOwned) => spiritMultiplier('thrift', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.thrift.name(),
@@ -152,7 +152,7 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
         val: formatAsPercentIncrease(obtainium, 2)
       })
     },
-    effectiveLevelMult: () => spiritMultiplier('superiorIntellect'),
+    effectiveLevelMult: (totalCoinOwned) => spiritMultiplier('superiorIntellect', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.superiorIntellect.name(),
@@ -162,13 +162,16 @@ export const runeSpirits: { [K in RuneSpiritKeys]: RuneSpiritData<K> } = {
 
 export const runeSpiritKeys = Object.keys(runeSpirits) as RuneSpiritKeys[]
 
-const getRuneSpiritPower = (spirit: RuneSpiritKeys): number => {
-  const spiritpowerMult = runeSpirits[spirit].effectiveLevelMult()
+const getRuneSpiritPower = (spirit: RuneSpiritKeys, totalCoinOwned?: number): number => {
+  const spiritpowerMult = runeSpirits[spirit].effectiveLevelMult(totalCoinOwned)
   return runeSpirits[spirit].level * spiritpowerMult
 }
 
-export const getRuneSpiritEffect = <T extends RuneSpiritKeys>(spirit: T): RuneSpiritTypeMap[T] => {
-  return runeSpirits[spirit].effects(getRuneSpiritPower(spirit))
+export const getRuneSpiritEffect = <T extends RuneSpiritKeys>(
+  spirit: T,
+  totalCoinOwned?: number
+): RuneSpiritTypeMap[T] => {
+  return runeSpirits[spirit].effects(getRuneSpiritPower(spirit, totalCoinOwned))
 }
 
 const getRuneSpiritEXPPerOffering = (spirit: RuneSpiritKeys): Decimal => {

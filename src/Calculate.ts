@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { type AccelMultBuildingsOwned, getBuildingOwned } from './Buy'
+import { type AccelMultBuildingsOwned, getAccelMultBuildingsOwned, getBuildingOwned, sumBuildingsOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import {
@@ -339,10 +339,10 @@ export const calculateQuarkMultiplier = () => allQuarkStatsProduct()
 export const calculateAntSacrificeMultiplier = () => antSacrificeRewardStatsProduct()
 
 export const calculateGlobalSpeedDRIgnoreMult = () => allGlobalSpeedIgnoreDRStatsProduct()
-export const calculateGlobalSpeedDREnabledMult = () => allGlobalSpeedStatsProduct()
+export const calculateGlobalSpeedDREnabledMult = (totalCoinOwned?: number) => allGlobalSpeedStatsProduct(totalCoinOwned)
 
-export const calculateGlobalSpeedMult = () => {
-  let normalMult = calculateGlobalSpeedDREnabledMult()
+export const calculateGlobalSpeedMult = (totalCoinOwned?: number) => {
+  let normalMult = calculateGlobalSpeedDREnabledMult(totalCoinOwned)
   if (normalMult > 100) {
     normalMult = Math.pow(normalMult, 0.5) * 10
   } else if (normalMult < 1) {
@@ -676,9 +676,11 @@ export const hepteractFreeAccelMultMultiplier = {
 
 const calculateRawFreeAccelMult = (
   type: keyof typeof freeAccelMultAdditiveStats,
-  totalAcceleratorBoost?: number,
-  owned?: AccelMultBuildingsOwned
-) => freeAccelMultAdditiveStats[type](totalAcceleratorBoost, owned) * freeAccelMultMultiplicativeStats[type]()
+  totalAcceleratorBoost: number | undefined,
+  owned: AccelMultBuildingsOwned
+) =>
+  freeAccelMultAdditiveStats[type](totalAcceleratorBoost, owned)
+  * freeAccelMultMultiplicativeStats[type](sumBuildingsOwned(owned.coin))
 
 const freeAccelMultRawHardcap = 1e300
 export const freeAccelMultHardcap = 1e100
@@ -686,7 +688,7 @@ export const freeAccelMultHardcap = 1e100
 export const calculateFreeAccelMult = (
   type: keyof typeof freeAccelMultAdditiveStats,
   totalAcceleratorBoost?: number,
-  owned?: AccelMultBuildingsOwned
+  owned = getAccelMultBuildingsOwned()
 ) =>
   Math.floor(
     Math.min(

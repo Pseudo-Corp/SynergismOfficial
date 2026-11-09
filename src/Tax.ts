@@ -37,7 +37,8 @@ export const challenge13EffectiveCompletions = () => {
 }
 
 // Cap the calculation overflow bug || httpsnet
-export const calculateTaxExponent = () => Math.max(1e-300, allTaxExponentStatsProduct())
+export const calculateTaxExponent = (totalCoinOwned?: number) =>
+  Math.max(1e-300, allTaxExponentStatsProduct(totalCoinOwned))
 
 export const calculateFlatTaxCapIncrease = (buildingPowerCoinMultiplier = calculateBuildingPowerCoinMultiplier()) => {
   return Decimal.log(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 10)
@@ -99,7 +100,7 @@ export const calculateTax = (
 
   const producePerSecond = produceTotal.times(40)
 
-  const exponent = calculateTaxExponent()
+  const exponent = calculateTaxExponent(totalCoinOwned)
 
   // Ant Upgrade "Fortunae Formicidae" gives a flat max exponent increase equal to its coin multi
   // It multiplies the coin production but is also tax-exempt, which we do by increasing the tax cap
