@@ -911,7 +911,7 @@
         "flavor": "外观、触感、味道乃至<i>本质</i>，都是夸克。",
         "effectNotMaxed": "每次提取紫蜜时 <<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>>夸克",
         "effectMaxed": "每次提取紫蜜时 <<gold|+{{maxValue}}>>夸克",
-        "disclaimer": "<<gold | ⚠>>该加成只有在当前奇点至少持续1个小时，且并未进行“填充进度条”拔擢时生效！实验室预热毕竟是需要一些时间的。"
+        "disclaimer": "<<gold | ⚠>>该加成只有在当前奇点至少持续1个小时，且未进行“填充进度条”拔擢时生效！实验室预热毕竟是需要一些时间的。"
       }
     }
   },
@@ -5184,21 +5184,21 @@
         "rune6": "让其他所有台阶都往上挪一格，自己正好塞进去。",
         "goldenQuark": "极其粲然，从底到顶。",
         "ambrosiaLuck": "搓搓硬币，好运就来。那要是很多很多枚代币呢？朋友，这运气可就没有上限了。",
-        "blueberrySpeed": "Probably a pomology Ph.D student's stipend."
+        "blueberrySpeed": "大概是果树学博士生的津贴。"
       },
       "formulas": {
-        "antELO": "Formula:<br>0 – num:((25000)) Tokens: <<orchid|+1 × Tokens>>",
-        "quark": "Formula:<br>100 – 200 Tokens: <<orchid|+num:((0.06))% × (Tokens - 100)>><br>201 – num:((20000)) Tokens: <<orchid|+6% + 6% × log10(Tokens / 200)>>",
-        "tax": "Formula:<br>250 – 500 Tokens: <<orchid|-num:((0.02))% × (Tokens - 250)>><br>501 – num:((8000)) Tokens: <<orchid|-5% - 5% × log2(Tokens / 500)>>",
-        "c15": "Formula:<br>250 – 500 Tokens: <<orchid|+num:((0.02))% × (Tokens - 250)>><br>501 – num:((16000)) Tokens: <<orchid|+5% + 19% × log2(Tokens / 500)>>",
-        "rune6": "Formula:<br>750 – num:((24000)) Tokens: <<orchid|+2 + 2 × floor(log2(Tokens / 750))>>",
-        "goldenQuark": "Formula:<br>500 – num:((1000)) Tokens: <<orchid|+num:((0.01))% × (Tokens - 500)>><br>num:((1001)) – num:((20000)) Tokens: <<orchid|+5% + 5% × log20(Tokens / num:((1000)))>>",
-        "ambrosiaLuck": "Formula:<br>num:((2000)) – num:((4000)) Tokens: <<orchid|+10 + num:((0.02)) × (Tokens - num:((2000)))>><br>num:((4001)) – num:((36000)) Tokens: <<orchid|+50 + 50 × log3(Tokens / num:((4000)))>>",
-        "blueberrySpeed": "Formula:<br>num:((2000)) – num:((4000)) Tokens: <<orchid|+1% + num:((0.001))% × (Tokens - num:((2000)))>><br>num:((4001)) – num:((40000)) Tokens: <<orchid|+3% + 3% × log10(Tokens / num:((4000)))>>"
+        "antELO": "公式：<br>0 – num:((25000))代币：<<orchid|+1 × 代币数量>>",
+        "quark": "公式：<br>100 – 200代币：<<orchid|+num:((0.06))% × (代币数量 - 100)>><br>201 – num:((20000))代币：<<orchid|+6% + 6% × log10(代币数量 / 200)>>",
+        "tax": "公式：<br>250 – 500 代币：<<orchid|-num:((0.02))% × (代币数量 - 250)>><br>501 – num:((8000))代币：<<orchid|-5% - 5% × log2(代币数量 / 500)>>",
+        "c15": "公式：<br>250 – 500代币：<<orchid|+num:((0.02))% × (代币数量 - 250)>><br>501 – num:((16000))代币：<<orchid|+5% + 19% × log2(代币数量 / 500)>>",
+        "rune6": "公式：<br>750 – num:((24000))代币：<<orchid|+2 + 2 × floor(log2(代币数量 / 750))>>",
+        "goldenQuark": "公式：<br>500 – num:((1000))代币：<<orchid|+num:((0.01))% × (代币数量 - 500)>><br>num:((1001)) – num:((20000))代币：<<orchid|+5% + 5% × log20(代币数量 / num:((1000)))>>",
+        "ambrosiaLuck": "公式：<br>num:((2000)) – num:((4000))代币：<<orchid|+10 + num:((0.02)) × (代币数量 - num:((2000)))>><br>num:((4001)) – num:((36000))代币：<<orchid|+50 + 50 × log3(代币数量 / num:((4000)))>>",
+        "blueberrySpeed": "公式：<br>num:((2000)) – num:((4000))代币：<<orchid|+1% + num:((0.001))% × (代币数量 - num:((2000)))>><br>num:((4001)) – num:((40000))代币：<<orchid|+3% + 3% × log10(代币数量 / num:((4000)))>>"
       },
       "rewardTexts": {
-        "tutorial": "For earning your first Corruption Token, gain <<pink | {{obtainium}}>> more Obtainium and <<orange | {{offering}}>> more Offerings!",
-        "antELO": "Increase <<orchid|Ant ELO>> by <<orchid | +{{ reward }}>>",
+        "tutorial": "获得过腐化代币后，使难得素获取数量增加<<pink|{{obtainium}}>>，祭品获取数量增加<<orange|{{offering}}>>！",
+        "antELO": "使<<orchid|蚂蚁强度分>>增加<<orchid|{{ reward }}>>",
         "timeThreshold": "对于特定的重置奖励，如果它在一定时间以内重置有负面惩罚，则使触发它的时间减少<<gray |{{ reward }}>>秒(基础值10秒)。",
         "quark": "使夸克获取数量增加<<cyan|{{ reward }}>>",
         "tax": "税收<<lightgray|{{ reward }}>>",
@@ -5303,18 +5303,18 @@
     "breakdown": {
       "current": "本次飞升<br>L = {{level}}",
       "next": "下次飞升<br>L = {{level}}",
-      "rate": "Corruption level bonus",
+      "rate": "腐化等级加成",
       "scalingUpgrades": {
-        "Platonic1x1": "Platonic Upgrade 1x1",
-        "Platonic1x2": "Platonic Upgrade 1x2",
-        "Platonic1x3": "Platonic Upgrade 1x3",
-        "Platonic1x4": "Platonic Upgrade 1x4",
-        "CubeUpgrade4x8": "Cube Upgrade 4x8",
-        "CookieUpgrade20": "Cookie Upgrade 20",
-        "DivinePack": "Divine Pack"
+        "Platonic1x1": "PLATONIC方盒升级1x1",
+        "Platonic1x2": "PLATONIC方盒升级1x2",
+        "Platonic1x3": "PLATONIC方盒升级1x3",
+        "Platonic1x4": "PLATONIC方盒升级1x4",
+        "CubeUpgrade4x8": "方盒升级4x8",
+        "CookieUpgrade20": "饼干升级20[Cx20]",
+        "DivinePack": "神圣礼包"
       },
       "locked": "未解锁",
-      "unlock": "Unlocks at level {{level}}.",
+      "unlock": "{{level}}级时解锁。",
       "source": "来源",
       "completions": "完成次数",
       "perCompletion": "每次完成",
@@ -5367,29 +5367,29 @@
       "notCorrupted": "未腐化",
       "level": "腐化等级 <<gold|{{level}}>>",
       "levelChange": "腐化等级 <<silver|{{old}} →>> <<gold|{{new}}>>",
-      "levelOverwritten": "Corruptions disabled: <<orange|({{challenge}}) $t(challenges.{{challenge}}.progressName)>>",
+      "levelOverwritten": "腐化无效：<<orange|({{challenge}})$t(challenges.{{challenge}}.progressName)>>",
       "freeLevels": "<<orange|[+{{free}}]>>",
       "tokens": {
         "selectLevel": "增加级别以获得代币！",
         "level": "{{level}}级代币：{{earned}}",
-        "levelBonus": "Level {{level}} Tokens: {{earned}} ({{base}} +{{percent}}%)",
-        "completions": "<<gold|{{completions}}>> Challenge 10 completions (+{{completions}} Tokens)",
+        "levelBonus": "{{level}}级代币：{{earned}} ({{base}} +{{percent}}%)",
+        "completions": "挑战10完成了<<gold|{{completions}}>>次(增加{{completions}}代币)",
         "first": "<<gray|✗ 首次完成奖励：增加{{amount}}代币>>",
         "firstEarned": "<<lime|✓>> 首次完成奖励：<<lime|增加{{amount}}代币>>"
       },
       "summary": "{{level}}级",
       "legacySummary": "{{tier}}阶，{{level}}级",
       "levelInput": "下次飞升的腐化等级",
-      "levelCap": "Current Level Cap: <<gold|{{level}}>>",
-      "highestCleared": "Highest Level Cleared: <<gold|{{level}}>>",
+      "levelCap": "当前等级上限：<<gold|{{level}}>>级",
+      "highestCleared": "最高已通过等级：<<gold|{{level}}>>级",
       "requiresChallenge11": "完成挑战11以后就可以更改腐化等级。",
       "cubeBank": "方盒库",
-      "cubeMultipliersHeading": "Cube multipliers from Corruption (<<silver|this Ascension →>> <<gold|next>>):",
-      "cubeMultipliersHeadingSame": "Cube multipliers from Corruption:",
-      "effectsHeading": "Corruption effects (<<silver|this Ascension →>> <<gold|next>>):",
+      "cubeMultipliersHeading": "腐化的方盒倍率(<<silver|this Ascension →>> <<gold|next>>)：",
+      "cubeMultipliersHeadingSame": "腐化的方盒倍率：",
+      "effectsHeading": "腐化影响(<<silver|this Ascension →>> <<gold|next>>)：",
       "effectsHeadingSame": "腐化效果：",
       "cubeValue": "×{{value}}",
-      "unlocksAt": "<<gray|Unlocks at level {{level}}.>>",
+      "unlocksAt": "<<gray|{{level}}级时解锁。>>",
       "arrow": "→",
       "cubes": {
         "cubes": "惊奇方盒",
@@ -5401,12 +5401,12 @@
       }
     },
     "ascensionDetails": {
-      "heading": "This Ascension",
-      "c10": "Challenge 10 Completions",
-      "tokensGained": "Tokens Gained",
-      "sinceSuccessful": "Since Last Successful Ascension",
-      "sinceAttempted": "Since Last Attempted Ascension",
-      "realTime": "Show Real Time",
+      "heading": "本次飞升",
+      "c10": "挑战10完成次数",
+      "tokensGained": "代币获取数量",
+      "sinceSuccessful": "自上次成功飞升以来",
+      "sinceAttempted": "自上次尝试飞升以来",
+      "realTime": "显示现实时间",
       "tokensValue": "{{earned}}",
       "tokensValueBonus": "{{earned}} ({{base}} +{{percent}}%)"
     },
@@ -5421,28 +5421,28 @@
       "done": "腐化进度已重置。"
     },
     "intro": "不入虎穴，焉得虎子。",
-    "traitInfo": "Choose how hard you want your next Ascension to be. <<var(--red-text-color)|Don't bite off more than you can chew...>>",
+    "traitInfo": "选择下次飞升的难度。<<var(--red-text-color)|切记，贪多嚼不烂……>>",
     "autoAscend": {
       "on": "自动飞升[开]",
       "off": "自动飞升[关]",
-      "requiresC10": "<<gold|⚠>> Auto Ascension Rules will not run until you complete Challenge 10.",
-      "requiresCubeUpgrade10": "Buy Cube Upgrade 1x10 in the WOW! Cubes tab to unlock Auto Ascension Rules.",
+      "requiresC10": "<<gold|⚠>> 完成过挑战10以后自动飞升规则才能运行。",
+      "requiresCubeUpgrade10": "在惊奇方盒选项卡下购买方盒升级1x10以后，即可解锁自动飞升规则。",
       "loadouts": {
         "heading": "腐化预设",
-        "slot": "Slot <<gold|{{slot}}>> (<<gold|s{{slot}}>>)"
+        "slot": "槽位<<gold|{{slot}}>>(<<gold|s{{slot}}>>)"
       },
       "rules": {
         "ui": {
-          "heading": "Auto Ascension Rules ({{count}} / {{max}})",
-          "lastFired": "Last Rule Fired:",
-          "lastFiredNone": "None",
+          "heading": "自动飞升规则({{count}} / {{max}})",
+          "lastFired": "最后触发的规则：",
+          "lastFiredNone": "无",
           "addRule": "新增规则！",
           "newTitle": "新增自动飞升规则",
           "editTitle": "编辑规则{{number}}",
-          "nameLabel": "Name (optional, up to 20 characters)",
+          "nameLabel": "名称(可选，最多20个字符)",
           "namePlaceholder": "规则{{number}}",
-          "conditionHeading": "2. When should this rule run?",
-          "protocolHeading": "1. What should this rule do?",
+          "conditionHeading": "2、运行规则的条件",
+          "protocolHeading": "1、规则内容",
           "exceptionHeading": "3. 例外情况(可选)",
           "previewHeading": "预览",
           "ruleTextLabel": "规则文本(在此处粘贴规则以载入)",
@@ -5454,9 +5454,9 @@
             "exportFileButton": "导出到文件",
             "pasteButton": "粘贴规则",
             "importFileButton": "从文件导入",
-            "resetButton": "Reset to Defaults",
-            "resetConfirm": "Replace all of your rules with the default rules? Your current rules will be lost unless you export them first.",
-            "resetDone": "Your rules have been reset to the defaults.",
+            "resetButton": "重置为默认值",
+            "resetConfirm": "要将所有规则替换为默认规则吗？除非先导出，否则当前规则将会丢失。",
+            "resetDone": "您的规则已经重置为默认值。",
             "confirm": "导入会将您的前{{count}}条规则替换为将要导入的规则。您确定要继续吗？",
             "imported": "已将{{count}}条规则导入至第1条规则到第{{count}}条规则。",
             "importedAbridged": "已将{{count}}条规则导入至第1条规则到第{{count}}条规则。最后{{dropped}}条规则超出{{slots}}个规则槽位限制，已被排除。",
@@ -5468,22 +5468,22 @@
             "exportFileFailed": "无法将规则导出到文件。",
             "pasteFailed": "无法读取剪贴板。请尝试从文件导入。"
           },
-          "previewIncomplete": "Choose what this rule does and add at least one comparison to finish this rule.",
+          "previewIncomplete": "选择该规则的执行条件，并添加至少一个比较条件。",
           "addComparison": "+ 比较条件",
           "addGroup": "+ 分组",
-          "addException": "+ Exception (optional)",
-          "addExtra": "+ Also change after Ascending",
+          "addException": "+ 例外情况(可选)",
+          "addExtra": "+ 飞升后也改变",
           "extras": {
-            "loadout": "Corruption Loadout"
+            "loadout": "腐化预设"
           },
-          "startHeading": "How do you want to start?",
+          "startHeading": "您想如何开始？",
           "start": {
-            "template": "Use a Template",
-            "custom": "Build Your Own"
+            "template": "使用模板",
+            "custom": "自行打造"
           },
-          "templateHeading": "Pick a template",
+          "templateHeading": "选择模板",
           "templates": {
-            "ascendAtC10": "Ascend at C10",
+            "ascendAtC10": "完成挑战10后飞升",
             "outsideChallenges": "Outside Challenges",
             "climbWhenFast": "Climb When Fast",
             "declimbWhenStuck": "Declimb When Stuck",
