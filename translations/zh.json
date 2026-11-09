@@ -466,7 +466,7 @@
       },
       "redAmbrosiaAccelerator": {
         "name": "红蓝超融合",
-        "description": "When you fill the Red Bar, you gain a bit of Ambrosia Bar Points! +num:((0.02)) real-life seconds of Ambrosia Bar Points per level, per 100 Red Ambrosia Luck, with the first level giving +1 second! Each Red Bar fill grants at most num:((80000000)) Ambrosia Bar Points.",
+        "description": "当您获得红神肴时，普通神肴的进度条也会有进展！每有100红运，每级该升级就使神肴进度条点数增加现实时间num:((0.02))秒的产量，且第1级该升级的加成为增加现实时间1秒的产量！每次获得红神肴至多增加num:((80000000))神肴进度条点数。",
         "effect": "生成红神肴时，每有100红运，神肴进度条点数就增加现实时间<<white|{{amount}}>>秒的产量。(生成时<<white|增加{{current}}秒>>)"
       },
       "regularLuck2": {
@@ -3159,7 +3159,7 @@
       "7": "[1x7]自动购买每个粒子建筑。",
       "8": "[1x8]自动购买粒子升级。",
       "9": "[1x9]商店中出售的自动研究现在会自动购买最便宜的升级了。就像扫地机器人一样！<br>像扫地机器人一样，之后解锁更便宜的研究时也会购买它们！",
-      "10": "[1x10] Unlock Auto Ascension Rules in the Ascensions tab. Kinda expensive but cool. <br> <<gold|⚠>> Rules that change your Corruption level need Challenge 11!",
+      "10": "[1x10]解锁飞升选项卡的自动飞升规则。很贵，也很酷。<br> <<gold|⚠>> 您需要通过挑战11才能使改变腐化等级的规则生效！",
       "11": "[2x1]好好！每级使飞升时惊奇方盒获取数量增加4%。",
       "12": "[2x2]将建筑能量变为原来的 (1 + 等级 * num:((0.09))) 次方。",
       "13": "[2x3]每开启20个方盒，就额外获得1个随机贡品。",
@@ -3857,15 +3857,15 @@
       },
       "firstClearTokens": {
         "name": "先发制敌",
-        "default": "Every Corruption level's First completion bonus is increased by 1 Token!"
+        "default": "使每级腐化等级的首次完成奖励增加1代币！"
       },
       "lastClearTokens": {
         "name": "终局之佑·腐化",
-        "default": "Every Corruption level's First completion bonus is increased by 1 Token!"
+        "default": "使每级腐化等级的首次完成奖励增加1代币！"
       },
       "bonusTokens": {
         "name": "更多代币！",
-        "default": "Gain +{{amount}}% more Corruption Tokens from all sources!"
+        "default": "使腐化代币获取数量增加{{amount}}%！"
       },
       "cubeToQuark": {
         "name": "方核转夸克",
@@ -3893,7 +3893,7 @@
       },
       "invigoratedSpirits": {
         "name": "振奋精神！",
-        "default": "Your ants feel a greater emotional weight from their lost brethren of Sacrifices past.",
+        "default": "蚂蚁们从过去同胞的献祭中感受到更强的情感力量。",
         "line2": "在num:((200000))不朽强度分之前，它有<<orchid|{{x}}%>>会转化为蚂蚁强度分！",
         "line3": "num:((200000))至num:((2000000))不朽强度分之间，它有<<orchid|{{x}}%>>会转化为蚂蚁强度分。"
       },
@@ -4515,22 +4515,22 @@
       },
       "singBonusTokens1": {
         "name": "沙发垫上的零钱",
-        "description": "Thanks to your perceptive eyes, you find more Corruption Tokens! Every Corruption level's First completion bonus is increased by 1 Token per level.",
-        "effect": "First completion bonus +{{n}} Tokens!"
+        "description": "您慧眼如炬，发现了更多腐化代币！每有一级该升级，就使每级腐化等级的首次完成奖励增加1代币。",
+        "effect": "使首次完成奖励增加{{n}}代币！"
       },
       "singBonusTokens2": {
         "name": "沙发垫缝隙里的零钱",
-        "description": "Thanks to your more perceptive eyes, you find even more Corruption Tokens! Gain +1% more Corruption Tokens from all sources per level.",
-        "effect": "Corruption Tokens from all sources +{{n}}!"
+        "description": "您又发现了一些腐化代币！每级使腐化代币获取数量增加1%。",
+        "effect": "使腐化代币获取数量增加{{n}}！"
       },
       "singBonusTokens3": {
         "name": "沙发下的零钱",
-        "description": "Why do you have Tokens just lying everywhere near your Sofa? Every Corruption level's First completion bonus is increased by 1 Token per level.",
-        "effect": "First completion bonus +{{n}} Tokens!"
+        "description": "为什么代币总是散落在沙发附近？每有一级该升级，就使每级腐化等级的首次完成奖励增加1代币。",
+        "effect": "使首次完成奖励增加{{n}}代币！"
       },
       "singBonusTokens4": {
         "name": "蚁神宝库的零钱",
-        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +2 Tokens at the start of a Singularity per level.",
+        "description": "这些代币大到不太能叫做代币了。它们太大、太厚、太重，太糙，更像是一大块金块。进入奇点后，每级可以获得2代币。",
         "effect": "蚁神在进入奇点时投入{{n}}个代币！"
       },
       "singInfiniteShopUpgrades": {
@@ -4791,7 +4791,7 @@
       "65": "转世的粒子获取数量变为5倍！",
       "66": "使前五个符文的符文系数增加2。它可以减少升级符文所需的祭品数量！",
       "67": "每个粒子生产者使原子产量增加3%！",
-      "68": "Gain a free Multiplier for every num:((1e1000))x Coins earned this Prestige.",
+      "68": "本次转生中，金币每有num:((1e1000))倍就获得一个免费加倍器。",
       "69": "根据您的粒子产量增加难得素的获取数量。[以减少的倍率对自动难得素生效！]",
       "70": "购买这个以后，时间似乎加快了 num:((0.333)) * log10(最大持有的难得素数量 + 1)%。",
       "71": "每献祭一个祭品，符文就额外获得(符文等级/25)的经验值。",
@@ -4959,7 +4959,7 @@
       "65": "效果：转世的粒子获取数量变为5倍。又是废话！",
       "66": "效果：看描述，写得很清楚！",
       "67": "效果：第一级粒子生产者的效率变为{{x}}倍。",
-      "68": "Effect: Your hoard of Coins provides you with {{x}} free Multipliers, for some reason.",
+      "68": "效果：您积攒了大量金币，由于某种原因获得了{{x}}个免费加倍器。",
       "69": "效果：由于宇宙磁体的作用，转世的难得素获取数量变为{{x}}倍，自动难得素获取数量变为{{y}}倍。",
       "70": "效果：使全局速度增加{{x}}%！",
       "71": "效果：在那写着呢。看上面！",
@@ -5045,7 +5045,7 @@
       "research": "研究",
       "antHill": "蚁丘",
       "wowCubes": "惊奇方盒",
-      "ascensions": "Ascensions",
+      "ascensions": "飞升",
       "singularity": "奇点",
       "settings": "设置",
       "shop": "夸克",
@@ -5157,33 +5157,33 @@
   },
   "campaigns": {
     "tokens": {
-      "total": "Corruption Tokens: {{earned}}",
-      "totalBonus": "Corruption Tokens: {{earned}} ({{base}} +{{percent}}%)",
-      "inheritance": "Inheritance Tokens: {{earned}}",
-      "inheritanceBonus": "Inheritance Tokens: {{earned}} ({{base}} +{{percent}}%)",
-      "cap": "Token Cap: <<gold|{{cap}}>>",
-      "capReached": "Token Cap: <<gold|{{cap}}>> <<lime|✓>>",
-      "teaser": "Unlocks at <<gold|{{required}}>> Tokens (<<gold|{{remaining}}>> more needed)",
+      "total": "腐化代币：{{earned}}",
+      "totalBonus": "腐化代币：{{earned}} ({{base}} +{{percent}}%)",
+      "inheritance": "传承代币：{{earned}}",
+      "inheritanceBonus": "传承代币：{{earned}} ({{base}} +{{percent}}%)",
+      "cap": "代币上限：<<gold|{{cap}}>>",
+      "capReached": "代币上限：<<gold|{{cap}}>> <<lime|✓>>",
+      "teaser": "达到<<gold|{{required}}>>代币后解锁(还需要<<gold|{{remaining}}>>代币)",
       "names": {
-        "tutorial": "A Beginners Guide to Corruption Tokens",
-        "antELO": "Stonkfish Tokens",
-        "quark": "Strange Tokens",
-        "tax": "Phony Coin Tokens",
-        "c15": "Nostalgic Tokens",
-        "rune6": "Tokens in the Shape of Steps",
-        "goldenQuark": "Strange Golden Tokens",
-        "ambrosiaLuck": "Particularly Lucky Tokens",
-        "blueberrySpeed": "Pomologist's Tokens"
+        "tutorial": "腐败代币入门指南",
+        "antELO": "涨停鳕鱼代币",
+        "quark": "奇异代币",
+        "tax": "假冒代币",
+        "c15": "复古代币",
+        "rune6": "阶梯代币",
+        "goldenQuark": "奇异金代币",
+        "ambrosiaLuck": "特别幸运代币",
+        "blueberrySpeed": "果树学家代币"
       },
       "flavors": {
-        "tutorial": "Every Challenge 10 completion and every Corruption Level beaten grants Corruption Tokens! The more you have, the stronger you become. It's some <i> mystical </i> magic, don't question it.",
-        "antELO": "Now you can checkmate Derpsmith in 143 moves!",
-        "quark": "Both face Up AND face Down.",
-        "tax": "If you just pay the Taxman these Tokens, he'll never know.",
-        "c15": "Channels the endgamers from Synergism past.",
-        "rune6": "Makes all the other Steps move up by one, to slot itself in.",
-        "goldenQuark": "Exceedingly Charming, from the Bottom to the Top.",
-        "ambrosiaLuck": "Rub a coin, get lucky. Rub many, many Tokens? The luck is limitless, my friend.",
+        "tutorial": "每个腐化等级中，每次完成挑战10都会获得腐化代币，首次完成挑战10还可以额外获得腐化代币！代币越多，您就越强。这是某种<i>神秘</i>魔法的效果，别多问了。",
+        "antELO": "现在，您可以在143步内将死Derpsmith了！",
+        "quark": "正反两面，同时朝上，也同时朝下。",
+        "tax": "把这些代币给税务官吧，他不会知道的。",
+        "c15": "让人联想到协同放置昔日的终局玩家。",
+        "rune6": "让其他所有台阶都往上挪一格，自己正好塞进去。",
+        "goldenQuark": "极其粲然，从底到顶。",
+        "ambrosiaLuck": "搓搓硬币，好运就来。那要是很多很多枚代币呢？朋友，这运气可就没有上限了。",
         "blueberrySpeed": "Probably a pomology Ph.D student's stipend."
       },
       "formulas": {
