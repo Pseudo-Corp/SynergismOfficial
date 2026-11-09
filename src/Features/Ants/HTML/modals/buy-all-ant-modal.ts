@@ -9,7 +9,7 @@ import { AntUpgrades, LAST_ANT_UPGRADE } from '../../AntUpgrades/structs/structs
 import { AntProducers, LAST_ANT_PRODUCER } from '../../structs/structs'
 
 export const allAntProducerHTML = () => {
-  const highestUnlockedTier: AntProducers = +getAchievementReward('antAutobuyers') - 1
+  const highestUnlockedTier: AntProducers = getAchievementReward('antAutobuyers') - 1
 
   // This is only visible if we can actually manually buy something.
   let purchasableHTMLIntro = ''

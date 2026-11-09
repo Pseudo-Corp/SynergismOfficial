@@ -1,12 +1,13 @@
 import i18next from 'i18next'
 import {
   awardUngroupedAchievement,
+  UngroupedAchievement,
   updateAllGroupedAchievementProgress,
   updateAllProgressiveAchievementProgress,
   updateAllUngroupedAchievementProgress
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { type AutoChallengeStates, getChallengeConditions, resetChallengeSweep } from './Challenges'
+import { type AutoChallengeStates, getChallengeConditions, NUM_ELIGIBLE_CHALLENGES, resetChallengeSweep } from './Challenges'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { initializeMessages } from './Messages'
 import { initializeOcteractUpgradeMap } from './Octeracts'
@@ -106,7 +107,16 @@ export const toggleSettings = (toggle: HTMLElement) => {
   updateBuildingAutomationButtons()
 }
 
-export const toggleChallenges = (i: number, auto = false) => {
+export const toggleChallenges = (
+  i: number,
+  auto = false,
+  leftAscensionChallenge = player.currentChallenge.ascension
+) => {
+  if (i <= NUM_ELIGIBLE_CHALLENGES && !auto && player.autoChallengeRunning) {
+    toggleAutoChallengeRun()
+    resetChallengeSweep()
+  }
+
   if (i >= 0 && i <= 5) {
     reset('transcensionChallenge', false, 'enterChallenge')
     applyChallengeInitialModifiers('transcensionChallenge', i)
@@ -131,10 +141,6 @@ export const toggleChallenges = (i: number, auto = false) => {
       || (player.currentChallenge.transcension === 0 && player.currentChallenge.reincarnation === 0
         && player.currentChallenge.ascension === 0))
   ) {
-    if (player.currentChallenge.ascension === 15) {
-      void resetCheck('ascensionChallenge', false, true)
-    }
-
     /* player.toggles[31] is the toggle for whether you want Ascensions to ask Confirmation
        We have to do the confirmation in this place because some players may want to avoid accidentally entering an Ascension Challenge
        even if they have a Challenge 10 completion, to avoid accidentally losing progress.
@@ -142,28 +148,27 @@ export const toggleChallenges = (i: number, auto = false) => {
     if (!auto && player.toggles[31]) {
       Confirm(i18next.t('main.ascendPrompt')).then((r) => {
         if (r) {
-          return toggleChallenges(i, true)
+          return toggleChallenges(i, true, leftAscensionChallenge)
         }
       })
       return
     } else {
-      reset('ascensionChallenge', false, 'enterChallenge')
+      if (player.currentChallenge.ascension === 15) {
+        void resetCheck('ascensionChallenge', false, true)
+      }
+      reset('ascensionChallenge', false, 'enterChallenge', leftAscensionChallenge)
       applyChallengeInitialModifiers('ascensionChallenge', i)
       player.currentChallenge.ascension = i
     }
   }
   updateChallengeDisplay()
-  getChallengeConditions(i)
-
-  if (i <= 10 && !auto && player.autoChallengeRunning) {
-    toggleAutoChallengeRun()
-  }
+  getChallengeConditions()
 
   if (
     player.currentChallenge.transcension !== 0 && player.currentChallenge.reincarnation !== 0
     && player.currentChallenge.ascension !== 0
   ) {
-    awardUngroupedAchievement('metaChallenged')
+    awardUngroupedAchievement(UngroupedAchievement.MetaChallenged)
   }
 }
 
@@ -487,7 +492,7 @@ export const toggleAchievementScreen = (indexStr: string) => {
     }
   }
 
-  awardUngroupedAchievement('participationTrophy')
+  awardUngroupedAchievement(UngroupedAchievement.ParticipationTrophy)
 
   updateAllGroupedAchievementProgress()
   updateAllUngroupedAchievementProgress()
@@ -592,6 +597,8 @@ interface ChadContributor {
   artists: string[]
 }
 
+let creditsLoading = false
+
 export const setActiveSettingScreen = async (subtab: string) => {
   const subtabEl = DOMCacheGetOrSet(subtab)
   if (subtabEl.classList.contains('subtabActive')) {
@@ -606,9 +613,12 @@ export const setActiveSettingScreen = async (subtab: string) => {
     const credits = DOMCacheGetOrSet('creditList')
     const artists = DOMCacheGetOrSet('artistList')
 
-    if (credits.childElementCount > 0 || artists.childElementCount > 0) {
+    if (creditsLoading || credits.childElementCount > 0 || artists.childElementCount > 0) {
       return
     }
+
+    creditsLoading = true
+    credits.replaceChildren()
 
     try {
       const r = await fetch('https://synergism.cc/contributors')
@@ -644,6 +654,8 @@ export const setActiveSettingScreen = async (subtab: string) => {
     } catch (e) {
       const err = e as Error
       credits.appendChild(document.createTextNode(err.toString()))
+    } finally {
+      creditsLoading = false
     }
   } else if (subtab === 'messagesSubTab') {
     initializeMessages()
@@ -780,24 +792,16 @@ export const updateAutoChallenge = (i: number) => {
 }
 
 export const toggleAutoChallengesIgnore = (i: number) => {
-  if (i <= 15) {
+  if (i <= NUM_ELIGIBLE_CHALLENGES) {
     player.autoChallengeToggles[i] = !player.autoChallengeToggles[i]
 
     const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore')
     el.style.border = player.autoChallengeToggles[i] ? '2px solid var(--green-color)' : '2px solid var(--red-color)'
 
-    if (i >= 11 && i <= 15) {
-      if (player.autoChallengeToggles[i]) {
-        el.textContent = i18next.t('challenges.autoAscRunChalOn', { x: i })
-      } else {
-        el.textContent = i18next.t('challenges.autoAscRunChalOff', { x: i })
-      }
+    if (player.autoChallengeToggles[i]) {
+      el.textContent = i18next.t('challenges.autoRunChalOn', { x: i })
     } else {
-      if (player.autoChallengeToggles[i]) {
-        el.textContent = i18next.t('challenges.autoRunChalOn', { x: i })
-      } else {
-        el.textContent = i18next.t('challenges.autoRunChalOff', { x: i })
-      }
+      el.textContent = i18next.t('challenges.autoRunChalOff', { x: i })
     }
   }
   // We can be stuck in the 'finished!' state if we don't reset it here
@@ -1008,15 +1012,12 @@ export const confirmReply = (confirm = true) => {
   if (DOMCacheGetOrSet('alertWrapper').style.display === 'block') {
     ;(DOMCacheGetOrSet('ok_alert') as HTMLButtonElement).click()
   }
-  if (
-    DOMCacheGetOrSet('confirmWrapper').style.display === 'block'
-    || DOMCacheGetOrSet('promptWrapper').style.display === 'block'
-  ) {
-    if (confirm) {
-      ;(DOMCacheGetOrSet('ok_confirm') as HTMLButtonElement).click()
-    } else {
-      ;(DOMCacheGetOrSet('cancel_confirm') as HTMLButtonElement).click()
-    }
+  if (DOMCacheGetOrSet('confirmWrapper').style.display === 'block') {
+    ;(DOMCacheGetOrSet(confirm ? 'ok_confirm' : 'cancel_confirm') as HTMLButtonElement).click()
+    return
+  }
+  if (DOMCacheGetOrSet('promptWrapper').style.display === 'block') {
+    ;(DOMCacheGetOrSet(confirm ? 'ok_prompt' : 'cancel_prompt') as HTMLButtonElement).click()
   }
 }
 

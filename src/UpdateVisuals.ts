@@ -3,7 +3,15 @@ import i18next from 'i18next'
 import { achievementLevel, achievementPoints, getAchievementReward, toNextAchievementLevelEXP } from './Achievements'
 import { updateAutoAscendStatus } from './AutoAscensionUI'
 import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
-import { getAccelMultScalingThreshold, getBuildingCost, getBuildingScalingThreshold } from './Buy'
+import {
+  getAccelMultScalingThreshold,
+  getBuildingCost,
+  getBuildingOwned,
+  getBuildingScalingThreshold,
+  getBuildingsOwned,
+  getTesseractBuildingCost,
+  getTesseractBuildingsOwned
+} from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   buildingConstructionSoftcap,
@@ -20,7 +28,6 @@ import {
   calculateBlueberryInventory,
   calculateBuildingConstruction,
   calculateCookieUpgrade29Luck,
-  calculateCubeBank,
   calculateCubeQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
@@ -53,14 +60,15 @@ import {
   calculateTotalSalvage,
   freeAccelMultHardcap
 } from './Calculate'
+import { campaignTokenRewardHTMLUpdate } from './Campaign'
 import { challengeDisplay, timeSinceLastStateChange } from './Challenges'
 import { version } from './Config'
 import {
-  activeCorruptionLevel,
+  corruptionAscensionDetailsUpdate,
   type CorruptionCubeType,
-  corruptionEffect,
   corruptionEffectsUpdate,
-  corruptionLevelScoreUpdate
+  corruptionLevelScoreUpdate,
+  corruptionTokenUpdate
 } from './Corruptions'
 import {
   calculateAcceleratorCubeBlessing,
@@ -151,10 +159,20 @@ import {
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { loadStatisticsUpdate, updateDisplayC15Rewards } from './Statistics'
 import {
+  calculateAccelMultStats,
   calculateBuildingPower,
   calculateBuildingPowerCoinMultiplier,
   calculateCrystalCoinMultiplier,
   calculateCrystalExponent,
+  calculateDiamondProduction,
+  calculateGlobalConstantMultiplier,
+  calculateMultiplierBoosts,
+  calculateMythosProduction,
+  calculateParticleProduction,
+  calculatePrestigePointGain,
+  calculateReincarnationPointGain,
+  calculateTesseractBuildingProduction,
+  calculateTranscendPointGain,
   format,
   formatAsPercentIncrease,
   formatDecimalAsPercentIncrease,
@@ -173,6 +191,7 @@ import {
   updateMobileTalismanInventoryPurchaseInfo,
   updateTalismanInventory
 } from './Talismans'
+import { calculateTax } from './Tax'
 import {
   calculateAcceleratorTesseractBlessing,
   calculateAntELOTesseractBlessing,
@@ -201,13 +220,6 @@ const highScoringStatueCubes: CorruptionCubeType[] = [
   'octeracts'
 ]
 
-const coinUpper = [
-  'produceFirst',
-  'produceSecond',
-  'produceThird',
-  'produceFourth',
-  'produceFifth'
-] as const
 const coinNames = [
   'workers',
   'investments',
@@ -390,13 +402,6 @@ export const animatePurpleHoneyGain = (amount: number) => {
   setTimeout(removeGain, 1000)
 }
 
-const diamondUpper = [
-  'produceFirstDiamonds',
-  'produceSecondDiamonds',
-  'produceThirdDiamonds',
-  'produceFourthDiamonds',
-  'produceFifthDiamonds'
-] as const
 const diamondNames = [
   'refineries',
   'coalPlants',
@@ -406,13 +411,6 @@ const diamondNames = [
 ]
 const diamondPerSecNames = ['crystal', 'ref', 'plants', 'rigs', 'pickaxes']
 
-const mythosUpper = [
-  'produceFirstMythos',
-  'produceSecondMythos',
-  'produceThirdMythos',
-  'produceFourthMythos',
-  'produceFifthMythos'
-] as const
 const mythosNames = [
   'augments',
   'enchantments',
@@ -428,13 +426,6 @@ const mythosPerSecNames = [
   'oracles'
 ]
 
-const particleUpper = [
-  'FirstParticles',
-  'SecondParticles',
-  'ThirdParticles',
-  'FourthParticles',
-  'FifthParticles'
-] as const
 const particleNames = [
   'protons',
   'elements',
@@ -490,17 +481,21 @@ export const visualUpdateBuildings = () => {
 
   // When you're in Building --> Coin, update these.
   if (G.buildingSubTab === 'coin') {
+    const accelMultStats = calculateAccelMultStats()
+    const tax = calculateTax(accelMultStats)
     DOMCacheGetOrSet('coinInformation').innerHTML = i18next.t('buildings.coinInformation', {
       coins: format(player.coins, 0, false, false),
       coinsPerSecond: format(
         Decimal.min(
-          G.producePerSecond.dividedBy(G.taxdivisor),
-          Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10))
+          tax.producePerSecond.dividedBy(tax.taxdivisor),
+          Decimal.pow(10, tax.maxexponent - Decimal.log(tax.taxdivisorcheck, 10))
         ),
         2,
         false,
         false
       ),
+      thisAscension: format(player.coinsThisAscension, 0, false, false),
+      thisSingularity: format(player.coinsThisSingularity, 0, false, false),
       totalGenerated: format(player.coinsTotal, 0, false, false)
     })
     const coinConstruction = updateConstructionTexts('coin')
@@ -523,16 +518,17 @@ export const visualUpdateBuildings = () => {
 
     DOMCacheGetOrSet('coinVanity').innerHTML = `<i>${i18next.t(`buildings.coinFlavorTexts.${vanityIndex}`)}</i>`
 
+    const coinsOwned = getBuildingsOwned('coin')
     for (let i = 1; i <= 5; i++) {
-      const place = G[coinUpper[i - 1]]
+      const place = tax.production[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`buildtext${2 * i - 1}`)
-      nameElement.style.color = player[`${ith}OwnedCoin` as const] > coinConstruction ? 'var(--red-color)' : ''
+      nameElement.style.color = coinsOwned[i - 1] > coinConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${coinNames[i - 1]}`,
         {
-          amount: format(player[`${ith}OwnedCoin` as const], 0, true, false),
+          amount: format(coinsOwned[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedCoin` as const], 0, false, false)
         }
       )
@@ -547,64 +543,75 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`buildtext${2 * i}`).textContent = i18next.t(
         'buildings.coinsPerSecond',
         {
-          coins: format(place.dividedBy(G.taxdivisor).times(40), 2, false, false)
+          coins: format(place.dividedBy(tax.taxdivisor).times(40), 2, false, false)
         }
       )
     }
 
+    const acceleratorsOwned = getBuildingOwned('accelerator')
     const acceleratorElement = DOMCacheGetOrSet('buildtext11')
-    acceleratorElement.style.color = player.acceleratorBought > getAccelMultScalingThreshold('accelerator')
+    acceleratorElement.style.color = acceleratorsOwned > getAccelMultScalingThreshold('accelerator')
       ? 'var(--red-color)'
       : ''
-    const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
     acceleratorElement.innerHTML = i18next.t(
       'buildings.names.accelerators',
       {
-        amount: format(player.acceleratorBought, 0, true, false),
-        gain: format(G.freeAccelerator, 0, true, false)
+        amount: format(acceleratorsOwned, 0, true, false),
+        gain: format(accelMultStats.freeAccelerator, 0, true, false)
       }
-    ) + viscosityEffectiveText(viscosity, G.totalAccelerator - G.effectiveFreeAccelerator, G.effectiveFreeAccelerator)
-      + freeAccelMultHardcapText(G.effectiveFreeAccelerator)
+    )
+      + viscosityEffectiveText(
+        accelMultStats.viscosity,
+        accelMultStats.totalAccelerator - accelMultStats.effectiveFreeAccelerator,
+        accelMultStats.effectiveFreeAccelerator
+      )
+      + freeAccelMultHardcapText(accelMultStats.effectiveFreeAccelerator)
 
     DOMCacheGetOrSet('buildtext12').innerHTML = i18next.t(
       'buildings.acceleratorPower',
       {
-        power: format((G.acceleratorPower - 1) * 100, 2, false, false),
-        mult: format(G.acceleratorEffect, 2, false, false)
+        power: format((accelMultStats.acceleratorPower - 1) * 100, 2, false, false),
+        mult: format(accelMultStats.acceleratorEffect, 2, false, false)
       }
     )
 
+    const multipliersOwned = getBuildingOwned('multiplier')
     const multiplierElement = DOMCacheGetOrSet('buildtext13')
-    multiplierElement.style.color = player.multiplierBought > getAccelMultScalingThreshold('multiplier')
+    multiplierElement.style.color = multipliersOwned > getAccelMultScalingThreshold('multiplier')
       ? 'var(--red-color)'
       : ''
     multiplierElement.innerHTML = i18next.t(
       'buildings.names.multipliers',
       {
-        amount: format(player.multiplierBought, 0, true, false),
-        gain: format(G.freeMultiplier, 0, true, false)
+        amount: format(multipliersOwned, 0, true, false),
+        gain: format(accelMultStats.freeMultiplier, 0, true, false)
       }
-    ) + viscosityEffectiveText(viscosity, G.totalMultiplier - G.effectiveFreeMultiplier, G.effectiveFreeMultiplier)
-      + freeAccelMultHardcapText(G.effectiveFreeMultiplier)
+    )
+      + viscosityEffectiveText(
+        accelMultStats.viscosity,
+        accelMultStats.totalMultiplier - accelMultStats.effectiveFreeMultiplier,
+        accelMultStats.effectiveFreeMultiplier
+      )
+      + freeAccelMultHardcapText(accelMultStats.effectiveFreeMultiplier)
 
     DOMCacheGetOrSet('buildtext14').innerHTML = i18next.t(
       'buildings.multiplierPower',
       {
-        power: format(G.multiplierPower, 2, false, false),
-        mult: format(G.multiplierEffect, 2, false, false)
+        power: format(accelMultStats.multiplierPower, 2, false, false),
+        mult: format(accelMultStats.multiplierEffect, 2, false, false)
       }
     )
 
+    const acceleratorBoostsOwned = getBuildingOwned('acceleratorBoost')
     const acceleratorBoostElement = DOMCacheGetOrSet('buildtext15')
-    acceleratorBoostElement.style.color =
-      player.acceleratorBoostBought > getAccelMultScalingThreshold('acceleratorBoost')
-        ? 'var(--red-color)'
-        : ''
+    acceleratorBoostElement.style.color = acceleratorBoostsOwned > getAccelMultScalingThreshold('acceleratorBoost')
+      ? 'var(--red-color)'
+      : ''
     acceleratorBoostElement.textContent = i18next.t(
       'buildings.names.acceleratorBoost',
       {
-        amount: format(player.acceleratorBoostBought, 0, true, false),
-        gain: format(G.freeAcceleratorBoost, 0, false, false)
+        amount: format(acceleratorBoostsOwned, 0, true, false),
+        gain: format(accelMultStats.freeAcceleratorBoost, 0, false, false)
       }
     )
 
@@ -645,7 +652,7 @@ export const visualUpdateBuildings = () => {
     if (player.reincarnationCount > 0) {
       warning = i18next.t('buildings.taxWarning', {
         gain: format(
-          Decimal.pow(10, G.maxexponent - Decimal.log(G.taxdivisorcheck, 10)),
+          Decimal.pow(10, tax.maxexponent - Decimal.log(tax.taxdivisorcheck, 10)),
           2,
           false,
           false
@@ -655,7 +662,7 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('taxinfo').innerHTML = i18next.t(
       'buildings.excessiveWealth',
       {
-        div: format(G.taxdivisor, 2, false, false),
+        div: format(tax.taxdivisor, 2, false, false),
         warning
       }
     )
@@ -672,16 +679,18 @@ export const visualUpdateBuildings = () => {
     )
     const diamondConstruction = updateConstructionTexts('diamond')
 
+    const diamondsOwned = getBuildingsOwned('diamond')
+    const diamondProduction = calculateDiamondProduction()
     for (let i = 1; i <= 5; i++) {
-      const place = G[diamondUpper[i - 1]]
+      const place = diamondProduction[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`prestigetext${2 * i - 1}`)
-      nameElement.style.color = player[`${ith}OwnedDiamonds` as const] > diamondConstruction ? 'var(--red-color)' : ''
+      nameElement.style.color = diamondsOwned[i - 1] > diamondConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${diamondNames[i - 1]}`,
         {
-          amount: format(player[`${ith}OwnedDiamonds` as const], 0, true, false),
+          amount: format(diamondsOwned[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedDiamonds` as const], 2, false, false)
         }
       )
@@ -704,7 +713,7 @@ export const visualUpdateBuildings = () => {
     if (player.resetToggleModes.prestige === AutoResetModes.amount) {
       const p = Decimal.pow(
         10,
-        Decimal.log(G.prestigePointGain.add(1), 10)
+        Decimal.log(calculatePrestigePointGain().add(1), 10)
           - Decimal.log(player.prestigePoints.sub(1), 10)
       )
       DOMCacheGetOrSet('autoprestige').textContent = i18next.t(
@@ -732,21 +741,23 @@ export const visualUpdateBuildings = () => {
       'buildings.mythosYouHave',
       {
         shards: format(player.transcendShards, 2, false, false),
-        mult: format(G.totalMultiplierBoost, 0, true, false)
+        mult: format(calculateMultiplierBoosts(), 0, true, false)
       }
     )
     const mythosConstruction = updateConstructionTexts('mythos')
 
+    const mythosOwned = getBuildingsOwned('mythos')
+    const mythosProduction = calculateMythosProduction()
     for (let i = 1; i <= 5; i++) {
-      const place = G[mythosUpper[i - 1]]
+      const place = mythosProduction[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`transcendtext${2 * i - 1}`)
-      nameElement.style.color = player[`${ith}OwnedMythos` as const] > mythosConstruction ? 'var(--red-color)' : ''
+      nameElement.style.color = mythosOwned[i - 1] > mythosConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${mythosNames[i - 1]}`,
         {
-          amount: format(player[`${ith}OwnedMythos` as const], 0, true, false),
+          amount: format(mythosOwned[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedMythos` as const], 2, false, false)
         }
       )
@@ -776,7 +787,7 @@ export const visualUpdateBuildings = () => {
           mult: format(
             Decimal.pow(
               10,
-              Decimal.log(G.transcendPointGain.add(1), 10)
+              Decimal.log(calculateTranscendPointGain().add(1), 10)
                 - Decimal.log(player.transcendPoints.add(1), 10)
             ),
             2,
@@ -799,16 +810,18 @@ export const visualUpdateBuildings = () => {
   } else if (G.buildingSubTab === 'particle') {
     const particleConstruction = updateConstructionTexts('particle')
 
+    const particlesOwned = getBuildingsOwned('particle')
+    const particleProduction = calculateParticleProduction()
     for (let i = 1; i <= 5; i++) {
       const ith = G.ordinals[(i - 1) as ZeroToFour]
-      const place = G[`produce${particleUpper[i - 1]}` as const]
+      const place = particleProduction[i - 1]
 
       const nameElement = DOMCacheGetOrSet(`reincarnationtext${i}`)
-      nameElement.style.color = player[`${ith}OwnedParticles` as const] > particleConstruction ? 'var(--red-color)' : ''
+      nameElement.style.color = particlesOwned[i - 1] > particleConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${particleNames[i - 1]}`,
         {
-          amount: format(player[`${ith}OwnedParticles` as const], 0, true, false),
+          amount: format(particlesOwned[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedParticles` as const], 2, false, false)
         }
       )
@@ -862,7 +875,7 @@ export const visualUpdateBuildings = () => {
           mult: format(
             Decimal.pow(
               10,
-              Decimal.log(G.reincarnationPointGain.add(1), 10)
+              Decimal.log(calculateReincarnationPointGain().add(1), 10)
                 - Decimal.log(player.reincarnationPoints.add(1), 10)
             ),
             2,
@@ -882,13 +895,14 @@ export const visualUpdateBuildings = () => {
       )
     }
   } else if (G.buildingSubTab === 'tesseract') {
+    const constantMultiplier = calculateGlobalConstantMultiplier()
     for (let i = 1; i <= 5; i++) {
       const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const
 
       DOMCacheGetOrSet(`ascendText${i}`).textContent = i18next.t(
         `buildings.names.${tesseractNames[i - 1]}`,
         {
-          amount: format(player[ascendBuildingI].owned, 0, true, false),
+          amount: format(getTesseractBuildingsOwned(i as OneToFive), 0, true, false),
           gain: format(player[ascendBuildingI].generated, 2, false, false)
         }
       )
@@ -897,9 +911,7 @@ export const visualUpdateBuildings = () => {
         `buildings.per.${tesseractPerSecNames[i - 1]}`,
         {
           amount: format(
-            (G.ascendBuildingProduction as Record<string, Decimal>)[
-              G.ordinals[i - 1]
-            ],
+            calculateTesseractBuildingProduction(i as OneToFive, constantMultiplier),
             2,
             false,
             false
@@ -910,7 +922,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buyTesseracts${i}`).textContent = i18next.t(
         'buildings.costTesseracts',
         {
-          tesseracts: format(player[ascendBuildingI].cost, 0, false, false)
+          tesseracts: format(getTesseractBuildingCost(i as OneToFive), 0, false, false)
         }
       )
     }
@@ -1740,8 +1752,15 @@ const UpdateHeptGridValues = (hept: HepteractKeys) => {
 }
 
 export const visualUpdateCorruptions = () => {
-  if (G.currentTab !== Tabs.Corruption) {
+  if (G.currentTab !== Tabs.Ascensions) {
     return
+  }
+
+  corruptionAscensionDetailsUpdate()
+
+  if (getActiveSubTab() === 1) {
+    corruptionTokenUpdate(player.corruptions.next)
+    campaignTokenRewardHTMLUpdate()
   }
 
   if (getActiveSubTab() === 2) {
@@ -1751,10 +1770,6 @@ export const visualUpdateCorruptions = () => {
   if (getActiveSubTab() !== 0) {
     return
   }
-
-  DOMCacheGetOrSet('corruptionCubeBank').innerHTML = i18next.t('corruptions.cubeBank', {
-    value: format(calculateCubeBank(), 1, true)
-  })
 
   corruptionEffectsUpdate()
   corruptionLevelScoreUpdate()
@@ -1958,6 +1973,7 @@ export const visualUpdateOcteracts = () => {
   const cTOQB = (calculateTotalOcteractQuarkBonus() - 1) * 100
   const cTOOB = (calculateTotalOcteractOfferingBonus() - 1) * 100
   const cTOOOB = (calculateTotalOcteractObtainiumBonus() - 1) * 100
+  const cTOLB = getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck')
   DOMCacheGetOrSet('totalOcteractAmount').innerHTML = i18next.t(
     'octeract.totalGenerated',
     {
@@ -1968,6 +1984,7 @@ export const visualUpdateOcteracts = () => {
   DOMCacheGetOrSet('totalOcteractQuarkBonus').style.display = cTOQB >= 0.001 ? '' : 'none'
   DOMCacheGetOrSet('totalOcteractOfferingBonus').style.display = cTOOB >= 0.001 ? '' : 'none'
   DOMCacheGetOrSet('totalOcteractObtainiumBonus').style.display = cTOOOB >= 0.001 ? '' : 'none'
+  DOMCacheGetOrSet('totalOcteractLuckBonus').style.display = cTOLB > 0 ? '' : 'none'
   DOMCacheGetOrSet('totalOcteractCubeBonus').innerHTML = i18next.t(
     'octeract.generatedCubeBonus',
     {
@@ -1990,6 +2007,36 @@ export const visualUpdateOcteracts = () => {
     'octeract.generatedObtainiumBonus',
     {
       obtainiumBonus: format(cTOOOB, 3, true, false)
+    }
+  )
+  DOMCacheGetOrSet('totalOcteractLuckBonus').innerHTML = i18next.t(
+    'octeract.generatedLuckBonus',
+    {
+      luckBonus: format(cTOLB, 0, true)
+    }
+  )
+
+  const cCOQB = 100 * (getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1', 'octeractQuarks') - 1)
+  const cCOLB = getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1', 'octeractAmbrosiaLuck')
+  DOMCacheGetOrSet('currentOcteractsDisplay').style.display = cCOQB > 0 || cCOLB > 0 ? '' : 'none'
+  DOMCacheGetOrSet('currentOcteractQuarkBonus').style.display = cCOQB > 0 ? '' : 'none'
+  DOMCacheGetOrSet('currentOcteractLuckBonus').style.display = cCOLB > 0 ? '' : 'none'
+  DOMCacheGetOrSet('currentOcteractAmount').innerHTML = i18next.t(
+    'octeract.unspent',
+    {
+      octeracts: format(player.wowOcteracts, 2, true, false)
+    }
+  )
+  DOMCacheGetOrSet('currentOcteractQuarkBonus').innerHTML = i18next.t(
+    'octeract.generatedQuarkBonus',
+    {
+      quarkBonus: format(cCOQB, 2, true)
+    }
+  )
+  DOMCacheGetOrSet('currentOcteractLuckBonus').innerHTML = i18next.t(
+    'octeract.generatedLuckBonus',
+    {
+      luckBonus: format(cCOLB, 2, true)
     }
   )
 }

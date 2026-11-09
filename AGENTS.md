@@ -39,6 +39,14 @@ function myFunction () {
 }
 ```
 
+```ts
+const dumbAIPattern = 'autoSuckage'
+
+function doSomething () {
+  callFunction(dumbAIPattern, true, false)
+}
+```
+
 Example (correct):
 ```ts
 const arr = [1, 2, 3, 4, 5]
@@ -52,7 +60,28 @@ function myFunction () {
 
 Please do not write comments. You suck at writing.
 
+Do not criticize or disallow comments authored by humans. This is specifically referring to AI-generated comments.
+
 ## <select> menus
 
 Don't use <select> menus. These are incompatible for some users, such as
 those using a Steamdeck.
+
+## Stats for Nerds
+
+If you are adding a `statLine` to Stats for Nerds, and the main stat category is being used for real computation in any way, then you must add it to the unrolled calculation as well. If you are creating a new stat category that you intend on calculating out, you must create an unrolled calculation function.
+
+Optional Parameters: Suppose you have `statLine`
+categories A and B. Calculating B requires calculating all of A for a single line. This might be expensive, and is sometimes not even needed. In the unrolled calculation function for B, create an optional param whose default value is the unrolled calculation function for A. If A and B are calculated in the same method call somewhere, always pass the result of A into B.
+
+## UI
+
+- DO NOT Write Subtitles in a different color. Do not write Subtitles at all unless you think it is strictly necessary. Usually a Subtitle indicates that something is unclear (write better UI). Also, remember that You Suck At Writing.
+
+- If you make a change, DO NOT write in any UI what something *used* to do. We don't care what it *used* to do, and the players definitely don't.
+
+- In general, do NOT write or implement anything that signals iterations. The version that we want to implement is the version we want to present. If you are told to undo a change, or undo something made earlier, please do a thorough job in undoing it. Leftover artifacts are very bad.
+
+- Unless strictly necessary, use 2px solid borders, or flat square borders. Do not implement Squircles in any other way.
+
+- CONSISTENCY. If you think you're making a common pattern (or you are explicitly told a specific pattern) look for it in the repository: what you want to do may already be in-game somewhere. In this case you can re-use logic or functionality. This is better than reinventing the wheel, or worse, inconsistent UIs across Tabs or even Subtabs.

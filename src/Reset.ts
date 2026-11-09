@@ -1,14 +1,23 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import {
+  AchievementGroup,
   awardAchievementGroup,
   awardUngroupedAchievement,
   challengeAchievementCheck,
-  getAchievementReward
+  getAchievementReward,
+  UngroupedAchievement
 } from './Achievements'
 import { applyPendingAutoAscendProtocol, printRules, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
-import { buyTesseractBuilding, calculateTessBuildingsInBudget, grantCurveBuildings, syncCurveBuildings } from './Buy'
+import { lastBlueberryLoadout, setLastBlueberryLoadout } from './BlueberryUpgrades'
+import {
+  buyTesseractBuilding,
+  calculateTessBuildingsInBudget,
+  CoinBuilding,
+  getTesseractBuildingsOwned,
+  grantCurveBuildings
+} from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -19,11 +28,17 @@ import {
   calculateOfferings,
   calculatePowderConversion
 } from './Calculate'
-import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, updateTokens } from './Campaign'
-import { applyStartingChallengeCompletions, challengeRequirement, resetChallengeSweep } from './Challenges'
+import { campaignTokenRewardHTMLUpdate, earnCampaignTokens, markAscensionStartTokens, updateTokens } from './Campaign'
+import {
+  applyStartingChallengeCompletions,
+  calculateChallenge15Score,
+  challengeRequirement,
+  resetChallengeSweep
+} from './Challenges'
 import {
   ascensionCorruptionLevel,
   clearCorruptionLevel,
+  climbCorruptionLevel,
   corruptionStatsUpdate,
   normalizeCorruptionLevel
 } from './Corruptions'
@@ -57,13 +72,22 @@ import { resetRuneSpirits } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { getShopUpgradeEffects } from './Shop'
 import {
-  awardSingularityMilestoneFreeUpgrades,
   calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
-  getGQUpgradeEffect
+  getGQUpgradeEffect,
+  raiseHighestSingularity
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { blankSave, deepClone, format, player, saveSynergy } from './Synergism'
+import {
+  blankSave,
+  calculatePrestigePointGain,
+  calculateReincarnationPointGain,
+  calculateTranscendPointGain,
+  deepClone,
+  format,
+  player,
+  saveSynergy
+} from './Synergism'
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
 import { IconSets } from './Themes'
@@ -172,7 +196,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
 
   switch (input) {
     case 'prestige':
-      addCurrencyReward('Diamond.png', `+${format(G.prestigePointGain)}`)
+      addCurrencyReward('Diamond.png', `+${format(calculatePrestigePointGain())}`)
       resetDetails.infoText = i18next.t('reset.details.prestige', {
         amount: format(player.coinsThisPrestige),
         timeSpent: format(player.prestigecounter)
@@ -180,7 +204,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.infoColor = 'var(--turquoise-color)'
       break
     case 'transcension':
-      addCurrencyReward('Mythos.png', `+${format(G.transcendPointGain)}`)
+      addCurrencyReward('Mythos.png', `+${format(calculateTranscendPointGain())}`)
       resetDetails.infoText = i18next.t('reset.details.transcension', {
         amount: format(player.coinsThisTranscension),
         timeSpent: format(player.transcendcounter)
@@ -188,7 +212,7 @@ export const getResetDetails = (input: resetNames): ResetDetailsView => {
       resetDetails.infoColor = 'var(--orchid-text-color)'
       break
     case 'reincarnation':
-      addCurrencyReward('Particle.png', `+${format(G.reincarnationPointGain)}`)
+      addCurrencyReward('Particle.png', `+${format(calculateReincarnationPointGain())}`)
       addCurrencyReward('Obtainium.png', format(Decimal.floor(calculateObtainium())))
       resetDetails.infoText = i18next.t('reset.details.reincarnation', {
         amount: format(player.transcendShards),
@@ -296,7 +320,7 @@ export const updateAutoCubesOpens = (i: number) => {
   }
 }
 
-const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
+const resetAddHistoryEntry = (input: resetNames, from: string, ascensionChallenge: number) => {
   const offeringsGiven = calculateOfferings()
   const obtainiumGiven = calculateObtainium()
   const isChallenge = ['enterChallenge', 'leaveChallenge'].includes(from)
@@ -307,7 +331,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
       date: Date.now(),
       offerings: offeringsGiven,
       kind: 'prestige',
-      diamonds: G.prestigePointGain.toString()
+      diamonds: calculatePrestigePointGain().toString()
     }
 
     resetHistoryAdd('reset', historyEntry)
@@ -319,7 +343,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         date: Date.now(),
         offerings: offeringsGiven,
         kind: 'transcend',
-        mythos: G.transcendPointGain.toString()
+        mythos: calculateTranscendPointGain().toString()
       }
 
       resetHistoryAdd('reset', historyEntry)
@@ -332,7 +356,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
         date: Date.now(),
         offerings: offeringsGiven,
         kind: 'reincarnate',
-        particles: G.reincarnationPointGain.toString(),
+        particles: calculateReincarnationPointGain().toString(),
         obtainium: obtainiumGiven
       }
 
@@ -344,6 +368,7 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
       const corruptionMetaData = CalcCorruptionStuff()
       const historyEntry: ResetHistoryEntryAscend = {
         seconds: player.ascensionCounter,
+        realSeconds: player.ascensionCounterRealReal,
         date: Date.now(),
         c10Completions: player.challengecompletions[10],
         usedCorruptions: ascensionCorruptionLevel(),
@@ -356,8 +381,12 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
       }
 
       // If we are _leaving_ an ascension challenge, log that too.
-      if (from !== 'enterChallenge' && player.currentChallenge.ascension !== 0) {
-        historyEntry.currentChallenge = player.currentChallenge.ascension
+      if (ascensionChallenge === 15) {
+        historyEntry.currentChallenge = ascensionChallenge
+        historyEntry.challenge15Score = calculateChallenge15Score()
+      } else if (ascensionChallenge !== 0) {
+        historyEntry.currentChallenge = ascensionChallenge
+        historyEntry.challengeCompletions = player.challengecompletions[ascensionChallenge]
       }
 
       resetHistoryAdd('ascend', historyEntry)
@@ -367,25 +396,25 @@ const resetAddHistoryEntry = (input: resetNames, from = 'unknown') => {
 
 export const updatePrestigeCount = (count: number) => {
   let multiplier = 1
-  multiplier *= +getAchievementReward('prestigeCountMultiplier')
+  multiplier *= getAchievementReward('prestigeCountMultiplier')
   multiplier *= 1 + 0.05 * player.challengecompletions[5]
 
   const prestigeToAdd = Math.floor(count * multiplier)
   if (prestigeToAdd > 0) {
     player.prestigeCount += prestigeToAdd
-    awardAchievementGroup('prestigeCount')
+    awardAchievementGroup(AchievementGroup.PrestigeCount)
   }
 }
 
 export const updateTranscensionCount = (count: number) => {
   let multiplier = 1
-  multiplier *= +getAchievementReward('transcensionCountMultiplier')
+  multiplier *= getAchievementReward('transcensionCountMultiplier')
   multiplier *= 1 + 0.15 * player.challengecompletions[7]
 
   const transcendToAdd = Math.floor(count * multiplier)
   if (transcendToAdd > 0) {
     player.transcendCount += transcendToAdd
-    awardAchievementGroup('transcensionCount')
+    awardAchievementGroup(AchievementGroup.TranscensionCount)
   }
   if (getAchievementReward('transcendToPrestige')) {
     updatePrestigeCount(transcendToAdd)
@@ -394,23 +423,31 @@ export const updateTranscensionCount = (count: number) => {
 
 export const updateReincarnationCount = (count: number) => {
   let multiplier = 1
-  multiplier *= +getAchievementReward('reincarnationCountMultiplier')
+  multiplier *= getAchievementReward('reincarnationCountMultiplier')
   multiplier *= 1 + 0.2 * player.challengecompletions[12]
 
   const reincarnationToAdd = Math.floor(count * multiplier)
   if (reincarnationToAdd > 0) {
     player.reincarnationCount += reincarnationToAdd
-    awardAchievementGroup('reincarnationCount')
+    awardAchievementGroup(AchievementGroup.ReincarnationCount)
   }
   if (getAchievementReward('reincarnationToTranscend')) {
     updateTranscensionCount(reincarnationToAdd)
   }
 }
 
-export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
+export const reset = (
+  input: resetNames,
+  _fast = false,
+  from = 'unknown',
+  ascensionChallenge = player.currentChallenge.ascension
+) => {
   // Handle adding history entries before actually resetting data, to ensure optimal accuracy.
-  resetAddHistoryEntry(input, from)
+  resetAddHistoryEntry(input, from, ascensionChallenge)
 
+  const prestigePointGain = calculatePrestigePointGain()
+  const transcendPointGain = calculateTranscendPointGain()
+  const reincarnationPointGain = calculateReincarnationPointGain()
   const transcensionCheck = player.coinsThisTranscension.gte(G.d1e100)
   const reincarnationCheck = player.transcendShards.gte(G.d1e300)
   const obtainiumToGain = calculateObtainium()
@@ -421,19 +458,14 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   resetUpgrades(1)
   player.coins = Decimal.fromString('100')
   player.coinsThisPrestige = Decimal.fromString('100')
-  player.firstOwnedCoin = 0
   player.firstGeneratedCoin = new Decimal()
   player.firstPaidCoin = new Decimal()
-  player.secondOwnedCoin = 0
   player.secondGeneratedCoin = new Decimal()
   player.secondPaidCoin = new Decimal()
-  player.thirdOwnedCoin = 0
   player.thirdGeneratedCoin = new Decimal()
   player.thirdPaidCoin = new Decimal()
-  player.fourthOwnedCoin = 0
   player.fourthGeneratedCoin = new Decimal()
   player.fourthPaidCoin = new Decimal()
-  player.fifthOwnedCoin = 0
   player.fifthGeneratedCoin = new Decimal()
   player.fifthPaidCoin = new Decimal()
   player.firstGeneratedDiamonds = new Decimal()
@@ -442,14 +474,11 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   player.fourthGeneratedDiamonds = new Decimal()
   player.fifthGeneratedDiamonds = new Decimal()
   player.multiplierPaid = new Decimal()
-  player.multiplierBought = 0
   player.acceleratorPaid = new Decimal()
-  player.acceleratorBought = 0
-  syncCurveBuildings()
 
   updatePrestigeCount(1)
 
-  player.prestigePoints = player.prestigePoints.add(G.prestigePointGain)
+  player.prestigePoints = player.prestigePoints.add(prestigePointGain)
   player.prestigeShards = new Decimal()
   player.prestigenoaccelerator = true
   player.prestigenomultiplier = true
@@ -477,48 +506,37 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.fastestprestige = player.prestigecounter
   }
 
-  G.prestigePointGain = new Decimal()
-
   player.prestigecounter = 0
   G.autoResetTimers.prestige = 0
 
   if (resetTypes.has(input)) {
     resetUpgrades(2)
     player.coinsThisTranscension = Decimal.fromString('100')
-    player.firstOwnedDiamonds = 0
     player.firstPaidDiamonds = new Decimal()
-    player.secondOwnedDiamonds = 0
     player.secondPaidDiamonds = new Decimal()
-    player.thirdOwnedDiamonds = 0
     player.thirdPaidDiamonds = new Decimal()
-    player.fourthOwnedDiamonds = 0
     player.fourthPaidDiamonds = new Decimal()
-    player.fifthOwnedDiamonds = 0
     player.fifthPaidDiamonds = new Decimal()
     player.firstGeneratedMythos = new Decimal()
     player.secondGeneratedMythos = new Decimal()
     player.thirdGeneratedMythos = new Decimal()
     player.fourthGeneratedMythos = new Decimal()
     player.fifthGeneratedMythos = new Decimal()
-    player.acceleratorBoostBought = 0
     player.acceleratorBoostPaid = new Decimal()
-    syncCurveBuildings()
 
     if (transcensionCheck) {
       updateTranscensionCount(1)
     }
 
-    awardAchievementGroup('transcensionCount')
+    awardAchievementGroup(AchievementGroup.TranscensionCount)
 
     player.prestigePoints = new Decimal()
-    player.transcendPoints = player.transcendPoints.add(G.transcendPointGain)
+    player.transcendPoints = player.transcendPoints.add(transcendPointGain)
     player.transcendShards = new Decimal()
     player.transcendnocoinupgrades = true
     player.transcendnocoinorprestigeupgrades = true
     player.transcendnoaccelerator = true
     player.transcendnomultiplier = true
-
-    G.transcendPointGain = new Decimal()
 
     for (let i = 1; i <= 5; i++) {
       if (getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy`) === 1) {
@@ -541,8 +559,8 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
   ) {
     // Fail safe if for some reason ascension achievement isn't awarded. hacky solution but am too tired to fix right now
 
-    awardAchievementGroup('ascensionCount')
-    awardUngroupedAchievement('ascended')
+    awardAchievementGroup(AchievementGroup.AscensionCount)
+    awardUngroupedAchievement(UngroupedAchievement.Ascended)
 
     const awardReincarnationPoints = !(
       input === 'reincarnationChallenge'
@@ -564,28 +582,22 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     challengeExit('transcension')
     resetUpgrades(3)
     player.coinsThisReincarnation = Decimal.fromString('100')
-    player.firstOwnedMythos = 0
     player.firstPaidMythos = new Decimal()
-    player.secondOwnedMythos = 0
     player.secondPaidMythos = new Decimal()
-    player.thirdOwnedMythos = 0
     player.thirdPaidMythos = new Decimal()
-    player.fourthOwnedMythos = 0
     player.fourthPaidMythos = new Decimal()
-    player.fifthOwnedMythos = 0
     player.fifthPaidMythos = new Decimal()
-    syncCurveBuildings()
     player.firstGeneratedParticles = new Decimal()
     player.secondGeneratedParticles = new Decimal()
     player.thirdGeneratedParticles = new Decimal()
     player.fourthGeneratedParticles = new Decimal()
     player.fifthGeneratedParticles = new Decimal()
 
-    awardAchievementGroup('reincarnationCount')
+    awardAchievementGroup(AchievementGroup.ReincarnationCount)
 
     player.transcendPoints = new Decimal()
     if (awardReincarnationPoints) {
-      player.reincarnationPoints = player.reincarnationPoints.add(G.reincarnationPointGain)
+      player.reincarnationPoints = player.reincarnationPoints.add(reincarnationPointGain)
     }
     player.reincarnationShards = new Decimal()
     player.challengecompletions[1] = 0
@@ -593,8 +605,6 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.challengecompletions[3] = 0
     player.challengecompletions[4] = 0
     player.challengecompletions[5] = 0
-
-    G.reincarnationPointGain = new Decimal()
 
     if (getShopUpgradeEffects('instantChallenge', 'unlocked')) {
       player.challengecompletions[1] = player.highestchallengecompletions[1]
@@ -621,17 +631,15 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
   if (input === 'ascension' || input === 'ascensionChallenge' || input === 'singularity') {
     player.stats.talismanShardsThisAscension = new Decimal()
+    player.coinsThisAscension = Decimal.fromString('100')
     if (player.challengecompletions[10] > 0) {
-      awardAchievementGroup('ascensionScore')
+      awardAchievementGroup(AchievementGroup.AscensionScore)
     }
     // reset auto challenges
     challengeExit('transcension')
     challengeExit('reincarnation')
     // reset challenge sweep state machine
     resetChallengeSweep()
-
-    // The start of the auto challenge to improve QoL starts with C10
-    player.autoChallengeIndex = 1
 
     // reset rest
     resetResearches('ascension')
@@ -648,17 +656,11 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
         player.upgrades[j] = 0
       }
     }
-    player.firstOwnedParticles = 0
-    player.secondOwnedParticles = 0
-    player.thirdOwnedParticles = 0
-    player.fourthOwnedParticles = 0
-    player.fifthOwnedParticles = 0
     player.firstPaidParticles = new Decimal()
     player.secondPaidParticles = new Decimal()
     player.thirdPaidParticles = new Decimal()
     player.fourthPaidParticles = new Decimal()
     player.fifthPaidParticles = new Decimal()
-    syncCurveBuildings()
     player.offerings = new Decimal()
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -690,7 +692,9 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
 
     setResearchRoombaHighlight(0)
     player.roombaResearchIndex = 0
-    player.autoResearch = 1
+    if (player.autoResearchMode === 'cheapest') {
+      player.autoResearch = 1
+    }
 
     for (let j = 1; j <= (200); j++) {
       const id = `res${j}`
@@ -717,10 +721,11 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     }
 
     calculateObtainium()
-    awardAchievementGroup('ascensionCount')
-    awardUngroupedAchievement('ascended')
+    awardAchievementGroup(AchievementGroup.AscensionCount)
+    awardUngroupedAchievement(UngroupedAchievement.Ascended)
 
     player.ascensionCounterRealReal = 0
+    player.ascensionAttemptCounter = 0
     resetCubeRateTracking()
     if (c10Completions > 0) {
       player.ascensionCounter = 0
@@ -755,9 +760,14 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     if (c10Completions > 0) {
       earnCampaignTokens(ascensionCorruptionLevel(), c10Completions)
       clearCorruptionLevel(ascensionCorruptionLevel())
+      if (ascensionChallenge === 0 && from !== 'autoAscend') {
+        climbCorruptionLevel(ascensionCorruptionLevel())
+      }
     }
+    markAscensionStartTokens()
 
-    applyPendingAutoAscendProtocol(c10Completions > 0)
+    const canClimb = c10Completions > 0 || ascensionChallenge !== 0
+    applyPendingAutoAscendProtocol(canClimb)
     player.corruptions.used = normalizeCorruptionLevel(player.corruptions.next)
     player.corruptions.ascensionLevel = player.corruptions.used
 
@@ -805,7 +815,7 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
       const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
       for (let i = 1; i <= 5; i++) {
         if (player.autoTesseracts[i]) {
-          ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
+          ownedBuildings[i - 1] = getTesseractBuildingsOwned(i as OneToFive)
         }
       }
       const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
@@ -882,15 +892,15 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
     player.unlocks.spirits = false
     player.unlocks.platonics = false
 
-    player.ascendBuilding1.owned = 0
+    player.ascendBuilding1.paid = 0
     player.ascendBuilding1.generated = new Decimal()
-    player.ascendBuilding2.owned = 0
+    player.ascendBuilding2.paid = 0
     player.ascendBuilding2.generated = new Decimal()
-    player.ascendBuilding3.owned = 0
+    player.ascendBuilding3.paid = 0
     player.ascendBuilding3.generated = new Decimal()
-    player.ascendBuilding4.owned = 0
+    player.ascendBuilding4.paid = 0
     player.ascendBuilding4.generated = new Decimal()
-    player.ascendBuilding5.owned = 0
+    player.ascendBuilding5.paid = 0
     player.ascendBuilding5.generated = new Decimal()
 
     player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -919,14 +929,14 @@ export const reset = (input: resetNames, _fast = false, from = 'unknown') => {
  * Computes which achievements in 274-280 are achievable given current singularity number
  */
 export const updateSingularityAchievements = (): void => {
-  awardAchievementGroup('singularityCount')
+  awardAchievementGroup(AchievementGroup.SingularityCount)
 }
 
 const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   applyStartingChallengeCompletions()
   if (player.highestSingularityCount >= 2) { // Singularity 2
     player.transcendPoints = Decimal.fromString('1001')
-    grantCurveBuildings('coin', 0, 1)
+    grantCurveBuildings('coin', CoinBuilding.Workers, 1)
     player.unlocks.coinone = true
     player.unlocks.cointwo = true
     player.unlocks.cointhree = true
@@ -1062,13 +1072,8 @@ export const singularity = (setSingNumber = -1) => {
 
   if (setSingNumber === -1) {
     const lookahead = calculateMaxSingularityLookahead(true)
-    const incrementHighestSing = player.singularityCount === player.highestSingularityCount
 
-    // Check if elevator is locked to specific target
-    if (player.singularityElevatorLocked) {
-      // If locked, go to the target singularity instead of advancing normally
-      player.singularityCount = player.singularityElevatorTarget
-    } else {
+    if (!player.singularityElevatorLocked) {
       // Unlocked, slow climb means just go up by one singularity
       if (player.singularityElevatorSlowClimb) {
         player.singularityCount++
@@ -1078,17 +1083,18 @@ export const singularity = (setSingNumber = -1) => {
       }
     }
 
-    if (incrementHighestSing) {
-      player.highestSingularityCount++
-      awardSingularityMilestoneFreeUpgrades(player.highestSingularityCount)
-    }
-  } else {
+    raiseHighestSingularity(player.singularityCount)
+  } else if (player.insideSingularityChallenge) {
     const incrementHighestSing = player.singularityCount === player.highestSingularityCount
       && setSingNumber > player.singularityCount && antiquitiesPurchased
     player.singularityCount = setSingNumber
     if (incrementHighestSing) {
-      player.highestSingularityCount++
-      awardSingularityMilestoneFreeUpgrades(player.highestSingularityCount)
+      raiseHighestSingularity(player.highestSingularityCount + 1)
+    }
+  } else {
+    player.singularityCount = setSingNumber
+    if (antiquitiesPurchased) {
+      raiseHighestSingularity(player.singularityCount)
     }
   }
 
@@ -1153,6 +1159,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.corruptions.autoIncrease = player.corruptions.autoIncrease
   hold.corruptions.highestCleared = player.corruptions.highestCleared
   hold.corruptions.cleanseToHighest = player.corruptions.cleanseToHighest
+  hold.corruptions.showRealTime = player.corruptions.showRealTime
   hold.corruptions.loadouts = [...player.corruptions.loadouts]
   hold.toggles = player.toggles
   hold.retrychallenges = player.retrychallenges
@@ -1263,8 +1270,10 @@ export const singularity = (setSingNumber = -1) => {
   const saveCode46 = player.codes.get(46) ?? false
   const saveCode47 = player.codes.get(47) ?? false
   const saveCode48 = player.codes.get(48) ?? false
+  const saveCode49 = player.codes.get(49) ?? false
   const saveRngCode = player.rngCode
   const savePromoCodeTime = player.promoCodeTiming.time
+  const saveBlueberryLoadout = lastBlueberryLoadout
 
   importSynergism(btoa(JSON.stringify(hold)), true)
   // Techically possible to import game during reset. But that will only "hurt" that imported save
@@ -1280,12 +1289,15 @@ export const singularity = (setSingNumber = -1) => {
   player.codes.set(46, saveCode46)
   player.codes.set(47, saveCode47)
   player.codes.set(48, saveCode48)
+  player.codes.set(49, saveCode49)
   updateSingularityMilestoneAwards()
 
   player.rngCode = Math.max(saveRngCode, DateNow())
   player.promoCodeTiming.time = Math.max(savePromoCodeTime, DateNow())
+  setLastBlueberryLoadout(saveBlueberryLoadout)
 
   updateTokens()
+  markAscensionStartTokens()
   campaignTokenRewardHTMLUpdate()
   corruptionStatsUpdate()
   renderAutoAscendRules()
@@ -1392,9 +1404,6 @@ export const applyChallengeInitialModifiers = (
       }
       break
     case 'ascensionChallenge': {
-      if (player.highestSingularityCount >= 2 && player.autoChallengeToggles[10]) {
-        player.autoChallengeIndex = 10
-      }
       if (chalNum === 12) {
         player.reincarnationPoints = new Decimal()
       }

@@ -1,12 +1,16 @@
 import Decimal from 'break_infinity.js'
+import i18next from 'i18next'
 import * as z from 'zod'
+import { AchievementId } from '../Achievements'
 import type { AmbrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import type { HepteractKeys } from '../Hepteracts'
 import { octeractUpgradeNames, type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
 import { getGQUpgradeCumulativeCost, goldenQuarkUpgradeNames, type SingularityDataKeys } from '../singularity'
+import { format } from '../Synergism'
 import { updateResourcePredefinedLevel } from '../Talismans'
+import { Alert } from '../UpdateHTML'
 import { playerSchema } from './PlayerSchema'
 
 const getLegacyOcteractsInvested = (
@@ -90,14 +94,22 @@ export const playerUpdateVarSchema = z.preprocess(cleanseLegacyCorruptions, play
     player.runes.antiquities = new Decimal(player.runeexp[6] ?? 0)
 
     // Retroactively reward players with unlocks, because I don't have a better place here
-    player.unlocks.anthill = player.achievements[127] === 1 || (player.highestchallengecompletions[8] ?? 0) > 0
-    player.unlocks.talismans = player.achievements[134] === 1 || (player.highestchallengecompletions[9] ?? 0) > 0
-    player.unlocks.blessings = player.achievements[134] === 1 || (player.highestchallengecompletions[9] ?? 0) > 0
-    player.unlocks.ascensions = player.achievements[141] === 1 || (player.highestchallengecompletions[10] ?? 0) > 0
-    player.unlocks.tesseracts = player.achievements[197] === 1 || (player.highestchallengecompletions[11] ?? 0) > 0
-    player.unlocks.spirits = player.achievements[204] === 1 || (player.highestchallengecompletions[12] ?? 0) > 0
-    player.unlocks.hypercubes = player.achievements[211] === 1 || (player.highestchallengecompletions[13] ?? 0) > 0
-    player.unlocks.platonics = player.achievements[218] === 1 || (player.highestchallengecompletions[14] ?? 0) > 0
+    player.unlocks.anthill = player.achievements[AchievementId.Challenge8Tier1] === 1
+      || (player.highestchallengecompletions[8] ?? 0) > 0
+    player.unlocks.talismans = player.achievements[AchievementId.Challenge9Tier1] === 1
+      || (player.highestchallengecompletions[9] ?? 0) > 0
+    player.unlocks.blessings = player.achievements[AchievementId.Challenge9Tier1] === 1
+      || (player.highestchallengecompletions[9] ?? 0) > 0
+    player.unlocks.ascensions = player.achievements[AchievementId.Challenge10Tier1] === 1
+      || (player.highestchallengecompletions[10] ?? 0) > 0
+    player.unlocks.tesseracts = player.achievements[AchievementId.Challenge11Tier1] === 1
+      || (player.highestchallengecompletions[11] ?? 0) > 0
+    player.unlocks.spirits = player.achievements[AchievementId.Challenge12Tier1] === 1
+      || (player.highestchallengecompletions[12] ?? 0) > 0
+    player.unlocks.hypercubes = player.achievements[AchievementId.Challenge13Tier1] === 1
+      || (player.highestchallengecompletions[13] ?? 0) > 0
+    player.unlocks.platonics = player.achievements[AchievementId.Challenge14Tier1] === 1
+      || (player.highestchallengecompletions[14] ?? 0) > 0
     player.unlocks.hepteracts = player.challenge15Exponent >= 1e15
   }
 
@@ -323,6 +335,47 @@ export const playerUpdateVarSchema = z.preprocess(cleanseLegacyCorruptions, play
   }
   if (player.resettoggle4 !== undefined) {
     player.resetToggleModes.ascension = oldToNewToggles[player.resettoggle4] ?? 0
+  }
+
+  if (player.firstOwnedCoin !== undefined) {
+    let corruptionLevel = 0
+
+    if (player.highestSingularityCount >= 8) {
+      corruptionLevel = 45
+    } else if (player.highestSingularityCount >= 1 || player.platonicUpgrades[10] > 0) {
+      corruptionLevel = 30
+    } else if (player.platonicUpgrades[5] > 0) {
+      corruptionLevel = 22
+    } else if ((player.highestchallengecompletions[14] ?? 0) > 0) {
+      corruptionLevel = 15
+    } else if ((player.highestchallengecompletions[13] ?? 0) > 0) {
+      corruptionLevel = 7
+    } else if ((player.highestchallengecompletions[12] ?? 0) > 0) {
+      corruptionLevel = 5
+    } else if ((player.highestchallengecompletions[11] ?? 0) > 0) {
+      corruptionLevel = 3
+    }
+
+    if (player.corruptions.highestCleared < corruptionLevel) {
+      player.corruptions.highestCleared = corruptionLevel
+
+      if (player.challengecompletions[11] > 0) {
+        player.currentChallenge.ascension = 0
+        player.corruptions.used = Math.max(player.corruptions.used, corruptionLevel)
+        player.corruptions.ascensionLevel = Math.max(player.corruptions.ascensionLevel, corruptionLevel)
+        player.corruptions.next = Math.max(player.corruptions.next, corruptionLevel)
+        player.challengecompletions[10] = Math.max(player.challengecompletions[10], 1)
+      }
+
+      void Alert(i18next.t('versionChangeAnnouncements.v4-4-1-Corruptions', { level: format(corruptionLevel) }))
+    }
+
+    if (player.singularityChallenges.barDependence.highestSingularityCompleted > 292) {
+      player.singularityChallenges.barDependence.highestSingularityCompleted = 292
+      player.singularityChallenges.barDependence.updateChallengeCompletions()
+
+      void Alert(i18next.t('versionChangeAnnouncements.v4-4-1-BarCharging'))
+    }
   }
 
   Reflect.deleteProperty(player, 'runeshards')

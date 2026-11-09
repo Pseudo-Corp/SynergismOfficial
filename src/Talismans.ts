@@ -1,6 +1,11 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { achievementPoints, awardUngroupedAchievement, getAchievementReward } from './Achievements'
+import {
+  achievementPoints,
+  awardUngroupedAchievement,
+  getAchievementReward,
+  UngroupedAchievement
+} from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
@@ -386,7 +391,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return Boolean(getAchievementReward('chronosTalisman'))
+      return getAchievementReward('chronosTalisman')
     },
     name: () => i18next.t('runes.talismans.chronos.name'),
     description: () => i18next.t('runes.talismans.chronos.description')
@@ -431,7 +436,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return Boolean(getAchievementReward('midasTalisman'))
+      return getAchievementReward('midasTalisman')
     },
     name: () => i18next.t('runes.talismans.midas.name'),
     description: () => i18next.t('runes.talismans.midas.description')
@@ -478,7 +483,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return Boolean(getAchievementReward('metaphysicsTalisman'))
+      return getAchievementReward('metaphysicsTalisman')
     },
     name: () => i18next.t('runes.talismans.metaphysics.name'),
     description: () => i18next.t('runes.talismans.metaphysics.description')
@@ -523,7 +528,7 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
-      return Boolean(getAchievementReward('polymathTalisman'))
+      return getAchievementReward('polymathTalisman')
     },
     name: () => i18next.t('runes.talismans.polymath.name'),
     description: () => i18next.t('runes.talismans.polymath.description')
@@ -1049,14 +1054,15 @@ export const buyTalismanLevelToMax = (t: TalismanKeys): void => {
 
 const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKeys): number => {
   const talisman = talismans[t]
-  if (!talisman.isUnlocked()) {
+  if (talisman.talismanBaseCoefficient[rune] === 0 || !talisman.isUnlocked()) {
     return 0
   }
 
   let bonusMult = 1
   if (t === 'metaphysics') {
-    bonusMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).talismanEffect
-    bonusMult *= (talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']).extraTalismanEffect
+    const effects = talisman.effects(talisman.rarity) as TalismanTypeMap['metaphysics']
+    bonusMult *= effects.talismanEffect
+    bonusMult *= effects.extraTalismanEffect
   }
   if (t === 'mortuus') {
     bonusMult *= getAntUpgradeEffect(AntUpgrades.Mortuus2).talismanEffectBuff
@@ -2504,7 +2510,7 @@ export const buyTalismanResources = (
       player[`${type}s` as const] = player[`${type}s` as const].add(talismanResourcesData.buyAmount)
     }
     if (type === 'mythicalFragment' && player.mythicalFragments.gte(G.d1e25)) {
-      awardUngroupedAchievement('seeingRed')
+      awardUngroupedAchievement(UngroupedAchievement.SeeingRed)
     }
 
     player.obtainium = player.obtainium.sub(talismanResourcesData.obtainiumCost)

@@ -1,6 +1,6 @@
 import { renderAutoAscendRules } from './AutoAscensionUI'
 import { displayProperLoadoutCount } from './BlueberryUpgrades'
-import { CartTab } from './purchases/CartTab'
+import type { UpgradesResponse } from './purchases/UpgradesSubtab'
 
 export type PseudoCoinUpgradeNames =
   | 'INSTANT_UNLOCK_1'
@@ -72,9 +72,7 @@ export const PCoinUpgradeEffects: PseudoCoinUpgradeEffects = {
   PURPLE_REACTOR_CAPACITY_BUFF: 0
 }
 
-export const initializePCoinCache = async () => {
-  const upgradesList = await CartTab.fetchUpgrades()
-
+export const initializePCoinCache = (playerUpgrades: UpgradesResponse['playerUpgrades']) => {
   // Reset Cache
   for (const key of Object.keys(PCoinUpgrades)) {
     PCoinUpgrades[key as PseudoCoinUpgradeNames] = 0
@@ -82,7 +80,7 @@ export const initializePCoinCache = async () => {
   }
 
   // Update Cache only for the upgrades that the player has
-  for (const upgrade of upgradesList.playerUpgrades) {
+  for (const upgrade of playerUpgrades) {
     PCoinUpgrades[upgrade.internalName] = upgrade.level
     updatePCoinEffects(upgrade.internalName, upgrade.level)
   }
