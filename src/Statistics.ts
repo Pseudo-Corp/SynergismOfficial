@@ -2,7 +2,14 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { CoinBuilding, getBuildingOwned, getTotalBuildingsOwned } from './Buy'
+import {
+  CoinBuilding,
+  getAccelMultBuildingsOwned,
+  getBuildingOwned,
+  getBuildingsOwned,
+  getTotalBuildingsOwned,
+  sumBuildingsOwned
+} from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   baseConstruction,
@@ -4484,10 +4491,13 @@ export const freeAcceleratorAdditiveStats: NumberStatLineCategory = {
   ]
 }
 
-export const freeAcceleratorAdditiveStatsSum = (totalAcceleratorBoost = calculateTotalAcceleratorBoost()) =>
+export const freeAcceleratorAdditiveStatsSum = (
+  totalAcceleratorBoost = calculateTotalAcceleratorBoost(),
+  owned = getAccelMultBuildingsOwned()
+) =>
   Math.min(
     1e300,
-    (player.upgrades[8] !== 0 ? Math.floor(getBuildingOwned('multiplier') / 7) : 0)
+    (player.upgrades[8] !== 0 ? Math.floor(owned.multiplier / 7) : 0)
       + ((player.upgrades[21] !== 0 ? 5 : 0)
         + (player.upgrades[22] !== 0 ? 4 : 0)
         + (player.upgrades[23] !== 0 ? 3 : 0)
@@ -4495,7 +4505,7 @@ export const freeAcceleratorAdditiveStatsSum = (totalAcceleratorBoost = calculat
         + (player.upgrades[25] !== 0 ? 1 : 0))
       + (player.upgrades[32] !== 0 ? Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25))) : 0)
       + (player.upgrades[45] !== 0 ? Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10))) : 0)
-      + getAchievementReward('accelerators')
+      + getAchievementReward('accelerators', owned.coin)
       + (5 * player.challengecompletions[2])
       + (totalAcceleratorBoost * calculateAcceleratorsPerBoost())
   )
@@ -4620,19 +4630,19 @@ export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
   ]
 }
 
-export const freeMultiplierAdditiveStatsSum = (totalAcceleratorBoost?: number) =>
+export const freeMultiplierAdditiveStatsSum = (totalAcceleratorBoost?: number, owned = getAccelMultBuildingsOwned()) =>
   Math.min(
     1e300,
     (player.upgrades[7] > 0
-      ? Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', CoinBuilding.Alchemies) + 1, 10)))
+      ? Math.min(4, 1 + Math.floor(Decimal.log(owned.coin[CoinBuilding.Alchemies] + 1, 10)))
       : 0)
-      + (player.upgrades[9] > 0 ? Math.floor(getBuildingOwned('accelerator') / 10) : 0)
+      + (player.upgrades[9] > 0 ? Math.floor(owned.accelerator / 10) : 0)
       + diamondUpgradesOneToFive.filter((i) => player.upgrades[i] > 0).length
       + (player.upgrades[33] > 0 ? totalAcceleratorBoost ?? calculateTotalAcceleratorBoost() : 0)
       + (player.upgrades[49] > 0 ? Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10))) : 0)
       + (player.upgrades[68] > 0 ? calculateParticleUpgrade8FreeMultipliers() : 0)
       + (player.challengecompletions[1] > 0 ? 1 : 0)
-      + getAchievementReward('multipliers')
+      + getAchievementReward('multipliers', owned.coin)
       + (20 * player.researches[94] * Math.floor(sumOfRuneLevels() / 8))
   )
 
@@ -4777,12 +4787,12 @@ export const freeAcceleratorBoostAdditiveStats: NumberStatLineCategory = {
   ]
 }
 
-export const freeAcceleratorBoostAdditiveStatsSum = () =>
+export const freeAcceleratorBoostAdditiveStatsSum = (coinsOwned: readonly number[] = getBuildingsOwned('coin')) =>
   Math.min(
     1e300,
     (player.upgrades[26] > 0.5 ? 1 : 0)
-      + (player.upgrades[31] > 0.5 ? Math.floor(getTotalBuildingsOwned('coin') / 2000) : 0)
-      + getAchievementReward('accelBoosts')
+      + (player.upgrades[31] > 0.5 ? Math.floor(sumBuildingsOwned(coinsOwned) / 2000) : 0)
+      + getAchievementReward('accelBoosts', coinsOwned)
       + (player.researches[93] * Math.floor(sumOfRuneLevels() / 20))
   )
 
@@ -6247,27 +6257,28 @@ export const allCoinMultiplierStats: DecimalStatLineCategory = {
 export const allCoinMultiplierStatsProduct = (
   multiplierEffect = calculateMultiplierStats().multiplierEffect,
   acceleratorEffect = calculateAcceleratorStats().acceleratorEffect,
-  totalAccelerator?: number
+  totalAccelerator?: number,
+  totalCoinOwned = getTotalBuildingsOwned('coin')
 ) =>
   new Decimal(1)
     .mul(multiplierEffect)
     .mul(acceleratorEffect)
     .mul(calculateCrystalCoinMultiplier())
-    .mul(calculateBuildingPowerCoinMultiplier())
+    .mul(calculateBuildingPowerCoinMultiplier(undefined, totalCoinOwned))
     .mul(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier)
     .mul(
       player.highestSingularityCount > 0
         ? Math.pow(player.goldenQuarks + 1, 1.5) * Math.pow(player.highestSingularityCount + 1, 2)
         : 1
     )
-    .mul(player.upgrades[6] > 0.5 ? calculateFirstSixCoinUpgradeMultiplier() : 1)
+    .mul(player.upgrades[6] > 0.5 ? calculateFirstSixCoinUpgradeMultiplier(totalCoinOwned) : 1)
     .mul(
       player.upgrades[11] > 0.5 && player.currentChallenge.reincarnation !== 7
         ? Decimal.pow(1.02, totalAccelerator ?? calculateAcceleratorCounts().totalAccelerator)
         : 1
     )
     .mul(player.upgrades[12] > 0.5 ? Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)) : 1)
-    .mul(player.upgrades[20] > 0.5 ? Decimal.pow(getTotalBuildingsOwned('coin') / 4 + 1, 10) : 1)
+    .mul(player.upgrades[20] > 0.5 ? Decimal.pow(totalCoinOwned / 4 + 1, 10) : 1)
     .mul(
       player.upgrades[41] > 0.5
         ? Decimal.min(1e30, Decimal.pow(player.transcendPoints.add(4), 1 / 2))

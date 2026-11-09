@@ -70,7 +70,8 @@ export const calculateTax = (
   const coinMultiplier = calculateGlobalCoinMultiplier(
     stats.multiplierEffect,
     stats.acceleratorEffect,
-    stats.totalAccelerator
+    stats.totalAccelerator,
+    totalCoinOwned
   )
   const tierInputs = {
     first6CoinUp,
