@@ -245,6 +245,7 @@ import {
   updateAllSpiritLevelsFromEXP
 } from './RuneSpirits'
 import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { playerSchema } from './saves/PlayerSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, queueSave } from './saves/SaveStorage'
 import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthesis'
@@ -1252,7 +1253,9 @@ async function syncToSteamCloud (saveData: string) {
 
     if (cloudSave) {
       try {
-        const parsed = playerUpdateVarSchema.parse(JSON.parse(atob(cloudSave)))
+        const parsed = playerSchema.pick({ achievements: true, progressiveAchievements: true }).parse(
+          JSON.parse(atob(cloudSave))
+        )
         const cloudPoints = computeAchievementPoints(parsed.achievements, parsed.progressiveAchievements)
         console.log('[SteamCloud] achievementPoints:', achievementPoints, 'cloudPoints:', cloudPoints)
         if (achievementPoints < cloudPoints) {

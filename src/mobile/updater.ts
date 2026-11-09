@@ -5,9 +5,7 @@ import { flushSaveStorage } from '../saves/SaveStorage'
 import { saveSynergy } from '../Synergism'
 import { Confirm } from '../UpdateHTML'
 
-const checkForUpdates = async () => {
-  const button = DOMCacheGetOrSet('checkMobileUpdates') as HTMLButtonElement
-  const status = DOMCacheGetOrSet('mobileUpdateStatus')
+const checkForUpdates = async (button: HTMLButtonElement, status: HTMLElement, saveProgress: boolean) => {
   if (button.disabled) return
 
   button.disabled = true
@@ -51,7 +49,8 @@ const checkForUpdates = async () => {
     }
 
     status.textContent = i18next.t('mobile.updates.available', { version: latest.version })
-    if (!await Confirm(i18next.t('mobile.updates.confirm', { version: latest.version }))) return
+    const confirmKey = saveProgress ? 'mobile.updates.confirm' : 'mobile.updates.confirmRecovery'
+    if (!await Confirm(i18next.t(confirmKey, { version: latest.version }))) return
 
     status.textContent = i18next.t('mobile.updates.downloading')
     // Reuse a completed background download when one is already available.
@@ -66,13 +65,17 @@ const checkForUpdates = async () => {
       manifest: latest.manifest
     })
 
-    status.textContent = i18next.t('mobile.updates.installing')
-    // Applying a bundle reloads the app, so persist the latest progress first.
-    if (!saveSynergy()) {
-      status.textContent = i18next.t('mobile.updates.saveFailed')
-      return
+    if (saveProgress) {
+      status.textContent = i18next.t('mobile.updates.installing')
+      // Applying a bundle reloads the app, so persist the latest progress first.
+      if (!saveSynergy()) {
+        status.textContent = i18next.t('mobile.updates.saveFailed')
+        return
+      }
+      await flushSaveStorage()
+    } else {
+      status.textContent = i18next.t('mobile.updates.applying')
     }
-    await flushSaveStorage()
     await CapacitorUpdater.set({ id: bundle.id })
   } catch (error) {
     console.error('Failed to check for or apply a mobile update', error)
@@ -85,7 +88,22 @@ const checkForUpdates = async () => {
 export const initLiveUpdates = async () => {
   if (PLATFORM !== 'mobile') return
 
+  const settingsButton = DOMCacheGetOrSet('checkMobileUpdates') as HTMLButtonElement
+  const settingsStatus = DOMCacheGetOrSet('mobileUpdateStatus')
   DOMCacheGetOrSet('mobileUpdates').hidden = false
-  DOMCacheGetOrSet('checkMobileUpdates').addEventListener('click', checkForUpdates)
+  settingsButton.addEventListener('click', () => checkForUpdates(settingsButton, settingsStatus, true))
+
+  const recoveryButton = document.createElement('button')
+  recoveryButton.id = 'preloadCheckUpdates'
+  recoveryButton.type = 'button'
+  recoveryButton.setAttribute('i18n', 'mobile.updates.check')
+  const recoveryStatus = document.createElement('p')
+  recoveryStatus.id = 'preloadUpdateStatus'
+  recoveryStatus.className = 'tightText'
+  recoveryStatus.setAttribute('role', 'status')
+  recoveryStatus.setAttribute('aria-live', 'polite')
+  recoveryButton.addEventListener('click', () => checkForUpdates(recoveryButton, recoveryStatus, false))
+  DOMCacheGetOrSet('preloadDeleteGame').before(recoveryButton, recoveryStatus)
+
   await CapacitorUpdater.notifyAppReady()
 }
