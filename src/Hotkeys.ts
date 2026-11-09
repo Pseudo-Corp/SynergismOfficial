@@ -240,8 +240,6 @@ const eventHotkeys = (event: KeyboardEvent): void => {
     return
   }
 
-  synergismHotkeys(event, event.code.replace(/^(Digit|Numpad)/, '').toUpperCase())
-
   let keyPrefix = ''
   if (event.ctrlKey) {
     keyPrefix += 'CTRL+'
@@ -254,19 +252,25 @@ const eventHotkeys = (event: KeyboardEvent): void => {
   }
 
   const key = keyPrefix + event.key.toUpperCase()
+
+  if (
+    G.currentTab === Tabs.Settings && getActiveSubTab() === 7
+    && DOMCacheGetOrSet('promptWrapper').style.display === 'block'
+  ) {
+    updateLastHotkeyDisplay(key, '')
+    ;(DOMCacheGetOrSet('prompt_text') as HTMLInputElement).value = key
+    event.preventDefault()
+    return
+  }
+
+  synergismHotkeys(event, event.code.replace(/^(Digit|Numpad)/, '').toUpperCase())
+
   const hotkeyName = activateHotkey(key)
   if (hotkeyName !== '') {
     event.preventDefault()
   }
 
-  if (G.currentTab === Tabs.Settings && getActiveSubTab() === 7) {
-    updateLastHotkeyDisplay(key, hotkeyName)
-
-    if (DOMCacheGetOrSet('promptWrapper').style.display === 'block') {
-      ;(DOMCacheGetOrSet('prompt_text') as HTMLInputElement).value = key
-      event.preventDefault()
-    }
-  }
+  updateLastHotkeyDisplay(key, hotkeyName)
 }
 
 // eslint-disable-next-line no-control-regex
@@ -282,12 +286,10 @@ const makeSlot = (key: string, descr: string) => {
   button.addEventListener('click', async (e) => {
     const target = e.target as HTMLElement
     const oldKey = target.textContent.toUpperCase()
-    const name = hotkeys.get(oldKey)?.name
-      ?? target.nextSibling?.textContent
 
     // new value to set key as, unformatted
     const newKey = await Prompt(`
-        Enter the new key you want to activate ${name} with.
+        Enter the new key you want to activate ${descr} with.
 
         MDN has a list of values for "special keys" if you would like to use one:
         https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
@@ -330,7 +332,7 @@ const makeSlot = (key: string, descr: string) => {
 
       target.textContent = toSet
 
-      enableHotkeys()
+      rebuildHotkeys()
     } else {
       void Alert(`No hotkey is triggered by ${oldKey}!`)
       return
@@ -424,7 +426,7 @@ export const registerMobileHotkeyPanel = memoize(() => {
 
 export const disableHotkeys = () => hotkeysEnabled = false
 
-export const enableHotkeys = () => {
+const rebuildHotkeys = () => {
   changeHotkeys()
 
   const hotkey = document.querySelector('.hotkeys')!
@@ -439,8 +441,12 @@ export const enableHotkeys = () => {
     hotkey.appendChild(div)
   }
 
-  hotkeysEnabled = true
   renderMobileHotkeyButtons()
+}
+
+export const enableHotkeys = () => {
+  hotkeysEnabled = true
+  rebuildHotkeys()
 }
 
 const changeHotkeys = () => {
@@ -460,7 +466,7 @@ const changeHotkeys = () => {
 }
 
 export const resetHotkeys = async () => {
-  enableHotkeys()
+  rebuildHotkeys()
 
   const keys = Object.keys(player.hotkeys)
   if (keys.length === 0) {
@@ -486,7 +492,7 @@ export const resetHotkeys = async () => {
   if (confirmed) {
     hotkeys = new Map(defaultHotkeys)
     player.hotkeys = {}
-    enableHotkeys()
+    rebuildHotkeys()
   }
 }
 

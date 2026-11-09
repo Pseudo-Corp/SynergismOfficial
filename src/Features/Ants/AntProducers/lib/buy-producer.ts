@@ -1,4 +1,4 @@
-import { awardAchievementGroup } from '../../../../Achievements'
+import { AchievementGroup, awardAchievementGroup } from '../../../../Achievements'
 import { player } from '../../../../Synergism'
 import { AntProducers, LAST_ANT_PRODUCER } from '../../structs/structs'
 import { getCostMaxAnts, getCostNextAnt, getMaxPurchasableAnts } from './get-cost'
@@ -25,7 +25,7 @@ export const buyAntProducers = (ant: AntProducers, max: boolean) => {
   }
   if (hadZeroProducers && player.ants.producers[ant].purchased > 0) {
     // Indicates that the first purchase was made; check for immortal ELO achievements
-    awardAchievementGroup('sacMult')
+    awardAchievementGroup(AchievementGroup.SacMult)
   }
 }
 

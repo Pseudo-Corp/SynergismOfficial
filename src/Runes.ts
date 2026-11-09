@@ -1,3 +1,4 @@
+import { getTotalBuildingsOwned } from './Buy'
 import {
   calculateBadOfferingsSalvage,
   calculateChallenge15RuneSalvage,
@@ -11,7 +12,7 @@ import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardAchievementGroup, getAchievementReward, updateProgressiveCache } from './Achievements'
+import { AchievementGroup, awardAchievementGroup, getAchievementReward, updateProgressiveCache } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokenBonuses } from './Campaign'
@@ -23,7 +24,7 @@ import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { createShopUpgradeTypeIcon, getShopUpgradeEffects, ShopUpgradeGroups } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { calculateTotalStat, firstFiveRuneEffectivenessStats, runeEffectivenessStatsSI } from './Statistics'
+import { firstFiveRuneEffectivenessStatsProduct, runeEffectivenessStatsSIProduct } from './Statistics'
 import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { toggleAutoSacrifice } from './Toggles'
@@ -128,26 +129,14 @@ const bonusRuneLevelsSpeed = () => {
       player.upgrades[27] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e10)))
         + Math.max(0, Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e50)) - 10)))
     )
-    + player.upgrades[29] * Math.floor(
-        Math.min(
-          100,
-          (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin
-            + player.fifthOwnedCoin) / 400
-        )
-      )
+    + (player.upgrades[29] > 0 ? Math.floor(Math.min(100, getTotalBuildingsOwned('coin') / 400)) : 0)
   )
 }
 
 const bonusRuneLevelsDuplication = () => {
   return (
     getRuneBonusFromAllTalismans('duplication')
-    + player.upgrades[28] * Math.min(
-        100,
-        Math.floor(
-          (player.firstOwnedCoin + player.secondOwnedCoin + player.thirdOwnedCoin + player.fourthOwnedCoin
-            + player.fifthOwnedCoin) / 400
-        )
-      )
+    + (player.upgrades[28] > 0 ? Math.min(100, Math.floor(getTotalBuildingsOwned('coin') / 400)) : 0)
     + (
       player.upgrades[30] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e30)))
         + Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e300))))
@@ -280,11 +269,11 @@ const horseShoeOOMIncrease = () => {
 }
 
 export const firstFiveEffectiveRuneLevelMult = () => {
-  return calculateTotalStat(firstFiveRuneEffectivenessStats)
+  return firstFiveRuneEffectivenessStatsProduct()
 }
 
 export const SIEffectiveRuneLevelMult = () => {
-  return calculateTotalStat(runeEffectivenessStatsSI)
+  return runeEffectivenessStatsSIProduct()
 }
 
 const universalRuneEXPMult = (purchasedLevels: number, salvage = calculateTotalSalvage()): Decimal => {
@@ -446,7 +435,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsDuplication(),
     runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
-    isUnlocked: () => Boolean(getAchievementReward('duplicationRuneUnlock')),
+    isUnlocked: () => getAchievementReward('duplicationRuneUnlock'),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.duplication.name'),
     description: () => i18next.t('runes.duplication.description'),
@@ -484,7 +473,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsPrism(),
     runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
-    isUnlocked: () => Boolean(getAchievementReward('prismRuneUnlock')),
+    isUnlocked: () => getAchievementReward('prismRuneUnlock'),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.prism.name'),
     description: () => i18next.t('runes.prism.description'),
@@ -526,13 +515,13 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
     freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsThrift(),
     runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
-    isUnlocked: () => Boolean(getAchievementReward('thriftRuneUnlock')),
+    isUnlocked: () => getAchievementReward('thriftRuneUnlock'),
     minimalResetTier: 'ascension',
     name: () => i18next.t('runes.thrift.name'),
     description: () => i18next.t('runes.thrift.description'),
     valueText: () => i18next.t('runes.thrift.values'),
     runeHTMLStyle: {
-      borderColor: 'darkgreen',
+      borderColor: 'var(--green-color)',
       nameColor: 'var(--lime-color)'
     }
   },
@@ -721,7 +710,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.horseShoe.description'),
     valueText: () => i18next.t('runes.horseShoe.values'),
     runeHTMLStyle: {
-      borderColor: 'saddlebrown',
+      borderColor: 'var(--brown-color)',
       nameColor: 'var(--peru-color)'
     }
   },
@@ -765,8 +754,8 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
     description: () => i18next.t('runes.finiteDescent.description'),
     valueText: () => i18next.t('runes.finiteDescent.values'),
     runeHTMLStyle: {
-      borderColor: 'black',
-      nameColor: 'dimgray'
+      borderColor: 'var(--gray-color)',
+      nameColor: 'var(--darkgray-color)'
     }
   },
   topHat: {
@@ -966,7 +955,7 @@ const updateRuneLevelAchievementProgress = (force = false, sourcedFromUpdate = f
     return
   }
 
-  awardAchievementGroup('runeLevel')
+  awardAchievementGroup(AchievementGroup.RuneLevel)
   updateProgressiveCache('runeLevel', sourcedFromUpdate)
   runeLevelAchievementsDirty = false
 }

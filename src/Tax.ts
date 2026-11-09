@@ -1,13 +1,30 @@
-import { calculateBuildingPowerCoinMultiplier, player } from './Synergism'
+import {
+  CoinBuilding,
+  DiamondBuilding,
+  getBuildingOwned,
+  getBuildingsOwned,
+  MythosBuilding,
+  sumBuildingsOwned
+} from './Buy'
+import {
+  type AccelMultStats,
+  calculateAcceleratorCounts,
+  calculateBuildingPowerCoinMultiplier,
+  calculateBuildingProduction,
+  calculateCoinTierMultiplier,
+  calculateFirstSixCoinUpgradeMultiplier,
+  calculateGlobalCoinMultiplier,
+  player
+} from './Synergism'
 import { sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 import Decimal from 'break_infinity.js'
-import { awardUngroupedAchievement } from './Achievements'
+import { awardUngroupedAchievement, UngroupedAchievement } from './Achievements'
 import { totalStartingChallengeCompletions, useChallenge13Modifiers } from './Challenges'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
-import { allTaxExponentStats, calculateTotalStat } from './Statistics'
+import { allTaxExponentStatsProduct } from './Statistics'
 
 // im doing this to spite xander, basically changes w5x9 to not impact tax scaling in c13 || Sean#7236
 export const challenge13EffectiveCompletions = () => {
@@ -20,55 +37,66 @@ export const challenge13EffectiveCompletions = () => {
 }
 
 // Cap the calculation overflow bug || httpsnet
-export const calculateTaxExponent = () => Math.max(1e-300, calculateTotalStat(allTaxExponentStats))
+export const calculateTaxExponent = () => Math.max(1e-300, allTaxExponentStatsProduct())
 
-export const calculateFlatTaxCapIncrease = () => {
+export const calculateFlatTaxCapIncrease = (buildingPowerCoinMultiplier = calculateBuildingPowerCoinMultiplier()) => {
   return Decimal.log(getAntUpgradeEffect(AntUpgrades.Coins).coinMultiplier, 10)
-    + Decimal.log(calculateBuildingPowerCoinMultiplier(), 10)
+    + Decimal.log(buildingPowerCoinMultiplier, 10)
 }
 
-export const calculatetax = () => {
+export interface CoinProducerInputs {
+  coinsOwned: readonly number[]
+  firstMythosOwned: number
+  firstDiamondOwned: number
+}
+
+const getCoinProducerInputs = (): CoinProducerInputs => ({
+  coinsOwned: getBuildingsOwned('coin'),
+  firstMythosOwned: getBuildingOwned('mythos', MythosBuilding.Augments),
+  firstDiamondOwned: getBuildingOwned('diamond', DiamondBuilding.Refineries)
+})
+
+export const calculateTax = (
+  stats:
+    & Pick<AccelMultStats, 'effectiveFreeAccelerator'>
+    & Partial<Pick<AccelMultStats, 'multiplierEffect' | 'acceleratorEffect' | 'totalAccelerator'>> =
+      calculateAcceleratorCounts(),
+  { coinsOwned, firstMythosOwned, firstDiamondOwned }: CoinProducerInputs = getCoinProducerInputs(),
+  buildingPowerCoinMultiplier = calculateBuildingPowerCoinMultiplier(undefined, sumBuildingsOwned(coinsOwned))
+) => {
   // To 2020 Platonic: Why the HELL is this done here???
-  G.produceFirst = (player.firstGeneratedCoin.add(player.firstOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinOneMulti
+  const totalCoinOwned = sumBuildingsOwned(coinsOwned)
+  const first6CoinUp = calculateFirstSixCoinUpgradeMultiplier(totalCoinOwned)
+  const coinMultiplier = calculateGlobalCoinMultiplier(
+    stats.multiplierEffect,
+    stats.acceleratorEffect,
+    stats.totalAccelerator
   )
-    .times(player.firstProduceCoin)
-  G.produceSecond = (player.secondGeneratedCoin.add(player.secondOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinTwoMulti
-  )
-    .times(player.secondProduceCoin)
-  G.produceThird = (player.thirdGeneratedCoin.add(player.thirdOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinThreeMulti
-  )
-    .times(player.thirdProduceCoin)
-  G.produceFourth = (player.fourthGeneratedCoin.add(player.fourthOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinFourMulti
-  )
-    .times(player.fourthProduceCoin)
-  G.produceFifth = (player.fifthGeneratedCoin.add(player.fifthOwnedCoin)).times(G.globalCoinMultiplier).times(
-    G.coinFiveMulti
-  )
-    .times(player.fifthProduceCoin)
-  G.produceTotal = G.produceFirst.add(G.produceSecond).add(G.produceThird).add(G.produceFourth)
-    .add(G.produceFifth)
+  const tierInputs = {
+    first6CoinUp,
+    effectiveFreeAccelerator: stats.effectiveFreeAccelerator,
+    coinsOwned,
+    firstMythosOwned,
+    firstDiamondOwned
+  }
+  const coinTierMultipliers = [
+    calculateCoinTierMultiplier(CoinBuilding.Workers, tierInputs),
+    calculateCoinTierMultiplier(CoinBuilding.Investments, tierInputs),
+    calculateCoinTierMultiplier(CoinBuilding.Printers, tierInputs),
+    calculateCoinTierMultiplier(CoinBuilding.CoinMints, tierInputs),
+    calculateCoinTierMultiplier(CoinBuilding.Alchemies, tierInputs)
+  ] as const
+  const grossProduction = calculateBuildingProduction('coin', coinsOwned, [
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.Workers]),
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.Investments]),
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.Printers]),
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.CoinMints]),
+    coinMultiplier.times(coinTierMultipliers[CoinBuilding.Alchemies])
+  ])
+  const produceTotal = grossProduction.reduce((total, production) => total.add(production), new Decimal())
+  const production = grossProduction.map((tier) => tier.lte(G.d0_0001) ? new Decimal() : tier)
 
-  if (G.produceFirst.lte(G.d0_0001)) {
-    G.produceFirst = new Decimal()
-  }
-  if (G.produceSecond.lte(G.d0_0001)) {
-    G.produceSecond = new Decimal()
-  }
-  if (G.produceThird.lte(G.d0_0001)) {
-    G.produceThird = new Decimal()
-  }
-  if (G.produceFourth.lte(G.d0_0001)) {
-    G.produceFourth = new Decimal()
-  }
-  if (G.produceFifth.lte(G.d0_0001)) {
-    G.produceFifth = new Decimal()
-  }
-
-  G.producePerSecond = G.produceTotal.times(40)
+  const producePerSecond = produceTotal.times(40)
 
   const exponent = calculateTaxExponent()
 
@@ -76,34 +104,45 @@ export const calculatetax = () => {
   // It multiplies the coin production but is also tax-exempt, which we do by increasing the tax cap
   // While also deducting the log value from `exponentForDivisor`.
   // Implementing this was much more difficult than it needed to be.
-  const flatMaxExponentIncrease = calculateFlatTaxCapIncrease()
+  const flatMaxExponentIncrease = calculateFlatTaxCapIncrease(buildingPowerCoinMultiplier)
 
-  G.maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1 + flatMaxExponentIncrease
+  const maxexponent = Math.floor(275 / (Decimal.log(1.01, 10) * exponent)) - 1 + flatMaxExponentIncrease
 
   const exponentForDivisor = Math.max(
     0,
-    Math.min(G.maxexponent, Math.floor(Decimal.log(G.produceTotal.add(1), 10))) - flatMaxExponentIncrease
+    Math.min(maxexponent, Math.floor(Decimal.log(produceTotal.add(1), 10))) - flatMaxExponentIncrease
   )
-  const exponentForWarning = Math.max(0, G.maxexponent - flatMaxExponentIncrease)
-
-  if (useChallenge13Modifiers() && (G.maxexponent - flatMaxExponentIncrease) <= 99999) {
-    // i don't think it makes sense to give the achievement as soon as the challenge is opened
-    // as soon as the challenge is opened you don't have enough tax reducers to have max exponent above 100000
-    // so for the achievement description to make sense i think it should require at least 1 challenge completion || Dorijanko
-    if (challenge13EffectiveCompletions() >= 1) {
-      awardUngroupedAchievement('overtaxed')
-    }
-  }
+  const exponentForWarning = Math.max(0, maxexponent - flatMaxExponentIncrease)
 
   const divisorExponent = 1 / 550 * Math.pow(exponentForDivisor, 2)
   // Not exactly clear why this is needed?
   const checkExponent = 1 / 550 * Math.pow(exponentForWarning, 2)
 
-  // After the ants update, I really should get rid of these bad globals
-
   // November 11, 2025: Platonic re-derived these equations to understand why this works.
   // If you write this value out, you end up getting a function whose log is O(exponent^-1),
   // Which is intentional.
-  G.taxdivisor = Decimal.pow(1.01, divisorExponent * exponent)
-  G.taxdivisorcheck = Decimal.pow(1.01, checkExponent * exponent)
+  return {
+    coinMultiplier,
+    coinTierMultipliers,
+    production,
+    produceTotal,
+    producePerSecond,
+    maxexponent,
+    flatMaxExponentIncrease,
+    taxdivisor: Decimal.pow(1.01, divisorExponent * exponent),
+    taxdivisorcheck: Decimal.pow(1.01, checkExponent * exponent)
+  }
+}
+
+export type TaxResult = ReturnType<typeof calculateTax>
+
+export const awardOvertaxedAchievement = ({ maxexponent, flatMaxExponentIncrease }: TaxResult) => {
+  if (useChallenge13Modifiers() && (maxexponent - flatMaxExponentIncrease) <= 99999) {
+    // i don't think it makes sense to give the achievement as soon as the challenge is opened
+    // as soon as the challenge is opened you don't have enough tax reducers to have max exponent above 100000
+    // so for the achievement description to make sense i think it should require at least 1 challenge completion || Dorijanko
+    if (challenge13EffectiveCompletions() >= 1) {
+      awardUngroupedAchievement(UngroupedAchievement.Overtaxed)
+    }
+  }
 }

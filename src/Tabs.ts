@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet, DOMCacheHas } from './Cache/DOM'
-import { isCorruptionTabUnlocked } from './Corruptions'
+import { isAscensionTabUnlocked, isCorruptionUnlocked } from './Corruptions'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { hasUnreadMessages } from './Messages'
 import { initializeCart } from './purchases/CartTab'
@@ -45,7 +45,7 @@ export enum Tabs {
   Research = 5,
   AntHill = 6,
   WowCubes = 7,
-  Corruption = 8,
+  Ascensions = 8,
   Singularity = 9,
   Settings = 10,
   Shop = 11,
@@ -298,7 +298,7 @@ const tabInfo: Record<Tabs, TabInfo> = {
       }
     ]
   },
-  [Tabs.Corruption]: {
+  [Tabs.Ascensions]: {
     panelID: 'traits',
     // Circular import... yay
     tabSwitcher: (subTabID) => showCorruptionSubtab(subTabID),
@@ -307,12 +307,12 @@ const tabInfo: Record<Tabs, TabInfo> = {
     subTabList: [
       {
         subTabID: 'stats',
-        unlocked: () => true,
+        unlocked: () => isCorruptionUnlocked(),
         buttonID: 'corrStatsBtn'
       },
       {
         subTabID: 'tokens',
-        unlocked: () => true,
+        unlocked: () => isCorruptionUnlocked(),
         buttonID: 'corrTokensBtn'
       },
       {
@@ -547,7 +547,7 @@ class TabRow extends HTMLDivElement {
   })
 
   #handlePointerDown (event: PointerEvent) {
-    if (event.button !== 0) {
+    if (event.button !== 0 || !event.isPrimary) {
       return
     }
 
@@ -1083,14 +1083,14 @@ tabRow.appendButton(
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
-    class: 'corruptionUnlock',
+    class: 'ascensionTabUnlock',
     id: 'traitstab',
-    i18n: 'tabs.main.corruption',
+    i18n: 'tabs.main.ascensions',
     mobileIcon: 'Corruption.png',
     activeColor: 'var(--orange-background-color)'
   })
-    .setUnlockedState(() => isCorruptionTabUnlocked())
-    .setType(Tabs.Corruption)
+    .setUnlockedState(() => isAscensionTabUnlocked())
+    .setType(Tabs.Ascensions)
     .makeDraggable()
     .makeRemoveable(),
   new $Tab({
@@ -1290,6 +1290,11 @@ export const updateSubTabVisibility = () => {
         tabInfo[tabRow.getCurrentTab().getType()].subtabIndex = i
       }
     }
+  }
+
+  const { subtabIndex } = tabInfo[G.currentTab]
+  if (subTabList.length > 0 && !subTabList[subtabIndex].unlocked()) {
+    changeSubTab(G.currentTab, { page: subtabIndex })
   }
 }
 

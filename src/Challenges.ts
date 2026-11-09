@@ -454,23 +454,15 @@ export const challengeDisplay = (i: number) => {
 
   if (isFocused) {
     const el = DOMCacheGetOrSet('toggleAutoChallengeIgnore')
-    el.style.display = i <= (autoAscensionChallengeSweepUnlock() ? 15 : 10) && player.researches[150] > 0
+    el.style.display = i <= NUM_ELIGIBLE_CHALLENGES && player.researches[150] > 0
       ? 'block'
       : 'none'
     el.style.border = player.autoChallengeToggles[i] ? '2px solid var(--green-color)' : '2px solid var(--red-color)'
 
-    if (i >= 11 && i <= 15) {
-      if (player.autoChallengeToggles[i]) {
-        el.textContent = i18next.t('challenges.autoAscRunChalOn', { x: i })
-      } else {
-        el.textContent = i18next.t('challenges.autoAscRunChalOff', { x: i })
-      }
+    if (player.autoChallengeToggles[i]) {
+      el.textContent = i18next.t('challenges.autoRunChalOn', { x: i })
     } else {
-      if (player.autoChallengeToggles[i]) {
-        el.textContent = i18next.t('challenges.autoRunChalOn', { x: i })
-      } else {
-        el.textContent = i18next.t('challenges.autoRunChalOff', { x: i })
-      }
+      el.textContent = i18next.t('challenges.autoRunChalOff', { x: i })
     }
   }
 
@@ -484,18 +476,9 @@ export const challengeDisplay = (i: number) => {
   }
 }
 
-export const getChallengeConditions = (i?: number) => {
+export const getChallengeConditions = () => {
   if (player.currentChallenge.reincarnation === 9) {
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
-  }
-  G.prestigePointGain = new Decimal()
-  if (typeof i === 'number') {
-    if (i >= 6) {
-      G.transcendPointGain = new Decimal()
-    }
-    if (i >= 11) {
-      G.reincarnationPointGain = new Decimal()
-    }
   }
 }
 
@@ -650,7 +633,7 @@ type SweepStates =
   | { kind: 'finished' } // Challenges 1-10 are all completely maxed
 
 // 1-5 are transcension, 6-10 reincarnation
-const NUM_ELIGIBLE_CHALLENGES = 10
+export const NUM_ELIGIBLE_CHALLENGES = 10
 
 let currentSweepState: SweepStates = { kind: 'idle' }
 
@@ -707,11 +690,7 @@ function sweepTransitionFunc (
 
     case 'finished':
       // Check to ensure that the max challenges did not change since we entered this state
-      // We check challenge 1 and 6 to represent Transcension and Reincarnation challenges respectively
-      if (
-        player.highestchallengecompletions[1] === getMaxChallenges(1)
-        && player.highestchallengecompletions[6] === getMaxChallenges(6)
-      ) {
+      if (getNextRegularChallenge(1, new Set()) === -1) {
         return state
       } else {
         return { kind: 'initial_wait' }
@@ -770,9 +749,10 @@ export function clearStateChangeTimer (): void {
 
 export function resetChallengeSweep (): void {
   if (currentSweepState.kind !== 'idle') {
+    const oldState = currentSweepState
     currentSweepState = { kind: 'idle' }
     timeSinceLastStateChange = 0
-    toggleAutoChallengeModeText('OFF')
+    handleStateTransition(oldState, currentSweepState)
   }
 }
 
@@ -788,10 +768,7 @@ export function tickChallengeSweep (dt: number): void {
   }
 
   if (wasEnabled && !isEnabled) {
-    const oldState = currentSweepState
-    currentSweepState = { kind: 'idle' }
-    timeSinceLastStateChange = 0
-    handleStateTransition(oldState, currentSweepState)
+    resetChallengeSweep()
     return
   }
 
@@ -825,7 +802,7 @@ export const challenge15ScoreMultiplier = () => {
 }
 
 export const calculateChallenge15Score = () => {
-  return Decimal.log(player.coins.add(1), 10) * challenge15ScoreMultiplier()
+  return Decimal.log(player.coinsThisAscension.add(1), 10) * challenge15ScoreMultiplier()
 }
 
 // "Regular" just means not ascension challenge

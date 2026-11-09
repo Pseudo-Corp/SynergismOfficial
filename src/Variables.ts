@@ -27,7 +27,14 @@ const challenge15CubeReward = (e: number, power: number, divisor = 1e10) => {
   return Math.pow(softcapped, power) * Math.pow(excess, power / 2)
 }
 
-export const Globals: GlobalVariables = {
+export const buildingBaseProduction = {
+  coin: [0.25, 2.5, 25, 250, 2500],
+  diamond: [0.05, 0.0005, 0.00005, 0.000005, 0.000005],
+  mythos: [1, 0.01, 0.001, 0.0002, 0.00004],
+  particle: [0.25, 0.2, 0.15, 0.1, 0.5]
+} as const
+
+export const createGlobals = () => ({
   // this shows the logarithm of costs. ex: upgrade one will cost 1e+6 coins, upgrade 2 1e+7, etc.
   // dprint-ignore
   upgradeCosts: [
@@ -44,73 +51,6 @@ export const Globals: GlobalVariables = {
   crystalUpgradesCost: [6, 15, 20, 40, 100, 200, 500, 1000],
   crystalUpgradeCostIncrement: [8, 15, 20, 40, 100, 200, 500, 1000],
 
-  freeAccelerator: 0,
-  effectiveFreeAccelerator: 0,
-  totalAccelerator: 0,
-  freeAcceleratorBoost: 0,
-  totalAcceleratorBoost: 0,
-  acceleratorPower: 1.10,
-  acceleratorEffect: new Decimal(1),
-
-  freeMultiplier: 0,
-  effectiveFreeMultiplier: 0,
-  totalMultiplier: 0,
-  multiplierPower: 2,
-  multiplierEffect: new Decimal(1),
-  challengeOneLog: 3,
-  totalMultiplierBoost: 0,
-
-  globalCoinMultiplier: new Decimal(1),
-
-  coinOneMulti: new Decimal(1),
-  coinTwoMulti: new Decimal(1),
-  coinThreeMulti: new Decimal(1),
-  coinFourMulti: new Decimal(1),
-  coinFiveMulti: new Decimal(1),
-
-  globalCrystalMultiplier: new Decimal(1),
-  globalMythosMultiplier: new Decimal(0.01),
-
-  challengeThreeMultiplier: new Decimal(1),
-
-  prestigePointGain: new Decimal(),
-
-  transcendPointGain: new Decimal(),
-  reincarnationPointGain: new Decimal(),
-
-  produceFirst: new Decimal(),
-  produceSecond: new Decimal(),
-  produceThird: new Decimal(),
-  produceFourth: new Decimal(),
-  produceFifth: new Decimal(),
-  produceTotal: new Decimal(),
-
-  produceFirstDiamonds: new Decimal(),
-  produceSecondDiamonds: new Decimal(),
-  produceThirdDiamonds: new Decimal(),
-  produceFourthDiamonds: new Decimal(),
-  produceFifthDiamonds: new Decimal(),
-  produceDiamonds: new Decimal(),
-
-  produceFirstMythos: new Decimal(),
-  produceSecondMythos: new Decimal(),
-  produceThirdMythos: new Decimal(),
-  produceFourthMythos: new Decimal(),
-  produceFifthMythos: new Decimal(),
-  produceMythos: new Decimal(),
-
-  produceFirstParticles: new Decimal(),
-  produceSecondParticles: new Decimal(),
-  produceThirdParticles: new Decimal(),
-  produceFourthParticles: new Decimal(),
-  produceFifthParticles: new Decimal(),
-  produceParticles: new Decimal(),
-
-  producePerSecond: new Decimal(),
-  producePerSecondDiamonds: new Decimal(),
-  producePerSecondMythos: new Decimal(),
-  producePerSecondParticles: new Decimal(),
-
   currentTab: Tabs.Buildings,
 
   // dprint-ignore
@@ -118,15 +58,7 @@ export const Globals: GlobalVariables = {
 
   challengeBaseRequirements: [10, 20, 60, 100, 200, 125, 500, 7500, 2.0e8, 2.5e9],
 
-  taxdivisor: new Decimal('1'),
-  taxdivisorcheck: new Decimal('1'),
-
-  mythosupgrade13: new Decimal('1'),
-  mythosupgrade14: new Decimal('1'),
-  mythosupgrade15: new Decimal('1'),
   challengefocus: 0,
-
-  maxexponent: 10000,
 
   talismanResourceObtainiumCosts: [1e13, 1e14, 1e16, 1e18, 1e20, 1e22, 1e24],
   talismanResourceOfferingCosts: [100, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9],
@@ -136,34 +68,13 @@ export const Globals: GlobalVariables = {
 
   triggerChallenge: 0,
 
-  prevBuildingCostKey: '',
-  buildingCosts: {
-    coin: [new Decimal(100), new Decimal(1e3), new Decimal(2e4), new Decimal(4e5), new Decimal(8e6)],
-    diamond: [new Decimal(100), new Decimal(1e5), new Decimal(1e15), new Decimal(1e40), new Decimal(1e100)],
-    mythos: [new Decimal(1), new Decimal(1e2), new Decimal(1e4), new Decimal(1e8), new Decimal(1e16)],
-    particle: [new Decimal(1), new Decimal(1e2), new Decimal(1e4), new Decimal(1e8), new Decimal(1e16)],
-    accelerator: [new Decimal(500)],
-    multiplier: [new Decimal(1e4)],
-    acceleratorBoost: [new Decimal(1e3)]
-  },
-
   buildingSubTab: 'coin',
   // 1,000 of each before Diminishing Returns
 
   autoOfferingCounter: 0,
   MAX_AUTO_SACRIFICE_RUNE: 5,
 
-  ascendBuildingProduction: {
-    first: new Decimal(),
-    second: new Decimal(),
-    third: new Decimal(),
-    fourth: new Decimal(),
-    fifth: new Decimal()
-  },
-
   constUpgradeCosts: [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24],
-
-  globalConstantMult: new Decimal('1'),
 
   c15RewardFormulae: {
     cube1: (e: number) => 1 + ((1 / 50) * Math.log2(e / 175)),
@@ -555,6 +466,6 @@ export const Globals: GlobalVariables = {
   MIND_DIVISOR: 1_000_000,
   GLOBAL_RESET_THRESHOLD: 10,
   ASCENSION_RESET_THRESHOLD: 10
-}
+} satisfies GlobalVariables)
 
-export const blankGlobals = { ...Globals }
+export const Globals: GlobalVariables = createGlobals()

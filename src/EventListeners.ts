@@ -40,7 +40,8 @@ import {
   resetCorruptionProgress,
   setNextCorruptionLevel,
   toggleCorruptionAutoIncrease,
-  toggleCorruptionCleanseToHighest
+  toggleCorruptionCleanseToHighest,
+  toggleCorruptionShowRealTime
 } from './Corruptions'
 import { buyCubeUpgrades, cubeUpgradeDesc, cubeUpgradeModalHTML } from './Cubes'
 import { eventPageMessageHandler } from './Event'
@@ -1613,6 +1614,7 @@ export const generateEventHandlers = () => {
   // CORRUPTION TAB
   // Part 1: Displays
   registerCorruptionDetailsModal(DOMCacheGetOrSet('corruptionExitIcon'), 'exit')
+  registerCorruptionDetailsModal(DOMCacheGetOrSet('corruptionCubeBankIcon'), 'cubeBank')
   DOMCacheGetOrSet('corruptionCleanse').addEventListener('click', () => corruptionCleanseConfirm())
   DOMCacheGetOrSet('corruptionCleanseConfirm').addEventListener('click', () => cleanseCorruptions())
   DOMCacheGetOrSet('corruptionAutoIncreaseToggle').addEventListener('change', () => toggleCorruptionAutoIncrease())
@@ -1620,6 +1622,7 @@ export const generateEventHandlers = () => {
     'change',
     () => toggleCorruptionCleanseToHighest()
   )
+  DOMCacheGetOrSet('corruptionShowRealTimeToggle').addEventListener('change', () => toggleCorruptionShowRealTime())
   for (const [id, delta] of corruptionLevelSteps) {
     DOMCacheGetOrSet(id).addEventListener('click', () => changeNextCorruptionLevel(delta))
   }
@@ -2017,7 +2020,6 @@ TODO: Fix this entire tab it's utter shit
 
       resetHighlights()
       beginAmbrosiaEdit(key)
-      highlightPrerequisites(key)
 
       Modal(
         () => ambrosiaEditToString(key),
@@ -2030,11 +2032,12 @@ TODO: Fix this entire tab it's utter shit
           buttonClick: (button) => {
             if (ambrosiaEditAction(key, button.dataset.modalAction)) {
               CloseModal()
-              resetHighlights()
             }
-          }
+          },
+          onClose: resetHighlights
         }
       )
+      highlightPrerequisites(key)
     })
   }
 
@@ -2053,6 +2056,9 @@ TODO: Fix this entire tab it's utter shit
     el.addEventListener('mouseout', () => {
       loadoutContainer.classList.remove(`hoveredBlueberryLoadout${shiftedKey}`)
       resetLoadoutOnlyDisplay()
+      if (DOMCacheGetOrSet('showCurrAmbrosiaUpgrades').hasAttribute('show-levels')) {
+        displayLevelsBlueberry()
+      }
     })
     el.addEventListener('click', () =>
       loadoutHandler(

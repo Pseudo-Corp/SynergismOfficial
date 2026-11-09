@@ -24,9 +24,9 @@ type AmbrosiaUpgradeRewards = {
   ambrosiaLuck1: { ambrosiaLuck: number }
   ambrosiaQuarkCube1: { cubes: number }
   ambrosiaLuckCube1: { cubes: number }
-  ambrosiaCubeQuark1: { quarks: number }
+  ambrosiaCubeQuark1: { quarks: number; octeractQuarks: number }
   ambrosiaLuckQuark1: { quarks: number }
-  ambrosiaCubeLuck1: { ambrosiaLuck: number }
+  ambrosiaCubeLuck1: { ambrosiaLuck: number; octeractAmbrosiaLuck: number }
   ambrosiaQuarkLuck1: { ambrosiaLuck: number }
   ambrosiaQuarks2: { quarks: number }
   ambrosiaCubes2: { cubes: number }
@@ -328,9 +328,9 @@ export const ambrosiaUpgrades: {
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
-    effects: (n: number) => {
+    effects: (n, key) => {
       const baseVal = 0.0001 * n
-      return 1
+      const quarks = 1
         + baseVal
           * (Math.floor(Math.log10(Number(player.wowCubes) + 1))
             + Math.floor(Math.log10(Number(player.wowTesseracts) + 1))
@@ -338,7 +338,11 @@ export const ambrosiaUpgrades: {
             + Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1))
             + Math.floor(Math.log10(player.wowAbyssals + 1))
             + Math.floor(Math.log10(player.wowOcteracts + 1))
-            + 6) // quarks
+            + 6)
+      if (key === 'octeractQuarks') {
+        return quarks / (quarks - baseVal * (Math.floor(Math.log10(player.wowOcteracts + 1)) + 1))
+      }
+      return quarks
     },
     effectsDescription: function() {
       const quarks = getAmbrosiaUpgradeEffects('ambrosiaCubeQuark1', 'quarks')
@@ -407,8 +411,11 @@ export const ambrosiaUpgrades: {
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
-    effects: (n: number) => {
+    effects: (n, key) => {
       const baseVal = 0.02 * n
+      if (key === 'octeractAmbrosiaLuck') {
+        return baseVal * (Math.floor(Math.log10(player.wowOcteracts + 1)) + 1)
+      }
       return baseVal
         * (Math.floor(Math.log10(Number(player.wowCubes) + 1))
           + Math.floor(Math.log10(Number(player.wowTesseracts) + 1))
@@ -2649,16 +2656,10 @@ export const displayOnlyLoadout = (loadout: BlueberryOpt) => {
       elm.appendChild(levelOverlay) // Append to the element
     }
 
-    if (isInLoadout) {
-      img.classList.add('dimmed') // Apply the dimmed class
-      levelOverlay.textContent = String(level) // Set the level text
-      if (level === ambrosiaUpgrades[key].maxLevel) {
-        levelOverlay.classList.add('maxBlueberryLevel')
-      }
-    } else {
-      img.classList.add('superDimmed')
-      levelOverlay.textContent = ''
-    }
+    img.classList.toggle('dimmed', isInLoadout)
+    img.classList.toggle('superDimmed', !isInLoadout)
+    levelOverlay.classList.toggle('maxBlueberryLevel', isInLoadout && level === ambrosiaUpgrades[key].maxLevel)
+    levelOverlay.textContent = isInLoadout ? String(level) : ''
   }
 }
 

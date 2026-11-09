@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateAmbrosiaRewardLuck,
+  calculateBarEXALTPurpleFillChance,
   calculateBarEXALTPurpleHoneyRequirement,
   calculateExalt3AscensionLimit,
   calculateExalt4EffectiveSingularityMultiplier,
@@ -816,6 +817,7 @@ export const singularityChallengeData: {
 
       const purpleReq = calculateBarEXALTPurpleHoneyRequirement()
       const barMod3Text = i18next.t('singularityChallenge.data.barDependence.barMod3', {
+        chance: format(100 * calculateBarEXALTPurpleFillChance(), 2, true),
         req: format(purpleReq, 0, true)
       })
       return `${baseDesc}<br>${warningText}<br>${introText}<br>${introText2}<br>${barMod1Text}<br>${barMod2Text}<br>${barMod3Text}`

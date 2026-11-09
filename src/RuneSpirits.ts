@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { awardAchievementGroup } from './Achievements'
+import { AchievementGroup, awardAchievementGroup } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
 import { challenge15CorruptionEffect } from './Corruptions'
@@ -239,7 +239,7 @@ const updateLevelsFromEXP = (spirit: RuneSpiritKeys) => {
   }
 
   if (spirit === 'speed') {
-    awardAchievementGroup('speedSpirit')
+    awardAchievementGroup(AchievementGroup.SpeedSpirit)
   }
 }
 

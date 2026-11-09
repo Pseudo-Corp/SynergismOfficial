@@ -249,8 +249,9 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.offeringPotion'),
     effects: () => 7200, // skipSeconds
     effectDescription: () => {
+      const baseOfferings = calculateBaseOfferings()
       const amount = format(
-        calculatePotionValue(calculateOfferingsDecimal(), calculateBaseOfferings()),
+        calculatePotionValue(calculateOfferingsDecimal(baseOfferings), baseOfferings),
         2,
         true
       )
@@ -1412,7 +1413,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   shopOcteractAmbrosiaLuck: {
     name: () => i18next.t('shop.names.shopOcteractAmbrosiaLuck'),
     description: () => i18next.t('shop.upgradeDescriptions.shopOcteractAmbrosiaLuck'),
-    effects: (n) => n * (1 + Math.floor(Math.max(0, Math.log10(player.wowOcteracts)))), // ambrosiaLuck
+    effects: (n) => n * (1 + Math.floor(Math.max(0, Math.log10(player.totalWowOcteracts)))), // ambrosiaLuck
     effectDescription () {
       const effects = getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck')
       return i18next.t('shop.upgradeEffects.shopOcteractAmbrosiaLuck', { amount: format(effects) })
@@ -2269,14 +2270,17 @@ export const useConsumable = (
   input: ShopUpgradeNames,
   automatic = false,
   used = 1,
-  spend = true
+  spend = true,
+  speedMult?: number
 ) => {
   const infiniteAutoBrew = PCoinUpgradeEffects.AUTO_POTION_FREE_POTIONS_QOL
 
   if (input === 'offeringPotion') {
+    const baseOfferings = calculateBaseOfferings()
     let offeringPotionValue = calculatePotionValue(
-      calculateOfferingsDecimal(),
-      calculateBaseOfferings()
+      calculateOfferingsDecimal(baseOfferings),
+      baseOfferings,
+      speedMult
     )
 
     if (
@@ -2309,7 +2313,8 @@ export const useConsumable = (
     const baseObtainium = calculateBaseObtainium()
     let obtainiumPotionValue = calculatePotionValue(
       calculateObtainium(false, baseObtainium),
-      baseObtainium
+      baseObtainium,
+      speedMult
     )
 
     if (

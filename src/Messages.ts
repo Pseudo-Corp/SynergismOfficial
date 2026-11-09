@@ -66,8 +66,10 @@ const fetchMessages = async (url: string): Promise<Message[]> => {
 const fetchUnreadMessages = async (): Promise<Message[]> => {
   const messages = await fetchMessages('https://synergism.cc/messages/unread')
 
-  unreadMessages = messages.filter((message) => !message.announcement)
-  updateMessagesNotificationBadge()
+  if (isLoggedIn()) {
+    unreadMessages = messages.filter((message) => !message.announcement)
+    updateMessagesNotificationBadge()
+  }
 
   return messages
 }
@@ -174,7 +176,7 @@ const updateMessagesUI = () => {
 
   if (unreadMessages.length === 0) {
     messagesContainer.innerHTML = `
-      <div style="text-align: center; color: #666; font-style: italic; padding: 20px;">
+      <div style="text-align: center; color: var(--gray-text-color); font-style: italic; padding: 20px;">
         No unread messages
       </div>
     `
@@ -256,6 +258,12 @@ const updateMessagesUI = () => {
 // Initialize messages on load
 export const initializeMessages = async () => {
   await fetchUnreadMessages()
+  updateMessagesUI()
+  updateMessagesNotificationBadge()
+}
+
+export const clearUnreadMessages = () => {
+  unreadMessages = []
   updateMessagesUI()
   updateMessagesNotificationBadge()
 }
