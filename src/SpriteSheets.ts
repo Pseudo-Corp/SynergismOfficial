@@ -360,7 +360,7 @@ export const spriteSheets: SpriteSheet[] = [
     elementNames: [
       'campaignTokenRewardIcon-sum',
       'campaignTokenRewardIcon-tutorial',
-      null,
+      'campaignTokenRewardIcon-cube',
       null,
       null,
       'campaignTokenRewardIcon-antELO',

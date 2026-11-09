@@ -66,12 +66,12 @@ type CorruptionCubeRate = {
 }
 
 const corruptionCubeRates: Record<CorruptionCubeType, CorruptionCubeRate> = {
-  cubes: { base: 1, growth: 1.13, endgameGrowth: 1.05 },
-  tesseracts: { base: 1e-3, growth: 1.18, endgameGrowth: 1.07 },
-  hypercubes: { base: 1e-3, growth: 1.23, endgameGrowth: 1.1 },
-  platonics: { base: 5e-4, growth: 1.28, endgameGrowth: 1.1 },
-  hepteracts: { base: 1e-4, growth: 1.45, lateGrowth: 1.1, endgameGrowth: 1.1 },
-  octeracts: { base: 1 / (5e19 * 3600 * 24 * 365), growth: 1.45, endgameGrowth: 1.05 }
+  cubes: { base: 1, growth: 1.1, endgameGrowth: 1.05 },
+  tesseracts: { base: 1e-3, growth: 1.15, endgameGrowth: 1.07 },
+  hypercubes: { base: 1e-3, growth: 1.2, endgameGrowth: 1.1 },
+  platonics: { base: 5e-4, growth: 1.25, endgameGrowth: 1.1 },
+  hepteracts: { base: 1e-4, growth: 1.4, lateGrowth: 1.1, endgameGrowth: 1.1 },
+  octeracts: { base: 1 / (5e19 * 3600 * 24 * 365), growth: 1.48, endgameGrowth: 1.05 }
 }
 
 const corruptionCubeIcons: Record<CorruptionCubeType, string> = {

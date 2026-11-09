@@ -392,6 +392,10 @@ export const allCubeStats: NumberStatLineCategory = {
       }
     },
     {
+      i18n: 'Campaign',
+      stat: () => campaignTokenBonuses.cube()
+    },
+    {
       i18n: 'Challenge15',
       stat: () =>
         G.challenge15Rewards.cube1.value
@@ -581,6 +585,7 @@ export const allCubeStatsProduct = (ascensionSpeedMult?: number) => {
       * (getAchievementReward('ascensionRewardScaling')
         ? Math.min(1, ascensionTimeRatio) * Math.max(1, ascensionTimeRatio)
         : Math.min(1, ascensionTimeRatio))
+      * campaignTokenBonuses.cube()
       * (G.challenge15Rewards.cube1.value
         * G.challenge15Rewards.cube2.value
         * G.challenge15Rewards.cube3.value

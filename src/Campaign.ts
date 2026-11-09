@@ -15,6 +15,7 @@ let baseCampaignTokens = 0
 
 type CampaignTokenRewardNames =
   | 'tutorial'
+  | 'cube'
   | 'antELO'
   | 'quark'
   | 'tax'
@@ -122,6 +123,12 @@ export const campaignTokenBonuses = {
     obtainiumBonus: 1 + 0.2 * usableCampaignTokens('tutorial'),
     offeringBonus: 1 + 0.2 * usableCampaignTokens('tutorial')
   }),
+  cube: () => {
+    const tokens = usableCampaignTokens('cube')
+    return 1
+      + 0.01 * Math.min(tokens, 100)
+      + Math.log10(Math.max(tokens, 100) / 100)
+  },
   antELO: () => usableCampaignTokens('antELO'),
   quark: () => {
     if (!campaignTokenRewardUnlocked(campaignTokenRewardDatas.quark)) {
@@ -194,6 +201,12 @@ const campaignTokenRewardDatas: Record<CampaignTokenRewardNames, CampaignTokenRe
       obtainium: formatAsPercentIncrease(campaignTokenBonuses.tutorial().obtainiumBonus),
       offering: formatAsPercentIncrease(campaignTokenBonuses.tutorial().offeringBonus)
     })
+  },
+  cube: {
+    tokenRequirement: 0,
+    tokenCap: 10000,
+    color: 'var(--white-color)',
+    reward: () => formatAsPercentIncrease(campaignTokenBonuses.cube())
   },
   antELO: {
     tokenRequirement: 0,
