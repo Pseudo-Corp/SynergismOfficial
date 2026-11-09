@@ -466,7 +466,7 @@
       },
       "redAmbrosiaAccelerator": {
         "name": "Ultrafusion Bleue-Rouge",
-        "description": "Quand vous remplissez la Barre Rouge, vous gagnez un peu de points de la Barre d'Ambroisie ! +num:((0.02)) seconde réelle de points de la Barre d'Ambroisie par niveau, par tranche de 100 de Chance Rouge, le premier niveau donnant +1 seconde !",
+        "description": "When you fill the Red Bar, you gain a bit of Ambrosia Bar Points! +num:((0.02)) real-life seconds of Ambrosia Bar Points per level, per 100 Red Ambrosia Luck, with the first level giving +1 second! Each Red Bar fill grants at most num:((80000000)) Ambrosia Bar Points.",
         "effect": "Chaque remplissage de la Barre Rouge donne <<white|{{amount}}>> secondes réelles de points de la Barre d'Ambroisie par tranche de 100 de Chance Rouge (par remplissage de la Barre Rouge : <<white|+{{current}}s>>)"
       },
       "regularLuck2": {
@@ -1432,9 +1432,6 @@
       "3": {
         "acceleratorPower": "+num:((0.1))% de puissance des Accélérateurs"
       },
-      "4": {
-        "workerAutobuyer": "Commencez avec l'auto-acheteur d'Ouvriers débloqué !"
-      },
       "5": {
         "accelerators": "+1 Accélérateur gratuit par tranche de 500 Ouvriers possédés"
       },
@@ -1446,9 +1443,6 @@
       },
       "10": {
         "acceleratorPower": "+num:((0.15))% de puissance des Accélérateurs"
-      },
-      "11": {
-        "investmentAutobuyer": "Commencez avec l'auto-acheteur d'Investissements débloqué !"
       },
       "12": {
         "accelerators": "+1 Accélérateur gratuit par tranche de 500 Investissements possédés"
@@ -1462,9 +1456,6 @@
       "17": {
         "acceleratorPower": "+num:((0.2))% de puissance des Accélérateurs"
       },
-      "18": {
-        "printerAutobuyer": "Commencez avec l'auto-acheteur d'Imprimantes débloqué !"
-      },
       "19": {
         "accelerators": "+1 Accélérateur gratuit par tranche de 500 Imprimantes possédées"
       },
@@ -1476,9 +1467,6 @@
       },
       "24": {
         "acceleratorPower": "+num:((0.2))% de puissance des Accélérateurs"
-      },
-      "25": {
-        "mintAutobuyer": "Commencez avec l'auto-acheteur de Presses à Monnaie débloqué !"
       },
       "26": {
         "accelerators": "+1 Accélérateur gratuit par tranche de 500 Presses à Monnaie possédées"
@@ -1492,9 +1480,6 @@
       "31": {
         "acceleratorPower": "+num:((0.3))% de puissance des Accélérateurs"
       },
-      "32": {
-        "alchemyAutobuyer": "Commencez avec l'auto-acheteur d'Alchimies débloqué !"
-      },
       "33": {
         "accelerators": "+1 Accélérateur gratuit par tranche de 500 Alchimies possédées"
       },
@@ -1504,20 +1489,8 @@
       "35": {
         "accelBoosts": "+1 Renfort d'Accélérateur gratuit par tranche de num:((2000)) Alchimies possédées"
       },
-      "36": {
-        "offeringPrestigeTimer": "Le Prestige donne plus d'Offrandes selon le temps passé ! (+100% par tranche de 10 secondes)"
-      },
       "37": {
         "crystalMultiplier": "Multiplicateur de production de Cristaux basé sur log(Diamants)"
-      },
-      "38": {
-        "duplicationRuneUnlock": "Débloquez définitivement la Rune de Duplication !"
-      },
-      "43": {
-        "autoPrestigeFeature": "Débloquez la fonction de Prestige automatique !"
-      },
-      "44": {
-        "prismRuneUnlock": "Débloquez définitivement la Rune Prismatique !"
       },
       "45": {
         "taxReduction": "La progression des impôts est réduite de 5%"
@@ -1530,9 +1503,6 @@
       },
       "50": {
         "particleGain": "Doublez de façon permanente votre Gain de Particules !"
-      },
-      "53": {
-        "multiplicativeObtainium": "Le gain d'Obtainium augmente de +num:((0.125))% par niveau de Rune"
       },
       "57": {
         "multipliers": "+1 Multiplicateur gratuit"
@@ -1573,88 +1543,20 @@
       "77": {
         "conversionExponent": "+1% sur l'exposant de conversion de toutes les Améliorations de Générateur !"
       },
-      "78": {
-        "refineryAutobuy": "Débloquez l'auto-acheteur de Raffineries !"
-      },
-      "79": {
-        "crystalUpgrade1Autobuy": "Débloquez l'auto-acheteur de la première Amélioration de Cristal !"
-      },
-      "80": {
-        "salvage": "Recyclage +3",
-        "multAutobuyer": "Commencez avec l'auto-acheteur de Multiplicateurs débloqué !"
-      },
       "82": {
         "taxReduction": "Progression des impôts réduite de 4%"
-      },
-      "84": {
-        "multiplicativeObtainium": "Obtainium xnum:((1.05))"
-      },
-      "85": {
-        "coalPlantAutobuy": "Débloquez l'auto-acheteur de Centrales à Charbon !"
-      },
-      "86": {
-        "crystalUpgrade2Autobuy": "Débloquez l'auto-acheteur de la deuxième Amélioration de Cristal !"
-      },
-      "87": {
-        "salvage": "+3 Recyclage",
-        "accelAutobuyer": "Commencez avec l'auto-acheteur d'Accélérateurs débloqué !"
       },
       "89": {
         "taxReduction": "Progression des impôts réduite de 4%"
       },
-      "91": {
-        "multiplicativeObtainium": "Gain d'Obtainium xnum:((1.05))"
-      },
-      "92": {
-        "coalRigAutobuy": "Débloquez l'auto-acheteur de Foreuses de Charbon !"
-      },
-      "93": {
-        "crystalUpgrade3Autobuy": "Débloquez l'auto-acheteur de la troisième Amélioration de Cristal !"
-      },
-      "94": {
-        "salvage": "+4 Recyclage"
-      },
       "96": {
         "taxReduction": "Progression des impôts réduite de 4%"
-      },
-      "98": {
-        "multiplicativeObtainium": "Gain d'Obtainium xnum:((1.05))"
-      },
-      "99": {
-        "pickaxeAutobuy": "Débloquez l'auto-acheteur de Pioches !"
-      },
-      "100": {
-        "crystalUpgrade4Autobuy": "Débloquez l'auto-acheteur de la quatrième Amélioration de Cristal !"
-      },
-      "101": {
-        "salvage": "+5 Recyclage"
-      },
-      "102": {
-        "thriftRuneUnlock": "Débloquez définitivement la Rune de l'Épargne !"
       },
       "103": {
         "taxReduction": "Progression des impôts réduite de 4%"
       },
-      "105": {
-        "multiplicativeObtainium": "Gain d'Obtainium xnum:((1.05))"
-      },
-      "106": {
-        "pandorasBoxAutobuy": "Débloquez l'auto-acheteur de Boîtes de Pandore !"
-      },
-      "107": {
-        "crystalUpgrade5Autobuy": "Débloquez l'auto-acheteur de la cinquième Amélioration de Cristal !"
-      },
-      "108": {
-        "salvage": "+5 Recyclage"
-      },
       "110": {
         "taxReduction": "Progression des impôts réduite de 4%"
-      },
-      "112": {
-        "multiplicativeObtainium": "Gain d'Obtainium xnum:((1.05))"
-      },
-      "115": {
-        "salvage": "+5 Recyclage"
       },
       "117": {
         "taxReduction": "Progression des impôts réduite de 5%"
@@ -1662,76 +1564,45 @@
       "118": {
         "taxReduction": "Progression des impôts réduite de num:((0.5))% par Défi de Réincarnation terminé (multiplicatif)"
       },
-      "119": {
-        "exemptionTalisman": "Débloquez le Talisman d'Exonération !"
-      },
       "120": {
         "diamondUpgrade18": "Débloquez la 18e Amélioration de Diamants !"
       },
-      "122": {
-        "salvage": "+5 Recyclage"
-      },
       "124": {
         "taxReduction": "Progression des impôts réduite de 5%"
-      },
-      "125": {
-        "multiplicativeObtainium": "Gain d'Obtainium xnum:((1.05))"
       },
       "126": {
         "chronosTalisman": "Débloquez le Talisman de Chronos !"
       },
       "127": {
-        "diamondUpgrade19": "Débloquez la 19e Amélioration de Diamants !",
-        "antHillUnlock": "Débloquez la <span class='rainbowText'>Fourmilière !</span>"
-      },
-      "129": {
-        "salvage": "+6 Recyclage"
+        "diamondUpgrade19": "Débloquez la 19e Amélioration de Diamants !"
       },
       "131": {
         "taxReduction": "Progression des impôts réduite de 5%"
-      },
-      "132": {
-        "multiplicativeObtainium": "Gain d'Obtainium xnum:((1.05))"
       },
       "133": {
         "midasTalisman": "Débloquez le Talisman de Midas !"
       },
       "134": {
-        "diamondUpgrade20": "Débloquez la 20e Amélioration de Diamants !",
-        "blessingUnlock": "Débloquez les Bénédictions de Runes !",
-        "talismanUnlock": "Et débloquez aussi les Talismans !"
+        "diamondUpgrade20": "Débloquez la 20e Amélioration de Diamants !"
       },
       "135": {
         "talismanPower": "+2% de puissance des Talismans"
       },
       "136": {
-        "talismanPower": "+2% de puissance des Talismans",
-        "salvage": "+7 Recyclage"
+        "talismanPower": "+2% de puissance des Talismans"
       },
       "137": {
         "sacrificeMult": "Récompenses de Sacrifice xnum:((1.25)) !",
         "experientiaAutobuy": "Débloquez l'auto-acheteur de l'Amélioration de Fourmis <i>Experientia</i> !"
       },
-      "139": {
-        "multiplicativeObtainium": "Gain d'Obtainium xnum:((1.05))"
-      },
       "140": {
         "metaphysicsTalisman": "Débloquez le Talisman de Métaphysique !"
-      },
-      "141": {
-        "ascensionUnlock": "Débloquez le palier de réinitialisation Ascension ! Nécessite d'avoir terminé au moins 1 fois {[Sadique I]}."
-      },
-      "143": {
-        "salvage": "+7 Recyclage"
       },
       "144": {
         "talismanPower": "+num:((2.5))% de puissance des Talismans"
       },
       "145": {
         "talismanPower": "+num:((2.5))% de puissance des Talismans"
-      },
-      "146": {
-        "multiplicativeObtainium": "Gain d'Obtainium xnum:((1.05))"
       },
       "147": {
         "polymathTalisman": "Débloquez le Talisman du Génie Universel !"
@@ -1822,12 +1693,10 @@
         "wowSquareTalisman": "Débloquez le Talisman Carré de Wow !"
       },
       "187": {
-        "ascensionCountMultiplier": "Gagnez plus d'Ascensions selon le niveau de Corruption, niveaux gratuits inclus [+80% par niveau]",
-        "multiplicativeOffering": "Multiplicateur d'Offrandes basé sur le nombre d'Ascensions"
+        "ascensionCountMultiplier": "Gagnez plus d'Ascensions selon le niveau de Corruption, niveaux gratuits inclus [+80% par niveau]"
       },
       "188": {
-        "ascensionCountAdditive": "Si votre Ascension dure au moins 10 secondes, ajoutez le nombre d'Ascension de Base +100 !",
-        "multiplicativeObtainium": "Gagnez plus d'Obtainium selon le nombre d'Ascensions [jusqu'à x2 à 5 millions d'Ascensions]"
+        "ascensionCountAdditive": "Si votre Ascension dure au moins 10 secondes, ajoutez le nombre d'Ascension de Base +100 !"
       },
       "189": {
         "ascensionCountAdditive": "Multiplicateur du nombre d'Ascensions basé sur le temps excédentaire",
@@ -1844,20 +1713,7 @@
         "wowPlatonicGain": "Gagnez plus de cubes platoniques basés sur votre Constante [jusqu'à x20 à 1e100 000 Constante]"
       },
       "197": {
-        "statTracker": "Débloquez un Traqueur de statistiques en haut de votre écran !",
-        "tesseractUnlock": "Débloque le gain de cubes Tesseracts en Ascendant !"
-      },
-      "198": {
-        "wowCubeGain": "Gain de Cube xnum:((1.02))"
-      },
-      "199": {
-        "wowCubeGain": "Gain de Cube xnum:((1.02))"
-      },
-      "200": {
-        "wowCubeGain": "Gain de Cube xnum:((1.02))"
-      },
-      "201": {
-        "wowCubeGain": "Gain de cube xnum:((1.02))"
+        "statTracker": "Débloquez un Traqueur de statistiques en haut de votre écran !"
       },
       "202": {
         "ascensionCountAdditive": "Ajoute un nombre d'ascensions de base +2 par seconde d'ascension"
@@ -1866,20 +1722,7 @@
         "talismanPower": "Puissance des talismans +1%"
       },
       "204": {
-        "ascensionRewardScaling": "Les Ascensions donnent plus de cubes de tous types en fonction de votre temps d'Ascension [+10% par seconde]",
-        "spiritUnlock": "Débloquez les Esprits, dans l’onglet des runes !"
-      },
-      "205": {
-        "wowTesseractGain": "Gain de Tesseract xnum:((1.02))"
-      },
-      "206": {
-        "wowTesseractGain": "Gain de Tesseract xnum:((1.02))"
-      },
-      "207": {
-        "wowTesseractGain": "Gain de Tesseract xnum:((1.02))"
-      },
-      "208": {
-        "wowTesseractGain": "Gain de Tesseract xnum:((1.02))"
+        "ascensionRewardScaling": "Les Ascensions donnent plus de cubes de tous types en fonction de votre temps d'Ascension [+10% par seconde]"
       },
       "209": {
         "ascensionCountAdditive": "Ajoute un nombre d'ascensions de base +2 par seconde d'ascension"
@@ -1887,73 +1730,20 @@
       "210": {
         "talismanPower": "Puissance des talismans +1%"
       },
-      "211": {
-        "wowHypercubeGain": "Gain d'Hypercube xnum:((1.05))",
-        "hypercubeUnlock": "Débloque le gain des cubes Hypercubes en Ascendant !"
-      },
-      "212": {
-        "wowHypercubeGain": "Gain d'Hypercube xnum:((1.02))"
-      },
-      "213": {
-        "wowHypercubeGain": "Gain d'Hypercube xnum:((1.02))"
-      },
-      "214": {
-        "wowHypercubeGain": "Gain d'Hypercube xnum:((1.02))"
-      },
-      "215": {
-        "wowHypercubeGain": "Gain d'Hypercube xnum:((1.02))"
-      },
       "216": {
         "ascensionCountAdditive": "Ajoute un nombre d'ascensions de base +2 par seconde d'ascension"
       },
       "217": {
         "talismanPower": "Puissance des talismans +1%"
       },
-      "218": {
-        "wowPlatonicGain": "Cubes Platoniques xnum:((1.05))",
-        "platonicUnlock": "Débloque le gain des cubes Platoniques en Ascendant !"
-      },
-      "219": {
-        "wowPlatonicGain": "Cubes Platoniques xnum:((1.02))"
-      },
-      "220": {
-        "wowPlatonicGain": "Cubes Platoniques xnum:((1.02))"
-      },
-      "221": {
-        "wowPlatonicGain": "Cubes Platoniques xnum:((1.02))"
-      },
-      "222": {
-        "wowPlatonicGain": "Cubes Platoniques xnum:((1.02))"
-      },
       "223": {
         "ascensionCountAdditive": "Ajoute un nombre d'ascensions de base +2 par seconde d'ascension",
         "wowPlatonicGain": "Gagnez plus de cubes Platoniques basés sur le nombre d'Ascensions [jusqu'à x3 à num:((2.674e9)) total d'Ascensions]"
       },
-      "233": {
-        "salvage": "+2 Recyclage"
-      },
-      "235": {
-        "salvage": "+2 Recyclage"
-      },
-      "237": {
-        "salvage": "+ 3 Recyclage"
-      },
-      "240": {
-        "allCubeGain": "Gain de tous les cubes xnum:((1.2))"
-      },
-      "245": {
-        "salvage": "+3 Recyclage"
-      },
       "250": {
-        "allCubeGain": "Gain de tous les Cubes xnum:((1.05))",
-        "multiplicativeObtainium": "Obtainium xnum:((1.1))",
-        "multiplicativeOffering": "Offrandes xnum:((1.5))",
         "quarkGain": "Gain de Quark xnum:((1.05))"
       },
       "251": {
-        "allCubeGain": "Gain de tous les Cubes xnum:((1.05))",
-        "multiplicativeObtainium": "Obtainium xnum:((1.5))",
-        "multiplicativeOffering": "Offrandes xnum:((1.1))",
         "quarkGain": "Gain de Quarks xnum:((1.05))"
       },
       "253": {
@@ -1970,7 +1760,6 @@
         "overfluxConversionRate": "Conversion de Poudre de Surfusion xnum:((1.05))"
       },
       "257": {
-        "allCubeGain": "Gain de tous les Cubes xnum:((1.1))",
         "overfluxConversionRate": "Conversion de Poudre de Surfusion xnum:((1.05))"
       },
       "258": {
@@ -1984,18 +1773,6 @@
       },
       "261": {
         "ascensionCountMultiplier": "Nombre d'Ascensions xnum:((1.1))"
-      },
-      "262": {
-        "allCubeGain": "Gain de tous les Cubes xnum:((1.1))"
-      },
-      "263": {
-        "allCubeGain": "Gain de tous les Cubes xnum:((1.1))"
-      },
-      "264": {
-        "allCubeGain": "Multiplicateur de gain de tous les Cubes basé sur le nombre d'Ascensions [jusqu'à xnum:((1.2)) à num:((8e12)) Ascensions]"
-      },
-      "265": {
-        "allCubeGain": "Multiplicateur de gain de tous les Cubes basé sur le nombre d'Ascensions [jusqu'à xnum:((1.2)) à num:((1.6e14)) Ascensions]"
       },
       "266": {
         "quarkGain": "Multiplicateur de gain de Quarks basé sur le nombre d'Ascensions [jusqu'à xnum:((1.1)) à num:((1e15)) Ascensions]"
@@ -2013,81 +1790,6 @@
       },
       "349": {
         "antAutobuyers": "Achetez automatiquement des fourmis SAINT ESPRIT DU DIEU FOURMI !"
-      },
-      "382": {
-        "salvage": "+3 Recyclage"
-      },
-      "384": {
-        "salvage": "+4 Recyclage"
-      },
-      "386": {
-        "salvage": "+5 Recyclage"
-      },
-      "388": {
-        "salvage": "+6 Recyclage"
-      },
-      "390": {
-        "salvage": "+4 Recyclage"
-      },
-      "392": {
-        "salvage": "+5 Recyclage"
-      },
-      "394": {
-        "salvage": "+6 Recyclage"
-      },
-      "396": {
-        "salvage": "+1 Recyclage"
-      },
-      "398": {
-        "salvage": "+2 Recyclage"
-      },
-      "400": {
-        "salvage": "+3 Recyclage"
-      },
-      "402": {
-        "salvage": "+4 Recyclage"
-      },
-      "404": {
-        "salvage": "+5 Recyclage"
-      },
-      "406": {
-        "salvage": "+6 Recyclage"
-      },
-      "407": {
-        "salvage": "+2 Recyclage"
-      },
-      "408": {
-        "salvage": "+7 Recyclage"
-      },
-      "409": {
-        "salvage": "+2 Recyclage"
-      },
-      "410": {
-        "salvage": "+8 Recyclage"
-      },
-      "411": {
-        "salvage": "+1 Recyclage"
-      },
-      "413": {
-        "salvage": "+2 Recyclage"
-      },
-      "415": {
-        "salvage": "+2 Recyclage"
-      },
-      "417": {
-        "salvage": "+3 Recyclage"
-      },
-      "419": {
-        "salvage": "+4 Recyclage"
-      },
-      "421": {
-        "salvage": "+5 Recyclage"
-      },
-      "423": {
-        "salvage": "+6 Recyclage"
-      },
-      "425": {
-        "salvage": "+7 Recyclage"
       },
       "437": {
         "prestigeCountMultiplier": "Gagnez +100% de Prestiges en plus par chiffre de votre nombre de Prestiges (additif) !"
@@ -2160,159 +1862,6 @@
       "492": {
         "antSacrificeToReincarnation": "Chaque Fourmilière sacrifiée vous rapporte une Réincarnation ! L'effet se propage si vous gagnez aussi une Transcendance par Réincarnation, et ainsi de suite."
       }
-    },
-    "rewards": {
-      "3": "Obtenez +.10% de puissance des Accélérateurs.",
-      "4": "Commencez les Transcendances / Défis avec l'auto-acheteur d'Ouvriers débloqué.",
-      "5": "Obtenez +1 Accélérateur tous les 500 Ouvriers possédés.",
-      "6": "Obtenez +1 Multiplicateur tous les num:((1000)) Ouvriers possédés.",
-      "7": "Obtenez +1 Renfort d'Accélérateur tous les num:((2000)) Ouvriers possédés.",
-      "10": "Obtenez +.15% de puissance des Accélérateurs.",
-      "11": "Commencez les Transcendances / Défis avec l'auto-acheteur d'Investissements débloqué.",
-      "12": "Obtenez +1 Accélérateur tous les 500 Investissements possédés.",
-      "13": "Obtenez +1 Multiplicateur tous les num:((1000)) Investissements possédés.",
-      "14": "Obtenez +1 Renfort d'Accélérateur tous les num:((2000)) Investissements possédés.",
-      "17": "Obtenez +.20% de puissance des Accélérateurs.",
-      "18": "Commencez les Transcendances / Défis avec l'auto-acheteur d'Imprimantes débloqué.",
-      "19": "Obtenez +1 Accélérateur toutes les 500 Imprimantes possédées.",
-      "20": "Obtenez +1 Multiplicateur toutes les num:((1000)) Imprimantes possédées.",
-      "21": "Obtenez +1 Renfort d'Accélérateur toutes les num:((2000)) Imprimantes possédées.",
-      "24": "Obtenez +.25% de puissance des Accélérateurs.",
-      "25": "Commencez les Transcendances / Défis avec l'auto-acheteur de Presses à Monnaie débloqué.",
-      "26": "Obtenez +1 Accélérateur toutes les 500 Presses possédées.",
-      "27": "Obtenez +1 Multiplicateur toutes les num:((1000)) Presses possédées.",
-      "28": "Obtenez +1 Renfort d'Accélérateur toutes les num:((2000)) Presses possédées.",
-      "31": "Obtenez +.30% de puissance des Accélérateurs.",
-      "32": "Commencez les Transcendances / Défis avec l'auto-acheteur des Alchimies débloqué.",
-      "33": "Obtenez 10% d'Offrandes supplémentaires des Prestiges. +1 Accélérateur toutes les 500 Alchimies !",
-      "34": "Gagnez 15% d'Offrandes en plus lors des réinitialisations (cumulable de façon multiplicative !) || +1 Multiplicateur par tranche de num:((1000)) Alchimies !",
-      "35": "Gagnez 25% d'Offrandes en plus lors des réinitialisations (cumulable de façon multiplicative !) || +1 Renfort d'Accélérateur par tranche de num:((2000)) Alchimies !",
-      "36": "Multipliez par 2 la production de Cristaux.",
-      "37": "Multipliez la production de Cristaux par le logarithme décimal du nombre de Diamants possédés. Les prestiges donnent plus d'Offrandes en fonction du temps écoulé. [jusqu'à +15 pour 1 800 secondes]",
-      "38": "Débloquez la rune de Duplication !",
-      "43": "Les Renforts d'Accélérateur peuvent être achetés depuis n'importe quelle fenêtre. Débloquez la fonctionnalité auto-Prestige.",
-      "44": "Débloquez la Rune Prismatique ! Les Transcendances donnent plus d'Offrandes, en fonction du temps écoulé. [jusqu'à +15 pour 1800 secondes]",
-      "45": "Réduisez jusqu'à 5 % la croissance des impôts, en fonction de la durée du Prestige.",
-      "46": "Réduisez jusqu'à 5% de plus la croissance des impôts, en fonction de la durée du Prestige.",
-      "47": "Réduisez jusqu'à 10% de PLUS la croissance des impôts, en fonction de la durée du Prestige !",
-      "50": "Débloquez la production Atomique et débloquez 3 nouveaux Défis incroyablement difficiles ! Obtenez le double de Particules dans toutes les Réincarnations futures !",
-      "51": "Les Réincarnations manuelles donnent +4 Obtainium ! [N'est influencé que par les multiplicateurs dépendant du temps écoulé]",
-      "52": "Les Réincarnations donnent plus d'Offrandes en fonction du temps écoulé. [jusqu'à +25 pour 1 800 secondes]",
-      "53": "Augmentez l'Obtainium reçu de toutes les sources de num:((0.125))%, de façon additive, pour chaque niveau de rune.",
-      "57": "Obtenez +1 et +1% de Multiplicateurs gratuits !",
-      "58": "Obtenez +1 et +1% plus de Multiplicateurs gratuits !",
-      "59": "Obtenez +1 et +1% plus PLUS de Multiplicateurs gratuits !",
-      "60": "Obtenez +2 et +1% d'Accélérateurs gratuits !",
-      "61": "Obtenez +2 et +1% plus d'Accélérateurs gratuits !",
-      "62": "Obtenez +2 et +1% plus PLUS d'Accélérateurs gratuits !",
-      "71": "+1% sur l'exposant de conversion de tous les Générateurs !",
-      "72": "+1% sur l'exposant de conversion de tous les Générateurs !",
-      "73": "+1% sur l'exposant de conversion de tous les Générateurs !",
-      "74": "+1% sur l'exposant de conversion de tous les Générateurs !",
-      "75": "+1% sur l'exposant de conversion de tous les Générateurs !",
-      "76": "+1% sur l'exposant de conversion de tous les Générateurs !",
-      "77": "+1% sur l'exposant de conversion de tous les Générateurs ! Ils ont maintenant passé la seconde !",
-      "78": "Commencez les Transcendances / Défis avec 1 Raffinerie et achetez automatiquement les Raffineries.",
-      "79": "Achetez automatiquement la première amélioration de Cristal si vous en avez les moyens !",
-      "80": "Commencez les Transcendances / Défis avec l'auto-acheteur de Multiplicateurs débloqué. +5% d'Offrandes recyclées.",
-      "82": "Retardez la croissance des impôts de 4%.",
-      "84": "+1% d'Obtainium [Cumule de façon additive avec les autres récompenses de succès]",
-      "85": "Commencez les Transcendances / Défis avec 1 Centrale à Charbon et achetez automatiquement les Centrales à Charbon.",
-      "86": "Achetez automatiquement la deuxième amélioration de Cristal si vous en avez les moyens !",
-      "87": "Commencez les Transcendances / Défis avec l'auto-acheteur d'Accélérateurs débloqué. +5% d'Offrandes recyclées.",
-      "89": "Retardez la croissance des impôts de 4%.",
-      "91": "+3% d'Obtainium [Cumule de façon additive avec les autres récompenses de succès]",
-      "92": "Commencez les Transcendances / Défis avec 1 Foreuse de Charbon et achetez automatiquement les Foreuses de Charbon.",
-      "93": "Achetez automatiquement la troisième amélioration de Cristal si vous en avez les moyens !",
-      "94": "+5% d'Offrandes recyclées.",
-      "96": "Retardez la croissance des impôts de 4%.",
-      "98": "+5% d'Obtainium [Cumule de façon additive avec les autres récompenses de succès]",
-      "99": "Commencez les Transcendances / Défis avec 1 Pioche de Diamant et achetez automatiquement les Pioches de Diamant.",
-      "100": "Achetez automatiquement la quatrième amélioration de Cristal si vous en avez les moyens !",
-      "101": "+5% d'Offrandes recyclées.",
-      "102": "Débloquez la rune de l'Épargne !",
-      "103": "Retardez la croissance des impôts de 4%.",
-      "105": "+7% d'Obtainium [Cumule de façon additive avec les autres récompenses de succès]",
-      "106": "Commencez les Transcendances / Défis avec 1 Boîte de Pandore et achetez automatiquement les Boîtes de Pandore.",
-      "107": "Achetez automatiquement la cinquième amélioration de Cristal si vous en avez les moyens !",
-      "108": "+5% d'Offrandes recyclées.",
-      "110": "Retardez la croissance des impôts de 4%.",
-      "112": "+9% d'Obtainium [Cumule de façon additive avec les autres récompenses de succès]",
-      "115": "+5% d'Offrandes recyclées.",
-      "117": "Retardez la croissance des impôts de num:((5.66))%.",
-      "118": "Chaque complétion d'un Défi de Réincarnation retarde la croissance des impôts de num:((0.75))% par niveau, cette effet se cumule multiplicativement.\nEffet : x{{x}}",
-      "119": "+11% d'Obtainium. Débloquez une jolie babiole quelque part…",
-      "122": "+num:((7.5))% d'Offrandes recyclées.",
-      "124": "Retarde la croissance des impôts de num:((5.66))%. Débloquez 5 nouvelles Recherches incroyablement puissantes !",
-      "126": "+13% d'Obtainium. Vous obtenez un accessoire pour commémorer l'instant !",
-      "127": "Débloquez 20 nouvelles Recherches incroyablement chères mais efficaces. Débloquez la fonction [Fourmilière] !",
-      "128": "Faites baisser le coût des Recherches avec num:((1.5))x plus d'Obtainium !",
-      "129": "+num:((7.5))% d'Offrandes recyclées. Obtenez un multiplicateur supplémentaire de xnum:((1.25)) pour l'Obtainium !",
-      "131": "Retardez la croissance des impôts de num:((5.66))%.",
-      "132": "Obtenez de façon permanente +25% de récompenses de Sacrifice !",
-      "133": "+15% d'Obtainium. Obtenez le don de Midas lui-même.",
-      "134": "Débloquez 10 Recherches encore plus récentes, incroyablement chères mais efficaces. Débloquez les <Talismans> dans l'onglet Runes !",
-      "135": "Les effets positifs des Talismans sont plus puissants de +num:((0.02)) par niveau.",
-      "136": "Les effets positifs des Talismans sont maintenant encore plus puissants de +num:((0.02)) par niveau.",
-      "137": "Obtenez +25% de récompenses de sacrifice de manière permanente !",
-      "140": "+17% d'Obtainium. Insérez ici une mauvaise blague sur le fait de ne pas dévoiler de Talisman [Vous en obtenez un nouveau]",
-      "141": "Débloquez un nouveau palier de réinitialisation !",
-      "147": "+19% d'Obtainium [Le gain supplémentaire venant des succès atteint maintenant 100% !]. Obtenez le Talisman du Génie Universel !",
-      "169": "La vitesse de TOUTES les Fourmis est multipliée par {{x}}",
-      "171": "Augmente de +num:((16.666))% la vitesse de TOUTES les Fourmis !",
-      "172": "Obtenez plus de Fourmis selon la durée de votre Réincarnation [Vitesse maximale atteinte en 2 heures]",
-      "173": "Débloquez le Sacrifice des Fourmis, qui vous permet de réinitialiser vos Fourmis et vos améliorations de Fourmis en échange de récompenses extraordinaires ! Achetez automatiquement les Fourmis Ouvrières.",
-      "174": "Le multiplicateur sacrificiel des Fourmis est multiplié par un logarithme supplémentaire : x{{x}}",
-      "176": "Débloquez l'auto-acheteur des Fourmis de rang 2, et achetez automatiquement les Fourmis Inceptus et Fortunae ! Ajoute +25 d'ELO de Fourmi.",
-      "177": "Débloquez l'auto-acheteur des Fourmis de rang 3, et achetez automatiquement les Fourmis Tributum ! Ajoute +50 d'ELO de Fourmi.",
-      "178": "Débloquez l'auto-acheteur des Fourmis de rang 4, et achetez automatiquement les Fourmis Celeritas et Multa ! Ajoute +75 d'ELO de Fourmi.",
-      "179": "Débloquez l'auto-acheteur des Fourmis de rang 5, et achetez automatiquement les Fourmis Sacrificium ! Ajoute +100 d'ELO de Fourmi.",
-      "180": "Débloquez l'auto-acheteur des Fourmis de rang 6, et achetez automatiquement les Fourmis Hic et Experientia ! Ajoute +1% d'ELO de Fourmi.",
-      "181": "Débloquez l'auto-acheteur des Fourmis de rang 7, et achetez automatiquement les Fourmis Praemoenio ! Ajoute +2% d'ELO de Fourmi.",
-      "182": "Débloquez l'auto-acheteur des Fourmis de rang 8, et achetez automatiquement les Fourmis Scientia et Phylacterium ! Ajoute +3% d'ELO de Fourmi.",
-      "186": "Débloquez les pouvoirs d'un Talisman 'Carré de Wow'. Ça a l'air cool !",
-      "188": "Augmentez de +100 le nombre d'Ascensions pour toute Ascension durant plus de 10 secondes. De plus : +{{x}}% d'Obtainium [Maximum : 100% à 5M d'Ascensions]",
-      "189": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé. De plus : +{{x}}% de Cubes [Maximum : 200% à 500M d'Ascensions]",
-      "193": "Obtenez {{x}}% plus de Cubes lors des Ascensions !",
-      "195": "Gagnez {{x}}% de Cubes et de Tesseracts en plus lors des Ascensions ! Multiplicatif avec l'autre bonus de Succès [MAX : num:((25000))% à enum:((100000)) de Constante]",
-      "196": "Gagnez {{x}}% de Cubes Platoniques en plus lors des Ascensions ! [MAX : num:((2000))% à enum:((100000)) de Constante]",
-      "197": "Vous débloquez un outil pour analyser les statistiques des Ascensions.",
-      "198": "Obtenez +4% de Cubes lors des Ascensions !",
-      "199": "Obtenez +4% de Cubes lors des Ascensions !",
-      "200": "Obtenez +4% de Cubs lors des Ascensions ! J'ai fait une faute ? Bien sûr que oui.",
-      "201": "Obtenez +3% de Cubes lors des Ascensions !",
-      "202": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé. De plus : +{{x}}% de Tesseracts [Maximum : 200% à 1Md d'Ascensions]",
-      "204": "Après 10 secondes dans une Ascension, vous multiplierez vos récompenses par 25% du temps écoulé.",
-      "205": "Obtenez +4% de Tesseracts lors des Ascensions !",
-      "206": "Obtenez +4% de Tesseracts lors des Ascensions !",
-      "207": "Obtenez +4% de Tesseracts lors des Ascensions !",
-      "208": "Obtenez +3% de Tesseracts lors des Ascensions !",
-      "209": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé.",
-      "211": "Après 10 secondes dans une Ascension, vous multiplierez vos récompenses par 25% en PLUS (total : 50%) du temps écoulé.",
-      "212": "Obtenez +4% d'Hypercubes lors des Ascensions !",
-      "213": "Obtenez +4% d'Hypercubes lors des Ascensions !",
-      "214": "Obtenez +4% d'Hypercubes lors des Ascensions !",
-      "215": "Obtenez +3% d'Hypercubes lors des Ascensions !",
-      "216": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé. De plus : +{{x}}% d'Hypercubes [Maximum : 200% à 2Mds d'Ascensions]",
-      "218": "Après 10 secondes dans une Ascension, vous multiplierez vos récompenses par 50% SUPPLÉMENTAIRE EN PLUS (total : 100%) du temps écoulé.",
-      "219": "Obtenez +4% de Cubes Platonics lors des Ascensions !",
-      "220": "Obtenez +4% de Cubes Platonics lors des Ascensions !",
-      "221": "Obtenez +4% de Cubes Platonics lors des Ascensions !",
-      "222": "Obtenez +3% de Cubes Platonics lors des Ascensions !",
-      "223": "Après 10 secondes dans une Ascension, vous obtiendrez un nombre d'Ascensions proportionnel à 20% du temps écoulé. De plus : +{{x}}% de Cubes Platonics [Maximum : 200% à num:((2.674))Mds d'Ascensions]",
-      "240": "Les multiplicateurs des gains de Cubes lors des Ascensions sont TRÈS légèrement influencés par les multiplicateurs de vitesse globale : x{{x}} [Minimum : x1,1, maximum : x1,5]",
-      "250": "Vous obtenez un bonus permanent de +60% d'Obtainium et d'Offrandes, avec +6% de tous les types de Cubes ! Gain de Quarks xnum:((1.05)) !",
-      "251": "Vous obtenez un bonus permanent de +100% d'Obtainium et d'Offrandes, avec +10% de tous les types de Cubes ! Gain de Quarks xnum:((1.05)) !",
-      "253": "Vous obtenez +10% d'Hypercubes ! Pourquoi ? Je n'en sais rien.",
-      "260": "Vous obtenez 10% plus d'Ascensions, pour toujours !",
-      "261": "Vous obtenez 10% d'Ascensions supplémentaires, pour toujours !",
-      "262": "Les Ascensions sont {{x}}% plus rapides ! Maximum : +10%",
-      "263": "Les Ascensions sont {{x}}% plus rapides ! Maximum : +10%",
-      "264": "+{{x}}% d'Hepteracts ! [Maximum : 40% à 8e12 Ascensions]",
-      "265": "+{{x}}% d'Hepteracts ! [Maximum : 20% à 1,6e14 Ascensions]",
-      "266": "Quarks +{{x}}% [Max : num:((1.10))x à 1 billiard (num:((1e15))) d'Ascensions] !",
-      "270": "Le gain d'Hepteracts augmente de {{x}}% [Max : 100% à une Constante de num:((1e1000000))], Amélioration de Constante 1 portée à num:((1.06)) (au lieu de num:((1.05))), Amélioration de Constante 2 portée à num:((1.11)) (au lieu de num:((1.10))).",
-      "271": "Quand vous ouvrez un Cube Platonic, obtenez {{x}} Hypercubes, arrondis à l'inférieur [Maximum : 1 à une Constante de 1e1 000 000]"
     },
     "groupNames": {
       "firstOwnedCoin": "Ouvriers",
@@ -3495,8 +3044,6 @@
     "autoChallengeSweepOff": "Balayage auto des Défis [DÉSACTIVÉ]",
     "retryChallengesOn": "Réessayer les Défis : activé",
     "retryChallengesOff": "Réessayer les Défis : désactivé",
-    "autoAscRunChalOn": "Défi d'ascension {{x}} automatique [ACTIVÉ]",
-    "autoAscRunChalOff": "Défi d'ascension {{x}} automatique [DÉSACTIVÉ]",
     "autoRunChalOn": "Défi {{x}} automatique [ACTIVÉ]",
     "autoRunChalOff": "Défi {{x}} automatique [DÉSACTIVÉ]",
     "modeStart": "MODE : COMMENCER",
@@ -3612,7 +3159,7 @@
       "7": "[1x7] Achète automatiquement chaque bâtiment de Particules dès que possible.",
       "8": "[1x8] Achète automatiquement les améliorations de Particules.",
       "9": "[1x9] L'automate de Recherche de la boutique achète maintenant automatiquement la moins chère quand il est activé. C'est un peu comme un robot aspirateur ! <br> Comme un robot aspirateur, il peut revenir en arrière pour trouver des Recherches moins chères si elles sont débloquées plus tard !",
-      "10": "[1x10] Débloque des outils pour automatiser les Ascensions et compagnie. Un peu cher, mais sympa. <br> <<gold|⚠>> Vous devez terminer le Défi 11 pour que cette mécanique soit utile !",
+      "10": "[1x10] Unlock Auto Ascension Rules in the Ascensions tab. Kinda expensive but cool. <br> <<gold|⚠>> Rules that change your Corruption level need Challenge 11!",
       "11": "[2x1] Ça roule toujours ! +9,09% de Cubes 3D lors de l'Ascension par niveau.",
       "12": "[2x2] Élève la Puissance des Bâtiments à la puissance (1 + niveau * num:((0.09))).",
       "13": "[2x3] Pour chaque tranche de 20 Cubes ouverts d'un coup, vous obtenez 1 Tribut supplémentaire au hasard.",
@@ -4278,7 +3825,7 @@
       "new": "<<limegreen|[NOUVEAU !]>>",
       "upgraded": "<<gold|[AMÉLIORÉ !]>>",
       "nextSoon": "<<white|[Amélioration bientôt !]>>",
-      "header": "La plus haute Singularité atteinte est la <span style=\"color: var(--gold-color)\">{{ord}} Singularité.</span><br/>",
+      "header": "The highest Singularity you've reached is the <span style=\"color: var(--gold-color)\">{{ord}} Singularity.</span><br/>",
       "treeLabel": "Arbre de progression des Privilèges de Singularité",
       "treePerkLabel": "$t({{name}}), débloqué à la Singularité {{singularity}}",
       "usesCurrentSing": "Ce Privilège utilise votre nombre actuel de Singularités. Son niveau peut <<crimson|baisser>> si vous êtes dans une Singularité inférieure.",
@@ -4310,15 +3857,15 @@
       },
       "firstClearTokens": {
         "name": "Premier à l'Abattoir",
-        "default": "Obtenez +5 Jetons pour les Campagnes pour lesquelles vous avez au moins une complétion du Défi 10 !"
+        "default": "Every Corruption level's First completion bonus is increased by 1 Token!"
       },
       "lastClearTokens": {
         "name": "Les Campagnes, Bénédiction de la Finalité",
-        "default": "Obtenez +10 Jetons pour les Campagnes pour lesquelles vous avez le nombre maximal de complétions du Défi 10 !"
+        "default": "Every Corruption level's First completion bonus is increased by 1 Token!"
       },
       "bonusTokens": {
         "name": "Plus de Jetons !",
-        "default": "Les Campagnes donnent +{{amount}}% de Jetons ! Arrondi à l'inférieur, bien évidemment."
+        "default": "Gain +{{amount}}% more Corruption Tokens from all sources!"
       },
       "cubeToQuark": {
         "name": "Coin des Quarks de Cubes",
@@ -4346,7 +3893,7 @@
       },
       "invigoratedSpirits": {
         "name": "Esprits revigorés !",
-        "default": "Vos fourmis ressentent un poids émotionnel plus fort pour leurs sœurs perdues lors des Sacrifices passés.",
+        "default": "Your ants feel a greater emotional weight from their lost brethren of Sacrifices past.",
         "line2": "Pour vos premiers num:((200000)) points d'ELO Immortel, <<orchid|{{x}}%>> sont ajoutés à votre ELO de Fourmi !",
         "line3": "Pour les num:((1800000)) points d'ELO Immortel suivants, <<orchid|{{x}}%>> sont ajoutés."
       },
@@ -4968,22 +4515,22 @@
       },
       "singBonusTokens1": {
         "name": "De la monnaie sur le coussin du canapé",
-        "description": "Grâce à votre œil perçant, vous trouvez plus de Jetons de Corruption ! Le bonus de première complétion de chaque niveau de Corruption augmente de 2% de l'équivalent de 50 complétions en Jetons, par niveau.",
-        "effect": "You find {{n}} more Tokens from first clears in Campaigns!"
+        "description": "Thanks to your perceptive eyes, you find more Corruption Tokens! Every Corruption level's First completion bonus is increased by 1 Token per level.",
+        "effect": "First completion bonus +{{n}} Tokens!"
       },
       "singBonusTokens2": {
         "name": "De la monnaie dans les plis des coussins du canapé",
-        "description": "Grâce à votre œil encore plus perçant, vous trouvez encore plus de Jetons de Corruption ! Chaque niveau de Corruption donne +1% de Jetons en plus par complétion du Défi 10, par niveau.",
-        "effect": "You find +{{n}} more Tokens from Campaigns!"
+        "description": "Thanks to your more perceptive eyes, you find even more Corruption Tokens! Gain +1% more Corruption Tokens from all sources per level.",
+        "effect": "Corruption Tokens from all sources +{{n}}!"
       },
       "singBonusTokens3": {
         "name": "De la monnaie sous le canapé",
-        "description": "Pourquoi y a-t-il des Jetons qui traînent partout près de votre canapé ? Le bonus de première complétion de chaque niveau de Corruption augmente de 4% de l'équivalent de 50 complétions en Jetons, par niveau.",
-        "effect": "You find {{n}} more Tokens from maxxed Campaigns!"
+        "description": "Why do you have Tokens just lying everywhere near your Sofa? Every Corruption level's First completion bonus is increased by 1 Token per level.",
+        "effect": "First completion bonus +{{n}} Tokens!"
       },
       "singBonusTokens4": {
         "name": "De la monnaie tirée des coffres du Dieu Fourmi",
-        "description": "Ces Jetons étaient trop grands pour être appelés Jetons. Trop grands, trop épais, trop lourds et trop rugueux, ils ressemblaient plus à de gros morceaux d'or. +5 Jetons au début d'une Singularité par niveau.",
+        "description": "Those Tokens were too big to be called Tokens. Too big, too thick, too heavy, and too rough, they were more like large hunks of gold. +2 Tokens at the start of a Singularity per level.",
         "effect": "Le Dieu Fourmi crache {{n}} Jetons au début d'une Singularité !"
       },
       "singInfiniteShopUpgrades": {
@@ -5068,9 +4615,7 @@
       "slowClimbToggle": "Ne monter que d'1 Singularité",
       "nextSingInfo": "Infos sur la prochaine Singularité",
       "highestSingularity": "Plus haute Singularité : <b><<gold | {{num}}>></b>",
-      "maxLookahead": "Distance d'anticipation max : <b><<gold | +{{num}}>></b> (nécessite les Antiquités)",
-      "lookahead": "Anticiper depuis votre plus haute Singularité ajoute <b><<gold | +1>></b> à votre plus haute Singularité<br><b><<orange | même si vous sautez des Singularités !>></b>",
-      "lookaheadExtra": "Si vous battez une Singularité plus haute que votre record, <br><b><<orchid | votre plus haute Singularité est mise à jour avec la Singularité actuelle !>></b>"
+      "maxLookahead": "Distance d'anticipation max : <b><<gold | +{{num}}>></b> (nécessite les Antiquités)"
     }
   },
   "general": {
@@ -5246,7 +4791,7 @@
       "65": "Multipliez les gains de Particules lors des Réincarnations par 5 !",
       "66": "Ajoute +2 au Coefficient de Rune des cinq premières Runes. Réduit le nombre d'Offrandes nécessaires pour monter vos Runes !",
       "67": "Les gains d'Atomes sont augmentés de 3% pour chaque producteur de Particule acheté !",
-      "68": "Obtenez un Multiplicateur gratuit à chaque augmentation d'impôts de x1e1 000.",
+      "68": "Gain a free Multiplier for every num:((1e1000))x Coins earned this Prestige.",
       "69": "Obtenez plus d'Obtainium en fonction de vos gains de Particules. [Fonctionne avec l'automatisation à un rythme réduit !]",
       "70": "Le temps semble aller '+num:((0.333)) * Log10(Obtainium Max + 1)%' plus vite lorsque vous achetez ceci.",
       "71": "Les Runes obtiennent 'Niveau de Rune / 25' EXP supplémentaire par Offrande utilisée.",
@@ -5414,7 +4959,7 @@
       "65": "Effet : obtenez 5 fois plus de Particules lors des Réincarnations. Bah oui !",
       "66": "Effet : la description est assez claire !",
       "67": "Effet : le premier bâtiment de Particules est {{x}} fois plus productif.",
-      "68": "Effet : votre conformité vis-à-vis du fisc vous rapporte {{x}} Multiplicateurs gratuits, pour une raison quelconque.",
+      "68": "Effect: Your hoard of Coins provides you with {{x}} free Multipliers, for some reason.",
       "69": "Effet : le magnétisme cosmique vous permet d'obtenir {{x}} fois plus d'Obtainium en vous Réincarnant, et multiplie les gains automatiques par {{y}}.",
       "70": "Effet : Vitesse Globale +{{x}}% !",
       "71": "Effet : c'est écrit jaune sur noir. Regardez au-dessus !",
@@ -5500,7 +5045,7 @@
       "research": "Recherche",
       "antHill": "Fourmilière",
       "wowCubes": "Cubes WOW!",
-      "corruption": "Corruption",
+      "ascensions": "Ascensions",
       "singularity": "Singularité",
       "settings": "Paramètres",
       "shop": "Boutique",
@@ -5612,19 +5157,58 @@
   },
   "campaigns": {
     "tokens": {
-      "count": "Vous avez {{ count }} jetons !",
+      "total": "Corruption Tokens: {{earned}}",
+      "totalBonus": "Corruption Tokens: {{earned}} ({{base}} +{{percent}}%)",
+      "inheritance": "Inheritance Tokens: {{earned}}",
+      "inheritanceBonus": "Inheritance Tokens: {{earned}} ({{base}} +{{percent}}%)",
+      "cap": "Token Cap: <<gold|{{cap}}>>",
+      "capReached": "Token Cap: <<gold|{{cap}}>> <<lime|✓>>",
+      "teaser": "Unlocks at <<gold|{{required}}>> Tokens (<<gold|{{remaining}}>> more needed)",
+      "names": {
+        "tutorial": "A Beginners Guide to Corruption Tokens",
+        "cube": "Dimensional Tokens",
+        "antELO": "Stonkfish Tokens",
+        "quark": "Strange Tokens",
+        "tax": "Phony Coin Tokens",
+        "c15": "Nostalgic Tokens",
+        "rune6": "Tokens in the Shape of Steps",
+        "goldenQuark": "Strange Golden Tokens",
+        "ambrosiaLuck": "Particularly Lucky Tokens",
+        "blueberrySpeed": "Pomologist's Tokens"
+      },
+      "flavors": {
+        "tutorial": "Every Challenge 10 completion and every Corruption Level beaten grants Corruption Tokens! The more you have, the stronger you become. It's some <i> mystical </i> magic, don't question it.",
+        "cube": "Two sides of the same coin, really.",
+        "antELO": "Now you can checkmate Derpsmith in 143 moves!",
+        "quark": "Both face Up AND face Down.",
+        "tax": "If you just pay the Taxman these Tokens, he'll never know.",
+        "c15": "Channels the endgamers from Synergism past.",
+        "rune6": "Makes all the other Steps move up by one, to slot itself in.",
+        "goldenQuark": "Exceedingly Charming, from the Bottom to the Top.",
+        "ambrosiaLuck": "Rub a coin, get lucky. Rub many, many Tokens? The luck is limitless, my friend.",
+        "blueberrySpeed": "Probably a pomology Ph.D student's stipend."
+      },
+      "formulas": {
+        "cube": "Formula:<br>0 – 100 Tokens: <<white|+1% × Tokens>><br>101 – num:((10000)) Tokens: <<white|+100% + 100% × log10(Tokens / 100)>>",
+        "antELO": "Formula:<br>0 – num:((25000)) Tokens: <<orchid|+1 × Tokens>>",
+        "quark": "Formula:<br>100 – 200 Tokens: <<orchid|+num:((0.06))% × (Tokens - 100)>><br>201 – num:((20000)) Tokens: <<orchid|+6% + 6% × log10(Tokens / 200)>>",
+        "tax": "Formula:<br>250 – 500 Tokens: <<orchid|-num:((0.02))% × (Tokens - 250)>><br>501 – num:((8000)) Tokens: <<orchid|-5% - 5% × log2(Tokens / 500)>>",
+        "c15": "Formula:<br>250 – 500 Tokens: <<orchid|+num:((0.02))% × (Tokens - 250)>><br>501 – num:((16000)) Tokens: <<orchid|+5% + 19% × log2(Tokens / 500)>>",
+        "rune6": "Formula:<br>750 – num:((24000)) Tokens: <<orchid|+2 + 2 × floor(log2(Tokens / 750))>>",
+        "goldenQuark": "Formula:<br>500 – num:((1000)) Tokens: <<orchid|+num:((0.01))% × (Tokens - 500)>><br>num:((1001)) – num:((20000)) Tokens: <<orchid|+5% + 5% × log20(Tokens / num:((1000)))>>",
+        "ambrosiaLuck": "Formula:<br>num:((2000)) – num:((4000)) Tokens: <<orchid|+10 + num:((0.02)) × (Tokens - num:((2000)))>><br>num:((4001)) – num:((36000)) Tokens: <<orchid|+50 + 50 × log3(Tokens / num:((4000)))>>",
+        "blueberrySpeed": "Formula:<br>num:((2000)) – num:((4000)) Tokens: <<orchid|+1% + num:((0.001))% × (Tokens - num:((2000)))>><br>num:((4001)) – num:((40000)) Tokens: <<orchid|+3% + 3% × log10(Tokens / num:((4000)))>>"
+      },
       "rewardTexts": {
-        "tutorial": "Pour vos premiers Jetons de Corruption gagnés, obtenez {{cube}} de Cubes, <<pink | {{obtainium}}>> d'Obtainium et <<orange | {{offering}}>> d'Offrandes en plus !",
-        "cube": "Augmente le gain de Cubes de {{ reward }}",
-        "obtainium": "Augmente le gain d'Obtainium de <<pink | {{ reward }}>>",
-        "offering": "Augmente le gain d'Offrandes de <<orange | {{ reward }}>>",
+        "tutorial": "For earning your first Corruption Token, gain <<pink | {{obtainium}}>> more Obtainium and <<orange | {{offering}}>> more Offerings!",
+        "cube": "Increase Cube gain by <<white | {{ reward }}>>",
+        "antELO": "Increase <<orchid|Ant ELO>> by <<orchid | +{{ reward }}>>",
         "timeThreshold": "Pour les récompenses de réinitialisation pénalisées si vous réinitialisez avant un certain temps, réduit ce temps de <<gray | {{ reward }}>> secondes (base : 10s).",
         "quark": "Augmente le gain de Quarks de <<cyan | {{ reward }}>>",
         "tax": "Impôts <<lightgray | {{ reward }}>>",
         "c15": "Augmente le bonus du Défi 15 de <<lightgoldenrodyellow | {{ reward }}>>",
         "rune6": "Augmente les niveaux bonus de la Rune 6 de <<lightgoldenrodyellow | {{ reward }}>>",
         "goldenQuark": "Augmente le gain de Quarks Dorés de <<gold | {{ reward }}>>",
-        "octeract": "Augmente le gain d'Octeracts de <<teal | {{ reward }}>>",
         "ambrosiaLuck": "Augmente la Chance d'Ambroisie de <<limegreen | {{ reward }}>>",
         "blueberrySpeed": "Augmente la création de points de la Barre d'Ambroisie de <<lightblue | {{ reward }}>>"
       }
@@ -5723,38 +5307,18 @@
     "breakdown": {
       "current": "Cette Ascension<br>N = {{level}}",
       "next": "Prochaine Ascension<br>N = {{level}}",
-      "cubeFormula": {
-        "cubes": "Multiplicateur total = Base × Corruption × Cube Global × multiplicateurs de Cubes Wow! × améliorations liées à la Corruption",
-        "tesseracts": "Multiplicateur total = Base × Corruption × Cube Global × multiplicateurs de Tesseracts Wow! × améliorations liées à la Corruption",
-        "hypercubes": "Multiplicateur total = Base × Corruption × Cube Global × multiplicateurs d'Hypercubes Wow! × améliorations liées à la Corruption",
-        "platonics": "Multiplicateur total = Base × Corruption × Cube Global × multiplicateurs de Cubes Platoniques × améliorations liées à la Corruption",
-        "hepteracts": "Multiplicateur total = Base × Corruption × Cube Global × multiplicateurs d'Hepteracts",
-        "octeracts": "Multiplicateur total = Base × Corruption × sources de Cubes partagées × multiplicateurs d'Octeracts × améliorations liées à la Corruption"
+      "rate": "Corruption level bonus",
+      "scalingUpgrades": {
+        "Platonic1x1": "Platonic Upgrade 1x1",
+        "Platonic1x2": "Platonic Upgrade 1x2",
+        "Platonic1x3": "Platonic Upgrade 1x3",
+        "Platonic1x4": "Platonic Upgrade 1x4",
+        "CubeUpgrade4x8": "Cube Upgrade 4x8",
+        "CookieUpgrade20": "Cookie Upgrade 20",
+        "DivinePack": "Divine Pack"
       },
-      "effectiveLevel": "Niveau + niveaux gratuits",
-      "rate": "Corruption",
-      "base": "Multiplicateur de base",
-      "global": {
-        "cubes": "Cube Global",
-        "tesseracts": "Cube Global",
-        "hypercubes": "Cube Global",
-        "platonics": "Cube Global",
-        "hepteracts": "Cube Global",
-        "octeracts": "Sources de Cubes partagées"
-      },
-      "specific": {
-        "cubes": "Multiplicateurs de Cubes Wow!",
-        "tesseracts": "Multiplicateurs de Tesseracts Wow!",
-        "hypercubes": "Multiplicateurs d'Hypercubes Wow!",
-        "platonics": "Multiplicateurs de Cubes Platoniques",
-        "hepteracts": "Multiplicateurs d'Hepteracts",
-        "octeracts": "Multiplicateurs d'Octeracts"
-      },
-      "scaling": "Améliorations liées à la Corruption",
       "locked": "Verrouillé",
-      "unlock": "Se débloque au niveau {{level}} (niveau {{base}} moins vos niveaux gratuits).",
-      "unlockC15": "Se débloque au niveau {{level}} (niveau {{base}} moins vos niveaux gratuits) et avec la récompense Hepteract du Défi 15.",
-      "otherMultipliers": "Hors bonus de temps d'Ascension. Consultez les Statistiques pour toutes les sources de chaque multiplicateur.",
+      "unlock": "Unlocks at level {{level}}.",
       "source": "Source",
       "completions": "Complétions",
       "perCompletion": "Par complétion",
@@ -5807,29 +5371,29 @@
       "notCorrupted": "Non corrompu",
       "level": "Niveau de Corruption <<gold|{{level}}>>",
       "levelChange": "Niveau de Corruption <<silver|{{old}} →>> <<gold|{{new}}>>",
-      "levelOverwritten": "<<crimson|Votre niveau de Corruption ({{level}}) est forcé à 0 pendant un Défi d'Ascension. Ni ses modificateurs ni ses récompenses ne s'appliquent. Vous le retrouverez en sortant.>>",
-      "freeLevels": "Les récompenses sont avancées de <<gold|{{free}}>> niveaux, grâce à vos niveaux gratuits !",
+      "levelOverwritten": "Corruptions disabled: <<orange|({{challenge}}) $t(challenges.{{challenge}}.progressName)>>",
+      "freeLevels": "<<orange|[+{{free}}]>>",
       "tokens": {
         "selectLevel": "Choisissez un niveau pour commencer à gagner des Jetons !",
         "level": "Jetons du niveau {{level}} : {{earned}}",
-        "completions": "<<gold|{{completions}}>> complétions du Défi 10 × {{rate}} Jetons (+{{tokens}} Jetons)",
+        "levelBonus": "Level {{level}} Tokens: {{earned}} ({{base}} +{{percent}}%)",
+        "completions": "<<gold|{{completions}}>> Challenge 10 completions (+{{completions}} Tokens)",
         "first": "<<gray|✗ Bonus de première complétion : +{{amount}} Jetons>>",
         "firstEarned": "<<lime|✓>> Bonus de première complétion : <<lime|+{{amount}} Jetons>>"
       },
       "summary": "Niveau {{level}}",
       "legacySummary": "Palier {{tier}}, niveau {{level}}",
       "levelInput": "Niveau de Corruption pour la prochaine Ascension",
-      "highestCleared": "Plus haut niveau terminé : <<gold|{{level}}>>",
-      "nextUnlock": "Terminez le Défi 10 au niveau {{level}} pour débloquer le niveau {{unlock}}.",
-      "nextUnlockRange": "Vous pouvez monter jusqu'à {{step}} niveaux au-delà de votre plus haut niveau terminé (jusqu'au niveau {{level}}).",
+      "levelCap": "Current Level Cap: <<gold|{{level}}>>",
+      "highestCleared": "Highest Level Cleared: <<gold|{{level}}>>",
       "requiresChallenge11": "Terminez le Défi 11 pour changer votre niveau de Corruption.",
       "cubeBank": "Banque de Cubes",
-      "cubeMultipliersHeading": "Multiplicateurs de Cubes (cette Ascension → prochaine) :",
-      "cubeMultipliersHeadingSame": "Multiplicateurs de Cubes :",
-      "effectsHeading": "Effets de la Corruption (cette Ascension → prochaine) :",
+      "cubeMultipliersHeading": "Cube multipliers from Corruption (<<silver|this Ascension →>> <<gold|next>>):",
+      "cubeMultipliersHeadingSame": "Cube multipliers from Corruption:",
+      "effectsHeading": "Corruption effects (<<silver|this Ascension →>> <<gold|next>>):",
       "effectsHeadingSame": "Effets de la Corruption :",
       "cubeValue": "x{{value}}",
-      "locked": "<<gray|Verrouillé>>",
+      "unlocksAt": "<<gray|Unlocks at level {{level}}.>>",
       "arrow": "→",
       "cubes": {
         "cubes": "Cubes Wow!",
@@ -5840,10 +5404,19 @@
         "octeracts": "Octeracts"
       }
     },
+    "ascensionDetails": {
+      "heading": "This Ascension",
+      "c10": "Challenge 10 Completions",
+      "tokensGained": "Tokens Gained",
+      "sinceSuccessful": "Since Last Successful Ascension",
+      "sinceAttempted": "Since Last Attempted Ascension",
+      "realTime": "Show Real Time",
+      "tokensValue": "{{earned}}",
+      "tokensValueBonus": "{{earned}} ({{base}} +{{percent}}%)"
+    },
     "corrStatsBtn": "Statistiques de Corruption",
     "corrTokensBtn": "Jetons de Corruption",
     "corrAutoAscendBtn": "Ascensions automatiques",
-    "clickInfo": "<<var(--orchid-text-color)|Survolez ou touchez les icônes pour voir les infos de Corruption !>>",
     "cleanse": "Purifier",
     "confirm": "Confirmer",
     "resetProgress": {
@@ -5852,41 +5425,29 @@
       "done": "La progression de Corruption a été réinitialisée."
     },
     "intro": "Les expéditions les plus enrichissantes sont celles que peu osent entamer.",
-    "traitInfo": "Sélectionnez les niveaux avec lesquels vous voulez partir. Choissisez judicieusement ! <<var(--red-text-color)|N'ayez pas les yeux plus gros que le ventre…>>",
-    "cubeBank": "<<goldenrod|{{value}}>>",
+    "traitInfo": "Choose how hard you want your next Ascension to be. <<var(--red-text-color)|Don't bite off more than you can chew...>>",
     "autoAscend": {
       "on": "Auto Ascension [ACTIF]",
       "off": "Auto Ascension [INACTIF]",
-      "requiresC10": "Les règles d'Ascension automatique ne s'exécuteront pas tant que vous n'aurez pas terminé le Défi 10.",
-      "status": {
-        "heading": "Statut",
-        "corruption": "Niveau de Corruption",
-        "c10": "Complétions du Défi 10",
-        "ascensionChallenge": "Défi d'Ascension",
-        "none": "Aucun",
-        "timeInGame": "Chronomètre d'Ascension",
-        "timeReal": "Cette tentative (réel)",
-        "lastFired": "Dernière règle déclenchée"
-      },
+      "requiresC10": "<<gold|⚠>> Auto Ascension Rules will not run until you complete Challenge 10.",
+      "requiresCubeUpgrade10": "Buy Cube Upgrade 1x10 in the WOW! Cubes tab to unlock Auto Ascension Rules.",
       "loadouts": {
         "heading": "Configurations de Corruption",
-        "help": "Chaque Configuration enregistre un niveau de Corruption. Les règles d'Ascension automatique peuvent aller au niveau d'une Configuration ou le modifier."
+        "slot": "Slot <<gold|{{slot}}>> (<<gold|s{{slot}}>>)"
       },
       "rules": {
         "ui": {
-          "heading": "Règles d'Ascension automatique",
-          "slots": "{{count}} / {{max}} règles",
-          "empty": "Vous n'avez encore aucune règle. Les règles sont vérifiées de haut en bas, et la première qui s'applique décide de votre prochaine Ascension. Cliquez sur une règle pour la désactiver ou l'activer.",
+          "heading": "Auto Ascension Rules ({{count}} / {{max}})",
+          "lastFired": "Last Rule Fired:",
+          "lastFiredNone": "None",
           "addRule": "Ajouter une règle !",
           "newTitle": "Nouvelle règle d'Ascension automatique",
           "editTitle": "Modifier la règle {{number}}",
-          "nameLabel": "Nom (facultatif, 16 caractères max.)",
+          "nameLabel": "Name (optional, up to 20 characters)",
           "namePlaceholder": "Règle {{number}}",
-          "conditionHeading": "1. Quand effectuer l'Ascension ?",
-          "protocolHeading": "2. Que se passe-t-il à l'Ascension ?",
-          "protocolHelp": "Sauf si vous entrez dans un Défi d'Ascension, cette règle vous fait sortir de celui où vous êtes.",
+          "conditionHeading": "2. When should this rule run?",
+          "protocolHeading": "1. What should this rule do?",
           "exceptionHeading": "3. Exception (facultatif)",
-          "exceptionHelp": "Si l'exception est vraie, cette règle ne s'exécute pas même si sa condition est remplie. Laissez vide pour aucune exception.",
           "previewHeading": "Aperçu",
           "ruleTextLabel": "Texte de la règle (collez une règle ici pour la charger)",
           "copyRule": "Copier la règle",
@@ -5897,6 +5458,9 @@
             "exportFileButton": "Exporter dans un fichier",
             "pasteButton": "Coller les règles",
             "importFileButton": "Importer depuis un fichier",
+            "resetButton": "Reset to Defaults",
+            "resetConfirm": "Replace all of your rules with the default rules? Your current rules will be lost unless you export them first.",
+            "resetDone": "Your rules have been reset to the defaults.",
             "confirm": "L'importation remplace vos {{count}} premières règles par celles importées. Continuer ?",
             "imported": "{{count}} règles importées dans les emplacements 1 à {{count}}.",
             "importedAbridged": "{{count}} règles importées dans les emplacements 1 à {{count}}. Les {{dropped}} dernières ne tenaient pas dans vos {{slots}} emplacements et ont été ignorées.",
@@ -5908,10 +5472,28 @@
             "exportFileFailed": "Impossible d'exporter vos règles dans un fichier.",
             "pasteFailed": "Impossible de lire le presse-papiers. Essayez plutôt d'importer depuis un fichier."
           },
-          "previewIncomplete": "Ajoutez au moins une comparaison et choisissez un protocole pour terminer cette règle.",
-          "comparisonCount": "{{count}} / {{max}} comparaisons",
+          "previewIncomplete": "Choose what this rule does and add at least one comparison to finish this rule.",
           "addComparison": "+ Comparaison",
           "addGroup": "+ Groupe",
+          "addException": "+ Exception (optional)",
+          "addExtra": "+ Also change after Ascending",
+          "extras": {
+            "loadout": "Corruption Loadout"
+          },
+          "startHeading": "How do you want to start?",
+          "start": {
+            "template": "Use a Template",
+            "custom": "Build Your Own"
+          },
+          "templateHeading": "Pick a template",
+          "templates": {
+            "ascendAtC10": "Ascend at C10",
+            "outsideChallenges": "Outside Challenges",
+            "climbWhenFast": "Climb When Fast",
+            "declimbWhenStuck": "Declimb When Stuck",
+            "ascendOnStall": "Ascend on Cube Stall",
+            "bestLevel": "Best Recent Level"
+          },
           "removeGroup": "Supprimer le groupe",
           "remove": "Supprimer",
           "group": {
@@ -5936,13 +5518,20 @@
           "stallToleranceLabel": "Hausse minimum (%)",
           "challengeCompletions": "Complétions",
           "challengeScore": "Score",
+          "challengeMaxed": "Completions maxed",
           "variables": {
             "cc": "Complétions de Défi (Score pour le Défi 15)",
+            "mc": "Maxed Challenge",
             "stall": "Secondes depuis la dernière hausse d'un type de Cube par seconde",
-            "t": "Temps d'Ascension, en jeu (secondes, nécessite une complétion du D10)",
-            "rt": "Cette tentative, réel (secondes)",
+            "t": "Since Last Successful Ascension, In-game (seconds)",
+            "srt": "Since Last Successful Ascension, Real (seconds)",
+            "at": "Since Last Attempted Ascension, In-game (seconds)",
+            "rt": "Since Last Attempted Ascension, Real (seconds)",
             "sg": "Singularité actuelle",
+            "aag": "Antiquities of Ant God level",
             "gs": "Section du jeu",
+            "cl": "Current Corruption level",
+            "hcl": "Highest cleared Corruption level",
             "cb": "Banque de Cubes",
             "hb": "Cloches de l'Happy Hour actives",
             "tc": "Défi de Transcendance actuel",
@@ -5952,11 +5541,6 @@
             "tch": "Dans un Défi de Transcendance",
             "rch": "Dans un Défi de Réincarnation",
             "ach": "Dans un Défi d'Ascension",
-            "m10": "Complétions du Défi 10 au maximum",
-            "m11": "Complétions du Défi 11 au maximum",
-            "m12": "Complétions du Défi 12 au maximum",
-            "m13": "Complétions du Défi 13 au maximum",
-            "m14": "Complétions du Défi 14 au maximum",
             "elo": "L'ELO Renaissant est saturé",
             "x": "Dans un EXALT quelconque",
             "exalt": "Dans l'EXALT"
@@ -5964,30 +5548,30 @@
           "protocols": {
             "choose": "Choisissez quoi faire...",
             "ascend": "Effectuer une Ascension (garder le niveau de Corruption)",
-            "ascensionChallenge": "Entrer dans le Défi d'Ascension",
-            "nextAscensionChallenge": "Entrer dans le prochain Défi d'Ascension non terminé (11 à 15)",
-            "corruption": "Régler le niveau de Corruption à",
-            "corruptionLoadout": "Régler le niveau de Corruption sur celui d'une Configuration",
-            "corruptionUnlocked": "Régler le niveau de Corruption au plus haut débloqué",
-            "corruptionCleared": "Régler le niveau de Corruption au plus haut terminé",
-            "corruptionClimb": "Monter le niveau de Corruption de",
-            "corruptionDowngrade": "Baisser le niveau de Corruption de",
-            "corruptionCleanse": "Purifier la Corruption (niveau 0)"
+            "ascensionChallenge": "Ascend into Ascension Challenge",
+            "nextAscensionChallenge": "Ascend into the next unfinished Ascension Challenge (11 to 15)",
+            "corruption": "Ascend at Corruption level",
+            "corruptionLoadout": "Ascend at a Loadout's Corruption level",
+            "corruptionUnlocked": "Ascend at highest unlocked Corruption level",
+            "corruptionCleared": "Ascend at highest cleared Corruption level",
+            "corruptionBest": "Ascend at your best recent run's Corruption level",
+            "corruptionClimb": "Ascend and climb Corruption level by",
+            "corruptionDowngrade": "Ascend and lower Corruption level by",
+            "corruptionCleanse": "Ascend and Cleanse Corruption (level 0)"
           },
-          "loadoutsHelp": "Facultatif : après l'Ascension, modifier aussi ces Configurations. Une Configuration choisie plus haut utilise son niveau d'avant cette modification. Les hausses s'arrêtent à votre plus haut niveau débloqué, et les baisses à 0.",
-          "loadoutSlot": "Configuration {{slot}}",
+          "bestRuns": "per real second, last {{runs}} runs",
+          "bestRunsLabel": "Runs to compare",
+          "loadoutSlot": "Loadout Slot {{slot}}",
           "loadoutOps": {
             "set": "régler à",
             "increase": "augmenter de",
             "decrease": "diminuer de"
           },
           "loadoutWrites": {
-            "set": "Configuration {{slot}} réglée à {{value}}",
-            "increase": "Configuration {{slot}} augmentée de {{value}}",
-            "decrease": "Configuration {{slot}} diminuée de {{value}}"
+            "set": "Loadout Slot {{slot}} set to {{value}}",
+            "increase": "Loadout Slot {{slot}} increased by {{value}}",
+            "decrease": "Loadout Slot {{slot}} decreased by {{value}}"
           },
-          "addLoadout": "+ Modification de Configuration",
-          "modifiersHelp": "Facultatif : après l'Ascension, modifier aussi ces réglages. Une Configuration d'Ambroisie est ignorée si elle est déjà chargée ou trop chère, pour conserver la progression de votre Barre d'Ambroisie.",
           "modifiers": {
             "antSacrifice": "Sacrifice de Fourmis auto",
             "challengeSweep": "Balayage des Défis",
@@ -6001,7 +5585,6 @@
           "ambrosiaLoadoutSlot": "Configuration d'Ambroisie {{slot}}",
           "ambrosiaLoadoutWrite": "Configuration d'Ambroisie {{slot}} chargée",
           "modifierStates": {
-            "keep": "Aucun changement",
             "enable": "Activer",
             "disable": "Désactiver"
           },
@@ -6011,16 +5594,32 @@
           "delete": "Supprimer",
           "ruleOn": "ACTIF",
           "ruleOff": "INACTIF",
-          "disableHint": "Cliquez sur cette règle pour la désactiver.",
-          "enableHint": "Cette règle est désactivée et ignorée. Cliquez dessus pour l'activer.",
+          "ruleStatus": {
+            "ready": "Ready",
+            "behind": "Rule {{number}} first",
+            "waiting": "Waiting",
+            "excepted": "Exception",
+            "locked": "Locked",
+            "explain": {
+              "ready": "Its condition is met, so it runs next.",
+              "readyPaused": "Its condition is met, so it runs as soon as Auto Ascend is on.",
+              "behind": "Its condition is met, but Rule {{number}} is higher in the list and runs first.",
+              "waiting": "Its condition is not met yet.",
+              "excepted": "Its condition is met, but so is its exception, so it is skipped.",
+              "locked": "It changes Corruptions, which you can't do until you complete Challenge 11, so it is skipped."
+            },
+            "when": "WHEN:",
+            "except": "EXCEPT:"
+          },
           "moveUp": "Monter la règle",
           "moveDown": "Descendre la règle",
           "errors": {
-            "invalidNumber": "Corrigez d'abord les nombres surlignés. Ils doivent être de 0 ou plus ; les complétions de Défi, Singularités, Banque de Cubes, Cloches, niveaux de Corruption et de Configuration doivent être des nombres entiers ; et les montées, baisses et hausses ou baisses de Configuration doivent valoir au moins 1.",
+            "invalidNumber": "Fix the highlighted numbers first.",
             "emptyCondition": "Ajoutez au moins une comparaison à la condition.",
-            "noProtocol": "Choisissez ce qui se passe à l'Ascension.",
+            "noProtocol": "Choose what this rule does.",
             "noSlots": "Tous vos emplacements de règles sont utilisés.",
-            "nameTooLong": "Les noms de règles font 16 caractères au maximum.",
+            "nameTooLong": "Rule names can be at most 20 characters long.",
+            "nameNotAscii": "Rule names can only use English letters, numbers, spaces and standard keyboard symbols.",
             "incompleteRule": "Terminez la règle avant de la copier.",
             "copyFailed": "Impossible de copier la règle dans le presse-papiers.",
             "pasteFailed": "Impossible de lire le presse-papiers. Collez plutôt dans la zone de texte de la règle."
@@ -6037,11 +5636,12 @@
           "invalidTolerance": "Ligne {{line}}, colonne {{column}} : hausse minimum de 0% ou plus attendue après '@', comme sc>=30@3.",
           "invalidStage": "Ligne {{line}}, colonne {{column}} : Section du jeu invalide. Utilisez un numéro de Section à partir de 0, comme gs>=12.",
           "unclosedParen": "Ligne {{line}}, colonne {{column}} : parenthèse fermante manquante.",
-          "expectedProtocol": "Ligne {{line}}, colonne {{column}} : exception attendue après '~' ou protocole attendu après ':' (asc, c=11 à c=15, c=next, l=<level>, l=s1 à l=s8, l+<amount>, l-<amount>, l=max, l=clr ou l=cln).",
-          "unknownProtocol": "Ligne {{line}}, colonne {{column}} : protocole inconnu. Utilisez asc, c=<challenge>, c=next, l=<level>, l=s<loadout>, l+<amount> ou l-<amount>.",
-          "invalidProtocolValue": "Ligne {{line}}, colonne {{column}} : valeur de protocole invalide. Les Défis vont de 11 à 15 ou next, les niveaux sont un nombre entier, s1 à s8, max, clr ou cln, et les montées ou baisses un nombre entier d'au moins 1.",
+          "expectedProtocol": "Line {{line}}, column {{column}}: Expected an exception after '~' or a protocol after ':' (asc, c=11 to c=15, c=next, l=<level>, l=s1 to l=s8, l+<amount>, l-<amount>, l=max, l=clr, l=cln or l=best(<cube>,<runs>)).",
+          "unknownProtocol": "Line {{line}}, column {{column}}: Unknown protocol. Use asc, c=<challenge>, c=next, l=<level>, l=s<loadout>, l+<amount>, l-<amount> or l=best(<cube>,<runs>).",
+          "invalidProtocolValue": "Line {{line}}, column {{column}}: Invalid protocol value. Challenges must be 11 to 15 or next, levels a whole number, s1 to s8, max, clr or cln, climbs or downgrades a whole number of at least 1, and best a cube (sc, st, sh, sp or shp) and a whole number of runs of at least 1, like l=best(sc,10).",
           "invalidName": "Ligne {{line}}, colonne {{column}} : le nom de la règle n'est pas un nom entre guillemets valide.",
-          "nameTooLong": "Ligne {{line}}, colonne {{column}} : les noms de règles font 16 caractères au maximum.",
+          "nameTooLong": "Line {{line}}, column {{column}}: Rule names can be at most 20 characters long.",
+          "nameNotAscii": "Line {{line}}, column {{column}}: Rule names can only use English letters, numbers, spaces and standard keyboard symbols.",
           "unknownModifier": "Ligne {{line}}, colonne {{column}} : modificateur inconnu. Utilisez as (Sacrifice de Fourmis auto), cs (Balayage des Défis), co (Ouverture auto des Cubes), tb (Bâtiments de Tesseracts auto), cu (Améliorations de Cubes auto), pu (Améliorations Platoniques auto), ha (Fabrication d'Hepteracts auto), al (Configuration d'Ambroisie) ou s1 à s8 (Configuration).",
           "invalidModifierValue": "Ligne {{line}}, colonne {{column}} : les modificateurs doivent valoir 1 (activer) ou 0 (désactiver).",
           "duplicateModifier": "Ligne {{line}}, colonne {{column}} : ce modificateur est déjà défini pour cette règle.",
@@ -6055,10 +5655,9 @@
     },
     "loadoutApplied": "L'ensemble de corruption de la précédente Ascension a été appliqué. Il prendra effet à la prochaine Ascension.",
     "toggles": {
-      "autoIncrease": "Monter automatiquement à chaque nouveau niveau débloqué",
-      "cleanseToHighest": "Purifier jusqu'à votre plus haut niveau terminé au lieu du niveau 0",
-      "rulesFirst": "Les règles d'Ascension automatique s'appliquent avant ces options",
-      "timerPreserved": "Effectuer une Ascension sans complétion du Défi 10 conserve votre chronomètre d'Ascension. Les règles qui comparent le Temps d'Ascension ne s'appliquent qu'une fois le Défi 10 terminé au moins une fois. Pour chronométrer une tentative, utilisez plutôt Cette tentative."
+      "autoIncrease": "Set Corruption Level to highest unlocked",
+      "cleanseToHighest": "Cleanse to highest Corruption Level cleared",
+      "manualOnly": "<<gold|⚠>> Settings only apply when you manually Ascend!"
     },
     "controls": {
       "climbing": "Montée"
@@ -6090,7 +5689,7 @@
     "constructionBonus": "Ces Bâtiments ont un plafond doux de base de <<yellow|{{amount}}>> possédés, multiplié par la Construction",
     "hyperscaling": "Les exposants de prix augmentent de façon <<yellow|quadratique>> au-delà de <<yellow|{{threshold}}>> possédés",
     "accelMultConstruction": "Les Accélérateurs, Multiplicateurs et Renforts d'Accélérateur profitent de <<yellow|√Construction>> (<<yellow|×{{amount}}>>) <br> Les Accélérateurs progressent de façon <<yellow|quadratique>> au-delà de <<yellow|{{accelerators}}>> achetés <br> Les Multiplicateurs progressent de façon <<yellow|quadratique>> au-delà de <<yellow|{{multipliers}}>> achetés <br> Les Renforts d'Accélérateur progressent de façon <<yellow|cubique>> au-delà de <<yellow|{{boosts}}>> achetés",
-    "coinInformation": "Vous avez <<gold | {{coins}} Pièces>> [<<gold |+{{coinsPerSecond}}/s>>] <br> Total depuis toujours : <<gold | {{totalGenerated}}>>",
+    "coinInformation": "You hold <<gold | {{coins}} Coins>> [<<gold |+{{coinsPerSecond}}/s>>] <br> This Ascension: <<gold | {{thisAscension}}>> <br> This Singularity: <<gold | {{thisSingularity}}>> <br> Total Ever: <<gold | {{totalGenerated}}>>",
     "coinFlavorTexts": {
       "1": "Vous n'avez que 100 pièces. Vous pouvez embaucher un ouvrier, qui coûte justement 100 pièces !",
       "2": "Vos ouvriers travaillent dur, c'est sûr. Achetons quelques investissements avec nos pièces !",
@@ -6114,7 +5713,7 @@
       "20": "Je pense que vous avez largement dépassé le stade où le <<gray | Percepteur>> est la seule chose qui vous freine. Non ?",
       "21": "Parfois, vous vous demandez si le Dieu Fourmi ne ferait pas mieux de se nourrir de vos Pièces. Vous en avez sûrement assez.",
       "22": "Le Dieu Fourmi, Derpsmith, le Gold Guy, <<cyan | Platonic>>... qui sont toutes ces entités, au juste ?",
-      "23": "10 puissance <<gold|10,000,000,000,000,000,000>><<orange|,000,000,000,000,000,000>><<brown|,000,000,000,000,000,000>><<grey|,000,000,000,000,000>>",
+      "23": "10 to the <<gold|10,000,000,000,000,000,000>><<orange|,000,000,000,000,000,000>><<brown|,000,000,000,000,000,000>><<grey|,000,000,000,000,000>>",
       "24": "On devrait écrire des histoires sur votre fortune. Seul un <<grey | Stylo Ultime>> y suffirait.",
       "25": "No one will know my name, but the bards' songs will remain.",
       "26": "Ça fait beaucoup de pièces mdr"
@@ -6346,23 +5945,23 @@
       },
       "octeractBonusTokens1": {
         "name": "Jetons de Derpsmith",
-        "description": "Derpsmith vous offre un jeton de son estime. Le bonus de première complétion de chaque niveau de Corruption augmente de 2% de l'équivalent de 50 complétions en Jetons, par niveau !",
-        "effect": "Token gain +{{n}} for maxxed completions."
+        "description": "Derpsmith gives you a token of his appreciation. Every Corruption level's First completion bonus is increased by 1 Token per level!",
+        "effect": "First completion bonus +{{n}} Tokens"
       },
       "octeractBonusTokens2": {
         "name": "Jetons de Derpsmith II",
-        "description": "Grâce à un étrange accord commercial, chaque niveau de Corruption donne +1% de Jetons en plus par complétion du Défi 10, par niveau. Priez pour que l'accord ne soit pas modifié davantage.",
-        "effect": "Token gain +{{n}}%"
+        "description": "Under some weird trade agreement, gain +1% more Corruption Tokens from all sources per level. Pray that the trade is not further altered.",
+        "effect": "Corruption Tokens from all sources +{{n}}%"
       },
       "octeractBonusTokens3": {
         "name": "Jetons de Derpsmith III",
-        "description": "Même en effleurant le seuil, Derpsmith reconnaît votre bravoure. Le bonus de première complétion de chaque niveau de Corruption augmente de 2% de l'équivalent de 50 complétions en Jetons, par niveau.",
-        "effect": "Bonus de première complétion +{{n}}% de l'équivalent de 50 complétions en Jetons"
+        "description": "Even grazing the doorstep, Derpsmith acknowledges your bravery. Every Corruption level's First completion bonus is increased by 1 Token per level.",
+        "effect": "First completion bonus +{{n}} Tokens"
       },
       "octeractBonusTokens4": {
         "name": "Jetons de Derpsmith IV",
-        "description": "Derpsmith est impressionné par ton dévouement. +2 Jetons au début de ta Singularité par niveau.",
-        "effect": "Gain de Jetons +{{n}} au début de votre Singularité.."
+        "description": "Derpsmith is impressed by your dedication. +1 Token at the start of your Singularity per level.",
+        "effect": "Token gain +{{n}} at the start of your Singularity."
       },
       "octeractSingUpgradeCap": {
         "name": "Écrasement de pointeurs",
@@ -6489,10 +6088,12 @@
     "secondsPerOcteract": "+1 toutes les <<var(--orchid-text-color)|{{seconds}}>> secondes",
     "octeractsPerSecond": "<<yellow|{{octeracts}}>> par seconde",
     "totalGenerated": "Total généré : <<var(--lightseagreen-text-color)|{{octeracts}}>> Octeracts !",
+    "unspent": "Unspent: <<var(--lightseagreen-text-color)|{{octeracts}}>> Octeracts!",
     "generatedCubeBonus": "Cubes de 3 à 7 Dimensions <<yellow|+{{cubeBonus}}%>>",
     "generatedQuarkBonus": "Quarks <<cyan|+{{quarkBonus}}%>>",
     "generatedOfferingBonus": "Offrandes <<orange|+{{offeringBonus}}%>>",
-    "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}%>>"
+    "generatedObtainiumBonus": "Obtainium <<pink|+{{obtainiumBonus}}%>>",
+    "generatedLuckBonus": "Ambrosia Luck <<lime|+{{luckBonus}}>>"
   },
   "runes": {
     "runeName": "Rune <b><<{{color}}|{{name}}>></b>",
@@ -7042,7 +6643,7 @@
         "barIntro2": "Chaque Ambroisie ou Ambroisie Rouge qu'une Barre donnerait normalement est convertie en temps, donc la Chance (et DEUX ESPRITS) compte toujours !",
         "barMod1": "<<var(--blueberry-text-color)|Barre d'Ambroisie : +0.01 seconde de Temps Global par Ambroisie (moyenne : +{{secs}} secondes)>> (exigence fixée à <<var(--blueberry-text-color)|{{req}} PBA>>)",
         "barMod2": "<<red|Barre Rouge : +0.05 seconde de Temps d'Ascension par Ambroisie Rouge (moyenne : +{{secs}} secondes)>> (exigence fixée à <<red|{{req}} PBAR>>)",
-        "barMod3": "<<var(--purple-text-color)|Barre Violette : donne l'effet des deux barres une fois par tranche de 100 de Chance du Miel Violet, la Chance restante donnant une probabilité de +1>> (exigence fixée à <<var(--purple-text-color)|{{req}} PBV>>)",
+        "barMod3": "<<var(--purple-text-color)|Purple Bar: Each of the Ambrosia and Red Bars has an independent chance to fill, equal to 1 - 2^(-Purple Honey Luck / 100) (Current: {{chance}}%)>> (Requirement is fixed at <<var(--purple-text-color)|{{req}} PBP>>)",
         "ScalingReward1": "Coût de la <<var(--purple-text-color)|Synthèse d'Ambroisie Violette>> -5%",
         "ScalingReward2": "+1 <<var(--blueberry-text-color)|Myrtille>>. Oui, vraiment.",
         "ScalingReward3": "50 Points de Succès !",
@@ -7215,8 +6816,7 @@
       "EventCubeGain": "Événement - Gain de Cubes bonus :",
       "PseudoCoins": "Amélioration PseudoCoin :",
       "AscensionTime": "Multiplicateur de temps d'Ascension :",
-      "TutorialBonus": "Jetons de Corruption - Bonus du premier Jeton :",
-      "Campaign": "Jetons de Corruption - Bonus de Cubes :",
+      "Campaign": "Corruption Tokens - Cube Bonus:",
       "Challenge15": "Défi 15 - Bonus de tous les Cubes I-V :",
       "SunMoon": "Multiplicateur des Succès Soleil & Lune :",
       "SpeedAchievement": "Succès de vitesse :",
@@ -7390,7 +6990,6 @@
       "PlatonicBlessing": "Bénédiction Platonique - Statue à haut score :",
       "EventCubeGain": "Événement - Gain de Cubes bonus :",
       "PseudoCoins": "Amélioration PseudoCoin :",
-      "Campaign": "Jetons de Corruption : Bonus d'Octeracts :",
       "SeasonPass3": "Amélioration de Quarks : Passe de saison 3",
       "SeasonPassY": "Amélioration de Quarks : Passe de saison Y",
       "SeasonPassZ": "Amélioration de Quarks : Passe de saison Z",
@@ -7476,7 +7075,6 @@
       "Research5x19": "Recherche 5x19 :",
       "ResearchTalismans": "Recherches 6x24 & 8x4 :",
       "TutorialBonus": "Campaign - Tutorial Bonus:",
-      "CampaignBonus": "Jetons de Corruption - Bonus d'Offrandes :",
       "Challenge12": "Défi 12 :",
       "ThriftSpirit": "Bonus de l'Esprit de l'Épargne :",
       "Research8x25": "Recherche 8x25 :",
@@ -7607,7 +7205,6 @@
       "CubeUpgrade4x2": "Amélioration de Cubes 4x2 :",
       "CubeUpgrade4x3": "Amélioration de Cubes 4x3 :",
       "TutorialBonus": "Campaign - Tutorial Bonus:",
-      "CampaignBonus": "Jetons de Corruption - Bonus d'Obtainium :",
       "ChallengeBonus": "Défi 15 - Bonus d'Obtainium :",
       "PlatonicALPHA": "Platonic ALPHA :",
       "PlatonicUpgrade9": "Amélioration Platonique 9 :",
@@ -8318,6 +7915,7 @@
       "AntUpgrade": "Fourmis - Phylacterium Formicidae :",
       "AntUpgrade13": "Fourmis - Impia Reproducta Formicidae :",
       "SingularityPerk": "Privilège de Singularité - Esprits revigorés :",
+      "Campaign": "Corruption Token Bonus:",
       "Total": "ELO de Fourmi de base total :"
     },
     "additiveAntELOMultStats": {
@@ -8576,10 +8174,10 @@
     },
     "platonicUpgrades": {
       "c15Rewards": {
-        "requiredExponent": "Gagnez <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{coins}}</span> Pièces dans le Défi 15 pour gagner plus d'Exposant !",
+        "requiredExponent": "Gain <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{coins}}</span> Coins in Challenge 15 to gain more Exponent!",
         "nextReward": "Le prochain type de récompense nécessite <<white | {{exponent}}>> d'Exposant.",
         "allUnlocked": "Vous avez débloqué <<gold | tous>> les types de récompenses du Défi 15 !",
-        "0": "Meilleur Exposant du Défi 15 : <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{exponent}}</span>",
+        "0": "Best Challenge 15 Exponent: <span class=\"challengeNumber\" style=\"color: var(--gold-color); font-size: num:((1.2))em;\">{{exponent}}</span>",
         "cube1": "• Tous types de Cubes I : +{{amount}}",
         "ascensions": "• Nombre d'Ascensions : +{{amount}}",
         "coinExponent": "• Exposant des Pièces : +{{amount}}",
@@ -8860,6 +8458,10 @@
         "notUnlocked": "Hmmm... vous n'êtes pas encore prêt.",
         "overCapacity": "Vous ne pouvez pas en porter plus !",
         "thanks": "Merci à Alonso (dans Discord) pour le pot-de-vin."
+      },
+      "ascensionComp": {
+        "reward": "You gained 24 real-life hours of Ascension Timer!",
+        "unavailable": "This code can't be used in your current EXALT. Try again after leaving it!"
       }
     }
   },
@@ -8910,8 +8512,15 @@
     "perSecondOff": "Par seconde : DÉSACTIVÉ",
     "historyReset": "Voici ce que vous ont rapporté vos dernières réinitialisations (hors Défis) :",
     "historySac": "Vos sacrifices vous ont rapporté ceci :",
-    "historyAsc": "Vos dernières Ascensions vous ont rapporté ceci :",
-    "historySing": "Vos dernières Singularités vous ont rapporté ceci :"
+    "historyAsc": "The last 20 Ascensions with at least 1 Challenge 10 completion:",
+    "historySing": "Vos dernières Singularités vous ont rapporté ceci :",
+    "realTime": "Real: {{time}}",
+    "realTimeTitle": "Real time spent on this Ascension attempt",
+    "challenge": "C{{challenge}}",
+    "challengeCompletions": "C{{challenge}}: {{completions}}",
+    "challengeCompletionsTitle": "Challenge {{challenge}} completions after this Ascension",
+    "challenge15Score": "C15: {{score}}",
+    "challenge15ScoreTitle": "Challenge 15 score from this Ascension"
   },
   "event": {
     "aprilFools": {
@@ -9027,6 +8636,7 @@
     "consumables": {
       "connectionEstablished": "Connexion établie !",
       "connectionFailed": "Impossible de rétablir votre connexion. Les Consommables et les événements liés ne fonctionneront pas.",
+      "tooManyConnections": "Your account has too many connections open. Close the game in another tab or on another device, then come back here to reconnect.",
       "ended": "{{consumable}} est terminé !",
       "redeemed": "Un {{consumable}} a commencé !",
       "joined": "Les consommables suivants sont actifs :"
@@ -9044,8 +8654,10 @@
       "upToDate": "Votre application est à jour.",
       "available": "La mise à jour {{version}} est disponible.",
       "confirm": "La mise à jour {{version}} est disponible. La télécharger et l'installer maintenant ? Votre progression sera sauvegardée et l'application rechargée.",
+      "confirmRecovery": "Update {{version}} is available. Download and install it now? The app will reload and try to load your save again.",
       "downloading": "Téléchargement de la mise à jour...",
       "installing": "Sauvegarde de la progression et application de la mise à jour...",
+      "applying": "Applying update...",
       "storeUpdateRequired": "Veuillez mettre à jour Synergism depuis votre magasin d'applications pour obtenir la dernière version.",
       "unavailable": "Cette mise à jour n'est pas disponible pour votre application pour le moment. Veuillez réessayer plus tard.",
       "saveFailed": "Votre progression n'a pas pu être sauvegardée. Veuillez réessayer la mise à jour une fois le jeu entièrement chargé.",
@@ -9174,7 +8786,7 @@
   },
   "hotkeys": {
     "note1": "MAJ + 1 à MAJ + 8 chargent les Configurations de Corruption 1 à 8 pour la prochaine Ascension. MAJ + 9, MAJ + 0 et MAJ + ACCENT GRAVE règlent la prochaine Ascension au niveau de Corruption 0. Ces raccourcis ne sont pas modifiables !",
-    "note2": "Pourquoi ne pas cliquer sur l'un des textes en <span style=\"color:var(--gold-color);\">or</span> ci-dessus pour commencer ? Vous pouvez toujours annuler !",
+    "note2": "Why don't you try clicking on one of the item's <span style=\"color:var(--gold-color);\">gold</span> text above to get started? You can always cancel!",
     "reset": "Réinitialiser les raccourcis",
     "mobile": {
       "open": "Ouvrir les raccourcis mobiles",
@@ -9218,6 +8830,8 @@
   },
   "versionChangeAnnouncements": {
     "ants": "Les Fourmis ont été profondément remaniées et rééquilibrées. Votre progression de Fourmilière a été ajustée en conséquence !",
-    "sept13Refund": "Suite à la mise à jour de l'Ambroisie Violette, certaines de vos Améliorations de Quarks ont été remboursées ! Montant remboursé : <<cyan|+{{amount}}>>"
+    "sept13Refund": "Suite à la mise à jour de l'Ambroisie Violette, certaines de vos Améliorations de Quarks ont été remboursées ! Montant remboursé : <<cyan|+{{amount}}>>",
+    "v4-4-1-Corruptions": "Because of a recent update, your Corruption progress has been adjusted. Your Corruption level is set to <<orange|{{level}}>>, with a Challenge 10 completion instantly awarded.",
+    "v4-4-1-BarCharging": "Because of balancing changes, your <<var(--purple-text-color)|Bar Charging>> EXALT completions have been set to <<orange|5>>."
   }
 }
