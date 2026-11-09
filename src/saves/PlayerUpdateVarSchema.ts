@@ -372,6 +372,7 @@ export const playerUpdateVarSchema = z.preprocess(cleanseLegacyCorruptions, play
 
     if (player.singularityChallenges.barDependence.highestSingularityCompleted > 292) {
       player.singularityChallenges.barDependence.highestSingularityCompleted = 292
+      player.singularityChallenges.barDependence.updateChallengeCompletions()
 
       void Alert(i18next.t('versionChangeAnnouncements.v4-4-1-BarCharging'))
     }
