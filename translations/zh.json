@@ -5189,7 +5189,7 @@
         "blueberrySpeed": "大概是果树学博士生的津贴。"
       },
       "formulas": {
-        "cube": "Formula:<br>0 – 100 Tokens: <<white|+1% × Tokens>><br>101 – num:((10000)) Tokens: <<white|+100% + 100% × log10(Tokens / 100)>>",
+        "cube": "公式：<br>0 – 100代币：<<white|+1% × 代币数量>><br>101 – num:((10000))代币：<<white|+100% + 100% × log10(代币数量 / 100)>>",
         "antELO": "公式：<br>0 – num:((25000))代币：<<orchid|+1 × 代币数量>>",
         "quark": "公式：<br>100 – 200代币：<<orchid|+num:((0.06))% × (代币数量 - 100)>><br>201 – num:((20000))代币：<<orchid|+6% + 6% × log10(代币数量 / 200)>>",
         "tax": "公式：<br>250 – 500 代币：<<orchid|-num:((0.02))% × (代币数量 - 250)>><br>501 – num:((8000))代币：<<orchid|-5% - 5% × log2(代币数量 / 500)>>",
@@ -5201,7 +5201,7 @@
       },
       "rewardTexts": {
         "tutorial": "获得过腐化代币后，使难得素获取数量增加<<pink|{{obtainium}}>>，祭品获取数量增加<<orange|{{offering}}>>！",
-        "cube": "Increase Cube gain by <<white | {{ reward }}>>",
+        "cube": "使所有类型的方盒、立方和方块获取数量增加<<white|{{ reward }}>>",
         "antELO": "使<<orchid|蚂蚁强度分>>增加<<orchid|{{ reward }}>>",
         "timeThreshold": "对于特定的重置奖励，如果它在一定时间以内重置有负面惩罚，则使触发它的时间减少<<gray |{{ reward }}>>秒(基础值10秒)。",
         "quark": "使夸克获取数量增加<<cyan|{{ reward }}>>",
@@ -6816,7 +6816,7 @@
       "EventCubeGain": "活动 - 方盒获取加成：",
       "PseudoCoins": "伪币升级：",
       "AscensionTime": "飞升时间倍率：",
-      "Campaign": "Corruption Tokens - Cube Bonus:",
+      "Campaign": "腐化代币 - 方盒加成：",
       "Challenge15": "挑战15-所有类型的方盒、立方和方块获取数量 I-V加成：",
       "SunMoon": "[烈日千阳]和[静月千阴]成就倍率：",
       "SpeedAchievement": "成就240的加成：",
