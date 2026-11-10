@@ -22,7 +22,7 @@ import type { RuneKeys } from '../Runes'
 import type { RuneSpiritKeys } from '../RuneSpirits'
 import type { ShopUpgradeNames } from '../Shop'
 import type { SingularityDataKeys } from '../singularity'
-import type { SingularityChallenge, SingularityChallengeDataKeys } from '../SingularityChallenges'
+import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
 import type { SynthesisUpgrades } from '../Synthesis'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
@@ -495,7 +495,7 @@ export interface Player {
   insideSingularityChallenge: boolean
   singularityChallenges: Record<
     SingularityChallengeDataKeys,
-    SingularityChallenge
+    { completions: number; highestSingularityCompleted: number; enabled: boolean }
   >
 
   ambrosia: number

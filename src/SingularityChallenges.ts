@@ -115,10 +115,7 @@ interface ISingularityChallengeData {
   scalingrewardcount: number
   uniquerewardcount: number
   resetTime?: boolean
-  completions?: number
-  enabled?: boolean
   alternateDescription?: () => string
-  highestSingularityCompleted?: number
 }
 
 interface ISingularityChallengeDataWithEffect<
@@ -130,12 +127,9 @@ interface ISingularityChallengeDataWithEffect<
 
 export class SingularityChallenge {
   public baseReq
-  public completions
   public maxCompletions
   public unlockSingularity
   public HTMLTag
-  public highestSingularityCompleted
-  public enabled
   public resetTime
   public singularityRequirement
   public achievementPointValue
@@ -147,21 +141,15 @@ export class SingularityChallenge {
   public constructor (data: ISingularityChallengeData, key: string) {
     this.#key = key
     this.baseReq = data.baseReq
-    this.completions = data.completions ?? 0
     this.maxCompletions = data.maxCompletions
     this.unlockSingularity = data.unlockSingularity
     this.HTMLTag = data.HTMLTag
-    this.highestSingularityCompleted = data.highestSingularityCompleted ?? 0
-    this.enabled = data.enabled ?? false
     this.resetTime = data.resetTime ?? false
     this.singularityRequirement = data.singularityRequirement
     this.achievementPointValue = data.achievementPointValue
     this.alternateDescription = data.alternateDescription ?? undefined
     this.scalingrewardcount = data.scalingrewardcount
     this.uniquerewardcount = data.uniquerewardcount
-
-    this.updateIconHTML()
-    this.updateChallengeCompletions()
   }
 
   public get name () {
@@ -177,23 +165,23 @@ export class SingularityChallenge {
   }
 
   public computeSingularityRquirement () {
-    return this.singularityRequirement(this.baseReq, this.completions)
+    return this.singularityRequirement(this.baseReq, player.singularityChallenges[this.HTMLTag].completions)
   }
 
   public updateChallengeCompletions () {
     let updateVal = 0
     while (
       this.singularityRequirement(this.baseReq, updateVal)
-        <= this.highestSingularityCompleted
+        <= player.singularityChallenges[this.HTMLTag].highestSingularityCompleted
     ) {
       updateVal += 1
     }
 
-    this.completions = Math.min(this.maxCompletions, updateVal)
+    player.singularityChallenges[this.HTMLTag].completions = Math.min(this.maxCompletions, updateVal)
   }
 
   public challengeEntryHandler () {
-    if (!this.enabled) {
+    if (!player.singularityChallenges[this.HTMLTag].enabled) {
       return this.enableChallenge()
     } else {
       return this.exitChallenge(runes.antiquities.level > 0)
@@ -216,30 +204,29 @@ export class SingularityChallenge {
       return Alert(i18next.t('singularityChallenge.enterChallenge.decline'))
     }
 
-    const challenge = player.singularityChallenges[this.HTMLTag]
     if (!player.insideSingularityChallenge) {
-      const setSingularity = challenge.computeSingularityRquirement()
+      const setSingularity = this.computeSingularityRquirement()
       const holdSingTimer = player.singularityCounter
       const goldenQuarkGain = calculateGoldenQuarks()
       const currentGQ = player.goldenQuarks
-      challenge.enabled = true
-      G.currentSingChallenge = challenge.HTMLTag
+      player.singularityChallenges[this.HTMLTag].enabled = true
+      G.currentSingChallenge = this.HTMLTag
       player.insideSingularityChallenge = true
       singularity(setSingularity)
 
-      if (!challenge.resetTime) {
+      if (!this.resetTime) {
         player.singularityCounter = holdSingTimer
       } else {
         player.singularityCounter = 0
       }
       player.goldenQuarks = currentGQ + goldenQuarkGain
 
-      challenge.updateChallengeHTML()
+      this.updateChallengeHTML()
       return Alert(
         i18next.t('singularityChallenge.enterChallenge.acceptSuccess', {
-          name: challenge.#unprocessedName,
-          tier: challenge.completions + 1,
-          singReq: challenge.computeSingularityRquirement()
+          name: this.#unprocessedName,
+          tier: player.singularityChallenges[this.HTMLTag].completions + 1,
+          singReq: this.computeSingularityRquirement()
         })
       )
     } else {
@@ -257,7 +244,7 @@ export class SingularityChallenge {
       const confirmation = await Confirm(
         i18next.t('singularityChallenge.exitChallenge.confirmation', {
           name: this.#unprocessedName,
-          tier: this.completions + 1,
+          tier: player.singularityChallenges[this.HTMLTag].completions + 1,
           warning: extra
         })
       )
@@ -266,26 +253,25 @@ export class SingularityChallenge {
       }
     }
 
-    const challenge = player.singularityChallenges[this.HTMLTag]
-    if (!challenge.enabled) {
+    if (!player.singularityChallenges[this.HTMLTag].enabled) {
       return
     }
 
-    challenge.enabled = false
+    player.singularityChallenges[this.HTMLTag].enabled = false
     G.currentSingChallenge = undefined
     player.insideSingularityChallenge = false
     const highestSingularityHold = player.highestSingularityCount
     const holdSingTimer = player.singularityCounter
-    challenge.updateIconHTML()
+    this.updateIconHTML()
     if (success) {
-      challenge.highestSingularityCompleted = player.singularityCount
-      challenge.updateChallengeCompletions()
+      player.singularityChallenges[this.HTMLTag].highestSingularityCompleted = player.singularityCount
+      this.updateChallengeCompletions()
       singularity(highestSingularityHold)
       player.singularityCounter = holdSingTimer
       return Alert(
         i18next.t('singularityChallenge.exitChallenge.acceptSuccess', {
-          tier: toOrdinal(challenge.completions),
-          name: challenge.#unprocessedName
+          tier: toOrdinal(player.singularityChallenges[this.HTMLTag].completions),
+          name: this.#unprocessedName
         })
       )
     } else {
@@ -302,10 +288,10 @@ export class SingularityChallenge {
    * @returns A string that details the name, description, metadata.
    */
   toString (): string {
-    const color = this.completions === this.maxCompletions
+    const color = player.singularityChallenges[this.HTMLTag].completions === this.maxCompletions
       ? 'var(--orchid-text-color)'
       : 'var(--white-color)'
-    const enabled = this.enabled
+    const enabled = player.singularityChallenges[this.HTMLTag].enabled
       ? `<span style="color: var(--red-text-color)">${
         i18next.t(
           'general.enabled'
@@ -317,7 +303,7 @@ export class SingularityChallenge {
       i18next.t(
         'singularityChallenge.toString.tiersCompleted'
       )
-    }: <span style="color: ${color}">${this.completions}/${this.maxCompletions}</span>
+    }: <span style="color: ${color}">${player.singularityChallenges[this.HTMLTag].completions}/${this.maxCompletions}</span>
       <span style="color: var(--pink-color)">${
       i18next.t(
         'singularityChallenge.toString.canEnter',
@@ -334,7 +320,7 @@ export class SingularityChallenge {
     } <span style="color: var(--orchid-text-color)">${
       this.singularityRequirement(
         this.baseReq,
-        this.completions
+        player.singularityChallenges[this.HTMLTag].completions
       )
     }</span></span>
     <span style="color: var(--lightblue-color)">${
@@ -380,37 +366,16 @@ export class SingularityChallenge {
   }
 
   public updateIconHTML (): void {
-    const color = this.enabled ? 'var(--orchid-background-color)' : ''
+    const color = player.singularityChallenges[this.HTMLTag].enabled ? 'var(--orchid-background-color)' : ''
     DOMCacheGetOrSet(this.HTMLTag).style.backgroundColor = color
   }
 
   public get rewardAP () {
-    return this.achievementPointValue(this.completions)
+    return this.achievementPointValue(player.singularityChallenges[this.HTMLTag].completions)
   }
 
   public get maxAP () {
     return this.achievementPointValue(this.maxCompletions)
-  }
-
-  valueOf (): ISingularityChallengeData {
-    return {
-      baseReq: this.baseReq,
-      HTMLTag: this.HTMLTag,
-      maxCompletions: this.maxCompletions,
-      achievementPointValue: this.achievementPointValue,
-      scalingrewardcount: this.scalingrewardcount,
-      singularityRequirement: this.singularityRequirement,
-      uniquerewardcount: this.uniquerewardcount,
-      unlockSingularity: this.unlockSingularity,
-      completions: this.completions,
-      enabled: this.enabled,
-      highestSingularityCompleted: this.highestSingularityCompleted,
-      resetTime: this.resetTime
-    }
-  }
-
-  key () {
-    return this.#key
   }
 }
 
@@ -824,6 +789,10 @@ export const singularityChallengeData: {
     }
   }
 }
+
+export const singularityChallenges = Object.fromEntries(
+  Object.entries(singularityChallengeData).map(([key, data]) => [key, new SingularityChallenge(data, key)])
+) as Record<SingularityChallengeDataKeys, SingularityChallenge>
 
 export const getSingularityChallengeEffect = <
   T extends SingularityChallengeDataKeys,

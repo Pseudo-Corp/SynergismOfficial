@@ -28,11 +28,7 @@ import {
   splitHeaderSlot
 } from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
-import {
-  SingularityChallenge,
-  singularityChallengeData,
-  type SingularityChallengeDataKeys
-} from '../SingularityChallenges'
+import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
 import { blankSave, deepClone } from '../Synergism'
 import { noTalismanFragments } from '../Talismans'
 import type { HeaderLayout, OneToFive, Player } from '../types/Synergism'
@@ -1113,24 +1109,7 @@ export const playerSchema = z.object({
           const { completions, highestSingularityCompleted, enabled } = upgrades[k]
             ?? blankSave.singularityChallenges[k]
 
-          return [
-            k,
-            new SingularityChallenge({
-              baseReq: singularityChallengeData[k].baseReq,
-              completions,
-              maxCompletions: singularityChallengeData[k].maxCompletions,
-              achievementPointValue: singularityChallengeData[k].achievementPointValue,
-              unlockSingularity: singularityChallengeData[k].unlockSingularity,
-              HTMLTag: singularityChallengeData[k].HTMLTag,
-              highestSingularityCompleted,
-              enabled,
-              resetTime: singularityChallengeData[k].resetTime,
-              singularityRequirement: singularityChallengeData[k].singularityRequirement,
-              scalingrewardcount: singularityChallengeData[k].scalingrewardcount,
-              uniquerewardcount: singularityChallengeData[k].uniquerewardcount,
-              alternateDescription: singularityChallengeData[k].alternateDescription
-            }, k)
-          ]
+          return [k, { completions, highestSingularityCompleted, enabled }]
         })
       )
     )

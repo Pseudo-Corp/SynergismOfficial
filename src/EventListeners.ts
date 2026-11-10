@@ -158,7 +158,7 @@ import {
   updateSingularityElevator,
   upgradeGQToString
 } from './singularity'
-import type { SingularityChallengeDataKeys } from './SingularityChallenges'
+import { type SingularityChallengeDataKeys, singularityChallenges } from './SingularityChallenges'
 import { registerSpriteAlias, updateIconsFromSprites } from './SpriteSheets'
 import { displayStats } from './Statistics'
 import { generateExportSummary } from './Summary'
@@ -1937,15 +1937,15 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // EXALT
-  const singularityChallenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
-  for (const key of singularityChallenges) {
+  const singularityChallengeKeys = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
+  for (const key of singularityChallengeKeys) {
     const element = DOMCacheGetOrSet(key)
 
     if (isMobile) {
       element.addEventListener('click', (event) => {
         Modal(
           () =>
-            `${player.singularityChallenges[key].modalHTML()}${
+            `${singularityChallenges[key].modalHTML()}${
               modalBuyButtonsHTML([
                 {
                   action: 'toggle',
@@ -1963,7 +1963,7 @@ TODO: Fix this entire tab it's utter shit
             targetElement: element,
             buttonClick: () => {
               CloseModal()
-              void player.singularityChallenges[key].challengeEntryHandler()
+              void singularityChallenges[key].challengeEntryHandler()
             }
           }
         )
@@ -1971,9 +1971,9 @@ TODO: Fix this entire tab it's utter shit
       continue
     }
 
-    element.addEventListener('mouseover', () => player.singularityChallenges[key].updateChallengeHTML())
+    element.addEventListener('mouseover', () => singularityChallenges[key].updateChallengeHTML())
     element.addEventListener('click', () => {
-      void player.singularityChallenges[key].challengeEntryHandler()
+      void singularityChallenges[key].challengeEntryHandler()
     })
   }
 

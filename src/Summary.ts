@@ -37,7 +37,7 @@ import {
   goldenQuarkUpgradeNames,
   goldenQuarkUpgrades
 } from './singularity'
-import type { SingularityChallengeDataKeys } from './SingularityChallenges'
+import { type SingularityChallengeDataKeys, singularityChallenges } from './SingularityChallenges'
 import { format, player } from './Synergism'
 import { Alert } from './UpdateHTML'
 import { formatS, sumContents } from './Utility'
@@ -439,22 +439,22 @@ export const generateExportSummary = async (): Promise<void> => {
 
     for (const key of exaltChallenges) {
       let challengeText = ''
-      const exaltChallenge = player.singularityChallenges[key]
+      const exaltChallenge = singularityChallenges[key]
 
       if (exaltChallenge.unlockSingularity <= player.highestSingularityCount) {
-        if (exaltChallenge.completions === exaltChallenge.maxCompletions) {
+        if (player.singularityChallenges[key].completions === exaltChallenge.maxCompletions) {
           challengeText = '[✔]'
         } else {
           challengeText = '[✖]'
         }
-        totalExaltChallengeCompletions += exaltChallenge.completions
+        totalExaltChallengeCompletions += player.singularityChallenges[key].completions
         totalExaltChallengeMaxCompletions += exaltChallenge.maxCompletions
       } else {
         challengeText = '[ ]'
       }
 
       challengeText = `${challengeText} ${exaltChallenge.name}:`
-      challengeText = `${challengeText} ${exaltChallenge.completions}/${exaltChallenge.maxCompletions}`
+      challengeText = `${challengeText} ${player.singularityChallenges[key].completions}/${exaltChallenge.maxCompletions}`
       challengeText = `${challengeText}\n`
       exaltChallengeStats = exaltChallengeStats + challengeText
     }

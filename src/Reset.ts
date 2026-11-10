@@ -1236,15 +1236,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.synthesisUpgrades = player.synthesisUpgrades
   hold.synthesisAutomationUnlocked = player.synthesisAutomationUnlocked
   hold.synthesisAutomationEnabled = player.synthesisAutomationEnabled
-  hold.singularityChallenges = Object.fromEntries(
-    Object.entries(player.singularityChallenges).map(([key, value]) => {
-      return [key, {
-        completions: value.completions,
-        highestSingularityCompleted: value.highestSingularityCompleted,
-        enabled: value.enabled
-      }]
-    })
-  )
+  hold.singularityChallenges = player.singularityChallenges
   hold.iconSet = player.iconSet
 
   resetHepteracts('singularity')

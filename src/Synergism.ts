@@ -265,9 +265,9 @@ import {
 } from './singularity'
 import {
   getSingularityChallengeEffect,
-  SingularityChallenge,
   singularityChallengeData,
-  type SingularityChallengeDataKeys
+  type SingularityChallengeDataKeys,
+  singularityChallenges
 } from './SingularityChallenges'
 import { changeSubTab, changeTab, getActiveSubTab, resetAllSubTabs, Tabs } from './Tabs'
 import { populateBuildingButtonRows } from './tabs/buildings'
@@ -1054,46 +1054,16 @@ export const player: Player = {
   insideSingularityChallenge: false,
 
   singularityChallenges: {
-    noSingularityUpgrades: new SingularityChallenge(
-      singularityChallengeData.noSingularityUpgrades,
-      'noSingularityUpgrades'
-    ),
-    oneChallengeCap: new SingularityChallenge(
-      singularityChallengeData.oneChallengeCap,
-      'oneChallengeCap'
-    ),
-    noOcteracts: new SingularityChallenge(
-      singularityChallengeData.noOcteracts,
-      'noOcteracts'
-    ),
-    limitedAscensions: new SingularityChallenge(
-      singularityChallengeData.limitedAscensions,
-      'limitedAscensions'
-    ),
-    noAmbrosiaUpgrades: new SingularityChallenge(
-      singularityChallengeData.noAmbrosiaUpgrades,
-      'noAmbrosiaUpgrades'
-    ),
-    limitedTime: new SingularityChallenge(
-      singularityChallengeData.limitedTime,
-      'limitedTime'
-    ),
-    sadisticPrequel: new SingularityChallenge(
-      singularityChallengeData.sadisticPrequel,
-      'sadisticPrequel'
-    ),
-    taxmanLastStand: new SingularityChallenge(
-      singularityChallengeData.taxmanLastStand,
-      'taxmanLastStand'
-    ),
-    noQuarkUpgrades: new SingularityChallenge(
-      singularityChallengeData.noQuarkUpgrades,
-      'noQuarkUpgrades'
-    ),
-    barDependence: new SingularityChallenge(
-      singularityChallengeData.barDependence,
-      'barDependence'
-    )
+    noSingularityUpgrades: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    oneChallengeCap: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    noOcteracts: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    limitedAscensions: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    noAmbrosiaUpgrades: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    limitedTime: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    sadisticPrequel: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    taxmanLastStand: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    noQuarkUpgrades: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    barDependence: { completions: 0, highestSingularityCompleted: 0, enabled: false }
   },
 
   ambrosia: 0,
@@ -1173,8 +1143,7 @@ export const deepClone = () =>
     proto: false,
     circles: false,
     constructorHandlers: [
-      [Decimal, (o: DecimalSource) => new Decimal(o)],
-      [SingularityChallenge, (o: SingularityChallenge) => new SingularityChallenge(o.valueOf(), o.key())]
+      [Decimal, (o: DecimalSource) => new Decimal(o)]
     ]
   })
 
@@ -1290,6 +1259,10 @@ const loadSynergy = (saveString: string): boolean => {
       challengeExit('ascension')
       resetChallengeSweep()
       Object.assign(player, validatedPlayer.data)
+      for (const challenge of Object.values(singularityChallenges)) {
+        challenge.updateChallengeCompletions()
+        challenge.updateIconHTML()
+      }
       // Temp check for Quarks
       if (!player.purpleUpdateQuarkRefundAwarded) {
         const sing10ResetUpgrades = ['offeringEX', 'obtainiumEX', 'antSpeed', 'cashGrab'] as ShopUpgradeNames[]
@@ -1944,7 +1917,7 @@ const loadSynergy = (saveString: string): boolean => {
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
-      const sing = player.singularityChallenges[G.currentSingChallenge].computeSingularityRquirement()
+      const sing = singularityChallenges[G.currentSingChallenge].computeSingularityRquirement()
       player.singularityCount = sing
     }
   }
@@ -3474,7 +3447,7 @@ export const resetCheck = async (
         return Alert(i18next.t('main.insideSingularityChallenge'))
       }
 
-      return player.singularityChallenges[G.currentSingChallenge].challengeEntryHandler()
+      return singularityChallenges[G.currentSingChallenge].challengeEntryHandler()
     }
 
     if (runes.antiquities.level === 0) {
