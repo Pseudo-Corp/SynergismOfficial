@@ -607,7 +607,7 @@ export const player: Player = {
   },
 
   // create a Map with keys defaulting to false
-  codes: new Map(Array.from({ length: 49 }, (_, i) => [i + 1, false])),
+  codes: [],
 
   shopUpgrades: {
     offeringPotion: 1,
@@ -1282,18 +1282,6 @@ const loadSynergy = (saveString: string): boolean => {
       return false
     }
 
-    // size before loading
-    const size = player.codes.size
-
-    const oldPromoKeys = Object.keys(data).filter((k) => k.includes('offerpromo'))
-    if (oldPromoKeys.length > 0) {
-      oldPromoKeys.forEach((k) => {
-        const value = data[k]
-        const num = +k.replace(/[^\d]/g, '')
-        player.codes.set(num, Boolean(value))
-      })
-    }
-
     const validatedPlayer = playerUpdateVarSchema.safeParse(data)
 
     if (validatedPlayer.success) {
@@ -1353,28 +1341,6 @@ const loadSynergy = (saveString: string): boolean => {
 
     player.lastExportedSave = data.lastExportedSave ?? 0
 
-    if (data.offerpromo24used !== undefined) {
-      player.codes.set(25, false)
-    }
-
-    // sets all non-existent codes to default value false
-    if (player.codes.size < size) {
-      for (let i = player.codes.size + 1; i <= size; i++) {
-        if (!player.codes.has(i)) {
-          player.codes.set(i, false)
-        }
-      }
-    }
-
-    // sets all non-existent codes to default value false
-    if (player.codes.size < size) {
-      for (let i = player.codes.size + 1; i <= size; i++) {
-        if (!player.codes.has(i)) {
-          player.codes.set(i, false)
-        }
-      }
-    }
-
     // TODO(@KhafraDev): remove G.currentSingChallenge
     // fix current sing challenge blank
     const challenges = Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]
@@ -1401,16 +1367,7 @@ const loadSynergy = (saveString: string): boolean => {
       player.obtainium = new Decimal()
     }
 
-    if (!player.dayCheck) {
-      player.dayCheck = new Date()
-    }
-
-    if (typeof player.dayCheck === 'string') {
-      player.dayCheck = new Date(player.dayCheck)
-      if (isNaN(player.dayCheck.getTime())) {
-        player.dayCheck = new Date()
-      }
-    }
+    let dayCheck = player.dayCheck === null ? new Date() : new Date(player.dayCheck)
     // Why was this made?
     // Measures for people who play the past
     let updatedLast = lastUpdated
@@ -1420,18 +1377,18 @@ const loadSynergy = (saveString: string): boolean => {
         updatedLast.getMonth(),
         updatedLast.getDate() - 1
       )
-      if (player.dayCheck.getTime() < updatedLast.getTime()) {
-        player.dayCheck = updatedLast
+      if (dayCheck.getTime() < updatedLast.getTime()) {
+        dayCheck = updatedLast
       }
-    } else if (player.dayCheck.getTime() < 1654009200000) {
-      player.dayCheck = new Date('06/01/2022 00:00:00')
+    } else if (dayCheck.getTime() < 1654009200000) {
+      dayCheck = new Date('06/01/2022 00:00:00')
     }
     // Calculate daily
     player.dayCheck = new Date(
-      player.dayCheck.getFullYear(),
-      player.dayCheck.getMonth(),
-      player.dayCheck.getDate()
-    )
+      dayCheck.getFullYear(),
+      dayCheck.getMonth(),
+      dayCheck.getDate()
+    ).toISOString()
 
     for (let j = 1; j < 126; j++) {
       upgradeupdate(j, true)

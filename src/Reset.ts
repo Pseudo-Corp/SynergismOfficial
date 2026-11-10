@@ -61,7 +61,7 @@ import {
   type ResetHistoryEntrySingularity,
   type ResetHistoryEntryTranscend
 } from './History'
-import { importSynergism } from './ImportExport'
+import { codes, importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
@@ -1199,7 +1199,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.historyShowPerSecond = player.historyShowPerSecond
   hold.exporttest = typeof player.exporttest === 'boolean' ? player.exporttest : player.exporttest === 'YES!'
   hold.dayTimer = player.dayTimer
-  hold.dayCheck = player.dayCheck?.toISOString() ?? null
+  hold.dayCheck = player.dayCheck
   hold.offlinetick = player.offlinetick
   hold.ascStatToggles = player.ascStatToggles
   hold.hepteractAutoCraftPercentage = player.hepteractAutoCraftPercentage
@@ -1263,14 +1263,7 @@ export const singularity = (setSingNumber = -1) => {
 
   hold.stats = player.stats
 
-  const saveCode42 = player.codes.get(42) ?? false
-  const saveCode43 = player.codes.get(43) ?? false
-  const saveCode44 = player.codes.get(44) ?? false
-  const saveCode45 = player.codes.get(45) ?? false
-  const saveCode46 = player.codes.get(46) ?? false
-  const saveCode47 = player.codes.get(47) ?? false
-  const saveCode48 = player.codes.get(48) ?? false
-  const saveCode49 = player.codes.get(49) ?? false
+  const saveCodes = player.codes.filter((code) => code >= 42 && code <= 49)
   const saveRngCode = player.rngCode
   const savePromoCodeTime = player.promoCodeTiming.time
   const saveBlueberryLoadout = lastBlueberryLoadout
@@ -1279,17 +1272,7 @@ export const singularity = (setSingNumber = -1) => {
   // Techically possible to import game during reset. But that will only "hurt" that imported save
 
   // TODO: Do not enable data that has never used an event code
-  player.codes.set(39, true)
-  player.codes.set(40, true)
-  player.codes.set(41, true)
-  player.codes.set(42, saveCode42)
-  player.codes.set(43, saveCode43)
-  player.codes.set(44, saveCode44)
-  player.codes.set(45, saveCode45)
-  player.codes.set(46, saveCode46)
-  player.codes.set(47, saveCode47)
-  player.codes.set(48, saveCode48)
-  player.codes.set(49, saveCode49)
+  codes.redeem(39, 40, 41, ...saveCodes)
   updateSingularityMilestoneAwards()
 
   player.rngCode = Math.max(saveRngCode, DateNow())

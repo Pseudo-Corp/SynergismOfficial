@@ -40,7 +40,7 @@ import { blankSave, deepClone, format, player, reloadShit, saveSynergy } from '.
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs } from './Tabs'
 import { resetTalismanData } from './Talismans'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { cleanString, DateNow, getElementById, PerformanceNow } from './Utility'
+import { assert, cleanString, DateNow, getElementById, PerformanceNow } from './Utility'
 import { btoa } from './Utility'
 
 const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
@@ -183,6 +183,17 @@ export const saveFilename = () => {
   })
 
   return cleanString(t)
+}
+
+export const codes = {
+  redeemed (value: number) {
+    return player.codes.includes(value)
+  },
+
+  redeem (...value: number[]) {
+    assert(value.every((val) => !codes.redeemed(val)))
+    player.codes.push(...value)
+  }
 }
 
 export const exportData = async (text: string, fileName: string) => {
@@ -474,8 +485,8 @@ export const promocodes = async (input: string | null, amount?: number) => {
   if (input === null) {
     return Alert(i18next.t('importexport.comeBackSoon'))
   }
-  if (input === `synergism${new Date().getFullYear()}` && !player.codes.get(1)) {
-    player.codes.set(1, true)
+  if (input === `synergism${new Date().getFullYear()}` && !codes.redeemed(1)) {
+    codes.redeem(1)
     const year = new Date().getFullYear()
     const quarks = 50
     player.offerings = player.offerings.add(25)
@@ -490,19 +501,19 @@ export const promocodes = async (input: string | null, amount?: number) => {
   } else if (input === ':antismith:' || input === 'smith' || input === 'antismith' || input === ':smith:') {
     awardUngroupedAchievement(UngroupedAchievement.Smith)
     el.textContent = i18next.t('importexport.promocodes.antismith')
-  } else if (input === 'Khafra' && !player.codes.get(26)) {
-    player.codes.set(26, true)
+  } else if (input === 'Khafra' && !codes.redeemed(26)) {
+    codes.redeem(26)
     const quarks = Math.floor(seededRandom(Seed.PromoCodes) * (400 - 100 + 1) + 100)
     worlds.add(quarks, true, true)
     el.textContent = i18next.t('importexport.promocodes.khafra', {
       x: format(worlds.applyBonus(quarks), 2, true)
     })
-  } else if (input === 'alonso bribe' && !player.codes.get(47)) {
+  } else if (input === 'alonso bribe' && !codes.redeemed(47)) {
     const cap = getFinalHepteractCap('quark')
 
     if (cap < 1e300 && (hepteracts.quark.UNLOCKED() || player.highestSingularityCount > 0)) {
       player.hepteracts.quark.TIMES_CAP_EXTENDED += 1
-      player.codes.set(47, true)
+      codes.redeem(47)
       return Alert(i18next.t('importexport.promocodes.bribe.thanks'))
     }
 
@@ -515,7 +526,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     }
 
     return Alert(i18next.t('importexport.promocodes.bribe.notUnlocked'))
-  } else if (input.toLowerCase() === 'ascensioncomp' && !player.codes.get(49)) {
+  } else if (input.toLowerCase() === 'ascensioncomp' && !codes.redeemed(49)) {
     if (
       player.singularityChallenges.limitedTime.enabled
       || player.singularityChallenges.barDependence.enabled
@@ -523,7 +534,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       return Alert(i18next.t('importexport.promocodes.ascensionComp.unavailable'))
     }
 
-    player.codes.set(49, true)
+    codes.redeem(49)
     addTimers('ascension', 86400)
     el.textContent = i18next.t('importexport.promocodes.ascensionComp.reward')
   } else if (input.toLowerCase() === 'daily' && !player.dailyCodeUsed) {

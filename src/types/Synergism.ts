@@ -268,7 +268,7 @@ export interface Player {
   }
 
   // create a Map with keys defaulting to boolean
-  codes: Map<number, boolean>
+  codes: number[]
 
   shopUpgrades: Record<ShopUpgradeNames, number>
 
@@ -421,7 +421,7 @@ export interface Player {
   saveString: string
   exporttest: string | boolean
 
-  dayCheck: Date | null
+  dayCheck: string | null
   dayTimer: number
   cubeOpenedDaily: number
   cubeQuarkDaily: number

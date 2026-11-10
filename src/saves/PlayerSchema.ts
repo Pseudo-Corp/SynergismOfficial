@@ -809,9 +809,12 @@ export const playerSchema = z.object({
   tabnumber: z.any().optional(),
   subtabNumber: z.any().optional(),
 
-  codes: z.array(z.tuple([z.number(), z.boolean()])).transform((tuple) => new Map(tuple)).default(() =>
-    new Map(deepClone()([...blankSave.codes]))
-  ),
+  codes: z.union([
+    z.number().array(),
+    z.tuple([z.number(), z.boolean()]).array().transform((codes) =>
+      codes.filter(([, used]) => used).map(([code]) => code)
+    )
+  ]).default(() => [...blankSave.codes]),
 
   shopUpgrades: z.record(z.string(), z.union([z.number(), z.null(), z.boolean()]))
     .transform((object) => {
@@ -1020,9 +1023,7 @@ export const playerSchema = z.object({
     return value
   }),
 
-  dayCheck: z.iso.datetime().nullable().default(() => blankSave.dayCheck as null).transform((value) => {
-    return value === null ? value : new Date(value)
-  }),
+  dayCheck: z.iso.datetime().nullable().default(() => blankSave.dayCheck),
   dayTimer: z.number().default(() => blankSave.dayTimer),
   cubeOpenedDaily: z.number().default(() => blankSave.cubeOpenedDaily),
   cubeQuarkDaily: z.number().default(() => blankSave.cubeQuarkDaily),
