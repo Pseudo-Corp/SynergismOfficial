@@ -5166,7 +5166,7 @@
       "teaser": "达到<<gold|{{required}}>>代币后解锁(还需要<<gold|{{remaining}}>>代币)",
       "names": {
         "tutorial": "腐败代币入门指南",
-        "cube": "Dimensional Tokens",
+        "cube": "维度代币",
         "antELO": "涨停鳕鱼代币",
         "quark": "奇异代币",
         "tax": "假冒代币",
@@ -5178,7 +5178,7 @@
       },
       "flavors": {
         "tutorial": "每个腐化等级中，每次完成挑战10都会获得腐化代币，首次完成挑战10还可以额外获得腐化代币！代币越多，您就越强。这是某种<i>神秘</i>魔法的效果，别多问了。",
-        "cube": "Two sides of the same coin, really.",
+        "cube": "其实就是同一枚硬币的两面。",
         "antELO": "现在，您可以在143步内将死Derpsmith了！",
         "quark": "正反两面，同时朝上，也同时朝下。",
         "tax": "把这些代币给税务官吧，他不会知道的。",
@@ -5189,7 +5189,7 @@
         "blueberrySpeed": "大概是果树学博士生的津贴。"
       },
       "formulas": {
-        "cube": "Formula:<br>0 – 100 Tokens: <<white|+1% × Tokens>><br>101 – num:((10000)) Tokens: <<white|+100% + 100% × log10(Tokens / 100)>>",
+        "cube": "公式：<br>0 – 100代币：<<white|+1% × 代币数量>><br>101 – num:((10000))代币：<<white|+100% + 100% × log10(代币数量 / 100)>>",
         "antELO": "公式：<br>0 – num:((25000))代币：<<orchid|+1 × 代币数量>>",
         "quark": "公式：<br>100 – 200代币：<<orchid|+num:((0.06))% × (代币数量 - 100)>><br>201 – num:((20000))代币：<<orchid|+6% + 6% × log10(代币数量 / 200)>>",
         "tax": "公式：<br>250 – 500 代币：<<orchid|-num:((0.02))% × (代币数量 - 250)>><br>501 – num:((8000))代币：<<orchid|-5% - 5% × log2(代币数量 / 500)>>",
@@ -5201,7 +5201,7 @@
       },
       "rewardTexts": {
         "tutorial": "获得过腐化代币后，使难得素获取数量增加<<pink|{{obtainium}}>>，祭品获取数量增加<<orange|{{offering}}>>！",
-        "cube": "Increase Cube gain by <<white | {{ reward }}>>",
+        "cube": "使所有类型的方盒、立方和方块获取数量增加<<white|{{ reward }}>>",
         "antELO": "使<<orchid|蚂蚁强度分>>增加<<orchid|{{ reward }}>>",
         "timeThreshold": "对于特定的重置奖励，如果它在一定时间以内重置有负面惩罚，则使触发它的时间减少<<gray |{{ reward }}>>秒(基础值10秒)。",
         "quark": "使夸克获取数量增加<<cyan|{{ reward }}>>",
@@ -6816,7 +6816,7 @@
       "EventCubeGain": "活动 - 方盒获取加成：",
       "PseudoCoins": "伪币升级：",
       "AscensionTime": "飞升时间倍率：",
-      "Campaign": "Corruption Tokens - Cube Bonus:",
+      "Campaign": "腐化代币 - 方盒加成：",
       "Challenge15": "挑战15-所有类型的方盒、立方和方块获取数量 I-V加成：",
       "SunMoon": "[烈日千阳]和[静月千阴]成就倍率：",
       "SpeedAchievement": "成就240的加成：",
@@ -8654,10 +8654,10 @@
       "upToDate": "应用已是最新版本。",
       "available": "可以更新至{{version}}。",
       "confirm": "可以更新至{{version}}。您想要立即下载并安装吗？您的进度将自动保存，应用将会重新加载。",
-      "confirmRecovery": "Update {{version}} is available. Download and install it now? The app will reload and try to load your save again.",
+      "confirmRecovery": "可以更新至{{version}}。您想要立即下载并安装吗？应用将会重新加载，并尝试载入您的存档。",
       "downloading": "正在下载更新……",
       "installing": "正在保存进度并应用更新……",
-      "applying": "Applying update...",
+      "applying": "正在应用更新……",
       "storeUpdateRequired": "请从应用商店中更新协同放置以获取最新版本。",
       "unavailable": "此更新目前尚不适用于您的应用。请稍后重试。",
       "saveFailed": "无法保存您的进度。请在游戏完成加载后再尝试更新。",
