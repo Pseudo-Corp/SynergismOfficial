@@ -5,7 +5,6 @@ import { playerSchema } from './PlayerSchema'
 
 export const playerJsonSchema = playerSchema.extend({
   codes: z.any().transform((codes: Player['codes']) => Array.from(codes)),
-  worlds: z.any().transform((worlds: Player['worlds']) => Number(worlds)),
   wowCubes: z.any().transform((cubes: Player['wowCubes']) => Number(cubes)),
   wowTesseracts: z.any().transform((tesseracts: Player['wowTesseracts']) => Number(tesseracts)),
   wowHypercubes: z.any().transform((hypercubes: Player['wowHypercubes']) => Number(hypercubes)),

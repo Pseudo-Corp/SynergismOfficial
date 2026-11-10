@@ -264,7 +264,7 @@ export const ambrosiaUpgrades: {
       const baseVal = 0.001 * n
       return 1
         + baseVal
-          * Math.floor(Math.pow(Math.log10(Number(player.worlds) + 1) + 1, 2)) // cubes
+          * Math.floor(Math.pow(Math.log10(player.worlds + 1) + 1, 2)) // cubes
     },
     effectsDescription: function() {
       const cubes = getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
@@ -456,7 +456,7 @@ export const ambrosiaUpgrades: {
     },
     effects: (n: number) => {
       const baseVal = 0.02 * n
-      return baseVal * Math.floor(Math.pow(Math.log10(Number(player.worlds) + 1) + 1, 2)) // ambrosiaLuck
+      return baseVal * Math.floor(Math.pow(Math.log10(player.worlds + 1) + 1, 2)) // ambrosiaLuck
     },
     effectsDescription: function() {
       const ambrosiaLuck = getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1', 'ambrosiaLuck')

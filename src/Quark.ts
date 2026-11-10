@@ -83,13 +83,6 @@ export const setGlobalQuarkBonus = (globalBonus: number) => {
 }
 
 export class QuarkHandler {
-  /** Quark amount */
-  private QUARKS = 0
-
-  constructor (quarks: number) {
-    this.QUARKS = quarks
-  }
-
   /*** Calculates the number of quarks to give with the current bonus. */
   applyBonus (amount: number) {
     return amount * calculateQuarkMultiplier()
@@ -97,7 +90,7 @@ export class QuarkHandler {
 
   /** Subtracts quarks, as the name suggests. */
   add (amount: number, useBonus: boolean, addToQuarksThisSingularity: boolean) {
-    this.QUARKS += useBonus ? this.applyBonus(amount) : amount
+    player.worlds += useBonus ? this.applyBonus(amount) : amount
     if (addToQuarksThisSingularity) {
       player.quarksThisSingularity += useBonus ? this.applyBonus(amount) : amount
     }
@@ -106,31 +99,24 @@ export class QuarkHandler {
 
   /** Add quarks, as suggested by the function's name. */
   sub (amount: number) {
-    this.QUARKS -= amount
-    if (this.QUARKS < 0) {
-      this.QUARKS = 0
+    player.worlds -= amount
+    if (player.worlds < 0) {
+      this.set(0)
     }
 
     return this
   }
 
+  set (value: number) {
+    player.worlds = value
+  }
+
   public toString (val: number): string {
     return format(Math.floor(this.applyBonus(val)), 0, true)
   }
-
-  /**
-   * Resets the amount of quarks saved but keeps the bonus amount.
-   */
-  public reset () {
-    this.QUARKS = 0
-  }
-
-  valueOf () {
-    return this.QUARKS
-  }
-
-  [Symbol.toPrimitive] = (t: string) => t === 'number' ? this.QUARKS : null
 }
+
+export const worlds = new QuarkHandler()
 
 export const refreshQuarkBonus = async () => {
   const response = await fetch('https://synergism.cc/api/v1/quark-bonus')

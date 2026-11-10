@@ -228,7 +228,7 @@ import { enableStatSymbols } from './Plugins/StatSymbols'
 import { guardPoll, startSpeedProbe } from './PollGuard'
 import { CartTab } from './purchases/CartTab'
 import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from './PurpleAmbrosiaUpgrades'
-import { getQuarkBonus, QuarkHandler, refreshQuarkBonus } from './Quark'
+import { getQuarkBonus, refreshQuarkBonus, worlds } from './Quark'
 import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './RedAmbrosiaUpgrades'
 import {
   buyBlessingLevels,
@@ -291,7 +291,7 @@ const periodicProgressiveAchievementKeys = progressiveAchievementKeys.filter((ke
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
-  worlds: new QuarkHandler(0),
+  worlds: 0,
   coins: new Decimal('1e2'),
   coinsThisPrestige: new Decimal('1e2'),
   coinsThisTranscension: new Decimal('1e2'),
@@ -1174,7 +1174,6 @@ export const deepClone = () =>
     circles: false,
     constructorHandlers: [
       [Decimal, (o: DecimalSource) => new Decimal(o)],
-      [QuarkHandler, (o: QuarkHandler) => new QuarkHandler(o.valueOf())],
       [WowCubes, (o: WowCubes) => new WowCubes(o.valueOf())],
       [WowTesseracts, (o: WowTesseracts) => new WowTesseracts(o.valueOf())],
       [WowHypercubes, (o: WowHypercubes) => new WowHypercubes(o.valueOf())],
@@ -1343,7 +1342,7 @@ const loadSynergy = (saveString: string): boolean => {
         }
 
         if (quarksToRefund > 0) {
-          player.worlds.add(quarksToRefund, false, false)
+          worlds.add(quarksToRefund, false, false)
           Alert(i18next.t('versionChangeAnnouncements.sept13Refund', { amount: format(quarksToRefund, 0) }))
         }
         player.purpleUpdateQuarkRefundAwarded = true
@@ -4507,7 +4506,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     }
   } else {
     if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
-      player.worlds.reset()
+      worlds.set(0)
     }
 
     if (!saveSynergy()) {

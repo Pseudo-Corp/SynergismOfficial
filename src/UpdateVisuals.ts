@@ -138,7 +138,7 @@ import {
 } from './PurpleAmbrosiaUpgrades'
 import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
-import { getQuarkBonus, quarkHandler } from './Quark'
+import { getQuarkBonus, quarkHandler, worlds } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
@@ -1809,14 +1809,14 @@ export const visualUpdateSettings = () => {
           false
         ),
         // eslint-disable-next-line number-arg-out-of-range
-        y: player.worlds.toString(1)
+        y: worlds.toString(1)
       }
     )
     DOMCacheGetOrSet('quarktimeramount').textContent = i18next.t(
       'settings.quarksOnExport',
       {
-        x: player.worlds.toString(onExportQuarks),
-        y: player.worlds.toString(maxExportQuarks)
+        x: worlds.toString(onExportQuarks),
+        y: worlds.toString(maxExportQuarks)
       }
     )
 
@@ -2697,7 +2697,7 @@ export const visualUpdateShop = () => {
 
     if (shopItem.type === shopUpgradeTypes.CONSUMABLE) {
       const maxBuyablePotions = Math.min(
-        Math.floor(Number(player.worlds) / getShopCosts(key)),
+        Math.floor(player.worlds / getShopCosts(key)),
         shopItem.maxLevel - player.shopUpgrades[key]
       )
       let label: string

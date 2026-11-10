@@ -15,7 +15,7 @@ import { storageGetItem, storageSetItem } from './events/storage-events'
 import { addTimers, runPurpleReactor } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
 import { awardDailyOcteractFreeUpgrades } from './Octeracts'
-import { getQuarkBonus, quarkHandler } from './Quark'
+import { getQuarkBonus, quarkHandler, worlds } from './Quark'
 import { isResearchMaxed } from './Research'
 import { Seed, seededBetween, seededRandom } from './RNG'
 import { resetRuneBlessings } from './RuneBlessings'
@@ -168,9 +168,9 @@ export const saveFilename = () => {
       case 'DATES':
         return `${Math.floor(Date.now() / 1000)}`
       case 'QUARK':
-        return `${Math.floor(Number(player.worlds))}`
+        return `${Math.floor(player.worlds)}`
       case 'QUARKS':
-        return format(Number(player.worlds))
+        return format(player.worlds)
       case 'GQ':
         return `${Math.floor(player.goldenQuarks)}`
       case 'GQS':
@@ -267,7 +267,7 @@ export const exportSynergism = async () => {
       % (3600 / gqPerHour)
   }
   if (quarkData.gain >= 1) {
-    player.worlds.add(quarkData.gain, true, true)
+    worlds.add(quarkData.gain, true, true)
     player.quarkstimer = player.quarkstimer % (3600 / quarkData.perHour)
   }
 
@@ -479,10 +479,10 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const year = new Date().getFullYear()
     const quarks = 50
     player.offerings = player.offerings.add(25)
-    player.worlds.add(quarks, true, true)
+    worlds.add(quarks, true, true)
     el.textContent = i18next.t('importexport.promocodes.synergism2021', {
       year: year,
-      quarks: format(player.worlds.applyBonus(quarks), 2, true)
+      quarks: format(worlds.applyBonus(quarks), 2, true)
     })
   } else if (input === ':unsmith:' || input === 'unsmith') {
     awardUngroupedAchievement(UngroupedAchievement.Unsmith)
@@ -493,9 +493,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
   } else if (input === 'Khafra' && !player.codes.get(26)) {
     player.codes.set(26, true)
     const quarks = Math.floor(seededRandom(Seed.PromoCodes) * (400 - 100 + 1) + 100)
-    player.worlds.add(quarks, true, true)
+    worlds.add(quarks, true, true)
     el.textContent = i18next.t('importexport.promocodes.khafra', {
-      x: format(player.worlds.applyBonus(quarks), 2, true)
+      x: format(worlds.applyBonus(quarks), 2, true)
     })
   } else if (input === 'alonso bribe' && !player.codes.get(47)) {
     const cap = getFinalHepteractCap('quark')
@@ -533,13 +533,13 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const rewards = dailyCodeReward()
     const quarkMultiplier = 1 + Math.min(49, player.highestSingularityCount)
 
-    let actualQuarkAward = player.worlds.applyBonus(
+    let actualQuarkAward = worlds.applyBonus(
       rewards.quarks * quarkMultiplier
     )
     if (actualQuarkAward > 1e5) {
       actualQuarkAward = Math.pow(1e5, 0.75) * Math.pow(actualQuarkAward, 0.25)
     }
-    player.worlds.add(actualQuarkAward, false, true)
+    worlds.add(actualQuarkAward, false, true)
     player.goldenQuarks += rewards.goldenQuarks
 
     rewardMessage += `\n${
@@ -663,7 +663,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (getShopUpgradeEffects('calculator', 'autoFill')) {
       player.stats.totalAddCodesUsed += realAttemptsUsed
       awardAchievementGroup(AchievementGroup.AddCodesUsed)
-      player.worlds.add(actualQuarks, true, true)
+      worlds.add(actualQuarks, true, true)
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
@@ -681,7 +681,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
             a: first,
             b: second,
             c: first + second,
-            d: player.worlds.toString(actualQuarks),
+            d: worlds.toString(actualQuarks),
             e: ascensionTimerText,
             f: gqTimerText,
             g: octeractTimeText,
@@ -696,7 +696,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     // If your calculator isn't maxed but has levels, it will provide the solution.
     const options = {
-      w: player.worlds.toString(actualQuarks),
+      w: worlds.toString(actualQuarks),
       x: first,
       y: second,
       z: first + second
@@ -717,7 +717,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     player.rngCode = v
 
     if (first + second === +addPrompt) {
-      player.worlds.add(actualQuarks, true, true)
+      worlds.add(actualQuarks, true, true)
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
@@ -726,7 +726,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
       await Alert(
         i18next.t('importexport.promocodes.add.reward', {
-          a: player.worlds.toString(actualQuarks),
+          a: worlds.toString(actualQuarks),
           b: ascensionTimerText,
           c: gqTimerText,
           d: octeractTimeText,
@@ -748,7 +748,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     }
   } else if (input === 'sub') {
     const quarksToLose = 1 + (window.crypto.getRandomValues(new Uint16Array(1))[0] % 16) // [1, 16]
-    const quarks = Number(player.worlds)
+    const quarks = player.worlds
     await Alert(i18next.t('importexport.promocodes.sub.subbed', { x: quarksToLose }))
 
     if (quarks < quarksToLose) {
@@ -760,7 +760,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       )
     }
 
-    player.worlds.sub(quarks < quarksToLose ? quarksToLose - quarks : quarksToLose)
+    worlds.sub(quarks < quarksToLose ? quarksToLose - quarks : quarksToLose)
   } else if (input === 'time') {
     const availableUses = timeCodeAvailableUses()
     if (availableUses === 0) {
@@ -777,7 +777,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
       (20 + 5 * player.highestSingularityCount)
         * (1 + player.cubeUpgrades[61] / 50)
     )
-    const actualQuarkAward = player.worlds.applyBonus(reward)
+    const actualQuarkAward = worlds.applyBonus(reward)
 
     let cookieText = ''
     if (player.cubeUpgrades[61] === 100) {
@@ -815,7 +815,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
         blueberryTime = 1800 * rewardMult
       }
 
-      player.worlds.add(actualQuarkAward * rewardMult, false, true)
+      worlds.add(actualQuarkAward * rewardMult, false, true)
       runPurpleReactor(blueberryTime, 0, 0)
       const winText = i18next.t('importexport.promocodes.time.won', {
         time: format((end - start) / 1000, 2, true),

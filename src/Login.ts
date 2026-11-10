@@ -22,7 +22,7 @@ import { CartTab } from './purchases/CartTab'
 import { updateBellButton, updateLotusDisplay } from './purchases/ConsumablesTab'
 import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
-import { QuarkHandler, setGlobalQuarkBonus, setPersonalQuarkBonus } from './Quark'
+import { setGlobalQuarkBonus, setPersonalQuarkBonus } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { flushSaveStorage, getStoredSave } from './saves/SaveStorage'
 import { format, player, saveSynergy } from './Synergism'
@@ -387,7 +387,6 @@ export async function handleLogin () {
     const { bonus, subscription: sub, linkedAccounts } = account
 
     setPersonalQuarkBonus(bonus.quark)
-    player.worlds = new QuarkHandler(Number(player.worlds))
 
     loggedIn = hasAccount(account)
     subscription = sub

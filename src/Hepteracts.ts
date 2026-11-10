@@ -13,6 +13,7 @@ import {
 } from './Calculate'
 import { Cube } from './CubeExperimental'
 import { getOcteractUpgradeEffect } from './Octeracts'
+import { worlds } from './Quark'
 import { resetTiers } from './Reset'
 import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
@@ -437,7 +438,7 @@ export const craftHepteracts = async (hept: HepteractKeys, max = false) => {
         amountToCraft * craftCostMulti * hepteracts[hept].OTHER_CONVERSIONS[item]
       )
     } else if (item === 'worlds') {
-      player.worlds.sub(amountToCraft * hepteracts[hept].OTHER_CONVERSIONS[item])
+      worlds.sub(amountToCraft * hepteracts[hept].OTHER_CONVERSIONS[item])
     } else if (player[item] instanceof Decimal) {
       ;(player[item] as Decimal) = (player[item] as Decimal).sub(
         new Decimal(amountToCraft).times(craftCostMulti).times(hepteracts[hept].OTHER_CONVERSIONS[item])
@@ -532,7 +533,7 @@ export const autoCraftHepteracts = (hept: HepteractKeys, heptAmount: number) => 
   if (typeof quarks === 'number') {
     // When Auto is turned on, only Quarks and hepteracts are consumed.
     itemLimits.push(
-      Math.floor(player.worlds.valueOf() / quarks)
+      Math.floor(player.worlds / quarks)
     )
   }
 
@@ -562,7 +563,7 @@ export const autoCraftHepteracts = (hept: HepteractKeys, heptAmount: number) => 
   }
 
   if (typeof quarks === 'number') {
-    player.worlds.sub(amountCrafted * quarks)
+    worlds.sub(amountCrafted * quarks)
   }
 
   player.wowAbyssals -= amountCrafted * craftCostMulti * hepteracts[hept].HEPTERACT_CONVERSION

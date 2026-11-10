@@ -1,4 +1,5 @@
 import { getLotusTimeExpiresAt } from '../../../../../../../Login'
+import { worlds } from '../../../../../../../Quark'
 import { player } from '../../../../../../../Synergism'
 import { availableQuarksFromELO } from '../QuarkCorner/lib/calculate-quarks'
 import { updateAntLeaderboards } from '../QuarkCorner/lib/leaderboard-update'
@@ -35,7 +36,7 @@ export const activateELO = (dt: number) => {
   updateAntLeaderboards()
   const quarksToBeGained = availableQuarksFromELO()
   if (quarksToBeGained > 0) {
-    player.worlds.add(quarksToBeGained, false, true)
+    worlds.add(quarksToBeGained, false, true)
     player.ants.quarksGainedFromAnts += quarksToBeGained
   }
 }

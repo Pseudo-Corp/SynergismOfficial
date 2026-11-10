@@ -468,7 +468,7 @@ const getShopBuyData = (key: ShopUpgradeNames) => {
   const buyData = calculateSummationNonLinear(
     currentLevel,
     shopItem.price,
-    +player.worlds,
+    player.worlds,
     shopItem.priceIncrease / shopItem.price,
     amount
   )
@@ -586,7 +586,7 @@ export const updateShopTab = () => {
         const price = buyData.amount === 0 ? nextLevelPrice : buyData.cost
         updateTextContentIfChanged(cost, format(price, 0, true))
         cost.classList.remove('shopFamilyMaxed')
-        cost.classList.toggle('shopCantAfford', +player.worlds < nextLevelPrice)
+        cost.classList.toggle('shopCantAfford', player.worlds < nextLevelPrice)
       }
 
       if (family.tiers.length > 1) {

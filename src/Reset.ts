@@ -65,6 +65,7 @@ import { importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
+import { worlds } from './Quark'
 import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
@@ -1141,9 +1142,9 @@ export const singularity = (setSingNumber = -1) => {
   }
 
   if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
-    player.worlds.reset()
+    worlds.set(0)
   } else {
-    hold.worlds = Number(player.worlds)
+    hold.worlds = player.worlds
   }
 
   hold.researches = [...player.researches]

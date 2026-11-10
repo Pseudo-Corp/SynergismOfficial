@@ -29,7 +29,6 @@ import {
   splitHeaderSlot
 } from '../HeaderLayoutDefaults'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
-import { QuarkHandler } from '../Quark'
 import {
   SingularityChallenge,
   singularityChallengeData,
@@ -470,7 +469,7 @@ const clampTranscensionChallengeCompletions = <T extends number | null>(completi
 
 export const playerSchema = z.object({
   firstPlayed: z.iso.datetime().optional().default(() => new Date().toISOString()),
-  worlds: z.number().transform((quarks) => new QuarkHandler(quarks)),
+  worlds: z.number(),
   coins: decimalSchema,
   coinsThisPrestige: decimalSchema,
   coinsThisTranscension: decimalSchema,

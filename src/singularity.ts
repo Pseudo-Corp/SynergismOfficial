@@ -16,7 +16,7 @@ import { activeEffectiveCorruptionLevel } from './Corruptions'
 import { addCodeAvailableUses, addCodeMaxUses } from './ImportExport'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
+import { getGlobalBonus, getPersonalBonus, getQuarkBonus, worlds } from './Quark'
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { singularity } from './Reset'
 import { Seed, seededRandom } from './RNG'
@@ -4285,7 +4285,7 @@ export const getGoldenQuarkCost = (): {
 
 export async function buyGoldenQuarks (): Promise<void> {
   const goldenQuarkCost = getGoldenQuarkCost()
-  const maxBuy = Math.floor(+player.worlds / goldenQuarkCost.cost)
+  const maxBuy = Math.floor(player.worlds / goldenQuarkCost.cost)
   let buyAmount = null
 
   if (maxBuy === 0) {
@@ -4325,11 +4325,11 @@ export async function buyGoldenQuarks (): Promise<void> {
   if (buyAmount === -1) {
     buyAmount = maxBuy
     cost = maxBuy * goldenQuarkCost.cost
-    player.worlds.sub(cost)
+    worlds.sub(cost)
     player.goldenQuarks += maxBuy
   } else {
     cost = buyAmount * goldenQuarkCost.cost
-    player.worlds.sub(cost)
+    worlds.sub(cost)
     player.goldenQuarks += buyAmount
   }
 

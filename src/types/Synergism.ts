@@ -17,7 +17,6 @@ import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrades } from '../Octeracts'
 import type { PurpleReactorNames } from '../Purple'
 import type { PurpleAmbrosiaNames } from '../PurpleAmbrosiaUpgrades'
-import type { QuarkHandler } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneBlessingKeys } from '../RuneBlessings'
 import type { RuneKeys } from '../Runes'
@@ -50,7 +49,7 @@ export interface HeaderLayout {
 
 export interface Player {
   firstPlayed: string
-  worlds: QuarkHandler
+  worlds: number
   coins: Decimal
   coinsThisPrestige: Decimal
   coinsThisTranscension: Decimal

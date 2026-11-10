@@ -8,7 +8,7 @@ Thank you! */
 
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
-import { quarkHandler } from './Quark'
+import { quarkHandler, worlds } from './Quark'
 import { getShopUpgradeEffects } from './Shop'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
@@ -135,7 +135,7 @@ export abstract class Cube {
     // Multiplier from passed parameter
     const multiplier = mult * quarkHandler().cubeMult
 
-    return Math.floor(player.worlds.applyBonus(Math.log10(cubes) * base * multiplier))
+    return Math.floor(worlds.applyBonus(Math.log10(cubes) * base * multiplier))
   }
 
   /** @description Check how many cubes you need to gain an additional quark from opening */
@@ -144,7 +144,7 @@ export abstract class Cube {
     // Multiplier from passed parameter
     const multiplier = mult * quarkHandler().cubeMult
 
-    return Math.ceil(Math.pow(10, (quarks + 1) / player.worlds.applyBonus(multiplier * base)) - cubes)
+    return Math.ceil(Math.pow(10, (quarks + 1) / worlds.applyBonus(multiplier * base)) - cubes)
   }
 
   add (amount: number): this {
@@ -194,7 +194,7 @@ export class WowCubes extends Cube {
     const gainQuarks = this.checkQuarkGain(5, quarkMult, player.cubeOpenedDaily)
     const actualQuarksGain = Math.max(0, gainQuarks - player.cubeQuarkDaily)
     player.cubeQuarkDaily += actualQuarksGain
-    player.worlds.add(actualQuarksGain, false, true)
+    worlds.add(actualQuarksGain, false, true)
 
     const sumOfTributes = sumContents(Object.values(player.cubeBlessings))
     // if >= 1e300 totalTribute, do not award tributes
@@ -267,7 +267,7 @@ export class WowTesseracts extends Cube {
     const gainQuarks = this.checkQuarkGain(7, quarkMult, player.tesseractOpenedDaily)
     const actualQuarksGain = Math.max(0, gainQuarks - player.tesseractQuarkDaily)
     player.tesseractQuarkDaily += actualQuarksGain
-    player.worlds.add(actualQuarksGain, false, true)
+    worlds.add(actualQuarksGain, false, true)
 
     const toSpendModulo = toSpend % 20
     const toSpendDiv20 = Math.floor(toSpend / 20)
@@ -307,7 +307,7 @@ export class WowHypercubes extends Cube {
     const gainQuarks = this.checkQuarkGain(10, quarkMult, player.hypercubeOpenedDaily)
     const actualQuarksGain = Math.max(0, gainQuarks - player.hypercubeQuarkDaily)
     player.hypercubeQuarkDaily += actualQuarksGain
-    player.worlds.add(actualQuarksGain, false, true)
+    worlds.add(actualQuarksGain, false, true)
 
     const toSpendModulo = toSpend % 20
     const toSpendDiv20 = Math.floor(toSpend / 20)
@@ -355,7 +355,7 @@ export class WowPlatonicCubes extends Cube {
     const gainQuarks = this.checkQuarkGain(15, quarkMult, player.platonicCubeOpenedDaily)
     const actualQuarksGain = Math.max(0, gainQuarks - player.platonicCubeQuarkDaily)
     player.platonicCubeQuarkDaily += actualQuarksGain
-    player.worlds.add(actualQuarksGain, false, true)
+    worlds.add(actualQuarksGain, false, true)
 
     let toSpendModulo = toSpend % 40000
     const toSpendDiv40000 = Math.floor(toSpend / 40000)
