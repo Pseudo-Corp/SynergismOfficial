@@ -43,7 +43,7 @@ export const decimalSchema = z.custom<DecimalSource>((value: any) => {
   } catch {
     return false
   }
-}).transform((decimalSource) => new Decimal(decimalSource))
+}).meta({ type: ['string', 'number'] }).transform((decimalSource) => new Decimal(decimalSource))
 
 export const arrayStartingWithNull = <T extends ZodType>(s: T) => z.tuple([z.null()]).rest(s)
 
