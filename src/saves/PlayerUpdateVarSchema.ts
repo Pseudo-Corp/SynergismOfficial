@@ -9,7 +9,7 @@ import type { HepteractKeys } from '../Hepteracts'
 import { octeractUpgradeNames, type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
 import { getGQUpgradeCumulativeCost, goldenQuarkUpgradeNames, type SingularityDataKeys } from '../singularity'
 import { format } from '../Synergism'
-import { updateResourcePredefinedLevel } from '../Talismans'
+import { talismanInvestmentForLevel } from '../Talismans'
 import { Alert } from '../UpdateHTML'
 import { playerSchema } from './PlayerSchema'
 
@@ -75,13 +75,13 @@ export const playerUpdateVarSchema = z.preprocess(cleanseLegacyCorruptions, play
   }
 
   if (player.talismanLevels !== undefined) {
-    updateResourcePredefinedLevel(player.talismanLevels[0], 'exemption')
-    updateResourcePredefinedLevel(player.talismanLevels[1], 'chronos')
-    updateResourcePredefinedLevel(player.talismanLevels[2], 'midas')
-    updateResourcePredefinedLevel(player.talismanLevels[3], 'metaphysics')
-    updateResourcePredefinedLevel(player.talismanLevels[4], 'polymath')
-    updateResourcePredefinedLevel(player.talismanLevels[5], 'mortuus')
-    updateResourcePredefinedLevel(player.talismanLevels[6], 'plastic')
+    player.talismans.exemption = talismanInvestmentForLevel(player.talismanLevels[0], 'exemption')
+    player.talismans.chronos = talismanInvestmentForLevel(player.talismanLevels[1], 'chronos')
+    player.talismans.midas = talismanInvestmentForLevel(player.talismanLevels[2], 'midas')
+    player.talismans.metaphysics = talismanInvestmentForLevel(player.talismanLevels[3], 'metaphysics')
+    player.talismans.polymath = talismanInvestmentForLevel(player.talismanLevels[4], 'polymath')
+    player.talismans.mortuus = talismanInvestmentForLevel(player.talismanLevels[5], 'mortuus')
+    player.talismans.plastic = talismanInvestmentForLevel(player.talismanLevels[6], 'plastic')
   }
 
   if (player.runeexp !== undefined) {

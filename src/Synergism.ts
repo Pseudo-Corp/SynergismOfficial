@@ -139,10 +139,8 @@ import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
   noTalismanFragments,
-  type TalismanCraftItems,
   type TalismanKeys,
   talismanKeys,
-  talismans,
   toggleTalismanBuy,
   updateTalismanInventory,
   updateTalismanLevelAndSpentFromInvested,
@@ -1169,13 +1167,6 @@ export const saveSynergy = (button?: boolean) => {
   }
 
   player.offlinetick = Math.max(player.offlinetick, DateNow())
-
-  player.talismans = Object.fromEntries(
-    Object.keys(player.talismans).map((key) => {
-      const k = key as TalismanKeys
-      return [key, { ...talismans[k].fragmentsInvested }]
-    })
-  ) as Record<TalismanKeys, Record<TalismanCraftItems, Decimal>>
 
   const p = playerSchema.parse(player)
   const save = btoa(JSON.stringify(p))
