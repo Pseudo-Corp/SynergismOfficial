@@ -1741,8 +1741,8 @@ export const dailyResetCheck = () => {
 
   // Daily is not reset even if it is set to a past time.
   // If the daily is not reset, the data may have been set to a future time.
-  if (day.getTime() - 3600000 > player.dayCheck.getTime()) {
-    player.dayCheck = day
+  if (day.getTime() - 3600000 > Date.parse(player.dayCheck)) {
+    player.dayCheck = day.toISOString()
 
     forcedDailyReset(true)
     player.dailyPowderResetUses = 1 + getShopUpgradeEffects('extraWarp', 'additionalWarps')

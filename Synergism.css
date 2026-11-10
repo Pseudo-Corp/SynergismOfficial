@@ -9777,19 +9777,6 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
     white-space: pre-line;
 }
 
-#ambrosiaUpgradeValues {
-    width: 100%;
-}
-
-#goldenQuarkMultiline,
-#singularityAmbrosiaMultiline {
-    white-space: pre-line;
-    margin: 15px auto 0;
-    justify-content: center;
-    width: 40%;
-    text-align: center;
-}
-
 #accountSubTab {
     white-space: pre-line;
     margin: 15px 0 0;

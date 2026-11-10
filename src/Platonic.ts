@@ -1,6 +1,7 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { ascensionEffectiveCorruptionLevel } from './Corruptions'
+import { cubes } from './CubeExperimental'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { Alert, revealStuff } from './UpdateHTML'
@@ -427,27 +428,27 @@ export const createPlatonicDescription = (index: number) => {
     }
   )
   DOMCacheGetOrSet('platonicCubeCost').textContent = i18next.t('wowCubes.platonicUpgrades.descriptionBox.cubeCost', {
-    a: format(player.wowCubes.valueOf()),
+    a: format(player.wowCubes),
     b: format(upgradeCosts.costs.cubes)
   })
   DOMCacheGetOrSet('platonicTesseractCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.tesseractCost',
     {
-      a: format(player.wowTesseracts.valueOf()),
+      a: format(player.wowTesseracts),
       b: format(upgradeCosts.costs.tesseracts)
     }
   )
   DOMCacheGetOrSet('platonicHypercubeCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.hypercubeCost',
     {
-      a: format(player.wowHypercubes.valueOf()),
+      a: format(player.wowHypercubes),
       b: format(upgradeCosts.costs.hypercubes)
     }
   )
   DOMCacheGetOrSet('platonicPlatonicCost').textContent = i18next.t(
     'wowCubes.platonicUpgrades.descriptionBox.platonicCost',
     {
-      a: format(player.wowPlatonicCubes.valueOf()),
+      a: format(player.wowPlatonicCubes),
       b: format(upgradeCosts.costs.platonics)
     }
   )
@@ -539,28 +540,28 @@ export const platonicUpgradeModalHTML = (index: number, iconStyle?: string) => {
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.cubeCost', {
-        a: format(player.wowCubes.valueOf()),
+        a: format(player.wowCubes),
         b: format(upgradeCosts.costs.cubes)
       }),
       affordable: upgradeCosts.affordable.cubes
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.tesseractCost', {
-        a: format(player.wowTesseracts.valueOf()),
+        a: format(player.wowTesseracts),
         b: format(upgradeCosts.costs.tesseracts)
       }),
       affordable: upgradeCosts.affordable.tesseracts
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.hypercubeCost', {
-        a: format(player.wowHypercubes.valueOf()),
+        a: format(player.wowHypercubes),
         b: format(upgradeCosts.costs.hypercubes)
       }),
       affordable: upgradeCosts.affordable.hypercubes
     },
     {
       text: i18next.t('wowCubes.platonicUpgrades.descriptionBox.platonicCost', {
-        a: format(player.wowPlatonicCubes.valueOf()),
+        a: format(player.wowPlatonicCubes),
         b: format(upgradeCosts.costs.platonics)
       }),
       affordable: upgradeCosts.affordable.platonics
@@ -659,10 +660,10 @@ export const buyPlatonicUpgrades = (index: number, auto = false) => {
         player.obtainium = player.obtainium.sub(Math.floor(platUpgradeBaseCosts[index].obtainium * priceMultiplier))
         player.offerings = player.offerings.sub(Math.floor(platUpgradeBaseCosts[index].offerings * priceMultiplier))
       }
-      player.wowCubes.sub(Math.floor(platUpgradeBaseCosts[index].cubes * priceMultiplier))
-      player.wowTesseracts.sub(Math.floor(platUpgradeBaseCosts[index].tesseracts * priceMultiplier))
-      player.wowHypercubes.sub(Math.floor(platUpgradeBaseCosts[index].hypercubes * priceMultiplier))
-      player.wowPlatonicCubes.sub(Math.floor(platUpgradeBaseCosts[index].platonics * priceMultiplier))
+      cubes.wowCubes.sub(Math.floor(platUpgradeBaseCosts[index].cubes * priceMultiplier))
+      cubes.wowTesseracts.sub(Math.floor(platUpgradeBaseCosts[index].tesseracts * priceMultiplier))
+      cubes.wowHypercubes.sub(Math.floor(platUpgradeBaseCosts[index].hypercubes * priceMultiplier))
+      cubes.wowPlatonicCubes.sub(Math.floor(platUpgradeBaseCosts[index].platonics * priceMultiplier))
       player.hepteracts.abyss.BAL -= Math.floor(platUpgradeBaseCosts[index].abyssals * priceMultiplier)
 
       if (index === 20 && !auto && player.singularityCount === 0) {

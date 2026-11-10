@@ -7,7 +7,12 @@ import {
   updateAllUngroupedAchievementProgress
 } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { type AutoChallengeStates, getChallengeConditions, NUM_ELIGIBLE_CHALLENGES, resetChallengeSweep } from './Challenges'
+import {
+  type AutoChallengeStates,
+  getChallengeConditions,
+  NUM_ELIGIBLE_CHALLENGES,
+  resetChallengeSweep
+} from './Challenges'
 import { storageGetItem, storageSetItem } from './events/storage-events'
 import { initializeMessages } from './Messages'
 import { initializeOcteractUpgradeMap } from './Octeracts'

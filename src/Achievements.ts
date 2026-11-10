@@ -11,6 +11,7 @@ import { displayLevelStuff } from './Levels'
 import { calculateOcteractUpgradeAP, maxOcteractUpgradeAP } from './Octeracts'
 import { calculatePurpleReactorAP, maxPurpleReactorAP } from './Purple'
 import { calculatePurpleAmbrosiaUpgradeAP, maxPurpleAmbrosiaUpgradeAP } from './PurpleAmbrosiaUpgrades'
+import { worlds } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { runeBlessings } from './RuneBlessings'
@@ -18,7 +19,7 @@ import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
 import { maxQuarkUpgradeAP, quarkUpgradeAP } from './Shop'
 import { calculateGQUpgradeAP, getGQUpgradeEffect, maxGoldenQuarkUpgradeAP } from './singularity'
-import { maxAPFromChallenges, type SingularityChallengeDataKeys } from './SingularityChallenges'
+import { maxAPFromChallenges, type SingularityChallengeDataKeys, singularityChallenges } from './SingularityChallenges'
 import {
   calculatePrestigePointGain,
   calculateReincarnationPointGain,
@@ -172,7 +173,7 @@ export const buildingAchievementCheck = () => {
 }
 
 const getAchievementQuarks = () => {
-  const globalQuarkMultiplier = player.worlds.applyBonus(1)
+  const globalQuarkMultiplier = worlds.applyBonus(1)
   let actualMultiplier = globalQuarkMultiplier
   if (actualMultiplier > 100) {
     actualMultiplier = Math.pow(100, 0.6) * Math.pow(actualMultiplier, 0.4)
@@ -446,7 +447,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     pointsAwarded: (_cached: number) => {
       let pointValue = 0
       for (const chal of Object.keys(player.singularityChallenges) as SingularityChallengeDataKeys[]) {
-        pointValue += player.singularityChallenges[chal].rewardAP
+        pointValue += singularityChallenges[chal].rewardAP
       }
       return pointValue
     },
@@ -457,26 +458,26 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     rewardedAP: 0,
     extraI18n: () => {
       return {
-        num1: player.singularityChallenges.noSingularityUpgrades.rewardAP,
-        cap1: player.singularityChallenges.noSingularityUpgrades.maxAP,
-        num2: player.singularityChallenges.oneChallengeCap.rewardAP,
-        cap2: player.singularityChallenges.oneChallengeCap.maxAP,
-        num3: player.singularityChallenges.limitedAscensions.rewardAP,
-        cap3: player.singularityChallenges.limitedAscensions.maxAP,
-        num4: player.singularityChallenges.noQuarkUpgrades.rewardAP,
-        cap4: player.singularityChallenges.noQuarkUpgrades.maxAP,
-        num5: player.singularityChallenges.noOcteracts.rewardAP,
-        cap5: player.singularityChallenges.noOcteracts.maxAP,
-        num6: player.singularityChallenges.noAmbrosiaUpgrades.rewardAP,
-        cap6: player.singularityChallenges.noAmbrosiaUpgrades.maxAP,
-        num7: player.singularityChallenges.limitedTime.rewardAP,
-        cap7: player.singularityChallenges.limitedTime.maxAP,
-        num8: player.singularityChallenges.sadisticPrequel.rewardAP,
-        cap8: player.singularityChallenges.sadisticPrequel.maxAP,
-        num9: player.singularityChallenges.taxmanLastStand.rewardAP,
-        cap9: player.singularityChallenges.taxmanLastStand.maxAP,
-        num10: player.singularityChallenges.barDependence.rewardAP,
-        cap10: player.singularityChallenges.barDependence.maxAP
+        num1: singularityChallenges.noSingularityUpgrades.rewardAP,
+        cap1: singularityChallenges.noSingularityUpgrades.maxAP,
+        num2: singularityChallenges.oneChallengeCap.rewardAP,
+        cap2: singularityChallenges.oneChallengeCap.maxAP,
+        num3: singularityChallenges.limitedAscensions.rewardAP,
+        cap3: singularityChallenges.limitedAscensions.maxAP,
+        num4: singularityChallenges.noQuarkUpgrades.rewardAP,
+        cap4: singularityChallenges.noQuarkUpgrades.maxAP,
+        num5: singularityChallenges.noOcteracts.rewardAP,
+        cap5: singularityChallenges.noOcteracts.maxAP,
+        num6: singularityChallenges.noAmbrosiaUpgrades.rewardAP,
+        cap6: singularityChallenges.noAmbrosiaUpgrades.maxAP,
+        num7: singularityChallenges.limitedTime.rewardAP,
+        cap7: singularityChallenges.limitedTime.maxAP,
+        num8: singularityChallenges.sadisticPrequel.rewardAP,
+        cap8: singularityChallenges.sadisticPrequel.maxAP,
+        num9: singularityChallenges.taxmanLastStand.rewardAP,
+        cap9: singularityChallenges.taxmanLastStand.maxAP,
+        num10: singularityChallenges.barDependence.rewardAP,
+        cap10: singularityChallenges.barDependence.maxAP
       }
     },
     displayCondition: () => player.highestSingularityCount >= 25
@@ -3347,7 +3348,7 @@ const grantAchievement = (ach: AchievementBase) => {
       isMobile ? 5000 : undefined
     )
   }
-  player.worlds.add(getAchievementQuarks(), false, true)
+  worlds.add(getAchievementQuarks(), false, true)
   revealStuff()
 
   if (ach.steamAchievementId) {

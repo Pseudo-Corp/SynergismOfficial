@@ -9,7 +9,6 @@ import {
 } from './Calculate'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, PurchasePrompt } from './UpdateHTML'
-import { isMobile } from './Utility'
 
 type RedAmbrosiaUpgradeRewards = {
   tutorial: { cubeMult: number; obtainiumMult: number; offeringMult: number }
@@ -722,30 +721,6 @@ export const redAmbrosiaUpgradeToString = (upgradeKey: RedAmbrosiaNames): string
   return `${nameSpan} <br> ${levelSpan} <br> ${descriptionSpan} <br> ${rewardDescSpan} <br> ${
     (!isMaxLevel) ? `${costNextLevelSpan} <br>` : ''
   } ${spentSpan} <br> ${maxLevelAPSpan} <br> ${purchaseWarningSpan}`
-}
-
-export const updateMobileRedAmbrosiaHTML = (k: RedAmbrosiaNames) => {
-  const elm = DOMCacheGetOrSet('singularityAmbrosiaMultiline')
-  elm.innerHTML = redAmbrosiaUpgradeToString(k)
-  // MOBILE ONLY - Add a button for buying upgrades
-  if (isMobile) {
-    const buttonDiv = document.createElement('div')
-
-    const buyOne = document.createElement('button')
-    const buyMax = document.createElement('button')
-
-    buyOne.classList.add('modalBtnBuy')
-    buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.dataset.modalAction = 'one'
-
-    buyMax.classList.add('modalBtnBuy')
-    buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.dataset.modalAction = 'max'
-
-    buttonDiv.appendChild(buyOne)
-    buttonDiv.appendChild(buyMax)
-    elm.appendChild(buttonDiv)
-  }
 }
 
 export const buyRedAmbrosiaUpgradeLevel = async (

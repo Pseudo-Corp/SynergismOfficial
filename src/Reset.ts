@@ -8,7 +8,7 @@ import {
   getAchievementReward,
   UngroupedAchievement
 } from './Achievements'
-import { applyPendingAutoAscendProtocol, printRules, resetCubeRateTracking } from './AutoAscension'
+import { applyPendingAutoAscendProtocol, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
 import { lastBlueberryLoadout, setLastBlueberryLoadout } from './BlueberryUpgrades'
 import {
@@ -42,7 +42,7 @@ import {
   corruptionStatsUpdate,
   normalizeCorruptionLevel
 } from './Corruptions'
-import { WowCubes } from './CubeExperimental'
+import { cubes } from './CubeExperimental'
 import {
   autoBuyCubeUpgrades,
   awardCubeResearchCookieUpgrade,
@@ -61,15 +61,16 @@ import {
   type ResetHistoryEntrySingularity,
   type ResetHistoryEntryTranscend
 } from './History'
-import { importSynergism } from './ImportExport'
+import { codes, importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
+import { worlds } from './Quark'
 import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
-import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { playerSchema } from './saves/PlayerSchema'
 import { getShopUpgradeEffects } from './Shop'
 import {
   calculateMaxSingularityLookahead,
@@ -678,10 +679,10 @@ export const reset = (
     // Only reward Ascension-level rewards if we have a Challenge 10 completion (the requirement for Ascension)
     if (player.challengecompletions[10] > 0) {
       player.ascensionCount += ascensionCountToBeGained
-      player.wowCubes.add(ascensionRewards.wowCubes)
-      player.wowTesseracts.add(ascensionRewards.wowTesseracts)
-      player.wowHypercubes.add(ascensionRewards.wowHypercubes)
-      player.wowPlatonicCubes.add(ascensionRewards.wowPlatonicCubes)
+      cubes.wowCubes.add(ascensionRewards.wowCubes)
+      cubes.wowTesseracts.add(ascensionRewards.wowTesseracts)
+      cubes.wowHypercubes.add(ascensionRewards.wowHypercubes)
+      cubes.wowPlatonicCubes.add(ascensionRewards.wowPlatonicCubes)
       player.wowAbyssals = Math.min(1e300, player.wowAbyssals + ascensionRewards.wowHepteracts)
     }
 
@@ -819,7 +820,7 @@ export const reset = (
         }
       }
       const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
-      const budget = Number(player.wowTesseracts) * percentageToSpend / 100
+      const budget = player.wowTesseracts * percentageToSpend / 100
       const buyToBuildings = calculateTessBuildingsInBudget(ownedBuildings, budget)
       // Prioritise buying buildings from highest tier to lowest,
       // in case there are any off-by-ones or floating point errors.
@@ -841,19 +842,19 @@ export const reset = (
     // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
     if (player.highestSingularityCount >= 10) {
       if (player.autoOpenCubes && player.openCubes !== 0) {
-        player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
+        cubes.wowCubes.open(Math.floor(player.wowCubes * player.openCubes / 100), false)
       }
       if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
         if (!player.tesseractAutoBuyerToggle || player.resetToggleModes.ascension === AutoAscensionModes.percentage) {
-          player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
+          cubes.wowTesseracts.open(Math.floor(player.wowTesseracts * player.openTesseracts / 100), false)
         }
       }
       if (player.autoOpenHypercubes && player.openHypercubes !== 0 && player.challengecompletions[13] > 0) {
-        player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) * player.openHypercubes / 100), false)
+        cubes.wowHypercubes.open(Math.floor(player.wowHypercubes * player.openHypercubes / 100), false)
       }
       if (player.autoOpenPlatonicsCubes && player.openPlatonicsCubes !== 0 && player.challengecompletions[14] > 0) {
-        player.wowPlatonicCubes.open(
-          Math.floor(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100),
+        cubes.wowPlatonicCubes.open(
+          Math.floor(player.wowPlatonicCubes * player.openPlatonicsCubes / 100),
           false
         )
       }
@@ -905,10 +906,9 @@ export const reset = (
 
     player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    player.wowCubes = new WowCubes(0)
-    player.wowTesseracts = new WowCubes(0)
-    player.wowHypercubes = new WowCubes(0)
-    player.wowTesseracts = new WowCubes(0)
+    cubes.wowCubes.set(0)
+    cubes.wowTesseracts.set(0)
+    cubes.wowHypercubes.set(0)
     player.wowAbyssals = 0
 
     for (let index = 1; index <= 50; index++) {
@@ -1099,7 +1099,7 @@ export const singularity = (setSingNumber = -1) => {
   }
 
   player.totalQuarksEver += player.quarksThisSingularity
-  const hold = playerJsonSchema.parse(deepClone()(blankSave))
+  const hold = playerSchema.parse(deepClone(blankSave))
 
   // Reset Displays
   resetAllSubTabs()
@@ -1133,7 +1133,7 @@ export const singularity = (setSingNumber = -1) => {
     hold.cubeUpgrades[i] = player.cubeUpgrades[i]
   }
 
-  hold.ants = deepClone()(player.ants)
+  hold.ants = deepClone(player.ants)
 
   hold.ants.highestRebornELOEver = player.ants.highestRebornELOEver
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {
@@ -1141,9 +1141,9 @@ export const singularity = (setSingNumber = -1) => {
   }
 
   if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
-    player.worlds.reset()
+    worlds.set(0)
   } else {
-    hold.worlds = Number(player.worlds)
+    hold.worlds = player.worlds
   }
 
   hold.researches = [...player.researches]
@@ -1155,7 +1155,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
-  hold.autoAscendRules = printRules(player.autoAscendRules)
+  hold.autoAscendRules = player.autoAscendRules
   hold.corruptions.autoIncrease = player.corruptions.autoIncrease
   hold.corruptions.highestCleared = player.corruptions.highestCleared
   hold.corruptions.cleanseToHighest = player.corruptions.cleanseToHighest
@@ -1199,7 +1199,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.historyShowPerSecond = player.historyShowPerSecond
   hold.exporttest = typeof player.exporttest === 'boolean' ? player.exporttest : player.exporttest === 'YES!'
   hold.dayTimer = player.dayTimer
-  hold.dayCheck = player.dayCheck?.toISOString() ?? null
+  hold.dayCheck = player.dayCheck
   hold.offlinetick = player.offlinetick
   hold.ascStatToggles = player.ascStatToggles
   hold.hepteractAutoCraftPercentage = player.hepteractAutoCraftPercentage
@@ -1236,15 +1236,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.synthesisUpgrades = player.synthesisUpgrades
   hold.synthesisAutomationUnlocked = player.synthesisAutomationUnlocked
   hold.synthesisAutomationEnabled = player.synthesisAutomationEnabled
-  hold.singularityChallenges = Object.fromEntries(
-    Object.entries(player.singularityChallenges).map(([key, value]) => {
-      return [key, {
-        completions: value.completions,
-        highestSingularityCompleted: value.highestSingularityCompleted,
-        enabled: value.enabled
-      }]
-    })
-  )
+  hold.singularityChallenges = player.singularityChallenges
   hold.iconSet = player.iconSet
 
   resetHepteracts('singularity')
@@ -1263,14 +1255,7 @@ export const singularity = (setSingNumber = -1) => {
 
   hold.stats = player.stats
 
-  const saveCode42 = player.codes.get(42) ?? false
-  const saveCode43 = player.codes.get(43) ?? false
-  const saveCode44 = player.codes.get(44) ?? false
-  const saveCode45 = player.codes.get(45) ?? false
-  const saveCode46 = player.codes.get(46) ?? false
-  const saveCode47 = player.codes.get(47) ?? false
-  const saveCode48 = player.codes.get(48) ?? false
-  const saveCode49 = player.codes.get(49) ?? false
+  const saveCodes = player.codes.filter((code) => code >= 42 && code <= 49)
   const saveRngCode = player.rngCode
   const savePromoCodeTime = player.promoCodeTiming.time
   const saveBlueberryLoadout = lastBlueberryLoadout
@@ -1279,17 +1264,7 @@ export const singularity = (setSingNumber = -1) => {
   // Techically possible to import game during reset. But that will only "hurt" that imported save
 
   // TODO: Do not enable data that has never used an event code
-  player.codes.set(39, true)
-  player.codes.set(40, true)
-  player.codes.set(41, true)
-  player.codes.set(42, saveCode42)
-  player.codes.set(43, saveCode43)
-  player.codes.set(44, saveCode44)
-  player.codes.set(45, saveCode45)
-  player.codes.set(46, saveCode46)
-  player.codes.set(47, saveCode47)
-  player.codes.set(48, saveCode48)
-  player.codes.set(49, saveCode49)
+  codes.redeem(39, 40, 41, ...saveCodes)
   updateSingularityMilestoneAwards()
 
   player.rngCode = Math.max(saveRngCode, DateNow())

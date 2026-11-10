@@ -5,6 +5,7 @@ import {
   calculateAccelMultConstructionEffect,
   calculateBuildingConstruction
 } from './Calculate'
+import { cubes } from './CubeExperimental'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import { getRuneEffects } from './Runes'
 import { player } from './Synergism'
@@ -889,7 +890,7 @@ const getTesseractCost = (
   let actualBuy: number
   if (checkCanAfford) {
     const buyTo = Math.floor(
-      -1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((Number(player.wowTesseracts) + subCost) / intCost, 1 / 2), 1 / 2)
+      -1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow((player.wowTesseracts + subCost) / intCost, 1 / 2), 1 / 2)
     )
     actualBuy = Math.min(buyTo, buyFrom + amount)
   } else {
@@ -904,7 +905,7 @@ export const buyTesseractBuilding = (index: OneToFive, amount: number = player.t
   const [buyTo, actualCost] = getTesseractCost(index, amount)
 
   player[`ascendBuilding${index}` as const].paid = getTesseractBuildingsCumulativeCost(index, buyTo)
-  player.wowTesseracts.sub(actualCost)
+  cubes.wowTesseracts.sub(actualCost)
 }
 
 export type SingularityUpgradePurchaseQuote = { levels: number; cost: number }

@@ -18,6 +18,7 @@ import {
 } from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
 import { maxedPlatonicUpgradeConstruction } from './Platonic'
+import { worlds } from './Quark'
 import { type RuneKeys, runes } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -496,7 +497,7 @@ export const highestChallengeRewards = (chalNum: number, highestValue: number) =
     multiplier = 1
   }
   if (player.ascensionCount === 0) {
-    player.worlds.add(1 + Math.floor(highestValue * multiplier) * 100 / 100, true, true)
+    worlds.add(1 + Math.floor(highestValue * multiplier) * 100 / 100, true, true)
   }
 }
 

@@ -1,9 +1,7 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
-import type { AutoAscendRule } from '../AutoAscension'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
-import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type {
   HeaderModuleId,
@@ -17,14 +15,13 @@ import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrades } from '../Octeracts'
 import type { PurpleReactorNames } from '../Purple'
 import type { PurpleAmbrosiaNames } from '../PurpleAmbrosiaUpgrades'
-import type { QuarkHandler } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneBlessingKeys } from '../RuneBlessings'
 import type { RuneKeys } from '../Runes'
 import type { RuneSpiritKeys } from '../RuneSpirits'
 import type { ShopUpgradeNames } from '../Shop'
 import type { SingularityDataKeys } from '../singularity'
-import type { SingularityChallenge, SingularityChallengeDataKeys } from '../SingularityChallenges'
+import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
 import type { SynthesisUpgrades } from '../Synthesis'
 import type { Tabs } from '../Tabs'
 import type { TalismanCraftItems, TalismanKeys } from '../Talismans'
@@ -50,7 +47,7 @@ export interface HeaderLayout {
 
 export interface Player {
   firstPlayed: string
-  worlds: QuarkHandler
+  worlds: number
   coins: Decimal
   coinsThisPrestige: Decimal
   coinsThisTranscension: Decimal
@@ -270,7 +267,7 @@ export interface Player {
   }
 
   // create a Map with keys defaulting to boolean
-  codes: Map<number, boolean>
+  codes: number[]
 
   shopUpgrades: Record<ShopUpgradeNames, number>
 
@@ -331,10 +328,10 @@ export interface Player {
   autoPlatonicUpgradesToggle: boolean
   platonicUpgrades: number[]
   maxPlatToggle: boolean
-  wowCubes: WowCubes
-  wowTesseracts: WowTesseracts
-  wowHypercubes: WowHypercubes
-  wowPlatonicCubes: WowPlatonicCubes
+  wowCubes: number
+  wowTesseracts: number
+  wowHypercubes: number
+  wowPlatonicCubes: number
   wowAbyssals: number
   wowOcteracts: number
   totalWowOcteracts: number
@@ -386,7 +383,7 @@ export interface Player {
   }
   ascendShards: Decimal
   autoAscend: boolean
-  autoAscendRules: AutoAscendRule[]
+  autoAscendRules: string
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 
@@ -423,7 +420,7 @@ export interface Player {
   saveString: string
   exporttest: string | boolean
 
-  dayCheck: Date | null
+  dayCheck: string | null
   dayTimer: number
   cubeOpenedDaily: number
   cubeQuarkDaily: number
@@ -437,7 +434,6 @@ export interface Player {
   version: string
 
   rngCode: number
-  skillCode?: number
   promoCodeTiming: {
     time: number
   }
@@ -497,7 +493,7 @@ export interface Player {
   insideSingularityChallenge: boolean
   singularityChallenges: Record<
     SingularityChallengeDataKeys,
-    SingularityChallenge
+    { completions: number; highestSingularityCompleted: number; enabled: boolean }
   >
 
   ambrosia: number
@@ -622,8 +618,6 @@ export interface GlobalVariables {
   coinVanityThresholds: number[]
 
   dOne: Decimal
-  d3: Decimal
-  d3_14: Decimal
   d0_5: Decimal
   d0_001: Decimal
   d0_0001: Decimal
@@ -631,10 +625,7 @@ export interface GlobalVariables {
   d500: Decimal
   d10000: Decimal
   d100000: Decimal
-  d1e5: Decimal
-  d1e6: Decimal
   d4e6: Decimal
-  d666666666: Decimal
   d4_32e10: Decimal
   d1e11: Decimal
   d1e12: Decimal
@@ -681,7 +672,6 @@ export interface GlobalVariables {
   d1e10000000000: Decimal
   d1e100000000000: Decimal
   d1e2500000000000: Decimal
-  d1e10000000000000: Decimal
 
   MIND_DIVISOR: number
   GLOBAL_RESET_THRESHOLD: number
@@ -709,9 +699,3 @@ export type BuildingSubtab =
 export type ZeroToFour = 0 | 1 | 2 | 3 | 4
 
 export type OneToFive = 1 | 2 | 3 | 4 | 5
-
-export type ZeroToSeven = ZeroToFour | 5 | 6 | 7
-
-export type FirstToFifth = GlobalVariables['ordinals'][ZeroToFour]
-
-export type FirstToEighth = GlobalVariables['ordinals'][ZeroToSeven]

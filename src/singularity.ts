@@ -16,7 +16,7 @@ import { activeEffectiveCorruptionLevel } from './Corruptions'
 import { addCodeAvailableUses, addCodeMaxUses } from './ImportExport'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getGlobalBonus, getPersonalBonus, getQuarkBonus } from './Quark'
+import { getGlobalBonus, getPersonalBonus, getQuarkBonus, worlds } from './Quark'
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { singularity } from './Reset'
 import { Seed, seededRandom } from './RNG'
@@ -34,7 +34,7 @@ import {
   PurchasePrompt,
   revealStuff
 } from './UpdateHTML'
-import { isMobile, sumContents, toOrdinal } from './Utility'
+import { sumContents, toOrdinal } from './Utility'
 
 const funny32BitNumber = 2 ** 31 - 1
 
@@ -2778,31 +2778,6 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
   return `${nameHTML}<br>${levelText}${overclockHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${investedGQHTML}${qualityOfLifeText}${maxLevelAPHTML}${freeLevelAPHTML}`
 }
 
-export function updateMobileGQHTML (k: SingularityDataKeys) {
-  const elm = DOMCacheGetOrSet('goldenQuarkMultiline')
-  elm.innerHTML = upgradeGQToString(k)
-
-  // MOBILE ONLY - Add a button for buying upgrades
-  if (isMobile) {
-    const buttonDiv = document.createElement('div')
-
-    const buyOne = document.createElement('button')
-    const buyMax = document.createElement('button')
-
-    buyOne.classList.add('modalBtnBuy')
-    buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.dataset.modalAction = 'one'
-
-    buyMax.classList.add('modalBtnBuy')
-    buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.dataset.modalAction = 'max'
-
-    buttonDiv.appendChild(buyOne)
-    buttonDiv.appendChild(buyMax)
-    elm.appendChild(buttonDiv)
-  }
-}
-
 export const getGQUpgradeCumulativeCost = (upgradeKey: SingularityDataKeys, level: number): number => {
   const upgrade = goldenQuarkUpgrades[upgradeKey]
   const costForm = singularityCostFormulae[upgrade.specialCostForm]
@@ -4285,7 +4260,7 @@ export const getGoldenQuarkCost = (): {
 
 export async function buyGoldenQuarks (): Promise<void> {
   const goldenQuarkCost = getGoldenQuarkCost()
-  const maxBuy = Math.floor(+player.worlds / goldenQuarkCost.cost)
+  const maxBuy = Math.floor(player.worlds / goldenQuarkCost.cost)
   let buyAmount = null
 
   if (maxBuy === 0) {
@@ -4325,11 +4300,11 @@ export async function buyGoldenQuarks (): Promise<void> {
   if (buyAmount === -1) {
     buyAmount = maxBuy
     cost = maxBuy * goldenQuarkCost.cost
-    player.worlds.sub(cost)
+    worlds.sub(cost)
     player.goldenQuarks += maxBuy
   } else {
     cost = buyAmount * goldenQuarkCost.cost
-    player.worlds.sub(cost)
+    worlds.sub(cost)
     player.goldenQuarks += buyAmount
   }
 

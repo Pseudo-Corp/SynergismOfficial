@@ -70,6 +70,7 @@ import {
   corruptionLevelScoreUpdate,
   corruptionTokenUpdate
 } from './Corruptions'
+import { cubes } from './CubeExperimental'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -138,7 +139,7 @@ import {
 } from './PurpleAmbrosiaUpgrades'
 import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
-import { getQuarkBonus, quarkHandler } from './Quark'
+import { getQuarkBonus, quarkHandler, worlds } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
 import { type RuneKeys, updateRuneHTML } from './Runes'
@@ -930,7 +931,7 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('tesseractInfo').textContent = i18next.t(
       'buildings.tesseractsYouHave',
       {
-        tesseracts: format(player.wowTesseracts.valueOf(), 0, false, false)
+        tesseracts: format(player.wowTesseracts, 0, false, false)
       }
     )
 
@@ -1197,25 +1198,25 @@ export const visualUpdateCubes = () => {
   const platonicMult = 1.5
 
   const toNextQuark: cubeNames = {
-    cube: player.wowCubes.checkCubesToNextQuark(
+    cube: cubes.wowCubes.checkCubesToNextQuark(
       5,
       cubeMult,
       player.cubeQuarkDaily,
       player.cubeOpenedDaily
     ),
-    tesseract: player.wowTesseracts.checkCubesToNextQuark(
+    tesseract: cubes.wowTesseracts.checkCubesToNextQuark(
       7,
       tesseractMult,
       player.tesseractQuarkDaily,
       player.tesseractOpenedDaily
     ),
-    hypercube: player.wowHypercubes.checkCubesToNextQuark(
+    hypercube: cubes.wowHypercubes.checkCubesToNextQuark(
       10,
       hypercubeMult,
       player.hypercubeQuarkDaily,
       player.hypercubeOpenedDaily
     ),
-    platonicCube: player.wowPlatonicCubes.checkCubesToNextQuark(
+    platonicCube: cubes.wowPlatonicCubes.checkCubesToNextQuark(
       15,
       platonicMult,
       player.platonicCubeQuarkDaily,
@@ -1262,7 +1263,7 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('cubeQuantity').innerHTML = i18next.t(
         'wowCubes.cubes.inventory',
         {
-          amount: format(player.wowCubes.valueOf(), 0, true)
+          amount: format(player.wowCubes, 0, true)
         }
       )
 
@@ -1372,7 +1373,7 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('tesseractQuantity').innerHTML = i18next.t(
         'wowCubes.tesseracts.inventory',
         {
-          amount: format(player.wowTesseracts.valueOf(), 0, true)
+          amount: format(player.wowTesseracts, 0, true)
         }
       )
 
@@ -1481,7 +1482,7 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('hypercubeQuantity').innerHTML = i18next.t(
         'wowCubes.hypercubes.inventory',
         {
-          amount: format(player.wowHypercubes.valueOf(), 0, true)
+          amount: format(player.wowHypercubes, 0, true)
         }
       )
 
@@ -1589,7 +1590,7 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('platonicQuantity').innerHTML = i18next.t(
         'wowCubes.platonics.inventory',
         {
-          amount: format(player.wowPlatonicCubes.valueOf(), 0, true)
+          amount: format(player.wowPlatonicCubes, 0, true)
         }
       )
 
@@ -1673,7 +1674,7 @@ export const visualUpdateCubes = () => {
     case 4:
       DOMCacheGetOrSet('cubeAmount2').textContent = `You have ${
         format(
-          player.wowCubes.valueOf(),
+          player.wowCubes,
           0,
           true
         )
@@ -1809,14 +1810,14 @@ export const visualUpdateSettings = () => {
           false
         ),
         // eslint-disable-next-line number-arg-out-of-range
-        y: player.worlds.toString(1)
+        y: worlds.toString(1)
       }
     )
     DOMCacheGetOrSet('quarktimeramount').textContent = i18next.t(
       'settings.quarksOnExport',
       {
-        x: player.worlds.toString(onExportQuarks),
-        y: player.worlds.toString(maxExportQuarks)
+        x: worlds.toString(onExportQuarks),
+        y: worlds.toString(maxExportQuarks)
       }
     )
 
@@ -2697,7 +2698,7 @@ export const visualUpdateShop = () => {
 
     if (shopItem.type === shopUpgradeTypes.CONSUMABLE) {
       const maxBuyablePotions = Math.min(
-        Math.floor(Number(player.worlds) / getShopCosts(key)),
+        Math.floor(player.worlds / getShopCosts(key)),
         shopItem.maxLevel - player.shopUpgrades[key]
       )
       let label: string

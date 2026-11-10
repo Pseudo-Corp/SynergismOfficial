@@ -37,7 +37,7 @@ import {
   goldenQuarkUpgradeNames,
   goldenQuarkUpgrades
 } from './singularity'
-import type { SingularityChallengeDataKeys } from './SingularityChallenges'
+import { type SingularityChallengeDataKeys, singularityChallenges } from './SingularityChallenges'
 import { format, player } from './Synergism'
 import { Alert } from './UpdateHTML'
 import { formatS, sumContents } from './Utility'
@@ -55,7 +55,7 @@ export const generateExportSummary = async (): Promise<void> => {
   let resources = '===== RESOURCES =====\n'
   resources = resources
     + (player.reincarnationCount > 0 || player.highestSingularityCount > 0
-      ? `Quarks: ${format(Number(player.worlds), 0, true)}\n`
+      ? `Quarks: ${format(player.worlds, 0, true)}\n`
       : '')
   resources = resources
     + (player.highestSingularityCount > 0 ? `Golden Quarks: ${format(player.goldenQuarks, 2, true)}\n` : '')
@@ -131,15 +131,15 @@ export const generateExportSummary = async (): Promise<void> => {
     const platonicSum = format(sumContents(platonicArray), 0, true)
 
     resources = resources + subCategoryDivisor
-    resources = `${resources}Wow! Cubes: ${format(Number(player.wowCubes), 0, true)} -+- Total Tributes: ${cubeSum}\n`
+    resources = `${resources}Wow! Cubes: ${format(player.wowCubes, 0, true)} -+- Total Tributes: ${cubeSum}\n`
     resources = `${resources}Wow! Tesseracts: ${
-      format(Number(player.wowTesseracts), 0, true)
+      format(player.wowTesseracts, 0, true)
     } -+- Total Gifts: ${tesseractSum}\n`
     resources = `${resources}Wow! Hypercubes: ${
-      format(Number(player.wowHypercubes), 0, true)
+      format(player.wowHypercubes, 0, true)
     } -+- Total Benedictions: ${hypercubeSum}\n`
     resources = `${resources}Wow! Platonic Cubes: ${
-      format(Number(player.wowPlatonicCubes), 0, true)
+      format(player.wowPlatonicCubes, 0, true)
     } -+- Total Plats Opened: ${platonicSum}\n`
     resources = `${resources}Wow! Hepteracts: ${format(player.wowAbyssals, 0, true)}\n`
     if (getGQUpgradeEffect('octeractUnlock', 'unlocked')) {
@@ -439,22 +439,24 @@ export const generateExportSummary = async (): Promise<void> => {
 
     for (const key of exaltChallenges) {
       let challengeText = ''
-      const exaltChallenge = player.singularityChallenges[key]
+      const exaltChallenge = singularityChallenges[key]
 
       if (exaltChallenge.unlockSingularity <= player.highestSingularityCount) {
-        if (exaltChallenge.completions === exaltChallenge.maxCompletions) {
+        if (player.singularityChallenges[key].completions === exaltChallenge.maxCompletions) {
           challengeText = '[✔]'
         } else {
           challengeText = '[✖]'
         }
-        totalExaltChallengeCompletions += exaltChallenge.completions
+        totalExaltChallengeCompletions += player.singularityChallenges[key].completions
         totalExaltChallengeMaxCompletions += exaltChallenge.maxCompletions
       } else {
         challengeText = '[ ]'
       }
 
       challengeText = `${challengeText} ${exaltChallenge.name}:`
-      challengeText = `${challengeText} ${exaltChallenge.completions}/${exaltChallenge.maxCompletions}`
+      challengeText = `${challengeText} ${
+        player.singularityChallenges[key].completions
+      }/${exaltChallenge.maxCompletions}`
       challengeText = `${challengeText}\n`
       exaltChallengeStats = exaltChallengeStats + challengeText
     }

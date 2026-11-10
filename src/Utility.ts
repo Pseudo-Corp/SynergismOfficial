@@ -4,14 +4,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { bus, SynEvent } from './events/bus'
 import { format } from './Synergism'
 
-export const isDecimal = (o: unknown): o is Decimal =>
-  o instanceof Decimal
-  || (typeof o === 'object'
-    && o !== null
-    && Object.keys(o).length === 2
-    && 'mantissa' in o
-    && 'exponent' in o)
-
 /**
  * This function calculates the smallest integer increment/decrement that can be applied to a number that is
  * guaranteed to affect the numbers value
@@ -54,34 +46,6 @@ export const sumContents = (array: number[]): number => {
   let total = 0
   for (let i = 0; i < array.length; i++) {
     total += array[i]
-  }
-
-  return total
-}
-
-/**
- * Returns the product of all contents in an array
- * @param array {number[]}
- */
-export const productContents = (array: number[]) => {
-  switch (array.length) {
-    case 0:
-      return 0
-    case 1:
-      return array[0]
-    case 2:
-      return array[0] * array[1]
-    case 3:
-      return array[0] * array[1] * array[2]
-    case 4:
-      return array[0] * array[1] * array[2] * array[3]
-    case 5:
-      return array[0] * array[1] * array[2] * array[3] * array[4]
-  }
-
-  let total = 1
-  for (let i = 0; i < array.length; i++) {
-    total *= array[i]
   }
 
   return total

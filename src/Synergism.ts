@@ -45,8 +45,9 @@ import {
   updateProgressiveCache
 } from './Achievements'
 import {
+  autoAscendRules,
   corruptionLoadoutCount,
-  defaultAutoAscendRules,
+  defaultAutoAscendRuleText,
   isAutoAscendRunning,
   isCorruptionLoadoutUnlocked,
   resetCubeRateTracking,
@@ -138,10 +139,8 @@ import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
   noTalismanFragments,
-  type TalismanCraftItems,
   type TalismanKeys,
   talismanKeys,
-  talismans,
   toggleTalismanBuy,
   updateTalismanInventory,
   updateTalismanLevelAndSpentFromInvested,
@@ -184,10 +183,8 @@ import {
   getConstUpgradeMetadata,
   upgradeupdate
 } from './Upgrades'
-// import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import i18next from 'i18next'
-import rfdc from 'rfdc'
 import {
   blankAmbrosiaUpgradeObject,
   displayProperLoadoutCount,
@@ -204,7 +201,7 @@ import {
   updateTokens
 } from './Campaign'
 import { lastUpdated, ticksPerSecond, version } from './Config'
-import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
+import { cubes } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { initMobileStorage, storageGetItem, storageSetItem } from './events/storage-events'
 import { autobuyAnts } from './Features/Ants'
@@ -228,7 +225,7 @@ import { enableStatSymbols } from './Plugins/StatSymbols'
 import { guardPoll, startSpeedProbe } from './PollGuard'
 import { CartTab } from './purchases/CartTab'
 import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from './PurpleAmbrosiaUpgrades'
-import { getQuarkBonus, QuarkHandler, refreshQuarkBonus } from './Quark'
+import { getQuarkBonus, refreshQuarkBonus, worlds } from './Quark'
 import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './RedAmbrosiaUpgrades'
 import {
   buyBlessingLevels,
@@ -244,9 +241,8 @@ import {
   type RuneSpiritKeys,
   updateAllSpiritLevelsFromEXP
 } from './RuneSpirits'
-import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { parseSave } from './saves/Migrations'
 import { playerSchema } from './saves/PlayerSchema'
-import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, queueSave } from './saves/SaveStorage'
 import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthesis'
 // eslint-disable-next-line no-unassigned-import
@@ -265,9 +261,9 @@ import {
 } from './singularity'
 import {
   getSingularityChallengeEffect,
-  SingularityChallenge,
   singularityChallengeData,
-  type SingularityChallengeDataKeys
+  type SingularityChallengeDataKeys,
+  singularityChallenges
 } from './SingularityChallenges'
 import { changeSubTab, changeTab, getActiveSubTab, resetAllSubTabs, Tabs } from './Tabs'
 import { populateBuildingButtonRows } from './tabs/buildings'
@@ -291,7 +287,7 @@ const periodicProgressiveAchievementKeys = progressiveAchievementKeys.filter((ke
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
-  worlds: new QuarkHandler(0),
+  worlds: 0,
   coins: new Decimal('1e2'),
   coinsThisPrestige: new Decimal('1e2'),
   coinsThisTranscension: new Decimal('1e2'),
@@ -607,7 +603,7 @@ export const player: Player = {
   },
 
   // create a Map with keys defaulting to false
-  codes: new Map(Array.from({ length: 49 }, (_, i) => [i + 1, false])),
+  codes: [],
 
   shopUpgrades: {
     offeringPotion: 1,
@@ -863,10 +859,10 @@ export const player: Player = {
     0,
     0
   ],
-  wowCubes: new WowCubes(0),
-  wowTesseracts: new WowTesseracts(0),
-  wowHypercubes: new WowHypercubes(0),
-  wowPlatonicCubes: new WowPlatonicCubes(0),
+  wowCubes: 0,
+  wowTesseracts: 0,
+  wowHypercubes: 0,
+  wowPlatonicCubes: 0,
   maxPlatToggle: true,
   wowAbyssals: 0,
   wowOcteracts: 0,
@@ -942,7 +938,7 @@ export const player: Player = {
 
   ascendShards: new Decimal(),
   autoAscend: false,
-  autoAscendRules: defaultAutoAscendRules(),
+  autoAscendRules: defaultAutoAscendRuleText,
   autoOpenCubes: false,
   openCubes: 0,
   autoOpenTesseracts: false,
@@ -1054,46 +1050,16 @@ export const player: Player = {
   insideSingularityChallenge: false,
 
   singularityChallenges: {
-    noSingularityUpgrades: new SingularityChallenge(
-      singularityChallengeData.noSingularityUpgrades,
-      'noSingularityUpgrades'
-    ),
-    oneChallengeCap: new SingularityChallenge(
-      singularityChallengeData.oneChallengeCap,
-      'oneChallengeCap'
-    ),
-    noOcteracts: new SingularityChallenge(
-      singularityChallengeData.noOcteracts,
-      'noOcteracts'
-    ),
-    limitedAscensions: new SingularityChallenge(
-      singularityChallengeData.limitedAscensions,
-      'limitedAscensions'
-    ),
-    noAmbrosiaUpgrades: new SingularityChallenge(
-      singularityChallengeData.noAmbrosiaUpgrades,
-      'noAmbrosiaUpgrades'
-    ),
-    limitedTime: new SingularityChallenge(
-      singularityChallengeData.limitedTime,
-      'limitedTime'
-    ),
-    sadisticPrequel: new SingularityChallenge(
-      singularityChallengeData.sadisticPrequel,
-      'sadisticPrequel'
-    ),
-    taxmanLastStand: new SingularityChallenge(
-      singularityChallengeData.taxmanLastStand,
-      'taxmanLastStand'
-    ),
-    noQuarkUpgrades: new SingularityChallenge(
-      singularityChallengeData.noQuarkUpgrades,
-      'noQuarkUpgrades'
-    ),
-    barDependence: new SingularityChallenge(
-      singularityChallengeData.barDependence,
-      'barDependence'
-    )
+    noSingularityUpgrades: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    oneChallengeCap: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    noOcteracts: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    limitedAscensions: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    noAmbrosiaUpgrades: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    limitedTime: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    sadisticPrequel: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    taxmanLastStand: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    noQuarkUpgrades: { completions: 0, highestSingularityCompleted: 0, enabled: false },
+    barDependence: { completions: 0, highestSingularityCompleted: 0, enabled: false }
   },
 
   ambrosia: 0,
@@ -1168,22 +1134,31 @@ export const player: Player = {
   purpleUpdateQuarkRefundAwarded: true
 }
 
-export const deepClone = () =>
-  rfdc({
-    proto: false,
-    circles: false,
-    constructorHandlers: [
-      [Decimal, (o: DecimalSource) => new Decimal(o)],
-      [QuarkHandler, (o: QuarkHandler) => new QuarkHandler(o.valueOf())],
-      [WowCubes, (o: WowCubes) => new WowCubes(o.valueOf())],
-      [WowTesseracts, (o: WowTesseracts) => new WowTesseracts(o.valueOf())],
-      [WowHypercubes, (o: WowHypercubes) => new WowHypercubes(o.valueOf())],
-      [WowPlatonicCubes, (o: WowPlatonicCubes) => new WowPlatonicCubes(o.valueOf())],
-      [SingularityChallenge, (o: SingularityChallenge) => new SingularityChallenge(o.valueOf(), o.key())]
-    ]
-  })
+export function deepClone<T> (value: T) {
+  if (typeof value === 'object' && value !== null) {
+    if (value instanceof Decimal) {
+      return new Decimal(value) as T
+    }
 
-export const blankSave = deepClone()(player)
+    if (Array.isArray(value)) {
+      const arr: unknown[] = []
+      for (const item of value) {
+        arr.push(deepClone(item))
+      }
+      return arr as T
+    }
+
+    const obj: Record<string, unknown> = {}
+    for (const [key, item] of Object.entries(value)) {
+      obj[key] = deepClone(item)
+    }
+    return obj as T
+  }
+
+  return value
+}
+
+export const blankSave = deepClone(player)
 
 export const saveSynergy = (button?: boolean) => {
   if (G.timeWarp) {
@@ -1192,14 +1167,7 @@ export const saveSynergy = (button?: boolean) => {
 
   player.offlinetick = Math.max(player.offlinetick, DateNow())
 
-  player.talismans = Object.fromEntries(
-    Object.keys(player.talismans).map((key) => {
-      const k = key as TalismanKeys
-      return [key, { ...talismans[k].fragmentsInvested }]
-    })
-  ) as Record<TalismanKeys, Record<TalismanCraftItems, Decimal>>
-
-  const p = playerJsonSchema.parse(player)
+  const p = playerSchema.parse(player)
   const save = btoa(JSON.stringify(p))
   if (save === null || !queueSave(save)) {
     void Alert(i18next.t('testing.errorSaving'))
@@ -1287,19 +1255,7 @@ const loadSynergy = (saveString: string): boolean => {
       return false
     }
 
-    // size before loading
-    const size = player.codes.size
-
-    const oldPromoKeys = Object.keys(data).filter((k) => k.includes('offerpromo'))
-    if (oldPromoKeys.length > 0) {
-      oldPromoKeys.forEach((k) => {
-        const value = data[k]
-        const num = +k.replace(/[^\d]/g, '')
-        player.codes.set(num, Boolean(value))
-      })
-    }
-
-    const validatedPlayer = playerUpdateVarSchema.safeParse(data)
+    const validatedPlayer = parseSave(data)
 
     if (validatedPlayer.success) {
       challengeExit('transcension')
@@ -1307,6 +1263,10 @@ const loadSynergy = (saveString: string): boolean => {
       challengeExit('ascension')
       resetChallengeSweep()
       Object.assign(player, validatedPlayer.data)
+      for (const challenge of Object.values(singularityChallenges)) {
+        challenge.updateChallengeCompletions()
+        challenge.updateIconHTML()
+      }
       // Temp check for Quarks
       if (!player.purpleUpdateQuarkRefundAwarded) {
         const sing10ResetUpgrades = ['offeringEX', 'obtainiumEX', 'antSpeed', 'cashGrab'] as ShopUpgradeNames[]
@@ -1343,7 +1303,7 @@ const loadSynergy = (saveString: string): boolean => {
         }
 
         if (quarksToRefund > 0) {
-          player.worlds.add(quarksToRefund, false, false)
+          worlds.add(quarksToRefund, false, false)
           Alert(i18next.t('versionChangeAnnouncements.sept13Refund', { amount: format(quarksToRefund, 0) }))
         }
         player.purpleUpdateQuarkRefundAwarded = true
@@ -1357,28 +1317,6 @@ const loadSynergy = (saveString: string): boolean => {
     }
 
     player.lastExportedSave = data.lastExportedSave ?? 0
-
-    if (data.offerpromo24used !== undefined) {
-      player.codes.set(25, false)
-    }
-
-    // sets all non-existent codes to default value false
-    if (player.codes.size < size) {
-      for (let i = player.codes.size + 1; i <= size; i++) {
-        if (!player.codes.has(i)) {
-          player.codes.set(i, false)
-        }
-      }
-    }
-
-    // sets all non-existent codes to default value false
-    if (player.codes.size < size) {
-      for (let i = player.codes.size + 1; i <= size; i++) {
-        if (!player.codes.has(i)) {
-          player.codes.set(i, false)
-        }
-      }
-    }
 
     // TODO(@KhafraDev): remove G.currentSingChallenge
     // fix current sing challenge blank
@@ -1406,16 +1344,7 @@ const loadSynergy = (saveString: string): boolean => {
       player.obtainium = new Decimal()
     }
 
-    if (!player.dayCheck) {
-      player.dayCheck = new Date()
-    }
-
-    if (typeof player.dayCheck === 'string') {
-      player.dayCheck = new Date(player.dayCheck)
-      if (isNaN(player.dayCheck.getTime())) {
-        player.dayCheck = new Date()
-      }
-    }
+    let dayCheck = player.dayCheck === null ? new Date() : new Date(player.dayCheck)
     // Why was this made?
     // Measures for people who play the past
     let updatedLast = lastUpdated
@@ -1425,18 +1354,18 @@ const loadSynergy = (saveString: string): boolean => {
         updatedLast.getMonth(),
         updatedLast.getDate() - 1
       )
-      if (player.dayCheck.getTime() < updatedLast.getTime()) {
-        player.dayCheck = updatedLast
+      if (dayCheck.getTime() < updatedLast.getTime()) {
+        dayCheck = updatedLast
       }
-    } else if (player.dayCheck.getTime() < 1654009200000) {
-      player.dayCheck = new Date('06/01/2022 00:00:00')
+    } else if (dayCheck.getTime() < 1654009200000) {
+      dayCheck = new Date('06/01/2022 00:00:00')
     }
     // Calculate daily
     player.dayCheck = new Date(
-      player.dayCheck.getFullYear(),
-      player.dayCheck.getMonth(),
-      player.dayCheck.getDate()
-    )
+      dayCheck.getFullYear(),
+      dayCheck.getMonth(),
+      dayCheck.getDate()
+    ).toISOString()
 
     for (let j = 1; j < 126; j++) {
       upgradeupdate(j, true)
@@ -1992,7 +1921,7 @@ const loadSynergy = (saveString: string): boolean => {
 
     // Update the Sing requirements on reload for a challenge if applicable
     if (G.currentSingChallenge !== undefined) {
-      const sing = player.singularityChallenges[G.currentSingChallenge].computeSingularityRquirement()
+      const sing = singularityChallenges[G.currentSingChallenge].computeSingularityRquirement()
       player.singularityCount = sing
     }
   }
@@ -3478,7 +3407,7 @@ export const resetCheck = async (
       player.challengecompletions[a] > player.highestchallengecompletions[a]
     ) {
       player.highestchallengecompletions[a] += 1
-      player.wowHypercubes.add(1)
+      cubes.wowHypercubes.add(1)
       if (player.highestchallengecompletions[a] >= maxCompletions) {
         leaving = true
       }
@@ -3522,7 +3451,7 @@ export const resetCheck = async (
         return Alert(i18next.t('main.insideSingularityChallenge'))
       }
 
-      return player.singularityChallenges[G.currentSingChallenge].challengeEntryHandler()
+      return singularityChallenges[G.currentSingChallenge].challengeEntryHandler()
     }
 
     if (runes.antiquities.level === 0) {
@@ -3766,7 +3695,7 @@ export const updateAll = (): void => {
         ownedBuildings[i - 1] = getTesseractBuildingsOwned(i as OneToFive)
       }
     }
-    const budget = Number(player.wowTesseracts) - player.tesseractAutoBuyerAmount
+    const budget = player.wowTesseracts - player.tesseractAutoBuyerAmount
     const buyToBuildings = calculateTessBuildingsInBudget(
       ownedBuildings,
       budget
@@ -4460,6 +4389,8 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     }
   }
 
+  autoAscendRules.load()
+
   renderHeaderLayout()
   updateAllRuneLevelsFromEXP()
   updateAllBlessingLevelsFromEXP()
@@ -4507,7 +4438,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     }
   } else {
     if (!getSingularityChallengeEffect('limitedTime', 'preserveQuarks')) {
-      player.worlds.reset()
+      worlds.set(0)
     }
 
     if (!saveSynergy()) {

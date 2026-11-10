@@ -16,6 +16,7 @@ import {
 } from './Calculate'
 import type { IMultiBuy } from './Cubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
+import { worlds } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneEffectiveLevel, getRuneEffects } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
@@ -2133,7 +2134,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
         }!`
       )
       : null
-  } else if (Number(player.worlds) < getShopCosts(input)) {
+  } else if (player.worlds < getShopCosts(input)) {
     return player.shopConfirmationToggle
       ? Alert(
         `You can't purchase ${name} because you don't have enough Quarks!`
@@ -2161,7 +2162,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
       buyData = calculateSummationNonLinear(
         player.shopUpgrades[input],
         shopItem.price,
-        +player.worlds,
+        player.worlds,
         shopItem.priceIncrease / shopItem.price,
         Math.min(10, maxBuyAmount)
       )
@@ -2172,7 +2173,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
       buyData = calculateSummationNonLinear(
         player.shopUpgrades[input],
         shopItem.price,
-        +player.worlds,
+        player.worlds,
         shopItem.priceIncrease / shopItem.price,
         maxBuyAmount
       )
@@ -2198,7 +2199,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
       && shopItem.type === shopUpgradeTypes.CONSUMABLE
     ) {
       const other = input === 'offeringPotion' ? 'obtainiumPotion' : 'offeringPotion'
-      const toSpend = Math.max(+player.worlds / 2, +player.worlds - buyCost)
+      const toSpend = Math.max(player.worlds / 2, player.worlds - buyCost)
       const otherPot: IMultiBuy = calculateSummationNonLinear(
         player.shopUpgrades[other],
         shopUpgrades[other].price,
@@ -2206,7 +2207,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
         shopUpgrades[other].priceIncrease / shopUpgrades[other].price,
         shopUpgrades[other].maxLevel - player.shopUpgrades[other]
       )
-      player.worlds.sub(otherPot.cost)
+      worlds.sub(otherPot.cost)
       player.shopUpgrades[other] = otherPot.levelCanBuy
       shopDescriptions(other)
       buyAny = buyAmount
@@ -2225,11 +2226,11 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     const anyData: IMultiBuy = calculateSummationNonLinear(
       player.shopUpgrades[input],
       shopItem.price,
-      +player.worlds,
+      player.worlds,
       shopItem.priceIncrease / shopItem.price,
       Math.min(buyAny, buyAmount)
     )
-    player.worlds.sub(anyData.cost)
+    worlds.sub(anyData.cost)
     player.shopUpgrades[input] = anyData.levelCanBuy
     shopDescriptions(input)
     revealStuff()
@@ -2247,7 +2248,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     )
   }
   if (p) {
-    player.worlds.sub(buyCost)
+    worlds.sub(buyCost)
     player.shopUpgrades[input] += buyAmount
     shopDescriptions(input)
     revealStuff()

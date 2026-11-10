@@ -1255,7 +1255,7 @@ export const registerHeaderLayoutEditing = () => {
   DOMCacheGetOrSet('headerLayoutReset').addEventListener('click', async () => {
     if (await Confirm(i18next.t('headerLayout.resetConfirm'))) {
       const key = isMobile ? 'mobile' : 'desktop'
-      player.headerLayouts[key] = deepClone()(blankSave.headerLayouts[key])
+      player.headerLayouts[key] = deepClone(blankSave.headerLayouts[key])
       selectedModule = null
       renderHeaderLayout()
     }

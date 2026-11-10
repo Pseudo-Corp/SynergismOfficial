@@ -1,12 +1,10 @@
 import i18next from 'i18next'
 import { calculateSingularityUpgradePurchase } from './Buy'
-import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateBlueberryInventory } from './Calculate'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { runes } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, PurchasePrompt } from './UpdateHTML'
-import { isMobile } from './Utility'
 
 export type PurpleAmbrosiaUpgradeRewards = {
   aries: { universalBarPointMult: number }
@@ -518,30 +516,6 @@ export const purpleAmbrosiaUpgradeToString = (upgradeKey: PurpleAmbrosiaNames): 
   baseString += `<br> ${apMaxLevelSpan}`
 
   return baseString
-}
-
-export const updateMobilePurpleAmbrosiaHTML = (upgradeKey: PurpleAmbrosiaNames) => {
-  const elm = DOMCacheGetOrSet('singularityAmbrosiaMultiline')
-  elm.innerHTML = purpleAmbrosiaUpgradeToString(upgradeKey)
-  // MOBILE ONLY - Add a button for buying upgrades
-  if (isMobile) {
-    const buttonDiv = document.createElement('div')
-
-    const buyOne = document.createElement('button')
-    const buyMax = document.createElement('button')
-
-    buyOne.classList.add('modalBtnBuy')
-    buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.dataset.modalAction = 'one'
-
-    buyMax.classList.add('modalBtnBuy')
-    buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.dataset.modalAction = 'max'
-
-    buttonDiv.appendChild(buyOne)
-    buttonDiv.appendChild(buyMax)
-    elm.appendChild(buttonDiv)
-  }
 }
 
 export const buyPurpleAmbrosiaUpgradeLevel = async (

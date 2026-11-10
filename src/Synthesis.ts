@@ -2,6 +2,7 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { addTimers } from './Helper'
 import { getPurpleReactorPopupMode } from './PurpleUpgradeTab'
+import { worlds } from './Quark'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, player } from './Synergism'
 import { getTalismanEffects } from './Talismans'
@@ -90,8 +91,6 @@ export const createBlankSynthesisUpgradeObject = (): SynthesisUpgrades => ({
     octeracts: 0
   }
 })
-
-export const blankSynthesisUpgradeObject = createBlankSynthesisUpgradeObject()
 
 const synthesisUpgradeData: SynthesisUpgradeDefinitions = {
   redAmbrosiaReduction: {
@@ -242,7 +241,7 @@ const getSynthesisUpgradeWallet = (): SynthesisUpgradeWallet => ({
   purpleAmbrosia: player.purpleAmbrosia,
   redAmbrosia: player.redAmbrosia,
   purpleHoney: player.purpleReactor.purpleHoney,
-  quarks: Number(player.worlds),
+  quarks: player.worlds,
   octeracts: player.wowOcteracts
 })
 
@@ -395,7 +394,7 @@ export const buySynthesisUpgrade = <K extends SynthesisUpgradeName>(
   player.purpleAmbrosia -= getSynthesisUpgradeInvestmentValue(purchase.cost, 'purpleAmbrosia')
   player.redAmbrosia -= getSynthesisUpgradeInvestmentValue(purchase.cost, 'redAmbrosia')
   player.purpleReactor.purpleHoney -= getSynthesisUpgradeInvestmentValue(purchase.cost, 'purpleHoney')
-  player.worlds.sub(getSynthesisUpgradeInvestmentValue(purchase.cost, 'quarks'))
+  worlds.sub(getSynthesisUpgradeInvestmentValue(purchase.cost, 'quarks'))
   player.wowOcteracts -= getSynthesisUpgradeInvestmentValue(purchase.cost, 'octeracts')
   player.spentPurpleHoney.upgrades += getSynthesisUpgradeInvestmentValue(purchase.cost, 'purpleHoney')
   player.synthesisUpgrades[upgradeKey] = addSynthesisUpgradeCosts(
@@ -438,7 +437,7 @@ export const craftPurpleAmbrosia = (requestedAmount: number | 'max'): number => 
 
   const quarks = amount * getSynthesisUpgradeEffect('subatomicShavings')
   if (quarks > 0) {
-    player.worlds.add(quarks, true, true)
+    worlds.add(quarks, true, true)
   }
 
   const octeractSeconds = amount * getSynthesisUpgradeEffect('exceptionalLieGroup')

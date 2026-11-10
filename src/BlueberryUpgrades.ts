@@ -264,7 +264,7 @@ export const ambrosiaUpgrades: {
       const baseVal = 0.001 * n
       return 1
         + baseVal
-          * Math.floor(Math.pow(Math.log10(Number(player.worlds) + 1) + 1, 2)) // cubes
+          * Math.floor(Math.pow(Math.log10(player.worlds + 1) + 1, 2)) // cubes
     },
     effectsDescription: function() {
       const cubes = getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
@@ -332,10 +332,10 @@ export const ambrosiaUpgrades: {
       const baseVal = 0.0001 * n
       const quarks = 1
         + baseVal
-          * (Math.floor(Math.log10(Number(player.wowCubes) + 1))
-            + Math.floor(Math.log10(Number(player.wowTesseracts) + 1))
-            + Math.floor(Math.log10(Number(player.wowHypercubes) + 1))
-            + Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1))
+          * (Math.floor(Math.log10(player.wowCubes + 1))
+            + Math.floor(Math.log10(player.wowTesseracts + 1))
+            + Math.floor(Math.log10(player.wowHypercubes + 1))
+            + Math.floor(Math.log10(player.wowPlatonicCubes + 1))
             + Math.floor(Math.log10(player.wowAbyssals + 1))
             + Math.floor(Math.log10(player.wowOcteracts + 1))
             + 6)
@@ -417,10 +417,10 @@ export const ambrosiaUpgrades: {
         return baseVal * (Math.floor(Math.log10(player.wowOcteracts + 1)) + 1)
       }
       return baseVal
-        * (Math.floor(Math.log10(Number(player.wowCubes) + 1))
-          + Math.floor(Math.log10(Number(player.wowTesseracts) + 1))
-          + Math.floor(Math.log10(Number(player.wowHypercubes) + 1))
-          + Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1))
+        * (Math.floor(Math.log10(player.wowCubes + 1))
+          + Math.floor(Math.log10(player.wowTesseracts + 1))
+          + Math.floor(Math.log10(player.wowHypercubes + 1))
+          + Math.floor(Math.log10(player.wowPlatonicCubes + 1))
           + Math.floor(Math.log10(player.wowAbyssals + 1))
           + Math.floor(Math.log10(player.wowOcteracts + 1))
           + 6) // ambrosiaLuck
@@ -456,7 +456,7 @@ export const ambrosiaUpgrades: {
     },
     effects: (n: number) => {
       const baseVal = 0.02 * n
-      return baseVal * Math.floor(Math.pow(Math.log10(Number(player.worlds) + 1) + 1, 2)) // ambrosiaLuck
+      return baseVal * Math.floor(Math.pow(Math.log10(player.worlds + 1) + 1, 2)) // ambrosiaLuck
     },
     effectsDescription: function() {
       const ambrosiaLuck = getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1', 'ambrosiaLuck')
@@ -1937,30 +1937,6 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
   const purpleAmbrosiaEnchantmentHTML = purpleAmbrosiaEnchantmentToString(upgradeKey)
 
   return `${nameHTML}<br>${levelHTML}<br>${preReqHTML}${descriptionHTML}<br>${effectsHTML}<br>${costNextLevelHTML}<br>${blueberryCostHTML}<br>${spentAmbrosiaHTML}${ignoreEXALTHTML}${purpleAmbrosiaEnchantmentHTML}`
-}
-
-export const updateMobileAmbrosiaHTML = (k: AmbrosiaUpgradeNames) => {
-  const elm = DOMCacheGetOrSet('singularityAmbrosiaMultiline')
-  elm.innerHTML = ambrosiaUpgradeToString(k)
-  // MOBILE ONLY - Add a button for buying upgrades
-  if (isMobile) {
-    const buttonDiv = document.createElement('div')
-
-    const buyOne = document.createElement('button')
-    const buyMax = document.createElement('button')
-
-    buyOne.classList.add('modalBtnBuy')
-    buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.dataset.modalAction = 'one'
-
-    buyMax.classList.add('modalBtnBuy')
-    buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.dataset.modalAction = 'max'
-
-    buttonDiv.appendChild(buyOne)
-    buttonDiv.appendChild(buyMax)
-    elm.appendChild(buttonDiv)
-  }
 }
 
 export const buyAmbrosiaUpgradeLevel = async (

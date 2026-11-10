@@ -188,9 +188,6 @@ interface TalismanData<K extends TalismanKeys> {
   talismanBaseCoefficient: TalismanRuneBonus
   name: () => string
   description: () => string
-
-  // Field that is stored in the player
-  fragmentsInvested: Record<TalismanCraftItems, Decimal>
 }
 
 const regularCostProgression = (baseMult: Decimal, level: number): Record<TalismanCraftItems, Decimal> => {
@@ -309,7 +306,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   exemption: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal(1),
     maxLevel: 180,
     costs: regularCostProgression,
@@ -354,7 +350,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   chronos: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal(10),
     maxLevel: 180,
     costs: regularCostProgression,
@@ -399,7 +394,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   midas: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal(1e4),
     maxLevel: 180,
     costs: regularCostProgression,
@@ -444,7 +438,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   metaphysics: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal(1e8),
     maxLevel: 180,
     costs: regularCostProgression,
@@ -491,7 +484,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   polymath: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal(1e16),
     maxLevel: 180,
     costs: regularCostProgression,
@@ -536,7 +528,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   mortuus: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal(100),
     maxLevel: 180,
     costs: regularCostProgression,
@@ -581,7 +572,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   plastic: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal(1e5),
     maxLevel: 180,
     costs: regularCostProgression,
@@ -621,7 +611,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   wowSquare: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     maxLevel: 210,
     baseMult: new Decimal(1e5),
     costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 2),
@@ -660,7 +649,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   achievement: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal(1e30),
     maxLevel: 40,
     costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 10),
@@ -706,7 +694,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   purpleGem: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal('1e1100'),
     maxLevel: 6,
     costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 1e2),
@@ -745,7 +732,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   cookieGrandma: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal('1e1000'),
     maxLevel: 6,
     costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 100),
@@ -785,7 +771,6 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
   horseShoe: {
     level: 0,
     rarity: 0,
-    fragmentsInvested: { ...noTalismanFragments },
     baseMult: new Decimal('1e1000'),
     maxLevel: 12,
     costs: (baseMult: Decimal, level: number) => exponentialCostProgression(baseMult, level, 100),
@@ -927,7 +912,6 @@ export const updateTalismanLevelAndSpentFromInvested = (t: TalismanKeys): void =
   let level = 0
 
   const budget = { ...player.talismans[t] }
-  talismans[t].fragmentsInvested = { ...player.talismans[t] }
   const trueLevelCap = getTalismanLevelCap(t)
 
   let nextCost = getTalismanCost(t, level)
@@ -995,9 +979,14 @@ export const buyTalismanLevel = (t: TalismanKeys, fromMultibuy = false): void =>
     player.legendaryFragments = player.legendaryFragments.sub(costs.legendaryFragment)
     player.mythicalFragments = player.mythicalFragments.sub(costs.mythicalFragment)
 
-    for (const item in costs) {
-      talismans[t].fragmentsInvested[item as TalismanCraftItems] = talismans[t]
-        .fragmentsInvested[item as TalismanCraftItems].add(costs[item as TalismanCraftItems])
+    player.talismans[t] = {
+      shard: player.talismans[t].shard.add(costs.shard),
+      commonFragment: player.talismans[t].commonFragment.add(costs.commonFragment),
+      uncommonFragment: player.talismans[t].uncommonFragment.add(costs.uncommonFragment),
+      rareFragment: player.talismans[t].rareFragment.add(costs.rareFragment),
+      epicFragment: player.talismans[t].epicFragment.add(costs.epicFragment),
+      legendaryFragment: player.talismans[t].legendaryFragment.add(costs.legendaryFragment),
+      mythicalFragment: player.talismans[t].mythicalFragment.add(costs.mythicalFragment)
     }
 
     talismans[t].level += 1
@@ -1459,7 +1448,6 @@ export const updateTalismanDisplay = (t: TalismanKeys) => {
 
 const resetSingleTalisman = (t: TalismanKeys) => {
   talismans[t].level = 0
-  talismans[t].fragmentsInvested = { ...noTalismanFragments }
   player.talismans[t] = { ...noTalismanFragments }
   setTalismanRarity(t)
 }
@@ -1497,20 +1485,21 @@ export const sumOfTalismanRarities = (): number => {
 /**
  * Updates legacy talisman data (player.talismanLevels[i]) to the
  * new talismans object. Takes level and creates talisman.level and
- * talismans.fragmentsInvested. Should only be used in PlayerUpdateVarSchema.ts
+ * talismans.fragmentsInvested. Should only be used in saves/Migrations.ts
  */
-export const updateResourcePredefinedLevel = (level: number, t: TalismanKeys): void => {
-  talismans[t].level = Math.min(level, getTalismanLevelCap(t))
-  talismans[t].fragmentsInvested = { ...noTalismanFragments }
-  setTalismanRarity(t)
+export const talismanInvestmentForLevel = (level: number, t: TalismanKeys) => {
+  const invested = { ...noTalismanFragments }
+  const cappedLevel = Math.min(level, getTalismanLevelCap(t))
 
-  for (let n = 0; n < talismans[t].level; n++) {
+  for (let n = 0; n < cappedLevel; n++) {
     const nextCost = getTalismanCost(t, n)
     for (const item in nextCost) {
-      talismans[t].fragmentsInvested[item as TalismanCraftItems] = talismans[t]
-        .fragmentsInvested[item as TalismanCraftItems].add(nextCost[item as TalismanCraftItems])
+      invested[item as TalismanCraftItems] = invested[item as TalismanCraftItems]
+        .add(nextCost[item as TalismanCraftItems])
     }
   }
+
+  return invested
 }
 
 export const updateAllTalismanHTML = () => {

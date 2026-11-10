@@ -402,8 +402,6 @@ export const createGlobals = () => ({
   ],
 
   dOne: new Decimal(1),
-  d3: new Decimal(3),
-  d3_14: new Decimal(3.14),
   d0_5: new Decimal(0.5),
   d0_001: new Decimal(0.001),
   d0_0001: new Decimal(.0001),
@@ -411,10 +409,7 @@ export const createGlobals = () => ({
   d500: new Decimal(500),
   d10000: new Decimal(10000),
   d100000: new Decimal(100000),
-  d1e5: new Decimal(1e5),
-  d1e6: new Decimal(1e6),
   d4e6: new Decimal(4e6),
-  d666666666: new Decimal(666666666),
   d4_32e10: new Decimal(4.32e10),
   d1e11: new Decimal(1e11),
   d1e12: new Decimal(1e12),
@@ -461,7 +456,6 @@ export const createGlobals = () => ({
   d1e10000000000: new Decimal('1e10000000000'),
   d1e100000000000: new Decimal('1e100000000000'),
   d1e2500000000000: new Decimal('1e2500000000000'),
-  d1e10000000000000: new Decimal('1e10000000000000'),
 
   MIND_DIVISOR: 1_000_000,
   GLOBAL_RESET_THRESHOLD: 10,
