@@ -341,7 +341,7 @@ export const resetGame = async (force = true) => {
     console.error('Failed to reset state before deleting save', error)
   }
 
-  const hold = playerSchema.safeParse(deepClone()(blankSave))
+  const hold = playerSchema.safeParse(deepClone(blankSave))
 
   // Import Game
   importSynergism(btoa(JSON.stringify(hold.data)), true)

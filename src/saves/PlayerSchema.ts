@@ -170,7 +170,7 @@ const antsSchema = z.object({
     autoSacrificeMode: z.number().default(() => blankSave.ants.toggles.autoSacrificeMode),
     alwaysSacrificeMaxRebornELO: z.boolean().default(() => blankSave.ants.toggles.alwaysSacrificeMaxRebornELO),
     onlySacrificeMaxRebornELO: z.boolean().default(() => blankSave.ants.toggles.onlySacrificeMaxRebornELO)
-  }).default(() => deepClone()(blankSave.ants.toggles))
+  }).default(() => deepClone(blankSave.ants.toggles))
 })
 
 const ascendBuildingSchema = (index: OneToFive) =>
@@ -297,19 +297,19 @@ const synthesisUpgradesSchema = z.object({
   redAmbrosiaReduction: z.object({
     purpleAmbrosia: z.number().default(0),
     redAmbrosia: z.number().default(0)
-  }).default(() => deepClone()(blankSave.synthesisUpgrades.redAmbrosiaReduction)),
+  }).default(() => deepClone(blankSave.synthesisUpgrades.redAmbrosiaReduction)),
   purpleHoneyReduction: z.object({
     purpleAmbrosia: z.number().default(0),
     purpleHoney: z.number().default(0)
-  }).default(() => deepClone()(blankSave.synthesisUpgrades.purpleHoneyReduction)),
+  }).default(() => deepClone(blankSave.synthesisUpgrades.purpleHoneyReduction)),
   subatomicShavings: z.object({
     purpleAmbrosia: z.number().default(0),
     quarks: z.number().default(0)
-  }).default(() => deepClone()(blankSave.synthesisUpgrades.subatomicShavings)),
+  }).default(() => deepClone(blankSave.synthesisUpgrades.subatomicShavings)),
   exceptionalLieGroup: z.object({
     purpleAmbrosia: z.number().default(0),
     octeracts: z.number().default(0)
-  }).default(() => deepClone()(blankSave.synthesisUpgrades.exceptionalLieGroup))
+  }).default(() => deepClone(blankSave.synthesisUpgrades.exceptionalLieGroup))
 })
 
 const playerCorruptionSchema = z.object({
@@ -330,7 +330,7 @@ const playerCorruptionSchema = z.object({
   ascensionLevel: Math.min(ascensionLevel ?? corruptions.used, corruptions.used),
   highestCleared: highestCleared
     ?? Math.max(corruptions.used, corruptions.tokenCompletions.findLastIndex((completions) => completions > 0))
-})).prefault(() => deepClone()(blankSave.corruptions))
+})).prefault(() => deepClone(blankSave.corruptions))
 
 const headerRecordSchema = z.record(z.string(), z.unknown()).catch(() => ({}))
 const headerModuleListSchema = z.unknown().array().catch(() => []).transform((ids) => ids.filter(isHeaderModuleId))
@@ -455,7 +455,7 @@ const headerLayoutSchema = (layout: keyof Player['headerLayouts']) =>
       loadoutPages,
       loadoutIcons: { ambrosiaLoadoutsHeader }
     }
-  }).catch(() => deepClone()(blankSave.headerLayouts[layout]))
+  }).catch(() => deepClone(blankSave.headerLayouts[layout]))
 
 const clampTranscensionChallengeCompletions = <T extends number | null>(completions: T[]) =>
   completions.map((value, index) =>
@@ -593,13 +593,13 @@ export const playerSchema = z.object({
   eighthCostAnts: decimalSchema.optional(),
   eighthProduceAnts: z.number().optional(),
 
-  ants: antsSchema.default(() => deepClone()(blankSave.ants)),
+  ants: antsSchema.default(() => deepClone(blankSave.ants)),
 
-  ascendBuilding1: ascendBuildingSchema(1).default(() => deepClone()(blankSave.ascendBuilding1)),
-  ascendBuilding2: ascendBuildingSchema(2).default(() => deepClone()(blankSave.ascendBuilding2)),
-  ascendBuilding3: ascendBuildingSchema(3).default(() => deepClone()(blankSave.ascendBuilding3)),
-  ascendBuilding4: ascendBuildingSchema(4).default(() => deepClone()(blankSave.ascendBuilding4)),
-  ascendBuilding5: ascendBuildingSchema(5).default(() => deepClone()(blankSave.ascendBuilding5)),
+  ascendBuilding1: ascendBuildingSchema(1).default(() => deepClone(blankSave.ascendBuilding1)),
+  ascendBuilding2: ascendBuildingSchema(2).default(() => deepClone(blankSave.ascendBuilding2)),
+  ascendBuilding3: ascendBuildingSchema(3).default(() => deepClone(blankSave.ascendBuilding3)),
+  ascendBuilding4: ascendBuildingSchema(4).default(() => deepClone(blankSave.ascendBuilding4)),
+  ascendBuilding5: ascendBuildingSchema(5).default(() => deepClone(blankSave.ascendBuilding5)),
 
   multiplierPaid: decimalSchema.optional(),
   multiplierBought: z.number().optional(),
@@ -778,7 +778,7 @@ export const playerSchema = z.object({
   fastesttranscend: z.number(),
   fastestreincarnate: z.number(),
 
-  resetToggleModes: resetToggleModesSchema.default(() => deepClone()(blankSave.resetToggleModes)),
+  resetToggleModes: resetToggleModesSchema.default(() => deepClone(blankSave.resetToggleModes)),
 
   resettoggle1: z.number().optional(),
   resettoggle2: z.number().optional(),
@@ -962,10 +962,9 @@ export const playerSchema = z.object({
     multiplier: hepteractCraftSchema('multiplier').optional()
   }).optional(),
 
-  ascendShards: decimalSchema.default(() => deepClone()(blankSave.ascendShards)),
+  ascendShards: decimalSchema.default(() => deepClone(blankSave.ascendShards)),
   autoAscend: z.boolean().default(() => blankSave.autoAscend),
-  autoAscendRules: z.string().default(() => blankSave.autoAscendRules)
-    .catch(() => []),
+  autoAscendRules: z.string().default(() => blankSave.autoAscendRules).catch(() => ''),
   autoOpenCubes: z.boolean().default(() => blankSave.autoOpenCubes),
   openCubes: z.number().default(() => blankSave.openCubes),
   autoOpenTesseracts: z.boolean().default(() => blankSave.autoOpenTesseracts),
@@ -989,7 +988,7 @@ export const playerSchema = z.object({
     ascend: z.any().array().default(() => [...blankSave.history.ascend]),
     reset: z.any().array().default(() => [...blankSave.history.reset]),
     singularity: z.any().array().default(() => [...blankSave.history.singularity])
-  }).default(() => deepClone()(blankSave.history)),
+  }).default(() => deepClone(blankSave.history)),
   historyShowPerSecond: z.boolean().default(() => blankSave.historyShowPerSecond),
 
   autoChallengeRunning: z.boolean().default(() => blankSave.autoChallengeRunning),
@@ -1052,7 +1051,7 @@ export const playerSchema = z.object({
   headerLayouts: z.object({
     desktop: headerLayoutSchema('desktop'),
     mobile: headerLayoutSchema('mobile')
-  }).catch(() => deepClone()(blankSave.headerLayouts)),
+  }).catch(() => deepClone(blankSave.headerLayouts)),
 
   goldenQuarkUpgrades: z.record(z.string(), goldenQuarkUpgradeSchema).transform((object) => {
     return Object.fromEntries(
@@ -1164,8 +1163,8 @@ export const playerSchema = z.object({
 
   purpleHoneyProgress: z.number().default(0),
   encabulatorOvercapToggle: z.boolean().default(false),
-  purpleReactor: purpleReactorSchema.default(() => deepClone()(blankSave.purpleReactor)),
-  spentPurpleHoney: spentPurpleHoneySchema.default(() => deepClone()(blankSave.spentPurpleHoney)),
+  purpleReactor: purpleReactorSchema.default(() => deepClone(blankSave.purpleReactor)),
+  spentPurpleHoney: spentPurpleHoneySchema.default(() => deepClone(blankSave.spentPurpleHoney)),
 
   purpleReactorUpgrades: z.record(z.string(), z.number()).transform(
     (object) => {
@@ -1179,7 +1178,7 @@ export const playerSchema = z.object({
     }
   ).default(() => ({ ...blankSave.purpleReactorUpgrades })),
 
-  synthesisUpgrades: synthesisUpgradesSchema.default(() => deepClone()(blankSave.synthesisUpgrades)),
+  synthesisUpgrades: synthesisUpgradesSchema.default(() => deepClone(blankSave.synthesisUpgrades)),
   synthesisAutomationUnlocked: z.boolean().default(() => blankSave.synthesisAutomationUnlocked),
   synthesisAutomationEnabled: z.boolean().default(() => blankSave.synthesisAutomationEnabled),
 
@@ -1195,7 +1194,7 @@ export const playerSchema = z.object({
     totalAddCodesUsed: z.number(),
     highestPurpleHoney: z.number().default(0),
     talismanShardsThisAscension: decimalSchema.prefault(() => blankSave.stats.talismanShardsThisAscension)
-  }).default(() => deepClone()(blankSave.stats)),
+  }).default(() => deepClone(blankSave.stats)),
 
   purpleUpdateQuarkRefundAwarded: z.boolean().default(() => false)
 })

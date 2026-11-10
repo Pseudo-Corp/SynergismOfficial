@@ -1099,7 +1099,7 @@ export const singularity = (setSingNumber = -1) => {
   }
 
   player.totalQuarksEver += player.quarksThisSingularity
-  const hold = playerSchema.parse(deepClone()(blankSave))
+  const hold = playerSchema.parse(deepClone(blankSave))
 
   // Reset Displays
   resetAllSubTabs()
@@ -1133,7 +1133,7 @@ export const singularity = (setSingNumber = -1) => {
     hold.cubeUpgrades[i] = player.cubeUpgrades[i]
   }
 
-  hold.ants = deepClone()(player.ants)
+  hold.ants = deepClone(player.ants)
 
   hold.ants.highestRebornELOEver = player.ants.highestRebornELOEver
   for (let ant = AntProducers.Workers; ant <= LAST_ANT_PRODUCER; ant++) {

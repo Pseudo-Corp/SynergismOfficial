@@ -32,7 +32,6 @@
     "i18next": "^26.4.2",
     "lz-string": "^1.4.4",
     "mime-types": "^3.0.2",
-    "rfdc": "^1.4.1",
     "steamworks-ffi-node": "^0.11.3",
     "synergism-websocket": "file:./src/mobile/websocket-plugin",
     "worker-timers": "^7.0.53",

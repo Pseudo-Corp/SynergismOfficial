@@ -188,7 +188,6 @@ import {
 // import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import i18next from 'i18next'
-import rfdc from 'rfdc'
 import {
   blankAmbrosiaUpgradeObject,
   displayProperLoadoutCount,
@@ -1138,16 +1137,31 @@ export const player: Player = {
   purpleUpdateQuarkRefundAwarded: true
 }
 
-export const deepClone = () =>
-  rfdc({
-    proto: false,
-    circles: false,
-    constructorHandlers: [
-      [Decimal, (o: DecimalSource) => new Decimal(o)]
-    ]
-  })
+export function deepClone<T> (value: T) {
+  if (typeof value === 'object' && value !== null) {
+    if (value instanceof Decimal) {
+      return new Decimal(value) as T
+    }
 
-export const blankSave = deepClone()(player)
+    if (Array.isArray(value)) {
+      const arr: unknown[] = []
+      for (const item of value) {
+        arr.push(deepClone(item))
+      }
+      return arr as T
+    }
+
+    const obj: Record<string, unknown> = {}
+    for (const [key, item] of Object.entries(value)) {
+      obj[key] = deepClone(item)
+    }
+    return obj as T
+  }
+
+  return value
+}
+
+export const blankSave = deepClone(player)
 
 export const saveSynergy = (button?: boolean) => {
   if (G.timeWarp) {
