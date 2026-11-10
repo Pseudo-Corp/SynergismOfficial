@@ -114,7 +114,7 @@ const sampleCubeRates = () => {
   lastCubeRateSample = now
   const gains = CalcCorruptionStuff()
   const time = player.ascensionCounter === 0 ? 1 : player.ascensionCounter
-  for (const rule of player.autoAscendRules) {
+  for (const rule of autoAscendRules.list) {
     for (const condition of [...stallConditions(rule.condition), ...stallConditions(rule.exception)]) {
       const key = cubeRateTrackerKey(condition)
       const tracker = cubeRateTrackers.get(key) ?? { rate: 0, at: 0 }
@@ -894,7 +894,7 @@ export const parseRules = (text: string): AutoAscendRule[] => {
   })
 }
 
-export const parseSavedRules = (text: string): AutoAscendRule[] =>
+const parseSavedRules = (text: string): AutoAscendRule[] =>
   text.split('\n').flatMap((line) => {
     try {
       return line === '' ? [] : [parseRule(line)]
@@ -903,7 +903,7 @@ export const parseSavedRules = (text: string): AutoAscendRule[] =>
     }
   }).slice(0, maxAutoAscendRuleSlots)
 
-const defaultAutoAscendRuleText = [
+export const defaultAutoAscendRuleText = [
   '"Challenge 10" c10>=1:asc',
   '#"In-game Seconds" c10>=1&at>=15:asc',
   '#"Real Seconds" c10>=1&rt>=15:asc',
@@ -997,6 +997,44 @@ export const printRule = (rule: AutoAscendRule) => {
 }
 
 export const printRules = (rules: AutoAscendRule[]) => rules.map(printRule).join('\n')
+
+export const autoAscendRules = {
+  list: new Array<AutoAscendRule>(),
+
+  load () {
+    autoAscendRules.set(parseSavedRules(player.autoAscendRules))
+  },
+
+  set (rules: AutoAscendRule[]) {
+    autoAscendRules.list = rules
+    player.autoAscendRules = printRules(autoAscendRules.list)
+  },
+
+  add (rule: AutoAscendRule) {
+    autoAscendRules.list.push(rule)
+    player.autoAscendRules = printRules(autoAscendRules.list)
+  },
+
+  replace (index: number, rule: AutoAscendRule) {
+    autoAscendRules.list[index] = rule
+    player.autoAscendRules = printRules(autoAscendRules.list)
+  },
+
+  move (index: number, target: number) {
+    autoAscendRules.list.splice(target, 0, ...autoAscendRules.list.splice(index, 1))
+    player.autoAscendRules = printRules(autoAscendRules.list)
+  },
+
+  toggle (index: number) {
+    autoAscendRules.list[index].disabled = !autoAscendRules.list[index].disabled
+    player.autoAscendRules = printRules(autoAscendRules.list)
+  },
+
+  remove (index: number) {
+    autoAscendRules.list.splice(index, 1)
+    player.autoAscendRules = printRules(autoAscendRules.list)
+  }
+}
 
 let pendingCorruptionProtocol: CorruptionProtocol | null = null
 
@@ -1154,11 +1192,11 @@ const applyProtocolModifiers = (modifiers: ProtocolModifiers) => {
 
 export const runAutoAscendRules = () => {
   sampleCubeRates()
-  const index = player.autoAscendRules.findIndex(isRuleActive)
+  const index = autoAscendRules.list.findIndex(isRuleActive)
   if (index === -1) {
     return index
   }
-  const firedRule = player.autoAscendRules[index]
+  const firedRule = autoAscendRules.list[index]
   runAutoAscendProtocol(firedRule.protocol)
   applyLoadoutWrites(firedRule.loadouts)
   applyProtocolModifiers(firedRule.modifiers)

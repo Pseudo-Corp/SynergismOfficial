@@ -1,7 +1,7 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
 import * as z from 'zod'
 import type { ZodType } from 'zod'
-import { corruptionLoadoutCount, defaultAutoAscendRules, parseSavedRules } from '../AutoAscension'
+import { corruptionLoadoutCount } from '../AutoAscension'
 import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { getTesseractBuildingsCumulativeCost } from '../Buy'
 import { transcensionChallengeCap } from '../Challenges'
@@ -964,7 +964,7 @@ export const playerSchema = z.object({
 
   ascendShards: decimalSchema.default(() => deepClone()(blankSave.ascendShards)),
   autoAscend: z.boolean().default(() => blankSave.autoAscend),
-  autoAscendRules: z.string().transform((text) => parseSavedRules(text)).default(() => defaultAutoAscendRules())
+  autoAscendRules: z.string().default(() => blankSave.autoAscendRules)
     .catch(() => []),
   autoOpenCubes: z.boolean().default(() => blankSave.autoOpenCubes),
   openCubes: z.number().default(() => blankSave.openCubes),

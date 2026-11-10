@@ -8,7 +8,7 @@ import {
   getAchievementReward,
   UngroupedAchievement
 } from './Achievements'
-import { applyPendingAutoAscendProtocol, printRules, resetCubeRateTracking } from './AutoAscension'
+import { applyPendingAutoAscendProtocol, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
 import { lastBlueberryLoadout, setLastBlueberryLoadout } from './BlueberryUpgrades'
 import {
@@ -70,7 +70,7 @@ import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResear
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, runes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
-import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { playerSchema } from './saves/PlayerSchema'
 import { getShopUpgradeEffects } from './Shop'
 import {
   calculateMaxSingularityLookahead,
@@ -1099,7 +1099,7 @@ export const singularity = (setSingNumber = -1) => {
   }
 
   player.totalQuarksEver += player.quarksThisSingularity
-  const hold = playerJsonSchema.parse(deepClone()(blankSave))
+  const hold = playerSchema.parse(deepClone()(blankSave))
 
   // Reset Displays
   resetAllSubTabs()
@@ -1155,7 +1155,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString
-  hold.autoAscendRules = printRules(player.autoAscendRules)
+  hold.autoAscendRules = player.autoAscendRules
   hold.corruptions.autoIncrease = player.corruptions.autoIncrease
   hold.corruptions.highestCleared = player.corruptions.highestCleared
   hold.corruptions.cleanseToHighest = player.corruptions.cleanseToHighest

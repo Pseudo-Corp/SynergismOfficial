@@ -1,6 +1,5 @@
 import type Decimal from 'break_infinity.js'
 import type { ProgressiveAchievements } from '../Achievements'
-import type { AutoAscendRule } from '../AutoAscension'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
@@ -384,7 +383,7 @@ export interface Player {
   }
   ascendShards: Decimal
   autoAscend: boolean
-  autoAscendRules: AutoAscendRule[]
+  autoAscendRules: string
   roombaResearchIndex: number
   ascStatToggles: Record<number, boolean>
 

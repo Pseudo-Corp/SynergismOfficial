@@ -21,7 +21,7 @@ import { Seed, seededBetween, seededRandom } from './RNG'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetRunes } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
-import { playerJsonSchema } from './saves/PlayerJsonSchema'
+import { playerSchema } from './saves/PlayerSchema'
 import { flushSaveStorage, getStoredSave, queueSave } from './saves/SaveStorage'
 import { getShopUpgradeEffects } from './Shop'
 import {
@@ -341,7 +341,7 @@ export const resetGame = async (force = true) => {
     console.error('Failed to reset state before deleting save', error)
   }
 
-  const hold = playerJsonSchema.safeParse(deepClone()(blankSave))
+  const hold = playerSchema.safeParse(deepClone()(blankSave))
 
   // Import Game
   importSynergism(btoa(JSON.stringify(hold.data)), true)

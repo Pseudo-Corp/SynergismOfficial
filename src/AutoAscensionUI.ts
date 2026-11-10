@@ -6,6 +6,7 @@ import {
   type AutoAscendExpr,
   type AutoAscendProtocol,
   type AutoAscendRule,
+  autoAscendRules,
   type AutoAscendRuleStatus,
   autoAscendRuleStatus,
   type BooleanRuleKey,
@@ -43,7 +44,6 @@ import {
   parseRule,
   parseRules,
   printRule,
-  printRules,
   type ProtocolModifierKey,
   protocolModifierKeys,
   type ProtocolModifiers,
@@ -1029,11 +1029,11 @@ const applyRuleText = (text: string) => {
 }
 
 const openEditor = (index: number | null) => {
-  draft = draftFromRule(index, index === null ? undefined : player.autoAscendRules[index])
+  draft = draftFromRule(index, index === null ? undefined : autoAscendRules.list[index])
   const nameInput = DOMCacheGetOrSet('autoAscendRuleName') as HTMLInputElement
   nameInput.value = draft.name
   nameInput.placeholder = i18next.t(`${uiKey}.namePlaceholder`, {
-    number: (index ?? player.autoAscendRules.length) + 1
+    number: (index ?? autoAscendRules.list.length) + 1
   })
   renderEditor()
   const dialog = DOMCacheGetOrSet('autoAscendRuleEditor')
@@ -1074,15 +1074,15 @@ const saveDraft = () => {
   }
 
   if (draft.index === null) {
-    if (player.autoAscendRules.length >= getAutoAscendRuleSlots()) {
+    if (autoAscendRules.list.length >= getAutoAscendRuleSlots()) {
       return showEditorError('noSlots')
     }
-    player.autoAscendRules.push(rule)
+    autoAscendRules.add(rule)
   } else {
-    if (lastFiredRule === player.autoAscendRules[draft.index]) {
+    if (lastFiredRule === autoAscendRules.list[draft.index]) {
       lastFiredRule = rule
     }
-    player.autoAscendRules[draft.index] = rule
+    autoAscendRules.replace(draft.index, rule)
   }
 
   closeEditor()
@@ -1091,21 +1091,21 @@ const saveDraft = () => {
 
 const moveRule = (index: number, delta: number) => {
   const target = index + delta
-  if (target < 0 || target >= player.autoAscendRules.length) {
+  if (target < 0 || target >= autoAscendRules.list.length) {
     return
   }
-  player.autoAscendRules.splice(target, 0, ...player.autoAscendRules.splice(index, 1))
+  autoAscendRules.move(index, target)
   renderAutoAscendRules()
 }
 
 const toggleRule = (index: number) => {
-  player.autoAscendRules[index].disabled = !player.autoAscendRules[index].disabled
+  autoAscendRules.toggle(index)
   CloseModal()
   renderAutoAscendRules()
 }
 
 const deleteRule = (index: number) => {
-  player.autoAscendRules.splice(index, 1)
+  autoAscendRules.remove(index)
   renderAutoAscendRules()
 }
 
@@ -1115,7 +1115,7 @@ const ruleDisplayName = (rule: AutoAscendRule, index: number) =>
 type RuleListStatus = AutoAscendRuleStatus | 'behind'
 
 const ruleListStatuses = () => {
-  const statuses = player.autoAscendRules.map(autoAscendRuleStatus)
+  const statuses = autoAscendRules.list.map(autoAscendRuleStatus)
   const first = statuses.indexOf('ready')
   return {
     first,
@@ -1232,17 +1232,17 @@ const renderRuleItem = (rule: AutoAscendRule, index: number, total: number) => {
 }
 
 export const setLastFiredAutoAscendRule = (index: number) => {
-  lastFiredRule = player.autoAscendRules[index]
+  lastFiredRule = autoAscendRules.list[index]
 }
 
 export const updateAutoAscendStatus = () => {
   DOMCacheGetOrSet('autoAscendRequiresC10').hidden = player.unlocks.ascensions
   const lastFiredElement = DOMCacheGetOrSet('autoAscendLastFired')
-  const lastFiredIndex = lastFiredRule === null ? -1 : player.autoAscendRules.indexOf(lastFiredRule)
+  const lastFiredIndex = lastFiredRule === null ? -1 : autoAscendRules.list.indexOf(lastFiredRule)
   lastFiredElement.textContent = lastFiredIndex === -1
     ? i18next.t(`${uiKey}.lastFiredNone`)
-    : ruleDisplayName(player.autoAscendRules[lastFiredIndex], lastFiredIndex)
-  lastFiredElement.title = lastFiredIndex === -1 ? '' : describeRule(player.autoAscendRules[lastFiredIndex])
+    : ruleDisplayName(autoAscendRules.list[lastFiredIndex], lastFiredIndex)
+  lastFiredElement.title = lastFiredIndex === -1 ? '' : describeRule(autoAscendRules.list[lastFiredIndex])
   updateRuleStatuses()
   updateCorruptionLoadouts()
 }
@@ -1298,7 +1298,7 @@ const createLoadoutRow = (slot: number) => {
 }
 
 export const renderAutoAscendRules = () => {
-  const rules = player.autoAscendRules
+  const rules = autoAscendRules.list
   const slots = getAutoAscendRuleSlots()
 
   DOMCacheGetOrSet('autoAscendRulesHeading').textContent = i18next.t(`${uiKey}.heading`, {
@@ -1454,14 +1454,14 @@ const importRulePalette = async (text: string) => {
 
   const slots = getAutoAscendRuleSlots()
   const imported = rules.slice(0, slots)
-  if (player.autoAscendRules.length > 0) {
+  if (autoAscendRules.list.length > 0) {
     const confirmed = await Confirm(i18next.t(`${uiKey}.palette.confirm`, { count: imported.length }))
     if (!confirmed) {
       return
     }
   }
 
-  player.autoAscendRules = [...imported, ...player.autoAscendRules.slice(imported.length)].slice(0, slots)
+  autoAscendRules.set([...imported, ...autoAscendRules.list.slice(imported.length)].slice(0, slots))
   renderAutoAscendRules()
   await Alert(i18next.t(rules.length > slots ? `${uiKey}.palette.importedAbridged` : `${uiKey}.palette.imported`, {
     count: imported.length,
@@ -1491,22 +1491,22 @@ const importRulePaletteFromFile = async (input: HTMLInputElement) => {
 }
 
 const resetRulePalette = async () => {
-  if (player.autoAscendRules.length > 0) {
+  if (autoAscendRules.list.length > 0) {
     const confirmed = await Confirm(i18next.t(`${uiKey}.palette.resetConfirm`))
     if (!confirmed) {
       return
     }
   }
-  player.autoAscendRules = defaultAutoAscendRules()
+  autoAscendRules.set(defaultAutoAscendRules())
   renderAutoAscendRules()
   void Notification(i18next.t(`${uiKey}.palette.resetDone`), 5000)
 }
 
 const exportRulePalette = async (toFile: boolean) => {
-  if (player.autoAscendRules.length === 0) {
+  if (autoAscendRules.list.length === 0) {
     return Alert(i18next.t(`${uiKey}.palette.nothingToExport`))
   }
-  const text = printRules(player.autoAscendRules)
+  const text = player.autoAscendRules
   try {
     if (toFile) {
       await saveTextFile(text, paletteFileName)

@@ -45,8 +45,9 @@ import {
   updateProgressiveCache
 } from './Achievements'
 import {
+  autoAscendRules,
   corruptionLoadoutCount,
-  defaultAutoAscendRules,
+  defaultAutoAscendRuleText,
   isAutoAscendRunning,
   isCorruptionLoadoutUnlocked,
   resetCubeRateTracking,
@@ -244,7 +245,6 @@ import {
   type RuneSpiritKeys,
   updateAllSpiritLevelsFromEXP
 } from './RuneSpirits'
-import { playerJsonSchema } from './saves/PlayerJsonSchema'
 import { playerSchema } from './saves/PlayerSchema'
 import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, queueSave } from './saves/SaveStorage'
@@ -942,7 +942,7 @@ export const player: Player = {
 
   ascendShards: new Decimal(),
   autoAscend: false,
-  autoAscendRules: defaultAutoAscendRules(),
+  autoAscendRules: defaultAutoAscendRuleText,
   autoOpenCubes: false,
   openCubes: 0,
   autoOpenTesseracts: false,
@@ -1163,7 +1163,7 @@ export const saveSynergy = (button?: boolean) => {
     })
   ) as Record<TalismanKeys, Record<TalismanCraftItems, Decimal>>
 
-  const p = playerJsonSchema.parse(player)
+  const p = playerSchema.parse(player)
   const save = btoa(JSON.stringify(p))
   if (save === null || !queueSave(save)) {
     void Alert(i18next.t('testing.errorSaving'))
@@ -4384,6 +4384,8 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
       return
     }
   }
+
+  autoAscendRules.load()
 
   renderHeaderLayout()
   updateAllRuneLevelsFromEXP()
