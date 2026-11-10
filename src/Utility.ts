@@ -4,14 +4,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { bus, SynEvent } from './events/bus'
 import { format } from './Synergism'
 
-export const isDecimal = (o: unknown): o is Decimal =>
-  o instanceof Decimal
-  || (typeof o === 'object'
-    && o !== null
-    && Object.keys(o).length === 2
-    && 'mantissa' in o
-    && 'exponent' in o)
-
 /**
  * This function calculates the smallest integer increment/decrement that can be applied to a number that is
  * guaranteed to affect the numbers value
