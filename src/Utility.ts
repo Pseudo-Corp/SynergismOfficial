@@ -51,34 +51,6 @@ export const sumContents = (array: number[]): number => {
   return total
 }
 
-/**
- * Returns the product of all contents in an array
- * @param array {number[]}
- */
-export const productContents = (array: number[]) => {
-  switch (array.length) {
-    case 0:
-      return 0
-    case 1:
-      return array[0]
-    case 2:
-      return array[0] * array[1]
-    case 3:
-      return array[0] * array[1] * array[2]
-    case 4:
-      return array[0] * array[1] * array[2] * array[3]
-    case 5:
-      return array[0] * array[1] * array[2] * array[3] * array[4]
-  }
-
-  let total = 1
-  for (let i = 0; i < array.length; i++) {
-    total *= array[i]
-  }
-
-  return total
-}
-
 export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
   return Array
     .from(toSort.keys())

@@ -183,7 +183,6 @@ import {
   getConstUpgradeMetadata,
   upgradeupdate
 } from './Upgrades'
-// import { LegacyShopUpgrades } from './types/LegacySynergism';
 
 import i18next from 'i18next'
 import {

@@ -434,7 +434,6 @@ export interface Player {
   version: string
 
   rngCode: number
-  skillCode?: number
   promoCodeTiming: {
     time: number
   }
@@ -619,8 +618,6 @@ export interface GlobalVariables {
   coinVanityThresholds: number[]
 
   dOne: Decimal
-  d3: Decimal
-  d3_14: Decimal
   d0_5: Decimal
   d0_001: Decimal
   d0_0001: Decimal
@@ -628,10 +625,7 @@ export interface GlobalVariables {
   d500: Decimal
   d10000: Decimal
   d100000: Decimal
-  d1e5: Decimal
-  d1e6: Decimal
   d4e6: Decimal
-  d666666666: Decimal
   d4_32e10: Decimal
   d1e11: Decimal
   d1e12: Decimal
@@ -678,7 +672,6 @@ export interface GlobalVariables {
   d1e10000000000: Decimal
   d1e100000000000: Decimal
   d1e2500000000000: Decimal
-  d1e10000000000000: Decimal
 
   MIND_DIVISOR: number
   GLOBAL_RESET_THRESHOLD: number
@@ -706,9 +699,3 @@ export type BuildingSubtab =
 export type ZeroToFour = 0 | 1 | 2 | 3 | 4
 
 export type OneToFive = 1 | 2 | 3 | 4 | 5
-
-export type ZeroToSeven = ZeroToFour | 5 | 6 | 7
-
-export type FirstToFifth = GlobalVariables['ordinals'][ZeroToFour]
-
-export type FirstToEighth = GlobalVariables['ordinals'][ZeroToSeven]

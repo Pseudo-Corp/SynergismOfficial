@@ -92,8 +92,6 @@ export const createBlankSynthesisUpgradeObject = (): SynthesisUpgrades => ({
   }
 })
 
-export const blankSynthesisUpgradeObject = createBlankSynthesisUpgradeObject()
-
 const synthesisUpgradeData: SynthesisUpgradeDefinitions = {
   redAmbrosiaReduction: {
     maxLevel: 500,

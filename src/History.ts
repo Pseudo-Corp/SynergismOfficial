@@ -76,7 +76,6 @@ export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
   realSeconds?: number
   c10Completions: number
   usedCorruptions: LegacyCorruptions | number[] | LegacyCorruptionTierState | number
-  corruptionScore?: number
   wowCubes: number
   wowTesseracts: number
   wowHypercubes: number

@@ -1939,30 +1939,6 @@ export const ambrosiaUpgradeToString = (upgradeKey: AmbrosiaUpgradeNames): strin
   return `${nameHTML}<br>${levelHTML}<br>${preReqHTML}${descriptionHTML}<br>${effectsHTML}<br>${costNextLevelHTML}<br>${blueberryCostHTML}<br>${spentAmbrosiaHTML}${ignoreEXALTHTML}${purpleAmbrosiaEnchantmentHTML}`
 }
 
-export const updateMobileAmbrosiaHTML = (k: AmbrosiaUpgradeNames) => {
-  const elm = DOMCacheGetOrSet('singularityAmbrosiaMultiline')
-  elm.innerHTML = ambrosiaUpgradeToString(k)
-  // MOBILE ONLY - Add a button for buying upgrades
-  if (isMobile) {
-    const buttonDiv = document.createElement('div')
-
-    const buyOne = document.createElement('button')
-    const buyMax = document.createElement('button')
-
-    buyOne.classList.add('modalBtnBuy')
-    buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.dataset.modalAction = 'one'
-
-    buyMax.classList.add('modalBtnBuy')
-    buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.dataset.modalAction = 'max'
-
-    buttonDiv.appendChild(buyOne)
-    buttonDiv.appendChild(buyMax)
-    elm.appendChild(buttonDiv)
-  }
-}
-
 export const buyAmbrosiaUpgradeLevel = async (
   upgradeKey: AmbrosiaUpgradeNames,
   event: MouseEvent,

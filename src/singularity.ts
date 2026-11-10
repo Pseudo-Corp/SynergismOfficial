@@ -34,7 +34,7 @@ import {
   PurchasePrompt,
   revealStuff
 } from './UpdateHTML'
-import { isMobile, sumContents, toOrdinal } from './Utility'
+import { sumContents, toOrdinal } from './Utility'
 
 const funny32BitNumber = 2 ** 31 - 1
 
@@ -2776,31 +2776,6 @@ export function upgradeGQToString (upgradeKey: SingularityDataKeys): string {
     : ''
 
   return `${nameHTML}<br>${levelText}${overclockHTML}${effectiveLevelText}<br>${descriptionHTML}<br>${minSingularityHTML}<br>${upgradeEffectHTML}<br>${costHTML}${investedGQHTML}${qualityOfLifeText}${maxLevelAPHTML}${freeLevelAPHTML}`
-}
-
-export function updateMobileGQHTML (k: SingularityDataKeys) {
-  const elm = DOMCacheGetOrSet('goldenQuarkMultiline')
-  elm.innerHTML = upgradeGQToString(k)
-
-  // MOBILE ONLY - Add a button for buying upgrades
-  if (isMobile) {
-    const buttonDiv = document.createElement('div')
-
-    const buyOne = document.createElement('button')
-    const buyMax = document.createElement('button')
-
-    buyOne.classList.add('modalBtnBuy')
-    buyOne.textContent = i18next.t('general.buyOne')
-    buyOne.dataset.modalAction = 'one'
-
-    buyMax.classList.add('modalBtnBuy')
-    buyMax.textContent = i18next.t('general.buyMax')
-    buyMax.dataset.modalAction = 'max'
-
-    buttonDiv.appendChild(buyOne)
-    buttonDiv.appendChild(buyMax)
-    elm.appendChild(buttonDiv)
-  }
 }
 
 export const getGQUpgradeCumulativeCost = (upgradeKey: SingularityDataKeys, level: number): number => {
