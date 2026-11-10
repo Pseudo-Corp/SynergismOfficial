@@ -3,7 +3,6 @@ import type { ProgressiveAchievements } from '../Achievements'
 import type { AutoAscendRule } from '../AutoAscension'
 import type { AmbrosiaUpgradeNames, BlueberryLoadoutMode, BlueberryOpt } from '../BlueberryUpgrades'
 import type { Challenge15RewardObject, Challenge15Rewards } from '../Challenges'
-import type { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import type { PlayerAnts } from '../Features/Ants/structs/structs'
 import type {
   HeaderModuleId,
@@ -330,10 +329,10 @@ export interface Player {
   autoPlatonicUpgradesToggle: boolean
   platonicUpgrades: number[]
   maxPlatToggle: boolean
-  wowCubes: WowCubes
-  wowTesseracts: WowTesseracts
-  wowHypercubes: WowHypercubes
-  wowPlatonicCubes: WowPlatonicCubes
+  wowCubes: number
+  wowTesseracts: number
+  wowHypercubes: number
+  wowPlatonicCubes: number
   wowAbyssals: number
   wowOcteracts: number
   totalWowOcteracts: number

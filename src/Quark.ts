@@ -82,7 +82,7 @@ export const setGlobalQuarkBonus = (globalBonus: number) => {
   updateQuarkUI(personalQuarkBonus, globalBonus)
 }
 
-export class QuarkHandler {
+class QuarkHandler {
   /*** Calculates the number of quarks to give with the current bonus. */
   applyBonus (amount: number) {
     return amount * calculateQuarkMultiplier()

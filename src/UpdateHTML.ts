@@ -897,7 +897,7 @@ export const buttoncolorchange = () => {
 
   if (G.currentTab === Tabs.Buildings && G.buildingSubTab === 'tesseract') {
     for (let i = 1; i <= 5; i++) {
-      if (Number(player.wowTesseracts) >= getTesseractBuildingCost(i as OneToFive)) {
+      if (player.wowTesseracts >= getTesseractBuildingCost(i as OneToFive)) {
         DOMCacheGetOrSet(`buyTesseracts${i}`).classList.add('buildingPurchaseBtnAvailable')
       } else {
         DOMCacheGetOrSet(`buyTesseracts${i}`).classList.remove('buildingPurchaseBtnAvailable')

@@ -42,7 +42,7 @@ import {
   corruptionStatsUpdate,
   normalizeCorruptionLevel
 } from './Corruptions'
-import { WowCubes } from './CubeExperimental'
+import { cubes } from './CubeExperimental'
 import {
   autoBuyCubeUpgrades,
   awardCubeResearchCookieUpgrade,
@@ -679,10 +679,10 @@ export const reset = (
     // Only reward Ascension-level rewards if we have a Challenge 10 completion (the requirement for Ascension)
     if (player.challengecompletions[10] > 0) {
       player.ascensionCount += ascensionCountToBeGained
-      player.wowCubes.add(ascensionRewards.wowCubes)
-      player.wowTesseracts.add(ascensionRewards.wowTesseracts)
-      player.wowHypercubes.add(ascensionRewards.wowHypercubes)
-      player.wowPlatonicCubes.add(ascensionRewards.wowPlatonicCubes)
+      cubes.wowCubes.add(ascensionRewards.wowCubes)
+      cubes.wowTesseracts.add(ascensionRewards.wowTesseracts)
+      cubes.wowHypercubes.add(ascensionRewards.wowHypercubes)
+      cubes.wowPlatonicCubes.add(ascensionRewards.wowPlatonicCubes)
       player.wowAbyssals = Math.min(1e300, player.wowAbyssals + ascensionRewards.wowHepteracts)
     }
 
@@ -820,7 +820,7 @@ export const reset = (
         }
       }
       const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
-      const budget = Number(player.wowTesseracts) * percentageToSpend / 100
+      const budget = player.wowTesseracts * percentageToSpend / 100
       const buyToBuildings = calculateTessBuildingsInBudget(ownedBuildings, budget)
       // Prioritise buying buildings from highest tier to lowest,
       // in case there are any off-by-ones or floating point errors.
@@ -842,19 +842,19 @@ export const reset = (
     // Auto open Cubes. If to remove !== 0, game will lag a bit if it was set to 0
     if (player.highestSingularityCount >= 10) {
       if (player.autoOpenCubes && player.openCubes !== 0) {
-        player.wowCubes.open(Math.floor(Number(player.wowCubes) * player.openCubes / 100), false)
+        cubes.wowCubes.open(Math.floor(player.wowCubes * player.openCubes / 100), false)
       }
       if (player.autoOpenTesseracts && player.openTesseracts !== 0 && player.challengecompletions[11] > 0) {
         if (!player.tesseractAutoBuyerToggle || player.resetToggleModes.ascension === AutoAscensionModes.percentage) {
-          player.wowTesseracts.open(Math.floor(Number(player.wowTesseracts) * player.openTesseracts / 100), false)
+          cubes.wowTesseracts.open(Math.floor(player.wowTesseracts * player.openTesseracts / 100), false)
         }
       }
       if (player.autoOpenHypercubes && player.openHypercubes !== 0 && player.challengecompletions[13] > 0) {
-        player.wowHypercubes.open(Math.floor(Number(player.wowHypercubes) * player.openHypercubes / 100), false)
+        cubes.wowHypercubes.open(Math.floor(player.wowHypercubes * player.openHypercubes / 100), false)
       }
       if (player.autoOpenPlatonicsCubes && player.openPlatonicsCubes !== 0 && player.challengecompletions[14] > 0) {
-        player.wowPlatonicCubes.open(
-          Math.floor(Number(player.wowPlatonicCubes) * player.openPlatonicsCubes / 100),
+        cubes.wowPlatonicCubes.open(
+          Math.floor(player.wowPlatonicCubes * player.openPlatonicsCubes / 100),
           false
         )
       }
@@ -906,10 +906,9 @@ export const reset = (
 
     player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    player.wowCubes = new WowCubes(0)
-    player.wowTesseracts = new WowCubes(0)
-    player.wowHypercubes = new WowCubes(0)
-    player.wowTesseracts = new WowCubes(0)
+    cubes.wowCubes.set(0)
+    cubes.wowTesseracts.set(0)
+    cubes.wowHypercubes.set(0)
     player.wowAbyssals = 0
 
     for (let index = 1; index <= 50; index++) {

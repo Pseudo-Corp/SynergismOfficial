@@ -131,15 +131,15 @@ export const generateExportSummary = async (): Promise<void> => {
     const platonicSum = format(sumContents(platonicArray), 0, true)
 
     resources = resources + subCategoryDivisor
-    resources = `${resources}Wow! Cubes: ${format(Number(player.wowCubes), 0, true)} -+- Total Tributes: ${cubeSum}\n`
+    resources = `${resources}Wow! Cubes: ${format(player.wowCubes, 0, true)} -+- Total Tributes: ${cubeSum}\n`
     resources = `${resources}Wow! Tesseracts: ${
-      format(Number(player.wowTesseracts), 0, true)
+      format(player.wowTesseracts, 0, true)
     } -+- Total Gifts: ${tesseractSum}\n`
     resources = `${resources}Wow! Hypercubes: ${
-      format(Number(player.wowHypercubes), 0, true)
+      format(player.wowHypercubes, 0, true)
     } -+- Total Benedictions: ${hypercubeSum}\n`
     resources = `${resources}Wow! Platonic Cubes: ${
-      format(Number(player.wowPlatonicCubes), 0, true)
+      format(player.wowPlatonicCubes, 0, true)
     } -+- Total Plats Opened: ${platonicSum}\n`
     resources = `${resources}Wow! Hepteracts: ${format(player.wowAbyssals, 0, true)}\n`
     if (getGQUpgradeEffect('octeractUnlock', 'unlocked')) {

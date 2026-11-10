@@ -1,11 +1,3 @@
-/* Note by Platonic, April 1 2021
-This is an experimental file for making cubes their own class
-and make them easily re-used for later purposes.
-Please do not change the *file name* or use anything developed in this
-file without asking me first. You may edit this file as much as you
-want, though!
-Thank you! */
-
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
 import { quarkHandler, worlds } from './Quark'
@@ -14,8 +6,6 @@ import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
 import { sumContents } from './Utility'
-
-/* Constants */
 
 const blessings: Record<
   keyof Player['cubeBlessings'],
@@ -69,17 +59,12 @@ const platonicCommonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'] a
  *
  * new PlatCubes().openCustom();
  */
-export abstract class Cube {
+abstract class Cube {
   /** key on the player object */
-  private key: keyof Player
-  private value: number
+  private key: 'wowCubes' | 'wowTesseracts' | 'wowHypercubes' | 'wowPlatonicCubes'
 
-  constructor (
-    type: keyof Player,
-    v = 0
-  ) {
+  constructor (type: 'wowCubes' | 'wowTesseracts' | 'wowHypercubes' | 'wowPlatonicCubes') {
     this.key = type
-    this.value = v
   }
 
   /**
@@ -92,9 +77,7 @@ export abstract class Cube {
 
   /** Open a custom amount of cubes */
   async openCustom () {
-    // TODO: Replace this with `this`?
-    const thisInPlayer = player[this.key] as Cube
-    const amount = await Prompt(i18next.t('cubes.howManyCubesOpen', { x: format(thisInPlayer.valueOf(), 0, true) }))
+    const amount = await Prompt(i18next.t('cubes.howManyCubesOpen', { x: format(player[this.key], 0, true) }))
 
     if (amount === null) {
       return Alert(i18next.t('cubes.noCubesOpened'))
@@ -102,12 +85,12 @@ export abstract class Cube {
 
     const isPercentage = amount.endsWith('%')
     const cubesToOpen = amount.startsWith('-')
-      ? (isPercentage ? 100 + Number(amount.slice(0, -1)) : thisInPlayer.value + Number(amount))
+      ? (isPercentage ? 100 + Number(amount.slice(0, -1)) : player[this.key] + Number(amount))
       : (isPercentage ? Number(amount.slice(0, -1)) : Number(amount))
 
     if (Number.isNaN(cubesToOpen) || !Number.isFinite(cubesToOpen) || !Number.isInteger(cubesToOpen)) {
       return Alert(i18next.t('general.validation.finiteInt'))
-    } else if (thisInPlayer.value < cubesToOpen) {
+    } else if (player[this.key] < cubesToOpen) {
       return Alert(i18next.t('cubes.validation.notEnough'))
     } else if (cubesToOpen <= 0) {
       return Alert(i18next.t('cubes.validation.negative'))
@@ -117,13 +100,13 @@ export abstract class Cube {
 
     if (isPercentage) {
       return this.open(
-        Math.floor(thisInPlayer.value * (cubesToOpen / 100)),
+        Math.floor(player[this.key] * (cubesToOpen / 100)),
         cubesToOpen === 100,
         false
       )
     }
 
-    return this.open(cubesToOpen, cubesToOpen === thisInPlayer.value, false)
+    return this.open(cubesToOpen, cubesToOpen === player[this.key], false)
   }
 
   /** @description Check how many quarks you should have gained through opening cubes today */
@@ -148,38 +131,27 @@ export abstract class Cube {
   }
 
   add (amount: number): this {
-    this.value = Math.min(1e300, this.value + amount)
+    player[this.key] = Math.min(1e300, player[this.key] + amount)
     return this
   }
 
   sub (amount: number): this {
-    this.value = Math.max(0, this.value - amount)
+    player[this.key] = Math.max(0, player[this.key] - amount)
     return this
   }
 
-  valueOf () {
-    return this.value
-  }
-
-  [Symbol.toPrimitive] (h: string) {
-    switch (h) {
-      case 'string':
-        return this.value.toString()
-      case 'number':
-        return this.value
-      default:
-        return null
-    }
+  set (value: number) {
+    player[this.key] = value
   }
 }
 
-export class WowCubes extends Cube {
-  constructor (amount = Number(player.wowCubes)) {
-    super('wowCubes', amount)
+class WowCubes extends Cube {
+  constructor () {
+    super('wowCubes')
   }
 
   open (value: number, max = false, free = false) {
-    let toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
+    let toSpend = max ? player.wowCubes : (free ? value : Math.min(player.wowCubes, value))
 
     if (value === 1 && player.cubeBlessings.accelerator >= 2e11) {
       awardUngroupedAchievement(UngroupedAchievement.OneCubeOfMany)
@@ -250,16 +222,16 @@ export class WowCubes extends Cube {
   }
 }
 
-export class WowTesseracts extends Cube {
-  constructor (amount = Number(player.wowTesseracts)) {
-    super('wowTesseracts', amount)
+class WowTesseracts extends Cube {
+  constructor () {
+    super('wowTesseracts')
   }
 
   open (value: number, max = false, free = false) {
-    const toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
+    const toSpend = max ? player.wowTesseracts : (free ? value : Math.min(player.wowTesseracts, value))
 
     if (!free) {
-      player.wowTesseracts.sub(toSpend)
+      this.sub(toSpend)
     }
     player.tesseractOpenedDaily += toSpend
 
@@ -286,20 +258,20 @@ export class WowTesseracts extends Cube {
       }
     }
     const extraCubeBlessings = Math.floor(12 * toSpend * player.researches[153])
-    player.wowCubes.open(extraCubeBlessings, false, true)
+    cubes.wowCubes.open(extraCubeBlessings, false, true)
   }
 }
 
-export class WowHypercubes extends Cube {
-  constructor (amount = Number(player.wowHypercubes)) {
-    super('wowHypercubes', amount)
+class WowHypercubes extends Cube {
+  constructor () {
+    super('wowHypercubes')
   }
 
   open (value: number, max = false, free = false) {
-    const toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
+    const toSpend = max ? player.wowHypercubes : (free ? value : Math.min(player.wowHypercubes, value))
 
     if (!free) {
-      player.wowHypercubes.sub(toSpend)
+      this.sub(toSpend)
     }
     player.hypercubeOpenedDaily += toSpend
 
@@ -326,7 +298,7 @@ export class WowHypercubes extends Cube {
       }
     }
     const extraTesseractBlessings = Math.floor(100 * toSpend * player.researches[183])
-    player.wowTesseracts.open(extraTesseractBlessings, false, true)
+    cubes.wowTesseracts.open(extraTesseractBlessings, false, true)
   }
 }
 
@@ -339,15 +311,15 @@ const individualPlatonicBlessingMultiplier = (key: keyof Player['platonicBlessin
 }
 
 export class WowPlatonicCubes extends Cube {
-  constructor (amount = Number(player.wowPlatonicCubes)) {
-    super('wowPlatonicCubes', amount)
+  constructor () {
+    super('wowPlatonicCubes')
   }
 
   open (value: number, max = false, free = false) {
-    const toSpend = max ? Number(this) : (free ? value : Math.min(Number(this), value))
+    const toSpend = max ? player.wowPlatonicCubes : (free ? value : Math.min(player.wowPlatonicCubes, value))
 
     if (!free) {
-      player.wowPlatonicCubes.sub(toSpend)
+      this.sub(toSpend)
     }
     player.platonicCubeOpenedDaily += toSpend
 
@@ -401,7 +373,14 @@ export class WowPlatonicCubes extends Cube {
       const extraHypercubes = Math.floor(
         toSpend * hyperCubesPerPlatonic
       )
-      player.wowHypercubes.open(extraHypercubes, false, true)
+      cubes.wowHypercubes.open(extraHypercubes, false, true)
     }
   }
+}
+
+export const cubes = {
+  wowCubes: new WowCubes(),
+  wowTesseracts: new WowTesseracts(),
+  wowHypercubes: new WowHypercubes(),
+  wowPlatonicCubes: new WowPlatonicCubes()
 }

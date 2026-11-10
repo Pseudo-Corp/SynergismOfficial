@@ -332,10 +332,10 @@ export const ambrosiaUpgrades: {
       const baseVal = 0.0001 * n
       const quarks = 1
         + baseVal
-          * (Math.floor(Math.log10(Number(player.wowCubes) + 1))
-            + Math.floor(Math.log10(Number(player.wowTesseracts) + 1))
-            + Math.floor(Math.log10(Number(player.wowHypercubes) + 1))
-            + Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1))
+          * (Math.floor(Math.log10(player.wowCubes + 1))
+            + Math.floor(Math.log10(player.wowTesseracts + 1))
+            + Math.floor(Math.log10(player.wowHypercubes + 1))
+            + Math.floor(Math.log10(player.wowPlatonicCubes + 1))
             + Math.floor(Math.log10(player.wowAbyssals + 1))
             + Math.floor(Math.log10(player.wowOcteracts + 1))
             + 6)
@@ -417,10 +417,10 @@ export const ambrosiaUpgrades: {
         return baseVal * (Math.floor(Math.log10(player.wowOcteracts + 1)) + 1)
       }
       return baseVal
-        * (Math.floor(Math.log10(Number(player.wowCubes) + 1))
-          + Math.floor(Math.log10(Number(player.wowTesseracts) + 1))
-          + Math.floor(Math.log10(Number(player.wowHypercubes) + 1))
-          + Math.floor(Math.log10(Number(player.wowPlatonicCubes) + 1))
+        * (Math.floor(Math.log10(player.wowCubes + 1))
+          + Math.floor(Math.log10(player.wowTesseracts + 1))
+          + Math.floor(Math.log10(player.wowHypercubes + 1))
+          + Math.floor(Math.log10(player.wowPlatonicCubes + 1))
           + Math.floor(Math.log10(player.wowAbyssals + 1))
           + Math.floor(Math.log10(player.wowOcteracts + 1))
           + 6) // ambrosiaLuck

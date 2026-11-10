@@ -70,6 +70,7 @@ import {
   corruptionLevelScoreUpdate,
   corruptionTokenUpdate
 } from './Corruptions'
+import { cubes } from './CubeExperimental'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -930,7 +931,7 @@ export const visualUpdateBuildings = () => {
     DOMCacheGetOrSet('tesseractInfo').textContent = i18next.t(
       'buildings.tesseractsYouHave',
       {
-        tesseracts: format(player.wowTesseracts.valueOf(), 0, false, false)
+        tesseracts: format(player.wowTesseracts, 0, false, false)
       }
     )
 
@@ -1197,25 +1198,25 @@ export const visualUpdateCubes = () => {
   const platonicMult = 1.5
 
   const toNextQuark: cubeNames = {
-    cube: player.wowCubes.checkCubesToNextQuark(
+    cube: cubes.wowCubes.checkCubesToNextQuark(
       5,
       cubeMult,
       player.cubeQuarkDaily,
       player.cubeOpenedDaily
     ),
-    tesseract: player.wowTesseracts.checkCubesToNextQuark(
+    tesseract: cubes.wowTesseracts.checkCubesToNextQuark(
       7,
       tesseractMult,
       player.tesseractQuarkDaily,
       player.tesseractOpenedDaily
     ),
-    hypercube: player.wowHypercubes.checkCubesToNextQuark(
+    hypercube: cubes.wowHypercubes.checkCubesToNextQuark(
       10,
       hypercubeMult,
       player.hypercubeQuarkDaily,
       player.hypercubeOpenedDaily
     ),
-    platonicCube: player.wowPlatonicCubes.checkCubesToNextQuark(
+    platonicCube: cubes.wowPlatonicCubes.checkCubesToNextQuark(
       15,
       platonicMult,
       player.platonicCubeQuarkDaily,
@@ -1262,7 +1263,7 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('cubeQuantity').innerHTML = i18next.t(
         'wowCubes.cubes.inventory',
         {
-          amount: format(player.wowCubes.valueOf(), 0, true)
+          amount: format(player.wowCubes, 0, true)
         }
       )
 
@@ -1372,7 +1373,7 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('tesseractQuantity').innerHTML = i18next.t(
         'wowCubes.tesseracts.inventory',
         {
-          amount: format(player.wowTesseracts.valueOf(), 0, true)
+          amount: format(player.wowTesseracts, 0, true)
         }
       )
 
@@ -1481,7 +1482,7 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('hypercubeQuantity').innerHTML = i18next.t(
         'wowCubes.hypercubes.inventory',
         {
-          amount: format(player.wowHypercubes.valueOf(), 0, true)
+          amount: format(player.wowHypercubes, 0, true)
         }
       )
 
@@ -1589,7 +1590,7 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('platonicQuantity').innerHTML = i18next.t(
         'wowCubes.platonics.inventory',
         {
-          amount: format(player.wowPlatonicCubes.valueOf(), 0, true)
+          amount: format(player.wowPlatonicCubes, 0, true)
         }
       )
 
@@ -1673,7 +1674,7 @@ export const visualUpdateCubes = () => {
     case 4:
       DOMCacheGetOrSet('cubeAmount2').textContent = `You have ${
         format(
-          player.wowCubes.valueOf(),
+          player.wowCubes,
           0,
           true
         )

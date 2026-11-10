@@ -2,6 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateCubicSumData, calculateSummationNonLinear } from './Calculate'
+import { cubes } from './CubeExperimental'
 import { researchData, updateResearchBG } from './Research'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { format, player } from './Synergism'
@@ -80,12 +81,12 @@ const getCubeCost = (i: number, buyMax: boolean): IMultiBuy => {
   if (cubic) {
     // TODO: Fix this inconsistency later.
     amountToBuy = buyMax ? maxLevel : Math.min(maxLevel, cubeUpgrade + 1)
-    metaData = calculateCubicSumData(cubeUpgrade, cubeBaseCost[i - 1], Number(player.wowCubes), amountToBuy)
+    metaData = calculateCubicSumData(cubeUpgrade, cubeBaseCost[i - 1], player.wowCubes, amountToBuy)
   } else {
     metaData = calculateSummationNonLinear(
       cubeUpgrade,
       cubeBaseCost[i - 1] * singularityMultiplier,
-      Number(player.wowCubes),
+      player.wowCubes,
       linGrowth,
       amountToBuy
     )
@@ -126,7 +127,7 @@ export const cubeUpgradeDesc = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
   d.style.color = 'var(--white-color)'
 
   // This conditional is true only in the case where you can buy zero levels.
-  if (Number(player.wowCubes) < metaData.cost) {
+  if (player.wowCubes < metaData.cost) {
     c.style.color = 'var(--crimson-text-color)'
   }
   if (player.cubeUpgrades[i] === maxLevel) {
@@ -144,7 +145,7 @@ export const cubeUpgradeModalHTML = (
   const metaData = getCubeCost(i, buyMax)
   const maxLevel = getCubeMax(i)
   const maxed = player.cubeUpgrades[i] === maxLevel
-  const canAfford = Number(player.wowCubes) >= metaData.cost
+  const canAfford = player.wowCubes >= metaData.cost
   const costText = maxed
     ? i18next.t('cubes.cubeMetadata.maxLevel')
     : i18next.t('cubes.cubeMetadata.cost', {
@@ -178,7 +179,7 @@ export const updateCubeUpgradeBG = (i: number) => {
   const maxCubeLevel = getCubeMax(i)
   const cubeUpgrade = player.cubeUpgrades[i]!
   if (cubeUpgrade > maxCubeLevel) {
-    player.wowCubes.add((cubeUpgrade - maxCubeLevel) * cubeBaseCost[i - 1])
+    cubes.wowCubes.add((cubeUpgrade - maxCubeLevel) * cubeBaseCost[i - 1])
     player.cubeUpgrades[i] = maxCubeLevel
   }
 
@@ -213,8 +214,8 @@ export const buyCubeUpgrades = (i: number, buyMax = player.cubeUpgradesBuyMaxTog
 
   const metaData = getCubeCost(i, buyMax)
   const maxLevel = getCubeMax(i)
-  if (Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[i]! < maxLevel) {
-    player.wowCubes.sub(100 / 100 * metaData.cost)
+  if (player.wowCubes >= metaData.cost && player.cubeUpgrades[i]! < maxLevel) {
+    cubes.wowCubes.sub(100 / 100 * metaData.cost)
     player.cubeUpgrades[i] = metaData.levelCanBuy
   } else {
     return
@@ -278,7 +279,7 @@ export const autoBuyCubeUpgrades = () => {
         const maxLevel = getCubeMax(value[0])
         const metaData = getCubeCost(value[0], true)
         if (
-          Number(player.wowCubes) >= metaData.cost && player.cubeUpgrades[value[0]]! < maxLevel
+          player.wowCubes >= metaData.cost && player.cubeUpgrades[value[0]]! < maxLevel
           && (player.cubeUpgradesBuyMaxToggle || maxLevel === metaData.levelCanBuy)
         ) {
           buyCubeUpgrades(value[0], true, true)

@@ -5,7 +5,6 @@ import { corruptionLoadoutCount, defaultAutoAscendRules, parseSavedRules } from 
 import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
 import { getTesseractBuildingsCumulativeCost } from '../Buy'
 import { transcensionChallengeCap } from '../Challenges'
-import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from '../CubeExperimental'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
 import { emptyAntProducer } from '../Features/Ants/AntProducers/player/default'
@@ -910,16 +909,10 @@ export const playerSchema = z.object({
   platonicUpgrades: z.number().array().transform((array) => arrayExtend(array, 'platonicUpgrades')).default(
     () => [...blankSave.platonicUpgrades]
   ),
-  wowCubes: z.number().default(() => Number(blankSave.wowCubes)).transform((cubes) => new WowCubes(cubes)),
-  wowTesseracts: z.number().default(() => Number(blankSave.wowTesseracts)).transform((tesseract) =>
-    new WowTesseracts(tesseract)
-  ),
-  wowHypercubes: z.number().default(() => Number(blankSave.wowHypercubes)).transform((cubes) =>
-    new WowHypercubes(cubes)
-  ),
-  wowPlatonicCubes: z.number().default(() => Number(blankSave.wowPlatonicCubes)).transform((cubes) =>
-    new WowPlatonicCubes(cubes)
-  ),
+  wowCubes: z.number().default(() => blankSave.wowCubes),
+  wowTesseracts: z.number().default(() => blankSave.wowTesseracts),
+  wowHypercubes: z.number().default(() => blankSave.wowHypercubes),
+  wowPlatonicCubes: z.number().default(() => blankSave.wowPlatonicCubes),
   maxPlatToggle: z.boolean().default(() => blankSave.maxPlatToggle),
   wowAbyssals: z.number().default(() => blankSave.wowAbyssals),
   wowOcteracts: z.number().default(() => blankSave.wowOcteracts),

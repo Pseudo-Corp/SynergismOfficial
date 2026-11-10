@@ -204,7 +204,7 @@ import {
   updateTokens
 } from './Campaign'
 import { lastUpdated, ticksPerSecond, version } from './Config'
-import { WowCubes, WowHypercubes, WowPlatonicCubes, WowTesseracts } from './CubeExperimental'
+import { cubes } from './CubeExperimental'
 import { eventCheck } from './Event'
 import { initMobileStorage, storageGetItem, storageSetItem } from './events/storage-events'
 import { autobuyAnts } from './Features/Ants'
@@ -863,10 +863,10 @@ export const player: Player = {
     0,
     0
   ],
-  wowCubes: new WowCubes(0),
-  wowTesseracts: new WowTesseracts(0),
-  wowHypercubes: new WowHypercubes(0),
-  wowPlatonicCubes: new WowPlatonicCubes(0),
+  wowCubes: 0,
+  wowTesseracts: 0,
+  wowHypercubes: 0,
+  wowPlatonicCubes: 0,
   maxPlatToggle: true,
   wowAbyssals: 0,
   wowOcteracts: 0,
@@ -1174,10 +1174,6 @@ export const deepClone = () =>
     circles: false,
     constructorHandlers: [
       [Decimal, (o: DecimalSource) => new Decimal(o)],
-      [WowCubes, (o: WowCubes) => new WowCubes(o.valueOf())],
-      [WowTesseracts, (o: WowTesseracts) => new WowTesseracts(o.valueOf())],
-      [WowHypercubes, (o: WowHypercubes) => new WowHypercubes(o.valueOf())],
-      [WowPlatonicCubes, (o: WowPlatonicCubes) => new WowPlatonicCubes(o.valueOf())],
       [SingularityChallenge, (o: SingularityChallenge) => new SingularityChallenge(o.valueOf(), o.key())]
     ]
   })
@@ -3477,7 +3473,7 @@ export const resetCheck = async (
       player.challengecompletions[a] > player.highestchallengecompletions[a]
     ) {
       player.highestchallengecompletions[a] += 1
-      player.wowHypercubes.add(1)
+      cubes.wowHypercubes.add(1)
       if (player.highestchallengecompletions[a] >= maxCompletions) {
         leaving = true
       }
@@ -3765,7 +3761,7 @@ export const updateAll = (): void => {
         ownedBuildings[i - 1] = getTesseractBuildingsOwned(i as OneToFive)
       }
     }
-    const budget = Number(player.wowTesseracts) - player.tesseractAutoBuyerAmount
+    const budget = player.wowTesseracts - player.tesseractAutoBuyerAmount
     const buyToBuildings = calculateTessBuildingsInBudget(
       ownedBuildings,
       budget

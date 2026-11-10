@@ -11,7 +11,7 @@ import {
   calculateQuarkMultFromPowder,
   forcedDailyReset
 } from './Calculate'
-import { Cube } from './CubeExperimental'
+import { cubes } from './CubeExperimental'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { worlds } from './Quark'
 import { resetTiers } from './Reset'
@@ -19,9 +19,7 @@ import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
-import type { Player } from './types/Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
-import { isDecimal } from './Utility'
 import { Globals } from './Variables'
 
 type HepteractTypeMap = {
@@ -43,10 +41,16 @@ export interface HepteractValues {
   AUTO: boolean
 }
 
+interface HepteractConversion {
+  usedByAutoCraft: boolean
+  craftable: (craftCostMulti: number) => number
+  spend: (amount: number, craftCostMulti: number) => void
+}
+
 interface HepteractData<K extends HepteractKeys> {
   BASE_CAP: number
   HEPTERACT_CONVERSION: number
-  OTHER_CONVERSIONS: Record<string, number>
+  OTHER_CONVERSIONS: HepteractConversion[]
   UNLOCKED: () => boolean
   EFFECTS: (hept: number) => HepteractTypeMap[K]
   EFFECTSDESCRIPTION: (hept: number) => string
@@ -63,11 +67,36 @@ export const defaultHepteractValues: HepteractValues = {
   AUTO: false
 }
 
+const decimalConversion = (key: 'obtainium' | 'offerings', cost: number) => ({
+  usedByAutoCraft: false,
+  craftable: (craftCostMulti: number) =>
+    Decimal.min(Decimal.floor(player[key].div(craftCostMulti * cost)), 1e300).toNumber(),
+  spend: (amount: number, craftCostMulti: number) => {
+    player[key] = player[key].sub(new Decimal(amount).times(craftCostMulti).times(cost))
+  }
+})
+
+const cubeConversion = (key: keyof typeof cubes, cost: number) => ({
+  usedByAutoCraft: false,
+  craftable: () => Math.floor(player[key] / cost),
+  spend: (amount: number, craftCostMulti: number) => {
+    cubes[key].sub(amount * craftCostMulti * cost)
+  }
+})
+
+const quarkConversion = (cost: number) => ({
+  usedByAutoCraft: true,
+  craftable: () => Math.floor(player.worlds / cost),
+  spend: (amount: number) => {
+    worlds.sub(amount * cost)
+  }
+})
+
 export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
   chronos: {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
-    OTHER_CONVERSIONS: { obtainium: 1e115 },
+    OTHER_CONVERSIONS: [decimalConversion('obtainium', 1e115)],
     UNLOCKED: () => {
       const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
       return Boolean(condition)
@@ -92,7 +121,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
   hyperrealism: {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
-    OTHER_CONVERSIONS: { offerings: 1e80 },
+    OTHER_CONVERSIONS: [decimalConversion('offerings', 1e80)],
     UNLOCKED: () => {
       const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
       return Boolean(condition)
@@ -117,7 +146,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
   quark: {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e4,
-    OTHER_CONVERSIONS: { worlds: 100 },
+    OTHER_CONVERSIONS: [quarkConversion(100)],
     UNLOCKED: () => {
       const condition = Globals.challenge15Rewards.hepteractsUnlocked.value
       return Boolean(condition)
@@ -160,7 +189,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
   challenge: {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 5e4,
-    OTHER_CONVERSIONS: { wowPlatonicCubes: 1e11, wowCubes: 1e22 },
+    OTHER_CONVERSIONS: [cubeConversion('wowPlatonicCubes', 1e11), cubeConversion('wowCubes', 1e22)],
     UNLOCKED: () => {
       const condition = Globals.challenge15Rewards.challengeHepteractUnlocked.value
       return Boolean(condition)
@@ -185,7 +214,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
   abyss: {
     BASE_CAP: 1,
     HEPTERACT_CONVERSION: 1e8,
-    OTHER_CONVERSIONS: { wowCubes: 69 },
+    OTHER_CONVERSIONS: [cubeConversion('wowCubes', 69)],
     UNLOCKED: () => {
       const condition = Globals.challenge15Rewards.abyssHepteractUnlocked.value
       return Boolean(condition)
@@ -210,7 +239,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
   accelerator: {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 1e5,
-    OTHER_CONVERSIONS: { wowTesseracts: 1e14 },
+    OTHER_CONVERSIONS: [cubeConversion('wowTesseracts', 1e14)],
     UNLOCKED: () => {
       const condition = Globals.challenge15Rewards.acceleratorHepteractUnlocked.value
       return Boolean(condition)
@@ -237,7 +266,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
   acceleratorBoost: {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 2e5,
-    OTHER_CONVERSIONS: { wowHypercubes: 1e10 },
+    OTHER_CONVERSIONS: [cubeConversion('wowHypercubes', 1e10)],
     UNLOCKED: () => {
       const condition = Globals.challenge15Rewards.acceleratorBoostHepteractUnlocked.value
       return Boolean(condition)
@@ -262,7 +291,7 @@ export const hepteracts: { [K in HepteractKeys]: HepteractData<K> } = {
   multiplier: {
     BASE_CAP: 1000,
     HEPTERACT_CONVERSION: 3e5,
-    OTHER_CONVERSIONS: { obtainium: 1e130 },
+    OTHER_CONVERSIONS: [decimalConversion('obtainium', 1e130)],
     UNLOCKED: () => {
       const condition = Globals.challenge15Rewards.multiplierHepteractUnlocked.value
       return Boolean(condition)
@@ -312,27 +341,8 @@ const getCraftableHepteractAmount = (hept: HepteractKeys) => {
 
   // Create an array of how many we can craft using our conversion limits for additional items
   const itemLimits: number[] = []
-  for (const item in hepteracts[hept].OTHER_CONVERSIONS) {
-    const indexableItem = item as keyof Player
-    // The type of player[item] is number | Decimal | Cube.
-    if (item === 'worlds') {
-      itemLimits.push(
-        Math.floor((player[indexableItem] as number) / (hepteracts[hept].OTHER_CONVERSIONS[indexableItem] ?? 1))
-      )
-    } else if (isDecimal(player[indexableItem])) {
-      itemLimits.push(
-        Decimal.min(
-          Decimal.floor(
-            (player[indexableItem] as Decimal).div(craftCostMulti * hepteracts[hept].OTHER_CONVERSIONS[indexableItem])
-          ),
-          1e300
-        ).toNumber()
-      )
-    } else {
-      itemLimits.push(
-        Math.floor((player[indexableItem] as number) / (hepteracts[hept].OTHER_CONVERSIONS[indexableItem] ?? 1))
-      )
-    }
+  for (const conversion of hepteracts[hept].OTHER_CONVERSIONS) {
+    itemLimits.push(conversion.craftable(craftCostMulti))
   }
 
   // Get the smallest of the array we created
@@ -424,26 +434,8 @@ export const craftHepteracts = async (hept: HepteractKeys, max = false) => {
     player.wowAbyssals = 0
   }
 
-  for (const item of (Object.keys(hepteracts[hept].OTHER_CONVERSIONS) as (keyof Player)[])) {
-    if (typeof player[item] === 'number') {
-      // eslint-disable-next-line typescript/no-unnecessary-type-assertion -- false positive
-      ;(player[item] as number) -= amountToCraft * craftCostMulti
-        * hepteracts[hept].OTHER_CONVERSIONS[item]
-    }
-
-    if ((player[item] as number) < 0) {
-      ;(player[item] as number) = 0
-    } else if (player[item] instanceof Cube) {
-      ;(player[item] as Cube).sub(
-        amountToCraft * craftCostMulti * hepteracts[hept].OTHER_CONVERSIONS[item]
-      )
-    } else if (item === 'worlds') {
-      worlds.sub(amountToCraft * hepteracts[hept].OTHER_CONVERSIONS[item])
-    } else if (player[item] instanceof Decimal) {
-      ;(player[item] as Decimal) = (player[item] as Decimal).sub(
-        new Decimal(amountToCraft).times(craftCostMulti).times(hepteracts[hept].OTHER_CONVERSIONS[item])
-      )
-    }
+  for (const conversion of hepteracts[hept].OTHER_CONVERSIONS) {
+    conversion.spend(amountToCraft, craftCostMulti)
   }
 
   if (player.toggles[35]) {
@@ -528,13 +520,12 @@ export const autoCraftHepteracts = (hept: HepteractKeys, heptAmount: number) => 
 
   // Create an array of how many we can craft using our conversion limits for additional items
   const itemLimits: number[] = []
-  const quarks = hepteracts[hept].OTHER_CONVERSIONS.worlds
 
-  if (typeof quarks === 'number') {
+  for (const conversion of hepteracts[hept].OTHER_CONVERSIONS) {
     // When Auto is turned on, only Quarks and hepteracts are consumed.
-    itemLimits.push(
-      Math.floor(player.worlds / quarks)
-    )
+    if (conversion.usedByAutoCraft) {
+      itemLimits.push(conversion.craftable(craftCostMulti))
+    }
   }
 
   // Get the smallest of the array we created [If Empty, this will be infinite]
@@ -562,8 +553,10 @@ export const autoCraftHepteracts = (hept: HepteractKeys, heptAmount: number) => 
     amountToCraft -= craft
   }
 
-  if (typeof quarks === 'number') {
-    worlds.sub(amountCrafted * quarks)
+  for (const conversion of hepteracts[hept].OTHER_CONVERSIONS) {
+    if (conversion.usedByAutoCraft) {
+      conversion.spend(amountCrafted, craftCostMulti)
+    }
   }
 
   player.wowAbyssals -= amountCrafted * craftCostMulti * hepteracts[hept].HEPTERACT_CONVERSION
