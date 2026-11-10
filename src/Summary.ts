@@ -454,7 +454,9 @@ export const generateExportSummary = async (): Promise<void> => {
       }
 
       challengeText = `${challengeText} ${exaltChallenge.name}:`
-      challengeText = `${challengeText} ${player.singularityChallenges[key].completions}/${exaltChallenge.maxCompletions}`
+      challengeText = `${challengeText} ${
+        player.singularityChallenges[key].completions
+      }/${exaltChallenge.maxCompletions}`
       challengeText = `${challengeText}\n`
       exaltChallengeStats = exaltChallengeStats + challengeText
     }

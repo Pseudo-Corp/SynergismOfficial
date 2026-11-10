@@ -303,7 +303,9 @@ export class SingularityChallenge {
       i18next.t(
         'singularityChallenge.toString.tiersCompleted'
       )
-    }: <span style="color: ${color}">${player.singularityChallenges[this.HTMLTag].completions}/${this.maxCompletions}</span>
+    }: <span style="color: ${color}">${
+      player.singularityChallenges[this.HTMLTag].completions
+    }/${this.maxCompletions}</span>
       <span style="color: var(--pink-color)">${
       i18next.t(
         'singularityChallenge.toString.canEnter',

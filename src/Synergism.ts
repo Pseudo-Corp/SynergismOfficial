@@ -241,8 +241,8 @@ import {
   type RuneSpiritKeys,
   updateAllSpiritLevelsFromEXP
 } from './RuneSpirits'
+import { parseSave } from './saves/Migrations'
 import { playerSchema } from './saves/PlayerSchema'
-import { playerUpdateVarSchema } from './saves/PlayerUpdateVarSchema'
 import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, queueSave } from './saves/SaveStorage'
 import { createBlankSynthesisUpgradeObject, initializeSynthesis } from './Synthesis'
 // eslint-disable-next-line no-unassigned-import
@@ -1255,7 +1255,7 @@ const loadSynergy = (saveString: string): boolean => {
       return false
     }
 
-    const validatedPlayer = playerUpdateVarSchema.safeParse(data)
+    const validatedPlayer = parseSave(data)
 
     if (validatedPlayer.success) {
       challengeExit('transcension')

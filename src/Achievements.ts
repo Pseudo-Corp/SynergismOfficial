@@ -19,11 +19,7 @@ import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
 import { runeSpirits } from './RuneSpirits'
 import { maxQuarkUpgradeAP, quarkUpgradeAP } from './Shop'
 import { calculateGQUpgradeAP, getGQUpgradeEffect, maxGoldenQuarkUpgradeAP } from './singularity'
-import {
-  maxAPFromChallenges,
-  type SingularityChallengeDataKeys,
-  singularityChallenges
-} from './SingularityChallenges'
+import { maxAPFromChallenges, type SingularityChallengeDataKeys, singularityChallenges } from './SingularityChallenges'
 import {
   calculatePrestigePointGain,
   calculateReincarnationPointGain,

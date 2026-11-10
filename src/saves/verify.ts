@@ -1,5 +1,5 @@
 import LZString from 'lz-string'
-import { playerUpdateVarSchema } from './PlayerUpdateVarSchema'
+import { parseSave } from './Migrations'
 
 declare global {
   interface Window {
@@ -11,7 +11,7 @@ const verifySave = (input: string) => {
   const decompressed = LZString.decompressFromBase64(input)
 
   try {
-    return playerUpdateVarSchema.safeParse(
+    return parseSave(
       decompressed ? JSON.parse(decompressed) : JSON.parse(atob(input))
     ).success
   } catch {

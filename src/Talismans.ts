@@ -1485,7 +1485,7 @@ export const sumOfTalismanRarities = (): number => {
 /**
  * Updates legacy talisman data (player.talismanLevels[i]) to the
  * new talismans object. Takes level and creates talisman.level and
- * talismans.fragmentsInvested. Should only be used in PlayerUpdateVarSchema.ts
+ * talismans.fragmentsInvested. Should only be used in saves/Migrations.ts
  */
 export const talismanInvestmentForLevel = (level: number, t: TalismanKeys) => {
   const invested = { ...noTalismanFragments }
