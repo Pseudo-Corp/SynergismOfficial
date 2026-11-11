@@ -2,12 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, getAchievementReward } from './Achievements'
 import { buyAutobuyers, buyGenerator } from './Automation'
-import {
-  buyUpgrades,
-  CoinBuilding,
-  getTesseractBuildingsOwned,
-  MythosBuilding
-} from './Buy'
+import { buyUpgrades, CoinBuilding, getTesseractBuildingsOwned, MythosBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateGlobalSpeedMult,
@@ -16,7 +11,7 @@ import {
 } from './Calculate'
 import { challenge15CorruptionEffect } from './Corruptions'
 import { AntProducers } from './Features/Ants/structs/structs'
-import { getRuneEffects } from './Runes'
+import { getRuneEffects, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { spritePlaceholder } from './SpriteSheets'
 import {
@@ -717,7 +712,7 @@ const crystalUpgradeDescriptionData = (i: number) => {
 
   const q = Decimal.pow(
     10,
-    G.crystalUpgradesCost[i - 1] - getRuneEffects('prism', 'costDivisorLog10')
+    G.crystalUpgradesCost[i - 1] - getRuneEffects(RuneType.Prism, 'costDivisorLog10')
       + G.crystalUpgradeCostIncrement[i - 1] * Math.floor(Math.pow(player.crystalUpgrades[i - 1] + 0.5 - c, 2) / 2)
   )
 

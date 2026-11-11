@@ -68,7 +68,7 @@ import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { worlds } from './Quark'
 import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
-import { resetOfferings, resetRunes, runes } from './Runes'
+import { resetOfferings, resetRunes, RuneType } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerSchema } from './saves/PlayerSchema'
 import { getShopUpgradeEffects } from './Shop'
@@ -1008,14 +1008,14 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
 }
 
 export const singularity = (setSingNumber = -1) => {
-  if (runes.antiquities.level === 0 && setSingNumber === -1) {
+  if (player.runeLevels[RuneType.Antiquities] === 0 && setSingNumber === -1) {
     Alert(
       'You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.'
     )
     return
   }
 
-  const antiquitiesPurchased = runes.antiquities.level > 0
+  const antiquitiesPurchased = player.runeLevels[RuneType.Antiquities] > 0
 
   // setSingNumber is only not -1 when we are entering and exiting a challenge.
   if (setSingNumber === -1) {
@@ -1110,7 +1110,7 @@ export const singularity = (setSingNumber = -1) => {
     hold.reincarnationCount = player.reincarnationCount
   }
 
-  hold.runes = { ...player.runes }
+  hold.runeEXP = [...player.runeEXP]
   hold.talismans = { ...player.talismans }
   hold.cubeUpgrades[80] = player.cubeUpgrades[80]
   for (const i of cubeAutomationIndices) {

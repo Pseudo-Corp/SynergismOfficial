@@ -7,7 +7,7 @@ import {
 } from './Calculate'
 import { cubes } from './CubeExperimental'
 import { getRuneBlessingEffect } from './RuneBlessings'
-import { getRuneEffects } from './Runes'
+import { getRuneEffects, RuneType } from './Runes'
 import { player } from './Synergism'
 import type { BuyAmount, OneToFive, Player, ZeroToFour } from './types/Synergism'
 import { crystalupgradedescriptions, upgradeRequirements, upgradeupdate } from './Upgrades'
@@ -315,7 +315,7 @@ const getAccelMultScaling = (type: keyof typeof accelMultData) => {
 }
 
 const getAcceleratorBoostDelay = () =>
-  getRuneBlessingEffect('thrift').accelBoostCostDelay
+  getRuneBlessingEffect(RuneType.Thrift).accelBoostCostDelay
   * calculateAccelMultConstructionEffect('acceleratorBoost')
 
 export const getAccelMultScalingThreshold = (type: keyof typeof accelMultData | 'acceleratorBoost') =>
@@ -585,7 +585,7 @@ export const buyUpgrades = (type: Upgrade, pos: number, state?: boolean) => {
 const calculateCrystalBuy = (i: number) => {
   const u = i - 1
   const exponent = Decimal.log(player.prestigeShards.add(1), 10)
-  const exponentCostReduction = getRuneEffects('prism', 'costDivisorLog10')
+  const exponentCostReduction = getRuneEffects(RuneType.Prism, 'costDivisorLog10')
   const toBuy = Math.floor(
     Math.pow(
       Math.max(
@@ -607,7 +607,7 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
     c += 10
   }
 
-  const costReduction = getRuneEffects('prism', 'costDivisorLog10')
+  const costReduction = getRuneEffects(RuneType.Prism, 'costDivisorLog10')
 
   const toBuy = calculateCrystalBuy(i)
 

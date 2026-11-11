@@ -16,9 +16,7 @@ import type { OcteractUpgrades } from '../Octeracts'
 import type { PurpleReactorNames } from '../Purple'
 import type { PurpleAmbrosiaNames } from '../PurpleAmbrosiaUpgrades'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
-import type { RuneBlessingKeys } from '../RuneBlessings'
-import type { RuneKeys } from '../Runes'
-import type { RuneSpiritKeys } from '../RuneSpirits'
+import type { RuneType } from '../Runes'
 import type { ShopUpgradeNames } from '../Shop'
 import type { SingularityDataKeys } from '../singularity'
 import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
@@ -184,9 +182,13 @@ export interface Player {
   crystalUpgrades: number[]
   crystalUpgradesCost: number[]
 
-  runes: Record<RuneKeys, Decimal>
-  runeBlessings: Record<RuneBlessingKeys, Decimal>
-  runeSpirits: Record<RuneSpiritKeys, Decimal>
+  runeEXP: Decimal[]
+  runeLevels: number[]
+  runeFreeLevels: number[]
+  blessingEXP: Decimal[]
+  blessingLevels: number[]
+  spiritEXP: Decimal[]
+  spiritLevels: number[]
 
   offerings: Decimal
   maxOfferings: Decimal
@@ -252,7 +254,7 @@ export interface Player {
   researchBuyMaxToggle: boolean
   autoResearchMode: 'cheapest' | 'manual'
   autoResearch: number
-  autoSacrifice: number
+  autoSacrificeRune: RuneType | null
   sacrificeTimer: number
   quarkstimer: number
   goldenQuarksTimer: number
@@ -552,7 +554,6 @@ export interface GlobalVariables {
   buildingSubTab: BuildingSubtab
 
   autoOfferingCounter: number
-  MAX_AUTO_SACRIFICE_RUNE: number
 
   constUpgradeCosts: ArrayStartingWithNull<number>
 

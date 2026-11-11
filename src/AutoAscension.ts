@@ -9,7 +9,7 @@ import { toggleAutoAntSacrificeEnabled } from './Features/Ants/toggles/auto-sacr
 import { hepteractKeys, toggleAutomaticHepteracts } from './Hepteracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { reset } from './Reset'
-import { runes } from './Runes'
+import { RuneType } from './Runes'
 import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { gameStages, synergismStageNumber } from './Statistics'
 import { player, resetCheck } from './Synergism'
@@ -44,7 +44,7 @@ const numberRules = nullPrototype(
     at: () => player.ascensionAttemptCounter,
     rt: () => player.ascensionCounterRealReal,
     sg: () => player.singularityCount,
-    aag: () => runes.antiquities.level,
+    aag: () => player.runeLevels[RuneType.Antiquities],
     gs: () => synergismStageNumber(),
     cl: () => player.corruptions.used,
     hcl: () => player.corruptions.highestCleared,

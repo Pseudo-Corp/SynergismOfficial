@@ -2,7 +2,7 @@ import i18next from 'i18next'
 import { calculateSingularityUpgradePurchase } from './Buy'
 import { calculateBlueberryInventory } from './Calculate'
 import { getOcteractUpgradeEffect } from './Octeracts'
-import { runes } from './Runes'
+import { runes, RuneType } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, PurchasePrompt } from './UpdateHTML'
 
@@ -238,7 +238,7 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     effects: (level, key) => {
       if (key === 'horseShoeRuneCoefficient') {
         if (level >= 2) {
-          const baseCoefficient = runes.horseShoe.levelsPerOOM
+          const baseCoefficient = runes[RuneType.HorseShoe].levelsPerOOM
           return baseCoefficient * 0.10 * (level - 1)
         }
         return 0
@@ -284,7 +284,7 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     effects: (level, key) => {
       if (key === 'antiquitiesOfAntGodCoefficient') {
         if (level >= 2) {
-          const baseCoefficient = runes.antiquities.levelsPerOOM
+          const baseCoefficient = runes[RuneType.Antiquities].levelsPerOOM
           return baseCoefficient * 0.1 * (level - 1)
         }
         return 0

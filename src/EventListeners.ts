@@ -140,7 +140,7 @@ import {
 } from './Research'
 import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { buyAllBlessingLevels } from './RuneBlessings'
-import { runes } from './Runes'
+import { RuneType } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { buyShopUpgrades, shopUpgrades, useConsumablePrompt } from './Shop'
 import {
@@ -1198,7 +1198,7 @@ export const generateEventHandlers = () => {
   // RUNES TAB [And all corresponding subtabs]
   // Part 0: Upper UI portion
   // Auto sacrifice toggle button
-  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice(0))
+  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice())
 
   // RUNES TAB
 
@@ -1800,7 +1800,7 @@ TODO: Fix this entire tab it's utter shit
   elevatorInput.addEventListener('change', () => {
     const value = Number.parseInt((elevatorInput as HTMLInputElement).value) || 1
 
-    const canLookahead = runes.antiquities.level > 0
+    const canLookahead = player.runeLevels[RuneType.Antiquities] > 0
     let singLook = 0
     if (canLookahead) {
       const lookahead = calculateMaxSingularityLookahead(true)

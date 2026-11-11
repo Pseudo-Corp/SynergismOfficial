@@ -8,6 +8,7 @@ import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { octeractUpgradeNames, octeractUpgrades } from '../Octeracts'
+import { runes, RuneType } from '../Runes'
 import { getGQUpgradeCumulativeCost, type SingularityDataKeys } from '../singularity'
 import { blankSave, deepClone, format } from '../Synergism'
 import { talismanInvestmentForLevel } from '../Talismans'
@@ -64,6 +65,19 @@ const resetLegacyCorruptions = (player: PlayerData) => {
   }
 }
 
+const legacyRuneKeys = [
+  'speed',
+  'duplication',
+  'prism',
+  'thrift',
+  'superiorIntellect',
+  'infiniteAscent',
+  'antiquities',
+  'horseShoe',
+  'finiteDescent',
+  'topHat'
+] as const
+
 const migrations: Migration[] = [
   migration({ requires: { usedCorruptions: z.unknown() }, migrate: resetLegacyCorruptions }),
   migration({ requires: { prototypeCorruptions: z.unknown() }, migrate: resetLegacyCorruptions }),
@@ -112,17 +126,52 @@ const migrations: Migration[] = [
   }),
 
   migration({
+    requires: { runes: z.record(z.string(), decimalSchema.nullable()) },
+    migrate: (player, { runes: legacyRunes }) => {
+      legacyRuneKeys.forEach((key, rune) => {
+        player.runeEXP[rune] = new Decimal(legacyRunes[key] ?? 0)
+      })
+    }
+  }),
+
+  migration({
+    requires: { runeBlessings: z.record(z.string(), decimalSchema.nullable()) },
+    migrate: (player, { runeBlessings }) => {
+      legacyRuneKeys.slice(0, player.blessingEXP.length).forEach((key, rune) => {
+        player.blessingEXP[rune] = new Decimal(runeBlessings[key] ?? 0)
+      })
+    }
+  }),
+
+  migration({
+    requires: { runeSpirits: z.record(z.string(), decimalSchema.nullable()) },
+    migrate: (player, { runeSpirits }) => {
+      legacyRuneKeys.slice(0, player.spiritEXP.length).forEach((key, rune) => {
+        player.spiritEXP[rune] = new Decimal(runeSpirits[key] ?? 0)
+      })
+    }
+  }),
+
+  migration({
+    requires: { autoSacrifice: z.number() },
+    migrate: (player, { autoSacrifice }) => {
+      const rune = autoSacrifice - 1
+      player.autoSacrificeRune = rune in runes ? rune : null
+    }
+  }),
+
+  migration({
     requires: {
       runeexp: z.union([z.number(), z.null().transform(() => 0)]).array()
     },
     migrate: (player, { runeexp }) => {
-      player.runes.speed = new Decimal(runeexp[0] ?? 0)
-      player.runes.duplication = new Decimal(runeexp[1] ?? 0)
-      player.runes.prism = new Decimal(runeexp[2] ?? 0)
-      player.runes.thrift = new Decimal(runeexp[3] ?? 0)
-      player.runes.superiorIntellect = new Decimal(runeexp[4] ?? 0)
-      player.runes.infiniteAscent = new Decimal(runeexp[5] ?? 0)
-      player.runes.antiquities = new Decimal(runeexp[6] ?? 0)
+      player.runeEXP[RuneType.Speed] = new Decimal(runeexp[0] ?? 0)
+      player.runeEXP[RuneType.Duplication] = new Decimal(runeexp[1] ?? 0)
+      player.runeEXP[RuneType.Prism] = new Decimal(runeexp[2] ?? 0)
+      player.runeEXP[RuneType.Thrift] = new Decimal(runeexp[3] ?? 0)
+      player.runeEXP[RuneType.SuperiorIntellect] = new Decimal(runeexp[4] ?? 0)
+      player.runeEXP[RuneType.InfiniteAscent] = new Decimal(runeexp[5] ?? 0)
+      player.runeEXP[RuneType.Antiquities] = new Decimal(runeexp[6] ?? 0)
 
       // Retroactively reward players with unlocks, because I don't have a better place here
       player.unlocks.anthill = player.achievements[AchievementId.Challenge8Tier1] === 1
@@ -176,13 +225,19 @@ const migrations: Migration[] = [
   migration({
     requires: { runeBlessingLevels: z.number().array() },
     migrate: (player, { runeBlessingLevels }) => {
-      player.runeBlessings.speed = new Decimal(Math.pow(Math.min(1e140, runeBlessingLevels[1] ?? 0), 2) * 1e8 / 2)
-      player.runeBlessings.duplication = new Decimal(
+      player.blessingEXP[RuneType.Speed] = new Decimal(
+        Math.pow(Math.min(1e140, runeBlessingLevels[1] ?? 0), 2) * 1e8 / 2
+      )
+      player.blessingEXP[RuneType.Duplication] = new Decimal(
         Math.pow(Math.min(1e140, runeBlessingLevels[2] ?? 0), 2) * 1e8 / 2
       )
-      player.runeBlessings.prism = new Decimal(Math.pow(Math.min(1e140, runeBlessingLevels[3] ?? 0), 2) * 1e8 / 2)
-      player.runeBlessings.thrift = new Decimal(Math.pow(Math.min(1e140, runeBlessingLevels[4] ?? 0), 2) * 1e8 / 2)
-      player.runeBlessings.superiorIntellect = new Decimal(
+      player.blessingEXP[RuneType.Prism] = new Decimal(
+        Math.pow(Math.min(1e140, runeBlessingLevels[3] ?? 0), 2) * 1e8 / 2
+      )
+      player.blessingEXP[RuneType.Thrift] = new Decimal(
+        Math.pow(Math.min(1e140, runeBlessingLevels[4] ?? 0), 2) * 1e8 / 2
+      )
+      player.blessingEXP[RuneType.SuperiorIntellect] = new Decimal(
         Math.pow(Math.min(1e140, runeBlessingLevels[5] ?? 0), 2) * 1e8 / 2
       )
     }
@@ -191,13 +246,13 @@ const migrations: Migration[] = [
   migration({
     requires: { runeSpiritLevels: z.number().array() },
     migrate: (player, { runeSpiritLevels }) => {
-      player.runeSpirits.speed = new Decimal(Math.pow(Math.min(1e140, runeSpiritLevels[1] ?? 0), 2) * 1e20 / 2)
-      player.runeSpirits.duplication = new Decimal(
+      player.spiritEXP[RuneType.Speed] = new Decimal(Math.pow(Math.min(1e140, runeSpiritLevels[1] ?? 0), 2) * 1e20 / 2)
+      player.spiritEXP[RuneType.Duplication] = new Decimal(
         Math.pow(Math.min(1e140, runeSpiritLevels[2] ?? 0), 2) * 1e20 / 2
       )
-      player.runeSpirits.prism = new Decimal(Math.pow(Math.min(1e140, runeSpiritLevels[3] ?? 0), 2) * 1e20 / 2)
-      player.runeSpirits.thrift = new Decimal(Math.pow(Math.min(1e140, runeSpiritLevels[4] ?? 0), 2) * 1e20 / 2)
-      player.runeSpirits.superiorIntellect = new Decimal(
+      player.spiritEXP[RuneType.Prism] = new Decimal(Math.pow(Math.min(1e140, runeSpiritLevels[3] ?? 0), 2) * 1e20 / 2)
+      player.spiritEXP[RuneType.Thrift] = new Decimal(Math.pow(Math.min(1e140, runeSpiritLevels[4] ?? 0), 2) * 1e20 / 2)
+      player.spiritEXP[RuneType.SuperiorIntellect] = new Decimal(
         Math.pow(Math.min(1e140, runeSpiritLevels[5] ?? 0), 2) * 1e20 / 2
       )
     }

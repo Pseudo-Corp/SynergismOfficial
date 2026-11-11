@@ -19,7 +19,7 @@ import {
 import { hepteractEffective } from './Hepteracts'
 import { maxedPlatonicUpgradeConstruction } from './Platonic'
 import { worlds } from './Quark'
-import { type RuneKeys, runes } from './Runes'
+import { runes, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -186,11 +186,11 @@ export const setChallengeFocus = (i: number) => {
   G.triggerChallenge = i
 }
 
-const runeLockedChallengeRewards: Partial<Record<number, [string, RuneKeys]>> = {
-  1: ['challengePer2', 'duplication'],
-  3: ['challengePer3', 'prism'],
-  4: ['challengePer3', 'thrift'],
-  5: ['challengePer2', 'superiorIntellect']
+const runeLockedChallengeRewards: Partial<Record<number, [string, RuneType]>> = {
+  1: ['challengePer2', RuneType.Duplication],
+  3: ['challengePer3', RuneType.Prism],
+  4: ['challengePer3', RuneType.Thrift],
+  5: ['challengePer2', RuneType.SuperiorIntellect]
 }
 
 const challenge15PlatonicRecessionMax = 1.5

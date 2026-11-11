@@ -14,9 +14,7 @@ import { calculatePurpleAmbrosiaUpgradeAP, maxPurpleAmbrosiaUpgradeAP } from './
 import { worlds } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
-import { runeBlessings } from './RuneBlessings'
-import { runes, sumOfFreeRuneLevels, sumOfRuneLevels } from './Runes'
-import { runeSpirits } from './RuneSpirits'
+import { RuneType } from './Runes'
 import { maxQuarkUpgradeAP, quarkUpgradeAP } from './Shop'
 import { calculateGQUpgradeAP, getGQUpgradeEffect, maxGoldenQuarkUpgradeAP } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys, singularityChallenges } from './SingularityChallenges'
@@ -322,7 +320,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         + Math.min(400, Math.floor(cached / 12500))
     },
     updateValue: () => {
-      return sumOfRuneLevels()
+      return sumContents(player.runeLevels)
     },
     useCachedValue: true,
     rewardedAP: 0,
@@ -335,7 +333,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         + Math.min(200, Math.floor(cached / 2500))
     },
     updateValue: () => {
-      return sumOfFreeRuneLevels()
+      return sumContents(player.runeFreeLevels)
     },
     useCachedValue: true,
     rewardedAP: 0,
@@ -1524,7 +1522,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => hasResetAtOrAboveLevel(resetTiers.prestige),
-    getValue: () => runes.speed.level,
+    getValue: () => player.runeLevels[RuneType.Speed],
     tiers: [
       { id: AchievementId.RuneLevelTier1, pointValue: 2, requirement: 100 },
       { id: AchievementId.RuneLevelTier2, pointValue: 4, requirement: 250 },
@@ -2088,7 +2086,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => player.highestchallengecompletions[8] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension),
-    getValue: () => runes.speed.freeLevels(),
+    getValue: () => player.runeFreeLevels[RuneType.Speed],
     tiers: [
       { id: AchievementId.RuneFreeLevelTier1, pointValue: 2, requirement: 10 },
       { id: AchievementId.RuneFreeLevelTier2, pointValue: 4, requirement: 40 },
@@ -2147,7 +2145,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => player.highestchallengecompletions[9] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension),
-    getValue: () => runeBlessings.speed.level,
+    getValue: () => player.blessingLevels[RuneType.Speed],
     tiers: [
       { id: AchievementId.SpeedBlessingTier1, pointValue: 10, requirement: 20 },
       { id: AchievementId.SpeedBlessingTier2, pointValue: 20, requirement: 40 },
@@ -2479,7 +2477,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     firstLockedTier: 0,
     displayCondition: () =>
       player.highestchallengecompletions[12] > 0 || hasResetAtOrAboveLevel(resetTiers.singularity),
-    getValue: () => runeSpirits.speed.level,
+    getValue: () => player.spiritLevels[RuneType.Speed],
     tiers: [
       { id: AchievementId.SpeedSpiritTier1, pointValue: 10, requirement: 20 },
       { id: AchievementId.SpeedSpiritTier2, pointValue: 20, requirement: 40 },
@@ -2903,7 +2901,7 @@ export const ungroupedAchievements: UngroupedAchievementData[] = [
     key: 'highlyBlessed',
     id: AchievementId.HighlyBlessed,
     pointValue: 50,
-    unlockCondition: () => runeBlessings.speed.level >= 380,
+    unlockCondition: () => player.blessingLevels[RuneType.Speed] >= 380,
     displayCondition: () => player.unlocks.blessings
   },
   {
@@ -3037,13 +3035,16 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
     + 0.01 * player.achievements[AchievementId.AcceleratorsTier2],
   accelerators: () => {
     return (
-      player.achievements[AchievementId.FirstOwnedCoinTier5] * Math.floor(player.coinBuildings[CoinBuilding.Workers] / 500)
+      player.achievements[AchievementId.FirstOwnedCoinTier5]
+        * Math.floor(player.coinBuildings[CoinBuilding.Workers] / 500)
       + player.achievements[AchievementId.SecondOwnedCoinTier5]
         * Math.floor(player.coinBuildings[CoinBuilding.Investments] / 500)
-      + player.achievements[AchievementId.ThirdOwnedCoinTier5] * Math.floor(player.coinBuildings[CoinBuilding.Printers] / 500)
+      + player.achievements[AchievementId.ThirdOwnedCoinTier5]
+        * Math.floor(player.coinBuildings[CoinBuilding.Printers] / 500)
       + player.achievements[AchievementId.FourthOwnedCoinTier5]
         * Math.floor(player.coinBuildings[CoinBuilding.CoinMints] / 500)
-      + player.achievements[AchievementId.FifthOwnedCoinTier5] * Math.floor(player.coinBuildings[CoinBuilding.Alchemies] / 500)
+      + player.achievements[AchievementId.FifthOwnedCoinTier5]
+        * Math.floor(player.coinBuildings[CoinBuilding.Alchemies] / 500)
       + 2 * player.achievements[AchievementId.PrestigeNoAccelerator]
       + 4 * player.achievements[AchievementId.TranscendNoAccelerator]
       + 8 * player.achievements[AchievementId.ReincarnationNoAccelerator]
@@ -3055,10 +3056,12 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
   },
   multipliers: () => {
     return (
-      player.achievements[AchievementId.FirstOwnedCoinTier6] * Math.floor(player.coinBuildings[CoinBuilding.Workers] / 1000)
+      player.achievements[AchievementId.FirstOwnedCoinTier6]
+        * Math.floor(player.coinBuildings[CoinBuilding.Workers] / 1000)
       + player.achievements[AchievementId.SecondOwnedCoinTier6]
         * Math.floor(player.coinBuildings[CoinBuilding.Investments] / 1000)
-      + player.achievements[AchievementId.ThirdOwnedCoinTier6] * Math.floor(player.coinBuildings[CoinBuilding.Printers] / 1000)
+      + player.achievements[AchievementId.ThirdOwnedCoinTier6]
+        * Math.floor(player.coinBuildings[CoinBuilding.Printers] / 1000)
       + player.achievements[AchievementId.FourthOwnedCoinTier6]
         * Math.floor(player.coinBuildings[CoinBuilding.CoinMints] / 1000)
       + player.achievements[AchievementId.FifthOwnedCoinTier6]
@@ -3075,10 +3078,12 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
   },
   accelBoosts: () => {
     return (
-      player.achievements[AchievementId.FirstOwnedCoinTier7] * Math.floor(player.coinBuildings[CoinBuilding.Workers] / 2000)
+      player.achievements[AchievementId.FirstOwnedCoinTier7]
+        * Math.floor(player.coinBuildings[CoinBuilding.Workers] / 2000)
       + player.achievements[AchievementId.SecondOwnedCoinTier7]
         * Math.floor(player.coinBuildings[CoinBuilding.Investments] / 2000)
-      + player.achievements[AchievementId.ThirdOwnedCoinTier7] * Math.floor(player.coinBuildings[CoinBuilding.Printers] / 2000)
+      + player.achievements[AchievementId.ThirdOwnedCoinTier7]
+        * Math.floor(player.coinBuildings[CoinBuilding.Printers] / 2000)
       + player.achievements[AchievementId.FourthOwnedCoinTier7]
         * Math.floor(player.coinBuildings[CoinBuilding.CoinMints] / 2000)
       + player.achievements[AchievementId.FifthOwnedCoinTier7]

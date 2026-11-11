@@ -14,7 +14,7 @@ import {
   calculateRequiredRedAmbrosiaTimeEXALT
 } from './Calculate'
 import { singularity } from './Reset'
-import { runes } from './Runes'
+import { RuneType } from './Runes'
 import { format, player } from './Synergism'
 import { Alert, Confirm } from './UpdateHTML'
 import { toOrdinal } from './Utility'
@@ -184,7 +184,7 @@ export class SingularityChallenge {
     if (!player.singularityChallenges[this.HTMLTag].enabled) {
       return this.enableChallenge()
     } else {
-      return this.exitChallenge(runes.antiquities.level > 0)
+      return this.exitChallenge(player.runeLevels[RuneType.Antiquities] > 0)
     }
   }
 
@@ -238,7 +238,7 @@ export class SingularityChallenge {
 
   public async exitChallenge (success: boolean) {
     if (!success) {
-      const extra = runes.antiquities.level === 0
+      const extra = player.runeLevels[RuneType.Antiquities] === 0
         ? i18next.t('singularityChallenge.exitChallenge.incompleteWarning')
         : ''
       const confirmation = await Confirm(

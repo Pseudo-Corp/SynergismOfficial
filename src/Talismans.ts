@@ -14,7 +14,7 @@ import { getOcteractUpgradeEffect } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
-import { type RuneKeys, runes } from './Runes'
+import { allRuneTypes, runes, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { allTalismanRuneBonusStatsSum } from './Statistics'
@@ -130,7 +130,7 @@ const talismanResourceData: Record<TalismanCraftItems, TalismanCraftItemsMetadat
 
 export const talismanCraftItems = Object.keys(talismanResourceData) as TalismanCraftItems[]
 
-type TalismanRuneBonus = Record<RuneKeys, number>
+type TalismanRuneBonus = Record<RuneType, number>
 
 type TalismanTypeMap = {
   exemption: { taxReduction: number; duplicationOOMBonus: number }
@@ -329,16 +329,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     talismanBaseCoefficient: {
-      speed: 0,
-      duplication: 1.5,
-      prism: 0.75,
-      thrift: 0.75,
-      superiorIntellect: 0,
-      infiniteAscent: 0,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 0,
+      [RuneType.Duplication]: 1.5,
+      [RuneType.Prism]: 0.75,
+      [RuneType.Thrift]: 0.75,
+      [RuneType.SuperiorIntellect]: 0,
+      [RuneType.InfiniteAscent]: 0,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -373,16 +373,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     talismanBaseCoefficient: {
-      speed: 1.5,
-      duplication: 0,
-      prism: 0,
-      thrift: 0.75,
-      superiorIntellect: 0.75,
-      infiniteAscent: 0,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 1.5,
+      [RuneType.Duplication]: 0,
+      [RuneType.Prism]: 0,
+      [RuneType.Thrift]: 0.75,
+      [RuneType.SuperiorIntellect]: 0.75,
+      [RuneType.InfiniteAscent]: 0,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -417,16 +417,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     talismanBaseCoefficient: {
-      speed: 0,
-      duplication: 0.75,
-      prism: 0.75,
-      thrift: 1.5,
-      superiorIntellect: 0,
-      infiniteAscent: 0,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 0,
+      [RuneType.Duplication]: 0.75,
+      [RuneType.Prism]: 0.75,
+      [RuneType.Thrift]: 1.5,
+      [RuneType.SuperiorIntellect]: 0,
+      [RuneType.InfiniteAscent]: 0,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -463,16 +463,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     talismanBaseCoefficient: {
-      speed: 0.6,
-      duplication: 0.6,
-      prism: 0.6,
-      thrift: 0.6,
-      superiorIntellect: 0.6,
-      infiniteAscent: 0,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 0.6,
+      [RuneType.Duplication]: 0.6,
+      [RuneType.Prism]: 0.6,
+      [RuneType.Thrift]: 0.6,
+      [RuneType.SuperiorIntellect]: 0.6,
+      [RuneType.InfiniteAscent]: 0,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -507,16 +507,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     talismanBaseCoefficient: {
-      speed: 0.75,
-      duplication: 0.75,
-      prism: 0,
-      thrift: 0,
-      superiorIntellect: 1.5,
-      infiniteAscent: 0,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 0.75,
+      [RuneType.Duplication]: 0.75,
+      [RuneType.Prism]: 0,
+      [RuneType.Thrift]: 0,
+      [RuneType.SuperiorIntellect]: 1.5,
+      [RuneType.InfiniteAscent]: 0,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -551,16 +551,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     talismanBaseCoefficient: {
-      speed: 0.6,
-      duplication: 0.6,
-      prism: 0.6,
-      thrift: 0.6,
-      superiorIntellect: 0.6,
-      infiniteAscent: 0,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 0.6,
+      [RuneType.Duplication]: 0.6,
+      [RuneType.Prism]: 0.6,
+      [RuneType.Thrift]: 0.6,
+      [RuneType.SuperiorIntellect]: 0.6,
+      [RuneType.InfiniteAscent]: 0,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -590,16 +590,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     signatureDesc: () => i18next.t('runes.talismans.plastic.signature'),
     talismanBaseCoefficient: {
-      speed: 0.75,
-      duplication: 0,
-      prism: 1.5,
-      thrift: 0,
-      superiorIntellect: 0.75,
-      infiniteAscent: 0.005,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 0.75,
+      [RuneType.Duplication]: 0,
+      [RuneType.Prism]: 1.5,
+      [RuneType.Thrift]: 0,
+      [RuneType.SuperiorIntellect]: 0.75,
+      [RuneType.InfiniteAscent]: 0.005,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -628,16 +628,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     signatureDesc: () => i18next.t('runes.talismans.wowSquare.signature'),
     talismanBaseCoefficient: {
-      speed: 0,
-      duplication: 1,
-      prism: 1,
-      thrift: 0,
-      superiorIntellect: 1,
-      infiniteAscent: 0,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 0,
+      [RuneType.Duplication]: 1,
+      [RuneType.Prism]: 1,
+      [RuneType.Thrift]: 0,
+      [RuneType.SuperiorIntellect]: 1,
+      [RuneType.InfiniteAscent]: 0,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'ascension',
     isUnlocked: () => {
@@ -670,16 +670,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     talismanBaseCoefficient: {
-      speed: 1.4,
-      duplication: 1.4,
-      prism: 1.4,
-      thrift: 1.4,
-      superiorIntellect: 1.4,
-      infiniteAscent: 0.01,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 1.4,
+      [RuneType.Duplication]: 1.4,
+      [RuneType.Prism]: 1.4,
+      [RuneType.Thrift]: 1.4,
+      [RuneType.SuperiorIntellect]: 1.4,
+      [RuneType.InfiniteAscent]: 0.01,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'singularity',
     isUnlocked: () => {
@@ -711,16 +711,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     signatureDesc: () => i18next.t('runes.talismans.purpleGem.signature'),
     talismanBaseCoefficient: {
-      speed: 1,
-      duplication: 1,
-      prism: 1,
-      thrift: 1,
-      superiorIntellect: 1,
-      infiniteAscent: 0.01,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 1,
+      [RuneType.Duplication]: 1,
+      [RuneType.Prism]: 1,
+      [RuneType.Thrift]: 1,
+      [RuneType.SuperiorIntellect]: 1,
+      [RuneType.InfiniteAscent]: 0.01,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
@@ -750,16 +750,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
     },
     signatureDesc: () => i18next.t('runes.talismans.cookieGrandma.signature'),
     talismanBaseCoefficient: {
-      speed: 1,
-      duplication: 1,
-      prism: 1,
-      thrift: 1,
-      superiorIntellect: 1,
-      infiniteAscent: 0.01,
-      antiquities: 0,
-      horseShoe: 0,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 1,
+      [RuneType.Duplication]: 1,
+      [RuneType.Prism]: 1,
+      [RuneType.Thrift]: 1,
+      [RuneType.SuperiorIntellect]: 1,
+      [RuneType.InfiniteAscent]: 0.01,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
@@ -794,16 +794,16 @@ export const talismans: { [K in TalismanKeys]: TalismanData<K> } = {
       })
     },
     talismanBaseCoefficient: {
-      speed: 1.2,
-      duplication: 1.2,
-      prism: 1.2,
-      thrift: 1.2,
-      superiorIntellect: 1.2,
-      infiniteAscent: 0,
-      antiquities: 0,
-      horseShoe: 0.01,
-      finiteDescent: 0,
-      topHat: 0
+      [RuneType.Speed]: 1.2,
+      [RuneType.Duplication]: 1.2,
+      [RuneType.Prism]: 1.2,
+      [RuneType.Thrift]: 1.2,
+      [RuneType.SuperiorIntellect]: 1.2,
+      [RuneType.InfiniteAscent]: 0,
+      [RuneType.Antiquities]: 0,
+      [RuneType.HorseShoe]: 0.01,
+      [RuneType.FiniteDescent]: 0,
+      [RuneType.TopHat]: 0
     },
     minimalResetTier: 'never',
     isUnlocked: () => {
@@ -1041,7 +1041,7 @@ export const buyTalismanLevelToMax = (t: TalismanKeys): void => {
   setTalismanRarity(t)
 }
 
-const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKeys): number => {
+const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneType): number => {
   const talisman = talismans[t]
   if (talisman.talismanBaseCoefficient[rune] === 0 || !talisman.isUnlocked()) {
     return 0
@@ -1060,7 +1060,7 @@ const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneKeys): nu
   return talisman.talismanBaseCoefficient[rune] * bonusMult * talisman.level * rarityValues[talisman.rarity]
 }
 
-export const getRuneBonusFromAllTalismans = (rune: RuneKeys): number => {
+export const getRuneBonusFromAllTalismans = (rune: RuneType): number => {
   const specialMultiplier = allTalismanRuneBonusStatsSum()
   let totalBonus = 0
   for (const t of talismanKeys) {
@@ -1232,13 +1232,14 @@ export const talismanToStringHTML = (t: TalismanKeys): void => {
   signatureHTML.innerHTML = talisman.signatureDesc(talisman.rarity)
 
   const runeLevelMult = allTalismanRuneBonusStatsSum()
-  for (const rune of Object.keys(talisman.talismanBaseCoefficient) as RuneKeys[]) {
+  for (const rune of allRuneTypes) {
     const levels = getRuneBonusFromIndividualTalisman(t, rune) * runeLevelMult
-    const capitalizedRune = rune.charAt(0).toUpperCase() + rune.slice(1)
+    const key = runes[rune].key
+    const capitalizedRune = key.charAt(0).toUpperCase() + key.slice(1)
     if (levels > 0 && runes[rune].isUnlocked()) {
       DOMCacheGetOrSet(`talisman${capitalizedRune}Effect`).style.display = 'block'
       DOMCacheGetOrSet(`talisman${capitalizedRune}Effect`).innerHTML = i18next.t(
-        `runes.talismans.bonusRuneLevels.${rune}`,
+        `runes.talismans.bonusRuneLevels.${key}`,
         {
           x: format(levels, 3, true)
         }
@@ -1416,10 +1417,10 @@ const updateMobileTalismanDisplay = (t: TalismanKeys) => {
     DOMCacheGetOrSet(`${t}TalismanSignature`).innerHTML = i18next.t('runes.talismans.mobile.beforeMythical')
   }
 
-  for (const rune of Object.keys(talisman.talismanBaseCoefficient) as RuneKeys[]) {
+  for (const rune of allRuneTypes) {
     const levels = getRuneBonusFromIndividualTalisman(t, rune)
     if (talismans[t].talismanBaseCoefficient[rune] > 0) {
-      DOMCacheGetOrSet(`${t}${rune}RuneBonus`).textContent = format(levels, 2, true)
+      DOMCacheGetOrSet(`${t}${runes[rune].key}RuneBonus`).textContent = format(levels, 2, true)
     }
   }
 
@@ -2239,21 +2240,22 @@ export const generateMobileMainTalismansHTML = () => {
     const runeBonusesContainer = document.createElement('div')
     runeBonusesContainer.className = 'mobileTalismanRuneBonusesContainer'
 
-    for (const rune of Object.keys(talismans[key].talismanBaseCoefficient) as RuneKeys[]) {
+    for (const rune of allRuneTypes) {
       if (talismans[key].talismanBaseCoefficient[rune] > 0) {
+        const runeKey = runes[rune].key
         const runeDiv = document.createElement('div')
         runeDiv.className = 'runeIconAndNameSmall'
 
         const runeIcon = document.createElement('img')
-        runeIcon.src = `Pictures/Runes/${rune.charAt(0).toUpperCase() + rune.slice(1)}.png`
-        runeIcon.alt = `${rune} Rune`
+        runeIcon.src = `Pictures/Runes/${runeKey.charAt(0).toUpperCase() + runeKey.slice(1)}.png`
+        runeIcon.alt = `${runeKey} Rune`
         runeIcon.width = 24
         runeIcon.height = 24
         runeIcon.loading = 'lazy'
         runeDiv.appendChild(runeIcon)
 
         const runeBonus = document.createElement('p')
-        runeBonus.id = `${key}${rune}RuneBonus`
+        runeBonus.id = `${key}${runeKey}RuneBonus`
         runeBonus.textContent = `${talismans[key].talismanBaseCoefficient[rune]}`
         runeBonus.style.color = runes[rune].runeHTMLStyle.nameColor
         runeDiv.appendChild(runeBonus)

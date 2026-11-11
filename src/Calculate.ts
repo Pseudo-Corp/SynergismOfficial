@@ -34,7 +34,7 @@ import {
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
-import { getRuneEffects } from './Runes'
+import { getRuneEffects, RuneType, updateAllRuneFreeLevels, updateAllRuneLevelsFromEXP } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { generousOrbsLevels, getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -76,7 +76,6 @@ import {
   ascensionCountMultStatsProduct,
   constructionMultiplierStatsProduct,
   constructionStatsSum,
-  firstFiveRuneSalvageStatsSum,
   freeAcceleratorAdditiveStatsSum,
   freeAcceleratorBoostAdditiveStatsSum,
   freeAcceleratorBoostMultiplierStatsProduct,
@@ -726,7 +725,8 @@ export const calculateChallenge15RuneSalvage = () => {
   return challenge15CorruptionEffect('drought') * calculateNegativeSalvageMultiplier()
 }
 
-export const calculateFirstFiveRuneSalvage = () => firstFiveRuneSalvageStatsSum()
+export const calculateFirstFiveRuneSalvage = () =>
+  calculateTotalSalvage() + calculateBadOfferingsSalvage() + calculateChallenge15RuneSalvage()
 
 export const calculateSalvageRuneEXPMultiplier = (salvageVal?: number): Decimal => {
   let salvage = salvageVal
@@ -956,6 +956,8 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
       sliceStart = PerformanceNow()
     }
 
+    updateAllRuneLevelsFromEXP({ forceAchievementCheck: false })
+    updateAllRuneFreeLevels()
     G.timeMultiplier = calculateGlobalSpeedMult()
 
     // Reset Stuff lmao!
@@ -1371,7 +1373,7 @@ export const calculateCubeBankSources = () => {
     transcensionChallenges,
     ants: getAntUpgradeEffect(AntUpgrades.AscensionScore).cubesBanked,
     cubeUpgrades: cubeUpgradeCubeBankAmount(),
-    finiteDescent: getRuneEffects('finiteDescent', 'cubesBanked'),
+    finiteDescent: getRuneEffects(RuneType.FiniteDescent, 'cubesBanked'),
     achievements: getAchievementReward('cubesBanked'),
     advancedPack: getGQUpgradeEffect('advancedPack', 'cubesBanked'),
     reincarnationChallenges: {

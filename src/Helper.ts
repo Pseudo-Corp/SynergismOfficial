@@ -36,7 +36,7 @@ import { quarkHandler, worlds } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { Seed, seededRandom } from './RNG'
 import { buyAllBlessingLevels } from './RuneBlessings'
-import { getNumberUnlockedRunes, indexToRune, type RuneKeys, runes, sacrificeOfferings } from './Runes'
+import { allRuneTypes, getNumberUnlockedRunes, runes, RuneType, sacrificeOfferings } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { getShopUpgradeEffects, useConsumable } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -576,27 +576,23 @@ export const automaticTools = (input: AutoToolInput, time: number, globalSpeedMu
           let numUnlocked = getNumberUnlockedRunes()
 
           // Do not purchase AoAG under s50
-          if (player.highestSingularityCount < 50 && runes.antiquities.isUnlocked()) {
+          if (player.highestSingularityCount < 50 && runes[RuneType.Antiquities].isUnlocked()) {
             numUnlocked -= 1
           }
 
           // Do not purchase IA under s30
-          if (player.highestSingularityCount < 30 && runes.infiniteAscent.isUnlocked()) {
+          if (player.highestSingularityCount < 30 && runes[RuneType.InfiniteAscent].isUnlocked()) {
             numUnlocked -= 1
           }
 
           const offeringPerRune = Decimal.floor(player.offerings.mul(0.5).div(numUnlocked))
 
-          for (const key of Object.keys(player.runes)) {
-            const runeKey = key as RuneKeys
-            sacrificeOfferings(runeKey, offeringPerRune, true)
+          for (const rune of allRuneTypes) {
+            sacrificeOfferings(rune, offeringPerRune, true)
           }
-        } else {
+        } else if (player.autoSacrificeRune !== null) {
           // If you did not buy cube upgrade 2x10 it sacrifices to selected rune.
-          const rune = player.autoSacrifice
-          if (rune !== 0) {
-            sacrificeOfferings(indexToRune[rune], player.offerings, true)
-          }
+          sacrificeOfferings(player.autoSacrificeRune, player.offerings, true)
         }
         player.sacrificeTimer = 0
       }

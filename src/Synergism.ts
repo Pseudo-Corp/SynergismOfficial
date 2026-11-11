@@ -122,11 +122,13 @@ import {
   updateTesseractAutoBuyAmount
 } from './Reset'
 import {
+  allRuneTypes,
   generateRunesHTML,
   getRuneEffects,
-  indexToRune,
   runes,
+  RuneType,
   sacrificeOfferings,
+  updateAllRuneFreeLevels,
   updateAllRuneLevelsFromEXP
 } from './Runes'
 import { allCoinExponentStatsProduct, allCoinMultiplierStatsProduct, c15RewardUpdate } from './Statistics'
@@ -223,19 +225,13 @@ import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from
 import { getQuarkBonus, refreshQuarkBonus, worlds } from './Quark'
 import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './RedAmbrosiaUpgrades'
 import {
+  blessingRuneTypes,
   buyBlessingLevels,
   generateBlessingsHTML,
   getRuneBlessingEffect,
-  type RuneBlessingKeys,
   updateAllBlessingLevelsFromEXP
 } from './RuneBlessings'
-import {
-  buySpiritLevels,
-  generateSpiritsHTML,
-  getRuneSpiritEffect,
-  type RuneSpiritKeys,
-  updateAllSpiritLevelsFromEXP
-} from './RuneSpirits'
+import { buySpiritLevels, generateSpiritsHTML, getRuneSpiritEffect, updateAllSpiritLevelsFromEXP } from './RuneSpirits'
 import { parseSave } from './saves/Migrations'
 import { playerSchema } from './saves/PlayerSchema'
 import { flushSaveStorage, getStoredSave, initializeSaveStorage, persistSave, queueSave } from './saves/SaveStorage'
@@ -490,34 +486,15 @@ export const player: Player = {
   crystalUpgrades: [0, 0, 0, 0, 0, 0, 0, 0],
   crystalUpgradesCost: [7, 15, 20, 40, 100, 200, 500, 1000],
 
-  runes: {
-    speed: new Decimal(),
-    duplication: new Decimal(),
-    prism: new Decimal(),
-    thrift: new Decimal(),
-    superiorIntellect: new Decimal(),
-    infiniteAscent: new Decimal(),
-    antiquities: new Decimal(),
-    horseShoe: new Decimal(),
-    finiteDescent: new Decimal(),
-    topHat: new Decimal()
-  },
+  runeEXP: Array.from({ length: 10 }, () => new Decimal()),
+  runeLevels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  runeFreeLevels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
-  runeBlessings: {
-    speed: new Decimal(),
-    duplication: new Decimal(),
-    prism: new Decimal(),
-    thrift: new Decimal(),
-    superiorIntellect: new Decimal()
-  },
+  blessingEXP: Array.from({ length: 5 }, () => new Decimal()),
+  blessingLevels: [0, 0, 0, 0, 0],
 
-  runeSpirits: {
-    speed: new Decimal(),
-    duplication: new Decimal(),
-    prism: new Decimal(),
-    thrift: new Decimal(),
-    superiorIntellect: new Decimal()
-  },
+  spiritEXP: Array.from({ length: 5 }, () => new Decimal()),
+  spiritLevels: [0, 0, 0, 0, 0],
 
   offerings: new Decimal(),
   maxOfferings: new Decimal(),
@@ -669,7 +646,7 @@ export const player: Player = {
   researchBuyMaxToggle: false,
   autoResearchMode: 'manual',
   autoResearch: 0,
-  autoSacrifice: 0,
+  autoSacrificeRune: null,
   sacrificeTimer: 0,
   quarkstimer: 90000,
   goldenQuarksTimer: 90000,
@@ -1822,7 +1799,6 @@ const loadSynergy = (saveString: string): boolean => {
     }
 
     player.autoResearch = Math.min(200, player.autoResearch)
-    player.autoSacrifice = Math.min(G.MAX_AUTO_SACRIFICE_RUNE, player.autoSacrifice)
 
     setResearchRoombaHighlight(player.autoResearchToggle ? player.autoResearch : 0)
 
@@ -1832,8 +1808,8 @@ const loadSynergy = (saveString: string): boolean => {
       )
     }
 
-    if (player.autoSacrificeToggle && player.autoSacrifice > 0) {
-      DOMCacheGetOrSet(`${indexToRune[player.autoSacrifice]}Rune`).style.backgroundColor =
+    if (player.autoSacrificeToggle && player.autoSacrificeRune !== null) {
+      DOMCacheGetOrSet(`${runes[player.autoSacrificeRune].key}Rune`).style.backgroundColor =
         'var(--orange-background-color)'
     }
 
@@ -2233,7 +2209,7 @@ export const calculateAcceleratorPower = (totalAcceleratorBoost: number): number
 
   let power = Math.pow(
     1.1
-      + getRuneEffects('speed', 'acceleratorPower')
+      + getRuneEffects(RuneType.Speed, 'acceleratorPower')
       + getAchievementReward('acceleratorPower')
       + tuSevenMulti
         * (totalAcceleratorBoost / 100)
@@ -2350,13 +2326,13 @@ export type AccelMultStats = ReturnType<typeof calculateAccelMultStats>
 const calculateRawMultiplierBoosts = (): number => {
   let b = 0
   b += Decimal.log(player.transcendShards.add(1), 3)
-  b += getRuneEffects('duplication', 'multiplierBoosts')
+  b += getRuneEffects(RuneType.Duplication, 'multiplierBoosts')
   b += 2 * player.challengecompletions[1]
   b *= 1 + (11 * player.researches[33]) / 100
   b *= 1 + (11 * player.researches[34]) / 100
   b *= 1 + (11 * player.researches[35]) / 100
   b *= 1 + player.researches[89] / 5
-  b *= getRuneBlessingEffect('duplication').multiplierBoosts
+  b *= getRuneBlessingEffect(RuneType.Duplication).multiplierBoosts
   return b
 }
 
@@ -2459,7 +2435,7 @@ export const calculateFirstSixCoinUpgradeMultiplier = (): Decimal => {
 export const crystalUpgrade4MaxExponent = (): number => {
   let exponent = 10
   exponent += 0.05 * player.researches[129] * Decimal.log(player.commonFragments.add(1), 4)
-  exponent += getRuneSpiritEffect('prism').crystalCaps
+  exponent += getRuneSpiritEffect(RuneType.Prism).crystalCaps
 
   return exponent
 }
@@ -2589,10 +2565,12 @@ export const calculateCoinTierMultiplier = (
   effectiveFreeAccelerator = calculateAcceleratorCounts().effectiveFreeAccelerator
 ): Decimal => coinTierMultipliers[index](first6CoinUp, effectiveFreeAccelerator)
 
-export const calculateGlobalCrystalMultiplier = (buildingPowerMult = calculateBuildingPowerCoinMultiplier()): Decimal => {
+export const calculateGlobalCrystalMultiplier = (
+  buildingPowerMult = calculateBuildingPowerCoinMultiplier()
+): Decimal => {
   let multiplier = Decimal.fromNumber(getAchievementReward('crystalMultiplier'))
   multiplier = multiplier.times(
-    Decimal.pow(10, getRuneEffects('prism', 'productionLog10'))
+    Decimal.pow(10, getRuneEffects(RuneType.Prism, 'productionLog10'))
   )
   if (player.upgrades[36] > 0.5) {
     multiplier = multiplier.times(
@@ -3361,7 +3339,7 @@ export const resetCheck = async (
       return singularityChallenges[G.currentSingChallenge].challengeEntryHandler()
     }
 
-    if (runes.antiquities.level === 0) {
+    if (player.runeLevels[RuneType.Antiquities] === 0) {
       return Alert(i18next.t('main.noAntiquity'))
     }
 
@@ -3480,7 +3458,7 @@ export const resetConfirmation = async (i: string): Promise<void> => {
 }
 
 export const updateAll = (): void => {
-  if (runes.antiquities.level > 0) {
+  if (player.runeLevels[RuneType.Antiquities] > 0) {
     raiseHighestSingularity(player.singularityCount)
   }
 
@@ -3546,7 +3524,7 @@ export const updateAll = (): void => {
   ) {
     c += 10
   }
-  const logDiscount = getRuneEffects('prism', 'costDivisorLog10')
+  const logDiscount = getRuneEffects(RuneType.Prism, 'costDivisorLog10')
   for (let i = 1; i <= 5; i++) {
     const zeroIndex = i - 1 as ZeroToFour
     if (
@@ -3764,7 +3742,6 @@ export const slowUpdates = (): void => {
   }
 
   buildingAchievementCheck()
-  updateAllRuneLevelsFromEXP({ forceAchievementCheck: false })
   awardAchievementGroup(AchievementGroup.RuneFreeLevel)
 
   for (const key of periodicProgressiveAchievementKeys) {
@@ -3908,6 +3885,8 @@ const tick = () => {
 // eslint-disable-next-line no-shadow
 const tack = (dt: number) => {
   if (!G.timeWarp) {
+    updateAllRuneLevelsFromEXP({ forceAchievementCheck: false })
+    updateAllRuneFreeLevels()
     // Adds Resources (coins, ants, etc)
     const timeMult = calculateGlobalSpeedMult()
     resourceGain(dt * timeMult)
@@ -4136,11 +4115,11 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
-          sacrificeOfferings(indexToRune[num], player.offerings)
+          sacrificeOfferings(allRuneTypes[num - 1], player.offerings)
         } else if (getActiveSubTab() === 2) {
-          buyBlessingLevels(indexToRune[num] as RuneBlessingKeys, player.offerings)
+          buyBlessingLevels(blessingRuneTypes[num - 1], player.offerings)
         } else if (getActiveSubTab() === 3) {
-          buySpiritLevels(indexToRune[num] as RuneSpiritKeys, player.offerings)
+          buySpiritLevels(blessingRuneTypes[num - 1], player.offerings)
         }
       }
       if (G.currentTab === Tabs.Challenges) {
@@ -4163,7 +4142,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
-          sacrificeOfferings('infiniteAscent', player.offerings)
+          sacrificeOfferings(RuneType.InfiniteAscent, player.offerings)
         }
       }
       break
@@ -4177,7 +4156,7 @@ export const synergismHotkeys = (event: KeyboardEvent, key: string): void => {
       }
       if (G.currentTab === Tabs.Runes) {
         if (getActiveSubTab() === 0) {
-          sacrificeOfferings('antiquities', player.offerings)
+          sacrificeOfferings(RuneType.Antiquities, player.offerings)
         }
       }
       break
@@ -4319,6 +4298,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
       updateTalismanLevelAndSpentFromInvested(key)
     }
   }
+  updateAllRuneFreeLevels()
 
   player.corruptions.used = normalizeCorruptionLevel(player.corruptions.used)
   player.corruptions.next = normalizeCorruptionLevel(player.corruptions.next)

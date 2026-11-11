@@ -180,13 +180,7 @@ import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { getGlobalBonus, getPersonalBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneBlessingEffect } from './RuneBlessings'
-import {
-  firstFiveEffectiveRuneLevelMult,
-  getRuneEffects,
-  runes,
-  SIEffectiveRuneLevelMult,
-  sumOfRuneLevels
-} from './Runes'
+import { firstFiveEffectiveRuneLevelMult, getRuneEffects, RuneType, SIEffectiveRuneLevelMult } from './Runes'
 import { getRuneSpiritEffect } from './RuneSpirits'
 import { getShopUpgradeEffects } from './Shop'
 import {
@@ -406,7 +400,7 @@ export const allCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'InfiniteAscent',
-      stat: () => getRuneEffects('infiniteAscent', 'cubeMult')
+      stat: () => getRuneEffects(RuneType.InfiniteAscent, 'cubeMult')
     },
     {
       i18n: 'Beta',
@@ -591,7 +585,7 @@ export const allCubeStatsProduct = (ascensionSpeedMult?: number) => {
         * G.challenge15Rewards.cube3.value
         * G.challenge15Rewards.cube4.value
         * G.challenge15Rewards.cube5.value)
-      * getRuneEffects('infiniteAscent', 'cubeMult')
+      * getRuneEffects(RuneType.InfiniteAscent, 'cubeMult')
       * (1 + player.platonicUpgrades[10])
       * Math.pow(1.01, player.platonicUpgrades[15] * player.challengecompletions[9])
       * calculateCubeMultFromPowder()
@@ -701,7 +695,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'SpiritPower',
-      stat: () => getRuneSpiritEffect('duplication').wowCubes
+      stat: () => getRuneSpiritEffect(RuneType.Duplication).wowCubes
     },
     {
       i18n: 'PlatonicOpening',
@@ -713,7 +707,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Antiquities',
-      stat: () => getRuneEffects('antiquities', 'cubeBonus')
+      stat: () => getRuneEffects(RuneType.Antiquities, 'cubeBonus')
     },
     {
       i18n: 'CookieUpgrade13',
@@ -760,10 +754,10 @@ export const allWowCubeStatsProduct = (
         + 0.01
           * Decimal.log(player.ascendShards.add(1), 4)
           * Math.min(1, player.constantUpgrades[10]))
-      * getRuneSpiritEffect('duplication').wowCubes
+      * getRuneSpiritEffect(RuneType.Duplication).wowCubes
       * calculateCubeMultiplierPlatonicBlessing()
       * corruptionScaledCubeStats.cubes.Platonic1x1(ascensionEffectiveLevel)
-      * getRuneEffects('antiquities', 'cubeBonus')
+      * getRuneEffects(RuneType.Antiquities, 'cubeBonus')
       * (1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]
         - player.cubeUpgrades[63])
   )
@@ -1427,7 +1421,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'SuperiorIntellect',
-      stat: () => getRuneEffects('superiorIntellect', 'offeringMult') // Superior Intellect Rune
+      stat: () => getRuneEffects(RuneType.SuperiorIntellect, 'offeringMult') // Superior Intellect Rune
     },
     {
       i18n: 'ReincarnationChallenge',
@@ -1491,7 +1485,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'ThriftSpirit',
-      stat: () => getRuneSpiritEffect('thrift').offerings // Thrift
+      stat: () => getRuneSpiritEffect(RuneType.Thrift).offerings // Thrift
     },
     {
       i18n: 'Research8x25',
@@ -1523,7 +1517,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'Antiquities',
-      stat: () => Decimal.pow(10, getRuneEffects('antiquities', 'offeringLog10')) // Antiquities Rune
+      stat: () => Decimal.pow(10, getRuneEffects(RuneType.Antiquities, 'offeringLog10')) // Antiquities Rune
     },
     {
       i18n: 'Jack',
@@ -1650,7 +1644,7 @@ export const allOfferingStatsProduct = (baseOfferings = calculateBaseOfferings()
     .mul(1 + Math.pow(Decimal.log(player.prestigeShards.add(1), 10), 1 / 2) / 5)
     .mul(getAchievementReward('offeringBonus'))
     .mul(getLevelReward('offerings'))
-    .mul(getRuneEffects('superiorIntellect', 'offeringMult'))
+    .mul(getRuneEffects(RuneType.SuperiorIntellect, 'offeringMult'))
     .mul(
       1 + 1 / 50 * player.challengecompletions[6]
         + 1 / 25 * player.challengecompletions[8]
@@ -1675,7 +1669,7 @@ export const allOfferingStatsProduct = (baseOfferings = calculateBaseOfferings()
     )
     .mul(campaignTokenBonuses.tutorial().offeringBonus)
     .mul(1 + 0.12 * player.challengecompletions[12])
-    .mul(getRuneSpiritEffect('thrift').offerings)
+    .mul(getRuneSpiritEffect(RuneType.Thrift).offerings)
     .mul(1 + (0.01 / 100) * player.researches[200])
     .mul(1 + 0.05 * player.cubeUpgrades[46])
     .mul(1 + (0.02 / 100) * player.cubeUpgrades[50])
@@ -1683,7 +1677,7 @@ export const allOfferingStatsProduct = (baseOfferings = calculateBaseOfferings()
     .mul(1 + 2.5 * player.platonicUpgrades[10])
     .mul(1 + 5 * player.platonicUpgrades[15])
     .mul(G.challenge15Rewards.offering.value)
-    .mul(Decimal.pow(10, getRuneEffects('antiquities', 'offeringLog10')))
+    .mul(Decimal.pow(10, getRuneEffects(RuneType.Antiquities, 'offeringLog10')))
     .mul(getShopUpgradeEffects('shopPanthema', 'offeringMult'))
     .mul(1 / calculateSingularityDebuff('Offering'))
     .mul(getGQUpgradeEffect('starterPack', 'offeringMult'))
@@ -1861,7 +1855,9 @@ export const allQuarkStats: NumberStatLineCategory = {
     {
       i18n: 'InfiniteAscent',
       stat: () =>
-        getShopUpgradeEffects('infiniteAscent', 'runeUnlocked') ? getRuneEffects('infiniteAscent', 'quarkMult') : 1
+        getShopUpgradeEffects('infiniteAscent', 'runeUnlocked')
+          ? getRuneEffects(RuneType.InfiniteAscent, 'quarkMult')
+          : 1
     },
     {
       i18n: 'QuarkHepteract',
@@ -2015,7 +2011,9 @@ export const allQuarkStatsProduct = () =>
       * getShopUpgradeEffects('shopPanthema', 'quarkMult')
       * (player.challenge15Exponent >= G.challenge15Rewards.quarks.requirement ? G.challenge15Rewards.quarks.value : 1)
       * campaignTokenBonuses.quark()
-      * (getShopUpgradeEffects('infiniteAscent', 'runeUnlocked') ? getRuneEffects('infiniteAscent', 'quarkMult') : 1)
+      * (getShopUpgradeEffects('infiniteAscent', 'runeUnlocked')
+        ? getRuneEffects(RuneType.InfiniteAscent, 'quarkMult')
+        : 1)
       * (player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
         ? getHepteractEffects('quark').quarkMultiplier
         : 1)
@@ -2164,7 +2162,7 @@ export const allObtainiumIgnoreDRStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'Antiquities',
-      stat: () => Math.pow(10, getRuneEffects('antiquities', 'obtainiumLog10')) // Antiquities Rune
+      stat: () => Math.pow(10, getRuneEffects(RuneType.Antiquities, 'obtainiumLog10')) // Antiquities Rune
     },
     {
       i18n: 'CubeUpgradeCx5',
@@ -2219,7 +2217,7 @@ export const allObtainiumIgnoreDRStatsProduct = (baseObtainium = calculateBaseOb
     .mul(1 + 1.5 * player.platonicUpgrades[9])
     .mul(1 + 2.5 * player.platonicUpgrades[10])
     .mul(1 + 5 * player.platonicUpgrades[15])
-    .mul(Math.pow(10, getRuneEffects('antiquities', 'obtainiumLog10')))
+    .mul(Math.pow(10, getRuneEffects(RuneType.Antiquities, 'obtainiumLog10')))
     .mul(1 + player.cubeUpgrades[55] / 100)
     .mul((player.cubeUpgrades[62] > 0 && player.currentChallenge.ascension === 15) ? 8 : 1)
     .mul(getRedAmbrosiaUpgradeEffects('tutorial', 'obtainiumMult'))
@@ -2294,7 +2292,7 @@ export const allObtainiumStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'Rune5',
-      stat: () => getRuneEffects('superiorIntellect', 'obtainiumMult')
+      stat: () => getRuneEffects(RuneType.SuperiorIntellect, 'obtainiumMult')
     },
     {
       i18n: 'Ant10',
@@ -2318,7 +2316,7 @@ export const allObtainiumStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'SpiritPower',
-      stat: () => getRuneSpiritEffect('superiorIntellect').obtainium // Spirit Power
+      stat: () => getRuneSpiritEffect(RuneType.SuperiorIntellect).obtainium // Spirit Power
     },
     {
       i18n: 'Research6x19',
@@ -2440,13 +2438,13 @@ export const allObtainiumStatsProduct = () =>
     .mul(1 + player.researches[119] / 200)
     .mul(getShopUpgradeEffects('cashGrab', 'obtainiumMult'))
     .mul(getShopUpgradeEffects('obtainiumEX', 'obtainiumMult'))
-    .mul(getRuneEffects('superiorIntellect', 'obtainiumMult'))
+    .mul(getRuneEffects(RuneType.SuperiorIntellect, 'obtainiumMult'))
     .mul(getAntUpgradeEffect(AntUpgrades.Obtainium).obtainiumMult)
     .mul(calculateObtainiumCubeBlessing())
     .mul(1 + 0.04 * player.constantUpgrades[4])
     .mul(1 + 0.1 * player.cubeUpgrades[3])
     .mul(1 + 0.5 * player.challengecompletions[12])
-    .mul(getRuneSpiritEffect('superiorIntellect').obtainium)
+    .mul(getRuneSpiritEffect(RuneType.SuperiorIntellect).obtainium)
     .mul(1 + (0.03 * Decimal.log(player.uncommonFragments.add(1), 4)) * player.researches[144])
     .mul(1 + 0.0002 * player.cubeUpgrades[50])
     .mul(getShopUpgradeEffects('shopPanthema', 'obtainiumMult'))
@@ -2553,7 +2551,7 @@ export const antSacrificeRewardStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'RuneBlessing',
-      stat: () => getRuneBlessingEffect('prism').antSacrificeMult // Rune Blessing
+      stat: () => getRuneBlessingEffect(RuneType.Prism).antSacrificeMult // Rune Blessing
     },
     {
       i18n: 'Challenge10',
@@ -2598,7 +2596,7 @@ export const antSacrificeRewardStatsProduct = () =>
     .mul(getAntUpgradeEffect(AntUpgrades.AntSacrifice).antSacrificeMultiplier)
     .mul(1 + player.researches[103] / 20)
     .mul(1 + player.researches[104] / 20)
-    .mul(getRuneBlessingEffect('prism').antSacrificeMult)
+    .mul(getRuneBlessingEffect(RuneType.Prism).antSacrificeMult)
     .mul(1 + (1 / 50) * player.challengecompletions[10])
     .mul(1 + (1 / 50) * player.researches[122])
     .mul(1 + (3 / 100) * player.researches[133])
@@ -2665,7 +2663,7 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'SpeedRune',
-      stat: () => getRuneEffects('speed', 'globalSpeed') // Speed Rune
+      stat: () => getRuneEffects(RuneType.Speed, 'globalSpeed') // Speed Rune
     },
     {
       i18n: 'ObtainiumLog',
@@ -2698,11 +2696,11 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
     {
       i18n: 'SpeedBlessing',
       // stat: () => 1 + 8 * G.effectiveRuneBlessingPower[1] // speed blessing
-      stat: () => getRuneBlessingEffect('speed').globalSpeed // speed blessing
+      stat: () => getRuneBlessingEffect(RuneType.Speed).globalSpeed // speed blessing
     },
     {
       i18n: 'SpeedSpirit',
-      stat: () => getRuneSpiritEffect('speed').globalSpeed // speed spirit
+      stat: () => getRuneSpiritEffect(RuneType.Speed).globalSpeed // speed spirit
     },
     {
       i18n: 'ChronosCube',
@@ -2748,7 +2746,7 @@ export const allGlobalSpeedStats: NumberStatLineCategory = {
 export const allGlobalSpeedStatsProduct = () =>
   Math.min(
     1e300,
-    getRuneEffects('speed', 'globalSpeed')
+    getRuneEffects(RuneType.Speed, 'globalSpeed')
       * (1 + (1 / 300) * Decimal.log10(player.maxObtainium.plus(1)) * player.upgrades[70])
       * (1 + player.researches[121] / 50)
       * (1 + 0.015 * player.researches[136])
@@ -2756,8 +2754,8 @@ export const allGlobalSpeedStatsProduct = () =>
       * (1 + 0.009 * player.researches[166])
       * (1 + 0.006 * player.researches[181])
       * (1 + 0.003 * player.researches[196])
-      * getRuneBlessingEffect('speed').globalSpeed
-      * getRuneSpiritEffect('speed').globalSpeed
+      * getRuneBlessingEffect(RuneType.Speed).globalSpeed
+      * getRuneSpiritEffect(RuneType.Speed).globalSpeed
       * calculateGlobalSpeedCubeBlessing()
       * (1 + player.cubeUpgrades[18] / 5)
       * getAntUpgradeEffect(AntUpgrades.Mortuus).globalSpeed
@@ -3153,7 +3151,7 @@ export const allAmbrosiaLuckStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HorseShoeRune',
-      stat: () => getRuneEffects('horseShoe', 'ambrosiaLuck') // Horseshoe Rune
+      stat: () => getRuneEffects(RuneType.HorseShoe, 'ambrosiaLuck') // Horseshoe Rune
     },
     {
       i18n: 'PurpleAmbrosiaLeo',
@@ -3193,7 +3191,7 @@ export const allAmbrosiaLuckStatsSum = () =>
       + (2 * player.cubeUpgrades[77])
       + calculateCookieUpgrade29Luck()
       + getShopUpgradeEffects('shopAmbrosiaUltra', 'ambrosiaLuck')
-      + getRuneEffects('horseShoe', 'ambrosiaLuck')
+      + getRuneEffects(RuneType.HorseShoe, 'ambrosiaLuck')
       + getPurpleAmbrosiaUpgradeEffects('leo', 'unassignedBlueberyLuck')
   )
 
@@ -3672,7 +3670,7 @@ export const allAddCodeTimerStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Antiquities',
-      stat: () => getRuneEffects('antiquities', 'addCodeCooldownReduction'), // Antiquities rune reduction (20%)
+      stat: () => getRuneEffects(RuneType.Antiquities, 'addCodeCooldownReduction'), // Antiquities rune reduction (20%)
       color: 'var(--lime-color)'
     },
     {
@@ -3693,7 +3691,7 @@ export const allAddCodeTimerStatsProduct = () =>
         (player.highestSingularityCount >= 125 ? player.highestSingularityCount / 800 : 0)
           + (player.highestSingularityCount >= 200 ? player.highestSingularityCount / 800 : 0)
       ))
-      * getRuneEffects('antiquities', 'addCodeCooldownReduction')
+      * getRuneEffects(RuneType.Antiquities, 'addCodeCooldownReduction')
       * (1 / addCodeSingularityPerkBonus().intervalDivisor)
   )
 
@@ -3897,7 +3895,7 @@ export const allRedAmbrosiaLuckStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HorseShoeRune',
-      stat: () => getRuneEffects('horseShoe', 'redLuck') // Horseshoe Rune
+      stat: () => getRuneEffects(RuneType.HorseShoe, 'redLuck') // Horseshoe Rune
     },
     {
       i18n: 'HorseShoeTalisman',
@@ -3924,7 +3922,7 @@ export const allRedAmbrosiaLuckStatsSum = (
       + getShopUpgradeEffects('shopRedLuck4', 'redLuck')
       + getShopUpgradeEffects('shopPanthema', 'redLuck')
       + getRedAmbrosiaUpgradeEffects('viscount', 'redLuckBonus')
-      + getRuneEffects('horseShoe', 'redLuck')
+      + getRuneEffects(RuneType.HorseShoe, 'redLuck')
       + getTalismanEffects('horseShoe').redLuck
   )
 
@@ -4202,7 +4200,7 @@ export const positiveSalvageStats: NumberStatLineCategory = {
     },
     {
       i18n: 'RuneBonus',
-      stat: () => getRuneEffects('thrift', 'salvage') // Thrift Rune
+      stat: () => getRuneEffects(RuneType.Thrift, 'salvage') // Thrift Rune
     },
     {
       i18n: 'ReincarnationChallenge',
@@ -4239,7 +4237,7 @@ export const positiveSalvageStats: NumberStatLineCategory = {
     },
     {
       i18n: 'InfiniteAscentRune',
-      stat: () => getRuneEffects('infiniteAscent', 'salvage') // Infinite Ascent Rune
+      stat: () => getRuneEffects(RuneType.InfiniteAscent, 'salvage') // Infinite Ascent Rune
     },
     {
       i18n: 'RedAmbrosiaYinYang',
@@ -4261,7 +4259,7 @@ export const positiveSalvageStatsSum = () =>
       + getLevelReward('salvage')
       + getLevelMilestone('salvageChallengeBuff')
       + (7 * player.upgrades[61])
-      + getRuneEffects('thrift', 'salvage')
+      + getRuneEffects(RuneType.Thrift, 'salvage')
       + (0.3 * player.challengecompletions[6]
         + 0.3 * player.challengecompletions[7]
         + 0.4 * player.challengecompletions[8]
@@ -4271,7 +4269,7 @@ export const positiveSalvageStatsSum = () =>
       + (3 * player.cubeUpgrades[2])
       + getHepteractEffects('abyss').salvage
       + Math.min(50, 5 * player.highestSingularityCount)
-      + getRuneEffects('infiniteAscent', 'salvage')
+      + getRuneEffects(RuneType.InfiniteAscent, 'salvage')
       + getRedAmbrosiaUpgradeEffects('salvageYinYang', 'positiveSalvage')
       + getPurpleAmbrosiaUpgradeEffects('virgo', 'assignedBlueberrySalvage')
   )
@@ -4324,7 +4322,7 @@ export const constructionStats: NumberStatLineCategory = {
     },
     {
       i18n: 'ThriftRune',
-      stat: () => getRuneEffects('thrift', 'construction'),
+      stat: () => getRuneEffects(RuneType.Thrift, 'construction'),
       acc: 3
     },
     {
@@ -4355,7 +4353,7 @@ export const constructionStatsSum = () =>
     1e300,
     baseConstruction
       + (mythosUpgrade8Construction * player.upgrades[48])
-      + getRuneEffects('thrift', 'construction')
+      + getRuneEffects(RuneType.Thrift, 'construction')
       + (0.05 * constructionResearches.reduce((sum, index) => sum + player.researches[index], 0))
       + getAntUpgradeEffect(AntUpgrades.BuildingCostScale).construction
       + challenge15PlatonicConstruction()
@@ -4506,7 +4504,7 @@ export const freeAcceleratorMultiplierStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'SpeedRune',
-      stat: () => player.unlocks.prestige ? getRuneEffects('speed', 'multiplicativeAccelerators') : 1
+      stat: () => player.unlocks.prestige ? getRuneEffects(RuneType.Speed, 'multiplicativeAccelerators') : 1
     },
     {
       i18n: 'Research1x1',
@@ -4548,7 +4546,7 @@ export const freeAcceleratorMultiplierStats: NumberStatLineCategory = {
 export const freeAcceleratorMultiplierStatsProduct = () =>
   Math.min(
     1e300,
-    (player.unlocks.prestige ? getRuneEffects('speed', 'multiplicativeAccelerators') : 1)
+    (player.unlocks.prestige ? getRuneEffects(RuneType.Speed, 'multiplicativeAccelerators') : 1)
       * challenge14ResearchMultiplier(1)
       * (1
         + player.researches[6] / 20
@@ -4614,7 +4612,7 @@ export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Research4x19',
-      stat: () => 20 * player.researches[94] * Math.floor(sumOfRuneLevels() / 8),
+      stat: () => 20 * player.researches[94] * Math.floor(sumContents(player.runeLevels) / 8),
       acc: 0
     }
   ]
@@ -4633,7 +4631,7 @@ export const freeMultiplierAdditiveStatsSum = (totalAcceleratorBoost?: number) =
       + (player.upgrades[68] > 0 ? calculateParticleUpgrade8FreeMultipliers() : 0)
       + (player.challengecompletions[1] > 0 ? 1 : 0)
       + getAchievementReward('multipliers')
-      + (20 * player.researches[94] * Math.floor(sumOfRuneLevels() / 8))
+      + (20 * player.researches[94] * Math.floor(sumContents(player.runeLevels) / 8))
   )
 
 export const freeMultiplierMultiplierStats: NumberStatLineCategory = {
@@ -4664,7 +4662,7 @@ export const freeMultiplierMultiplierStats: NumberStatLineCategory = {
     },
     {
       i18n: 'DuplicationRune',
-      stat: () => getRuneEffects('duplication', 'multiplicativeMultipliers')
+      stat: () => getRuneEffects(RuneType.Duplication, 'multiplicativeMultipliers')
     },
     {
       i18n: 'Research4x12',
@@ -4705,7 +4703,7 @@ export const freeMultiplierMultiplierStatsProduct = () =>
         + player.researches[13] / 40
         + 3 * player.researches[14] / 200
         + player.researches[15] / 200)
-      * getRuneEffects('duplication', 'multiplicativeMultipliers')
+      * getRuneEffects(RuneType.Duplication, 'multiplicativeMultipliers')
       * (1 + player.researches[87] / 20)
       * lateResearchMultiplier([128, 143, 158, 173, 188])
       * (1 + 0.01 * player.cubeUpgrades[50] / 100)
@@ -4771,7 +4769,7 @@ export const freeAcceleratorBoostAdditiveStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Research4x18',
-      stat: () => player.researches[93] * Math.floor(sumOfRuneLevels() / 20),
+      stat: () => player.researches[93] * Math.floor(sumContents(player.runeLevels) / 20),
       acc: 0
     }
   ]
@@ -4783,7 +4781,7 @@ export const freeAcceleratorBoostAdditiveStatsSum = () =>
     (player.upgrades[26] > 0.5 ? 1 : 0)
       + (player.upgrades[31] > 0.5 ? Math.floor(sumContents(player.coinBuildings) / 2000) : 0)
       + getAchievementReward('accelBoosts')
-      + (player.researches[93] * Math.floor(sumOfRuneLevels() / 20))
+      + (player.researches[93] * Math.floor(sumContents(player.runeLevels) / 20))
   )
 
 export const freeAcceleratorBoostMultiplierStats: NumberStatLineCategory = {
@@ -4974,12 +4972,12 @@ export const antSpeedStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'SuperiorIntellect',
-      stat: () => getRuneEffects('superiorIntellect', 'antSpeed') // Superior Intellect Rune
+      stat: () => getRuneEffects(RuneType.SuperiorIntellect, 'antSpeed') // Superior Intellect Rune
     },
     {
       i18n: 'RuneBlessingBonus',
       stat: () => {
-        const exponent = getRuneBlessingEffect('superiorIntellect').obtToAntExponent
+        const exponent = getRuneBlessingEffect(RuneType.SuperiorIntellect).obtToAntExponent
         return Decimal.pow(Decimal.max(1, player.obtainium), exponent)
       }
     },
@@ -5062,8 +5060,10 @@ export const antSpeedStatsProduct = (globalSpeedMult = calculateGlobalSpeedMult(
     .mul(1 + player.researches[117] * player.ants.antSacrificeCount / 10000)
     .mul(1 + player.researches[147] * Decimal.log10(player.ants.crumbs.add(10)))
     .mul(1 + player.researches[177] * Decimal.log10(player.ants.crumbs.add(10)))
-    .mul(getRuneEffects('superiorIntellect', 'antSpeed'))
-    .mul(Decimal.pow(Decimal.max(1, player.obtainium), getRuneBlessingEffect('superiorIntellect').obtToAntExponent))
+    .mul(getRuneEffects(RuneType.SuperiorIntellect, 'antSpeed'))
+    .mul(
+      Decimal.pow(Decimal.max(1, player.obtainium), getRuneBlessingEffect(RuneType.SuperiorIntellect).obtToAntExponent)
+    )
     .mul(Decimal.pow(1.1, player.challengecompletions[9]))
     .mul(Decimal.pow(1e5, player.challengecompletions[11]))
     .mul(calculateAntSpeedCubeBlessing())
@@ -5361,7 +5361,8 @@ export const rebornELOCreationSpeedMultStats: NumberStatLineCategory = {
     },
     {
       i18n: 'Exalt6',
-      stat: () => (player.singularityChallenges.limitedTime.enabled && runes.antiquities.level === 0) ? 5 : 1,
+      stat: () =>
+        (player.singularityChallenges.limitedTime.enabled && player.runeLevels[RuneType.Antiquities] === 0) ? 5 : 1,
       color: 'var(--orchid-color)'
     },
     {
@@ -5389,7 +5390,7 @@ export const rebornELOCreationSpeedMultStatsProduct = (effectiveAntELO = calcula
       * getTalismanEffects('mortuus').antBonus
       * calculateAntELOCubeBlessing()
       * (1 + player.platonicUpgrades[12] / 10)
-      * ((player.singularityChallenges.limitedTime.enabled && runes.antiquities.level === 0) ? 5 : 1)
+      * ((player.singularityChallenges.limitedTime.enabled && player.runeLevels[RuneType.Antiquities] === 0) ? 5 : 1)
       * getPurpleReactorUpgradeEffects('lifetimeHoneyRebornELOSpeed', 'rebornELOSpeedMult')
   )
 
@@ -5591,7 +5592,7 @@ export const freeCorruptionLevelStats: NumberStatLineCategory = {
     },
     {
       i18n: 'FiniteDescent',
-      stat: () => getRuneEffects('finiteDescent', 'corruptionFreeLevels'),
+      stat: () => getRuneEffects(RuneType.FiniteDescent, 'corruptionFreeLevels'),
       acc: 2
     }
   ]
@@ -5612,7 +5613,7 @@ export const freeCorruptionLevelStatsSum = () =>
       + getSingularityChallengeEffect('oneChallengeCap', 'freeCorruptionLevel')
       + player.cubeUpgrades[74]
       + getTalismanEffects('cookieGrandma').freeCorruptionLevel
-      + getRuneEffects('finiteDescent', 'corruptionFreeLevels')
+      + getRuneEffects(RuneType.FiniteDescent, 'corruptionFreeLevels')
   )
 
 /**
@@ -5771,7 +5772,7 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
     },
     {
       i18n: 'HorseShoeRune',
-      stat: () => getRuneEffects('horseShoe', 'purpleHoneyLuck'),
+      stat: () => getRuneEffects(RuneType.HorseShoe, 'purpleHoneyLuck'),
       acc: 2
     }
   ]
@@ -5791,7 +5792,7 @@ export const allPurpleHoneyLuckStatsSum = () =>
       + getPurpleReactorUpgradeEffects('purpleHoneyLuck4', 'purpleHoneyLuck')
       + getSingularityChallengeEffect('taxmanLastStand', 'purpleHoneyLuck')
       + getSingularityChallengeEffect('barDependence', 'purpleHoneyLuck')
-      + getRuneEffects('horseShoe', 'purpleHoneyLuck')
+      + getRuneEffects(RuneType.HorseShoe, 'purpleHoneyLuck')
   )
 
 export const allPurpleHoneyEfficiencyStats: NumberStatLineCategory = {
@@ -5917,7 +5918,7 @@ const allMiscStats: NumberStatLineCategory = {
     },
     {
       i18n: 'RuneSum',
-      stat: () => sumOfRuneLevels(),
+      stat: () => sumContents(player.runeLevels),
       color: 'var(--orange-color)'
     },
     {
@@ -5984,11 +5985,11 @@ export const allTaxExponentStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'DuplicationRune',
-      stat: () => getRuneEffects('duplication', 'taxReduction')
+      stat: () => getRuneEffects(RuneType.Duplication, 'taxReduction')
     },
     {
       i18n: 'ThriftRune',
-      stat: () => getRuneEffects('thrift', 'taxReduction')
+      stat: () => getRuneEffects(RuneType.Thrift, 'taxReduction')
     },
     {
       i18n: 'ExemptionTalisman',
@@ -6099,8 +6100,8 @@ export const allTaxExponentStats: NumberStatLineCategory = {
 export const allTaxExponentStatsProduct = () =>
   Math.min(
     1e300,
-    getRuneEffects('duplication', 'taxReduction')
-      * getRuneEffects('thrift', 'taxReduction')
+    getRuneEffects(RuneType.Duplication, 'taxReduction')
+      * getRuneEffects(RuneType.Thrift, 'taxReduction')
       * (1 + getTalismanEffects('exemption').taxReduction)
       * (player.currentChallenge.reincarnation === 6
         ? 3 * Math.pow(1 + player.challengecompletions[6] / 25, 2)
@@ -7329,14 +7330,6 @@ const firstFiveRuneSalvageStats: NumberStatLineCategory = {
   ]
 }
 
-export const firstFiveRuneSalvageStatsSum = (totalSalvage = calculateTotalSalvage()) =>
-  Math.min(
-    1e300,
-    totalSalvage
-      + calculateBadOfferingsSalvage()
-      + calculateChallenge15RuneSalvage()
-  )
-
 const loadSalvageStats = () => {
   loadPositiveSalvageStats()
   loadNegativeSalvageStats()
@@ -7702,7 +7695,7 @@ export const gameStages = (): Stage[] => {
       stage: 19,
       tier: 5,
       name: 'omega-singularity',
-      unlocked: player.singularityCount > 0 && runes.antiquities.level > 0,
+      unlocked: player.singularityCount > 0 && player.runeLevels[RuneType.Antiquities] > 0,
       reset: player.ascensionCount > 0
     },
     {

@@ -138,9 +138,9 @@ import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
 import { getQuarkBonus, quarkHandler, worlds } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
-import { runeBlessingKeys, updateRuneBlessingHTML } from './RuneBlessings'
-import { type RuneKeys, updateRuneHTML } from './Runes'
-import { runeSpiritKeys, updateRuneSpiritHTML } from './RuneSpirits'
+import { blessingRuneTypes, updateRuneBlessingHTML } from './RuneBlessings'
+import { allRuneTypes, updateRuneHTML } from './Runes'
+import { updateRuneSpiritHTML } from './RuneSpirits'
 import { getShopCosts, getShopUpgradeEffects, shopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
 import { updateShopTab } from './ShopTab'
 import {
@@ -1040,9 +1040,8 @@ export const visualUpdateRunes = () => {
   }
   if (getActiveSubTab() === 0) {
     updateOfferingAndSalvageText()
-    for (const key of Object.keys(player.runes)) {
-      const runeKey = key as RuneKeys
-      updateRuneHTML(runeKey)
+    for (const rune of allRuneTypes) {
+      updateRuneHTML(rune)
     }
   }
 
@@ -1064,11 +1063,9 @@ export const visualUpdateRunes = () => {
     updateAllTalismanHTML()
   } else if (getActiveSubTab() === 2) {
     updateOfferingAndSalvageText()
-    for (const bless of runeBlessingKeys) {
-      updateRuneBlessingHTML(bless)
-    }
-    for (const spirit of runeSpiritKeys) {
-      updateRuneSpiritHTML(spirit)
+    for (const rune of blessingRuneTypes) {
+      updateRuneBlessingHTML(rune)
+      updateRuneSpiritHTML(rune)
     }
   }
 }
