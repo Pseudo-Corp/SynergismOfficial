@@ -3027,7 +3027,9 @@ if (DEV) {
   validateAchievements()
 }
 
-const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] } = {
+const achRewards: {
+  [K in AchievementRewards]: (coinBuildings?: readonly number[]) => AchievementRewardValues[K]
+} = {
   acceleratorPower: () =>
     0.001 * player.achievements[AchievementId.FirstOwnedCoinTier3]
     + 0.0015 * player.achievements[AchievementId.SecondOwnedCoinTier3]
@@ -3035,8 +3037,7 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
     + 0.002 * player.achievements[AchievementId.FourthOwnedCoinTier3]
     + 0.003 * player.achievements[AchievementId.FifthOwnedCoinTier3]
     + 0.01 * player.achievements[AchievementId.AcceleratorsTier2],
-  accelerators: () => {
-    const coinBuildings = getBuildingsOwned('coin')
+  accelerators: (coinBuildings = getBuildingsOwned('coin')) => {
     return (
       player.achievements[AchievementId.FirstOwnedCoinTier5] * Math.floor(coinBuildings[CoinBuilding.Workers] / 500)
       + player.achievements[AchievementId.SecondOwnedCoinTier5]
@@ -3054,8 +3055,7 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
       + 50 * player.achievements[AchievementId.AcceleratorsTier7]
     )
   },
-  multipliers: () => {
-    const coinBuildings = getBuildingsOwned('coin')
+  multipliers: (coinBuildings = getBuildingsOwned('coin')) => {
     return (
       player.achievements[AchievementId.FirstOwnedCoinTier6] * Math.floor(coinBuildings[CoinBuilding.Workers] / 1000)
       + player.achievements[AchievementId.SecondOwnedCoinTier6]
@@ -3075,8 +3075,7 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
       + 10 * player.achievements[AchievementId.MultipliersTier7]
     )
   },
-  accelBoosts: () => {
-    const coinBuildings = getBuildingsOwned('coin')
+  accelBoosts: (coinBuildings = getBuildingsOwned('coin')) => {
     return (
       player.achievements[AchievementId.FirstOwnedCoinTier7] * Math.floor(coinBuildings[CoinBuilding.Workers] / 2000)
       + player.achievements[AchievementId.SecondOwnedCoinTier7]
@@ -3482,8 +3481,11 @@ export const toNextAchievementLevelEXP = () => {
   }
 }
 
-export const getAchievementReward = <K extends AchievementRewards>(rewardType: K): AchievementRewardValues[K] => {
-  return achRewards[rewardType]()
+export const getAchievementReward = <K extends AchievementRewards>(
+  rewardType: K,
+  coinBuildings?: readonly number[]
+): AchievementRewardValues[K] => {
+  return achRewards[rewardType](coinBuildings)
 }
 
 const createGroupedAchievementDescription = (group: AchievementGroup) => {

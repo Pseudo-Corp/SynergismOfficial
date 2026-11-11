@@ -101,7 +101,7 @@ interface RuneData<T extends RuneKeys, K extends keyof RuneTypeMap[T]> {
   ignoreChal9: boolean
   levelsPerOOMIncrease: () => number
   effectiveLevelMult: () => number
-  freeLevels: () => number
+  freeLevels: (totalCoinOwned?: number) => number
   runeEXPPerOffering: (purchasedLevels: number) => Decimal
   isUnlocked: () => boolean
   minimalResetTier: keyof typeof resetTiers
@@ -122,21 +122,25 @@ const firstFiveFreeLevels = () => {
   )
 }
 
-const bonusRuneLevelsSpeed = () => {
+const bonusRuneLevelsSpeed = (totalCoinOwned?: number) => {
   return (
     getRuneBonusFromAllTalismans('speed')
     + (
       player.upgrades[27] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e10)))
         + Math.max(0, Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e50)) - 10)))
     )
-    + (player.upgrades[29] > 0 ? Math.floor(Math.min(100, getTotalBuildingsOwned('coin') / 400)) : 0)
+    + (player.upgrades[29] > 0
+      ? Math.floor(Math.min(100, (totalCoinOwned ?? getTotalBuildingsOwned('coin')) / 400))
+      : 0)
   )
 }
 
-const bonusRuneLevelsDuplication = () => {
+const bonusRuneLevelsDuplication = (totalCoinOwned?: number) => {
   return (
     getRuneBonusFromAllTalismans('duplication')
-    + (player.upgrades[28] > 0 ? Math.min(100, Math.floor(getTotalBuildingsOwned('coin') / 400)) : 0)
+    + (player.upgrades[28] > 0
+      ? Math.min(100, Math.floor((totalCoinOwned ?? getTotalBuildingsOwned('coin')) / 400))
+      : 0)
     + (
       player.upgrades[30] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e30)))
         + Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e300))))
@@ -389,7 +393,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       return `${acceleratorPowerText}<br>${multiplicativeAcceleratorsText}<br>${globalSpeedText}`
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
-    freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsSpeed(),
+    freeLevels: (totalCoinOwned) => firstFiveFreeLevels() + bonusRuneLevelsSpeed(totalCoinOwned),
     runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
     isUnlocked: () => true,
     minimalResetTier: 'ascension',
@@ -433,7 +437,7 @@ export const runes: { [K in RuneKeys]: RuneData<K, keyof RuneTypeMap[K]> } = {
       return `${multiplierPowerBoostsText}<br>${multiplicativeMultipliersText}<br>${taxReductionText}`
     },
     effectiveLevelMult: () => firstFiveEffectiveRuneLevelMult(),
-    freeLevels: () => firstFiveFreeLevels() + bonusRuneLevelsDuplication(),
+    freeLevels: (totalCoinOwned) => firstFiveFreeLevels() + bonusRuneLevelsDuplication(totalCoinOwned),
     runeEXPPerOffering: (purchasedLevels) => firstFiveRuneEXPMult(purchasedLevels),
     isUnlocked: () => getAchievementReward('duplicationRuneUnlock'),
     minimalResetTier: 'ascension',
@@ -836,7 +840,7 @@ export const runeToIndex = Object.fromEntries(
   Object.entries(runes).map(([key, value]) => [key, value.index])
 ) as Record<RuneKeys, number>
 
-export const getRuneEffectiveLevel = (rune: RuneKeys): number => {
+export const getRuneEffectiveLevel = (rune: RuneKeys, totalCoinOwned?: number): number => {
   if (!runes[rune].isUnlocked()) {
     return 0
   }
@@ -844,14 +848,15 @@ export const getRuneEffectiveLevel = (rune: RuneKeys): number => {
     return 1
   }
   const effectiveMult = runes[rune].effectiveLevelMult()
-  return (runes[rune].level + runes[rune].freeLevels()) * effectiveMult
+  return (runes[rune].level + runes[rune].freeLevels(totalCoinOwned)) * effectiveMult
 }
 
 export const getRuneEffects = <T extends RuneKeys, K extends keyof RuneTypeMap[T]>(
   rune: T,
-  key: K
+  key: K,
+  totalCoinOwned?: number
 ): RuneTypeMap[T][K] => {
-  return runes[rune].effects(getRuneEffectiveLevel(rune), key) as RuneTypeMap[T][K]
+  return runes[rune].effects(getRuneEffectiveLevel(rune, totalCoinOwned), key) as RuneTypeMap[T][K]
 }
 
 const getLevelsPerOOM = (rune: RuneKeys): number => {

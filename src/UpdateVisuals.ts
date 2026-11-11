@@ -4,13 +4,16 @@ import { achievementLevel, achievementPoints, getAchievementReward, toNextAchiev
 import { updateAutoAscendStatus } from './AutoAscensionUI'
 import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import {
+  DiamondBuilding,
+  getAccelMultBuildingsOwned,
   getAccelMultScalingThreshold,
   getBuildingCost,
   getBuildingOwned,
   getBuildingScalingThreshold,
   getBuildingsOwned,
   getTesseractBuildingCost,
-  getTesseractBuildingsOwned
+  getTesseractBuildingsOwned,
+  MythosBuilding
 } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -27,6 +30,7 @@ import {
   calculateAmbrosiaRewardLuck,
   calculateBlueberryInventory,
   calculateBuildingConstruction,
+  calculateConstruction,
   calculateCookieUpgrade29Luck,
   calculateCubeQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
@@ -439,16 +443,15 @@ const particlePerSecNames = ['atoms', 'protons', 'elements', 'pulsars', 'quasars
 const tesseractNames = ['dot', 'vector', 'threeSpace', 'bentTime', 'hilbertSpace']
 const tesseractPerSecNames = ['constant', 'dot', 'vector', 'threeSpace', 'bentTime']
 
-const updateConstructionTexts = (type: keyof typeof buildingConstructionSoftcap) => {
-  const construction = calculateBuildingConstruction(type)
+const updateConstructionTexts = (type: keyof typeof buildingConstructionSoftcap, construction: number) => {
   DOMCacheGetOrSet(`${type}Construction`).innerHTML = i18next.t('buildings.construction', {
-    amount: format(construction, 3, true)
+    amount: format(calculateBuildingConstruction(type, construction), 3, true)
   })
   DOMCacheGetOrSet(`${type}ConstructionBonus`).innerHTML = i18next.t('buildings.constructionBonus', {
     amount: format(buildingConstructionSoftcap[type], 0, true)
   })
 
-  const threshold = getBuildingScalingThreshold(type)
+  const threshold = getBuildingScalingThreshold(type, construction)
   DOMCacheGetOrSet(`${type}Hyperscaling`).innerHTML = i18next.t('buildings.hyperscaling', {
     threshold: format(threshold, 3, true)
   })
@@ -482,8 +485,14 @@ export const visualUpdateBuildings = () => {
 
   // When you're in Building --> Coin, update these.
   if (G.buildingSubTab === 'coin') {
-    const accelMultStats = calculateAccelMultStats()
-    const tax = calculateTax(accelMultStats)
+    const construction = calculateConstruction()
+    const owned = getAccelMultBuildingsOwned(construction)
+    const accelMultStats = calculateAccelMultStats(owned)
+    const tax = calculateTax(accelMultStats, {
+      coinsOwned: owned.coin,
+      firstMythosOwned: getBuildingOwned('mythos', MythosBuilding.Augments, construction),
+      firstDiamondOwned: getBuildingOwned('diamond', DiamondBuilding.Refineries, construction)
+    })
     DOMCacheGetOrSet('coinInformation').innerHTML = i18next.t('buildings.coinInformation', {
       coins: format(player.coins, 0, false, false),
       coinsPerSecond: format(
@@ -499,12 +508,12 @@ export const visualUpdateBuildings = () => {
       thisSingularity: format(player.coinsThisSingularity, 0, false, false),
       totalGenerated: format(player.coinsTotal, 0, false, false)
     })
-    const coinConstruction = updateConstructionTexts('coin')
+    const coinConstruction = updateConstructionTexts('coin', construction)
     DOMCacheGetOrSet('accelMultConstruction').innerHTML = i18next.t('buildings.accelMultConstruction', {
-      amount: format(calculateAccelMultConstructionEffect('accelerator'), 3, true),
-      accelerators: format(getAccelMultScalingThreshold('accelerator'), 0, true),
-      multipliers: format(getAccelMultScalingThreshold('multiplier'), 0, true),
-      boosts: format(getAccelMultScalingThreshold('acceleratorBoost'), 0, true)
+      amount: format(calculateAccelMultConstructionEffect('accelerator', construction), 3, true),
+      accelerators: format(getAccelMultScalingThreshold('accelerator', construction), 0, true),
+      multipliers: format(getAccelMultScalingThreshold('multiplier', construction), 0, true),
+      boosts: format(getAccelMultScalingThreshold('acceleratorBoost', construction), 0, true)
     })
 
     let vanityIndex = 0
@@ -519,7 +528,7 @@ export const visualUpdateBuildings = () => {
 
     DOMCacheGetOrSet('coinVanity').innerHTML = `<i>${i18next.t(`buildings.coinFlavorTexts.${vanityIndex}`)}</i>`
 
-    const coinsOwned = getBuildingsOwned('coin')
+    const coinsOwned = owned.coin
     for (let i = 1; i <= 5; i++) {
       const place = tax.production[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
@@ -537,7 +546,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buycoin${i}`).textContent = i18next.t(
         'buildings.costCoins',
         {
-          coins: format(getBuildingCost('coin', (i - 1) as ZeroToFour), 0, false, false)
+          coins: format(getBuildingCost('coin', (i - 1) as ZeroToFour, construction), 0, false, false)
         }
       )
 
@@ -549,9 +558,9 @@ export const visualUpdateBuildings = () => {
       )
     }
 
-    const acceleratorsOwned = getBuildingOwned('accelerator')
+    const acceleratorsOwned = owned.accelerator
     const acceleratorElement = DOMCacheGetOrSet('buildtext11')
-    acceleratorElement.style.color = acceleratorsOwned > getAccelMultScalingThreshold('accelerator')
+    acceleratorElement.style.color = acceleratorsOwned > getAccelMultScalingThreshold('accelerator', construction)
       ? 'var(--red-color)'
       : ''
     acceleratorElement.innerHTML = i18next.t(
@@ -576,9 +585,9 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    const multipliersOwned = getBuildingOwned('multiplier')
+    const multipliersOwned = owned.multiplier
     const multiplierElement = DOMCacheGetOrSet('buildtext13')
-    multiplierElement.style.color = multipliersOwned > getAccelMultScalingThreshold('multiplier')
+    multiplierElement.style.color = multipliersOwned > getAccelMultScalingThreshold('multiplier', construction)
       ? 'var(--red-color)'
       : ''
     multiplierElement.innerHTML = i18next.t(
@@ -603,9 +612,10 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    const acceleratorBoostsOwned = getBuildingOwned('acceleratorBoost')
+    const acceleratorBoostsOwned = owned.acceleratorBoost
     const acceleratorBoostElement = DOMCacheGetOrSet('buildtext15')
-    acceleratorBoostElement.style.color = acceleratorBoostsOwned > getAccelMultScalingThreshold('acceleratorBoost')
+    acceleratorBoostElement.style.color = acceleratorBoostsOwned
+        > getAccelMultScalingThreshold('acceleratorBoost', construction)
       ? 'var(--red-color)'
       : ''
     acceleratorBoostElement.textContent = i18next.t(
@@ -632,19 +642,19 @@ export const visualUpdateBuildings = () => {
     getBuildingCostElement('buyaccelerator').textContent = i18next.t(
       'buildings.costCoins',
       {
-        coins: format(getBuildingCost('accelerator'), 0, false, false)
+        coins: format(getBuildingCost('accelerator', 0, construction), 0, false, false)
       }
     )
     getBuildingCostElement('buymultiplier').textContent = i18next.t(
       'buildings.costCoins',
       {
-        coins: format(getBuildingCost('multiplier'), 0, false, false)
+        coins: format(getBuildingCost('multiplier', 0, construction), 0, false, false)
       }
     )
     getBuildingCostElement('buyacceleratorboost').textContent = i18next.t(
       'buildings.costDiamonds',
       {
-        diamonds: format(getBuildingCost('acceleratorBoost'), 0, false, false)
+        diamonds: format(getBuildingCost('acceleratorBoost', 0, construction), 0, false, false)
       }
     )
 
@@ -678,9 +688,10 @@ export const visualUpdateBuildings = () => {
         exponent: format(crystalExponent, 2, true, false)
       }
     )
-    const diamondConstruction = updateConstructionTexts('diamond')
+    const construction = calculateConstruction()
+    const diamondConstruction = updateConstructionTexts('diamond', construction)
 
-    const diamondsOwned = getBuildingsOwned('diamond')
+    const diamondsOwned = getBuildingsOwned('diamond', construction)
     const diamondProduction = calculateDiamondProduction()
     for (let i = 1; i <= 5; i++) {
       const place = diamondProduction[i - 1]
@@ -706,7 +717,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buydiamond${i}`).textContent = i18next.t(
         'buildings.costDiamonds',
         {
-          diamonds: format(getBuildingCost('diamond', (i - 1) as ZeroToFour), 2, false, false)
+          diamonds: format(getBuildingCost('diamond', (i - 1) as ZeroToFour, construction), 2, false, false)
         }
       )
     }
@@ -745,9 +756,10 @@ export const visualUpdateBuildings = () => {
         mult: format(calculateMultiplierBoosts(), 0, true, false)
       }
     )
-    const mythosConstruction = updateConstructionTexts('mythos')
+    const construction = calculateConstruction()
+    const mythosConstruction = updateConstructionTexts('mythos', construction)
 
-    const mythosOwned = getBuildingsOwned('mythos')
+    const mythosOwned = getBuildingsOwned('mythos', construction)
     const mythosProduction = calculateMythosProduction()
     for (let i = 1; i <= 5; i++) {
       const place = mythosProduction[i - 1]
@@ -773,7 +785,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buymythos${i}`).textContent = i18next.t(
         'buildings.costMythos',
         {
-          mythos: format(getBuildingCost('mythos', (i - 1) as ZeroToFour), 2, false, false)
+          mythos: format(getBuildingCost('mythos', (i - 1) as ZeroToFour, construction), 2, false, false)
         }
       )
     }
@@ -809,9 +821,10 @@ export const visualUpdateBuildings = () => {
       )
     }
   } else if (G.buildingSubTab === 'particle') {
-    const particleConstruction = updateConstructionTexts('particle')
+    const construction = calculateConstruction()
+    const particleConstruction = updateConstructionTexts('particle', construction)
 
-    const particlesOwned = getBuildingsOwned('particle')
+    const particlesOwned = getBuildingsOwned('particle', construction)
     const particleProduction = calculateParticleProduction()
     for (let i = 1; i <= 5; i++) {
       const ith = G.ordinals[(i - 1) as ZeroToFour]
@@ -835,7 +848,7 @@ export const visualUpdateBuildings = () => {
       getBuildingCostElement(`buyparticles${i}`).textContent = i18next.t(
         'buildings.costParticles',
         {
-          particles: format(getBuildingCost('particle', (i - 1) as ZeroToFour), 2, false, false)
+          particles: format(getBuildingCost('particle', (i - 1) as ZeroToFour, construction), 2, false, false)
         }
       )
     }

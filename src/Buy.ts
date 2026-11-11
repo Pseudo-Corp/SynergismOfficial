@@ -3,7 +3,8 @@ import { AchievementGroup, awardAchievementGroup } from './Achievements'
 import {
   buildingConstructionSoftcap,
   calculateAccelMultConstructionEffect,
-  calculateBuildingConstruction
+  calculateBuildingConstruction,
+  calculateConstruction
 } from './Calculate'
 import { cubes } from './CubeExperimental'
 import { getRuneBlessingEffect } from './RuneBlessings'
@@ -318,10 +319,13 @@ const getAcceleratorBoostDelay = (construction?: number) =>
   getRuneBlessingEffect('thrift').accelBoostCostDelay
   * calculateAccelMultConstructionEffect('acceleratorBoost', construction)
 
-export const getAccelMultScalingThreshold = (type: keyof typeof accelMultData | 'acceleratorBoost') =>
+export const getAccelMultScalingThreshold = (
+  type: keyof typeof accelMultData | 'acceleratorBoost',
+  construction?: number
+) =>
   type === 'acceleratorBoost'
-    ? acceleratorBoostThreshold * getAcceleratorBoostDelay()
-    : getAccelMultScaling(type).threshold
+    ? acceleratorBoostThreshold * getAcceleratorBoostDelay(construction)
+    : getAccelMultScaling(type, construction).threshold
 
 const createQuadraticCurveConstants = (type: ScalingBuildingType, growthPower: number) =>
   producerData[type].costs.map((cost, index) => {
@@ -505,6 +509,15 @@ export const getBuildingsOwned = (type: ScalingBuildingType, construction?: numb
   return [owned(0), owned(1), owned(2), owned(3), owned(4)] as const
 }
 
+export const getAccelMultBuildingsOwned = (construction = calculateConstruction()) => ({
+  coin: getBuildingsOwned('coin', construction),
+  accelerator: getBuildingOwned('accelerator', 0, construction),
+  multiplier: getBuildingOwned('multiplier', 0, construction),
+  acceleratorBoost: getBuildingOwned('acceleratorBoost', 0, construction)
+})
+
+export type AccelMultBuildingsOwned = ReturnType<typeof getAccelMultBuildingsOwned>
+
 export const getBuildingGeneratedKey = (type: ScalingBuildingType, index: ZeroToFour) =>
   scalingBuildingGeneratedKeys[type][index]
 
@@ -512,8 +525,8 @@ export const sumBuildingsOwned = (owned: readonly number[]) => owned.reduce((sum
 
 export const getTotalBuildingsOwned = (type: ScalingBuildingType) => sumBuildingsOwned(getBuildingsOwned(type))
 
-export const getBuildingCost = (type: BuildingType, index: ZeroToFour = 0) => {
-  const curve = getCostCurve(type, index)
+export const getBuildingCost = (type: BuildingType, index: ZeroToFour = 0, construction?: number) => {
+  const curve = getCostCurve(type, index, construction)
   const paid = player[getCurveBuildingPaidKey(type, index)]
   const owned = maxAffordable(curve, paid)
   const price = costBetween(curve, owned, owned + smallestInc(owned))
@@ -536,9 +549,14 @@ export const initializeCurveBuildingsPaid = (data: LegacyCurveBuildingData) => {
   }
 }
 
-const buyCurveBuilding = (type: BuildingType, amount: BuyAmount | 'max' | undefined, index: ZeroToFour) => {
+const buyCurveBuilding = (
+  type: BuildingType,
+  amount: BuyAmount | 'max' | undefined,
+  index: ZeroToFour,
+  construction?: number
+) => {
   const keys = getCurveBuildingKeys(type, index)
-  const curve = getCostCurve(type, index)
+  const curve = getCostCurve(type, index, construction)
   const paid = player[keys.paid]
   const owned = maxAffordable(curve, paid)
   const buyAmount = amount ?? keys.amount
@@ -560,9 +578,10 @@ const buyCurveBuilding = (type: BuildingType, amount: BuyAmount | 'max' | undefi
 export const buyBuilding = (
   type: BuildingType,
   amount?: BuyAmount | 'max',
-  index: ZeroToFour = 0
+  index: ZeroToFour = 0,
+  construction?: number
 ) => {
-  if (!buyCurveBuilding(type, amount, index)) {
+  if (!buyCurveBuilding(type, amount, index, construction)) {
     return
   }
 
@@ -663,8 +682,16 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
   }
 }
 
-export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
-  buyBuilding('acceleratorBoost', amount)
+export const buyAccelMult = (
+  type: keyof typeof accelMultData | 'acceleratorBoost',
+  amount?: BuyAmount | 'max',
+  construction?: number
+) => {
+  buyBuilding(type, amount, 0, construction)
+}
+
+export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount, construction?: number) => {
+  buyAccelMult('acceleratorBoost', amount, construction)
 }
 
 const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const

@@ -32,7 +32,7 @@ interface RuneBlessingData<K extends RuneBlessingKeys> {
   level: number
   costCoefficient: Decimal
   levelsPerOOM: number
-  effectiveLevelMult: () => number
+  effectiveLevelMult: (totalCoinOwned?: number) => number
   runeEXPPerOffering: () => Decimal
   minimalResetTier: keyof typeof resetTiers
   effects: (n: number) => RuneBlessingTypeMap[K]
@@ -50,9 +50,9 @@ const otherBlessingMultipliers = () => {
     * G.challenge15Rewards.blessingBonus.value
 }
 
-const blessingMultiplier = (key: RuneKeys) => {
+const blessingMultiplier = (key: RuneKeys, totalCoinOwned?: number) => {
   return (
-    (runes[key].level + runes[key].freeLevels())
+    (runes[key].level + runes[key].freeLevels(totalCoinOwned))
     * otherBlessingMultipliers()
   )
 }
@@ -74,7 +74,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
         val: formatAsPercentIncrease(globalSpeed, 2)
       })
     },
-    effectiveLevelMult: () => blessingMultiplier('speed'),
+    effectiveLevelMult: (totalCoinOwned) => blessingMultiplier('speed', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.speed.name(),
@@ -96,7 +96,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
         val: formatAsPercentIncrease(multiplierBoosts, 2)
       })
     },
-    effectiveLevelMult: () => blessingMultiplier('duplication'),
+    effectiveLevelMult: (totalCoinOwned) => blessingMultiplier('duplication', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.duplication.name(),
@@ -118,7 +118,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
         val: formatAsPercentIncrease(antSacrificeMult, 2)
       })
     },
-    effectiveLevelMult: () => blessingMultiplier('prism'),
+    effectiveLevelMult: (totalCoinOwned) => blessingMultiplier('prism', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.prism.name(),
@@ -140,7 +140,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
         val: formatAsPercentIncrease(accelBoostCostDelay, 2)
       })
     },
-    effectiveLevelMult: () => blessingMultiplier('thrift'),
+    effectiveLevelMult: (totalCoinOwned) => blessingMultiplier('thrift', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.thrift.name(),
@@ -166,7 +166,7 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
       })
       return `${obtExponentHTML}<br>${antSpeedHTML}`
     },
-    effectiveLevelMult: () => blessingMultiplier('superiorIntellect'),
+    effectiveLevelMult: (totalCoinOwned) => blessingMultiplier('superiorIntellect', totalCoinOwned),
     runeEXPPerOffering: () => calculateSalvageRuneEXPMultiplier(),
     minimalResetTier: 'singularity',
     name: () => runes.superiorIntellect.name(),
@@ -176,13 +176,16 @@ export const runeBlessings: { [K in RuneBlessingKeys]: RuneBlessingData<K> } = {
 
 export const runeBlessingKeys = Object.keys(runeBlessings) as RuneBlessingKeys[]
 
-const getRuneBlessingPower = (bless: RuneBlessingKeys): number => {
-  const blessingPowerMult = runeBlessings[bless].effectiveLevelMult()
+const getRuneBlessingPower = (bless: RuneBlessingKeys, totalCoinOwned?: number): number => {
+  const blessingPowerMult = runeBlessings[bless].effectiveLevelMult(totalCoinOwned)
   return runeBlessings[bless].level * blessingPowerMult
 }
 
-export const getRuneBlessingEffect = <T extends RuneBlessingKeys>(bless: T): RuneBlessingTypeMap[T] => {
-  return runeBlessings[bless].effects(getRuneBlessingPower(bless))
+export const getRuneBlessingEffect = <T extends RuneBlessingKeys>(
+  bless: T,
+  totalCoinOwned?: number
+): RuneBlessingTypeMap[T] => {
+  return runeBlessings[bless].effects(getRuneBlessingPower(bless, totalCoinOwned))
 }
 
 const getRuneBlessingEXPPerOffering = (bless: RuneBlessingKeys): Decimal => {

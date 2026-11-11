@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { getBuildingOwned } from './Buy'
+import { type AccelMultBuildingsOwned, getAccelMultBuildingsOwned, getBuildingOwned, sumBuildingsOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import {
@@ -339,10 +339,10 @@ export const calculateQuarkMultiplier = () => allQuarkStatsProduct()
 export const calculateAntSacrificeMultiplier = () => antSacrificeRewardStatsProduct()
 
 export const calculateGlobalSpeedDRIgnoreMult = () => allGlobalSpeedIgnoreDRStatsProduct()
-export const calculateGlobalSpeedDREnabledMult = () => allGlobalSpeedStatsProduct()
+export const calculateGlobalSpeedDREnabledMult = (totalCoinOwned?: number) => allGlobalSpeedStatsProduct(totalCoinOwned)
 
-export const calculateGlobalSpeedMult = () => {
-  let normalMult = calculateGlobalSpeedDREnabledMult()
+export const calculateGlobalSpeedMult = (totalCoinOwned?: number) => {
+  let normalMult = calculateGlobalSpeedDREnabledMult(totalCoinOwned)
   if (normalMult > 100) {
     normalMult = Math.pow(normalMult, 0.5) * 10
   } else if (normalMult < 1) {
@@ -674,17 +674,26 @@ export const hepteractFreeAccelMultMultiplier = {
   multiplier: () => getHepteractEffects('multiplier').multiplierMultiplier
 } as const
 
-const calculateRawFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats, totalAcceleratorBoost?: number) =>
-  freeAccelMultAdditiveStats[type](totalAcceleratorBoost) * freeAccelMultMultiplicativeStats[type]()
+const calculateRawFreeAccelMult = (
+  type: keyof typeof freeAccelMultAdditiveStats,
+  totalAcceleratorBoost: number | undefined,
+  owned: AccelMultBuildingsOwned
+) =>
+  freeAccelMultAdditiveStats[type](totalAcceleratorBoost, owned)
+  * freeAccelMultMultiplicativeStats[type](sumBuildingsOwned(owned.coin))
 
 const freeAccelMultRawHardcap = 1e300
 export const freeAccelMultHardcap = 1e100
 
-export const calculateFreeAccelMult = (type: keyof typeof freeAccelMultAdditiveStats, totalAcceleratorBoost?: number) =>
+export const calculateFreeAccelMult = (
+  type: keyof typeof freeAccelMultAdditiveStats,
+  totalAcceleratorBoost?: number,
+  owned = getAccelMultBuildingsOwned()
+) =>
   Math.floor(
     Math.min(
       freeAccelMultRawHardcap,
-      (Math.pow(calculateRawFreeAccelMult(type, totalAcceleratorBoost), challenge15CorruptionEffect('viscosity'))
+      (Math.pow(calculateRawFreeAccelMult(type, totalAcceleratorBoost, owned), challenge15CorruptionEffect('viscosity'))
         + hepteractFreeAccelMult[type]())
         * G.challenge15Rewards[type].value
         * hepteractFreeAccelMultMultiplier[type]()
@@ -697,11 +706,11 @@ export const calculateParticleUpgrade8FreeMultipliers = () =>
 export const calculateEffectiveFreeAccelMult = (freeAmount: number, viscosity: number) =>
   Math.min(freeAccelMultHardcap, freeAmount / viscosity)
 
-export const calculateFreeAcceleratorBoosts = () =>
+export const calculateFreeAcceleratorBoosts = (coinsOwned?: readonly number[]) =>
   Math.floor(
     Math.min(
       1e100,
-      freeAcceleratorBoostAdditiveStatsSum() * freeAcceleratorBoostMultiplierStatsProduct()
+      freeAcceleratorBoostAdditiveStatsSum(coinsOwned) * freeAcceleratorBoostMultiplierStatsProduct()
     )
   )
 
@@ -714,8 +723,8 @@ export const calculateAcceleratorsPerBoost = () =>
 
 export const calculateTotalAcceleratorBoost = (
   freeAcceleratorBoosts = calculateFreeAcceleratorBoosts(),
-  construction?: number
-) => getBuildingOwned('acceleratorBoost', 0, construction) + freeAcceleratorBoosts
+  acceleratorBoostsOwned = getBuildingOwned('acceleratorBoost')
+) => acceleratorBoostsOwned + freeAcceleratorBoosts
 
 export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()

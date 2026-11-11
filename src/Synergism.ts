@@ -58,12 +58,14 @@ import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
   boostAccelerator,
+  buyAccelMult,
   buyBuilding,
   buyCrystalUpgrades,
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
   CoinBuilding,
   DiamondBuilding,
+  getAccelMultBuildingsOwned,
   getBuildingGeneratedKey,
   getBuildingOwned,
   getBuildingsOwned,
@@ -2271,12 +2273,12 @@ export const formatDecimalAsPercentIncrease = (n: Decimal, accuracy = 2) => {
   return `${format(n.minus(1).times(100), accuracy, true)}%`
 }
 
-export const calculateAcceleratorPower = (totalAcceleratorBoost: number): number => {
+export const calculateAcceleratorPower = (totalAcceleratorBoost: number, totalCoinOwned?: number): number => {
   const tuSevenMulti = player.upgrades[46] > 0.5 ? 1.05 : 1
 
   let power = Math.pow(
     1.1
-      + getRuneEffects('speed', 'acceleratorPower')
+      + getRuneEffects('speed', 'acceleratorPower', totalCoinOwned)
       + getAchievementReward('acceleratorPower')
       + tuSevenMulti
         * (totalAcceleratorBoost / 100)
@@ -2313,13 +2315,13 @@ export const calculateAcceleratorPower = (totalAcceleratorBoost: number): number
 
 export const calculateMultiplierStats = (
   viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
-  construction?: number,
+  owned = getAccelMultBuildingsOwned(),
   totalAcceleratorBoost?: number
 ) => {
-  const freeMultiplier = calculateFreeAccelMult('multiplier', totalAcceleratorBoost)
+  const freeMultiplier = calculateFreeAccelMult('multiplier', totalAcceleratorBoost, owned)
   const effectiveFreeMultiplier = calculateEffectiveFreeAccelMult(freeMultiplier, viscosity)
-  const totalMultiplier = getBuildingOwned('multiplier', 0, construction) / viscosity + effectiveFreeMultiplier
-  const multiplierPower = calculateMultiplierPower()
+  const totalMultiplier = owned.multiplier / viscosity + effectiveFreeMultiplier
+  const multiplierPower = calculateMultiplierPower(sumBuildingsOwned(owned.coin))
   return {
     freeMultiplier,
     effectiveFreeMultiplier,
@@ -2331,15 +2333,15 @@ export const calculateMultiplierStats = (
 
 export const calculateAcceleratorCounts = (
   viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
-  construction?: number,
+  owned = getAccelMultBuildingsOwned(),
   totalAcceleratorBoost?: number
 ) => {
-  const freeAccelerator = calculateFreeAccelMult('accelerator', totalAcceleratorBoost)
+  const freeAccelerator = calculateFreeAccelMult('accelerator', totalAcceleratorBoost, owned)
   const effectiveFreeAccelerator = calculateEffectiveFreeAccelMult(freeAccelerator, viscosity)
   return {
     freeAccelerator,
     effectiveFreeAccelerator,
-    totalAccelerator: getBuildingOwned('accelerator', 0, construction) / viscosity + effectiveFreeAccelerator
+    totalAccelerator: owned.accelerator / viscosity + effectiveFreeAccelerator
   }
 }
 
@@ -2347,14 +2349,14 @@ export const calculateAcceleratorStats = (
   totalAcceleratorBoost = calculateTotalAcceleratorBoost(),
   viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
   totalMultiplier?: number,
-  construction?: number
+  owned = getAccelMultBuildingsOwned()
 ) => {
   const { freeAccelerator, effectiveFreeAccelerator, totalAccelerator } = calculateAcceleratorCounts(
     viscosity,
-    construction,
+    owned,
     totalAcceleratorBoost
   )
-  const acceleratorPower = calculateAcceleratorPower(totalAcceleratorBoost)
+  const acceleratorPower = calculateAcceleratorPower(totalAcceleratorBoost, sumBuildingsOwned(owned.coin))
 
   let acceleratorEffect: Decimal
   if (player.currentChallenge.reincarnation === 10) {
@@ -2363,7 +2365,7 @@ export const calculateAcceleratorStats = (
     acceleratorEffect = Decimal.pow(
       acceleratorPower,
       totalAccelerator
-        + (totalMultiplier ?? calculateMultiplierStats(viscosity, construction, totalAcceleratorBoost).totalMultiplier)
+        + (totalMultiplier ?? calculateMultiplierStats(viscosity, owned, totalAcceleratorBoost).totalMultiplier)
     )
   } else {
     acceleratorEffect = Decimal.pow(acceleratorPower, totalAccelerator)
@@ -2378,32 +2380,32 @@ export const calculateAcceleratorStats = (
   }
 }
 
-export const calculateAccelMultStats = (construction = calculateConstruction()) => {
+export const calculateAccelMultStats = (owned = getAccelMultBuildingsOwned()) => {
   const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
-  const freeAcceleratorBoost = calculateFreeAcceleratorBoosts()
-  const totalAcceleratorBoost = calculateTotalAcceleratorBoost(freeAcceleratorBoost, construction)
-  const multiplierStats = calculateMultiplierStats(viscosity, construction, totalAcceleratorBoost)
+  const freeAcceleratorBoost = calculateFreeAcceleratorBoosts(owned.coin)
+  const totalAcceleratorBoost = calculateTotalAcceleratorBoost(freeAcceleratorBoost, owned.acceleratorBoost)
+  const multiplierStats = calculateMultiplierStats(viscosity, owned, totalAcceleratorBoost)
   return {
     viscosity,
     freeAcceleratorBoost,
     totalAcceleratorBoost,
     ...multiplierStats,
-    ...calculateAcceleratorStats(totalAcceleratorBoost, viscosity, multiplierStats.totalMultiplier, construction)
+    ...calculateAcceleratorStats(totalAcceleratorBoost, viscosity, multiplierStats.totalMultiplier, owned)
   }
 }
 
 export type AccelMultStats = ReturnType<typeof calculateAccelMultStats>
 
-const calculateRawMultiplierBoosts = (): number => {
+const calculateRawMultiplierBoosts = (totalCoinOwned?: number): number => {
   let b = 0
   b += Decimal.log(player.transcendShards.add(1), 3)
-  b += getRuneEffects('duplication', 'multiplierBoosts')
+  b += getRuneEffects('duplication', 'multiplierBoosts', totalCoinOwned)
   b += 2 * player.challengecompletions[1]
   b *= 1 + (11 * player.researches[33]) / 100
   b *= 1 + (11 * player.researches[34]) / 100
   b *= 1 + (11 * player.researches[35]) / 100
   b *= 1 + player.researches[89] / 5
-  b *= getRuneBlessingEffect('duplication').multiplierBoosts
+  b *= getRuneBlessingEffect('duplication', totalCoinOwned).multiplierBoosts
   return b
 }
 
@@ -2413,8 +2415,8 @@ export const calculateMultiplierBoosts = (rawBoosts = calculateRawMultiplierBoos
     1 + player.challengecompletions[7] * 0.04
   )
 
-export const calculateMultiplierPower = (): number => {
-  const rawBoosts = calculateRawMultiplierBoosts()
+export const calculateMultiplierPower = (totalCoinOwned?: number): number => {
+  const rawBoosts = calculateRawMultiplierBoosts(totalCoinOwned)
   const c7 = player.challengecompletions[7] > 0.5 ? 1.25 : 1
 
   let power = 2 + 0.02 * calculateMultiplierBoosts(rawBoosts) * c7
@@ -2556,10 +2558,11 @@ export const crystalUpgrade3CrystalMultiplier = (
 export const calculateGlobalCoinMultiplier = (
   multiplierEffect?: Decimal,
   acceleratorEffect?: Decimal,
-  totalAccelerator?: number
+  totalAccelerator?: number,
+  totalCoinOwned?: number
 ) =>
   Decimal.pow(
-    allCoinMultiplierStatsProduct(multiplierEffect, acceleratorEffect, totalAccelerator),
+    allCoinMultiplierStatsProduct(multiplierEffect, acceleratorEffect, totalAccelerator, totalCoinOwned),
     allCoinExponentStatsProduct()
   )
 
@@ -2905,14 +2908,17 @@ export const calculateTesseractBuildingProduction = (index: OneToFive, constantM
     .times(0.05)
     .times(constantMultiplier)
 
-export const resourceGain = (dt: number): void => {
-  const construction = calculateConstruction()
-  const coinsOwned = getBuildingsOwned('coin', construction)
+export const resourceGain = (
+  dt: number,
+  construction = calculateConstruction(),
+  owned = getAccelMultBuildingsOwned(construction)
+): void => {
+  const coinsOwned = owned.coin
   const diamondsOwned = getBuildingsOwned('diamond', construction)
   const mythosOwned = getBuildingsOwned('mythos', construction)
   const particlesOwned = getBuildingsOwned('particle', construction)
   const totalCoinOwned = sumBuildingsOwned(coinsOwned)
-  const accelMultStats = calculateAccelMultStats(construction)
+  const accelMultStats = calculateAccelMultStats(owned)
   const buildingPower = calculateBuildingPower()
   const buildingPowerMult = calculateBuildingPowerCoinMultiplier(buildingPower, totalCoinOwned)
   const crystalMultiplier = calculateGlobalCrystalMultiplier(buildingPowerMult, sumBuildingsOwned(diamondsOwned))
@@ -3608,27 +3614,29 @@ export const updateAll = (): void => {
   autoUpgrades()
 
   // Autobuy "Building" Tab
+  let construction = calculateConstruction()
   for (let i = 1; i <= 5; i++) {
     const zeroIndex = i - 1 as ZeroToFour
     if (player.toggles[i] && player.upgrades[80 + i]) {
-      buyBuilding('coin', 'max', zeroIndex)
+      buyBuilding('coin', 'max', zeroIndex, construction)
     }
   }
   if (player.toggles[6] && player.upgrades[86] === 1) {
-    buyBuilding('accelerator', 'max')
+    buyAccelMult('accelerator', 'max', construction)
   }
   if (player.toggles[7] && player.upgrades[87] === 1) {
-    buyBuilding('multiplier', 'max')
+    buyAccelMult('multiplier', 'max', construction)
   }
   if (player.toggles[8] && player.upgrades[88] === 1) {
-    boostAccelerator('max')
+    boostAccelerator('max', construction)
   }
 
   // Autobuy "Prestige" Tab
+  construction = calculateConstruction()
   for (let i = 1; i <= 5; i++) {
     const zeroIndex = i - 1 as ZeroToFour
     if (player.toggles[9 + i] && getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy` as const) === 1) {
-      buyBuilding('diamond', 'max', zeroIndex)
+      buyBuilding('diamond', 'max', zeroIndex, construction)
     }
   }
 
@@ -3658,10 +3666,11 @@ export const updateAll = (): void => {
   }
 
   // Autobuy "Transcension" Tab
+  construction = calculateConstruction()
   for (let i = 1; i <= 5; i++) {
     const zeroIndex = i - 1 as ZeroToFour
     if (player.toggles[15 + i] && player.upgrades[93 + i] === 1) {
-      buyBuilding('mythos', 'max', zeroIndex)
+      buyBuilding('mythos', 'max', zeroIndex, construction)
     }
   }
 
@@ -3669,7 +3678,7 @@ export const updateAll = (): void => {
   for (let i = 1; i <= 5; i++) {
     const zeroIndex = i - 1 as ZeroToFour
     if (player.toggles[21 + i] && player.cubeUpgrades[7] === 1) {
-      buyBuilding('particle', 'max', zeroIndex)
+      buyBuilding('particle', 'max', zeroIndex, construction)
     }
   }
 
@@ -3720,7 +3729,8 @@ export const updateAll = (): void => {
   }
 
   // Generation
-  const coinsOwned = getBuildingsOwned('coin')
+  construction = calculateConstruction()
+  const coinsOwned = getBuildingsOwned('coin', construction)
   if (player.upgrades[101] > 0.5) {
     player.fourthGeneratedCoin = player.fourthGeneratedCoin.add(
       player.fifthGeneratedCoin
@@ -3792,7 +3802,7 @@ export const updateAll = (): void => {
   if (b !== 0) {
     player.fifthGeneratedDiamonds = player.fifthGeneratedDiamonds.add(
       Decimal.pow(
-        player.firstGeneratedMythos.add(getBuildingOwned('mythos', MythosBuilding.Augments)).add(1),
+        player.firstGeneratedMythos.add(getBuildingOwned('mythos', MythosBuilding.Augments, construction)).add(1),
         b
       )
     )
@@ -3800,7 +3810,7 @@ export const updateAll = (): void => {
   if (c !== 0) {
     player.fifthGeneratedMythos = player.fifthGeneratedMythos.add(
       Decimal.pow(
-        player.firstGeneratedParticles.add(getBuildingOwned('particle', ParticleBuilding.Protons)).add(1),
+        player.firstGeneratedParticles.add(getBuildingOwned('particle', ParticleBuilding.Protons, construction)).add(1),
         c
       )
     )
@@ -4003,8 +4013,10 @@ const tick = () => {
 const tack = (dt: number) => {
   if (!G.timeWarp) {
     // Adds Resources (coins, ants, etc)
-    const timeMult = calculateGlobalSpeedMult()
-    resourceGain(dt * timeMult)
+    const construction = calculateConstruction()
+    const owned = getAccelMultBuildingsOwned(construction)
+    const timeMult = calculateGlobalSpeedMult(sumBuildingsOwned(owned.coin))
+    resourceGain(dt * timeMult, construction, owned)
     generateAntsAndCrumbs(dt, timeMult)
 
     // Adds time (in milliseconds) to all reset functions, and quarks timer.
