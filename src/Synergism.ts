@@ -58,6 +58,7 @@ import { autoUpgrades } from './Automation'
 import type { TesseractBuildings } from './Buy'
 import {
   boostAccelerator,
+  buyAccelMult,
   buyBuilding,
   buyCrystalUpgrades,
   buyTesseractBuilding,
@@ -2907,9 +2908,11 @@ export const calculateTesseractBuildingProduction = (index: OneToFive, constantM
     .times(0.05)
     .times(constantMultiplier)
 
-export const resourceGain = (dt: number): void => {
-  const construction = calculateConstruction()
-  const owned = getAccelMultBuildingsOwned(construction)
+export const resourceGain = (
+  dt: number,
+  construction = calculateConstruction(),
+  owned = getAccelMultBuildingsOwned(construction)
+): void => {
   const coinsOwned = owned.coin
   const diamondsOwned = getBuildingsOwned('diamond', construction)
   const mythosOwned = getBuildingsOwned('mythos', construction)
@@ -3619,13 +3622,13 @@ export const updateAll = (): void => {
     }
   }
   if (player.toggles[6] && player.upgrades[86] === 1) {
-    buyBuilding('accelerator', 'max')
+    buyAccelMult('accelerator', 'max', construction)
   }
   if (player.toggles[7] && player.upgrades[87] === 1) {
-    buyBuilding('multiplier', 'max')
+    buyAccelMult('multiplier', 'max', construction)
   }
   if (player.toggles[8] && player.upgrades[88] === 1) {
-    boostAccelerator('max')
+    boostAccelerator('max', construction)
   }
 
   // Autobuy "Prestige" Tab
@@ -4010,8 +4013,10 @@ const tick = () => {
 const tack = (dt: number) => {
   if (!G.timeWarp) {
     // Adds Resources (coins, ants, etc)
-    const timeMult = calculateGlobalSpeedMult(getTotalBuildingsOwned('coin'))
-    resourceGain(dt * timeMult)
+    const construction = calculateConstruction()
+    const owned = getAccelMultBuildingsOwned(construction)
+    const timeMult = calculateGlobalSpeedMult(sumBuildingsOwned(owned.coin))
+    resourceGain(dt * timeMult, construction, owned)
     generateAntsAndCrumbs(dt, timeMult)
 
     // Adds time (in milliseconds) to all reset functions, and quarks timer.

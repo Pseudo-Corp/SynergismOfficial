@@ -682,8 +682,16 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
   }
 }
 
-export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount) => {
-  buyBuilding('acceleratorBoost', amount)
+export const buyAccelMult = (
+  type: keyof typeof accelMultData | 'acceleratorBoost',
+  amount?: BuyAmount | 'max',
+  construction?: number
+) => {
+  buyBuilding(type, amount, 0, construction)
+}
+
+export const boostAccelerator = (amount: BuyAmount | 'max' = player.coinbuyamount, construction?: number) => {
+  buyAccelMult('acceleratorBoost', amount, construction)
 }
 
 const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const
