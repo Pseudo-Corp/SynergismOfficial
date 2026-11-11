@@ -3,7 +3,7 @@ import * as z from 'zod'
 import type { ZodType } from 'zod'
 import { corruptionLoadoutCount } from '../AutoAscension'
 import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
-import { getTesseractBuildingsCumulativeCost } from '../Buy'
+import { convertLegacyTesseractBuildingsPaid } from '../Buy'
 import { transcensionChallengeCap } from '../Challenges'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
@@ -180,7 +180,7 @@ const ascendBuildingSchema = (index: OneToFive) =>
     owned: z.number().optional(),
     generated: decimalSchema
   }).transform(({ paid, owned, generated }) => ({
-    paid: paid ?? getTesseractBuildingsCumulativeCost(index, owned ?? 0),
+    owned: owned ?? convertLegacyTesseractBuildingsPaid(index, paid ?? 0),
     generated
   }))
 

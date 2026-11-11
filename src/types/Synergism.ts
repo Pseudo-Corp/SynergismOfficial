@@ -80,23 +80,23 @@ export interface Player {
   ants: PlayerAnts
 
   ascendBuilding1: {
-    paid: number
+    owned: number
     generated: Decimal
   }
   ascendBuilding2: {
-    paid: number
+    owned: number
     generated: Decimal
   }
   ascendBuilding3: {
-    paid: number
+    owned: number
     generated: Decimal
   }
   ascendBuilding4: {
-    paid: number
+    owned: number
     generated: Decimal
   }
   ascendBuilding5: {
-    paid: number
+    owned: number
     generated: Decimal
   }
 

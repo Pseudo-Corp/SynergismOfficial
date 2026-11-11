@@ -15,7 +15,6 @@ import {
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
   CoinBuilding,
-  getTesseractBuildingsOwned,
   grantBuildings
 } from './Buy'
 import type { TesseractBuildings } from './Buy'
@@ -800,7 +799,7 @@ export const reset = (
       const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
       for (let i = 1; i <= 5; i++) {
         if (player.autoTesseracts[i]) {
-          ownedBuildings[i - 1] = getTesseractBuildingsOwned(i as OneToFive)
+          ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
         }
       }
       const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
@@ -877,15 +876,15 @@ export const reset = (
     player.unlocks.spirits = false
     player.unlocks.platonics = false
 
-    player.ascendBuilding1.paid = 0
+    player.ascendBuilding1.owned = 0
     player.ascendBuilding1.generated = new Decimal()
-    player.ascendBuilding2.paid = 0
+    player.ascendBuilding2.owned = 0
     player.ascendBuilding2.generated = new Decimal()
-    player.ascendBuilding3.paid = 0
+    player.ascendBuilding3.owned = 0
     player.ascendBuilding3.generated = new Decimal()
-    player.ascendBuilding4.paid = 0
+    player.ascendBuilding4.owned = 0
     player.ascendBuilding4.generated = new Decimal()
-    player.ascendBuilding5.paid = 0
+    player.ascendBuilding5.owned = 0
     player.ascendBuilding5.generated = new Decimal()
 
     player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

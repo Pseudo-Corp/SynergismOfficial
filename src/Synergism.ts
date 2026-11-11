@@ -66,7 +66,6 @@ import {
   convertLegacyBuildings,
   DiamondBuilding,
   getBuildingGeneratedKey,
-  getTesseractBuildingsOwned,
   MythosBuilding,
   ParticleBuilding,
   type ScalingBuildingType
@@ -315,23 +314,23 @@ export const player: Player = {
   ants: { ...defaultPlayerAnts },
 
   ascendBuilding1: {
-    paid: 0,
+    owned: 0,
     generated: new Decimal()
   },
   ascendBuilding2: {
-    paid: 0,
+    owned: 0,
     generated: new Decimal()
   },
   ascendBuilding3: {
-    paid: 0,
+    owned: 0,
     generated: new Decimal()
   },
   ascendBuilding4: {
-    paid: 0,
+    owned: 0,
     generated: new Decimal()
   },
   ascendBuilding5: {
-    paid: 0,
+    owned: 0,
     generated: new Decimal()
   },
 
@@ -2823,7 +2822,7 @@ export const calculateParticleProduction = (firstProducerMultiplier = calculateF
 
 export const calculateTesseractBuildingProduction = (index: OneToFive, constantMultiplier: Decimal) =>
   player[`ascendBuilding${index}` as const].generated
-    .add(getTesseractBuildingsOwned(index))
+    .add(player[`ascendBuilding${index}` as const].owned)
     .times(0.05)
     .times(constantMultiplier)
 
@@ -3599,7 +3598,7 @@ export const updateAll = (): void => {
     const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
     for (let i = 1; i <= 5; i++) {
       if (player.autoTesseracts[i]) {
-        ownedBuildings[i - 1] = getTesseractBuildingsOwned(i as OneToFive)
+        ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
       }
     }
     const budget = player.wowTesseracts - player.tesseractAutoBuyerAmount

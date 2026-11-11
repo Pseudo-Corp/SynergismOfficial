@@ -646,11 +646,10 @@ const tesseractBuildingCosts = [1, 10, 100, 1000, 10000] as const
 // in total. Use cost(owned+buyAmount) - cost(owned) to figure the cost of
 // buying multiple buildings.
 
-export const getTesseractBuildingsCumulativeCost = (index: OneToFive, owned: number) =>
+const getTesseractBuildingsCumulativeCost = (index: OneToFive, owned: number) =>
   tesseractBuildingCosts[index - 1] * Math.pow(linSum(owned), 2)
 
-export const getTesseractBuildingsOwned = (index: OneToFive) => {
-  const paid = player[`ascendBuilding${index}` as const].paid
+export const convertLegacyTesseractBuildingsPaid = (index: OneToFive, paid: number) => {
   let owned = Math.floor(
     -1 / 2 + 1 / 2 * Math.pow(1 + 8 * Math.pow(paid / tesseractBuildingCosts[index - 1], 1 / 2), 1 / 2)
   )
@@ -663,7 +662,7 @@ export const getTesseractBuildingsOwned = (index: OneToFive) => {
 }
 
 export const getTesseractBuildingCost = (index: OneToFive) =>
-  tesseractBuildingCosts[index - 1] * Math.pow(getTesseractBuildingsOwned(index) + 1, 3)
+  tesseractBuildingCosts[index - 1] * Math.pow(player[`ascendBuilding${index}` as const].owned + 1, 3)
 
 export type TesseractBuildings = [number | null, number | null, number | null, number | null, number | null]
 
@@ -849,11 +848,10 @@ export const calculateTessBuildingsInBudget = (
 const getTesseractCost = (
   index: OneToFive,
   amount?: number,
-  checkCanAfford = true,
-  buyFrom?: number
+  checkCanAfford = true
 ): [number, number] => {
   amount ??= player.tesseractbuyamount
-  buyFrom ??= getTesseractBuildingsOwned(index)
+  const buyFrom = player[`ascendBuilding${index}` as const].owned
   const intCost = tesseractBuildingCosts[index - 1]
   const subCost = getTesseractBuildingsCumulativeCost(index, buyFrom)
 
@@ -874,7 +872,7 @@ export const buyTesseractBuilding = (index: OneToFive, amount: number = player.t
   // Destructuring FTW!
   const [buyTo, actualCost] = getTesseractCost(index, amount)
 
-  player[`ascendBuilding${index}` as const].paid = getTesseractBuildingsCumulativeCost(index, buyTo)
+  player[`ascendBuilding${index}` as const].owned = buyTo
   cubes.wowTesseracts.sub(actualCost)
 }
 
