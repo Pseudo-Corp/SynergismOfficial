@@ -862,8 +862,14 @@ const computeOfferingsToLevel = (rune: RuneType, level: number) => {
   return Decimal.max(1, computeEXPLeftToLevel(rune, level).div(getRuneEXPPerOffering(rune)).ceil())
 }
 
+// For some dumb reason that old Platonic might be able to explain, 'MAX' was defined to
+// be 100,000 levels. This retroactively corrects the display logic.
+const getRuneBuyLimit = () => {
+  return player.offeringbuyamount === 100000 ? Number.POSITIVE_INFINITY : player.offeringbuyamount
+}
+
 // Gives levels to buy, total EXP to that level, and offerings required to reach that level
-const maxRuneLevelPurchaseInformation = (rune: RuneType, budget: Decimal) => {
+const maxRuneLevelPurchaseInformation = (rune: RuneType, budget: Decimal, upperLimit: number) => {
   if (!runes[rune].isUnlocked() || budget.lt(new Decimal())) {
     return { levels: 0, expRequired: new Decimal(), offerings: new Decimal() }
   }
@@ -877,41 +883,38 @@ const maxRuneLevelPurchaseInformation = (rune: RuneType, budget: Decimal) => {
   // EXP formula: costCoeff * (10^(level/levelsPerOOM) - 1)
   // Solving for level: level = levelsPerOOM * log10((EXP/costCoeff) + 1)
   const maxLevel = Math.floor(levelsPerOOM * Decimal.log10(totalEXPAvailable.div(costCoeff).plus(1)))
-  const levelsGained = Math.max(0, maxLevel - player.runeLevels[rune])
+  const levelsGained = Math.min(upperLimit, Math.max(0, maxLevel - player.runeLevels[rune]))
 
   if (levelsGained === 0) {
     // Can't afford any levels, return next level stuff
-    const nextLevelEXP = computeEXPToLevel(rune, player.runeLevels[rune] + 1)
-    const offeringsRequired = Decimal.max(1, nextLevelEXP.minus(player.runeEXP[rune]).div(runeEXPPerOffering).ceil())
-    return { levels: 1, expRequired: nextLevelEXP, offerings: offeringsRequired }
+    return {
+      levels: 1,
+      expRequired: computeEXPToLevel(rune, player.runeLevels[rune] + 1),
+      offerings: computeOfferingsToLevel(rune, player.runeLevels[rune] + 1)
+    }
   }
 
   // Return the levels we can gain and the EXP required for that many levels
-  const expRequired = computeEXPToLevel(rune, player.runeLevels[rune] + levelsGained)
-  // Need to be recomputed since offerings required is not necessarily equal to budget.
-  const offeringsRequired = Decimal.max(1, expRequired.minus(player.runeEXP[rune]).div(runeEXPPerOffering).ceil())
-  return { levels: levelsGained, expRequired: expRequired, offerings: offeringsRequired }
+  return {
+    levels: levelsGained,
+    expRequired: computeEXPToLevel(rune, player.runeLevels[rune] + levelsGained),
+    offerings: computeOfferingsToLevel(rune, player.runeLevels[rune] + levelsGained)
+  }
 }
 
 const levelRune = (rune: RuneType, timesLeveled: number, budget: Decimal) => {
-  let budgetUsed: Decimal
-
-  const expRequired = computeEXPLeftToLevel(rune, player.runeLevels[rune] + timesLeveled)
-  const runeEXPPerOffering = getRuneEXPPerOffering(rune)
-  const offeringsRequired = Decimal.max(1, expRequired.div(runeEXPPerOffering).ceil())
-
-  if (offeringsRequired.gt(budget)) {
-    player.runeEXP[rune] = player.runeEXP[rune].add(budget.times(runeEXPPerOffering))
-    budgetUsed = budget
-  } else {
-    player.runeEXP[rune] = computeEXPToLevel(rune, player.runeLevels[rune] + timesLeveled)
-    budgetUsed = offeringsRequired
+  if (timesLeveled <= 0) {
+    return
   }
 
-  player.offerings = player.offerings.sub(budgetUsed)
+  const offeringsRequired = computeOfferingsToLevel(rune, player.runeLevels[rune] + timesLeveled)
 
-  // this.updatePlayerEXP()
-  // this.updateRuneEffectHTML()
+  if (offeringsRequired.gt(budget)) {
+    return
+  }
+
+  player.runeEXP[rune] = computeEXPToLevel(rune, player.runeLevels[rune] + timesLeveled)
+  player.offerings = player.offerings.sub(offeringsRequired)
 }
 
 let runeLevelAchievementsDirty = true
@@ -971,22 +974,11 @@ export const updateWebRuneHTML = (rune: RuneType) => {
     x: format(runes[rune].freeLevels(), 0, true)
   })
 
-  if (player.offeringbuyamount === 100000) {
-    const { levels, offerings } = maxRuneLevelPurchaseInformation(rune, player.offerings)
-    DOMCacheGetOrSet(`${runes[rune].key}RuneTNL`).innerHTML = i18next.t('runes.TNL', {
-      levelAmount: format(levels, 0, true),
-      offerings: format(offerings, 2, false)
-    })
-  } else {
-    DOMCacheGetOrSet(`${runes[rune].key}RuneTNL`).innerHTML = i18next.t('runes.TNL', {
-      levelAmount: format(player.offeringbuyamount, 0, true),
-      offerings: format(
-        computeOfferingsToLevel(rune, player.runeLevels[rune] + player.offeringbuyamount),
-        2,
-        false
-      )
-    })
-  }
+  const { levels, offerings } = maxRuneLevelPurchaseInformation(rune, player.offerings, getRuneBuyLimit())
+  DOMCacheGetOrSet(`${runes[rune].key}RuneTNL`).innerHTML = i18next.t('runes.TNL', {
+    levelAmount: format(levels, 0, true),
+    offerings: format(offerings, 2, false)
+  })
 }
 
 export const updateMobileRuneHTML = (rune: RuneType) => {
@@ -1012,22 +1004,11 @@ export const updateMobileRuneHTML = (rune: RuneType) => {
 
   DOMCacheGetOrSet(`${runes[rune].key}RuneEffects`).innerHTML = runes[rune].effectsDescription()
 
-  if (player.offeringbuyamount === 100000) {
-    const { levels, offerings } = maxRuneLevelPurchaseInformation(rune, player.offerings)
-    DOMCacheGetOrSet(`${runes[rune].key}RuneCost`).innerHTML = i18next.t('runes.TNL', {
-      levelAmount: format(levels, 0, true),
-      offerings: format(offerings, 0, true)
-    })
-  } else {
-    DOMCacheGetOrSet(`${runes[rune].key}RuneCost`).innerHTML = i18next.t('runes.TNL', {
-      levelAmount: format(player.offeringbuyamount, 0, true),
-      offerings: format(
-        computeOfferingsToLevel(rune, player.runeLevels[rune] + player.offeringbuyamount),
-        2,
-        true
-      )
-    })
-  }
+  const { levels, offerings } = maxRuneLevelPurchaseInformation(rune, player.offerings, getRuneBuyLimit())
+  DOMCacheGetOrSet(`${runes[rune].key}RuneCost`).innerHTML = i18next.t('runes.TNL', {
+    levelAmount: format(levels, 0, true),
+    offerings: format(offerings, 0, true)
+  })
 }
 
 export const updateRuneHTML = (rune: RuneType) => {
@@ -1072,27 +1053,16 @@ export const focusedRuneHTML = (rune: RuneType) => {
     perEXP: format(getRuneEXPPerOffering(rune), 2, true)
   })
 
-  let levelInfo = ''
-  // For some dumb reason that old Platonic might be able to explain, 'MAX' was defined to
-  // be 100,000 levels. This retroactively corrects the display logic.
-  if (player.offeringbuyamount === 100000) {
-    const { levels, expRequired, offerings } = maxRuneLevelPurchaseInformation(rune, player.offerings)
-    levelInfo = i18next.t('runes.EXPNeeded', {
-      level: format(levels, 0, true),
-      exp: format(expRequired, 2, true),
-      offerings: format(offerings, 0, true)
-    })
-  } else {
-    levelInfo = i18next.t('runes.EXPNeeded', {
-      level: format(player.offeringbuyamount, 0, true),
-      exp: format(computeEXPToLevel(rune, player.runeLevels[rune] + player.offeringbuyamount), 2, true),
-      offerings: format(
-        computeOfferingsToLevel(rune, player.runeLevels[rune] + player.offeringbuyamount),
-        2,
-        true
-      )
-    })
-  }
+  const { levels, expRequired, offerings } = maxRuneLevelPurchaseInformation(
+    rune,
+    player.offerings,
+    getRuneBuyLimit()
+  )
+  const levelInfo = i18next.t('runes.EXPNeeded', {
+    level: format(levels, 0, true),
+    exp: format(expRequired, 2, true),
+    offerings: format(offerings, 0, true)
+  })
   return `${nameHTML}<br>${descriptionHTML}
   <br><br>${effectiveLevelHTML}<br>${effectiveLevelCalcHTML}<br>${effectText}
   <br><br>${coefficientText}<br>${levelCostIncreaseText}
@@ -1150,15 +1120,8 @@ export const sacrificeOfferings = (rune: RuneType, budget: Decimal, auto = false
     return
   }
 
-  let levelsToAdd = player.offeringbuyamount as number
-
-  if (player.offeringbuyamount !== 100000 && !auto) {
-    levelRune(rune, levelsToAdd, budget)
-  } // If we have offeringbuyamount === 100000, try to buy max! Fuck you, old Platonic.
-  else {
-    levelsToAdd = maxRuneLevelPurchaseInformation(rune, budget).levels
-    levelRune(rune, levelsToAdd, budget)
-  }
+  const { levels } = maxRuneLevelPurchaseInformation(rune, budget, auto ? Number.POSITIVE_INFINITY : getRuneBuyLimit())
+  levelRune(rune, levels, budget)
 
   updateLevelsFromEXP(rune)
   updateRuneLevelAchievementProgress()

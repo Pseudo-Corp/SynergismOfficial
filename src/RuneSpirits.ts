@@ -174,14 +174,17 @@ const computeEXPLeftToLevel = (spirit: BlessingRuneType, level: number) => {
   return Decimal.max(0, computeEXPToLevel(spirit, level).minus(player.spiritEXP[spirit]))
 }
 
+const computeOfferingsToLevel = (spirit: BlessingRuneType, level: number) => {
+  return Decimal.max(1, computeEXPLeftToLevel(spirit, level).div(getRuneSpiritEXPPerOffering(spirit)).ceil())
+}
+
 export const buySpiritLevels = (spirit: BlessingRuneType, budget: Decimal) => {
   if (!player.unlocks.spirits) {
     return
   }
 
-  const levelsToAdd = player.runeSpiritBuyAmount
-
-  levelSpirit(spirit, levelsToAdd, budget)
+  const { levels } = maxSpiritLevelPurchaseInformation(spirit, budget)
+  levelSpirit(spirit, levels, budget)
   updateLevelsFromEXP(spirit)
 }
 
@@ -199,21 +202,18 @@ export const buyAllSpiritLevels = (budget: Decimal) => {
 }
 
 const levelSpirit = (spirit: BlessingRuneType, timesLeveled: number, budget: Decimal) => {
-  let budgetUsed: Decimal
-
-  const expRequired = computeEXPLeftToLevel(spirit, player.spiritLevels[spirit] + timesLeveled)
-  const runeEXPPerOffering = getRuneSpiritEXPPerOffering(spirit)
-  const offeringsRequired = Decimal.max(1, expRequired.div(runeEXPPerOffering).ceil())
-
-  if (offeringsRequired.gt(budget)) {
-    player.spiritEXP[spirit] = player.spiritEXP[spirit].add(budget.times(runeEXPPerOffering))
-    budgetUsed = budget
-  } else {
-    player.spiritEXP[spirit] = computeEXPToLevel(spirit, player.spiritLevels[spirit] + timesLeveled)
-    budgetUsed = offeringsRequired
+  if (timesLeveled <= 0) {
+    return
   }
 
-  player.offerings = player.offerings.sub(budgetUsed)
+  const offeringsRequired = computeOfferingsToLevel(spirit, player.spiritLevels[spirit] + timesLeveled)
+
+  if (offeringsRequired.gt(budget)) {
+    return
+  }
+
+  player.spiritEXP[spirit] = computeEXPToLevel(spirit, player.spiritLevels[spirit] + timesLeveled)
+  player.offerings = player.offerings.sub(offeringsRequired)
 }
 
 const updateLevelsFromEXP = (spirit: BlessingRuneType) => {
@@ -261,22 +261,19 @@ const maxSpiritLevelPurchaseInformation = (spirit: BlessingRuneType, budget: Dec
 
   if (levelsGained === 0) {
     // Can't afford any levels, return next level stuff
-    const nextLevelEXP = computeEXPToLevel(spirit, player.spiritLevels[spirit] + 1)
-    const offeringsRequired = Decimal.max(
-      1,
-      nextLevelEXP.minus(player.spiritEXP[spirit]).div(runeEXPPerOffering).ceil()
-    )
-    return { levels: 1, expRequired: nextLevelEXP, offerings: offeringsRequired }
+    return {
+      levels: 1,
+      expRequired: computeEXPToLevel(spirit, player.spiritLevels[spirit] + 1),
+      offerings: computeOfferingsToLevel(spirit, player.spiritLevels[spirit] + 1)
+    }
   }
 
   // Return the levels we can gain and the EXP required for that many levels
-  const expRequired = computeEXPToLevel(spirit, player.spiritLevels[spirit] + levelsGained)
-  // Need to be recomputed since offerings required is not necessarily equal to budget.
-  const offeringsRequired = Decimal.max(
-    1,
-    expRequired.minus(player.spiritEXP[spirit]).div(runeEXPPerOffering).ceil()
-  )
-  return { levels: levelsGained, expRequired: expRequired, offerings: offeringsRequired }
+  return {
+    levels: levelsGained,
+    expRequired: computeEXPToLevel(spirit, player.spiritLevels[spirit] + levelsGained),
+    offerings: computeOfferingsToLevel(spirit, player.spiritLevels[spirit] + levelsGained)
+  }
 }
 
 export const updateWebRuneSpiritHTML = (spirit: BlessingRuneType) => {

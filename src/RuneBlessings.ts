@@ -198,14 +198,17 @@ const computeEXPLeftToLevel = (bless: BlessingRuneType, level: number) => {
   return Decimal.max(0, computeEXPToLevel(bless, level).minus(player.blessingEXP[bless]))
 }
 
+const computeOfferingsToLevel = (bless: BlessingRuneType, level: number) => {
+  return Decimal.max(1, computeEXPLeftToLevel(bless, level).div(getRuneBlessingEXPPerOffering(bless)).ceil())
+}
+
 export const buyBlessingLevels = (blessing: BlessingRuneType, budget: Decimal) => {
   if (!player.unlocks.blessings) {
     return
   }
 
-  const levelsToAdd = player.runeBlessingBuyAmount
-
-  levelBlessing(blessing, levelsToAdd, budget)
+  const { levels } = maxBlessingLevelPurchaseInformation(blessing, budget)
+  levelBlessing(blessing, levels, budget)
   updateLevelsFromEXP(blessing)
 }
 
@@ -224,24 +227,18 @@ export const buyAllBlessingLevels = (budget: Decimal) => {
 }
 
 const levelBlessing = (bless: BlessingRuneType, timesLeveled: number, budget: Decimal) => {
-  let budgetUsed: Decimal
-
-  const expRequired = computeEXPLeftToLevel(bless, player.blessingLevels[bless] + timesLeveled)
-  const runeEXPPerOffering = getRuneBlessingEXPPerOffering(bless)
-  const offeringsRequired = Decimal.max(1, expRequired.div(runeEXPPerOffering).ceil())
-
-  if (offeringsRequired.gt(budget)) {
-    player.blessingEXP[bless] = player.blessingEXP[bless].add(budget.times(runeEXPPerOffering))
-    budgetUsed = budget
-  } else {
-    player.blessingEXP[bless] = computeEXPToLevel(bless, player.blessingLevels[bless] + timesLeveled)
-    budgetUsed = offeringsRequired
+  if (timesLeveled <= 0) {
+    return
   }
 
-  player.offerings = player.offerings.sub(budgetUsed)
+  const offeringsRequired = computeOfferingsToLevel(bless, player.blessingLevels[bless] + timesLeveled)
 
-  // this.updatePlayerEXP()
-  // this.updateRuneEffectHTML()
+  if (offeringsRequired.gt(budget)) {
+    return
+  }
+
+  player.blessingEXP[bless] = computeEXPToLevel(bless, player.blessingLevels[bless] + timesLeveled)
+  player.offerings = player.offerings.sub(offeringsRequired)
 }
 
 const updateLevelsFromEXP = (bless: BlessingRuneType) => {
@@ -279,11 +276,6 @@ const maxBlessingLevelPurchaseInformation = (bless: BlessingRuneType, budget: De
   const levelsPerOOM = runeBlessings[bless].levelsPerOOM
   const costCoeff = runeBlessings[bless].costCoefficient
 
-  // Take into account the smallest increment to floating point
-  const minOfferingsToIncreaseEXP = Decimal.ceil(
-    player.blessingEXP[bless].div(runeEXPPerOffering.times(Number.MAX_SAFE_INTEGER))
-  )
-
   // Calculate max level we can reach with available EXP
   // EXP formula: costCoeff * (10^(level/levelsPerOOM) - 1)
   // Solving for level: level = levelsPerOOM * log10((EXP/costCoeff) + 1)
@@ -295,22 +287,19 @@ const maxBlessingLevelPurchaseInformation = (bless: BlessingRuneType, budget: De
 
   if (levelsGained === 0) {
     // Can't afford any levels, return next level stuff
-    const nextLevelEXP = computeEXPToLevel(bless, player.blessingLevels[bless] + 1)
-    const offeringsRequired = Decimal.max(
-      minOfferingsToIncreaseEXP,
-      nextLevelEXP.minus(player.blessingEXP[bless]).div(runeEXPPerOffering).ceil()
-    )
-    return { levels: 1, expRequired: nextLevelEXP, offerings: offeringsRequired }
+    return {
+      levels: 1,
+      expRequired: computeEXPToLevel(bless, player.blessingLevels[bless] + 1),
+      offerings: computeOfferingsToLevel(bless, player.blessingLevels[bless] + 1)
+    }
   }
 
   // Return the levels we can gain and the EXP required for that many levels
-  const expRequired = computeEXPToLevel(bless, player.blessingLevels[bless] + levelsGained)
-  // Need to be recomputed since offerings required is not necessarily equal to budget.
-  const offeringsRequired = Decimal.max(
-    minOfferingsToIncreaseEXP,
-    expRequired.minus(player.blessingEXP[bless]).div(runeEXPPerOffering).ceil()
-  )
-  return { levels: levelsGained, expRequired: expRequired, offerings: offeringsRequired }
+  return {
+    levels: levelsGained,
+    expRequired: computeEXPToLevel(bless, player.blessingLevels[bless] + levelsGained),
+    offerings: computeOfferingsToLevel(bless, player.blessingLevels[bless] + levelsGained)
+  }
 }
 
 export const updateWebRuneBlessingHTML = (bless: BlessingRuneType) => {
