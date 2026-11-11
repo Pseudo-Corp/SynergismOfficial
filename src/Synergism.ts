@@ -127,7 +127,6 @@ import {
   runes,
   RuneType,
   sacrificeOfferings,
-  updateAllRuneFreeLevels,
   updateAllRuneLevelsFromEXP
 } from './Runes'
 import { allCoinExponentStatsProduct, allCoinMultiplierStatsProduct, c15RewardUpdate } from './Statistics'
@@ -487,7 +486,6 @@ export const player: Player = {
 
   runeEXP: Array.from({ length: 10 }, () => new Decimal()),
   runeLevels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  runeFreeLevels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
   blessingEXP: Array.from({ length: 5 }, () => new Decimal()),
   blessingLevels: [0, 0, 0, 0, 0],
@@ -3741,6 +3739,7 @@ export const slowUpdates = (): void => {
   }
 
   buildingAchievementCheck()
+  updateAllRuneLevelsFromEXP({ forceAchievementCheck: false })
   awardAchievementGroup(AchievementGroup.RuneFreeLevel)
 
   for (const key of periodicProgressiveAchievementKeys) {
@@ -3884,8 +3883,6 @@ const tick = () => {
 // eslint-disable-next-line no-shadow
 const tack = (dt: number) => {
   if (!G.timeWarp) {
-    updateAllRuneLevelsFromEXP({ forceAchievementCheck: false })
-    updateAllRuneFreeLevels()
     // Adds Resources (coins, ants, etc)
     const timeMult = calculateGlobalSpeedMult()
     resourceGain(dt * timeMult)
@@ -4297,7 +4294,6 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
       updateTalismanLevelAndSpentFromInvested(key)
     }
   }
-  updateAllRuneFreeLevels()
 
   player.corruptions.used = normalizeCorruptionLevel(player.corruptions.used)
   player.corruptions.next = normalizeCorruptionLevel(player.corruptions.next)

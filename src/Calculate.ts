@@ -34,7 +34,7 @@ import {
 import { quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
-import { getRuneEffects, RuneType, updateAllRuneFreeLevels, updateAllRuneLevelsFromEXP } from './Runes'
+import { getRuneEffects, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { generousOrbsLevels, getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -956,8 +956,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
       sliceStart = PerformanceNow()
     }
 
-    updateAllRuneLevelsFromEXP({ forceAchievementCheck: false })
-    updateAllRuneFreeLevels()
     G.timeMultiplier = calculateGlobalSpeedMult()
 
     // Reset Stuff lmao!

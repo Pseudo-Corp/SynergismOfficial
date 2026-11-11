@@ -282,7 +282,7 @@ export const generateExportSummary = async (): Promise<void> => {
     for (const rune of allRuneTypes) {
       if (runes[rune].isUnlocked()) {
         prestige = `${prestige}${runes[rune].name()}: Level ${format(player.runeLevels[rune], 0, true)} [+${
-          format(player.runeFreeLevels[rune], 0, true)
+          format(runes[rune].freeLevels(), 0, true)
         }]\n`
       }
     }

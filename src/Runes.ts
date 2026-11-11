@@ -814,13 +814,15 @@ export const runes: { [K in RuneType]: RuneData<K, keyof RuneTypeMap[K]> } = {
   }
 }
 
-export const updateAllRuneFreeLevels = () => {
+export const sumOfFreeRuneLevels = () => {
+  let sum = 0
   for (const rune of allRuneTypes) {
-    player.runeFreeLevels[rune] = runes[rune].freeLevels()
+    sum += runes[rune].freeLevels()
   }
+  return sum
 }
 
-export const getRuneTotalLevel = (rune: RuneType): number => player.runeLevels[rune] + player.runeFreeLevels[rune]
+export const getRuneTotalLevel = (rune: RuneType): number => player.runeLevels[rune] + runes[rune].freeLevels()
 
 export const getRuneEffectiveLevel = (rune: RuneType): number => {
   if (!runes[rune].isUnlocked()) {
@@ -966,7 +968,7 @@ export const updateWebRuneHTML = (rune: RuneType) => {
     x: format(player.runeLevels[rune], 0, true)
   })
   DOMCacheGetOrSet(`${runes[rune].key}RuneFreeLevel`).innerHTML = i18next.t('runes.freeLevels', {
-    x: format(player.runeFreeLevels[rune], 0, true)
+    x: format(runes[rune].freeLevels(), 0, true)
   })
 
   if (player.offeringbuyamount === 100000) {
@@ -993,7 +995,7 @@ export const updateMobileRuneHTML = (rune: RuneType) => {
   // {rune}Rune, {rune}RuneLevel, {rune}RuneCoefficient, {rune}RuneIncreasePerLevel, {rune}RunePower, {rune}RuneEffects, {rune}RuneCost
   DOMCacheGetOrSet(`${runes[rune].key}RuneLevel`).innerHTML = `${
     i18next.t('runes.level', { x: format(player.runeLevels[rune], 0, true) })
-  } ${i18next.t('runes.freeLevels', { x: format(player.runeFreeLevels[rune], 0, true) })}`
+  } ${i18next.t('runes.freeLevels', { x: format(runes[rune].freeLevels(), 0, true) })}`
   DOMCacheGetOrSet(`${runes[rune].key}RuneCoefficient`).textContent = i18next.t('runes.runeCoefficientText', {
     base: format(runes[rune].levelsPerOOM, 2, true),
     bonus: format(runes[rune].levelsPerOOMIncrease(), 2, true),
@@ -1051,7 +1053,7 @@ export const focusedRuneHTML = (rune: RuneType) => {
   })
   const effectiveLevelCalcHTML = i18next.t('runes.runeEffectiveLevelCalc', {
     purchased: format(player.runeLevels[rune], 0, true),
-    free: format(player.runeFreeLevels[rune], 2, true),
+    free: format(runes[rune].freeLevels(), 2, true),
     mult: format(runes[rune].effectiveLevelMult(), 2, true)
   })
 
