@@ -1,7 +1,7 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
-import { CoinBuilding, getBuildingOwned, getBuildingsOwned } from './Buy'
+import { CoinBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokens } from './Campaign'
 import { activeCorruptionLevel, ascensionEffectiveCorruptionLevel } from './Corruptions'
@@ -1119,7 +1119,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => true,
-    getValue: () => getBuildingOwned('coin', CoinBuilding.Workers),
+    getValue: () => player.coinBuildings[CoinBuilding.Workers],
     tiers: [
       { id: AchievementId.FirstOwnedCoinTier1, pointValue: 5, requirement: 1, steamAchievementId: 'GROUPED_WORKERS_1' },
       { id: AchievementId.FirstOwnedCoinTier2, pointValue: 10, requirement: 10 },
@@ -1163,7 +1163,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => true,
-    getValue: () => getBuildingOwned('coin', CoinBuilding.Investments),
+    getValue: () => player.coinBuildings[CoinBuilding.Investments],
     tiers: [
       {
         id: AchievementId.SecondOwnedCoinTier1,
@@ -1212,7 +1212,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => true,
-    getValue: () => getBuildingOwned('coin', CoinBuilding.Printers),
+    getValue: () => player.coinBuildings[CoinBuilding.Printers],
     tiers: [
       {
         id: AchievementId.ThirdOwnedCoinTier1,
@@ -1261,7 +1261,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => true,
-    getValue: () => getBuildingOwned('coin', CoinBuilding.CoinMints),
+    getValue: () => player.coinBuildings[CoinBuilding.CoinMints],
     tiers: [
       { id: AchievementId.FourthOwnedCoinTier1, pointValue: 5, requirement: 1, steamAchievementId: 'GROUPED_MINTS_1' },
       { id: AchievementId.FourthOwnedCoinTier2, pointValue: 10, requirement: 10 },
@@ -1305,7 +1305,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => true,
-    getValue: () => getBuildingOwned('coin', CoinBuilding.Alchemies),
+    getValue: () => player.coinBuildings[CoinBuilding.Alchemies],
     tiers: [
       {
         id: AchievementId.FifthOwnedCoinTier1,
@@ -1437,7 +1437,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => true,
-    getValue: () => getBuildingOwned('accelerator'),
+    getValue: () => player.accelerators,
     tiers: [
       {
         id: AchievementId.AcceleratorsTier1,
@@ -1471,7 +1471,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => true,
-    getValue: () => getBuildingOwned('multiplier'),
+    getValue: () => player.multipliers,
     tiers: [
       { id: AchievementId.MultipliersTier1, pointValue: 5, requirement: 2, steamAchievementId: 'GROUPED_MULTIPLIER_1' },
       { id: AchievementId.MultipliersTier2, pointValue: 10, requirement: 20, rewards: ['multipliers'] },
@@ -1495,7 +1495,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => hasResetAtOrAboveLevel(resetTiers.prestige),
-    getValue: () => getBuildingOwned('acceleratorBoost'),
+    getValue: () => player.acceleratorBoosts,
     tiers: [
       {
         id: AchievementId.AcceleratorBoostsTier1,
@@ -2720,7 +2720,7 @@ export const ungroupedAchievements: UngroupedAchievementData[] = [
     id: AchievementId.DiamondSearch,
     pointValue: 35,
     unlockCondition: () => {
-      return getBuildingOwned('accelerator') === 0 && getBuildingOwned('acceleratorBoost') === 0
+      return player.accelerators === 0 && player.acceleratorBoosts === 0
         && player.coinsThisTranscension.gte(G.d1e120000)
     },
     displayCondition: () => player.transcendCount > 0
@@ -3036,15 +3036,14 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
     + 0.003 * player.achievements[AchievementId.FifthOwnedCoinTier3]
     + 0.01 * player.achievements[AchievementId.AcceleratorsTier2],
   accelerators: () => {
-    const coinBuildings = getBuildingsOwned('coin')
     return (
-      player.achievements[AchievementId.FirstOwnedCoinTier5] * Math.floor(coinBuildings[CoinBuilding.Workers] / 500)
+      player.achievements[AchievementId.FirstOwnedCoinTier5] * Math.floor(player.coinBuildings[CoinBuilding.Workers] / 500)
       + player.achievements[AchievementId.SecondOwnedCoinTier5]
-        * Math.floor(coinBuildings[CoinBuilding.Investments] / 500)
-      + player.achievements[AchievementId.ThirdOwnedCoinTier5] * Math.floor(coinBuildings[CoinBuilding.Printers] / 500)
+        * Math.floor(player.coinBuildings[CoinBuilding.Investments] / 500)
+      + player.achievements[AchievementId.ThirdOwnedCoinTier5] * Math.floor(player.coinBuildings[CoinBuilding.Printers] / 500)
       + player.achievements[AchievementId.FourthOwnedCoinTier5]
-        * Math.floor(coinBuildings[CoinBuilding.CoinMints] / 500)
-      + player.achievements[AchievementId.FifthOwnedCoinTier5] * Math.floor(coinBuildings[CoinBuilding.Alchemies] / 500)
+        * Math.floor(player.coinBuildings[CoinBuilding.CoinMints] / 500)
+      + player.achievements[AchievementId.FifthOwnedCoinTier5] * Math.floor(player.coinBuildings[CoinBuilding.Alchemies] / 500)
       + 2 * player.achievements[AchievementId.PrestigeNoAccelerator]
       + 4 * player.achievements[AchievementId.TranscendNoAccelerator]
       + 8 * player.achievements[AchievementId.ReincarnationNoAccelerator]
@@ -3055,16 +3054,15 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
     )
   },
   multipliers: () => {
-    const coinBuildings = getBuildingsOwned('coin')
     return (
-      player.achievements[AchievementId.FirstOwnedCoinTier6] * Math.floor(coinBuildings[CoinBuilding.Workers] / 1000)
+      player.achievements[AchievementId.FirstOwnedCoinTier6] * Math.floor(player.coinBuildings[CoinBuilding.Workers] / 1000)
       + player.achievements[AchievementId.SecondOwnedCoinTier6]
-        * Math.floor(coinBuildings[CoinBuilding.Investments] / 1000)
-      + player.achievements[AchievementId.ThirdOwnedCoinTier6] * Math.floor(coinBuildings[CoinBuilding.Printers] / 1000)
+        * Math.floor(player.coinBuildings[CoinBuilding.Investments] / 1000)
+      + player.achievements[AchievementId.ThirdOwnedCoinTier6] * Math.floor(player.coinBuildings[CoinBuilding.Printers] / 1000)
       + player.achievements[AchievementId.FourthOwnedCoinTier6]
-        * Math.floor(coinBuildings[CoinBuilding.CoinMints] / 1000)
+        * Math.floor(player.coinBuildings[CoinBuilding.CoinMints] / 1000)
       + player.achievements[AchievementId.FifthOwnedCoinTier6]
-        * Math.floor(coinBuildings[CoinBuilding.Alchemies] / 1000)
+        * Math.floor(player.coinBuildings[CoinBuilding.Alchemies] / 1000)
       + player.achievements[AchievementId.PrestigeNoMult]
       + 2 * player.achievements[AchievementId.TranscendNoMult]
       + 4 * player.achievements[AchievementId.ReincarnationNoMult]
@@ -3076,16 +3074,15 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
     )
   },
   accelBoosts: () => {
-    const coinBuildings = getBuildingsOwned('coin')
     return (
-      player.achievements[AchievementId.FirstOwnedCoinTier7] * Math.floor(coinBuildings[CoinBuilding.Workers] / 2000)
+      player.achievements[AchievementId.FirstOwnedCoinTier7] * Math.floor(player.coinBuildings[CoinBuilding.Workers] / 2000)
       + player.achievements[AchievementId.SecondOwnedCoinTier7]
-        * Math.floor(coinBuildings[CoinBuilding.Investments] / 2000)
-      + player.achievements[AchievementId.ThirdOwnedCoinTier7] * Math.floor(coinBuildings[CoinBuilding.Printers] / 2000)
+        * Math.floor(player.coinBuildings[CoinBuilding.Investments] / 2000)
+      + player.achievements[AchievementId.ThirdOwnedCoinTier7] * Math.floor(player.coinBuildings[CoinBuilding.Printers] / 2000)
       + player.achievements[AchievementId.FourthOwnedCoinTier7]
-        * Math.floor(coinBuildings[CoinBuilding.CoinMints] / 2000)
+        * Math.floor(player.coinBuildings[CoinBuilding.CoinMints] / 2000)
       + player.achievements[AchievementId.FifthOwnedCoinTier7]
-        * Math.floor(coinBuildings[CoinBuilding.Alchemies] / 2000)
+        * Math.floor(player.coinBuildings[CoinBuilding.Alchemies] / 2000)
     )
   },
   crystalMultiplier: () =>

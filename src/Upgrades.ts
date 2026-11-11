@@ -5,9 +5,7 @@ import { buyAutobuyers, buyGenerator } from './Automation'
 import {
   buyUpgrades,
   CoinBuilding,
-  getBuildingOwned,
   getTesseractBuildingsOwned,
-  getTotalBuildingsOwned,
   MythosBuilding
 } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -167,17 +165,17 @@ const upgradetexts = [
   () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
   () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
   () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
-  () => Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', CoinBuilding.Alchemies) + 1, 10))),
-  () => format(Math.floor(getBuildingOwned('multiplier') / 7), 0, true),
-  () => format(Math.floor(getBuildingOwned('accelerator') / 10), 0, true),
-  () => format(Decimal.pow(2, Math.min(50, getBuildingOwned('coin', CoinBuilding.Investments) / 15)), 2),
+  () => Math.min(4, 1 + Math.floor(Decimal.log(player.coinBuildings[CoinBuilding.Alchemies] + 1, 10))),
+  () => format(Math.floor(player.multipliers / 7), 0, true),
+  () => format(Math.floor(player.accelerators / 10), 0, true),
+  () => format(Decimal.pow(2, Math.min(50, player.coinBuildings[CoinBuilding.Investments] / 15)), 2),
   () => format(Decimal.pow(1.02, calculateAccelMultStats().totalAccelerator), 2),
   () => format(Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)), 2),
   () =>
     format(
       Decimal.min(
         1e50,
-        Decimal.pow(player.firstGeneratedMythos.add(getBuildingOwned('mythos', MythosBuilding.Augments)).add(1), 4 / 3)
+        Decimal.pow(player.firstGeneratedMythos.add(player.mythosBuildings[MythosBuilding.Augments]).add(1), 4 / 3)
           .times(1e22)
       ),
       2
@@ -250,13 +248,13 @@ const upgradetexts = [
     format(
       Math.min(
         100,
-        Math.floor(getTotalBuildingsOwned('coin') / 400)
+        Math.floor(sumContents(player.coinBuildings) / 400)
       )
     ),
   () =>
     format(
       Math.floor(
-        Math.min(100, getTotalBuildingsOwned('coin') / 400)
+        Math.min(100, sumContents(player.coinBuildings) / 400)
       )
     ),
   () =>
@@ -264,7 +262,7 @@ const upgradetexts = [
       Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e30)))
         + Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e300)))
     ),
-  () => format(Math.floor(getTotalBuildingsOwned('coin') / 2000)),
+  () => format(Math.floor(sumContents(player.coinBuildings) / 2000)),
   () => format(Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25)))),
   () => format(calculateTotalAcceleratorBoost()),
   () => format(Math.floor(3 / 103 * calculateAccelMultStats().effectiveFreeMultiplier)),
@@ -304,7 +302,7 @@ const upgradetexts = [
     format(
       Decimal.pow(
         1.03,
-        getTotalBuildingsOwned('particle')
+        sumContents(player.particleBuildings)
       ),
       2
     ),

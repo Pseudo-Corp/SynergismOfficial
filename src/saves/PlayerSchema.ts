@@ -545,6 +545,14 @@ export const playerSchema = z.object({
   acceleratorBoostBought: z.number().optional(),
   acceleratorBoostPaid: decimalSchema.optional(),
 
+  coinBuildings: z.number().array().default(() => [...blankSave.coinBuildings]),
+  diamondBuildings: z.number().array().default(() => [...blankSave.diamondBuildings]),
+  mythosBuildings: z.number().array().default(() => [...blankSave.mythosBuildings]),
+  particleBuildings: z.number().array().default(() => [...blankSave.particleBuildings]),
+  accelerators: z.number().default(() => blankSave.accelerators),
+  multipliers: z.number().default(() => blankSave.multipliers),
+  acceleratorBoosts: z.number().default(() => blankSave.acceleratorBoosts),
+
   upgrades: z.number().array().transform((array) => {
     if (array.length < blankSave.upgrades.length) {
       array.push(...blankSave.upgrades.slice(0, blankSave.upgrades.length - array.length))

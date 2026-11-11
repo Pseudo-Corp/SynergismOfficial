@@ -57,64 +57,25 @@ export interface Player {
   coinsTotal: Decimal
 
   firstGeneratedCoin: Decimal
-  firstPaidCoin: Decimal
-
   secondGeneratedCoin: Decimal
-  secondPaidCoin: Decimal
-
   thirdGeneratedCoin: Decimal
-  thirdPaidCoin: Decimal
-
   fourthGeneratedCoin: Decimal
-  fourthPaidCoin: Decimal
-
   fifthGeneratedCoin: Decimal
-  fifthPaidCoin: Decimal
-
   firstGeneratedDiamonds: Decimal
-  firstPaidDiamonds: Decimal
-
   secondGeneratedDiamonds: Decimal
-  secondPaidDiamonds: Decimal
-
   thirdGeneratedDiamonds: Decimal
-  thirdPaidDiamonds: Decimal
-
   fourthGeneratedDiamonds: Decimal
-  fourthPaidDiamonds: Decimal
-
   fifthGeneratedDiamonds: Decimal
-  fifthPaidDiamonds: Decimal
-
   firstGeneratedMythos: Decimal
-  firstPaidMythos: Decimal
-
   secondGeneratedMythos: Decimal
-  secondPaidMythos: Decimal
-
   thirdGeneratedMythos: Decimal
-  thirdPaidMythos: Decimal
-
   fourthGeneratedMythos: Decimal
-  fourthPaidMythos: Decimal
-
   fifthGeneratedMythos: Decimal
-  fifthPaidMythos: Decimal
-
   firstGeneratedParticles: Decimal
-  firstPaidParticles: Decimal
-
   secondGeneratedParticles: Decimal
-  secondPaidParticles: Decimal
-
   thirdGeneratedParticles: Decimal
-  thirdPaidParticles: Decimal
-
   fourthGeneratedParticles: Decimal
-  fourthPaidParticles: Decimal
-
   fifthGeneratedParticles: Decimal
-  fifthPaidParticles: Decimal
 
   ants: PlayerAnts
 
@@ -139,11 +100,13 @@ export interface Player {
     generated: Decimal
   }
 
-  multiplierPaid: Decimal
-
-  acceleratorPaid: Decimal
-
-  acceleratorBoostPaid: Decimal
+  coinBuildings: number[]
+  diamondBuildings: number[]
+  mythosBuildings: number[]
+  particleBuildings: number[]
+  accelerators: number
+  multipliers: number
+  acceleratorBoosts: number
 
   upgrades: number[]
 

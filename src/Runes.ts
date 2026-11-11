@@ -1,4 +1,3 @@
-import { getTotalBuildingsOwned } from './Buy'
 import {
   calculateBadOfferingsSalvage,
   calculateChallenge15RuneSalvage,
@@ -29,7 +28,7 @@ import { Tabs } from './Tabs'
 import { getRuneBonusFromAllTalismans, getTalismanEffects } from './Talismans'
 import { toggleAutoSacrifice } from './Toggles'
 import { CloseModal, Modal } from './UpdateHTML'
-import { assert, isMobile, memoize } from './Utility'
+import { assert, isMobile, memoize, sumContents } from './Utility'
 
 type RuneTypeMap = {
   speed: {
@@ -129,14 +128,14 @@ const bonusRuneLevelsSpeed = () => {
       player.upgrades[27] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e10)))
         + Math.max(0, Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e50)) - 10)))
     )
-    + (player.upgrades[29] > 0 ? Math.floor(Math.min(100, getTotalBuildingsOwned('coin') / 400)) : 0)
+    + (player.upgrades[29] > 0 ? Math.floor(Math.min(100, sumContents(player.coinBuildings) / 400)) : 0)
   )
 }
 
 const bonusRuneLevelsDuplication = () => {
   return (
     getRuneBonusFromAllTalismans('duplication')
-    + (player.upgrades[28] > 0 ? Math.min(100, Math.floor(getTotalBuildingsOwned('coin') / 400)) : 0)
+    + (player.upgrades[28] > 0 ? Math.min(100, Math.floor(sumContents(player.coinBuildings) / 400)) : 0)
     + (
       player.upgrades[30] * (Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e30)))
         + Math.min(50, Math.floor(Decimal.log(player.coinsThisPrestige.add(1), 1e300))))

@@ -2,7 +2,6 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { getBuildingOwned } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import {
@@ -646,13 +645,13 @@ const getChallengeConstructionDivisor = (type: ConstructionType) => {
   return 1
 }
 
-export const calculateBuildingConstruction = (type: ConstructionType, construction = calculateConstruction()) => {
-  return construction / getChallengeConstructionDivisor(type)
+export const calculateBuildingConstruction = (type: ConstructionType) => {
+  return calculateConstruction() / getChallengeConstructionDivisor(type)
     / corruptionEffect(activeCorruptionLevel(), 'construction')
 }
 
-export const calculateAccelMultConstructionEffect = (type: AccelMultConstructionType, construction?: number) =>
-  Math.sqrt(calculateBuildingConstruction(type, construction))
+export const calculateAccelMultConstructionEffect = (type: AccelMultConstructionType) =>
+  Math.sqrt(calculateBuildingConstruction(type))
 
 const freeAccelMultAdditiveStats = {
   accelerator: freeAcceleratorAdditiveStatsSum,
@@ -712,10 +711,8 @@ export const calculateAcceleratorsPerBoost = () =>
   + 3 * player.researches[20]
   + calculateAcceleratorCubeBlessing()
 
-export const calculateTotalAcceleratorBoost = (
-  freeAcceleratorBoosts = calculateFreeAcceleratorBoosts(),
-  construction?: number
-) => getBuildingOwned('acceleratorBoost', 0, construction) + freeAcceleratorBoosts
+export const calculateTotalAcceleratorBoost = (freeAcceleratorBoosts = calculateFreeAcceleratorBoosts()) =>
+  player.acceleratorBoosts + freeAcceleratorBoosts
 
 export const calculateTotalSalvage = () => {
   return calculatePositiveSalvage() + calculateNegativeSalvage()

@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { getAchievementReward } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
-import { CoinBuilding, getBuildingOwned, getTotalBuildingsOwned } from './Buy'
+import { CoinBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   baseConstruction,
@@ -4441,7 +4441,7 @@ export const freeAcceleratorAdditiveStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'CoinUpgrade8',
-      stat: () => player.upgrades[8] !== 0 ? Math.floor(getBuildingOwned('multiplier') / 7) : 0,
+      stat: () => player.upgrades[8] !== 0 ? Math.floor(player.multipliers / 7) : 0,
       acc: 0
     },
     {
@@ -4487,7 +4487,7 @@ export const freeAcceleratorAdditiveStats: NumberStatLineCategory = {
 export const freeAcceleratorAdditiveStatsSum = (totalAcceleratorBoost = calculateTotalAcceleratorBoost()) =>
   Math.min(
     1e300,
-    (player.upgrades[8] !== 0 ? Math.floor(getBuildingOwned('multiplier') / 7) : 0)
+    (player.upgrades[8] !== 0 ? Math.floor(player.multipliers / 7) : 0)
       + ((player.upgrades[21] !== 0 ? 5 : 0)
         + (player.upgrades[22] !== 0 ? 4 : 0)
         + (player.upgrades[23] !== 0 ? 3 : 0)
@@ -4572,13 +4572,13 @@ export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
       i18n: 'CoinUpgrade7',
       stat: () =>
         player.upgrades[7] > 0
-          ? Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', CoinBuilding.Alchemies) + 1, 10)))
+          ? Math.min(4, 1 + Math.floor(Decimal.log(player.coinBuildings[CoinBuilding.Alchemies] + 1, 10)))
           : 0,
       acc: 0
     },
     {
       i18n: 'CoinUpgrade9',
-      stat: () => player.upgrades[9] > 0 ? Math.floor(getBuildingOwned('accelerator') / 10) : 0,
+      stat: () => player.upgrades[9] > 0 ? Math.floor(player.accelerators / 10) : 0,
       acc: 0
     },
     {
@@ -4624,9 +4624,9 @@ export const freeMultiplierAdditiveStatsSum = (totalAcceleratorBoost?: number) =
   Math.min(
     1e300,
     (player.upgrades[7] > 0
-      ? Math.min(4, 1 + Math.floor(Decimal.log(getBuildingOwned('coin', CoinBuilding.Alchemies) + 1, 10)))
+      ? Math.min(4, 1 + Math.floor(Decimal.log(player.coinBuildings[CoinBuilding.Alchemies] + 1, 10)))
       : 0)
-      + (player.upgrades[9] > 0 ? Math.floor(getBuildingOwned('accelerator') / 10) : 0)
+      + (player.upgrades[9] > 0 ? Math.floor(player.accelerators / 10) : 0)
       + diamondUpgradesOneToFive.filter((i) => player.upgrades[i] > 0).length
       + (player.upgrades[33] > 0 ? totalAcceleratorBoost ?? calculateTotalAcceleratorBoost() : 0)
       + (player.upgrades[49] > 0 ? Math.min(50, Math.floor(Decimal.log(player.transcendPoints.add(1), 1e10))) : 0)
@@ -4761,7 +4761,7 @@ export const freeAcceleratorBoostAdditiveStats: NumberStatLineCategory = {
     },
     {
       i18n: 'DiamondUpgrade11',
-      stat: () => player.upgrades[31] > 0.5 ? Math.floor(getTotalBuildingsOwned('coin') / 2000) : 0,
+      stat: () => player.upgrades[31] > 0.5 ? Math.floor(sumContents(player.coinBuildings) / 2000) : 0,
       acc: 0
     },
     {
@@ -4781,7 +4781,7 @@ export const freeAcceleratorBoostAdditiveStatsSum = () =>
   Math.min(
     1e300,
     (player.upgrades[26] > 0.5 ? 1 : 0)
-      + (player.upgrades[31] > 0.5 ? Math.floor(getTotalBuildingsOwned('coin') / 2000) : 0)
+      + (player.upgrades[31] > 0.5 ? Math.floor(sumContents(player.coinBuildings) / 2000) : 0)
       + getAchievementReward('accelBoosts')
       + (player.researches[93] * Math.floor(sumOfRuneLevels() / 20))
   )
@@ -6216,7 +6216,7 @@ export const allCoinMultiplierStats: DecimalStatLineCategory = {
     },
     {
       i18n: 'CoinUpgrade20',
-      stat: () => player.upgrades[20] > 0.5 ? Decimal.pow(getTotalBuildingsOwned('coin') / 4 + 1, 10) : 1
+      stat: () => player.upgrades[20] > 0.5 ? Decimal.pow(sumContents(player.coinBuildings) / 4 + 1, 10) : 1
     },
     {
       i18n: 'MythosUpgrade1',
@@ -6267,7 +6267,7 @@ export const allCoinMultiplierStatsProduct = (
         : 1
     )
     .mul(player.upgrades[12] > 0.5 ? Decimal.min(1e4, Decimal.pow(1.01, player.prestigeCount)) : 1)
-    .mul(player.upgrades[20] > 0.5 ? Decimal.pow(getTotalBuildingsOwned('coin') / 4 + 1, 10) : 1)
+    .mul(player.upgrades[20] > 0.5 ? Decimal.pow(sumContents(player.coinBuildings) / 4 + 1, 10) : 1)
     .mul(
       player.upgrades[41] > 0.5
         ? Decimal.min(1e30, Decimal.pow(player.transcendPoints.add(4), 1 / 2))

@@ -6,9 +6,6 @@ import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEncha
 import {
   getAccelMultScalingThreshold,
   getBuildingCost,
-  getBuildingOwned,
-  getBuildingScalingThreshold,
-  getBuildingsOwned,
   getTesseractBuildingCost,
   getTesseractBuildingsOwned
 } from './Buy'
@@ -448,7 +445,7 @@ const updateConstructionTexts = (type: keyof typeof buildingConstructionSoftcap)
     amount: format(buildingConstructionSoftcap[type], 0, true)
   })
 
-  const threshold = getBuildingScalingThreshold(type)
+  const threshold = construction * buildingConstructionSoftcap[type]
   DOMCacheGetOrSet(`${type}Hyperscaling`).innerHTML = i18next.t('buildings.hyperscaling', {
     threshold: format(threshold, 3, true)
   })
@@ -519,17 +516,16 @@ export const visualUpdateBuildings = () => {
 
     DOMCacheGetOrSet('coinVanity').innerHTML = `<i>${i18next.t(`buildings.coinFlavorTexts.${vanityIndex}`)}</i>`
 
-    const coinsOwned = getBuildingsOwned('coin')
     for (let i = 1; i <= 5; i++) {
       const place = tax.production[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`buildtext${2 * i - 1}`)
-      nameElement.style.color = coinsOwned[i - 1] > coinConstruction ? 'var(--red-color)' : ''
+      nameElement.style.color = player.coinBuildings[i - 1] > coinConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${coinNames[i - 1]}`,
         {
-          amount: format(coinsOwned[i - 1], 0, true, false),
+          amount: format(player.coinBuildings[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedCoin` as const], 0, false, false)
         }
       )
@@ -549,15 +545,14 @@ export const visualUpdateBuildings = () => {
       )
     }
 
-    const acceleratorsOwned = getBuildingOwned('accelerator')
     const acceleratorElement = DOMCacheGetOrSet('buildtext11')
-    acceleratorElement.style.color = acceleratorsOwned > getAccelMultScalingThreshold('accelerator')
+    acceleratorElement.style.color = player.accelerators > getAccelMultScalingThreshold('accelerator')
       ? 'var(--red-color)'
       : ''
     acceleratorElement.innerHTML = i18next.t(
       'buildings.names.accelerators',
       {
-        amount: format(acceleratorsOwned, 0, true, false),
+        amount: format(player.accelerators, 0, true, false),
         gain: format(accelMultStats.freeAccelerator, 0, true, false)
       }
     )
@@ -576,15 +571,14 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    const multipliersOwned = getBuildingOwned('multiplier')
     const multiplierElement = DOMCacheGetOrSet('buildtext13')
-    multiplierElement.style.color = multipliersOwned > getAccelMultScalingThreshold('multiplier')
+    multiplierElement.style.color = player.multipliers > getAccelMultScalingThreshold('multiplier')
       ? 'var(--red-color)'
       : ''
     multiplierElement.innerHTML = i18next.t(
       'buildings.names.multipliers',
       {
-        amount: format(multipliersOwned, 0, true, false),
+        amount: format(player.multipliers, 0, true, false),
         gain: format(accelMultStats.freeMultiplier, 0, true, false)
       }
     )
@@ -603,15 +597,14 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    const acceleratorBoostsOwned = getBuildingOwned('acceleratorBoost')
     const acceleratorBoostElement = DOMCacheGetOrSet('buildtext15')
-    acceleratorBoostElement.style.color = acceleratorBoostsOwned > getAccelMultScalingThreshold('acceleratorBoost')
+    acceleratorBoostElement.style.color = player.acceleratorBoosts > getAccelMultScalingThreshold('acceleratorBoost')
       ? 'var(--red-color)'
       : ''
     acceleratorBoostElement.textContent = i18next.t(
       'buildings.names.acceleratorBoost',
       {
-        amount: format(acceleratorBoostsOwned, 0, true, false),
+        amount: format(player.acceleratorBoosts, 0, true, false),
         gain: format(accelMultStats.freeAcceleratorBoost, 0, false, false)
       }
     )
@@ -680,18 +673,17 @@ export const visualUpdateBuildings = () => {
     )
     const diamondConstruction = updateConstructionTexts('diamond')
 
-    const diamondsOwned = getBuildingsOwned('diamond')
     const diamondProduction = calculateDiamondProduction()
     for (let i = 1; i <= 5; i++) {
       const place = diamondProduction[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`prestigetext${2 * i - 1}`)
-      nameElement.style.color = diamondsOwned[i - 1] > diamondConstruction ? 'var(--red-color)' : ''
+      nameElement.style.color = player.diamondBuildings[i - 1] > diamondConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${diamondNames[i - 1]}`,
         {
-          amount: format(diamondsOwned[i - 1], 0, true, false),
+          amount: format(player.diamondBuildings[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedDiamonds` as const], 2, false, false)
         }
       )
@@ -747,18 +739,17 @@ export const visualUpdateBuildings = () => {
     )
     const mythosConstruction = updateConstructionTexts('mythos')
 
-    const mythosOwned = getBuildingsOwned('mythos')
     const mythosProduction = calculateMythosProduction()
     for (let i = 1; i <= 5; i++) {
       const place = mythosProduction[i - 1]
       const ith = G.ordinals[(i - 1) as ZeroToFour]
 
       const nameElement = DOMCacheGetOrSet(`transcendtext${2 * i - 1}`)
-      nameElement.style.color = mythosOwned[i - 1] > mythosConstruction ? 'var(--red-color)' : ''
+      nameElement.style.color = player.mythosBuildings[i - 1] > mythosConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${mythosNames[i - 1]}`,
         {
-          amount: format(mythosOwned[i - 1], 0, true, false),
+          amount: format(player.mythosBuildings[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedMythos` as const], 2, false, false)
         }
       )
@@ -811,18 +802,17 @@ export const visualUpdateBuildings = () => {
   } else if (G.buildingSubTab === 'particle') {
     const particleConstruction = updateConstructionTexts('particle')
 
-    const particlesOwned = getBuildingsOwned('particle')
     const particleProduction = calculateParticleProduction()
     for (let i = 1; i <= 5; i++) {
       const ith = G.ordinals[(i - 1) as ZeroToFour]
       const place = particleProduction[i - 1]
 
       const nameElement = DOMCacheGetOrSet(`reincarnationtext${i}`)
-      nameElement.style.color = particlesOwned[i - 1] > particleConstruction ? 'var(--red-color)' : ''
+      nameElement.style.color = player.particleBuildings[i - 1] > particleConstruction ? 'var(--red-color)' : ''
       nameElement.textContent = i18next.t(
         `buildings.names.${particleNames[i - 1]}`,
         {
-          amount: format(particlesOwned[i - 1], 0, true, false),
+          amount: format(player.particleBuildings[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedParticles` as const], 2, false, false)
         }
       )

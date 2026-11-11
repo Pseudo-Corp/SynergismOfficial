@@ -1,11 +1,4 @@
-import {
-  CoinBuilding,
-  DiamondBuilding,
-  getBuildingOwned,
-  getBuildingsOwned,
-  MythosBuilding,
-  sumBuildingsOwned
-} from './Buy'
+import { CoinBuilding } from './Buy'
 import {
   type AccelMultStats,
   calculateAcceleratorCounts,
@@ -44,49 +37,28 @@ export const calculateFlatTaxCapIncrease = (buildingPowerCoinMultiplier = calcul
     + Decimal.log(buildingPowerCoinMultiplier, 10)
 }
 
-export interface CoinProducerInputs {
-  coinsOwned: readonly number[]
-  firstMythosOwned: number
-  firstDiamondOwned: number
-}
-
-const getCoinProducerInputs = (): CoinProducerInputs => ({
-  coinsOwned: getBuildingsOwned('coin'),
-  firstMythosOwned: getBuildingOwned('mythos', MythosBuilding.Augments),
-  firstDiamondOwned: getBuildingOwned('diamond', DiamondBuilding.Refineries)
-})
-
 export const calculateTax = (
   stats:
     & Pick<AccelMultStats, 'effectiveFreeAccelerator'>
     & Partial<Pick<AccelMultStats, 'multiplierEffect' | 'acceleratorEffect' | 'totalAccelerator'>> =
       calculateAcceleratorCounts(),
-  { coinsOwned, firstMythosOwned, firstDiamondOwned }: CoinProducerInputs = getCoinProducerInputs(),
-  buildingPowerCoinMultiplier = calculateBuildingPowerCoinMultiplier(undefined, sumBuildingsOwned(coinsOwned))
+  buildingPowerCoinMultiplier = calculateBuildingPowerCoinMultiplier()
 ) => {
   // To 2020 Platonic: Why the HELL is this done here???
-  const totalCoinOwned = sumBuildingsOwned(coinsOwned)
-  const first6CoinUp = calculateFirstSixCoinUpgradeMultiplier(totalCoinOwned)
+  const first6CoinUp = calculateFirstSixCoinUpgradeMultiplier()
   const coinMultiplier = calculateGlobalCoinMultiplier(
     stats.multiplierEffect,
     stats.acceleratorEffect,
     stats.totalAccelerator
   )
-  const tierInputs = {
-    first6CoinUp,
-    effectiveFreeAccelerator: stats.effectiveFreeAccelerator,
-    coinsOwned,
-    firstMythosOwned,
-    firstDiamondOwned
-  }
   const coinTierMultipliers = [
-    calculateCoinTierMultiplier(CoinBuilding.Workers, tierInputs),
-    calculateCoinTierMultiplier(CoinBuilding.Investments, tierInputs),
-    calculateCoinTierMultiplier(CoinBuilding.Printers, tierInputs),
-    calculateCoinTierMultiplier(CoinBuilding.CoinMints, tierInputs),
-    calculateCoinTierMultiplier(CoinBuilding.Alchemies, tierInputs)
+    calculateCoinTierMultiplier(CoinBuilding.Workers, first6CoinUp, stats.effectiveFreeAccelerator),
+    calculateCoinTierMultiplier(CoinBuilding.Investments, first6CoinUp, stats.effectiveFreeAccelerator),
+    calculateCoinTierMultiplier(CoinBuilding.Printers, first6CoinUp, stats.effectiveFreeAccelerator),
+    calculateCoinTierMultiplier(CoinBuilding.CoinMints, first6CoinUp, stats.effectiveFreeAccelerator),
+    calculateCoinTierMultiplier(CoinBuilding.Alchemies, first6CoinUp, stats.effectiveFreeAccelerator)
   ] as const
-  const grossProduction = calculateBuildingProduction('coin', coinsOwned, [
+  const grossProduction = calculateBuildingProduction('coin', [
     coinMultiplier.times(coinTierMultipliers[CoinBuilding.Workers]),
     coinMultiplier.times(coinTierMultipliers[CoinBuilding.Investments]),
     coinMultiplier.times(coinTierMultipliers[CoinBuilding.Printers]),

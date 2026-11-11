@@ -19,7 +19,7 @@ import {
   tickChallengeSweep,
   useChallenge13Modifiers
 } from './Challenges'
-import { btoa, DateNow, isMobile, PerformanceNow } from './Utility'
+import { btoa, DateNow, isMobile, PerformanceNow, sumContents } from './Utility'
 import { buildingBaseProduction, createGlobals, Globals as G } from './Variables'
 
 import {
@@ -63,20 +63,15 @@ import {
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
   CoinBuilding,
+  convertLegacyBuildings,
   DiamondBuilding,
   getBuildingGeneratedKey,
-  getBuildingOwned,
-  getBuildingsOwned,
   getTesseractBuildingsOwned,
-  getTotalBuildingsOwned,
-  initializeCurveBuildingsPaid,
   MythosBuilding,
   ParticleBuilding,
-  type ScalingBuildingType,
-  sumBuildingsOwned
+  type ScalingBuildingType
 } from './Buy'
 import {
-  calculateConstruction,
   calculateEffectiveFreeAccelMult,
   calculateFreeAcceleratorBoosts,
   calculateFreeAccelMult,
@@ -297,64 +292,25 @@ export const player: Player = {
   coinsTotal: new Decimal('100'),
 
   firstGeneratedCoin: new Decimal(),
-  firstPaidCoin: new Decimal(),
-
   secondGeneratedCoin: new Decimal(),
-  secondPaidCoin: new Decimal(),
-
   thirdGeneratedCoin: new Decimal(),
-  thirdPaidCoin: new Decimal(),
-
   fourthGeneratedCoin: new Decimal(),
-  fourthPaidCoin: new Decimal(),
-
   fifthGeneratedCoin: new Decimal(),
-  fifthPaidCoin: new Decimal(),
-
   firstGeneratedDiamonds: new Decimal(),
-  firstPaidDiamonds: new Decimal(),
-
   secondGeneratedDiamonds: new Decimal(),
-  secondPaidDiamonds: new Decimal(),
-
   thirdGeneratedDiamonds: new Decimal(),
-  thirdPaidDiamonds: new Decimal(),
-
   fourthGeneratedDiamonds: new Decimal(),
-  fourthPaidDiamonds: new Decimal(),
-
   fifthGeneratedDiamonds: new Decimal(),
-  fifthPaidDiamonds: new Decimal(),
-
   firstGeneratedMythos: new Decimal(),
-  firstPaidMythos: new Decimal(),
-
   secondGeneratedMythos: new Decimal(),
-  secondPaidMythos: new Decimal(),
-
   thirdGeneratedMythos: new Decimal(),
-  thirdPaidMythos: new Decimal(),
-
   fourthGeneratedMythos: new Decimal(),
-  fourthPaidMythos: new Decimal(),
-
   fifthGeneratedMythos: new Decimal(),
-  fifthPaidMythos: new Decimal(),
-
   firstGeneratedParticles: new Decimal(),
-  firstPaidParticles: new Decimal(),
-
   secondGeneratedParticles: new Decimal(),
-  secondPaidParticles: new Decimal(),
-
   thirdGeneratedParticles: new Decimal(),
-  thirdPaidParticles: new Decimal(),
-
   fourthGeneratedParticles: new Decimal(),
-  fourthPaidParticles: new Decimal(),
-
   fifthGeneratedParticles: new Decimal(),
-  fifthPaidParticles: new Decimal(),
 
   ants: { ...defaultPlayerAnts },
 
@@ -379,11 +335,13 @@ export const player: Player = {
     generated: new Decimal()
   },
 
-  multiplierPaid: new Decimal(),
-
-  acceleratorPaid: new Decimal(),
-
-  acceleratorBoostPaid: new Decimal(),
+  coinBuildings: [0, 0, 0, 0, 0],
+  diamondBuildings: [0, 0, 0, 0, 0],
+  mythosBuildings: [0, 0, 0, 0, 0],
+  particleBuildings: [0, 0, 0, 0, 0],
+  accelerators: 0,
+  multipliers: 0,
+  acceleratorBoosts: 0,
 
   upgrades: Array(141).fill(0) as number[],
 
@@ -1911,7 +1869,6 @@ const loadSynergy = (saveString: string): boolean => {
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
-    initializeCurveBuildingsPaid(validatedPlayer.data)
     calculateObtainium()
     resetHistoryRenderAllTables()
     if (G.currentSingChallenge === undefined) {
@@ -2313,12 +2270,11 @@ export const calculateAcceleratorPower = (totalAcceleratorBoost: number): number
 
 export const calculateMultiplierStats = (
   viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
-  construction?: number,
   totalAcceleratorBoost?: number
 ) => {
   const freeMultiplier = calculateFreeAccelMult('multiplier', totalAcceleratorBoost)
   const effectiveFreeMultiplier = calculateEffectiveFreeAccelMult(freeMultiplier, viscosity)
-  const totalMultiplier = getBuildingOwned('multiplier', 0, construction) / viscosity + effectiveFreeMultiplier
+  const totalMultiplier = player.multipliers / viscosity + effectiveFreeMultiplier
   const multiplierPower = calculateMultiplierPower()
   return {
     freeMultiplier,
@@ -2331,7 +2287,6 @@ export const calculateMultiplierStats = (
 
 export const calculateAcceleratorCounts = (
   viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
-  construction?: number,
   totalAcceleratorBoost?: number
 ) => {
   const freeAccelerator = calculateFreeAccelMult('accelerator', totalAcceleratorBoost)
@@ -2339,19 +2294,17 @@ export const calculateAcceleratorCounts = (
   return {
     freeAccelerator,
     effectiveFreeAccelerator,
-    totalAccelerator: getBuildingOwned('accelerator', 0, construction) / viscosity + effectiveFreeAccelerator
+    totalAccelerator: player.accelerators / viscosity + effectiveFreeAccelerator
   }
 }
 
 export const calculateAcceleratorStats = (
   totalAcceleratorBoost = calculateTotalAcceleratorBoost(),
   viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity'),
-  totalMultiplier?: number,
-  construction?: number
+  totalMultiplier?: number
 ) => {
   const { freeAccelerator, effectiveFreeAccelerator, totalAccelerator } = calculateAcceleratorCounts(
     viscosity,
-    construction,
     totalAcceleratorBoost
   )
   const acceleratorPower = calculateAcceleratorPower(totalAcceleratorBoost)
@@ -2363,7 +2316,7 @@ export const calculateAcceleratorStats = (
     acceleratorEffect = Decimal.pow(
       acceleratorPower,
       totalAccelerator
-        + (totalMultiplier ?? calculateMultiplierStats(viscosity, construction, totalAcceleratorBoost).totalMultiplier)
+        + (totalMultiplier ?? calculateMultiplierStats(viscosity, totalAcceleratorBoost).totalMultiplier)
     )
   } else {
     acceleratorEffect = Decimal.pow(acceleratorPower, totalAccelerator)
@@ -2378,17 +2331,17 @@ export const calculateAcceleratorStats = (
   }
 }
 
-export const calculateAccelMultStats = (construction = calculateConstruction()) => {
+export const calculateAccelMultStats = () => {
   const viscosity = corruptionEffect(activeCorruptionLevel(), 'viscosity')
   const freeAcceleratorBoost = calculateFreeAcceleratorBoosts()
-  const totalAcceleratorBoost = calculateTotalAcceleratorBoost(freeAcceleratorBoost, construction)
-  const multiplierStats = calculateMultiplierStats(viscosity, construction, totalAcceleratorBoost)
+  const totalAcceleratorBoost = calculateTotalAcceleratorBoost(freeAcceleratorBoost)
+  const multiplierStats = calculateMultiplierStats(viscosity, totalAcceleratorBoost)
   return {
     viscosity,
     freeAcceleratorBoost,
     totalAcceleratorBoost,
     ...multiplierStats,
-    ...calculateAcceleratorStats(totalAcceleratorBoost, viscosity, multiplierStats.totalMultiplier, construction)
+    ...calculateAcceleratorStats(totalAcceleratorBoost, viscosity, multiplierStats.totalMultiplier)
   }
 }
 
@@ -2474,12 +2427,9 @@ export const calculateBuildingPower = (): number => {
   return power
 }
 
-export const calculateBuildingPowerCoinMultiplier = (
-  power?: number,
-  totalCoinOwned = getTotalBuildingsOwned('coin')
-): Decimal => {
+export const calculateBuildingPowerCoinMultiplier = (power?: number): Decimal => {
   const buildingPower = power ?? calculateBuildingPower()
-  return Decimal.pow(buildingPower, totalCoinOwned)
+  return Decimal.pow(buildingPower, sumContents(player.coinBuildings))
 }
 
 const refineryAlchemyExponents = [0.1, 0.15, 0.25, 0.25, 0.25]
@@ -2494,16 +2444,15 @@ export const calculateRefineryAlchemyExponent = (): number => {
   return exponent * (1 + getAchievementReward('conversionExponent'))
 }
 
-export const calculateRefineryAlchemyMultiplier = (
-  firstDiamondOwned = getBuildingOwned('diamond', DiamondBuilding.Refineries)
-): Decimal => {
+export const calculateRefineryAlchemyMultiplier = (): Decimal => {
   return Decimal.pow(
-    player.firstGeneratedDiamonds.add(firstDiamondOwned).add(1),
+    player.firstGeneratedDiamonds.add(player.diamondBuildings[DiamondBuilding.Refineries]).add(1),
     calculateRefineryAlchemyExponent()
   )
 }
 
-export const calculateFirstSixCoinUpgradeMultiplier = (totalCoinOwned = getTotalBuildingsOwned('coin')): Decimal => {
+export const calculateFirstSixCoinUpgradeMultiplier = (): Decimal => {
+  const totalCoinOwned = sumContents(player.coinBuildings)
   return new Decimal(totalCoinOwned + 1).times(Decimal.min(1e30, Decimal.pow(1.008, totalCoinOwned)))
 }
 
@@ -2544,13 +2493,10 @@ export const crystalUpgrade3Base = (maxBase?: number): number => {
   return 1 + (baseCap - 1) * (1 - Math.pow(0.999, player.crystalUpgrades[2]))
 }
 
-export const crystalUpgrade3CrystalMultiplier = (
-  base?: number,
-  crystalProducersOwned = getTotalBuildingsOwned('diamond')
-): Decimal => {
+export const crystalUpgrade3CrystalMultiplier = (base?: number): Decimal => {
   const baseToUse = base ?? crystalUpgrade3Base()
 
-  return Decimal.pow(baseToUse, crystalProducersOwned)
+  return Decimal.pow(baseToUse, sumContents(player.diamondBuildings))
 }
 
 export const calculateGlobalCoinMultiplier = (
@@ -2563,20 +2509,12 @@ export const calculateGlobalCoinMultiplier = (
     allCoinExponentStatsProduct()
   )
 
-export interface CoinTierInputs {
-  first6CoinUp: Decimal
-  effectiveFreeAccelerator: number
-  coinsOwned: readonly number[]
-  firstMythosOwned: number
-  firstDiamondOwned: number
-}
-
-const coinTierMultipliers: readonly ((inputs: CoinTierInputs) => Decimal)[] = [
-  (inputs: CoinTierInputs) => {
-    let multiplier = player.upgrades[1] > 0.5 ? Decimal.fromDecimal(inputs.first6CoinUp) : Decimal.fromNumber(1)
+const coinTierMultipliers: readonly ((first6CoinUp: Decimal, effectiveFreeAccelerator: number) => Decimal)[] = [
+  (first6CoinUp) => {
+    let multiplier = player.upgrades[1] > 0.5 ? Decimal.fromDecimal(first6CoinUp) : Decimal.fromNumber(1)
     if (player.upgrades[10] > 0.5) {
       multiplier = multiplier.times(
-        Decimal.pow(2, Math.min(50, inputs.coinsOwned[CoinBuilding.Investments] / 15))
+        Decimal.pow(2, Math.min(50, player.coinBuildings[CoinBuilding.Investments] / 15))
       )
     }
     if (player.upgrades[56] > 0.5) {
@@ -2584,14 +2522,14 @@ const coinTierMultipliers: readonly ((inputs: CoinTierInputs) => Decimal)[] = [
     }
     return multiplier
   },
-  (inputs: CoinTierInputs) => {
-    let multiplier = player.upgrades[2] > 0.5 ? Decimal.fromDecimal(inputs.first6CoinUp) : Decimal.fromNumber(1)
+  (first6CoinUp) => {
+    let multiplier = player.upgrades[2] > 0.5 ? Decimal.fromDecimal(first6CoinUp) : Decimal.fromNumber(1)
     if (player.upgrades[13] > 0.5) {
       multiplier = multiplier.times(
         Decimal.min(
           1e50,
           Decimal.pow(
-            player.firstGeneratedMythos.add(inputs.firstMythosOwned).add(1),
+            player.firstGeneratedMythos.add(player.mythosBuildings[MythosBuilding.Augments]).add(1),
             4 / 3
           ).times(1e22)
         )
@@ -2607,10 +2545,10 @@ const coinTierMultipliers: readonly ((inputs: CoinTierInputs) => Decimal)[] = [
     }
     return multiplier
   },
-  (inputs: CoinTierInputs) => {
-    let multiplier = player.upgrades[3] > 0.5 ? Decimal.fromDecimal(inputs.first6CoinUp) : Decimal.fromNumber(1)
+  (first6CoinUp, effectiveFreeAccelerator) => {
+    let multiplier = player.upgrades[3] > 0.5 ? Decimal.fromDecimal(first6CoinUp) : Decimal.fromNumber(1)
     if (player.upgrades[14] > 0.5) {
-      multiplier = multiplier.times(Decimal.pow(1.15, inputs.effectiveFreeAccelerator).times(1e5))
+      multiplier = multiplier.times(Decimal.pow(1.15, effectiveFreeAccelerator).times(1e5))
     }
     if (player.upgrades[18] > 0.5) {
       multiplier = multiplier.times(
@@ -2622,10 +2560,10 @@ const coinTierMultipliers: readonly ((inputs: CoinTierInputs) => Decimal)[] = [
     }
     return multiplier
   },
-  (inputs: CoinTierInputs) => {
-    let multiplier = player.upgrades[4] > 0.5 ? Decimal.fromDecimal(inputs.first6CoinUp) : Decimal.fromNumber(1)
+  (first6CoinUp, effectiveFreeAccelerator) => {
+    let multiplier = player.upgrades[4] > 0.5 ? Decimal.fromDecimal(first6CoinUp) : Decimal.fromNumber(1)
     if (player.upgrades[15] > 0.5) {
-      multiplier = multiplier.times(Decimal.pow(1.15, inputs.effectiveFreeAccelerator).times(1e5))
+      multiplier = multiplier.times(Decimal.pow(1.15, effectiveFreeAccelerator).times(1e5))
     }
     if (player.upgrades[17] > 0.5) {
       multiplier = multiplier.times(1e100)
@@ -2635,9 +2573,9 @@ const coinTierMultipliers: readonly ((inputs: CoinTierInputs) => Decimal)[] = [
     }
     return multiplier
   },
-  (inputs: CoinTierInputs) => {
-    let multiplier = player.upgrades[5] > 0.5 ? Decimal.fromDecimal(inputs.first6CoinUp) : Decimal.fromNumber(1)
-    multiplier = multiplier.times(calculateRefineryAlchemyMultiplier(inputs.firstDiamondOwned))
+  (first6CoinUp) => {
+    let multiplier = player.upgrades[5] > 0.5 ? Decimal.fromDecimal(first6CoinUp) : Decimal.fromNumber(1)
+    multiplier = multiplier.times(calculateRefineryAlchemyMultiplier())
     if (player.upgrades[60] > 0.5) {
       multiplier = multiplier.times('1e35000')
     }
@@ -2645,21 +2583,13 @@ const coinTierMultipliers: readonly ((inputs: CoinTierInputs) => Decimal)[] = [
   }
 ]
 
-const getCoinTierInputs = (): CoinTierInputs => ({
-  first6CoinUp: calculateFirstSixCoinUpgradeMultiplier(),
-  effectiveFreeAccelerator: calculateAcceleratorCounts().effectiveFreeAccelerator,
-  coinsOwned: getBuildingsOwned('coin'),
-  firstMythosOwned: getBuildingOwned('mythos', MythosBuilding.Augments),
-  firstDiamondOwned: getBuildingOwned('diamond', DiamondBuilding.Refineries)
-})
+export const calculateCoinTierMultiplier = (
+  index: ZeroToFour,
+  first6CoinUp = calculateFirstSixCoinUpgradeMultiplier(),
+  effectiveFreeAccelerator = calculateAcceleratorCounts().effectiveFreeAccelerator
+): Decimal => coinTierMultipliers[index](first6CoinUp, effectiveFreeAccelerator)
 
-export const calculateCoinTierMultiplier = (index: ZeroToFour, inputs = getCoinTierInputs()): Decimal =>
-  coinTierMultipliers[index](inputs)
-
-export const calculateGlobalCrystalMultiplier = (
-  buildingPowerMult = calculateBuildingPowerCoinMultiplier(),
-  crystalProducersOwned = getTotalBuildingsOwned('diamond')
-): Decimal => {
+export const calculateGlobalCrystalMultiplier = (buildingPowerMult = calculateBuildingPowerCoinMultiplier()): Decimal => {
   let multiplier = Decimal.fromNumber(getAchievementReward('crystalMultiplier'))
   multiplier = multiplier.times(
     Decimal.pow(10, getRuneEffects('prism', 'productionLog10'))
@@ -2690,7 +2620,7 @@ export const calculateGlobalCrystalMultiplier = (
     )
   )
   multiplier = multiplier.times(
-    crystalUpgrade3CrystalMultiplier(undefined, crystalProducersOwned)
+    crystalUpgrade3CrystalMultiplier()
   )
   multiplier = multiplier.times(
     Decimal.pow(
@@ -2773,8 +2703,7 @@ export const calculateMythosTierMultipliers = (
   globalMythosMultiplier = calculateGlobalMythosMultiplier(
     stats.totalAcceleratorBoost,
     calculateBuildingPowerCoinMultiplier(buildingPower)
-  ),
-  mythosProducersOwned = getTotalBuildingsOwned('mythos')
+  )
 ) => {
   const mythosUpgrade13 = player.upgrades[53] === 1
     ? Decimal.min('1e1250', Decimal.pow(stats.acceleratorEffect, 1 / 125))
@@ -2787,7 +2716,7 @@ export const calculateMythosTierMultipliers = (
     : Decimal.fromNumber(1)
   const challengeThreeMultiplier = Decimal.pow(
     1 + player.challengecompletions[3] / 200,
-    mythosProducersOwned
+    sumContents(player.mythosBuildings)
   )
   return [
     globalMythosMultiplier.times(mythosUpgrade13),
@@ -2854,12 +2783,11 @@ const generatingBuildingTiers = [1, 2, 3, 4] as const
 
 export const calculateBuildingProduction = (
   type: ScalingBuildingType,
-  owned: readonly number[],
   tierMultipliers: readonly DecimalSource[]
 ) => {
   const tierProduction = (index: ZeroToFour) =>
     player[getBuildingGeneratedKey(type, index)]
-      .add(owned[index])
+      .add(player[`${type}Buildings` as const][index])
       .times(buildingBaseProduction[type][index])
       .times(tierMultipliers[index])
   return [tierProduction(0), tierProduction(1), tierProduction(2), tierProduction(3), tierProduction(4)] as const
@@ -2872,11 +2800,8 @@ const generateBuildingTiers = (type: ScalingBuildingType, production: readonly D
   }
 }
 
-export const calculateDiamondProduction = (
-  crystalMultiplier = calculateGlobalCrystalMultiplier(),
-  owned: readonly number[] = getBuildingsOwned('diamond')
-) =>
-  calculateBuildingProduction('diamond', owned, [
+export const calculateDiamondProduction = (crystalMultiplier = calculateGlobalCrystalMultiplier()) =>
+  calculateBuildingProduction('diamond', [
     crystalMultiplier,
     crystalMultiplier,
     crystalMultiplier,
@@ -2885,19 +2810,16 @@ export const calculateDiamondProduction = (
   ])
 
 export const calculateMythosProduction = (
-  tierMultipliers: readonly Decimal[] = calculateMythosTierMultipliers(calculateAccelMultStats()),
-  owned: readonly number[] = getBuildingsOwned('mythos')
-) => calculateBuildingProduction('mythos', owned, tierMultipliers)
+  tierMultipliers: readonly Decimal[] = calculateMythosTierMultipliers(calculateAccelMultStats())
+) => calculateBuildingProduction('mythos', tierMultipliers)
 
-const calculateFirstParticleProducerMultiplier = (owned: readonly number[]) =>
+const calculateFirstParticleProducerMultiplier = () =>
   player.upgrades[67] > 0.5
-    ? Decimal.pow(1.03, owned.reduce((sum, amount) => sum + amount, 0))
+    ? Decimal.pow(1.03, sumContents(player.particleBuildings))
     : Decimal.fromNumber(1)
 
-export const calculateParticleProduction = (
-  owned: readonly number[] = getBuildingsOwned('particle'),
-  firstProducerMultiplier = calculateFirstParticleProducerMultiplier(owned)
-) => calculateBuildingProduction('particle', owned, [firstProducerMultiplier, 1, 1, 1, 1])
+export const calculateParticleProduction = (firstProducerMultiplier = calculateFirstParticleProducerMultiplier()) =>
+  calculateBuildingProduction('particle', [firstProducerMultiplier, 1, 1, 1, 1])
 
 export const calculateTesseractBuildingProduction = (index: OneToFive, constantMultiplier: Decimal) =>
   player[`ascendBuilding${index}` as const].generated
@@ -2906,32 +2828,17 @@ export const calculateTesseractBuildingProduction = (index: OneToFive, constantM
     .times(constantMultiplier)
 
 export const resourceGain = (dt: number): void => {
-  const construction = calculateConstruction()
-  const coinsOwned = getBuildingsOwned('coin', construction)
-  const diamondsOwned = getBuildingsOwned('diamond', construction)
-  const mythosOwned = getBuildingsOwned('mythos', construction)
-  const particlesOwned = getBuildingsOwned('particle', construction)
-  const totalCoinOwned = sumBuildingsOwned(coinsOwned)
-  const accelMultStats = calculateAccelMultStats(construction)
+  const accelMultStats = calculateAccelMultStats()
   const buildingPower = calculateBuildingPower()
-  const buildingPowerMult = calculateBuildingPowerCoinMultiplier(buildingPower, totalCoinOwned)
-  const crystalMultiplier = calculateGlobalCrystalMultiplier(buildingPowerMult, sumBuildingsOwned(diamondsOwned))
+  const buildingPowerMult = calculateBuildingPowerCoinMultiplier(buildingPower)
+  const crystalMultiplier = calculateGlobalCrystalMultiplier(buildingPowerMult)
   const mythosTierMultipliers = calculateMythosTierMultipliers(
     accelMultStats,
     buildingPower,
-    calculateGlobalMythosMultiplier(accelMultStats.totalAcceleratorBoost, buildingPowerMult),
-    sumBuildingsOwned(mythosOwned)
+    calculateGlobalMythosMultiplier(accelMultStats.totalAcceleratorBoost, buildingPowerMult)
   )
   const constantMultiplier = calculateGlobalConstantMultiplier()
-  const tax = calculateTax(
-    accelMultStats,
-    {
-      coinsOwned,
-      firstMythosOwned: mythosOwned[MythosBuilding.Augments],
-      firstDiamondOwned: diamondsOwned[DiamondBuilding.Refineries]
-    },
-    buildingPowerMult
-  )
+  const tax = calculateTax(accelMultStats, buildingPowerMult)
   awardOvertaxedAchievement(tax)
   if (tax.produceTotal.gte(G.d0_001)) {
     const addcoin = Decimal.min(
@@ -2962,7 +2869,7 @@ export const resourceGain = (dt: number): void => {
       Decimal.floor(calculateReincarnationPointGain().dividedBy(4000).times(dt / 0.025))
     )
   }
-  const diamondProduction = calculateDiamondProduction(crystalMultiplier, diamondsOwned)
+  const diamondProduction = calculateDiamondProduction(crystalMultiplier)
   generateBuildingTiers('diamond', diamondProduction, dt)
 
   if (
@@ -2974,18 +2881,18 @@ export const resourceGain = (dt: number): void => {
     )
   }
 
-  generateBuildingTiers('mythos', calculateMythosProduction(mythosTierMultipliers, mythosOwned), dt)
+  generateBuildingTiers('mythos', calculateMythosProduction(mythosTierMultipliers), dt)
 
   const produceMythos = player.firstGeneratedMythos
-    .add(mythosOwned[MythosBuilding.Augments])
+    .add(player.mythosBuildings[MythosBuilding.Augments])
     .times(buildingBaseProduction.mythos[MythosBuilding.Augments])
     .times(mythosTierMultipliers[MythosBuilding.Augments])
 
-  const pm = calculateFirstParticleProducerMultiplier(particlesOwned)
-  generateBuildingTiers('particle', calculateParticleProduction(particlesOwned, pm), dt)
+  const pm = calculateFirstParticleProducerMultiplier()
+  generateBuildingTiers('particle', calculateParticleProduction(pm), dt)
 
   const produceParticles = player.firstGeneratedParticles
-    .add(particlesOwned[ParticleBuilding.Protons])
+    .add(player.particleBuildings[ParticleBuilding.Protons])
     .times(buildingBaseProduction.particle[ParticleBuilding.Protons])
     .times(pm)
 
@@ -3720,34 +3627,33 @@ export const updateAll = (): void => {
   }
 
   // Generation
-  const coinsOwned = getBuildingsOwned('coin')
   if (player.upgrades[101] > 0.5) {
     player.fourthGeneratedCoin = player.fourthGeneratedCoin.add(
       player.fifthGeneratedCoin
-        .add(coinsOwned[CoinBuilding.Alchemies])
+        .add(player.coinBuildings[CoinBuilding.Alchemies])
     )
   }
   if (player.upgrades[102] > 0.5) {
     player.thirdGeneratedCoin = player.thirdGeneratedCoin.add(
       player.fourthGeneratedCoin
-        .add(coinsOwned[CoinBuilding.CoinMints])
+        .add(player.coinBuildings[CoinBuilding.CoinMints])
     )
   }
   if (player.upgrades[103] > 0.5) {
     player.secondGeneratedCoin = player.secondGeneratedCoin.add(
       player.thirdGeneratedCoin
-        .add(coinsOwned[CoinBuilding.Printers])
+        .add(player.coinBuildings[CoinBuilding.Printers])
     )
   }
   if (player.upgrades[104] > 0.5) {
     player.firstGeneratedCoin = player.firstGeneratedCoin.add(
       player.secondGeneratedCoin
-        .add(coinsOwned[CoinBuilding.Investments])
+        .add(player.coinBuildings[CoinBuilding.Investments])
     )
   }
   if (player.upgrades[105] > 0.5) {
     player.fifthGeneratedCoin = player.fifthGeneratedCoin.add(
-      coinsOwned[CoinBuilding.Workers]
+      player.coinBuildings[CoinBuilding.Workers]
     )
   }
   let p = 1
@@ -3792,7 +3698,7 @@ export const updateAll = (): void => {
   if (b !== 0) {
     player.fifthGeneratedDiamonds = player.fifthGeneratedDiamonds.add(
       Decimal.pow(
-        player.firstGeneratedMythos.add(getBuildingOwned('mythos', MythosBuilding.Augments)).add(1),
+        player.firstGeneratedMythos.add(player.mythosBuildings[MythosBuilding.Augments]).add(1),
         b
       )
     )
@@ -3800,7 +3706,7 @@ export const updateAll = (): void => {
   if (c !== 0) {
     player.fifthGeneratedMythos = player.fifthGeneratedMythos.add(
       Decimal.pow(
-        player.firstGeneratedParticles.add(getBuildingOwned('particle', ParticleBuilding.Protons)).add(1),
+        player.firstGeneratedParticles.add(player.particleBuildings[ParticleBuilding.Protons]).add(1),
         c
       )
     )
@@ -4423,6 +4329,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   updateTokens()
   refundOvercapResearches()
   updateShopLevels()
+  convertLegacyBuildings()
 
   if (!ignoreOfflineProgress) {
     try {
