@@ -2,7 +2,7 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { achievementPoints, getAchievementReward } from './Achievements'
 import { buyAutobuyers, buyGenerator } from './Automation'
-import { buyUpgrades, CoinBuilding, getTesseractBuildingsOwned, MythosBuilding } from './Buy'
+import { buyUpgrades, CoinBuilding, MythosBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateGlobalSpeedMult,
@@ -778,8 +778,8 @@ export const togglePurchasedUpgrades = () => {
 }
 
 export const ascendBuildingDR = () => {
-  const sum = getTesseractBuildingsOwned(1) + getTesseractBuildingsOwned(2) + getTesseractBuildingsOwned(3)
-    + getTesseractBuildingsOwned(4) + getTesseractBuildingsOwned(5)
+  const sum = player.ascendBuilding1.owned + player.ascendBuilding2.owned + player.ascendBuilding3.owned
+    + player.ascendBuilding4.owned + player.ascendBuilding5.owned
 
   if (sum > 100000) {
     return Math.pow(100000, 0.5) * Math.pow(sum, 0.5)

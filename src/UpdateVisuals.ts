@@ -6,8 +6,7 @@ import { calculatePurpleEnchantmentAP, getAmbrosiaUpgradeEffects, maxPurpleEncha
 import {
   getAccelMultScalingThreshold,
   getBuildingCost,
-  getTesseractBuildingCost,
-  getTesseractBuildingsOwned
+  getTesseractBuildingCost
 } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -893,7 +892,7 @@ export const visualUpdateBuildings = () => {
       DOMCacheGetOrSet(`ascendText${i}`).textContent = i18next.t(
         `buildings.names.${tesseractNames[i - 1]}`,
         {
-          amount: format(getTesseractBuildingsOwned(i as OneToFive), 0, true, false),
+          amount: format(player[ascendBuildingI].owned, 0, true, false),
           gain: format(player[ascendBuildingI].generated, 2, false, false)
         }
       )
