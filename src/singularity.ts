@@ -2959,8 +2959,11 @@ function computeFreeLevelMultiplier (upgradeKey: SingularityDataKeys): number {
 }
 
 export function computeGQUpgradeFreeLevelSoftcap (upgradeKey: SingularityDataKeys): number {
-  const freeLevelMult = computeFreeLevelMultiplier(upgradeKey)
-  const baseRealFreeLevels = freeLevelMult * player.goldenQuarkUpgrades[upgradeKey].freeLevel
+  const freeLevel = player.goldenQuarkUpgrades[upgradeKey].freeLevel
+  if (freeLevel === 0) {
+    return 0
+  }
+  const baseRealFreeLevels = computeFreeLevelMultiplier(upgradeKey) * freeLevel
   return (
     Math.min(goldenQuarkUpgrades[upgradeKey].level, baseRealFreeLevels)
     + Math.sqrt(Math.max(0, baseRealFreeLevels - goldenQuarkUpgrades[upgradeKey].level))
