@@ -3909,12 +3909,9 @@ const tack = (dt: number) => {
       automaticTools('antSacrifice', dt)
     }
 
-    /*Triggers automatic obtainium gain if research [2x11] is unlocked,
-        Otherwise it just calculates obtainium multiplier values. */
+    // Triggers automatic obtainium gain if research [2x11] is unlocked
     if (player.researches[61] === 1) {
       automaticTools('addObtainium', dt, timeMult)
-    } else {
-      calculateObtainium()
     }
 
     // Regular Research Automation (only once)
