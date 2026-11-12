@@ -664,7 +664,6 @@ export const playerSchema = z.object({
 
   runeEXP: decimalArraySchema(() => blankSave.runeEXP),
   runeLevels: z.number().array().default(() => [...blankSave.runeLevels]),
-  runeFreeLevels: z.number().array().default(() => [...blankSave.runeFreeLevels]),
 
   blessingEXP: decimalArraySchema(() => blankSave.blessingEXP),
   blessingLevels: z.number().array().default(() => [...blankSave.blessingLevels]),
