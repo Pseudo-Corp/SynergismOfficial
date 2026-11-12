@@ -76,7 +76,6 @@ import {
   calculateFreeAccelMult,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
-  calculateObtainium,
   calculateOffline,
   calculateTotalAcceleratorBoost,
   cancelOfflineProgress,
@@ -1840,7 +1839,6 @@ const loadSynergy = (saveString: string): boolean => {
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
-    calculateObtainium()
     resetHistoryRenderAllTables()
     if (G.currentSingChallenge === undefined) {
       raiseHighestSingularity(player.singularityCount)
