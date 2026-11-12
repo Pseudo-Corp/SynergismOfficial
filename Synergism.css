@@ -1930,6 +1930,7 @@ p#buildinghotkeys2 {
 .mobileUpgradeBox > p {
     margin: 0;
     padding: 5px;
+    line-height: 1.2rem;
 }
 
 .mobileUpgradeIconAndCost {
@@ -2369,6 +2370,7 @@ p#promocodeStatus {
 
 .buttonRow.mobile > div:not(.buildingSpacer):not(.buildingAutomationControls) {
     gap: 6px;
+    margin-left: 0;
     padding: 8px 0;
     border: 2px solid var(--white-color);
     border-radius: 6px;
@@ -3177,7 +3179,6 @@ img.runeTypeElement:hover {
 }
 
 .mobileTalismanShardSection {
-    border: 2px solid var(--gold-color);
     width: 90%;
 }
 
@@ -12882,6 +12883,262 @@ html[data-mobile="true"] .hideOnMobile {
     border-radius: 1px;
 }
 
+html[data-mobile="true"] {
+    min-width: unset;
+    width: 100%;
+    overflow: hidden;
+}
+
+html[data-mobile="true"] body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+html[data-mobile="true"] main {
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-top: var(--mobile-subtab-height);
+}
+
+html[data-mobile="true"] #mobileHeaderContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-height: var(--mobile-header-content-height, none);
+    overflow: hidden;
+}
+
+html[data-mobile="true"] #mobileHeaderResizeHandle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 16px;
+    background-color: var(--header-color);
+    cursor: ns-resize;
+    touch-action: none;
+}
+
+html[data-mobile="true"] #mobileHeaderResizeHandle::before {
+    content: "";
+    width: 44px;
+    height: 3px;
+    border-radius: 999px;
+    background-color: #777;
+    box-shadow: 0 0 0 1px #0009;
+}
+
+html[data-mobile="true"] #mobileHeaderResizeHandle:focus-visible::before,
+body.mobileHeaderIsResizing #mobileHeaderResizeHandle::before {
+    background-color: white;
+}
+
+body.mobileHeaderIsResizing {
+    user-select: none;
+}
+
+html[data-mobile="true"] .headerGrid {
+    order: 2;
+    flex: 0 0 auto;
+    min-width: unset;
+    max-width: unset;
+    margin-top: 10px;
+}
+
+html[data-mobile="true"] .ascensionStats {
+    order: 1;
+    flex: 0 0 auto;
+}
+
+html[data-mobile="true"] #headerEditPanel {
+    order: 4;
+}
+
+html[data-mobile="true"] #mainHeader.headerEditMode #mobileHeaderContent {
+    max-height: none;
+}
+
+html[data-mobile="true"] #mainHeader.headerEditMode .ascensionStats {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+html[data-mobile="true"] nav.navbar #tabrow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 32px);
+    justify-content: center;
+    gap: 8px !important;
+}
+
+html[data-mobile="true"] nav.navbar #tabrow > button.mobileTabIconButton {
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    min-width: unset;
+    min-height: unset;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+    background-color: var(--button-color) !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
+    user-select: none;
+}
+
+html[data-mobile="true"] nav.navbar #tabrow > button.mobileTabIconButton.active-tab {
+    background-color: red !important;
+}
+
+.mobileTabIcon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    object-fit: fill;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
+    user-select: none;
+}
+
+html[data-mobile="true"] .subTabWrapper {
+    position: fixed;
+    top: var(--mobile-subtab-top);
+    left: 0;
+    right: 0;
+    z-index: 20;
+    grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
+    gap: 5px;
+    width: 100%;
+    margin: 0 auto 10px;
+    padding-top: 0;
+    padding-bottom: 5px;
+    background-color: var(--bg-color);
+    touch-action: manipulation;
+}
+
+.mobileIconSubTabWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+html[data-mobile="true"] #upgradeReferenceHeader {
+    display: flex !important;
+}
+
+html[data-mobile="true"] #upgradesFlex {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(20em, 100%), 1fr));
+    width: unset;
+    margin: 2% auto;
+}
+
+html[data-mobile="true"] #upgradesFlex > section {
+    margin-top: 10px;
+}
+
+.upgradeSectionTop > img {
+    scroll-margin-top: calc(var(--mobile-subtab-height) + 0.25rem);
+}
+
+.mobileIconSubTabWrapper > .mobileSubTabIcon,
+.mobileIconSubTabWrapper > .mobileSubTabIconContainer {
+    flex: 0 0 32px;
+    width: 32px;
+}
+
+.mobileIconSubTabWrapperWithInlineControl > :not(.mobileSubTabIcon):not(.mobileSubTabIconContainer) {
+    flex: 0 1 160px;
+    width: auto;
+}
+
+.mobileIconSubTabWrapperWithFullRowControl > :not(.mobileSubTabIcon):not(.mobileSubTabIconContainer) {
+    flex: 0 0 100%;
+}
+
+html[data-mobile="true"] #statsForNerds {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 32px);
+    gap: 10px;
+    min-width: unset;
+    width: 95%;
+    max-width: 500px;
+    justify-content: center;
+    align-items: center;
+}
+
+html[data-mobile="true"] #mobileStatsNerdsInstruction {
+    grid-column: 1 / -1;
+    margin: 0;
+    text-align: center;
+}
+
+html[data-mobile="true"] #summaryGeneration {
+    grid-column: 1 / -1;
+    width: 250px !important;
+    justify-self: center;
+}
+
+.mobileStatsNerdsIcon {
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    cursor: pointer;
+    background-color: var(--button-color);
+    object-fit: fill;
+}
+
+html[data-mobile="true"] #cubesWrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 30px;
+    width: unset;
+}
+
+html[data-mobile="true"] #wowCubeSidebar {
+    width: unset;
+    margin: 0;
+}
+
+html[data-mobile="true"] .cubesToQuark {
+    width: unset;
+}
+
+html[data-mobile="true"] .cubeTab {
+    max-width: 100%;
+    margin-left: 0;
+}
+
+html[data-mobile="true"] #achievements {
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+@media (width > 1024px) {
+    html[data-mobile="true"] #actualWrapper {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    html[data-mobile="true"] #actualShop {
+        max-width: 100%;
+    }
+
+    html[data-mobile="true"] #shopFamilyList {
+        flex-shrink: 1;
+        min-width: 0;
+    }
+
+    html[data-mobile="true"] #shopDetail {
+        min-width: 0;
+    }
+}
+
 /* ============================================
    MOBILE RESPONSIVE STYLES
    ============================================ */
@@ -12900,55 +13157,12 @@ html[data-mobile="true"] .hideOnMobile {
         overscroll-behavior: none;
     }
 
-    html[data-mobile="true"] body {
-        height: 100%;
-        overflow: hidden;
-    }
-
     main {
         min-height: 0;
         overflow-x: hidden;
         overflow-y: auto;
         overscroll-behavior: contain;
         padding-top: var(--mobile-subtab-height);
-    }
-
-    html[data-mobile="true"] #mobileHeaderContent {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-height: var(--mobile-header-content-height, none);
-        overflow: hidden;
-    }
-
-    html[data-mobile="true"] #mobileHeaderResizeHandle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 16px;
-        background-color: var(--header-color);
-        cursor: ns-resize;
-        touch-action: none;
-    }
-
-    html[data-mobile="true"] #mobileHeaderResizeHandle::before {
-        content: "";
-        width: 44px;
-        height: 3px;
-        border-radius: 999px;
-        background-color: #777;
-        box-shadow: 0 0 0 1px #0009;
-    }
-
-    html[data-mobile="true"] #mobileHeaderResizeHandle:focus-visible::before,
-    body.mobileHeaderIsResizing #mobileHeaderResizeHandle::before {
-        background-color: white;
-    }
-
-    body.mobileHeaderIsResizing {
-        user-select: none;
     }
 
     /* Ascension stats - horizontally scrollable on mobile */
@@ -12988,75 +13202,8 @@ html[data-mobile="true"] .hideOnMobile {
         max-width: unset;
     }
 
-    html[data-mobile="true"] .headerGrid {
-        order: 2;
-        flex: 0 0 auto;
-        margin-top: 10px;
-    }
-
-    html[data-mobile="true"] .ascensionStats {
-        order: 1;
-        flex: 0 0 auto;
-    }
-
-    html[data-mobile="true"] #headerEditPanel {
-        order: 4;
-    }
-
-    html[data-mobile="true"] #mainHeader.headerEditMode #mobileHeaderContent {
-        max-height: none;
-    }
-
-    html[data-mobile="true"] #mainHeader.headerEditMode .ascensionStats {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    /* Sub tab wrappers */
-    html[data-mobile="true"] .subTabWrapper {
-        position: fixed;
-        top: var(--mobile-subtab-top);
-        left: 0;
-        right: 0;
-        z-index: 20;
-        grid-template-columns: repeat(auto-fit, minmax(130px, var(--subtab-button-width)));
-        gap: 5px;
-        width: 100%;
-        margin: 0 auto 10px;
-        padding-top: 0;
-        padding-bottom: 5px;
-        background-color: var(--bg-color);
-        touch-action: manipulation;
-    }
-
-    .mobileIconSubTabWrapper {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-    }
-
     #upgradeReferenceHeader {
         display: flex !important;
-    }
-
-    .upgradeSectionTop > img {
-        scroll-margin-top: calc(var(--mobile-subtab-height) + 0.25rem);
-    }
-
-    .mobileIconSubTabWrapper > .mobileSubTabIcon,
-    .mobileIconSubTabWrapper > .mobileSubTabIconContainer {
-        flex: 0 0 32px;
-        width: 32px;
-    }
-
-    .mobileIconSubTabWrapperWithInlineControl > :not(.mobileSubTabIcon):not(.mobileSubTabIconContainer) {
-        flex: 0 1 160px;
-        width: auto;
-    }
-
-    .mobileIconSubTabWrapperWithFullRowControl > :not(.mobileSubTabIcon):not(.mobileSubTabIconContainer) {
-        flex: 0 0 100%;
     }
 
     .subTabWrapper > button,
@@ -13635,6 +13782,48 @@ html[data-mobile="true"] .hideOnMobile {
     #actualPotionShop {
         flex-wrap: unset;
     }
+
+    #actualWrapper {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "consumables"
+            "shoptop"
+            "shop"
+            "buttons";
+    }
+
+    #actualConsumables {
+        width: unset;
+        margin-right: 0;
+    }
+
+    #actualShop {
+        max-width: 100%;
+    }
+
+    #shopFamilyList {
+        flex-shrink: 1;
+        min-width: 0;
+    }
+
+    #shopDetail {
+        min-width: 0;
+    }
+
+    #languagesubtab {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #creditList,
+    .hotkeys {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        width: 100%;
+    }
+
+    #artistList {
+        grid-template-columns: repeat(auto-fit, 160px);
+    }
 }
 
 @media (width <= 1024px) and (orientation: portrait) {
@@ -13751,12 +13940,6 @@ html[data-mobile="true"] .hideOnMobile {
         display: flex !important;
     }
 
-    html[data-mobile="true"] nav.navbar #tabrow {
-        grid-template-columns: repeat(auto-fit, 32px);
-        justify-content: center;
-        gap: 8px !important;
-    }
-
     html[data-mobile="true"] nav.navbar.menu-open #tabrow {
         display: grid !important;
     }
@@ -13775,36 +13958,6 @@ html[data-mobile="true"] .hideOnMobile {
         font-size: 1em;
         text-align: center;
         border-radius: 6px;
-    }
-
-    html[data-mobile="true"] nav.navbar #tabrow > button.mobileTabIconButton {
-        box-sizing: border-box;
-        width: 32px;
-        height: 32px;
-        min-width: unset;
-        min-height: unset;
-        padding: 0;
-        border: 0;
-        border-radius: 0;
-        overflow: visible;
-        background-color: var(--button-color) !important;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
-        user-select: none;
-    }
-
-    html[data-mobile="true"] nav.navbar #tabrow > button.mobileTabIconButton.active-tab {
-        background-color: red !important;
-    }
-
-    .mobileTabIcon {
-        display: block;
-        width: 32px;
-        height: 32px;
-        object-fit: fill;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
-        user-select: none;
     }
 
     nav button {
@@ -14144,15 +14297,6 @@ html[data-mobile="true"] .hideOnMobile {
     /* Shops tab */
     #actualWrapper {
         padding-bottom: max(0px, calc(100vh - 20rem));
-        grid-template-areas:
-            "consumables"
-            "shoptop"
-            "shop"
-            "buttons";
-    }
-
-    #actualConsumables {
-        width: unset;
     }
 
     #actualShop {
@@ -14176,40 +14320,6 @@ html[data-mobile="true"] .hideOnMobile {
     #antSacrificeShardsRow2,
     #antSacrificeShardsRow3 {
         flex-wrap: wrap;
-    }
-
-    /* Stats for nerds */
-    #statsForNerds {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, 32px);
-        gap: 10px;
-        min-width: unset;
-        width: 95%;
-        max-width: 500px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #mobileStatsNerdsInstruction {
-        grid-column: 1 / -1;
-        margin: 0;
-        text-align: center;
-    }
-
-    #summaryGeneration {
-        grid-column: 1 / -1;
-        width: 250px !important;
-        justify-self: center;
-    }
-
-    .mobileStatsNerdsIcon {
-        box-sizing: border-box;
-        width: 32px;
-        height: 32px;
-        padding: 0;
-        cursor: pointer;
-        background-color: var(--button-color);
-        object-fit: fill;
     }
 
     #wowCubeSidebar {
