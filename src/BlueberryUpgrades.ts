@@ -301,6 +301,9 @@ export const ambrosiaUpgrades: {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     effects: (n: number) => {
+      if (n === 0) {
+        return 1
+      }
       const baseVal = 0.0005 * n
       return 1 + baseVal * calculateAmbrosiaLuck() // cubes
     },
@@ -379,6 +382,9 @@ export const ambrosiaUpgrades: {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     effects: (n: number) => {
+      if (n === 0) {
+        return 1
+      }
       const baseVal = 0.0001 * n
       const luck = calculateAmbrosiaLuck()
       const effectiveLuck = Math.min(
@@ -762,6 +768,9 @@ export const ambrosiaUpgrades: {
       return baseCost // Level has no effect
     },
     effects: (n: number) => {
+      if (n === 0) {
+        return 0
+      }
       return calculateBlueberryInventory() * n // ambrosiaLuck
     },
     effectsDescription: function() {
@@ -853,6 +862,9 @@ export const ambrosiaUpgrades: {
       return baseCost * Math.pow(25, level)
     },
     effects: (n) => {
+      if (n === 0) {
+        return 1
+      }
       const luck = calculateAmbrosiaLuck()
       return 1 + n * luck / 1000 // obtainiumMult
     },
@@ -883,6 +895,9 @@ export const ambrosiaUpgrades: {
       return baseCost * Math.pow(25, level)
     },
     effects: (n: number) => {
+      if (n === 0) {
+        return 1
+      }
       const luck = calculateAmbrosiaLuck()
       return 1 + n * luck / 1000 // offeringMult
     },

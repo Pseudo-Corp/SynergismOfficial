@@ -1061,13 +1061,15 @@ const getRuneBonusFromIndividualTalisman = (t: TalismanKeys, rune: RuneType): nu
 }
 
 export const getRuneBonusFromAllTalismans = (rune: RuneType): number => {
-  const specialMultiplier = allTalismanRuneBonusStatsSum()
   let totalBonus = 0
   for (const t of talismanKeys) {
     totalBonus += getRuneBonusFromIndividualTalisman(t, rune)
   }
+  if (totalBonus === 0) {
+    return 0
+  }
 
-  return totalBonus * specialMultiplier
+  return totalBonus * allTalismanRuneBonusStatsSum()
 }
 
 export const getTalismanEffects = <T extends TalismanKeys>(

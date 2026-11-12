@@ -704,7 +704,6 @@ export const reset = (
       }
     }
 
-    calculateObtainium()
     awardAchievementGroup(AchievementGroup.AscensionCount)
     awardUngroupedAchievement(UngroupedAchievement.Ascended)
 

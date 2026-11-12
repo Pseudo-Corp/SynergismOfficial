@@ -76,7 +76,6 @@ import {
   calculateFreeAccelMult,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
-  calculateObtainium,
   calculateOffline,
   calculateTotalAcceleratorBoost,
   cancelOfflineProgress,
@@ -108,7 +107,6 @@ import {
   researchOrderByCost,
   roombaResearchEnabled,
   setResearchRoombaHighlight,
-  syncResearchRoombaHighlight,
   updateResearchAuto,
   updateResearchBG
 } from './Research'
@@ -1841,7 +1839,6 @@ const loadSynergy = (saveString: string): boolean => {
 
     toggleTalismanBuy(player.buyTalismanShardPercent)
     updateTalismanInventory()
-    calculateObtainium()
     resetHistoryRenderAllTables()
     if (G.currentSingChallenge === undefined) {
       raiseHighestSingularity(player.singularityCount)
@@ -3910,12 +3907,9 @@ const tack = (dt: number) => {
       automaticTools('antSacrifice', dt)
     }
 
-    /*Triggers automatic obtainium gain if research [2x11] is unlocked,
-        Otherwise it just calculates obtainium multiplier values. */
+    // Triggers automatic obtainium gain if research [2x11] is unlocked
     if (player.researches[61] === 1) {
       automaticTools('addObtainium', dt, timeMult)
-    } else {
-      calculateObtainium()
     }
 
     // Regular Research Automation (only once)
@@ -3933,7 +3927,6 @@ const tack = (dt: number) => {
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
     ) {
-      const previousRoombaResearch = player.autoResearch || 1
       let counter = 0
       const maxCount = 1 + Math.floor(player.challengecompletions[14])
       while (counter < maxCount) {
@@ -3953,7 +3946,6 @@ const tack = (dt: number) => {
         }
         counter++
       }
-      syncResearchRoombaHighlight(previousRoombaResearch)
     }
   }
 
