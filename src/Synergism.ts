@@ -134,7 +134,6 @@ import {
   buyTalismanLevelToRarityIncrease,
   generateTalismansHTML,
   noTalismanFragments,
-  type TalismanKeys,
   talismanKeys,
   toggleTalismanBuy,
   updateTalismanInventory,
@@ -1219,7 +1218,7 @@ const loadSynergy = (saveString: string): boolean => {
           for (const key of sing10ResetUpgrades) {
             const baseCost = shopUpgrades[key].price
             const scalingFactor = shopUpgrades[key].priceIncrease
-            const level = player.shopUpgrades[key] ?? 0
+            const level = player.shopUpgrades[key]
             quarksToRefund += refundFormula(baseCost, scalingFactor, level)
             player.shopUpgrades[key] = 0
           }
@@ -1228,7 +1227,7 @@ const loadSynergy = (saveString: string): boolean => {
           for (const key of sing50ResetUpgrades) {
             const baseCost = shopUpgrades[key].price
             const scalingFactor = shopUpgrades[key].priceIncrease
-            const level = player.shopUpgrades[key] ?? 0
+            const level = player.shopUpgrades[key]
             quarksToRefund += refundFormula(baseCost, scalingFactor, level)
             player.shopUpgrades[key] = 0
           }
@@ -4289,10 +4288,8 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   clampOcteractFreeLevelsToCaps()
 
   updateAchievementPoints(true)
-  if (player.talismans !== undefined) {
-    for (const key of Object.keys(player.talismans) as TalismanKeys[]) {
-      updateTalismanLevelAndSpentFromInvested(key)
-    }
+  for (const key of talismanKeys) {
+    updateTalismanLevelAndSpentFromInvested(key)
   }
 
   player.corruptions.used = normalizeCorruptionLevel(player.corruptions.used)

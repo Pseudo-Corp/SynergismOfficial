@@ -128,6 +128,7 @@ import { getPurpleReactorPopupMode, setPurpleReactorPopupMode } from './PurpleUp
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
+  redAmbrosiaUpgradeNames,
   redAmbrosiaUpgradeToString,
   resetRedAmbrosiaDisplay
 } from './RedAmbrosiaUpgrades'
@@ -211,7 +212,7 @@ import {
   updateAutoChallenge,
   updateRuneBlessingBuyAmount
 } from './Toggles'
-import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
+import type { OneToFive, resetNames, ZeroToFour } from './types/Synergism'
 import {
   Alert,
   CloseModal,
@@ -2116,10 +2117,7 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // RED AMBROSIA
-  const redAmbrosiaUpgrades = Object.keys(
-    player.redAmbrosiaUpgrades
-  ) as (keyof Player['redAmbrosiaUpgrades'])[]
-  for (const key of redAmbrosiaUpgrades) {
+  for (const key of redAmbrosiaUpgradeNames) {
     const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
     registerPurchasableModal({
       element: DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`),
