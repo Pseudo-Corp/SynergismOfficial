@@ -184,6 +184,7 @@ export interface Player {
 
   runeEXP: Decimal[]
   runeLevels: number[]
+  runeFreeLevels: number[]
   blessingEXP: Decimal[]
   blessingLevels: number[]
   spiritEXP: Decimal[]

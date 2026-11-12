@@ -14,7 +14,7 @@ import { calculatePurpleAmbrosiaUpgradeAP, maxPurpleAmbrosiaUpgradeAP } from './
 import { worlds } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
-import { runes, RuneType, sumOfFreeRuneLevels } from './Runes'
+import { RuneType } from './Runes'
 import { maxQuarkUpgradeAP, quarkUpgradeAP } from './Shop'
 import { calculateGQUpgradeAP, getGQUpgradeEffect, maxGoldenQuarkUpgradeAP } from './singularity'
 import { maxAPFromChallenges, type SingularityChallengeDataKeys, singularityChallenges } from './SingularityChallenges'
@@ -333,7 +333,7 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
         + Math.min(200, Math.floor(cached / 2500))
     },
     updateValue: () => {
-      return sumOfFreeRuneLevels()
+      return sumContents(player.runeFreeLevels)
     },
     useCachedValue: true,
     rewardedAP: 0,
@@ -2086,7 +2086,7 @@ export const groupedAchievements: GroupedAchievementData[] = [
     kind: 'number',
     firstLockedTier: 0,
     displayCondition: () => player.highestchallengecompletions[8] > 0 || hasResetAtOrAboveLevel(resetTiers.ascension),
-    getValue: () => runes[RuneType.Speed].freeLevels(),
+    getValue: () => player.runeFreeLevels[RuneType.Speed],
     tiers: [
       { id: AchievementId.RuneFreeLevelTier1, pointValue: 2, requirement: 10 },
       { id: AchievementId.RuneFreeLevelTier2, pointValue: 4, requirement: 40 },
