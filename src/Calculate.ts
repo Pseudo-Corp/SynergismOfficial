@@ -1530,11 +1530,27 @@ export const calculateAmbrosiaLuckOcteractUpgrade = () => {
   )
 }
 
+const blueberryRequirementLifetimeStep = 300
+const blueberryRequirementScalingThreshold = 10_000
+const blueberryRequirementScalingPower = Math.log10(4)
+const redAmbrosiaRequirementPerLifetime = 2
+const redAmbrosiaRequirementCap = 10_000
+const averageRoundingOffset = 0.5
+const maximumBarFillIterations = 64
+const barFillTolerance = 1e-9
+
 export const calculateRequiredBlueberryTimeEXALT = () => {
   const multiplier = player.singularityChallenges.barDependence.completions + 1
   const divisor = 1 + player.lifetimeAmbrosia
   return Math.max(2.5e7, 1.5e15 * multiplier / divisor)
 }
+
+const calculateBlueberryRequirementMultiplier = () =>
+  getShopUpgradeEffects('shopAmbrosiaAccelerator', 'ambrosiaPointRequirementMult')
+  * getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'barRequirementMult')
+
+const blueberryRequirementScaling = (lifetimeAmbrosia: number) =>
+  Math.pow(lifetimeAmbrosia / blueberryRequirementScalingThreshold, blueberryRequirementScalingPower)
 
 export const calculateRequiredBlueberryTime = (ignoreTwoMind = false) => {
   if (!ignoreTwoMind && getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
@@ -1546,17 +1562,12 @@ export const calculateRequiredBlueberryTime = (ignoreTwoMind = false) => {
   }
 
   let val = G.TIME_PER_AMBROSIA // Currently 45
-  val += Math.floor(player.lifetimeAmbrosia / 300)
+  val += Math.floor(player.lifetimeAmbrosia / blueberryRequirementLifetimeStep)
 
-  const acceleratorMult = getShopUpgradeEffects('shopAmbrosiaAccelerator', 'ambrosiaPointRequirementMult')
-  const brickOfLeadMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'barRequirementMult')
+  val *= calculateBlueberryRequirementMultiplier()
 
-  val *= acceleratorMult
-  val *= brickOfLeadMult
-
-  if (player.lifetimeAmbrosia >= 10000) {
-    const extraScalingPower = Math.log10(4)
-    val *= Math.pow(player.lifetimeAmbrosia / 10000, extraScalingPower)
+  if (player.lifetimeAmbrosia >= blueberryRequirementScalingThreshold) {
+    val *= blueberryRequirementScaling(player.lifetimeAmbrosia)
     val = Math.ceil(val)
   }
 
@@ -1569,6 +1580,13 @@ export const calculateRequiredRedAmbrosiaTimeEXALT = () => {
   return Math.max(7.5e3, 2e11 * multiplier / divisor)
 }
 
+const redAmbrosiaRequirementAt = (lifetimeRedAmbrosia: number, multiplier: number) => {
+  let val = G.TIME_PER_RED_AMBROSIA // Currently 1,000
+  val += redAmbrosiaRequirementPerLifetime * lifetimeRedAmbrosia
+
+  return multiplier * Math.min(redAmbrosiaRequirementCap, val)
+}
+
 export const calculateRequiredRedAmbrosiaTime = (ignoreTwoMind = false) => {
   if (!ignoreTwoMind && getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled')) {
     return twoMindBarRequirements.redAmbrosia
@@ -1578,13 +1596,141 @@ export const calculateRequiredRedAmbrosiaTime = (ignoreTwoMind = false) => {
     return calculateRequiredRedAmbrosiaTimeEXALT()
   }
 
-  let val = G.TIME_PER_RED_AMBROSIA // Currently 1,000
-  val += 2 * player.lifetimeRedAmbrosia
+  return redAmbrosiaRequirementAt(
+    player.lifetimeRedAmbrosia,
+    getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
+  )
+}
 
-  const max = 1e4 * getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
-  val *= getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier')
+const averageBlueberryRequirement = (lifetimeAmbrosia: number, multiplier: number) => {
+  const requirement = multiplier
+    * (G.TIME_PER_AMBROSIA - averageRoundingOffset + lifetimeAmbrosia / blueberryRequirementLifetimeStep)
+  return lifetimeAmbrosia < blueberryRequirementScalingThreshold
+    ? requirement
+    : requirement * blueberryRequirementScaling(lifetimeAmbrosia) + averageRoundingOffset
+}
 
-  return Math.min(max, val)
+const blueberryLinearIntegral = (lifetimeAmbrosia: number) =>
+  (G.TIME_PER_AMBROSIA - averageRoundingOffset) * lifetimeAmbrosia
+  + lifetimeAmbrosia * lifetimeAmbrosia / (2 * blueberryRequirementLifetimeStep)
+
+const blueberryScaledIntegral = (lifetimeAmbrosia: number) => {
+  const scaledLifetime = lifetimeAmbrosia / blueberryRequirementScalingThreshold
+  const firstPower = blueberryRequirementScalingPower + 1
+  const secondPower = blueberryRequirementScalingPower + 2
+  return blueberryRequirementScalingThreshold * (
+    (G.TIME_PER_AMBROSIA - averageRoundingOffset) * Math.pow(scaledLifetime, firstPower) / firstPower
+    + blueberryRequirementScalingThreshold / blueberryRequirementLifetimeStep
+      * Math.pow(scaledLifetime, secondPower) / secondPower
+  )
+}
+
+const averageBlueberryRequirementIntegral = (lifetimeAmbrosia: number, multiplier: number) => {
+  if (lifetimeAmbrosia < blueberryRequirementScalingThreshold) {
+    return multiplier * blueberryLinearIntegral(lifetimeAmbrosia)
+  }
+
+  const integral = blueberryLinearIntegral(blueberryRequirementScalingThreshold)
+    + blueberryScaledIntegral(lifetimeAmbrosia)
+    - blueberryScaledIntegral(blueberryRequirementScalingThreshold)
+  return multiplier * integral + averageRoundingOffset * (lifetimeAmbrosia - blueberryRequirementScalingThreshold)
+}
+
+const redAmbrosiaRequirementIntegral = (lifetimeRedAmbrosia: number, multiplier: number) => {
+  const cappedLifetime = (redAmbrosiaRequirementCap - G.TIME_PER_RED_AMBROSIA) / redAmbrosiaRequirementPerLifetime
+  const linearLifetime = Math.min(lifetimeRedAmbrosia, cappedLifetime)
+  return multiplier * (
+    G.TIME_PER_RED_AMBROSIA * linearLifetime
+    + redAmbrosiaRequirementPerLifetime * linearLifetime * linearLifetime / 2
+    + redAmbrosiaRequirementCap * Math.max(0, lifetimeRedAmbrosia - cappedLifetime)
+  )
+}
+
+interface BarRequirementCurve {
+  at: (lifetime: number, multiplier: number) => number
+  integral: (lifetime: number, multiplier: number) => number
+}
+
+const blueberryRequirementCurve: BarRequirementCurve = {
+  at: averageBlueberryRequirement,
+  integral: averageBlueberryRequirementIntegral
+}
+
+const redAmbrosiaRequirementCurve: BarRequirementCurve = {
+  at: redAmbrosiaRequirementAt,
+  integral: redAmbrosiaRequirementIntegral
+}
+
+const hasFixedBarRequirements = () =>
+  getAmbrosiaUpgradeEffects('twoMind', 'twoMindEnabled') > 0 || player.singularityChallenges.barDependence.enabled
+
+const countConstantBarFills = (barPoints: number, requirement: number) => {
+  const fills = Math.floor(barPoints / requirement)
+  return { fills, barPointsUsed: fills * requirement }
+}
+
+const countBarFills = (
+  barPoints: number,
+  requirement: number,
+  lifetime: number,
+  lifetimePerFill: number,
+  multiplier: number,
+  curve: BarRequirementCurve
+) => {
+  if (barPoints < requirement || lifetimePerFill <= 0) {
+    return countConstantBarFills(barPoints, requirement)
+  }
+
+  const extraBarPoints = barPoints - requirement
+  const firstMidpoint = lifetime + lifetimePerFill / 2
+  const firstIntegral = curve.integral(firstMidpoint, multiplier)
+  const targetIntegral = firstIntegral + lifetimePerFill * extraBarPoints
+  let lastMidpoint = firstMidpoint + lifetimePerFill * extraBarPoints / curve.at(firstMidpoint, multiplier)
+
+  for (let i = 0; i < maximumBarFillIterations; i++) {
+    const step = (curve.integral(lastMidpoint, multiplier) - targetIntegral) / curve.at(lastMidpoint, multiplier)
+    lastMidpoint -= step
+    if (step <= barFillTolerance * lifetimePerFill) {
+      break
+    }
+  }
+
+  const extraFills = Math.floor((lastMidpoint - firstMidpoint) / lifetimePerFill)
+  const barPointsUsed = requirement
+    + (curve.integral(firstMidpoint + extraFills * lifetimePerFill, multiplier) - firstIntegral) / lifetimePerFill
+  return { fills: 1 + extraFills, barPointsUsed: Math.min(barPoints, barPointsUsed) }
+}
+
+export const calculateAmbrosiaBarFills = (barPoints: number, ambrosiaPerFill: number) => {
+  const requirement = calculateRequiredBlueberryTime()
+  if (hasFixedBarRequirements()) {
+    return countConstantBarFills(barPoints, requirement)
+  }
+
+  return countBarFills(
+    barPoints,
+    requirement,
+    player.lifetimeAmbrosia,
+    ambrosiaPerFill,
+    calculateBlueberryRequirementMultiplier(),
+    blueberryRequirementCurve
+  )
+}
+
+export const calculateRedAmbrosiaBarFills = (barPoints: number, redAmbrosiaPerFill: number) => {
+  const requirement = calculateRequiredRedAmbrosiaTime()
+  if (hasFixedBarRequirements()) {
+    return countConstantBarFills(barPoints, requirement)
+  }
+
+  return countBarFills(
+    barPoints,
+    requirement,
+    player.lifetimeRedAmbrosia,
+    redAmbrosiaPerFill,
+    getSingularityChallengeEffect('limitedTime', 'barRequirementMultiplier'),
+    redAmbrosiaRequirementCurve
+  )
 }
 
 export const calculateSingularityMilestoneBlueberries = () => {
