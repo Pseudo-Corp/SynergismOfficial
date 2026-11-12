@@ -624,9 +624,8 @@ export const buyCrystalUpgrades = (i: number, auto = false) => {
             + G.crystalUpgradeCostIncrement[u] * (1 / 2 * Math.pow(toBuy - 1 / 2, 2) - 1 / 8)
         )
       )
-      if (!auto) {
-        crystalupgradedescriptions(i)
-      }
+
+      crystalupgradedescriptions(i)
       // This can sometimes just happen... yeah pretty bad!
       player.prestigeShards = player.prestigeShards.max(0)
     }

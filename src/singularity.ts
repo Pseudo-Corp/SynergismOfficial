@@ -4519,10 +4519,8 @@ export const updateSingularityElevator = (): void => {
 
   maxLookahead.innerHTML = i18next.t('singularity.elevator.maxLookahead', { num: theoreticalLookahead })
 
-  if (input) {
-    input.max = maxTarget.toString()
-    input.value = player.singularityElevatorTarget.toString()
-  }
+  input.max = maxTarget.toString()
+  input.value = player.singularityElevatorTarget.toString()
 
   description.innerHTML = i18next.t('singularity.elevator.description', { limit: maxTarget })
 

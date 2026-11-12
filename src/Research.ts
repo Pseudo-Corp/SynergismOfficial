@@ -268,11 +268,7 @@ export const researchData = createResearchDataMap(
 
 export const isResearchUnlocked = (index: number): boolean => {
   // Every research is unlocked once the player has done a Singularity
-  if (player.highestSingularityCount > 0) {
-    return true
-  }
-  const unlockFunction = researchData[index].unlocked
-  return unlockFunction ? unlockFunction() : false
+  return player.highestSingularityCount > 0 || researchData[index].unlocked()
 }
 
 const researchCostMultiplier = (index: number) => {

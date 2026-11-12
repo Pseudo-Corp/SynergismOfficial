@@ -1070,9 +1070,6 @@ export const getNumberUnlockedRunes = () => {
 }
 
 export function resetRunes (tier: keyof typeof resetTiers) {
-  if (runes === null) {
-    throw new Error('Runes not initialized. Call initRunes first.')
-  }
   for (const rune of allRuneTypes) {
     if (resetTiers[tier] >= resetTiers[runes[rune].minimalResetTier]) {
       runeLevelAchievementsDirty ||= player.runeLevels[rune] !== 0
