@@ -5,6 +5,7 @@ import {
   calculateAmbrosiaRewardLuck,
   calculateAscensionSpeedMult,
   calculateBarEXALTPurpleFillChance,
+  calculateBaseGoldenQuarks,
   calculateEncabulatorSpeed,
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
@@ -418,11 +419,17 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
             }
           }
 
-          for (let i = 0; i < amountOfGiveaways; i++) {
-            const quarkFraction = frac * actualLevel
-            player.goldenQuarks += quarkFraction * calculateGoldenQuarks()
-            player.quarksThisSingularity *= 1 - quarkFraction
-          }
+          const quarkFraction = frac * actualLevel
+          const quarksBefore = player.quarksThisSingularity
+          const baseGoldenQuarks = calculateBaseGoldenQuarks(player.singularityCount)
+          const goldenQuarksPerBase = calculateGoldenQuarks() / baseGoldenQuarks
+          const baseWithoutQuarks = baseGoldenQuarks - quarksBefore / 1e5
+          player.quarksThisSingularity *= Math.pow(1 - quarkFraction, amountOfGiveaways)
+          const quarksConverted = quarksBefore - player.quarksThisSingularity
+          player.goldenQuarks += Math.min(
+            1e300,
+            goldenQuarksPerBase * (amountOfGiveaways * quarkFraction * baseWithoutQuarks + quarksConverted / 1e5)
+          )
         }
       }
       break
