@@ -858,8 +858,8 @@ const computeEXPLeftToLevel = (rune: RuneType, level: number) => {
   return Decimal.max(0, computeEXPToLevel(rune, level).minus(player.runeEXP[rune]))
 }
 
-const computeOfferingsToLevel = (rune: RuneType, level: number) => {
-  return Decimal.max(1, computeEXPLeftToLevel(rune, level).div(getRuneEXPPerOffering(rune)).ceil())
+const computeOfferingsToLevel = (rune: RuneType, level: number, runeEXPPerOffering: Decimal) => {
+  return Decimal.max(1, computeEXPLeftToLevel(rune, level).div(runeEXPPerOffering).ceil())
 }
 
 // For some dumb reason that old Platonic might be able to explain, 'MAX' was defined to
@@ -890,7 +890,7 @@ const maxRuneLevelPurchaseInformation = (rune: RuneType, budget: Decimal, upperL
     return {
       levels: 1,
       expRequired: computeEXPToLevel(rune, player.runeLevels[rune] + 1),
-      offerings: computeOfferingsToLevel(rune, player.runeLevels[rune] + 1)
+      offerings: computeOfferingsToLevel(rune, player.runeLevels[rune] + 1, runeEXPPerOffering)
     }
   }
 
@@ -898,23 +898,8 @@ const maxRuneLevelPurchaseInformation = (rune: RuneType, budget: Decimal, upperL
   return {
     levels: levelsGained,
     expRequired: computeEXPToLevel(rune, player.runeLevels[rune] + levelsGained),
-    offerings: computeOfferingsToLevel(rune, player.runeLevels[rune] + levelsGained)
+    offerings: computeOfferingsToLevel(rune, player.runeLevels[rune] + levelsGained, runeEXPPerOffering)
   }
-}
-
-const levelRune = (rune: RuneType, timesLeveled: number, budget: Decimal) => {
-  if (timesLeveled <= 0) {
-    return
-  }
-
-  const offeringsRequired = computeOfferingsToLevel(rune, player.runeLevels[rune] + timesLeveled)
-
-  if (offeringsRequired.gt(budget)) {
-    return
-  }
-
-  player.runeEXP[rune] = computeEXPToLevel(rune, player.runeLevels[rune] + timesLeveled)
-  player.offerings = player.offerings.sub(offeringsRequired)
 }
 
 let runeLevelAchievementsDirty = true
@@ -1120,8 +1105,15 @@ export const sacrificeOfferings = (rune: RuneType, budget: Decimal, auto = false
     return
   }
 
-  const { levels } = maxRuneLevelPurchaseInformation(rune, budget, auto ? Number.POSITIVE_INFINITY : getRuneBuyLimit())
-  levelRune(rune, levels, budget)
+  const { levels, expRequired, offerings } = maxRuneLevelPurchaseInformation(
+    rune,
+    budget,
+    auto ? Number.POSITIVE_INFINITY : getRuneBuyLimit()
+  )
+  if (levels > 0 && offerings.lte(budget)) {
+    player.runeEXP[rune] = expRequired
+    player.offerings = player.offerings.sub(offerings)
+  }
 
   updateLevelsFromEXP(rune)
   updateRuneLevelAchievementProgress()
