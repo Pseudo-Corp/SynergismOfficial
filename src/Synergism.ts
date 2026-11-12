@@ -108,7 +108,6 @@ import {
   researchOrderByCost,
   roombaResearchEnabled,
   setResearchRoombaHighlight,
-  syncResearchRoombaHighlight,
   updateResearchAuto,
   updateResearchBG
 } from './Research'
@@ -3933,7 +3932,6 @@ const tack = (dt: number) => {
       && roombaResearchEnabled()
       && player.autoResearchMode === 'cheapest'
     ) {
-      const previousRoombaResearch = player.autoResearch || 1
       let counter = 0
       const maxCount = 1 + Math.floor(player.challengecompletions[14])
       while (counter < maxCount) {
@@ -3953,7 +3951,6 @@ const tack = (dt: number) => {
         }
         counter++
       }
-      syncResearchRoombaHighlight(previousRoombaResearch)
     }
   }
 

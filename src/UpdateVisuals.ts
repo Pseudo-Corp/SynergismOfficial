@@ -471,6 +471,18 @@ const freeAccelMultHardcapText = (free: number) => {
   return `<br>${i18next.t('buildings.names.freeHardcap', { cap: format(freeAccelMultHardcap) })}`
 }
 
+const setFitText = (element: HTMLElement, text: string) => {
+  if (element.textContent !== text) {
+    element.textContent = text
+  }
+}
+
+const setFitHTML = (element: HTMLElement, html: string) => {
+  if (element.innerHTML !== html) {
+    element.innerHTML = html
+  }
+}
+
 export const visualUpdateBuildings = () => {
   if (G.currentTab !== Tabs.Buildings) {
     return
@@ -521,34 +533,34 @@ export const visualUpdateBuildings = () => {
 
       const nameElement = DOMCacheGetOrSet(`buildtext${2 * i - 1}`)
       nameElement.style.color = player.coinBuildings[i - 1] > coinConstruction ? 'var(--red-color)' : ''
-      nameElement.textContent = i18next.t(
+      setFitText(nameElement, i18next.t(
         `buildings.names.${coinNames[i - 1]}`,
         {
           amount: format(player.coinBuildings[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedCoin` as const], 0, false, false)
         }
-      )
+      ))
 
-      getBuildingCostElement(`buycoin${i}`).textContent = i18next.t(
+      setFitText(getBuildingCostElement(`buycoin${i}`), i18next.t(
         'buildings.costCoins',
         {
           coins: format(getBuildingCost('coin', (i - 1) as ZeroToFour), 0, false, false)
         }
-      )
+      ))
 
-      DOMCacheGetOrSet(`buildtext${2 * i}`).textContent = i18next.t(
+      setFitText(DOMCacheGetOrSet(`buildtext${2 * i}`), i18next.t(
         'buildings.coinsPerSecond',
         {
           coins: format(place.dividedBy(tax.taxdivisor).times(40), 2, false, false)
         }
-      )
+      ))
     }
 
     const acceleratorElement = DOMCacheGetOrSet('buildtext11')
     acceleratorElement.style.color = player.accelerators > getAccelMultScalingThreshold('accelerator')
       ? 'var(--red-color)'
       : ''
-    acceleratorElement.innerHTML = i18next.t(
+    setFitHTML(acceleratorElement, i18next.t(
       'buildings.names.accelerators',
       {
         amount: format(player.accelerators, 0, true, false),
@@ -560,21 +572,21 @@ export const visualUpdateBuildings = () => {
         accelMultStats.totalAccelerator - accelMultStats.effectiveFreeAccelerator,
         accelMultStats.effectiveFreeAccelerator
       )
-      + freeAccelMultHardcapText(accelMultStats.effectiveFreeAccelerator)
+      + freeAccelMultHardcapText(accelMultStats.effectiveFreeAccelerator))
 
-    DOMCacheGetOrSet('buildtext12').innerHTML = i18next.t(
+    setFitHTML(DOMCacheGetOrSet('buildtext12'), i18next.t(
       'buildings.acceleratorPower',
       {
         power: format((accelMultStats.acceleratorPower - 1) * 100, 2, false, false),
         mult: format(accelMultStats.acceleratorEffect, 2, false, false)
       }
-    )
+    ))
 
     const multiplierElement = DOMCacheGetOrSet('buildtext13')
     multiplierElement.style.color = player.multipliers > getAccelMultScalingThreshold('multiplier')
       ? 'var(--red-color)'
       : ''
-    multiplierElement.innerHTML = i18next.t(
+    setFitHTML(multiplierElement, i18next.t(
       'buildings.names.multipliers',
       {
         amount: format(player.multipliers, 0, true, false),
@@ -586,27 +598,27 @@ export const visualUpdateBuildings = () => {
         accelMultStats.totalMultiplier - accelMultStats.effectiveFreeMultiplier,
         accelMultStats.effectiveFreeMultiplier
       )
-      + freeAccelMultHardcapText(accelMultStats.effectiveFreeMultiplier)
+      + freeAccelMultHardcapText(accelMultStats.effectiveFreeMultiplier))
 
-    DOMCacheGetOrSet('buildtext14').innerHTML = i18next.t(
+    setFitHTML(DOMCacheGetOrSet('buildtext14'), i18next.t(
       'buildings.multiplierPower',
       {
         power: format(accelMultStats.multiplierPower, 2, false, false),
         mult: format(accelMultStats.multiplierEffect, 2, false, false)
       }
-    )
+    ))
 
     const acceleratorBoostElement = DOMCacheGetOrSet('buildtext15')
     acceleratorBoostElement.style.color = player.acceleratorBoosts > getAccelMultScalingThreshold('acceleratorBoost')
       ? 'var(--red-color)'
       : ''
-    acceleratorBoostElement.textContent = i18next.t(
+    setFitText(acceleratorBoostElement, i18next.t(
       'buildings.names.acceleratorBoost',
       {
         amount: format(player.acceleratorBoosts, 0, true, false),
         gain: format(accelMultStats.freeAcceleratorBoost, 0, false, false)
       }
-    )
+    ))
 
     DOMCacheGetOrSet('buildtext16').textContent = i18next.t(
       'buildings.acceleratorBoost',
@@ -621,24 +633,24 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    getBuildingCostElement('buyaccelerator').textContent = i18next.t(
+    setFitText(getBuildingCostElement('buyaccelerator'), i18next.t(
       'buildings.costCoins',
       {
         coins: format(getBuildingCost('accelerator'), 0, false, false)
       }
-    )
-    getBuildingCostElement('buymultiplier').textContent = i18next.t(
+    ))
+    setFitText(getBuildingCostElement('buymultiplier'), i18next.t(
       'buildings.costCoins',
       {
         coins: format(getBuildingCost('multiplier'), 0, false, false)
       }
-    )
-    getBuildingCostElement('buyacceleratorboost').textContent = i18next.t(
+    ))
+    setFitText(getBuildingCostElement('buyacceleratorboost'), i18next.t(
       'buildings.costDiamonds',
       {
         diamonds: format(getBuildingCost('acceleratorBoost'), 0, false, false)
       }
-    )
+    ))
 
     // update the tax text
     let warning = ''
@@ -679,27 +691,27 @@ export const visualUpdateBuildings = () => {
 
       const nameElement = DOMCacheGetOrSet(`prestigetext${2 * i - 1}`)
       nameElement.style.color = player.diamondBuildings[i - 1] > diamondConstruction ? 'var(--red-color)' : ''
-      nameElement.textContent = i18next.t(
+      setFitText(nameElement, i18next.t(
         `buildings.names.${diamondNames[i - 1]}`,
         {
           amount: format(player.diamondBuildings[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedDiamonds` as const], 2, false, false)
         }
-      )
+      ))
 
-      DOMCacheGetOrSet(`prestigetext${2 * i}`).textContent = i18next.t(
+      setFitText(DOMCacheGetOrSet(`prestigetext${2 * i}`), i18next.t(
         `buildings.per.${diamondPerSecNames[i - 1]}`,
         {
           amount: format(place.times(40), 2, false, false)
         }
-      )
+      ))
 
-      getBuildingCostElement(`buydiamond${i}`).textContent = i18next.t(
+      setFitText(getBuildingCostElement(`buydiamond${i}`), i18next.t(
         'buildings.costDiamonds',
         {
           diamonds: format(getBuildingCost('diamond', (i - 1) as ZeroToFour), 2, false, false)
         }
-      )
+      ))
     }
 
     if (player.resetToggleModes.prestige === AutoResetModes.amount) {
@@ -745,27 +757,27 @@ export const visualUpdateBuildings = () => {
 
       const nameElement = DOMCacheGetOrSet(`transcendtext${2 * i - 1}`)
       nameElement.style.color = player.mythosBuildings[i - 1] > mythosConstruction ? 'var(--red-color)' : ''
-      nameElement.textContent = i18next.t(
+      setFitText(nameElement, i18next.t(
         `buildings.names.${mythosNames[i - 1]}`,
         {
           amount: format(player.mythosBuildings[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedMythos` as const], 2, false, false)
         }
-      )
+      ))
 
-      DOMCacheGetOrSet(`transcendtext${2 * i}`).textContent = i18next.t(
+      setFitText(DOMCacheGetOrSet(`transcendtext${2 * i}`), i18next.t(
         `buildings.per.${mythosPerSecNames[i - 1]}`,
         {
           amount: format(place.times(40), 2, false, false)
         }
-      )
+      ))
 
-      getBuildingCostElement(`buymythos${i}`).textContent = i18next.t(
+      setFitText(getBuildingCostElement(`buymythos${i}`), i18next.t(
         'buildings.costMythos',
         {
           mythos: format(getBuildingCost('mythos', (i - 1) as ZeroToFour), 2, false, false)
         }
-      )
+      ))
     }
 
     if (player.resetToggleModes.transcend === AutoResetModes.amount) {
@@ -808,25 +820,25 @@ export const visualUpdateBuildings = () => {
 
       const nameElement = DOMCacheGetOrSet(`reincarnationtext${i}`)
       nameElement.style.color = player.particleBuildings[i - 1] > particleConstruction ? 'var(--red-color)' : ''
-      nameElement.textContent = i18next.t(
+      setFitText(nameElement, i18next.t(
         `buildings.names.${particleNames[i - 1]}`,
         {
           amount: format(player.particleBuildings[i - 1], 0, true, false),
           gain: format(player[`${ith}GeneratedParticles` as const], 2, false, false)
         }
-      )
-      DOMCacheGetOrSet(`reincarnationtext${i + 5}`).textContent = i18next.t(
+      ))
+      setFitText(DOMCacheGetOrSet(`reincarnationtext${i + 5}`), i18next.t(
         `buildings.per.${particlePerSecNames[i - 1]}`,
         {
           amount: format(place.times(40), 2, false, false)
         }
-      )
-      getBuildingCostElement(`buyparticles${i}`).textContent = i18next.t(
+      ))
+      setFitText(getBuildingCostElement(`buyparticles${i}`), i18next.t(
         'buildings.costParticles',
         {
           particles: format(getBuildingCost('particle', (i - 1) as ZeroToFour), 2, false, false)
         }
-      )
+      ))
     }
 
     const buildingPower = calculateBuildingPower()
@@ -841,19 +853,19 @@ export const visualUpdateBuildings = () => {
       }
     )
 
-    DOMCacheGetOrSet('reincarnationCrystalInfo').textContent = i18next.t(
+    setFitText(DOMCacheGetOrSet('reincarnationCrystalInfo'), i18next.t(
       'buildings.thanksR2x14',
       {
         mult: format(Decimal.pow(buildingPowerMult, 1 / 50), 3, false, false)
       }
-    )
+    ))
 
-    DOMCacheGetOrSet('reincarnationMythosInfo').textContent = i18next.t(
+    setFitText(DOMCacheGetOrSet('reincarnationMythosInfo'), i18next.t(
       'buildings.thanksR2x15',
       {
         mult: format(Decimal.pow(buildingPowerMult, 1 / 250), 3, false, false)
       }
-    )
+    ))
 
     if (player.resetToggleModes.reincarnation === AutoResetModes.amount) {
       DOMCacheGetOrSet('autoreincarnate').textContent = i18next.t(
@@ -889,15 +901,15 @@ export const visualUpdateBuildings = () => {
     for (let i = 1; i <= 5; i++) {
       const ascendBuildingI = `ascendBuilding${i as OneToFive}` as const
 
-      DOMCacheGetOrSet(`ascendText${i}`).textContent = i18next.t(
+      setFitText(DOMCacheGetOrSet(`ascendText${i}`), i18next.t(
         `buildings.names.${tesseractNames[i - 1]}`,
         {
           amount: format(player[ascendBuildingI].owned, 0, true, false),
           gain: format(player[ascendBuildingI].generated, 2, false, false)
         }
-      )
+      ))
 
-      DOMCacheGetOrSet(`ascendText${5 + i}`).textContent = i18next.t(
+      setFitText(DOMCacheGetOrSet(`ascendText${5 + i}`), i18next.t(
         `buildings.per.${tesseractPerSecNames[i - 1]}`,
         {
           amount: format(
@@ -907,14 +919,14 @@ export const visualUpdateBuildings = () => {
             false
           )
         }
-      )
+      ))
 
-      getBuildingCostElement(`buyTesseracts${i}`).textContent = i18next.t(
+      setFitText(getBuildingCostElement(`buyTesseracts${i}`), i18next.t(
         'buildings.costTesseracts',
         {
           tesseracts: format(getTesseractBuildingCost(i as OneToFive), 0, false, false)
         }
-      )
+      ))
     }
 
     DOMCacheGetOrSet('tesseractInfo').textContent = i18next.t(
