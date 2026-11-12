@@ -12727,6 +12727,9 @@ html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
 }
 
 html[data-mobile="true"] {
+    min-width: unset;
+    width: 100%;
+    overflow: hidden;
     -webkit-touch-callout: none;
     -webkit-user-select: none; /* stylelint-disable-line property-no-vendor-prefix */
     user-select: none;
@@ -12881,12 +12884,6 @@ html[data-mobile="true"] .hideOnMobile {
     margin: 2px 0;
     transition: transform 0.3s ease, opacity 0.3s ease;
     border-radius: 1px;
-}
-
-html[data-mobile="true"] {
-    min-width: unset;
-    width: 100%;
-    overflow: hidden;
 }
 
 html[data-mobile="true"] body {
