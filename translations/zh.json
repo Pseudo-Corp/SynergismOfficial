@@ -651,7 +651,7 @@
     "purpleHoneyBaseYield": "每次提取获得的基础紫蜜数量：<<var(--purple-text-color)|{{amount}}>>",
     "purpleHoneyLuck": "紫蜜之运：<<var(--purple-text-color)|{{luck}}>>",
     "purpleHoneyLuckTwoMind": "提取紫蜜时的紫蜜之运：<<var(--purple-text-color)|{{luck}}>> [其余东西按<<var(--purple-text-color)|{{unmodifiedLuck}}>>计算]",
-    "purpleHoneyExtractionMultiplier": "提取倍率：<<gold|{{multiplier}}>>[有<<gold|{{chance}}%>>概率再获得1个]",
+    "purpleHoneyExtractionMultiplier": "提取倍率：<<gold|{{multiplier}}>>[有<<gold|{{chance}}%>>概率再增加1]",
     "percentageOption0": "0%",
     "percentageOption50": "50%",
     "percentageOption100": "100%",
