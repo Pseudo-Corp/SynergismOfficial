@@ -6498,6 +6498,7 @@
     "TNL": "+{{levelAmount}} in <<orange | {{offerings}} ☤>>",
     "salvageModal": {
       "global": "Recyclage global : <<lightgreen|{{amount}}>>",
+      "modifiers": "Salvage Modifiers ({{name}}): {{amount}}",
       "total": "Recyclage pour cette Rune : <<gold|{{amount}}>> (Offrandes nécessaires divisées par {{mult}})",
       "totalNegative": "Recyclage pour cette Rune : <<gold|{{amount}}>> (Offrandes nécessaires multipliées par {{div}})"
     }
