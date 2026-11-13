@@ -28,7 +28,7 @@ import {
   octeractUpgrades
 } from './Octeracts'
 import { redAmbrosiaUpgradeNames, redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
-import { runes, runesKeys } from './Runes'
+import { allRuneTypes, runes, RuneType } from './Runes'
 import { shopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
 import {
   actualGQUpgradeTotalLevels,
@@ -170,7 +170,9 @@ export const generateExportSummary = async (): Promise<void> => {
     singularity = `${singularity}Effective Singularity [for penalties]: ${
       format(calculateEffectiveSingularities(), 2, true)
     }\n`
-    singularity = `${singularity}Antiquity of Ant God Upgraded: ${(runes.antiquities.level > 0) ? '✔' : '✖'}\n`
+    singularity = `${singularity}Antiquity of Ant God Upgraded: ${
+      (player.runeLevels[RuneType.Antiquities] > 0) ? '✔' : '✖'
+    }\n`
   }
 
   // Ascension Subportion!
@@ -277,9 +279,9 @@ export const generateExportSummary = async (): Promise<void> => {
       })
     }\n`
 
-    for (const rune of runesKeys) {
+    for (const rune of allRuneTypes) {
       if (runes[rune].isUnlocked()) {
-        prestige = `${prestige}${runes[rune].name()}: Level ${format(runes[rune].level, 0, true)} [+${
+        prestige = `${prestige}${runes[rune].name()}: Level ${format(player.runeLevels[rune], 0, true)} [+${
           format(runes[rune].freeLevels(), 0, true)
         }]\n`
       }

@@ -15,8 +15,7 @@ import {
   buyTesseractBuilding,
   calculateTessBuildingsInBudget,
   CoinBuilding,
-  getTesseractBuildingsOwned,
-  grantCurveBuildings
+  grantBuildings
 } from './Buy'
 import type { TesseractBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -68,7 +67,7 @@ import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { worlds } from './Quark'
 import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
-import { resetOfferings, resetRunes, runes } from './Runes'
+import { resetOfferings, resetRunes, RuneType } from './Runes'
 import { resetRuneSpirits } from './RuneSpirits'
 import { playerSchema } from './saves/PlayerSchema'
 import { getShopUpgradeEffects } from './Shop'
@@ -460,22 +459,18 @@ export const reset = (
   player.coins = Decimal.fromString('100')
   player.coinsThisPrestige = Decimal.fromString('100')
   player.firstGeneratedCoin = new Decimal()
-  player.firstPaidCoin = new Decimal()
   player.secondGeneratedCoin = new Decimal()
-  player.secondPaidCoin = new Decimal()
   player.thirdGeneratedCoin = new Decimal()
-  player.thirdPaidCoin = new Decimal()
   player.fourthGeneratedCoin = new Decimal()
-  player.fourthPaidCoin = new Decimal()
   player.fifthGeneratedCoin = new Decimal()
-  player.fifthPaidCoin = new Decimal()
+  player.coinBuildings = [0, 0, 0, 0, 0]
   player.firstGeneratedDiamonds = new Decimal()
   player.secondGeneratedDiamonds = new Decimal()
   player.thirdGeneratedDiamonds = new Decimal()
   player.fourthGeneratedDiamonds = new Decimal()
   player.fifthGeneratedDiamonds = new Decimal()
-  player.multiplierPaid = new Decimal()
-  player.acceleratorPaid = new Decimal()
+  player.multipliers = 0
+  player.accelerators = 0
 
   updatePrestigeCount(1)
 
@@ -513,17 +508,13 @@ export const reset = (
   if (resetTypes.has(input)) {
     resetUpgrades(2)
     player.coinsThisTranscension = Decimal.fromString('100')
-    player.firstPaidDiamonds = new Decimal()
-    player.secondPaidDiamonds = new Decimal()
-    player.thirdPaidDiamonds = new Decimal()
-    player.fourthPaidDiamonds = new Decimal()
-    player.fifthPaidDiamonds = new Decimal()
+    player.diamondBuildings = [0, 0, 0, 0, 0]
     player.firstGeneratedMythos = new Decimal()
     player.secondGeneratedMythos = new Decimal()
     player.thirdGeneratedMythos = new Decimal()
     player.fourthGeneratedMythos = new Decimal()
     player.fifthGeneratedMythos = new Decimal()
-    player.acceleratorBoostPaid = new Decimal()
+    player.acceleratorBoosts = 0
 
     if (transcensionCheck) {
       updateTranscensionCount(1)
@@ -542,7 +533,7 @@ export const reset = (
     for (let i = 1; i <= 5; i++) {
       if (getLevelMilestone(`tier${i as OneToFive}CrystalAutobuy`) === 1) {
         const zeroIndex = i - 1 as ZeroToFour
-        grantCurveBuildings('diamond', zeroIndex, 1)
+        grantBuildings('diamond', zeroIndex, 1)
       }
     }
 
@@ -583,11 +574,7 @@ export const reset = (
     challengeExit('transcension')
     resetUpgrades(3)
     player.coinsThisReincarnation = Decimal.fromString('100')
-    player.firstPaidMythos = new Decimal()
-    player.secondPaidMythos = new Decimal()
-    player.thirdPaidMythos = new Decimal()
-    player.fourthPaidMythos = new Decimal()
-    player.fifthPaidMythos = new Decimal()
+    player.mythosBuildings = [0, 0, 0, 0, 0]
     player.firstGeneratedParticles = new Decimal()
     player.secondGeneratedParticles = new Decimal()
     player.thirdGeneratedParticles = new Decimal()
@@ -657,11 +644,7 @@ export const reset = (
         player.upgrades[j] = 0
       }
     }
-    player.firstPaidParticles = new Decimal()
-    player.secondPaidParticles = new Decimal()
-    player.thirdPaidParticles = new Decimal()
-    player.fourthPaidParticles = new Decimal()
-    player.fifthPaidParticles = new Decimal()
+    player.particleBuildings = [0, 0, 0, 0, 0]
     player.offerings = new Decimal()
     player.crystalUpgrades = [0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -670,7 +653,7 @@ export const reset = (
     if (player.cubeUpgrades[27] === 1) {
       for (let i = 1; i <= 5; i++) {
         const zeroIndex = i - 1 as ZeroToFour
-        grantCurveBuildings('particle', zeroIndex, 1)
+        grantBuildings('particle', zeroIndex, 1)
       }
     }
 
@@ -721,7 +704,6 @@ export const reset = (
       }
     }
 
-    calculateObtainium()
     awardAchievementGroup(AchievementGroup.AscensionCount)
     awardUngroupedAchievement(UngroupedAchievement.Ascended)
 
@@ -816,7 +798,7 @@ export const reset = (
       const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
       for (let i = 1; i <= 5; i++) {
         if (player.autoTesseracts[i]) {
-          ownedBuildings[i - 1] = getTesseractBuildingsOwned(i as OneToFive)
+          ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
         }
       }
       const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
@@ -893,15 +875,15 @@ export const reset = (
     player.unlocks.spirits = false
     player.unlocks.platonics = false
 
-    player.ascendBuilding1.paid = 0
+    player.ascendBuilding1.owned = 0
     player.ascendBuilding1.generated = new Decimal()
-    player.ascendBuilding2.paid = 0
+    player.ascendBuilding2.owned = 0
     player.ascendBuilding2.generated = new Decimal()
-    player.ascendBuilding3.paid = 0
+    player.ascendBuilding3.owned = 0
     player.ascendBuilding3.generated = new Decimal()
-    player.ascendBuilding4.paid = 0
+    player.ascendBuilding4.owned = 0
     player.ascendBuilding4.generated = new Decimal()
-    player.ascendBuilding5.paid = 0
+    player.ascendBuilding5.owned = 0
     player.ascendBuilding5.generated = new Decimal()
 
     player.constantUpgrades = [null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -936,7 +918,7 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   applyStartingChallengeCompletions()
   if (player.highestSingularityCount >= 2) { // Singularity 2
     player.transcendPoints = Decimal.fromString('1001')
-    grantCurveBuildings('coin', CoinBuilding.Workers, 1)
+    grantBuildings('coin', CoinBuilding.Workers, 1)
     player.unlocks.coinone = true
     player.unlocks.cointwo = true
     player.unlocks.cointhree = true
@@ -1024,14 +1006,14 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
 }
 
 export const singularity = (setSingNumber = -1) => {
-  if (runes.antiquities.level === 0 && setSingNumber === -1) {
+  if (player.runeLevels[RuneType.Antiquities] === 0 && setSingNumber === -1) {
     Alert(
       'You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.'
     )
     return
   }
 
-  const antiquitiesPurchased = runes.antiquities.level > 0
+  const antiquitiesPurchased = player.runeLevels[RuneType.Antiquities] > 0
 
   // setSingNumber is only not -1 when we are entering and exiting a challenge.
   if (setSingNumber === -1) {
@@ -1126,7 +1108,7 @@ export const singularity = (setSingNumber = -1) => {
     hold.reincarnationCount = player.reincarnationCount
   }
 
-  hold.runes = { ...player.runes }
+  hold.runeEXP = [...player.runeEXP]
   hold.talismans = { ...player.talismans }
   hold.cubeUpgrades[80] = player.cubeUpgrades[80]
   for (const i of cubeAutomationIndices) {

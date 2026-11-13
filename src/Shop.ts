@@ -18,7 +18,7 @@ import type { IMultiBuy } from './Cubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { worlds } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
-import { getRuneEffectiveLevel, getRuneEffects } from './Runes'
+import { getRuneEffectiveLevel, getRuneEffects, RuneType } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
@@ -156,7 +156,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     symbol: '☤',
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeOfferingLevels')
-      + getRuneEffects('topHat', 'freeOfferingLevels')
+      + getRuneEffects(RuneType.TopHat, 'freeOfferingLevels')
       + getRedAmbrosiaUpgradeEffects('freeOfferingUpgrades', 'levels')
       + getAmbrosiaUpgradeEffects('ambrosiaFreeOfferingUpgrades', 'freeOfferingUpgrades')
   },
@@ -165,7 +165,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     symbol: '❍',
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeObtainiumLevels')
-      + getRuneEffects('topHat', 'freeObtainiumLevels')
+      + getRuneEffects(RuneType.TopHat, 'freeObtainiumLevels')
       + getRedAmbrosiaUpgradeEffects('freeObtainiumUpgrades', 'levels')
       + getAmbrosiaUpgradeEffects('ambrosiaFreeObtainiumUpgrades', 'freeObtainiumUpgrades')
   },
@@ -174,7 +174,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     symbol: '⬢',
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeCubeLevels')
-      + getRuneEffects('topHat', 'freeCubeLevels')
+      + getRuneEffects(RuneType.TopHat, 'freeCubeLevels')
       + getRedAmbrosiaUpgradeEffects('freeCubeUpgrades', 'levels')
       + getAmbrosiaUpgradeEffects('ambrosiaFreeCubeUpgrades', 'freeCubeUpgrades')
   },
@@ -183,7 +183,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     symbol: '⧗',
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeSpeedLevels')
-      + getRuneEffects('topHat', 'freeSpeedLevels')
+      + getRuneEffects(RuneType.TopHat, 'freeSpeedLevels')
       + getRedAmbrosiaUpgradeEffects('freeSpeedUpgrades', 'levels')
   },
   [ShopUpgradeGroups.Quark]: {
@@ -214,7 +214,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     bonusLevels: () =>
       calculateFreeShopInfinityUpgrades()
       + getSingularityChallengeEffect('noQuarkUpgrades', 'freeInfinityLevels')
-      + getRuneEffects('topHat', 'freeInfinityLevels')
+      + getRuneEffects(RuneType.TopHat, 'freeInfinityLevels')
   },
   [ShopUpgradeGroups.Utility]: {
     HTMLColor: 'var(--white-color)',
@@ -1830,7 +1830,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return 3 * n
       }
 
-      const horseShoeLevel = getRuneEffectiveLevel('horseShoe')
+      const horseShoeLevel = getRuneEffectiveLevel(RuneType.HorseShoe)
       return 1 - Math.min(300, horseShoeLevel * n) / 1000 // singularityPenaltyMult
     },
     effectDescription () {

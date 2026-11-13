@@ -72,7 +72,6 @@ export const createGlobals = () => ({
   // 1,000 of each before Diminishing Returns
 
   autoOfferingCounter: 0,
-  MAX_AUTO_SACRIFICE_RUNE: 5,
 
   constUpgradeCosts: [null, 1, 13, 17, 237, 316, 4216, 5623, 74989, 1e10, 1e24],
 

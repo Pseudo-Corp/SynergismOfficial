@@ -5,7 +5,7 @@ import { cleanseCorruptions } from './Corruptions'
 import { confirmAntSacrifice } from './Features/Ants/AntSacrifice/sacrifice'
 import { promocodes } from './ImportExport'
 import { initializeMobileHotkeyPanel } from './mobile/hotkey-panel'
-import { runes } from './Runes'
+import { RuneType } from './Runes'
 import { useConsumablePrompt } from './Shop'
 import { player, resetCheck, synergismHotkeys } from './Synergism'
 import { getActiveSubTab, keyboardTabChange as kbTabChange, tabRow, Tabs } from './Tabs'
@@ -167,7 +167,7 @@ const defaultHotkeys = new Map<string, Hotkey>([
     {
       name: 'hotkeys.names.resetSingularity',
       action: () => resetCheck('singularity'),
-      unlocked: () => runes.antiquities.level > 0 || player.highestSingularityCount > 0
+      unlocked: () => player.runeLevels[RuneType.Antiquities] > 0 || player.highestSingularityCount > 0
     }
   ],
   ['CTRL+B', { name: 'hotkeys.names.unhideTabs', action: () => tabRow.reappend(), hiddenOnMobile: true }]

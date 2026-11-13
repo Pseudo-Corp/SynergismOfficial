@@ -3,7 +3,7 @@ import * as z from 'zod'
 import type { ZodType } from 'zod'
 import { corruptionLoadoutCount } from '../AutoAscension'
 import { ambrosiaUpgradeNames } from '../BlueberryUpgrades'
-import { getTesseractBuildingsCumulativeCost } from '../Buy'
+import { convertLegacyTesseractBuildingsPaid } from '../Buy'
 import { transcensionChallengeCap } from '../Challenges'
 import { defaultAntMasteries } from '../Features/Ants/AntMasteries/player/default'
 import type { PlayerAntMasteries } from '../Features/Ants/AntMasteries/structs/structs'
@@ -28,6 +28,7 @@ import {
   splitHeaderSlot
 } from '../HeaderLayoutDefaults'
 import { type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
+import { runes } from '../Runes'
 import { getGQUpgradeCumulativeCost, type SingularityDataKeys } from '../singularity'
 import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
 import { blankSave, deepClone } from '../Synergism'
@@ -44,6 +45,11 @@ export const decimalSchema = z.custom<DecimalSource>((value: any) => {
     return false
   }
 }).meta({ type: ['string', 'number'] }).transform((decimalSource) => new Decimal(decimalSource))
+
+const decimalArraySchema = (blank: () => Decimal[]) =>
+  decimalSchema.array()
+    .transform((array) => blank().map((_, i) => array[i] ?? new Decimal()))
+    .default(() => blank().map(() => new Decimal()))
 
 export const arrayStartingWithNull = <T extends ZodType>(s: T) => z.tuple([z.null()]).rest(s)
 
@@ -180,7 +186,7 @@ const ascendBuildingSchema = (index: OneToFive) =>
     owned: z.number().optional(),
     generated: decimalSchema
   }).transform(({ paid, owned, generated }) => ({
-    paid: paid ?? getTesseractBuildingsCumulativeCost(index, owned ?? 0),
+    owned: owned ?? convertLegacyTesseractBuildingsPaid(index, paid ?? 0),
     generated
   }))
 
@@ -545,6 +551,14 @@ export const playerSchema = z.object({
   acceleratorBoostBought: z.number().optional(),
   acceleratorBoostPaid: decimalSchema.optional(),
 
+  coinBuildings: z.number().array().default(() => [...blankSave.coinBuildings]),
+  diamondBuildings: z.number().array().default(() => [...blankSave.diamondBuildings]),
+  mythosBuildings: z.number().array().default(() => [...blankSave.mythosBuildings]),
+  particleBuildings: z.number().array().default(() => [...blankSave.particleBuildings]),
+  accelerators: z.number().default(() => blankSave.accelerators),
+  multipliers: z.number().default(() => blankSave.multipliers),
+  acceleratorBoosts: z.number().default(() => blankSave.acceleratorBoosts),
+
   upgrades: z.number().array().transform((array) => {
     if (array.length < blankSave.upgrades.length) {
       array.push(...blankSave.upgrades.slice(0, blankSave.upgrades.length - array.length))
@@ -648,38 +662,14 @@ export const playerSchema = z.object({
   crystalUpgrades: z.number().array(),
   crystalUpgradesCost: z.number().array().default(() => [...blankSave.crystalUpgradesCost]),
 
-  runes: z.record(z.string(), decimalSchema)
-    .transform((object) => {
-      return Object.fromEntries(
-        Object.keys(blankSave.runes).map((key) => {
-          const value = object[key] ?? blankSave.runes[key as keyof typeof blankSave['runes']]
-          return value === null ? [key, new Decimal()] : [key, new Decimal(value)]
-        })
-      )
-    })
-    .prefault(() => ({ ...blankSave.runes })),
+  runeEXP: decimalArraySchema(() => blankSave.runeEXP),
+  runeLevels: z.number().array().default(() => [...blankSave.runeLevels]),
 
-  runeBlessings: z.record(z.string(), decimalSchema)
-    .transform((object) => {
-      return Object.fromEntries(
-        Object.keys(blankSave.runeBlessings).map((key) => {
-          const value = object[key] ?? blankSave.runeBlessings[key as keyof typeof blankSave['runeBlessings']]
-          return value === null ? [key, new Decimal()] : [key, new Decimal(value)]
-        })
-      )
-    })
-    .prefault(() => ({ ...blankSave.runeBlessings })),
+  blessingEXP: decimalArraySchema(() => blankSave.blessingEXP),
+  blessingLevels: z.number().array().default(() => [...blankSave.blessingLevels]),
 
-  runeSpirits: z.record(z.string(), decimalSchema)
-    .transform((object) => {
-      return Object.fromEntries(
-        Object.keys(blankSave.runeSpirits).map((key) => {
-          const value = object[key] ?? blankSave.runeSpirits[key as keyof typeof blankSave['runeSpirits']]
-          return value === null ? [key, new Decimal()] : [key, new Decimal(value)]
-        })
-      )
-    })
-    .prefault(() => ({ ...blankSave.runeSpirits })),
+  spiritEXP: decimalArraySchema(() => blankSave.spiritEXP),
+  spiritLevels: z.number().array().default(() => [...blankSave.spiritLevels]),
 
   offerings: decimalSchema.prefault(() => blankSave.offerings),
   maxOfferings: decimalSchema.prefault(() => blankSave.maxOfferings),
@@ -757,7 +747,9 @@ export const playerSchema = z.object({
   researchBuyMaxToggle: z.boolean().default(() => blankSave.researchBuyMaxToggle),
   autoResearchMode: z.string().default(() => blankSave.autoResearchMode),
   autoResearch: z.number().default(() => blankSave.autoResearch),
-  autoSacrifice: z.number().default(() => blankSave.autoSacrifice),
+  autoSacrificeRune: z.number().nullable()
+    .transform((rune) => rune !== null && rune in runes ? rune : null)
+    .default(() => blankSave.autoSacrificeRune),
   sacrificeTimer: z.number().default(() => blankSave.sacrificeTimer),
   quarkstimer: z.number().default(() => blankSave.quarkstimer),
   goldenQuarksTimer: z.number().default(() => blankSave.goldenQuarksTimer),

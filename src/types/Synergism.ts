@@ -16,9 +16,7 @@ import type { OcteractUpgrades } from '../Octeracts'
 import type { PurpleReactorNames } from '../Purple'
 import type { PurpleAmbrosiaNames } from '../PurpleAmbrosiaUpgrades'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
-import type { RuneBlessingKeys } from '../RuneBlessings'
-import type { RuneKeys } from '../Runes'
-import type { RuneSpiritKeys } from '../RuneSpirits'
+import type { RuneType } from '../Runes'
 import type { ShopUpgradeNames } from '../Shop'
 import type { SingularityDataKeys } from '../singularity'
 import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
@@ -57,93 +55,56 @@ export interface Player {
   coinsTotal: Decimal
 
   firstGeneratedCoin: Decimal
-  firstPaidCoin: Decimal
-
   secondGeneratedCoin: Decimal
-  secondPaidCoin: Decimal
-
   thirdGeneratedCoin: Decimal
-  thirdPaidCoin: Decimal
-
   fourthGeneratedCoin: Decimal
-  fourthPaidCoin: Decimal
-
   fifthGeneratedCoin: Decimal
-  fifthPaidCoin: Decimal
-
   firstGeneratedDiamonds: Decimal
-  firstPaidDiamonds: Decimal
-
   secondGeneratedDiamonds: Decimal
-  secondPaidDiamonds: Decimal
-
   thirdGeneratedDiamonds: Decimal
-  thirdPaidDiamonds: Decimal
-
   fourthGeneratedDiamonds: Decimal
-  fourthPaidDiamonds: Decimal
-
   fifthGeneratedDiamonds: Decimal
-  fifthPaidDiamonds: Decimal
-
   firstGeneratedMythos: Decimal
-  firstPaidMythos: Decimal
-
   secondGeneratedMythos: Decimal
-  secondPaidMythos: Decimal
-
   thirdGeneratedMythos: Decimal
-  thirdPaidMythos: Decimal
-
   fourthGeneratedMythos: Decimal
-  fourthPaidMythos: Decimal
-
   fifthGeneratedMythos: Decimal
-  fifthPaidMythos: Decimal
-
   firstGeneratedParticles: Decimal
-  firstPaidParticles: Decimal
-
   secondGeneratedParticles: Decimal
-  secondPaidParticles: Decimal
-
   thirdGeneratedParticles: Decimal
-  thirdPaidParticles: Decimal
-
   fourthGeneratedParticles: Decimal
-  fourthPaidParticles: Decimal
-
   fifthGeneratedParticles: Decimal
-  fifthPaidParticles: Decimal
 
   ants: PlayerAnts
 
   ascendBuilding1: {
-    paid: number
+    owned: number
     generated: Decimal
   }
   ascendBuilding2: {
-    paid: number
+    owned: number
     generated: Decimal
   }
   ascendBuilding3: {
-    paid: number
+    owned: number
     generated: Decimal
   }
   ascendBuilding4: {
-    paid: number
+    owned: number
     generated: Decimal
   }
   ascendBuilding5: {
-    paid: number
+    owned: number
     generated: Decimal
   }
 
-  multiplierPaid: Decimal
-
-  acceleratorPaid: Decimal
-
-  acceleratorBoostPaid: Decimal
+  coinBuildings: number[]
+  diamondBuildings: number[]
+  mythosBuildings: number[]
+  particleBuildings: number[]
+  accelerators: number
+  multipliers: number
+  acceleratorBoosts: number
 
   upgrades: number[]
 
@@ -221,9 +182,12 @@ export interface Player {
   crystalUpgrades: number[]
   crystalUpgradesCost: number[]
 
-  runes: Record<RuneKeys, Decimal>
-  runeBlessings: Record<RuneBlessingKeys, Decimal>
-  runeSpirits: Record<RuneSpiritKeys, Decimal>
+  runeEXP: Decimal[]
+  runeLevels: number[]
+  blessingEXP: Decimal[]
+  blessingLevels: number[]
+  spiritEXP: Decimal[]
+  spiritLevels: number[]
 
   offerings: Decimal
   maxOfferings: Decimal
@@ -289,7 +253,7 @@ export interface Player {
   researchBuyMaxToggle: boolean
   autoResearchMode: 'cheapest' | 'manual'
   autoResearch: number
-  autoSacrifice: number
+  autoSacrificeRune: RuneType | null
   sacrificeTimer: number
   quarkstimer: number
   goldenQuarksTimer: number
@@ -589,7 +553,6 @@ export interface GlobalVariables {
   buildingSubTab: BuildingSubtab
 
   autoOfferingCounter: number
-  MAX_AUTO_SACRIFICE_RUNE: number
 
   constUpgradeCosts: ArrayStartingWithNull<number>
 

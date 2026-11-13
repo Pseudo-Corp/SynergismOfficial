@@ -53,7 +53,7 @@ import {
 import { getLevelMilestone } from './Levels'
 import { hasUnreadMessages } from './Messages'
 import { isResearchUnlocked, roombaResearchEnabled } from './Research'
-import { getRuneEffects, runes, runesKeys } from './Runes'
+import { allRuneTypes, getRuneEffects, runes, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { format, formatTimeShort, /*formatTimeShort*/ parseFormattedNumber, player } from './Synergism'
@@ -372,13 +372,13 @@ export const revealStuff = () => {
     )
   }
 
-  for (const rune of runesKeys) {
+  for (const rune of allRuneTypes) {
     if (runes[rune].isUnlocked()) {
-      DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'flex'
-      DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'none'
+      DOMCacheGetOrSet(`${runes[rune].key}RuneContainer`).style.display = 'flex'
+      DOMCacheGetOrSet(`${runes[rune].key}RuneLockedContainer`).style.display = 'none'
     } else {
-      DOMCacheGetOrSet(`${rune}RuneContainer`).style.display = 'none'
-      DOMCacheGetOrSet(`${rune}RuneLockedContainer`).style.display = 'flex'
+      DOMCacheGetOrSet(`${runes[rune].key}RuneContainer`).style.display = 'none'
+      DOMCacheGetOrSet(`${runes[rune].key}RuneLockedContainer`).style.display = 'flex'
     }
   }
 
@@ -485,9 +485,10 @@ export const revealStuff = () => {
     }
   }
 
-  document.documentElement.dataset.singularityButton = runes.antiquities.level > 0 || player.highestSingularityCount > 0
-    ? 'true'
-    : 'false'
+  document.documentElement.dataset.singularityButton =
+    player.runeLevels[RuneType.Antiquities] > 0 || player.highestSingularityCount > 0
+      ? 'true'
+      : 'false'
 
   const exalt9x1Unlocks = document.getElementsByClassName('Exalt9x1') as HTMLCollectionOf<HTMLElement>
   DOMCacheGetOrSet('blueberryUpgradeContainer').dataset.ambrosiaLayout =
@@ -646,7 +647,7 @@ export const buttoncolorchange = () => {
 
   DOMCacheGetOrSet('ascendbtn').style.backgroundColor = isAutoAscendRunning() ? 'var(--green-background-color)' : ''
 
-  DOMCacheGetOrSet('singularitybtn').style.filter = runes.antiquities.level > 0
+  DOMCacheGetOrSet('singularitybtn').style.filter = player.runeLevels[RuneType.Antiquities] > 0
     ? ''
     : 'contrast(1.25) sepia(1) grayscale(0.25)'
 
@@ -768,7 +769,7 @@ export const buttoncolorchange = () => {
       f.style.backgroundColor = player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[0] - getRuneEffects('prism', 'costDivisorLog10')
+            G.crystalUpgradesCost[0] - getRuneEffects(RuneType.Prism, 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[0] * Math.floor(Math.pow(player.crystalUpgrades[0] + 0.5 - k, 2) / 2)
           )
         )
@@ -781,7 +782,7 @@ export const buttoncolorchange = () => {
       g.style.backgroundColor = player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[1] - getRuneEffects('prism', 'costDivisorLog10')
+            G.crystalUpgradesCost[1] - getRuneEffects(RuneType.Prism, 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[1] * Math.floor(Math.pow(player.crystalUpgrades[1] + 0.5 - k, 2) / 2)
           )
         )
@@ -794,7 +795,7 @@ export const buttoncolorchange = () => {
       h.style.backgroundColor = player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[2] - getRuneEffects('prism', 'costDivisorLog10')
+            G.crystalUpgradesCost[2] - getRuneEffects(RuneType.Prism, 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[2] * Math.floor(Math.pow(player.crystalUpgrades[2] + 0.5 - k, 2) / 2)
           )
         )
@@ -808,7 +809,7 @@ export const buttoncolorchange = () => {
         player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[3] - getRuneEffects('prism', 'costDivisorLog10')
+            G.crystalUpgradesCost[3] - getRuneEffects(RuneType.Prism, 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[3] * Math.floor(Math.pow(player.crystalUpgrades[3] + 0.5 - k, 2) / 2)
           )
         )
@@ -825,7 +826,7 @@ export const buttoncolorchange = () => {
         player.prestigeShards.gte(
           Decimal.pow(
             10,
-            G.crystalUpgradesCost[4] - getRuneEffects('prism', 'costDivisorLog10')
+            G.crystalUpgradesCost[4] - getRuneEffects(RuneType.Prism, 'costDivisorLog10')
               + G.crystalUpgradeCostIncrement[4] * Math.floor(Math.pow(player.crystalUpgrades[4] + 0.5 - k, 2) / 2)
           )
         )
@@ -842,11 +843,11 @@ export const buttoncolorchange = () => {
   if (G.currentTab === Tabs.Runes) {
     if (getActiveSubTab() === 0) {
       const zero = new Decimal()
-      for (const rune of Object.keys(player.runes)) {
+      for (const rune of allRuneTypes) {
         if (player.offerings.gt(zero)) {
-          DOMCacheGetOrSet(`${rune}RuneSacrifice`).classList.add('runeButtonAvailable')
+          DOMCacheGetOrSet(`${runes[rune].key}RuneSacrifice`).classList.add('runeButtonAvailable')
         } else {
-          DOMCacheGetOrSet(`${rune}RuneSacrifice`).classList.remove('runeButtonAvailable')
+          DOMCacheGetOrSet(`${runes[rune].key}RuneSacrifice`).classList.remove('runeButtonAvailable')
         }
       }
     }

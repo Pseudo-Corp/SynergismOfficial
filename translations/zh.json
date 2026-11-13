@@ -6498,8 +6498,6 @@
     "TNL": "<<orange|{{offerings}}祭品>>升{{levelAmount}}级",
     "salvageModal": {
       "global": "全局回收：<<lightgreen|{{amount}}>>",
-      "badOfferings": "<<crimson|腐化 - 劣质祭品：{{amount}}>>",
-      "challenge15": "<<crimson|挑战15惩罚：{{amount}}>>",
       "total": "该符文的回收：<<gold|{{amount}}>> (使需要的祭品数量除以{{mult}})",
       "totalNegative": "该符文的回收：<<gold|{{amount}}>> (使需要的祭品数量乘以{{div}})"
     }

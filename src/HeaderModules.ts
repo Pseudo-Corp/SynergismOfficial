@@ -39,7 +39,7 @@ import {
 } from './ImportExport'
 import { allDurableConsumables, getLotusTimeExpiresAt, getOwnedBells, getOwnedLotus } from './Login'
 import { getGlobalBonus } from './Quark'
-import { runes } from './Runes'
+import { RuneType } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { blankSave, deepClone, format, player } from './Synergism'
 import type { HeaderLayout } from './types/Synergism'
@@ -97,7 +97,7 @@ const headerModuleUnlocks: Record<HeaderModuleId, () => boolean> = {
   reincarnatechallengebtn: () => player.unlocks.reincarnate,
   ascendChallengeBtn: () => player.ascensionCount > 0,
   ascendbtn: () => player.unlocks.ascensions,
-  singularitybtn: () => runes.antiquities.level > 0 || player.highestSingularityCount > 0,
+  singularitybtn: () => player.runeLevels[RuneType.Antiquities] > 0 || player.highestSingularityCount > 0,
   transcensionChallengeProgress: () =>
     !isMobile && (player.unlocks.transcend || player.currentChallenge.transcension !== 0),
   reincarnationChallengeProgress: () =>

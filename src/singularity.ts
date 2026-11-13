@@ -20,7 +20,7 @@ import { getGlobalBonus, getPersonalBonus, getQuarkBonus, worlds } from './Quark
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { singularity } from './Reset'
 import { Seed, seededRandom } from './RNG'
-import { runes } from './Runes'
+import { getRuneTotalLevel, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player } from './Synergism'
@@ -291,7 +291,7 @@ export const updateSingularityPenalties = (): void => {
       })
   }
         ${
-    runes.antiquities.level > 0
+    player.runeLevels[RuneType.Antiquities] > 0
       ? i18next.t('singularity.penalties.antiquitiesBought')
       : i18next.t('singularity.penalties.antiquitiesNotBought')
   }`
@@ -2959,8 +2959,11 @@ function computeFreeLevelMultiplier (upgradeKey: SingularityDataKeys): number {
 }
 
 export function computeGQUpgradeFreeLevelSoftcap (upgradeKey: SingularityDataKeys): number {
-  const freeLevelMult = computeFreeLevelMultiplier(upgradeKey)
-  const baseRealFreeLevels = freeLevelMult * player.goldenQuarkUpgrades[upgradeKey].freeLevel
+  const freeLevel = player.goldenQuarkUpgrades[upgradeKey].freeLevel
+  if (freeLevel === 0) {
+    return 0
+  }
+  const baseRealFreeLevels = computeFreeLevelMultiplier(upgradeKey) * freeLevel
   return (
     Math.min(goldenQuarkUpgrades[upgradeKey].level, baseRealFreeLevels)
     + Math.sqrt(Math.max(0, baseRealFreeLevels - goldenQuarkUpgrades[upgradeKey].level))
@@ -3459,7 +3462,7 @@ export const singularityPerks: SingularityPerk[] = [
     description: (n: number, levels: number[]) => {
       for (let i = levels.length - 1; i >= 0; i--) {
         if (n >= levels[i]) {
-          const salvage = 0.025 * (i + 1) * (runes.infiniteAscent.level + runes.infiniteAscent.freeLevels())
+          const salvage = 0.025 * (i + 1) * getRuneTotalLevel(RuneType.InfiniteAscent)
           return i18next.t('singularity.perks.infiniteRecycling.default', {
             salvage: format(salvage, 3, true)
           })
@@ -4420,8 +4423,11 @@ export const calculateSingularityDebuff = (
   debuff: SingularityDebuffs,
   singularityCount: number = player.singularityCount
 ) => {
+  if (player.runeLevels[RuneType.Antiquities] > 0) {
+    return (debuff === 'Salvage' || debuff === 'Ant ELO') ? 0 : 1
+  }
   const constitutiveSingularityCount = singularityCount - calculateSingularityReductions()
-  if (constitutiveSingularityCount < 1 || runes.antiquities.level > 0) {
+  if (constitutiveSingularityCount < 1) {
     return (debuff === 'Salvage' || debuff === 'Ant ELO') ? 0 : 1
   }
 
@@ -4506,7 +4512,7 @@ export const updateSingularityElevator = (): void => {
     num: player.highestSingularityCount
   })
 
-  const canLookahead = runes.antiquities.level > 0
+  const canLookahead = player.runeLevels[RuneType.Antiquities] > 0
   let singLook = 0
   if (canLookahead) {
     const lookahead = calculateMaxSingularityLookahead(true)
@@ -4519,10 +4525,8 @@ export const updateSingularityElevator = (): void => {
 
   maxLookahead.innerHTML = i18next.t('singularity.elevator.maxLookahead', { num: theoreticalLookahead })
 
-  if (input) {
-    input.max = maxTarget.toString()
-    input.value = player.singularityElevatorTarget.toString()
-  }
+  input.max = maxTarget.toString()
+  input.value = player.singularityElevatorTarget.toString()
 
   description.innerHTML = i18next.t('singularity.elevator.description', { limit: maxTarget })
 
@@ -4559,7 +4563,7 @@ export const updateSingularityElevator = (): void => {
 export const teleportToSingularity = async (): Promise<void> => {
   const target = player.singularityElevatorTarget
 
-  const canLookahead = runes.antiquities.level > 0
+  const canLookahead = player.runeLevels[RuneType.Antiquities] > 0
   let singLook = 0
   if (canLookahead) {
     const lookahead = calculateMaxSingularityLookahead(true)
@@ -4589,7 +4593,7 @@ export const teleportToSingularity = async (): Promise<void> => {
       const extraConfirm = await Confirm(i18next.t('singularity.elevator.confirmTeleportHigher'))
       if (extraConfirm) {
         const heldSingTime = player.singularityCounter
-        const antiquitiesLevel = runes.antiquities.level
+        const antiquitiesLevel = player.runeLevels[RuneType.Antiquities]
         // Reset
         singularity(target)
         if (antiquitiesLevel === 0) {

@@ -92,6 +92,11 @@ const defaultFreeLevels = (level: number) => level // identity, essentially used
 
 type PurpleAmbrosiaEnchantment = PurpleAmbrosiaFreeLevelEnchantment | BlueberryCostReductionEnchantment
 
+interface AmbrosiaPrerequisite {
+  upgrade: AmbrosiaUpgradeNames
+  level: number
+}
+
 interface AmbrosiaUpgrade<
   T extends AmbrosiaUpgradeNames,
   K extends keyof AmbrosiaUpgradeRewards[T]
@@ -106,7 +111,7 @@ interface AmbrosiaUpgrade<
   effectsDescription: () => string
   redAmbrosiaUpgrade?: 'freeTutorialLevels' | 'freeLevelsRow2' | 'freeLevelsRow3' | 'freeLevelsRow4' | 'freeLevelsRow5'
   blueberryCost: number
-  prerequisites: BlueberryOpt
+  prerequisites: AmbrosiaPrerequisite[]
   ignoreEXALT: boolean
   unlockCriterion: AmbrosiaUpgradeUnlockCriterion
   purpleAmbrosiaEnchantment: PurpleAmbrosiaEnchantment
@@ -121,7 +126,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 1,
     blueberryCost: 0,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -157,9 +162,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 1,
     blueberryCost: 0,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaTutorial: 10
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaTutorial', level: 10 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -189,9 +194,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 1,
     blueberryCost: 0,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaTutorial: 10
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaTutorial', level: 10 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -221,9 +226,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 1,
     blueberryCost: 0,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaTutorial: 10
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaTutorial', level: 10 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -253,10 +258,10 @@ export const ambrosiaUpgrades: {
     costPerLevel: 250,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaCubes1: 30,
-      ambrosiaQuarks1: 20
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaCubes1', level: 30 },
+      { upgrade: 'ambrosiaQuarks1', level: 20 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -288,14 +293,17 @@ export const ambrosiaUpgrades: {
     costPerLevel: 250,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaCubes1: 30,
-      ambrosiaLuck1: 20
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaCubes1', level: 30 },
+      { upgrade: 'ambrosiaLuck1', level: 20 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     effects: (n: number) => {
+      if (n === 0) {
+        return 1
+      }
       const baseVal = 0.0005 * n
       return 1 + baseVal * calculateAmbrosiaLuck() // cubes
     },
@@ -321,10 +329,10 @@ export const ambrosiaUpgrades: {
     costPerLevel: 500,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaQuarks1: 30,
-      ambrosiaCubes1: 20
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaQuarks1', level: 30 },
+      { upgrade: 'ambrosiaCubes1', level: 20 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -366,14 +374,17 @@ export const ambrosiaUpgrades: {
     costPerLevel: 500,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaQuarks1: 30,
-      ambrosiaLuck1: 20
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaQuarks1', level: 30 },
+      { upgrade: 'ambrosiaLuck1', level: 20 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
     effects: (n: number) => {
+      if (n === 0) {
+        return 1
+      }
       const baseVal = 0.0001 * n
       const luck = calculateAmbrosiaLuck()
       const effectiveLuck = Math.min(
@@ -404,10 +415,10 @@ export const ambrosiaUpgrades: {
     costPerLevel: 100,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaLuck1: 30,
-      ambrosiaCubes1: 20
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaLuck1', level: 30 },
+      { upgrade: 'ambrosiaCubes1', level: 20 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -447,10 +458,10 @@ export const ambrosiaUpgrades: {
     costPerLevel: 100,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaLuck1: 30,
-      ambrosiaQuarks1: 20
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaLuck1', level: 30 },
+      { upgrade: 'ambrosiaQuarks1', level: 20 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -480,9 +491,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 500,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaQuarks1: 40
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaQuarks1', level: 40 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -515,9 +526,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 500,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaCubes1: 40
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaCubes1', level: 40 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -552,9 +563,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 250,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaLuck1: 40
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaLuck1', level: 40 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -586,10 +597,10 @@ export const ambrosiaUpgrades: {
     costPerLevel: 750000,
     blueberryCost: 3,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaQuarks1: 100,
-      ambrosiaQuarks2: 50
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaQuarks1', level: 100 },
+      { upgrade: 'ambrosiaQuarks2', level: 50 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost + 50000 * level
     },
@@ -620,9 +631,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 300_000,
     blueberryCost: 5,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaQuarks3: 10
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaQuarks3', level: 10 }
+    ],
     costFormula: (_level: number, baseCost: number): number => {
       return baseCost
     },
@@ -651,10 +662,10 @@ export const ambrosiaUpgrades: {
     costPerLevel: 75000,
     blueberryCost: 3,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaCubes1: 100,
-      ambrosiaCubes2: 50
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaCubes1', level: 100 },
+      { upgrade: 'ambrosiaCubes2', level: 50 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost + 5000 * level
     },
@@ -686,9 +697,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 300_000,
     blueberryCost: 5,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaCubes3: 100
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaCubes3', level: 100 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost + 20000 * level
     },
@@ -717,9 +728,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 10000,
     blueberryCost: 2,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaCubes2: 100
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaCubes2', level: 100 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -749,14 +760,17 @@ export const ambrosiaUpgrades: {
     costPerLevel: 50000,
     blueberryCost: 3,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaLuck1: 90,
-      ambrosiaLuck2: 50
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaLuck1', level: 90 },
+      { upgrade: 'ambrosiaLuck2', level: 50 }
+    ],
     costFormula: (_level: number, baseCost: number): number => {
       return baseCost // Level has no effect
     },
     effects: (n: number) => {
+      if (n === 0) {
+        return 0
+      }
       return calculateBlueberryInventory() * n // ambrosiaLuck
     },
     effectsDescription: function() {
@@ -781,9 +795,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 250000,
     blueberryCost: 5,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaLuck3: 100
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaLuck3', level: 100 }
+    ],
     costFormula: (level, baseCost): number => {
       return baseCost + 20000 * level
     },
@@ -814,7 +828,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 1,
     blueberryCost: 0,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -843,11 +857,14 @@ export const ambrosiaUpgrades: {
     costPerLevel: 50000,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * Math.pow(25, level)
     },
     effects: (n) => {
+      if (n === 0) {
+        return 1
+      }
       const luck = calculateAmbrosiaLuck()
       return 1 + n * luck / 1000 // obtainiumMult
     },
@@ -873,11 +890,14 @@ export const ambrosiaUpgrades: {
     costPerLevel: 50000,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * Math.pow(25, level)
     },
     effects: (n: number) => {
+      if (n === 0) {
+        return 1
+      }
       const luck = calculateAmbrosiaLuck()
       return 1 + n * luck / 1000 // offeringMult
     },
@@ -903,7 +923,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 33333,
     blueberryCost: 3,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return (baseCost + 33333 * Math.min(4, level)) * Math.max(1, Math.pow(3, level - 4))
     },
@@ -934,7 +954,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 5,
     blueberryCost: 0,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -964,7 +984,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 40,
     blueberryCost: 0,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -994,9 +1014,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 20,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaBaseOffering1: 30
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaBaseOffering1', level: 30 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -1025,9 +1045,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 160,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaBaseObtainium1: 15
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaBaseObtainium1', level: 15 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -1056,10 +1076,10 @@ export const ambrosiaUpgrades: {
     costPerLevel: 4000,
     blueberryCost: 2,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaBaseObtainium1: 20,
-      ambrosiaBaseObtainium2: 30
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaBaseObtainium1', level: 20 },
+      { upgrade: 'ambrosiaBaseObtainium2', level: 30 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -1089,10 +1109,10 @@ export const ambrosiaUpgrades: {
     costPerLevel: 4000,
     blueberryCost: 2,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaBaseOffering1: 30,
-      ambrosiaBaseOffering2: 60
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaBaseOffering1', level: 30 },
+      { upgrade: 'ambrosiaBaseOffering2', level: 60 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -1122,9 +1142,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 100000,
     blueberryCost: 2,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaHyperflux: 4
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaHyperflux', level: 4 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * Math.pow(99, level)
     },
@@ -1156,11 +1176,11 @@ export const ambrosiaUpgrades: {
     costPerLevel: 25000,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaCubes1: 70,
-      ambrosiaBaseOffering1: 20,
-      ambrosiaBaseObtainium1: 10
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaCubes1', level: 70 },
+      { upgrade: 'ambrosiaBaseOffering1', level: 20 },
+      { upgrade: 'ambrosiaBaseObtainium1', level: 10 }
+    ],
     costFormula: (_level: number, baseCost: number): number => {
       return baseCost
     },
@@ -1189,9 +1209,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 75000,
     blueberryCost: 2,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaInfiniteShopUpgrades1: 20
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaInfiniteShopUpgrades1', level: 20 }
+    ],
     costFormula: (_level: number, baseCost: number): number => {
       return baseCost
     },
@@ -1221,9 +1241,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 500_000,
     blueberryCost: 3,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaInfiniteShopUpgrades2: 20
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaInfiniteShopUpgrades2', level: 20 }
+    ],
     costFormula: (_level: number, baseCost: number): number => {
       return baseCost
     },
@@ -1253,7 +1273,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 1.25e7,
     blueberryCost: 4,
     ignoreEXALT: true,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * Math.pow(3, level)
     },
@@ -1285,7 +1305,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 100,
     blueberryCost: 0,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -1318,7 +1338,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 2500,
     blueberryCost: 0,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return Math.ceil(baseCost * (Math.pow(level + 1, 1.5) - Math.pow(level, 1.5)))
     },
@@ -1354,7 +1374,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 10,
     blueberryCost: 4,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -1392,7 +1412,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 5000,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -1422,7 +1442,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 5000,
     blueberryCost: 1,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(4, level + 1) - Math.pow(4, level))
     },
@@ -1452,9 +1472,9 @@ export const ambrosiaUpgrades: {
     costPerLevel: 10000,
     blueberryCost: 2,
     ignoreEXALT: false,
-    prerequisites: {
-      ambrosiaFreeLuckUpgrades: 10
-    },
+    prerequisites: [
+      { upgrade: 'ambrosiaFreeLuckUpgrades', level: 10 }
+    ],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 2) - Math.pow(level, 2))
     },
@@ -1484,7 +1504,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 25000,
     blueberryCost: 2,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (level: number, baseCost: number): number => {
       return baseCost * (Math.pow(level + 1, 3) - Math.pow(level, 3))
     },
@@ -1513,7 +1533,7 @@ export const ambrosiaUpgrades: {
     costPerLevel: 0,
     blueberryCost: 8,
     ignoreEXALT: false,
-    prerequisites: {},
+    prerequisites: [],
     costFormula: (_level: number, _baseCost: number): number => {
       return 0
     },
@@ -1740,11 +1760,8 @@ const checkAmbrosiaUpgradePrerequisites = (upgradeKey: AmbrosiaUpgradeNames): bo
     return false
   }
 
-  const prerequisites = upgrade.prerequisites
-
-  for (const [prereq, val] of Object.entries(prerequisites)) {
-    const k = prereq as AmbrosiaUpgradeNames
-    if (ambrosiaUpgrades[k].level < val) {
+  for (const prerequisite of upgrade.prerequisites) {
+    if (ambrosiaUpgrades[prerequisite.upgrade].level < prerequisite.level) {
       return false
     }
   }
@@ -1846,12 +1863,11 @@ const getAmbrosiaUpgradeNameHTML = (upgradeKey: AmbrosiaUpgradeNames): string =>
 }
 
 const ambrosiaUpgradePrerequisitesHTML = (upgradeKey: AmbrosiaUpgradeNames): string => {
-  const prerequisites = Object.entries(ambrosiaUpgrades[upgradeKey].prerequisites)
+  const prerequisites = ambrosiaUpgrades[upgradeKey].prerequisites
   if (prerequisites.length === 0) return ''
 
   const connectorColors: string[] = []
-  const entries = prerequisites.map(([prerequisite, required]) => {
-    const key = prerequisite as AmbrosiaUpgradeNames
+  const entries = prerequisites.map(({ upgrade: key, level: required }) => {
     // Use the purchased level checked when buying; bonus levels do not count.
     const current = ambrosiaUpgrades[key].level
     const met = current >= required
@@ -2104,7 +2120,7 @@ const getAmbrosiaEditFloor = (upgradeKey: AmbrosiaUpgradeNames) => {
   for (const key of ambrosiaUpgradeNames) {
     if (ambrosiaUpgrades[key].level === 0) continue
 
-    const required = ambrosiaUpgrades[key].prerequisites[upgradeKey]
+    const required = ambrosiaUpgrades[key].prerequisites.find((p) => p.upgrade === upgradeKey)?.level
     if (required !== undefined && required > level) {
       level = required
       blocker = key
@@ -2346,11 +2362,6 @@ const validateBlueberryTree = (modules: BlueberryOpt) => {
   let spentAmbrosia = 0
   let spentBlueberries = 0
 
-  let meetsPrerequisites = true
-  let meetsAmbrosia = true
-  let meetsBlueberries = true
-  let meetsUnlockConditions = true
-
   for (const [key, val] of Object.entries(modules)) {
     const k = key as AmbrosiaUpgradeNames
 
@@ -2373,27 +2384,21 @@ const validateBlueberryTree = (modules: BlueberryOpt) => {
     if (effectiveVal > 0) {
       const unlockCriterion = ambrosiaUpgrades[k].unlockCriterion
       if (unlockCriterion === 'Exalt1x1' && !(player.singularityChallenges.noSingularityUpgrades.completions > 0)) {
-        meetsUnlockConditions = false
+        return false
       }
       if (unlockCriterion === 'Exalt5x1' && !(player.singularityChallenges.noAmbrosiaUpgrades.completions > 0)) {
-        meetsUnlockConditions = false
+        return false
       }
       if (unlockCriterion === 'Exalt9x1' && !(player.singularityChallenges.taxmanLastStand.completions > 0)) {
-        meetsUnlockConditions = false
+        return false
       }
     }
 
     // Check prereq for this specific module
-    const prereqs = ambrosiaUpgrades[k].prerequisites
-    if (prereqs !== undefined && val > 0) {
-      for (const [key2, val2] of Object.entries(prereqs)) {
-        const k2 = key2 as keyof BlueberryOpt
-        const level = modules[k2]
-          ?? -1 /* If undefined, this is saying 'We need to have module
-        set to level val2 but it isn't even in our module loadout, so it cannot possibly satisfy prereqs'*/
-
-        if (level < val2) {
-          meetsPrerequisites = false
+    if (val > 0) {
+      for (const prerequisite of ambrosiaUpgrades[k].prerequisites) {
+        if ((modules[prerequisite.upgrade] ?? -1) < prerequisite.level) {
+          return false
         }
       }
     }
@@ -2415,10 +2420,7 @@ const validateBlueberryTree = (modules: BlueberryOpt) => {
     }
   }
 
-  meetsAmbrosia = ambrosiaBudget >= spentAmbrosia
-  meetsBlueberries = blueberryBudget >= spentBlueberries
-
-  return meetsPrerequisites && meetsAmbrosia && meetsBlueberries && meetsUnlockConditions
+  return ambrosiaBudget >= spentAmbrosia && blueberryBudget >= spentBlueberries
 }
 
 const getBlueberryTree = () => {
@@ -2583,12 +2585,11 @@ export const updateBlueberryLoadoutCount = () => {
 
 export const highlightPrerequisites = (k: AmbrosiaUpgradeNames) => {
   const preReq = ambrosiaUpgrades[k].prerequisites
-  if (preReq === undefined) return
 
   for (const key of ambrosiaUpgradeNames) {
     const elm = DOMCacheGetOrSet(key)
     const img = elm.querySelector('img') as HTMLImageElement
-    const requiredLevel = preReq[key]
+    const requiredLevel = preReq.find((p) => p.upgrade === key)?.level
     img.classList.toggle('blueberryPrereq', requiredLevel !== undefined)
     img.classList.toggle(
       'blueberryPrereqMet',

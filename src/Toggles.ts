@@ -18,7 +18,7 @@ import { initializeMessages } from './Messages'
 import { initializeOcteractUpgradeMap } from './Octeracts'
 import { researchOrderByCost, roombaResearchEnabled, setResearchRoombaHighlight } from './Research'
 import { applyChallengeInitialModifiers, reset } from './Reset'
-import { indexToRune } from './Runes'
+import { allRuneTypes, runes, type RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import {
   updateSingularityElevator,
@@ -395,38 +395,37 @@ export const toggleAutoResearchMode = () => {
   }
 }
 
-export const toggleAutoSacrifice = (index: number) => {
-  const el = DOMCacheGetOrSet('toggleautosacrifice')
-  const label = DOMCacheGetOrSet('toggleAutoSacrificeText')
-  if (index === 0) {
-    if (player.autoSacrificeToggle) {
-      player.autoSacrificeToggle = false
-      label.setAttribute('i18n', 'runes.blessings.autoRuneOff')
-      label.textContent = i18next.t('runes.blessings.autoRuneOff')
-      el.style.border = '2px solid var(--red-color)'
-      player.autoSacrifice = 0
-    } else {
-      player.autoSacrificeToggle = true
-      label.setAttribute('i18n', 'runes.blessings.autoRuneOn')
-      label.textContent = i18next.t('runes.blessings.autoRuneOn')
-      el.style.border = '2px solid var(--green-color)'
-    }
-  } else if (
-    index <= G.MAX_AUTO_SACRIFICE_RUNE
-    && player.autoSacrificeToggle
-    && getShopUpgradeEffects('offeringAuto', 'autoRune')
-  ) {
-    if (player.autoSacrifice === index) {
-      player.autoSacrifice = 0
-    } else {
-      player.autoSacrifice = index
-    }
-  }
-  for (let i = 1; i <= G.MAX_AUTO_SACRIFICE_RUNE; i++) {
-    DOMCacheGetOrSet(`${indexToRune[i]}Rune`).style.backgroundColor = player.autoSacrifice === i
+const updateAutoSacrificeRuneHighlight = () => {
+  for (const rune of allRuneTypes) {
+    DOMCacheGetOrSet(`${runes[rune].key}Rune`).style.backgroundColor = player.autoSacrificeRune === rune
       ? 'var(--orange-background-color)'
       : ''
   }
+}
+
+export const toggleAutoSacrifice = () => {
+  const el = DOMCacheGetOrSet('toggleautosacrifice')
+  const label = DOMCacheGetOrSet('toggleAutoSacrificeText')
+  if (player.autoSacrificeToggle) {
+    player.autoSacrificeToggle = false
+    label.setAttribute('i18n', 'runes.blessings.autoRuneOff')
+    label.textContent = i18next.t('runes.blessings.autoRuneOff')
+    el.style.border = '2px solid var(--red-color)'
+    player.autoSacrificeRune = null
+  } else {
+    player.autoSacrificeToggle = true
+    label.setAttribute('i18n', 'runes.blessings.autoRuneOn')
+    label.textContent = i18next.t('runes.blessings.autoRuneOn')
+    el.style.border = '2px solid var(--green-color)'
+  }
+  updateAutoSacrificeRuneHighlight()
+}
+
+export const toggleAutoSacrificeRune = (rune: RuneType) => {
+  if (player.autoSacrificeToggle && getShopUpgradeEffects('offeringAuto', 'autoRune')) {
+    player.autoSacrificeRune = player.autoSacrificeRune === rune ? null : rune
+  }
+  updateAutoSacrificeRuneHighlight()
 }
 
 export const toggleAutoBuyFragment = () => {

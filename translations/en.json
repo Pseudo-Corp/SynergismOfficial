@@ -6498,8 +6498,7 @@
     "TNL": "+{{levelAmount}} in <<orange | {{offerings}} Offerings>>",
     "salvageModal": {
       "global": "Global Salvage: <<lightgreen|{{amount}}>>",
-      "badOfferings": "<<crimson|Corruptions - Bad Offerings: {{amount}}>>",
-      "challenge15": "<<crimson|Challenge 15 Penalty: {{amount}}>>",
+      "modifiers": "Salvage Modifiers ({{name}}): {{amount}}",
       "total": "Salvage for this Rune: <<gold|{{amount}}>> (Offerings needed divided by {{mult}})",
       "totalNegative": "Salvage for this Rune: <<gold|{{amount}}>> (Offerings needed multiplied by {{div}})"
     }

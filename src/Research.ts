@@ -4,7 +4,7 @@ import { getAchievementReward } from './Achievements'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { activeCorruptionLevel, corruptionEffect } from './Corruptions'
 import type { resetTiers } from './Reset'
-import { runes } from './Runes'
+import { runes, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
@@ -161,10 +161,10 @@ type RangeCondition = {
 const researchUnlockRanges: RangeCondition[] = [
   { range: [0, 0], condition: () => true }, // Not sure if needed!
   { range: [1, 76], condition: () => player.unlocks.reincarnate },
-  { range: [77, 77], condition: () => runes.thrift.isUnlocked() },
+  { range: [77, 77], condition: () => runes[RuneType.Thrift].isUnlocked() },
   { range: [78, 78], condition: () => player.unlocks.reincarnate },
-  { range: [79, 79], condition: () => runes.prism.isUnlocked() },
-  { range: [80, 80], condition: () => runes.duplication.isUnlocked() },
+  { range: [79, 79], condition: () => runes[RuneType.Prism].isUnlocked() },
+  { range: [80, 80], condition: () => runes[RuneType.Duplication].isUnlocked() },
   { range: [81, 100], condition: () => player.unlocks.anthill },
   { range: [101, 118], condition: () => player.unlocks.talismans },
   { range: [119, 123], condition: () => player.unlocks.ascensions },
@@ -268,11 +268,7 @@ export const researchData = createResearchDataMap(
 
 export const isResearchUnlocked = (index: number): boolean => {
   // Every research is unlocked once the player has done a Singularity
-  if (player.highestSingularityCount > 0) {
-    return true
-  }
-  const unlockFunction = researchData[index].unlocked
-  return unlockFunction ? unlockFunction() : false
+  return player.highestSingularityCount > 0 || researchData[index].unlocked()
 }
 
 const researchCostMultiplier = (index: number) => {
@@ -320,16 +316,6 @@ export const setResearchRoombaHighlight = (index: number) => {
   }
 
   roombaHighlightIndex = index
-}
-
-export const syncResearchRoombaHighlight = (previous: number) => {
-  const current = player.autoResearch || 1
-
-  if (previous !== current) {
-    DOMCacheGetOrSet(`res${previous}`).classList.remove('researchRoomba')
-  }
-
-  DOMCacheGetOrSet(`res${current}`).classList.add('researchRoomba')
 }
 
 // For mode 'manual'
@@ -439,7 +425,7 @@ const getResetText = (tier: keyof typeof resetTiers) => {
         ? i18next.t('researches.resetsOnAscension')
         : i18next.t('researches.resets')
     case 'singularity':
-      return runes.antiquities.level > 0 || player.highestSingularityCount > 0
+      return player.runeLevels[RuneType.Antiquities] > 0 || player.highestSingularityCount > 0
         ? i18next.t('researches.resetsOnSingularity')
         : i18next.t('researches.resets')
     default:

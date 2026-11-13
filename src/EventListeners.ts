@@ -128,6 +128,7 @@ import { getPurpleReactorPopupMode, setPurpleReactorPopupMode } from './PurpleUp
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
+  redAmbrosiaUpgradeNames,
   redAmbrosiaUpgradeToString,
   resetRedAmbrosiaDisplay
 } from './RedAmbrosiaUpgrades'
@@ -140,7 +141,7 @@ import {
 } from './Research'
 import { getResetDetails, updateAutoCubesOpens, updateAutoReset, updateTesseractAutoBuyAmount } from './Reset'
 import { buyAllBlessingLevels } from './RuneBlessings'
-import { runes } from './Runes'
+import { RuneType } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { buyShopUpgrades, shopUpgrades, useConsumablePrompt } from './Shop'
 import {
@@ -211,7 +212,7 @@ import {
   updateAutoChallenge,
   updateRuneBlessingBuyAmount
 } from './Toggles'
-import type { OneToFive, Player, resetNames, ZeroToFour } from './types/Synergism'
+import type { OneToFive, resetNames, ZeroToFour } from './types/Synergism'
 import {
   Alert,
   CloseModal,
@@ -1198,7 +1199,7 @@ export const generateEventHandlers = () => {
   // RUNES TAB [And all corresponding subtabs]
   // Part 0: Upper UI portion
   // Auto sacrifice toggle button
-  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice(0))
+  DOMCacheGetOrSet('toggleautosacrifice').addEventListener('click', () => toggleAutoSacrifice())
 
   // RUNES TAB
 
@@ -1800,7 +1801,7 @@ TODO: Fix this entire tab it's utter shit
   elevatorInput.addEventListener('change', () => {
     const value = Number.parseInt((elevatorInput as HTMLInputElement).value) || 1
 
-    const canLookahead = runes.antiquities.level > 0
+    const canLookahead = player.runeLevels[RuneType.Antiquities] > 0
     let singLook = 0
     if (canLookahead) {
       const lookahead = calculateMaxSingularityLookahead(true)
@@ -2116,10 +2117,7 @@ TODO: Fix this entire tab it's utter shit
   }
 
   // RED AMBROSIA
-  const redAmbrosiaUpgrades = Object.keys(
-    player.redAmbrosiaUpgrades
-  ) as (keyof Player['redAmbrosiaUpgrades'])[]
-  for (const key of redAmbrosiaUpgrades) {
+  for (const key of redAmbrosiaUpgradeNames) {
     const capitalizedName = key.charAt(0).toUpperCase() + key.slice(1)
     registerPurchasableModal({
       element: DOMCacheGetOrSet(`redAmbrosia${capitalizedName}`),
