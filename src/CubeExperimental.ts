@@ -1,7 +1,6 @@
 import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
-import { quarkHandler, worlds } from './Quark'
-import { getShopUpgradeEffects } from './Shop'
+import { addBaseQuarks } from './Quark'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
@@ -59,6 +58,15 @@ const platonicCommonDrops = ['cubes', 'tesseracts', 'hypercubes', 'platonics'] a
  *
  * new PlatCubes().openCustom();
  */
+export const cubeQuarkSources = {
+  wowCubes: { source: 'cubes', coefficient: 5, opened: 'cubeOpenedDaily' },
+  wowTesseracts: { source: 'tesseracts', coefficient: 7, opened: 'tesseractOpenedDaily' },
+  wowHypercubes: { source: 'hypercubes', coefficient: 10, opened: 'hypercubeOpenedDaily' },
+  wowPlatonicCubes: { source: 'platonics', coefficient: 15, opened: 'platonicCubeOpenedDaily' }
+} as const
+
+export const openedDigits = (opened: number) => opened < 1 ? 0 : Math.floor(Math.log10(opened)) + 1
+
 abstract class Cube {
   /** key on the player object */
   private key: 'wowCubes' | 'wowTesseracts' | 'wowHypercubes' | 'wowPlatonicCubes'
@@ -109,25 +117,11 @@ abstract class Cube {
     return this.open(cubesToOpen, cubesToOpen === player[this.key], false)
   }
 
-  /** @description Check how many quarks you should have gained through opening cubes today */
-  checkQuarkGain (base: number, mult: number, cubes: number): number {
-    if (cubes < 1) {
-      return 0
-    }
-    // General quark multiplier from other in-game features
-    // Multiplier from passed parameter
-    const multiplier = mult * quarkHandler().cubeMult
-
-    return Math.floor(worlds.applyBonus(Math.log10(cubes) * base * multiplier))
-  }
-
-  /** @description Check how many cubes you need to gain an additional quark from opening */
-  checkCubesToNextQuark (base: number, mult: number, quarks: number, cubes: number): number {
-    // General quark multiplier from other in-game features
-    // Multiplier from passed parameter
-    const multiplier = mult * quarkHandler().cubeMult
-
-    return Math.ceil(Math.pow(10, (quarks + 1) / worlds.applyBonus(multiplier * base)) - cubes)
+  protected recordOpened (amount: number) {
+    const { source, coefficient, opened } = cubeQuarkSources[this.key]
+    const openedBefore = player[opened]
+    player[opened] += amount
+    addBaseQuarks(source, coefficient * (openedDigits(player[opened]) - openedDigits(openedBefore)))
   }
 
   add (amount: number): this {
@@ -160,13 +154,7 @@ class WowCubes extends Cube {
     if (!free) {
       this.sub(toSpend)
     }
-    player.cubeOpenedDaily += toSpend
-
-    const quarkMult = getShopUpgradeEffects('cubeToQuark', 'cubeQuarkMult')
-    const gainQuarks = this.checkQuarkGain(5, quarkMult, player.cubeOpenedDaily)
-    const actualQuarksGain = Math.max(0, gainQuarks - player.cubeQuarkDaily)
-    player.cubeQuarkDaily += actualQuarksGain
-    worlds.add(actualQuarksGain, false, true)
+    this.recordOpened(toSpend)
 
     const sumOfTributes = sumContents(Object.values(player.cubeBlessings))
     // if >= 1e300 totalTribute, do not award tributes
@@ -233,13 +221,7 @@ class WowTesseracts extends Cube {
     if (!free) {
       this.sub(toSpend)
     }
-    player.tesseractOpenedDaily += toSpend
-
-    const quarkMult = getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult')
-    const gainQuarks = this.checkQuarkGain(7, quarkMult, player.tesseractOpenedDaily)
-    const actualQuarksGain = Math.max(0, gainQuarks - player.tesseractQuarkDaily)
-    player.tesseractQuarkDaily += actualQuarksGain
-    worlds.add(actualQuarksGain, false, true)
+    this.recordOpened(toSpend)
 
     const toSpendModulo = toSpend % 20
     const toSpendDiv20 = Math.floor(toSpend / 20)
@@ -273,13 +255,7 @@ class WowHypercubes extends Cube {
     if (!free) {
       this.sub(toSpend)
     }
-    player.hypercubeOpenedDaily += toSpend
-
-    const quarkMult = getShopUpgradeEffects('hypercubeToQuark', 'hypercubeQuarkMult')
-    const gainQuarks = this.checkQuarkGain(10, quarkMult, player.hypercubeOpenedDaily)
-    const actualQuarksGain = Math.max(0, gainQuarks - player.hypercubeQuarkDaily)
-    player.hypercubeQuarkDaily += actualQuarksGain
-    worlds.add(actualQuarksGain, false, true)
+    this.recordOpened(toSpend)
 
     const toSpendModulo = toSpend % 20
     const toSpendDiv20 = Math.floor(toSpend / 20)
@@ -321,13 +297,7 @@ export class WowPlatonicCubes extends Cube {
     if (!free) {
       this.sub(toSpend)
     }
-    player.platonicCubeOpenedDaily += toSpend
-
-    const quarkMult = 1.5 // There's no platonic to quark upgrade, default as 1.5
-    const gainQuarks = this.checkQuarkGain(15, quarkMult, player.platonicCubeOpenedDaily)
-    const actualQuarksGain = Math.max(0, gainQuarks - player.platonicCubeQuarkDaily)
-    player.platonicCubeQuarkDaily += actualQuarksGain
-    worlds.add(actualQuarksGain, false, true)
+    this.recordOpened(toSpend)
 
     let toSpendModulo = toSpend % 40000
     const toSpendDiv40000 = Math.floor(toSpend / 40000)

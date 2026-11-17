@@ -38,6 +38,7 @@ import {
   calculatePurpleReactantConversion,
   calculatePurpleReactantRecipe,
   calculatePurpleReactantRouting,
+  calculateQuarkMultiplier,
   calculateRedAmbrosiaCubes,
   calculateRedAmbrosiaGenerationSpeed,
   calculateRedAmbrosiaLuck,
@@ -66,7 +67,7 @@ import {
   corruptionLevelScoreUpdate,
   corruptionTokenUpdate
 } from './Corruptions'
-import { cubes } from './CubeExperimental'
+import { cubeQuarkSources, openedDigits } from './CubeExperimental'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -135,13 +136,13 @@ import {
 } from './PurpleAmbrosiaUpgrades'
 import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
-import { getQuarkBonus, quarkHandler, worlds } from './Quark'
+import { getQuarkBonus, getQuarkSourceMultiplier, getQuarkSourceQuarks, quarkHandler, worlds } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { blessingRuneTypes, updateRuneBlessingHTML } from './RuneBlessings'
 import { allRuneTypes, updateRuneHTML } from './Runes'
 import { updateRuneSpiritHTML } from './RuneSpirits'
 import { getShopCosts, getShopUpgradeEffects, shopUpgradeNames, shopUpgrades, shopUpgradeTypes } from './Shop'
-import { updateShopTab } from './ShopTab'
+import { updateQuarkLedgerTab, updateShopTab } from './ShopTab'
 import {
   calculateGQUpgradeAP,
   computeGQUpgradeFreeLevelSoftcap,
@@ -1178,71 +1179,35 @@ export const visualUpdateAnts = () => {
   }
 }
 
-interface cubeNames {
-  cube: number
-  tesseract: number
-  hypercube: number
-  platonicCube: number
-}
+const cubeQuarkSidebarEntries = [
+  { name: 'cube', cube: 'wowCubes' },
+  { name: 'tesseract', cube: 'wowTesseracts' },
+  { name: 'hypercube', cube: 'wowHypercubes' },
+  { name: 'platonicCube', cube: 'wowPlatonicCubes' }
+] as const
 
 export const visualUpdateCubes = () => {
   if (G.currentTab !== Tabs.WowCubes) {
     return
   }
 
-  const cubeMult = getShopUpgradeEffects('cubeToQuark', 'cubeQuarkMult')
-  const tesseractMult = getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult')
-  const hypercubeMult = getShopUpgradeEffects('hypercubeToQuark', 'hypercubeQuarkMult')
-  const platonicMult = 1.5
-
-  const toNextQuark: cubeNames = {
-    cube: cubes.wowCubes.checkCubesToNextQuark(
-      5,
-      cubeMult,
-      player.cubeQuarkDaily,
-      player.cubeOpenedDaily
-    ),
-    tesseract: cubes.wowTesseracts.checkCubesToNextQuark(
-      7,
-      tesseractMult,
-      player.tesseractQuarkDaily,
-      player.tesseractOpenedDaily
-    ),
-    hypercube: cubes.wowHypercubes.checkCubesToNextQuark(
-      10,
-      hypercubeMult,
-      player.hypercubeQuarkDaily,
-      player.hypercubeOpenedDaily
-    ),
-    platonicCube: cubes.wowPlatonicCubes.checkCubesToNextQuark(
-      15,
-      platonicMult,
-      player.platonicCubeQuarkDaily,
-      player.platonicCubeOpenedDaily
+  const globalMultiplier = calculateQuarkMultiplier()
+  for (const { name, cube } of cubeQuarkSidebarEntries) {
+    const { source, coefficient, opened: openedKey } = cubeQuarkSources[cube]
+    const opened = player[openedKey]
+    const nextDigit = Math.pow(10, openedDigits(opened))
+    updateTextContentIfChanged(
+      `${name}QuarksOpenRequirement`,
+      i18next.t('wowCubes.quarks.nextRewardValue', { opened: format(opened), target: format(nextDigit) })
     )
-  }
-
-  const names = Object.keys(toNextQuark) as (keyof cubeNames)[]
-  for (const name of names) {
-    DOMCacheGetOrSet(`${name}QuarksToday`).innerHTML = i18next.t(
-      `wowCubes.quarks.${name}QuarksToday`,
-      {
-        amount: format(player[`${name}QuarkDaily` as const])
-      }
+    updateTextContentIfChanged(
+      `${name}QuarksPerReward`,
+      format(Math.floor(coefficient * getQuarkSourceMultiplier(source) * globalMultiplier))
     )
-    DOMCacheGetOrSet(`${name}QuarksOpenToday`).innerHTML = i18next.t(
-      `wowCubes.quarks.${name}QuarksOpenToday`,
-      {
-        amount: format(player[`${name}OpenedDaily` as const])
-      }
-    )
-    DOMCacheGetOrSet(`${name}QuarksOpenRequirement`).innerHTML = i18next.t(
-      `wowCubes.quarks.${name}QuarksOpenRequirement`,
-      { amount: format(Math.max(1, toNextQuark[name])) }
-    )
+    updateTextContentIfChanged(`${name}QuarksToday`, format(Math.floor(getQuarkSourceQuarks(source))))
 
     // Change color of requirement text if 1 or less required :D
-    DOMCacheGetOrSet(`${name}QuarksOpenRequirement`).style.color = Math.max(1, toNextQuark[name]) === 1
+    DOMCacheGetOrSet(`${name}QuarksOpenRequirement`).style.color = nextDigit - opened === 1
       ? 'var(--gold-color)'
       : 'var(--white-color)'
   }
@@ -2683,6 +2648,11 @@ export const visualUpdatePurple = () => {
 
 export const visualUpdateShop = () => {
   if (G.currentTab !== Tabs.Shop) {
+    return
+  }
+
+  if (getActiveSubTab() === 1) {
+    updateQuarkLedgerTab()
     return
   }
 

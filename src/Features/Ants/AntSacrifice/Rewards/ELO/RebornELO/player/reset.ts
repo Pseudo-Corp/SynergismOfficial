@@ -1,11 +1,6 @@
 import { AntSacrificeTiers } from '../../../../../../../Reset'
 import { player } from '../../../../../../../Synergism'
-import {
-  defaultAntRebornELO,
-  defaultHighestRebornELODaily,
-  defaultHighestRebornELOEver,
-  defaultQuarksGainedFromAnts
-} from './default'
+import { defaultAntRebornELO, defaultHighestRebornELODaily, defaultHighestRebornELOEver } from './default'
 
 export const resetPlayerRebornELO = (resetTier: AntSacrificeTiers) => {
   if (resetTier >= AntSacrificeTiers.sacrifice) {
@@ -13,7 +8,6 @@ export const resetPlayerRebornELO = (resetTier: AntSacrificeTiers) => {
   }
   if (resetTier >= AntSacrificeTiers.singularity) {
     player.ants.highestRebornELODaily = [...defaultHighestRebornELODaily]
-    player.ants.quarksGainedFromAnts = defaultQuarksGainedFromAnts
   }
   // In the event of a player resetting their save!
   if (resetTier >= AntSacrificeTiers.never) {
@@ -26,5 +20,4 @@ export const resetPlayerRebornELO = (resetTier: AntSacrificeTiers) => {
  */
 export const resetPlayerRebornELODaily = () => {
   player.ants.highestRebornELODaily = [...defaultHighestRebornELODaily]
-  player.ants.quarksGainedFromAnts = defaultQuarksGainedFromAnts
 }

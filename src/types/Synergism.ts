@@ -15,6 +15,7 @@ import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrades } from '../Octeracts'
 import type { PurpleReactorNames } from '../Purple'
 import type { PurpleAmbrosiaNames } from '../PurpleAmbrosiaUpgrades'
+import type { QuarkLedger } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneType } from '../Runes'
 import type { ShopUpgradeNames } from '../Shop'
@@ -387,13 +388,10 @@ export interface Player {
   dayCheck: string | null
   dayTimer: number
   cubeOpenedDaily: number
-  cubeQuarkDaily: number
   tesseractOpenedDaily: number
-  tesseractQuarkDaily: number
   hypercubeOpenedDaily: number
-  hypercubeQuarkDaily: number
   platonicCubeOpenedDaily: number
-  platonicCubeQuarkDaily: number
+  quarkLedger: QuarkLedger
 
   version: string
 

@@ -18,7 +18,7 @@ import {
 } from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
 import { maxedPlatonicUpgradeConstruction } from './Platonic'
-import { worlds } from './Quark'
+import { addBaseQuarks } from './Quark'
 import { runes, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -84,6 +84,8 @@ export type Challenge15RewardsInformation = {
 export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15RewardsInformation>
 
 export const transcensionChallengeCap = 400
+
+const challengeQuarksPerCompletion = [0, 1, 1, 1, 1, 1, 10, 10, 10, 10, 10, 100, 100, 100, 100]
 
 export const transcensionCubeBankTiers = [
   { from: 1, to: 100, weight: 2 },
@@ -252,7 +254,6 @@ const challenge15RestrictionsHTML = () => {
 }
 
 export const challengeDisplay = (i: number) => {
-  let quarksMultiplier = 1
   const isFocused = i === G.challengefocus
 
   if (isFocused) {
@@ -262,10 +263,6 @@ export const challengeDisplay = (i: number) => {
   }
 
   const maxChallenges = getMaxChallenges(i)
-  if (i > 5 && i <= 10) {
-    quarksMultiplier = 10
-  }
-  let descriptor = ''
   const a = DOMCacheGetOrSet('challengeName')
   const b = DOMCacheGetOrSet('challengeFlavor')
   const c = DOMCacheGetOrSet('challengeRestrictions')
@@ -406,21 +403,9 @@ export const challengeDisplay = (i: number) => {
 
   if (isFocused) {
     j.textContent = ''
-  }
-  if (player.ascensionCount === 0) {
-    descriptor = 'Quarks'
-    j.style.color = 'var(--cyan-color)'
-  }
-  if (
-    player.challengecompletions[i] >= player.highestchallengecompletions[i]
-    && player.highestchallengecompletions[i] < maxChallenges && isFocused && player.ascensionCount < 1
-  ) {
-    j.textContent = i18next.t(descriptor ? 'challenges.firstTimeBonusQuarks' : 'challenges.firstTimeBonus', {
-      x: Math.floor(
-        quarksMultiplier * player.highestchallengecompletions[i] / 10 + 1 + player.cubeUpgrades[1]
-          + player.cubeUpgrades[11] + player.cubeUpgrades[21] + player.cubeUpgrades[31] + player.cubeUpgrades[41]
-      )
-    })
+    DOMCacheGetOrSet('challengeDailyQuarks').textContent = i < challengeQuarksPerCompletion.length
+      ? i18next.t('challenges.dailyQuarks', { x: format(challengeQuarksPerCompletion[i]) })
+      : ''
   }
   if (
     player.challengecompletions[i] >= player.highestchallengecompletions[i]
@@ -491,14 +476,16 @@ export const toggleRetryChallenges = () => {
   player.retrychallenges = !player.retrychallenges
 }
 
-export const highestChallengeRewards = (chalNum: number, highestValue: number) => {
-  let multiplier = 1 / 10
-  if (chalNum >= 6) {
-    multiplier = 1
+export const awardChallengeQuarks = () => {
+  let quarks = 0
+  for (let i = 1; i < challengeQuarksPerCompletion.length; i++) {
+    const completions = player.highestchallengecompletions[i]
+    if (completions > player.quarkLedger.challengeCompletions[i]) {
+      quarks += (completions - player.quarkLedger.challengeCompletions[i]) * challengeQuarksPerCompletion[i]
+      player.quarkLedger.challengeCompletions[i] = completions
+    }
   }
-  if (player.ascensionCount === 0) {
-    worlds.add(1 + Math.floor(highestValue * multiplier) * 100 / 100, true, true)
-  }
+  addBaseQuarks('challenges', quarks)
 }
 
 const reincarnationScalingRate = (challenge: number) => {
@@ -845,6 +832,7 @@ export const applyStartingChallengeCompletions = () => {
       player.highestchallengecompletions[challenge] = amount
     }
   }
+  awardChallengeQuarks()
 }
 
 export const totalStartingChallengeCompletions = () => {

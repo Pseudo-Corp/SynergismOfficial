@@ -125,6 +125,7 @@ import {
   resetPurpleAmbrosiaDisplay
 } from './PurpleAmbrosiaUpgrades'
 import { getPurpleReactorPopupMode, setPurpleReactorPopupMode } from './PurpleUpgradeTab'
+import { quarkCategories, quarkSourceKeys, quarkSources } from './Quark'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -144,6 +145,7 @@ import { buyAllBlessingLevels } from './RuneBlessings'
 import { RuneType } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { buyShopUpgrades, shopUpgrades, useConsumablePrompt } from './Shop'
+import { quarkSourceMultiplierHTML } from './ShopTab'
 import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
@@ -1774,6 +1776,29 @@ TODO: Fix this entire tab it's utter shit
       })
       container.addEventListener('mouseleave', CloseModal)
       container.addEventListener('focusout', CloseModal)
+    }
+  }
+
+  for (const key of quarkSourceKeys) {
+    if (quarkSources[key].lines.length === 0 && quarkCategories[quarkSources[key].category].lines.length === 0) {
+      continue
+    }
+    const cell = DOMCacheGetOrSet(`quarkLedger-${key}-multiplier`)
+    const showQuarkSourceModal = (x: number, y: number) => {
+      Modal(
+        () => quarkSourceMultiplierHTML(key),
+        x,
+        y,
+        { borderColor: 'var(--cyan-color)' },
+        MEDIUM_MODAL_UPDATE_TICK,
+        cell
+      )
+    }
+
+    cell.addEventListener('click', (event) => showQuarkSourceModal(event.clientX, event.clientY))
+    if (!isMobile) {
+      cell.addEventListener('mousemove', (event) => showQuarkSourceModal(event.clientX, event.clientY))
+      cell.addEventListener('mouseleave', CloseModal)
     }
   }
 

@@ -28,6 +28,7 @@ import {
   splitHeaderSlot
 } from '../HeaderLayoutDefaults'
 import { type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
+import { type QuarkLedgerBase, quarkSourceKeys } from '../Quark'
 import { runes } from '../Runes'
 import { getGQUpgradeCumulativeCost, type SingularityDataKeys } from '../singularity'
 import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
@@ -163,7 +164,6 @@ const antsSchema = z.object({
   highestRebornELOEver: leaderboardEntrySchema.array().transform((array) =>
     arrayExtendGeneral(array, blankSave.ants.highestRebornELOEver)
   ),
-  quarksGainedFromAnts: z.number().default(() => blankSave.ants.quarksGainedFromAnts),
   antSacrificeCount: z.number().default(() => blankSave.ants.antSacrificeCount),
   currentSacrificeId: z.number().default(() => blankSave.ants.currentSacrificeId),
   toggles: z.object({
@@ -892,13 +892,16 @@ export const playerSchema = z.object({
   dayCheck: z.iso.datetime().nullable().default(() => blankSave.dayCheck),
   dayTimer: z.number().default(() => blankSave.dayTimer),
   cubeOpenedDaily: z.number().default(() => blankSave.cubeOpenedDaily),
-  cubeQuarkDaily: z.number().default(() => blankSave.cubeQuarkDaily),
   tesseractOpenedDaily: z.number().default(() => blankSave.tesseractOpenedDaily),
-  tesseractQuarkDaily: z.number().default(() => blankSave.tesseractQuarkDaily),
   hypercubeOpenedDaily: z.number().default(() => blankSave.hypercubeOpenedDaily),
-  hypercubeQuarkDaily: z.number().default(() => blankSave.hypercubeQuarkDaily),
   platonicCubeOpenedDaily: z.number().default(() => blankSave.platonicCubeOpenedDaily),
-  platonicCubeQuarkDaily: z.number().default(() => blankSave.platonicCubeQuarkDaily),
+  quarkLedger: z.object({
+    base: z.record(z.string(), z.number()).transform((base) =>
+      Object.fromEntries(quarkSourceKeys.map((key) => [key, base[key] ?? 0])) as QuarkLedgerBase
+    ).prefault(() => ({})),
+    awarded: z.number().default(0),
+    challengeCompletions: z.array(z.number()).default(() => [...blankSave.quarkLedger.challengeCompletions])
+  }).prefault(() => deepClone(blankSave.quarkLedger)),
   overfluxOrbs: z.number().default(() => blankSave.overfluxOrbs),
   overfluxOrbsAutoBuy: z.boolean().default(() => blankSave.overfluxOrbsAutoBuy),
   overfluxPowder: z.number().default(() => blankSave.overfluxPowder),

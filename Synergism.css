@@ -3461,6 +3461,7 @@ p#transcendhotkeys {
 *[id^="challengePer"] { color: var(--pink-color); }
 #challengeFirst1 { color: var(--orange-color); }
 #challengeQuarkBonus { color: var(--cyan-color); }
+#challengeDailyQuarks { color: var(--cyan-color); }
 
 #challengeTimersText {
     display: flex;
@@ -3678,6 +3679,78 @@ p#reincarnatehotkeys {
 #shopWrapper {
     display: flex;
     justify-content: center;
+}
+
+#quarkLedgerWrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px;
+    overflow-x: auto;
+}
+
+.quarkLedgerSource {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quarkLedgerSource img {
+    width: 24px;
+    height: 24px;
+}
+
+#quarkLedgerWrapper .quarkLedgerTable {
+    width: 100%;
+    margin-top: 10px;
+    border: 2px solid var(--cyan-color);
+    border-radius: 2px;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    color: var(--white-color);
+}
+
+.quarkLedgerTable th,
+.quarkLedgerTable td {
+    padding: 6px;
+    text-align: center;
+}
+
+.quarkLedgerTable thead th {
+    border-bottom: 2px solid var(--cyan-color);
+}
+
+.quarkLedgerTable thead th:first-child {
+    width: 46%;
+    text-align: left;
+}
+
+.quarkLedgerSourceRow:nth-child(odd of .quarkLedgerSourceRow:not([hidden])) {
+    background-color: var(--hex-1f1f1f-background-color);
+}
+
+.quarkLedgerTable tfoot tr,
+#quarkLedgerSummary tr {
+    background-color: var(--hex-2f2f2f-background-color);
+}
+
+.quarkLedgerTable tfoot th,
+#quarkLedgerSummary th {
+    color: var(--gold-color);
+}
+
+.quarkLedgerTable tfoot th:first-child,
+#quarkLedgerSummary th:first-child {
+    color: var(--orange-color);
+    text-align: left;
+}
+
+.quarkLedgerTable tfoot tr:first-child th {
+    border-top: 2px solid var(--cyan-color);
+}
+
+#quarkLedgerSummary th:first-child {
+    width: 82%;
 }
 
 #actualWrapper {
@@ -5255,6 +5328,40 @@ p#reincarnatehotkeys {
 
 #wowCubeSidebar p {
     margin: 0;
+}
+
+.cubeQuarkBlock {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.cubeQuarkHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: bold;
+}
+
+.cubeQuarkHeader img {
+    width: 24px;
+    height: 24px;
+}
+
+.cubeQuarkRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 2px 4px;
+    color: var(--white-color);
+}
+
+.cubeQuarkRow:nth-child(even) {
+    background-color: var(--hex-1f1f1f-background-color);
+}
+
+#cubeQuarkRewardInfo {
+    color: var(--white-color);
 }
 
 #cubeToQuarkTimer,

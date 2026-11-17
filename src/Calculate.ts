@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
+import { awardChallengeQuarks, transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import {
   activeCorruptionLevel,
   ascensionCorruptionLevel,
@@ -31,7 +31,7 @@ import {
   PURPLE_REACTOR_OVERFLOW_EFFICIENCY,
   purpleReactantConversion
 } from './PurpleReactor'
-import { quarkHandler } from './Quark'
+import { quarkHandler, resetQuarkLedger } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { getRuneEffects, RuneType } from './Runes'
@@ -1451,6 +1451,15 @@ export const calculateBaseCubeQuarkMultiplier = () => {
   return Math.min(1 + effect, calculateMaxBaseCubeQuarkMultiplier(player.highestSingularityCount))
 }
 
+export const calculateFullSingularityTimeQuarkMultiplier = () => player.singularityCount === 0 ? 1 : 24
+
+export const calculateSingularityTimeQuarkMultiplier = () => {
+  if (player.singularityCount === 0) {
+    return 1
+  }
+  return calculateFullSingularityTimeQuarkMultiplier() * Math.min(1, player.singularityCounter / 86400)
+}
+
 export const calculateAutoWarpQuarkMultiplier = () => {
   return player.autoWarpCheck ? 1 + player.dailyPowderResetUses : 1
 }
@@ -1887,20 +1896,11 @@ export const dailyResetCheck = () => {
   if (day.getTime() - 3600000 > Date.parse(player.dayCheck)) {
     player.dayCheck = day.toISOString()
 
+    resetQuarkLedger()
+    awardChallengeQuarks()
     forcedDailyReset(true)
     player.dailyPowderResetUses = 1 + getShopUpgradeEffects('extraWarp', 'additionalWarps')
     player.dailyCodeUsed = false
-
-    DOMCacheGetOrSet('cubeQuarksOpenRequirement').style.display = 'block'
-    if (player.challengecompletions[11] > 0) {
-      DOMCacheGetOrSet('tesseractQuarksOpenRequirement').style.display = 'block'
-    }
-    if (player.challengecompletions[13] > 0) {
-      DOMCacheGetOrSet('hypercubeQuarksOpenRequirement').style.display = 'block'
-    }
-    if (player.challengecompletions[14] > 0) {
-      DOMCacheGetOrSet('platonicCubeQuarksOpenRequirement').style.display = 'block'
-    }
   }
 }
 
@@ -1908,10 +1908,6 @@ export const dailyResetCheck = () => {
  * Resets Cube Counts and stuff. NOTE: It is intentional it does not award powder or expire orbs.
  */
 export const forcedDailyReset = (rewards = false) => {
-  player.cubeQuarkDaily = 0
-  player.tesseractQuarkDaily = 0
-  player.hypercubeQuarkDaily = 0
-  player.platonicCubeQuarkDaily = 0
   player.cubeOpenedDaily = 0
   player.tesseractOpenedDaily = 0
   player.hypercubeOpenedDaily = 0

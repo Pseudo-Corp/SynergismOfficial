@@ -64,7 +64,7 @@ import { codes, importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
-import { worlds } from './Quark'
+import { settleQuarks, worlds } from './Quark'
 import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, RuneType } from './Runes'
@@ -111,6 +111,8 @@ type ResetDetailsView = {
 }
 
 type AscensionRewardAmounts = ReturnType<typeof CalcCorruptionStuff>
+
+const singularityPersistentPromoCodes = new Set([1, 26])
 
 const ascensionRewardDisplays: Array<{
   icon: string
@@ -1014,6 +1016,7 @@ export const singularity = (setSingNumber = -1) => {
   }
 
   const antiquitiesPurchased = player.runeLevels[RuneType.Antiquities] > 0
+  settleQuarks()
 
   // setSingNumber is only not -1 when we are entering and exiting a challenge.
   if (setSingNumber === -1) {
@@ -1237,7 +1240,9 @@ export const singularity = (setSingNumber = -1) => {
 
   hold.stats = player.stats
 
-  const saveCodes = player.codes.filter((code) => code >= 42 && code <= 49)
+  const saveCodes = player.codes.filter((code) =>
+    singularityPersistentPromoCodes.has(code) || (code >= 42 && code <= 49)
+  )
   const saveRngCode = player.rngCode
   const savePromoCodeTime = player.promoCodeTiming.time
   const saveBlueberryLoadout = lastBlueberryLoadout
