@@ -1004,6 +1004,7 @@
                         <span id="challengeFirst1">+1 Free Multiplier!</span>
                         <br>
                         <span id="challengeQuarkBonus">+1 Quarks</span>
+                        <span id="challengeDailyQuarks"></span>
                     </div>
                 </div>
 
@@ -1652,26 +1653,31 @@
                             <p id="cubeToQuarkTimer" i18n="wowCubes.quarks.quarkTitle"></p>
                             <p id="cubeToQuarkTimerValue" style="color: var(--cyan-color)" i18n="wowCubes.quarks.resetInfo"></p>
                         </div>
-                        <div class="cubeToQuark">
-                            <p id="cubeQuarksToday" style="color: var(--white-color)"></p>
-                            <p id="cubeQuarksOpenRequirement"></p>
-                            <p id="cubeQuarksOpenToday"></p>
+                        <div class="cubeQuarkBlock">
+                            <p class="cubeQuarkHeader wowcubeText"><img src="Pictures/Default/WowCube.png" alt="" loading="lazy"><span i18n="wowCubes.quarks.cubes"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.nextReward"></span><span id="cubeQuarksOpenRequirement"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksPerReward"></span><span id="cubeQuarksPerReward" style="color: var(--cyan-color)"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksEarnedToday"></span><span id="cubeQuarksToday" style="color: var(--cyan-color)"></span></p>
                         </div>
-                        <div class="cubeToQuark">
-                            <p id="tesseractQuarksToday" class="chal11" style="color: var(--white-color)"></p>
-                            <p id="tesseractQuarksOpenRequirement" class="chal11"></p>
-                            <p id="tesseractQuarksOpenToday" class="chal11"></p>
+                        <div class="cubeQuarkBlock chal11">
+                            <p class="cubeQuarkHeader wowtesseractText"><img src="Pictures/Default/WowTessaract.png" alt="" loading="lazy"><span i18n="wowCubes.quarks.tesseracts"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.nextReward"></span><span id="tesseractQuarksOpenRequirement"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksPerReward"></span><span id="tesseractQuarksPerReward" style="color: var(--cyan-color)"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksEarnedToday"></span><span id="tesseractQuarksToday" style="color: var(--cyan-color)"></span></p>
                         </div>
-                        <div class="cubeToQuark">
-                            <p id="hypercubeQuarksToday" class="chal13" style="color: var(--white-color)"></p>
-                            <p id="hypercubeQuarksOpenRequirement" class="chal13"></p>
-                            <p id="hypercubeQuarksOpenToday" class="chal13"></p>
+                        <div class="cubeQuarkBlock chal13">
+                            <p class="cubeQuarkHeader wowhypercubeText"><img src="Pictures/Default/WowHypercube.png" alt="" loading="lazy"><span i18n="wowCubes.quarks.hypercubes"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.nextReward"></span><span id="hypercubeQuarksOpenRequirement"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksPerReward"></span><span id="hypercubeQuarksPerReward" style="color: var(--cyan-color)"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksEarnedToday"></span><span id="hypercubeQuarksToday" style="color: var(--cyan-color)"></span></p>
                         </div>
-                        <div class="cubeToQuark">
-                            <p id="platonicCubeQuarksToday" class="chal14" style="color: var(--white-color)"></p>
-                            <p id="platonicCubeQuarksOpenRequirement" class="chal14"></p>
-                            <p id="platonicCubeQuarksOpenToday" class="chal14"></p>
+                        <div class="cubeQuarkBlock chal14">
+                            <p class="cubeQuarkHeader wowplatonicText"><img src="Pictures/Default/PlatonicCube.png" alt="" loading="lazy"><span i18n="wowCubes.quarks.platonicCubes"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.nextReward"></span><span id="platonicCubeQuarksOpenRequirement"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksPerReward"></span><span id="platonicCubeQuarksPerReward" style="color: var(--cyan-color)"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksEarnedToday"></span><span id="platonicCubeQuarksToday" style="color: var(--cyan-color)"></span></p>
                         </div>
+                        <p id="cubeQuarkRewardInfo" i18n="wowCubes.quarks.rewardInfo"></p>
                     </div>
                 </div>
                 <div id="cubeTab1" class="cubeTab" style="display: flex">
@@ -3073,6 +3079,10 @@
         </div>
 
         <div id="shop" class="tab">
+            <div id="shopSubTabs" class="subTabWrapper">
+                <button id="switchShopSubTab1" class="active-subtab" style="border: 2px solid var(--white-color);"><span class="subTabButtonText fitText" i18n="tabs.shop.shop"></span></button>
+                <button id="switchShopSubTab2" style="border: 2px solid var(--cyan-color);"><span class="subTabButtonText fitText" i18n="tabs.shop.quarkLedger"></span></button>
+            </div>
             <div id="shopWrapper">
                 <div id="actualWrapper" class="scrollbarX">
                     <div id="actualConsumables">
@@ -3125,6 +3135,67 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div id="quarkLedgerWrapper" style="display: none">
+                <p id="quarkLedgerGlobalMultiplier"></p>
+                <table id="quarkLedgerTable-primary" class="quarkLedgerTable">
+                    <thead>
+                        <tr>
+                            <th i18n="shop.quarkLedger.categories.primary"></th>
+                            <th i18n="shop.quarkLedger.base"></th>
+                            <th i18n="shop.quarkLedger.multiplier"></th>
+                            <th i18n="shop.quarkLedger.value"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="quarkLedgerBody-primary"></tbody>
+                    <tfoot>
+                        <tr>
+                            <th i18n="shop.quarkLedger.total"></th>
+                            <th id="quarkLedgerBase-primary"></th>
+                            <th></th>
+                            <th id="quarkLedgerValue-primary"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="3" i18n="shop.quarkLedger.totalWithMultiplier"></th>
+                            <th id="quarkLedgerQuarks-primary"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <table id="quarkLedgerTable-miscellaneous" class="quarkLedgerTable">
+                    <thead>
+                        <tr>
+                            <th i18n="shop.quarkLedger.categories.miscellaneous"></th>
+                            <th i18n="shop.quarkLedger.base"></th>
+                            <th i18n="shop.quarkLedger.multiplier"></th>
+                            <th i18n="shop.quarkLedger.value"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="quarkLedgerBody-miscellaneous"></tbody>
+                    <tfoot>
+                        <tr>
+                            <th i18n="shop.quarkLedger.total"></th>
+                            <th id="quarkLedgerBase-miscellaneous"></th>
+                            <th></th>
+                            <th id="quarkLedgerValue-miscellaneous"></th>
+                        </tr>
+                        <tr>
+                            <th colspan="3" i18n="shop.quarkLedger.totalWithMultiplier"></th>
+                            <th id="quarkLedgerQuarks-miscellaneous"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <table id="quarkLedgerSummary" class="quarkLedgerTable">
+                    <tbody>
+                        <tr>
+                            <th i18n="shop.quarkLedger.totalQuarkValue"></th>
+                            <th id="quarkLedgerTotalQuarkValue"></th>
+                        </tr>
+                        <tr>
+                            <th i18n="shop.quarkLedger.quarksRewarded"></th>
+                            <th id="quarkLedgerQuarksRewarded"></th>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 

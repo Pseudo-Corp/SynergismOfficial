@@ -2,7 +2,7 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { addTimers } from './Helper'
 import { getPurpleReactorPopupMode } from './PurpleUpgradeTab'
-import { worlds } from './Quark'
+import { addBaseQuarks, worlds } from './Quark'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, player } from './Synergism'
 import { getTalismanEffects } from './Talismans'
@@ -437,7 +437,7 @@ export const craftPurpleAmbrosia = (requestedAmount: number | 'max'): number => 
 
   const quarks = amount * getSynthesisUpgradeEffect('subatomicShavings')
   if (quarks > 0) {
-    worlds.add(quarks, true, true)
+    addBaseQuarks('synthesis', quarks)
   }
 
   const octeractSeconds = amount * getSynthesisUpgradeEffect('exceptionalLieGroup')

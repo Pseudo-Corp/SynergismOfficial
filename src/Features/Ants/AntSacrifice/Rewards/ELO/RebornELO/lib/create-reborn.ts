@@ -1,7 +1,7 @@
 import { getLotusTimeExpiresAt } from '../../../../../../../Login'
-import { worlds } from '../../../../../../../Quark'
+import { addBaseQuarks } from '../../../../../../../Quark'
 import { player } from '../../../../../../../Synergism'
-import { availableQuarksFromELO } from '../QuarkCorner/lib/calculate-quarks'
+import { antCycleBaseQuarks } from '../QuarkCorner/lib/calculate-quarks'
 import { updateAntLeaderboards } from '../QuarkCorner/lib/leaderboard-update'
 import { calculateRebornELOThresholds, calculateToNextELOThreshold } from '../Stages/lib/threshold'
 import { calculateAvailableRebornELO, rebornELOCreationSpeedMult } from './calculate'
@@ -33,10 +33,7 @@ export const activateELO = (dt: number) => {
       player.ants.rebornELO = Math.min(player.ants.rebornELO, player.ants.immortalELO)
     }
   }
+  const baseQuarksBefore = antCycleBaseQuarks()
   updateAntLeaderboards()
-  const quarksToBeGained = availableQuarksFromELO()
-  if (quarksToBeGained > 0) {
-    worlds.add(quarksToBeGained, false, true)
-    player.ants.quarksGainedFromAnts += quarksToBeGained
-  }
+  addBaseQuarks('ants', antCycleBaseQuarks() - baseQuarksBefore)
 }

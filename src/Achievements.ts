@@ -11,7 +11,6 @@ import { displayLevelStuff } from './Levels'
 import { calculateOcteractUpgradeAP, maxOcteractUpgradeAP } from './Octeracts'
 import { calculatePurpleReactorAP, maxPurpleReactorAP } from './Purple'
 import { calculatePurpleAmbrosiaUpgradeAP, maxPurpleAmbrosiaUpgradeAP } from './PurpleAmbrosiaUpgrades'
-import { worlds } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { runes, RuneType, sumOfFreeRuneLevels } from './Runes'
@@ -168,16 +167,6 @@ export const buildingAchievementCheck = () => {
   awardAchievementGroup(AchievementGroup.ThirdOwnedCoin)
   awardAchievementGroup(AchievementGroup.FourthOwnedCoin)
   awardAchievementGroup(AchievementGroup.FifthOwnedCoin)
-}
-
-const getAchievementQuarks = () => {
-  const globalQuarkMultiplier = worlds.applyBonus(1)
-  let actualMultiplier = globalQuarkMultiplier
-  if (actualMultiplier > 100) {
-    actualMultiplier = Math.pow(100, 0.6) * Math.pow(actualMultiplier, 0.4)
-  }
-
-  return Math.floor(5 * actualMultiplier)
 }
 
 /* June 9, 2025 Achievements System Rewrite */
@@ -3350,7 +3339,6 @@ const grantAchievement = (ach: AchievementBase) => {
       isMobile ? 5000 : undefined
     )
   }
-  worlds.add(getAchievementQuarks(), false, true)
   revealStuff()
 
   if (ach.steamAchievementId) {

@@ -2248,7 +2248,6 @@
     "totalPoints": "Achievement Points: {{x}}/{{y}} [{{z}}%]",
     "achievementPoints": "You have {{x}} Achievement Points (AP)!",
     "achievementPointsMobile": "Achievement Points (AP): {{x}}",
-    "rewardGainMessage": "Reward: {{x}} AP. {{y}} Quarks! {{z}}",
     "completed": " COMPLETED!",
     "notification": "You unlocked an achievement: {{m}}",
     "quarkBonus": "Gain .01 Quark Multiplier per 500 AP! Quark Multiplier: <<cyan | x{{multiplier}}>>",
@@ -3063,8 +3062,7 @@
     "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
     "ascensionBankAdd": "Completing the challenge adds {{x}} to the Cube Bank.",
     "ascensionBankMultiply": "Completing the challenge multiplies the Cube Bank by x{{x}}.",
-    "firstTimeBonus": "Gain {{x}} for completing this challenge [First Time Bonus]!",
-    "firstTimeBonusQuarks": "Gain {{x}} Quarks for completing this challenge [First Time Bonus]!"
+    "dailyQuarks": "Each completion earns {{x}} base Quarks every day!"
   },
   "cubes": {
     "upgradeNames": {
@@ -3803,6 +3801,48 @@
       "shopAmbrosiaLuck1": "Ambrosia Luck",
       "shopAmbrosiaLuckMultiplier4": "Ambrosia Luck Amplifiers",
       "shopRedLuck1": "Dice of Asmodeus"
+    },
+    "quarkLedger": {
+      "base": "Base",
+      "multiplier": "Multiplier",
+      "value": "Value",
+      "total": "Total",
+      "totalWithMultiplier": "Total with Multiplier",
+      "totalQuarkValue": "Total Quark Value",
+      "quarksRewarded": "Quarks Rewarded",
+      "globalMultiplier": "Quark Multiplier: <<cyan|x{{x}}>>",
+      "multiplierValue": "x{{x}}",
+      "categories": {
+        "primary": "Primary",
+        "miscellaneous": "Miscellaneous"
+      },
+      "multipliers": {
+        "cubeToQuark": "Quark-Enriched Wow! Cubes: <<cyan|x{{x}}>>",
+        "tesseractToQuark": "Quark-Enriched Wow! Tesseracts: <<cyan|x{{x}}>>",
+        "hypercubeToQuark": "Quark-Enriched Wow! Hypercubes: <<cyan|x{{x}}>>",
+        "platonicCubes": "Platonic Cubes: <<cyan|x{{x}}>>",
+        "overfluxOrbs": "Overflux Orb Effect: <<cyan|x{{x}}>>",
+        "allTimeLeaderboard": "All-Time Ant Leaderboard: <<cyan|x{{x}}>>",
+        "autoWarp": "Auto Warp: <<cyan|x{{x}}>>",
+        "highestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
+        "singularityTime": "Time this Singularity: <<cyan|x{{x}}>>",
+        "total": "Total: <<cyan|x{{x}}>>"
+      },
+      "sources": {
+        "cubes": "Opening Wow! Cubes",
+        "tesseracts": "Opening Wow! Tesseracts",
+        "hypercubes": "Opening Wow! Hypercubes",
+        "platonics": "Opening Platonic Cubes",
+        "ants": "Reborn Ant ELO",
+        "export": "Exporting the Game",
+        "dailyCode": "Code 'daily'",
+        "addCode": "Code 'add'",
+        "timeCode": "Code 'time'",
+        "promoCodes": "One-time Promotion Codes",
+        "challenges": "Challenge Completions",
+        "synthesis": "Synthesizing Purple Ambrosia",
+        "purpleReactor": "Creating Purple Honey"
+      }
     }
   },
   "singularity": {
@@ -5130,6 +5170,10 @@
       "khafraDiscord": "Message Khafra on Discord",
       "platonicDiscord": "Message Platonic on Discord",
       "agreeTOS": "You must accept the terms of service first!"
+    },
+    "shop": {
+      "shop": "Shop",
+      "quarkLedger": "Quarks"
     }
   },
   "offlineProgress": {
@@ -5319,11 +5363,11 @@
       },
       "locked": "Locked",
       "unlock": "Unlocks at level {{level}}.",
-      "source": "Source",
       "completions": "Completions",
       "perCompletion": "Per completion",
       "amount": "Amount",
       "total": "Total",
+      "totalValue": "Total Value",
       "bankSources": {
         "transcensionChallenges": "Challenges 1-5 (#{{from}}-{{to}})",
         "transcensionChallengesFrom": "Challenges 1-5 (#{{from}}+)",
@@ -8078,18 +8122,15 @@
     "quarks": {
       "quarkTitle": "-=- Cube to Quark Corner -=-",
       "resetInfo": "Quark Rewards reset midnight!",
-      "cubeQuarksToday": "Quarks gained from Cubes: <<cyan|{{amount}}>>",
-      "cubeQuarksOpenRequirement": "Open {{amount}} Cubes for next quark.",
-      "cubeQuarksOpenToday": "Cubes opened today: <<orchid|{{amount}}>>",
-      "tesseractQuarksToday": "Quarks gained from Tesseracts: <<cyan|{{amount}}>>",
-      "tesseractQuarksOpenRequirement": "Open {{amount}} Tesseracts for next quark.",
-      "tesseractQuarksOpenToday": "Tesseracts opened today: <<orchid|{{amount}}>>",
-      "hypercubeQuarksToday": "Quarks gained from Hypercubes: <<cyan|{{amount}}>>",
-      "hypercubeQuarksOpenRequirement": "Open {{amount}} Hypercubes for next quark.",
-      "hypercubeQuarksOpenToday": "Hypercubes opened today: <<orchid|{{amount}}>>",
-      "platonicCubeQuarksToday": "Quarks gained from Platonic Cubes: <<cyan|{{amount}}>>",
-      "platonicCubeQuarksOpenRequirement": "Open {{amount}} Platonic Cubes for next quark.",
-      "platonicCubeQuarksOpenToday": "Platonic Cubes opened today: <<orchid|{{amount}}>>"
+      "cubes": "Wow! Cubes",
+      "tesseracts": "Wow! Tesseracts",
+      "hypercubes": "Wow! Hypercubes",
+      "platonicCubes": "Platonic Cubes",
+      "nextReward": "Next Reward",
+      "nextRewardValue": "{{opened}}/{{target}}",
+      "quarksPerReward": "Quarks per Reward",
+      "quarksEarnedToday": "Quarks Earned Today",
+      "rewardInfo": "Get +1 Reward per digit in the amount of Cubes you've opened!"
     },
     "cubes": {
       "intro": "You feel a sense of Pride and Accomplishment... and a hunger for power.",

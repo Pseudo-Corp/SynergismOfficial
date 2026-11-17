@@ -1,6 +1,17 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateSummationNonLinear } from './Calculate'
+import { calculateQuarkMultiplier, calculateSummationNonLinear } from './Calculate'
+import {
+  getQuarkLedgerQuarks,
+  getQuarkSourceMultiplier,
+  getQuarkSourceValue,
+  quarkCategories,
+  type QuarkCategoryKey,
+  quarkCategoryKeys,
+  type QuarkSourceKey,
+  quarkSourceKeys,
+  quarkSources
+} from './Quark'
 import {
   buyShopUpgrades,
   getShopCosts,
@@ -12,6 +23,7 @@ import {
 } from './Shop'
 import { registerSpriteAlias } from './SpriteSheets'
 import { format, player } from './Synergism'
+import { IconSets } from './Themes'
 import { isMobile } from './Utility'
 
 interface ShopTierData {
@@ -417,6 +429,41 @@ const createTierChip = (tier: ShopTierData) => {
   return chip
 }
 
+const quarkLedgerIcons: Record<QuarkSourceKey, string> = {
+  cubes: 'Pictures/Default/WowCube.png',
+  tesseracts: 'Pictures/Default/WowTessaract.png',
+  hypercubes: 'Pictures/Default/WowHypercube.png',
+  platonics: 'Pictures/Default/PlatonicCube.png',
+  ants: 'Pictures/Default/AntSacrifice.png',
+  export: 'Pictures/Subtab Icons/Settings/Settings.png',
+  dailyCode: 'Pictures/Default/ShopImprovedDaily.png',
+  addCode: 'Pictures/Stats for Nerds Icons/Categories/AddCodeStats.png',
+  timeCode: 'Pictures/Default/ShopChronometer.png',
+  promoCodes: 'Pictures/Tab Icons/Tabs/Events.png',
+  challenges: 'Pictures/Default/Challenge.png',
+  synthesis: 'Pictures/PurpleAmbrosia/PurpleAmbrosia.png',
+  purpleReactor: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHoney.png'
+}
+
+const quarkLedgerColumns = ['base', 'multiplier', 'value'] as const
+
+const quarkLedgerCategoryBases: Record<QuarkCategoryKey, number> = { primary: 0, miscellaneous: 0 }
+const quarkLedgerCategoryValues: Record<QuarkCategoryKey, number> = { primary: 0, miscellaneous: 0 }
+const quarkLedgerCategoryVisible: Record<QuarkCategoryKey, boolean> = { primary: false, miscellaneous: false }
+
+export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
+  const lines = [...quarkSources[key].lines, ...quarkCategories[quarkSources[key].category].lines].map((
+    { i18n, stat }
+  ) => i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { x: format(stat(), 3, true) }))
+  const titleHTML = `<span style="font-weight: bold; font-size: 1.2em;">${
+    i18next.t(`shop.quarkLedger.sources.${key}`)
+  }</span>`
+  const totalHTML = i18next.t('shop.quarkLedger.multipliers.total', {
+    x: format(getQuarkSourceMultiplier(key), 3, true)
+  })
+  return `${titleHTML}<br><br>${lines.join('<br>')}<br><br>${totalHTML}`
+}
+
 export const generateShopTabHTML = () => {
   const list = DOMCacheGetOrSet('shopFamilyList')
   const rail = DOMCacheGetOrSet('shopTierRail')
@@ -436,6 +483,35 @@ export const generateShopTabHTML = () => {
   }
   DOMCacheGetOrSet('shopDetailBuy').addEventListener('pointerdown', () => buyShopUpgrades(selectedTier))
   selectShopFamily(shopSections[0].families[0])
+
+  const iconSet = IconSets[player.iconSet][0]
+  for (const key of quarkSourceKeys) {
+    const row = document.createElement('tr')
+    row.id = `quarkLedgerRow-${key}`
+    row.className = 'quarkLedgerSourceRow'
+
+    const sourceCell = document.createElement('td')
+    const source = document.createElement('div')
+    source.className = 'quarkLedgerSource'
+    const icon = document.createElement('img')
+    icon.src = quarkLedgerIcons[key].replace('Pictures/Default/', `Pictures/${iconSet}/`)
+    icon.alt = ''
+    icon.loading = 'lazy'
+    const name = document.createElement('span')
+    name.setAttribute('i18n', `shop.quarkLedger.sources.${key}`)
+    name.textContent = i18next.t(`shop.quarkLedger.sources.${key}`)
+    source.append(icon, name)
+    sourceCell.appendChild(source)
+    row.appendChild(sourceCell)
+
+    for (const column of quarkLedgerColumns) {
+      const cell = document.createElement('td')
+      cell.id = `quarkLedger-${key}-${column}`
+      row.appendChild(cell)
+    }
+
+    DOMCacheGetOrSet(`quarkLedgerBody-${quarkSources[key].category}`).appendChild(row)
+  }
 }
 
 const selectShopFamily = (family: ShopFamilyData, tier = frontierTier(family).key) => {
@@ -622,4 +698,62 @@ export const updateShopTab = () => {
 
   DOMCacheGetOrSet('actualShop').style.display = ''
   updateShopDetail()
+}
+
+export const updateQuarkLedgerTab = () => {
+  const globalMultiplier = calculateQuarkMultiplier()
+  for (const category of quarkCategoryKeys) {
+    quarkLedgerCategoryBases[category] = 0
+    quarkLedgerCategoryValues[category] = 0
+    quarkLedgerCategoryVisible[category] = false
+  }
+
+  for (const key of quarkSourceKeys) {
+    const base = player.quarkLedger.base[key]
+    const value = getQuarkSourceValue(key)
+    const category = quarkSources[key].category
+    quarkLedgerCategoryBases[category] += base
+    quarkLedgerCategoryValues[category] += value
+
+    const visible = base > 0 || quarkSources[key].unlocked()
+    DOMCacheGetOrSet(`quarkLedgerRow-${key}`).hidden = !visible
+    if (!visible) {
+      continue
+    }
+    quarkLedgerCategoryVisible[category] = true
+
+    updateTextContentIfChanged(DOMCacheGetOrSet(`quarkLedger-${key}-base`), format(base, 2, true))
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`quarkLedger-${key}-multiplier`),
+      i18next.t('shop.quarkLedger.multiplierValue', {
+        x: format(getQuarkSourceMultiplier(key), 2, true)
+      })
+    )
+    updateTextContentIfChanged(DOMCacheGetOrSet(`quarkLedger-${key}-value`), format(value, 2, true))
+  }
+
+  for (const category of quarkCategoryKeys) {
+    DOMCacheGetOrSet(`quarkLedgerTable-${category}`).hidden = !quarkLedgerCategoryVisible[category]
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`quarkLedgerBase-${category}`),
+      format(quarkLedgerCategoryBases[category], 2, true)
+    )
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`quarkLedgerValue-${category}`),
+      format(quarkLedgerCategoryValues[category], 2, true)
+    )
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`quarkLedgerQuarks-${category}`),
+      format(Math.floor(quarkLedgerCategoryValues[category] * globalMultiplier), 0, true)
+    )
+  }
+  updateInnerHTMLIfChanged(
+    DOMCacheGetOrSet('quarkLedgerGlobalMultiplier'),
+    i18next.t('shop.quarkLedger.globalMultiplier', { x: format(globalMultiplier, 2, true) })
+  )
+  updateTextContentIfChanged(
+    DOMCacheGetOrSet('quarkLedgerTotalQuarkValue'),
+    format(getQuarkLedgerQuarks(globalMultiplier), 0, true)
+  )
+  updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerQuarksRewarded'), format(player.quarkLedger.awarded, 0, true))
 }

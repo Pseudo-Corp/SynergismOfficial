@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { calculateQuarkMultiplier } from '../../../../Calculate'
+import { getQuarkSourceQuarks } from '../../../../Quark'
 import { format, player } from '../../../../Synergism'
 import { calculateLeaderboardValue } from '../../AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { quarksFromELOMult } from '../../AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
@@ -52,7 +53,7 @@ export const antCornerStageHTML = () => {
  * "Daily" Leaderboard Quark Text Modal... NOT ALL-TIME.
  */
 const antCornerDailyQuarkHTML = () => {
-  const quarksGained = player.ants.quarksGainedFromAnts
+  const quarksGained = Math.floor(getQuarkSourceQuarks('ants'))
   const introHTML = `<span style="font-weight: bold; font-size: 1.2em;">${
     i18next.t('ants.leaderboard.dailyQuarkModal.intro', {
       x: format(quarksGained, 0, false)

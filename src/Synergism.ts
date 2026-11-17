@@ -6,6 +6,7 @@ import LZString from 'lz-string'
 
 import {
   autoAscensionChallengeSweepUnlock,
+  awardChallengeQuarks,
   calculateChallenge15Score,
   challenge15ScoreMultiplier,
   challengeCompletionsAffordable,
@@ -13,7 +14,6 @@ import {
   clearStateChangeTimer,
   getChallengeConditions,
   getMaxChallenges,
-  highestChallengeRewards,
   resetChallengeSweep,
   setChallengeFocus,
   tickChallengeSweep,
@@ -217,7 +217,7 @@ import { enableStatSymbols } from './Plugins/StatSymbols'
 import { guardPoll, startSpeedProbe } from './PollGuard'
 import { CartTab } from './purchases/CartTab'
 import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from './PurpleAmbrosiaUpgrades'
-import { getQuarkBonus, refreshQuarkBonus, worlds } from './Quark'
+import { createBlankQuarkLedger, getQuarkBonus, refreshQuarkBonus, settleQuarks, worlds } from './Quark'
 import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './RedAmbrosiaUpgrades'
 import {
   blessingRuneTypes,
@@ -935,13 +935,10 @@ export const player: Player = {
   dayCheck: null,
   dayTimer: 0,
   cubeOpenedDaily: 0,
-  cubeQuarkDaily: 0,
   tesseractOpenedDaily: 0,
-  tesseractQuarkDaily: 0,
   hypercubeOpenedDaily: 0,
-  hypercubeQuarkDaily: 0,
   platonicCubeOpenedDaily: 0,
-  platonicCubeQuarkDaily: 0,
+  quarkLedger: createBlankQuarkLedger(),
   overfluxOrbs: 0,
   overfluxOrbsAutoBuy: false,
   overfluxPowder: 0,
@@ -1232,7 +1229,7 @@ const loadSynergy = (saveString: string): boolean => {
         }
 
         if (quarksToRefund > 0) {
-          worlds.add(quarksToRefund, false, false)
+          worlds.add(quarksToRefund, false)
           Alert(i18next.t('versionChangeAnnouncements.sept13Refund', { amount: format(quarksToRefund, 0) }))
         }
         player.purpleUpdateQuarkRefundAwarded = true
@@ -3109,16 +3106,11 @@ export const resetCheck = async (
         )
       )
     }
-    if (
-      player.challengecompletions[q] > player.highestchallengecompletions[q]
-    ) {
-      while (
-        player.challengecompletions[q] > player.highestchallengecompletions[q]
-      ) {
-        player.highestchallengecompletions[q] += 1
-        highestChallengeRewards(q, player.highestchallengecompletions[q])
-      }
-    }
+    player.highestchallengecompletions[q] = Math.max(
+      player.highestchallengecompletions[q],
+      player.challengecompletions[q]
+    )
+    awardChallengeQuarks()
     challengeAchievementCheck(q)
     if (
       !player.retrychallenges
@@ -3173,16 +3165,11 @@ export const resetCheck = async (
         )
       )
     }
-    if (
-      player.challengecompletions[q] > player.highestchallengecompletions[q]
-    ) {
-      while (
-        player.challengecompletions[q] > player.highestchallengecompletions[q]
-      ) {
-        player.highestchallengecompletions[q] += 1
-        highestChallengeRewards(q, player.highestchallengecompletions[q])
-      }
-    }
+    player.highestchallengecompletions[q] = Math.max(
+      player.highestchallengecompletions[q],
+      player.challengecompletions[q]
+    )
+    awardChallengeQuarks()
     challengeAchievementCheck(q)
     if (q === 10 && player.challengecompletions[10] > 0) {
       player.corruptions.ascensionLevel = ascensionCorruptionLevel()
@@ -3286,6 +3273,7 @@ export const resetCheck = async (
     ) {
       player.highestchallengecompletions[a] += 1
       cubes.wowHypercubes.add(1)
+      awardChallengeQuarks()
       if (player.highestchallengecompletions[a] >= maxCompletions) {
         leaving = true
       }
@@ -3775,6 +3763,11 @@ export const constantIntervals = (): void => {
       updateTalismanRarities()
     }
   }, 250)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      settleQuarks()
+    }
+  }, 1000)
 
   if (!isOfflineDialogOpen()) {
     exitOffline()

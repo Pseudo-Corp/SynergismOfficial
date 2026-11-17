@@ -15,7 +15,7 @@ import { storageGetItem, storageSetItem } from './events/storage-events'
 import { addTimers, runPurpleReactor } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
 import { awardDailyOcteractFreeUpgrades } from './Octeracts'
-import { getQuarkBonus, quarkHandler, worlds } from './Quark'
+import { addBaseQuarks, getQuarkBonus, quarkHandler, worlds } from './Quark'
 import { isResearchMaxed } from './Research'
 import { Seed, seededBetween, seededRandom } from './RNG'
 import { resetRuneBlessings } from './RuneBlessings'
@@ -278,7 +278,7 @@ export const exportSynergism = async () => {
       % (3600 / gqPerHour)
   }
   if (quarkData.gain >= 1) {
-    worlds.add(quarkData.gain, true, true)
+    addBaseQuarks('export', quarkData.gain)
     player.quarkstimer = player.quarkstimer % (3600 / quarkData.perHour)
   }
 
@@ -490,10 +490,10 @@ export const promocodes = async (input: string | null, amount?: number) => {
     const year = new Date().getFullYear()
     const quarks = 50
     player.offerings = player.offerings.add(25)
-    worlds.add(quarks, true, true)
+    const quarksAwarded = addBaseQuarks('promoCodes', quarks)
     el.textContent = i18next.t('importexport.promocodes.synergism2021', {
       year: year,
-      quarks: format(worlds.applyBonus(quarks), 2, true)
+      quarks: format(quarksAwarded, 0, true)
     })
   } else if (input === ':unsmith:' || input === 'unsmith') {
     awardUngroupedAchievement(UngroupedAchievement.Unsmith)
@@ -504,9 +504,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
   } else if (input === 'Khafra' && !codes.redeemed(26)) {
     codes.redeem(26)
     const quarks = Math.floor(seededRandom(Seed.PromoCodes) * (400 - 100 + 1) + 100)
-    worlds.add(quarks, true, true)
+    const quarksAwarded = addBaseQuarks('promoCodes', quarks)
     el.textContent = i18next.t('importexport.promocodes.khafra', {
-      x: format(worlds.applyBonus(quarks), 2, true)
+      x: format(quarksAwarded, 0, true)
     })
   } else if (input === 'alonso bribe' && !codes.redeemed(47)) {
     const cap = getFinalHepteractCap('quark')
@@ -542,15 +542,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     let rewardMessage = i18next.t('importexport.promocodes.daily.message')
 
     const rewards = dailyCodeReward()
-    const quarkMultiplier = 1 + Math.min(49, player.highestSingularityCount)
-
-    let actualQuarkAward = worlds.applyBonus(
-      rewards.quarks * quarkMultiplier
-    )
-    if (actualQuarkAward > 1e5) {
-      actualQuarkAward = Math.pow(1e5, 0.75) * Math.pow(actualQuarkAward, 0.25)
-    }
-    worlds.add(actualQuarkAward, false, true)
+    const actualQuarkAward = addBaseQuarks('dailyCode', rewards.quarks)
     player.goldenQuarks += rewards.goldenQuarks
 
     rewardMessage += `\n${
@@ -674,7 +666,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     if (getShopUpgradeEffects('calculator', 'autoFill')) {
       player.stats.totalAddCodesUsed += realAttemptsUsed
       awardAchievementGroup(AchievementGroup.AddCodesUsed)
-      worlds.add(actualQuarks, true, true)
+      const quarksAwarded = addBaseQuarks('addCode', actualQuarks)
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
@@ -692,7 +684,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
             a: first,
             b: second,
             c: first + second,
-            d: worlds.toString(actualQuarks),
+            d: format(quarksAwarded, 0, true),
             e: ascensionTimerText,
             f: gqTimerText,
             g: octeractTimeText,
@@ -728,7 +720,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
     player.rngCode = v
 
     if (first + second === +addPrompt) {
-      worlds.add(actualQuarks, true, true)
+      const quarksAwarded = addBaseQuarks('addCode', actualQuarks)
       addTimers('ascension', ascensionTimer)
       player.goldenQuarksTimer += gqTimer
       addTimers('octeracts', octeractTime)
@@ -737,7 +729,7 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
       await Alert(
         i18next.t('importexport.promocodes.add.reward', {
-          a: worlds.toString(actualQuarks),
+          a: format(quarksAwarded, 0, true),
           b: ascensionTimerText,
           c: gqTimerText,
           d: octeractTimeText,
@@ -826,11 +818,11 @@ export const promocodes = async (input: string | null, amount?: number) => {
         blueberryTime = 1800 * rewardMult
       }
 
-      worlds.add(actualQuarkAward * rewardMult, false, true)
+      const quarksAwarded = addBaseQuarks('timeCode', reward * rewardMult)
       runPurpleReactor(blueberryTime, 0, 0)
       const winText = i18next.t('importexport.promocodes.time.won', {
         time: format((end - start) / 1000, 2, true),
-        x: format(actualQuarkAward * rewardMult, 0, true)
+        x: format(quarksAwarded, 0, true)
       })
       const ambrosiaText = blueberryTime > 0
         ? i18next.t('importexport.promocodes.time.ambrosia', {

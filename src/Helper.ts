@@ -35,7 +35,7 @@ import { getOcteractUpgradeEffect } from './Octeracts'
 import { getPurpleReactorUpgradeEffects } from './Purple'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
-import { quarkHandler, worlds } from './Quark'
+import { addBaseQuarks, quarkHandler } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { Seed, seededRandom } from './RNG'
 import { buyAllBlessingLevels } from './RuneBlessings'
@@ -310,7 +310,7 @@ export const runPurpleReactor = (
       if (player.singularityCounter >= 3600) {
         const quarksToAdd = purpleHoneyGained
           * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
-        worlds.add(quarksToAdd, true, true)
+        addBaseQuarks('purpleReactor', quarksToAdd)
       }
     }
   }

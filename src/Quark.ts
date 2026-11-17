@@ -1,8 +1,16 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateCubeQuarkMultiplier, calculateQuarkMultiplier } from './Calculate'
+import {
+  calculateAutoWarpQuarkMultiplier,
+  calculateCubeQuarkMultiplier,
+  calculateFullSingularityTimeQuarkMultiplier,
+  calculateQuarkMultiplier,
+  calculateSingularityTimeQuarkMultiplier
+} from './Calculate'
+import { quarksFromELOMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { checkServerDate } from './PollGuard'
+import { getShopUpgradeEffects } from './Shop'
 import { format, player } from './Synergism'
 
 const quarkResearches = [99, 100, 125, 180, 195]
@@ -30,15 +38,12 @@ export const quarkHandler = () => {
   // Part 4: Calculate how many quarks are to be gained.
   const quarkGain = Math.floor(player.quarkstimer * quarkPerHour / 3600)
 
-  // Part 5 [June 9, 2021]: Calculate bonus awarded to cube quarks.
-  const cubeMult = calculateCubeQuarkMultiplier()
   // Return maxTime, quarkPerHour, capacity and quarkGain as object
   return {
     maxTime,
     perHour: quarkPerHour,
     capacity,
-    gain: quarkGain,
-    cubeMult
+    gain: quarkGain
   }
 }
 
@@ -89,10 +94,10 @@ class QuarkHandler {
   }
 
   /** Subtracts quarks, as the name suggests. */
-  add (amount: number, useBonus: boolean, addToQuarksThisSingularity: boolean) {
-    player.worlds += useBonus ? this.applyBonus(amount) : amount
+  add (amount: number, addToQuarksThisSingularity: boolean) {
+    player.worlds += amount
     if (addToQuarksThisSingularity) {
-      player.quarksThisSingularity += useBonus ? this.applyBonus(amount) : amount
+      player.quarksThisSingularity += amount
     }
     return this
   }
@@ -117,6 +122,229 @@ class QuarkHandler {
 }
 
 export const worlds = new QuarkHandler()
+
+export const quarkSourceKeys = [
+  'cubes',
+  'tesseracts',
+  'hypercubes',
+  'platonics',
+  'ants',
+  'export',
+  'dailyCode',
+  'addCode',
+  'timeCode',
+  'promoCodes',
+  'challenges',
+  'synthesis',
+  'purpleReactor'
+] as const
+
+export type QuarkSourceKey = typeof quarkSourceKeys[number]
+
+export type QuarkLedgerBase = Record<QuarkSourceKey, number>
+
+export interface QuarkLedger {
+  base: QuarkLedgerBase
+  awarded: number
+  challengeCompletions: number[]
+}
+
+interface QuarkMultiplierLine {
+  i18n: string
+  stat: () => number
+}
+
+export const quarkCategoryKeys = ['primary', 'miscellaneous'] as const
+
+export type QuarkCategoryKey = typeof quarkCategoryKeys[number]
+
+interface QuarkCategory {
+  lines: QuarkMultiplierLine[]
+  multiplier: () => number
+}
+
+interface QuarkSource {
+  category: QuarkCategoryKey
+  lines: QuarkMultiplierLine[]
+  multiplier: () => number
+  unlocked: () => boolean
+}
+
+export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
+  primary: {
+    lines: [{ i18n: 'singularityTime', stat: () => calculateSingularityTimeQuarkMultiplier() }],
+    multiplier: () => calculateSingularityTimeQuarkMultiplier()
+  },
+  miscellaneous: {
+    lines: [],
+    multiplier: () => 1
+  }
+}
+
+const overfluxOrbLine: QuarkMultiplierLine = {
+  i18n: 'overfluxOrbs',
+  stat: () => calculateCubeQuarkMultiplier()
+}
+
+export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
+  cubes: {
+    category: 'primary',
+    lines: [
+      { i18n: 'cubeToQuark', stat: () => getShopUpgradeEffects('cubeToQuark', 'cubeQuarkMult') },
+      overfluxOrbLine
+    ],
+    multiplier: () => getShopUpgradeEffects('cubeToQuark', 'cubeQuarkMult') * calculateCubeQuarkMultiplier(),
+    unlocked: () => player.unlocks.ascensions
+  },
+  tesseracts: {
+    category: 'primary',
+    lines: [
+      { i18n: 'tesseractToQuark', stat: () => getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult') },
+      overfluxOrbLine
+    ],
+    multiplier: () => getShopUpgradeEffects('tesseractToQuark', 'tesseractQuarkMult') * calculateCubeQuarkMultiplier(),
+    unlocked: () => player.unlocks.tesseracts
+  },
+  hypercubes: {
+    category: 'primary',
+    lines: [
+      { i18n: 'hypercubeToQuark', stat: () => getShopUpgradeEffects('hypercubeToQuark', 'hypercubeQuarkMult') },
+      overfluxOrbLine
+    ],
+    multiplier: () => getShopUpgradeEffects('hypercubeToQuark', 'hypercubeQuarkMult') * calculateCubeQuarkMultiplier(),
+    unlocked: () => player.unlocks.hypercubes
+  },
+  platonics: {
+    category: 'primary',
+    lines: [
+      { i18n: 'platonicCubes', stat: () => 1.5 },
+      overfluxOrbLine
+    ],
+    multiplier: () => 1.5 * calculateCubeQuarkMultiplier(),
+    unlocked: () => player.unlocks.platonics
+  },
+  ants: {
+    category: 'primary',
+    lines: [
+      { i18n: 'allTimeLeaderboard', stat: () => quarksFromELOMult() },
+      { i18n: 'autoWarp', stat: () => calculateAutoWarpQuarkMultiplier() }
+    ],
+    multiplier: () => quarksFromELOMult() * calculateAutoWarpQuarkMultiplier(),
+    unlocked: () => player.ants.antSacrificeCount > 0
+  },
+  export: {
+    category: 'miscellaneous',
+    lines: [],
+    multiplier: () => 1,
+    unlocked: () => true
+  },
+  dailyCode: {
+    category: 'miscellaneous',
+    lines: [
+      { i18n: 'highestSingularity', stat: () => 1 + Math.min(49, player.highestSingularityCount) }
+    ],
+    multiplier: () => 1 + Math.min(49, player.highestSingularityCount),
+    unlocked: () => true
+  },
+  addCode: {
+    category: 'miscellaneous',
+    lines: [],
+    multiplier: () => 1,
+    unlocked: () => true
+  },
+  timeCode: {
+    category: 'miscellaneous',
+    lines: [],
+    multiplier: () => 1,
+    unlocked: () => true
+  },
+  promoCodes: {
+    category: 'miscellaneous',
+    lines: [],
+    multiplier: () => 1,
+    unlocked: () => true
+  },
+  challenges: {
+    category: 'primary',
+    lines: [],
+    multiplier: () => 1,
+    unlocked: () => player.unlocks.transcend || player.highestSingularityCount > 0
+  },
+  synthesis: {
+    category: 'primary',
+    lines: [],
+    multiplier: () => 1,
+    unlocked: () => player.quarkLedger.base.synthesis > 0
+  },
+  purpleReactor: {
+    category: 'primary',
+    lines: [],
+    multiplier: () => 1,
+    unlocked: () => player.quarkLedger.base.purpleReactor > 0
+  }
+}
+
+export const getQuarkSourceMultiplier = (key: QuarkSourceKey) =>
+  quarkSources[key].multiplier() * quarkCategories[quarkSources[key].category].multiplier()
+
+export const createBlankQuarkLedger = (): QuarkLedger => ({
+  base: Object.fromEntries(quarkSourceKeys.map((key) => [key, 0])) as QuarkLedgerBase,
+  awarded: 0,
+  challengeCompletions: Array(15).fill(0) as number[]
+})
+
+export const getQuarkSourceValue = (key: QuarkSourceKey) => player.quarkLedger.base[key] * getQuarkSourceMultiplier(key)
+
+export const getQuarkSourceQuarks = (key: QuarkSourceKey, globalMultiplier = calculateQuarkMultiplier()) =>
+  getQuarkSourceValue(key) * globalMultiplier
+
+export const getQuarkLedgerQuarks = (globalMultiplier = calculateQuarkMultiplier()) => {
+  let quarks = 0
+  for (const key of quarkSourceKeys) {
+    quarks += getQuarkSourceQuarks(key, globalMultiplier)
+  }
+  return Math.floor(quarks)
+}
+
+export const settleQuarks = () => {
+  const owed = getQuarkLedgerQuarks() - player.quarkLedger.awarded
+  if (owed <= 0) {
+    return 0
+  }
+  player.quarkLedger.awarded += owed
+  worlds.add(owed, true)
+  return owed
+}
+
+export const addBaseQuarks = (key: QuarkSourceKey, amount: number) => {
+  if (!(amount > 0)) {
+    return 0
+  }
+  player.quarkLedger.base[key] += amount
+  return settleQuarks()
+}
+
+export const resetQuarkLedger = () => {
+  settleQuarks()
+  player.quarkLedger = createBlankQuarkLedger()
+}
+
+export const getPrimaryQuarkDeposit = () => {
+  const globalMultiplier = calculateQuarkMultiplier()
+  let value = 0
+  for (const key of quarkSourceKeys) {
+    if (quarkSources[key].category === 'primary') {
+      value += player.quarkLedger.base[key] * quarkSources[key].multiplier()
+    }
+  }
+  return Math.floor(value * calculateFullSingularityTimeQuarkMultiplier() * globalMultiplier)
+}
+
+export const depositPrimaryQuarks = () => {
+  const quarks = getPrimaryQuarkDeposit()
+  worlds.add(quarks, true)
+  return quarks
+}
 
 export const refreshQuarkBonus = async () => {
   const response = await fetch('https://synergism.cc/api/v1/quark-bonus')
