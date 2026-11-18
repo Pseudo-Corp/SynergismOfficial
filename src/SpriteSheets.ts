@@ -1,6 +1,6 @@
 import { DOMCacheGetOrSet } from './Cache/DOM'
 
-export type iconSize = 32 | 48 | 56 | 64
+export type iconSize = 20 | 32 | 48 | 56 | 64
 
 export interface SpriteSheet {
   name: string
@@ -879,6 +879,33 @@ export const spriteSheets: SpriteSheet[] = [
     iconSize: 32,
     rows: 8,
     columns: 10
+  },
+  {
+    name: 'QuarkSources',
+    elementNames: [
+      'quarkLedgerIcon-cubes',
+      'quarkLedgerIcon-tesseracts',
+      'quarkLedgerIcon-hypercubes',
+      'quarkLedgerIcon-platonics',
+      'quarkLedgerIcon-ants',
+      'quarkLedgerIcon-export',
+      'quarkLedgerIcon-dailyCode',
+      'quarkLedgerIcon-addCode',
+      'quarkLedgerIcon-timeCode',
+      'quarkLedgerIcon-promoCodes',
+      'quarkLedgerIcon-challenges',
+      'quarkLedgerIcon-synthesis',
+      'quarkLedgerIcon-purpleReactor'
+    ],
+    iconSize: 20,
+    rows: 1,
+    columns: 13,
+    aliases: [
+      { elementName: 'cubeQuarkIcon', iconIndex: 0, displaySize: 20 },
+      { elementName: 'tesseractQuarkIcon', iconIndex: 1, displaySize: 20 },
+      { elementName: 'hypercubeQuarkIcon', iconIndex: 2, displaySize: 20 },
+      { elementName: 'platonicCubeQuarkIcon', iconIndex: 3, displaySize: 20 }
+    ]
   }
 ]
 
