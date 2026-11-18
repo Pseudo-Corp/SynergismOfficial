@@ -1,10 +1,12 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateQuarkMultiplier, calculateSummationNonLinear } from './Calculate'
+import {
+  calculateMaxSingularityTimeQuarkMultiplier,
+  calculateQuarkMultiplier,
+  calculateSummationNonLinear
+} from './Calculate'
 import {
   getQuarkLedgerQuarks,
-  getQuarkSourceMultiplier,
-  getQuarkSourceValue,
   quarkCategories,
   type QuarkCategoryKey,
   quarkCategoryKeys,
@@ -21,6 +23,7 @@ import {
   type ShopUpgradeNames,
   shopUpgrades
 } from './Shop'
+import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
 import { format, player } from './Synergism'
 import { isMobile } from './Utility'
@@ -435,14 +438,14 @@ const quarkLedgerCategoryValues: Record<QuarkCategoryKey, number> = { primary: 0
 const quarkLedgerCategoryVisible: Record<QuarkCategoryKey, boolean> = { primary: false, miscellaneous: false }
 
 export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
-  const lines = [...quarkSources[key].lines, ...quarkCategories[quarkSources[key].category].lines].map((
-    { i18n, stat }
-  ) => i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { x: format(stat(), 3, true) }))
+  const lines = quarkSources[key].lines.map(({ i18n, stat }) =>
+    i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { x: format(stat(), 3, true) })
+  )
   const titleHTML = `<span style="font-weight: bold; font-size: 1.2em;">${
     i18next.t(`shop.quarkLedger.sources.${key}`)
   }</span>`
   const totalHTML = i18next.t('shop.quarkLedger.multipliers.total', {
-    x: format(getQuarkSourceMultiplier(key), 3, true)
+    x: format(quarkSources[key].multiplier(), 3, true)
   })
   return `${titleHTML}<br><br>${lines.join('<br>')}<br><br>${totalHTML}`
 }
@@ -693,7 +696,8 @@ export const updateQuarkLedgerTab = () => {
 
   for (const key of quarkSourceKeys) {
     const base = player.quarkLedger.base[key]
-    const value = getQuarkSourceValue(key)
+    const multiplier = quarkSources[key].multiplier()
+    const value = base * multiplier
     const category = quarkSources[key].category
     quarkLedgerCategoryBases[category] += base
     quarkLedgerCategoryValues[category] += value
@@ -709,7 +713,7 @@ export const updateQuarkLedgerTab = () => {
     updateTextContentIfChanged(
       DOMCacheGetOrSet(`quarkLedger-${key}-multiplier`),
       i18next.t('shop.quarkLedger.multiplierValue', {
-        x: format(getQuarkSourceMultiplier(key), 2, true)
+        x: format(multiplier, 2, true)
       })
     )
     updateTextContentIfChanged(DOMCacheGetOrSet(`quarkLedger-${key}-value`), format(value, 2, true))
@@ -730,10 +734,31 @@ export const updateQuarkLedgerTab = () => {
       format(Math.floor(quarkLedgerCategoryValues[category] * globalMultiplier), 0, true)
     )
   }
-  updateInnerHTMLIfChanged(
+  updateTextContentIfChanged(
     DOMCacheGetOrSet('quarkLedgerGlobalMultiplier'),
-    i18next.t('shop.quarkLedger.globalMultiplier', { x: format(globalMultiplier, 2, true) })
+    i18next.t('shop.quarkLedger.multiplierValue', { x: format(globalMultiplier, 2, true) })
   )
+
+  const singularityTimeUnlocked = getSingularityChallengeEffect('limitedTime', 'singularityTimeQuarks')
+  DOMCacheGetOrSet('quarkLedgerSingularityTimeRow').hidden = !singularityTimeUnlocked
+  DOMCacheGetOrSet('quarkLedgerAllMultipliersRow-primary').hidden = !singularityTimeUnlocked
+  if (singularityTimeUnlocked) {
+    const singularityTimeMultiplier = quarkCategories.primary.multiplier()
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet('quarkLedgerSingularityTimeLabel'),
+      i18next.t('shop.quarkLedger.singularityTimeMultiplier', {
+        max: format(calculateMaxSingularityTimeQuarkMultiplier(), 2, true)
+      })
+    )
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet('quarkLedgerSingularityTime'),
+      i18next.t('shop.quarkLedger.multiplierValue', { x: format(singularityTimeMultiplier, 2, true) })
+    )
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet('quarkLedgerAllMultipliersQuarks-primary'),
+      format(Math.floor(quarkLedgerCategoryValues.primary * globalMultiplier * singularityTimeMultiplier), 0, true)
+    )
+  }
   updateTextContentIfChanged(
     DOMCacheGetOrSet('quarkLedgerTotalQuarkValue'),
     format(getQuarkLedgerQuarks(globalMultiplier), 0, true)

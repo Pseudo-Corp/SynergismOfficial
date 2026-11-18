@@ -1451,13 +1451,20 @@ export const calculateBaseCubeQuarkMultiplier = () => {
   return Math.min(1 + effect, calculateMaxBaseCubeQuarkMultiplier(player.highestSingularityCount))
 }
 
-export const calculateFullSingularityTimeQuarkMultiplier = () => player.singularityCount === 0 ? 1 : 24
-
-export const calculateSingularityTimeQuarkMultiplier = () => {
-  if (player.singularityCount === 0) {
+export const calculateMaxSingularityTimeQuarkMultiplier = () => {
+  const fastest = player.fastestSingularities[player.singularityCount]
+  if (fastest === undefined || !getSingularityChallengeEffect('limitedTime', 'singularityTimeQuarks')) {
     return 1
   }
-  return calculateFullSingularityTimeQuarkMultiplier() * Math.min(1, player.singularityCounter / 86400)
+  return Math.min(1e4, Math.max(1, 86400 / fastest))
+}
+
+export const calculateSingularityTimeQuarkMultiplier = () => {
+  const fastest = player.fastestSingularities[player.singularityCount]
+  if (fastest === undefined || player.singularityCounter <= fastest) {
+    return 1
+  }
+  return Math.min(calculateMaxSingularityTimeQuarkMultiplier(), player.singularityCounter / fastest)
 }
 
 export const calculateAutoWarpQuarkMultiplier = () => {

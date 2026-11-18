@@ -72,6 +72,7 @@ export type SingularityChallengeRewards = {
   }
   limitedTime: {
     preserveQuarks: boolean
+    singularityTimeQuarks: boolean
     quarkMult: number
     globalSpeed: number
     ascensionSpeed: number
@@ -619,10 +620,12 @@ export const singularityChallengeData: {
       }
     },
     scalingrewardcount: 5,
-    uniquerewardcount: 3,
+    uniquerewardcount: 4,
     effect: (n, key) => {
       if (key === 'preserveQuarks') {
         return +(n > 0)
+      } else if (key === 'singularityTimeQuarks') {
+        return n >= 2
       } else if (key === 'quarkMult') {
         return 1 + 0.02 * n
       } else if (key === 'globalSpeed') {
