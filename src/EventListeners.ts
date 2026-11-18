@@ -666,7 +666,7 @@ const registerMobileStatsIcons = () => {
     sourceButton.replaceWith(icon)
   }
 
-  registerSpriteAlias('overfluxPowderImage', 'kOrbPowderMult', 32)
+  registerSpriteAlias('overfluxPowderImage', 'kOrbPowderMult')
   updateIconsFromSprites(IconSets[player.iconSet][0])
 }
 

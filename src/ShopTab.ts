@@ -397,7 +397,7 @@ const createFamilyRow = (family: ShopFamilyData) => {
       shortcutIcon.src = tier.icon
       shortcutIcon.alt = ''
       shortcutIcon.loading = 'lazy'
-      registerSpriteAlias(tier.key, shortcutIcon.id, 16)
+      registerSpriteAlias(tier.key, shortcutIcon.id)
 
       shortcut.appendChild(shortcutIcon)
       shortcut.addEventListener('click', () => selectShopFamily(family, tier.key))

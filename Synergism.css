@@ -2898,6 +2898,11 @@ p#prestigehotkeys {
     flex-shrink: 0;
 }
 
+.runeIconAndName .runeImage {
+    width: 32px;
+    height: 32px;
+}
+
 .runeIconAndName p {
     margin: 0;
     font-size: 1.2em;
@@ -9641,8 +9646,6 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .rainbowBorder > img {
     position: relative;
-    width: calc(100% - 6px); /* 58px */
-    height: calc(100% - 6px);
     object-fit: none;
     background-color: var(--bg-color);
     border-radius: 3px;
@@ -13469,11 +13472,6 @@ html[data-mobile="true"] #achievements {
         display: block;
     }
 
-    #researchtable button > img {
-        width: 36px;
-        height: 36px;
-    }
-
     /* Ants */
     #antSacrificeRewards > div {
         flex-wrap: wrap;
@@ -14219,12 +14217,6 @@ html[data-mobile="true"] #achievements {
     .synergismLevelMilestoneType > img {
         width: 100%;
         height: 100%;
-    }
-
-    /* Challenge icons */
-    #challengeIcons img {
-        width: 48px;
-        height: 48px;
     }
 
     #oneChallengeDetails {
@@ -15192,4 +15184,9 @@ body.lightTheme .synthesisUpgradeModalTitle {
 body.lightTheme .spinner {
     border-color: #d5d8e0;
     border-top-color: var(--steelblue-color);
+}
+
+.spriteIcon {
+    width: var(--sprite-size);
+    height: var(--sprite-size);
 }
