@@ -6498,6 +6498,7 @@
     "TNL": "<<orange|{{offerings}}祭品>>升{{levelAmount}}级",
     "salvageModal": {
       "global": "全局回收：<<lightgreen|{{amount}}>>",
+      "modifiers": "回收倍率({{name}}符文)：{{amount}}",
       "total": "该符文的回收：<<gold|{{amount}}>> (使需要的祭品数量除以{{mult}})",
       "totalNegative": "该符文的回收：<<gold|{{amount}}>> (使需要的祭品数量乘以{{div}})"
     }

@@ -6498,6 +6498,7 @@
     "TNL": "+{{levelAmount}} in <<orange | {{offerings}} ☤>>",
     "salvageModal": {
       "global": "Global Salvage: <<lightgreen|{{amount}}>>",
+      "modifiers": "Salvage Modifiers ({{name}}): {{amount}}",
       "total": "Salvage for this Rune: <<gold|{{amount}}>> (Offerings needed divided by {{mult}})",
       "totalNegative": "Salvage for this Rune: <<gold|{{amount}}>> (Offerings needed multiplied by {{div}})"
     }
