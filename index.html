@@ -3137,7 +3137,9 @@
                 </div>
             </div>
             <div id="quarkLedgerWrapper" style="display: none">
-                <p id="quarkLedgerGlobalMultiplier"></p>
+                <div class="quarkLedgerStats">
+                    <p class="statPortion statTotal"><span i18n="shop.quarkLedger.globalMultiplier"></span><span id="quarkLedgerGlobalMultiplier" class="statNumber statTotal"></span></p>
+                </div>
                 <table id="quarkLedgerTable-primary" class="quarkLedgerTable">
                     <thead>
                         <tr>
@@ -3156,11 +3158,17 @@
                             <th id="quarkLedgerValue-primary"></th>
                         </tr>
                         <tr>
-                            <th colspan="3" i18n="shop.quarkLedger.totalWithMultiplier"></th>
+                            <th colspan="3" i18n="shop.quarkLedger.totalWithQuarkMultiplier"></th>
                             <th id="quarkLedgerQuarks-primary"></th>
                         </tr>
-                    </tfoot>
-                </table>
+                        <tr id="quarkLedgerSingularityTimeRow" hidden>
+                            <th id="quarkLedgerSingularityTimeLabel" colspan="3"></th>
+                            <th id="quarkLedgerSingularityTime"></th>
+                        </tr>
+                        <tr id="quarkLedgerAllMultipliersRow-primary" hidden>
+                            <th colspan="3" i18n="shop.quarkLedger.totalWithAllMultipliers"></th>
+                            <th id="quarkLedgerAllMultipliersQuarks-primary"></th>
+                        </tr>
                 <table id="quarkLedgerTable-miscellaneous" class="quarkLedgerTable">
                     <thead>
                         <tr>
@@ -3179,7 +3187,7 @@
                             <th id="quarkLedgerValue-miscellaneous"></th>
                         </tr>
                         <tr>
-                            <th colspan="3" i18n="shop.quarkLedger.totalWithMultiplier"></th>
+                            <th colspan="3" i18n="shop.quarkLedger.totalWithQuarkMultiplier"></th>
                             <th id="quarkLedgerQuarks-miscellaneous"></th>
                         </tr>
                     </tfoot>
@@ -3222,6 +3230,7 @@
                     <div class="lookaheadInfo">
                         <p id="highestSingularity" i18n="singularity.elevator.highestSingularity"></p>
                         <p id="maxLookahead" i18n="singularity.elevator.maxLookahead"></p>
+                        <p id="elevatorFastestSingularity"></p>
                     </div>
 
                     <div class="elevatorControls">

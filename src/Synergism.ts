@@ -952,6 +952,7 @@ export const player: Player = {
   singularityCount: 0,
   highestSingularityCount: 0,
   singularityCounter: 0,
+  fastestSingularities: {},
   singularityElevatorTarget: 1,
   singularityElevatorSlowClimb: true,
   singularityElevatorLocked: false,

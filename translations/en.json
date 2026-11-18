@@ -3807,10 +3807,12 @@
       "multiplier": "Multiplier",
       "value": "Value",
       "total": "Total",
-      "totalWithMultiplier": "Total with Multiplier",
+      "totalWithQuarkMultiplier": "Total with Quark Multiplier",
+      "totalWithAllMultipliers": "Total with ALL Multipliers",
       "totalQuarkValue": "Total Quark Value",
       "quarksRewarded": "Quarks Rewarded",
-      "globalMultiplier": "Quark Multiplier: <<cyan|x{{x}}>>",
+      "globalMultiplier": "Quark Multiplier",
+      "singularityTimeMultiplier": "Singularity Timer Multiplier (Max x{{max}})",
       "multiplierValue": "x{{x}}",
       "categories": {
         "primary": "Primary",
@@ -3825,7 +3827,6 @@
         "allTimeLeaderboard": "All-Time Ant Leaderboard: <<cyan|x{{x}}>>",
         "autoWarp": "Auto Warp: <<cyan|x{{x}}>>",
         "highestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
-        "singularityTime": "Time this Singularity: <<cyan|x{{x}}>>",
         "total": "Total: <<cyan|x{{x}}>>"
       },
       "sources": {
@@ -4655,7 +4656,9 @@
       "slowClimbToggle": "Only go up 1 Singularity",
       "nextSingInfo": "Next Singularity Info",
       "highestSingularity": "Highest Singularity: <b><<gold | {{num}}>></b>",
-      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)"
+      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)",
+      "fastestSingularity": "Fastest Singularity {{num}}: <b><<gold | {{time}}>></b>",
+      "noFastestSingularity": "Fastest Singularity {{num}}: <b><<gold | None>></b>"
     }
   },
   "general": {
@@ -5173,7 +5176,7 @@
     },
     "shop": {
       "shop": "Shop",
-      "quarkLedger": "Quarks"
+      "quarkLedger": "Ledger"
     }
   },
   "offlineProgress": {
@@ -6645,8 +6648,9 @@
         "ScalingReward4": "-1% <<red|Red Bar Fill Requirements>>!",
         "ScalingReward5": "30 Achievement Points!",
         "UniqueReward1": "1st - Your quarks no longer reset on Singularity!",
-        "UniqueReward2": "5th - A new <<orchid|Quark Upgrade>>!",
-        "UniqueReward3": "10th - A very expensive, not good, pretty bad <<orange|Quark Upgrade>>!"
+        "UniqueReward2": "2nd - When you repeat a Singularity you've already beaten, Quarks in the 'Primary' section of the Quarks Ledger grow over the first 24 hours, based on fastest completion.",
+        "UniqueReward3": "5th - A new <<orchid|Quark Upgrade>>!",
+        "UniqueReward4": "10th - A very expensive, not good, pretty bad <<orange|Quark Upgrade>>!"
       },
       "sadisticPrequel": {
         "name": "SADISTIC EXALT III - The Prequel",

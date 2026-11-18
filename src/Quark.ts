@@ -3,7 +3,6 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateAutoWarpQuarkMultiplier,
   calculateCubeQuarkMultiplier,
-  calculateFullSingularityTimeQuarkMultiplier,
   calculateQuarkMultiplier,
   calculateSingularityTimeQuarkMultiplier
 } from './Calculate'
@@ -159,7 +158,6 @@ export const quarkCategoryKeys = ['primary', 'miscellaneous'] as const
 export type QuarkCategoryKey = typeof quarkCategoryKeys[number]
 
 interface QuarkCategory {
-  lines: QuarkMultiplierLine[]
   multiplier: () => number
 }
 
@@ -172,11 +170,9 @@ interface QuarkSource {
 
 export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
   primary: {
-    lines: [{ i18n: 'singularityTime', stat: () => calculateSingularityTimeQuarkMultiplier() }],
     multiplier: () => calculateSingularityTimeQuarkMultiplier()
   },
   miscellaneous: {
-    lines: [],
     multiplier: () => 1
   }
 }
@@ -293,10 +289,8 @@ export const createBlankQuarkLedger = (): QuarkLedger => ({
   challengeCompletions: Array(15).fill(0) as number[]
 })
 
-export const getQuarkSourceValue = (key: QuarkSourceKey) => player.quarkLedger.base[key] * getQuarkSourceMultiplier(key)
-
 export const getQuarkSourceQuarks = (key: QuarkSourceKey, globalMultiplier = calculateQuarkMultiplier()) =>
-  getQuarkSourceValue(key) * globalMultiplier
+  player.quarkLedger.base[key] * getQuarkSourceMultiplier(key) * globalMultiplier
 
 export const getQuarkLedgerQuarks = (globalMultiplier = calculateQuarkMultiplier()) => {
   let quarks = 0
@@ -327,23 +321,6 @@ export const addBaseQuarks = (key: QuarkSourceKey, amount: number) => {
 export const resetQuarkLedger = () => {
   settleQuarks()
   player.quarkLedger = createBlankQuarkLedger()
-}
-
-export const getPrimaryQuarkDeposit = () => {
-  const globalMultiplier = calculateQuarkMultiplier()
-  let value = 0
-  for (const key of quarkSourceKeys) {
-    if (quarkSources[key].category === 'primary') {
-      value += player.quarkLedger.base[key] * quarkSources[key].multiplier()
-    }
-  }
-  return Math.floor(value * calculateFullSingularityTimeQuarkMultiplier() * globalMultiplier)
-}
-
-export const depositPrimaryQuarks = () => {
-  const quarks = getPrimaryQuarkDeposit()
-  worlds.add(quarks, true)
-  return quarks
 }
 
 export const refreshQuarkBonus = async () => {
