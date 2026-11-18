@@ -11,7 +11,6 @@ export interface SpriteSheet {
   aliases?: Array<{
     elementName: string
     iconIndex: number
-    displaySize: number
   }>
 }
 
@@ -190,7 +189,7 @@ export const spriteSheets: SpriteSheet[] = [
     iconSize: 64,
     rows: 1,
     columns: 7,
-    aliases: [{ elementName: 'shopFamilyRowIcon-seasonPass', iconIndex: 0, displaySize: 24 }]
+    aliases: [{ elementName: 'shopFamilyRowIcon-seasonPass', iconIndex: 0 }]
   },
   {
     name: 'DiceOfAsmodeus',
@@ -203,7 +202,7 @@ export const spriteSheets: SpriteSheet[] = [
     iconSize: 64,
     rows: 1,
     columns: 4,
-    aliases: [{ elementName: 'shopFamilyRowIcon-shopRedLuck1', iconIndex: 0, displaySize: 24 }]
+    aliases: [{ elementName: 'shopFamilyRowIcon-shopRedLuck1', iconIndex: 0 }]
   },
   {
     name: 'PLATCalculators',
@@ -219,7 +218,7 @@ export const spriteSheets: SpriteSheet[] = [
     iconSize: 64,
     rows: 1,
     columns: 7,
-    aliases: [{ elementName: 'shopFamilyRowIcon-calculator', iconIndex: 0, displaySize: 24 }]
+    aliases: [{ elementName: 'shopFamilyRowIcon-calculator', iconIndex: 0 }]
   },
   {
     name: 'PlatonicUpgrades',
@@ -267,8 +266,8 @@ export const spriteSheets: SpriteSheet[] = [
     rows: 3,
     columns: 4,
     aliases: [
-      { elementName: 'eventBuffPowderConversionIcon', iconIndex: 9, displaySize: 32 },
-      { elementName: 'consumableBuffPowderConversionIcon', iconIndex: 9, displaySize: 32 }
+      { elementName: 'eventBuffPowderConversionIcon', iconIndex: 9 },
+      { elementName: 'consumableBuffPowderConversionIcon', iconIndex: 9 }
     ]
   },
   {
@@ -353,7 +352,7 @@ export const spriteSheets: SpriteSheet[] = [
     iconSize: 64,
     rows: 1,
     columns: 4,
-    aliases: [{ elementName: 'shopFamilyRowIcon-cubeToQuark', iconIndex: 0, displaySize: 24 }]
+    aliases: [{ elementName: 'shopFamilyRowIcon-cubeToQuark', iconIndex: 0 }]
   },
   {
     name: 'CampaignTokens',
@@ -901,22 +900,25 @@ export const spriteSheets: SpriteSheet[] = [
     rows: 1,
     columns: 13,
     aliases: [
-      { elementName: 'cubeQuarkIcon', iconIndex: 0, displaySize: 20 },
-      { elementName: 'tesseractQuarkIcon', iconIndex: 1, displaySize: 20 },
-      { elementName: 'hypercubeQuarkIcon', iconIndex: 2, displaySize: 20 },
-      { elementName: 'platonicCubeQuarkIcon', iconIndex: 3, displaySize: 20 }
+      { elementName: 'cubeQuarkIcon', iconIndex: 0 },
+      { elementName: 'tesseractQuarkIcon', iconIndex: 1 },
+      { elementName: 'hypercubeQuarkIcon', iconIndex: 2 },
+      { elementName: 'platonicCubeQuarkIcon', iconIndex: 3 },
+      { elementName: 'dailyCodeHeaderIcon', iconIndex: 6 },
+      { elementName: 'addCodeHeaderIcon', iconIndex: 7 },
+      { elementName: 'timeCodeHeaderIcon', iconIndex: 8 }
     ]
   }
 ]
 
 export const spritePlaceholder = 'Pictures/img_transparent.png'
 
-export const registerSpriteAlias = (sourceElementName: string, elementName: string, displaySize: number) => {
+export const registerSpriteAlias = (sourceElementName: string, elementName: string) => {
   for (const sheet of spriteSheets) {
     const iconIndex = sheet.elementNames.indexOf(sourceElementName)
     if (iconIndex !== -1) {
       sheet.aliases ??= []
-      sheet.aliases.push({ elementName, iconIndex, displaySize })
+      sheet.aliases.push({ elementName, iconIndex })
       return
     }
   }
@@ -926,22 +928,15 @@ export const registerSpriteAlias = (sourceElementName: string, elementName: stri
 const spriteSheetFallbacks = new Map<string, string | null>()
 const activeSpriteSheetSources = new Map<string, string>()
 
-const updateIconFromSprite = (
-  sheet: SpriteSheet,
-  src: string,
-  elementName: string,
-  iconIndex: number,
-  displaySize: number = sheet.iconSize
-) => {
-  const element = DOMCacheGetOrSet(elementName)
+const updateIconFromSprite = (sheet: SpriteSheet, src: string, element: HTMLElement, iconIndex: number) => {
+  const column = iconIndex % sheet.columns
+  const row = Math.floor(iconIndex / sheet.columns)
   element.style.backgroundImage = `url('${src}')`
-  element.style.backgroundPosition = `${-(iconIndex % sheet.columns) * displaySize}px ${
-    -Math.floor(iconIndex / sheet.columns) * displaySize
-  }px`
-  element.style.backgroundSize = `${sheet.columns * displaySize}px ${sheet.rows * displaySize}px`
+  element.style.backgroundPosition = `${sheet.columns > 1 ? (column / (sheet.columns - 1)) * 100 : 0}% ${
+    sheet.rows > 1 ? (row / (sheet.rows - 1)) * 100 : 0
+  }%`
+  element.style.backgroundSize = `${sheet.columns * 100}% ${sheet.rows * 100}%`
   element.style.backgroundRepeat = 'no-repeat'
-  element.style.width = `${displaySize}px`
-  element.style.height = `${displaySize}px`
 }
 
 const updateIconsFromSpriteSheet = (sheet: SpriteSheet, folderUsed: string) => {
@@ -954,11 +949,14 @@ const updateIconsFromSpriteSheet = (sheet: SpriteSheet, folderUsed: string) => {
       continue
     }
 
-    updateIconFromSprite(sheet, resolvedSrc, elementName, iconIndex)
+    const element = DOMCacheGetOrSet(elementName)
+    element.classList.add('spriteIcon')
+    element.style.setProperty('--sprite-size', `${sheet.iconSize}px`)
+    updateIconFromSprite(sheet, resolvedSrc, element, iconIndex)
   }
 
   for (const alias of sheet.aliases ?? []) {
-    updateIconFromSprite(sheet, resolvedSrc, alias.elementName, alias.iconIndex, alias.displaySize)
+    updateIconFromSprite(sheet, resolvedSrc, DOMCacheGetOrSet(alias.elementName), alias.iconIndex)
   }
 
   if (folderUsed === 'Default' || resolvedSrc !== requestedSrc || spriteSheetFallbacks.has(requestedSrc)) {
