@@ -21,9 +21,8 @@ import {
   type ShopUpgradeNames,
   shopUpgrades
 } from './Shop'
-import { registerSpriteAlias } from './SpriteSheets'
+import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
 import { format, player } from './Synergism'
-import { IconSets } from './Themes'
 import { isMobile } from './Utility'
 
 interface ShopTierData {
@@ -429,22 +428,6 @@ const createTierChip = (tier: ShopTierData) => {
   return chip
 }
 
-const quarkLedgerIcons: Record<QuarkSourceKey, string> = {
-  cubes: 'Pictures/Default/WowCube.png',
-  tesseracts: 'Pictures/Default/WowTessaract.png',
-  hypercubes: 'Pictures/Default/WowHypercube.png',
-  platonics: 'Pictures/Default/PlatonicCube.png',
-  ants: 'Pictures/Default/AntSacrifice.png',
-  export: 'Pictures/Subtab Icons/Settings/Settings.png',
-  dailyCode: 'Pictures/Default/ShopImprovedDaily.png',
-  addCode: 'Pictures/Stats for Nerds Icons/Categories/AddCodeStats.png',
-  timeCode: 'Pictures/Default/ShopChronometer.png',
-  promoCodes: 'Pictures/Tab Icons/Tabs/Events.png',
-  challenges: 'Pictures/Default/Challenge.png',
-  synthesis: 'Pictures/PurpleAmbrosia/PurpleAmbrosia.png',
-  purpleReactor: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleHoney.png'
-}
-
 const quarkLedgerColumns = ['base', 'multiplier', 'value'] as const
 
 const quarkLedgerCategoryBases: Record<QuarkCategoryKey, number> = { primary: 0, miscellaneous: 0 }
@@ -484,7 +467,6 @@ export const generateShopTabHTML = () => {
   DOMCacheGetOrSet('shopDetailBuy').addEventListener('pointerdown', () => buyShopUpgrades(selectedTier))
   selectShopFamily(shopSections[0].families[0])
 
-  const iconSet = IconSets[player.iconSet][0]
   for (const key of quarkSourceKeys) {
     const row = document.createElement('tr')
     row.id = `quarkLedgerRow-${key}`
@@ -494,7 +476,8 @@ export const generateShopTabHTML = () => {
     const source = document.createElement('div')
     source.className = 'quarkLedgerSource'
     const icon = document.createElement('img')
-    icon.src = quarkLedgerIcons[key].replace('Pictures/Default/', `Pictures/${iconSet}/`)
+    icon.id = `quarkLedgerIcon-${key}`
+    icon.src = spritePlaceholder
     icon.alt = ''
     icon.loading = 'lazy'
     const name = document.createElement('span')
