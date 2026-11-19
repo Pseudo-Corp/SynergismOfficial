@@ -114,7 +114,7 @@ type QuarkShopUpgradeRewards = {
   shopSingularityPenaltyDebuff: { singularityPenaltyReducers: number }
   shopCashGrabUltra: { ambrosiaGenerationMult: number; cubesMult: number; quarkMult: number }
   shopEXUltra: { offeringMult: number; obtainiumMult: number; cubeMult: number }
-  shopSingularitySpeedup: { singularityUpgradeSpeedMult: number }
+  shopSingularitySpeedup: { maxSingularityTimeQuarkMultiplier: boolean }
   shopSingularityPotency: { freeUpgradeMult: number }
   shopPanthema: {
     offeringMult: number
@@ -1757,12 +1757,9 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   shopSingularitySpeedup: {
     name: () => i18next.t('shop.names.shopSingularitySpeedup'),
     description: () => i18next.t('shop.upgradeDescriptions.shopSingularitySpeedup'),
-    effects: (n) => n > 0 ? 50 : 1, // singularityUpgradeSpeedMult
+    effects: (n) => n > 0, // maxSingularityTimeQuarkMultiplier
     effectDescription () {
-      const effects = getShopUpgradeEffects('shopSingularitySpeedup', 'singularityUpgradeSpeedMult')
-      return i18next.t('shop.upgradeEffects.shopSingularitySpeedup', {
-        amount: format(effects)
-      })
+      return i18next.t('shop.upgradeEffects.shopSingularitySpeedup')
     },
     isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade'),
     price: 2e22,

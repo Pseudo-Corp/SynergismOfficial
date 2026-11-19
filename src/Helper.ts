@@ -307,11 +307,10 @@ export const runPurpleReactor = (
         player.stats.highestPurpleHoney,
         player.purpleReactor.purpleHoney
       )
-      if (player.singularityCounter >= 3600) {
-        const quarksToAdd = purpleHoneyGained
-          * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
-        addBaseQuarks('purpleReactor', quarksToAdd)
-      }
+      addBaseQuarks(
+        'purpleReactor',
+        purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+      )
     }
   }
 
