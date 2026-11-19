@@ -58,7 +58,8 @@ import {
   type ResetHistoryEntryPrestige,
   type ResetHistoryEntryReincarnate,
   type ResetHistoryEntrySingularity,
-  type ResetHistoryEntryTranscend
+  type ResetHistoryEntryTranscend,
+  type ResetHistorySingularityExalt
 } from './History'
 import { codes, importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
@@ -77,7 +78,7 @@ import {
   getGQUpgradeEffect,
   raiseHighestSingularity
 } from './singularity'
-import { getSingularityChallengeEffect } from './SingularityChallenges'
+import { getSingularityChallengeEffect, singularityChallenges } from './SingularityChallenges'
 import {
   blankSave,
   calculatePrestigePointGain,
@@ -1007,7 +1008,7 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   revealStuff()
 }
 
-export const singularity = (setSingNumber = -1) => {
+export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityExalt) => {
   if (player.runeLevels[RuneType.Antiquities] === 0 && setSingNumber === -1) {
     Alert(
       'You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.'
@@ -1018,30 +1019,31 @@ export const singularity = (setSingNumber = -1) => {
   const antiquitiesPurchased = player.runeLevels[RuneType.Antiquities] > 0
   settleQuarks()
 
-  // setSingNumber is only not -1 when we are entering and exiting a challenge.
-  if (setSingNumber === -1) {
-    // get total cube blessings for history
-    const cubeArray = Object.values(player.cubeBlessings)
-    const tesseractArray = Object.values(player.tesseractBlessings)
-    const hypercubeArray = Object.values(player.hypercubeBlessings)
-    const platonicArray = Object.values(player.platonicBlessings)
-    // Update sing history
-    const historyEntry: ResetHistoryEntrySingularity = {
-      seconds: player.singularityCounter,
-      date: Date.now(),
-      singularityCount: player.singularityCount,
-      quarks: player.quarksThisSingularity,
-      c15Score: player.challenge15Exponent,
-      goldenQuarks: calculateGoldenQuarks(),
-      wowTribs: sumContents(cubeArray),
-      tessTribs: sumContents(tesseractArray),
-      hyperTribs: sumContents(hypercubeArray),
-      platTribs: sumContents(platonicArray),
-      octeracts: player.totalWowOcteracts,
-      quarkHept: player.hepteracts.quark.BAL,
-      kind: 'singularity'
-    }
-    resetHistoryAdd('singularity', historyEntry)
+  // get total cube blessings for history
+  const cubeArray = Object.values(player.cubeBlessings)
+  const tesseractArray = Object.values(player.tesseractBlessings)
+  const hypercubeArray = Object.values(player.hypercubeBlessings)
+  const platonicArray = Object.values(player.platonicBlessings)
+  // Update sing history
+  const historyEntry: ResetHistoryEntrySingularity = {
+    seconds: player.singularityCounter,
+    date: Date.now(),
+    singularityCount: player.singularityCount,
+    quarks: player.quarksThisSingularity,
+    c15Score: player.challenge15Exponent,
+    goldenQuarks: antiquitiesPurchased ? calculateGoldenQuarks() : 0,
+    wowTribs: sumContents(cubeArray),
+    tessTribs: sumContents(tesseractArray),
+    hyperTribs: sumContents(hypercubeArray),
+    platTribs: sumContents(platonicArray),
+    octeracts: player.totalWowOcteracts,
+    quarkHept: player.hepteracts.quark.BAL,
+    kind: 'singularity',
+    cleared: antiquitiesPurchased,
+    ...exalt
+  }
+  if (player.insideSingularityChallenge && G.currentSingChallenge !== undefined) {
+    historyEntry.nextExalt = singularityChallenges[G.currentSingChallenge].exaltNumber
   }
 
   resetRunes('singularity')
@@ -1082,6 +1084,9 @@ export const singularity = (setSingNumber = -1) => {
       raiseHighestSingularity(player.singularityCount)
     }
   }
+
+  historyEntry.nextSingularity = player.singularityCount
+  resetHistoryAdd('singularity', historyEntry)
 
   player.totalQuarksEver += player.quarksThisSingularity
   const hold = playerSchema.parse(deepClone(blankSave))

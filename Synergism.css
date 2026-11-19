@@ -6693,15 +6693,15 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     padding-left: 0;
 }
 
-.autoAscendCheckMark {
+.checkMark {
     font-weight: bold;
 }
 
-.autoAscendCheckMark[data-met="true"] {
+.checkMark[data-met="true"] {
     color: var(--lime-text-color);
 }
 
-.autoAscendCheckMark[data-met="false"] {
+.checkMark[data-met="false"] {
     color: var(--red-text-color);
 }
 

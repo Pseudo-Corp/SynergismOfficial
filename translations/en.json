@@ -4648,7 +4648,7 @@
       "invalidTarget": "Please select a valid Singularity between 1 and {{max}}.",
       "noTarget": "Please select a target Singularity first.",
       "confirmTeleport": "Are you sure you want to go to Singularity {{target}}?",
-      "confirmTeleportHigher": "Since you are heading to a higher Singularity (or resetting your current), your entire Singularity will reset! Please confirm again to continue.",
+      "confirmTeleportReset": "Your entire Singularity will reset! Please confirm again to continue.",
       "teleportSuccess": "Transported to Singularity {{target}}!",
       "inEXALTError": "Derpsmith slowly nods his head. \"Elevator's Out Of Order...\" he declares. Why does this always happen when you're in an EXALT?",
       "lockedTitle": "Singularity Elevator - OUT OF ORDER",
@@ -6557,7 +6557,7 @@
     },
     "enterChallenge": {
       "lowSingularity": "Derpsmith prohibits you from entering this challenge. Go do some more Singing first.",
-      "confirmation": "You are about to enter {{name}}. Your Singularity Timer will not reset but you will be taken back to the beginning of a Singularity. Do you proceed?",
+      "confirmation": "You are about to enter {{name}}. You will be taken back to the beginning of a Singularity. Do you proceed?",
       "decline": "Derpsmith nods his head. Come back when you are ready...",
       "acceptSuccess": "You are attempting {{name}} #{{tier}}! You were sent to Singularity {{singReq}}. Buy Antiquities to complete the challenge!",
       "acceptFailure": "Derpsmith declares you are already in a singularity challenge and prohibits you from destroying the fabric of your Reality."
@@ -8564,7 +8564,12 @@
     "challengeCompletions": "C{{challenge}}: {{completions}}",
     "challengeCompletionsTitle": "Challenge {{challenge}} completions after this Ascension",
     "challenge15Score": "C15: {{score}}",
-    "challenge15ScoreTitle": "Challenge 15 score from this Ascension"
+    "challenge15ScoreTitle": "Challenge 15 score from this Ascension",
+    "exalt": "E{{num}}x{{tier}}",
+    "stay": "Stay",
+    "goUp": "Go up to Sing {{sing}}",
+    "goDown": "Go down to Sing {{sing}}",
+    "enterExalt": "Enter EXALT {{num}}"
   },
   "event": {
     "aprilFools": {
