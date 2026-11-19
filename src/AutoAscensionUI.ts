@@ -58,7 +58,7 @@ import type { SingularityChallengeDataKeys } from './SingularityChallenges'
 import { gameStages } from './Statistics'
 import { format, player } from './Synergism'
 import { Alert, CloseModal, Confirm, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification } from './UpdateHTML'
-import { isMobile } from './Utility'
+import { checkMark, isMobile } from './Utility'
 
 type VariableKey = AutoAscendCondition['rule']
 type ProtocolType = AutoAscendProtocol['type']
@@ -1130,8 +1130,6 @@ const ruleStatusExplanation = (status: RuleListStatus, first: number) =>
   i18next.t(`${uiKey}.ruleStatus.explain.${status === 'ready' && !isAutoAscendRunning() ? 'readyPaused' : status}`, {
     number: first + 1
   })
-
-const checkMark = (met: boolean) => `<span class="autoAscendCheckMark" data-met="${met}">${met ? '✓' : '✗'}</span>`
 
 const renderChecks = (expr: AutoAscendExpr): { met: boolean; html: string } => {
   if (expr.type === 'rule') {

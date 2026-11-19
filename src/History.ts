@@ -7,6 +7,7 @@ import { calculateAntSpeedMultFromELO } from './Features/Ants/AntSacrifice/Rewar
 import { format, formatTimeShort, player } from './Synergism'
 import { IconSets } from './Themes'
 import { Notification } from './UpdateHTML'
+import { checkMark } from './Utility'
 import { Globals as G } from './Variables'
 
 // The categories are the different tables & storages for each type.
@@ -87,7 +88,12 @@ export type ResetHistoryEntryAscend = ResetHistoryEntryBase & {
   kind: 'ascend'
 }
 
-export interface ResetHistoryEntrySingularity extends ResetHistoryEntryBase {
+export interface ResetHistorySingularityExalt {
+  exalt: number
+  exaltTier: number
+}
+
+export interface ResetHistoryEntrySingularity extends ResetHistoryEntryBase, Partial<ResetHistorySingularityExalt> {
   singularityCount: number
   quarks: number
   goldenQuarks: number
@@ -98,6 +104,9 @@ export interface ResetHistoryEntrySingularity extends ResetHistoryEntryBase {
   octeracts: number
   c15Score: number
   quarkHept: number
+  cleared?: boolean
+  nextSingularity?: number
+  nextExalt?: number
   kind: 'singularity'
 }
 
@@ -491,6 +500,25 @@ const resetHistoryRenderRow = (
     extra.push(corruptions[0])
     extra.push(corruptions[1])
     extra.push(corruptions[2])
+  } else if (data.kind === 'singularity') {
+    if (data.cleared !== undefined) {
+      extra.push(
+        data.exalt === undefined
+          ? checkMark(data.cleared)
+          : `${checkMark(data.cleared)} ${i18next.t('history.exalt', { num: data.exalt, tier: data.exaltTier })}`
+      )
+    }
+    if (data.nextExalt !== undefined) {
+      extra.push(i18next.t('history.enterExalt', { num: data.nextExalt }))
+    } else if (data.nextSingularity !== undefined) {
+      let direction = 'stay'
+      if (data.nextSingularity > data.singularityCount) {
+        direction = 'goUp'
+      } else if (data.nextSingularity < data.singularityCount) {
+        direction = 'goDown'
+      }
+      extra.push(i18next.t(`history.${direction}`, { sing: data.nextSingularity }))
+    }
   }
 
   // This rendering is done this way so that all rows should have the same number of columns, which makes rows

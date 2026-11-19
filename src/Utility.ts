@@ -407,3 +407,5 @@ export const displayHTMLError = async (response: Response) => {
   overlay.appendChild(modal)
   document.body.appendChild(overlay)
 }
+
+export const checkMark = (met: boolean) => `<span class="checkMark" data-met="${met}">${met ? '✓' : '✗'}</span>`

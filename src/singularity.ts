@@ -4596,26 +4596,16 @@ export const teleportToSingularity = async (): Promise<void> => {
   }
 
   const confirmed = await Confirm(i18next.t('singularity.elevator.confirmTeleport', { target }))
-  if (confirmed) {
-    if (player.singularityCount <= target) {
-      const extraConfirm = await Confirm(i18next.t('singularity.elevator.confirmTeleportHigher'))
-      if (extraConfirm) {
-        const heldSingTime = player.singularityCounter
-        const antiquitiesLevel = player.runeLevels[RuneType.Antiquities]
-        // Reset
-        singularity(target)
-        if (antiquitiesLevel === 0) {
-          player.singularityCounter = heldSingTime
-        }
-      } else {
-        return
-      }
-    } else {
-      player.singularityCount = target
-    }
-
-    // Update display
-    updateSingularityElevator()
-    Alert(i18next.t('singularity.elevator.teleportSuccess', { target }))
+  if (!confirmed) {
+    return
   }
+  const extraConfirm = await Confirm(i18next.t('singularity.elevator.confirmTeleportReset'))
+  if (!extraConfirm) {
+    return
+  }
+  singularity(target)
+
+  // Update display
+  updateSingularityElevator()
+  Alert(i18next.t('singularity.elevator.teleportSuccess', { target }))
 }
