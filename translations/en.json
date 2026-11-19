@@ -3668,7 +3668,7 @@
       "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}>>.",
       "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}>>",
       "shopAmbrosiaUltra": "Gain <<lime|+{{amount}} Ambrosia Luck>> from your EXALT completions!",
-      "shopSingularitySpeedup": "The Singularity Timer Quark Multiplier can always reach its highest cap of <<gray|x10,000>>!",
+      "shopSingularitySpeedup": "The Singularity Timer Quark Multiplier always reaches <<gray|x10,000>> after <<gray|24 hours>> of Singularity Timer!",
       "shopSingularityPotency": "Most free Golden Quark Upgrades (not the Hourglasses) are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Upgrades are increased by <<white|{{amount}}>>.",

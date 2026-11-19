@@ -1452,22 +1452,17 @@ export const calculateBaseCubeQuarkMultiplier = () => {
 }
 
 export const calculateMaxSingularityTimeQuarkMultiplier = () => {
-  const fastest = player.fastestSingularities[player.singularityCount]
-  if (fastest === undefined || !getSingularityChallengeEffect('limitedTime', 'singularityTimeQuarks')) {
+  if (!getSingularityChallengeEffect('limitedTime', 'singularityTimeQuarks')) {
     return 1
   }
   if (getShopUpgradeEffects('shopSingularitySpeedup', 'maxSingularityTimeQuarkMultiplier')) {
     return 1e4
   }
-  return Math.min(1e4, Math.max(1, 86400 / fastest))
-}
-
-export const calculateSingularityTimeQuarkMultiplier = () => {
   const fastest = player.fastestSingularities[player.singularityCount]
-  if (fastest === undefined || player.singularityCounter <= fastest) {
+  if (fastest === undefined) {
     return 1
   }
-  return Math.min(calculateMaxSingularityTimeQuarkMultiplier(), player.singularityCounter / fastest)
+  return Math.min(1e4, Math.max(1, 86400 / fastest))
 }
 
 export const calculateAutoWarpQuarkMultiplier = () => {
