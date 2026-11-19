@@ -1456,6 +1456,9 @@ export const calculateMaxSingularityTimeQuarkMultiplier = () => {
   if (fastest === undefined || !getSingularityChallengeEffect('limitedTime', 'singularityTimeQuarks')) {
     return 1
   }
+  if (getShopUpgradeEffects('shopSingularitySpeedup', 'maxSingularityTimeQuarkMultiplier')) {
+    return 1e4
+  }
   return Math.min(1e4, Math.max(1, 86400 / fastest))
 }
 

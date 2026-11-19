@@ -911,7 +911,7 @@
         "flavor": "Looks, feels, tastes and <i>is</i> just like a Quark.",
         "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Quarks per extracted Purple Honey",
         "effectMaxed": "<<gold|+{{maxValue}}>> Quarks per extracted Purple Honey",
-        "disclaimer": "<<gold | ⚠>> This perk only works if your current Singularity is at least 1 hour long, and you are not in the 'Bar Charging' EXALT! The lab takes some time warming up, after all."
+        "disclaimer": "<<gold | ⚠>> This perk does not work in the 'Bar Charging' EXALT!"
       }
     }
   },
@@ -3555,7 +3555,7 @@
       "shopEXUltra": "With this EX Upgrade, every num:((1000)) owned Ambrosia adds +num:((0.1))% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at num:((125000)) * (level of shop upgrade)!",
       "shopChronometerS": "With this upgrade, you gain +1% Ascension Speed and Global Speed per Singularity number above 200 your Singularity takes place!",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +2 permanent Ambrosia Luck, per level.",
-      "shopSingularitySpeedup": "You know all those time-gated Singularity Perks and Upgrades? Now they accumulate 50 times faster! Thanks to this weird clock that somehow alters even <<gray | Singular Time>>...",
+      "shopSingularitySpeedup": "A weird clock that somehow alters your memory of <<gray | Time>>. No matter how slow your past Singularities were, you perceive them to be impossibly fast.",
       "shopSingularityPotency": "You know all those free Golden Quark Upgrades? Most of them (not the Hourglasses) are now 266% more effective (so, each is worth the equivalent to num:((3.66)) levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
@@ -3668,7 +3668,7 @@
       "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}>>.",
       "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}>>",
       "shopAmbrosiaUltra": "Gain <<lime|+{{amount}} Ambrosia Luck>> from your EXALT completions!",
-      "shopSingularitySpeedup": "Singularity Perks and Upgrades that are based on Singularity timer grow in strength <<gray|{{amount}}>> times faster!",
+      "shopSingularitySpeedup": "The Singularity Timer Quark Multiplier can always reach its highest cap of <<gray|x10,000>>!",
       "shopSingularityPotency": "Most free Golden Quark Upgrades (not the Hourglasses) are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Upgrades are increased by <<white|{{amount}}>>.",
@@ -3764,7 +3764,7 @@
       "shopEXUltra": "It's the FINAL E X!",
       "shopChronometerS": "The FINAL Chronometer",
       "shopAmbrosiaUltra": "The FINAL Ambrosia Exaltation... I don't flippin know!",
-      "shopSingularitySpeedup": "Singularity Timed-Perks Speedup",
+      "shopSingularitySpeedup": "Singular Clockwork",
       "shopSingularityPotency": "Singularity Passives Potency",
       "shopSadisticRune": "Sadistic Rune Unlock! Or does it?",
       "shopInfiniteShopUpgrades": "Blue Infinity Shop Voucher",
@@ -4448,13 +4448,13 @@
       },
       "platonicDelta": {
         "name": "Platonic DELTA",
-        "description": "Time follows you towards the future, after getting this bad boy. Gain +100% more Cubes per day in your current singularity, up to +900% at day 9.",
+        "description": "Time for a massive <i>change...</i> Gain +900% more Cubes. Yup!",
         "effectHave": "This upgrade has been purchased",
         "effectHaveNot": "This upgrade has not been purchased"
       },
       "platonicPhi": {
         "name": "Platonic PHI",
-        "description": "Time follows you toward the past as well. Gain 5 additional free Golden Quark Upgrades per day in your singularity from code 'daily', up to +50 after 10 days.",
+        "description": "Gain 50 additional free Golden Quark Upgrades from code 'daily'. Yup!",
         "effectHave": "This upgrade has been purchased",
         "effectHaveNot": "This upgrade has not been purchased"
       },

@@ -1541,10 +1541,7 @@ export const goldenQuarkUpgrades: {
     costPerLevel: 5e9,
     minimumSingularity: 110,
     specialCostForm: 'Default',
-    effect: (n) => {
-      const speedMult = getShopUpgradeEffects('shopSingularitySpeedup', 'singularityUpgradeSpeedMult')
-      return n > 0 ? 1 + Math.min((player.singularityCounter + 1) * speedMult / (3600 * 24), 9) : 1
-    },
+    effect: (n) => n > 0 ? 10 : 1,
     effectDescription: () => {
       const cubeMult = getGQUpgradeEffect('platonicDelta', 'cubeMult')
       return i18next.t(
@@ -1562,10 +1559,7 @@ export const goldenQuarkUpgrades: {
     costPerLevel: 2e11,
     minimumSingularity: 149,
     specialCostForm: 'Default',
-    effect: (n: number) => {
-      const speedMult = getShopUpgradeEffects('shopSingularitySpeedup', 'singularityUpgradeSpeedMult')
-      return n > 0 ? Math.floor(5 * Math.min(player.singularityCounter * speedMult / (3600 * 24), 10)) : 0
-    },
+    effect: (n: number) => n > 0 ? 50 : 0,
     effectDescription: () => {
       const level = goldenQuarkUpgrades.platonicPhi.level
       return i18next.t(
