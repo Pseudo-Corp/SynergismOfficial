@@ -1655,7 +1655,7 @@ export const goldenQuarkUpgrades: {
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: false,
-    costPerLevel: 2.22e26,
+    costPerLevel: 2.22e33,
     minimumSingularity: 300,
     specialCostForm: 'Default',
     effect: (n: number) => {
@@ -1738,7 +1738,7 @@ export const goldenQuarkUpgrades: {
     maxLevel: 1,
     canExceedCap: false,
     qualityOfLife: true,
-    costPerLevel: 4e27,
+    costPerLevel: 4e29,
     minimumSingularity: 283,
     specialCostForm: 'Default',
     effect: (n: number) => {
@@ -1836,7 +1836,7 @@ export const goldenQuarkUpgrades: {
     maxLevel: 50,
     canExceedCap: false,
     qualityOfLife: true,
-    costPerLevel: 1e19,
+    costPerLevel: 1e22,
     minimumSingularity: 256,
     specialCostForm: 'Default',
     effect: (n: number) => {
@@ -1916,7 +1916,7 @@ export const goldenQuarkUpgrades: {
     maxLevel: 50,
     canExceedCap: false,
     qualityOfLife: true,
-    costPerLevel: 1e19,
+    costPerLevel: 2e22,
     minimumSingularity: 256,
     specialCostForm: 'Default',
     effect: (n: number) => {
@@ -2016,7 +2016,7 @@ export const goldenQuarkUpgrades: {
     maxLevel: 80,
     canExceedCap: false,
     qualityOfLife: false,
-    costPerLevel: 1e18,
+    costPerLevel: 1e21,
     minimumSingularity: 233,
     specialCostForm: 'Default',
     effect: (n: number) => {

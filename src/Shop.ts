@@ -1380,8 +1380,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('oneChallengeCap', 'shopUpgrade'),
-    price: 1e20,
-    priceIncrease: 3e20,
+    price: 2e22,
+    priceIncrease: 6e22,
     maxLevel: 4,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
@@ -1405,8 +1405,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('limitedAscensions', 'shopUpgrade2'),
-    price: 1e20,
-    priceIncrease: 1e19,
+    price: 1e24,
+    priceIncrease: 1e23,
     maxLevel: 50,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.Utility]
@@ -1641,8 +1641,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
-    price: 1e24,
-    priceIncrease: 1e23,
+    price: 1e27,
+    priceIncrease: 1e26,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck],
@@ -1673,8 +1673,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('noSingularityUpgrades', 'shopUpgrade2'),
-    price: 1,
-    priceIncrease: 1e22,
+    price: 1000,
+    priceIncrease: 1e25,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
@@ -1693,8 +1693,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'shopUpgrade'),
-    price: 1e21,
-    priceIncrease: 2e21,
+    price: 1e24,
+    priceIncrease: 2e24,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
@@ -1711,7 +1711,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       return i18next.t('shop.upgradeEffects.shopEXUltra', { amount: formatAsPercentIncrease(effects) })
     },
     isUnlocked: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'shopUpgrade2'),
-    price: 5e21,
+    price: 5e24,
     priceIncrease: 0,
     maxLevel: 80,
     type: shopUpgradeTypes.UPGRADE,
@@ -1730,7 +1730,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('limitedTime', 'shopUpgrade'),
-    price: 5e21,
+    price: 5e25,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -1748,8 +1748,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       return i18next.t('shop.upgradeEffects.shopAmbrosiaUltra', { amount: format(effects) })
     },
     isUnlocked: () => getSingularityChallengeEffect('limitedTime', 'shopUpgrade2'),
-    price: 8e23,
-    priceIncrease: 2e23,
+    price: 8e27,
+    priceIncrease: 2e27,
     maxLevel: 5,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
@@ -1762,7 +1762,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       return i18next.t('shop.upgradeEffects.shopSingularitySpeedup')
     },
     isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade'),
-    price: 2e22,
+    price: 2e26,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -1779,7 +1779,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade2'),
-    price: 2e23,
+    price: 2e27,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -1793,7 +1793,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       return i18next.t('shop.upgradeEffects.shopSadisticRune')
     },
     isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade3'),
-    price: 2e27,
+    price: 2e31,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -1839,7 +1839,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('barDependence', 'shopUpgrade'),
-    price: 5e26,
+    price: 5e29,
     priceIncrease: 0,
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
@@ -1863,8 +1863,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('taxmanLastStand', 'shopUpgrade'),
-    price: 5e26,
-    priceIncrease: 5e26,
+    price: 5e28,
+    priceIncrease: 5e28,
     maxLevel: 10,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
