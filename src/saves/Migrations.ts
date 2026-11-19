@@ -65,6 +65,14 @@ const resetLegacyCorruptions = (player: PlayerData) => {
   }
 }
 
+const goldenQuarkUpgradeCostIncreases = {
+  singInfiniteShopUpgrades: 1000,
+  singAmbrosiaLuck4: 1000,
+  singAmbrosiaGeneration4: 2000,
+  wowPass5: 100,
+  ultimatePen: 1e7
+} satisfies Partial<Record<SingularityDataKeys, number>>
+
 const legacyRuneKeys = [
   'speed',
   'duplication',
@@ -527,6 +535,24 @@ const migrations: Migration[] = [
         player.singularityChallenges.barDependence.highestSingularityCompleted = 292
 
         void Alert(i18next.t('versionChangeAnnouncements.v4-4-1-BarCharging'))
+      }
+    }
+  }),
+
+  migration({
+    requires: { cubeQuarkDaily: z.number() },
+    optional: {
+      goldenQuarkUpgrades: z.record(
+        z.string(),
+        z.object({ level: z.number().optional() })
+      ).optional().catch(undefined)
+    },
+    migrate: (player, { goldenQuarkUpgrades }) => {
+      for (const [key, multiplier] of Object.entries(goldenQuarkUpgradeCostIncreases)) {
+        const legacyUpgrade = goldenQuarkUpgrades?.[key]
+        if (legacyUpgrade !== undefined && legacyUpgrade.level === undefined) {
+          player.goldenQuarkUpgrades[key].goldenQuarksInvested *= multiplier
+        }
       }
     }
   })
