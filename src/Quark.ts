@@ -3,8 +3,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateAutoWarpQuarkMultiplier,
   calculateCubeQuarkMultiplier,
-  calculateQuarkMultiplier,
-  calculateSingularityTimeQuarkMultiplier
+  calculateMaxSingularityTimeQuarkMultiplier,
+  calculateQuarkMultiplier
 } from './Calculate'
 import { quarksFromELOMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
 import { getOcteractUpgradeEffect } from './Octeracts'
@@ -170,7 +170,8 @@ interface QuarkSource {
 
 export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
   primary: {
-    multiplier: () => calculateSingularityTimeQuarkMultiplier()
+    multiplier: () =>
+      Math.max(1, calculateMaxSingularityTimeQuarkMultiplier() * Math.min(1, player.singularityCounter / 86400))
   },
   miscellaneous: {
     multiplier: () => 1
