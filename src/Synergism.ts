@@ -55,13 +55,12 @@ import {
 } from './AutoAscension'
 import { autoAscendRulesUICreate, renderAutoAscendRules, setLastFiredAutoAscendRule } from './AutoAscensionUI'
 import { autoUpgrades } from './Automation'
-import type { TesseractBuildings } from './Buy'
 import {
+  autoBuyTesseractBuildings,
   boostAccelerator,
   buyBuilding,
   buyCrystalUpgrades,
   buyTesseractBuilding,
-  calculateTessBuildingsInBudget,
   CoinBuilding,
   convertLegacyBuildings,
   DiamondBuilding,
@@ -545,6 +544,7 @@ export const player: Player = {
     antSpeed: 0,
     cashGrab: 0,
     shopTalisman: 0,
+    shopMindPalace: 0,
     seasonPass: 0,
     challengeExtension: 0,
     challengeTome: 0,
@@ -588,6 +588,7 @@ export const player: Player = {
     shopImprovedDaily2: 0,
     shopImprovedDaily3: 0,
     shopImprovedDaily4: 0,
+    shopImprovedDaily5: 0,
     offeringEX3: 0,
     obtainiumEX3: 0,
     improveQuarkHept5: 0,
@@ -604,6 +605,7 @@ export const player: Player = {
     shopAmbrosiaLuck2: 0,
     shopAmbrosiaLuck3: 0,
     shopAmbrosiaLuck4: 0,
+    shopAmbrosiaLuck5: 0,
     shopCashGrabUltra: 0,
     shopAmbrosiaAccelerator: 0,
     shopEXUltra: 0,
@@ -616,7 +618,11 @@ export const player: Player = {
     shopRedLuck2: 0,
     shopRedLuck3: 0,
     shopRedLuck4: 0,
+    shopPurpleHoneyLuck: 0,
+    shopPurpleHoneyLuckFreeLevels: 0,
+    shopCorruptionScalingReduction: 0,
     shopInfiniteShopUpgrades: 0,
+    shopInfiniteShopUpgrades2: 0,
     shopHorseShoe: 0,
     shopPanthema: 0,
     shopPurpleBarRebate: 0
@@ -3556,26 +3562,7 @@ export const updateAll = (): void => {
     && player.tesseractAutoBuyerToggle
     && player.resetToggleModes.ascension === AutoAscensionModes.amount
   ) {
-    const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
-    for (let i = 1; i <= 5; i++) {
-      if (player.autoTesseracts[i]) {
-        ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
-      }
-    }
-    const budget = player.wowTesseracts - player.tesseractAutoBuyerAmount
-    const buyToBuildings = calculateTessBuildingsInBudget(
-      ownedBuildings,
-      budget
-    )
-    // Prioritise buying buildings from highest tier to lowest,
-    // in case there are any off-by-ones or floating point errors.
-    for (let i = 5; i >= 1; i--) {
-      const buyFrom = ownedBuildings[i - 1]
-      const buyTo = buyToBuildings[i - 1]
-      if (buyFrom !== null && buyTo !== null && buyTo !== buyFrom) {
-        buyTesseractBuilding(i as OneToFive, buyTo - buyFrom)
-      }
-    }
+    autoBuyTesseractBuildings(player.wowTesseracts - player.tesseractAutoBuyerAmount)
   }
 
   // Talismans

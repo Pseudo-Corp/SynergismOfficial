@@ -184,7 +184,8 @@ const shopSections = [
           { key: 'shopImprovedDaily', icon: 'Pictures/Default/ShopImprovedDaily0.png' },
           { key: 'shopImprovedDaily2', icon: 'Pictures/Default/ShopImprovedDaily.png' },
           { key: 'shopImprovedDaily3', icon: 'Pictures/Default/ShopImprovedDaily2.png' },
-          { key: 'shopImprovedDaily4', icon: 'Pictures/Default/ShopImprovedDaily3.png' }
+          { key: 'shopImprovedDaily4', icon: 'Pictures/Default/ShopImprovedDaily3.png' },
+          { key: 'shopImprovedDaily5', icon: 'Pictures/Default/ShopImprovedDaily4.png' }
         ]
       },
       {
@@ -198,6 +199,10 @@ const shopSections = [
       {
         id: 'shopInfiniteShopUpgrades',
         tiers: [{ key: 'shopInfiniteShopUpgrades', icon: 'Pictures/Default/ShopInfiniteShopUpgrades.png' }]
+      },
+      {
+        id: 'shopInfiniteShopUpgrades2',
+        tiers: [{ key: 'shopInfiniteShopUpgrades2', icon: 'Pictures/Default/ShopInfiniteShopUpgrades2.png' }]
       }
     ]
   },
@@ -238,7 +243,8 @@ const shopSections = [
           { key: 'shopAmbrosiaLuck1', icon: 'Pictures/Default/ShopAmbrosiaLuck1.png' },
           { key: 'shopAmbrosiaLuck2', icon: 'Pictures/Default/ShopAmbrosiaLuck2.png' },
           { key: 'shopAmbrosiaLuck3', icon: 'Pictures/Default/ShopAmbrosiaLuck3.png' },
-          { key: 'shopAmbrosiaLuck4', icon: 'Pictures/Default/ShopAmbrosiaLuck4.png' }
+          { key: 'shopAmbrosiaLuck4', icon: 'Pictures/Default/ShopAmbrosiaLuck4.png' },
+          { key: 'shopAmbrosiaLuck5', icon: 'Pictures/Default/ShopAmbrosiaLuck5.png' }
         ]
       },
       {
@@ -265,6 +271,14 @@ const shopSections = [
       {
         id: 'shopPurpleHoney',
         tiers: [{ key: 'shopPurpleBarRebate', icon: 'Pictures/Default/ShopPurpleBarRebate.png' }]
+      },
+      {
+        id: 'shopPurpleHoneyLuck',
+        tiers: [{ key: 'shopPurpleHoneyLuck', icon: 'Pictures/Default/ShopPurpleHoneyLuck.png' }]
+      },
+      {
+        id: 'shopPurpleHoneyLuckFreeLevels',
+        tiers: [{ key: 'shopPurpleHoneyLuckFreeLevels', icon: 'Pictures/Default/ShopPurpleHoneyLuckFreeLevels.png' }]
       }
     ]
   },
@@ -303,6 +317,14 @@ const shopSections = [
       {
         id: 'shopTalisman',
         tiers: [{ key: 'shopTalisman', icon: 'Pictures/Default/ShopP2WTalisman.png' }]
+      },
+      {
+        id: 'shopMindPalace',
+        tiers: [{ key: 'shopMindPalace', icon: 'Pictures/Default/ShopMindPalace.png' }]
+      },
+      {
+        id: 'shopCorruptionScalingReduction',
+        tiers: [{ key: 'shopCorruptionScalingReduction', icon: 'Pictures/Default/ShopCorruptionScalingReduction.png' }]
       }
     ]
   }
@@ -545,9 +567,15 @@ const buyButtonLabel = (key: ShopUpgradeNames) => {
   if (tierMaxed(key)) {
     return i18next.t('shop.maxed')
   }
+  if (shopUpgrades[key].maxLevel === 1) {
+    return i18next.t('shop.upgradeFor', { x: format(getShopCosts(key)) })
+  }
   const buyData = getShopBuyData(key)
   if (player.shopBuyMaxToggle === false) {
     return i18next.t('shop.upgradeFor', { x: format(buyData.cost) })
+  }
+  if (buyData.amount === 0) {
+    return i18next.t('shop.plusForQuarks', { x: format(1, 0, true), y: format(getShopCosts(key)) })
   }
   return i18next.t('shop.plusForQuarks', {
     x: format(buyData.amount, 0, true),

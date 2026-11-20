@@ -610,12 +610,12 @@ export const maxedPlatonicUpgradeCount = () => {
 const corruptionScalingPlatonicUpgrades = [6, 7, 8, 9, 11, 12, 13, 14]
 const corruptionScalingPerMaxedUpgrade = 0.025
 
-export const platonicCorruptionScaling = () => {
+export const platonicCorruptionScalingReduction = () => {
   const maxed =
     corruptionScalingPlatonicUpgrades.filter((index) =>
       player.platonicUpgrades[index] >= platUpgradeBaseCosts[index].maxLevel
     ).length
-  return 1 - corruptionScalingPerMaxedUpgrade * maxed
+  return corruptionScalingPerMaxedUpgrade * maxed
 }
 
 const constructionPerMaxedPlatonicUpgrade = 1.5

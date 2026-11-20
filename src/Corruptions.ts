@@ -16,7 +16,8 @@ import {
   updateTokens
 } from './Campaign'
 import { getMaxChallenges } from './Challenges'
-import { platonicCorruptionScaling } from './Platonic'
+import { platonicCorruptionScalingReduction } from './Platonic'
+import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
 import { calculateCorruptionCubeScaling, corruptionCubeScalingStats, freeCorruptionLevelStatsSum } from './Statistics'
 import { format, formatTimeShort, player } from './Synergism'
@@ -159,8 +160,12 @@ const corruptionLevelEffects: { [K in CorruptionKey]: CorruptionLevelEffect<K> }
 
 const corruptionKeys = Object.keys(corruptionLevelEffects) as CorruptionKey[]
 
+const corruptionScaling = () =>
+  1 - platonicCorruptionScalingReduction()
+  - getShopUpgradeEffects('shopCorruptionScalingReduction', 'corruptionScalingReduction')
+
 const corruptionBandBoundary = (edge: number) => {
-  return Math.floor(edge / platonicCorruptionScaling() + 1e-9)
+  return Math.floor(edge / corruptionScaling() + 1e-9)
 }
 
 const corruptionFormulaBranch = (level: number) => {
@@ -172,7 +177,7 @@ const corruptionFormulaBranch = (level: number) => {
 
 export const corruptionEffect = <K extends CorruptionKey>(level: number, corr: K): CorruptionEffectValues[K] => {
   const effects: CorruptionLevelEffect<K> = corruptionLevelEffects[corr]
-  return effects[corruptionFormulaBranch(level)](level * platonicCorruptionScaling())
+  return effects[corruptionFormulaBranch(level)](level * corruptionScaling())
 }
 
 export const challenge15IlliteracyBase = 0.2
@@ -376,7 +381,7 @@ const corruptionFormulaRangeText = [
 ]
 
 const corruptionScalingHTML = () => {
-  const scaling = platonicCorruptionScaling()
+  const scaling = corruptionScaling()
   if (scaling === 1) {
     return ''
   }
@@ -401,7 +406,7 @@ const corruptionFormulaTableHTML = (rows: CorruptionFormulaRow[], current: numbe
 }
 
 const corruptionLevelFormulaHTML = (corr: CorruptionKey) => {
-  const scaling = platonicCorruptionScaling()
+  const scaling = corruptionScaling()
   const L = scaling === 1 ? 'L' : `${format(scaling, 3, true)}L`
   const mid = corruptionBandBoundary(midgameLevel)
   const end = corruptionBandBoundary(endgameLevel)
