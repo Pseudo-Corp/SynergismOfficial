@@ -1108,7 +1108,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 5,
     costFormula: (level: number) => 2_000 * (Math.pow(4, level) - 1) / 3,
     effects: (n) => {
-      return n / 5
+      return 2_000 * n
     },
     notMaxedEffectsDescription: () => {
       const oldEffect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
@@ -1116,8 +1116,8 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
 
       const disclaimer = i18next.t('purpleReactor.upgrades.purpleQuarkGain.disclaimer')
       const effectText = i18next.t('purpleReactor.upgrades.purpleQuarkGain.effectNotMaxed', {
-        oldValue: format(oldEffect, 1),
-        newValue: format(newEffect, 1)
+        oldValue: format(oldEffect, 0, true),
+        newValue: format(newEffect, 0, true)
       })
       return `${effectText}<br>${disclaimer}`
     },
@@ -1126,7 +1126,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
 
       const disclaimer = i18next.t('purpleReactor.upgrades.purpleQuarkGain.disclaimer')
       const effectText = i18next.t('purpleReactor.upgrades.purpleQuarkGain.effectMaxed', {
-        maxValue: format(effect, 1)
+        maxValue: format(effect, 0, true)
       })
       return `${effectText}<br>${disclaimer}`
     },

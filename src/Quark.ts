@@ -3,8 +3,8 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   calculateAutoWarpQuarkMultiplier,
   calculateCubeQuarkMultiplier,
-  calculateMaxSingularityTimeQuarkMultiplier,
-  calculateQuarkMultiplier
+  calculateQuarkMultiplier,
+  calculateSingularityTimeQuarkRamp
 } from './Calculate'
 import { quarksFromELOMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
 import { getOcteractUpgradeEffect } from './Octeracts'
@@ -170,8 +170,13 @@ interface QuarkSource {
 
 export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
   primary: {
-    multiplier: () =>
-      Math.max(1, calculateMaxSingularityTimeQuarkMultiplier() * Math.min(1, player.singularityCounter / 86400))
+    multiplier: () => {
+      if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+        return 1
+      }
+      const { perDay, start } = calculateSingularityTimeQuarkRamp()
+      return 1 + perDay * Math.max(0, player.singularityCounter - start) / 86400
+    }
   },
   miscellaneous: {
     multiplier: () => 1
@@ -268,13 +273,13 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
     unlocked: () => player.unlocks.transcend || player.highestSingularityCount > 0
   },
   synthesis: {
-    category: 'primary',
+    category: 'miscellaneous',
     lines: [],
     multiplier: () => 1,
     unlocked: () => player.quarkLedger.base.synthesis > 0
   },
   purpleReactor: {
-    category: 'primary',
+    category: 'miscellaneous',
     lines: [],
     multiplier: () => 1,
     unlocked: () => player.quarkLedger.base.purpleReactor > 0
@@ -321,7 +326,17 @@ export const addBaseQuarks = (key: QuarkSourceKey, amount: number) => {
 
 export const resetQuarkLedger = () => {
   settleQuarks()
-  player.quarkLedger = createBlankQuarkLedger()
+  if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+    player.quarkLedger = createBlankQuarkLedger()
+    return
+  }
+  const quarksBefore = getQuarkLedgerQuarks()
+  for (const key of quarkSourceKeys) {
+    if (quarkSources[key].category === 'miscellaneous') {
+      player.quarkLedger.base[key] = 0
+    }
+  }
+  player.quarkLedger.awarded -= quarksBefore - getQuarkLedgerQuarks()
 }
 
 export const refreshQuarkBonus = async () => {

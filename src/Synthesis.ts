@@ -9,6 +9,7 @@ import { getTalismanEffects } from './Talismans'
 
 export const SYNTHESIS_RED_AMBROSIA_COST = 2_500
 export const SYNTHESIS_PURPLE_HONEY_COST = 500
+const SUBATOMIC_SHAVINGS_QUARKS_PER_LEVEL = 10_000
 export const SYNTHESIS_AUTOMATION_COST = 200
 
 const SYNTHESIS_PURPLE_AMBROSIA_YIELD = 1
@@ -149,16 +150,19 @@ const synthesisUpgradeData: SynthesisUpgradeDefinitions = {
       purpleAmbrosia: 20 * level,
       quarks: 1e26 * level
     }),
-    effect: (level) => level,
+    effect: (level) => SUBATOMIC_SHAVINGS_QUARKS_PER_LEVEL * level,
     notMaxedEffectsDescription: (level) =>
       i18next.t(
         'purpleReactor.synthesis.upgrades.subatomicShavings.effectNotMaxed',
-        { current: format(level, 0, true), next: format(level + 1, 0, true) }
+        {
+          current: format(SUBATOMIC_SHAVINGS_QUARKS_PER_LEVEL * level, 0, true),
+          next: format(SUBATOMIC_SHAVINGS_QUARKS_PER_LEVEL * (level + 1), 0, true)
+        }
       ),
     maxedEffectsDescription: (level) =>
       i18next.t(
         'purpleReactor.synthesis.upgrades.subatomicShavings.effectMaxed',
-        { value: format(level, 0, true) }
+        { value: format(SUBATOMIC_SHAVINGS_QUARKS_PER_LEVEL * level, 0, true) }
       ),
     apValue: {
       apPerInterval: 5,

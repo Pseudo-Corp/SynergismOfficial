@@ -6,10 +6,8 @@ import {
   calculateAmbrosiaRewardLuck,
   calculateAscensionSpeedMult,
   calculateBarEXALTPurpleFillChance,
-  calculateBaseGoldenQuarks,
   calculateEncabulatorSpeed,
   calculateGlobalSpeedMult,
-  calculateGoldenQuarks,
   calculateOcteractMultiplier,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
@@ -62,7 +60,6 @@ type TimerInput =
   | 'autoPotion'
   | 'purpleReactor'
 
-const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]
 const redAmbrosiaAcceleratorMaxBarPoints = 80_000_000
 
 const stochasticRound = (value: number, roll: number) => {
@@ -424,28 +421,6 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         const perSecond = calculateOcteractMultiplier()
         player.wowOcteracts += amountOfGiveaways * perSecond
         player.totalWowOcteracts += amountOfGiveaways * perSecond
-
-        if (player.highestSingularityCount >= 160) {
-          const frac = 1e-6
-          let actualLevel = 0
-          for (const sing of octeractGiveawayLevels) {
-            if (player.highestSingularityCount >= sing) {
-              actualLevel += 1
-            }
-          }
-
-          const quarkFraction = frac * actualLevel
-          const quarksBefore = player.quarksThisSingularity
-          const baseGoldenQuarks = calculateBaseGoldenQuarks(player.singularityCount)
-          const goldenQuarksPerBase = calculateGoldenQuarks() / baseGoldenQuarks
-          const baseWithoutQuarks = baseGoldenQuarks - quarksBefore / 1e5
-          player.quarksThisSingularity *= Math.pow(1 - quarkFraction, amountOfGiveaways)
-          const quarksConverted = quarksBefore - player.quarksThisSingularity
-          player.goldenQuarks += Math.min(
-            1e300,
-            goldenQuarksPerBase * (amountOfGiveaways * quarkFraction * baseWithoutQuarks + quarksConverted / 1e5)
-          )
-        }
       }
       break
     }

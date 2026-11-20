@@ -3667,24 +3667,6 @@ export const singularityPerks: SingularityPerk[] = [
     ID: 'midasMilleniumAgedGold'
   },
   {
-    name: 'singularity.perks.goldenRevolution4.name',
-    levels: [160, 173, 185, 194, 204, 210, 219, 229, 240, 249],
-    description: (n: number, levels: number[]) => {
-      const perSecond = 1000000
-      let divisor = 0
-      for (const singCount of levels) {
-        if (n >= singCount) {
-          divisor += 1
-        }
-      }
-
-      return i18next.t('singularity.perks.goldenRevolution4.default', {
-        gq: format(perSecond / divisor, 0, true)
-      })
-    },
-    ID: 'goldenRevolution4'
-  },
-  {
     name: 'singularity.perks.octeractMetagenesis.name',
     levels: [200, 205],
     description: (n: number, levels: number[]) => {
@@ -3852,8 +3834,7 @@ const SINGULARITY_PERK_TREE_PLACEMENTS: Record<string, SingularityPerkTreePlacem
   goldenRevolution: { parentID: 'immaculateAlchemy', x: 1, y: -4 },
   goldenRevolution2: { parentID: 'goldenRevolution', x: 0, y: -4 },
   goldenRevolution3: { parentID: 'goldenRevolution', x: 2, y: -4 },
-  goldenRevolution4: { parentID: 'goldenRevolution3', x: 3, y: -4 },
-  taxReduction: { parentID: 'goldenRevolution4', x: 3, y: -3 },
+  taxReduction: { parentID: 'goldenRevolution3', x: 3, y: -4 },
 
   xyz: { parentID: null, x: 2, y: 0, independentChildConnections: true },
   octeractMetagenesis: { parentID: 'xyz', x: 3, y: 0 },

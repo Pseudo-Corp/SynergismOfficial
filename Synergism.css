@@ -12789,6 +12789,10 @@ html[data-singularity="false"] .singularity {
     display: none;
 }
 
+html[data-singularity="true"] .offlineStats > .singularity {
+    display: flex;
+}
+
 html[data-singularity-button="true"] .singularityButton {
     display: block;
 }
