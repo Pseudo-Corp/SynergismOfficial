@@ -33,6 +33,7 @@ export type SingularityChallengeRewards = {
     capIncrease: number
     freeCorruptionLevel: number
     shopUpgrade: boolean
+    shopUpgrade2: boolean
     reinCapIncrease2: number
     ascCapIncrease2: number
   }
@@ -71,7 +72,6 @@ export type SingularityChallengeRewards = {
   }
   limitedTime: {
     preserveQuarks: boolean
-    singularityTimeQuarks: boolean
     quarkMult: number
     globalSpeed: number
     ascensionSpeed: number
@@ -415,7 +415,7 @@ export const singularityChallengeData: {
       return 15 * n
     },
     scalingrewardcount: 3,
-    uniquerewardcount: 4,
+    uniquerewardcount: 5,
     effect: (n, key) => {
       if (key === 'blueberrySpeedMult') {
         return (1 + n / 60)
@@ -424,6 +424,8 @@ export const singularityChallengeData: {
       } else if (key === 'freeCorruptionLevel') {
         return n >= 1 ? 1 + 0.2 * n : 0
       } else if (key === 'shopUpgrade') {
+        return n >= 5
+      } else if (key === 'shopUpgrade2') {
         return n >= 12
       } else if (key === 'reinCapIncrease2') {
         return 7 * +(n >= 15)
@@ -609,12 +611,10 @@ export const singularityChallengeData: {
       }
     },
     scalingrewardcount: 5,
-    uniquerewardcount: 4,
+    uniquerewardcount: 3,
     effect: (n, key) => {
       if (key === 'preserveQuarks') {
         return +(n > 0)
-      } else if (key === 'singularityTimeQuarks') {
-        return n >= 2
       } else if (key === 'quarkMult') {
         return 1 + 0.02 * n
       } else if (key === 'globalSpeed') {

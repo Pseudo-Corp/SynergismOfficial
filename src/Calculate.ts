@@ -916,6 +916,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     ants: timeAdd * G.timeMultiplier,
     antsReal: timeAdd,
     ascension: player.ascensionCounter, // Calculate this after the fact
+    singularity: player.singularityCounter,
     quarks: quarkHandler().gain, // Calculate this after the fact
     ambrosia: player.lifetimeAmbrosia,
     redAmbrosia: player.lifetimeRedAmbrosia,
@@ -935,6 +936,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   updateReincarnationCount(resetAdd.reincarnation)
 
   timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
+  timerAdd.singularity = player.singularityCounter - timerAdd.singularity
   timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
 
   resetAddDisplay.prestige = player.prestigeCount - resetAddDisplay.prestige
@@ -1063,6 +1065,12 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     'offlineProgress.currentAscensionTimer',
     {
       value: format(timerAdd.ascension, 2, true)
+    }
+  )
+  DOMCacheGetOrSet('offlineSingularityTimer').innerHTML = i18next.t(
+    'offlineProgress.currentSingularityTimer',
+    {
+      value: format(timerAdd.singularity, 2, true)
     }
   )
   DOMCacheGetOrSet('offlineQuarkCount').innerHTML = i18next.t(
@@ -1451,18 +1459,20 @@ export const calculateBaseCubeQuarkMultiplier = () => {
   return Math.min(1 + effect, calculateMaxBaseCubeQuarkMultiplier(player.highestSingularityCount))
 }
 
-export const calculateMaxSingularityTimeQuarkMultiplier = () => {
-  if (!getSingularityChallengeEffect('limitedTime', 'singularityTimeQuarks')) {
-    return 1
-  }
-  if (getShopUpgradeEffects('shopSingularitySpeedup', 'maxSingularityTimeQuarkMultiplier')) {
-    return 1e4
+export const calculateRootsOfUnityCap = () => {
+  return Math.min(9999, 24 * Math.pow(1.05, sumOfExaltCompletions()) - 1)
+}
+
+export const calculateSingularityTimeQuarkRamp = () => {
+  const cap = calculateRootsOfUnityCap()
+  if (getShopUpgradeEffects('shopSingularitySpeedup', 'ignoreFastestSingularity')) {
+    return { perDay: cap, start: 86400 / (cap + 1) }
   }
   const fastest = player.fastestSingularities[player.singularityCount]
   if (fastest === undefined) {
-    return 1
+    return { perDay: 0, start: 0 }
   }
-  return Math.min(1e4, Math.max(1, 86400 / fastest))
+  return { perDay: Math.max(0, Math.min(cap, 86400 / fastest - 1)), start: fastest }
 }
 
 export const calculateAutoWarpQuarkMultiplier = () => {

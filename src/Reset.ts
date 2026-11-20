@@ -395,6 +395,7 @@ export const updatePrestigeCount = (count: number) => {
   let multiplier = 1
   multiplier *= getAchievementReward('prestigeCountMultiplier')
   multiplier *= 1 + 0.05 * player.challengecompletions[5]
+  multiplier *= getShopUpgradeEffects('shopPrestigeCount', 'prestigeCountMult')
 
   const prestigeToAdd = Math.floor(count * multiplier)
   if (prestigeToAdd > 0) {
@@ -407,6 +408,7 @@ export const updateTranscensionCount = (count: number) => {
   let multiplier = 1
   multiplier *= getAchievementReward('transcensionCountMultiplier')
   multiplier *= 1 + 0.15 * player.challengecompletions[7]
+  multiplier *= getShopUpgradeEffects('shopTranscensionCount', 'transcensionCountMult')
 
   const transcendToAdd = Math.floor(count * multiplier)
   if (transcendToAdd > 0) {
@@ -422,6 +424,7 @@ export const updateReincarnationCount = (count: number) => {
   let multiplier = 1
   multiplier *= getAchievementReward('reincarnationCountMultiplier')
   multiplier *= 1 + 0.2 * player.challengecompletions[12]
+  multiplier *= getShopUpgradeEffects('shopReincarnationCount', 'reincarnationCountMult')
 
   const reincarnationToAdd = Math.floor(count * multiplier)
   if (reincarnationToAdd > 0) {

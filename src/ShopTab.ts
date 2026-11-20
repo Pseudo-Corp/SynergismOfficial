@@ -1,10 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import {
-  calculateMaxSingularityTimeQuarkMultiplier,
-  calculateQuarkMultiplier,
-  calculateSummationNonLinear
-} from './Calculate'
+import { calculateQuarkMultiplier, calculateSingularityTimeQuarkRamp, calculateSummationNonLinear } from './Calculate'
 import {
   getQuarkLedgerQuarks,
   quarkCategories,
@@ -18,12 +14,12 @@ import {
   buyShopUpgrades,
   getShopCosts,
   getShopTypeSymbolsHTML,
+  getShopUpgradeEffects,
   instantUnlocked,
   shopDescriptions,
   type ShopUpgradeNames,
   shopUpgrades
 } from './Shop'
-import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
 import { format, player } from './Synergism'
 import { isMobile } from './Utility'
@@ -203,6 +199,10 @@ const shopSections = [
       {
         id: 'shopInfiniteShopUpgrades2',
         tiers: [{ key: 'shopInfiniteShopUpgrades2', icon: 'Pictures/Default/ShopInfiniteShopUpgrades2.png' }]
+      },
+      {
+        id: 'shopFreeQuarkUpgrades',
+        tiers: [{ key: 'shopFreeQuarkUpgrades', icon: 'Pictures/Default/ShopFreeQuarkUpgrades.png' }]
       }
     ]
   },
@@ -294,6 +294,10 @@ const shopSections = [
         tiers: [{ key: 'shopHorseShoe', icon: 'Pictures/Default/ShopHorseShoe.png' }]
       },
       {
+        id: 'shopRootsOfUnity',
+        tiers: [{ key: 'shopRootsOfUnity', icon: 'Pictures/Default/ShopRootsOfUnity.png' }]
+      },
+      {
         id: 'shopSingularitySpeedup',
         tiers: [{ key: 'shopSingularitySpeedup', icon: 'Pictures/Default/ShopSingularitySpeedup.png' }]
       },
@@ -325,6 +329,19 @@ const shopSections = [
       {
         id: 'shopCorruptionScalingReduction',
         tiers: [{ key: 'shopCorruptionScalingReduction', icon: 'Pictures/Default/ShopCorruptionScalingReduction.png' }]
+      },
+      {
+        id: 'shopPrestigeCount',
+        tiers: [
+          { key: 'shopPrestigeCount', icon: 'Pictures/Default/ShopPrestigeCount.png' },
+          { key: 'shopTranscensionCount', icon: 'Pictures/Default/ShopTranscensionCount.png' },
+          { key: 'shopReincarnationCount', icon: 'Pictures/Default/ShopReincarnationCount.png' },
+          { key: 'shopAntSacrificeCount', icon: 'Pictures/Default/ShopAntSacrificeCount.png' }
+        ]
+      },
+      {
+        id: 'shopResetUpgradesImprover',
+        tiers: [{ key: 'shopResetUpgradesImprover', icon: 'Pictures/Default/ShopResetUpgradesImprover.png' }]
       }
     ]
   }
@@ -767,7 +784,7 @@ export const updateQuarkLedgerTab = () => {
     i18next.t('shop.quarkLedger.multiplierValue', { x: format(globalMultiplier, 2, true) })
   )
 
-  const singularityTimeUnlocked = getSingularityChallengeEffect('limitedTime', 'singularityTimeQuarks')
+  const singularityTimeUnlocked = getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')
   DOMCacheGetOrSet('quarkLedgerSingularityTimeRow').hidden = !singularityTimeUnlocked
   DOMCacheGetOrSet('quarkLedgerAllMultipliersRow-primary').hidden = !singularityTimeUnlocked
   if (singularityTimeUnlocked) {
@@ -775,7 +792,7 @@ export const updateQuarkLedgerTab = () => {
     updateTextContentIfChanged(
       DOMCacheGetOrSet('quarkLedgerSingularityTimeLabel'),
       i18next.t('shop.quarkLedger.singularityTimeMultiplier', {
-        max: format(calculateMaxSingularityTimeQuarkMultiplier(), 2, true)
+        perDay: format(calculateSingularityTimeQuarkRamp().perDay, 2, true)
       })
     )
     updateTextContentIfChanged(

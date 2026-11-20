@@ -12,6 +12,7 @@ import {
   calculateOfferingPotionBaseOfferings,
   calculateOfferingsDecimal,
   calculatePotionValue,
+  calculateRootsOfUnityCap,
   calculateSummationNonLinear,
   sumOfExaltCompletions
 } from './Calculate'
@@ -115,14 +116,21 @@ type QuarkShopUpgradeRewards = {
   shopPurpleHoneyLuck: { purpleHoneyLuck: number }
   shopPurpleHoneyLuckFreeLevels: { freeLevels: number }
   shopCorruptionScalingReduction: { corruptionScalingReduction: number }
+  shopPrestigeCount: { prestigeCountMult: number }
+  shopTranscensionCount: { transcensionCountMult: number }
+  shopReincarnationCount: { reincarnationCountMult: number }
+  shopAntSacrificeCount: { antSacrificeCountMult: number }
+  shopResetUpgradesImprover: { freeLevels: number }
   shopHorseShoe: { bonusHorseLevels: number; singularityPenaltyMult: number }
   shopPurpleBarRebate: { ambrosiaBarPointsPerFill: number; redAmbrosiaBarPointsPerFill: number }
   shopInfiniteShopUpgrades: { infiniteVouchers: number }
   shopInfiniteShopUpgrades2: { infiniteVouchers: number }
+  shopFreeQuarkUpgrades: { freeLevels: number }
   shopSingularityPenaltyDebuff: { singularityPenaltyReducers: number }
   shopCashGrabUltra: { ambrosiaGenerationMult: number; cubesMult: number; quarkMult: number }
   shopEXUltra: { offeringMult: number; obtainiumMult: number; cubeMult: number }
-  shopSingularitySpeedup: { maxSingularityTimeQuarkMultiplier: boolean }
+  shopRootsOfUnity: { singularityTimeQuarks: boolean }
+  shopSingularitySpeedup: { ignoreFastestSingularity: boolean }
   shopSingularityPotency: { freeUpgradeMult: number }
   shopPanthema: {
     offeringMult: number
@@ -134,6 +142,7 @@ type QuarkShopUpgradeRewards = {
     ambrosiaLuck: number
     redLuck: number
     purpleHoneyLuck: number
+    ascensionCountMult: number
     infinityMetaBoost: number
   }
 }
@@ -151,6 +160,7 @@ export enum ShopUpgradeGroups {
   PurpleHoneyLuck,
   AmbrosiaGeneration,
   InfinityUpgrades,
+  Reset,
   Utility
 }
 
@@ -202,6 +212,7 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     bonusLevels: () =>
       getSingularityChallengeEffect('noQuarkUpgrades', 'freeQuarkLevel')
       + getAmbrosiaUpgradeEffects('ambrosiaFreeQuarkUpgrades', 'freeQuarkUpgrades')
+      + getShopUpgradeEffects('shopFreeQuarkUpgrades', 'freeLevels')
   },
   [ShopUpgradeGroups.AmbrosiaLuck]: {
     HTMLColor: 'var(--lime-color)',
@@ -230,6 +241,11 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
       calculateFreeShopInfinityUpgrades()
       + getSingularityChallengeEffect('noQuarkUpgrades', 'freeInfinityLevels')
       + getRuneEffects(RuneType.TopHat, 'freeInfinityLevels')
+  },
+  [ShopUpgradeGroups.Reset]: {
+    HTMLColor: 'var(--lightcoral-color)',
+    symbol: '↺',
+    bonusLevels: () => getShopUpgradeEffects('shopResetUpgradesImprover', 'freeLevels')
   },
   [ShopUpgradeGroups.Utility]: {
     HTMLColor: 'var(--white-color)',
@@ -1429,7 +1445,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         amount: formatAsPercentIncrease(1 + effects, 0)
       })
     },
-    isUnlocked: () => getSingularityChallengeEffect('oneChallengeCap', 'shopUpgrade'),
+    isUnlocked: () => getSingularityChallengeEffect('oneChallengeCap', 'shopUpgrade2'),
     price: 2e22,
     priceIncrease: 6e22,
     maxLevel: 4,
@@ -1766,6 +1782,91 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
   },
+  shopPrestigeCount: {
+    name: () => i18next.t('shop.names.shopPrestigeCount'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopPrestigeCount'),
+    effects: (n) => 1 + 0.01 * n, // prestigeCountMult
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopPrestigeCount', 'prestigeCountMult')
+      return i18next.t('shop.upgradeEffects.shopPrestigeCount', {
+        amount: formatAsPercentIncrease(effects, 0)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 1e29,
+    priceIncrease: 0,
+    maxLevel: 100,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.Reset]
+  },
+  shopTranscensionCount: {
+    name: () => i18next.t('shop.names.shopTranscensionCount'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopTranscensionCount'),
+    effects: (n) => 1 + 0.01 * n, // transcensionCountMult
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopTranscensionCount', 'transcensionCountMult')
+      return i18next.t('shop.upgradeEffects.shopTranscensionCount', {
+        amount: formatAsPercentIncrease(effects, 0)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 5e29,
+    priceIncrease: 0,
+    maxLevel: 100,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.Reset]
+  },
+  shopReincarnationCount: {
+    name: () => i18next.t('shop.names.shopReincarnationCount'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopReincarnationCount'),
+    effects: (n) => 1 + 0.01 * n, // reincarnationCountMult
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopReincarnationCount', 'reincarnationCountMult')
+      return i18next.t('shop.upgradeEffects.shopReincarnationCount', {
+        amount: formatAsPercentIncrease(effects, 0)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 1.2e30,
+    priceIncrease: 0,
+    maxLevel: 100,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.Reset]
+  },
+  shopAntSacrificeCount: {
+    name: () => i18next.t('shop.names.shopAntSacrificeCount'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopAntSacrificeCount'),
+    effects: (n) => 1 + 0.01 * n, // antSacrificeCountMult
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopAntSacrificeCount', 'antSacrificeCountMult')
+      return i18next.t('shop.upgradeEffects.shopAntSacrificeCount', {
+        amount: formatAsPercentIncrease(effects, 0)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 5e30,
+    priceIncrease: 0,
+    maxLevel: 100,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.Reset]
+  },
+  shopResetUpgradesImprover: {
+    name: () => i18next.t('shop.names.shopResetUpgradesImprover'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopResetUpgradesImprover'),
+    effects: (n) => n, // freeLevels
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopResetUpgradesImprover', 'freeLevels')
+      return i18next.t('shop.upgradeEffects.shopResetUpgradesImprover', {
+        amount: format(effects, 0, true)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 1e31,
+    priceIncrease: 0,
+    maxLevel: 25,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: []
+  },
   shopCashGrabUltra: {
     name: () => i18next.t('shop.names.shopCashGrabUltra'),
     description: () => i18next.t('shop.upgradeDescriptions.shopCashGrabUltra'),
@@ -1872,12 +1973,55 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
   },
+  shopRootsOfUnity: {
+    name: () => i18next.t('shop.names.shopRootsOfUnity'),
+    description: () => {
+      const cap = calculateRootsOfUnityCap()
+      const description = i18next.t(
+        getShopUpgradeEffects('shopSingularitySpeedup', 'ignoreFastestSingularity')
+          ? 'shop.upgradeDescriptions.shopRootsOfUnityClockwork'
+          : 'shop.upgradeDescriptions.shopRootsOfUnity',
+        {
+          max: format(cap, 2, true),
+          time: format(86400 / (cap + 1), 2, true)
+        }
+      )
+      return `${description}<br>${i18next.t('shop.upgradeDescriptions.shopRootsOfUnityFormula')}<br>${
+        i18next.t('shop.upgradeDescriptions.shopRootsOfUnityWarning')
+      }`
+    },
+    effects: (n) => n > 0, // singularityTimeQuarks
+    effectDescription () {
+      const active = getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')
+      if (getShopUpgradeEffects('shopSingularitySpeedup', 'ignoreFastestSingularity')) {
+        return i18next.t(
+          active
+            ? 'shop.upgradeEffects.shopRootsOfUnityClockwork'
+            : 'shop.upgradeEffects.shopRootsOfUnityClockworkInactive',
+          { time: format(86400 / (calculateRootsOfUnityCap() + 1), 2, true) }
+        )
+      }
+      return active
+        ? i18next.t('shop.upgradeEffects.shopRootsOfUnity')
+        : i18next.t('shop.upgradeEffects.shopRootsOfUnityInactive')
+    },
+    isUnlocked: () => getSingularityChallengeEffect('oneChallengeCap', 'shopUpgrade'),
+    price: 2e21,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: []
+  },
   shopSingularitySpeedup: {
     name: () => i18next.t('shop.names.shopSingularitySpeedup'),
     description: () => i18next.t('shop.upgradeDescriptions.shopSingularitySpeedup'),
-    effects: (n) => n > 0, // maxSingularityTimeQuarkMultiplier
+    effects: (n) => n > 0, // ignoreFastestSingularity
     effectDescription () {
-      return i18next.t('shop.upgradeEffects.shopSingularitySpeedup')
+      const cap = calculateRootsOfUnityCap()
+      return i18next.t('shop.upgradeEffects.shopSingularitySpeedup', {
+        max: format(cap, 2, true),
+        time: format(86400 / (cap + 1), 2, true)
+      })
     },
     isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade'),
     price: 2e26,
@@ -1950,9 +2094,26 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
     price: 4e30,
     priceIncrease: 0,
-    maxLevel: 26,
+    maxLevel: 31,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
+  },
+  shopFreeQuarkUpgrades: {
+    name: () => i18next.t('shop.names.shopFreeQuarkUpgrades'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopFreeQuarkUpgrades'),
+    effects: (n) => n / 10, // freeLevels
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopFreeQuarkUpgrades', 'freeLevels')
+      return i18next.t('shop.upgradeEffects.shopFreeQuarkUpgrades', {
+        amount: format(effects, 1, true)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 2e32,
+    priceIncrease: 0,
+    maxLevel: 10,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.Utility]
   },
   shopHorseShoe: {
     name: () => i18next.t('shop.names.shopHorseShoe'),
@@ -2030,6 +2191,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return 0.05 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.RedAmbrosiaLuck].bonusLevels() * infinityBoost
       } else if (key === 'purpleHoneyLuck') {
         return 0.01 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.PurpleHoneyLuck].bonusLevels() * infinityBoost
+      } else if (key === 'ascensionCountMult') {
+        return 1 + 0.01 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.Reset].bonusLevels() * infinityBoost
       }
 
       throw new TypeError(`unknown effect ${key}`)
@@ -2045,6 +2208,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const ambrosiaLuck = getShopUpgradeEffects('shopPanthema', 'ambrosiaLuck')
       const redLuck = getShopUpgradeEffects('shopPanthema', 'redLuck')
       const purpleHoneyLuck = getShopUpgradeEffects('shopPanthema', 'purpleHoneyLuck')
+      const ascensionCountMult = getShopUpgradeEffects('shopPanthema', 'ascensionCountMult')
 
       let effectHTML = i18next.t('shop.upgradeEffects.shopPanthema')
       if (offeringMult > 1) {
@@ -2126,6 +2290,14 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
           })
         }</span>`
       }
+      if (ascensionCountMult > 1) {
+        effectHTML += `<br><span style="color:${shopUpgradeTypeInfo[ShopUpgradeGroups.Reset].HTMLColor}">${
+          i18next.t('shop.upgradeEffects.shopPanthemaAscensionCount', {
+            amount: formatAsPercentIncrease(ascensionCountMult),
+            amount2: formatAsPercentIncrease(1 + 0.01 * infinityMetaBoost, 2)
+          })
+        }</span>`
+      }
 
       return effectHTML
     },
@@ -2144,7 +2316,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       ShopUpgradeGroups.AmbrosiaGeneration,
       ShopUpgradeGroups.AmbrosiaLuck,
       ShopUpgradeGroups.RedAmbrosiaLuck,
-      ShopUpgradeGroups.PurpleHoneyLuck
+      ShopUpgradeGroups.PurpleHoneyLuck,
+      ShopUpgradeGroups.Reset
     ]
   }
 }
@@ -2237,7 +2410,7 @@ export const getShopTypeSymbolsHTML = (input: ShopUpgradeNames) => {
       const bonusLevels = shopUpgradeTypeInfo[i].bonusLevels()
       let text = shopUpgradeTypeInfo[i].symbol
       if (bonusLevels > 0) {
-        text += ` +${bonusLevels * bonusLevelMult}`
+        text += ` +${Math.round(100 * bonusLevels * bonusLevelMult) / 100}`
       }
       if (bonusLevelMult > 1) {
         text += ` (x${bonusLevelMult})`

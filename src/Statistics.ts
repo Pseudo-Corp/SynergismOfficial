@@ -5448,6 +5448,10 @@ export const ascensionCountMultStats: NumberStatLineCategory = {
       stat: () => getOcteractUpgradeEffect('octeractAscensions2', 'ascensionCountMult')
     },
     {
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'ascensionCountMult')
+    },
+    {
       i18n: 'OneMind',
       stat: () => getGQUpgradeEffect('oneMind', 'unlocked') ? calculateAscensionSpeedMult() / G.MIND_DIVISOR : 1
     }
@@ -5466,6 +5470,7 @@ export const ascensionCountMultStatsProduct = (ascensionSpeedMult?: number) =>
       * getGQUpgradeEffect('ascensions', 'ascensionCountMult')
       * getOcteractUpgradeEffect('octeractAscensions', 'ascensionCountMult')
       * getOcteractUpgradeEffect('octeractAscensions2', 'ascensionCountMult')
+      * getShopUpgradeEffects('shopPanthema', 'ascensionCountMult')
       * (getGQUpgradeEffect('oneMind', 'unlocked')
         ? (ascensionSpeedMult ?? calculateAscensionSpeedMult()) / G.MIND_DIVISOR
         : 1)
