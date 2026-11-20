@@ -2969,6 +2969,11 @@ export const allAdditiveLuckMultStats: NumberStatLineCategory = {
       stat: () => getShopUpgradeEffects('shopAmbrosiaLuckMultiplier4', 'additiveAmbrosiaLuckMult') // EXALT-unlocked shop upgrade
     },
     {
+      i18n: 'ShopAmbrosiaLuck5',
+      stat: () => getShopUpgradeEffects('shopAmbrosiaLuck5', 'additiveAmbrosiaLuckMult'),
+      acc: 4
+    },
+    {
       i18n: 'NoAmbrosiaUpgrades',
       stat: () => getSingularityChallengeEffect('noAmbrosiaUpgrades', 'additiveLuckMult') // No Ambrosia Challenge Reward
     },
@@ -3004,6 +3009,7 @@ export const allAdditiveLuckMultStatsSum = () =>
       + getSingularityChallengeEffect('noSingularityUpgrades', 'additiveLuckMult')
       + calculateDilatedFiveLeafBonus()
       + getShopUpgradeEffects('shopAmbrosiaLuckMultiplier4', 'additiveAmbrosiaLuckMult')
+      + getShopUpgradeEffects('shopAmbrosiaLuck5', 'additiveAmbrosiaLuckMult')
       + getSingularityChallengeEffect('noAmbrosiaUpgrades', 'additiveLuckMult')
       + (0.001 * player.cubeUpgrades[77])
       + getAmbrosiaUpgradeEffects('ambrosiaLuck4', 'ambrosiaLuckPercentage')
@@ -4049,6 +4055,12 @@ export const allShopTablets: NumberStatLineCategory = {
       color: 'var(--lightblue-color)'
     },
     {
+      i18n: 'White',
+      stat: () => getShopUpgradeEffects('shopInfiniteShopUpgrades2', 'infiniteVouchers'),
+      acc: 0,
+      color: 'var(--white-color)'
+    },
+    {
       i18n: 'Indigo',
       stat: () => getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1', 'freeLevels'), // Blueberry Upgrade
       acc: 0,
@@ -4081,6 +4093,7 @@ export const allShopTabletsSum = () =>
       + getGQUpgradeEffect('singInfiniteShopUpgrades', 'infinityVouchers')
       + getOcteractUpgradeEffect('octeractInfiniteShopUpgrades', 'infinityVouchers')
       + getShopUpgradeEffects('shopInfiniteShopUpgrades', 'infiniteVouchers')
+      + getShopUpgradeEffects('shopInfiniteShopUpgrades2', 'infiniteVouchers')
       + getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades1', 'freeLevels')
       + getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades2', 'freeLevels')
       + getAmbrosiaUpgradeEffects('ambrosiaInfiniteShopUpgrades3', 'freeLevels')
@@ -5763,6 +5776,16 @@ export const allPurpleHoneyLuckStats: NumberStatLineCategory = {
       stat: () => getPurpleReactorUpgradeEffects('purpleHoneyLuck4', 'purpleHoneyLuck')
     },
     {
+      i18n: 'ShopPurpleHoneyLuck',
+      stat: () => getShopUpgradeEffects('shopPurpleHoneyLuck', 'purpleHoneyLuck'),
+      acc: 2
+    },
+    {
+      i18n: 'Jack',
+      stat: () => getShopUpgradeEffects('shopPanthema', 'purpleHoneyLuck'),
+      acc: 2
+    },
+    {
       i18n: 'TaxmanLastStand',
       stat: () => getSingularityChallengeEffect('taxmanLastStand', 'purpleHoneyLuck')
     },
@@ -5790,6 +5813,8 @@ export const allPurpleHoneyLuckStatsSum = () =>
       + getPurpleReactorUpgradeEffects('purpleHoneyLuck2', 'purpleHoneyLuck')
       + getPurpleReactorUpgradeEffects('purpleHoneyLuck3', 'purpleHoneyLuck')
       + getPurpleReactorUpgradeEffects('purpleHoneyLuck4', 'purpleHoneyLuck')
+      + getShopUpgradeEffects('shopPurpleHoneyLuck', 'purpleHoneyLuck')
+      + getShopUpgradeEffects('shopPanthema', 'purpleHoneyLuck')
       + getSingularityChallengeEffect('taxmanLastStand', 'purpleHoneyLuck')
       + getSingularityChallengeEffect('barDependence', 'purpleHoneyLuck')
       + getRuneEffects(RuneType.HorseShoe, 'purpleHoneyLuck')

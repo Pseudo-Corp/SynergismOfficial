@@ -11,13 +11,7 @@ import {
 import { applyPendingAutoAscendProtocol, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
 import { lastBlueberryLoadout, setLastBlueberryLoadout } from './BlueberryUpgrades'
-import {
-  buyTesseractBuilding,
-  calculateTessBuildingsInBudget,
-  CoinBuilding,
-  grantBuildings
-} from './Buy'
-import type { TesseractBuildings } from './Buy'
+import { autoBuyTesseractBuildings, CoinBuilding, grantBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
@@ -798,24 +792,8 @@ export const reset = (
       player.researches[190] > 0 && player.tesseractAutoBuyerToggle
       && player.resetToggleModes.ascension === AutoAscensionModes.percentage
     ) {
-      const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
-      for (let i = 1; i <= 5; i++) {
-        if (player.autoTesseracts[i]) {
-          ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
-        }
-      }
       const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
-      const budget = player.wowTesseracts * percentageToSpend / 100
-      const buyToBuildings = calculateTessBuildingsInBudget(ownedBuildings, budget)
-      // Prioritise buying buildings from highest tier to lowest,
-      // in case there are any off-by-ones or floating point errors.
-      for (let i = 5; i >= 1; i--) {
-        const buyFrom = ownedBuildings[i - 1]
-        const buyTo = buyToBuildings[i - 1]
-        if (buyFrom !== null && buyTo !== null && buyTo !== buyFrom) {
-          buyTesseractBuilding(i as OneToFive, buyTo - buyFrom)
-        }
-      }
+      autoBuyTesseractBuildings(player.wowTesseracts * percentageToSpend / 100)
     }
 
     // Automation Platonic Upgrades

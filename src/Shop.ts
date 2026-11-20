@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
+import { achievementLevel } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
@@ -44,6 +45,7 @@ type QuarkShopUpgradeRewards = {
   cashGrab: { obtainiumMult: number; offeringMult: number }
   cashGrab2: { obtainiumMult: number; offeringMult: number }
   shopTalisman: { talismanUnlocked: boolean }
+  shopMindPalace: { freeBuildings: boolean }
   infiniteAscent: { runeUnlocked: boolean }
   shopSadisticRune: { runeUnlocked: boolean }
   antSpeed: { antELO: number }
@@ -87,6 +89,7 @@ type QuarkShopUpgradeRewards = {
   shopImprovedDaily2: { freeSingularityUpgrades: number; dailyCodeGoldenQuarkMult: number }
   shopImprovedDaily3: { freeSingularityUpgrades: number; dailyCodeGoldenQuarkMult: number }
   shopImprovedDaily4: { freeSingularityUpgrades: number; dailyCodeGoldenQuarkMult: number }
+  shopImprovedDaily5: { freeUpgradeMult: number }
   constantEX: { maxPercentIncrease: number }
   powderEX: { orbToPowderConversionMult: number }
   powderAuto: { automaticPowderFraction: number }
@@ -101,6 +104,7 @@ type QuarkShopUpgradeRewards = {
   shopAmbrosiaLuck2: { ambrosiaLuck: number }
   shopAmbrosiaLuck3: { ambrosiaLuck: number }
   shopAmbrosiaLuck4: { ambrosiaLuck: number }
+  shopAmbrosiaLuck5: { additiveAmbrosiaLuckMult: number }
   shopAmbrosiaLuckMultiplier4: { additiveAmbrosiaLuckMult: number }
   shopOcteractAmbrosiaLuck: { ambrosiaLuck: number }
   shopAmbrosiaUltra: { ambrosiaLuck: number }
@@ -108,9 +112,13 @@ type QuarkShopUpgradeRewards = {
   shopRedLuck2: { redLuck: number; luckConversionRatio: number }
   shopRedLuck3: { redLuck: number; luckConversionRatio: number }
   shopRedLuck4: { redLuck: number; luckConversionRatio: number }
+  shopPurpleHoneyLuck: { purpleHoneyLuck: number }
+  shopPurpleHoneyLuckFreeLevels: { freeLevels: number }
+  shopCorruptionScalingReduction: { corruptionScalingReduction: number }
   shopHorseShoe: { bonusHorseLevels: number; singularityPenaltyMult: number }
   shopPurpleBarRebate: { ambrosiaBarPointsPerFill: number; redAmbrosiaBarPointsPerFill: number }
   shopInfiniteShopUpgrades: { infiniteVouchers: number }
+  shopInfiniteShopUpgrades2: { infiniteVouchers: number }
   shopSingularityPenaltyDebuff: { singularityPenaltyReducers: number }
   shopCashGrabUltra: { ambrosiaGenerationMult: number; cubesMult: number; quarkMult: number }
   shopEXUltra: { offeringMult: number; obtainiumMult: number; cubeMult: number }
@@ -125,6 +133,7 @@ type QuarkShopUpgradeRewards = {
     ambrosiaGenerationMult: number
     ambrosiaLuck: number
     redLuck: number
+    purpleHoneyLuck: number
     infinityMetaBoost: number
   }
 }
@@ -139,6 +148,7 @@ export enum ShopUpgradeGroups {
   Quark,
   AmbrosiaLuck,
   RedAmbrosiaLuck,
+  PurpleHoneyLuck,
   AmbrosiaGeneration,
   InfinityUpgrades,
   Utility
@@ -202,6 +212,11 @@ export const shopUpgradeTypeInfo: Record<ShopUpgradeGroups, UpgradeTypeInfo> = {
     HTMLColor: 'var(--red-color)',
     symbol: '⚅',
     bonusLevels: () => getAmbrosiaUpgradeEffects('ambrosiaFreeRedLuckUpgrades', 'freeRedLuckUpgrades')
+  },
+  [ShopUpgradeGroups.PurpleHoneyLuck]: {
+    HTMLColor: 'var(--purple-text-color)',
+    symbol: '✰',
+    bonusLevels: () => getShopUpgradeEffects('shopPurpleHoneyLuckFreeLevels', 'freeLevels')
   },
   [ShopUpgradeGroups.AmbrosiaGeneration]: {
     HTMLColor: 'var(--lightblue-color)',
@@ -449,6 +464,24 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     maxLevel: 1,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.Utility]
+  },
+  shopMindPalace: {
+    name: () => i18next.t('shop.names.shopMindPalace'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopMindPalace'),
+    effects: (n) => n > 0, // freeBuildings
+    effectDescription () {
+      return i18next.t(
+        getShopUpgradeEffects('shopMindPalace', 'freeBuildings')
+          ? 'shop.upgradeEffects.shopMindPalace.effectHave'
+          : 'shop.upgradeEffects.shopMindPalace.effectHaveNot'
+      )
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass2', 'unlocked'),
+    price: 1.2625e11,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: []
   },
   seasonPass: {
     name: () => i18next.t('shop.names.seasonPass'),
@@ -1236,6 +1269,23 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
   },
+  shopImprovedDaily5: {
+    name: () => i18next.t('shop.names.shopImprovedDaily5'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopImprovedDaily5'),
+    effects: (n) => 1 + 0.0002 * n, // freeUpgradeMult
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopImprovedDaily5', 'freeUpgradeMult')
+      return i18next.t('shop.upgradeEffects.shopImprovedDaily5', {
+        amount: formatAsPercentIncrease(effects)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 1.5e29,
+    priceIncrease: 0,
+    maxLevel: 1000,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.InfinityUpgrades]
+  },
   offeringEX3: {
     name: () => i18next.t('shop.names.offeringEX3'),
     description: () => i18next.t('shop.upgradeDescriptions.offeringEX3'),
@@ -1546,6 +1596,23 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.AmbrosiaLuck]
   },
+  shopAmbrosiaLuck5: {
+    name: () => i18next.t('shop.names.shopAmbrosiaLuck5'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopAmbrosiaLuck5'),
+    effects: (n) => 0.0001 * n, // additiveAmbrosiaLuckMult
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopAmbrosiaLuck5', 'additiveAmbrosiaLuckMult')
+      return i18next.t('shop.upgradeEffects.shopAmbrosiaLuck5', {
+        amount: formatAsPercentIncrease(1 + effects)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 2.5e28,
+    priceIncrease: 0,
+    maxLevel: 1000,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.InfinityUpgrades]
+  },
   shopRedLuck1: {
     name: () => i18next.t('shop.names.shopRedLuck1'),
     description: () => i18next.t('shop.upgradeDescriptions.shopRedLuck1'),
@@ -1641,12 +1708,63 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
-    price: 1e27,
-    priceIncrease: 1e26,
+    price: 5e28,
+    priceIncrease: 0,
     maxLevel: 1000,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.RedAmbrosiaLuck],
     freeUpgradeMultiplier: 3
+  },
+  shopPurpleHoneyLuck: {
+    name: () => i18next.t('shop.names.shopPurpleHoneyLuck'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopPurpleHoneyLuck'),
+    effects: (n) => 0.01 * n, // purpleHoneyLuck
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopPurpleHoneyLuck', 'purpleHoneyLuck')
+      return i18next.t('shop.upgradeEffects.shopPurpleHoneyLuck', {
+        amount: format(effects, 2, true)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 1e29,
+    priceIncrease: 0,
+    maxLevel: 1000,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.InfinityUpgrades, ShopUpgradeGroups.PurpleHoneyLuck]
+  },
+  shopPurpleHoneyLuckFreeLevels: {
+    name: () => i18next.t('shop.names.shopPurpleHoneyLuckFreeLevels'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopPurpleHoneyLuckFreeLevels'),
+    effects: (n) => n, // freeLevels
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopPurpleHoneyLuckFreeLevels', 'freeLevels')
+      return i18next.t('shop.upgradeEffects.shopPurpleHoneyLuckFreeLevels', {
+        amount: format(effects, 0, true)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 1e30,
+    priceIncrease: 0,
+    maxLevel: 250,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: []
+  },
+  shopCorruptionScalingReduction: {
+    name: () => i18next.t('shop.names.shopCorruptionScalingReduction'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopCorruptionScalingReduction'),
+    effects: (n) => 0.01 * n, // corruptionScalingReduction
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopCorruptionScalingReduction', 'corruptionScalingReduction')
+      return i18next.t('shop.upgradeEffects.shopCorruptionScalingReduction', {
+        amount: `${format(100 * effects, 0, true)}%`
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 1e31,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: []
   },
   shopCashGrabUltra: {
     name: () => i18next.t('shop.names.shopCashGrabUltra'),
@@ -1819,6 +1937,23 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: []
   },
+  shopInfiniteShopUpgrades2: {
+    name: () => i18next.t('shop.names.shopInfiniteShopUpgrades2'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopInfiniteShopUpgrades2'),
+    effects: (n) => n > 0 ? Math.floor(achievementLevel / (51 - n)) : 0, // infiniteVouchers
+    effectDescription () {
+      const effects = getShopUpgradeEffects('shopInfiniteShopUpgrades2', 'infiniteVouchers')
+      return i18next.t('shop.upgradeEffects.shopInfiniteShopUpgrades', {
+        amount: format(effects, 0)
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 4e30,
+    priceIncrease: 0,
+    maxLevel: 26,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: []
+  },
   shopHorseShoe: {
     name: () => i18next.t('shop.names.shopHorseShoe'),
     description: () => i18next.t('shop.upgradeDescriptions.shopHorseShoe'),
@@ -1893,6 +2028,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return 0.2 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.AmbrosiaLuck].bonusLevels() * infinityBoost
       } else if (key === 'redLuck') {
         return 0.05 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.RedAmbrosiaLuck].bonusLevels() * infinityBoost
+      } else if (key === 'purpleHoneyLuck') {
+        return 0.01 * n * shopUpgradeTypeInfo[ShopUpgradeGroups.PurpleHoneyLuck].bonusLevels() * infinityBoost
       }
 
       throw new TypeError(`unknown effect ${key}`)
@@ -1907,6 +2044,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const ambrosiaGenerationMult = getShopUpgradeEffects('shopPanthema', 'ambrosiaGenerationMult')
       const ambrosiaLuck = getShopUpgradeEffects('shopPanthema', 'ambrosiaLuck')
       const redLuck = getShopUpgradeEffects('shopPanthema', 'redLuck')
+      const purpleHoneyLuck = getShopUpgradeEffects('shopPanthema', 'purpleHoneyLuck')
 
       let effectHTML = i18next.t('shop.upgradeEffects.shopPanthema')
       if (offeringMult > 1) {
@@ -1980,6 +2118,14 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
           })
         }</span>`
       }
+      if (purpleHoneyLuck > 0) {
+        effectHTML += `<br><span style="color:${shopUpgradeTypeInfo[ShopUpgradeGroups.PurpleHoneyLuck].HTMLColor}">${
+          i18next.t('shop.upgradeEffects.shopPanthemaPurpleHoneyLuck', {
+            amount: format(purpleHoneyLuck, 3, true),
+            amount2: format(0.01 * infinityMetaBoost, 3, true)
+          })
+        }</span>`
+      }
 
       return effectHTML
     },
@@ -1997,7 +2143,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       ShopUpgradeGroups.Quark,
       ShopUpgradeGroups.AmbrosiaGeneration,
       ShopUpgradeGroups.AmbrosiaLuck,
-      ShopUpgradeGroups.RedAmbrosiaLuck
+      ShopUpgradeGroups.RedAmbrosiaLuck,
+      ShopUpgradeGroups.PurpleHoneyLuck
     ]
   }
 }

@@ -8,6 +8,7 @@ import {
 import { cubes } from './CubeExperimental'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import { getRuneEffects, RuneType } from './Runes'
+import { getShopUpgradeEffects } from './Shop'
 import { player } from './Synergism'
 import type { BuyAmount, OneToFive, Player, ZeroToFour } from './types/Synergism'
 import { crystalupgradedescriptions, upgradeRequirements, upgradeupdate } from './Upgrades'
@@ -522,7 +523,9 @@ const buyCurveBuilding = (type: BuildingType, amount: BuyAmount | 'max' | undefi
     return false
   }
 
-  player[keys.currency] = player[keys.currency].sub(costBetween(curve, owned, buyTo)).max(0)
+  if (!getShopUpgradeEffects('shopMindPalace', 'freeBuildings')) {
+    player[keys.currency] = player[keys.currency].sub(costBetween(curve, owned, buyTo)).max(0)
+  }
   setBuildingOwned(type, index, buyTo)
   return true
 }
@@ -868,11 +871,46 @@ const getTesseractCost = (
 }
 
 export const buyTesseractBuilding = (index: OneToFive, amount: number = player.tesseractbuyamount) => {
+  if (getShopUpgradeEffects('shopMindPalace', 'freeBuildings')) {
+    player[`ascendBuilding${index}` as const].owned = Math.max(
+      player[`ascendBuilding${index}` as const].owned,
+      convertLegacyTesseractBuildingsPaid(index, player.wowTesseracts)
+    )
+    return
+  }
   // Destructuring FTW!
   const [buyTo, actualCost] = getTesseractCost(index, amount)
 
   player[`ascendBuilding${index}` as const].owned = buyTo
   cubes.wowTesseracts.sub(actualCost)
+}
+
+export const autoBuyTesseractBuildings = (budget: number) => {
+  if (getShopUpgradeEffects('shopMindPalace', 'freeBuildings')) {
+    for (let i = 1; i <= 5; i++) {
+      if (player.autoTesseracts[i]) {
+        buyTesseractBuilding(i as OneToFive)
+      }
+    }
+    return
+  }
+
+  const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
+  for (let i = 1; i <= 5; i++) {
+    if (player.autoTesseracts[i]) {
+      ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
+    }
+  }
+  const buyToBuildings = calculateTessBuildingsInBudget(ownedBuildings, budget)
+  // Prioritise buying buildings from highest tier to lowest,
+  // in case there are any off-by-ones or floating point errors.
+  for (let i = 5; i >= 1; i--) {
+    const buyFrom = ownedBuildings[i - 1]
+    const buyTo = buyToBuildings[i - 1]
+    if (buyFrom !== null && buyTo !== null && buyTo !== buyFrom) {
+      buyTesseractBuilding(i as OneToFive, buyTo - buyFrom)
+    }
+  }
 }
 
 export type SingularityUpgradePurchaseQuote = { levels: number; cost: number }

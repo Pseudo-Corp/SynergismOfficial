@@ -2402,6 +2402,7 @@ export const getDailyFreeUpgradeRolls = () => {
   let multiplier = getOcteractUpgradeEffect('octeractImprovedDaily2', 'goldenQuarkMult')
   multiplier *= getOcteractUpgradeEffect('octeractImprovedDaily3', 'goldenQuarkMult')
   multiplier *= getSingularityChallengeEffect('sadisticPrequel', 'freeUpgradeMult')
+  multiplier *= getShopUpgradeEffects('shopImprovedDaily5', 'freeUpgradeMult')
   if (player.highestSingularityCount >= 200) {
     multiplier *= 2
   }
