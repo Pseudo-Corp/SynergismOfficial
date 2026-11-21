@@ -22,7 +22,7 @@ import { CartTab } from './purchases/CartTab'
 import { updateBellButton, updateLotusDisplay } from './purchases/ConsumablesTab'
 import { setLotusBalanceLoading, setPseudoCoinBalanceLoading } from './purchases/PseudoCoinBalances'
 import { updatePseudoCoins } from './purchases/UpgradesSubtab'
-import { setGlobalQuarkBonus, setPersonalQuarkBonus } from './Quark'
+import { calculateQuarkRation, setGlobalQuarkBonus, setPersonalQuarkBonus, worlds } from './Quark'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { flushSaveStorage, getStoredSave } from './saves/SaveStorage'
 import { format, player, saveSynergy } from './Synergism'
@@ -41,6 +41,7 @@ type PseudoCoinTimeskipNames =
   | 'SMALL_AMBROSIA_TIMESKIP'
   | 'LARGE_AMBROSIA_TIMESKIP'
   | 'JUMBO_AMBROSIA_TIMESKIP'
+  | 'QUARK_TIMESKIP'
 
 interface Consumable {
   /** array of unix timestamps for when each individual consumable ends */
@@ -1137,6 +1138,7 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
       (element.classList.contains('globalSkip') && name.includes('GLOBAL'))
       || (element.classList.contains('ascensionSkip') && name.includes('ASCENSION'))
       || (element.classList.contains('ambrosiaSkip') && name.includes('AMBROSIA'))
+      || (element.classList.contains('quarkSkip') && name.includes('QUARK'))
     ) {
       element.classList.add('fastForwardVisible')
     } else {
@@ -1267,6 +1269,20 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     })
   }
 
+  if (name.includes('QUARK')) {
+    const ration = calculateQuarkRation(seconds)
+    worlds.add(ration.primary + ration.miscellaneous, true)
+
+    DOMCacheGetOrSet('fastForwardTimer').innerHTML = i18next.t('fastForward.quark')
+    DOMCacheGetOrSet('fastForwardPrimaryQuarks').innerHTML = i18next.t('fastForward.primaryQuarks', {
+      value: format(ration.primary, 0, true),
+      multiplier: format(ration.primaryMultiplier, 2, true)
+    })
+    DOMCacheGetOrSet('fastForwardMiscellaneousQuarks').innerHTML = i18next.t('fastForward.miscellaneousQuarks', {
+      value: format(ration.miscellaneous, 0, true)
+    })
+  }
+
   DOMCacheGetOrSet('fastForwardContainer').style.display = 'flex'
 }
 
@@ -1304,6 +1320,9 @@ const activateTimeSkip = (name: PseudoCoinTimeskipNames, minutes: number) => {
       break
     case 'JUMBO_AMBROSIA_TIMESKIP':
       Notification('You have activated a JUMBO ambrosia timeskip! Enjoy!')
+      break
+    case 'QUARK_TIMESKIP':
+      Notification(i18next.t('pseudoCoins.quarkRations.activated'))
       break
   }
 }

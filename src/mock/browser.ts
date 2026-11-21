@@ -64,6 +64,16 @@ const playerUpgrades: PlayerPseudoCoinUpgrade[] = [
 
 let consumables: ConsumableListItem[] = []
 
+const quarkRation: ConsumableListItem = {
+  id: 14,
+  name: 'Quark Ration',
+  description:
+    'Immediately gain Quarks equal to your Primary and Miscellaneous Quarks, using the Primary Quarks multiplier you would have with a Singularity Timer of 24 hours.',
+  internalName: 'QUARK_TIMESKIP',
+  cost: 250,
+  length: '1440'
+}
+
 const purchaseConsumable = (internalName: string) => {
   const consumable = consumables.find((item) => item.internalName === internalName)
 
@@ -87,7 +97,8 @@ const buySchema = z.object({
     'JUMBO_ASCENSION_TIMESKIP',
     'SMALL_AMBROSIA_TIMESKIP',
     'LARGE_AMBROSIA_TIMESKIP',
-    'JUMBO_AMBROSIA_TIMESKIP'
+    'JUMBO_AMBROSIA_TIMESKIP',
+    'QUARK_TIMESKIP'
   ]),
   id: z.uuid()
 })
@@ -108,8 +119,12 @@ const GETHandlers = [
   }),
   http.get('https://synergism.cc/consumables/list', async ({ request }) => {
     const response = await fetch(bypass(request))
-    consumables = await response.clone().json()
-    return response
+    const serverConsumables: ConsumableListItem[] = await response.json()
+    consumables = [
+      ...serverConsumables.filter(({ internalName }) => internalName !== quarkRation.internalName),
+      quarkRation
+    ]
+    return HttpResponse.json(consumables)
   }),
   http.get('https://synergism.cc/stripe/upgrades', async ({ request }) => {
     const serverResponse = await fetch(bypass(request))

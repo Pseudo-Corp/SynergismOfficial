@@ -156,14 +156,16 @@ interface QuarkSource {
   unlocked: () => boolean
 }
 
+const calculatePrimaryQuarkMultiplier = (singularityTime: number) => {
+  if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+    return 1
+  }
+  return Math.max(1, calculateSingularityTimeQuarkRate() * singularityTime / 86400)
+}
+
 export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
   primary: {
-    multiplier: () => {
-      if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
-        return 1
-      }
-      return Math.max(1, calculateSingularityTimeQuarkRate() * player.singularityCounter / 86400)
-    }
+    multiplier: () => calculatePrimaryQuarkMultiplier(player.singularityCounter)
   },
   miscellaneous: {
     multiplier: () => 1
@@ -394,6 +396,23 @@ export const addBaseQuarks = (key: QuarkSourceKey, amount: number) => {
   player.quarkLedger.base[key] += amount
   settleQuarks()
   return amount * getQuarkSourceMultiplier(key) * calculateQuarkMultiplier()
+}
+
+export const calculateQuarkRation = (singularityTime: number) => {
+  const globalMultiplier = calculateQuarkMultiplier()
+  const primaryMultiplier = calculatePrimaryQuarkMultiplier(singularityTime)
+  const ration: Record<QuarkCategoryKey, number> = { primary: 0, miscellaneous: 0 }
+  for (const key of quarkSourceKeys) {
+    const category = quarkSources[key].category
+    const categoryMultiplier = category === 'primary' ? primaryMultiplier : quarkCategories[category].multiplier()
+    ration[category] += player.quarkLedger.base[key] * quarkSources[key].multiplier() * categoryMultiplier
+      * globalMultiplier
+  }
+  return {
+    primary: Math.floor(ration.primary),
+    miscellaneous: Math.floor(ration.miscellaneous),
+    primaryMultiplier
+  }
 }
 
 export const resetQuarkLedger = () => {
