@@ -69,8 +69,7 @@ const goldenQuarkUpgradeCostIncreases = {
   singInfiniteShopUpgrades: 1000,
   singAmbrosiaLuck4: 1000,
   singAmbrosiaGeneration4: 2000,
-  wowPass5: 100,
-  ultimatePen: 1e7
+  wowPass5: 100
 } satisfies Partial<Record<SingularityDataKeys, number>>
 
 const legacyRuneKeys = [
