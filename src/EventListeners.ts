@@ -125,7 +125,7 @@ import {
   resetPurpleAmbrosiaDisplay
 } from './PurpleAmbrosiaUpgrades'
 import { getPurpleReactorPopupMode, setPurpleReactorPopupMode } from './PurpleUpgradeTab'
-import { quarkSourceKeys } from './Quark'
+import { quarkCategoryKeys, quarkSourceKeys } from './Quark'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -145,7 +145,7 @@ import { buyAllBlessingLevels } from './RuneBlessings'
 import { RuneType } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { buyShopUpgrades, shopUpgrades, useConsumablePrompt } from './Shop'
-import { quarkSourceMultiplierHTML } from './ShopTab'
+import { quarkLedgerAwardedHTML, quarkSourceMultiplierHTML } from './ShopTab'
 import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
@@ -1796,6 +1796,19 @@ TODO: Fix this entire tab it's utter shit
     if (!isMobile) {
       cell.addEventListener('mousemove', (event) => showQuarkSourceModal(event.clientX, event.clientY))
       cell.addEventListener('mouseleave', CloseModal)
+    }
+  }
+
+  for (const category of quarkCategoryKeys) {
+    const info = DOMCacheGetOrSet(`quarkLedgerAwardedInfo-${category}`)
+    const showAwardedModal = (x: number, y: number) => {
+      Modal(quarkLedgerAwardedHTML, x, y, { borderColor: 'var(--cyan-color)' }, MEDIUM_MODAL_UPDATE_TICK, info)
+    }
+
+    info.addEventListener('click', (event) => showAwardedModal(event.clientX, event.clientY))
+    if (!isMobile) {
+      info.addEventListener('mousemove', (event) => showAwardedModal(event.clientX, event.clientY))
+      info.addEventListener('mouseleave', CloseModal)
     }
   }
 

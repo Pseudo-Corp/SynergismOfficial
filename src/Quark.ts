@@ -323,7 +323,7 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
     category: 'miscellaneous',
     lines: [],
     multiplier: () => 1,
-    unlocked: () => true
+    unlocked: () => player.quarkLedger.base.promoCodes > 0
   },
   challenges: {
     category: 'primary',
