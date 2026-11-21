@@ -3861,12 +3861,10 @@
       "value": "Value",
       "total": "Total",
       "totalWithQuarkMultiplier": "Total with Quark Multiplier",
-      "totalWithAllMultipliers": "Total with ALL Multipliers",
-      "totalQuarkValue": "Total Quark Value",
+        "totalQuarkValue": "Total Quark Value",
       "quarksRewarded": "Quarks Rewarded",
       "globalMultiplier": "Quark Multiplier",
-      "singularityTimeMultiplier": "Singularity Timer Multiplier (+{{perDay}} per day)",
-      "multiplierValue": "x{{x}}",
+        "multiplierValue": "x{{x}}",
       "categories": {
         "primary": "Primary",
         "miscellaneous": "Miscellaneous"
@@ -3880,6 +3878,7 @@
         "allTimeLeaderboard": "All-Time Ant Leaderboard: <<cyan|x{{x}}>>",
         "autoWarp": "Auto Warp: <<cyan|x{{x}}>>",
         "basicProgression": "Basic Progression Multiplier: <<cyan|x{{x}}>>",
+        "singularityTime": "Singularity Timer (+{{perDay}} per day): <<cyan|x{{x}}>>",
         "subatomicShavings": "Subatomic Shavings: <<cyan|x{{x}}>>",
         "purpleQuarkGain": "Lab-Grown Quarks: <<cyan|x{{x}}>>",
         "highestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
