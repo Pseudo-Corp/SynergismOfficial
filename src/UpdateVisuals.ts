@@ -2652,25 +2652,15 @@ export const visualUpdateShop = () => {
 
   updateTextContentIfChanged(
     'buySingularityQuarksAmount',
-    player.goldenQuarks < 1000
-      ? i18next.t('shop.singularityQuarkAmount', { amount: format(player.goldenQuarks) })
-      : format(player.goldenQuarks, 0, false, false)
+    i18next.t('shop.goldenQuarkStockMarket.owned', { amount: format(player.goldenQuarks) })
   )
-
-  const goldenQuarkMultiplier = calculateGoldenQuarkMultiplier()
   updateTextContentIfChanged(
     'buySingularityQuarksButton',
-    i18next.t('shop.singularityQuarkCost', {
-      amount: format(goldenQuarkMultiplier, 2, true),
-      cost: format(calculateGoldenQuarkCost())
-    })
+    i18next.t('shop.goldenQuarkStockMarket.buy', { cost: format(calculateGoldenQuarkCost()) })
   )
-  updateTextContentIfChanged('buySingularityQuarksBought', format(player.goldenQuarkLedger.base.purchases, 2, true))
+  updateTextContentIfChanged('buySingularityQuarksBought', format(player.goldenQuarkLedger.base.purchases, 0, true))
   updateTextContentIfChanged('buySingularityQuarksAwarded', format(player.goldenQuarkLedger.awarded.purchases, 2, true))
-  updateTextContentIfChanged(
-    'buySingularityQuarksMultiplier',
-    i18next.t('shop.quarkLedger.multiplierValue', { x: format(goldenQuarkMultiplier, 2, true) })
-  )
+  updateTextContentIfChanged('buySingularityQuarksMultiplier', format(calculateGoldenQuarkMultiplier(), 2, true))
 }
 
 const constructConsumableTimes = (p: PseudoCoinConsumableNames) => {

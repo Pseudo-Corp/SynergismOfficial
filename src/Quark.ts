@@ -18,14 +18,14 @@ import { getSynthesisUpgradeEffect } from './Synthesis'
 
 const quarkResearches = [99, 100, 125, 180, 195]
 
-export const dailyExportBaseQuarks = 25
+export const dailyExportBaseQuarks = 60
 
-export const calculateExportResearchLevels = () => {
+const calculateExportResearchMultiplier = () => {
   let levels = 0
   for (const research of quarkResearches) {
     levels += player.researches[research]
   }
-  return levels
+  return 1 + 0.2 * levels
 }
 
 let bonus = 0
@@ -206,8 +206,10 @@ const calculateBasicProgressionMultiplier = () => {
 
 const exportResearchLine: QuarkMultiplierLine = {
   i18n: 'exportResearches',
-  stat: () => 1 + calculateExportResearchLevels()
+  stat: () => calculateExportResearchMultiplier()
 }
+
+export const calculateTimeCodeCookieMultiplier = () => 1 + 0.03 * player.cubeUpgrades[61]
 
 const octeractExportLine: QuarkMultiplierLine = {
   i18n: 'octeractExportQuarks',
@@ -268,7 +270,7 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
       { i18n: 'calculator5', stat: () => 1 + player.dailyExportAddCodeMult }
     ],
     multiplier: () =>
-      (1 + calculateExportResearchLevels())
+      calculateExportResearchMultiplier()
       * getOcteractUpgradeEffect('octeractExportQuarks', 'exportQuarkMult')
       * (1 + player.dailyExportAddCodeMult),
     unlocked: () => true
@@ -281,12 +283,32 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
       {
         i18n: 'shopImprovedDaily',
         stat: () => getShopUpgradeEffects('shopImprovedDaily', 'dailyCodeQuarkMult')
+      },
+      {
+        i18n: 'shopImprovedDaily2',
+        stat: () => getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeQuarkMult')
+      },
+      {
+        i18n: 'shopImprovedDaily3',
+        stat: () => getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeQuarkMult')
+      },
+      {
+        i18n: 'shopImprovedDaily4',
+        stat: () => getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeQuarkMult')
+      },
+      {
+        i18n: 'shopImprovedDaily5',
+        stat: () => getShopUpgradeEffects('shopImprovedDaily5', 'dailyCodeQuarkMult')
       }
     ],
     multiplier: () =>
       calculateBasicProgressionMultiplier()
       * (1 + Math.min(49, player.highestSingularityCount))
-      * getShopUpgradeEffects('shopImprovedDaily', 'dailyCodeQuarkMult'),
+      * getShopUpgradeEffects('shopImprovedDaily', 'dailyCodeQuarkMult')
+      * getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeQuarkMult')
+      * getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeQuarkMult')
+      * getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeQuarkMult')
+      * getShopUpgradeEffects('shopImprovedDaily5', 'dailyCodeQuarkMult'),
     unlocked: () => true
   },
   addCode: {
@@ -300,17 +322,17 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
     multiplier: () =>
       getShopUpgradeEffects('calculator', 'addQuarkMult')
       * getShopUpgradeEffects('calculator2', 'addQuarkMult')
-      * (1 + calculateExportResearchLevels())
+      * calculateExportResearchMultiplier()
       * getOcteractUpgradeEffect('octeractExportQuarks', 'exportQuarkMult'),
     unlocked: () => true
   },
   timeCode: {
     category: 'miscellaneous',
     lines: [
-      { i18n: 'timeCodeHighestSingularity', stat: () => 4 + player.highestSingularityCount },
-      { i18n: 'cookieUpgrade61', stat: () => 1 + player.cubeUpgrades[61] / 50 }
+      { i18n: 'timeCodeHighestSingularity', stat: () => Math.max(1, player.highestSingularityCount) },
+      { i18n: 'cookieUpgrade61', stat: calculateTimeCodeCookieMultiplier }
     ],
-    multiplier: () => (4 + player.highestSingularityCount) * (1 + player.cubeUpgrades[61] / 50),
+    multiplier: () => Math.max(1, player.highestSingularityCount) * calculateTimeCodeCookieMultiplier(),
     unlocked: () => true
   },
   promoCodes: {

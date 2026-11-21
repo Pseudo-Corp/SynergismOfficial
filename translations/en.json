@@ -3207,8 +3207,8 @@
       "57": "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1 per level of this Cookie.",
       "58": "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by num:((1.25)).",
       "59": "[Cx9] Quite sour for a cookie. But it increases your Ascension Speed by +num:((0.25))% per level, so who is to complain?",
-      "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by num:((0.001))% per level.",
-      "61": "[Cx11] Edible but prone to mistakes. Adds 25 whole milliseconds to the tolerance of code 'time', and increases its reward by +2% per level. When maxxed, code 'time' always gives its reward, even if you fail it!",
+      "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the price of Golden Quark Stocks by num:((0.001))% per level.",
+      "61": "[Cx11] Edible but prone to mistakes. Adds 25 whole milliseconds to the tolerance of code 'time', and increases its rewards by +3% per level. When maxxed, code 'time' always gives its reward, even if you fail it!",
       "62": "[Cx12] Platonic loves toffee. 8x your Obtainium and Offering gain in Challenge 15.",
       "63": "[Cx13] Brownie Cookies, the best of both worlds. Increase 3D Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",
       "64": "[Cx14] Some say the Ant God itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
@@ -3352,8 +3352,8 @@
       "96": "[4x21] Ants slow? Multiply Ant Speed by (1 + 0.0002 * level) per Worker Ant purchased.",
       "97": "[4x22] Add +2 free levels to Ant Upgrades per level! Free levels require a corresponding purchased level to work!",
       "98": "[4x23] Add +2 more free levels to Ant Upgrades per level!",
-      "99": "[4x24] Are the Quark Upgrades too hot to resist? +1x Quark multiplier for Exports and Code 'add' for each level!",
-      "100": "[4x25] Alright, Platonic is off his rocker. +1x MORE Quark multiplier for Exports and Code 'add' for each level!",
+      "99": "[4x24] Are the Quark Upgrades too hot to resist? +0.2x Quark multiplier for Exports and Code 'add' for each level!",
+      "100": "[4x25] Alright, Platonic is off his rocker. +0.2x MORE Quark multiplier for Exports and Code 'add' for each level!",
       "101": "[5x1] Let's add +.001 to Inceptus Ant efficiency per level?",
       "102": "[5x2] Gain +1 free level to ALL Ants per level! A rainbow attack!",
       "103": "[5x3] Pray to Ant God for +5% Ant Sacrifice rewards per level!",
@@ -3378,7 +3378,7 @@
       "122": "[5x22] +2% Ant Sacrifice rewards per level.",
       "123": "[5x23] +40 Ant ELO per level.",
       "124": "[5x24] Unlock enhanced toggles for The Great Automator! Be able to control when you Sacrifice based on your Reborn ELO.",
-      "125": "[5x25] Good luck, buddy. [+1x Quark multiplier for Exports and Code 'add' per level]",
+      "125": "[5x25] Good luck, buddy. [+0.2x Quark multiplier for Exports and Code 'add' per level]",
       "126": "[6x1] 6 rows? That can't be... (+1% Accelerators / level)",
       "127": "[6x2] Another +1% Accelerator Boosts / level!",
       "128": "[6x3] The trifecta! +1% Multipliers / level.",
@@ -3433,7 +3433,7 @@
       "177": "[8x2] +Log10(Crumbs)% to Ant Speed per level. Pretty cool buff ain't it?",
       "178": "[8x3] +666 Base ELO per level! Spooky number of the devil.",
       "179": "[8x4] +num:((0.04))% more Offerings per level per Midas Talisman level!",
-      "180": "[8x5] +1x Quark multiplier for Exports and Code 'add' per level, yet again.",
+      "180": "[8x5] +0.2x Quark multiplier for Exports and Code 'add' per level, yet again.",
       "181": "[8x6] +num:((0.6))% Global Speed per level because why not? You're already the speed of light.",
       "182": "[8x7] +num:((0.7))% Cubes in Ascension bank per level, from dividends in Wow! Stock.",
       "183": "[8x8] When you open a Hypercube, you also open 100 Tesseracts! (This works with 7x3, if you were curious.)",
@@ -3448,7 +3448,7 @@
       "192": "[8x17] Each purchased level of Mortuus Est (the Ant Upgrade) also increases Wow! Cube reward by +num:((0.20))%",
       "193": "[8x18] +1% Ant Sacrifice reward per level.",
       "194": "[8x19] Increases both Spirit Power AND Blessing Power by +2% per level.",
-      "195": "[8x20] +1x Quark multiplier for Exports and Code 'add' per level!",
+      "195": "[8x20] +0.2x Quark multiplier for Exports and Code 'add' per level!",
       "196": "[8x21] +num:((0.3))% Global Speed per level. Faster than the speed of light?",
       "197": "[8x22] +num:((0.6))% Cubes in Ascension Bank per level. No one knows how. Bank error perhaps.",
       "198": "[8x23] +num:((0.06))% Tributes from Cubes per level! Wow! Cubes really has a lot of manufacturing errors in your favor.",
@@ -3526,11 +3526,11 @@
       "improveQuarkHept2": "Want even stronger Quark Hepts? Gain +num:((0.01)) power per level to the Quark Hept Exponent!",
       "improveQuarkHept3": "You are probably asking why I would sell this to you instead of using it for myself. Well... here's +num:((0.01)) power per level!",
       "improveQuarkHept4": "+num:((0.01)) power per level... You know that 10^num:((0.01)) is about num:((1.023)), right?",
-      "shopImprovedDaily": "Hey you. Yeah, you! Quarks make seal merchant happy. Get +5% more of them from code 'daily' per level.",
-      "shopImprovedDaily2": "Gain 1 additional free Golden Quark Upgrade and 20% more Golden Quarks per use of 'daily' per level!",
-      "shopImprovedDaily3": "Gain 1 additional free Golden Quark Upgrade and 15% more Golden Quarks per use of 'daily' per level!",
-      "shopImprovedDaily4": "Gain 1 additional free Golden Quark Upgrade and 100% more Golden Quarks per use of 'daily' per level!",
-      "shopImprovedDaily5": "[Supplied by - Infinity CO.] Gain num:((0.02))% more free Golden Quark Upgrades from code 'daily' per level!",
+      "shopImprovedDaily": "Hey you. Yeah, you! Quarks make seal merchant happy. Get +20% more of them from code 'daily' per level.",
+      "shopImprovedDaily2": "Gain 1 additional free Golden Quark Upgrade and 20% more Quarks from code 'daily' per level!",
+      "shopImprovedDaily3": "Gain 1 additional free Golden Quark Upgrade and 20% more Quarks from code 'daily' per level!",
+      "shopImprovedDaily4": "Gain 1 additional free Golden Quark Upgrade and 20% more Quarks from code 'daily' per level!",
+      "shopImprovedDaily5": "[Supplied by - Infinity CO.] Gain num:((0.02))% more free Golden Quark Upgrades and num:((0.2))% more Quarks from code 'daily' per level!",
       "offeringEX3": "[Supplied by - Infinity CO.] Gain num:((1.2))% more Offerings per level, multiplicative! (Multiplier is num:((1.012))^level). Every 25 levels, gain +1 Base Offering!",
       "obtainiumEX3": "[Supplied by - Infinity CO.] Gain num:((1.2))% more Obtainium per level, multiplicative! (Multiplier is num:((1.012))^level). Every 25 levels, gain 6% more Immaculate Obtainium Multiplier! (num:((1.06))^[level/25])",
       "chronometerInfinity": "[Supplied by - Infinity CO.] Gain num:((0.6))% more Ascension Speed per level, multiplicative! (Multiplier is num:((1.006))^level). Every 40 levels, gain +num:((0.001)) spread on Ascension Speed exponent modifiers on speeds greater than or less than 1 (Check Stats for Nerds for this one)!",
@@ -3589,16 +3589,17 @@
     "plusForQuarks": "+ {{x}} for {{y}} Quarks",
     "consume": "CONSUME",
     "buyPotion": "Buy: 100 Quarks Each",
-    "singularityQuarkCost": "Buy {{amount}} for {{cost}} Quarks",
-    "singularityQuarkAmount": "Owned: {{amount}}",
-    "goldenQuarkTransfusion": {
-      "name": "Instant Golden Quark Transfusion",
-      "description": "Buy Golden Quarks with your Quarks. What's more, these Quarks will still turn into Golden Quarks when you perform a Singularity!",
-      "bonus": "When you buy Golden Quarks, you immediately get what you pay for. During the day, if your Golden Quark Multiplier increases, you'll automatically gain more Golden Quarks based on how many you've purchased! Your purchased Golden Quark amount resets at midnight."
+    "goldenQuarkStockMarket": {
+      "name": "Golden Quark Stock Market",
+      "description": "Buy Golden Quark Stocks with Quarks. Each Stock is worth Golden Quarks equal to your Golden Quark Multiplier. Spending Quarks here does not reduce the Golden Quarks you get from your next Singularity.",
+      "bonus": "A Stock pays out its value in Golden Quarks as soon as you buy it. If your Golden Quark Multiplier grows before midnight, your Stocks gain value and you receive the difference. Stocks expire at midnight.",
+      "owned": "Golden Quarks: {{amount}}",
+      "buy": "Buy Stock: {{cost}} Quarks",
+      "stocksBought": "Stocks Bought Today",
+      "paidOut": "Golden Quarks Paid Out Today",
+      "stockValue": "Golden Quarks per Stock",
+      "appreciation": "If your Golden Quark Multiplier grows before midnight, your Stocks gain value and you receive the difference. Stocks expire at midnight."
     },
-    "singularityQuarkBought": "Bought Today",
-    "singularityQuarkAwarded": "Awarded Today",
-    "singularityQuarkMultiplier": "Multiplier",
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
     "testingOnlyUpgrade": "⚠ Testing version: This upgrade would normally be hidden because you have not unlocked it yet.",
@@ -3670,10 +3671,10 @@
       "improveQuarkHept4": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "improveQuarkHept5": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "shopImprovedDaily": "Code 'daily' gives <<cyan|+{{amount}}>> more quarks.",
-      "shopImprovedDaily2": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Golden Quark Upgrades and <<gold|+{{amount2}}>> more Golden Quarks.",
-      "shopImprovedDaily3": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Golden Quark Upgrades and <<gold|+{{amount2}}>> more Golden Quarks.",
-      "shopImprovedDaily4": "Code 'daily' grants <<turquoise|+{{amount1}}>> free Golden Quark Upgrades and <<gold|+{{amount2}}>> more Golden Quarks.",
-      "shopImprovedDaily5": "Code 'daily' grants <<turquoise|+{{amount}}>> free Golden Quark Upgrades.",
+      "shopImprovedDaily2": "Code 'daily' grants <<turquoise|+{{amount}}>> free Golden Quark Upgrades and <<cyan|+{{amount2}}>> more Quarks.",
+      "shopImprovedDaily3": "Code 'daily' grants <<turquoise|+{{amount}}>> free Golden Quark Upgrades and <<cyan|+{{amount2}}>> more Quarks.",
+      "shopImprovedDaily4": "Code 'daily' grants <<turquoise|+{{amount}}>> free Golden Quark Upgrades and <<cyan|+{{amount2}}>> more Quarks.",
+      "shopImprovedDaily5": "Code 'daily' grants <<turquoise|+{{amount}}>> more free Golden Quark Upgrades and <<cyan|+{{amount2}}>> more Quarks.",
       "offeringEX3": "Gain <<goldenrod|{{amount}}>> more Offerings! Also, gain <<goldenrod|+{{amount2}}>> more Base Offerings!",
       "obtainiumEX3": "Gain <<pink|{{amount}}>> more Obtainium, and an additional <<cyan|{{amount2}}>> more Immaculate Obtainium!",
       "chronometerInfinity": "Ascension timer increases <<orange|{{amount}}>> faster. Exponent spread is increased by <<orange|{{amount2}}>>.",
@@ -3901,6 +3902,10 @@
         "octeractExportQuarks": "Improved Download Speeds: <<cyan|x{{x}}>>",
         "calculator5": "PL-AT Γ calculator: <<cyan|x{{x}}>>",
         "shopImprovedDaily": "Improved Daily Code 1: <<cyan|x{{x}}>>",
+        "shopImprovedDaily2": "Improved Daily Code 2: <<cyan|x{{x}}>>",
+        "shopImprovedDaily3": "Improved Daily Code 3: <<cyan|x{{x}}>>",
+        "shopImprovedDaily4": "Improved Daily Code 4: <<cyan|x{{x}}>>",
+        "shopImprovedDaily5": "Improved Daily Code 5: <<cyan|x{{x}}>>",
         "calculator": "PL-AT calculator: <<cyan|x{{x}}>>",
         "calculator2": "PL-AT X calculator: <<cyan|x{{x}}>>",
         "timeCodeHighestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
@@ -3908,9 +3913,6 @@
         "globalMultiplier": "Quark Multiplier: <<cyan|x{{x}}>>",
         "goldenQuarks3": "Golden Quarks III: <<cyan|x{{x}}>>",
         "goldenRevolution3": "Golden Revolution III: <<cyan|x{{x}}>>",
-        "shopImprovedDaily2": "Improved Daily Code 2: <<cyan|x{{x}}>>",
-        "shopImprovedDaily3": "Improved Daily Code 3: <<cyan|x{{x}}>>",
-        "shopImprovedDaily4": "Improved Daily Code 4: <<cyan|x{{x}}>>",
         "goldenQuarkMultiplier": "Golden Quark Multiplier: <<cyan|x{{x}}>>",
         "total": "Total: <<cyan|x{{x}}>>"
       },
@@ -3932,15 +3934,16 @@
       "goldenQuarkSources": {
         "export": "Exporting the Game",
         "dailyCode": "Code 'daily'",
-        "purchases": "Buying Golden Quarks"
+        "timeCode": "Code 'time'",
+        "purchases": "Golden Quark Stock Market"
       }
     }
   },
   "singularity": {
     "goldenQuarks": {
-      "transaction": "Bought {{spent}} Golden Quarks! [-{{cost}} Quarks]",
+      "transaction": "Bought {{stocks}} Stocks worth {{amount}} Golden Quarks each: +{{goldenQuarks}} Golden Quarks! [-{{cost}} Quarks]",
       "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
-      "buyPrompt": "Each purchase costs {{cost}} Quarks (Discounted by {{discount}}) and gives {{amount}} Golden Quarks, equal to your Golden Quark multiplier! If your multiplier grows before midnight, you receive the difference. You can make up to {{max}} purchases. How many do you want? Type -1 to buy max!",
+      "buyPrompt": "Each Stock costs {{cost}} Quarks and is worth {{amount}} Golden Quarks. You can buy up to {{max}} Stocks. How many? Type -1 to buy max!",
       "spendPrompt": "How many levels would you like to buy? You can buy up to {{n}} levels!. Type -1 to use max!",
       "hasUpgrade": "Hey! You have already maxed this upgrade. :D",
       "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
@@ -4138,11 +4141,11 @@
       },
       "goldenRevolutionII": {
         "name": "Golden Revolution II",
-        "default": "Golden Quarks are num:((0.1))% cheaper per Singularity past 100. Currently: -{{current}}%"
+        "default": "Golden Quark Stocks are num:((0.1))% cheaper per Singularity past 100. Currently: -{{current}}%"
       },
       "goldenRevolutionIII": {
         "name": "Golden Revolution III",
-        "default": "Export gives 2% more Golden Quarks per Singularity. Currently: +{{current}}% (MAX: +500%)"
+        "default": "Export gives 2% more Golden Quarks per highest Singularity. Currently: +{{current}}% (MAX: +300%)"
       },
       "platonicClones": {
         "name": "Clones of Platonic Clicking at Your Desktop",
@@ -4265,13 +4268,13 @@
       },
       "goldenQuarks2": {
         "name": "Golden Quarks II",
-        "description": "Buying GQ is num:((0.1))% cheaper per level! [After 10%, effect grows much slower, approaching 20%]",
-        "effect": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
+        "description": "Golden Quark Stocks are num:((0.1))% cheaper per level! [After 10%, effect grows much slower, approaching 20%]",
+        "effect": "Golden Quark Stocks are {{n}}% cheaper."
       },
       "goldenQuarks3": {
         "name": "Golden Quarks III",
-        "description": "Your daily Export gives num:((1))% more Golden Quarks per level!",
-        "effect": "Your daily Export gives {{n}} more Golden Quarks."
+        "description": "Golden Quarks from Exports and Promotional Codes are increased by num:((0.1))% per level! [After 100%, effect grows much slower, approaching 200%]",
+        "effect": "Golden Quarks from Exports and Promotional Codes are increased by {{n}}."
       },
       "starterPack": {
         "name": "Starter Pack",
@@ -4782,7 +4785,7 @@
       "zeroOrLess": "Only numbers greater than zero, please!",
       "moreThanPlayerHas": "You can't afford this yet!",
       "fraction": "Yeah, that isn't an integer. We don't accept fractions here!",
-      "goldenQuarksTooMany": "Sorry, I cannot sell you this many Golden Quarks! Try making fewer purchases or typing -1 to buy max!",
+      "goldenQuarksTooMany": "You can't afford that many Stocks! Try fewer, or type -1 to buy max!",
       "finiteInt": "Value must be a finite, non-decimal number!",
       "invalidNumber": "Hey! That's not a valid number!"
     },
@@ -6014,8 +6017,8 @@
       },
       "octeractGQCostReduce": {
         "name": "EXTRA WIMPY Golden Quark Costs!",
-        "description": "Reduces the cost of Golden Quarks in the shop by 0.4% per level.",
-        "effect": "Golden Quarks are {{n}}% cheaper!"
+        "description": "Reduces the price of Golden Quark Stocks by 0.4% per level.",
+        "effect": "Golden Quark Stocks are {{n}}% cheaper!"
       },
       "octeractExportQuarks": {
         "name": "Improved Download Speeds",
@@ -6925,7 +6928,7 @@
       "heptMult": "Hepteract Multipliers",
       "orbPowderMult": "Orb to Powder Multipliers",
       "gqMult": "Golden Quark Multipliers",
-      "gqCost": "Golden Quark Cost",
+      "gqCost": "Golden Quark Stock Price",
       "addStats": "Add Code Stats",
       "octMult": "Octeract Multipliers",
       "ambrosiaAdditiveLuckMult": "Ambrosia Luck Mult",
@@ -7703,13 +7706,13 @@
       "Total": "Total Golden Quark Gained:"
     },
     "goldenQuarkPurchaseCostStats": {
-      "title": "Golden Quark Purchase Cost",
-      "Base": "Base Cost:",
+      "title": "Golden Quark Stock Price",
+      "Base": "Base Price:",
       "CubeUpgrade6x10": "Cube Upgrade 6x10:",
       "GoldenQuarks2": "Golden Quark Upgrade - Golden Quarks II:",
       "OcteractCostReduce": "Octeracts - Extra WIMPY Golden Quark Costs!:",
       "GoldenRevolution2": "Golden Revolution II:",
-      "Total": "Quarks per Purchase:"
+      "Total": "Quarks per Stock:"
     },
     "addCodeEffects": {
       "title": "Add Code Effects",
@@ -8567,12 +8570,14 @@
       },
       "time": {
         "wait": "You have already used Code 'time' today. Try again tomorrow.",
-        "prepare": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks! You only get one attempt per day.",
+        "prepare": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks!",
+        "prepareGoldenQuarks": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks and {{goldenQuarks}} Golden Quarks!",
         "confirm": "Press the button when you feel the time is right. Between {{start}} and {{end}} seconds, please!",
         "maxedCookie": "Because Cx11 is maxed, you will always get the rewards from this code. Just have some fun!",
         "cancelled": "No worries! Try again when you feel like it.",
         "won": "You clicked 'OK' in {{time}} seconds! Congratulations! [+{{x}} Quarkies]",
-        "lost": "You clicked 'OK' in {{time}} seconds! Unfortunately, you did not win this time. Try again tomorrow.",
+        "lost": "You clicked 'OK' in {{time}} seconds! Unfortunately, you did not win this time. You can try again at any time!",
+        "goldenQuarks": "[+{{x}} Golden Quarks]",
         "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real-life seconds of Ambrosia Bar Points."
       },
       "spoiler": {

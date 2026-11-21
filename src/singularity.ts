@@ -10,14 +10,15 @@ import {
   calculateGoldenQuarkMultiplier,
   calculateImmaculateAlchemyBonus,
   calculateIrish3PurpleLuck,
-  calculateMaxBaseCubeQuarkMultiplier
+  calculateMaxBaseCubeQuarkMultiplier,
+  calculateQuarkMultiplier
 } from './Calculate'
 import { updateTokens } from './Campaign'
 import { activeEffectiveCorruptionLevel } from './Corruptions'
 import { addCodeAvailableUses, addCodeMaxUses } from './ImportExport'
 import { getOcteractUpgradeEffect, octeractUpgrades } from './Octeracts'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { getGlobalBonus, getPersonalBonus, getQuarkBonus, worlds } from './Quark'
+import { calculateTimeCodeCookieMultiplier, getGlobalBonus, getPersonalBonus, getQuarkBonus, worlds } from './Quark'
 import { redAmbrosiaUpgrades } from './RedAmbrosiaUpgrades'
 import { singularity } from './Reset'
 import { Seed, seededRandom } from './RNG'
@@ -42,7 +43,7 @@ const funny32BitNumber = 2 ** 31 - 1
 type GoldenQuarkUpgradeRewards = {
   goldenQuarks1: { goldenQuarkMult: number }
   goldenQuarks2: { goldenQuarkCostMult: number }
-  goldenQuarks3: { exportGoldenQuarkMult: number }
+  goldenQuarks3: { goldenQuarkSourceMult: number }
   starterPack: {
     obtainiumMult: number
     offeringMult: number
@@ -498,12 +499,16 @@ export const goldenQuarkUpgrades: {
     minimumSingularity: 0,
     specialCostForm: 'Default',
     effect: (n: number) => {
-      return 1 + n / 100
+      if (n <= 1000) {
+        return 1 + n / 1000
+      }
+      const doublings = Math.log2(n / 1000)
+      return 2 + doublings / (doublings + 1)
     },
     effectDescription: function() {
-      const exportGoldenQuarkMult = getGQUpgradeEffect('goldenQuarks3', 'exportGoldenQuarkMult')
+      const goldenQuarkSourceMult = getGQUpgradeEffect('goldenQuarks3', 'goldenQuarkSourceMult')
       return i18next.t('singularity.data.goldenQuarks3.effect', {
-        n: formatAsPercentIncrease(exportGoldenQuarkMult, 2)
+        n: formatAsPercentIncrease(goldenQuarkSourceMult, 2)
       })
     },
     name: () => {
@@ -3612,7 +3617,7 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [100],
     description: () => {
       return i18next.t('singularity.perks.goldenRevolutionIII.default', {
-        current: format(Math.min(500, 2 * player.singularityCount))
+        current: format(Math.min(300, 2 * player.highestSingularityCount))
       })
     },
     ID: 'goldenRevolution3'
@@ -4231,10 +4236,11 @@ export const calculateMaxSingularityLookahead = (nonZero: boolean): number => {
 
 export const goldenQuarkPurchaseBaseCost = 100000
 
-export const dailyExportBaseGoldenQuarks = 25
-export const dailyCodeBaseGoldenQuarks = 15
+export const dailyExportBaseGoldenQuarks = 1
+export const dailyCodeBaseGoldenQuarks = 1
+export const timeCodeBaseGoldenQuarks = 1
 
-export const goldenQuarkSourceKeys = ['export', 'dailyCode', 'purchases'] as const
+export const goldenQuarkSourceKeys = ['export', 'dailyCode', 'timeCode', 'purchases'] as const
 
 export type GoldenQuarkSourceKey = typeof goldenQuarkSourceKeys[number]
 
@@ -4251,37 +4257,50 @@ interface GoldenQuarkSource {
 }
 
 const goldenRevolution3Multiplier = () =>
-  player.highestSingularityCount >= 100 ? 1 + Math.min(5, player.highestSingularityCount / 50) : 1
+  player.highestSingularityCount >= 100 ? 1 + Math.min(3, player.highestSingularityCount / 50) : 1
+
+const dailyCodeHighestSingularityGoldenQuarkMultiplier = () => 1 + Math.min(3, player.highestSingularityCount / 100)
+
+const goldenQuarks3Line = {
+  i18n: 'goldenQuarks3',
+  stat: () => getGQUpgradeEffect('goldenQuarks3', 'goldenQuarkSourceMult')
+}
+
+const quarkMultiplierLine = { i18n: 'globalMultiplier', stat: () => calculateQuarkMultiplier() }
 
 export const goldenQuarkSources: Record<GoldenQuarkSourceKey, GoldenQuarkSource> = {
   export: {
     lines: [
-      { i18n: 'goldenQuarks3', stat: () => getGQUpgradeEffect('goldenQuarks3', 'exportGoldenQuarkMult') },
+      quarkMultiplierLine,
+      goldenQuarks3Line,
       { i18n: 'goldenRevolution3', stat: goldenRevolution3Multiplier }
     ],
-    multiplier: () => getGQUpgradeEffect('goldenQuarks3', 'exportGoldenQuarkMult') * goldenRevolution3Multiplier()
+    multiplier: () =>
+      calculateQuarkMultiplier()
+      * getGQUpgradeEffect('goldenQuarks3', 'goldenQuarkSourceMult')
+      * goldenRevolution3Multiplier()
   },
   dailyCode: {
     lines: [
-      { i18n: 'highestSingularity', stat: () => player.highestSingularityCount },
-      {
-        i18n: 'shopImprovedDaily2',
-        stat: () => getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeGoldenQuarkMult')
-      },
-      {
-        i18n: 'shopImprovedDaily3',
-        stat: () => getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeGoldenQuarkMult')
-      },
-      {
-        i18n: 'shopImprovedDaily4',
-        stat: () => getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeGoldenQuarkMult')
-      }
+      quarkMultiplierLine,
+      { i18n: 'highestSingularity', stat: dailyCodeHighestSingularityGoldenQuarkMultiplier },
+      goldenQuarks3Line
     ],
     multiplier: () =>
-      player.highestSingularityCount
-      * getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeGoldenQuarkMult')
-      * getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeGoldenQuarkMult')
-      * getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeGoldenQuarkMult')
+      calculateQuarkMultiplier()
+      * dailyCodeHighestSingularityGoldenQuarkMultiplier()
+      * getGQUpgradeEffect('goldenQuarks3', 'goldenQuarkSourceMult')
+  },
+  timeCode: {
+    lines: [
+      quarkMultiplierLine,
+      { i18n: 'cookieUpgrade61', stat: () => calculateTimeCodeCookieMultiplier() },
+      goldenQuarks3Line
+    ],
+    multiplier: () =>
+      calculateQuarkMultiplier()
+      * calculateTimeCodeCookieMultiplier()
+      * getGQUpgradeEffect('goldenQuarks3', 'goldenQuarkSourceMult')
   },
   purchases: {
     lines: [],
@@ -4338,7 +4357,6 @@ export async function buyGoldenQuarks (): Promise<void> {
   const buyPrompt = await Prompt(
     i18next.t('singularity.goldenQuarks.buyPrompt', {
       cost: format(cost, 0, true),
-      discount: format(goldenQuarkPurchaseBaseCost - cost, 0, true),
       amount: format(goldenQuarksPerPurchase, 2, true),
       max: format(maxBuy, 0, true)
     })
@@ -4374,7 +4392,9 @@ export async function buyGoldenQuarks (): Promise<void> {
 
   return Alert(
     i18next.t('singularity.goldenQuarks.transaction', {
-      spent: format(goldenQuarksGained, 2, true),
+      stocks: format(buyAmount, 0, true),
+      amount: format(goldenQuarksPerPurchase, 2, true),
+      goldenQuarks: format(goldenQuarksGained, 2, true),
       cost: format(totalCost, 0, true)
     })
   )

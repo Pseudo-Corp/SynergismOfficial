@@ -1816,9 +1816,9 @@ TODO: Fix this entire tab it's utter shit
   bindShopConsumableModal(
     'buySingularityQuarks',
     'goldenQuarksShop',
-    () => i18next.t('shop.goldenQuarkTransfusion.name'),
-    () => i18next.t('shop.goldenQuarkTransfusion.description'),
-    () => i18next.t('shop.goldenQuarkTransfusion.bonus')
+    () => i18next.t('shop.goldenQuarkStockMarket.name'),
+    () => i18next.t('shop.goldenQuarkStockMarket.description'),
+    () => i18next.t('shop.goldenQuarkStockMarket.bonus')
   )
 
   for (const key of quarkSourceKeys) {

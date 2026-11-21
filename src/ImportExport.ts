@@ -29,8 +29,10 @@ import {
   awardDailyFreeUpgrades,
   dailyCodeBaseGoldenQuarks,
   dailyExportBaseGoldenQuarks,
+  getGoldenQuarkSourceMultiplier,
   getGQUpgradeEffect,
-  goldenQuarkUpgrades
+  goldenQuarkUpgrades,
+  timeCodeBaseGoldenQuarks
 } from './singularity'
 import {
   allAddCodeCapacityMultiplierStatsProduct,
@@ -46,7 +48,7 @@ import { assert, cleanString, DateNow, getElementById, PerformanceNow } from './
 import { btoa } from './Utility'
 
 const dailyCodeBaseQuarks = 25
-const timeCodeBaseQuarks = 25
+const timeCodeBaseQuarks = 250
 const timeCodeBlueberryTime = 43_200
 
 const weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
@@ -757,17 +759,26 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     const actualQuarkAward = worlds.applyBonus(timeCodeBaseQuarks * getQuarkSourceMultiplier('timeCode'))
 
+    const goldenQuarksUnlocked = player.highestSingularityCount >= 1
+
     let cookieText = ''
     if (player.cubeUpgrades[61] === 100) {
       cookieText = i18next.t('importexport.promocodes.time.maxedCookie')
     }
 
     const startConfirm = await Confirm(`${
-      i18next.t('importexport.promocodes.time.prepare', {
-        start: format(Math.max(0, random - tolerance) / 1000, 2, true),
-        end: format((random + tolerance) / 1000, 2, true),
-        quarks: format(actualQuarkAward, 0, true)
-      })
+      goldenQuarksUnlocked
+        ? i18next.t('importexport.promocodes.time.prepareGoldenQuarks', {
+          start: format(Math.max(0, random - tolerance) / 1000, 2, true),
+          end: format((random + tolerance) / 1000, 2, true),
+          quarks: format(actualQuarkAward, 0, true),
+          goldenQuarks: format(timeCodeBaseGoldenQuarks * getGoldenQuarkSourceMultiplier('timeCode'), 2, true)
+        })
+        : i18next.t('importexport.promocodes.time.prepare', {
+          start: format(Math.max(0, random - tolerance) / 1000, 2, true),
+          end: format((random + tolerance) / 1000, 2, true),
+          quarks: format(actualQuarkAward, 0, true)
+        })
     } ${cookieText}`)
 
     if (!startConfirm) {
@@ -784,9 +795,9 @@ export const promocodes = async (input: string | null, amount?: number) => {
 
     const end = PerformanceNow()
     const diff = Math.abs(end - (start + random))
-    player.dailyTimeCodeUsed = true
 
     if (diff <= tolerance || player.cubeUpgrades[61] === 100) {
+      player.dailyTimeCodeUsed = true
       let blueberryTime = 0
       if (player.singularityChallenges.noSingularityUpgrades.completions > 0) {
         blueberryTime = timeCodeBlueberryTime
@@ -798,12 +809,17 @@ export const promocodes = async (input: string | null, amount?: number) => {
         time: format((end - start) / 1000, 2, true),
         x: format(quarksAwarded, 0, true)
       })
+      const goldenQuarkText = goldenQuarksUnlocked
+        ? i18next.t('importexport.promocodes.time.goldenQuarks', {
+          x: format(addBaseGoldenQuarks('timeCode', timeCodeBaseGoldenQuarks), 2, true)
+        })
+        : ''
       const ambrosiaText = blueberryTime > 0
         ? i18next.t('importexport.promocodes.time.ambrosia', {
           blueberryTime
         })
         : ''
-      return Alert(`${winText} ${ambrosiaText}`)
+      return Alert([winText, goldenQuarkText, ambrosiaText].filter((text) => text !== '').join(' '))
     } else {
       return Alert(i18next.t('importexport.promocodes.time.lost', {
         time: format((end - start) / 1000, 2, true)

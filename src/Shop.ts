@@ -87,10 +87,10 @@ type QuarkShopUpgradeRewards = {
   hypercubeToQuark: { hypercubeQuarkMult: number }
   cubeToQuarkAll: { quarkMult: number }
   shopImprovedDaily: { dailyCodeQuarkMult: number }
-  shopImprovedDaily2: { freeSingularityUpgrades: number; dailyCodeGoldenQuarkMult: number }
-  shopImprovedDaily3: { freeSingularityUpgrades: number; dailyCodeGoldenQuarkMult: number }
-  shopImprovedDaily4: { freeSingularityUpgrades: number; dailyCodeGoldenQuarkMult: number }
-  shopImprovedDaily5: { freeUpgradeMult: number }
+  shopImprovedDaily2: { freeSingularityUpgrades: number; dailyCodeQuarkMult: number }
+  shopImprovedDaily3: { freeSingularityUpgrades: number; dailyCodeQuarkMult: number }
+  shopImprovedDaily4: { freeSingularityUpgrades: number; dailyCodeQuarkMult: number }
+  shopImprovedDaily5: { freeUpgradeMult: number; dailyCodeQuarkMult: number }
   constantEX: { maxPercentIncrease: number }
   powderEX: { orbToPowderConversionMult: number }
   powderAuto: { automaticPowderFraction: number }
@@ -1194,7 +1194,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   shopImprovedDaily: {
     name: () => i18next.t('shop.names.shopImprovedDaily'),
     description: () => i18next.t('shop.upgradeDescriptions.shopImprovedDaily'),
-    effects: (n) => 1 + 0.05 * n, // dailyCodeQuarkMult
+    effects: (n) => 1 + 0.2 * n, // dailyCodeQuarkMult
     effectDescription () {
       const effects = getShopUpgradeEffects('shopImprovedDaily', 'dailyCodeQuarkMult')
       return i18next.t('shop.upgradeEffects.shopImprovedDaily', {
@@ -1218,14 +1218,12 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return n
       }
 
-      return 1 + 0.2 * n // dailyCodeGoldenQuarkMult
+      return 1 + 0.2 * n // dailyCodeQuarkMult
     },
     effectDescription () {
-      const dailyCodeGoldenQuarkMult = getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeGoldenQuarkMult')
-      const freeSingularityUpgrades = getShopUpgradeEffects('shopImprovedDaily2', 'freeSingularityUpgrades')
       return i18next.t('shop.upgradeEffects.shopImprovedDaily2', {
-        amount2: formatAsPercentIncrease(dailyCodeGoldenQuarkMult, 0),
-        amount1: freeSingularityUpgrades
+        amount: getShopUpgradeEffects('shopImprovedDaily2', 'freeSingularityUpgrades'),
+        amount2: formatAsPercentIncrease(getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeQuarkMult'), 0)
       })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass', 'unlocked'),
@@ -1243,14 +1241,12 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return n
       }
 
-      return 1 + 0.15 * n // dailyCodeGoldenQuarkMult
+      return 1 + 0.2 * n // dailyCodeQuarkMult
     },
     effectDescription () {
-      const dailyCodeGoldenQuarkMult = getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeGoldenQuarkMult')
-      const freeSingularityUpgrades = getShopUpgradeEffects('shopImprovedDaily3', 'freeSingularityUpgrades')
       return i18next.t('shop.upgradeEffects.shopImprovedDaily3', {
-        amount2: formatAsPercentIncrease(dailyCodeGoldenQuarkMult, 0),
-        amount1: freeSingularityUpgrades
+        amount: getShopUpgradeEffects('shopImprovedDaily3', 'freeSingularityUpgrades'),
+        amount2: formatAsPercentIncrease(getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeQuarkMult'), 0)
       })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass2', 'unlocked'),
@@ -1268,14 +1264,12 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         return n
       }
 
-      return 1 + n // dailyCodeGoldenQuarkMult
+      return 1 + 0.2 * n // dailyCodeQuarkMult
     },
     effectDescription () {
-      const dailyCodeGoldenQuarkMult = getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeGoldenQuarkMult')
-      const freeSingularityUpgrades = getShopUpgradeEffects('shopImprovedDaily4', 'freeSingularityUpgrades')
       return i18next.t('shop.upgradeEffects.shopImprovedDaily4', {
-        amount2: formatAsPercentIncrease(dailyCodeGoldenQuarkMult, 0),
-        amount1: freeSingularityUpgrades
+        amount: getShopUpgradeEffects('shopImprovedDaily4', 'freeSingularityUpgrades'),
+        amount2: formatAsPercentIncrease(getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeQuarkMult'), 0)
       })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass3', 'unlocked'),
@@ -1288,11 +1282,17 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   shopImprovedDaily5: {
     name: () => i18next.t('shop.names.shopImprovedDaily5'),
     description: () => i18next.t('shop.upgradeDescriptions.shopImprovedDaily5'),
-    effects: (n) => 1 + 0.0002 * n, // freeUpgradeMult
+    effects: (n, key) => {
+      if (key === 'freeUpgradeMult') {
+        return 1 + 0.0002 * n
+      }
+
+      return 1 + 0.002 * n // dailyCodeQuarkMult
+    },
     effectDescription () {
-      const effects = getShopUpgradeEffects('shopImprovedDaily5', 'freeUpgradeMult')
       return i18next.t('shop.upgradeEffects.shopImprovedDaily5', {
-        amount: formatAsPercentIncrease(effects)
+        amount: formatAsPercentIncrease(getShopUpgradeEffects('shopImprovedDaily5', 'freeUpgradeMult')),
+        amount2: formatAsPercentIncrease(getShopUpgradeEffects('shopImprovedDaily5', 'dailyCodeQuarkMult'), 1)
       })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),

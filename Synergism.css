@@ -4026,6 +4026,12 @@ p#reincarnatehotkeys {
     text-align: right;
 }
 
+#goldenQuarksShop > #buySingularityQuarksAppreciation {
+    margin-top: 6px;
+    font-size: 0.85em;
+    line-height: 1.2em;
+}
+
 #shoptop {
     grid-area: shoptop;
     color: var(--whitesmoke-color);
