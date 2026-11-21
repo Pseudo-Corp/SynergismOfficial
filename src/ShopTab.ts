@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateQuarkMultiplier, calculateSingularityTimeQuarkRamp, calculateSummationNonLinear } from './Calculate'
+import { calculateQuarkMultiplier, calculateSingularityTimeQuarkRate, calculateSummationNonLinear } from './Calculate'
 import {
   getQuarkLedgerQuarks,
   getQuarkSourceMultiplier,
@@ -485,7 +485,7 @@ export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
     quarkSources[key].category === 'primary' && getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')
   ) {
     lines.push(i18next.t('shop.quarkLedger.multipliers.singularityTime', {
-      perDay: format(calculateSingularityTimeQuarkRamp().perDay, 2, true),
+      perDay: format(calculateSingularityTimeQuarkRate(), 2, true),
       x: format(quarkCategories.primary.multiplier(), 3, true)
     }))
   }

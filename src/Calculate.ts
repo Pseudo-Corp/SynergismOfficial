@@ -1450,19 +1450,19 @@ export const calculateBaseCubeQuarkMultiplier = () => {
 }
 
 export const calculateRootsOfUnityCap = () => {
-  return Math.min(9999, 24 * Math.pow(1.05, sumOfExaltCompletions()) - 1)
+  return Math.min(10000, 24 * Math.pow(1.05, sumOfExaltCompletions()))
 }
 
-export const calculateSingularityTimeQuarkRamp = () => {
+export const calculateSingularityTimeQuarkRate = () => {
   const cap = calculateRootsOfUnityCap()
   if (getShopUpgradeEffects('shopSingularitySpeedup', 'ignoreFastestSingularity')) {
-    return { perDay: cap, start: 86400 / (cap + 1) }
+    return cap
   }
   const fastest = player.fastestSingularities[player.singularityCount]
   if (fastest === undefined) {
-    return { perDay: 0, start: 0 }
+    return 0
   }
-  return { perDay: Math.max(0, Math.min(cap, 86400 / fastest - 1)), start: fastest }
+  return Math.min(cap, 86400 / fastest)
 }
 
 export const calculateAutoWarpQuarkMultiplier = () => {

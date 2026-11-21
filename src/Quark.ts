@@ -4,7 +4,7 @@ import {
   calculateAutoWarpQuarkMultiplier,
   calculateCubeQuarkMultiplier,
   calculateQuarkMultiplier,
-  calculateSingularityTimeQuarkRamp
+  calculateSingularityTimeQuarkRate
 } from './Calculate'
 import { quarksFromELOMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
 import { getOcteractUpgradeEffect } from './Octeracts'
@@ -162,8 +162,7 @@ export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
       if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
         return 1
       }
-      const { perDay, start } = calculateSingularityTimeQuarkRamp()
-      return 1 + perDay * Math.max(0, player.singularityCounter - start) / 86400
+      return Math.max(1, calculateSingularityTimeQuarkRate() * player.singularityCounter / 86400)
     }
   },
   miscellaneous: {
