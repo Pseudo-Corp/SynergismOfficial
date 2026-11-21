@@ -3758,12 +3758,16 @@ p#reincarnatehotkeys {
     width: 82%;
 }
 
-.quarkLedgerRules {
-    display: flex;
-    gap: 6px;
-    margin-top: 10px;
-    color: var(--white-color);
-    text-align: left;
+.quarkLedgerInfo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.2em;
+    height: 1.2em;
+    border: 2px solid var(--cyan-color);
+    border-radius: 50%;
+    font-size: 0.8em;
+    cursor: help;
 }
 
 #actualWrapper {

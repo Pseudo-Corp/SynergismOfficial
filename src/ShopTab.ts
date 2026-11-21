@@ -499,6 +499,11 @@ export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
   return `${titleHTML}<br><br>${lines.join('<br>')}<br><br>${totalHTML}`
 }
 
+export const quarkLedgerAwardedHTML = () =>
+  `<span style="font-weight: bold; font-size: 1.2em;">${i18next.t('shop.quarkLedger.awarded')}</span><br><br>${
+    i18next.t('shop.quarkLedger.rules.baseGain')
+  }<br><br>${i18next.t('shop.quarkLedger.rules.multiplierGrowth')}`
+
 export const generateShopTabHTML = () => {
   const list = DOMCacheGetOrSet('shopFamilyList')
   const rail = DOMCacheGetOrSet('shopTierRail')

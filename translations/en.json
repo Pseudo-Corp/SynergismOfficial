@@ -3858,7 +3858,7 @@
     "quarkLedger": {
       "base": "Base",
       "multiplier": "Multiplier",
-      "awarded": "Awarded*",
+      "awarded": "Awarded",
       "total": "Total",
       "quarksRewarded": "Quarks Rewarded",
       "multiplierValue": "x{{x}}",
