@@ -125,7 +125,7 @@ import {
   resetPurpleAmbrosiaDisplay
 } from './PurpleAmbrosiaUpgrades'
 import { getPurpleReactorPopupMode, setPurpleReactorPopupMode } from './PurpleUpgradeTab'
-import { quarkSourceKeys, quarkSources } from './Quark'
+import { quarkSourceKeys } from './Quark'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -1780,9 +1780,6 @@ TODO: Fix this entire tab it's utter shit
   }
 
   for (const key of quarkSourceKeys) {
-    if (quarkSources[key].lines.length === 0) {
-      continue
-    }
     const cell = DOMCacheGetOrSet(`quarkLedger-${key}-multiplier`)
     const showQuarkSourceModal = (x: number, y: number) => {
       Modal(

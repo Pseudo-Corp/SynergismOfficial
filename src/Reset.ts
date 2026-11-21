@@ -59,7 +59,7 @@ import { codes, importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
-import { settleQuarks, worlds } from './Quark'
+import { resetPrimaryQuarks, settleQuarks, worlds } from './Quark'
 import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, RuneType } from './Runes'
@@ -1152,6 +1152,8 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
   hold.dailyExportClaimed = player.dailyExportClaimed
   hold.dailyTimeCodeUsed = player.dailyTimeCodeUsed
   hold.dailyExportAddCodeMult = player.dailyExportAddCodeMult
+  resetPrimaryQuarks()
+  hold.quarkLedger = player.quarkLedger
   hold.runeBlessingBuyAmount = player.runeBlessingBuyAmount
   hold.runeSpiritBuyAmount = player.runeSpiritBuyAmount
   hold.prestigeamount = player.prestigeamount

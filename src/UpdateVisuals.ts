@@ -139,8 +139,7 @@ import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
 import {
   calculateExportGoldenQuarks,
   dailyExportBaseQuarks,
-  getQuarkSourceMultiplier,
-  getQuarkSourceQuarks
+  getQuarkSourceMultiplier
 } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { blessingRuneTypes, updateRuneBlessingHTML } from './RuneBlessings'
@@ -1209,7 +1208,7 @@ export const visualUpdateCubes = () => {
       `${name}QuarksPerReward`,
       format(Math.floor(coefficient * getQuarkSourceMultiplier(source) * globalMultiplier))
     )
-    updateTextContentIfChanged(`${name}QuarksToday`, format(Math.floor(getQuarkSourceQuarks(source))))
+    updateTextContentIfChanged(`${name}QuarksToday`, format(Math.floor(player.quarkLedger.awarded[source])))
 
     // Change color of requirement text if 1 or less required :D
     DOMCacheGetOrSet(`${name}QuarksOpenRequirement`).style.color = nextDigit - opened === 1

@@ -2,7 +2,7 @@ import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateQuarkMultiplier, calculateSingularityTimeQuarkRate, calculateSummationNonLinear } from './Calculate'
 import {
-  getQuarkLedgerQuarks,
+  getQuarkCategoryAwarded,
   getQuarkSourceMultiplier,
   quarkCategories,
   type QuarkCategoryKey,
@@ -471,10 +471,9 @@ const createTierChip = (tier: ShopTierData) => {
   return chip
 }
 
-const quarkLedgerColumns = ['base', 'multiplier', 'value'] as const
+const quarkLedgerColumns = ['base', 'multiplier', 'awarded'] as const
 
 const quarkLedgerCategoryBases: Record<QuarkCategoryKey, number> = { primary: 0, miscellaneous: 0 }
-const quarkLedgerCategoryValues: Record<QuarkCategoryKey, number> = { primary: 0, miscellaneous: 0 }
 const quarkLedgerCategoryVisible: Record<QuarkCategoryKey, boolean> = { primary: false, miscellaneous: false }
 
 export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
@@ -489,11 +488,13 @@ export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
       x: format(quarkCategories.primary.multiplier(), 3, true)
     }))
   }
+  const globalMultiplier = calculateQuarkMultiplier()
+  lines.push(i18next.t('shop.quarkLedger.multipliers.globalMultiplier', { x: format(globalMultiplier, 3, true) }))
   const titleHTML = `<span style="font-weight: bold; font-size: 1.2em;">${
     i18next.t(`shop.quarkLedger.sources.${key}`)
   }</span>`
   const totalHTML = i18next.t('shop.quarkLedger.multipliers.total', {
-    x: format(getQuarkSourceMultiplier(key), 3, true)
+    x: format(getQuarkSourceMultiplier(key) * globalMultiplier, 3, true)
   })
   return `${titleHTML}<br><br>${lines.join('<br>')}<br><br>${totalHTML}`
 }
@@ -744,17 +745,13 @@ export const updateQuarkLedgerTab = () => {
   const globalMultiplier = calculateQuarkMultiplier()
   for (const category of quarkCategoryKeys) {
     quarkLedgerCategoryBases[category] = 0
-    quarkLedgerCategoryValues[category] = 0
     quarkLedgerCategoryVisible[category] = false
   }
 
   for (const key of quarkSourceKeys) {
     const base = player.quarkLedger.base[key]
-    const multiplier = getQuarkSourceMultiplier(key)
-    const value = base * multiplier
     const category = quarkSources[key].category
     quarkLedgerCategoryBases[category] += base
-    quarkLedgerCategoryValues[category] += value
 
     const visible = base > 0 || quarkSources[key].unlocked()
     DOMCacheGetOrSet(`quarkLedgerRow-${key}`).hidden = !visible
@@ -767,10 +764,13 @@ export const updateQuarkLedgerTab = () => {
     updateTextContentIfChanged(
       DOMCacheGetOrSet(`quarkLedger-${key}-multiplier`),
       i18next.t('shop.quarkLedger.multiplierValue', {
-        x: format(multiplier, 2, true)
+        x: format(getQuarkSourceMultiplier(key) * globalMultiplier, 2, true)
       })
     )
-    updateTextContentIfChanged(DOMCacheGetOrSet(`quarkLedger-${key}-value`), format(value, 2, true))
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`quarkLedger-${key}-awarded`),
+      format(Math.floor(player.quarkLedger.awarded[key]), 0, true)
+    )
   }
 
   for (const category of quarkCategoryKeys) {
@@ -780,25 +780,13 @@ export const updateQuarkLedgerTab = () => {
       format(quarkLedgerCategoryBases[category], 2, true)
     )
     updateTextContentIfChanged(
-      DOMCacheGetOrSet(`quarkLedgerValue-${category}`),
-      format(quarkLedgerCategoryValues[category], 2, true)
-    )
-    updateTextContentIfChanged(
-      DOMCacheGetOrSet(`quarkLedgerQuarks-${category}`),
-      format(Math.floor(quarkLedgerCategoryValues[category] * globalMultiplier), 0, true)
+      DOMCacheGetOrSet(`quarkLedgerAwarded-${category}`),
+      format(getQuarkCategoryAwarded(category), 0, true)
     )
   }
-  updateTextContentIfChanged(
-    DOMCacheGetOrSet('quarkLedgerGlobalMultiplier'),
-    i18next.t('shop.quarkLedger.multiplierValue', { x: format(globalMultiplier, 2, true) })
-  )
 
   updateTextContentIfChanged(
-    DOMCacheGetOrSet('quarkLedgerTotalQuarkValue'),
-    format(getQuarkLedgerQuarks(globalMultiplier), 0, true)
-  )
-  updateTextContentIfChanged(
     DOMCacheGetOrSet('quarkLedgerQuarksRewarded'),
-    format(player.quarkLedger.awarded.primary + player.quarkLedger.awarded.miscellaneous, 0, true)
+    format(player.quarkLedger.credited.primary + player.quarkLedger.credited.miscellaneous, 0, true)
   )
 }

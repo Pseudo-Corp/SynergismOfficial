@@ -3758,21 +3758,12 @@ p#reincarnatehotkeys {
     width: 82%;
 }
 
-.quarkLedgerStats {
-    width: min(100%, 400px);
-    margin: 10px auto 0;
-    padding: 4px;
-    border: 2px solid var(--cyan-color);
+.quarkLedgerRules {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
     color: var(--white-color);
-}
-
-.quarkLedgerStats .statPortion {
-    min-width: 0;
-    padding: 2px 4px;
-}
-
-.quarkLedgerStats .statPortion.statTotal {
-    background-color: var(--hex-2f2f2f-background-color);
+    text-align: left;
 }
 
 #actualWrapper {
