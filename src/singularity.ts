@@ -7,6 +7,7 @@ import {
   calculateBlueberryInventory,
   calculateExalt4EffectiveSingularityMultiplier,
   calculateGoldenQuarkCost,
+  calculateGoldenQuarkMultiplier,
   calculateImmaculateAlchemyBonus,
   calculateIrish3PurpleLuck,
   calculateMaxBaseCubeQuarkMultiplier
@@ -41,7 +42,7 @@ const funny32BitNumber = 2 ** 31 - 1
 type GoldenQuarkUpgradeRewards = {
   goldenQuarks1: { goldenQuarkMult: number }
   goldenQuarks2: { goldenQuarkCostMult: number }
-  goldenQuarks3: { exportGQPerDay: number }
+  goldenQuarks3: { exportGoldenQuarkMult: number }
   starterPack: {
     obtainiumMult: number
     offeringMult: number
@@ -468,7 +469,11 @@ export const goldenQuarkUpgrades: {
     minimumSingularity: 0,
     specialCostForm: 'Default',
     effect: (n: number) => {
-      return n > 250 ? 1 / Math.log2(n / 62.5) : 1 - Math.min(0.5, n / 500)
+      if (n <= 100) {
+        return 1 - n / 1000
+      }
+      const doublings = Math.log2(n / 100)
+      return 0.9 - 0.1 * doublings / (doublings + 1)
     },
     effectDescription: function() {
       const goldenQuarkCostMult = getGQUpgradeEffect('goldenQuarks2', 'goldenQuarkCostMult')
@@ -493,12 +498,12 @@ export const goldenQuarkUpgrades: {
     minimumSingularity: 0,
     specialCostForm: 'Default',
     effect: (n: number) => {
-      return 12 * n * (n + 1)
+      return 1 + n / 100
     },
     effectDescription: function() {
-      const exportGQPerDay = getGQUpgradeEffect('goldenQuarks3', 'exportGQPerDay')
+      const exportGoldenQuarkMult = getGQUpgradeEffect('goldenQuarks3', 'exportGoldenQuarkMult')
       return i18next.t('singularity.data.goldenQuarks3.effect', {
-        n: format(exportGQPerDay, 1, true)
+        n: formatAsPercentIncrease(exportGoldenQuarkMult, 2)
       })
     },
     name: () => {
@@ -3597,7 +3602,7 @@ export const singularityPerks: SingularityPerk[] = [
     levels: [100],
     description: () => {
       return i18next.t('singularity.perks.goldenRevolutionII.default', {
-        current: format(Math.min(50, 0.2 * player.singularityCount), 1)
+        current: format(Math.max(0, 0.1 * (player.highestSingularityCount - 100)), 1)
       })
     },
     ID: 'goldenRevolution2'
@@ -4224,23 +4229,107 @@ export const calculateMaxSingularityLookahead = (nonZero: boolean): number => {
   }
 }
 
-export const getGoldenQuarkCost = (): {
-  cost: number
-  costReduction: number
-} => {
-  const cost = calculateGoldenQuarkCost()
-  const baseCost = 10000
+export const goldenQuarkPurchaseBaseCost = 100000
 
-  return {
-    cost: cost,
-    costReduction: Math.max(0, baseCost - cost)
+export const dailyExportBaseGoldenQuarks = 25
+export const dailyCodeBaseGoldenQuarks = 15
+
+export const goldenQuarkSourceKeys = ['export', 'dailyCode', 'purchases'] as const
+
+export type GoldenQuarkSourceKey = typeof goldenQuarkSourceKeys[number]
+
+export type GoldenQuarkSourceRecord = Record<GoldenQuarkSourceKey, number>
+
+export interface GoldenQuarkLedger {
+  base: GoldenQuarkSourceRecord
+  awarded: GoldenQuarkSourceRecord
+}
+
+interface GoldenQuarkSource {
+  lines: { i18n: string; stat: () => number }[]
+  multiplier: () => number
+}
+
+const goldenRevolution3Multiplier = () =>
+  player.highestSingularityCount >= 100 ? 1 + Math.min(5, player.highestSingularityCount / 50) : 1
+
+export const goldenQuarkSources: Record<GoldenQuarkSourceKey, GoldenQuarkSource> = {
+  export: {
+    lines: [
+      { i18n: 'goldenQuarks3', stat: () => getGQUpgradeEffect('goldenQuarks3', 'exportGoldenQuarkMult') },
+      { i18n: 'goldenRevolution3', stat: goldenRevolution3Multiplier }
+    ],
+    multiplier: () => getGQUpgradeEffect('goldenQuarks3', 'exportGoldenQuarkMult') * goldenRevolution3Multiplier()
+  },
+  dailyCode: {
+    lines: [
+      { i18n: 'highestSingularity', stat: () => player.highestSingularityCount },
+      {
+        i18n: 'shopImprovedDaily2',
+        stat: () => getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeGoldenQuarkMult')
+      },
+      {
+        i18n: 'shopImprovedDaily3',
+        stat: () => getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeGoldenQuarkMult')
+      },
+      {
+        i18n: 'shopImprovedDaily4',
+        stat: () => getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeGoldenQuarkMult')
+      }
+    ],
+    multiplier: () =>
+      player.highestSingularityCount
+      * getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeGoldenQuarkMult')
+      * getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeGoldenQuarkMult')
+      * getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeGoldenQuarkMult')
+  },
+  purchases: {
+    lines: [],
+    multiplier: () => 1
   }
 }
 
+export const getGoldenQuarkSourceMultiplier = (key: GoldenQuarkSourceKey) =>
+  goldenQuarkSources[key].multiplier() * calculateGoldenQuarkMultiplier()
+
+const createBlankGoldenQuarkSourceRecord = () =>
+  Object.fromEntries(goldenQuarkSourceKeys.map((key) => [key, 0])) as GoldenQuarkSourceRecord
+
+export const createBlankGoldenQuarkLedger = (): GoldenQuarkLedger => ({
+  base: createBlankGoldenQuarkSourceRecord(),
+  awarded: createBlankGoldenQuarkSourceRecord()
+})
+
+export const settleGoldenQuarks = () => {
+  const goldenQuarkMultiplier = calculateGoldenQuarkMultiplier()
+  for (const key of goldenQuarkSourceKeys) {
+    const owed = player.goldenQuarkLedger.base[key] * goldenQuarkSources[key].multiplier() * goldenQuarkMultiplier
+      - player.goldenQuarkLedger.awarded[key]
+    if (owed > 0) {
+      player.goldenQuarks += owed
+      player.goldenQuarkLedger.awarded[key] += owed
+    }
+  }
+}
+
+export const addBaseGoldenQuarks = (key: GoldenQuarkSourceKey, amount: number) => {
+  const goldenQuarks = amount * getGoldenQuarkSourceMultiplier(key)
+  player.goldenQuarkLedger.base[key] += amount
+  player.goldenQuarkLedger.awarded[key] += goldenQuarks
+  player.goldenQuarks += goldenQuarks
+  settleGoldenQuarks()
+  return goldenQuarks
+}
+
+export const resetGoldenQuarkLedger = () => {
+  settleGoldenQuarks()
+  player.goldenQuarkLedger = createBlankGoldenQuarkLedger()
+}
+
 export async function buyGoldenQuarks (): Promise<void> {
-  const goldenQuarkCost = getGoldenQuarkCost()
-  const maxBuy = Math.floor(player.worlds / goldenQuarkCost.cost)
-  let buyAmount = null
+  const cost = calculateGoldenQuarkCost()
+  const goldenQuarksPerPurchase = calculateGoldenQuarkMultiplier()
+  const maxBuy = Math.floor(player.worlds / cost)
 
   if (maxBuy === 0) {
     return Alert(i18next.t('singularity.goldenQuarks.poor'))
@@ -4248,8 +4337,9 @@ export async function buyGoldenQuarks (): Promise<void> {
 
   const buyPrompt = await Prompt(
     i18next.t('singularity.goldenQuarks.buyPrompt', {
-      cost: format(goldenQuarkCost.cost, 0, true),
-      discount: format(goldenQuarkCost.costReduction, 0, true),
+      cost: format(cost, 0, true),
+      discount: format(goldenQuarkPurchaseBaseCost - cost, 0, true),
+      amount: format(goldenQuarksPerPurchase, 2, true),
       max: format(maxBuy, 0, true)
     })
   )
@@ -4259,7 +4349,7 @@ export async function buyGoldenQuarks (): Promise<void> {
     return Alert(i18next.t('general.cancelled'))
   }
 
-  buyAmount = Number(buyPrompt)
+  let buyAmount = Number(buyPrompt)
   // Check these lol
   if (Number.isNaN(buyAmount) || !Number.isFinite(buyAmount)) {
     // nan + Infinity checks
@@ -4274,23 +4364,18 @@ export async function buyGoldenQuarks (): Promise<void> {
     return Alert(i18next.t('general.validation.fraction'))
   }
 
-  let cost: number
-
   if (buyAmount === -1) {
     buyAmount = maxBuy
-    cost = maxBuy * goldenQuarkCost.cost
-    worlds.sub(cost)
-    player.goldenQuarks += maxBuy
-  } else {
-    cost = buyAmount * goldenQuarkCost.cost
-    worlds.sub(cost)
-    player.goldenQuarks += buyAmount
   }
+
+  const totalCost = buyAmount * cost
+  worlds.sub(totalCost)
+  const goldenQuarksGained = addBaseGoldenQuarks('purchases', buyAmount)
 
   return Alert(
     i18next.t('singularity.goldenQuarks.transaction', {
-      spent: format(buyAmount, 0, true),
-      cost: format(cost, 0, true)
+      spent: format(goldenQuarksGained, 2, true),
+      cost: format(totalCost, 0, true)
     })
   )
 }

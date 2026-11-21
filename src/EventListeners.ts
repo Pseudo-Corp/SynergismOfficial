@@ -145,12 +145,18 @@ import { buyAllBlessingLevels } from './RuneBlessings'
 import { RuneType } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { buyShopUpgrades, shopUpgrades, useConsumablePrompt } from './Shop'
-import { quarkLedgerAwardedHTML, quarkSourceMultiplierHTML } from './ShopTab'
+import {
+  goldenQuarkLedgerAwardedHTML,
+  goldenQuarkSourceMultiplierHTML,
+  quarkLedgerAwardedHTML,
+  quarkSourceMultiplierHTML
+} from './ShopTab'
 import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
   buyGQUpgradeLevel,
   calculateMaxSingularityLookahead,
+  goldenQuarkSourceKeys,
   goldenQuarkUpgradeNames,
   initializeSingularityPerkTree,
   showFreeUpgradeInfo,
@@ -882,6 +888,61 @@ const setPurpleReactantPercentage = (
 function visitConsumableTab () {
   changeTab(Tabs.Purchase)
   changeSubTab(Tabs.Purchase, { page: 3 })
+}
+
+const bindShopConsumableModal = (
+  iconId: string,
+  containerId: string,
+  name: () => string,
+  description: () => string,
+  effect: () => string
+) => {
+  const icon = DOMCacheGetOrSet(iconId)
+  const container = DOMCacheGetOrSet(containerId)
+  const showModal = (x: number, y: number) => {
+    Modal(
+      () =>
+        `<span style="color: var(--gold-color)">${name()}</span><br><br>
+        <span style="color: var(--plum-color)">${description()}</span><br><br>
+        <span style="color: var(--limegreen-color)">${effect()}</span>`,
+      x,
+      y,
+      { borderColor: 'var(--gold-color)' },
+      MEDIUM_MODAL_UPDATE_TICK,
+      icon
+    )
+  }
+
+  icon.addEventListener('click', (event) => showModal(event.clientX, event.clientY))
+  icon.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      icon.click()
+    }
+  })
+
+  if (!isMobile) {
+    container.addEventListener('mousemove', (event) => showModal(event.clientX, event.clientY))
+    container.addEventListener('focusin', (event) => {
+      const rect = (event.target as HTMLElement).getBoundingClientRect()
+      showModal(rect.x, rect.y + rect.height / 2)
+    })
+    container.addEventListener('mouseleave', CloseModal)
+    container.addEventListener('focusout', CloseModal)
+  }
+}
+
+const bindLedgerModal = (id: string, html: () => string, borderColor: string) => {
+  const element = DOMCacheGetOrSet(id)
+  const showLedgerModal = (x: number, y: number) => {
+    Modal(html, x, y, { borderColor }, MEDIUM_MODAL_UPDATE_TICK, element)
+  }
+
+  element.addEventListener('click', (event) => showLedgerModal(event.clientX, event.clientY))
+  if (!isMobile) {
+    element.addEventListener('mousemove', (event) => showLedgerModal(event.clientX, event.clientY))
+    element.addEventListener('mouseleave', CloseModal)
+  }
 }
 
 export const generateEventHandlers = () => {
@@ -1744,73 +1805,36 @@ TODO: Fix this entire tab it's utter shit
 
   // Part 2: Potions
   for (const key of shopPotionKeys) {
-    const icon = DOMCacheGetOrSet(`${key}s`)
-    const container = DOMCacheGetOrSet(`${key}Hide`)
-    const showPotionModal = (x: number, y: number) => {
-      Modal(
-        () =>
-          `<span style="color: var(--gold-color)">${shopUpgrades[key].name()}</span><br><br>
-          <span style="color: var(--plum-color)">${shopUpgrades[key].description()}</span><br><br>
-          <span style="color: var(--limegreen-color)">${shopUpgrades[key].effectDescription()}</span>`,
-        x,
-        y,
-        { borderColor: 'var(--gold-color)' },
-        MEDIUM_MODAL_UPDATE_TICK,
-        icon
-      )
-    }
-
-    icon.addEventListener('click', (event) => showPotionModal(event.clientX, event.clientY))
-    icon.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault()
-        icon.click()
-      }
-    })
-
-    if (!isMobile) {
-      container.addEventListener('mousemove', (event) => showPotionModal(event.clientX, event.clientY))
-      container.addEventListener('focusin', (event) => {
-        const rect = (event.target as HTMLElement).getBoundingClientRect()
-        showPotionModal(rect.x, rect.y + rect.height / 2)
-      })
-      container.addEventListener('mouseleave', CloseModal)
-      container.addEventListener('focusout', CloseModal)
-    }
+    bindShopConsumableModal(
+      `${key}s`,
+      `${key}Hide`,
+      shopUpgrades[key].name,
+      shopUpgrades[key].description,
+      shopUpgrades[key].effectDescription
+    )
   }
+  bindShopConsumableModal(
+    'buySingularityQuarks',
+    'goldenQuarksShop',
+    () => i18next.t('shop.goldenQuarkTransfusion.name'),
+    () => i18next.t('shop.goldenQuarkTransfusion.description'),
+    () => i18next.t('shop.goldenQuarkTransfusion.bonus')
+  )
 
   for (const key of quarkSourceKeys) {
-    const cell = DOMCacheGetOrSet(`quarkLedger-${key}-multiplier`)
-    const showQuarkSourceModal = (x: number, y: number) => {
-      Modal(
-        () => quarkSourceMultiplierHTML(key),
-        x,
-        y,
-        { borderColor: 'var(--cyan-color)' },
-        MEDIUM_MODAL_UPDATE_TICK,
-        cell
-      )
-    }
-
-    cell.addEventListener('click', (event) => showQuarkSourceModal(event.clientX, event.clientY))
-    if (!isMobile) {
-      cell.addEventListener('mousemove', (event) => showQuarkSourceModal(event.clientX, event.clientY))
-      cell.addEventListener('mouseleave', CloseModal)
-    }
+    bindLedgerModal(`quarkLedger-${key}-multiplier`, () => quarkSourceMultiplierHTML(key), 'var(--cyan-color)')
   }
-
+  for (const key of goldenQuarkSourceKeys) {
+    bindLedgerModal(
+      `goldenQuarkLedger-${key}-multiplier`,
+      () => goldenQuarkSourceMultiplierHTML(key),
+      'var(--gold-color)'
+    )
+  }
   for (const category of quarkCategoryKeys) {
-    const info = DOMCacheGetOrSet(`quarkLedgerAwardedInfo-${category}`)
-    const showAwardedModal = (x: number, y: number) => {
-      Modal(quarkLedgerAwardedHTML, x, y, { borderColor: 'var(--cyan-color)' }, MEDIUM_MODAL_UPDATE_TICK, info)
-    }
-
-    info.addEventListener('click', (event) => showAwardedModal(event.clientX, event.clientY))
-    if (!isMobile) {
-      info.addEventListener('mousemove', (event) => showAwardedModal(event.clientX, event.clientY))
-      info.addEventListener('mouseleave', CloseModal)
-    }
+    bindLedgerModal(`quarkLedgerAwardedInfo-${category}`, quarkLedgerAwardedHTML, 'var(--cyan-color)')
   }
+  bindLedgerModal('quarkLedgerAwardedInfo-goldenQuarks', goldenQuarkLedgerAwardedHTML, 'var(--gold-color)')
 
   /*Offering Potion*/
   DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades('offeringPotion'))

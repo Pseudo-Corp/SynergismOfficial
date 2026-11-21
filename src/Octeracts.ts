@@ -229,9 +229,10 @@ export const octeractUpgrades: {
     maxLevel: 50,
     qualityOfLife: false,
     effect: (n: number) => {
-      return 1 - n / 100 // goldenQuarkCostMult
+      return 1 - n / 250 // goldenQuarkCostMult
     },
-    effectDescription: (n: number) => i18next.t('octeract.data.octeractGQCostReduce.effect', { n }),
+    effectDescription: (n: number) =>
+      i18next.t('octeract.data.octeractGQCostReduce.effect', { n: format(0.4 * n, 1, true) }),
     name: () => i18next.t('octeract.data.octeractGQCostReduce.name'),
     description: () => i18next.t('octeract.data.octeractGQCostReduce.description')
   },

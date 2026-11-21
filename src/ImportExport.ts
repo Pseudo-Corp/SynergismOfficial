@@ -15,13 +15,7 @@ import { storageGetItem, storageSetItem } from './events/storage-events'
 import { addTimers, runPurpleReactor } from './Helper'
 import { getFinalHepteractCap, hepteracts } from './Hepteracts'
 import { awardDailyOcteractFreeUpgrades } from './Octeracts'
-import {
-  addBaseQuarks,
-  calculateExportGoldenQuarks,
-  dailyExportBaseQuarks,
-  getQuarkSourceMultiplier,
-  worlds
-} from './Quark'
+import { addBaseQuarks, dailyExportBaseQuarks, getQuarkSourceMultiplier, worlds } from './Quark'
 import { Seed, seededBetween, seededRandom } from './RNG'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetRunes } from './Runes'
@@ -30,8 +24,11 @@ import { playerSchema } from './saves/PlayerSchema'
 import { flushSaveStorage, getStoredSave, queueSave } from './saves/SaveStorage'
 import { getShopUpgradeEffects } from './Shop'
 import {
+  addBaseGoldenQuarks,
   awardAddCodeFreeUpgrades,
   awardDailyFreeUpgrades,
+  dailyCodeBaseGoldenQuarks,
+  dailyExportBaseGoldenQuarks,
   getGQUpgradeEffect,
   goldenQuarkUpgrades
 } from './singularity'
@@ -272,7 +269,9 @@ export const exportSynergism = async () => {
 
   if (!player.dailyExportClaimed) {
     player.dailyExportClaimed = true
-    player.goldenQuarks += calculateExportGoldenQuarks()
+    if (player.highestSingularityCount >= 1) {
+      addBaseGoldenQuarks('export', dailyExportBaseGoldenQuarks)
+    }
     addBaseQuarks('export', dailyExportBaseQuarks)
   }
 
@@ -526,22 +525,15 @@ export const promocodes = async (input: string | null, amount?: number) => {
     player.dailyCodeUsed = true
     let rewardMessage = i18next.t('importexport.promocodes.daily.message')
 
-    const rewards = dailyCodeReward()
-    const actualQuarkAward = addBaseQuarks('dailyCode', rewards.quarks)
-    player.goldenQuarks += rewards.goldenQuarks
+    const actualQuarkAward = addBaseQuarks('dailyCode', dailyCodeBaseQuarks)
 
     rewardMessage += `\n${
       i18next.t('importexport.promocodes.daily.reward1', { quarks: format(actualQuarkAward, 0, true) })
     }`
-    if (rewards.goldenQuarks > 0) {
+    if (player.highestSingularityCount >= 1) {
+      const actualGoldenQuarkAward = addBaseGoldenQuarks('dailyCode', dailyCodeBaseGoldenQuarks)
       rewardMessage += `\n${
-        i18next.t('importexport.promocodes.daily.reward2', {
-          gq: format(
-            rewards.goldenQuarks,
-            0,
-            true
-          )
-        })
+        i18next.t('importexport.promocodes.daily.reward2', { gq: format(actualGoldenQuarkAward, 2, true) })
       }`
     }
     await Alert(rewardMessage)
@@ -969,22 +961,6 @@ const dailyCodeFormatFreeLevelMessage = (
     ? i18next.t(`singularity.data.${upgradeKey}.name`)
     : i18next.t(`octeract.data.${upgradeKey}.name`)
   return `\n+${format(freeLevelAmount, 3, true)} extra levels of '${upgradeNiceName}'`
-}
-
-const dailyCodeReward = () => {
-  let goldenQuarks = 0
-
-  if (player.highestSingularityCount > 0) {
-    goldenQuarks += 2 + 3 * player.highestSingularityCount
-    goldenQuarks *= getShopUpgradeEffects('shopImprovedDaily2', 'dailyCodeGoldenQuarkMult')
-    goldenQuarks *= getShopUpgradeEffects('shopImprovedDaily3', 'dailyCodeGoldenQuarkMult')
-    goldenQuarks *= getShopUpgradeEffects('shopImprovedDaily4', 'dailyCodeGoldenQuarkMult')
-  }
-
-  return {
-    quarks: dailyCodeBaseQuarks,
-    goldenQuarks
-  }
 }
 
 const handleLastModified = (lastModified: number) => {

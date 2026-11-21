@@ -27,6 +27,8 @@ import {
   calculateCubeQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
+  calculateGoldenQuarkCost,
+  calculateGoldenQuarkMultiplier,
   calculateOcteractMultiplier,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
@@ -137,7 +139,6 @@ import {
 import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
 import {
-  calculateExportGoldenQuarks,
   dailyExportBaseQuarks,
   getQuarkSourceMultiplier
 } from './Quark'
@@ -150,7 +151,8 @@ import { updateQuarkLedgerTab, updateShopTab } from './ShopTab'
 import {
   calculateGQUpgradeAP,
   computeGQUpgradeFreeLevelSoftcap,
-  getGoldenQuarkCost,
+  dailyExportBaseGoldenQuarks,
+  getGoldenQuarkSourceMultiplier,
   getGQUpgradeCostTNL,
   getGQUpgradeEffect,
   goldenQuarkUpgradeNames,
@@ -1775,7 +1777,9 @@ export const visualUpdateSettings = () => {
       )
       updateTextContentIfChanged(
         'goldenQuarkTimerDisplay',
-        i18next.t('settings.exportGoldenQuarks', { x: format(calculateExportGoldenQuarks(), 2, true) })
+        i18next.t('settings.exportGoldenQuarks', {
+          x: format(dailyExportBaseGoldenQuarks * getGoldenQuarkSourceMultiplier('export'), 2, true)
+        })
       )
     }
 
@@ -2653,9 +2657,19 @@ export const visualUpdateShop = () => {
       : format(player.goldenQuarks, 0, false, false)
   )
 
+  const goldenQuarkMultiplier = calculateGoldenQuarkMultiplier()
   updateTextContentIfChanged(
     'buySingularityQuarksButton',
-    i18next.t('shop.singularityQuarkCost', { cost: format(getGoldenQuarkCost().cost) })
+    i18next.t('shop.singularityQuarkCost', {
+      amount: format(goldenQuarkMultiplier, 2, true),
+      cost: format(calculateGoldenQuarkCost())
+    })
+  )
+  updateTextContentIfChanged('buySingularityQuarksBought', format(player.goldenQuarkLedger.base.purchases, 2, true))
+  updateTextContentIfChanged('buySingularityQuarksAwarded', format(player.goldenQuarkLedger.awarded.purchases, 2, true))
+  updateTextContentIfChanged(
+    'buySingularityQuarksMultiplier',
+    i18next.t('shop.quarkLedger.multiplierValue', { x: format(goldenQuarkMultiplier, 2, true) })
   )
 }
 

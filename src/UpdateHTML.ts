@@ -344,10 +344,6 @@ export const revealStuff = () => {
   document.documentElement.dataset.cookies4 = getGQUpgradeEffect('cookies4', 'unlocked') ? 'true' : 'false'
   document.documentElement.dataset.cookies5 = getGQUpgradeEffect('cookies5', 'unlocked') ? 'true' : 'false'
 
-  document.documentElement.dataset.goldenQuark3Upg = getGQUpgradeEffect('goldenQuarks3', 'exportGQPerDay') > 0
-    ? 'true'
-    : 'false'
-
   document.documentElement.dataset.autoTranscend = player.upgrades[89] === 1 ? 'true' : 'false'
 
   const showAllAchievements = player.highestSingularityCount > 0

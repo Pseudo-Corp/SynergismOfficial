@@ -216,7 +216,7 @@ import { enableStatSymbols } from './Plugins/StatSymbols'
 import { guardPoll, startSpeedProbe } from './PollGuard'
 import { CartTab } from './purchases/CartTab'
 import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from './PurpleAmbrosiaUpgrades'
-import { createBlankQuarkLedger, getQuarkBonus, refreshQuarkBonus, settleQuarks, worlds } from './Quark'
+import { createBlankQuarkLedger, refreshQuarkBonus, settleQuarks, worlds } from './Quark'
 import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './RedAmbrosiaUpgrades'
 import {
   blessingRuneTypes,
@@ -240,9 +240,11 @@ import { generateShopTabHTML } from './ShopTab'
 import {
   blankGQLevelObject,
   calculateMaxSingularityLookahead,
+  createBlankGoldenQuarkLedger,
   clampGQFreeLevelsToCaps,
   raiseHighestSingularity,
-  setGQUpgradeLevels
+  setGQUpgradeLevels,
+  settleGoldenQuarks
 } from './singularity'
 import {
   getSingularityChallengeEffect,
@@ -965,6 +967,7 @@ export const player: Player = {
   singularityElevatorSlowClimb: true,
   singularityElevatorLocked: false,
   goldenQuarks: 0,
+  goldenQuarkLedger: createBlankGoldenQuarkLedger(),
   quarksThisSingularity: 0,
   totalQuarksEver: 0,
   hotkeys: {},
@@ -3374,8 +3377,7 @@ export const resetCheck = async (
       await Alert(
         i18next.t('main.singularityMessage4', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarks(), 2, true),
-          z: format(getQuarkBonus())
+          y: format(calculateGoldenQuarks(), 2, true)
         })
       )
       await Alert(i18next.t('main.singularityMessage5'))
@@ -3759,6 +3761,7 @@ export const constantIntervals = (): void => {
   setInterval(() => {
     if (!G.timeWarp) {
       settleQuarks()
+      settleGoldenQuarks()
     }
   }, 1000)
 

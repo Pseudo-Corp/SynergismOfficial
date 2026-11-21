@@ -3770,6 +3770,13 @@ p#reincarnatehotkeys {
     cursor: help;
 }
 
+#quarkLedgerWrapper #quarkLedgerTable-goldenQuarks,
+#quarkLedgerTable-goldenQuarks thead th,
+#quarkLedgerTable-goldenQuarks tfoot tr:first-child th,
+#quarkLedgerTable-goldenQuarks .quarkLedgerInfo {
+    border-color: var(--gold-color);
+}
+
 #actualWrapper {
     display: grid;
     grid-template-areas:
@@ -3986,15 +3993,37 @@ p#reincarnatehotkeys {
     border: 2px solid var(--cyan-color);
 }
 
-#actualPotionShop > div,
-#goldenQuarksShop {
+#actualPotionShop > div {
     width: 110px;
+}
+
+#goldenQuarksShop {
+    width: 230px;
 }
 
 #actualPotionShop > div > p,
 #goldenQuarksShop > p {
     margin: 0 0 3px;
     line-height: 1em;
+}
+
+#goldenQuarksShopLedger {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 8px;
+    row-gap: 2px;
+    margin-top: 6px;
+    font-size: 0.9em;
+    line-height: 1.2em;
+    font-variant-numeric: tabular-nums;
+}
+
+#goldenQuarksShopLedger > span:nth-child(odd) {
+    text-align: left;
+}
+
+#goldenQuarksShopLedger > span:nth-child(even) {
+    text-align: right;
 }
 
 #shoptop {
@@ -12846,14 +12875,6 @@ html[data-cookies5="true"] .assortedCookies5 {
 }
 
 html[data-cookies5="false"] .assortedCookies5 {
-    display: none;
-}
-
-html[data-golden-quark3-upg="true"] .goldenQuark3Upg {
-    display: block;
-}
-
-html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     display: none;
 }
 

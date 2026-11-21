@@ -36,7 +36,7 @@ import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { getRuneEffects, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
-import { generousOrbsLevels, getGQUpgradeEffect } from './singularity'
+import { generousOrbsLevels, getGQUpgradeEffect, resetGoldenQuarkLedger } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import {
   allAdditiveLuckMultStatsSum,
@@ -412,7 +412,9 @@ export const calculateAmbrosiaGenerationSpeed = () => {
 
 export const calculatePowderConversion = () => allPowderMultiplierStatsProduct()
 
-export const calculateGoldenQuarks = () => allGoldenQuarkMultiplierStatsProduct()
+export const calculateGoldenQuarkMultiplier = () => allGoldenQuarkMultiplierStatsProduct()
+export const calculateGoldenQuarks = () =>
+  Math.min(1e300, calculateBaseGoldenQuarks(player.singularityCount) * calculateGoldenQuarkMultiplier())
 export const calculateGoldenQuarkCost = () => allGoldenQuarkPurchaseCostStatsProduct()
 
 export const calculateLuckConversion = () => allLuckConversionStatsSum()
@@ -1902,6 +1904,7 @@ export const dailyResetCheck = () => {
     player.dayCheck = day.toISOString()
 
     resetQuarkLedger()
+    resetGoldenQuarkLedger()
     awardChallengeQuarks()
     forcedDailyReset(true)
     player.dailyPowderResetUses = 1 + getShopUpgradeEffects('extraWarp', 'additionalWarps')

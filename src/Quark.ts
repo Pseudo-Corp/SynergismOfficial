@@ -13,7 +13,6 @@ import { getPurpleReactorUpgradeEffects } from './Purple'
 import { isResearchMaxed } from './Research'
 import { RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
-import { getGQUpgradeEffect } from './singularity'
 import { format, player } from './Synergism'
 import { getSynthesisUpgradeEffect } from './Synthesis'
 
@@ -28,11 +27,6 @@ export const calculateExportResearchLevels = () => {
   }
   return levels
 }
-
-export const calculateExportGoldenQuarks = () =>
-  getGQUpgradeEffect('goldenQuarks3', 'exportGQPerDay')
-  * (1 + getQuarkBonus() / 100)
-  * (player.highestSingularityCount >= 100 ? 1 + player.highestSingularityCount / 50 : 1)
 
 let bonus = 0
 let personalQuarkBonus = 0
