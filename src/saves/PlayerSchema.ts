@@ -30,7 +30,12 @@ import {
 import { type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
 import { quarkSourceKeys, type QuarkSourceRecord } from '../Quark'
 import { runes } from '../Runes'
-import { getGQUpgradeCumulativeCost, type SingularityDataKeys } from '../singularity'
+import {
+  getGQUpgradeCumulativeCost,
+  goldenQuarkSourceKeys,
+  type GoldenQuarkSourceRecord,
+  type SingularityDataKeys
+} from '../singularity'
 import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
 import { blankSave, deepClone } from '../Synergism'
 import { noTalismanFragments } from '../Talismans'
@@ -205,6 +210,10 @@ const resetToggleModesSchema = z.object({
 
 const quarkSourceRecordSchema = z.record(z.string(), z.number()).catch(() => ({})).transform((record) =>
   Object.fromEntries(quarkSourceKeys.map((key) => [key, record[key] ?? 0])) as QuarkSourceRecord
+)
+
+const goldenQuarkSourceRecordSchema = z.record(z.string(), z.number()).catch(() => ({})).transform((record) =>
+  Object.fromEntries(goldenQuarkSourceKeys.map((key) => [key, record[key] ?? 0])) as GoldenQuarkSourceRecord
 )
 
 const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
@@ -919,6 +928,8 @@ export const playerSchema = z.object({
   singularityElevatorSlowClimb: z.boolean().default(() => blankSave.singularityElevatorSlowClimb),
   singularityElevatorLocked: z.boolean().default(() => blankSave.singularityElevatorLocked),
   goldenQuarks: z.number().default(() => blankSave.goldenQuarks),
+  goldenQuarkLedger: z.object({ base: goldenQuarkSourceRecordSchema, awarded: goldenQuarkSourceRecordSchema })
+    .prefault(() => deepClone(blankSave.goldenQuarkLedger)),
   quarksThisSingularity: z.number().nullable().default(() => blankSave.quarksThisSingularity),
   totalQuarksEver: z.number().default(() => blankSave.totalQuarksEver),
   hotkeys: z.record(integerStringSchema, z.string().array()).prefault(() => blankSave.hotkeys),

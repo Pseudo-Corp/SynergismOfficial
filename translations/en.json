@@ -3207,7 +3207,7 @@
       "57": "[Cx7] Yum yum! Now we're talking... or maybe not. Increase the cap of Cube Upgrades 1x1, 2x1, 3x1, 4x1, 5x1 by 1 per level of this Cookie.",
       "58": "[Cx8] A bit festive! If there is an event, All Cube gain is multiplied by num:((1.25)).",
       "59": "[Cx9] Quite sour for a cookie. But it increases your Ascension Speed by +num:((0.25))% per level, so who is to complain?",
-      "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by num:((0.003))% per level.",
+      "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the cost of buying Golden Quarks by num:((0.001))% per level.",
       "61": "[Cx11] Edible but prone to mistakes. Adds 25 whole milliseconds to the tolerance of code 'time', and increases its reward by +2% per level. When maxxed, code 'time' always gives its reward, even if you fail it!",
       "62": "[Cx12] Platonic loves toffee. 8x your Obtainium and Offering gain in Challenge 15.",
       "63": "[Cx13] Brownie Cookies, the best of both worlds. Increase 3D Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",
@@ -3589,8 +3589,16 @@
     "plusForQuarks": "+ {{x}} for {{y}} Quarks",
     "consume": "CONSUME",
     "buyPotion": "Buy: 100 Quarks Each",
-    "singularityQuarkCost": "Buy! {{cost}} Quarks Each",
+    "singularityQuarkCost": "Buy {{amount}} for {{cost}} Quarks",
     "singularityQuarkAmount": "Owned: {{amount}}",
+    "goldenQuarkTransfusion": {
+      "name": "Instant Golden Quark Transfusion",
+      "description": "Buy Golden Quarks with your Quarks. What's more, these Quarks will still turn into Golden Quarks when you perform a Singularity!",
+      "bonus": "When you buy Golden Quarks, you immediately get what you pay for. During the day, if your Golden Quark Multiplier increases, you'll automatically gain more Golden Quarks based on how many you've purchased! Your purchased Golden Quark amount resets at midnight."
+    },
+    "singularityQuarkBought": "Bought Today",
+    "singularityQuarkAwarded": "Awarded Today",
+    "singularityQuarkMultiplier": "Multiplier",
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
     "testingOnlyUpgrade": "⚠ Testing version: This upgrade would normally be hidden because you have not unlocked it yet.",
@@ -3866,9 +3874,15 @@
         "baseGain": "1) If you gain Base Quarks from a source, you will gain Quarks equal to that amount times the current Multiplier, no matter what.",
         "multiplierGrowth": "2) If your Multiplier grows such that Base Quarks * Multiplier exceeds the Awarded value, then you will automatically gain the difference."
       },
+      "goldenQuarkRules": {
+        "baseGain": "1) If you gain Base Golden Quarks from a source, you will gain Golden Quarks equal to that amount times the current Multiplier, no matter what.",
+        "multiplierGrowth": "2) If your Multiplier grows such that Base Golden Quarks * Multiplier exceeds the Awarded value, then you will automatically gain the difference.",
+        "dailyReset": "3) Base Golden Quarks reset at midnight."
+      },
       "categories": {
         "primary": "Primary",
-        "miscellaneous": "Miscellaneous"
+        "miscellaneous": "Miscellaneous",
+        "goldenQuarks": "Golden Quarks"
       },
       "multipliers": {
         "cubeToQuark": "Quark-Enriched Wow! Cubes: <<cyan|x{{x}}>>",
@@ -3892,6 +3906,12 @@
         "timeCodeHighestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
         "cookieUpgrade61": "Wow! A tin of Whoopie Pies: <<cyan|x{{x}}>>",
         "globalMultiplier": "Quark Multiplier: <<cyan|x{{x}}>>",
+        "goldenQuarks3": "Golden Quarks III: <<cyan|x{{x}}>>",
+        "goldenRevolution3": "Golden Revolution III: <<cyan|x{{x}}>>",
+        "shopImprovedDaily2": "Improved Daily Code 2: <<cyan|x{{x}}>>",
+        "shopImprovedDaily3": "Improved Daily Code 3: <<cyan|x{{x}}>>",
+        "shopImprovedDaily4": "Improved Daily Code 4: <<cyan|x{{x}}>>",
+        "goldenQuarkMultiplier": "Golden Quark Multiplier: <<cyan|x{{x}}>>",
         "total": "Total: <<cyan|x{{x}}>>"
       },
       "sources": {
@@ -3908,14 +3928,19 @@
         "challenges": "Challenge Completions",
         "synthesis": "Synthesizing Purple Ambrosia",
         "purpleReactor": "Creating Purple Honey"
+      },
+      "goldenQuarkSources": {
+        "export": "Exporting the Game",
+        "dailyCode": "Code 'daily'",
+        "purchases": "Buying Golden Quarks"
       }
     }
   },
   "singularity": {
     "goldenQuarks": {
-      "transaction": "Transaction of {{spent}} Golden Quarks successful! [-{{cost}} Quarks]",
+      "transaction": "Bought {{spent}} Golden Quarks! [-{{cost}} Quarks]",
       "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
-      "buyPrompt": "You can buy Golden Quarks here for {{cost}} Quarks (Discounted by {{discount}})! You can buy up to {{max}}. How many do you want? Type -1 to buy max!",
+      "buyPrompt": "Each purchase costs {{cost}} Quarks (Discounted by {{discount}}) and gives {{amount}} Golden Quarks, equal to your Golden Quark multiplier! If your multiplier grows before midnight, you receive the difference. You can make up to {{max}} purchases. How many do you want? Type -1 to buy max!",
       "spendPrompt": "How many levels would you like to buy? You can buy up to {{n}} levels!. Type -1 to use max!",
       "hasUpgrade": "Hey! You have already maxed this upgrade. :D",
       "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
@@ -4113,7 +4138,7 @@
       },
       "goldenRevolutionII": {
         "name": "Golden Revolution II",
-        "default": "Golden Quarks are num:((0.2))% cheaper per Singularity. Currently: -{{current}}% (MAX: -50%)"
+        "default": "Golden Quarks are num:((0.1))% cheaper per Singularity past 100. Currently: -{{current}}%"
       },
       "goldenRevolutionIII": {
         "name": "Golden Revolution III",
@@ -4140,7 +4165,7 @@
         "name": "Immaculate Alchemy",
         "hasLevel2": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 8.",
         "hasLevel1": "After Singularity 200, Fast Forwards no longer work! Instead, multiply your GQ gain and divide your GQ buy cost by 5.",
-        "default": "Multiply Golden Quark gain and divide the cost to buy Golden Quarks by {{ multiplier }}! <br><b>This perk takes into account your current, not highest Singularity!</b><br>Thresholds: s50, s90, s130, s170, s200, s217, s235, s253, s271, s289</br>"
+        "default": "Multiply Golden Quark gain by {{ multiplier }}! <br><b>This perk takes into account your current, not highest Singularity!</b><br>Thresholds: s50, s90, s130, s170, s200, s217, s235, s253, s271, s289</br>"
       },
       "skrauQ": {
         "name": "skrauQ",
@@ -4240,13 +4265,13 @@
       },
       "goldenQuarks2": {
         "name": "Golden Quarks II",
-        "description": "Buying GQ is num:((0.2))% cheaper per level! [After 50%, effect grows much slower]",
+        "description": "Buying GQ is num:((0.1))% cheaper per level! [After 10%, effect grows much slower, approaching 20%]",
         "effect": "Purchasing Golden Quarks in the shop is {{n}}% cheaper."
       },
       "goldenQuarks3": {
         "name": "Golden Quarks III",
-        "description": "If you buy this, your daily Export gives Golden Quarks. Leveling up gives (24 × level) additional Golden Quarks!",
-        "effect": "Your daily Export gives {{n}} Golden Quarks."
+        "description": "Your daily Export gives num:((1))% more Golden Quarks per level!",
+        "effect": "Your daily Export gives {{n}} more Golden Quarks."
       },
       "starterPack": {
         "name": "Starter Pack",
@@ -4757,7 +4782,7 @@
       "zeroOrLess": "Only numbers greater than zero, please!",
       "moreThanPlayerHas": "You can't afford this yet!",
       "fraction": "Yeah, that isn't an integer. We don't accept fractions here!",
-      "goldenQuarksTooMany": "Sorry, I cannot sell you this many Golden Quarks! Try buying fewer of them or typing -1 to buy max!",
+      "goldenQuarksTooMany": "Sorry, I cannot sell you this many Golden Quarks! Try making fewer purchases or typing -1 to buy max!",
       "finiteInt": "Value must be a finite, non-decimal number!",
       "invalidNumber": "Hey! That's not a valid number!"
     },
@@ -5989,7 +6014,7 @@
       },
       "octeractGQCostReduce": {
         "name": "EXTRA WIMPY Golden Quark Costs!",
-        "description": "Reduces the cost of Golden Quarks in the shop by 1% per level.",
+        "description": "Reduces the cost of Golden Quarks in the shop by 0.4% per level.",
         "effect": "Golden Quarks are {{n}}% cheaper!"
       },
       "octeractExportQuarks": {
@@ -7675,24 +7700,16 @@
       "FastForwards": "Singularity Lookaheads:",
       "ImmaculateAlchemy": "Immaculate Alchemy:",
       "Event": "Event Bonus:",
-      "GlobalSubscriber": "Global Bonus from our Wonderful Subscribers:",
-      "AccountBonus": "Synergism Account Personal Quark Bonus:",
       "Total": "Total Golden Quark Gained:"
     },
     "goldenQuarkPurchaseCostStats": {
       "title": "Golden Quark Purchase Cost",
       "Base": "Base Cost:",
-      "PseudoCoins": "Gold Quark PseudoCoin Upgrade:",
-      "AchievementPoints": "Achievement Points:",
       "CubeUpgrade6x10": "Cube Upgrade 6x10:",
       "GoldenQuarks2": "Golden Quark Upgrade - Golden Quarks II:",
       "OcteractCostReduce": "Octeracts - Extra WIMPY Golden Quark Costs!:",
       "GoldenRevolution2": "Golden Revolution II:",
-      "ImmaculateAlchemy": "Immaculate Alchemy:",
-      "GlobalSubscriber": "1 / Global Bonus from our Wonderful Subscribers:",
-      "AccountBonus": "1 / Synergism Account Personal Quark Bonus:",
-      "Event": "Event:",
-      "Total": "Final Quarks per Golden Quark Cost:"
+      "Total": "Quarks per Purchase:"
     },
     "addCodeEffects": {
       "title": "Add Code Effects",
@@ -8602,7 +8619,7 @@
     "singularityMessage1": "You have reached the end of the game, on Singularity #{{x}}. Platonic and the Ant God are proud of you.",
     "singularityMessage2": "You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.",
     "singularityMessage3": "You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.",
-    "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades [Boosted by {{z}}% due to patreon bonus!].",
+    "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades.",
     "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, Quark Upgrades, and Quark Hepteracts will be wiped clean.",
     "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks.",
     "singularityConfirm1": "So, what do you say? Do you wish to enter the Singularity?",

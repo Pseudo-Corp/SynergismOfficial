@@ -19,6 +19,7 @@ import type { QuarkLedger } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneType } from '../Runes'
 import type { ShopUpgradeNames } from '../Shop'
+import type { GoldenQuarkLedger } from '../singularity'
 import type { SingularityDataKeys } from '../singularity'
 import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
 import type { SynthesisUpgrades } from '../Synthesis'
@@ -421,6 +422,7 @@ export interface Player {
   singularityElevatorSlowClimb: boolean
   singularityElevatorLocked: boolean
   goldenQuarks: number
+  goldenQuarkLedger: GoldenQuarkLedger
   quarksThisSingularity: number
   totalQuarksEver: number
   hotkeys: Record<number, string[]>

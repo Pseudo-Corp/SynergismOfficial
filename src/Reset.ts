@@ -70,7 +70,8 @@ import {
   calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
   getGQUpgradeEffect,
-  raiseHighestSingularity
+  raiseHighestSingularity,
+  settleGoldenQuarks
 } from './singularity'
 import { getSingularityChallengeEffect, singularityChallenges } from './SingularityChallenges'
 import {
@@ -999,6 +1000,7 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
 
   const antiquitiesPurchased = player.runeLevels[RuneType.Antiquities] > 0
   settleQuarks()
+  settleGoldenQuarks()
 
   // get total cube blessings for history
   const cubeArray = Object.values(player.cubeBlessings)
@@ -1089,6 +1091,7 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
   hold.singularityElevatorSlowClimb = player.singularityElevatorSlowClimb
   hold.singularityElevatorLocked = player.singularityElevatorLocked
   hold.goldenQuarks = player.goldenQuarks
+  hold.goldenQuarkLedger = player.goldenQuarkLedger
   hold.shopUpgrades = player.shopUpgrades
   hold.shopPotionsConsumed = player.shopPotionsConsumed
 

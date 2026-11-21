@@ -189,6 +189,7 @@ import {
   calculateSingularityDebuff,
   divinePackOcteractMultiplier,
   getGQUpgradeEffect,
+  goldenQuarkPurchaseBaseCost,
   goldenQuarkUpgrades
 } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
@@ -3489,16 +3490,6 @@ export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
       stat: () => calculateImmaculateAlchemyBonus() // Immaculate Alchemy
     },
     {
-      i18n: 'GlobalSubscriber',
-      stat: () => 1 + getGlobalBonus() / 100,
-      color: 'var(--gold-color)'
-    },
-    {
-      i18n: 'AccountBonus',
-      stat: () => 1 + getPersonalBonus() / 100,
-      color: 'var(--gold-color)'
-    },
-    {
       i18n: 'Event',
       stat: () => 1 + calculateEventBuff(BuffType.GoldenQuark), // Event
       color: 'var(--lime-color)',
@@ -3510,8 +3501,7 @@ export const allGoldenQuarkMultiplierStats: NumberStatLineCategory = {
 export const allGoldenQuarkMultiplierStatsProduct = () =>
   Math.min(
     1e300,
-    calculateBaseGoldenQuarks(player.singularityCount)
-      * PCoinUpgradeEffects.GOLDEN_QUARK_BUFF
+    PCoinUpgradeEffects.GOLDEN_QUARK_BUFF
       * campaignTokenBonuses.goldenQuark()
       * (1 + Math.max(0, Math.log10(player.challenge15Exponent + 1) - 20) / 2)
       * getGQUpgradeEffect('goldenQuarks1', 'goldenQuarkMult')
@@ -3522,8 +3512,6 @@ export const allGoldenQuarkMultiplierStatsProduct = () =>
         : 1)
       * (1 + 0.025 * (calculateMaxSingularityLookahead(true) - 1))
       * calculateImmaculateAlchemyBonus()
-      * (1 + getGlobalBonus() / 100)
-      * (1 + getPersonalBonus() / 100)
       * (1 + calculateEventBuff(BuffType.GoldenQuark))
   )
 
@@ -3533,17 +3521,11 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
   lines: [
     {
       i18n: 'Base',
-      stat: () => 10000 // Base cost of 10,000
-    },
-    {
-      i18n: 'PseudoCoins',
-      stat: () => 1 / PCoinUpgradeEffects.GOLDEN_QUARK_BUFF, // Golden Quark Buff from PseudoCoins
-      color: 'var(--gold-color)',
-      displayCriterion: () => true
+      stat: () => goldenQuarkPurchaseBaseCost
     },
     {
       i18n: 'CubeUpgrade6x10',
-      stat: () => 1 - (0.3 * player.cubeUpgrades[60]) / 10000
+      stat: () => 1 - (0.1 * player.cubeUpgrades[60]) / 10000
     },
     {
       i18n: 'GoldenQuarks2',
@@ -3557,48 +3539,20 @@ export const allGoldenQuarkPurchaseCostStats: NumberStatLineCategory = {
       i18n: 'GoldenRevolution2',
       stat: () =>
         player.highestSingularityCount >= 100
-          ? Math.max(0.5, 1 - (0.5 * player.highestSingularityCount) / 250)
+          ? 1 - (player.highestSingularityCount - 100) / 1000
           : 1
-    },
-    {
-      i18n: 'ImmaculateAlchemy',
-      stat: () => 1 / calculateImmaculateAlchemyBonus() // Immaculate Alchemy
-    },
-    {
-      i18n: 'GlobalSubscriber',
-      stat: () => 1 / (1 + getGlobalBonus() / 100),
-      color: 'var(--gold-color)'
-    },
-    {
-      i18n: 'AccountBonus',
-      stat: () => 1 / (1 + getPersonalBonus() / 100),
-      color: 'var(--gold-color)'
-    },
-    {
-      i18n: 'Event',
-      stat: () => 1 / (1 + calculateEventBuff(BuffType.GoldenQuark)),
-      color: 'var(--lime-color)',
-      displayCriterion: () => true
     }
   ]
 }
 
 export const allGoldenQuarkPurchaseCostStatsProduct = () =>
-  Math.min(
-    1e300,
-    10000
-      * (1 / PCoinUpgradeEffects.GOLDEN_QUARK_BUFF)
-      * (1 - (0.3 * player.cubeUpgrades[60]) / 10000)
-      * getGQUpgradeEffect('goldenQuarks2', 'goldenQuarkCostMult')
-      * getOcteractUpgradeEffect('octeractGQCostReduce', 'goldenQuarkCostMult')
-      * (player.highestSingularityCount >= 100
-        ? Math.max(0.5, 1 - (0.5 * player.highestSingularityCount) / 250)
-        : 1)
-      * (1 / calculateImmaculateAlchemyBonus())
-      * (1 / (1 + getGlobalBonus() / 100))
-      * (1 / (1 + getPersonalBonus() / 100))
-      * (1 / (1 + calculateEventBuff(BuffType.GoldenQuark)))
-  )
+  goldenQuarkPurchaseBaseCost
+  * (1 - (0.1 * player.cubeUpgrades[60]) / 10000)
+  * getGQUpgradeEffect('goldenQuarks2', 'goldenQuarkCostMult')
+  * getOcteractUpgradeEffect('octeractGQCostReduce', 'goldenQuarkCostMult')
+  * (player.highestSingularityCount >= 100
+    ? 1 - (player.highestSingularityCount - 100) / 1000
+    : 1)
 
 const allAddCodeEffectStats: NumberStatLineCategory = {
   kind: 'number',

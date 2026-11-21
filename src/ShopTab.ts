@@ -1,6 +1,11 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateQuarkMultiplier, calculateSingularityTimeQuarkRate, calculateSummationNonLinear } from './Calculate'
+import {
+  calculateGoldenQuarkMultiplier,
+  calculateQuarkMultiplier,
+  calculateSingularityTimeQuarkRate,
+  calculateSummationNonLinear
+} from './Calculate'
 import {
   getQuarkCategoryAwarded,
   getQuarkSourceMultiplier,
@@ -21,6 +26,12 @@ import {
   type ShopUpgradeNames,
   shopUpgrades
 } from './Shop'
+import {
+  getGoldenQuarkSourceMultiplier,
+  type GoldenQuarkSourceKey,
+  goldenQuarkSourceKeys,
+  goldenQuarkSources
+} from './singularity'
 import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
 import { format, player } from './Synergism'
 import { isMobile } from './Utility'
@@ -476,6 +487,11 @@ const quarkLedgerColumns = ['base', 'multiplier', 'awarded'] as const
 const quarkLedgerCategoryBases: Record<QuarkCategoryKey, number> = { primary: 0, miscellaneous: 0 }
 const quarkLedgerCategoryVisible: Record<QuarkCategoryKey, boolean> = { primary: false, miscellaneous: false }
 
+const ledgerMultiplierHTML = (title: string, lines: string[], total: number) =>
+  `<span style="font-weight: bold; font-size: 1.2em;">${title}</span><br><br>${lines.join('<br>')}<br><br>${
+    i18next.t('shop.quarkLedger.multipliers.total', { x: format(total, 3, true) })
+  }`
+
 export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
   const lines = quarkSources[key].lines.map(({ i18n, stat }) =>
     i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { x: format(stat(), 3, true) })
@@ -490,19 +506,40 @@ export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
   }
   const globalMultiplier = calculateQuarkMultiplier()
   lines.push(i18next.t('shop.quarkLedger.multipliers.globalMultiplier', { x: format(globalMultiplier, 3, true) }))
-  const titleHTML = `<span style="font-weight: bold; font-size: 1.2em;">${
-    i18next.t(`shop.quarkLedger.sources.${key}`)
-  }</span>`
-  const totalHTML = i18next.t('shop.quarkLedger.multipliers.total', {
-    x: format(getQuarkSourceMultiplier(key) * globalMultiplier, 3, true)
-  })
-  return `${titleHTML}<br><br>${lines.join('<br>')}<br><br>${totalHTML}`
+  return ledgerMultiplierHTML(
+    i18next.t(`shop.quarkLedger.sources.${key}`),
+    lines,
+    getQuarkSourceMultiplier(key) * globalMultiplier
+  )
+}
+
+export const goldenQuarkSourceMultiplierHTML = (key: GoldenQuarkSourceKey) => {
+  const lines = goldenQuarkSources[key].lines.map(({ i18n, stat }) =>
+    i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { x: format(stat(), 3, true) })
+  )
+  lines.push(
+    i18next.t('shop.quarkLedger.multipliers.goldenQuarkMultiplier', {
+      x: format(calculateGoldenQuarkMultiplier(), 3, true)
+    })
+  )
+  return ledgerMultiplierHTML(
+    i18next.t(`shop.quarkLedger.goldenQuarkSources.${key}`),
+    lines,
+    getGoldenQuarkSourceMultiplier(key)
+  )
 }
 
 export const quarkLedgerAwardedHTML = () =>
   `<span style="font-weight: bold; font-size: 1.2em;">${i18next.t('shop.quarkLedger.awarded')}</span><br><br>${
     i18next.t('shop.quarkLedger.rules.baseGain')
   }<br><br>${i18next.t('shop.quarkLedger.rules.multiplierGrowth')}`
+
+export const goldenQuarkLedgerAwardedHTML = () =>
+  `<span style="font-weight: bold; font-size: 1.2em;">${i18next.t('shop.quarkLedger.awarded')}</span><br><br>${
+    i18next.t('shop.quarkLedger.goldenQuarkRules.baseGain')
+  }<br><br>${i18next.t('shop.quarkLedger.goldenQuarkRules.multiplierGrowth')}<br><br>${
+    i18next.t('shop.quarkLedger.goldenQuarkRules.dailyReset')
+  }`
 
 export const generateShopTabHTML = () => {
   const list = DOMCacheGetOrSet('shopFamilyList')
@@ -551,6 +588,39 @@ export const generateShopTabHTML = () => {
     }
 
     DOMCacheGetOrSet(`quarkLedgerBody-${quarkSources[key].category}`).appendChild(row)
+  }
+
+  for (const key of goldenQuarkSourceKeys) {
+    const row = document.createElement('tr')
+    row.className = 'quarkLedgerSourceRow'
+
+    const sourceCell = document.createElement('td')
+    const source = document.createElement('div')
+    source.className = 'quarkLedgerSource'
+    const icon = document.createElement('img')
+    icon.id = `goldenQuarkLedgerIcon-${key}`
+    icon.alt = ''
+    icon.loading = 'lazy'
+    if (key === 'purchases') {
+      icon.src = 'Pictures/Default/ShopGoldenQuarks.png'
+    } else {
+      icon.src = spritePlaceholder
+      registerSpriteAlias(`quarkLedgerIcon-${key}`, icon.id)
+    }
+    const name = document.createElement('span')
+    name.setAttribute('i18n', `shop.quarkLedger.goldenQuarkSources.${key}`)
+    name.textContent = i18next.t(`shop.quarkLedger.goldenQuarkSources.${key}`)
+    source.append(icon, name)
+    sourceCell.appendChild(source)
+    row.appendChild(sourceCell)
+
+    for (const column of quarkLedgerColumns) {
+      const cell = document.createElement('td')
+      cell.id = `goldenQuarkLedger-${key}-${column}`
+      row.appendChild(cell)
+    }
+
+    DOMCacheGetOrSet('quarkLedgerBody-goldenQuarks').appendChild(row)
   }
 }
 
@@ -794,4 +864,31 @@ export const updateQuarkLedgerTab = () => {
     DOMCacheGetOrSet('quarkLedgerQuarksRewarded'),
     format(player.quarkLedger.credited.primary + player.quarkLedger.credited.miscellaneous, 0, true)
   )
+
+  const goldenQuarksUnlocked = player.highestSingularityCount >= 1
+  DOMCacheGetOrSet('quarkLedgerTable-goldenQuarks').hidden = !goldenQuarksUnlocked
+  if (!goldenQuarksUnlocked) {
+    return
+  }
+
+  let goldenQuarkBase = 0
+  let goldenQuarkAwarded = 0
+  for (const key of goldenQuarkSourceKeys) {
+    goldenQuarkBase += player.goldenQuarkLedger.base[key]
+    goldenQuarkAwarded += player.goldenQuarkLedger.awarded[key]
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`goldenQuarkLedger-${key}-base`),
+      format(player.goldenQuarkLedger.base[key], 2, true)
+    )
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`goldenQuarkLedger-${key}-multiplier`),
+      i18next.t('shop.quarkLedger.multiplierValue', { x: format(getGoldenQuarkSourceMultiplier(key), 2, true) })
+    )
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`goldenQuarkLedger-${key}-awarded`),
+      format(player.goldenQuarkLedger.awarded[key], 2, true)
+    )
+  }
+  updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerBase-goldenQuarks'), format(goldenQuarkBase, 2, true))
+  updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerAwarded-goldenQuarks'), format(goldenQuarkAwarded, 2, true))
 }

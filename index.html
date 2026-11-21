@@ -2599,7 +2599,7 @@
                             <p id="mobileUpdateStatus" class="tightText" role="status" aria-live="polite"></p>
                         </div>
                         <p id="quarktimerdisplay" class="tightText" style="color: var(--gold-color)"></p>
-                        <p id="goldenQuarkTimerDisplay" class="tightText goldenQuark3Upg" style="color: var(--goldenrod-color)"></p>
+                        <p id="goldenQuarkTimerDisplay" class="tightText singularity" style="color: var(--goldenrod-color)"></p>
                         <div>
                             <input type="checkbox" id="saveType" name="saveType">
                             <label style="display: inline;color: var(--white-color)" for="saveType" i18n="settings.copyToClipboard"></label>
@@ -3110,9 +3110,17 @@
                             </div>
                         </div>
                         <div class="singularity" id="goldenQuarksShop">
-                            <img id="buySingularityQuarks" alt="buySingularityQuarks" src="Pictures/Default/ShopGoldenQuarks.png" loading="lazy">
+                            <img id="buySingularityQuarks" alt="Instant Golden Quark Transfusion" src="Pictures/Default/ShopGoldenQuarks.png" loading="lazy" role="button" tabindex="0" aria-haspopup="dialog" i18n-aria-label="shop.goldenQuarkTransfusion.name" style="cursor: pointer">
                             <p id="buySingularityQuarksAmount" title="Amount of Golden Quarks you have"></p>
                             <button class="permshopbutton" id="buySingularityQuarksButton" style="border: 2px solid var(--gold-color);"></button>
+                            <div id="goldenQuarksShopLedger">
+                                <span i18n="shop.singularityQuarkBought"></span>
+                                <span id="buySingularityQuarksBought"></span>
+                                <span i18n="shop.singularityQuarkAwarded"></span>
+                                <span id="buySingularityQuarksAwarded"></span>
+                                <span i18n="shop.singularityQuarkMultiplier"></span>
+                                <span id="buySingularityQuarksMultiplier"></span>
+                            </div>
                         </div>
                     </div>
                     <div id="actualShopContainer">
@@ -3188,6 +3196,25 @@
                             <th id="quarkLedgerQuarksRewarded"></th>
                         </tr>
                     </tbody>
+                </table>
+                <table id="quarkLedgerTable-goldenQuarks" class="quarkLedgerTable">
+                    <thead>
+                        <tr>
+                            <th i18n="shop.quarkLedger.categories.goldenQuarks"></th>
+                            <th i18n="shop.quarkLedger.base"></th>
+                            <th i18n="shop.quarkLedger.multiplier"></th>
+                            <th><span i18n="shop.quarkLedger.awarded"></span> <span id="quarkLedgerAwardedInfo-goldenQuarks" class="quarkLedgerInfo">?</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="quarkLedgerBody-goldenQuarks"></tbody>
+                    <tfoot>
+                        <tr>
+                            <th i18n="shop.quarkLedger.total"></th>
+                            <th id="quarkLedgerBase-goldenQuarks"></th>
+                            <th></th>
+                            <th id="quarkLedgerAwarded-goldenQuarks"></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
