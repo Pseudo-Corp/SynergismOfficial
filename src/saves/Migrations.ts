@@ -555,6 +555,17 @@ const migrations: Migration[] = [
         }
       }
     }
+  }),
+
+  migration({
+    requires: { cubeQuarkDaily: z.number() },
+    migrate: (player) => {
+      if (player.singularityChallenges.oneChallengeCap.completions >= 5) {
+        player.singularityCounter = Math.min(player.singularityCounter, 86400)
+
+        void Alert(i18next.t('versionChangeAnnouncements.v4-4-2-SingularityTime'))
+      }
+    }
   })
 ]
 
