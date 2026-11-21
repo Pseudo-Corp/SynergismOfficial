@@ -1,6 +1,5 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../../../../Cache/DOM'
-import { getQuarkSourceQuarks } from '../../../../Quark'
 import { format, formatAsPercentIncrease, player } from '../../../../Synergism'
 import { calculateLeaderboardValue } from '../../AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { quarksFromELOMult } from '../../AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
@@ -35,7 +34,7 @@ export const updateLeaderboardUI = () => {
 
   if (currentLeaderboardMode === 'daily') {
     DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').innerHTML = i18next.t('ants.leaderboard.quarksGained', {
-      x: format(Math.floor(getQuarkSourceQuarks('ants')), 0, false)
+      x: format(Math.floor(player.quarkLedger.awarded.ants), 0, false)
     })
   } else {
     DOMCacheGetOrSet('antLeaderboardQuarkValueAmount').innerHTML = i18next.t('ants.leaderboard.quarkMult', {

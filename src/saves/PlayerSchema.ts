@@ -28,7 +28,7 @@ import {
   splitHeaderSlot
 } from '../HeaderLayoutDefaults'
 import { type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
-import { type QuarkLedgerBase, quarkSourceKeys } from '../Quark'
+import { quarkSourceKeys, type QuarkSourceRecord } from '../Quark'
 import { runes } from '../Runes'
 import { getGQUpgradeCumulativeCost, type SingularityDataKeys } from '../singularity'
 import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
@@ -202,6 +202,10 @@ const resetToggleModesSchema = z.object({
   reincarnation: z.number().default(() => blankSave.resetToggleModes.reincarnation),
   ascension: z.number().default(() => blankSave.resetToggleModes.ascension)
 })
+
+const quarkSourceRecordSchema = z.record(z.string(), z.number()).catch(() => ({})).transform((record) =>
+  Object.fromEntries(quarkSourceKeys.map((key) => [key, record[key] ?? 0])) as QuarkSourceRecord
+)
 
 const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
   return Object.fromEntries(
@@ -894,13 +898,10 @@ export const playerSchema = z.object({
   hypercubeOpenedDaily: z.number().default(() => blankSave.hypercubeOpenedDaily),
   platonicCubeOpenedDaily: z.number().default(() => blankSave.platonicCubeOpenedDaily),
   quarkLedger: z.object({
-    base: z.record(z.string(), z.number()).transform((base) =>
-      Object.fromEntries(quarkSourceKeys.map((key) => [key, base[key] ?? 0])) as QuarkLedgerBase
-    ).prefault(() => ({})),
-    awarded: z.union([
-      z.number().transform((awarded) => ({ primary: awarded, miscellaneous: 0 })),
-      z.object({ primary: z.number(), miscellaneous: z.number() })
-    ]).default(() => ({ primary: 0, miscellaneous: 0 })),
+    base: quarkSourceRecordSchema,
+    awarded: quarkSourceRecordSchema,
+    credited: z.object({ primary: z.number(), miscellaneous: z.number() })
+      .default(() => ({ ...blankSave.quarkLedger.credited })),
     challengeCompletions: z.array(z.number()).default(() => [...blankSave.quarkLedger.challengeCompletions])
   }).prefault(() => deepClone(blankSave.quarkLedger)),
   overfluxOrbs: z.number().default(() => blankSave.overfluxOrbs),

@@ -3858,13 +3858,14 @@
     "quarkLedger": {
       "base": "Base",
       "multiplier": "Multiplier",
-      "value": "Value",
+      "awarded": "Awarded*",
       "total": "Total",
-      "totalWithQuarkMultiplier": "Total with Quark Multiplier",
-        "totalQuarkValue": "Total Quark Value",
       "quarksRewarded": "Quarks Rewarded",
-      "globalMultiplier": "Quark Multiplier",
-        "multiplierValue": "x{{x}}",
+      "multiplierValue": "x{{x}}",
+      "rules": {
+        "baseGain": "1) If you gain Base Quarks from a source, you will gain Quarks equal to that amount times the current Multiplier, no matter what.",
+        "multiplierGrowth": "2) If your Multiplier grows such that Base Quarks * Multiplier exceeds the Awarded value, then you will automatically gain the difference."
+      },
       "categories": {
         "primary": "Primary",
         "miscellaneous": "Miscellaneous"
@@ -3890,6 +3891,7 @@
         "calculator2": "PL-AT X calculator: <<cyan|x{{x}}>>",
         "timeCodeHighestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
         "cookieUpgrade61": "Wow! A tin of Whoopie Pies: <<cyan|x{{x}}>>",
+        "globalMultiplier": "Quark Multiplier: <<cyan|x{{x}}>>",
         "total": "Total: <<cyan|x{{x}}>>"
       },
       "sources": {

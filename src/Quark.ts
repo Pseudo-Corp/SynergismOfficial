@@ -128,11 +128,12 @@ export const quarkSourceKeys = [
 
 export type QuarkSourceKey = typeof quarkSourceKeys[number]
 
-export type QuarkLedgerBase = Record<QuarkSourceKey, number>
+export type QuarkSourceRecord = Record<QuarkSourceKey, number>
 
 export interface QuarkLedger {
-  base: QuarkLedgerBase
-  awarded: Record<QuarkCategoryKey, number>
+  base: QuarkSourceRecord
+  awarded: QuarkSourceRecord
+  credited: Record<QuarkCategoryKey, number>
   challengeCompletions: number[]
 }
 
@@ -347,37 +348,36 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
 export const getQuarkSourceMultiplier = (key: QuarkSourceKey) =>
   quarkSources[key].multiplier() * quarkCategories[quarkSources[key].category].multiplier()
 
+const createBlankQuarkSourceRecord = () =>
+  Object.fromEntries(quarkSourceKeys.map((key) => [key, 0])) as QuarkSourceRecord
+
 export const createBlankQuarkLedger = (): QuarkLedger => ({
-  base: Object.fromEntries(quarkSourceKeys.map((key) => [key, 0])) as QuarkLedgerBase,
-  awarded: { primary: 0, miscellaneous: 0 },
+  base: createBlankQuarkSourceRecord(),
+  awarded: createBlankQuarkSourceRecord(),
+  credited: { primary: 0, miscellaneous: 0 },
   challengeCompletions: Array(15).fill(0) as number[]
 })
 
-export const getQuarkSourceQuarks = (key: QuarkSourceKey, globalMultiplier = calculateQuarkMultiplier()) =>
-  player.quarkLedger.base[key] * getQuarkSourceMultiplier(key) * globalMultiplier
-
-const getQuarkCategoryQuarks = (category: QuarkCategoryKey, globalMultiplier: number) => {
+export const getQuarkCategoryAwarded = (category: QuarkCategoryKey) => {
   let quarks = 0
   for (const key of quarkSourceKeys) {
     if (quarkSources[key].category === category) {
-      quarks += getQuarkSourceQuarks(key, globalMultiplier)
+      quarks += player.quarkLedger.awarded[key]
     }
   }
   return Math.floor(quarks)
 }
 
-export const getQuarkLedgerQuarks = (globalMultiplier = calculateQuarkMultiplier()) => {
-  let quarks = 0
-  for (const category of quarkCategoryKeys) {
-    quarks += getQuarkCategoryQuarks(category, globalMultiplier)
-  }
-  return quarks
-}
-
 export const settleQuarks = () => {
   const globalMultiplier = calculateQuarkMultiplier()
+  for (const key of quarkSourceKeys) {
+    player.quarkLedger.awarded[key] = Math.max(
+      player.quarkLedger.awarded[key],
+      player.quarkLedger.base[key] * getQuarkSourceMultiplier(key) * globalMultiplier
+    )
+  }
   for (const category of quarkCategoryKeys) {
-    const owed = getQuarkCategoryQuarks(category, globalMultiplier) - player.quarkLedger.awarded[category]
+    const owed = getQuarkCategoryAwarded(category) - player.quarkLedger.credited[category]
     if (owed <= 0) {
       continue
     }
@@ -385,7 +385,7 @@ export const settleQuarks = () => {
     worlds.add(owed, false)
     const credited = player.worlds - worldsBefore
     player.quarksThisSingularity += credited
-    player.quarkLedger.awarded[category] += credited
+    player.quarkLedger.credited[category] += credited
   }
 }
 
@@ -393,9 +393,11 @@ export const addBaseQuarks = (key: QuarkSourceKey, amount: number) => {
   if (!(amount > 0)) {
     return 0
   }
+  const quarks = amount * getQuarkSourceMultiplier(key) * calculateQuarkMultiplier()
   player.quarkLedger.base[key] += amount
+  player.quarkLedger.awarded[key] += quarks
   settleQuarks()
-  return amount * getQuarkSourceMultiplier(key) * calculateQuarkMultiplier()
+  return quarks
 }
 
 export const calculateQuarkRation = (singularityTime: number) => {
@@ -415,18 +417,27 @@ export const calculateQuarkRation = (singularityTime: number) => {
   }
 }
 
-export const resetQuarkLedger = () => {
-  settleQuarks()
-  if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
-    player.quarkLedger = createBlankQuarkLedger()
-    return
-  }
+const resetQuarkCategory = (category: QuarkCategoryKey) => {
   for (const key of quarkSourceKeys) {
-    if (quarkSources[key].category === 'miscellaneous') {
+    if (quarkSources[key].category === category) {
       player.quarkLedger.base[key] = 0
+      player.quarkLedger.awarded[key] = 0
     }
   }
-  player.quarkLedger.awarded.miscellaneous = 0
+  player.quarkLedger.credited[category] = 0
+}
+
+export const resetPrimaryQuarks = () => {
+  resetQuarkCategory('primary')
+  player.quarkLedger.challengeCompletions = Array(15).fill(0) as number[]
+}
+
+export const resetQuarkLedger = () => {
+  settleQuarks()
+  resetQuarkCategory('miscellaneous')
+  if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+    resetPrimaryQuarks()
+  }
 }
 
 export const refreshQuarkBonus = async () => {

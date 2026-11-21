@@ -3143,16 +3143,13 @@
                 </div>
             </div>
             <div id="quarkLedgerWrapper" style="display: none">
-                <div class="quarkLedgerStats">
-                    <p class="statPortion statTotal"><span i18n="shop.quarkLedger.globalMultiplier"></span><span id="quarkLedgerGlobalMultiplier" class="statNumber statTotal"></span></p>
-                </div>
                 <table id="quarkLedgerTable-primary" class="quarkLedgerTable">
                     <thead>
                         <tr>
                             <th i18n="shop.quarkLedger.categories.primary"></th>
                             <th i18n="shop.quarkLedger.base"></th>
                             <th i18n="shop.quarkLedger.multiplier"></th>
-                            <th i18n="shop.quarkLedger.value"></th>
+                            <th i18n="shop.quarkLedger.awarded"></th>
                         </tr>
                     </thead>
                     <tbody id="quarkLedgerBody-primary"></tbody>
@@ -3161,11 +3158,7 @@
                             <th i18n="shop.quarkLedger.total"></th>
                             <th id="quarkLedgerBase-primary"></th>
                             <th></th>
-                            <th id="quarkLedgerValue-primary"></th>
-                        </tr>
-                        <tr>
-                            <th colspan="3" i18n="shop.quarkLedger.totalWithQuarkMultiplier"></th>
-                            <th id="quarkLedgerQuarks-primary"></th>
+                            <th id="quarkLedgerAwarded-primary"></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -3175,7 +3168,7 @@
                             <th i18n="shop.quarkLedger.categories.miscellaneous"></th>
                             <th i18n="shop.quarkLedger.base"></th>
                             <th i18n="shop.quarkLedger.multiplier"></th>
-                            <th i18n="shop.quarkLedger.value"></th>
+                            <th i18n="shop.quarkLedger.awarded"></th>
                         </tr>
                     </thead>
                     <tbody id="quarkLedgerBody-miscellaneous"></tbody>
@@ -3184,26 +3177,25 @@
                             <th i18n="shop.quarkLedger.total"></th>
                             <th id="quarkLedgerBase-miscellaneous"></th>
                             <th></th>
-                            <th id="quarkLedgerValue-miscellaneous"></th>
-                        </tr>
-                        <tr>
-                            <th colspan="3" i18n="shop.quarkLedger.totalWithQuarkMultiplier"></th>
-                            <th id="quarkLedgerQuarks-miscellaneous"></th>
+                            <th id="quarkLedgerAwarded-miscellaneous"></th>
                         </tr>
                     </tfoot>
                 </table>
                 <table id="quarkLedgerSummary" class="quarkLedgerTable">
                     <tbody>
                         <tr>
-                            <th i18n="shop.quarkLedger.totalQuarkValue"></th>
-                            <th id="quarkLedgerTotalQuarkValue"></th>
-                        </tr>
-                        <tr>
                             <th i18n="shop.quarkLedger.quarksRewarded"></th>
                             <th id="quarkLedgerQuarksRewarded"></th>
                         </tr>
                     </tbody>
                 </table>
+                <div class="quarkLedgerRules">
+                    <span>*</span>
+                    <div>
+                        <p i18n="shop.quarkLedger.rules.baseGain"></p>
+                        <p i18n="shop.quarkLedger.rules.multiplierGrowth"></p>
+                    </div>
+                </div>
             </div>
         </div>
 
