@@ -1983,7 +1983,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
           : 'shop.upgradeDescriptions.shopRootsOfUnity',
         {
           max: format(cap, 2, true),
-          time: format(86400 / (cap + 1), 2, true)
+          time: format(86400 / cap, 2, true)
         }
       )
       return `${description}<br>${i18next.t('shop.upgradeDescriptions.shopRootsOfUnityFormula')}<br>${
@@ -1998,7 +1998,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
           active
             ? 'shop.upgradeEffects.shopRootsOfUnityClockwork'
             : 'shop.upgradeEffects.shopRootsOfUnityClockworkInactive',
-          { time: format(86400 / (calculateRootsOfUnityCap() + 1), 2, true) }
+          { time: format(86400 / calculateRootsOfUnityCap(), 2, true) }
         )
       }
       return active
@@ -2020,7 +2020,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
       const cap = calculateRootsOfUnityCap()
       return i18next.t('shop.upgradeEffects.shopSingularitySpeedup', {
         max: format(cap, 2, true),
-        time: format(86400 / (cap + 1), 2, true)
+        time: format(86400 / cap, 2, true)
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade'),
