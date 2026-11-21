@@ -9,42 +9,30 @@ import {
 import { quarksFromELOMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { checkServerDate } from './PollGuard'
+import { getPurpleReactorUpgradeEffects } from './Purple'
+import { isResearchMaxed } from './Research'
+import { RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
+import { getGQUpgradeEffect } from './singularity'
 import { format, player } from './Synergism'
+import { getSynthesisUpgradeEffect } from './Synthesis'
 
 const quarkResearches = [99, 100, 125, 180, 195]
 
-export const quarkHandler = () => {
-  let maxTime = 90000 // In Seconds
-  if (player.researches[195] > 0) {
-    maxTime += 18000 * player.researches[195] // Research 8x20
+export const dailyExportBaseQuarks = 25
+
+export const calculateExportResearchLevels = () => {
+  let levels = 0
+  for (const research of quarkResearches) {
+    levels += player.researches[research]
   }
-
-  // Part 2: Calculate quark gain per hour
-  let baseQuarkPerHour = 5
-
-  for (const el of quarkResearches) {
-    baseQuarkPerHour += player.researches[el]
-  }
-
-  baseQuarkPerHour *= getOcteractUpgradeEffect('octeractExportQuarks', 'exportQuarkMult')
-
-  const quarkPerHour = baseQuarkPerHour
-
-  // Part 3: Calculates capacity of quarks on export
-  const capacity = Math.floor(quarkPerHour * maxTime / 3600)
-
-  // Part 4: Calculate how many quarks are to be gained.
-  const quarkGain = Math.floor(player.quarkstimer * quarkPerHour / 3600)
-
-  // Return maxTime, quarkPerHour, capacity and quarkGain as object
-  return {
-    maxTime,
-    perHour: quarkPerHour,
-    capacity,
-    gain: quarkGain
-  }
+  return levels
 }
+
+export const calculateExportGoldenQuarks = () =>
+  getGQUpgradeEffect('goldenQuarks3', 'exportGQPerDay')
+  * (1 + getQuarkBonus() / 100)
+  * (player.highestSingularityCount >= 100 ? 1 + player.highestSingularityCount / 50 : 1)
 
 let bonus = 0
 let personalQuarkBonus = 0
@@ -144,7 +132,7 @@ export type QuarkLedgerBase = Record<QuarkSourceKey, number>
 
 export interface QuarkLedger {
   base: QuarkLedgerBase
-  awarded: number
+  awarded: Record<QuarkCategoryKey, number>
   challengeCompletions: number[]
 }
 
@@ -186,6 +174,48 @@ export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
 const overfluxOrbLine: QuarkMultiplierLine = {
   i18n: 'overfluxOrbs',
   stat: () => calculateCubeQuarkMultiplier()
+}
+
+const basicProgressionMilestones: (() => boolean)[] = [
+  () => player.reincarnationCount > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0,
+  () => player.challengecompletions[6] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0,
+  () => player.challengecompletions[7] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0,
+  () => player.challengecompletions[8] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0,
+  () => player.challengecompletions[9] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0,
+  () => player.challengecompletions[10] > 0 || player.ascensionCount > 0 || player.highestSingularityCount > 0,
+  () => player.ascensionCount > 0 || player.highestSingularityCount > 0,
+  () => player.challengecompletions[11] > 0 || player.highestSingularityCount > 0,
+  () => player.challengecompletions[12] > 0 || player.highestSingularityCount > 0,
+  () => player.challengecompletions[13] > 0 || player.highestSingularityCount > 0,
+  () => player.challengecompletions[14] > 0 || player.highestSingularityCount > 0,
+  () => isResearchMaxed(200),
+  () => player.cubeUpgrades[50] >= 100000,
+  () => player.platonicUpgrades[5] > 0,
+  () => player.platonicUpgrades[10] > 0,
+  () => player.platonicUpgrades[15] > 0,
+  () => player.platonicUpgrades[20] > 0,
+  () => player.runeLevels[RuneType.Antiquities] > 0,
+  () => player.corruptions.highestCleared >= 45
+]
+
+const calculateBasicProgressionMultiplier = () => {
+  let multiplier = 1
+  for (const milestone of basicProgressionMilestones) {
+    if (milestone()) {
+      multiplier += 1
+    }
+  }
+  return multiplier
+}
+
+const exportResearchLine: QuarkMultiplierLine = {
+  i18n: 'exportResearches',
+  stat: () => 1 + calculateExportResearchLevels()
+}
+
+const octeractExportLine: QuarkMultiplierLine = {
+  i18n: 'octeractExportQuarks',
+  stat: () => getOcteractUpgradeEffect('octeractExportQuarks', 'exportQuarkMult')
 }
 
 export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
@@ -236,28 +266,55 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
   },
   export: {
     category: 'miscellaneous',
-    lines: [],
-    multiplier: () => 1,
+    lines: [
+      exportResearchLine,
+      octeractExportLine,
+      { i18n: 'calculator5', stat: () => 1 + player.dailyExportAddCodeMult }
+    ],
+    multiplier: () =>
+      (1 + calculateExportResearchLevels())
+      * getOcteractUpgradeEffect('octeractExportQuarks', 'exportQuarkMult')
+      * (1 + player.dailyExportAddCodeMult),
     unlocked: () => true
   },
   dailyCode: {
     category: 'miscellaneous',
     lines: [
-      { i18n: 'highestSingularity', stat: () => 1 + Math.min(49, player.highestSingularityCount) }
+      { i18n: 'basicProgression', stat: () => calculateBasicProgressionMultiplier() },
+      { i18n: 'highestSingularity', stat: () => 1 + Math.min(49, player.highestSingularityCount) },
+      {
+        i18n: 'shopImprovedDaily',
+        stat: () => getShopUpgradeEffects('shopImprovedDaily', 'dailyCodeQuarkMult')
+      }
     ],
-    multiplier: () => 1 + Math.min(49, player.highestSingularityCount),
+    multiplier: () =>
+      calculateBasicProgressionMultiplier()
+      * (1 + Math.min(49, player.highestSingularityCount))
+      * getShopUpgradeEffects('shopImprovedDaily', 'dailyCodeQuarkMult'),
     unlocked: () => true
   },
   addCode: {
     category: 'miscellaneous',
-    lines: [],
-    multiplier: () => 1,
+    lines: [
+      { i18n: 'calculator', stat: () => getShopUpgradeEffects('calculator', 'addQuarkMult') },
+      { i18n: 'calculator2', stat: () => getShopUpgradeEffects('calculator2', 'addQuarkMult') },
+      exportResearchLine,
+      octeractExportLine
+    ],
+    multiplier: () =>
+      getShopUpgradeEffects('calculator', 'addQuarkMult')
+      * getShopUpgradeEffects('calculator2', 'addQuarkMult')
+      * (1 + calculateExportResearchLevels())
+      * getOcteractUpgradeEffect('octeractExportQuarks', 'exportQuarkMult'),
     unlocked: () => true
   },
   timeCode: {
     category: 'miscellaneous',
-    lines: [],
-    multiplier: () => 1,
+    lines: [
+      { i18n: 'timeCodeHighestSingularity', stat: () => 4 + player.highestSingularityCount },
+      { i18n: 'cookieUpgrade61', stat: () => 1 + player.cubeUpgrades[61] / 50 }
+    ],
+    multiplier: () => (4 + player.highestSingularityCount) * (1 + player.cubeUpgrades[61] / 50),
     unlocked: () => true
   },
   promoCodes: {
@@ -274,14 +331,14 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
   },
   synthesis: {
     category: 'miscellaneous',
-    lines: [],
-    multiplier: () => 1,
+    lines: [{ i18n: 'subatomicShavings', stat: () => getSynthesisUpgradeEffect('subatomicShavings') }],
+    multiplier: () => getSynthesisUpgradeEffect('subatomicShavings'),
     unlocked: () => player.quarkLedger.base.synthesis > 0
   },
   purpleReactor: {
     category: 'miscellaneous',
-    lines: [],
-    multiplier: () => 1,
+    lines: [{ i18n: 'purpleQuarkGain', stat: () => getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarkMult') }],
+    multiplier: () => getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarkMult'),
     unlocked: () => player.quarkLedger.base.purpleReactor > 0
   }
 }
@@ -291,29 +348,44 @@ export const getQuarkSourceMultiplier = (key: QuarkSourceKey) =>
 
 export const createBlankQuarkLedger = (): QuarkLedger => ({
   base: Object.fromEntries(quarkSourceKeys.map((key) => [key, 0])) as QuarkLedgerBase,
-  awarded: 0,
+  awarded: { primary: 0, miscellaneous: 0 },
   challengeCompletions: Array(15).fill(0) as number[]
 })
 
 export const getQuarkSourceQuarks = (key: QuarkSourceKey, globalMultiplier = calculateQuarkMultiplier()) =>
   player.quarkLedger.base[key] * getQuarkSourceMultiplier(key) * globalMultiplier
 
-export const getQuarkLedgerQuarks = (globalMultiplier = calculateQuarkMultiplier()) => {
+const getQuarkCategoryQuarks = (category: QuarkCategoryKey, globalMultiplier: number) => {
   let quarks = 0
   for (const key of quarkSourceKeys) {
-    quarks += getQuarkSourceQuarks(key, globalMultiplier)
+    if (quarkSources[key].category === category) {
+      quarks += getQuarkSourceQuarks(key, globalMultiplier)
+    }
   }
   return Math.floor(quarks)
 }
 
-export const settleQuarks = () => {
-  const owed = getQuarkLedgerQuarks() - player.quarkLedger.awarded
-  if (owed <= 0) {
-    return 0
+export const getQuarkLedgerQuarks = (globalMultiplier = calculateQuarkMultiplier()) => {
+  let quarks = 0
+  for (const category of quarkCategoryKeys) {
+    quarks += getQuarkCategoryQuarks(category, globalMultiplier)
   }
-  player.quarkLedger.awarded += owed
-  worlds.add(owed, true)
-  return owed
+  return quarks
+}
+
+export const settleQuarks = () => {
+  const globalMultiplier = calculateQuarkMultiplier()
+  for (const category of quarkCategoryKeys) {
+    const owed = getQuarkCategoryQuarks(category, globalMultiplier) - player.quarkLedger.awarded[category]
+    if (owed <= 0) {
+      continue
+    }
+    const worldsBefore = player.worlds
+    worlds.add(owed, false)
+    const credited = player.worlds - worldsBefore
+    player.quarksThisSingularity += credited
+    player.quarkLedger.awarded[category] += credited
+  }
 }
 
 export const addBaseQuarks = (key: QuarkSourceKey, amount: number) => {
@@ -321,7 +393,8 @@ export const addBaseQuarks = (key: QuarkSourceKey, amount: number) => {
     return 0
   }
   player.quarkLedger.base[key] += amount
-  return settleQuarks()
+  settleQuarks()
+  return amount * getQuarkSourceMultiplier(key) * calculateQuarkMultiplier()
 }
 
 export const resetQuarkLedger = () => {
@@ -330,13 +403,12 @@ export const resetQuarkLedger = () => {
     player.quarkLedger = createBlankQuarkLedger()
     return
   }
-  const quarksBefore = getQuarkLedgerQuarks()
   for (const key of quarkSourceKeys) {
     if (quarkSources[key].category === 'miscellaneous') {
       player.quarkLedger.base[key] = 0
     }
   }
-  player.quarkLedger.awarded -= quarksBefore - getQuarkLedgerQuarks()
+  player.quarkLedger.awarded.miscellaneous = 0
 }
 
 export const refreshQuarkBonus = async () => {

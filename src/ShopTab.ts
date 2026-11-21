@@ -808,5 +808,8 @@ export const updateQuarkLedgerTab = () => {
     DOMCacheGetOrSet('quarkLedgerTotalQuarkValue'),
     format(getQuarkLedgerQuarks(globalMultiplier), 0, true)
   )
-  updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerQuarksRewarded'), format(player.quarkLedger.awarded, 0, true))
+  updateTextContentIfChanged(
+    DOMCacheGetOrSet('quarkLedgerQuarksRewarded'),
+    format(player.quarkLedger.awarded.primary + player.quarkLedger.awarded.miscellaneous, 0, true)
+  )
 }

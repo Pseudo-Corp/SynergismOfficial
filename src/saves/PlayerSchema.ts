@@ -751,8 +751,6 @@ export const playerSchema = z.object({
     .transform((rune) => rune !== null && rune in runes ? rune : null)
     .default(() => blankSave.autoSacrificeRune),
   sacrificeTimer: z.number().default(() => blankSave.sacrificeTimer),
-  quarkstimer: z.number().default(() => blankSave.quarkstimer),
-  goldenQuarksTimer: z.number().default(() => blankSave.goldenQuarksTimer),
 
   antSacrificeTimer: z.number().default(() => blankSave.antSacrificeTimer),
   antSacrificeTimerReal: z.number().default(() => blankSave.antSacrificeTimerReal),
@@ -899,7 +897,10 @@ export const playerSchema = z.object({
     base: z.record(z.string(), z.number()).transform((base) =>
       Object.fromEntries(quarkSourceKeys.map((key) => [key, base[key] ?? 0])) as QuarkLedgerBase
     ).prefault(() => ({})),
-    awarded: z.number().default(0),
+    awarded: z.union([
+      z.number().transform((awarded) => ({ primary: awarded, miscellaneous: 0 })),
+      z.object({ primary: z.number(), miscellaneous: z.number() })
+    ]).default(() => ({ primary: 0, miscellaneous: 0 })),
     challengeCompletions: z.array(z.number()).default(() => [...blankSave.quarkLedger.challengeCompletions])
   }).prefault(() => deepClone(blankSave.quarkLedger)),
   overfluxOrbs: z.number().default(() => blankSave.overfluxOrbs),
@@ -909,7 +910,6 @@ export const playerSchema = z.object({
   autoWarpCheck: z.boolean().default(() => blankSave.autoWarpCheck),
   version: z.string().default(() => blankSave.version),
   rngCode: z.number().default(() => blankSave.rngCode),
-  promoCodeTiming: z.record(z.string(), z.number()).default(() => ({ time: Date.now() - 60 * 1000 * 15 })),
   singularityCount: z.number().default(() => blankSave.singularityCount),
   highestSingularityCount: z.number().default(() => blankSave.highestSingularityCount),
   singularityCounter: z.number().default(() => blankSave.singularityCounter),
@@ -971,6 +971,9 @@ export const playerSchema = z.object({
     .prefault(() => ({ ...blankSave.ambrosiaUpgrades })),
 
   dailyCodeUsed: z.boolean().default(() => blankSave.dailyCodeUsed),
+  dailyExportClaimed: z.boolean().default(() => blankSave.dailyExportClaimed),
+  dailyTimeCodeUsed: z.boolean().default(() => blankSave.dailyTimeCodeUsed),
+  dailyExportAddCodeMult: z.number().default(() => blankSave.dailyExportAddCodeMult),
   hepteractAutoCraftPercentage: z.number().default(() => blankSave.hepteractAutoCraftPercentage),
   octeractTimer: z.number().default(() => blankSave.octeractTimer),
   insideSingularityChallenge: z.boolean().default(() => blankSave.insideSingularityChallenge),

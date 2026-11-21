@@ -177,7 +177,7 @@ import {
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { getPurpleReactorUpgradeEffects } from './Purple'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
-import { getGlobalBonus, getPersonalBonus } from './Quark'
+import { getGlobalBonus, getPersonalBonus, getQuarkSourceMultiplier } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneBlessingEffect } from './RuneBlessings'
 import { firstFiveEffectiveRuneLevelMult, getRuneEffects, RuneType, SIEffectiveRuneLevelMult } from './Runes'
@@ -3608,11 +3608,7 @@ const allAddCodeEffectStats: NumberStatLineCategory = {
       i18n: 'Quarks',
       stat: () => {
         const addCodeStuff = addCodeBonuses()
-        if (Math.abs(addCodeStuff.maxQuarks - addCodeStuff.minQuarks) >= 0.5) {
-          return 1 / 2 * (addCodeStuff.minQuarks + addCodeStuff.maxQuarks)
-        } else {
-          return addCodeStuff.maxQuarks
-        }
+        return 1 / 2 * (addCodeStuff.minQuarks + addCodeStuff.maxQuarks) * getQuarkSourceMultiplier('addCode')
       },
       color: 'var(--cyan-color)'
     },
@@ -3625,10 +3621,10 @@ const allAddCodeEffectStats: NumberStatLineCategory = {
       color: 'var(--orange-color)'
     },
     {
-      i18n: 'GoldenQuarks',
+      i18n: 'ExportQuarkMult',
       stat: () => {
         const addCodeStuff = addCodeBonuses()
-        return addCodeStuff.gqTimer
+        return 100 * addCodeStuff.exportQuarkMult
       },
       color: 'var(--lightgoldenrodyellow-color)'
     },
@@ -5985,16 +5981,6 @@ const allMiscStats: NumberStatLineCategory = {
       i18n: 'TotalQuarks',
       stat: () => player.totalQuarksEver + player.quarksThisSingularity,
       color: 'var(--cyan-color)'
-    },
-    {
-      i18n: 'QuarkTimer',
-      stat: () => player.quarkstimer,
-      color: 'var(--yellow-color)'
-    },
-    {
-      i18n: 'QuarkTimerMax',
-      stat: () => 90000 + 18000 * player.researches[195],
-      color: 'var(--yellow-color)'
     },
     {
       i18n: 'HighestPurpleHoney',

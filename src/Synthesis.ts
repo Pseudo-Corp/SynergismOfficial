@@ -439,10 +439,7 @@ export const craftPurpleAmbrosia = (requestedAmount: number | 'max'): number => 
   player.purpleAmbrosia += amount
   player.lifetimePurpleAmbrosia += amount
 
-  const quarks = amount * getSynthesisUpgradeEffect('subatomicShavings')
-  if (quarks > 0) {
-    addBaseQuarks('synthesis', quarks)
-  }
+  addBaseQuarks('synthesis', amount)
 
   const octeractSeconds = amount * getSynthesisUpgradeEffect('exceptionalLieGroup')
   if (octeractSeconds > 0) {

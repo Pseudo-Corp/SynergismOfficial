@@ -41,7 +41,7 @@ const funny32BitNumber = 2 ** 31 - 1
 type GoldenQuarkUpgradeRewards = {
   goldenQuarks1: { goldenQuarkMult: number }
   goldenQuarks2: { goldenQuarkCostMult: number }
-  goldenQuarks3: { exportGQPerHour: number }
+  goldenQuarks3: { exportGQPerDay: number }
   starterPack: {
     obtainiumMult: number
     offeringMult: number
@@ -493,12 +493,12 @@ export const goldenQuarkUpgrades: {
     minimumSingularity: 0,
     specialCostForm: 'Default',
     effect: (n: number) => {
-      return (n * (n + 1)) / 2
+      return 12 * n * (n + 1)
     },
     effectDescription: function() {
-      const exportGQPerHour = getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
+      const exportGQPerDay = getGQUpgradeEffect('goldenQuarks3', 'exportGQPerDay')
       return i18next.t('singularity.data.goldenQuarks3.effect', {
-        n: format(exportGQPerHour, 1, true)
+        n: format(exportGQPerDay, 1, true)
       })
     },
     name: () => {

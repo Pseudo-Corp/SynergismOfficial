@@ -136,7 +136,12 @@ import {
 } from './PurpleAmbrosiaUpgrades'
 import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
-import { getQuarkBonus, getQuarkSourceMultiplier, getQuarkSourceQuarks, quarkHandler, worlds } from './Quark'
+import {
+  calculateExportGoldenQuarks,
+  dailyExportBaseQuarks,
+  getQuarkSourceMultiplier,
+  getQuarkSourceQuarks
+} from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { blessingRuneTypes, updateRuneBlessingHTML } from './RuneBlessings'
 import { allRuneTypes, updateRuneHTML } from './Runes'
@@ -1752,82 +1757,28 @@ export const visualUpdateSettings = () => {
       }
     )
 
-    const quarkData = quarkHandler()
-    const onExportQuarks = quarkData.gain
-    const maxExportQuarks = quarkData.capacity
-
-    let goldenQuarkMultiplier = 1
-    goldenQuarkMultiplier *= 1 + getQuarkBonus() / 100
-    goldenQuarkMultiplier *= player.highestSingularityCount >= 100
-      ? 1 + player.highestSingularityCount / 50
-      : 1
-
-    DOMCacheGetOrSet('quarktimerdisplay').textContent = i18next.t(
-      'settings.exportQuark',
-      {
-        x: format(
-          3600 / quarkData.perHour
-            - (player.quarkstimer % (3600.00001 / quarkData.perHour)),
-          2,
-          false,
-          false
-        ),
-        // eslint-disable-next-line number-arg-out-of-range
-        y: worlds.toString(1)
-      }
-    )
-    DOMCacheGetOrSet('quarktimeramount').textContent = i18next.t(
-      'settings.quarksOnExport',
-      {
-        x: worlds.toString(onExportQuarks),
-        y: worlds.toString(maxExportQuarks)
-      }
-    )
-
-    DOMCacheGetOrSet('goldenQuarkTimerDisplay').textContent = i18next.t(
-      'settings.exportGoldenQuark',
-      {
-        x: format(
-          3600
-              / Math.max(
-                1,
-                getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
-              )
-            - (player.goldenQuarksTimer
-              % (3600.00001
-                / Math.max(
-                  1,
-                  getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
-                ))),
-          0,
-          false,
-          false
-        ),
-        y: format(goldenQuarkMultiplier, 2, true)
-      }
-    )
-
-    DOMCacheGetOrSet('goldenQuarkTimerAmount').textContent = i18next.t(
-      'settings.goldenQuarksOnExport',
-      {
-        x: format(
-          Math.floor(
-            (player.goldenQuarksTimer
-              * getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour'))
-              / 3600
-          ) * goldenQuarkMultiplier,
-          2
-        ),
-        y: format(
-          Math.floor(
-            168
-              * getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour')
-              * goldenQuarkMultiplier
-          ),
-          2
-        )
-      }
-    )
+    if (player.dailyExportClaimed) {
+      updateTextContentIfChanged(
+        'quarktimerdisplay',
+        i18next.t('settings.exportClaimed', { x: formatTimeShort(player.dayTimer) })
+      )
+      updateTextContentIfChanged('goldenQuarkTimerDisplay', '')
+    } else {
+      updateTextContentIfChanged(
+        'quarktimerdisplay',
+        i18next.t('settings.exportQuarks', {
+          x: format(
+            Math.floor(dailyExportBaseQuarks * getQuarkSourceMultiplier('export') * calculateQuarkMultiplier()),
+            0,
+            true
+          )
+        })
+      )
+      updateTextContentIfChanged(
+        'goldenQuarkTimerDisplay',
+        i18next.t('settings.exportGoldenQuarks', { x: format(calculateExportGoldenQuarks(), 2, true) })
+      )
+    }
 
     if (isMobile) {
       DOMCacheGetOrSet('promocodeStatus').textContent = `${promocodesInfoText('daily')}\n${

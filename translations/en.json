@@ -704,8 +704,8 @@
           "flavor": "Straight off the floor of the Encabulator.",
           "cost": "Cost: <<var(--purple-text-color)|{{purpleAmbrosia}} Purple Ambrosia>> and <<cyan|{{quarks}} Quarks>>.",
           "purchaseAria": "Buy {{amount}} levels of Subatomic Shavings for {{purpleAmbrosia}} Purple Ambrosia and {{quarks}} Quarks.",
-          "effectNotMaxed": "On Synthesis: Gain <<silver|{{current}} →>> <<gold|{{next}}>> Quarks.",
-          "effectMaxed": "On Synthesis: Gain <<gold|{{value}}>> Quarks."
+          "effectNotMaxed": "Quarks from Synthesis: <<silver|x{{current}} →>> <<gold|x{{next}}>>",
+          "effectMaxed": "Quarks from Synthesis: <<gold|x{{value}}>>"
         },
         "exceptionalLieGroup": {
           "name": "Exceptional Lie Group",
@@ -909,8 +909,8 @@
       "purpleQuarkGain": {
         "name": "Lab-Grown Quarks",
         "flavor": "Looks, feels, tastes and <i>is</i> just like a Quark.",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Quarks per extracted Purple Honey",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Quarks per extracted Purple Honey",
+        "effectNotMaxed": "Quarks from extracted Purple Honey: <<silver|x{{oldValue}} →>> <<gold|x{{newValue}}>>",
+        "effectMaxed": "Quarks from extracted Purple Honey: <<gold|x{{maxValue}}>>",
         "disclaimer": "<<gold | ⚠>> This perk does not work in the 'Bar Charging' EXALT!"
       }
     }
@@ -3352,8 +3352,8 @@
       "96": "[4x21] Ants slow? Multiply Ant Speed by (1 + 0.0002 * level) per Worker Ant purchased.",
       "97": "[4x22] Add +2 free levels to Ant Upgrades per level! Free levels require a corresponding purchased level to work!",
       "98": "[4x23] Add +2 more free levels to Ant Upgrades per level!",
-      "99": "[4x24] Are the Quark Upgrades too hot to resist? Get +1 Quark per hour from Exporting for each level!",
-      "100": "[4x25] Alright, Platonic is off his rocker. +1 MORE Quark per hour from Exporting for each level!",
+      "99": "[4x24] Are the Quark Upgrades too hot to resist? +1x Quark multiplier for Exports and Code 'add' for each level!",
+      "100": "[4x25] Alright, Platonic is off his rocker. +1x MORE Quark multiplier for Exports and Code 'add' for each level!",
       "101": "[5x1] Let's add +.001 to Inceptus Ant efficiency per level?",
       "102": "[5x2] Gain +1 free level to ALL Ants per level! A rainbow attack!",
       "103": "[5x3] Pray to Ant God for +5% Ant Sacrifice rewards per level!",
@@ -3378,7 +3378,7 @@
       "122": "[5x22] +2% Ant Sacrifice rewards per level.",
       "123": "[5x23] +40 Ant ELO per level.",
       "124": "[5x24] Unlock enhanced toggles for The Great Automator! Be able to control when you Sacrifice based on your Reborn ELO.",
-      "125": "[5x25] Good luck, buddy. [+1 Export Quark/hour per level]",
+      "125": "[5x25] Good luck, buddy. [+1x Quark multiplier for Exports and Code 'add' per level]",
       "126": "[6x1] 6 rows? That can't be... (+1% Accelerators / level)",
       "127": "[6x2] Another +1% Accelerator Boosts / level!",
       "128": "[6x3] The trifecta! +1% Multipliers / level.",
@@ -3433,7 +3433,7 @@
       "177": "[8x2] +Log10(Crumbs)% to Ant Speed per level. Pretty cool buff ain't it?",
       "178": "[8x3] +666 Base ELO per level! Spooky number of the devil.",
       "179": "[8x4] +num:((0.04))% more Offerings per level per Midas Talisman level!",
-      "180": "[8x5] +1 Export Quark per hour per level, yet again.",
+      "180": "[8x5] +1x Quark multiplier for Exports and Code 'add' per level, yet again.",
       "181": "[8x6] +num:((0.6))% Global Speed per level because why not? You're already the speed of light.",
       "182": "[8x7] +num:((0.7))% Cubes in Ascension bank per level, from dividends in Wow! Stock.",
       "183": "[8x8] When you open a Hypercube, you also open 100 Tesseracts! (This works with 7x3, if you were curious.)",
@@ -3448,7 +3448,7 @@
       "192": "[8x17] Each purchased level of Mortuus Est (the Ant Upgrade) also increases Wow! Cube reward by +num:((0.20))%",
       "193": "[8x18] +1% Ant Sacrifice reward per level.",
       "194": "[8x19] Increases both Spirit Power AND Blessing Power by +2% per level.",
-      "195": "[8x20] Gain +1 export Quark per level, and increases the max timer to redeem Quarks by 5 hours each!",
+      "195": "[8x20] +1x Quark multiplier for Exports and Code 'add' per level!",
       "196": "[8x21] +num:((0.3))% Global Speed per level. Faster than the speed of light?",
       "197": "[8x22] +num:((0.6))% Cubes in Ascension Bank per level. No one knows how. Bank error perhaps.",
       "198": "[8x23] +num:((0.06))% Tributes from Cubes per level! Wow! Cubes really has a lot of manufacturing errors in your favor.",
@@ -3502,7 +3502,7 @@
       "calculator2": "The PL-AT X has improved memory capacity, allowing you to store 30 additional minutes (1,800 seconds) to code 'add' per level. Final level makes 'add' give 25% more Quarks!",
       "calculator3": "The PL-AT Ω is infused with some Unobtainium, which is epic! But furthermore, it reduces the variance of Quarks by code 'add' by 10% per level, which makes you more likely to get the maximum multiplier. It also has the ability to give +60 seconds to Ascension Timer per level using that code.",
       "calculator4": "The PL-AT δ runs at num:((4096))Hz, which is a huge improvement over previous models. Reduce the interval between 'Add' code uses by 4% per level! Final level lets you store 3 more hours (10,800 seconds)!",
-      "calculator5": "The PL-AT Γ model somehow performs more 'powerful' computations, whatever that means. +6 seconds of GQ Export timer per level. You also store 1 extra minute per level (60 seconds) and 80 additional minutes when maxed (4,800 seconds)!",
+      "calculator5": "The PL-AT Γ model somehow performs more 'powerful' computations, whatever that means. Each use of Code 'add' increases today's Export Quark multiplier by +0.01% per level. You also store 1 extra minute per level (60 seconds) and 80 additional minutes when maxed (4,800 seconds)!",
       "calculator6": "The PL-AT _ model was made by Derpsmith, before he was banished from the industry forever. Gain 1 second of Octeract per usage per level. Final level lets you store 3 more hours (10,800 seconds)!",
       "calculator7": "The PL-AT ΩΩ model was made by Derpsmith Ω, before he was banished from the industry forever. Gain 1 real-life second of Ambrosia Bar Points per usage per level. Final level lets you store 3 more hours (10,800 seconds)!",
       "constantEX": "The merchant has one last trick up its sleeve: It can augment your second constant upgrade to be marginally better, but it'll cost an arm and a leg! Instead of the cap being 10% (or 11% with achievements) it will be raised by 1% per level.",
@@ -3635,7 +3635,7 @@
       "calculator2": "Code 'add' can store <<orchid|{{amount1}}>> more seconds. 'add' generates <<cyan|{{amount2}}>> more Quarks.",
       "calculator3": "Code 'add' rewards are <<orchid|{{amount1}}>> less random. 'add' generates <<orchid|{{amount2}}>> seconds to Ascension Timer.",
       "calculator4": "Code 'add' has a <<orchid|{{amount1}}>> shorter interval between uses. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
-      "calculator5": "Code 'add' generates <<orchid|{{amount1}}>> seconds of GQ export timer. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
+      "calculator5": "Code 'add' increases today's Export Quark multiplier by <<orchid|+{{amount1}}%>>. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
       "calculator6": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Octeracts. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
       "calculator7": "Code 'add' generates <<orchid|{{amount1}}>> seconds of Ambrosia Bar Points. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
       "constantEX": "<<orange|+{{amount}}%>> max on Constant Upgrade 2",
@@ -3879,7 +3879,18 @@
         "overfluxOrbs": "Overflux Orb Effect: <<cyan|x{{x}}>>",
         "allTimeLeaderboard": "All-Time Ant Leaderboard: <<cyan|x{{x}}>>",
         "autoWarp": "Auto Warp: <<cyan|x{{x}}>>",
+        "basicProgression": "Basic Progression Multiplier: <<cyan|x{{x}}>>",
+        "subatomicShavings": "Subatomic Shavings: <<cyan|x{{x}}>>",
+        "purpleQuarkGain": "Lab-Grown Quarks: <<cyan|x{{x}}>>",
         "highestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
+        "exportResearches": "Researches 4x24, 4x25, 5x25, 8x5 and 8x20: <<cyan|x{{x}}>>",
+        "octeractExportQuarks": "Improved Download Speeds: <<cyan|x{{x}}>>",
+        "calculator5": "PL-AT Γ calculator: <<cyan|x{{x}}>>",
+        "shopImprovedDaily": "Improved Daily Code 1: <<cyan|x{{x}}>>",
+        "calculator": "PL-AT calculator: <<cyan|x{{x}}>>",
+        "calculator2": "PL-AT X calculator: <<cyan|x{{x}}>>",
+        "timeCodeHighestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
+        "cookieUpgrade61": "Wow! A tin of Whoopie Pies: <<cyan|x{{x}}>>",
         "total": "Total: <<cyan|x{{x}}>>"
       },
       "sources": {
@@ -4038,7 +4049,7 @@
       },
       "itAllAddsUp": {
         "name": "It all adds up",
-        "default": "The 'Add' Special Action reward & cooldown is divided by <b><<gold|{{div}}>></b>. 'Add' also stores <b><<gold|{{seconds}}>></b> more seconds!"
+        "default": "The 'Add' Special Action cooldown and its non-Quark rewards are divided by <b><<gold|{{div}}>></b>. 'Add' also stores <b><<gold|{{seconds}}>></b> more seconds!"
       },
       "automagicalRunes": {
         "name": "Automagical Runes",
@@ -4233,8 +4244,8 @@
       },
       "goldenQuarks3": {
         "name": "Golden Quarks III",
-        "description": "If you buy this, you will gain Golden Quarks per hour from Exports. Leveling up gives (level) additional per hour!",
-        "effect": "Every hour, you gain {{n}} Golden Quarks from exporting."
+        "description": "If you buy this, your daily Export gives Golden Quarks. Leveling up gives (24 × level) additional Golden Quarks!",
+        "effect": "Your daily Export gives {{n}} Golden Quarks."
       },
       "starterPack": {
         "name": "Starter Pack",
@@ -5104,7 +5115,6 @@
     "owned": "Owned: {{x}}",
     "bellActive": "{{amount}}x {{time}}",
     "codeNext": "Next: {{time}}",
-    "timeCodeMultiplier": "x{{x}}",
     "quarkBonus": "+{{x}}%",
     "perSecond": "{{x}}/s",
     "modules": {
@@ -5242,7 +5252,6 @@
     "realAntSacTimer": "Real-Life Ant Sacrifice Timer: +<<var(--red-text-color);|{{value}}>> seconds",
     "currentAscensionTimer": "Current Ascension Timer: +<<gold|{{value}}>> seconds",
     "currentSingularityTimer": "Current Singularity Timer: +<<lightgoldenrodyellow|{{value}}>> seconds",
-    "exportQuarks": "Export Quarks: +<<goldenrod|{{value}}>>",
     "ambrosia": "Ambrosia: +<<orange|{{value}}>> | Ambrosia Bar Points +<<lightblue|{{value2}}>>",
     "redAmbrosia": "Red Ambrosia: +<<red|{{value}}>> | Red Bar Points +<<red|{{value2}}>>",
     "purpleHoney": "Purple Honey: +<<var(--purple-text-color)|{{value}}>>"
@@ -5981,8 +5990,8 @@
       },
       "octeractExportQuarks": {
         "name": "Improved Download Speeds",
-        "description": "Thanks to ethernet technology, Export Quarks are increased by 40% per level! Only normal ones.",
-        "effect": "Export Quarks +{{n}}%"
+        "description": "Thanks to ethernet technology, Quarks from Exports and Code 'add' are increased by 40% per level! Only normal ones.",
+        "effect": "Export and Code 'add' Quarks +{{n}}%"
       },
       "octeractImprovedDaily": {
         "name": "CHONKER Daily Code",
@@ -6813,10 +6822,9 @@
     },
     "joinDiscord": "Click the image below to join the Discord!",
     "joinPatreon": "Support Development!",
-    "exportQuark": "{{x}}s until +{{y}} export Quark",
-    "exportGoldenQuark": "{{x}}s until +{{y}} export Golden Quark",
-    "quarksOnExport": "Quarks on export: {{x}} [Max {{y}}]",
-    "goldenQuarksOnExport": "Golden Quarks on export: {{x}} [Max {{y}}]",
+    "exportQuarks": "Exporting today gives {{x}} Quarks",
+    "exportGoldenQuarks": "Exporting today gives {{x}} Golden Quarks",
+    "exportClaimed": "Today's export reward is claimed. Next reward in {{x}}",
     "copyToClipboard": "Copy to Clipboard",
     "exportHere": "Export the game here",
     "currently": "Currently: {{x}}",
@@ -7686,7 +7694,7 @@
       "title": "Add Code Effects",
       "Quarks": "Base Quark Value (Average):",
       "AscensionTime": "PL-AT Ω - Ascension Time (Real-Life Seconds):",
-      "GoldenQuarks": "PL-AT Γ - Golden Quark Export Timer:",
+      "ExportQuarkMult": "PL-AT Γ - Export Quark Multiplier (%):",
       "Octeracts": "PL-AT _ - Octeract Gain (Real-Life Seconds):",
       "Ambrosia": "PL-AT ΩΩ - Ambrosia Gain (Real-Life Seconds):"
     },
@@ -7730,8 +7738,6 @@
       "AscensionCount": "Ascension Count:",
       "QuarksThisSingularity": "Quarks This Singularity:",
       "TotalQuarks": "Total Quarks Ever:",
-      "QuarkTimer": "Quark Timer:",
-      "QuarkTimerMax": "Quark Timer Maximum:",
       "HighestPurpleHoney": "Highest Stored Purple Honey:",
       "PurpleHoneySpentUpgrades": "Purple Honey Spent on Upgrades:"
     },
@@ -8509,7 +8515,6 @@
     "add1Uses": "{{x}} use left.",
     "add0Uses": "{{x}} uses left. Next: in {{y}} seconds.",
     "addUses": "{{x}} uses left.",
-    "timeMultiplier": "{{x}} use(s) left. Multiplier: {{y}}x",
     "promocodes": {
       "synergism2021": "Promo Code 'synergism{{year}}' Applied! +25 Offerings, +{{quarks}} Quarks",
       "unsmith": "It's Spaghetti Time! [Awarded an achievement!!!]",
@@ -8523,15 +8528,16 @@
       },
       "add": {
         "calculator3": "Thanks to PL-AT Ω you have also gained {{x}} real-life seconds to your Ascension Timer!",
-        "calculator5": "Thanks to PL-AT Γ you have additionally gained {{x}} real-life seconds to your GQ Export Timer!",
+        "calculator5": "Thanks to PL-AT Γ, today's Export Quark multiplier increased by +{{x}}%!",
         "calculator6": "Thanks to PL-AT _ you have gained {{x}} seconds of Octeract generation!",
         "calculator7": "Finally, thanks to PL-AT Ω you have gained {{x}} real-life seconds of Ambrosia Bar Points!",
         "calculatorSolution": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}? The answer is {{z}} according to your calculator.",
         "calculatorPrompt": "For {{w}} Quarks or nothing: What is {{x}} + {{y}}?",
-        "calculatorMaxed": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks! {{e}} {{f}} {{g}} {{h}} {{i}} You have {{j}} uses of Add. You will gain 1 in {{k}} seconds.",
+        "calculatorMaxedQuarks": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks!",
         "freeLevel": "Moreover, gain {{x}} free levels of GQ1 and {{y}} free levels of GQ3!!!",
         "cancelled": "No worries, you didn't lose any of your uses! Come back later!",
-        "reward": "You were awarded {{a}} Quarks! {{b}} {{c}} {{d}} {{g}} {{h}} You have {{e}} uses of Add. You will gain 1 in {{f}} seconds.",
+        "rewardQuarks": "You were awarded {{x}} Quarks!",
+        "usesRemaining": "You have {{x}} uses of Add. You will gain 1 in {{y}} seconds.",
         "wrong": "You guessed {{w}}, but the answer was {{x}}. You have {{y}} uses of Add. You will gain 1 in {{z}} seconds."
       },
       "sub": {
@@ -8539,13 +8545,13 @@
         "gave": "I gave you {{x}} Quarks so I could take {{y}} away."
       },
       "time": {
-        "wait": "You must wait at least 15 minutes between each use.",
-        "prepare": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks! Due to how long it has been since your last attempt, the rewards are multiplied by {{y}}.",
+        "wait": "You have already used Code 'time' today. Try again tomorrow.",
+        "prepare": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks! You only get one attempt per day.",
         "confirm": "Press the button when you feel the time is right. Between {{start}} and {{end}} seconds, please!",
         "maxedCookie": "Because Cx11 is maxed, you will always get the rewards from this code. Just have some fun!",
         "cancelled": "No worries! Try again when you feel like it.",
         "won": "You clicked 'OK' in {{time}} seconds! Congratulations! [+{{x}} Quarkies]",
-        "lost": "You clicked 'OK' in {{time}} seconds! Unfortunately, you did not win this time. Try again soon.",
+        "lost": "You clicked 'OK' in {{time}} seconds! Unfortunately, you did not win this time. Try again tomorrow.",
         "ambrosia": "Your blueberries resonate slightly, giving {{blueberryTime}} real-life seconds of Ambrosia Bar Points."
       },
       "spoiler": {

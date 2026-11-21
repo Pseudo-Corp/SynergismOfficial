@@ -655,8 +655,6 @@ export const player: Player = {
   autoResearch: 0,
   autoSacrificeRune: null,
   sacrificeTimer: 0,
-  quarkstimer: 90000,
-  goldenQuarksTimer: 90000,
 
   antSacrificeTimer: 0,
   antSacrificeTimerReal: 0,
@@ -959,9 +957,6 @@ export const player: Player = {
   autoWarpCheck: false,
   version,
   rngCode: 0,
-  promoCodeTiming: {
-    time: 0
-  },
   singularityCount: 0,
   highestSingularityCount: 0,
   singularityCounter: 0,
@@ -985,6 +980,9 @@ export const player: Player = {
   ambrosiaUpgrades: blankAmbrosiaUpgradeObject,
 
   dailyCodeUsed: false,
+  dailyExportClaimed: false,
+  dailyTimeCodeUsed: false,
+  dailyExportAddCodeMult: 0,
   hepteractAutoCraftPercentage: 50,
   octeractTimer: 0,
   insideSingularityChallenge: false,
@@ -3879,8 +3877,6 @@ const tack = (dt: number) => {
     addTimers('reincarnation', dt, timerSpeedMult)
     addTimers('autoPotion', dt, timerSpeedMult)
     addTimers('ascension', dt)
-    addTimers('quarks', dt)
-    addTimers('goldenQuarks', dt)
     addTimers('octeracts', dt)
     addTimers('singularity', dt)
     addTimers('purpleReactor', dt)

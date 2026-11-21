@@ -29,14 +29,7 @@ import {
   type RainbowAmbrosiaModuleId,
   rainbowAmbrosiaModuleIds
 } from './HeaderLayoutDefaults'
-import {
-  addCodeAvailableUses,
-  addCodeMaxUses,
-  addCodeTimeToNextUse,
-  timeCodeAvailableUses,
-  timeCodeRewardMultiplier,
-  timeCodeTimeToNextUse
-} from './ImportExport'
+import { addCodeAvailableUses, addCodeMaxUses, addCodeTimeToNextUse } from './ImportExport'
 import { allDurableConsumables, getLotusTimeExpiresAt, getOwnedBells, getOwnedLotus } from './Login'
 import { getGlobalBonus } from './Quark'
 import { RuneType } from './Runes'
@@ -449,7 +442,7 @@ const codeTime = (layout: HeaderLayout, id: HeaderModuleId, seconds: number) =>
 const codeTimeLongestWait = {
   dailyCodeHeader: 86399,
   addCodeHeader: 3599,
-  timeCodeHeader: 899
+  timeCodeHeader: 86399
 } as const
 
 const reserveCodeTime = (layout: HeaderLayout, id: keyof typeof codeTimeLongestWait) => {
@@ -492,14 +485,17 @@ export const updateHeaderInfo = () => {
   }
 
   if (editing || !layout.hidden.includes('timeCodeHeader')) {
-    const uses = timeCodeAvailableUses()
-    setHeaderText('timeCodeHeaderUses', `${uses}/1`)
+    const midnight = new Date()
+    midnight.setHours(24, 0, 0, 0)
+    setHeaderText('timeCodeHeaderUses', `${player.dailyTimeCodeUsed ? 0 : 1}/1`)
     reserveCodeTime(layout, 'timeCodeHeader')
     setHeaderText(
       'timeCodeHeaderNext',
-      uses === 0
-        ? i18next.t('headerLayout.codeNext', { time: codeTime(layout, 'timeCodeHeader', timeCodeTimeToNextUse()) })
-        : i18next.t('headerLayout.timeCodeMultiplier', { x: format(timeCodeRewardMultiplier(), 2, true) })
+      player.dailyTimeCodeUsed
+        ? i18next.t('headerLayout.codeNext', {
+          time: codeTime(layout, 'timeCodeHeader', (midnight.getTime() - Date.now()) / 1000)
+        })
+        : ''
     )
   }
 

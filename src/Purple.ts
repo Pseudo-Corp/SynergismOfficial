@@ -102,7 +102,7 @@ type PurpleReactorUpgradeRewards = {
     rebornELOSpeedMult: number
   }
   purpleQuarkGain: {
-    quarksPerPurpleHoney: number
+    quarkMult: number
   }
 }
 
@@ -1111,8 +1111,8 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       return 2_000 * n
     },
     notMaxedEffectsDescription: () => {
-      const oldEffect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+      const oldEffect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarkMult')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleQuarkGain', 'quarkMult')
 
       const disclaimer = i18next.t('purpleReactor.upgrades.purpleQuarkGain.disclaimer')
       const effectText = i18next.t('purpleReactor.upgrades.purpleQuarkGain.effectNotMaxed', {
@@ -1122,7 +1122,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
       return `${effectText}<br>${disclaimer}`
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+      const effect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarkMult')
 
       const disclaimer = i18next.t('purpleReactor.upgrades.purpleQuarkGain.disclaimer')
       const effectText = i18next.t('purpleReactor.upgrades.purpleQuarkGain.effectMaxed', {
