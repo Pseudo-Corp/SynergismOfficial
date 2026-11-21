@@ -31,7 +31,7 @@ import {
   PURPLE_REACTOR_OVERFLOW_EFFICIENCY,
   purpleReactantConversion
 } from './PurpleReactor'
-import { quarkHandler, resetQuarkLedger } from './Quark'
+import { resetQuarkLedger } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { getRuneEffects, RuneType } from './Runes'
@@ -917,7 +917,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     antsReal: timeAdd,
     ascension: player.ascensionCounter, // Calculate this after the fact
     singularity: player.singularityCounter,
-    quarks: quarkHandler().gain, // Calculate this after the fact
     ambrosia: player.lifetimeAmbrosia,
     redAmbrosia: player.lifetimeRedAmbrosia,
     ambrosiaPoints: timeAdd * calculateAmbrosiaGenerationSpeed(),
@@ -926,8 +925,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   }
 
   addTimers('ascension', timeAdd)
-  addTimers('quarks', timeAdd)
-  addTimers('goldenQuarks', timeAdd)
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
 
@@ -937,7 +934,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
 
   timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
   timerAdd.singularity = player.singularityCounter - timerAdd.singularity
-  timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
 
   resetAddDisplay.prestige = player.prestigeCount - resetAddDisplay.prestige
   resetAddDisplay.transcension = player.transcendCount - resetAddDisplay.transcension
@@ -1071,12 +1067,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     'offlineProgress.currentSingularityTimer',
     {
       value: format(timerAdd.singularity, 2, true)
-    }
-  )
-  DOMCacheGetOrSet('offlineQuarkCount').innerHTML = i18next.t(
-    'offlineProgress.exportQuarks',
-    {
-      value: format(timerAdd.quarks, 0, true)
     }
   )
   DOMCacheGetOrSet('offlineAmbrosiaCount').innerHTML = i18next.t(
@@ -1916,6 +1906,9 @@ export const dailyResetCheck = () => {
     forcedDailyReset(true)
     player.dailyPowderResetUses = 1 + getShopUpgradeEffects('extraWarp', 'additionalWarps')
     player.dailyCodeUsed = false
+    player.dailyExportClaimed = false
+    player.dailyTimeCodeUsed = false
+    player.dailyExportAddCodeMult = 0
   }
 }
 

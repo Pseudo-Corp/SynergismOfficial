@@ -68,7 +68,7 @@ type QuarkShopUpgradeRewards = {
   calculator2: { addCodeCapacity: number; addQuarkMult: number }
   calculator3: { addRewardVarianceMultiplier: number; ascensionTimerAdd: number }
   calculator4: { addCodeIntervalMult: number; addCodeCapacity: number }
-  calculator5: { importGQTimerAdd: number; addCodeCapacity: number }
+  calculator5: { exportQuarkMultPerUse: number; addCodeCapacity: number }
   calculator6: { octeractTimerAdd: number; addCodeCapacity: number }
   calculator7: { blueberryTimerAdd: number; addCodeCapacity: number }
   chronometer: { ascensionSpeedMult: number }
@@ -794,17 +794,17 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     name: () => i18next.t('shop.names.calculator5'),
     description: () => i18next.t('shop.upgradeDescriptions.calculator5'),
     effects: (n, key) => {
-      if (key === 'importGQTimerAdd') {
-        return 6 * n
+      if (key === 'exportQuarkMultPerUse') {
+        return n / 10000
       }
 
       return 60 * n + (n === 100 ? 4_800 : 0) // addCodeCapacity
     },
     effectDescription () {
-      const importGQTimerAdd = getShopUpgradeEffects('calculator5', 'importGQTimerAdd')
+      const exportQuarkMultPerUse = getShopUpgradeEffects('calculator5', 'exportQuarkMultPerUse')
       const addCodeCapacity = getShopUpgradeEffects('calculator5', 'addCodeCapacity')
       return i18next.t('shop.upgradeEffects.calculator5', {
-        amount1: format(importGQTimerAdd),
+        amount1: format(100 * exportQuarkMultPerUse, 2, true),
         amount2: format(addCodeCapacity)
       })
     },

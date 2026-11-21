@@ -256,8 +256,6 @@ export interface Player {
   autoResearch: number
   autoSacrificeRune: RuneType | null
   sacrificeTimer: number
-  quarkstimer: number
-  goldenQuarksTimer: number
 
   antSacrificeTimer: number
   antSacrificeTimerReal: number
@@ -396,9 +394,6 @@ export interface Player {
   version: string
 
   rngCode: number
-  promoCodeTiming: {
-    time: number
-  }
 
   hepteracts: Record<HepteractKeys, HepteractValues>
 
@@ -450,6 +445,9 @@ export interface Player {
   }>
 
   dailyCodeUsed: boolean
+  dailyExportClaimed: boolean
+  dailyTimeCodeUsed: boolean
+  dailyExportAddCodeMult: number
   hepteractAutoCraftPercentage: number
   octeractTimer: number
 

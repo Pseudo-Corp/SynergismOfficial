@@ -1149,6 +1149,9 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
   hold.autoResearchToggle = player.autoResearchToggle
   hold.autoResearchMode = player.autoResearchMode
   hold.dailyCodeUsed = player.dailyCodeUsed
+  hold.dailyExportClaimed = player.dailyExportClaimed
+  hold.dailyTimeCodeUsed = player.dailyTimeCodeUsed
+  hold.dailyExportAddCodeMult = player.dailyExportAddCodeMult
   hold.runeBlessingBuyAmount = player.runeBlessingBuyAmount
   hold.runeSpiritBuyAmount = player.runeSpiritBuyAmount
   hold.prestigeamount = player.prestigeamount
@@ -1222,8 +1225,6 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
   hold.blueberryTime = player.blueberryTime
   hold.blueberryLoadouts = player.blueberryLoadouts
   hold.blueberryLoadoutMode = player.blueberryLoadoutMode
-  hold.goldenQuarksTimer = player.goldenQuarksTimer
-  hold.quarkstimer = player.quarkstimer
 
   hold.stats = player.stats
 
@@ -1231,7 +1232,6 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
     singularityPersistentPromoCodes.has(code) || (code >= 42 && code <= 49)
   )
   const saveRngCode = player.rngCode
-  const savePromoCodeTime = player.promoCodeTiming.time
   const saveBlueberryLoadout = lastBlueberryLoadout
 
   importSynergism(btoa(JSON.stringify(hold)), true)
@@ -1242,7 +1242,6 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
   updateSingularityMilestoneAwards()
 
   player.rngCode = Math.max(saveRngCode, DateNow())
-  player.promoCodeTiming.time = Math.max(savePromoCodeTime, DateNow())
   setLastBlueberryLoadout(saveBlueberryLoadout)
 
   updateTokens()

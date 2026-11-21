@@ -30,10 +30,9 @@ import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
 import { canAutoSacrifice } from './Features/Ants/Automation/sacrifice'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
-import { getPurpleReactorUpgradeEffects } from './Purple'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
-import { addBaseQuarks, quarkHandler } from './Quark'
+import { addBaseQuarks } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { Seed, seededRandom } from './RNG'
 import { buyAllBlessingLevels } from './RuneBlessings'
@@ -53,8 +52,6 @@ type TimerInput =
   | 'transcension'
   | 'reincarnation'
   | 'ascension'
-  | 'quarks'
-  | 'goldenQuarks'
   | 'singularity'
   | 'octeracts'
   | 'autoPotion'
@@ -304,10 +301,7 @@ export const runPurpleReactor = (
         player.stats.highestPurpleHoney,
         player.purpleReactor.purpleHoney
       )
-      addBaseQuarks(
-        'purpleReactor',
-        purpleHoneyGained * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
-      )
+      addBaseQuarks('purpleReactor', purpleHoneyGained)
     }
   }
 
@@ -386,26 +380,6 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         player.singChallengeTimer = 0
       }
 
-      break
-    }
-    case 'quarks': {
-      // First get maximum Quark Clock (25h, up to +25 from Research 8x20)
-      const maxQuarkTimer = quarkHandler().maxTime
-      player.quarkstimer += time * timeMultiplier
-      // Checks if this new time is greater than maximum, in which it will default to that time.
-      // Otherwise returns itself.
-      player.quarkstimer = player.quarkstimer > maxQuarkTimer ? maxQuarkTimer : player.quarkstimer
-      break
-    }
-    case 'goldenQuarks': {
-      if (getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour') === 0) {
-        return
-      } else {
-        player.goldenQuarksTimer += time * timeMultiplier
-        player.goldenQuarksTimer = player.goldenQuarksTimer > 3600 * 168
-          ? 3600 * 168
-          : player.goldenQuarksTimer
-      }
       break
     }
     case 'octeracts': {
