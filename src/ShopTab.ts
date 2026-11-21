@@ -3,6 +3,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateQuarkMultiplier, calculateSingularityTimeQuarkRamp, calculateSummationNonLinear } from './Calculate'
 import {
   getQuarkLedgerQuarks,
+  getQuarkSourceMultiplier,
   quarkCategories,
   type QuarkCategoryKey,
   quarkCategoryKeys,
@@ -480,11 +481,19 @@ export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
   const lines = quarkSources[key].lines.map(({ i18n, stat }) =>
     i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { x: format(stat(), 3, true) })
   )
+  if (
+    quarkSources[key].category === 'primary' && getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')
+  ) {
+    lines.push(i18next.t('shop.quarkLedger.multipliers.singularityTime', {
+      perDay: format(calculateSingularityTimeQuarkRamp().perDay, 2, true),
+      x: format(quarkCategories.primary.multiplier(), 3, true)
+    }))
+  }
   const titleHTML = `<span style="font-weight: bold; font-size: 1.2em;">${
     i18next.t(`shop.quarkLedger.sources.${key}`)
   }</span>`
   const totalHTML = i18next.t('shop.quarkLedger.multipliers.total', {
-    x: format(quarkSources[key].multiplier(), 3, true)
+    x: format(getQuarkSourceMultiplier(key), 3, true)
   })
   return `${titleHTML}<br><br>${lines.join('<br>')}<br><br>${totalHTML}`
 }
@@ -741,7 +750,7 @@ export const updateQuarkLedgerTab = () => {
 
   for (const key of quarkSourceKeys) {
     const base = player.quarkLedger.base[key]
-    const multiplier = quarkSources[key].multiplier()
+    const multiplier = getQuarkSourceMultiplier(key)
     const value = base * multiplier
     const category = quarkSources[key].category
     quarkLedgerCategoryBases[category] += base
@@ -784,26 +793,6 @@ export const updateQuarkLedgerTab = () => {
     i18next.t('shop.quarkLedger.multiplierValue', { x: format(globalMultiplier, 2, true) })
   )
 
-  const singularityTimeUnlocked = getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')
-  DOMCacheGetOrSet('quarkLedgerSingularityTimeRow').hidden = !singularityTimeUnlocked
-  DOMCacheGetOrSet('quarkLedgerAllMultipliersRow-primary').hidden = !singularityTimeUnlocked
-  if (singularityTimeUnlocked) {
-    const singularityTimeMultiplier = quarkCategories.primary.multiplier()
-    updateTextContentIfChanged(
-      DOMCacheGetOrSet('quarkLedgerSingularityTimeLabel'),
-      i18next.t('shop.quarkLedger.singularityTimeMultiplier', {
-        perDay: format(calculateSingularityTimeQuarkRamp().perDay, 2, true)
-      })
-    )
-    updateTextContentIfChanged(
-      DOMCacheGetOrSet('quarkLedgerSingularityTime'),
-      i18next.t('shop.quarkLedger.multiplierValue', { x: format(singularityTimeMultiplier, 2, true) })
-    )
-    updateTextContentIfChanged(
-      DOMCacheGetOrSet('quarkLedgerAllMultipliersQuarks-primary'),
-      format(Math.floor(quarkLedgerCategoryValues.primary * globalMultiplier * singularityTimeMultiplier), 0, true)
-    )
-  }
   updateTextContentIfChanged(
     DOMCacheGetOrSet('quarkLedgerTotalQuarkValue'),
     format(getQuarkLedgerQuarks(globalMultiplier), 0, true)
