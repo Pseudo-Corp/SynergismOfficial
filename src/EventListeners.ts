@@ -415,6 +415,11 @@ const getSubTabI18nKey = (button: HTMLButtonElement) =>
 
 const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
 const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
+const platformStoreLinks = [
+  ['platformSteam', 'https://store.steampowered.com/app/3552310/'],
+  ['platformIOS', 'https://apps.apple.com/app/id6761206610'],
+  ['platformAndroid', 'https://play.google.com/store/apps/details?id=cc.pseudocorp.synergism']
+] as const
 const shopPotionKeys = ['offeringPotion', 'obtainiumPotion'] as const
 const corruptionLevelSteps = [
   ['corruptionLevelDown10', -10],
@@ -1782,6 +1787,28 @@ export const generateEventHandlers = () => {
     changeTab(Tabs.Purchase)
     changeSubTab(Tabs.Purchase, { page: 1 })
   })
+
+  if (PLATFORM === 'browser') {
+    DOMCacheGetOrSet('platformWeb').classList.add('currentPlatform')
+    for (const [id, url] of platformStoreLinks) {
+      const tile = DOMCacheGetOrSet(id)
+      tile.classList.add('platformLink')
+      tile.addEventListener('click', () => window.open(url, '_blank', 'noopener'))
+    }
+  } else if (PLATFORM === 'steam') {
+    DOMCacheGetOrSet('platformSteam').classList.add('currentPlatform')
+  } else if (PLATFORM === 'mobile') {
+    import('@capacitor/core')
+      .then(({ Capacitor }) => {
+        if (Capacitor.getPlatform() === 'ios') {
+          DOMCacheGetOrSet('platformIOS').classList.add('currentPlatform')
+          DOMCacheGetOrSet('platformAndroid').remove()
+        } else {
+          DOMCacheGetOrSet('platformAndroid').classList.add('currentPlatform')
+        }
+      })
+      .catch(console.error)
+  }
 
   // SHOP TAB
 

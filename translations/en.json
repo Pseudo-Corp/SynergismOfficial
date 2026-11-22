@@ -6858,6 +6858,14 @@
     },
     "joinDiscord": "Click the image below to join the Discord!",
     "joinPatreon": "Support Development!",
+    "platforms": {
+      "title": "Synergism is available on:",
+      "web": "Web",
+      "steam": "Steam",
+      "ios": "iOS",
+      "android": "Android",
+      "cloudSaves": "Log in to use your Cloud Saves on any of them."
+    },
     "exportQuarks": "Exporting today gives {{x}} Quarks",
     "exportGoldenQuarks": "Exporting today gives {{x}} Golden Quarks",
     "exportClaimed": "Today's export reward is claimed. Next reward in {{x}}",

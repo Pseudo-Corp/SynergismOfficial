@@ -2115,6 +2115,33 @@ p#appearanceSettingsTitle {
     font-size: 0;
 }
 
+.platformList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.platformTile {
+    border: 2px solid var(--white-color);
+    color: var(--white-color);
+    padding: 4px 10px;
+}
+
+.platformTile.currentPlatform {
+    border-color: var(--gold-color);
+    color: var(--gold-color);
+}
+
+.platformTile.platformLink {
+    cursor: pointer;
+}
+
+.platformTile.platformLink:hover {
+    background-color: var(--button-color);
+}
+
 /* Confirmation toggle box */
 .confirmationToggle {
     display: flex;
