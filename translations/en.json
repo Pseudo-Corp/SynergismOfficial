@@ -3062,7 +3062,8 @@
     "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
     "ascensionBankAdd": "Completing the challenge adds {{x}} to the Cube Bank.",
     "ascensionBankMultiply": "Completing the challenge multiplies the Cube Bank by x{{x}}.",
-    "dailyQuarks": "Each completion earns {{x}} base Quarks every day!"
+    "dailyQuarks": "Each completion earns {{x}} base Quarks every day!",
+    "dailyQuarkMultiplier": "Each completion adds +{{x}}% to the Challenge Completions Quark multiplier every day!"
   },
   "cubes": {
     "upgradeNames": {
@@ -3910,6 +3911,8 @@
         "calculator2": "PL-AT X calculator: <<cyan|x{{x}}>>",
         "timeCodeHighestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
         "cookieUpgrade61": "Wow! A tin of Whoopie Pies: <<cyan|x{{x}}>>",
+        "reincarnationChallenges": "Reincarnation Challenge Completions: <<cyan|x{{x}}>>",
+        "ascensionChallenges": "Ascension Challenge Completions: <<cyan|x{{x}}>>",
         "globalMultiplier": "Quark Multiplier: <<cyan|x{{x}}>>",
         "goldenQuarks3": "Golden Quarks III: <<cyan|x{{x}}>>",
         "goldenRevolution3": "Golden Revolution III: <<cyan|x{{x}}>>",

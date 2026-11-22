@@ -207,6 +207,23 @@ const calculateBasicProgressionMultiplier = () => {
   return multiplier
 }
 
+export const reincarnationChallengeQuarkPercentPerCompletion = 0.1
+export const ascensionChallengeQuarkPercentPerCompletion = 0.2
+
+const sumLedgerChallengeCompletions = (from: number, to: number) => {
+  let completions = 0
+  for (let i = from; i <= to; i++) {
+    completions += player.quarkLedger.challengeCompletions[i]
+  }
+  return completions
+}
+
+const calculateReincarnationChallengeQuarkMultiplier = () =>
+  1 + reincarnationChallengeQuarkPercentPerCompletion / 100 * sumLedgerChallengeCompletions(6, 10)
+
+const calculateAscensionChallengeQuarkMultiplier = () =>
+  1 + ascensionChallengeQuarkPercentPerCompletion / 100 * sumLedgerChallengeCompletions(11, 14)
+
 const exportResearchLine: QuarkMultiplierLine = {
   i18n: 'exportResearches',
   stat: () => calculateExportResearchMultiplier()
@@ -345,8 +362,11 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
   },
   challenges: {
     category: 'primary',
-    lines: [],
-    multiplier: () => 1,
+    lines: [
+      { i18n: 'reincarnationChallenges', stat: calculateReincarnationChallengeQuarkMultiplier },
+      { i18n: 'ascensionChallenges', stat: calculateAscensionChallengeQuarkMultiplier }
+    ],
+    multiplier: () => calculateReincarnationChallengeQuarkMultiplier() * calculateAscensionChallengeQuarkMultiplier(),
     unlocked: () => player.unlocks.transcend || player.highestSingularityCount > 0
   },
   synthesis: {

@@ -18,7 +18,11 @@ import {
 } from './Corruptions'
 import { hepteractEffective } from './Hepteracts'
 import { maxedPlatonicUpgradeConstruction } from './Platonic'
-import { addBaseQuarks } from './Quark'
+import {
+  addBaseQuarks,
+  ascensionChallengeQuarkPercentPerCompletion,
+  reincarnationChallengeQuarkPercentPerCompletion
+} from './Quark'
 import { runes, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getGQUpgradeEffect } from './singularity'
@@ -85,7 +89,7 @@ export type Challenge15RewardObject = Record<Challenge15Rewards, Challenge15Rewa
 
 export const transcensionChallengeCap = 400
 
-const challengeQuarksPerCompletion = [0, 1, 1, 1, 1, 1, 10, 10, 10, 10, 10, 100, 100, 100, 100]
+const transcensionChallengeQuarksPerCompletion = 1
 
 export const transcensionCubeBankTiers = [
   { from: 1, to: 100, weight: 2 },
@@ -403,8 +407,16 @@ export const challengeDisplay = (i: number) => {
 
   if (isFocused) {
     j.textContent = ''
-    DOMCacheGetOrSet('challengeDailyQuarks').textContent = i < challengeQuarksPerCompletion.length
-      ? i18next.t('challenges.dailyQuarks', { x: format(challengeQuarksPerCompletion[i]) })
+    DOMCacheGetOrSet('challengeDailyQuarks').textContent = i <= 5
+      ? i18next.t('challenges.dailyQuarks', { x: format(transcensionChallengeQuarksPerCompletion) })
+      : i <= 10
+      ? i18next.t('challenges.dailyQuarkMultiplier', {
+        x: format(reincarnationChallengeQuarkPercentPerCompletion, 2, true)
+      })
+      : i <= 14
+      ? i18next.t('challenges.dailyQuarkMultiplier', {
+        x: format(ascensionChallengeQuarkPercentPerCompletion, 2, true)
+      })
       : ''
   }
   if (
@@ -478,10 +490,12 @@ export const toggleRetryChallenges = () => {
 
 export const awardChallengeQuarks = () => {
   let quarks = 0
-  for (let i = 1; i < challengeQuarksPerCompletion.length; i++) {
+  for (let i = 1; i <= 14; i++) {
     const completions = player.highestchallengecompletions[i]
     if (completions > player.quarkLedger.challengeCompletions[i]) {
-      quarks += (completions - player.quarkLedger.challengeCompletions[i]) * challengeQuarksPerCompletion[i]
+      if (i <= 5) {
+        quarks += (completions - player.quarkLedger.challengeCompletions[i]) * transcensionChallengeQuarksPerCompletion
+      }
       player.quarkLedger.challengeCompletions[i] = completions
     }
   }
