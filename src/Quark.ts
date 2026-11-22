@@ -149,6 +149,7 @@ interface QuarkSource {
   lines: QuarkMultiplierLine[]
   multiplier: () => number
   unlocked: () => boolean
+  baseCap?: number
 }
 
 export const calculateSingularityTimePrimaryMultiplier = (singularityTime: number) => {
@@ -379,7 +380,8 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
     category: 'miscellaneous',
     lines: [{ i18n: 'purpleQuarkGain', stat: () => getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarkMult') }],
     multiplier: () => getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarkMult'),
-    unlocked: () => player.quarkLedger.base.purpleReactor > 0
+    unlocked: () => player.quarkLedger.base.purpleReactor > 0,
+    baseCap: 100000
   }
 }
 
@@ -427,7 +429,8 @@ export const settleQuarks = () => {
   }
 }
 
-export const addBaseQuarks = (key: QuarkSourceKey, amount: number) => {
+export const addBaseQuarks = (key: QuarkSourceKey, uncappedAmount: number) => {
+  const amount = Math.min(uncappedAmount, (quarkSources[key].baseCap ?? Infinity) - player.quarkLedger.base[key])
   if (!(amount > 0)) {
     return 0
   }
