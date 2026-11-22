@@ -835,13 +835,7 @@ export const updateQuarkLedgerTab = () => {
     }
     quarkLedgerCategoryVisible[category] = true
 
-    const baseCap = quarkSources[key].baseCap
-    updateTextContentIfChanged(
-      DOMCacheGetOrSet(`quarkLedger-${key}-base`),
-      baseCap === undefined
-        ? format(base, 2, true)
-        : i18next.t('shop.quarkLedger.cappedBase', { base: format(base, 2, true), cap: format(baseCap, 0, true) })
-    )
+    updateTextContentIfChanged(DOMCacheGetOrSet(`quarkLedger-${key}-base`), format(base, 2, true))
     updateTextContentIfChanged(
       DOMCacheGetOrSet(`quarkLedger-${key}-multiplier`),
       i18next.t('shop.quarkLedger.multiplierValue', {

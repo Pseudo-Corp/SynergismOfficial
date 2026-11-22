@@ -1108,7 +1108,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 5,
     costFormula: (level: number) => 2_000 * (Math.pow(4, level) - 1) / 3,
     effects: (n) => {
-      return 2_000 * n
+      return 400 * n
     },
     notMaxedEffectsDescription: () => {
       const oldEffect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarkMult')
