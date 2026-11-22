@@ -6,6 +6,7 @@ import {
   calculateQuarkMultiplier,
   calculateSingularityTimeQuarkRate
 } from './Calculate'
+import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
 import { quarksFromELOMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
 import { getOcteractUpgradeEffect } from './Octeracts'
 import { checkServerDate } from './PollGuard'
@@ -471,6 +472,11 @@ const resetQuarkCategory = (category: QuarkCategoryKey) => {
 export const resetPrimaryQuarks = () => {
   resetQuarkCategory('primary')
   player.quarkLedger.challengeCompletions = Array(15).fill(0) as number[]
+  player.cubeOpenedDaily = 0
+  player.tesseractOpenedDaily = 0
+  player.hypercubeOpenedDaily = 0
+  player.platonicCubeOpenedDaily = 0
+  resetPlayerRebornELODaily()
 }
 
 export const resetQuarkLedger = () => {

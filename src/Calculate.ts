@@ -15,7 +15,6 @@ import {
 import { calculateAcceleratorCubeBlessing } from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
-import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
 import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
@@ -1915,15 +1914,10 @@ export const dailyReset = () => {
   resetGoldenQuarkLedger()
   awardChallengeQuarks()
 
-  player.cubeOpenedDaily = 0
-  player.tesseractOpenedDaily = 0
-  player.hypercubeOpenedDaily = 0
-  player.platonicCubeOpenedDaily = 0
   player.dailyCodeUsed = false
   player.dailyExportClaimed = false
   player.dailyTimeCodeUsed = false
   player.dailyExportAddCodeMult = 0
-  resetPlayerRebornELODaily()
 
   player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion()
   player.overfluxOrbs = G.challenge15Rewards.freeOrbs.value
