@@ -1,15 +1,16 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
+  calculateDailyWarpQuarkMultiplier,
   calculateGoldenQuarkMultiplier,
   calculateQuarkMultiplier,
   calculateSingularityTimeQuarkRate,
   calculateSummationNonLinear
 } from './Calculate'
 import {
+  calculateSingularityTimePrimaryMultiplier,
   getQuarkCategoryAwarded,
   getQuarkSourceMultiplier,
-  quarkCategories,
   type QuarkCategoryKey,
   quarkCategoryKeys,
   type QuarkSourceKey,
@@ -20,7 +21,6 @@ import {
   buyShopUpgrades,
   getShopCosts,
   getShopTypeSymbolsHTML,
-  getShopUpgradeEffects,
   instantUnlocked,
   shopDescriptions,
   type ShopUpgradeNames,
@@ -33,6 +33,7 @@ import {
   goldenQuarkSources
 } from './singularity'
 import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
+import { displayStatLine, StatLineTypes } from './Statistics'
 import { format, player } from './Synergism'
 import { isMobile } from './Utility'
 
@@ -488,24 +489,29 @@ const quarkLedgerCategoryBases: Record<QuarkCategoryKey, number> = { primary: 0,
 const quarkLedgerCategoryVisible: Record<QuarkCategoryKey, boolean> = { primary: false, miscellaneous: false }
 
 const ledgerMultiplierHTML = (title: string, lines: string[], total: number) =>
-  `<span style="font-weight: bold; font-size: 1.2em;">${title}</span><br><br>${lines.join('<br>')}<br><br>${
-    i18next.t('shop.quarkLedger.multipliers.total', { x: format(total, 3, true) })
-  }`
+  `<span style="font-weight: bold; font-size: 1.2em;">${title}</span><br><br>${
+    lines.length > 0 ? `${lines.join('<br>')}<br><br>` : ''
+  }${i18next.t('shop.quarkLedger.multipliers.total', { x: format(total, 3, true) })}`
+
+const ledgerMultiplierLine = (i18n: string, multiplier: number, params?: Record<string, string>) =>
+  displayStatLine(StatLineTypes.Multiplication, multiplier)
+    ? [i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { ...params, x: format(multiplier, 3, true) })]
+    : []
 
 export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
-  const lines = quarkSources[key].lines.map(({ i18n, stat }) =>
-    i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { x: format(stat(), 3, true) })
-  )
-  if (
-    quarkSources[key].category === 'primary' && getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')
-  ) {
-    lines.push(i18next.t('shop.quarkLedger.multipliers.singularityTime', {
-      perDay: format(calculateSingularityTimeQuarkRate(), 2, true),
-      x: format(quarkCategories.primary.multiplier(), 3, true)
-    }))
+  const lines = quarkSources[key].lines.flatMap(({ i18n, stat }) => ledgerMultiplierLine(i18n, stat()))
+  if (quarkSources[key].category === 'primary') {
+    lines.push(
+      ...ledgerMultiplierLine(
+        'singularityTime',
+        calculateSingularityTimePrimaryMultiplier(player.singularityCounter),
+        { perDay: format(calculateSingularityTimeQuarkRate(), 2, true) }
+      ),
+      ...ledgerMultiplierLine('dailyWarp', calculateDailyWarpQuarkMultiplier())
+    )
   }
   const globalMultiplier = calculateQuarkMultiplier()
-  lines.push(i18next.t('shop.quarkLedger.multipliers.globalMultiplier', { x: format(globalMultiplier, 3, true) }))
+  lines.push(...ledgerMultiplierLine('globalMultiplier', globalMultiplier))
   return ledgerMultiplierHTML(
     i18next.t(`shop.quarkLedger.sources.${key}`),
     lines,
@@ -514,14 +520,8 @@ export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
 }
 
 export const goldenQuarkSourceMultiplierHTML = (key: GoldenQuarkSourceKey) => {
-  const lines = goldenQuarkSources[key].lines.map(({ i18n, stat }) =>
-    i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { x: format(stat(), 3, true) })
-  )
-  lines.push(
-    i18next.t('shop.quarkLedger.multipliers.goldenQuarkMultiplier', {
-      x: format(calculateGoldenQuarkMultiplier(), 3, true)
-    })
-  )
+  const lines = goldenQuarkSources[key].lines.flatMap(({ i18n, stat }) => ledgerMultiplierLine(i18n, stat()))
+  lines.push(...ledgerMultiplierLine('goldenQuarkMultiplier', calculateGoldenQuarkMultiplier()))
   return ledgerMultiplierHTML(
     i18next.t(`shop.quarkLedger.goldenQuarkSources.${key}`),
     lines,

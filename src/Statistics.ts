@@ -216,7 +216,7 @@ import { MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
 import { isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
-enum StatLineTypes {
+export enum StatLineTypes {
   Misc,
   Addition,
   Multiplication

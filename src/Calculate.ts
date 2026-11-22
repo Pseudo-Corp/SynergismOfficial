@@ -20,7 +20,7 @@ import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/Reb
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { addTimers, automaticTools } from './Helper'
-import { getHepteractEffects } from './Hepteracts'
+import { autoActivateDailyWarp, getHepteractEffects } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
@@ -1467,14 +1467,13 @@ export const calculateSingularityTimeQuarkRate = () => {
   return Math.min(cap, 86400 / fastest)
 }
 
-export const calculateAutoWarpQuarkMultiplier = () => {
-  return player.autoWarpCheck ? 1 + player.dailyPowderResetUses : 1
+export const calculateDailyWarpQuarkMultiplier = (active = player.dailyWarpActive) => {
+  return active ? 2 + getShopUpgradeEffects('extraWarp', 'additionalWarps') : 1
 }
 
 export const calculateCubeQuarkMultiplier = () => {
   return calculateBaseCubeQuarkMultiplier()
     * getShopUpgradeEffects('cubeToQuarkAll', 'quarkMult')
-    * calculateAutoWarpQuarkMultiplier()
 }
 
 export const calculateCubeMultFromPowder = () => {
@@ -1904,15 +1903,15 @@ export const dailyResetCheck = () => {
     player.dayCheck = day.toISOString()
 
     resetQuarkLedger()
+    if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+      player.dailyWarpActive = false
+    }
     resetGoldenQuarkLedger()
     awardChallengeQuarks()
     forcedDailyReset(true)
-    player.dailyPowderResetUses = 1 + getShopUpgradeEffects('extraWarp', 'additionalWarps')
-    player.dailyCodeUsed = false
-    player.dailyExportClaimed = false
-    player.dailyTimeCodeUsed = false
-    player.dailyExportAddCodeMult = 0
   }
+
+  autoActivateDailyWarp()
 }
 
 /**
@@ -1923,6 +1922,10 @@ export const forcedDailyReset = (rewards = false) => {
   player.tesseractOpenedDaily = 0
   player.hypercubeOpenedDaily = 0
   player.platonicCubeOpenedDaily = 0
+  player.dailyCodeUsed = false
+  player.dailyExportClaimed = false
+  player.dailyTimeCodeUsed = false
+  player.dailyExportAddCodeMult = 0
   resetPlayerRebornELODaily()
 
   if (rewards) {

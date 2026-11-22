@@ -204,7 +204,7 @@ import { loadSynergyAntHTMLUpdates } from './Features/Ants/HTML/updates/load-gam
 import { defaultPlayerAnts } from './Features/Ants/player/default'
 import { createDefaultHeaderLayout } from './HeaderLayoutDefaults'
 import { renderHeaderLayout } from './HeaderModules'
-import { defaultHepteractValues, setAutomaticHepteractTexts, toggleAutoBuyOrbs } from './Hepteracts'
+import { defaultHepteractValues, setAutomaticHepteractTexts, toggleAutoBuyOrbs, toggleAutoWarp } from './Hepteracts'
 import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
@@ -955,7 +955,7 @@ export const player: Player = {
   overfluxOrbs: 0,
   overfluxOrbsAutoBuy: false,
   overfluxPowder: 0,
-  dailyPowderResetUses: 1,
+  dailyWarpActive: false,
   autoWarpCheck: false,
   version,
   rngCode: 0,
@@ -1819,15 +1819,7 @@ const loadSynergy = (saveString: string): boolean => {
         'var(--orange-background-color)'
     }
 
-    if (player.autoWarpCheck) {
-      DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
-      DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--green-color)'
-    } else {
-      DOMCacheGetOrSet('warpAuto').textContent = i18next.t(
-        'general.autoOffColon'
-      )
-      DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--red-color)'
-    }
+    toggleAutoWarp(true)
     if (player.highestSingularityCount > 0) {
       DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t(
         'wowCubes.hepteractForge.autoSetting',

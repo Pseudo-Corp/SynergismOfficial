@@ -25,6 +25,7 @@ import {
   calculateBuildingConstruction,
   calculateCookieUpgrade29Luck,
   calculateCubeQuarkMultiplier,
+  calculateDailyWarpQuarkMultiplier,
   calculateEfficientBlueberryPurpleEfficiency,
   calculateEncabulatorSpeed,
   calculateGoldenQuarkCost,
@@ -1681,9 +1682,7 @@ export const visualUpdateCubes = () => {
       DOMCacheGetOrSet('heptGridPowderBalance').textContent = format(
         player.overfluxPowder
       )
-      DOMCacheGetOrSet('heptGridPowderWarps').textContent = format(
-        player.dailyPowderResetUses
-      )
+      DOMCacheGetOrSet('heptGridPowderWarps').textContent = `x${format(calculateDailyWarpQuarkMultiplier())}`
       break
     default:
       break

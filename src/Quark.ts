@@ -1,8 +1,8 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  calculateAutoWarpQuarkMultiplier,
   calculateCubeQuarkMultiplier,
+  calculateDailyWarpQuarkMultiplier,
   calculateQuarkMultiplier,
   calculateSingularityTimeQuarkRate
 } from './Calculate'
@@ -151,12 +151,15 @@ interface QuarkSource {
   unlocked: () => boolean
 }
 
-const calculatePrimaryQuarkMultiplier = (singularityTime: number) => {
+export const calculateSingularityTimePrimaryMultiplier = (singularityTime: number) => {
   if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
     return 1
   }
   return Math.max(1, calculateSingularityTimeQuarkRate() * singularityTime / 86400)
 }
+
+const calculatePrimaryQuarkMultiplier = (singularityTime: number) =>
+  calculateSingularityTimePrimaryMultiplier(singularityTime) * calculateDailyWarpQuarkMultiplier()
 
 export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
   primary: {
@@ -256,10 +259,9 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
   ants: {
     category: 'primary',
     lines: [
-      { i18n: 'allTimeLeaderboard', stat: () => quarksFromELOMult() },
-      { i18n: 'autoWarp', stat: () => calculateAutoWarpQuarkMultiplier() }
+      { i18n: 'allTimeLeaderboard', stat: () => quarksFromELOMult() }
     ],
-    multiplier: () => quarksFromELOMult() * calculateAutoWarpQuarkMultiplier(),
+    multiplier: () => quarksFromELOMult(),
     unlocked: () => player.ants.antSacrificeCount > 0
   },
   export: {

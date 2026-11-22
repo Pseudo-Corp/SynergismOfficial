@@ -411,7 +411,7 @@ export interface Player {
   overfluxOrbs: number
   overfluxOrbsAutoBuy: boolean
   overfluxPowder: number
-  dailyPowderResetUses: number
+  dailyWarpActive: boolean
   autoWarpCheck: boolean
 
   singularityCount: number
