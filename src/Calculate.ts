@@ -1901,23 +1901,20 @@ export const dailyResetCheck = () => {
   // If the daily is not reset, the data may have been set to a future time.
   if (day.getTime() - 3600000 > Date.parse(player.dayCheck)) {
     player.dayCheck = day.toISOString()
-
-    resetQuarkLedger()
-    if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
-      player.dailyWarpActive = false
-    }
-    resetGoldenQuarkLedger()
-    awardChallengeQuarks()
-    forcedDailyReset(true)
+    dailyReset()
+  } else {
+    autoActivateDailyWarp()
   }
-
-  autoActivateDailyWarp()
 }
 
-/**
- * Resets Cube Counts and stuff. NOTE: It is intentional it does not award powder or expire orbs.
- */
-export const forcedDailyReset = (rewards = false) => {
+export const dailyReset = () => {
+  resetQuarkLedger()
+  if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+    player.dailyWarpActive = false
+  }
+  resetGoldenQuarkLedger()
+  awardChallengeQuarks()
+
   player.cubeOpenedDaily = 0
   player.tesseractOpenedDaily = 0
   player.hypercubeOpenedDaily = 0
@@ -1928,10 +1925,10 @@ export const forcedDailyReset = (rewards = false) => {
   player.dailyExportAddCodeMult = 0
   resetPlayerRebornELODaily()
 
-  if (rewards) {
-    player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion()
-    player.overfluxOrbs = G.challenge15Rewards.freeOrbs.value
-  }
+  player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion()
+  player.overfluxOrbs = G.challenge15Rewards.freeOrbs.value
+
+  autoActivateDailyWarp()
 }
 
 export const calculateEventBuff = (buff: BuffType) => {

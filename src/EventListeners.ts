@@ -29,7 +29,7 @@ import {
 } from './BlueberryUpgrades'
 import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
+import { dailyReset, exitOffline, timeWarp } from './Calculate'
 import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
 import {
   changeNextCorruptionLevel,
@@ -969,7 +969,7 @@ export const generateEventHandlers = () => {
       'style',
       'width: auto; height: 30px; border: 6px solid var(--orange-color);'
     )
-    dayReset.addEventListener('click', () => forcedDailyReset())
+    dayReset.addEventListener('click', () => dailyReset())
 
     const consumables = DOMCacheGetOrSet('actualConsumables')
     consumables.appendChild(warp)
