@@ -888,7 +888,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         maxPercent: formatAsPercentIncrease(effect, 2)
       })
       const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaMaxed', {
-        maxValue: format(0.25, 2)
+        maxValue: format(0.2, 2)
       })
 
       return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`

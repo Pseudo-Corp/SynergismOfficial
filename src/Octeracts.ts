@@ -560,7 +560,7 @@ export const octeractUpgrades: {
     effectDescription: (n: number) => {
       const octeractMult = getOcteractUpgradeEffect('octeractAscensionsOcteractGain', 'octeractMult')
       return i18next.t('octeract.data.octeractAscensionsOcteractGain.effect', {
-        n: format(n, 1, true),
+        x: format(1 + n / 100, 2, true),
         mult: formatAsPercentIncrease(octeractMult, 1)
       })
     },

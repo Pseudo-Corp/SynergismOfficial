@@ -12,6 +12,7 @@ import {
   calculateOfferingPotionBaseOfferings,
   calculateOfferingsDecimal,
   calculatePotionValue,
+  calculatePowderConversion,
   calculateRootsOfUnityCap,
   calculateSummationNonLinear,
   sumOfExaltCompletions
@@ -648,13 +649,23 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   },
   seasonPass3: {
     name: () => i18next.t('shop.names.seasonPass3'),
-    description: () => i18next.t('shop.upgradeDescriptions.seasonPass3'),
+    description: () =>
+      getGQUpgradeEffect('octeractUnlock', 'unlocked')
+        ? i18next.t('shop.upgradeDescriptions.seasonPass3')
+        : `${i18next.t('shop.upgradeDescriptions.seasonPass3Locked')} ${
+          i18next.t('shop.upgradeDescriptions.lockedCubeAllusion')
+        }`,
     effects: (n) => 1 + 0.015 * n, // wowHepteractMult, wowOcteractMult
     effectDescription () {
       const effects = getShopUpgradeEffects('seasonPass3', 'wowHepteractMult')
-      return i18next.t('shop.upgradeEffects.seasonPass3', {
-        amount: formatAsPercentIncrease(effects, 1)
-      })
+      return i18next.t(
+        getGQUpgradeEffect('octeractUnlock', 'unlocked')
+          ? 'shop.upgradeEffects.seasonPass3'
+          : 'shop.upgradeEffects.seasonPass3Locked',
+        {
+          amount: formatAsPercentIncrease(effects, 1)
+        }
+      )
     },
     isUnlocked: () => player.highestchallengecompletions[14] > 0 || player.highestSingularityCount > 0,
     price: 5000,
@@ -914,13 +925,23 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   },
   seasonPassY: {
     name: () => i18next.t('shop.names.seasonPassY'),
-    description: () => i18next.t('shop.upgradeDescriptions.seasonPassY'),
+    description: () =>
+      getGQUpgradeEffect('octeractUnlock', 'unlocked')
+        ? i18next.t('shop.upgradeDescriptions.seasonPassY')
+        : `${i18next.t('shop.upgradeDescriptions.seasonPassY')} ${
+          i18next.t('shop.upgradeDescriptions.lockedCubeAllusion')
+        }`,
     effects: (n) => 1 + 0.0075 * n, // globalCubeMult, wowOcteractMult
     effectDescription () {
       const effects = getShopUpgradeEffects('seasonPassY', 'globalCubeMult')
-      return i18next.t('shop.upgradeEffects.seasonPassY', {
-        amount: formatAsPercentIncrease(effects, 2)
-      })
+      return i18next.t(
+        getGQUpgradeEffect('octeractUnlock', 'unlocked')
+          ? 'shop.upgradeEffects.seasonPassY'
+          : 'shop.upgradeEffects.seasonPassYLocked',
+        {
+          amount: formatAsPercentIncrease(effects, 2)
+        }
+      )
     },
     isUnlocked: () =>
       player.challenge15Exponent >= G.challenge15Rewards.hepteractsUnlocked.requirement
@@ -933,13 +954,23 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   },
   seasonPassZ: {
     name: () => i18next.t('shop.names.seasonPassZ'),
-    description: () => i18next.t('shop.upgradeDescriptions.seasonPassZ'),
+    description: () =>
+      getGQUpgradeEffect('octeractUnlock', 'unlocked')
+        ? i18next.t('shop.upgradeDescriptions.seasonPassZ')
+        : `${i18next.t('shop.upgradeDescriptions.seasonPassZ')} ${
+          i18next.t('shop.upgradeDescriptions.lockedCubeAllusion')
+        }`,
     effects: (n) => 1 + 0.01 * n * player.singularityCount, // globalCubeMult, wowOcteractMult,
     effectDescription () {
       const effects = getShopUpgradeEffects('seasonPassZ', 'globalCubeMult')
-      return i18next.t('shop.upgradeEffects.seasonPassZ', {
-        amount: formatAsPercentIncrease(effects, 0)
-      })
+      return i18next.t(
+        getGQUpgradeEffect('octeractUnlock', 'unlocked')
+          ? 'shop.upgradeEffects.seasonPassZ'
+          : 'shop.upgradeEffects.seasonPassZLocked',
+        {
+          amount: formatAsPercentIncrease(effects, 0)
+        }
+      )
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass', 'unlocked'),
     price: 250,
@@ -1072,8 +1103,11 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     description: () => i18next.t('shop.upgradeDescriptions.powderAuto'),
     effects: (n) => 0.01 * n, // automaticPowderFraction
     effectDescription () {
-      const effect = getShopUpgradeEffects('powderAuto', 'automaticPowderFraction')
-      return i18next.t('shop.upgradeEffects.powderAuto', { amount: formatAsPercentIncrease(1 + effect, 0) })
+      const powderPerOrb = getShopUpgradeEffects('powderAuto', 'automaticPowderFraction') * calculatePowderConversion()
+      if (powderPerOrb === 0) {
+        return i18next.t('shop.upgradeEffects.powderAutoNone')
+      }
+      return i18next.t('shop.upgradeEffects.powderAuto', { amount: format(1 / powderPerOrb, 2, true) })
     },
     isUnlocked: () => getGQUpgradeEffect('wowPass2', 'unlocked'),
     price: 5e6,
@@ -1434,10 +1468,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     effects: (n) => n, // singularityPenaltyReducers
     effectDescription () {
       const effects = getShopUpgradeEffects('shopSingularityPenaltyDebuff', 'singularityPenaltyReducers')
-      return i18next.t('shop.upgradeEffects.shopSingularityPenaltyDebuff', {
-        amount1: player.singularityCount,
-        amount2: player.singularityCount - effects
-      })
+      return i18next.t('shop.upgradeEffects.shopSingularityPenaltyDebuff', { amount: effects })
     },
     isUnlocked: () => getSingularityChallengeEffect('noSingularityUpgrades', 'shopUpgrade'),
     price: 1e19,
@@ -1949,7 +1980,10 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   },
   shopChronometerS: {
     name: () => i18next.t('shop.names.shopChronometerS'),
-    description: () => i18next.t('shop.upgradeDescriptions.shopChronometerS'),
+    description: () =>
+      `${i18next.t('shop.upgradeDescriptions.shopChronometerS')}<br><span style="color: var(--orchid-color)">${
+        i18next.t('shop.upgradeDescriptions.shopChronometerSFormula')
+      }</span>`,
     effects: (n) => {
       return Math.pow(1.01, n * Math.max(0, player.singularityCount - 200)) // ascensionSpeedMult, globalSpeedMult
     },
