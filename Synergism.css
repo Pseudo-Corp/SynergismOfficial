@@ -3771,13 +3771,13 @@ p#reincarnatehotkeys {
     color: var(--gold-color);
 }
 
-.quarkLedgerTable tfoot th:first-child,
 #quarkLedgerSummary th:first-child {
     color: var(--orange-color);
     text-align: left;
 }
 
-.quarkLedgerTable tfoot tr:first-child th {
+.quarkLedgerTable tfoot td,
+.quarkLedgerTable tfoot th {
     border-top: 2px solid var(--cyan-color);
 }
 
@@ -3799,7 +3799,8 @@ p#reincarnatehotkeys {
 
 #quarkLedgerWrapper #quarkLedgerTable-goldenQuarks,
 #quarkLedgerTable-goldenQuarks thead th,
-#quarkLedgerTable-goldenQuarks tfoot tr:first-child th,
+#quarkLedgerTable-goldenQuarks tfoot td,
+#quarkLedgerTable-goldenQuarks tfoot th,
 #quarkLedgerTable-goldenQuarks .quarkLedgerInfo {
     border-color: var(--gold-color);
 }

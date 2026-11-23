@@ -487,7 +487,6 @@ const createTierChip = (tier: ShopTierData) => {
 
 const quarkLedgerColumns = ['base', 'multiplier', 'awarded'] as const
 
-const quarkLedgerCategoryBases: Record<QuarkCategoryKey, number> = { primary: 0, miscellaneous: 0 }
 const quarkLedgerCategoryVisible: Record<QuarkCategoryKey, boolean> = { primary: false, miscellaneous: false }
 
 const ledgerMultiplierHTML = (title: string, lines: string[], total: number) =>
@@ -819,14 +818,12 @@ export const updateShopTab = () => {
 export const updateQuarkLedgerTab = () => {
   const globalMultiplier = calculateQuarkMultiplier()
   for (const category of quarkCategoryKeys) {
-    quarkLedgerCategoryBases[category] = 0
     quarkLedgerCategoryVisible[category] = false
   }
 
   for (const key of quarkSourceKeys) {
     const base = player.quarkLedger.base[key]
     const category = quarkSources[key].category
-    quarkLedgerCategoryBases[category] += base
 
     const visible = base > 0 || quarkSources[key].unlocked()
     DOMCacheGetOrSet(`quarkLedgerRow-${key}`).hidden = !visible
@@ -850,10 +847,6 @@ export const updateQuarkLedgerTab = () => {
 
   for (const category of quarkCategoryKeys) {
     DOMCacheGetOrSet(`quarkLedgerTable-${category}`).hidden = !quarkLedgerCategoryVisible[category]
-    updateTextContentIfChanged(
-      DOMCacheGetOrSet(`quarkLedgerBase-${category}`),
-      format(quarkLedgerCategoryBases[category], 2, true)
-    )
     updateTextContentIfChanged(
       DOMCacheGetOrSet(`quarkLedgerAwarded-${category}`),
       format(getQuarkCategoryAwarded(category), 0, true)
@@ -879,10 +872,8 @@ export const updateQuarkLedgerTab = () => {
     return
   }
 
-  let goldenQuarkBase = 0
   let goldenQuarkAwarded = 0
   for (const key of goldenQuarkSourceKeys) {
-    goldenQuarkBase += player.goldenQuarkLedger.base[key]
     goldenQuarkAwarded += player.goldenQuarkLedger.awarded[key]
     updateTextContentIfChanged(
       DOMCacheGetOrSet(`goldenQuarkLedger-${key}-base`),
@@ -903,6 +894,5 @@ export const updateQuarkLedgerTab = () => {
       time: formatTimeShort(Math.ceil(calculateTimeUntilDailyReset() / 1000))
     })
   )
-  updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerBase-goldenQuarks'), format(goldenQuarkBase, 2, true))
   updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerAwarded-goldenQuarks'), format(goldenQuarkAwarded, 2, true))
 }
