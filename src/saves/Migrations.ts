@@ -578,6 +578,7 @@ const migrations: Migration[] = [
           player.goldenQuarkUpgrades[key].goldenQuarksInvested *= multiplier
         }
       }
+      player.synthesisUpgrades.subatomicShavings.quarks *= 1e5
 
       player.cubeOpenedDaily = 0
       player.tesseractOpenedDaily = 0
