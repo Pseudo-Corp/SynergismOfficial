@@ -4166,8 +4166,14 @@ const showLoadRecovery = () => {
   DOMCacheGetOrSet('preloadRecovery').style.display = ''
 }
 
-const scheduleDailyResetCheck = (delay = calculateTimeUntilDailyReset()) => {
-  setTimeout(() => {
+let dailyResetCheckTimer: number | undefined
+
+export const scheduleDailyResetCheck = (delay = calculateTimeUntilDailyReset()) => {
+  if (dailyResetCheckTimer !== undefined) {
+    clearTimeout(dailyResetCheckTimer)
+  }
+
+  dailyResetCheckTimer = setTimeout(() => {
     if (G.timeWarp) {
       scheduleDailyResetCheck(1000)
       return

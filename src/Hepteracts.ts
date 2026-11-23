@@ -17,7 +17,7 @@ import { resetTiers } from './Reset'
 import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { format, formatAsPercentIncrease, player } from './Synergism'
+import { format, formatAsPercentIncrease, player, scheduleDailyResetCheck } from './Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals } from './Variables'
 
@@ -772,6 +772,7 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?: boolean) => {
   const powderGain = getShopUpgradeEffects('powderAuto', 'automaticPowderFraction') * calculatePowderConversion()
     * buyAmount
   player.overfluxPowder += powderGain
+  scheduleDailyResetCheck(0)
 
   const powderText = (powderGain > 0) ? i18next.t('hepteracts.gainedPowder', { x: format(powderGain, 2) }) : ''
   if (player.toggles[35]) {

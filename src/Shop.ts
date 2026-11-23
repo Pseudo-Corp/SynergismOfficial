@@ -23,7 +23,7 @@ import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneEffectiveLevel, getRuneEffects, RuneType } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { format, formatAsPercentIncrease, player } from './Synergism'
+import { format, formatAsPercentIncrease, player, scheduleDailyResetCheck } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
 import { Globals as G } from './Variables'
 
@@ -2575,6 +2575,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
     }
     shopDescriptions(input)
     revealStuff()
+    scheduleDailyResetCheck(0)
   }
 }
 

@@ -82,7 +82,8 @@ import {
   deepClone,
   format,
   player,
-  saveSynergy
+  saveSynergy,
+  scheduleDailyResetCheck
 } from './Synergism'
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
@@ -784,6 +785,7 @@ export const reset = (
           player.overfluxPowder += getShopUpgradeEffects('powderAuto', 'automaticPowderFraction')
             * calculatePowderConversion() * orbsAmount
           player.wowAbyssals -= 250000 * orbsAmount
+          scheduleDailyResetCheck(0)
         }
         if (player.wowAbyssals < 0) {
           player.wowAbyssals = 0
