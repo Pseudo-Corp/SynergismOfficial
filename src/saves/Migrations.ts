@@ -66,10 +66,35 @@ const resetLegacyCorruptions = (player: PlayerData) => {
 }
 
 const goldenQuarkUpgradeCostIncreases = {
+  singTalismanBonusRunes3: 50,
+  singCitadel: 50,
+  singOcteractGain5: 50,
+  singBonusTokens3: 50,
+  platonicDelta: 50,
+  potionBuff2: 50,
+  singAmbrosiaLuck3: 50,
+  singAmbrosiaGeneration3: 50,
+  singAscensionSpeed: 50,
+  singFastForward2: 100,
+  singAscensionSpeed2: 100,
+  wowPass4: 100,
+  platonicPhi: 100,
+  halfMind: 100,
+  oneMind: 100,
+  singBonusTokens4: 100,
+  singQuarkImprover1: 100,
+  singAmbrosiaLuck: 200,
+  singAmbrosiaGeneration: 200,
+  potionBuff3: 200,
+  singCitadel2: 200,
+  cookies5: 200,
+  singTalismanBonusRunes4: 200,
+  blueberries: 200,
+  offeringAutomatic: 500,
   singInfiniteShopUpgrades: 1000,
   singAmbrosiaLuck4: 1000,
   singAmbrosiaGeneration4: 2000,
-  wowPass5: 100
+  wowPass5: 5000
 } satisfies Partial<Record<SingularityDataKeys, number>>
 
 const legacyRuneKeys = [
@@ -552,17 +577,6 @@ const migrations: Migration[] = [
         if (legacyUpgrade !== undefined && legacyUpgrade.level === undefined) {
           player.goldenQuarkUpgrades[key].goldenQuarksInvested *= multiplier
         }
-      }
-    }
-  }),
-
-  migration({
-    requires: { cubeQuarkDaily: z.number() },
-    migrate: (player) => {
-      if (player.singularityChallenges.oneChallengeCap.completions >= 5) {
-        player.singularityCounter = Math.min(player.singularityCounter, 86400)
-
-        void Alert(i18next.t('versionChangeAnnouncements.v4-4-2-SingularityTime'))
       }
     }
   })
