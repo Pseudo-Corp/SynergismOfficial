@@ -1,4 +1,5 @@
 import Decimal, { type DecimalSource } from 'break_infinity.js'
+import { createDevice } from 'current-device/core'
 import DOMPurify from 'dompurify'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { bus, SynEvent } from './events/bus'
@@ -309,9 +310,11 @@ export function isomorphicDecode (input: Uint8Array) {
 }
 
 export const isMobile = (function isMobileDevice() {
-  return PLATFORM === 'mobile'
-    || (window.matchMedia('(any-pointer: coarse)').matches && !window.matchMedia('(any-pointer: fine)').matches)
-    || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  if (PLATFORM === 'mobile') {
+    return true
+  }
+  const device = createDevice()
+  return device.mobile() || device.tablet()
 })()
 
 interface RetryOptions {
