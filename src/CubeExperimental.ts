@@ -62,7 +62,7 @@ export const cubeQuarkSources = {
   wowCubes: { source: 'cubes', coefficient: 5, opened: 'cubeOpenedDaily' },
   wowTesseracts: { source: 'tesseracts', coefficient: 7, opened: 'tesseractOpenedDaily' },
   wowHypercubes: { source: 'hypercubes', coefficient: 10, opened: 'hypercubeOpenedDaily' },
-  wowPlatonicCubes: { source: 'platonics', coefficient: 15, opened: 'platonicCubeOpenedDaily' }
+  wowPlatonicCubes: { source: 'platonics', coefficient: 25, opened: 'platonicCubeOpenedDaily' }
 } as const
 
 abstract class Cube {

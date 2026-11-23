@@ -282,11 +282,8 @@ export const quarkSources: Record<QuarkSourceKey, QuarkSource> = {
   },
   platonics: {
     category: 'primary',
-    lines: [
-      { i18n: 'platonicCubes', stat: () => 1.5 },
-      overfluxOrbLine
-    ],
-    multiplier: () => 1.5 * calculateCubeQuarkMultiplier(),
+    lines: [overfluxOrbLine],
+    multiplier: () => calculateCubeQuarkMultiplier(),
     unlocked: () => player.unlocks.platonics
   },
   ants: {
