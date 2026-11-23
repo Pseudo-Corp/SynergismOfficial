@@ -4495,15 +4495,7 @@ export const calculateSingularityDebuff = (
     constitutiveSingularityCount
   )
 
-  let baseDebuffMultiplier = 1
-  baseDebuffMultiplier *= getShopUpgradeEffects('shopHorseShoe', 'singularityPenaltyMult')
-
-  if (debuff === 'Offering') {
-    const extraMult = Math.pow(1.02, constitutiveSingularityCount)
-    return extraMult * baseDebuffMultiplier * (constitutiveSingularityCount < 150
-      ? 3 * (Math.sqrt(effectiveSingularities) + 1)
-      : Math.pow(effectiveSingularities, 2 / 3) / 400)
-  } else if (debuff === 'Salvage') {
+  if (debuff === 'Salvage') {
     return -(4 * constitutiveSingularityCount
       + 4 * Math.max(0, constitutiveSingularityCount - 100)
       + 4 * Math.max(0, constitutiveSingularityCount - 200)
@@ -4512,38 +4504,42 @@ export const calculateSingularityDebuff = (
       + 2 * Math.max(0, constitutiveSingularityCount - 280))
   } else if (debuff === 'Ant ELO') {
     return -Math.min(1, 0.001 * constitutiveSingularityCount)
-  } else if (debuff === 'Global Speed') {
-    return baseDebuffMultiplier * (1 + Math.sqrt(effectiveSingularities) / 4)
-  } else if (debuff === 'Obtainium') {
-    const extraMult = Math.pow(1.02, constitutiveSingularityCount)
-    return extraMult * baseDebuffMultiplier * (constitutiveSingularityCount < 150
+  }
+
+  let debuffMultiplier: number
+  if (debuff === 'Offering' || debuff === 'Obtainium') {
+    debuffMultiplier = Math.pow(1.02, constitutiveSingularityCount) * (constitutiveSingularityCount < 150
       ? 3 * (Math.sqrt(effectiveSingularities) + 1)
       : Math.pow(effectiveSingularities, 2 / 3) / 400)
+  } else if (debuff === 'Global Speed') {
+    debuffMultiplier = 1 + Math.sqrt(effectiveSingularities) / 4
   } else if (debuff === 'Researches') {
-    return baseDebuffMultiplier * (1 + Math.sqrt(effectiveSingularities) / 2)
+    debuffMultiplier = 1 + Math.sqrt(effectiveSingularities) / 2
   } else if (debuff === 'Ascension Speed') {
-    return baseDebuffMultiplier * (constitutiveSingularityCount < 150
+    debuffMultiplier = constitutiveSingularityCount < 150
       ? 1 + Math.sqrt(effectiveSingularities) / 5
-      : 1 + Math.pow(effectiveSingularities, 0.75) / 10000)
+      : 1 + Math.pow(effectiveSingularities, 0.75) / 10000
   } else if (debuff === 'Cubes') {
     const extraMult = constitutiveSingularityCount > 100
       ? 2 * Math.pow(1.03, constitutiveSingularityCount - 100)
       : 2
-    return baseDebuffMultiplier * (constitutiveSingularityCount < 150
+    debuffMultiplier = constitutiveSingularityCount < 150
       ? 3 * (1 + (Math.sqrt(effectiveSingularities) * extraMult) / 4)
-      : 1 + (Math.pow(effectiveSingularities, 0.75) * extraMult) / 1000)
+      : 1 + (Math.pow(effectiveSingularities, 0.75) * extraMult) / 1000
   } else if (debuff === 'Platonic Costs') {
-    return baseDebuffMultiplier * (constitutiveSingularityCount > 36
+    debuffMultiplier = constitutiveSingularityCount > 36
       ? 1 + Math.pow(effectiveSingularities, 3 / 10) / 12
-      : 1)
+      : 1
   } else if (debuff === 'Hepteract Costs') {
-    return baseDebuffMultiplier * (constitutiveSingularityCount > 50
+    debuffMultiplier = constitutiveSingularityCount > 50
       ? 1 + Math.pow(effectiveSingularities, 11 / 50) / 25
-      : 1)
+      : 1
   } else {
     // Cube upgrades
-    return baseDebuffMultiplier * Math.cbrt(effectiveSingularities + 1)
+    debuffMultiplier = Math.cbrt(effectiveSingularities + 1)
   }
+
+  return Math.max(1, getShopUpgradeEffects('shopHorseShoe', 'singularityPenaltyMult') * debuffMultiplier)
 }
 
 export const updateSingularityElevatorVisibility = (): void => {

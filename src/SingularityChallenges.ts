@@ -785,11 +785,23 @@ export const singularityChallengeData: {
   }
 }
 
+enum ExaltNumber {
+  noSingularityUpgrades = 1,
+  oneChallengeCap,
+  limitedAscensions,
+  noQuarkUpgrades,
+  noOcteracts,
+  noAmbrosiaUpgrades,
+  limitedTime,
+  sadisticPrequel,
+  taxmanLastStand,
+  barDependence
+}
+
 export const singularityChallenges = Object.fromEntries(
   Object.entries(singularityChallengeData).map((
-    [key, data],
-    index
-  ) => [key, new SingularityChallenge(data, key, index + 1)])
+    [key, data]
+  ) => [key, new SingularityChallenge(data, key, ExaltNumber[key as SingularityChallengeDataKeys])])
 ) as Record<SingularityChallengeDataKeys, SingularityChallenge>
 
 export const getSingularityChallengeEffect = <
