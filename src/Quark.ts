@@ -4,7 +4,8 @@ import {
   calculateCubeQuarkMultiplier,
   calculateDailyWarpQuarkMultiplier,
   calculateQuarkMultiplier,
-  calculateSingularityTimeQuarkRate
+  calculateSingularityTimeQuarkRate,
+  calculateTimeUntilDailyReset
 } from './Calculate'
 import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
 import { quarksFromELOMult } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
@@ -169,7 +170,9 @@ export const primaryQuarkResetMode = (): PrimaryQuarkResetMode => {
 }
 
 export const primaryQuarkResetText = () =>
-  i18next.t(`shop.quarkLedger.primaryReset.${primaryQuarkResetMode()}`, { time: formatTimeShort(player.dayTimer) })
+  i18next.t(`shop.quarkLedger.primaryReset.${primaryQuarkResetMode()}`, {
+    time: formatTimeShort(Math.ceil(calculateTimeUntilDailyReset() / 1000))
+  })
 
 const calculatePrimaryQuarkMultiplier = (singularityTime: number) =>
   calculateSingularityTimePrimaryMultiplier(singularityTime) * calculateDailyWarpQuarkMultiplier()

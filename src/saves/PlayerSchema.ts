@@ -901,7 +901,6 @@ export const playerSchema = z.object({
   }),
 
   dayCheck: z.iso.datetime().nullable().default(() => blankSave.dayCheck),
-  dayTimer: z.number().default(() => blankSave.dayTimer),
   cubeOpenedDaily: z.number().default(() => blankSave.cubeOpenedDaily),
   tesseractOpenedDaily: z.number().default(() => blankSave.tesseractOpenedDaily),
   hypercubeOpenedDaily: z.number().default(() => blankSave.hypercubeOpenedDaily),

@@ -385,7 +385,6 @@ export interface Player {
   exporttest: string | boolean
 
   dayCheck: string | null
-  dayTimer: number
   cubeOpenedDaily: number
   tesseractOpenedDaily: number
   hypercubeOpenedDaily: number

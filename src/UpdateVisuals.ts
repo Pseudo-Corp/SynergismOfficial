@@ -53,6 +53,7 @@ import {
   calculateRequiredRedAmbrosiaTime,
   calculateResearchAutomaticObtainium,
   calculateSalvageRuneEXPMultiplier,
+  calculateTimeUntilDailyReset,
   calculateTotalOcteractCubeBonus,
   calculateTotalOcteractObtainiumBonus,
   calculateTotalOcteractOfferingBonus,
@@ -1762,7 +1763,7 @@ export const visualUpdateSettings = () => {
     if (player.dailyExportClaimed) {
       updateTextContentIfChanged(
         'quarktimerdisplay',
-        i18next.t('settings.exportClaimed', { x: formatTimeShort(player.dayTimer) })
+        i18next.t('settings.exportClaimed', { x: formatTimeShort(Math.ceil(calculateTimeUntilDailyReset() / 1000)) })
       )
       updateTextContentIfChanged('goldenQuarkTimerDisplay', '')
     } else {

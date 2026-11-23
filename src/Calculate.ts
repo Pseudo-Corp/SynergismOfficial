@@ -1885,16 +1885,17 @@ export const calculateSingularityPurpleBarSizeMultiplier = () => {
   return 1 - Math.max(0, Math.floor((player.highestSingularityCount - 280) / 2) / 100)
 }
 
+export const calculateTimeUntilDailyReset = () => {
+  const now = new Date(getTimePinnedToLoadDate())
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime() - now.getTime()
+}
+
 export const dailyResetCheck = () => {
   if (!player.dayCheck) {
     return
   }
   const now = new Date(getTimePinnedToLoadDate())
   const day = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  const h = now.getHours()
-  const m = now.getMinutes()
-  const s = now.getSeconds()
-  player.dayTimer = 60 * 60 * 24 - 60 * 60 * h - 60 * m - s
 
   // Daily is not reset even if it is set to a past time.
   // If the daily is not reset, the data may have been set to a future time.

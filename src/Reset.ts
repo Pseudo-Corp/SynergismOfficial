@@ -1178,7 +1178,6 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
   hold.openPlatonicsCubes = player.openPlatonicsCubes
   hold.historyShowPerSecond = player.historyShowPerSecond
   hold.exporttest = typeof player.exporttest === 'boolean' ? player.exporttest : player.exporttest === 'YES!'
-  hold.dayTimer = player.dayTimer
   hold.dayCheck = player.dayCheck
   hold.offlinetick = player.offlinetick
   hold.ascStatToggles = player.ascStatToggles

@@ -76,6 +76,7 @@ import {
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateOffline,
+  calculateTimeUntilDailyReset,
   calculateTotalAcceleratorBoost,
   cancelOfflineProgress,
   dailyResetCheck,
@@ -946,7 +947,6 @@ export const player: Player = {
   exporttest: !TESTING,
 
   dayCheck: null,
-  dayTimer: 0,
   cubeOpenedDaily: 0,
   tesseractOpenedDaily: 0,
   hypercubeOpenedDaily: 0,
@@ -1858,11 +1858,6 @@ const loadSynergy = (saveString: string): boolean => {
 
   syncSteamAchievements()
 
-  const d = new Date()
-  const h = d.getHours()
-  const m = d.getMinutes()
-  const s = d.getSeconds()
-  player.dayTimer = 60 * 60 * 24 - (s + 60 * m + 60 * 60 * h)
   return true
 }
 
@@ -4171,6 +4166,18 @@ const showLoadRecovery = () => {
   DOMCacheGetOrSet('preloadRecovery').style.display = ''
 }
 
+const scheduleDailyResetCheck = (delay = calculateTimeUntilDailyReset()) => {
+  setTimeout(() => {
+    if (G.timeWarp) {
+      scheduleDailyResetCheck(1000)
+      return
+    }
+
+    dailyResetCheck()
+    scheduleDailyResetCheck()
+  }, delay)
+}
+
 export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: string) => {
   const generation = ++reloadGeneration
   clearTimers()
@@ -4313,11 +4320,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   changeSubTab(Tabs.Buildings, { page: 0 })
 
   dailyResetCheck()
-  setInterval(() => {
-    if (!G.timeWarp) {
-      dailyResetCheck()
-    }
-  }, 1000)
+  scheduleDailyResetCheck()
 
   constantIntervals()
 

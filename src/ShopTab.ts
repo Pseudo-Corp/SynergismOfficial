@@ -5,7 +5,8 @@ import {
   calculateGoldenQuarkMultiplier,
   calculateQuarkMultiplier,
   calculateSingularityTimeQuarkRate,
-  calculateSummationNonLinear
+  calculateSummationNonLinear,
+  calculateTimeUntilDailyReset
 } from './Calculate'
 import {
   calculateSingularityTimePrimaryMultiplier,
@@ -862,7 +863,9 @@ export const updateQuarkLedgerTab = () => {
   updateInnerHTMLIfChanged(DOMCacheGetOrSet('quarkLedgerReset-primary'), primaryQuarkResetText())
   updateInnerHTMLIfChanged(
     DOMCacheGetOrSet('quarkLedgerReset-miscellaneous'),
-    i18next.t('shop.quarkLedger.miscellaneousReset', { time: formatTimeShort(player.dayTimer) })
+    i18next.t('shop.quarkLedger.miscellaneousReset', {
+      time: formatTimeShort(Math.ceil(calculateTimeUntilDailyReset() / 1000))
+    })
   )
 
   updateTextContentIfChanged(
@@ -896,7 +899,9 @@ export const updateQuarkLedgerTab = () => {
   }
   updateInnerHTMLIfChanged(
     DOMCacheGetOrSet('quarkLedgerReset-goldenQuarks'),
-    i18next.t('shop.quarkLedger.goldenQuarkReset', { time: formatTimeShort(player.dayTimer) })
+    i18next.t('shop.quarkLedger.goldenQuarkReset', {
+      time: formatTimeShort(Math.ceil(calculateTimeUntilDailyReset() / 1000))
+    })
   )
   updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerBase-goldenQuarks'), format(goldenQuarkBase, 2, true))
   updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerAwarded-goldenQuarks'), format(goldenQuarkAwarded, 2, true))
