@@ -71,7 +71,7 @@ import {
   corruptionLevelScoreUpdate,
   corruptionTokenUpdate
 } from './Corruptions'
-import { cubeQuarkSources, openedDigits } from './CubeExperimental'
+import { cubeQuarkSources } from './CubeExperimental'
 import {
   calculateAcceleratorCubeBlessing,
   calculateAntELOCubeBlessing,
@@ -215,7 +215,7 @@ import { AutoAscensionModes, AutoResetModes } from './Toggles'
 import type { OneToFive, ZeroToFour } from './types/Synergism'
 import { updateChallengeDisplay } from './UpdateHTML'
 import { updateMobileUpgradeDescription } from './Upgrades'
-import { isMobile, sumContents, timeRemainingHours } from './Utility'
+import { digitCount, isMobile, sumContents, timeRemainingHours } from './Utility'
 import { Globals as G } from './Variables'
 
 const highScoringStatueCubes: CorruptionCubeType[] = [
@@ -1205,7 +1205,7 @@ export const visualUpdateCubes = () => {
   for (const { name, cube } of cubeQuarkSidebarEntries) {
     const { source, coefficient, opened: openedKey } = cubeQuarkSources[cube]
     const opened = player[openedKey]
-    const nextDigit = Math.pow(10, openedDigits(opened))
+    const nextDigit = Math.pow(10, digitCount(opened))
     updateTextContentIfChanged(
       `${name}QuarksOpenRequirement`,
       i18next.t('wowCubes.quarks.nextRewardValue', { opened: format(opened), target: format(nextDigit) })
@@ -1818,9 +1818,6 @@ export const visualUpdateSingularity = () => {
     )
 
     for (const key of goldenQuarkUpgradeNames) {
-      if (key === 'offeringAutomatic') {
-        continue
-      }
       const singItem = goldenQuarkUpgrades[key]
       const el = DOMCacheGetOrSet(key)
 

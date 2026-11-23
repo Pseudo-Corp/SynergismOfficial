@@ -204,7 +204,7 @@
       },
       "ambrosiaHyperflux": {
         "name": "Hyperfluxed Wow! Cube Industrial Production",
-        "description": "Gain +1% (3-7D) Cubes per level, per level of Platonic Upgrade 4x4 purchased (multiplicative!!!)",
+        "description": "Multiply (3-7D) Cubes by (1 + num:((0.01)) × level)x for every level of Platonic Upgrade 4x4 purchased!",
         "effect": "This module increases Cubes gain by {{amount}}%!"
       },
       "ambrosiaBaseObtainium1": {
@@ -457,7 +457,7 @@
       },
       "viscount": {
         "name": "Viscount of Ruby Guy",
-        "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and a Discord Role!",
+        "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and become eligible for a role on our Discord server!",
         "effect": "📜 {{mark}}"
       },
       "infiniteShopUpgrades": {
@@ -1563,7 +1563,7 @@
         "taxReduction": "Tax scaling reduced by 5%"
       },
       "118": {
-        "taxReduction": "Tax scaling reduced by num:((0.5))% per Reincarnation Challenge clear (multiplicative)"
+        "taxReduction": "Multiply Tax scaling by num:((0.9925))x for every Reincarnation Challenge completion"
       },
       "120": {
         "diamondUpgrade18": "Unlock the 18th Diamond Upgrade!"
@@ -1793,13 +1793,13 @@
         "antAutobuyers": "Automatically buy HOLY SPIRIT OF ANT GOD Ants!"
       },
       "437": {
-        "prestigeCountMultiplier": "Gain +100% more Prestige Count per digit in your Prestige Count (additive)!"
+        "prestigeCountMultiplier": "Gain +100% more Prestige Count per digit in your Prestige Count!"
       },
       "438": {
         "duplicationRuneUnlock": "Permanently unlock the Duplication Rune!"
       },
       "439": {
-        "offeringBonus": "Gain +2% more Offerings per digit in your Prestige Count (additive)!"
+        "offeringBonus": "Gain +2% more Offerings per digit in your Prestige Count!"
       },
       "442": {
         "transcendToPrestige": "For each Transcension Count you gain, you get 1 Prestige Count (subject to Prestige Count multipliers)"
@@ -1808,7 +1808,7 @@
         "transcensionCountMultiplier": "Gain up to 4x the Transcension Count based on your Prestige Timer (maxes at 10s)"
       },
       "452": {
-        "transcensionCountMultiplier": "Gain +100% more Transcension Count per digit in your Transcension Count (additive)!"
+        "transcensionCountMultiplier": "Gain +100% more Transcension Count per digit in your Transcension Count!"
       },
       "453": {
         "salvage": "Gain +2 Salvage per digit in your Transcension Count!"
@@ -1823,11 +1823,11 @@
         "reincarnationCountMultiplier": "Gain up to 4x the Reincarnation Count based on your Prestige Timer (maxes at num:((1000))s)"
       },
       "467": {
-        "reincarnationCountMultiplier": "Gain +100% more Reincarnation Count per digit in your Reincarnation Count (additive)!",
+        "reincarnationCountMultiplier": "Gain +100% more Reincarnation Count per digit in your Reincarnation Count!",
         "obtainiumTimerMultiplier": "Gain +100% more Obtainium every 10 seconds in your current Reincarnation, increasing continuously!"
       },
       "468": {
-        "obtainiumBonus": "Gain +2% more Obtainium per digit in your Reincarnation Count (additive)!"
+        "obtainiumBonus": "Gain +2% more Obtainium per digit in your Reincarnation Count!"
       },
       "470": {
         "thriftRuneUnlock": "Permanently unlock the Thrift Rune!"
@@ -2834,7 +2834,7 @@
       "restrictions": "Reincarnate and reach the goal except you pay more Tax! <br> ☆ Your Tax burden is multiplied by <<gold|3 * (1 + completions / 25)^2>> <br> ☆ Your Coin production is divided by <<gold | num:((1e250))>>",
       "goal": "Goal: Gain {{value}} Mythos Shards in challenge.",
       "per": {
-        "1": "-num:((3.5))% Taxes [Multiplicative]! Current: ",
+        "1": "Taxes xnum:((0.965))! Current: ",
         "2": "+num:((0.3)) Salvage! Current: ",
         "3": "Offerings +2%! Current: "
       },
@@ -2892,7 +2892,7 @@
       "goal": "Goal: Gain {{value}} Coins in challenge.",
       "per": {
         "1": "+1 free Ant level! Current: ",
-        "2": "+10% Ant speed [Multiplicative!] Current: ",
+        "2": "Ant Speed xnum:((1.1))! Current: ",
         "3": "+num:((0.5)) Salvage! Current: "
       },
       "first": "Unlock Talismans and Blessings, in the rune Tab. A Global Diamond Upgrade.",
@@ -2967,14 +2967,14 @@
       "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. <br> ☆ Ant Speed <<gold|^num:((0.23))>> <br> ☆ Each Transcension and Reincarnation Challenge completed multiplies your tax burden by <<gold|num:((1.05))>> (completions awarded at the start of an Ascension do not count)",
       "goal": "Goal: Complete Challenge 10 [Sadistic Challenge I] {{value}} times.",
       "per": {
-        "1": "Taxes -num:((3.33))%! Multiplicative! Current: ",
+        "1": "Taxes xnum:((0.966))! Current: ",
         "2": "+6 maximum to Talisman Level Cap! Current: ",
         "3": "+3% Spirit Power effectiveness! Current: "
       },
       "first": "Unlock 15 Researches, and unlock the power of the Hypercube!",
       "start": "Start <[(Tax+++)]>",
       "current": {
-        "1": "-{{value}}% Tax Burden",
+        "1": "Tax multiplier x{{value}}",
         "2": "+{{value}} Talisman Level Cap",
         "3": "+{{value}}% Effectiveness"
       }
@@ -3215,7 +3215,7 @@
       "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the price of Golden Quark Stocks by num:((0.001))% per level.",
       "61": "[Cx11] Edible but prone to mistakes. Adds 25 whole milliseconds to the tolerance of code 'time', and increases its rewards by +3% per level. When maxxed, code 'time' always gives its reward, even if you fail it!",
       "62": "[Cx12] Platonic loves toffee. 8x your Obtainium and Offering gain in Challenge 15.",
-      "63": "[Cx13] Brownie Cookies, the best of both worlds. Increase 3D Cube Gain by 1% based on owned Hepteracts (+3% per OOM).",
+      "63": "[Cx13] Brownie Cookies, the best of both worlds. Multiply 3D Cube Gain by num:((1.03))x for every digit in your owned Hepteracts.",
       "64": "[Cx14] Some say the Ant God itself penned these fortunes. When you gain a statue from Platonic Cubes, you gain two instead.",
       "65": "[Cx15] That's amore, but is quite a crumbful! Multiply Ant Speed by num:((1.004)) per purchased Worker Ant.",
       "66": "[Cx16] You just wish you could have one more cookie baked by her. Gain 2x all Cubes until you purchase OMEGA.",
@@ -3284,8 +3284,8 @@
       "23": "[1x23] Each Offering used increases Rune EXP by another num:((0.3)) per level!",
       "24": "[1x24] Increase your Base Offerings by num:((0.4)) per level.",
       "25": "[1x25] Increase your Base Offerings by num:((0.6)) per level.",
-      "26": "[2x1] Multiply all Crystal producer production by 150% per level (Multiplicative).",
-      "27": "[2x2] Multiply all Crystal producer production by 150% per level (Multiplicative).",
+      "26": "[2x1] Multiply all Crystal producer production by 2.5x per level.",
+      "27": "[2x2] Multiply all Crystal producer production by 2.5x per level.",
       "28": "[2x3] You know the formula for the Crystal multiplier to Coins? Add num:((0.08)) to its Exponent per level!",
       "29": "[2x4] Same as [2x3]. Add num:((0.08)) to its Exponent per level!",
       "30": "[2x5] Half of [2x3]. Add num:((0.04)) to its Exponent per level!",
@@ -3310,10 +3310,10 @@
       "49": "[2x24] Unlock Reincarnation upgrades 11-15. [Upgrades cost between num:((1e30)) and num:((1e60)) Particles]",
       "50": "[2x25] Unlock Reincarnation upgrades 16-20. [You might want to wait until Challenge 8 is doable!]",
       "51": "[3x1] Reduces your tax burden by 6% per level.",
-      "52": "[3x2] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
-      "53": "[3x3] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
-      "54": "[3x4] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
-      "55": "[3x5] Reduces your tax burden by 5% per level (stacks multiplicative to other tax reductions).",
+      "52": "[3x2] Reduces your tax burden by 5% per level.",
+      "53": "[3x3] Reduces your tax burden by 5% per level.",
+      "54": "[3x4] Reduces your tax burden by 5% per level.",
+      "55": "[3x5] Reduces your tax burden by 5% per level.",
       "56": "[3x6] Construction +num:((0.05)) per level. Adds with Researches 3x6 - 3x10.",
       "57": "[3x7] Construction +num:((0.05)) per level. Adds with Researches 3x6 - 3x10.",
       "58": "[3x8] Construction +num:((0.05)) per level. Adds with Researches 3x6 - 3x10.",
@@ -3417,7 +3417,7 @@
       "156": "[7x6] What, again? Alright. +num:((0.6))% Accelerators per level.",
       "157": "[7x7] Gas, gas, gas. +num:((0.6))% Accelerator Boosts per level.",
       "158": "[7x8] Dupe DUPE DUPE. +num:((0.6))% Multipliers per level.",
-      "159": "[7x9] Somehow, I can't explain why, you reduce your Taxes by 2% multiplicative, based on 3/5 * log10(Rare Fragments)!",
+      "159": "[7x9] Somehow, I can't explain why, you multiply your Taxes by num:((0.98))^(3/5 × log10(Rare Fragments))!",
       "160": "[7x10] Want a permanent Blessing boost? I know you do. A permanent +25% Blessing Power increase.",
       "161": "[7x11] SIGMA KAPPA: +num:((0.3))% Rune Power each level!",
       "162": "[7x12] More exponentiation! +0.0001% more Inceptus power per level!",
@@ -3517,8 +3517,8 @@
       "calculator7": "The PL-AT ΩΩ model was made by Derpsmith Ω, before he was banished from the industry forever. Gain 1 real-life second of Ambrosia Bar Points per usage per level. Final level lets you store 3 more hours (10,800 seconds)!",
       "constantEX": "The merchant has one last trick up its sleeve: It can augment your second constant upgrade to be marginally better, but it'll cost an arm and a leg! Instead of the cap being 10% (or 11% with achievements) it will be raised by 1% per level.",
       "powderEX": "Platonic himself gives you 2% better conversion rate on Overflux Orbs to Powder per level. This activates when Orbs expire.",
-      "chronometer2": "Okay, fine. Here's another +num:((0.6))% Ascension Speed per level, stacks multiplicatively with the first upgrade!",
-      "chronometer3": "OKAY. FINE. Here's yet ANOTHER +num:((1.5))% Ascension Speed per level, stacking multiplicatively like always.",
+      "chronometer2": "Okay, fine. Here's another +num:((0.6))% Ascension Speed per level!",
+      "chronometer3": "OKAY. FINE. Here's yet ANOTHER +num:((1.5))% Ascension Speed per level.",
       "seasonPassY": "This is even more insane than the last one, but you'll buy it anyway. +num:((0.75))% ALL Cubes per level.",
       "seasonPassZ": "This one is arguably very good. Gain +1% ALL Cubes per level, per Singularity!",
       "challengeTome2": "You find the final pages of the lost tome. It functionally acts the same as the rest of the pages, but you can have up to five more!",
@@ -3550,13 +3550,13 @@
       "obtainiumEX2": "Gain +1% Obtainium per level per Singularity!!!",
       "improveQuarkHept5": "[Supplied by - Infinity CO.] Adds +0.0001 Quark Hept Exponent per level. The effect is 1% of the originals... for balancing reasons. Yes.",
       "shopAmbrosiaGeneration1": "Buying this charm grants +1% more Ambrosia Bar Points per level, for more Ambrosia!",
-      "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% more Ambrosia Bar Points per level, stacking multiplicatively.",
-      "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% more Ambrosia Bar Points per level, stacking multiplicatively.",
-      "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +num:((0.1))% more Ambrosia Bar Points per level, stacking multiplicatively.",
+      "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% more Ambrosia Bar Points per level.",
+      "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% more Ambrosia Bar Points per level.",
+      "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +num:((0.1))% more Ambrosia Bar Points per level.",
       "shopAmbrosiaLuck1": "Buying this charm grants +2 Ambrosia luck per level, for more Ambrosia!",
-      "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 Ambrosia luck per level, stacking additively.",
-      "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 Ambrosia luck per level, stacking additively.",
-      "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +num:((0.6)) Ambrosia luck per level, stacking additively.",
+      "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 Ambrosia luck per level.",
+      "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 Ambrosia luck per level.",
+      "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +num:((0.6)) Ambrosia luck per level.",
       "shopAmbrosiaLuck5": "[Supplied by - Infinity CO.] Gain +num:((0.01))% Ambrosia Luck per level!",
       "shopRedLuck1": "A small, lesser dice from the tactician of gambling himself. +num:((0.05)) Red Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by num:((0.01)).",
       "shopRedLuck2": "This one seems to have a heavy side. I wonder what that is about. +num:((0.075)) Red Luck per level. Every 20 levels, reduce the conversion ratio of Ambrosia Luck to Red Luck by num:((0.01)).",
@@ -3589,7 +3589,7 @@
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
       "shopInfiniteShopUpgrades2": "A Shop Voucher, printed on a white tablet. Grants +num:((1)) effective level of the 'Infinity CO.' Quark shop upgrades every (51 - level) Synergism Levels.",
-      "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage and Ant ELO) by num:((0.1))% per level additive (Max -30%)!",
+      "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage and Ant ELO) by num:((0.1))% per level (Max -30%)!",
       "shopPanthema": "Ace from space!",
       "shopPurpleBarRebate": "When the Purple Encabulator Bar fills up, gain <<var(--blueberry-text-color)|+num:((50000))>> Ambrosia Bar Points and <<var(--red-text-color)|+num:((25))>> Red Bar Points per level of this upgrade!"
     },
@@ -4345,7 +4345,7 @@
       },
       "ascensions": {
         "name": "Improved Ascension Gain",
-        "description": "Buying this, you will gain +2% Ascension Count forever, per level! Every 10 levels grants an additional, multiplicative +1% Ascension Count.",
+        "description": "Buying this, you will gain +2% Ascension Count forever per level, multiplied by (1 + num:((0.01)) × floor(level / 10))!",
         "effect": "Ascension Count increases {{n}} faster."
       },
       "corruptionFourteen": {
@@ -4407,12 +4407,12 @@
       },
       "singCitadel": {
         "name": "Citadel of Singularity",
-        "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels!",
+        "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level, multiplied by (1 + num:((0.01)) × floor(level / 10))!",
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}, forever!"
       },
       "singCitadel2": {
         "name": "Citadel of 'Singularity': The Real Edition",
-        "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level! +1% Additional for every 10 levels! Also sets the free level of the fake citadel to whatever level this is.",
+        "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level, multiplied by (1 + num:((0.01)) × floor(level / 10))! Also sets the free level of the fake citadel to whatever level this is.",
         "effect": "Obtainium, Offerings, and 3-7D Cubes +{{n}}, forever!"
       },
       "octeractUnlock": {
@@ -4425,11 +4425,6 @@
         "name": "Platonic $ells out!!!",
         "description": "The Global Subscriber Bonus and your Personal Account Bonus now affect Octeract production! Yippee. Consider Subscribing to support development and increase this bonus, for you and all Synergism players!",
         "effect": "If you own this upgrade, Octeract production is {{n}}x faster! <br> <<turquoise | {{x}}x>> Global Subscriber Bonus <br> * <<turquoise|{{y}}x>> Personal Account Bonus"
-      },
-      "offeringAutomatic": {
-        "name": "Blueberry Shards!",
-        "description": "The legends are true. \n The Prophecies are fulfilled. \n Ant God has heard your prayers. \n Let there be blueberries! \n And they were good.",
-        "effect": "You have purchased {{n}} tasty blueberries."
       },
       "intermediatePack": {
         "name": "Intermediate Pack",
@@ -4505,7 +4500,7 @@
       },
       "singQuarkImprover1": {
         "name": "Marginal Quark Gain Improver Thingy",
-        "description": "A doohickey that I forgot what it looked like. +num:((0.5))% Quarks per level, multiplicative with all other bonuses! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
+        "description": "A doohickey that I forgot what it looked like. +num:((0.5))% Quarks per level! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
         "effect": "You gain {{n}} more Quarks!"
       },
       "singQuarkHepteract": {
@@ -4597,11 +4592,12 @@
       "ultimatePen": {
         "name": "The Ultimate Pen",
         "description": "You. It is you who is the author of your own story!",
-        "effect": "You do {{n}} own the Ultimate Pen. {{m}}"
+        "effectHave": "You own the Ultimate Pen. However, the pen just ran out of ink. How will you get more?",
+        "effectHaveNot": "You do NOT own the Ultimate Pen."
       },
       "halfMind": {
         "name": "HALF MIND",
-        "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock your global speed to num:((1000000))x, and multiply all obtainium and offerings based on the difference.\" Hmm...",
+        "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock the global speed of your Prestige, Transcension, Reincarnation and Ant Sacrifice timers to num:((1000000))x, and multiply all obtainium and offerings based on the difference.\" Hmm...",
         "effectHave": "You have joined the cult!",
         "effectHaveNot": "You haven't joined the cult!"
       },
@@ -4887,12 +4883,12 @@
       "4": "Increase production of Mints per producer bought.",
       "5": "Increase production of Alchemies per producer bought.",
       "6": "Increase all production based on producer bought.",
-      "7": "Gain free multipliers based on your purchased Alchemies.",
+      "7": "Gain 1 free Multiplier per digit in your purchased Alchemies (max 4).",
       "8": "Gain 1 free Accelerator per 7 purchased Multipliers.",
       "9": "Gain 1 free Multiplier per 10 purchased Accelerators.",
       "10": "Improve Workers based on the first 750 purchased Investments.",
       "11": "Accelerators improve coin production by 2% each.",
-      "12": "Each Prestige multiplies production by num:((1.01)), multiplicatively (Max: num:((1e4))x).",
+      "12": "Each Prestige multiplies production by num:((1.01)) (Max: num:((1e4))x).",
       "13": "Augments buff the production of Investments.",
       "14": "Free Accelerators buff the production of Printers.",
       "15": "Free Accelerators buff the production of Mints.",
@@ -4925,7 +4921,7 @@
       "42": "Multiply Mythos Shard production based on unspent Diamonds.",
       "43": "Multiply coin production by num:((1.01)) per Transcension (Max: num:((1e30))x).",
       "44": "Multiply Mythos gain on Transcend by num:((1.01)) per Transcension (Max: num:((1e6))x).",
-      "45": "Gain free Accelerators based on Mythos Shards.",
+      "45": "Gain 1 free Accelerator per digit in your Mythos Shards (max num:((2500))).",
       "46": "Accelerator Boosts are 5% stronger.",
       "47": "Multiply Mythos Shard production based on your AP.",
       "48": "Gain +num:((0.2)) Construction, to make buildings and such cheaper!",
@@ -5044,7 +5040,7 @@
       "5": "Multiply Ant speed by (1 + num:((0.1)) * level * log10(Constant + 1))",
       "6": "Add up to num:((1000)) free Ant Levels! (Each level gives slightly less than the last)",
       "7": "Provides 7 free rune levels per level, up to +num:((7000)).",
-      "8": "Increase the rune EXP given by Offerings by 10% per level [Additive]",
+      "8": "Increase the rune EXP given by Offerings by 10% per level",
       "9": "When bought, Rune Power is increased by Log4(Talisman Shards earned this Ascension +1) %",
       "10": "When bought, gain Log4(Constant + 1)% more Wow! Cubes and Tesseracts on Ascension."
     },
@@ -8421,7 +8417,7 @@
         "12": "When maxed, all Corruptions scale 2.5% slower. In Challenge 15, gain +5% more Ant ELO per level of this upgrade! (Additive to other sources). Reborn ELO is created 10% faster per level! Also, for each Challenge completion, gain +1% more Ant Speed per level.",
         "13": "All sources of negative <<green|Salvage>> are reduced by 50% and all Corruptions scale 2.5% slower! In Challenge 15, your Construction stat is tripled!",
         "14": "All Corruptions scale 2.5% slower. In Challenge 15, Recession's coin exponent is multiplied by up to num:((1.5)) based on your Coins.",
-        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), +1% to 3D-7D (Cube-Hepteracts) Cubes per C9 Completion (Multiplicative), num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, and +1 free Corruption level! Talk about a deep dive.",
+        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), x1.01 3D-7D (Cube-Hepteracts) Cubes per C9 Completion, num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, and +1 free Corruption level! Talk about a deep dive.",
         "16": "Increase powder conversion rate by 1% per level, gain +2% Ascension count per level and gain up to 2% more Ascension count per level based on powder, up to num:((100000)). This will also multiply Tesseract Building production by (Powder + 1)^(10 * level), uncapped.",
         "17": "If this is bought, gain +num:((0.2)) free Corruption levels per level (up to +4).",
         "18": "Raise the base percentage of Constant Upgrade 1 by num:((0.1))% and increase the base percentage cap of Constant Upgrade 2 by num:((0.3))% per level!",
@@ -8531,8 +8527,8 @@
     "hepteractInput": "How many Orbs would you like to purchase?\n You can buy up to {{x}} with your hepteracts.",
     "gainedPowder": "You have also gained {{x}} powder immediately, thanks to your shop upgrades.",
     "purchasedOrbs": "You have purchased {{x}} Overflux Orbs [+{{y}}% to effect]. {{z}} Enjoy!",
-    "powderEffect": "Powder effect: ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative]",
-    "powderEffectExtended": "Powder effect: ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative], Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
+    "powderEffect": "Powder effect: ALL Cube Gain +{{x}}%, +{{y}}% Quarks",
+    "powderEffectExtended": "Powder effect: ALL Cube Gain +{{x}}%, +{{y}}% Quarks, Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
     "powderLumps": "You have {{x}} lumps of Overflux Powder.",
     "expiredOrbs": "Expired Overflux Orbs become powder at a rate of {{x}} Orbs per powder lump!",
     "dailyWarpActive": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until midnight.",

@@ -364,7 +364,7 @@ export const challengeDisplay = (i: number) => {
         break
       }
       case 13: {
-        current1 = format(100 - 100 * Math.pow(0.966, player.challengecompletions[13]), 3, true)
+        current1 = format(Math.pow(0.966, player.challengecompletions[13]), 3, true)
         current2 = format(6 * player.challengecompletions[13])
         current3 = format(3 * player.challengecompletions[13])
         break

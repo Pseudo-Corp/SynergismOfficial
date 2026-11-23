@@ -26,6 +26,13 @@ export const smallestInc = (x = 0): number => {
  * @param array {(number|string)[]}
  * @returns {number}
  */
+export const digitCount = (value: number | Decimal) =>
+  typeof value === 'number'
+    ? value < 1 ? 0 : Math.floor(Math.log10(value)) + 1
+    : value.lt(1)
+    ? 0
+    : Math.floor(value.log10()) + 1
+
 export const sumContents = (array: number[]): number => {
   assert(Array.isArray(array))
 

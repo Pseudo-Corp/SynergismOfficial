@@ -4,7 +4,7 @@ import { addBaseQuarks } from './Quark'
 import { format, player } from './Synergism'
 import type { Player } from './types/Synergism'
 import { Alert, Prompt } from './UpdateHTML'
-import { sumContents } from './Utility'
+import { digitCount, sumContents } from './Utility'
 
 const blessings: Record<
   keyof Player['cubeBlessings'],
@@ -65,8 +65,6 @@ export const cubeQuarkSources = {
   wowPlatonicCubes: { source: 'platonics', coefficient: 15, opened: 'platonicCubeOpenedDaily' }
 } as const
 
-export const openedDigits = (opened: number) => opened < 1 ? 0 : Math.floor(Math.log10(opened)) + 1
-
 abstract class Cube {
   /** key on the player object */
   private key: 'wowCubes' | 'wowTesseracts' | 'wowHypercubes' | 'wowPlatonicCubes'
@@ -121,7 +119,7 @@ abstract class Cube {
     const { source, coefficient, opened } = cubeQuarkSources[this.key]
     const openedBefore = player[opened]
     player[opened] += amount
-    addBaseQuarks(source, coefficient * (openedDigits(player[opened]) - openedDigits(openedBefore)))
+    addBaseQuarks(source, coefficient * (digitCount(player[opened]) - digitCount(openedBefore)))
   }
 
   add (amount: number): this {

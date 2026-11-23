@@ -90,7 +90,6 @@ const goldenQuarkUpgradeCostIncreases = {
   cookies5: 200,
   singTalismanBonusRunes4: 200,
   blueberries: 200,
-  offeringAutomatic: 500,
   singInfiniteShopUpgrades: 1000,
   singAmbrosiaLuck4: 1000,
   singAmbrosiaGeneration4: 2000,

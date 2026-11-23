@@ -213,7 +213,7 @@ import { getTalismanEffects, sumOfTalismanRarities, talismans } from './Talisman
 import { calculateFlatTaxCapIncrease, calculateTax, calculateTaxExponent, challenge13EffectiveCompletions } from './Tax'
 import type { GlobalVariables } from './types/Synergism'
 import { MEDIUM_MODAL_UPDATE_TICK, Modal } from './UpdateHTML'
-import { isMobile, sumContents } from './Utility'
+import { digitCount, isMobile, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum StatLineTypes {
@@ -713,7 +713,7 @@ export const allWowCubeStats: NumberStatLineCategory = {
     {
       i18n: 'CookieUpgrade13',
       stat: () =>
-        1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]
+        1 + Math.pow(1.03, digitCount(player.wowAbyssals)) * player.cubeUpgrades[63]
         - player.cubeUpgrades[63]
     }
   ]
@@ -759,7 +759,7 @@ export const allWowCubeStatsProduct = (
       * calculateCubeMultiplierPlatonicBlessing()
       * corruptionScaledCubeStats.cubes.Platonic1x1(ascensionEffectiveLevel)
       * getRuneEffects(RuneType.Antiquities, 'cubeBonus')
-      * (1 + Math.pow(1.03, Math.log10(Math.max(1, player.wowAbyssals))) * player.cubeUpgrades[63]
+      * (1 + Math.pow(1.03, digitCount(player.wowAbyssals)) * player.cubeUpgrades[63]
         - player.cubeUpgrades[63])
   )
 
@@ -1429,7 +1429,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
       stat: () =>
         1 + 1 / 50 * player.challengecompletions[6]
         + 1 / 25 * player.challengecompletions[8]
-        + 1 / 25 * player.challengecompletions[10] // Reincarnation Challenges
+        + 1 / 10 * player.challengecompletions[10] // Reincarnation Challenges
     },
     {
       i18n: 'DiamondUpgrade4x3',
@@ -1625,7 +1625,7 @@ export const allOfferingStats: DecimalStatLineCategory = {
         if (!player.singularityChallenges.taxmanLastStand.enabled) {
           return 1
         }
-        const obtainiumDigits = Math.floor(1 + Math.max(0, Decimal.log(player.obtainium, 10)))
+        const obtainiumDigits = digitCount(player.obtainium)
         return Math.pow(2.5, -Math.min(500, obtainiumDigits)) // Taxman Debuff
       },
       color: 'var(--red-color)'
@@ -1649,7 +1649,7 @@ export const allOfferingStatsProduct = (baseOfferings = calculateBaseOfferings()
     .mul(
       1 + 1 / 50 * player.challengecompletions[6]
         + 1 / 25 * player.challengecompletions[8]
-        + 1 / 25 * player.challengecompletions[10]
+        + 1 / 10 * player.challengecompletions[10]
     )
     .mul(1 + 0.2 * player.upgrades[38])
     .mul(
@@ -1708,7 +1708,7 @@ export const allOfferingStatsProduct = (baseOfferings = calculateBaseOfferings()
     )
     .mul(
       player.singularityChallenges.taxmanLastStand.enabled
-        ? Math.pow(2.5, -Math.min(500, Math.floor(1 + Math.max(0, Decimal.log(player.obtainium, 10)))))
+        ? Math.pow(2.5, -Math.min(500, digitCount(player.obtainium)))
         : 1
     )
     .mul(1 + calculateEventBuff(BuffType.Offering))
@@ -2409,7 +2409,7 @@ export const allObtainiumStats: DecimalStatLineCategory = {
         if (!player.singularityChallenges.taxmanLastStand.enabled) {
           return 1
         }
-        const offeringDigits = Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))
+        const offeringDigits = digitCount(player.offerings)
         return Math.pow(2.5, -Math.min(500, offeringDigits)) // Taxman Debuff
       },
       color: 'var(--red-color)'
@@ -2468,7 +2468,7 @@ export const allObtainiumStatsProduct = () =>
     .mul(1 / calculateSingularityDebuff('Obtainium'))
     .mul(
       player.singularityChallenges.taxmanLastStand.enabled
-        ? Math.pow(2.5, -Math.min(500, Math.floor(1 + Math.max(0, Decimal.log(player.offerings, 10)))))
+        ? Math.pow(2.5, -Math.min(500, digitCount(player.offerings)))
         : 1
     )
 
@@ -2856,7 +2856,7 @@ export const allAscensionSpeedStats: NumberStatLineCategory = {
       stat: () =>
         Math.pow(
           getSingularityChallengeEffect('limitedAscensions', 'ascensionSpeedMult'),
-          1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))
+          digitCount(player.ascensionCount)
         ) // EXALT Buff
     },
     {
@@ -2922,7 +2922,7 @@ export const allAscensionSpeedStatsProduct = (activeEffectiveLevel?: number) =>
       * getShopUpgradeEffects('chronometerInfinity', 'ascensionSpeedMult')
       * Math.pow(
         getSingularityChallengeEffect('limitedAscensions', 'ascensionSpeedMult'),
-        1 + Math.max(0, Math.floor(Math.log10(player.ascensionCount)))
+        digitCount(player.ascensionCount)
       )
       * getShopUpgradeEffects('shopPanthema', 'ascensionSpeedMult')
       * getSingularityChallengeEffect('limitedTime', 'ascensionSpeed')
@@ -4423,8 +4423,7 @@ export const freeAcceleratorAdditiveStats: NumberStatLineCategory = {
     },
     {
       i18n: 'MythosUpgrade5',
-      stat: () =>
-        player.upgrades[45] !== 0 ? Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10))) : 0,
+      stat: () => player.upgrades[45] !== 0 ? Math.min(2500, digitCount(player.transcendShards)) : 0,
       acc: 0
     },
     {
@@ -4455,7 +4454,7 @@ export const freeAcceleratorAdditiveStatsSum = (totalAcceleratorBoost = calculat
         + (player.upgrades[24] !== 0 ? 2 : 0)
         + (player.upgrades[25] !== 0 ? 1 : 0))
       + (player.upgrades[32] !== 0 ? Math.min(500, Math.floor(Decimal.log(player.prestigePoints.add(1), 1e25))) : 0)
-      + (player.upgrades[45] !== 0 ? Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10))) : 0)
+      + (player.upgrades[45] !== 0 ? Math.min(2500, digitCount(player.transcendShards)) : 0)
       + getAchievementReward('accelerators')
       + (5 * player.challengecompletions[2])
       + (totalAcceleratorBoost * calculateAcceleratorsPerBoost())
@@ -4533,7 +4532,7 @@ export const freeMultiplierAdditiveStats: NumberStatLineCategory = {
       i18n: 'CoinUpgrade7',
       stat: () =>
         player.upgrades[7] > 0
-          ? Math.min(4, 1 + Math.floor(Decimal.log(player.coinBuildings[CoinBuilding.Alchemies] + 1, 10)))
+          ? Math.min(4, digitCount(player.coinBuildings[CoinBuilding.Alchemies]))
           : 0,
       acc: 0
     },
@@ -4585,7 +4584,7 @@ export const freeMultiplierAdditiveStatsSum = (totalAcceleratorBoost?: number) =
   Math.min(
     1e300,
     (player.upgrades[7] > 0
-      ? Math.min(4, 1 + Math.floor(Decimal.log(player.coinBuildings[CoinBuilding.Alchemies] + 1, 10)))
+      ? Math.min(4, digitCount(player.coinBuildings[CoinBuilding.Alchemies]))
       : 0)
       + (player.upgrades[9] > 0 ? Math.floor(player.accelerators / 10) : 0)
       + diamondUpgradesOneToFive.filter((i) => player.upgrades[i] > 0).length

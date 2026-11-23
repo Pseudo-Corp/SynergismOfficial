@@ -6,7 +6,7 @@ import { updateTokens } from './Campaign'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
 import { Alert, InfoAlert, infoAlertInactiveHTML, infoAlertTableHTML, PurchasePrompt } from './UpdateHTML'
-import { memoize } from './Utility'
+import { digitCount, memoize } from './Utility'
 
 type OcteractUpgradeRewards = {
   octeractStarter: {
@@ -188,13 +188,13 @@ export const octeractUpgrades: {
       return 1
         + (1 / 1000) * Math.floor(octeractUpgrades.octeractQuarkGain.level / 1000)
           * n
-          * Math.floor(1 + Math.log10(Math.max(1, player.hepteracts.quark.BAL))) // quarkMult
+          * digitCount(player.hepteracts.quark.BAL) // quarkMult
     },
     effectDescription: (n: number) => {
       if (n > 0) {
         const quarkMult = getOcteractUpgradeEffect('octeractQuarkGain2', 'quarkMult')
         const quarkGain1Levels = octeractUpgrades.octeractQuarkGain.level
-        const digits = Math.floor(1 + Math.log10(Math.max(1, player.hepteracts.quark.BAL)))
+        const digits = digitCount(player.hepteracts.quark.BAL)
         return i18next.t('octeract.data.octeractQuarkGain2.effectEnabled', {
           amount: formatAsPercentIncrease(quarkMult, 2),
           amount2: formatAsPercentIncrease(1 + n / 1000 * Math.floor(quarkGain1Levels / 1000), 2),
@@ -552,10 +552,7 @@ export const octeractUpgrades: {
     },
     maxLevel: 100,
     effect: (n: number) => {
-      return Math.pow(
-        1 + n / 100,
-        1 + Math.floor(Math.log10(1 + player.ascensionCount))
-      ) // octeractMult
+      return Math.pow(1 + n / 100, digitCount(player.ascensionCount)) // octeractMult
     },
     effectDescription: (n: number) => {
       const octeractMult = getOcteractUpgradeEffect('octeractAscensionsOcteractGain', 'octeractMult')

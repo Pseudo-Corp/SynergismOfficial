@@ -8,7 +8,7 @@ import { getQuarkBonus } from './Quark'
 import { getRedAmbrosiaUpgradeEffects, type RedAmbrosiaNames } from './RedAmbrosiaUpgrades'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, Confirm, PurchasePrompt } from './UpdateHTML'
-import { assert, isMobile } from './Utility'
+import { assert, digitCount, isMobile } from './Utility'
 
 export type BlueberryOpt = Partial<Record<AmbrosiaUpgradeNames, number>>
 export type BlueberryLoadoutMode = 'saveTree' | 'loadTree'
@@ -269,7 +269,7 @@ export const ambrosiaUpgrades: {
       const baseVal = 0.001 * n
       return 1
         + baseVal
-          * Math.floor(Math.pow(Math.log10(player.worlds + 1) + 1, 2)) // cubes
+          * Math.pow(digitCount(player.worlds), 2) // cubes
     },
     effectsDescription: function() {
       const cubes = getAmbrosiaUpgradeEffects('ambrosiaQuarkCube1', 'cubes')
@@ -340,15 +340,14 @@ export const ambrosiaUpgrades: {
       const baseVal = 0.0001 * n
       const quarks = 1
         + baseVal
-          * (Math.floor(Math.log10(player.wowCubes + 1))
-            + Math.floor(Math.log10(player.wowTesseracts + 1))
-            + Math.floor(Math.log10(player.wowHypercubes + 1))
-            + Math.floor(Math.log10(player.wowPlatonicCubes + 1))
-            + Math.floor(Math.log10(player.wowAbyssals + 1))
-            + Math.floor(Math.log10(player.wowOcteracts + 1))
-            + 6)
+          * (digitCount(player.wowCubes)
+            + digitCount(player.wowTesseracts)
+            + digitCount(player.wowHypercubes)
+            + digitCount(player.wowPlatonicCubes)
+            + digitCount(player.wowAbyssals)
+            + digitCount(player.wowOcteracts))
       if (key === 'octeractQuarks') {
-        return quarks / (quarks - baseVal * (Math.floor(Math.log10(player.wowOcteracts + 1)) + 1))
+        return quarks / (quarks - baseVal * digitCount(player.wowOcteracts))
       }
       return quarks
     },
@@ -425,16 +424,15 @@ export const ambrosiaUpgrades: {
     effects: (n, key) => {
       const baseVal = 0.02 * n
       if (key === 'octeractAmbrosiaLuck') {
-        return baseVal * (Math.floor(Math.log10(player.wowOcteracts + 1)) + 1)
+        return baseVal * digitCount(player.wowOcteracts)
       }
       return baseVal
-        * (Math.floor(Math.log10(player.wowCubes + 1))
-          + Math.floor(Math.log10(player.wowTesseracts + 1))
-          + Math.floor(Math.log10(player.wowHypercubes + 1))
-          + Math.floor(Math.log10(player.wowPlatonicCubes + 1))
-          + Math.floor(Math.log10(player.wowAbyssals + 1))
-          + Math.floor(Math.log10(player.wowOcteracts + 1))
-          + 6) // ambrosiaLuck
+        * (digitCount(player.wowCubes)
+          + digitCount(player.wowTesseracts)
+          + digitCount(player.wowHypercubes)
+          + digitCount(player.wowPlatonicCubes)
+          + digitCount(player.wowAbyssals)
+          + digitCount(player.wowOcteracts)) // ambrosiaLuck
     },
     effectsDescription: function() {
       const ambrosiaLuck = getAmbrosiaUpgradeEffects('ambrosiaCubeLuck1', 'ambrosiaLuck')
@@ -467,7 +465,7 @@ export const ambrosiaUpgrades: {
     },
     effects: (n: number) => {
       const baseVal = 0.02 * n
-      return baseVal * Math.floor(Math.pow(Math.log10(player.worlds + 1) + 1, 2)) // ambrosiaLuck
+      return baseVal * Math.pow(digitCount(player.worlds), 2) // ambrosiaLuck
     },
     effectsDescription: function() {
       const ambrosiaLuck = getAmbrosiaUpgradeEffects('ambrosiaQuarkLuck1', 'ambrosiaLuck')
@@ -802,8 +800,7 @@ export const ambrosiaUpgrades: {
       return baseCost + 20000 * level
     },
     effects: (n: number) => {
-      const digits = Math.ceil(Math.log10(player.lifetimeRedAmbrosia + 1))
-        + Math.ceil(Math.log10(player.lifetimeAmbrosia + 1))
+      const digits = digitCount(player.lifetimeRedAmbrosia) + digitCount(player.lifetimeAmbrosia)
       return digits * n / 10000 // ambrosiaLuckPercentage
     },
     effectsDescription: function() {

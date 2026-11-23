@@ -27,6 +27,7 @@ import { getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import { format, formatAsPercentIncrease, player, scheduleDailyResetCheck } from './Synergism'
 import { Alert, Confirm, Prompt, revealStuff } from './UpdateHTML'
+import { digitCount } from './Utility'
 import { Globals as G } from './Variables'
 
 export enum shopUpgradeTypes {
@@ -1522,7 +1523,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   shopOcteractAmbrosiaLuck: {
     name: () => i18next.t('shop.names.shopOcteractAmbrosiaLuck'),
     description: () => i18next.t('shop.upgradeDescriptions.shopOcteractAmbrosiaLuck'),
-    effects: (n) => n * (1 + Math.floor(Math.max(0, Math.log10(player.totalWowOcteracts)))), // ambrosiaLuck
+    effects: (n) => n * digitCount(player.totalWowOcteracts), // ambrosiaLuck
     effectDescription () {
       const effects = getShopUpgradeEffects('shopOcteractAmbrosiaLuck', 'ambrosiaLuck')
       return i18next.t('shop.upgradeEffects.shopOcteractAmbrosiaLuck', { amount: format(effects) })

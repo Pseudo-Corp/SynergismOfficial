@@ -1939,9 +1939,6 @@ TODO: Fix this entire tab it's utter shit
   DOMCacheGetOrSet('freeUpgradeInfoButton').addEventListener('click', showFreeUpgradeInfo)
 
   for (const key of goldenQuarkUpgradeNames) {
-    if (key === 'offeringAutomatic') {
-      continue
-    }
     registerPurchasableModal({
       element: DOMCacheGetOrSet(key),
       html: () => upgradeGQToString(key),

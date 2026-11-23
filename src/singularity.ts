@@ -79,7 +79,6 @@ type GoldenQuarkUpgradeRewards = {
   }
   octeractUnlock: { unlocked: boolean }
   singOcteractPatreonBonus: { octeractMult: number }
-  offeringAutomatic: { unlocked: boolean }
   intermediatePack: {
     globalSpeedMult: number
     ascensionSpeedMult: number
@@ -999,21 +998,6 @@ export const goldenQuarkUpgrades: {
     name: () => i18next.t('singularity.data.singOcteractPatreonBonus.name'),
     description: () => i18next.t('singularity.data.singOcteractPatreonBonus.description')
   },
-  offeringAutomatic: {
-    level: 0,
-    maxLevel: funny32BitNumber,
-    canExceedCap: false,
-    qualityOfLife: false,
-    costPerLevel: 5e16,
-    minimumSingularity: 222,
-    specialCostForm: 'Default',
-    effect: (n: number) => {
-      return n > 0
-    },
-    effectDescription: () => i18next.t('singularity.data.offeringAutomatic.effect'),
-    name: () => i18next.t('singularity.data.offeringAutomatic.name'),
-    description: () => i18next.t('singularity.data.offeringAutomatic.description')
-  },
   intermediatePack: {
     level: 0,
     maxLevel: 1,
@@ -1394,7 +1378,7 @@ export const goldenQuarkUpgrades: {
     effectDescription: () => {
       const quarkHeptExponent = getGQUpgradeEffect('singQuarkHepteract3', 'quarkHeptExponent')
       return i18next.t('singularity.data.singQuarkHepteract3.effect', {
-        n: format(quarkHeptExponent, 2, true)
+        n: format(quarkHeptExponent, 3, true)
       })
     },
     name: () => i18next.t('singularity.data.singQuarkHepteract3.name'),
@@ -1671,15 +1655,12 @@ export const goldenQuarkUpgrades: {
     effect: (n: number) => {
       return n > 0
     },
-    effectDescription: () => {
-      const platonicPowers = getGQUpgradeEffect('ultimatePen', 'platonicPowers')
-      return i18next.t('singularity.data.ultimatePen.effect', {
-        n: platonicPowers ? '' : 'NOT',
-        m: platonicPowers
-          ? ' However, the pen just ran out of ink. How will you get more?'
-          : ''
-      })
-    },
+    effectDescription: () =>
+      i18next.t(
+        getGQUpgradeEffect('ultimatePen', 'platonicPowers')
+          ? 'singularity.data.ultimatePen.effectHave'
+          : 'singularity.data.ultimatePen.effectHaveNot'
+      ),
     name: () => i18next.t('singularity.data.ultimatePen.name'),
     description: () => i18next.t('singularity.data.ultimatePen.description')
   },
@@ -2251,9 +2232,7 @@ export function toggleMaxedGoldenQuarkUpgrades (): void {
   toggle.style.border = `2px solid ${hideMaxed ? 'var(--red-color)' : 'var(--green-color)'}`
 
   for (const key of goldenQuarkUpgradeNames) {
-    if (key !== 'offeringAutomatic') {
-      updateGoldenQuarkUpgradeVisibility(key)
-    }
+    updateGoldenQuarkUpgradeVisibility(key)
   }
 }
 
