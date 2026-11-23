@@ -4,8 +4,7 @@ import * as z from 'zod'
 import type { ZodType } from 'zod'
 import { AchievementId } from '../Achievements'
 import type { AmbrosiaUpgradeNames } from '../BlueberryUpgrades'
-import { cubeQuarkSources } from '../CubeExperimental'
-import { antCycleBaseQuarks } from '../Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
+import { defaultHighestRebornELODaily } from '../Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/default'
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
@@ -15,7 +14,6 @@ import { getGQUpgradeCumulativeCost, type SingularityDataKeys } from '../singula
 import { blankSave, deepClone, format } from '../Synergism'
 import { talismanInvestmentForLevel } from '../Talismans'
 import { Alert } from '../UpdateHTML'
-import { digitCount } from '../Utility'
 import { arrayStartingWithNull, decimalSchema, playerSchema } from './PlayerSchema'
 
 type Shape = Record<string, ZodType>
@@ -571,33 +569,24 @@ const migrations: Migration[] = [
       goldenQuarkUpgrades: z.record(
         z.string(),
         z.object({ level: z.number().optional() })
-      ).optional().catch(undefined),
-      tesseractQuarkDaily: z.number().optional().catch(undefined),
-      hypercubeQuarkDaily: z.number().optional().catch(undefined),
-      platonicCubeQuarkDaily: z.number().optional().catch(undefined),
-      ants: z.object({ quarksGainedFromAnts: z.number() }).optional().catch(undefined)
+      ).optional().catch(undefined)
     },
-    migrate: (player, legacy) => {
+    migrate: (player, { goldenQuarkUpgrades }) => {
       for (const [key, multiplier] of Object.entries(goldenQuarkUpgradeCostIncreases)) {
-        const legacyUpgrade = legacy.goldenQuarkUpgrades?.[key]
+        const legacyUpgrade = goldenQuarkUpgrades?.[key]
         if (legacyUpgrade !== undefined && legacyUpgrade.level === undefined) {
           player.goldenQuarkUpgrades[key].goldenQuarksInvested *= multiplier
         }
       }
 
-      for (const { source, coefficient, opened } of Object.values(cubeQuarkSources)) {
-        player.quarkLedger.base[source] = coefficient * digitCount(player[opened])
-      }
-      player.quarkLedger.base.ants = antCycleBaseQuarks(player.ants.highestRebornELODaily)
-      player.quarkLedger.credited.primary = legacy.cubeQuarkDaily
-        + (legacy.tesseractQuarkDaily ?? 0)
-        + (legacy.hypercubeQuarkDaily ?? 0)
-        + (legacy.platonicCubeQuarkDaily ?? 0)
-        + (legacy.ants?.quarksGainedFromAnts ?? 0)
+      player.cubeOpenedDaily = 0
+      player.tesseractOpenedDaily = 0
+      player.hypercubeOpenedDaily = 0
+      player.platonicCubeOpenedDaily = 0
+      player.ants.highestRebornELODaily = [...defaultHighestRebornELODaily]
+      player.dailyCodeUsed = false
 
-      if (player.highestSingularityCount > 0) {
-        void Alert(i18next.t('versionChangeAnnouncements.v4-4-2-Quarks'))
-      }
+      void Alert(i18next.t('versionChangeAnnouncements.v4-4-2-Quarks'))
     }
   })
 ]

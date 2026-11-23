@@ -9005,6 +9005,6 @@
     "sept13Refund": "Due to the Purple Ambrosia Update, some of your Quark Upgrades have been refunded! Refund amount: <<cyan|+{{amount}}>>",
     "v4-4-1-Corruptions": "Because of a recent update, your Corruption progress has been adjusted. Your Corruption level is set to <<orange|{{level}}>>, with a Challenge 10 completion instantly awarded.",
     "v4-4-1-BarCharging": "Because of balancing changes, your <<var(--purple-text-color)|Bar Charging>> EXALT completions have been set to <<orange|5>>.",
-    "v4-4-2-Quarks": "You've loaded into Version 4.4.2, which substantially changes Quark progression. You may want to check out the Ledger in the Quarks tab, and be on the lookout for new Quark Upgrades!"
+    "v4-4-2-Quarks": "You've loaded into Version 4.4.2, which substantially changes Quark progression. You may want to check out the Ledger in the Quarks tab, and be on the lookout for new Quark Upgrades! Daily activities, such as the 'daily' code, have been reset as well!"
   }
 }

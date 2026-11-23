@@ -12,8 +12,8 @@ export const quarksFromELOMult = () => {
   return 2 - Math.pow(0.8, numStages / 100)
 }
 
-export const antCycleBaseQuarks = (leaderboard: Array<{ elo: number; sacrificeId: number }>) => {
-  const totalELOValue = calculateLeaderboardValue(leaderboard)
+export const antCycleBaseQuarks = () => {
+  const totalELOValue = calculateLeaderboardValue(player.ants.highestRebornELODaily)
   let numStages = calculateRebornELOThresholds(totalELOValue)
   let baseQuarks = 0
   const stageMult = Math.pow(quarkMultiplierPerThreshold, Math.min(numStages, 1000))

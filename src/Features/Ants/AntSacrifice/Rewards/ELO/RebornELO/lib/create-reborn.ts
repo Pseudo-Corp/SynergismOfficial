@@ -33,7 +33,7 @@ export const activateELO = (dt: number) => {
       player.ants.rebornELO = Math.min(player.ants.rebornELO, player.ants.immortalELO)
     }
   }
-  const baseQuarksBefore = antCycleBaseQuarks(player.ants.highestRebornELODaily)
+  const baseQuarksBefore = antCycleBaseQuarks()
   updateAntLeaderboards()
-  addBaseQuarks('ants', antCycleBaseQuarks(player.ants.highestRebornELODaily) - baseQuarksBefore)
+  addBaseQuarks('ants', antCycleBaseQuarks() - baseQuarksBefore)
 }
