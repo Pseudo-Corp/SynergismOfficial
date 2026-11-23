@@ -241,8 +241,8 @@ import { generateShopTabHTML } from './ShopTab'
 import {
   blankGQLevelObject,
   calculateMaxSingularityLookahead,
-  createBlankGoldenQuarkLedger,
   clampGQFreeLevelsToCaps,
+  createBlankGoldenQuarkLedger,
   raiseHighestSingularity,
   setGQUpgradeLevels,
   settleGoldenQuarks
@@ -272,6 +272,11 @@ const researchAutoChallengeIndices = [71, 72, 73, 74, 75]
 // Preserved so that the balancing is unaffected
 const researchAutoChallengeReqMulti = [1.25, 1.6, 1.7, 1.45, 2]
 const periodicProgressiveAchievementKeys = progressiveAchievementKeys.filter((key) => key !== 'runeLevel')
+
+const challengeCompletionsPerTick = () =>
+  getShopUpgradeEffects('instantChallenge2', 'unlocked')
+    ? Number.POSITIVE_INFINITY
+    : 1 + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -2903,9 +2908,7 @@ export const resourceGain = (dt: number): void => {
     awardAchievementGroup(AchievementGroup.Constant)
   }
 
-  const autoChallengeCompLimit = getShopUpgradeEffects('instantChallenge2', 'unlocked')
-    ? Number.POSITIVE_INFINITY
-    : 1 + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+  const autoChallengeCompLimit = challengeCompletionsPerTick()
 
   /* Researches 3x21 to 3x25 deal with autogaining Transcension Challenges in
   Reincarnation Challenges (71-75 in index).
@@ -3090,15 +3093,7 @@ export const resetCheck = async (
     const q = player.currentChallenge.transcension
     const maxCompletions = getMaxChallenges(q)
     if (player.challengecompletions[q] < maxCompletions) {
-      let maxInc = 1
-      if (player.retrychallenges && !manual && !leaving) {
-        maxInc = getShopUpgradeEffects('instantChallenge2', 'unlocked')
-          ? maxCompletions
-          : maxInc + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      }
-      if (useChallenge13Modifiers()) {
-        maxInc = 1
-      }
+      const maxInc = useChallenge13Modifiers() ? 1 : challengeCompletionsPerTick()
       player.challengecompletions[q] = Math.max(
         player.challengecompletions[q],
         challengeCompletionsAffordable(
@@ -3149,15 +3144,7 @@ export const resetCheck = async (
     const q = player.currentChallenge.reincarnation
     const maxCompletions = getMaxChallenges(q)
     if (player.challengecompletions[q] < maxCompletions) {
-      let maxInc = 1
-      if (player.retrychallenges && !manual && !leaving) {
-        maxInc = getShopUpgradeEffects('instantChallenge2', 'unlocked')
-          ? maxCompletions
-          : maxInc + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      }
-      if (useChallenge13Modifiers()) {
-        maxInc = 1
-      }
+      const maxInc = useChallenge13Modifiers() ? 1 : challengeCompletionsPerTick()
       player.challengecompletions[q] = Math.max(
         player.challengecompletions[q],
         challengeCompletionsAffordable(

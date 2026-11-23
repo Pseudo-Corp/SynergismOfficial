@@ -16,6 +16,7 @@ import {
   calculateSummationNonLinear,
   sumOfExaltCompletions
 } from './Calculate'
+import { isAscensionTabUnlocked } from './Corruptions'
 import type { IMultiBuy } from './Cubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
 import { worlds } from './Quark'
@@ -415,7 +416,14 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   },
   instantChallenge: {
     name: () => i18next.t('shop.names.instantChallenge'),
-    description: () => i18next.t('shop.upgradeDescriptions.instantChallenge'),
+    description: () => {
+      const exitKey = isAscensionTabUnlocked()
+        ? 'shop.upgradeDescriptions.instantChallengeExitAscension'
+        : 'shop.upgradeDescriptions.instantChallengeExit'
+      return `${i18next.t('shop.upgradeDescriptions.instantChallenge')}<br>${i18next.t(exitKey)}<br>${
+        i18next.t('shop.upgradeDescriptions.instantChallengeResearch')
+      }`
+    },
     effects: (n, key) => {
       if (key === 'unlocked') {
         return n > 0
@@ -967,7 +975,10 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   },
   instantChallenge2: {
     name: () => i18next.t('shop.names.instantChallenge2'),
-    description: () => i18next.t('shop.upgradeDescriptions.instantChallenge2'),
+    description: () =>
+      `${i18next.t('shop.upgradeDescriptions.instantChallenge2')}<br>${
+        i18next.t('shop.upgradeDescriptions.instantChallenge2Research')
+      }<br>${i18next.t('shop.upgradeDescriptions.instantChallenge2Reincarnation')}`,
     effects: (n) => n > 0, // unlocked
     effectDescription () {
       return i18next.t('shop.upgradeEffects.instantChallenge2')

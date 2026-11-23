@@ -72,6 +72,7 @@
     "ignoreEXALT": "[<<white|♔>>] This upgrade is active even if an EXALT says otherwise!",
     "moduleActive": "<<gold|[Active]>>",
     "moduleInactive": "<<gray|[Inactive]>>",
+    "moduleAugmented": "<<red|[Augmented]>>",
     "notUnlocked": "Clear No Golden Quark Upgrades, Tier 1!",
     "ambrosiaCost": "Cost for next level: <<orange | {{amount}}>> Ambrosia",
     "purpleAmbrosia": {
@@ -383,27 +384,27 @@
       },
       "freeTutorialLevels": {
         "name": "More Blueberry Tutorial Module Levels!",
-        "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level.",
+        "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level. These levels apply even if the Module is not activated.",
         "effect": "This upgrade increases the effective level of Blueberry Tutorial Module by <<pink | {{amount}}>>!"
       },
       "freeLevelsRow2": {
         "name": "More Blueberry Luck Module Levels!",
-        "description": "Add one effective level per level to all Blueberry Modules in the third row, excluding the first column, and to hybrid modules that grant Ambrosia Luck.",
+        "description": "Add one effective level per level to all Blueberry Modules in the third row, excluding the first column, and to hybrid modules that grant Ambrosia Luck. These levels apply even if the Module is not activated.",
         "effect": "This upgrade increases the effective level of third-row Blueberry Modules (excluding the first column) and hybrid modules that grant Ambrosia Luck by <<pink|{{amount}}>>!"
       },
       "freeLevelsRow3": {
         "name": "More Blueberry Resource and Utility Module Levels!",
-        "description": "Add one effective level per level to all Blueberry Modules in rows 5 and 6, excluding the first column, the RNG-based Offerings Booster, and Singularity Stabilizer modules.",
+        "description": "Add one effective level per level to all Blueberry Modules in rows 5 and 6, excluding the first column, the RNG-based Offerings Booster, and Singularity Stabilizer modules. These levels apply even if the Module is not activated.",
         "effect": "This upgrade increases the effective level of Blueberry Modules in rows 5 and 6, excluding the first column, the RNG-based Offerings Booster, and Singularity Stabilizer modules by <<pink|{{amount}}>>!"
       },
       "freeLevelsRow4": {
         "name": "More Blueberry Cube Module Levels!",
-        "description": "Add one effective level per level to all Blueberry Modules in the second row, excluding the first column, and to hybrid modules that grant cubes.",
+        "description": "Add one effective level per level to all Blueberry Modules in the second row, excluding the first column, and to hybrid modules that grant cubes. These levels apply even if the Module is not activated.",
         "effect": "This upgrade increases the effective level of second-row Blueberry Modules (excluding the first column) and hybrid modules that grant cubes by <<pink|{{amount}}>>!"
       },
       "freeLevelsRow5": {
         "name": "More Blueberry Quark Module Levels!",
-        "description": "Add one effective level per level to all Blueberry Modules in the first row, excluding the first column, and to hybrid modules that grant quarks.",
+        "description": "Add one effective level per level to all Blueberry Modules in the first row, excluding the first column, and to hybrid modules that grant quarks. These levels apply even if the Module is not activated.",
         "effect": "This upgrade increases the effective level of first-row Blueberry Modules (excluding the first column) and hybrid modules that grant quarks by <<pink|{{amount}}>>!"
       },
       "blueberryGenerationSpeed": {
@@ -3328,11 +3329,11 @@
       "68": "[3x18] Increase the maximum number of [No Shards] completions by 5 per level.",
       "69": "[3x19] Increase the maximum number of [Cost+] completions by 5 per level.",
       "70": "[3x20] Increase the maximum number of [Reduced Diamonds] completions by 5 per level.",
-      "71": "[3x21] Automatically gain completions for Challenge 1 while running a Reincarnation Challenge",
-      "72": "[3x22] Automatically gain completions for Challenge 2 while running a Reincarnation Challenge",
-      "73": "[3x23] Automatically gain completions for Challenge 3 while running a Reincarnation Challenge",
-      "74": "[3x24] Automatically gain completions for Challenge 4 while running a Reincarnation Challenge",
-      "75": "[3x25] Automatically gain completions for Challenge 5 while running a Reincarnation Challenge",
+      "71": "[3x21] While in a Reincarnation Challenge, automatically gain Challenge 1 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.25)).",
+      "72": "[3x22] While in a Reincarnation Challenge, automatically gain Challenge 2 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.6)).",
+      "73": "[3x23] While in a Reincarnation Challenge, automatically gain Challenge 3 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.7)).",
+      "74": "[3x24] While in a Reincarnation Challenge, automatically gain Challenge 4 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.45)).",
+      "75": "[3x25] While in a Reincarnation Challenge, automatically gain Challenge 5 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((2)).",
       "76": "[4x1] Here's +10% Obtainium per level to help you afford these next Researches!",
       "77": "[4x2] Here's +1 Rune Coefficient to Thrift Rune, per level!",
       "78": "[4x3] Here's +1 Rune Coefficient to Speed Rune, per level!",
@@ -3487,7 +3488,10 @@
       "offeringAuto": "Automatically pour Offerings into a Rune. Unlock the mechanic with the first level, and make it 1% faster per level!",
       "obtainiumEX": "Each level, get +10% more Obtainium! Every 10th level multiplies the effect of this upgrade by num:((1.12)).",
       "obtainiumAuto": "Automatically pour Obtainium into a Research. Unlock the mechanic with the first level. Each level also reduces the cost of Researches by num:((0.1))% per level! (Cost is rounded up)",
-      "instantChallenge": "T and R Challenges don't cause resets if retry is enabled and gain up to 10 completions per tick. Additionally, instantly gain T Challenge completions up to highest completed when exiting R Challenges.",
+      "instantChallenge": "T and R Challenges don't cause resets if retry is enabled.",
+      "instantChallengeExit": "Instantly gain T Challenge completions up to highest completed when exiting R Challenges.",
+      "instantChallengeExitAscension": "Instantly gain T Challenge completions up to highest completed when exiting R Challenges or Ascending.",
+      "instantChallengeCompletions": "Gain up to 11 T and R Challenge completions per tick.",
       "antSpeed": "Each level grants +8 Ant ELO per level. Don't ask where it comes from.",
       "cashGrab": "This is a cash grab but it gives a couple cool stats. +1.66% production per level to Offerings and Obtainium.",
       "shopTalisman": "Permanently unlock a Shop talisman!",
@@ -3516,7 +3520,8 @@
       "seasonPassY": "This is even more insane than the last one, but you'll buy it anyway. +num:((0.75))% ALL Cubes per level.",
       "seasonPassZ": "This one is arguably very good. Gain +1% ALL Cubes per level, per Singularity!",
       "challengeTome2": "You find the final pages of the lost tome. It functionally acts the same as the rest of the pages, but you can have up to five more!",
-      "instantChallenge2": "Completing an Ascension Challenge doesn't cause a reset (if retry is enabled), and Transcension and Reincarnation Challenges gain every completion you can afford each tick.",
+      "instantChallenge2": "Completing an Ascension Challenge doesn't cause a reset (if retry is enabled).",
+      "instantChallenge2Completions": "Gain every T and R Challenge completion you can afford each tick.",
       "cubeToQuarkAll": "First up on the menu, why not boost your Overflux Orb Effect by +num:((0.2))% per level?",
       "cashGrab2": "This isn't even as good as the original. +num:((0.5))% Offerings and Obtainium per level.",
       "chronometerZ": "Gain +num:((0.1))% Ascension Speed per level per Singularity. It needs a lot of fuel to power up.",
@@ -3576,7 +3581,7 @@
       "shopRootsOfUnityWarning": "<<gold|⚠>> <<cyan|Primary Quarks>> are no longer reset after each daily reset, only on Singularity!",
       "shopRootsOfUnityTimerReset": "<<gold|⚠>> Buying this lowers your Singularity Timer to <<gold|1 day>> if it is longer than that!",
       "shopRootsOfUnityFormula": "Max Growth = <<gold|+24 × 1.05^(Total EXALT Tiers)>> per day, up to <<gold|+10,000>>.",
-      "shopSingularitySpeedup": "A weird clock that somehow alters your memory of <<gray | Time>>. No matter how slow your past Singularities were, you perceive them to be impossibly fast.",
+      "shopSingularitySpeedup": "A weird clock that somehow alters your memory of <<gray | Time>>. No matter how slow your past Singularities were, you perceive them to be impossibly fast. Because this merely improves <<pink|Roots of Unity>>, you might want to purchase that first, before you buy Singular Clockwork!",
       "shopSingularityPotency": "You know all those free Golden Quark Upgrades? Most of them (not the Hourglasses) are now 266% more effective (so, each is worth the equivalent to num:((3.66)) levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
@@ -3718,7 +3723,7 @@
       "shopRootsOfUnityInactive": "Repeating a Singularity <<red|DOES NOT>> grow the <<cyan|Primary Quarks>> multiplier over time, based on your fastest completion.",
       "shopRootsOfUnityClockwork": "Every Singularity <<green|DOES>> grow the <<cyan|Primary Quarks>> multiplier over time once your Singularity Timer passes <<gold|{{time}}>> seconds.",
       "shopRootsOfUnityClockworkInactive": "Every Singularity <<red|DOES NOT>> grow the <<cyan|Primary Quarks>> multiplier over time once your Singularity Timer passes <<gold|{{time}}>> seconds.",
-      "shopSingularitySpeedup": "The Singularity Timer's <<cyan|Primary Quark>> Multiplier always grows by its <<pink|Roots of Unity>> max of <<gold|+{{max}}>> per day once your Singularity Timer passes <<gold|{{time}}>> seconds, regardless of your fastest completion or if you've even beaten the Singularity before!",
+      "shopSingularitySpeedup": "With <<pink|Roots of Unity>>, the Singularity Timer's <<cyan|Primary Quark>> Multiplier always grows by its max of <<gold|+{{max}}>> per day once your Singularity Timer passes <<gold|{{time}}>> seconds, regardless of your fastest completion or if you've even beaten the Singularity before!",
       "shopSingularityPotency": "Most free Golden Quark Upgrades (not the Hourglasses) are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Upgrades are increased by <<white|{{amount}}>>.",
@@ -4276,8 +4281,8 @@
     "data": {
       "goldenQuarks1": {
         "name": "Golden Quarks I",
-        "description": "In the future, you will gain 10% more Golden Quarks on Singularities per level!",
-        "effect": "Permanently gain {{n}} more Golden Quarks on Singularities."
+        "description": "Gain 10% more Golden Quarks per level!",
+        "effect": "Permanently gain {{n}} more Golden Quarks."
       },
       "goldenQuarks2": {
         "name": "Golden Quarks II",
@@ -4562,13 +4567,13 @@
       },
       "singFastForward": {
         "name": "Etherflux Singularities",
-        "description": "Golden Quark gained by Singularity is increased by num:((2.5))% (additive), and lets you 'look ahead' an extra Singularity. This means you can choose (from the Elevator) to skip a Singularity if you do one at your all time highest!",
+        "description": "Increases Golden Quarks by num:((2.5))% (additive), and lets you 'look ahead' an extra Singularity. This means you can choose (from the Elevator) to skip a Singularity if you do one at your all time highest!",
         "effectHave": "You've transformed the Etherflux!",
         "effectHaveNot": "You haven't transformed the Etherflux!"
       },
       "singFastForward2": {
         "name": "Aetherflux Singularities",
-        "description": "Golden Quark gained by Singularity is increased by num:((2.5))% (additive) and lets you 'look ahead' yet another Singularity!",
+        "description": "Increases Golden Quarks by num:((2.5))% (additive) and lets you 'look ahead' yet another Singularity!",
         "effectHave": "You've transformed the Aetherflux!",
         "effectHaveNot": "You haven't transformed the Aetherflux!"
       },
@@ -6747,6 +6752,7 @@
         "timeMod1": "<<red|⏱ Time Limit: {{time}} seconds>>",
         "timeMod2": "<<gold|⚠>> After the time limit, your Obtainium, Offering, and Cube production is divided by <<red|{{perSecondDivisor}}>> per second.",
         "timeMod3": "Derpsmith gives you a slight boost: <<#00DDFF | 5x faster Reborn ELO Creation Speed!>> Until you buy Antiquities, at least.",
+        "timeMod4": "Platonic DELTA is disabled.",
         "ScalingReward1": "+12% <<orange|Global Speed>>!",
         "ScalingReward2": "+12% <<orange|Ascension Speed>>!",
         "ScalingReward3": "+2% <<cyan|Quarks>>!",

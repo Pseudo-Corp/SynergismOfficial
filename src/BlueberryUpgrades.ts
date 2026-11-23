@@ -1858,8 +1858,13 @@ const getAmbrosiaUpgradeNameHTML = (upgradeKey: AmbrosiaUpgradeNames): string =>
   const activeStatus = isAmbrosiaUpgradeActive(upgradeKey)
     ? i18next.t('ambrosia.moduleActive')
     : i18next.t('ambrosia.moduleInactive')
+  const augmentedStatus = !isAmbrosiaUpgradeSuppressed(upgradeKey) && getRedAmbrosiaFreeLevels(upgradeKey) > 0
+    ? ` ${i18next.t('ambrosia.moduleAugmented')}`
+    : ''
 
-  return `<span style="color: var(--gold-color)">${ambrosiaUpgrades[upgradeKey].name()}</span> ${activeStatus}`
+  return `<span style="color: var(--gold-color)">${
+    ambrosiaUpgrades[upgradeKey].name()
+  }</span> ${activeStatus}${augmentedStatus}`
 }
 
 const ambrosiaUpgradePrerequisitesHTML = (upgradeKey: AmbrosiaUpgradeNames): string => {
