@@ -12,7 +12,7 @@ import {
 } from './Calculate'
 import { cubes } from './CubeExperimental'
 import { getOcteractUpgradeEffect } from './Octeracts'
-import { worlds } from './Quark'
+import { type PrimaryQuarkResetMode, primaryQuarkResetMode, worlds } from './Quark'
 import { resetTiers } from './Reset'
 import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
@@ -795,10 +795,13 @@ export const toggleAutoBuyOrbs = (newValue?: boolean, firstLoad = false) => {
   HTML.style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'var(--green-color)' : 'var(--red-color)'}`
 }
 
-const dailyWarpTextKey = (key: string) =>
-  getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')
-    ? `hepteracts.${key}UntilSingularity`
-    : `hepteracts.${key}`
+const dailyWarpKeySuffixes: Record<PrimaryQuarkResetMode, string> = {
+  daily: '',
+  dailyOrSingularity: 'OrSingularity',
+  singularity: 'UntilSingularity'
+}
+
+const dailyWarpTextKey = (key: string) => `hepteracts.${key}${dailyWarpKeySuffixes[primaryQuarkResetMode()]}`
 
 /**
  * Generates the description at the bottom of the page for Overflux Powder Properties

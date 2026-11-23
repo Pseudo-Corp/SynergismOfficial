@@ -2590,6 +2590,7 @@
     },
     "leaderboard": {
       "toggleDaily": "Daily",
+      "toggleSingularity": "Singularity",
       "toggleAllTime": "All-Time",
       "value": "Total Weighted Value: <<gold|{{x}}>> (Stage <<gold|{{y}}>>)",
       "quarksGained": "Quarks gained from Stages: <<cyan|{{x}}>>",
@@ -2600,13 +2601,14 @@
       "weight": "Weight",
       "stageModal": {
         "introDaily": "Your daily leaderboard is at Stage <<gold|{{x}}>>.",
+        "introSingularity": "Your Singularity leaderboard is at Stage <<gold|{{x}}>>.",
         "introAllTime": "Your all-time leaderboard is at Stage <<gold|{{x}}>>.",
         "stageLine": "<<turquoise|{{x}}>> Stages, worth <<#00DDFF|{{y}}>> Weighted Value (<<gold|{{z}}>> per Stage)",
         "toNextStage": "You need <<gold|{{x}}>> more Weighted Value to reach the next Stage.",
         "disclaimer": "Stages from Weighted Value are calculated the <<gold|same way>> as Stages for Reborn ELO. Weighted Value formula: <<orchid | Sum(ELO_i * Weight_i)>>, where i is the placement of the Ant Sacrifice in the leaderboard."
       },
       "dailyQuarkModal": {
-        "intro": "You've gained <<cyan|{{x}}>> Quarks from Ant Sacrifice today!",
+        "intro": "You've gained <<cyan|{{x}}>> Quarks from Ant Sacrifice!",
         "quarkLine": "<<turquoise|{{x}}>> Stages, worth <<cyan|{{y}}>> Quarks (<<cyan|{{z}}>> per Stage)",
         "bonusMult": "Get num:((1.002))x the Quarks per stage, up until Stage num:((1000)). Current: <<cyan|x{{x}}>>",
         "allTimeMult": "All-Time Leaderboard Quark Multiplier: <<cyan|x{{x}}>>",
@@ -2666,7 +2668,7 @@
     "altarHeader": "Ant God... <<crimson | It Hungers.>>",
     "altarDetails": "Sacrifice your Ants to her for some <<crimson | Immortal ELO>>, and a bunch of other worldly things.",
     "compendiumHeader": "Ant God appreciates your donations.",
-    "compendiumDetails": "She offers you some Quarks in exchange for your best Sacrifices each day.",
+    "compendiumDetails": "She offers you some Quarks in exchange for your best Sacrifices.",
     "anthillAlive": "Your Anthill has been alive for",
     "currentAnthill": "(This is your <<gold|{{ord}}>> Anthill)",
     "galacticCrumbCount": "You have {{x}} Galactic Crumbs.",
@@ -3062,8 +3064,9 @@
     "hypercubeOneTimeBonus": "Gain 1 Wow! HYPERCUBE for completing this challenge (First Time Bonus)",
     "ascensionBankAdd": "Completing the challenge adds {{x}} to the Cube Bank.",
     "ascensionBankMultiply": "Completing the challenge multiplies the Cube Bank by x{{x}}.",
-    "dailyQuarks": "Each completion earns {{x}} base Quarks every day!",
-    "dailyQuarkMultiplier": "Each completion adds +{{x}}% to the Challenge Completions Quark multiplier every day!"
+    "dailyQuarks": "Each completion earns {{x}} base Primary Quarks every day!",
+    "singularityQuarks": "Each completion earns {{x}} base Primary Quarks once per Singularity!",
+    "completionQuarkMultiplier": "Each completion adds +{{x}}% to the Challenge Completions Quark multiplier!"
   },
   "cubes": {
     "upgradeNames": {
@@ -3521,7 +3524,7 @@
       "powderAuto": "Your grandparents had to wait a full day for powder, but not you! Per level gain +1% of orbs to powder based on the conversion rate.",
       "seasonPassLost": "One would be advised not to touch this. +num:((0.1))% Octeracts per level, whatever those are...",
       "challenge15Auto": "Your grandparents had to bend dimensions to gain Challenge 15 score, but not you! Updates Challenge 15 Exponent every tick while in challenge 15!",
-      "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant. <<crimson|Your Daily Warp gives +1 more to its Primary Quark multiplier.>>",
+      "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant. <<crimson|Your Primary Quark Warp gives +1 more to its multiplier.>>",
       "autoWarp": "With the power of Quacks, the Warp machine can now run itself.",
       "improveQuarkHept": "That exponent on your Quark Hepteracts is nice, but what if it was better? Gain +num:((0.01)) power per level to the Quark Hept Exponent!",
       "improveQuarkHept2": "Want even stronger Quark Hepts? Gain +num:((0.01)) power per level to the Quark Hept Exponent!",
@@ -3664,8 +3667,8 @@
       "powderAuto": "Every <<red|{{amount}}>> purchased orbs grants 1 powder.",
       "seasonPassLost": "You generate <<lightgoldenrodyellow|{{amount}}>> more Wow! Octeracts per second.",
       "challenge15Auto": "Even in a premium shop it's kinda obvious, right?",
-      "extraWarp": "Your Daily Warp multiplier is increased by <<red|+{{amount}}>>.",
-      "autoWarp": "If you buy this upgrade, you can toggle <<red|Auto Warp>> in the Hepteract Forge tab. While on, the Daily Warp activates by itself whenever you have 25 Powder.",
+      "extraWarp": "Your Primary Quark Warp multiplier is increased by <<red|+{{amount}}>>.",
+      "autoWarp": "If you buy this upgrade, you can toggle <<red|Auto Warp>> in the Hepteract Forge tab. While on, the Primary Quark Warp activates by itself whenever you have 25 Powder.",
       "improveQuarkHept": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "improveQuarkHept2": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
       "improveQuarkHept3": "The Exponent on Quark Hepteract is increased by <<cyan|+{{amount}}>>.",
@@ -3710,8 +3713,8 @@
       "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}>>.",
       "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}>>",
       "shopAmbrosiaUltra": "Gain <<lime|+{{amount}} Ambrosia Luck>> from your EXALT completions!",
-      "shopRootsOfUnity": "Repeating a Singularity <<green|DOES>> grow the <<cyan|Primary Quarks>> multiplier over time after you pass your fastest completion.",
-      "shopRootsOfUnityInactive": "Repeating a Singularity <<red|DOES NOT>> grow the <<cyan|Primary Quarks>> multiplier over time after you pass your fastest completion.",
+      "shopRootsOfUnity": "Repeating a Singularity <<green|DOES>> grow the <<cyan|Primary Quarks>> multiplier over time, based on your fastest completion.",
+      "shopRootsOfUnityInactive": "Repeating a Singularity <<red|DOES NOT>> grow the <<cyan|Primary Quarks>> multiplier over time, based on your fastest completion.",
       "shopRootsOfUnityClockwork": "Every Singularity <<green|DOES>> grow the <<cyan|Primary Quarks>> multiplier over time once your Singularity Timer passes <<gold|{{time}}>> seconds.",
       "shopRootsOfUnityClockworkInactive": "Every Singularity <<red|DOES NOT>> grow the <<cyan|Primary Quarks>> multiplier over time once your Singularity Timer passes <<gold|{{time}}>> seconds.",
       "shopSingularitySpeedup": "The Singularity Timer's <<cyan|Primary Quark>> Multiplier always grows by its <<pink|Roots of Unity>> max of <<gold|+{{max}}>> per day once your Singularity Timer passes <<gold|{{time}}>> seconds, regardless of your fastest completion or if you've even beaten the Singularity before!",
@@ -3858,7 +3861,7 @@
       "shopImprovedDaily": "Improved Daily Code",
       "infiniteAscent": "Infinite Ascent",
       "powderEX": "Overflux Powder",
-      "extraWarp": "Daily Warps",
+      "extraWarp": "Primary Quark Warps",
       "shopAmbrosiaGeneration1": "Ambrosia Generation",
       "shopAmbrosiaLuck1": "Ambrosia Luck",
       "shopAmbrosiaLuckMultiplier4": "Ambrosia Luck Amplifiers",
@@ -3872,14 +3875,20 @@
       "total": "Total",
       "quarksRewarded": "Quarks Rewarded",
       "multiplierValue": "x{{x}}",
+    "primaryReset": {
+      "daily": "Primary Quarks reset in <<gold|{{time}}>>.",
+      "dailyOrSingularity": "Primary Quarks reset in <<gold|{{time}}>>, or on your next Singularity.",
+      "singularity": "Primary Quarks reset on your next Singularity."
+    },
+    "miscellaneousReset": "Miscellaneous Quarks reset in <<gold|{{time}}>>.",
+    "goldenQuarkReset": "Golden Quarks reset in <<gold|{{time}}>>.",
       "rules": {
         "baseGain": "1) If you gain Base Quarks from a source, you will gain Quarks equal to that amount times the current Multiplier, no matter what.",
         "multiplierGrowth": "2) If your Multiplier grows such that Base Quarks * Multiplier exceeds the Awarded value, then you will automatically gain the difference."
       },
       "goldenQuarkRules": {
         "baseGain": "1) If you gain Base Golden Quarks from a source, you will gain Golden Quarks equal to that amount times the current Multiplier, no matter what.",
-        "multiplierGrowth": "2) If your Multiplier grows such that Base Golden Quarks * Multiplier exceeds the Awarded value, then you will automatically gain the difference.",
-        "dailyReset": "3) Base Golden Quarks reset at midnight."
+        "multiplierGrowth": "2) If your Multiplier grows such that Base Golden Quarks * Multiplier exceeds the Awarded value, then you will automatically gain the difference."
       },
       "categories": {
         "primary": "Primary",
@@ -3893,7 +3902,7 @@
         "platonicCubes": "Platonic Cubes: <<cyan|x{{x}}>>",
         "overfluxOrbs": "Overflux Orb Effect: <<cyan|x{{x}}>>",
         "allTimeLeaderboard": "All-Time Ant Leaderboard: <<cyan|x{{x}}>>",
-        "dailyWarp": "Daily Warp: <<cyan|x{{x}}>>",
+        "dailyWarp": "Primary Quark Warp: <<cyan|x{{x}}>>",
         "basicProgression": "Basic Progression Multiplier: <<cyan|x{{x}}>>",
         "singularityTime": "Singularity Timer (+{{perDay}} per day): <<cyan|x{{x}}>>",
         "subatomicShavings": "Subatomic Shavings: <<cyan|x{{x}}>>",
@@ -8221,7 +8230,6 @@
     "unlocked": "Unlocked!",
     "quarks": {
       "quarkTitle": "-=- Cube to Quark Corner -=-",
-      "resetInfo": "Quark Rewards reset midnight!",
       "cubes": "Wow! Cubes",
       "tesseracts": "Wow! Tesseracts",
       "hypercubes": "Wow! Hypercubes",
@@ -8229,7 +8237,7 @@
       "nextReward": "Next Reward",
       "nextRewardValue": "{{opened}}/{{target}}",
       "quarksPerReward": "Quarks per Reward",
-      "quarksEarnedToday": "Quarks Earned Today",
+      "quarksEarned": "Quarks Earned",
       "rewardInfo": "Get +1 Reward per digit in the amount of Cubes you've opened!"
     },
     "cubes": {
@@ -8513,17 +8521,22 @@
     "powderEffectExtended": "Powder effect: ALL Cube Gain +{{x}}% [Multiplicative], +{{y}}% Quarks [Multiplicative], Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
     "powderLumps": "You have {{x}} lumps of Overflux Powder.",
     "expiredOrbs": "Expired Overflux Orbs become powder at a rate of {{x}} Orbs per powder lump!",
-    "dailyWarpActive": "The Daily Warp is active: Primary Quarks are multiplied by ×{{x}} until midnight.",
-    "dailyWarpActiveUntilSingularity": "The Daily Warp is active: Primary Quarks are multiplied by ×{{x}} until your next Singularity.",
+    "dailyWarpActive": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until midnight.",
+    "dailyWarpActiveOrSingularity": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until midnight or your next Singularity.",
+    "dailyWarpActiveUntilSingularity": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until your next Singularity.",
     "dailyWarpInactive": "Warp for 25 Powder to multiply Primary Quarks by ×{{x}} until midnight.",
+    "dailyWarpInactiveOrSingularity": "Warp for 25 Powder to multiply Primary Quarks by ×{{x}} until midnight or your next Singularity.",
     "dailyWarpInactiveUntilSingularity": "Warp for 25 Powder to multiply Primary Quarks by ×{{x}} until your next Singularity.",
-    "warpAlreadyActive": "The Daily Warp is already active. It wears off at midnight.",
-    "warpAlreadyActiveUntilSingularity": "The Daily Warp is already active. It wears off on your next Singularity.",
+    "warpAlreadyActive": "The Primary Quark Warp is already active. It wears off at midnight.",
+    "warpAlreadyActiveOrSingularity": "The Primary Quark Warp is already active. It wears off at midnight or on your next Singularity.",
+    "warpAlreadyActiveUntilSingularity": "The Primary Quark Warp is already active. It wears off on your next Singularity.",
     "atleastPowder": "Sorry, but you need 25 powder to operate the warp machine.",
     "stumbleMachine": "You stumble upon a mysterious machine. A note attached says that for 25 Powder, it multiplies your Primary Quarks by ×{{x}} until midnight. You in?",
+    "stumbleMachineOrSingularity": "You stumble upon a mysterious machine. A note attached says that for 25 Powder, it multiplies your Primary Quarks by ×{{x}} until midnight or your next Singularity. You in?",
     "stumbleMachineUntilSingularity": "You stumble upon a mysterious machine. A note attached says that for 25 Powder, it multiplies your Primary Quarks by ×{{x}} until your next Singularity. You in?",
     "walkAwayMachine": "You walk away from the machine, powder intact.",
     "useMachine": "The machine hums to life. Primary Quarks are multiplied by ×{{x}} until midnight! [-25 Powder]",
+    "useMachineOrSingularity": "The machine hums to life. Primary Quarks are multiplied by ×{{x}} until midnight or your next Singularity! [-25 Powder]",
     "useMachineUntilSingularity": "The machine hums to life. Primary Quarks are multiplied by ×{{x}} until your next Singularity! [-25 Powder]"
   },
   "importexport": {
@@ -8634,8 +8647,8 @@
     "singularityMessage2": "You may choose to sit on your laurels, and consider the game 'beaten', or you may do something more interesting.",
     "singularityMessage3": "You're too powerful for this current universe. The multiverse of Synergism is truly endless, but out there are even more challenging universes parallel to your very own.",
     "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades.",
-    "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, Quark Upgrades, and Quark Hepteracts will be wiped clean.",
-    "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks.",
+    "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, Quark Upgrades, and Quark Hepteracts will be wiped clean. In the Quark Ledger, Primary Quarks reset, but Miscellaneous Quarks do not.",
+    "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks. In the Quark Ledger, Primary Quarks reset, but Miscellaneous Quarks do not.",
     "singularityConfirm1": "So, what do you say? Do you wish to enter the Singularity?",
     "singularityConfirm2": "Are you sure you wish to enter the Singularity?",
     "singularityConfirm3": "Are you REALLY SURE? You cannot go back from this (without an older savefile)! Confirm one last time to finalize your decision.",

@@ -14,7 +14,7 @@ import { getPurpleReactorUpgradeEffects } from './Purple'
 import { isResearchMaxed } from './Research'
 import { RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
-import { format, player } from './Synergism'
+import { format, formatTimeShort, player } from './Synergism'
 import { getSynthesisUpgradeEffect } from './Synthesis'
 
 const quarkResearches = [99, 100, 125, 180, 195]
@@ -158,6 +158,18 @@ export const calculateSingularityTimePrimaryMultiplier = (singularityTime: numbe
   }
   return Math.max(1, calculateSingularityTimeQuarkRate() * singularityTime / 86400)
 }
+
+export type PrimaryQuarkResetMode = 'daily' | 'dailyOrSingularity' | 'singularity'
+
+export const primaryQuarkResetMode = (): PrimaryQuarkResetMode => {
+  if (getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+    return 'singularity'
+  }
+  return player.highestSingularityCount > 0 ? 'dailyOrSingularity' : 'daily'
+}
+
+export const primaryQuarkResetText = () =>
+  i18next.t(`shop.quarkLedger.primaryReset.${primaryQuarkResetMode()}`, { time: formatTimeShort(player.dayTimer) })
 
 const calculatePrimaryQuarkMultiplier = (singularityTime: number) =>
   calculateSingularityTimePrimaryMultiplier(singularityTime) * calculateDailyWarpQuarkMultiplier()

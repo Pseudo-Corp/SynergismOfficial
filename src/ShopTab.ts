@@ -11,6 +11,7 @@ import {
   calculateSingularityTimePrimaryMultiplier,
   getQuarkCategoryAwarded,
   getQuarkSourceMultiplier,
+  primaryQuarkResetText,
   type QuarkCategoryKey,
   quarkCategoryKeys,
   type QuarkSourceKey,
@@ -34,7 +35,7 @@ import {
 } from './singularity'
 import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
 import { displayStatLine, StatLineTypes } from './Statistics'
-import { format, player } from './Synergism'
+import { format, formatTimeShort, player } from './Synergism'
 import { isMobile } from './Utility'
 
 interface ShopTierData {
@@ -537,9 +538,7 @@ export const quarkLedgerAwardedHTML = () =>
 export const goldenQuarkLedgerAwardedHTML = () =>
   `<span style="font-weight: bold; font-size: 1.2em;">${i18next.t('shop.quarkLedger.awarded')}</span><br><br>${
     i18next.t('shop.quarkLedger.goldenQuarkRules.baseGain')
-  }<br><br>${i18next.t('shop.quarkLedger.goldenQuarkRules.multiplierGrowth')}<br><br>${
-    i18next.t('shop.quarkLedger.goldenQuarkRules.dailyReset')
-  }`
+  }<br><br>${i18next.t('shop.quarkLedger.goldenQuarkRules.multiplierGrowth')}`
 
 export const generateShopTabHTML = () => {
   const list = DOMCacheGetOrSet('shopFamilyList')
@@ -860,6 +859,12 @@ export const updateQuarkLedgerTab = () => {
     )
   }
 
+  updateInnerHTMLIfChanged(DOMCacheGetOrSet('quarkLedgerReset-primary'), primaryQuarkResetText())
+  updateInnerHTMLIfChanged(
+    DOMCacheGetOrSet('quarkLedgerReset-miscellaneous'),
+    i18next.t('shop.quarkLedger.miscellaneousReset', { time: formatTimeShort(player.dayTimer) })
+  )
+
   updateTextContentIfChanged(
     DOMCacheGetOrSet('quarkLedgerQuarksRewarded'),
     format(player.quarkLedger.credited.primary + player.quarkLedger.credited.miscellaneous, 0, true)
@@ -889,6 +894,10 @@ export const updateQuarkLedgerTab = () => {
       format(player.goldenQuarkLedger.awarded[key], 2, true)
     )
   }
+  updateInnerHTMLIfChanged(
+    DOMCacheGetOrSet('quarkLedgerReset-goldenQuarks'),
+    i18next.t('shop.quarkLedger.goldenQuarkReset', { time: formatTimeShort(player.dayTimer) })
+  )
   updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerBase-goldenQuarks'), format(goldenQuarkBase, 2, true))
   updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerAwarded-goldenQuarks'), format(goldenQuarkAwarded, 2, true))
 }

@@ -4317,7 +4317,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
     if (!G.timeWarp) {
       dailyResetCheck()
     }
-  }, 30000)
+  }, 1000)
 
   constantIntervals()
 

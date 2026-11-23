@@ -21,6 +21,7 @@ import { maxedPlatonicUpgradeConstruction } from './Platonic'
 import {
   addBaseQuarks,
   ascensionChallengeQuarkPercentPerCompletion,
+  primaryQuarkResetMode,
   reincarnationChallengeQuarkPercentPerCompletion
 } from './Quark'
 import { runes, RuneType } from './Runes'
@@ -408,13 +409,16 @@ export const challengeDisplay = (i: number) => {
   if (isFocused) {
     j.textContent = ''
     DOMCacheGetOrSet('challengeDailyQuarks').textContent = i <= 5
-      ? i18next.t('challenges.dailyQuarks', { x: format(transcensionChallengeQuarksPerCompletion) })
+      ? i18next.t(
+        primaryQuarkResetMode() === 'singularity' ? 'challenges.singularityQuarks' : 'challenges.dailyQuarks',
+        { x: format(transcensionChallengeQuarksPerCompletion) }
+      )
       : i <= 10
-      ? i18next.t('challenges.dailyQuarkMultiplier', {
+      ? i18next.t('challenges.completionQuarkMultiplier', {
         x: format(reincarnationChallengeQuarkPercentPerCompletion, 2, true)
       })
       : i <= 14
-      ? i18next.t('challenges.dailyQuarkMultiplier', {
+      ? i18next.t('challenges.completionQuarkMultiplier', {
         x: format(ascensionChallengeQuarkPercentPerCompletion, 2, true)
       })
       : ''

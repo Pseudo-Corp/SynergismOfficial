@@ -141,7 +141,8 @@ import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
 import { updatePurpleUpgradeTab } from './PurpleUpgradeTab'
 import {
   dailyExportBaseQuarks,
-  getQuarkSourceMultiplier
+  getQuarkSourceMultiplier,
+  primaryQuarkResetText
 } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { blessingRuneTypes, updateRuneBlessingHTML } from './RuneBlessings'
@@ -1198,6 +1199,7 @@ export const visualUpdateCubes = () => {
     return
   }
 
+  updateInnerHTMLIfChanged('cubeToQuarkTimerValue', primaryQuarkResetText())
   const globalMultiplier = calculateQuarkMultiplier()
   for (const { name, cube } of cubeQuarkSidebarEntries) {
     const { source, coefficient, opened: openedKey } = cubeQuarkSources[cube]

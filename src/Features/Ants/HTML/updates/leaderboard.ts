@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from '../../../../Cache/DOM'
+import { primaryQuarkResetMode } from '../../../../Quark'
 import { format, formatAsPercentIncrease, player } from '../../../../Synergism'
 import { calculateLeaderboardValue } from '../../AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { quarksFromELOMult } from '../../AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
@@ -20,7 +21,11 @@ export const updateLeaderboardUI = () => {
 
   // Update toggle button text
   const toggleButton = DOMCacheGetOrSet('antLeaderboardToggle')
-  const modeKey = currentLeaderboardMode === 'daily' ? 'toggleDaily' : 'toggleAllTime'
+  const modeKey = currentLeaderboardMode === 'allTime'
+    ? 'toggleAllTime'
+    : primaryQuarkResetMode() === 'singularity'
+    ? 'toggleSingularity'
+    : 'toggleDaily'
   toggleButton.querySelector('span')!.setAttribute('i18n', `ants.leaderboard.${modeKey}`)
   toggleButton.querySelector('span')!.textContent = i18next.t(`ants.leaderboard.${modeKey}`)
   toggleButton.setAttribute('data-mode', currentLeaderboardMode)
