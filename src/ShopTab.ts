@@ -23,6 +23,7 @@ import {
   buyShopUpgrades,
   getShopCosts,
   getShopTypeSymbolsHTML,
+  getShopUpgradeEffects,
   instantUnlocked,
   shopDescriptions,
   type ShopUpgradeNames,
@@ -188,6 +189,10 @@ const shopSections = [
           { key: 'hypercubeToQuark', icon: 'Pictures/img_transparent.png' },
           { key: 'cubeToQuarkAll', icon: 'Pictures/img_transparent.png' }
         ]
+      },
+      {
+        id: 'shopPrimaryQuarkClock',
+        tiers: [{ key: 'shopPrimaryQuarkClock', icon: 'Pictures/Default/ShopPrimaryQuarkClock.png' }]
       },
       {
         id: 'shopImprovedDaily',
@@ -509,6 +514,13 @@ export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
         { perDay: format(calculateSingularityTimeQuarkRate(), 2, true) }
       ),
       ...ledgerMultiplierLine('dailyWarp', calculateDailyWarpQuarkMultiplier())
+    )
+  } else {
+    lines.push(
+      ...ledgerMultiplierLine(
+        'shopSingularitySpeedup',
+        getShopUpgradeEffects('shopSingularitySpeedup', 'miscellaneousQuarkMult')
+      )
     )
   }
   const globalMultiplier = calculateQuarkMultiplier()

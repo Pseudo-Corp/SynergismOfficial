@@ -1450,20 +1450,12 @@ export const calculateBaseCubeQuarkMultiplier = () => {
   return Math.min(1 + effect, calculateMaxBaseCubeQuarkMultiplier(player.highestSingularityCount))
 }
 
-export const calculateRootsOfUnityCap = () => {
+export const calculateRootsOfUnityRate = () => {
   return Math.min(10000, 24 * Math.pow(1.05, sumOfExaltCompletions()))
 }
 
 export const calculateSingularityTimeQuarkRate = () => {
-  const cap = calculateRootsOfUnityCap()
-  if (getShopUpgradeEffects('shopSingularitySpeedup', 'ignoreFastestSingularity')) {
-    return cap
-  }
-  const fastest = player.fastestSingularities[player.singularityCount]
-  if (fastest === undefined) {
-    return 0
-  }
-  return Math.min(cap, 86400 / fastest)
+  return getShopUpgradeEffects('shopRootsOfUnity', 'exaltQuarkRate') ? calculateRootsOfUnityRate() : 1
 }
 
 export const calculateDailyWarpQuarkMultiplier = (active = player.dailyWarpActive) => {
@@ -1909,7 +1901,7 @@ export const dailyResetCheck = () => {
 
 export const dailyReset = () => {
   resetQuarkLedger()
-  if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+  if (!getShopUpgradeEffects('shopPrimaryQuarkClock', 'singularityTimeQuarks')) {
     player.dailyWarpActive = false
   }
   resetGoldenQuarkLedger()

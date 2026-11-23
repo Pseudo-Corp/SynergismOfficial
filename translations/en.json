@@ -274,8 +274,8 @@
       },
       "ambrosiaBrickOfLead": {
         "name": "The Brick of Lead",
-        "description": "I always keep this under my hat. This reduces your Ambrosia Bar Point generation speed by 2% per level, but grants Ambrosia Luck to compensate! It also slows down Global, Ascension and Singularity speed by 1% per level. <<lightgoldenrodyellow| <i>This might be good for a certain EXALT...</i> >>",
-        "effect": "Ambrosia Bar Point Requirement x{{blueberryGen}}, Ambrosia Luck +{{luckMult}}. Global, Ascension, Singularity Speed x{{singularitySpeed}}"
+        "description": "I always keep this under my hat. This reduces your Ambrosia Bar Point generation speed by 2% per level, but grants Ambrosia Luck to compensate! It also slows down Global and Ascension speed by 1% per level.",
+        "effect": "Ambrosia Bar Point Requirement x{{blueberryGen}}, Ambrosia Luck +{{luckMult}}. Global, Ascension Speed x{{speedMult}}"
       },
       "ambrosiaFreeLuckUpgrades": {
         "name": "The Green, Green Grass of Ambrosia",
@@ -3525,6 +3525,9 @@
       "instantChallenge2": "Completing an Ascension Challenge other than Challenge 15 doesn't cause a reset.",
       "instantChallenge2Completions": "Gain every T and R Challenge completion you can afford each tick.",
       "cubeToQuarkAll": "First up on the menu, why not boost your Overflux Orb Effect by +num:((0.2))% per level?",
+      "shopPrimaryQuarkClock": "When you buy this, your <<cyan|Primary Quarks>> no longer reset at midnight every day. To compensate, if your Singularity is longer than 24 hours, you gain a multiplier that continuously increases by <<gold|+1>> each day after that.",
+      "shopPrimaryQuarkClockRoots": "Augmented with <<pink|Roots of Unity>>, your <<cyan|Primary Quarks>> no longer reset at midnight every day. To compensate, <<cyan|Primary Quarks>> are multiplied based on your Singularity time. This multiplier continuously increases by <<gold|+{{perDay}}>> per day, with a minimum multiplier of <<gold|1>>.",
+      "shopPrimaryQuarkClockTimerReset": "<<gold|⚠>> Purchasing this will set your current Singularity timer to 1 day, if your current Singularity has taken longer than that!",
       "cashGrab2": "This isn't even as good as the original. +num:((0.5))% Offerings and Obtainium per level.",
       "chronometerZ": "Gain +num:((0.1))% Ascension Speed per level per Singularity. It needs a lot of fuel to power up.",
       "offeringEX2": "Gain +1% Offerings per level per Singularity. Putting the Singularity Debuff industry out of business.",
@@ -3579,12 +3582,9 @@
       "shopChronometerS": "Gain x1.01 Ascension Speed and Global Speed for every Singularity above 200!",
       "shopChronometerSFormula": "Multiplier = 1.01^(Singularity - 200)",
       "shopAmbrosiaUltra": "For this absurdly expensive EX Upgrade, every EXALT completion grants +2 permanent Ambrosia Luck, per level.",
-      "shopRootsOfUnity": "When you repeat a Singularity, the <<cyan|Primary Quarks>> multiplier is your Singularity Timer divided by your fastest time for that numbered Singularity, and never below <<gold|x1>>. The faster your fastest completion, the faster it grows, up to <<gold|+{{max}}>> per day when your fastest completion is less than <<gold|{{time}}>> seconds.",
-      "shopRootsOfUnityClockwork": "In every Singularity, the <<cyan|Primary Quarks>> multiplier grows by <<gold|+{{max}}>> per day, and never below <<gold|x1>>. It passes <<gold|x1>> once your Singularity Timer passes <<gold|{{time}}>> seconds.",
-      "shopRootsOfUnityWarning": "<<gold|⚠>> <<cyan|Primary Quarks>> are no longer reset after each daily reset, only on Singularity!",
-      "shopRootsOfUnityTimerReset": "<<gold|⚠>> Buying this lowers your Singularity Timer to <<gold|1 day>> if it is longer than that!",
-      "shopRootsOfUnityFormula": "Max Growth = <<gold|+24 × 1.05^(Total EXALT Tiers)>> per day, up to <<gold|+10,000>>.",
-      "shopSingularitySpeedup": "A weird clock that somehow alters your memory of <<gray | Time>>. No matter how slow your past Singularities were, you perceive them to be impossibly fast. Because this merely improves <<pink|Roots of Unity>>, you might want to purchase that first, before you buy Singular Clockwork!",
+      "shopRootsOfUnity": "<<cyan|Primary Quark Clock of Infinitude>> grows the <<cyan|Primary Quarks>> multiplier by <<gold|+{{perDay}}>> per day instead of <<gold|+1>>, based on your total EXALT Tiers.",
+      "shopRootsOfUnityFormula": "Growth = <<gold|+24 × 1.05^(Total EXALT Tiers)>> per day, up to <<gold|+10,000>>.",
+      "shopSingularitySpeedup": "A weird clock that somehow alters your memory of <<gray | Time>>. You feel as though you can claim Miscellaneous Quark sources so many more times than before. <<gold|222>> times in particular.",
       "shopSingularityPotency": "You know all those free Golden Quark Upgrades? Most of them (not the Hourglasses) are now 266% more effective (so, each is worth the equivalent to num:((3.66)) levels, before softcaps). Why? This kinda weird <<gray | Singularity Transmission Ritual Device>>! Don't question it.",
       "shopSadisticRune": "What a weird rune; The shopkeeper (who you know no longer can see) says telepathically that it is an Infinite Ascent rune drenched in some <<gray | Singularity Matter>>. Were there other Ascents? Or maybe a <<gray | Descent?>>",
       "shopInfiniteShopUpgrades": "A Shop Voucher, printed on a blue tablet. Each grants +num:((0.01)) effective levels of the 'Infinity CO.' Quark shop upgrades, multiplied by the sum of your EXALT completions, all rounded down.",
@@ -3672,6 +3672,7 @@
       "challengeTome2": "Challenge 10 Exponent Requirement reduced by <<lightgoldenrodyellow|{{amount1}}>>. Past 25 completions, C9 and C10 requirements scale <<lightgoldenrodyellow|{{amount2}}%>> slower",
       "instantChallenge2": "Transcension and Reincarnation Challenges complete all at once!",
       "cubeToQuarkAll": "Your Overflux Orb Effect is multiplied by <<cyan|×{{amount}}>>!",
+      "shopPrimaryQuarkClock": "Your Singularity Timer multiplies <<cyan|Primary Quarks>> by <<gold|x{{x}}>>.",
       "cashGrab2": "You will gain <<gold|{{amount}}>> more Obtainium and Offerings! <<red|Substantially weaker>> than the original.",
       "chronometerZ": "Ascension timer increases <<orange|{{amount}}>> faster! Seems like this model can build <<orchid|momentum>>...",
       "offeringEX2": "You will gain <<goldenrod|{{amount}}>> more Offerings! Puts the first to <<red|shame>>...",
@@ -3726,11 +3727,8 @@
       "shopEXUltra": "Ambrosia increases <<orange|Offerings>>, <<orchid|Obtainium>> and <<white|Cubes>> by <<gold|{{amount}}>>.",
       "shopChronometerS": "Ascension Speed and Global Speed are both increased by <<orange|{{amount}}>>",
       "shopAmbrosiaUltra": "Gain <<lime|+{{amount}} Ambrosia Luck>> from your EXALT completions!",
-      "shopRootsOfUnity": "Repeating a Singularity <<green|DOES>> grow the <<cyan|Primary Quarks>> multiplier over time, based on your fastest completion.",
-      "shopRootsOfUnityInactive": "Repeating a Singularity <<red|DOES NOT>> grow the <<cyan|Primary Quarks>> multiplier over time, based on your fastest completion.",
-      "shopRootsOfUnityClockwork": "Every Singularity <<green|DOES>> grow the <<cyan|Primary Quarks>> multiplier over time once your Singularity Timer passes <<gold|{{time}}>> seconds.",
-      "shopRootsOfUnityClockworkInactive": "Every Singularity <<red|DOES NOT>> grow the <<cyan|Primary Quarks>> multiplier over time once your Singularity Timer passes <<gold|{{time}}>> seconds.",
-      "shopSingularitySpeedup": "With <<pink|Roots of Unity>>, the Singularity Timer's <<cyan|Primary Quark>> Multiplier always grows by its max of <<gold|+{{max}}>> per day once your Singularity Timer passes <<gold|{{time}}>> seconds, regardless of your fastest completion or if you've even beaten the Singularity before!",
+      "shopRootsOfUnity": "The <<cyan|Primary Quarks>> multiplier from <<cyan|Primary Quark Clock of Infinitude>> grows by <<gold|+{{perDay}}>> per day.",
+      "shopSingularitySpeedup": "Miscellaneous Quarks are multiplied by <<gold|x{{x}}>>.",
       "shopSingularityPotency": "Most free Golden Quark Upgrades (not the Hourglasses) are as if you had <<gray|{{amount}}>> of them.",
       "shopSadisticRune": "I'm not even sure what this rune can do. Have you purchased it? I can't see you, you know.",
       "shopInfiniteShopUpgrades": "Effective levels for the 'Infinity CO.' Quark Upgrades are increased by <<white|{{amount}}>>.",
@@ -3787,6 +3785,7 @@
       "challengeTome2": "Challenge 10 Requirement Reduction 2",
       "instantChallenge2": "Instant Challenge Completions 2",
       "cubeToQuarkAll": "Quark Gain Cube Improvement 2",
+      "shopPrimaryQuarkClock": "Primary Quark Clock of Infinitude",
       "cashGrab2": "Cash Grab 2",
       "chronometerZ": "Chronometer Z",
       "obtainiumEX2": "Obtainium EX 2",
@@ -3917,6 +3916,7 @@
         "dailyWarp": "Primary Quark Warp: <<cyan|x{{x}}>>",
         "basicProgression": "Basic Progression Multiplier: <<cyan|x{{x}}>>",
         "singularityTime": "Singularity Timer (+{{perDay}} per day): <<cyan|x{{x}}>>",
+        "shopSingularitySpeedup": "Singular Clockwork: <<cyan|x{{x}}>>",
         "subatomicShavings": "Subatomic Shavings: <<cyan|x{{x}}>>",
         "purpleQuarkGain": "Lab-Grown Quarks: <<cyan|x{{x}}>>",
         "highestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
@@ -4765,9 +4765,7 @@
       "slowClimbToggle": "Only go up 1 Singularity",
       "nextSingInfo": "Next Singularity Info",
       "highestSingularity": "Highest Singularity: <b><<gold | {{num}}>></b>",
-      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)",
-      "fastestSingularity": "Fastest Singularity {{num}}: <b><<gold | {{time}}>></b>",
-      "noFastestSingularity": "Fastest Singularity {{num}}: <b><<gold | None>></b>"
+      "maxLookahead": "Max Lookahead Distance: <b><<gold | +{{num}}>></b> (Requires Antiquities)"
     }
   },
   "general": {
@@ -9006,6 +9004,7 @@
     "ants": "Ants have been significantly reworked/rebalanced. Your Anthill progress has been set accordingly!",
     "sept13Refund": "Due to the Purple Ambrosia Update, some of your Quark Upgrades have been refunded! Refund amount: <<cyan|+{{amount}}>>",
     "v4-4-1-Corruptions": "Because of a recent update, your Corruption progress has been adjusted. Your Corruption level is set to <<orange|{{level}}>>, with a Challenge 10 completion instantly awarded.",
-    "v4-4-1-BarCharging": "Because of balancing changes, your <<var(--purple-text-color)|Bar Charging>> EXALT completions have been set to <<orange|5>>."
+    "v4-4-1-BarCharging": "Because of balancing changes, your <<var(--purple-text-color)|Bar Charging>> EXALT completions have been set to <<orange|5>>.",
+    "v4-4-2-Quarks": "You've loaded into Version 4.4.2, which substantially changes Quark progression. You may want to check out the Ledger in the Quarks tab, and be on the lookout for new Quark Upgrades!"
   }
 }

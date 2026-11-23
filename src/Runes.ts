@@ -1107,7 +1107,6 @@ export const sacrificeOfferings = (rune: RuneType, budget: Decimal, auto = false
     budget,
     auto ? Number.POSITIVE_INFINITY : getRuneBuyLimit()
   )
-  const previousLevel = player.runeLevels[rune]
   if (levels > 0 && offerings.lte(budget)) {
     player.runeEXP[rune] = expRequired
     player.offerings = player.offerings.sub(offerings)
@@ -1115,13 +1114,6 @@ export const sacrificeOfferings = (rune: RuneType, budget: Decimal, auto = false
 
   updateLevelsFromEXP(rune)
   updateRuneLevelAchievementProgress()
-
-  if (rune === RuneType.Antiquities && previousLevel === 0 && player.runeLevels[rune] > 0) {
-    const fastest = player.fastestSingularities[player.singularityCount]
-    if (fastest === undefined || player.singularityCounter < fastest) {
-      player.fastestSingularities[player.singularityCount] = player.singularityCounter
-    }
-  }
   player.offerings = Decimal.max(0, player.offerings)
 }
 

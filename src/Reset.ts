@@ -1088,7 +1088,6 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
   hold.totalQuarksEver = player.totalQuarksEver
   hold.singularityCount = player.singularityCount
   hold.highestSingularityCount = player.highestSingularityCount
-  hold.fastestSingularities = player.fastestSingularities
   hold.singularityElevatorTarget = player.singularityElevatorTarget
   hold.singularityElevatorSlowClimb = player.singularityElevatorSlowClimb
   hold.singularityElevatorLocked = player.singularityElevatorLocked

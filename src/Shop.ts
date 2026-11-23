@@ -13,14 +13,15 @@ import {
   calculateOfferingsDecimal,
   calculatePotionValue,
   calculatePowderConversion,
-  calculateRootsOfUnityCap,
+  calculateRootsOfUnityRate,
+  calculateSingularityTimeQuarkRate,
   calculateSummationNonLinear,
   sumOfExaltCompletions
 } from './Calculate'
 import { isAscensionTabUnlocked } from './Corruptions'
 import type { IMultiBuy } from './Cubes'
 import { PCoinUpgradeEffects } from './PseudoCoinUpgrades'
-import { worlds } from './Quark'
+import { calculateSingularityTimePrimaryMultiplier, worlds } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { getRuneEffectiveLevel, getRuneEffects, RuneType } from './Runes'
 import { getGQUpgradeEffect } from './singularity'
@@ -89,6 +90,7 @@ type QuarkShopUpgradeRewards = {
   tesseractToQuark: { tesseractQuarkMult: number }
   hypercubeToQuark: { hypercubeQuarkMult: number }
   cubeToQuarkAll: { quarkMult: number }
+  shopPrimaryQuarkClock: { singularityTimeQuarks: boolean }
   shopImprovedDaily: { dailyCodeQuarkMult: number }
   shopImprovedDaily2: { freeSingularityUpgrades: number; dailyCodeQuarkMult: number }
   shopImprovedDaily3: { freeSingularityUpgrades: number; dailyCodeQuarkMult: number }
@@ -132,8 +134,8 @@ type QuarkShopUpgradeRewards = {
   shopSingularityPenaltyDebuff: { singularityPenaltyReducers: number }
   shopCashGrabUltra: { ambrosiaGenerationMult: number; cubesMult: number; quarkMult: number }
   shopEXUltra: { offeringMult: number; obtainiumMult: number; cubeMult: number }
-  shopRootsOfUnity: { singularityTimeQuarks: boolean }
-  shopSingularitySpeedup: { ignoreFastestSingularity: boolean }
+  shopRootsOfUnity: { exaltQuarkRate: boolean }
+  shopSingularitySpeedup: { miscellaneousQuarkMult: number }
   shopSingularityPotency: { freeUpgradeMult: number }
   shopPanthema: {
     offeringMult: number
@@ -1038,6 +1040,29 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     maxLevel: 100,
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.Quark]
+  },
+  shopPrimaryQuarkClock: {
+    name: () => i18next.t('shop.names.shopPrimaryQuarkClock'),
+    description: () =>
+      `${
+        getShopUpgradeEffects('shopRootsOfUnity', 'exaltQuarkRate')
+          ? i18next.t('shop.upgradeDescriptions.shopPrimaryQuarkClockRoots', {
+            perDay: format(calculateSingularityTimeQuarkRate(), 2, true)
+          })
+          : i18next.t('shop.upgradeDescriptions.shopPrimaryQuarkClock')
+      }<br>${i18next.t('shop.upgradeDescriptions.shopPrimaryQuarkClockTimerReset')}`,
+    effects: (n) => n > 0, // singularityTimeQuarks
+    effectDescription () {
+      return i18next.t('shop.upgradeEffects.shopPrimaryQuarkClock', {
+        x: format(calculateSingularityTimePrimaryMultiplier(player.singularityCounter), 2, true)
+      })
+    },
+    isUnlocked: () => player.ascensionCount > 0 || player.highestSingularityCount > 0,
+    price: 150000,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: []
   },
   cashGrab2: {
     name: () => i18next.t('shop.names.cashGrab2'),
@@ -2021,38 +2046,17 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   },
   shopRootsOfUnity: {
     name: () => i18next.t('shop.names.shopRootsOfUnity'),
-    description: () => {
-      const cap = calculateRootsOfUnityCap()
-      const description = i18next.t(
-        getShopUpgradeEffects('shopSingularitySpeedup', 'ignoreFastestSingularity')
-          ? 'shop.upgradeDescriptions.shopRootsOfUnityClockwork'
-          : 'shop.upgradeDescriptions.shopRootsOfUnity',
-        {
-          max: format(cap, 2, true),
-          time: format(86400 / cap, 2, true)
-        }
-      )
-      const timerReset = player.shopUpgrades.shopRootsOfUnity === 0
-        ? `<br>${i18next.t('shop.upgradeDescriptions.shopRootsOfUnityTimerReset')}`
-        : ''
-      return `${description}<br>${i18next.t('shop.upgradeDescriptions.shopRootsOfUnityFormula')}<br>${
-        i18next.t('shop.upgradeDescriptions.shopRootsOfUnityWarning')
-      }${timerReset}`
-    },
-    effects: (n) => n > 0, // singularityTimeQuarks
+    description: () =>
+      `${
+        i18next.t('shop.upgradeDescriptions.shopRootsOfUnity', {
+          perDay: format(calculateRootsOfUnityRate(), 2, true)
+        })
+      }<br>${i18next.t('shop.upgradeDescriptions.shopRootsOfUnityFormula')}`,
+    effects: (n) => n > 0, // exaltQuarkRate
     effectDescription () {
-      const active = getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')
-      if (getShopUpgradeEffects('shopSingularitySpeedup', 'ignoreFastestSingularity')) {
-        return i18next.t(
-          active
-            ? 'shop.upgradeEffects.shopRootsOfUnityClockwork'
-            : 'shop.upgradeEffects.shopRootsOfUnityClockworkInactive',
-          { time: format(86400 / calculateRootsOfUnityCap(), 2, true) }
-        )
-      }
-      return active
-        ? i18next.t('shop.upgradeEffects.shopRootsOfUnity')
-        : i18next.t('shop.upgradeEffects.shopRootsOfUnityInactive')
+      return i18next.t('shop.upgradeEffects.shopRootsOfUnity', {
+        perDay: format(calculateSingularityTimeQuarkRate(), 2, true)
+      })
     },
     isUnlocked: () => getSingularityChallengeEffect('oneChallengeCap', 'shopUpgrade'),
     price: 1,
@@ -2064,12 +2068,10 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
   shopSingularitySpeedup: {
     name: () => i18next.t('shop.names.shopSingularitySpeedup'),
     description: () => i18next.t('shop.upgradeDescriptions.shopSingularitySpeedup'),
-    effects: (n) => n > 0, // ignoreFastestSingularity
+    effects: (n) => n > 0 ? 222 : 1, // miscellaneousQuarkMult
     effectDescription () {
-      const cap = calculateRootsOfUnityCap()
       return i18next.t('shop.upgradeEffects.shopSingularitySpeedup', {
-        max: format(cap, 2, true),
-        time: format(86400 / cap, 2, true)
+        x: format(getShopUpgradeEffects('shopSingularitySpeedup', 'miscellaneousQuarkMult'), 0, true)
       })
     },
     isUnlocked: () => getSingularityChallengeEffect('sadisticPrequel', 'shopUpgrade'),
@@ -2616,7 +2618,7 @@ export const buyShopUpgrades = async (input: ShopUpgradeNames) => {
   if (p) {
     worlds.sub(buyCost)
     player.shopUpgrades[input] += buyAmount
-    if (input === 'shopRootsOfUnity') {
+    if (input === 'shopPrimaryQuarkClock') {
       player.singularityCounter = Math.min(player.singularityCounter, 86400)
     }
     shopDescriptions(input)

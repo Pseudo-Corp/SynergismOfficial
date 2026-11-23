@@ -58,7 +58,6 @@ type AmbrosiaUpgradeRewards = {
   ambrosiaBrickOfLead: {
     barRequirementMult: number
     additiveLuckMult: number
-    singularitySpeedMult: number
     globalSpeedMult: number
     ascensionSpeedMult: number
   }
@@ -1381,17 +1380,17 @@ export const ambrosiaUpgrades: {
       } else if (key === 'additiveLuckMult') {
         return n / 50
       } else {
-        return 1 - n / 100 // singularitySpeedMult, globalSpeedMult, ascensionSpeedMult
+        return 1 - n / 100 // globalSpeedMult, ascensionSpeedMult
       }
     },
     effectsDescription: function() {
       const barRequirementMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'barRequirementMult')
       const luckMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'additiveLuckMult')
-      const singularitySpeedMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'singularitySpeedMult')
+      const speedMult = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'globalSpeedMult')
       return i18next.t('ambrosia.data.ambrosiaBrickOfLead.effect', {
         blueberryGen: format(barRequirementMult, 2, true),
         luckMult: formatAsPercentIncrease(1 + luckMult, 0),
-        singularitySpeed: format(singularitySpeedMult, 2, true)
+        speedMult: format(speedMult, 2, true)
       })
     },
     name: () => i18next.t('ambrosia.data.ambrosiaBrickOfLead.name'),

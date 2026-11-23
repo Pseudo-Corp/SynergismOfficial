@@ -577,6 +577,10 @@ const migrations: Migration[] = [
           player.goldenQuarkUpgrades[key].goldenQuarksInvested *= multiplier
         }
       }
+
+      if (player.highestSingularityCount > 0) {
+        void Alert(i18next.t('versionChangeAnnouncements.v4-4-2-Quarks'))
+      }
     }
   })
 ]

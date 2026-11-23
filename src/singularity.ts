@@ -25,7 +25,7 @@ import { Seed, seededRandom } from './RNG'
 import { getRuneTotalLevel, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { format, formatAsPercentIncrease, formatTimeShort, player } from './Synergism'
+import { format, formatAsPercentIncrease, player } from './Synergism'
 import {
   Alert,
   Confirm,
@@ -4580,14 +4580,6 @@ export const updateSingularityElevator = (): void => {
   const theoreticalLookahead = calculateMaxSingularityLookahead(true)
 
   maxLookahead.innerHTML = i18next.t('singularity.elevator.maxLookahead', { num: theoreticalLookahead })
-
-  const fastest = player.fastestSingularities[player.singularityElevatorTarget]
-  DOMCacheGetOrSet('elevatorFastestSingularity').innerHTML = fastest === undefined
-    ? i18next.t('singularity.elevator.noFastestSingularity', { num: player.singularityElevatorTarget })
-    : i18next.t('singularity.elevator.fastestSingularity', {
-      num: player.singularityElevatorTarget,
-      time: formatTimeShort(fastest, 60)
-    })
 
   input.max = maxTarget.toString()
   input.value = player.singularityElevatorTarget.toString()

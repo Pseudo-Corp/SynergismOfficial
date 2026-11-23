@@ -154,7 +154,7 @@ interface QuarkSource {
 }
 
 export const calculateSingularityTimePrimaryMultiplier = (singularityTime: number) => {
-  if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+  if (!getShopUpgradeEffects('shopPrimaryQuarkClock', 'singularityTimeQuarks')) {
     return 1
   }
   return Math.max(1, calculateSingularityTimeQuarkRate() * singularityTime / 86400)
@@ -163,7 +163,7 @@ export const calculateSingularityTimePrimaryMultiplier = (singularityTime: numbe
 export type PrimaryQuarkResetMode = 'daily' | 'dailyOrSingularity' | 'singularity'
 
 export const primaryQuarkResetMode = (): PrimaryQuarkResetMode => {
-  if (getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+  if (getShopUpgradeEffects('shopPrimaryQuarkClock', 'singularityTimeQuarks')) {
     return 'singularity'
   }
   return player.highestSingularityCount > 0 ? 'dailyOrSingularity' : 'daily'
@@ -182,7 +182,7 @@ export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
     multiplier: () => calculatePrimaryQuarkMultiplier(player.singularityCounter)
   },
   miscellaneous: {
-    multiplier: () => 1
+    multiplier: () => getShopUpgradeEffects('shopSingularitySpeedup', 'miscellaneousQuarkMult')
   }
 }
 
@@ -491,7 +491,7 @@ export const resetPrimaryQuarks = () => {
 export const resetQuarkLedger = () => {
   settleQuarks()
   resetQuarkCategory('miscellaneous')
-  if (!getShopUpgradeEffects('shopRootsOfUnity', 'singularityTimeQuarks')) {
+  if (!getShopUpgradeEffects('shopPrimaryQuarkClock', 'singularityTimeQuarks')) {
     resetPrimaryQuarks()
   }
 }
