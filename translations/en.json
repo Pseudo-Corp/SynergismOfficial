@@ -3890,7 +3890,7 @@
     "primaryReset": {
       "daily": "Primary Quarks reset in <<gold|{{time}}>>.",
       "dailyOrSingularity": "Primary Quarks reset in <<gold|{{time}}>>, or on your next Singularity.",
-      "singularity": "Primary Quarks reset on your next Singularity."
+      "singularity": "<<gold|{{time}}>> → <<gold|x{{x}}>> Primary Quarks. Resets on your next Singularity."
     },
     "miscellaneousReset": "Miscellaneous Quarks reset in <<gold|{{time}}>>.",
     "goldenQuarkReset": "Golden Quarks reset in <<gold|{{time}}>>.",

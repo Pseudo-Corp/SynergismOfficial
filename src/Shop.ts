@@ -1057,7 +1057,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         x: format(calculateSingularityTimePrimaryMultiplier(player.singularityCounter), 2, true)
       })
     },
-    isUnlocked: () => player.ascensionCount > 0 || player.highestSingularityCount > 0,
+    isUnlocked: () => getGQUpgradeEffect('wowPass', 'unlocked'),
     price: 150000,
     priceIncrease: 0,
     maxLevel: 1,

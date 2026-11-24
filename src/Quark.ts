@@ -169,10 +169,18 @@ export const primaryQuarkResetMode = (): PrimaryQuarkResetMode => {
   return player.highestSingularityCount > 0 ? 'dailyOrSingularity' : 'daily'
 }
 
-export const primaryQuarkResetText = () =>
-  i18next.t(`shop.quarkLedger.primaryReset.${primaryQuarkResetMode()}`, {
+export const primaryQuarkResetText = () => {
+  const mode = primaryQuarkResetMode()
+  if (mode === 'singularity') {
+    return i18next.t('shop.quarkLedger.primaryReset.singularity', {
+      time: formatTimeShort(player.singularityCounter),
+      x: format(calculateSingularityTimePrimaryMultiplier(player.singularityCounter), 2, true)
+    })
+  }
+  return i18next.t(`shop.quarkLedger.primaryReset.${mode}`, {
     time: formatTimeShort(Math.ceil(calculateTimeUntilDailyReset() / 1000))
   })
+}
 
 const calculatePrimaryQuarkMultiplier = (singularityTime: number) =>
   calculateSingularityTimePrimaryMultiplier(singularityTime) * calculateDailyWarpQuarkMultiplier()
