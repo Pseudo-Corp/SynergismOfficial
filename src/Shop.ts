@@ -425,7 +425,7 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
         ? 'shop.upgradeDescriptions.instantChallengeExitAscension'
         : 'shop.upgradeDescriptions.instantChallengeExit'
       return `${i18next.t('shop.upgradeDescriptions.instantChallenge')}<br>${i18next.t(exitKey)}<br>${
-        i18next.t('shop.upgradeDescriptions.instantChallengeResearch')
+        i18next.t('shop.upgradeDescriptions.instantChallengeCompletions')
       }`
     },
     effects: (n, key) => {
@@ -1011,8 +1011,8 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     name: () => i18next.t('shop.names.instantChallenge2'),
     description: () =>
       `${i18next.t('shop.upgradeDescriptions.instantChallenge2')}<br>${
-        i18next.t('shop.upgradeDescriptions.instantChallenge2Research')
-      }<br>${i18next.t('shop.upgradeDescriptions.instantChallenge2Reincarnation')}`,
+        i18next.t('shop.upgradeDescriptions.instantChallenge2Reincarnation')
+      }<br>${i18next.t('shop.upgradeDescriptions.instantChallenge2Research')}`,
     effects: (n) => n > 0, // unlocked
     effectDescription () {
       return i18next.t('shop.upgradeEffects.instantChallenge2')
