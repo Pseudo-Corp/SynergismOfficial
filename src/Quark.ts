@@ -182,12 +182,10 @@ export const primaryQuarkResetText = () => {
   })
 }
 
-const calculatePrimaryQuarkMultiplier = (singularityTime: number) =>
-  calculateSingularityTimePrimaryMultiplier(singularityTime) * calculateDailyWarpQuarkMultiplier()
-
 export const quarkCategories: Record<QuarkCategoryKey, QuarkCategory> = {
   primary: {
-    multiplier: () => calculatePrimaryQuarkMultiplier(player.singularityCounter)
+    multiplier: () =>
+      calculateSingularityTimePrimaryMultiplier(player.singularityCounter) * calculateDailyWarpQuarkMultiplier()
   },
   miscellaneous: {
     multiplier: () => getShopUpgradeEffects('shopSingularitySpeedup', 'miscellaneousQuarkMult')
@@ -457,23 +455,6 @@ export const addBaseQuarks = (key: QuarkSourceKey, amount: number) => {
   player.quarkLedger.awarded[key] += quarks
   settleQuarks()
   return quarks
-}
-
-export const calculateQuarkRation = (singularityTime: number) => {
-  const globalMultiplier = calculateQuarkMultiplier()
-  const primaryMultiplier = calculatePrimaryQuarkMultiplier(singularityTime)
-  const ration: Record<QuarkCategoryKey, number> = { primary: 0, miscellaneous: 0 }
-  for (const key of quarkSourceKeys) {
-    const category = quarkSources[key].category
-    const categoryMultiplier = category === 'primary' ? primaryMultiplier : quarkCategories[category].multiplier()
-    ration[category] += player.quarkLedger.base[key] * quarkSources[key].multiplier() * categoryMultiplier
-      * globalMultiplier
-  }
-  return {
-    primary: Math.floor(ration.primary),
-    miscellaneous: Math.floor(ration.miscellaneous),
-    primaryMultiplier
-  }
 }
 
 const resetQuarkCategory = (category: QuarkCategoryKey) => {

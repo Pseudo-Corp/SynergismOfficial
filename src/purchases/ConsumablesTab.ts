@@ -9,7 +9,6 @@ import {
   sendToWebsocket,
   setOwnedBells
 } from '../Login'
-import { calculateQuarkRation } from '../Quark'
 import { format } from '../Synergism'
 import { changeTab, Tabs } from '../Tabs'
 import { Alert, Confirm } from '../UpdateHTML'
@@ -47,7 +46,6 @@ const initializeConsumablesTab = () => {
     .then((consumables: ConsumableListItems[]) => {
       const durableConsume = consumables.filter((u) => u.internalName.includes('BELL'))
       const timeSkip = consumables.filter((u) => u.internalName.includes('TIMESKIP'))
-      const quarkRation = consumables.find((u) => u.internalName === 'QUARK_TIMESKIP')
       const lotus = consumables.filter((u) => u.internalName.includes('LOTUS'))
 
       updatePseudoCoins()
@@ -57,7 +55,6 @@ const initializeConsumablesTab = () => {
         ${durableConsume.map(createBellHTML).join('')}
         ${createLotusHTML(lotus)}
         ${timeSkipCategories.map((category) => createTimeSkipHTML(timeSkip, category)).join('')}
-        ${quarkRation ? createQuarkRationHTML(quarkRation) : ''}
         <p class="consumableFootnote">${i18next.t('pseudoCoins.timeSkips.warning')}</p>
       `
 
@@ -74,14 +71,6 @@ const initializeConsumablesTab = () => {
 
           if (key === 'HAPPY_HOUR_BELL' && getOwnedBells() > 0) {
             confirmMessage = i18next.t('pseudoCoins.consumables.confirmFreeActivation', { name })
-          } else if (key === 'QUARK_TIMESKIP') {
-            const ration = calculateQuarkRation(Number(quarkRation!.length) * 60)
-            confirmMessage = i18next.t('pseudoCoins.quarkRations.confirm', {
-              cost,
-              primary: format(ration.primary, 0, true),
-              multiplier: format(ration.primaryMultiplier, 2, true),
-              miscellaneous: format(ration.miscellaneous, 0, true)
-            })
           }
 
           const confirmed = await Confirm(confirmMessage)
@@ -160,19 +149,6 @@ const createTimeSkipHTML = (timeSkips: ConsumableListItems[], category: TimeSkip
     )
     .join('')
 }
-    </div>
-  </div>
-`
-
-const createQuarkRationHTML = (quarkRation: ConsumableListItems) => `
-  <div class="consumableRow timeSkipConsumable quarkRationConsumable">
-    <img class="consumableIcon" src="Pictures/PseudoShop/QUARKTimeSkip.png" alt="">
-    <div class="consumableText">
-      <p class="consumableName">${i18next.t('pseudoCoins.quarkRations.title')}</p>
-      <p class="consumableDescription">${i18next.t('pseudoCoins.quarkRations.description')}</p>
-    </div>
-    <div class="consumableBuy">
-      ${createBuyButtonHTML(quarkRation, i18next.t('pseudoCoins.quarkRations.open'))}
     </div>
   </div>
 `

@@ -87,8 +87,7 @@ const buySchema = z.object({
     'JUMBO_ASCENSION_TIMESKIP',
     'SMALL_AMBROSIA_TIMESKIP',
     'LARGE_AMBROSIA_TIMESKIP',
-    'JUMBO_AMBROSIA_TIMESKIP',
-    'QUARK_TIMESKIP'
+    'JUMBO_AMBROSIA_TIMESKIP'
   ]),
   id: z.uuid()
 })

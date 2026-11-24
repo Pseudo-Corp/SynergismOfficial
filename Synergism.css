@@ -12028,10 +12028,6 @@ html[data-mobile="false"] .pseudoCoinButton {
     --consumable-accent: #9a438f;
 }
 
-.quarkRationConsumable {
-    --consumable-accent: var(--cyan-color);
-}
-
 #consumablesSection .consumableIcon {
     width: 64px;
     height: 64px;
@@ -12111,8 +12107,7 @@ html[data-mobile="false"] .pseudoCoinButton {
     gap: 6px;
 }
 
-.bellConsumable .consumableBuy > *,
-.quarkRationConsumable .consumableBuy > * {
+.bellConsumable .consumableBuy > * {
     grid-column: 1 / -1;
 }
 

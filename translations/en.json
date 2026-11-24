@@ -5306,10 +5306,7 @@
   "fastForward": {
     "global": "Your Global stuff fast forwarded {{time}} seconds!",
     "ascension": "Your Ascension stuff fast forwarded {{time}} seconds!",
-    "ambrosia": "Your Ambrosia stuff fast forwarded {{time}} seconds!",
-    "quark": "You opened a Quark Ration!",
-    "primaryQuarks": "Primary Quarks: +<<cyan|{{value}}>> (<<gold|x{{multiplier}}>>)",
-    "miscellaneousQuarks": "Miscellaneous Quarks: +<<cyan|{{value}}>>"
+    "ambrosia": "Your Ambrosia stuff fast forwarded {{time}} seconds!"
   },
   "campaigns": {
     "tokens": {
@@ -8909,13 +8906,6 @@
       "duration": "+{{time}} hours",
       "warning": "<<gold | ⚠>> Takes a few seconds to apply after purchase! <<gold | ⚠>>",
       "connectionLost": "Lost connection while buying your time skip. It will finish the next time you load the game."
-    },
-    "quarkRations": {
-      "title": "Quark Rations",
-      "description": "Immediately gain Quarks equal to your <<cyan|Primary Quarks>> and Miscellaneous Quarks, using the <<cyan|Primary Quarks>> multiplier you would have with a Singularity Timer of 24 hours.",
-      "open": "Open Ration",
-      "confirm": "You are about to open a Quark Ration for {{cost}} PseudoCoins, gaining {{primary}} Primary Quarks (x{{multiplier}}) and {{miscellaneous}} Miscellaneous Quarks. Continue?",
-      "activated": "You have opened a Quark Ration! Enjoy!"
     },
     "lotus": {
       "name": "Loti of Rejuvenation",
