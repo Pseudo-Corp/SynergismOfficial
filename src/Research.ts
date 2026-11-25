@@ -9,7 +9,7 @@ import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff } from './singularity'
 import { format, player } from './Synergism'
 import { revealStuff, updateChallengeDisplay } from './UpdateHTML'
-import { sortDecimalWithIndices, updateClassList } from './Utility'
+import { updateClassList } from './Utility'
 import { Globals as G } from './Variables'
 
 // TODO: Maybe we should just manually create this map? I was a bit lazy to port all the values
@@ -298,7 +298,13 @@ const getCostForResearchLevels = (index: number, buyTo: number): Decimal => {
   return costForLevelsFunc(baseCost.times(researchCostMultiplier(index)), currLevel, buyTo)
 }
 
-export const researchOrderByCost: number[] = sortDecimalWithIndices(researchBaseCosts)
+export const researchOrderByCost: number[] = Array
+  .from(researchBaseCosts.keys())
+  .sort((a, b) =>
+    new Decimal(researchBaseCosts[a]).lt(researchBaseCosts[b])
+      ? -1
+      : +(new Decimal(researchBaseCosts[b]).lt(researchBaseCosts[a]))
+  )
 
 let roombaHighlightIndex = 0
 
