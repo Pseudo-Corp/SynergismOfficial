@@ -3612,7 +3612,16 @@
       "stocksBought": "Stocks Bought Today",
       "paidOut": "Golden Quarks Paid Out Today",
       "stockValue": "Golden Quarks per Stock",
-      "appreciation": "If your Golden Quark Multiplier grows before midnight, your Stocks gain value and you receive the difference. Stocks expire at midnight."
+      "appreciation": "If your Golden Quark Multiplier grows before midnight, your Stocks gain value and you receive the difference. Stocks expire at midnight.",
+      "prompt": {
+        "value": "Golden Quarks per Stock: {{amount}}",
+        "hint": "Enter Stocks or a Quark budget.",
+        "stocks": "Stocks to buy",
+        "quarks": "Quarks to spend",
+        "summary": "Buy {{levels}} Stocks for {{cost}} Quarks.",
+        "affordable": "You can afford {{levels}} Stocks for {{cost}} Quarks.",
+        "unavailable": "You can't purchase any Stocks with selected Stocks or budget."
+      }
     },
     "buyYerPotions": "Buy Yer' Potions!",
     "header": "Welcome to the Quark Shop. You can't believe what's in stock!",
@@ -3968,7 +3977,6 @@
     "goldenQuarks": {
       "transaction": "Bought {{stocks}} Stocks worth {{amount}} Golden Quarks each: +{{goldenQuarks}} Golden Quarks! [-{{cost}} Quarks]",
       "poor": "Sorry, I can't give credit. Come back when you're a little... mmm... richer!",
-      "buyPrompt": "Each Stock costs {{cost}} Quarks and is worth {{amount}} Golden Quarks. You can buy up to {{max}} Stocks. How many? Type -1 to buy max!",
       "spendPrompt": "How many levels would you like to buy? You can buy up to {{n}} levels!. Type -1 to use max!",
       "hasUpgrade": "Hey! You have already maxed this upgrade. :D",
       "notHighEnoughLevel": "You're not powerful enough to purchase this yet.",
@@ -4804,7 +4812,6 @@
       "zeroOrLess": "Only numbers greater than zero, please!",
       "moreThanPlayerHas": "You can't afford this yet!",
       "fraction": "Yeah, that isn't an integer. We don't accept fractions here!",
-      "goldenQuarksTooMany": "You can't afford that many Stocks! Try fewer, or type -1 to buy max!",
       "finiteInt": "Value must be a finite, non-decimal number!",
       "invalidNumber": "Hey! That's not a valid number!"
     },

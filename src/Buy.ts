@@ -944,18 +944,36 @@ export const calculateSingularityUpgradePurchase = (
     return null
   }
 
-  const maxLevels = Math.max(0, Math.floor(Math.min(remaining, Number.MAX_SAFE_INTEGER)))
+  const maxLevels = Math.max(0, Math.floor(remaining))
   const budget = Math.max(0, input === 'cost' && amount !== -1 ? Math.min(amount, balance) : balance)
-  let low = 0
-  let high = input === 'levels' && amount !== -1 ? Math.min(amount, maxLevels) : maxLevels
+  const target = input === 'levels' && amount !== -1 ? Math.min(amount, maxLevels) : maxLevels
+  const isAffordable = (levels: number) => {
+    const cost = options.getCost(levels)
+    return Number.isFinite(cost) && cost >= 0 && cost <= budget
+  }
 
-  while (low < high) {
-    const middle = low + Math.ceil((high - low) / 2)
-    const cost = options.getCost(middle)
-    if (Number.isFinite(cost) && cost >= 0 && cost <= budget) {
+  let low = 0
+  let high = 1
+  while (high <= target && isAffordable(high)) {
+    low = high
+    high *= 2
+  }
+  if (high > target) {
+    if (target > low && isAffordable(target)) {
+      low = target
+    }
+    high = target
+  }
+
+  while (true) {
+    const middle = Math.floor(low + (high - low) / 2)
+    if (middle <= low || middle >= high) {
+      break
+    }
+    if (isAffordable(middle)) {
       low = middle
     } else {
-      high = middle - 1
+      high = middle
     }
   }
 

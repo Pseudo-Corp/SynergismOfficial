@@ -32,9 +32,9 @@ import {
   InfoAlert,
   infoAlertInactiveHTML,
   infoAlertTableHTML,
-  Prompt,
   PurchasePrompt,
-  revealStuff
+  revealStuff,
+  StockPurchasePrompt
 } from './UpdateHTML'
 import { sumContents, toOrdinal } from './Utility'
 
@@ -4324,48 +4324,40 @@ export const resetGoldenQuarkLedger = () => {
   player.goldenQuarkLedger = createBlankGoldenQuarkLedger()
 }
 
-export async function buyGoldenQuarks (): Promise<void> {
-  const cost = calculateGoldenQuarkCost()
-  const goldenQuarksPerPurchase = calculateGoldenQuarkMultiplier()
-  const maxBuy = Math.floor(player.worlds / cost)
+const goldenQuarkStockPurchaseOptions = {
+  getMaxLevels: () => Number.POSITIVE_INFINITY,
+  getBalance: () => player.worlds,
+  getCost: (stocks: number) => stocks * calculateGoldenQuarkCost()
+}
 
-  if (maxBuy === 0) {
+export async function buyGoldenQuarks (): Promise<void> {
+  const initialPurchase = calculateSingularityUpgradePurchase(goldenQuarkStockPurchaseOptions, 1, 'levels')
+  if (initialPurchase === null || initialPurchase.levels <= 0) {
     return Alert(i18next.t('singularity.goldenQuarks.poor'))
   }
 
-  const buyPrompt = await Prompt(
-    i18next.t('singularity.goldenQuarks.buyPrompt', {
-      cost: format(cost, 0, true),
-      amount: format(goldenQuarksPerPurchase, 2, true),
-      max: format(maxBuy, 0, true)
-    })
+  const selectedPurchase = await StockPurchasePrompt({
+    ...goldenQuarkStockPurchaseOptions,
+    getStockValue: calculateGoldenQuarkMultiplier
+  })
+  if (selectedPurchase === null || selectedPurchase.levels <= 0) {
+    return
+  }
+
+  const purchase = calculateSingularityUpgradePurchase(
+    {
+      ...goldenQuarkStockPurchaseOptions,
+      getBalance: () => Math.min(player.worlds, selectedPurchase.cost)
+    },
+    selectedPurchase.levels,
+    'levels'
   )
-
-  if (buyPrompt === null) {
-    // Number(null) is 0. Yeah..
-    return Alert(i18next.t('general.cancelled'))
+  if (purchase === null || purchase.levels <= 0) {
+    return Alert(i18next.t('singularity.goldenQuarks.poor'))
   }
 
-  let buyAmount = Number(buyPrompt)
-  // Check these lol
-  if (Number.isNaN(buyAmount) || !Number.isFinite(buyAmount)) {
-    // nan + Infinity checks
-    return Alert(i18next.t('general.validation.finite'))
-  } else if (buyAmount <= 0 && buyAmount !== -1) {
-    // 0 or less selected
-    return Alert(i18next.t('general.validation.zeroOrLess'))
-  } else if (buyAmount > maxBuy) {
-    return Alert(i18next.t('general.validation.goldenQuarksTooMany'))
-  } else if (!Number.isInteger(buyAmount)) {
-    // non integer
-    return Alert(i18next.t('general.validation.fraction'))
-  }
-
-  if (buyAmount === -1) {
-    buyAmount = maxBuy
-  }
-
-  const totalCost = buyAmount * cost
+  const { levels: buyAmount, cost: totalCost } = purchase
+  const goldenQuarksPerPurchase = calculateGoldenQuarkMultiplier()
   worlds.sub(totalCost)
   const goldenQuarksGained = addBaseGoldenQuarks('purchases', buyAmount)
 

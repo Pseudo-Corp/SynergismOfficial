@@ -1360,6 +1360,17 @@ export const Prompt = (text: string, defaultValue?: string): Promise<string | nu
     return p.promise
   })
 
+type PurchasePromptText = {
+  title: string
+  detail: string
+  hint: string
+  amountLabel: string
+  costLabel: string
+  summaryKey: string
+  affordableKey: string
+  unavailable: string
+}
+
 /** Buy levels of Singularity-tier upgrades by level count or resource budget. */
 export const PurchasePrompt = (
   options: SingularityUpgradePurchaseOptions & {
@@ -1368,8 +1379,39 @@ export const PurchasePrompt = (
     getMaxLevel: () => number
     resource: 'goldenQuarks' | 'octeracts' | 'ambrosia' | 'redAmbrosia' | 'purpleAmbrosia'
   }
+) =>
+  openPurchasePrompt(options, () => ({
+    title: options.title,
+    detail: i18next.t('general.levelWithRatio', {
+      level: format(options.getLevel(), 0, true),
+      max: format(options.getMaxLevel(), 0, true)
+    }),
+    hint: i18next.t('general.purchasePrompt.hint'),
+    amountLabel: i18next.t('general.purchasePrompt.levels'),
+    costLabel: i18next.t(`general.purchasePrompt.resource.${options.resource}`),
+    summaryKey: `general.purchasePrompt.summary.${options.resource}`,
+    affordableKey: `general.purchasePrompt.affordable.${options.resource}`,
+    unavailable: i18next.t('general.purchasePrompt.unavailable')
+  }))
+
+export const StockPurchasePrompt = (options: SingularityUpgradePurchaseOptions & { getStockValue: () => number }) =>
+  openPurchasePrompt(options, () => ({
+    title: i18next.t('shop.goldenQuarkStockMarket.name'),
+    detail: i18next.t('shop.goldenQuarkStockMarket.prompt.value', { amount: format(options.getStockValue(), 2, true) }),
+    hint: i18next.t('shop.goldenQuarkStockMarket.prompt.hint'),
+    amountLabel: i18next.t('shop.goldenQuarkStockMarket.prompt.stocks'),
+    costLabel: i18next.t('shop.goldenQuarkStockMarket.prompt.quarks'),
+    summaryKey: 'shop.goldenQuarkStockMarket.prompt.summary',
+    affordableKey: 'shop.goldenQuarkStockMarket.prompt.affordable',
+    unavailable: i18next.t('shop.goldenQuarkStockMarket.prompt.unavailable')
+  }))
+
+const openPurchasePrompt = (
+  options: SingularityUpgradePurchaseOptions,
+  getText: () => PurchasePromptText
 ): Promise<SingularityUpgradePurchaseQuote | null> =>
   queue.enqueue(() => {
+    const text = getText()
     const conf = DOMCacheGetOrSet('confirmationBox')
     const confWrap = DOMCacheGetOrSet('purchasePromptWrapper')
     const overlay = DOMCacheGetOrSet('transparentBG')
@@ -1388,14 +1430,11 @@ export const PurchasePrompt = (
     conf.style.display = 'block'
     confWrap.style.display = 'block'
     overlay.style.display = 'block'
-    DOMCacheGetOrSet('purchasePromptTitle').textContent = options.title
-    DOMCacheGetOrSet('purchasePromptLevel').textContent = i18next.t('general.levelWithRatio', {
-      level: format(options.getLevel(), 0, true),
-      max: format(options.getMaxLevel(), 0, true)
-    })
-    DOMCacheGetOrSet('purchasePromptCostLabel').textContent = i18next.t(
-      `general.purchasePrompt.resource.${options.resource}`
-    )
+    DOMCacheGetOrSet('purchasePromptTitle').textContent = text.title
+    DOMCacheGetOrSet('purchasePromptLevel').textContent = text.detail
+    DOMCacheGetOrSet('purchasePromptHint').textContent = text.hint
+    DOMCacheGetOrSet('purchasePromptLevelsLabel').textContent = text.amountLabel
+    DOMCacheGetOrSet('purchasePromptCostLabel').textContent = text.costLabel
     levels.focus()
 
     const p = createDeferredPromise<SingularityUpgradePurchaseQuote | null>()
@@ -1416,16 +1455,16 @@ export const PurchasePrompt = (
         const affordable = calculateSingularityUpgradePurchase(options, -1, 'levels')
         summary.textContent = affordable === null
           ? ''
-          : i18next.t(`general.purchasePrompt.affordable.${options.resource}`, {
+          : i18next.t(text.affordableKey, {
             levels: format(affordable.levels, 0, true),
             cost: format(affordable.cost, 2, true)
           })
       } else if (quote === null) {
         summary.textContent = i18next.t('general.purchasePrompt.invalid')
       } else if (quote.levels === 0) {
-        summary.textContent = i18next.t('general.purchasePrompt.unavailable')
+        summary.textContent = text.unavailable
       } else {
-        summary.textContent = i18next.t(`general.purchasePrompt.summary.${options.resource}`, {
+        summary.textContent = i18next.t(text.summaryKey, {
           levels: format(quote.levels, 0, true),
           cost: format(quote.cost, 2, true)
         })
