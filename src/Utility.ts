@@ -4,8 +4,7 @@ import DOMPurify from 'dompurify'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { bus, SynEvent } from './events/bus'
 import { format } from './Synergism'
-
-const decimalOne = new Decimal(1)
+import { Globals as G } from './Variables'
 
 /**
  * This function calculates the smallest integer increment/decrement that can be applied to a number that is
@@ -31,7 +30,7 @@ export const smallestInc = (x = 0): number => {
 export const digitCount = (value: number | Decimal) =>
   typeof value === 'number'
     ? value < 1 ? 0 : Math.floor(Math.log10(value)) + 1
-    : value.lt(decimalOne)
+    : value.lt(G.dOne)
     ? 0
     : Math.floor(value.log10()) + 1
 
