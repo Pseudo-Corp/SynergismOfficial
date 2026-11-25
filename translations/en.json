@@ -5305,8 +5305,7 @@
     "purpleHoney": "Purple Honey: +<<var(--purple-text-color)|{{value}}>>"
   },
   "fastForward": {
-    "global": "Your Global stuff fast forwarded {{time}} seconds!",
-    "ascension": "Your Ascension stuff fast forwarded {{time}} seconds!",
+    "ascension": "Your Global and Ascension stuff fast forwarded {{time}} seconds!",
     "ambrosia": "Your Ambrosia stuff fast forwarded {{time}} seconds!"
   },
   "campaigns": {
@@ -8892,13 +8891,9 @@
       "globalEventSome": "Timer Remaining: <<#8f8|{{time}}>>"
     },
     "timeSkips": {
-      "GLOBAL": {
-        "title": "P/T/R/Ant Time Skips",
-        "description": "Fast-forward real-life time on your Prestige, Transcension, Reincarnation and Ant Sacrifice Timers!"
-      },
       "ASCENSION": {
-        "title": "Ascension Time Skips",
-        "description": "Fast-forward real-life time on your Ascension Timer!"
+        "title": "Global and Ascension Time Skips",
+        "description": "Fast-forward real-life time on your Prestige, Transcension, Reincarnation, Ant Sacrifice and Ascension Timers!"
       },
       "AMBROSIA": {
         "title": "Ambrosia Time Skips",

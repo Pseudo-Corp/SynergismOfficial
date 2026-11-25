@@ -26,7 +26,7 @@ interface ConsumableListItems {
   cost: number
 }
 
-const timeSkipCategories = ['GLOBAL', 'ASCENSION', 'AMBROSIA'] as const
+const timeSkipCategories = ['ASCENSION', 'AMBROSIA'] as const
 
 type TimeSkipCategories = typeof timeSkipCategories[number]
 

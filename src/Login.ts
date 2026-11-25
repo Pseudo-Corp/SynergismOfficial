@@ -32,9 +32,6 @@ import { assert, btoa, displayHTMLError, isomorphicDecode, memoize } from './Uti
 export type PseudoCoinConsumableNames = 'HAPPY_HOUR_BELL'
 
 type PseudoCoinTimeskipNames =
-  | 'SMALL_GLOBAL_TIMESKIP'
-  | 'LARGE_GLOBAL_TIMESKIP'
-  | 'JUMBO_GLOBAL_TIMESKIP'
   | 'SMALL_ASCENSION_TIMESKIP'
   | 'LARGE_ASCENSION_TIMESKIP'
   | 'JUMBO_ASCENSION_TIMESKIP'
@@ -1134,8 +1131,7 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
   for (let i = 0; i < fastForwardStat.length; i++) {
     const element = fastForwardStat[i]
     if (
-      (element.classList.contains('globalSkip') && name.includes('GLOBAL'))
-      || (element.classList.contains('ascensionSkip') && name.includes('ASCENSION'))
+      (element.classList.contains('ascensionSkip') && name.includes('ASCENSION'))
       || (element.classList.contains('ambrosiaSkip') && name.includes('AMBROSIA'))
     ) {
       element.classList.add('fastForwardVisible')
@@ -1144,14 +1140,15 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     }
   }
 
-  if (name.includes('GLOBAL')) {
+  if (name.includes('ASCENSION')) {
     const beforeStats = {
       prestigeTime: player.prestigecounter,
       prestigeCount: player.prestigeCount,
       transcensionTime: player.transcendcounter,
       transcensionCount: player.transcendCount,
       reincarnationTime: player.reincarnationcounter,
-      reincarnationCount: player.reincarnationCount
+      reincarnationCount: player.reincarnationCount,
+      ascensionTime: player.ascensionCounter
     }
 
     // Timer Things
@@ -1159,6 +1156,7 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     addTimers('prestige', seconds, globalSpeedMult)
     addTimers('transcension', seconds, globalSpeedMult)
     addTimers('reincarnation', seconds, globalSpeedMult)
+    addTimers('ascension', seconds)
     automaticTools('antSacrifice', seconds)
     updatePrestigeCount(seconds / Math.max(0.25, player.fastestprestige))
     updateTranscensionCount(seconds / Math.max(0.25, player.fastesttranscend))
@@ -1175,10 +1173,11 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
       transcensionCount: player.transcendCount - beforeStats.transcensionCount,
       reincarnationTime: player.reincarnationcounter - beforeStats.reincarnationTime,
       reincarnationCount: player.reincarnationCount - beforeStats.reincarnationCount,
+      ascensionTime: player.ascensionCounter - beforeStats.ascensionTime,
       antTimer: seconds
     }
 
-    DOMCacheGetOrSet('fastForwardTimer').innerHTML = i18next.t('fastForward.global', {
+    DOMCacheGetOrSet('fastForwardTimer').innerHTML = i18next.t('fastForward.ascension', {
       time: format(seconds, 0, true)
     })
     DOMCacheGetOrSet('fastForwardPrestigeCount').innerHTML = i18next.t('offlineProgress.prestigeCount', {
@@ -1207,23 +1206,6 @@ const createFastForward = (name: PseudoCoinTimeskipNames, minutes: number) => {
     )
     DOMCacheGetOrSet('fastForwardAntTimer').innerHTML = i18next.t('offlineProgress.ingameAntSacTimer', {
       value: format(addedStats.antTimer, 0, true)
-    })
-  }
-
-  if (name.includes('ASCENSION')) {
-    const beforeStats = {
-      ascensionTime: player.ascensionCounter
-    }
-
-    // Timer Things
-    addTimers('ascension', seconds)
-
-    const addedStats = {
-      ascensionTime: player.ascensionCounter - beforeStats.ascensionTime
-    }
-
-    DOMCacheGetOrSet('fastForwardTimer').innerHTML = i18next.t('fastForward.ascension', {
-      time: format(seconds, 0, true)
     })
     DOMCacheGetOrSet('fastForwardAscensionTimer').innerHTML = i18next.t('offlineProgress.currentAscensionTimer', {
       value: format(addedStats.ascensionTime, 2, true)
@@ -1278,23 +1260,14 @@ const activateTimeSkip = (name: PseudoCoinTimeskipNames, minutes: number) => {
   createFastForward(name, minutes)
   // TODO for Platonic: i18n this shit
   switch (name) {
-    case 'SMALL_GLOBAL_TIMESKIP':
-      Notification('You have activated a small global timeskip! Enjoy!')
-      break
-    case 'LARGE_GLOBAL_TIMESKIP':
-      Notification('You have activated a large global timeskip! Enjoy!')
-      break
-    case 'JUMBO_GLOBAL_TIMESKIP':
-      Notification('You have activated a JUMBO global timeskip! Enjoy!')
-      break
     case 'SMALL_ASCENSION_TIMESKIP':
-      Notification('You have activated a small ascension timeskip! Enjoy!')
+      Notification('You have activated a small global and ascension timeskip! Enjoy!')
       break
     case 'LARGE_ASCENSION_TIMESKIP':
-      Notification('You have activated a large ascension timeskip! Enjoy!')
+      Notification('You have activated a large global and ascension timeskip! Enjoy!')
       break
     case 'JUMBO_ASCENSION_TIMESKIP':
-      Notification('You have activated a JUMBO ascension timeskip! Enjoy!')
+      Notification('You have activated a JUMBO global and ascension timeskip! Enjoy!')
       break
     case 'SMALL_AMBROSIA_TIMESKIP':
       Notification('You have activated a small ambrosia timeskip! Enjoy!')
