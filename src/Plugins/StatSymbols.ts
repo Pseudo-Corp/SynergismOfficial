@@ -22,6 +22,7 @@ const KEYWORD_SYMBOLS: Record<string, string> = {
   'Purple Bar Point': '𝚫',
   'Purple Honey': '☼',
   'Blueberries': '☌',
+  'Golden Quark': '❂',
   'Quark': '❂',
   'Cube': '⬢',
   'Tesseract': '⬢',

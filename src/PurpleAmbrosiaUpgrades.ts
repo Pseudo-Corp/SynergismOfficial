@@ -5,6 +5,7 @@ import { getOcteractUpgradeEffect } from './Octeracts'
 import { runes, RuneType } from './Runes'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Alert, PurchasePrompt } from './UpdateHTML'
+import { digitCount } from './Utility'
 
 export type PurpleAmbrosiaUpgradeRewards = {
   aries: { universalBarPointMult: number }
@@ -54,7 +55,7 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     costFormula: (level: number) => level * (level + 1) / 2,
     effects: (level: number) => {
       const digits = [player.lifetimeAmbrosia, player.lifetimeRedAmbrosia, player.lifetimePurpleAmbrosia].reduce(
-        (total, ambrosia) => total + (ambrosia > 0 ? Math.floor(Math.log10(ambrosia)) + 1 : 0),
+        (total, ambrosia) => total + digitCount(ambrosia),
         0
       )
       return 1 + 0.0002 * level * digits

@@ -2115,6 +2115,33 @@ p#appearanceSettingsTitle {
     font-size: 0;
 }
 
+.platformList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.platformTile {
+    border: 2px solid var(--white-color);
+    color: var(--white-color);
+    padding: 4px 10px;
+}
+
+.platformTile.currentPlatform {
+    border-color: var(--gold-color);
+    color: var(--gold-color);
+}
+
+.platformTile.platformLink {
+    cursor: pointer;
+}
+
+.platformTile.platformLink:hover {
+    background-color: var(--button-color);
+}
+
 /* Confirmation toggle box */
 .confirmationToggle {
     display: flex;
@@ -2898,6 +2925,11 @@ p#prestigehotkeys {
     flex-shrink: 0;
 }
 
+.runeIconAndName .runeImage {
+    width: 32px;
+    height: 32px;
+}
+
 .runeIconAndName p {
     margin: 0;
     font-size: 1.2em;
@@ -3461,6 +3493,7 @@ p#transcendhotkeys {
 *[id^="challengePer"] { color: var(--pink-color); }
 #challengeFirst1 { color: var(--orange-color); }
 #challengeQuarkBonus { color: var(--cyan-color); }
+#challengeDailyQuarks { color: var(--cyan-color); }
 
 #challengeTimersText {
     display: flex;
@@ -3680,6 +3713,95 @@ p#reincarnatehotkeys {
     justify-content: center;
 }
 
+#quarkLedgerWrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px;
+    overflow-x: auto;
+}
+
+.quarkLedgerSource {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quarkLedgerSource img {
+    width: 20px;
+    height: 20px;
+}
+
+#quarkLedgerWrapper .quarkLedgerTable {
+    width: 100%;
+    margin-top: 10px;
+    border: 2px solid var(--cyan-color);
+    border-radius: 2px;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    color: var(--white-color);
+}
+
+.quarkLedgerTable th,
+.quarkLedgerTable td {
+    padding: 6px;
+    text-align: center;
+}
+
+.quarkLedgerTable thead th {
+    border-bottom: 2px solid var(--cyan-color);
+}
+
+.quarkLedgerTable thead th:first-child {
+    width: 46%;
+    text-align: left;
+}
+
+.quarkLedgerSourceRow:nth-child(odd of .quarkLedgerSourceRow:not([hidden])) {
+    background-color: var(--hex-1f1f1f-background-color);
+}
+
+.quarkLedgerTable tfoot tr,
+#quarkLedgerSummary tr {
+    background-color: var(--hex-2f2f2f-background-color);
+}
+
+.quarkLedgerTable tfoot th,
+#quarkLedgerSummary th {
+    color: var(--gold-color);
+}
+
+#quarkLedgerSummary th:first-child {
+    color: var(--orange-color);
+    text-align: left;
+    width: 82%;
+}
+
+.quarkLedgerTable tfoot td,
+.quarkLedgerTable tfoot th {
+    border-top: 2px solid var(--cyan-color);
+}
+
+.quarkLedgerInfo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.2em;
+    height: 1.2em;
+    border: 2px solid var(--cyan-color);
+    border-radius: 50%;
+    font-size: 0.8em;
+    cursor: help;
+}
+
+#quarkLedgerWrapper #quarkLedgerTable-goldenQuarks,
+#quarkLedgerTable-goldenQuarks thead th,
+#quarkLedgerTable-goldenQuarks tfoot td,
+#quarkLedgerTable-goldenQuarks tfoot th,
+#quarkLedgerTable-goldenQuarks .quarkLedgerInfo {
+    border-color: var(--gold-color);
+}
+
 #actualWrapper {
     display: grid;
     grid-template-areas:
@@ -3896,15 +4018,43 @@ p#reincarnatehotkeys {
     border: 2px solid var(--cyan-color);
 }
 
-#actualPotionShop > div,
-#goldenQuarksShop {
+#actualPotionShop > div {
     width: 110px;
+}
+
+#goldenQuarksShop {
+    width: 230px;
 }
 
 #actualPotionShop > div > p,
 #goldenQuarksShop > p {
     margin: 0 0 3px;
     line-height: 1em;
+}
+
+#goldenQuarksShopLedger {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 8px;
+    row-gap: 2px;
+    margin-top: 6px;
+    font-size: 0.9em;
+    line-height: 1.2em;
+    font-variant-numeric: tabular-nums;
+}
+
+#goldenQuarksShopLedger > span:nth-child(odd) {
+    text-align: left;
+}
+
+#goldenQuarksShopLedger > span:nth-child(even) {
+    text-align: right;
+}
+
+#goldenQuarksShop > #buySingularityQuarksAppreciation {
+    margin-top: 6px;
+    font-size: 0.85em;
+    line-height: 1.2em;
 }
 
 #shoptop {
@@ -5257,6 +5407,40 @@ p#reincarnatehotkeys {
     margin: 0;
 }
 
+.cubeQuarkBlock {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.cubeQuarkHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: bold;
+}
+
+.cubeQuarkHeader img {
+    width: 20px;
+    height: 20px;
+}
+
+.cubeQuarkRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 2px 4px;
+    color: var(--white-color);
+}
+
+.cubeQuarkRow:nth-child(even) {
+    background-color: var(--hex-1f1f1f-background-color);
+}
+
+#cubeQuarkRewardInfo {
+    color: var(--white-color);
+}
+
 #cubeToQuarkTimer,
 #cubeToQuarkTimerValue {
     font-size: 1.2em;
@@ -6564,15 +6748,15 @@ html[data-mobile="true"] #statisticsSubTab > .statContainer {
     padding-left: 0;
 }
 
-.autoAscendCheckMark {
+.checkMark {
     font-weight: bold;
 }
 
-.autoAscendCheckMark[data-met="true"] {
+.checkMark[data-met="true"] {
     color: var(--lime-text-color);
 }
 
-.autoAscendCheckMark[data-met="false"] {
+.checkMark[data-met="false"] {
     color: var(--red-text-color);
 }
 
@@ -9534,8 +9718,6 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 
 .rainbowBorder > img {
     position: relative;
-    width: calc(100% - 6px); /* 58px */
-    height: calc(100% - 6px);
     object-fit: none;
     background-color: var(--bg-color);
     border-radius: 3px;
@@ -12662,6 +12844,10 @@ html[data-singularity="false"] .singularity {
     display: none;
 }
 
+html[data-singularity="true"] .offlineStats > .singularity {
+    display: flex;
+}
+
 html[data-singularity-button="true"] .singularityButton {
     display: block;
 }
@@ -12715,14 +12901,6 @@ html[data-cookies5="true"] .assortedCookies5 {
 }
 
 html[data-cookies5="false"] .assortedCookies5 {
-    display: none;
-}
-
-html[data-golden-quark3-upg="true"] .goldenQuark3Upg {
-    display: block;
-}
-
-html[data-golden-quark3-upg="false"] .goldenQuark3Upg {
     display: none;
 }
 
@@ -13360,11 +13538,6 @@ html[data-mobile="true"] #achievements {
 
     #researchtable > tbody > tr > td {
         display: block;
-    }
-
-    #researchtable button > img {
-        width: 36px;
-        height: 36px;
     }
 
     /* Ants */
@@ -14112,12 +14285,6 @@ html[data-mobile="true"] #achievements {
     .synergismLevelMilestoneType > img {
         width: 100%;
         height: 100%;
-    }
-
-    /* Challenge icons */
-    #challengeIcons img {
-        width: 48px;
-        height: 48px;
     }
 
     #oneChallengeDetails {
@@ -15085,4 +15252,9 @@ body.lightTheme .synthesisUpgradeModalTitle {
 body.lightTheme .spinner {
     border-color: #d5d8e0;
     border-top-color: var(--steelblue-color);
+}
+
+.spriteIcon {
+    width: var(--sprite-size);
+    height: var(--sprite-size);
 }

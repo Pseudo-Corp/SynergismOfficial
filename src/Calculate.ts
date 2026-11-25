@@ -3,7 +3,7 @@ import i18next from 'i18next'
 import { awardUngroupedAchievement, getAchievementReward, UngroupedAchievement } from './Achievements'
 import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
+import { awardChallengeQuarks, transcensionCubeBankTiers, useChallenge13Modifiers } from './Challenges'
 import {
   activeCorruptionLevel,
   ascensionCorruptionLevel,
@@ -15,12 +15,11 @@ import {
 import { calculateAcceleratorCubeBlessing } from './Cubes'
 import { BuffType, calculateEventSourceBuff } from './Event'
 import { generateAntsAndCrumbs } from './Features/Ants/AntProducers/lib/generate-ant-producers'
-import { resetPlayerRebornELODaily } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/reset'
 import { thresholdModifiers } from './Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/Stages/lib/threshold'
 import { getAntUpgradeEffect } from './Features/Ants/AntUpgrades/lib/upgrade-effects'
 import { AntUpgrades } from './Features/Ants/AntUpgrades/structs/structs'
 import { addTimers, automaticTools } from './Helper'
-import { getHepteractEffects } from './Hepteracts'
+import { autoActivateDailyWarp, getHepteractEffects } from './Hepteracts'
 import { disableHotkeys, enableHotkeys } from './Hotkeys'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
@@ -31,12 +30,12 @@ import {
   PURPLE_REACTOR_OVERFLOW_EFFICIENCY,
   purpleReactantConversion
 } from './PurpleReactor'
-import { quarkHandler } from './Quark'
+import { resetQuarkLedger } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { updatePrestigeCount, updateReincarnationCount, updateTranscensionCount } from './Reset'
 import { getRuneEffects, RuneType } from './Runes'
 import { getShopUpgradeEffects } from './Shop'
-import { generousOrbsLevels, getGQUpgradeEffect } from './singularity'
+import { generousOrbsLevels, getGQUpgradeEffect, resetGoldenQuarkLedger } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
 import {
   allAdditiveLuckMultStatsSum,
@@ -412,7 +411,9 @@ export const calculateAmbrosiaGenerationSpeed = () => {
 
 export const calculatePowderConversion = () => allPowderMultiplierStatsProduct()
 
-export const calculateGoldenQuarks = () => allGoldenQuarkMultiplierStatsProduct()
+export const calculateGoldenQuarkMultiplier = () => allGoldenQuarkMultiplierStatsProduct()
+export const calculateGoldenQuarks = () =>
+  Math.min(1e300, calculateBaseGoldenQuarks(player.singularityCount) * calculateGoldenQuarkMultiplier())
 export const calculateGoldenQuarkCost = () => allGoldenQuarkPurchaseCostStatsProduct()
 
 export const calculateLuckConversion = () => allLuckConversionStatsSum()
@@ -916,7 +917,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
     ants: timeAdd * G.timeMultiplier,
     antsReal: timeAdd,
     ascension: player.ascensionCounter, // Calculate this after the fact
-    quarks: quarkHandler().gain, // Calculate this after the fact
+    singularity: player.singularityCounter,
     ambrosia: player.lifetimeAmbrosia,
     redAmbrosia: player.lifetimeRedAmbrosia,
     ambrosiaPoints: timeAdd * calculateAmbrosiaGenerationSpeed(),
@@ -925,8 +926,6 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   }
 
   addTimers('ascension', timeAdd)
-  addTimers('quarks', timeAdd)
-  addTimers('goldenQuarks', timeAdd)
   addTimers('singularity', timeAdd)
   addTimers('octeracts', timeTick)
 
@@ -935,7 +934,7 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
   updateReincarnationCount(resetAdd.reincarnation)
 
   timerAdd.ascension = player.ascensionCounter - timerAdd.ascension
-  timerAdd.quarks = quarkHandler().gain - timerAdd.quarks
+  timerAdd.singularity = player.singularityCounter - timerAdd.singularity
 
   resetAddDisplay.prestige = player.prestigeCount - resetAddDisplay.prestige
   resetAddDisplay.transcension = player.transcendCount - resetAddDisplay.transcension
@@ -1065,10 +1064,10 @@ const runOfflineProgress = async (forceTime: number, fromTips: boolean, generati
       value: format(timerAdd.ascension, 2, true)
     }
   )
-  DOMCacheGetOrSet('offlineQuarkCount').innerHTML = i18next.t(
-    'offlineProgress.exportQuarks',
+  DOMCacheGetOrSet('offlineSingularityTimer').innerHTML = i18next.t(
+    'offlineProgress.currentSingularityTimer',
     {
-      value: format(timerAdd.quarks, 0, true)
+      value: format(timerAdd.singularity, 2, true)
     }
   )
   DOMCacheGetOrSet('offlineAmbrosiaCount').innerHTML = i18next.t(
@@ -1451,14 +1450,21 @@ export const calculateBaseCubeQuarkMultiplier = () => {
   return Math.min(1 + effect, calculateMaxBaseCubeQuarkMultiplier(player.highestSingularityCount))
 }
 
-export const calculateAutoWarpQuarkMultiplier = () => {
-  return player.autoWarpCheck ? 1 + player.dailyPowderResetUses : 1
+export const calculateRootsOfUnityRate = () => {
+  return Math.min(10000, 24 * Math.pow(1.05, sumOfExaltCompletions()))
+}
+
+export const calculateSingularityTimeQuarkRate = () => {
+  return getShopUpgradeEffects('shopRootsOfUnity', 'exaltQuarkRate') ? calculateRootsOfUnityRate() : 1
+}
+
+export const calculateDailyWarpQuarkMultiplier = (active = player.dailyWarpActive) => {
+  return active ? 2 + getShopUpgradeEffects('extraWarp', 'additionalWarps') : 1
 }
 
 export const calculateCubeQuarkMultiplier = () => {
   return calculateBaseCubeQuarkMultiplier()
     * getShopUpgradeEffects('cubeToQuarkAll', 'quarkMult')
-    * calculateAutoWarpQuarkMultiplier()
 }
 
 export const calculateCubeMultFromPowder = () => {
@@ -1871,57 +1877,45 @@ export const calculateSingularityPurpleBarSizeMultiplier = () => {
   return 1 - Math.max(0, Math.floor((player.highestSingularityCount - 280) / 2) / 100)
 }
 
+export const calculateTimeUntilDailyReset = () => {
+  const now = new Date(getTimePinnedToLoadDate())
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1).getTime() - now.getTime()
+}
+
 export const dailyResetCheck = () => {
   if (!player.dayCheck) {
     return
   }
   const now = new Date(getTimePinnedToLoadDate())
   const day = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-  const h = now.getHours()
-  const m = now.getMinutes()
-  const s = now.getSeconds()
-  player.dayTimer = 60 * 60 * 24 - 60 * 60 * h - 60 * m - s
 
   // Daily is not reset even if it is set to a past time.
   // If the daily is not reset, the data may have been set to a future time.
   if (day.getTime() - 3600000 > Date.parse(player.dayCheck)) {
     player.dayCheck = day.toISOString()
-
-    forcedDailyReset(true)
-    player.dailyPowderResetUses = 1 + getShopUpgradeEffects('extraWarp', 'additionalWarps')
-    player.dailyCodeUsed = false
-
-    DOMCacheGetOrSet('cubeQuarksOpenRequirement').style.display = 'block'
-    if (player.challengecompletions[11] > 0) {
-      DOMCacheGetOrSet('tesseractQuarksOpenRequirement').style.display = 'block'
-    }
-    if (player.challengecompletions[13] > 0) {
-      DOMCacheGetOrSet('hypercubeQuarksOpenRequirement').style.display = 'block'
-    }
-    if (player.challengecompletions[14] > 0) {
-      DOMCacheGetOrSet('platonicCubeQuarksOpenRequirement').style.display = 'block'
-    }
+    dailyReset()
+  } else {
+    autoActivateDailyWarp()
   }
 }
 
-/**
- * Resets Cube Counts and stuff. NOTE: It is intentional it does not award powder or expire orbs.
- */
-export const forcedDailyReset = (rewards = false) => {
-  player.cubeQuarkDaily = 0
-  player.tesseractQuarkDaily = 0
-  player.hypercubeQuarkDaily = 0
-  player.platonicCubeQuarkDaily = 0
-  player.cubeOpenedDaily = 0
-  player.tesseractOpenedDaily = 0
-  player.hypercubeOpenedDaily = 0
-  player.platonicCubeOpenedDaily = 0
-  resetPlayerRebornELODaily()
-
-  if (rewards) {
-    player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion()
-    player.overfluxOrbs = G.challenge15Rewards.freeOrbs.value
+export const dailyReset = () => {
+  resetQuarkLedger()
+  if (!getShopUpgradeEffects('shopPrimaryQuarkClock', 'singularityTimeQuarks')) {
+    player.dailyWarpActive = false
   }
+  resetGoldenQuarkLedger()
+  awardChallengeQuarks()
+
+  player.dailyCodeUsed = false
+  player.dailyExportClaimed = false
+  player.dailyTimeCodeUsed = false
+  player.dailyExportAddCodeMult = 0
+
+  player.overfluxPowder += player.overfluxOrbs * calculatePowderConversion()
+  player.overfluxOrbs = G.challenge15Rewards.freeOrbs.value
+
+  autoActivateDailyWarp()
 }
 
 export const calculateEventBuff = (buff: BuffType) => {

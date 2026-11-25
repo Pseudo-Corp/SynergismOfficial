@@ -1,17 +1,43 @@
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { calculateSummationNonLinear } from './Calculate'
+import {
+  calculateDailyWarpQuarkMultiplier,
+  calculateGoldenQuarkMultiplier,
+  calculateQuarkMultiplier,
+  calculateSingularityTimeQuarkRate,
+  calculateSummationNonLinear,
+  calculateTimeUntilDailyReset
+} from './Calculate'
+import {
+  calculateSingularityTimePrimaryMultiplier,
+  getQuarkCategoryAwarded,
+  getQuarkSourceMultiplier,
+  primaryQuarkResetText,
+  type QuarkCategoryKey,
+  quarkCategoryKeys,
+  type QuarkSourceKey,
+  quarkSourceKeys,
+  quarkSources
+} from './Quark'
 import {
   buyShopUpgrades,
   getShopCosts,
   getShopTypeSymbolsHTML,
+  getShopUpgradeEffects,
   instantUnlocked,
   shopDescriptions,
   type ShopUpgradeNames,
   shopUpgrades
 } from './Shop'
-import { registerSpriteAlias } from './SpriteSheets'
-import { format, player } from './Synergism'
+import {
+  getGoldenQuarkSourceMultiplier,
+  type GoldenQuarkSourceKey,
+  goldenQuarkSourceKeys,
+  goldenQuarkSources
+} from './singularity'
+import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
+import { displayStatLine, StatLineTypes } from './Statistics'
+import { format, formatTimeShort, player } from './Synergism'
 import { isMobile } from './Utility'
 
 interface ShopTierData {
@@ -165,12 +191,17 @@ const shopSections = [
         ]
       },
       {
+        id: 'shopPrimaryQuarkClock',
+        tiers: [{ key: 'shopPrimaryQuarkClock', icon: 'Pictures/Default/ShopPrimaryQuarkClock.png' }]
+      },
+      {
         id: 'shopImprovedDaily',
         tiers: [
           { key: 'shopImprovedDaily', icon: 'Pictures/Default/ShopImprovedDaily0.png' },
           { key: 'shopImprovedDaily2', icon: 'Pictures/Default/ShopImprovedDaily.png' },
           { key: 'shopImprovedDaily3', icon: 'Pictures/Default/ShopImprovedDaily2.png' },
-          { key: 'shopImprovedDaily4', icon: 'Pictures/Default/ShopImprovedDaily3.png' }
+          { key: 'shopImprovedDaily4', icon: 'Pictures/Default/ShopImprovedDaily3.png' },
+          { key: 'shopImprovedDaily5', icon: 'Pictures/Default/ShopImprovedDaily4.png' }
         ]
       },
       {
@@ -184,6 +215,14 @@ const shopSections = [
       {
         id: 'shopInfiniteShopUpgrades',
         tiers: [{ key: 'shopInfiniteShopUpgrades', icon: 'Pictures/Default/ShopInfiniteShopUpgrades.png' }]
+      },
+      {
+        id: 'shopInfiniteShopUpgrades2',
+        tiers: [{ key: 'shopInfiniteShopUpgrades2', icon: 'Pictures/Default/ShopInfiniteShopUpgrades2.png' }]
+      },
+      {
+        id: 'shopFreeQuarkUpgrades',
+        tiers: [{ key: 'shopFreeQuarkUpgrades', icon: 'Pictures/Default/ShopFreeQuarkUpgrades.png' }]
       }
     ]
   },
@@ -224,7 +263,8 @@ const shopSections = [
           { key: 'shopAmbrosiaLuck1', icon: 'Pictures/Default/ShopAmbrosiaLuck1.png' },
           { key: 'shopAmbrosiaLuck2', icon: 'Pictures/Default/ShopAmbrosiaLuck2.png' },
           { key: 'shopAmbrosiaLuck3', icon: 'Pictures/Default/ShopAmbrosiaLuck3.png' },
-          { key: 'shopAmbrosiaLuck4', icon: 'Pictures/Default/ShopAmbrosiaLuck4.png' }
+          { key: 'shopAmbrosiaLuck4', icon: 'Pictures/Default/ShopAmbrosiaLuck4.png' },
+          { key: 'shopAmbrosiaLuck5', icon: 'Pictures/Default/ShopAmbrosiaLuck5.png' }
         ]
       },
       {
@@ -251,6 +291,14 @@ const shopSections = [
       {
         id: 'shopPurpleHoney',
         tiers: [{ key: 'shopPurpleBarRebate', icon: 'Pictures/Default/ShopPurpleBarRebate.png' }]
+      },
+      {
+        id: 'shopPurpleHoneyLuck',
+        tiers: [{ key: 'shopPurpleHoneyLuck', icon: 'Pictures/Default/ShopPurpleHoneyLuck.png' }]
+      },
+      {
+        id: 'shopPurpleHoneyLuckFreeLevels',
+        tiers: [{ key: 'shopPurpleHoneyLuckFreeLevels', icon: 'Pictures/Default/ShopPurpleHoneyLuckFreeLevels.png' }]
       }
     ]
   },
@@ -264,6 +312,10 @@ const shopSections = [
       {
         id: 'shopHorseShoe',
         tiers: [{ key: 'shopHorseShoe', icon: 'Pictures/Default/ShopHorseShoe.png' }]
+      },
+      {
+        id: 'shopRootsOfUnity',
+        tiers: [{ key: 'shopRootsOfUnity', icon: 'Pictures/Default/ShopRootsOfUnity.png' }]
       },
       {
         id: 'shopSingularitySpeedup',
@@ -289,6 +341,27 @@ const shopSections = [
       {
         id: 'shopTalisman',
         tiers: [{ key: 'shopTalisman', icon: 'Pictures/Default/ShopP2WTalisman.png' }]
+      },
+      {
+        id: 'shopMindPalace',
+        tiers: [{ key: 'shopMindPalace', icon: 'Pictures/Default/ShopMindPalace.png' }]
+      },
+      {
+        id: 'shopCorruptionScalingReduction',
+        tiers: [{ key: 'shopCorruptionScalingReduction', icon: 'Pictures/Default/ShopCorruptionScalingReduction.png' }]
+      },
+      {
+        id: 'shopPrestigeCount',
+        tiers: [
+          { key: 'shopPrestigeCount', icon: 'Pictures/Default/ShopPrestigeCount.png' },
+          { key: 'shopTranscensionCount', icon: 'Pictures/Default/ShopTranscensionCount.png' },
+          { key: 'shopReincarnationCount', icon: 'Pictures/Default/ShopReincarnationCount.png' },
+          { key: 'shopAntSacrificeCount', icon: 'Pictures/Default/ShopAntSacrificeCount.png' }
+        ]
+      },
+      {
+        id: 'shopResetUpgradesImprover',
+        tiers: [{ key: 'shopResetUpgradesImprover', icon: 'Pictures/Default/ShopResetUpgradesImprover.png' }]
       }
     ]
   }
@@ -386,7 +459,7 @@ const createFamilyRow = (family: ShopFamilyData) => {
       shortcutIcon.src = tier.icon
       shortcutIcon.alt = ''
       shortcutIcon.loading = 'lazy'
-      registerSpriteAlias(tier.key, shortcutIcon.id, 16)
+      registerSpriteAlias(tier.key, shortcutIcon.id)
 
       shortcut.appendChild(shortcutIcon)
       shortcut.addEventListener('click', () => selectShopFamily(family, tier.key))
@@ -417,6 +490,68 @@ const createTierChip = (tier: ShopTierData) => {
   return chip
 }
 
+const quarkLedgerColumns = ['base', 'multiplier', 'awarded'] as const
+
+const quarkLedgerCategoryVisible: Record<QuarkCategoryKey, boolean> = { primary: false, miscellaneous: false }
+
+const ledgerMultiplierHTML = (title: string, lines: string[], total: number) =>
+  `<span style="font-weight: bold; font-size: 1.2em;">${title}</span><br><br>${
+    lines.length > 0 ? `${lines.join('<br>')}<br><br>` : ''
+  }${i18next.t('shop.quarkLedger.multipliers.total', { x: format(total, 3, true) })}`
+
+const ledgerMultiplierLine = (i18n: string, multiplier: number, params?: Record<string, string>) =>
+  displayStatLine(StatLineTypes.Multiplication, multiplier)
+    ? [i18next.t(`shop.quarkLedger.multipliers.${i18n}`, { ...params, x: format(multiplier, 3, true) })]
+    : []
+
+export const quarkSourceMultiplierHTML = (key: QuarkSourceKey) => {
+  const lines = quarkSources[key].lines.flatMap(({ i18n, stat }) => ledgerMultiplierLine(i18n, stat()))
+  if (quarkSources[key].category === 'primary') {
+    lines.push(
+      ...ledgerMultiplierLine(
+        'singularityTime',
+        calculateSingularityTimePrimaryMultiplier(player.singularityCounter),
+        { perDay: format(calculateSingularityTimeQuarkRate(), 2, true) }
+      ),
+      ...ledgerMultiplierLine('dailyWarp', calculateDailyWarpQuarkMultiplier())
+    )
+  } else {
+    lines.push(
+      ...ledgerMultiplierLine(
+        'shopSingularitySpeedup',
+        getShopUpgradeEffects('shopSingularitySpeedup', 'miscellaneousQuarkMult')
+      )
+    )
+  }
+  const globalMultiplier = calculateQuarkMultiplier()
+  lines.push(...ledgerMultiplierLine('globalMultiplier', globalMultiplier))
+  return ledgerMultiplierHTML(
+    i18next.t(`shop.quarkLedger.sources.${key}`),
+    lines,
+    getQuarkSourceMultiplier(key) * globalMultiplier
+  )
+}
+
+export const goldenQuarkSourceMultiplierHTML = (key: GoldenQuarkSourceKey) => {
+  const lines = goldenQuarkSources[key].lines.flatMap(({ i18n, stat }) => ledgerMultiplierLine(i18n, stat()))
+  lines.push(...ledgerMultiplierLine('goldenQuarkMultiplier', calculateGoldenQuarkMultiplier()))
+  return ledgerMultiplierHTML(
+    i18next.t(`shop.quarkLedger.goldenQuarkSources.${key}`),
+    lines,
+    getGoldenQuarkSourceMultiplier(key)
+  )
+}
+
+export const quarkLedgerAwardedHTML = () =>
+  `<span style="font-weight: bold; font-size: 1.2em;">${i18next.t('shop.quarkLedger.awarded')}</span><br><br>${
+    i18next.t('shop.quarkLedger.rules.baseGain')
+  }<br><br>${i18next.t('shop.quarkLedger.rules.multiplierGrowth')}`
+
+export const goldenQuarkLedgerAwardedHTML = () =>
+  `<span style="font-weight: bold; font-size: 1.2em;">${i18next.t('shop.quarkLedger.awarded')}</span><br><br>${
+    i18next.t('shop.quarkLedger.goldenQuarkRules.baseGain')
+  }<br><br>${i18next.t('shop.quarkLedger.goldenQuarkRules.multiplierGrowth')}`
+
 export const generateShopTabHTML = () => {
   const list = DOMCacheGetOrSet('shopFamilyList')
   const rail = DOMCacheGetOrSet('shopTierRail')
@@ -436,6 +571,68 @@ export const generateShopTabHTML = () => {
   }
   DOMCacheGetOrSet('shopDetailBuy').addEventListener('pointerdown', () => buyShopUpgrades(selectedTier))
   selectShopFamily(shopSections[0].families[0])
+
+  for (const key of quarkSourceKeys) {
+    const row = document.createElement('tr')
+    row.id = `quarkLedgerRow-${key}`
+    row.className = 'quarkLedgerSourceRow'
+
+    const sourceCell = document.createElement('td')
+    const source = document.createElement('div')
+    source.className = 'quarkLedgerSource'
+    const icon = document.createElement('img')
+    icon.id = `quarkLedgerIcon-${key}`
+    icon.src = spritePlaceholder
+    icon.alt = ''
+    icon.loading = 'lazy'
+    const name = document.createElement('span')
+    name.setAttribute('i18n', `shop.quarkLedger.sources.${key}`)
+    name.textContent = i18next.t(`shop.quarkLedger.sources.${key}`)
+    source.append(icon, name)
+    sourceCell.appendChild(source)
+    row.appendChild(sourceCell)
+
+    for (const column of quarkLedgerColumns) {
+      const cell = document.createElement('td')
+      cell.id = `quarkLedger-${key}-${column}`
+      row.appendChild(cell)
+    }
+
+    DOMCacheGetOrSet(`quarkLedgerBody-${quarkSources[key].category}`).appendChild(row)
+  }
+
+  for (const key of goldenQuarkSourceKeys) {
+    const row = document.createElement('tr')
+    row.className = 'quarkLedgerSourceRow'
+
+    const sourceCell = document.createElement('td')
+    const source = document.createElement('div')
+    source.className = 'quarkLedgerSource'
+    const icon = document.createElement('img')
+    icon.id = `goldenQuarkLedgerIcon-${key}`
+    icon.alt = ''
+    icon.loading = 'lazy'
+    if (key === 'purchases') {
+      icon.src = 'Pictures/Default/ShopGoldenQuarks.png'
+    } else {
+      icon.src = spritePlaceholder
+      registerSpriteAlias(`quarkLedgerIcon-${key}`, icon.id)
+    }
+    const name = document.createElement('span')
+    name.setAttribute('i18n', `shop.quarkLedger.goldenQuarkSources.${key}`)
+    name.textContent = i18next.t(`shop.quarkLedger.goldenQuarkSources.${key}`)
+    source.append(icon, name)
+    sourceCell.appendChild(source)
+    row.appendChild(sourceCell)
+
+    for (const column of quarkLedgerColumns) {
+      const cell = document.createElement('td')
+      cell.id = `goldenQuarkLedger-${key}-${column}`
+      row.appendChild(cell)
+    }
+
+    DOMCacheGetOrSet('quarkLedgerBody-goldenQuarks').appendChild(row)
+  }
 }
 
 const selectShopFamily = (family: ShopFamilyData, tier = frontierTier(family).key) => {
@@ -483,9 +680,15 @@ const buyButtonLabel = (key: ShopUpgradeNames) => {
   if (tierMaxed(key)) {
     return i18next.t('shop.maxed')
   }
+  if (shopUpgrades[key].maxLevel === 1) {
+    return i18next.t('shop.upgradeFor', { x: format(getShopCosts(key)) })
+  }
   const buyData = getShopBuyData(key)
   if (player.shopBuyMaxToggle === false) {
     return i18next.t('shop.upgradeFor', { x: format(buyData.cost) })
+  }
+  if (buyData.amount === 0) {
+    return i18next.t('shop.plusForQuarks', { x: format(1, 0, true), y: format(getShopCosts(key)) })
   }
   return i18next.t('shop.plusForQuarks', {
     x: format(buyData.amount, 0, true),
@@ -622,4 +825,86 @@ export const updateShopTab = () => {
 
   DOMCacheGetOrSet('actualShop').style.display = ''
   updateShopDetail()
+}
+
+export const updateQuarkLedgerTab = () => {
+  const globalMultiplier = calculateQuarkMultiplier()
+  for (const category of quarkCategoryKeys) {
+    quarkLedgerCategoryVisible[category] = false
+  }
+
+  for (const key of quarkSourceKeys) {
+    const base = player.quarkLedger.base[key]
+    const category = quarkSources[key].category
+
+    const visible = base > 0 || quarkSources[key].unlocked()
+    DOMCacheGetOrSet(`quarkLedgerRow-${key}`).hidden = !visible
+    if (!visible) {
+      continue
+    }
+    quarkLedgerCategoryVisible[category] = true
+
+    updateTextContentIfChanged(DOMCacheGetOrSet(`quarkLedger-${key}-base`), format(base, 2, true))
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`quarkLedger-${key}-multiplier`),
+      i18next.t('shop.quarkLedger.multiplierValue', {
+        x: format(getQuarkSourceMultiplier(key) * globalMultiplier, 2, true)
+      })
+    )
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`quarkLedger-${key}-awarded`),
+      format(Math.floor(player.quarkLedger.awarded[key]), 0, true)
+    )
+  }
+
+  for (const category of quarkCategoryKeys) {
+    DOMCacheGetOrSet(`quarkLedgerTable-${category}`).hidden = !quarkLedgerCategoryVisible[category]
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`quarkLedgerAwarded-${category}`),
+      format(getQuarkCategoryAwarded(category), 0, true)
+    )
+  }
+
+  updateInnerHTMLIfChanged(DOMCacheGetOrSet('quarkLedgerReset-primary'), primaryQuarkResetText())
+  updateInnerHTMLIfChanged(
+    DOMCacheGetOrSet('quarkLedgerReset-miscellaneous'),
+    i18next.t('shop.quarkLedger.miscellaneousReset', {
+      time: formatTimeShort(Math.ceil(calculateTimeUntilDailyReset() / 1000))
+    })
+  )
+
+  updateTextContentIfChanged(
+    DOMCacheGetOrSet('quarkLedgerQuarksRewarded'),
+    format(player.quarkLedger.credited.primary + player.quarkLedger.credited.miscellaneous, 0, true)
+  )
+
+  const goldenQuarksUnlocked = player.highestSingularityCount >= 1
+  DOMCacheGetOrSet('quarkLedgerTable-goldenQuarks').hidden = !goldenQuarksUnlocked
+  if (!goldenQuarksUnlocked) {
+    return
+  }
+
+  let goldenQuarkAwarded = 0
+  for (const key of goldenQuarkSourceKeys) {
+    goldenQuarkAwarded += player.goldenQuarkLedger.awarded[key]
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`goldenQuarkLedger-${key}-base`),
+      format(player.goldenQuarkLedger.base[key], 2, true)
+    )
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`goldenQuarkLedger-${key}-multiplier`),
+      i18next.t('shop.quarkLedger.multiplierValue', { x: format(getGoldenQuarkSourceMultiplier(key), 2, true) })
+    )
+    updateTextContentIfChanged(
+      DOMCacheGetOrSet(`goldenQuarkLedger-${key}-awarded`),
+      format(player.goldenQuarkLedger.awarded[key], 2, true)
+    )
+  }
+  updateInnerHTMLIfChanged(
+    DOMCacheGetOrSet('quarkLedgerReset-goldenQuarks'),
+    i18next.t('shop.quarkLedger.goldenQuarkReset', {
+      time: formatTimeShort(Math.ceil(calculateTimeUntilDailyReset() / 1000))
+    })
+  )
+  updateTextContentIfChanged(DOMCacheGetOrSet('quarkLedgerAwarded-goldenQuarks'), format(goldenQuarkAwarded, 2, true))
 }

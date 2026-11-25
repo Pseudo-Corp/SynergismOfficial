@@ -1,9 +1,10 @@
-import Decimal, { type DecimalSource } from 'break_infinity.js'
+import type Decimal from 'break_infinity.js'
 import { createDevice } from 'current-device/core'
 import DOMPurify from 'dompurify'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { bus, SynEvent } from './events/bus'
 import { format } from './Synergism'
+import { Globals as G } from './Variables'
 
 /**
  * This function calculates the smallest integer increment/decrement that can be applied to a number that is
@@ -26,6 +27,13 @@ export const smallestInc = (x = 0): number => {
  * @param array {(number|string)[]}
  * @returns {number}
  */
+export const digitCount = (value: number | Decimal) =>
+  typeof value === 'number'
+    ? value < 1 ? 0 : Math.floor(Math.log10(value)) + 1
+    : value.lt(G.dOne)
+    ? 0
+    : Math.floor(value.log10()) + 1
+
 export const sumContents = (array: number[]): number => {
   assert(Array.isArray(array))
 
@@ -50,14 +58,6 @@ export const sumContents = (array: number[]): number => {
   }
 
   return total
-}
-
-export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
-  return Array
-    .from(toSort.keys())
-    .sort((a, b) =>
-      new Decimal(toSort[a]).lt(new Decimal(toSort[b])) ? -1 : +(new Decimal(toSort[b]).lt(new Decimal(toSort[a])))
-    )
 }
 
 /**
@@ -410,3 +410,5 @@ export const displayHTMLError = async (response: Response) => {
   overlay.appendChild(modal)
   document.body.appendChild(overlay)
 }
+
+export const checkMark = (met: boolean) => `<span class="checkMark" data-met="${met}">${met ? '✓' : '✗'}</span>`

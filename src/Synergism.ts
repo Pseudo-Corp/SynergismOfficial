@@ -6,6 +6,7 @@ import LZString from 'lz-string'
 
 import {
   autoAscensionChallengeSweepUnlock,
+  awardChallengeQuarks,
   calculateChallenge15Score,
   challenge15ScoreMultiplier,
   challengeCompletionsAffordable,
@@ -13,7 +14,6 @@ import {
   clearStateChangeTimer,
   getChallengeConditions,
   getMaxChallenges,
-  highestChallengeRewards,
   resetChallengeSweep,
   setChallengeFocus,
   tickChallengeSweep,
@@ -55,13 +55,12 @@ import {
 } from './AutoAscension'
 import { autoAscendRulesUICreate, renderAutoAscendRules, setLastFiredAutoAscendRule } from './AutoAscensionUI'
 import { autoUpgrades } from './Automation'
-import type { TesseractBuildings } from './Buy'
 import {
+  autoBuyTesseractBuildings,
   boostAccelerator,
   buyBuilding,
   buyCrystalUpgrades,
   buyTesseractBuilding,
-  calculateTessBuildingsInBudget,
   CoinBuilding,
   convertLegacyBuildings,
   DiamondBuilding,
@@ -77,6 +76,7 @@ import {
   calculateGlobalSpeedMult,
   calculateGoldenQuarks,
   calculateOffline,
+  calculateTimeUntilDailyReset,
   calculateTotalAcceleratorBoost,
   cancelOfflineProgress,
   dailyResetCheck,
@@ -205,7 +205,7 @@ import { loadSynergyAntHTMLUpdates } from './Features/Ants/HTML/updates/load-gam
 import { defaultPlayerAnts } from './Features/Ants/player/default'
 import { createDefaultHeaderLayout } from './HeaderLayoutDefaults'
 import { renderHeaderLayout } from './HeaderModules'
-import { defaultHepteractValues, setAutomaticHepteractTexts, toggleAutoBuyOrbs } from './Hepteracts'
+import { defaultHepteractValues, setAutomaticHepteractTexts, toggleAutoBuyOrbs, toggleAutoWarp } from './Hepteracts'
 import { disableHotkeys } from './Hotkeys'
 import { init as i18nInit } from './i18n'
 import { generateLevelMilestoneHTMLS, generateLevelRewardHTMLs, getLevelMilestone } from './Levels'
@@ -217,7 +217,7 @@ import { enableStatSymbols } from './Plugins/StatSymbols'
 import { guardPoll, startSpeedProbe } from './PollGuard'
 import { CartTab } from './purchases/CartTab'
 import { blankPurpleAmbrosiaUpgradeObject, setPurpleAmbrosiaUpgradeLevels } from './PurpleAmbrosiaUpgrades'
-import { getQuarkBonus, refreshQuarkBonus, worlds } from './Quark'
+import { createBlankQuarkLedger, refreshQuarkBonus, settleQuarks, worlds } from './Quark'
 import { blankRedAmbrosiaUpgradeObject, setRedAmbrosiaUpgradeLevels } from './RedAmbrosiaUpgrades'
 import {
   blessingRuneTypes,
@@ -242,8 +242,10 @@ import {
   blankGQLevelObject,
   calculateMaxSingularityLookahead,
   clampGQFreeLevelsToCaps,
+  createBlankGoldenQuarkLedger,
   raiseHighestSingularity,
-  setGQUpgradeLevels
+  setGQUpgradeLevels,
+  settleGoldenQuarks
 } from './singularity'
 import {
   getSingularityChallengeEffect,
@@ -270,6 +272,11 @@ const researchAutoChallengeIndices = [71, 72, 73, 74, 75]
 // Preserved so that the balancing is unaffected
 const researchAutoChallengeReqMulti = [1.25, 1.6, 1.7, 1.45, 2]
 const periodicProgressiveAchievementKeys = progressiveAchievementKeys.filter((key) => key !== 'runeLevel')
+
+const challengeCompletionsPerTick = () =>
+  getShopUpgradeEffects('instantChallenge2', 'unlocked')
+    ? Number.POSITIVE_INFINITY
+    : 1 + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
 
 export const player: Player = {
   firstPlayed: new Date().toISOString(),
@@ -545,6 +552,7 @@ export const player: Player = {
     antSpeed: 0,
     cashGrab: 0,
     shopTalisman: 0,
+    shopMindPalace: 0,
     seasonPass: 0,
     challengeExtension: 0,
     challengeTome: 0,
@@ -573,6 +581,7 @@ export const player: Player = {
     cashGrab2: 0,
     chronometerZ: 0,
     cubeToQuarkAll: 0,
+    shopPrimaryQuarkClock: 0,
     offeringEX2: 0,
     obtainiumEX2: 0,
     seasonPassLost: 0,
@@ -588,6 +597,7 @@ export const player: Player = {
     shopImprovedDaily2: 0,
     shopImprovedDaily3: 0,
     shopImprovedDaily4: 0,
+    shopImprovedDaily5: 0,
     offeringEX3: 0,
     obtainiumEX3: 0,
     improveQuarkHept5: 0,
@@ -604,11 +614,13 @@ export const player: Player = {
     shopAmbrosiaLuck2: 0,
     shopAmbrosiaLuck3: 0,
     shopAmbrosiaLuck4: 0,
+    shopAmbrosiaLuck5: 0,
     shopCashGrabUltra: 0,
     shopAmbrosiaAccelerator: 0,
     shopEXUltra: 0,
     shopChronometerS: 0,
     shopAmbrosiaUltra: 0,
+    shopRootsOfUnity: 0,
     shopSingularitySpeedup: 0,
     shopSingularityPotency: 0,
     shopSadisticRune: 0,
@@ -616,7 +628,17 @@ export const player: Player = {
     shopRedLuck2: 0,
     shopRedLuck3: 0,
     shopRedLuck4: 0,
+    shopPurpleHoneyLuck: 0,
+    shopPurpleHoneyLuckFreeLevels: 0,
+    shopFreeQuarkUpgrades: 0,
+    shopPrestigeCount: 0,
+    shopTranscensionCount: 0,
+    shopReincarnationCount: 0,
+    shopAntSacrificeCount: 0,
+    shopResetUpgradesImprover: 0,
+    shopCorruptionScalingReduction: 0,
     shopInfiniteShopUpgrades: 0,
+    shopInfiniteShopUpgrades2: 0,
     shopHorseShoe: 0,
     shopPanthema: 0,
     shopPurpleBarRebate: 0
@@ -642,8 +664,6 @@ export const player: Player = {
   autoResearch: 0,
   autoSacrificeRune: null,
   sacrificeTimer: 0,
-  quarkstimer: 90000,
-  goldenQuarksTimer: 90000,
 
   antSacrificeTimer: 0,
   antSacrificeTimerReal: 0,
@@ -933,25 +953,18 @@ export const player: Player = {
   exporttest: !TESTING,
 
   dayCheck: null,
-  dayTimer: 0,
   cubeOpenedDaily: 0,
-  cubeQuarkDaily: 0,
   tesseractOpenedDaily: 0,
-  tesseractQuarkDaily: 0,
   hypercubeOpenedDaily: 0,
-  hypercubeQuarkDaily: 0,
   platonicCubeOpenedDaily: 0,
-  platonicCubeQuarkDaily: 0,
+  quarkLedger: createBlankQuarkLedger(),
   overfluxOrbs: 0,
   overfluxOrbsAutoBuy: false,
   overfluxPowder: 0,
-  dailyPowderResetUses: 1,
+  dailyWarpActive: false,
   autoWarpCheck: false,
   version,
   rngCode: 0,
-  promoCodeTiming: {
-    time: 0
-  },
   singularityCount: 0,
   highestSingularityCount: 0,
   singularityCounter: 0,
@@ -959,6 +972,7 @@ export const player: Player = {
   singularityElevatorSlowClimb: true,
   singularityElevatorLocked: false,
   goldenQuarks: 0,
+  goldenQuarkLedger: createBlankGoldenQuarkLedger(),
   quarksThisSingularity: 0,
   totalQuarksEver: 0,
   hotkeys: {},
@@ -974,6 +988,9 @@ export const player: Player = {
   ambrosiaUpgrades: blankAmbrosiaUpgradeObject,
 
   dailyCodeUsed: false,
+  dailyExportClaimed: false,
+  dailyTimeCodeUsed: false,
+  dailyExportAddCodeMult: 0,
   hepteractAutoCraftPercentage: 50,
   octeractTimer: 0,
   insideSingularityChallenge: false,
@@ -1232,7 +1249,7 @@ const loadSynergy = (saveString: string): boolean => {
         }
 
         if (quarksToRefund > 0) {
-          worlds.add(quarksToRefund, false, false)
+          worlds.add(quarksToRefund, false)
           Alert(i18next.t('versionChangeAnnouncements.sept13Refund', { amount: format(quarksToRefund, 0) }))
         }
         player.purpleUpdateQuarkRefundAwarded = true
@@ -1807,15 +1824,7 @@ const loadSynergy = (saveString: string): boolean => {
         'var(--orange-background-color)'
     }
 
-    if (player.autoWarpCheck) {
-      DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
-      DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--green-color)'
-    } else {
-      DOMCacheGetOrSet('warpAuto').textContent = i18next.t(
-        'general.autoOffColon'
-      )
-      DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--red-color)'
-    }
+    toggleAutoWarp(true)
     if (player.highestSingularityCount > 0) {
       DOMCacheGetOrSet('autoHepteractPercentage').textContent = i18next.t(
         'wowCubes.hepteractForge.autoSetting',
@@ -1854,11 +1863,6 @@ const loadSynergy = (saveString: string): boolean => {
 
   syncSteamAchievements()
 
-  const d = new Date()
-  const h = d.getHours()
-  const m = d.getMinutes()
-  const s = d.getSeconds()
-  player.dayTimer = 60 * 60 * 24 - (s + 60 * m + 60 * 60 * h)
   return true
 }
 
@@ -2904,9 +2908,7 @@ export const resourceGain = (dt: number): void => {
     awardAchievementGroup(AchievementGroup.Constant)
   }
 
-  const autoChallengeCompLimit = getShopUpgradeEffects('instantChallenge2', 'unlocked')
-    ? Number.POSITIVE_INFINITY
-    : 1 + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
+  const autoChallengeCompLimit = challengeCompletionsPerTick()
 
   /* Researches 3x21 to 3x25 deal with autogaining Transcension Challenges in
   Reincarnation Challenges (71-75 in index).
@@ -3091,15 +3093,7 @@ export const resetCheck = async (
     const q = player.currentChallenge.transcension
     const maxCompletions = getMaxChallenges(q)
     if (player.challengecompletions[q] < maxCompletions) {
-      let maxInc = 1
-      if (player.retrychallenges && !manual && !leaving) {
-        maxInc = getShopUpgradeEffects('instantChallenge2', 'unlocked')
-          ? maxCompletions
-          : maxInc + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      }
-      if (useChallenge13Modifiers()) {
-        maxInc = 1
-      }
+      const maxInc = useChallenge13Modifiers() ? 1 : challengeCompletionsPerTick()
       player.challengecompletions[q] = Math.max(
         player.challengecompletions[q],
         challengeCompletionsAffordable(
@@ -3109,16 +3103,11 @@ export const resetCheck = async (
         )
       )
     }
-    if (
-      player.challengecompletions[q] > player.highestchallengecompletions[q]
-    ) {
-      while (
-        player.challengecompletions[q] > player.highestchallengecompletions[q]
-      ) {
-        player.highestchallengecompletions[q] += 1
-        highestChallengeRewards(q, player.highestchallengecompletions[q])
-      }
-    }
+    player.highestchallengecompletions[q] = Math.max(
+      player.highestchallengecompletions[q],
+      player.challengecompletions[q]
+    )
+    awardChallengeQuarks()
     challengeAchievementCheck(q)
     if (
       !player.retrychallenges
@@ -3155,15 +3144,7 @@ export const resetCheck = async (
     const q = player.currentChallenge.reincarnation
     const maxCompletions = getMaxChallenges(q)
     if (player.challengecompletions[q] < maxCompletions) {
-      let maxInc = 1
-      if (player.retrychallenges && !manual && !leaving) {
-        maxInc = getShopUpgradeEffects('instantChallenge2', 'unlocked')
-          ? maxCompletions
-          : maxInc + getShopUpgradeEffects('instantChallenge', 'extraCompPerTick')
-      }
-      if (useChallenge13Modifiers()) {
-        maxInc = 1
-      }
+      const maxInc = useChallenge13Modifiers() ? 1 : challengeCompletionsPerTick()
       player.challengecompletions[q] = Math.max(
         player.challengecompletions[q],
         challengeCompletionsAffordable(
@@ -3173,16 +3154,11 @@ export const resetCheck = async (
         )
       )
     }
-    if (
-      player.challengecompletions[q] > player.highestchallengecompletions[q]
-    ) {
-      while (
-        player.challengecompletions[q] > player.highestchallengecompletions[q]
-      ) {
-        player.highestchallengecompletions[q] += 1
-        highestChallengeRewards(q, player.highestchallengecompletions[q])
-      }
-    }
+    player.highestchallengecompletions[q] = Math.max(
+      player.highestchallengecompletions[q],
+      player.challengecompletions[q]
+    )
+    awardChallengeQuarks()
     challengeAchievementCheck(q)
     if (q === 10 && player.challengecompletions[10] > 0) {
       player.corruptions.ascensionLevel = ascensionCorruptionLevel()
@@ -3286,6 +3262,7 @@ export const resetCheck = async (
     ) {
       player.highestchallengecompletions[a] += 1
       cubes.wowHypercubes.add(1)
+      awardChallengeQuarks()
       if (player.highestchallengecompletions[a] >= maxCompletions) {
         leaving = true
       }
@@ -3374,8 +3351,7 @@ export const resetCheck = async (
       await Alert(
         i18next.t('main.singularityMessage4', {
           x: format(nextSingularityNumber),
-          y: format(calculateGoldenQuarks(), 2, true),
-          z: format(getQuarkBonus())
+          y: format(calculateGoldenQuarks(), 2, true)
         })
       )
       await Alert(i18next.t('main.singularityMessage5'))
@@ -3567,26 +3543,7 @@ export const updateAll = (): void => {
     && player.tesseractAutoBuyerToggle
     && player.resetToggleModes.ascension === AutoAscensionModes.amount
   ) {
-    const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
-    for (let i = 1; i <= 5; i++) {
-      if (player.autoTesseracts[i]) {
-        ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
-      }
-    }
-    const budget = player.wowTesseracts - player.tesseractAutoBuyerAmount
-    const buyToBuildings = calculateTessBuildingsInBudget(
-      ownedBuildings,
-      budget
-    )
-    // Prioritise buying buildings from highest tier to lowest,
-    // in case there are any off-by-ones or floating point errors.
-    for (let i = 5; i >= 1; i--) {
-      const buyFrom = ownedBuildings[i - 1]
-      const buyTo = buyToBuildings[i - 1]
-      if (buyFrom !== null && buyTo !== null && buyTo !== buyFrom) {
-        buyTesseractBuilding(i as OneToFive, buyTo - buyFrom)
-      }
-    }
+    autoBuyTesseractBuildings(player.wowTesseracts - player.tesseractAutoBuyerAmount)
   }
 
   // Talismans
@@ -3775,6 +3732,12 @@ export const constantIntervals = (): void => {
       updateTalismanRarities()
     }
   }, 250)
+  setInterval(() => {
+    if (!G.timeWarp) {
+      settleQuarks()
+      settleGoldenQuarks()
+    }
+  }, 1000)
 
   if (!isOfflineDialogOpen()) {
     exitOffline()
@@ -3891,8 +3854,6 @@ const tack = (dt: number) => {
     addTimers('reincarnation', dt, timerSpeedMult)
     addTimers('autoPotion', dt, timerSpeedMult)
     addTimers('ascension', dt)
-    addTimers('quarks', dt)
-    addTimers('goldenQuarks', dt)
     addTimers('octeracts', dt)
     addTimers('singularity', dt)
     addTimers('purpleReactor', dt)
@@ -4192,6 +4153,24 @@ const showLoadRecovery = () => {
   DOMCacheGetOrSet('preloadRecovery').style.display = ''
 }
 
+let dailyResetCheckTimer: number | undefined
+
+export const scheduleDailyResetCheck = (delay = calculateTimeUntilDailyReset()) => {
+  if (dailyResetCheckTimer !== undefined) {
+    clearTimeout(dailyResetCheckTimer)
+  }
+
+  dailyResetCheckTimer = setTimeout(() => {
+    if (G.timeWarp) {
+      scheduleDailyResetCheck(1000)
+      return
+    }
+
+    dailyResetCheck()
+    scheduleDailyResetCheck()
+  }, delay)
+}
+
 export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: string) => {
   const generation = ++reloadGeneration
   clearTimers()
@@ -4334,11 +4313,7 @@ export const reloadShit = async (ignoreOfflineProgress = false, saveOverride?: s
   changeSubTab(Tabs.Buildings, { page: 0 })
 
   dailyResetCheck()
-  setInterval(() => {
-    if (!G.timeWarp) {
-      dailyResetCheck()
-    }
-  }, 30000)
+  scheduleDailyResetCheck()
 
   constantIntervals()
 

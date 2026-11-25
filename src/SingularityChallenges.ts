@@ -8,7 +8,6 @@ import {
   calculateExalt4EffectiveSingularityMultiplier,
   calculateExalt6PenaltyPerSecond,
   calculateExalt6TimeLimit,
-  calculateGoldenQuarks,
   calculateRedAmbrosiaRewardLuck,
   calculateRequiredBlueberryTimeEXALT,
   calculateRequiredRedAmbrosiaTimeEXALT
@@ -34,6 +33,7 @@ export type SingularityChallengeRewards = {
     capIncrease: number
     freeCorruptionLevel: number
     shopUpgrade: boolean
+    shopUpgrade2: boolean
     reinCapIncrease2: number
     ascCapIncrease2: number
   }
@@ -114,7 +114,6 @@ interface ISingularityChallengeData {
   achievementPointValue: (n: number) => number
   scalingrewardcount: number
   uniquerewardcount: number
-  resetTime?: boolean
   alternateDescription?: () => string
 }
 
@@ -130,21 +129,21 @@ export class SingularityChallenge {
   public maxCompletions
   public unlockSingularity
   public HTMLTag
-  public resetTime
   public singularityRequirement
   public achievementPointValue
   public alternateDescription
   public scalingrewardcount
   public uniquerewardcount
+  public exaltNumber
   #key: string
 
-  public constructor (data: ISingularityChallengeData, key: string) {
+  public constructor (data: ISingularityChallengeData, key: string, exaltNumber: number) {
     this.#key = key
+    this.exaltNumber = exaltNumber
     this.baseReq = data.baseReq
     this.maxCompletions = data.maxCompletions
     this.unlockSingularity = data.unlockSingularity
     this.HTMLTag = data.HTMLTag
-    this.resetTime = data.resetTime ?? false
     this.singularityRequirement = data.singularityRequirement
     this.achievementPointValue = data.achievementPointValue
     this.alternateDescription = data.alternateDescription ?? undefined
@@ -206,20 +205,10 @@ export class SingularityChallenge {
 
     if (!player.insideSingularityChallenge) {
       const setSingularity = this.computeSingularityRquirement()
-      const holdSingTimer = player.singularityCounter
-      const goldenQuarkGain = calculateGoldenQuarks()
-      const currentGQ = player.goldenQuarks
       player.singularityChallenges[this.HTMLTag].enabled = true
       G.currentSingChallenge = this.HTMLTag
       player.insideSingularityChallenge = true
       singularity(setSingularity)
-
-      if (!this.resetTime) {
-        player.singularityCounter = holdSingTimer
-      } else {
-        player.singularityCounter = 0
-      }
-      player.goldenQuarks = currentGQ + goldenQuarkGain
 
       this.updateChallengeHTML()
       return Alert(
@@ -261,13 +250,15 @@ export class SingularityChallenge {
     G.currentSingChallenge = undefined
     player.insideSingularityChallenge = false
     const highestSingularityHold = player.highestSingularityCount
-    const holdSingTimer = player.singularityCounter
+    const exalt = {
+      exalt: this.exaltNumber,
+      exaltTier: player.singularityChallenges[this.HTMLTag].completions + 1
+    }
     this.updateIconHTML()
     if (success) {
       player.singularityChallenges[this.HTMLTag].highestSingularityCompleted = player.singularityCount
       this.updateChallengeCompletions()
-      singularity(highestSingularityHold)
-      player.singularityCounter = holdSingTimer
+      singularity(highestSingularityHold, exalt)
       return Alert(
         i18next.t('singularityChallenge.exitChallenge.acceptSuccess', {
           tier: toOrdinal(player.singularityChallenges[this.HTMLTag].completions),
@@ -275,8 +266,7 @@ export class SingularityChallenge {
         })
       )
     } else {
-      singularity(highestSingularityHold)
-      player.singularityCounter = holdSingTimer
+      singularity(highestSingularityHold, exalt)
       return Alert(
         i18next.t('singularityChallenge.exitChallenge.acceptFailure')
       )
@@ -425,7 +415,7 @@ export const singularityChallengeData: {
       return 15 * n
     },
     scalingrewardcount: 3,
-    uniquerewardcount: 4,
+    uniquerewardcount: 5,
     effect: (n, key) => {
       if (key === 'blueberrySpeedMult') {
         return (1 + n / 60)
@@ -434,6 +424,8 @@ export const singularityChallengeData: {
       } else if (key === 'freeCorruptionLevel') {
         return n >= 1 ? 1 + 0.2 * n : 0
       } else if (key === 'shopUpgrade') {
+        return n >= 5
+      } else if (key === 'shopUpgrade2') {
         return n >= 12
       } else if (key === 'reinCapIncrease2') {
         return 7 * +(n >= 15)
@@ -650,8 +642,9 @@ export const singularityChallengeData: {
         perSecondDivisor: format(perSecondPenalty, 3, true)
       })
       const timeMod3 = i18next.t('singularityChallenge.data.limitedTime.timeMod3')
+      const timeMod4 = i18next.t('singularityChallenge.data.limitedTime.timeMod4')
 
-      return `${baseDesc}<br>${timeMod1}<br>${timeMod2}<br>${timeMod3}`
+      return `${baseDesc}<br>${timeMod1}<br>${timeMod2}<br>${timeMod3}<br>${timeMod4}`
     }
   },
   sadisticPrequel: {
@@ -792,8 +785,23 @@ export const singularityChallengeData: {
   }
 }
 
+enum ExaltNumber {
+  noSingularityUpgrades = 1,
+  oneChallengeCap,
+  limitedAscensions,
+  noQuarkUpgrades,
+  noOcteracts,
+  noAmbrosiaUpgrades,
+  limitedTime,
+  sadisticPrequel,
+  taxmanLastStand,
+  barDependence
+}
+
 export const singularityChallenges = Object.fromEntries(
-  Object.entries(singularityChallengeData).map(([key, data]) => [key, new SingularityChallenge(data, key)])
+  Object.entries(singularityChallengeData).map((
+    [key, data]
+  ) => [key, new SingularityChallenge(data, key, ExaltNumber[key as SingularityChallengeDataKeys])])
 ) as Record<SingularityChallengeDataKeys, SingularityChallenge>
 
 export const getSingularityChallengeEffect = <

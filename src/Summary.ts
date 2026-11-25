@@ -341,7 +341,7 @@ export const generateExportSummary = async (): Promise<void> => {
   if (player.highestSingularityCount > 0) {
     singularityUpgradeStats =
       '===== SINGULARITY UPGRADES =====\n - [★]: Upgrade is MAXED - \n - [∞]: Upgrade is infinite - \n - [✔]: Upgrade is unlocked - \n - [✖]: Upgrade is locked - \n'
-    let totalSingUpgradeCount = -1 // One upgrade cannot ever be leveled, by design, so subtract that from the actual count
+    let totalSingUpgradeCount = 0
     let totalSingUpgradeUnlocked = 0
     let totalSingUpgradeMax = 0
 

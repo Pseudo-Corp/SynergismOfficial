@@ -165,11 +165,11 @@
                     <p id="purchasePromptLevel"></p>
                 </div>
                 <div class="purchasePromptHints">
-                    <p id="purchasePromptHint" i18n="general.purchasePrompt.hint"></p>
+                    <p id="purchasePromptHint"></p>
                     <p id="purchasePromptHint2" i18n="general.purchasePrompt.hint2"></p>
                 </div>
                 <div class="purchasePromptInputs">
-                    <label for="purchasePromptLevels" i18n="general.purchasePrompt.levels"></label>
+                    <label id="purchasePromptLevelsLabel" for="purchasePromptLevels"></label>
                     <label id="purchasePromptCostLabel" for="purchasePromptCost"></label>
                     <input id="purchasePromptLevels" type="text">
                     <input id="purchasePromptCost" type="text">
@@ -239,9 +239,9 @@
                 <img src="Pictures/Default/BackedAscensionOffTimer.png" class="offlineStatIcon">
                 <span id="offlineAscensionTimer" class="offlineStatElement" i18n="offlineProgress.currentAscensionTimer"></span>
             </div>
-            <div class="offlineStat reincarnationunlock" id="offlineQuarkCountDiv">
-                <img src="Pictures/Default/BackedQuark.png" class="offlineStatIcon">
-                <span id="offlineQuarkCount" class="offlineStatElement" i18n="offlineProgress.exportQuarks"></span>
+            <div class="offlineStat singularity" id="offlineSingularityTimerDiv">
+                <img src="Pictures/Default/BackedSingularity.png" class="offlineStatIcon">
+                <span id="offlineSingularityTimer" class="offlineStatElement" i18n="offlineProgress.currentSingularityTimer"></span>
             </div>
             <div class="offlineStat Exalt1x1" id="offlineAmbrosiaCountDiv">
                 <img src="Pictures/Default/BackedAmbrosia.png" class="offlineStatIcon">
@@ -263,31 +263,31 @@
     <div id="fastForwardContainer" style="display: none">
         <p id="fastForwardTimer" class="offlineText"></p>
         <div class="offlineStats scrollbar" style="color: var(--white-color)">
-            <div class="fastForwardStat globalSkip" id="fastForwardPrestigeCountDiv">
+            <div class="fastForwardStat ascensionSkip" id="fastForwardPrestigeCountDiv">
                 <img src="Pictures/Default/BackedPrestige.png" class="offlineStatIcon">
                 <span id="fastForwardPrestigeCount" class="offlineStatElement"></span>
             </div>
-            <div class="fastForwardStat globalSkip" id="fastForwardPrestigeTimerDiv">
+            <div class="fastForwardStat ascensionSkip" id="fastForwardPrestigeTimerDiv">
                 <img src="Pictures/Default/BackedPrestigeOffTimer.png" class="offlineStatIcon">
                 <span id="fastForwardPrestigeTimer" class="offlineStatElement"></span>
             </div>
-            <div class="fastForwardStat globalSkip" id="fastForwardTranscensionCountDiv">
+            <div class="fastForwardStat ascensionSkip" id="fastForwardTranscensionCountDiv">
                 <img src="Pictures/Default/BackedTranscend.png" class="offlineStatIcon">
                 <span id="fastForwardTranscensionCount" class="offlineStatElement"></span>
             </div>
-            <div class="fastForwardStat globalSkip" id="fastForwardTranscensionTimerDiv">
+            <div class="fastForwardStat ascensionSkip" id="fastForwardTranscensionTimerDiv">
                 <img src="Pictures/Default/BackedTranscendOffTimer.png" class="offlineStatIcon">
                 <span id="fastForwardTranscensionTimer" class="offlineStatElement"></span>
             </div>
-            <div class="fastForwardStat globalSkip" id="fastForwardReincarnationCountDiv">
+            <div class="fastForwardStat ascensionSkip" id="fastForwardReincarnationCountDiv">
                 <img src="Pictures/Default/BackedReincarnate.png" class="offlineStatIcon">
                 <span id="fastForwardReincarnationCount" class="offlineStatElement"></span>
             </div>
-            <div class="fastForwardStat globalSkip" id="fastForwardReincarnationTimerDiv">
+            <div class="fastForwardStat ascensionSkip" id="fastForwardReincarnationTimerDiv">
                 <img src="Pictures/Default/BackedReincarnateOffTimer.png" class="offlineStatIcon">
                 <span id="fastForwardReincarnationTimer" class="offlineStatElement"></span>
             </div>
-            <div class="fastForwardStat globalSkip" id="fastForwardAntTimerDiv">
+            <div class="fastForwardStat ascensionSkip" id="fastForwardAntTimerDiv">
                 <img src="Pictures/Default/BackedSacrificeIGTimer.png" class="offlineStatIcon">
                 <span id="fastForwardAntTimer" class="offlineStatElement"></span>
             </div>
@@ -435,15 +435,15 @@
                         <span id="lotusHeaderTimer">--:--</span> <span id="lotusHeaderOwned" class="headerConsumableOwned"></span>
                     </span>
                     <span class="headerModule headerStat" id="dailyCodeHeader">
-                        <img src="Pictures/Default/ShopImprovedDaily.png" class="corruptionImg" i18n="headerLayout.modules.dailyCode" loading="lazy">
+                        <img id="dailyCodeHeaderIcon" src="Pictures/img_transparent.png" class="corruptionImg" i18n="headerLayout.modules.dailyCode" loading="lazy">
                         <span class="headerStatText"><span id="dailyCodeHeaderUses"></span> <span id="dailyCodeHeaderNext" class="headerConsumableOwned headerTimer"></span></span>
                     </span>
                     <span class="headerModule headerStat" id="addCodeHeader">
-                        <img src="Pictures/Default/perkitAllAddsUp.png" class="corruptionImg" i18n="headerLayout.modules.addCode" loading="lazy">
+                        <img id="addCodeHeaderIcon" src="Pictures/img_transparent.png" class="corruptionImg" i18n="headerLayout.modules.addCode" loading="lazy">
                         <span class="headerStatText"><span id="addCodeHeaderUses"></span> <span id="addCodeHeaderNext" class="headerConsumableOwned headerTimer"></span></span>
                     </span>
                     <span class="headerModule headerStat" id="timeCodeHeader">
-                        <img src="Pictures/Default/ShopChronometer.png" class="corruptionImg" i18n="headerLayout.modules.timeCode" loading="lazy">
+                        <img id="timeCodeHeaderIcon" src="Pictures/img_transparent.png" class="corruptionImg" i18n="headerLayout.modules.timeCode" loading="lazy">
                         <span class="headerStatText"><span id="timeCodeHeaderUses"></span> <span id="timeCodeHeaderNext" class="headerConsumableOwned headerTimer"></span></span>
                     </span>
                     <span class="headerModule headerStat" id="corruptionLevelHeader">
@@ -1004,6 +1004,7 @@
                         <span id="challengeFirst1">+1 Free Multiplier!</span>
                         <br>
                         <span id="challengeQuarkBonus">+1 Quarks</span>
+                        <span id="challengeDailyQuarks"></span>
                     </div>
                 </div>
 
@@ -1650,28 +1651,33 @@
                     <div class="cubesToQuark">
                         <div class="cubeToQuark">
                             <p id="cubeToQuarkTimer" i18n="wowCubes.quarks.quarkTitle"></p>
-                            <p id="cubeToQuarkTimerValue" style="color: var(--cyan-color)" i18n="wowCubes.quarks.resetInfo"></p>
+                            <p id="cubeToQuarkTimerValue" style="color: var(--cyan-color)"></p>
                         </div>
-                        <div class="cubeToQuark">
-                            <p id="cubeQuarksToday" style="color: var(--white-color)"></p>
-                            <p id="cubeQuarksOpenRequirement"></p>
-                            <p id="cubeQuarksOpenToday"></p>
+                        <div class="cubeQuarkBlock">
+                            <p class="cubeQuarkHeader wowcubeText"><img id="cubeQuarkIcon" src="Pictures/img_transparent.png" alt="" loading="lazy"><span i18n="wowCubes.quarks.cubes"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.nextReward"></span><span id="cubeQuarksOpenRequirement"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksPerReward"></span><span id="cubeQuarksPerReward" style="color: var(--cyan-color)"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksEarned"></span><span id="cubeQuarksToday" style="color: var(--cyan-color)"></span></p>
                         </div>
-                        <div class="cubeToQuark">
-                            <p id="tesseractQuarksToday" class="chal11" style="color: var(--white-color)"></p>
-                            <p id="tesseractQuarksOpenRequirement" class="chal11"></p>
-                            <p id="tesseractQuarksOpenToday" class="chal11"></p>
+                        <div class="cubeQuarkBlock chal11">
+                            <p class="cubeQuarkHeader wowtesseractText"><img id="tesseractQuarkIcon" src="Pictures/img_transparent.png" alt="" loading="lazy"><span i18n="wowCubes.quarks.tesseracts"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.nextReward"></span><span id="tesseractQuarksOpenRequirement"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksPerReward"></span><span id="tesseractQuarksPerReward" style="color: var(--cyan-color)"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksEarned"></span><span id="tesseractQuarksToday" style="color: var(--cyan-color)"></span></p>
                         </div>
-                        <div class="cubeToQuark">
-                            <p id="hypercubeQuarksToday" class="chal13" style="color: var(--white-color)"></p>
-                            <p id="hypercubeQuarksOpenRequirement" class="chal13"></p>
-                            <p id="hypercubeQuarksOpenToday" class="chal13"></p>
+                        <div class="cubeQuarkBlock chal13">
+                            <p class="cubeQuarkHeader wowhypercubeText"><img id="hypercubeQuarkIcon" src="Pictures/img_transparent.png" alt="" loading="lazy"><span i18n="wowCubes.quarks.hypercubes"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.nextReward"></span><span id="hypercubeQuarksOpenRequirement"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksPerReward"></span><span id="hypercubeQuarksPerReward" style="color: var(--cyan-color)"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksEarned"></span><span id="hypercubeQuarksToday" style="color: var(--cyan-color)"></span></p>
                         </div>
-                        <div class="cubeToQuark">
-                            <p id="platonicCubeQuarksToday" class="chal14" style="color: var(--white-color)"></p>
-                            <p id="platonicCubeQuarksOpenRequirement" class="chal14"></p>
-                            <p id="platonicCubeQuarksOpenToday" class="chal14"></p>
+                        <div class="cubeQuarkBlock chal14">
+                            <p class="cubeQuarkHeader wowplatonicText"><img id="platonicCubeQuarkIcon" src="Pictures/img_transparent.png" alt="" loading="lazy"><span i18n="wowCubes.quarks.platonicCubes"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.nextReward"></span><span id="platonicCubeQuarksOpenRequirement"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksPerReward"></span><span id="platonicCubeQuarksPerReward" style="color: var(--cyan-color)"></span></p>
+                            <p class="cubeQuarkRow"><span i18n="wowCubes.quarks.quarksEarned"></span><span id="platonicCubeQuarksToday" style="color: var(--cyan-color)"></span></p>
                         </div>
+                        <p id="cubeQuarkRewardInfo" i18n="wowCubes.quarks.rewardInfo"></p>
                     </div>
                 </div>
                 <div id="cubeTab1" class="cubeTab" style="display: flex">
@@ -2585,9 +2591,7 @@
                             <p id="mobileUpdateStatus" class="tightText" role="status" aria-live="polite"></p>
                         </div>
                         <p id="quarktimerdisplay" class="tightText" style="color: var(--gold-color)"></p>
-                        <p id="quarktimeramount" class="tightText" style="color: var(--cyan-color)">Quarks on export: 0 [Max 25]</p>
-                        <p id="goldenQuarkTimerDisplay" class="tightText goldenQuark3Upg" style="color: var(--goldenrod-color)">3600s until +1 export Gold Quark</p>
-                        <p id="goldenQuarkTimerAmount" class="tightText goldenQuark3Upg" style="color: var(--turquoise-color)">Golden Quarks on export: 0 [Max: 50]</p>
+                        <p id="goldenQuarkTimerDisplay" class="tightText singularity" style="color: var(--goldenrod-color)"></p>
                         <div>
                             <input type="checkbox" id="saveType" name="saveType">
                             <label style="display: inline;color: var(--white-color)" for="saveType" i18n="settings.copyToClipboard"></label>
@@ -2616,6 +2620,16 @@
                                 <img alt="Store Icon" src="Pictures/PseudoShop/GOLDEN_QUARK_BUFF.png" title="Click to support development!" loading="lazy">
                                 <p id="currentBonus">Current Bonus: 0%</p>
                             </button>
+                        </div>
+                        <div id="platforms">
+                            <p style="color: var(--gold-color)" i18n="settings.platforms.title"></p>
+                            <div class="platformList">
+                                <span id="platformWeb" class="platformTile" i18n="settings.platforms.web"></span>
+                                <span id="platformSteam" class="platformTile" i18n="settings.platforms.steam"></span>
+                                <span id="platformIOS" class="platformTile" i18n="settings.platforms.ios"></span>
+                                <span id="platformAndroid" class="platformTile" i18n="settings.platforms.android"></span>
+                            </div>
+                            <p i18n="settings.platforms.cloudSaves"></p>
                         </div>
                         <div id="patchnotes">
                         <img alt="Patch Notes Icon" src="Pictures/Default/patchnotes.png" title="Click to read the latest patch notes!" loading="lazy">
@@ -3073,6 +3087,10 @@
         </div>
 
         <div id="shop" class="tab">
+            <div id="shopSubTabs" class="subTabWrapper">
+                <button id="switchShopSubTab1" class="active-subtab" style="border: 2px solid var(--white-color);"><span class="subTabButtonText fitText" i18n="tabs.shop.shop"></span></button>
+                <button id="switchShopSubTab2" style="border: 2px solid var(--cyan-color);"><span class="subTabButtonText fitText" i18n="tabs.shop.quarkLedger"></span></button>
+            </div>
             <div id="shopWrapper">
                 <div id="actualWrapper" class="scrollbarX">
                     <div id="actualConsumables">
@@ -3094,9 +3112,18 @@
                             </div>
                         </div>
                         <div class="singularity" id="goldenQuarksShop">
-                            <img id="buySingularityQuarks" alt="buySingularityQuarks" src="Pictures/Default/ShopGoldenQuarks.png" loading="lazy">
+                            <img id="buySingularityQuarks" alt="Golden Quark Stock Market" src="Pictures/Default/ShopGoldenQuarks.png" loading="lazy" role="button" tabindex="0" aria-haspopup="dialog" i18n-aria-label="shop.goldenQuarkStockMarket.name" style="cursor: pointer">
                             <p id="buySingularityQuarksAmount" title="Amount of Golden Quarks you have"></p>
                             <button class="permshopbutton" id="buySingularityQuarksButton" style="border: 2px solid var(--gold-color);"></button>
+                            <div id="goldenQuarksShopLedger">
+                                <span i18n="shop.goldenQuarkStockMarket.stocksBought"></span>
+                                <span id="buySingularityQuarksBought"></span>
+                                <span i18n="shop.goldenQuarkStockMarket.paidOut"></span>
+                                <span id="buySingularityQuarksAwarded"></span>
+                                <span i18n="shop.goldenQuarkStockMarket.stockValue"></span>
+                                <span id="buySingularityQuarksMultiplier"></span>
+                            </div>
+                            <p id="buySingularityQuarksAppreciation" i18n="shop.goldenQuarkStockMarket.appreciation"></p>
                         </div>
                     </div>
                     <div id="actualShopContainer">
@@ -3125,6 +3152,70 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div id="quarkLedgerWrapper" style="display: none">
+                <table id="quarkLedgerTable-primary" class="quarkLedgerTable">
+                    <thead>
+                        <tr>
+                            <th i18n="shop.quarkLedger.categories.primary"></th>
+                            <th i18n="shop.quarkLedger.base"></th>
+                            <th i18n="shop.quarkLedger.multiplier"></th>
+                            <th><span i18n="shop.quarkLedger.awarded"></span> <span id="quarkLedgerAwardedInfo-primary" class="quarkLedgerInfo">?</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="quarkLedgerBody-primary"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"><span id="quarkLedgerReset-primary" class="fitText"></span></td>
+                            <th i18n="shop.quarkLedger.total"></th>
+                            <th id="quarkLedgerAwarded-primary"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <table id="quarkLedgerTable-miscellaneous" class="quarkLedgerTable">
+                    <thead>
+                        <tr>
+                            <th i18n="shop.quarkLedger.categories.miscellaneous"></th>
+                            <th i18n="shop.quarkLedger.base"></th>
+                            <th i18n="shop.quarkLedger.multiplier"></th>
+                            <th><span i18n="shop.quarkLedger.awarded"></span> <span id="quarkLedgerAwardedInfo-miscellaneous" class="quarkLedgerInfo">?</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="quarkLedgerBody-miscellaneous"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"><span id="quarkLedgerReset-miscellaneous" class="fitText"></span></td>
+                            <th i18n="shop.quarkLedger.total"></th>
+                            <th id="quarkLedgerAwarded-miscellaneous"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <table id="quarkLedgerSummary" class="quarkLedgerTable">
+                    <tbody>
+                        <tr>
+                            <th i18n="shop.quarkLedger.quarksRewarded"></th>
+                            <th id="quarkLedgerQuarksRewarded"></th>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="quarkLedgerTable-goldenQuarks" class="quarkLedgerTable">
+                    <thead>
+                        <tr>
+                            <th i18n="shop.quarkLedger.categories.goldenQuarks"></th>
+                            <th i18n="shop.quarkLedger.base"></th>
+                            <th i18n="shop.quarkLedger.multiplier"></th>
+                            <th><span i18n="shop.quarkLedger.awarded"></span> <span id="quarkLedgerAwardedInfo-goldenQuarks" class="quarkLedgerInfo">?</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="quarkLedgerBody-goldenQuarks"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2"><span id="quarkLedgerReset-goldenQuarks" class="fitText"></span></td>
+                            <th i18n="shop.quarkLedger.total"></th>
+                            <th id="quarkLedgerAwarded-goldenQuarks"></th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
 

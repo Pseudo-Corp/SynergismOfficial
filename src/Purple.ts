@@ -102,7 +102,7 @@ type PurpleReactorUpgradeRewards = {
     rebornELOSpeedMult: number
   }
   purpleQuarkGain: {
-    quarksPerPurpleHoney: number
+    quarkMult: number
   }
 }
 
@@ -888,7 +888,7 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
         maxPercent: formatAsPercentIncrease(effect, 2)
       })
       const formulaText = i18next.t('purpleReactor.lifetimeHoneyFormulaMaxed', {
-        maxValue: format(0.25, 2)
+        maxValue: format(0.2, 2)
       })
 
       return `${effectText}<br><span style="color: var(--orchid-color)">${formulaText}</span>`
@@ -1108,25 +1108,25 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     maxLevel: 5,
     costFormula: (level: number) => 2_000 * (Math.pow(4, level) - 1) / 3,
     effects: (n) => {
-      return n / 5
+      return 2 * n
     },
     notMaxedEffectsDescription: () => {
-      const oldEffect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
-      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+      const oldEffect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarkMult')
+      const newEffect = getPurpleReactorUpgradeNextLevelEffects('purpleQuarkGain', 'quarkMult')
 
       const disclaimer = i18next.t('purpleReactor.upgrades.purpleQuarkGain.disclaimer')
       const effectText = i18next.t('purpleReactor.upgrades.purpleQuarkGain.effectNotMaxed', {
-        oldValue: format(oldEffect, 1),
-        newValue: format(newEffect, 1)
+        oldValue: format(oldEffect, 0, true),
+        newValue: format(newEffect, 0, true)
       })
       return `${effectText}<br>${disclaimer}`
     },
     maxedEffectsDescription: () => {
-      const effect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
+      const effect = getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarkMult')
 
       const disclaimer = i18next.t('purpleReactor.upgrades.purpleQuarkGain.disclaimer')
       const effectText = i18next.t('purpleReactor.upgrades.purpleQuarkGain.effectMaxed', {
-        maxValue: format(effect, 1)
+        maxValue: format(effect, 0, true)
       })
       return `${effectText}<br>${disclaimer}`
     },
