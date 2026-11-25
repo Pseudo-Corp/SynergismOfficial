@@ -3774,15 +3774,12 @@ p#reincarnatehotkeys {
 #quarkLedgerSummary th:first-child {
     color: var(--orange-color);
     text-align: left;
+    width: 82%;
 }
 
 .quarkLedgerTable tfoot td,
 .quarkLedgerTable tfoot th {
     border-top: 2px solid var(--cyan-color);
-}
-
-#quarkLedgerSummary th:first-child {
-    width: 82%;
 }
 
 .quarkLedgerInfo {
