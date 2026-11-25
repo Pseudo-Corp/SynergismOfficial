@@ -1,4 +1,4 @@
-import Decimal, { type DecimalSource } from 'break_infinity.js'
+import type Decimal from 'break_infinity.js'
 import { createDevice } from 'current-device/core'
 import DOMPurify from 'dompurify'
 import { DOMCacheGetOrSet } from './Cache/DOM'
@@ -59,14 +59,6 @@ export const sumContents = (array: number[]): number => {
   }
 
   return total
-}
-
-export const sortDecimalWithIndices = (toSort: DecimalSource[]) => {
-  return Array
-    .from(toSort.keys())
-    .sort((a, b) =>
-      new Decimal(toSort[a]).lt(new Decimal(toSort[b])) ? -1 : +(new Decimal(toSort[b]).lt(new Decimal(toSort[a])))
-    )
 }
 
 /**
