@@ -11,7 +11,6 @@ import { displayLevelStuff } from './Levels'
 import { calculateOcteractUpgradeAP, maxOcteractUpgradeAP } from './Octeracts'
 import { calculatePurpleReactorAP, maxPurpleReactorAP } from './Purple'
 import { calculatePurpleAmbrosiaUpgradeAP, maxPurpleAmbrosiaUpgradeAP } from './PurpleAmbrosiaUpgrades'
-import { worlds } from './Quark'
 import { calculateRedAmbrosiaUpgradeAP, maxRedAmbrosiaUpgradeAP } from './RedAmbrosiaUpgrades'
 import { resetTiers } from './Reset'
 import { runes, RuneType, sumOfFreeRuneLevels } from './Runes'
@@ -30,7 +29,7 @@ import { Tabs } from './Tabs'
 import { maxTalismansRarityAP, talismans } from './Talismans'
 import type { resetNames } from './types/Synergism'
 import { CloseModal, MEDIUM_MODAL_UPDATE_TICK, Modal, Notification, revealStuff } from './UpdateHTML'
-import { isMobile, memoize, sumContents } from './Utility'
+import { digitCount, isMobile, memoize, sumContents } from './Utility'
 import { Globals as G } from './Variables'
 
 const achievementProgressSelectors = [
@@ -168,16 +167,6 @@ export const buildingAchievementCheck = () => {
   awardAchievementGroup(AchievementGroup.ThirdOwnedCoin)
   awardAchievementGroup(AchievementGroup.FourthOwnedCoin)
   awardAchievementGroup(AchievementGroup.FifthOwnedCoin)
-}
-
-const getAchievementQuarks = () => {
-  const globalQuarkMultiplier = worlds.applyBonus(1)
-  let actualMultiplier = globalQuarkMultiplier
-  if (actualMultiplier > 100) {
-    actualMultiplier = Math.pow(100, 0.6) * Math.pow(actualMultiplier, 0.4)
-  }
-
-  return Math.floor(5 * actualMultiplier)
 }
 
 /* June 9, 2025 Achievements System Rewrite */
@@ -3188,7 +3177,7 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
     + 2 * player.achievements[AchievementId.Challenge14Tier6] * player.ascensionCounter,
   wowCubeGain: () =>
     (1 + 2 * player.achievements[AchievementId.AscensionCountTier7] * Math.min(1, player.ascensionCount / 5e8))
-    * (1 + player.achievements[AchievementId.ConstantTier4] * Decimal.log(player.ascendShards.add(1), 10) / 400)
+    * (1 + player.achievements[AchievementId.ConstantTier4] * digitCount(player.ascendShards) / 400)
     * (1
       + 249 * player.achievements[AchievementId.ConstantTier6]
         * Math.min(1, Decimal.log(player.ascendShards.plus(1), 10) / 100000))
@@ -3229,7 +3218,7 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
   prestigeCountMultiplier: () =>
     (1
       + player.achievements[AchievementId.PrestigeCountTier2]
-        * Math.max(0, Math.floor(Math.log10(player.prestigeCount))))
+        * digitCount(player.prestigeCount))
     * (1
       + player.achievements[AchievementId.ReincarnationCountTier9]
         * Math.min(3, 0.25 + 2.75 * player.prestigecounter / 1e6)),
@@ -3237,26 +3226,26 @@ const achRewards: { [K in AchievementRewards]: () => AchievementRewardValues[K] 
     (1 + player.achievements[AchievementId.PrestigeCountTier9] * Math.min(3, 0.25 + 2.75 * player.prestigecounter / 10))
     * (1
       + player.achievements[AchievementId.TranscensionCountTier2]
-        * Math.max(0, Math.floor(Math.log10(player.transcendCount)))),
+        * digitCount(player.transcendCount)),
   reincarnationCountMultiplier: () =>
     (1
       + player.achievements[AchievementId.TranscensionCountTier9]
         * Math.min(3, 0.25 + 2.75 * player.prestigecounter / 1000))
     * (1
       + player.achievements[AchievementId.ReincarnationCountTier2]
-        * Math.max(0, Math.floor(Math.log10(player.reincarnationCount)))),
+        * digitCount(player.reincarnationCount)),
   duplicationRuneUnlock: () => Boolean(player.achievements[AchievementId.PrestigeCountTier3]),
   offeringBonus: () =>
     1
     + 0.02 * player.achievements[AchievementId.PrestigeCountTier4]
-      * Math.max(1, 1 + Math.floor(Math.log10(player.prestigeCount))),
+      * digitCount(player.prestigeCount),
   obtainiumBonus: () =>
     1
     + 0.02 * player.achievements[AchievementId.ReincarnationCountTier3]
-      * Math.max(1, 1 + Math.floor(Math.log10(player.reincarnationCount))),
+      * digitCount(player.reincarnationCount),
   salvage: () =>
     2 * player.achievements[AchievementId.TranscensionCountTier3]
-    * Math.max(1, 1 + Math.floor(Math.log10(player.transcendCount))),
+    * digitCount(player.transcendCount),
   prismRuneUnlock: () => Boolean(player.achievements[AchievementId.TranscensionCountTier4]),
   thriftRuneUnlock: () => Boolean(player.achievements[AchievementId.ReincarnationCountTier5]),
   transcendToPrestige: () => Boolean(player.achievements[AchievementId.PrestigeCountTier7]),
@@ -3350,7 +3339,6 @@ const grantAchievement = (ach: AchievementBase) => {
       isMobile ? 5000 : undefined
     )
   }
-  worlds.add(getAchievementQuarks(), false, true)
   revealStuff()
 
   if (ach.steamAchievementId) {

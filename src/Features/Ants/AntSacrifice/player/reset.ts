@@ -1,5 +1,6 @@
 import { AchievementGroup, awardAchievementGroup, getAchievementReward } from '../../../../Achievements'
 import { AntSacrificeTiers, updateReincarnationCount } from '../../../../Reset'
+import { getShopUpgradeEffects } from '../../../../Shop'
 import { player } from '../../../../Synergism'
 import { sacrificeCountHTML } from '../../HTML/updates/sacrifice'
 import { defaultAntSacrificeCount, defaultCurrentSacrificeId } from './default'
@@ -21,6 +22,7 @@ export const resetPlayerAntSacrificeCounts = (resetTier: AntSacrificeTiers) => {
     let sacrificeAdd = 1
     sacrificeAdd += player.researches[116] // 5x16: +1 per level
     sacrificeAdd *= getAchievementReward('antSacrificeCountMultiplier')
+    sacrificeAdd = Math.floor(sacrificeAdd * getShopUpgradeEffects('shopAntSacrificeCount', 'antSacrificeCountMult'))
     player.ants.antSacrificeCount += sacrificeAdd
     if (getAchievementReward('antSacrificeToReincarnation')) {
       updateReincarnationCount(sacrificeAdd)

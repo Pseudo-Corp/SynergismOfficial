@@ -29,7 +29,7 @@ import {
 } from './BlueberryUpgrades'
 import { boostAccelerator, buyBuilding, buyCrystalUpgrades, buyTesseractBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
-import { exitOffline, forcedDailyReset, timeWarp } from './Calculate'
+import { dailyReset, exitOffline, timeWarp } from './Calculate'
 import { setChallengeFocus, toggleRetryChallenges } from './Challenges'
 import {
   changeNextCorruptionLevel,
@@ -90,6 +90,7 @@ import {
   overfluxPowderWarp,
   toggleAutoBuyOrbs,
   toggleAutomaticHepteracts,
+  toggleAutoWarp,
   tradeHepteractToOverfluxOrb
 } from './Hepteracts'
 import { resetHistoryTogglePerSecond } from './History'
@@ -125,6 +126,7 @@ import {
   resetPurpleAmbrosiaDisplay
 } from './PurpleAmbrosiaUpgrades'
 import { getPurpleReactorPopupMode, setPurpleReactorPopupMode } from './PurpleUpgradeTab'
+import { quarkCategoryKeys, quarkSourceKeys } from './Quark'
 import {
   buyRedAmbrosiaUpgradeLevel,
   displayRedAmbrosiaLevels,
@@ -145,10 +147,17 @@ import { RuneType } from './Runes'
 import { buyAllSpiritLevels } from './RuneSpirits'
 import { buyShopUpgrades, shopUpgrades, useConsumablePrompt } from './Shop'
 import {
+  goldenQuarkLedgerAwardedHTML,
+  goldenQuarkSourceMultiplierHTML,
+  quarkLedgerAwardedHTML,
+  quarkSourceMultiplierHTML
+} from './ShopTab'
+import {
   addSingularityPerkToTree,
   buyGoldenQuarks,
   buyGQUpgradeLevel,
   calculateMaxSingularityLookahead,
+  goldenQuarkSourceKeys,
   goldenQuarkUpgradeNames,
   initializeSingularityPerkTree,
   showFreeUpgradeInfo,
@@ -406,6 +415,11 @@ const getSubTabI18nKey = (button: HTMLButtonElement) =>
 
 const termsOfServiceUrl = 'https://synergism.cc/terms-of-service'
 const privacyPolicyUrl = 'https://synergism.cc/privacy-policy'
+const platformStoreLinks = [
+  ['platformSteam', 'https://store.steampowered.com/app/3552310/'],
+  ['platformIOS', 'https://apps.apple.com/app/id6761206610'],
+  ['platformAndroid', 'https://play.google.com/store/apps/details?id=cc.pseudocorp.synergism']
+] as const
 const shopPotionKeys = ['offeringPotion', 'obtainiumPotion'] as const
 const corruptionLevelSteps = [
   ['corruptionLevelDown10', -10],
@@ -664,7 +678,7 @@ const registerMobileStatsIcons = () => {
     sourceButton.replaceWith(icon)
   }
 
-  registerSpriteAlias('overfluxPowderImage', 'kOrbPowderMult', 32)
+  registerSpriteAlias('overfluxPowderImage', 'kOrbPowderMult')
   updateIconsFromSprites(IconSets[player.iconSet][0])
 }
 
@@ -882,6 +896,61 @@ function visitConsumableTab () {
   changeSubTab(Tabs.Purchase, { page: 3 })
 }
 
+const bindShopConsumableModal = (
+  iconId: string,
+  containerId: string,
+  name: () => string,
+  description: () => string,
+  effect: () => string
+) => {
+  const icon = DOMCacheGetOrSet(iconId)
+  const container = DOMCacheGetOrSet(containerId)
+  const showModal = (x: number, y: number) => {
+    Modal(
+      () =>
+        `<span style="color: var(--gold-color)">${name()}</span><br><br>
+        <span style="color: var(--plum-color)">${description()}</span><br><br>
+        <span style="color: var(--limegreen-color)">${effect()}</span>`,
+      x,
+      y,
+      { borderColor: 'var(--gold-color)' },
+      MEDIUM_MODAL_UPDATE_TICK,
+      icon
+    )
+  }
+
+  icon.addEventListener('click', (event) => showModal(event.clientX, event.clientY))
+  icon.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      icon.click()
+    }
+  })
+
+  if (!isMobile) {
+    container.addEventListener('mousemove', (event) => showModal(event.clientX, event.clientY))
+    container.addEventListener('focusin', (event) => {
+      const rect = (event.target as HTMLElement).getBoundingClientRect()
+      showModal(rect.x, rect.y + rect.height / 2)
+    })
+    container.addEventListener('mouseleave', CloseModal)
+    container.addEventListener('focusout', CloseModal)
+  }
+}
+
+const bindLedgerModal = (id: string, html: () => string, borderColor: string) => {
+  const element = DOMCacheGetOrSet(id)
+  const showLedgerModal = (x: number, y: number) => {
+    Modal(html, x, y, { borderColor }, MEDIUM_MODAL_UPDATE_TICK, element)
+  }
+
+  element.addEventListener('click', (event) => showLedgerModal(event.clientX, event.clientY))
+  if (!isMobile) {
+    element.addEventListener('mousemove', (event) => showLedgerModal(event.clientX, event.clientY))
+    element.addEventListener('mouseleave', CloseModal)
+  }
+}
+
 export const generateEventHandlers = () => {
   registerMobileSubTabIcons()
   registerMobileStatsIcons()
@@ -905,7 +974,7 @@ export const generateEventHandlers = () => {
       'style',
       'width: auto; height: 30px; border: 6px solid var(--orange-color);'
     )
-    dayReset.addEventListener('click', () => forcedDailyReset())
+    dayReset.addEventListener('click', () => dailyReset())
 
     const consumables = DOMCacheGetOrSet('actualConsumables')
     consumables.appendChild(warp)
@@ -1605,8 +1674,8 @@ export const generateEventHandlers = () => {
   DOMCacheGetOrSet('hepteractToQuarkTradeMax').addEventListener('click', () => tradeHepteractToOverfluxOrb(true))
   DOMCacheGetOrSet('hepteractToQuarkTradeAuto').addEventListener('click', () => toggleAutoBuyOrbs())
   DOMCacheGetOrSet('overfluxPowder').addEventListener('mouseover', () => overfluxPowderDescription())
-  DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp(false))
-  DOMCacheGetOrSet('warpAuto').addEventListener('click', () => overfluxPowderWarp(true))
+  DOMCacheGetOrSet('powderDayWarp').addEventListener('click', () => overfluxPowderWarp())
+  DOMCacheGetOrSet('warpAuto').addEventListener('click', () => toggleAutoWarp())
 
   DOMCacheGetOrSet('hepteractAutoPercentageButton').addEventListener(
     'click',
@@ -1719,6 +1788,28 @@ export const generateEventHandlers = () => {
     changeSubTab(Tabs.Purchase, { page: 1 })
   })
 
+  if (PLATFORM === 'browser') {
+    DOMCacheGetOrSet('platformWeb').classList.add('currentPlatform')
+    for (const [id, url] of platformStoreLinks) {
+      const tile = DOMCacheGetOrSet(id)
+      tile.classList.add('platformLink')
+      tile.addEventListener('click', () => window.open(url, '_blank', 'noopener'))
+    }
+  } else if (PLATFORM === 'steam') {
+    DOMCacheGetOrSet('platformSteam').classList.add('currentPlatform')
+  } else if (PLATFORM === 'mobile') {
+    import('@capacitor/core')
+      .then(({ Capacitor }) => {
+        if (Capacitor.getPlatform() === 'ios') {
+          DOMCacheGetOrSet('platformIOS').classList.add('currentPlatform')
+          DOMCacheGetOrSet('platformAndroid').remove()
+        } else {
+          DOMCacheGetOrSet('platformAndroid').classList.add('currentPlatform')
+        }
+      })
+      .catch(console.error)
+  }
+
   // SHOP TAB
 
   /*
@@ -1742,40 +1833,36 @@ TODO: Fix this entire tab it's utter shit
 
   // Part 2: Potions
   for (const key of shopPotionKeys) {
-    const icon = DOMCacheGetOrSet(`${key}s`)
-    const container = DOMCacheGetOrSet(`${key}Hide`)
-    const showPotionModal = (x: number, y: number) => {
-      Modal(
-        () =>
-          `<span style="color: var(--gold-color)">${shopUpgrades[key].name()}</span><br><br>
-          <span style="color: var(--plum-color)">${shopUpgrades[key].description()}</span><br><br>
-          <span style="color: var(--limegreen-color)">${shopUpgrades[key].effectDescription()}</span>`,
-        x,
-        y,
-        { borderColor: 'var(--gold-color)' },
-        MEDIUM_MODAL_UPDATE_TICK,
-        icon
-      )
-    }
-
-    icon.addEventListener('click', (event) => showPotionModal(event.clientX, event.clientY))
-    icon.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault()
-        icon.click()
-      }
-    })
-
-    if (!isMobile) {
-      container.addEventListener('mousemove', (event) => showPotionModal(event.clientX, event.clientY))
-      container.addEventListener('focusin', (event) => {
-        const rect = (event.target as HTMLElement).getBoundingClientRect()
-        showPotionModal(rect.x, rect.y + rect.height / 2)
-      })
-      container.addEventListener('mouseleave', CloseModal)
-      container.addEventListener('focusout', CloseModal)
-    }
+    bindShopConsumableModal(
+      `${key}s`,
+      `${key}Hide`,
+      shopUpgrades[key].name,
+      shopUpgrades[key].description,
+      shopUpgrades[key].effectDescription
+    )
   }
+  bindShopConsumableModal(
+    'buySingularityQuarks',
+    'goldenQuarksShop',
+    () => i18next.t('shop.goldenQuarkStockMarket.name'),
+    () => i18next.t('shop.goldenQuarkStockMarket.description'),
+    () => i18next.t('shop.goldenQuarkStockMarket.bonus')
+  )
+
+  for (const key of quarkSourceKeys) {
+    bindLedgerModal(`quarkLedger-${key}-multiplier`, () => quarkSourceMultiplierHTML(key), 'var(--cyan-color)')
+  }
+  for (const key of goldenQuarkSourceKeys) {
+    bindLedgerModal(
+      `goldenQuarkLedger-${key}-multiplier`,
+      () => goldenQuarkSourceMultiplierHTML(key),
+      'var(--gold-color)'
+    )
+  }
+  for (const category of quarkCategoryKeys) {
+    bindLedgerModal(`quarkLedgerAwardedInfo-${category}`, quarkLedgerAwardedHTML, 'var(--cyan-color)')
+  }
+  bindLedgerModal('quarkLedgerAwardedInfo-goldenQuarks', goldenQuarkLedgerAwardedHTML, 'var(--gold-color)')
 
   /*Offering Potion*/
   DOMCacheGetOrSet('buyofferingpotion').addEventListener('click', () => buyShopUpgrades('offeringPotion'))
@@ -1852,9 +1939,6 @@ TODO: Fix this entire tab it's utter shit
   DOMCacheGetOrSet('freeUpgradeInfoButton').addEventListener('click', showFreeUpgradeInfo)
 
   for (const key of goldenQuarkUpgradeNames) {
-    if (key === 'offeringAutomatic') {
-      continue
-    }
     registerPurchasableModal({
       element: DOMCacheGetOrSet(key),
       html: () => upgradeGQToString(key),

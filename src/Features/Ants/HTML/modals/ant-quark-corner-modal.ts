@@ -1,5 +1,6 @@
 import i18next from 'i18next'
 import { calculateQuarkMultiplier } from '../../../../Calculate'
+import { primaryQuarkResetMode, primaryQuarkResetText } from '../../../../Quark'
 import { format, player } from '../../../../Synergism'
 import { calculateLeaderboardValue } from '../../AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-leaderboard'
 import { quarksFromELOMult } from '../../AntSacrifice/Rewards/ELO/RebornELO/QuarkCorner/lib/calculate-quarks'
@@ -20,9 +21,12 @@ export const antCornerStageHTML = () => {
   let leaderboardStages = calculateRebornELOThresholds(leaderboardELO)
   const eloToNextStage = calculateToNextELOThreshold(leaderboardELO, leaderboardStages)
 
-  const introText = currentLeaderboardMode === 'daily'
-    ? i18next.t('ants.leaderboard.stageModal.introDaily', { x: format(leaderboardStages, 0, true) })
-    : i18next.t('ants.leaderboard.stageModal.introAllTime', { x: format(leaderboardStages, 0, true) })
+  const introKey = currentLeaderboardMode === 'allTime'
+    ? 'introAllTime'
+    : primaryQuarkResetMode() === 'singularity'
+    ? 'introSingularity'
+    : 'introDaily'
+  const introText = i18next.t(`ants.leaderboard.stageModal.${introKey}`, { x: format(leaderboardStages, 0, true) })
 
   const introHTML = `<span style="font-weight: bold; font-size: 1.2em;">${introText}</span>`
   let tranchHTML = ''
@@ -52,7 +56,7 @@ export const antCornerStageHTML = () => {
  * "Daily" Leaderboard Quark Text Modal... NOT ALL-TIME.
  */
 const antCornerDailyQuarkHTML = () => {
-  const quarksGained = player.ants.quarksGainedFromAnts
+  const quarksGained = Math.floor(player.quarkLedger.awarded.ants)
   const introHTML = `<span style="font-weight: bold; font-size: 1.2em;">${
     i18next.t('ants.leaderboard.dailyQuarkModal.intro', {
       x: format(quarksGained, 0, false)
@@ -92,7 +96,7 @@ const antCornerDailyQuarkHTML = () => {
     x: format(calculateQuarkMultiplier(), 3, false)
   })
 
-  return `${introHTML}<br><br>${tranchHTML}<br>${bonusHTML}<br>${lifetimeMultHTML}<br>${globalQuarkMultHTML}`
+  return `${introHTML}<br><br>${tranchHTML}<br>${bonusHTML}<br>${lifetimeMultHTML}<br>${globalQuarkMultHTML}<br><br>${primaryQuarkResetText()}`
 }
 
 const antCornerAllTimeQuarkHTML = () => {

@@ -28,8 +28,14 @@ import {
   splitHeaderSlot
 } from '../HeaderLayoutDefaults'
 import { type OcteractUpgrades, octeractUpgrades } from '../Octeracts'
+import { quarkSourceKeys, type QuarkSourceRecord } from '../Quark'
 import { runes } from '../Runes'
-import { getGQUpgradeCumulativeCost, type SingularityDataKeys } from '../singularity'
+import {
+  getGQUpgradeCumulativeCost,
+  goldenQuarkSourceKeys,
+  type GoldenQuarkSourceRecord,
+  type SingularityDataKeys
+} from '../singularity'
 import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
 import { blankSave, deepClone } from '../Synergism'
 import { noTalismanFragments } from '../Talismans'
@@ -163,7 +169,6 @@ const antsSchema = z.object({
   highestRebornELOEver: leaderboardEntrySchema.array().transform((array) =>
     arrayExtendGeneral(array, blankSave.ants.highestRebornELOEver)
   ),
-  quarksGainedFromAnts: z.number().default(() => blankSave.ants.quarksGainedFromAnts),
   antSacrificeCount: z.number().default(() => blankSave.ants.antSacrificeCount),
   currentSacrificeId: z.number().default(() => blankSave.ants.currentSacrificeId),
   toggles: z.object({
@@ -202,6 +207,14 @@ const resetToggleModesSchema = z.object({
   reincarnation: z.number().default(() => blankSave.resetToggleModes.reincarnation),
   ascension: z.number().default(() => blankSave.resetToggleModes.ascension)
 })
+
+const quarkSourceRecordSchema = z.record(z.string(), z.number()).catch(() => ({})).transform((record) =>
+  Object.fromEntries(quarkSourceKeys.map((key) => [key, record[key] ?? 0])) as QuarkSourceRecord
+)
+
+const goldenQuarkSourceRecordSchema = z.record(z.string(), z.number()).catch(() => ({})).transform((record) =>
+  Object.fromEntries(goldenQuarkSourceKeys.map((key) => [key, record[key] ?? 0])) as GoldenQuarkSourceRecord
+)
 
 const toggleSchema = z.record(z.string(), z.boolean()).transform((record) => {
   return Object.fromEntries(
@@ -751,8 +764,6 @@ export const playerSchema = z.object({
     .transform((rune) => rune !== null && rune in runes ? rune : null)
     .default(() => blankSave.autoSacrificeRune),
   sacrificeTimer: z.number().default(() => blankSave.sacrificeTimer),
-  quarkstimer: z.number().default(() => blankSave.quarkstimer),
-  goldenQuarksTimer: z.number().default(() => blankSave.goldenQuarksTimer),
 
   antSacrificeTimer: z.number().default(() => blankSave.antSacrificeTimer),
   antSacrificeTimerReal: z.number().default(() => blankSave.antSacrificeTimerReal),
@@ -890,30 +901,33 @@ export const playerSchema = z.object({
   }),
 
   dayCheck: z.iso.datetime().nullable().default(() => blankSave.dayCheck),
-  dayTimer: z.number().default(() => blankSave.dayTimer),
   cubeOpenedDaily: z.number().default(() => blankSave.cubeOpenedDaily),
-  cubeQuarkDaily: z.number().default(() => blankSave.cubeQuarkDaily),
   tesseractOpenedDaily: z.number().default(() => blankSave.tesseractOpenedDaily),
-  tesseractQuarkDaily: z.number().default(() => blankSave.tesseractQuarkDaily),
   hypercubeOpenedDaily: z.number().default(() => blankSave.hypercubeOpenedDaily),
-  hypercubeQuarkDaily: z.number().default(() => blankSave.hypercubeQuarkDaily),
   platonicCubeOpenedDaily: z.number().default(() => blankSave.platonicCubeOpenedDaily),
-  platonicCubeQuarkDaily: z.number().default(() => blankSave.platonicCubeQuarkDaily),
+  quarkLedger: z.object({
+    base: quarkSourceRecordSchema,
+    awarded: quarkSourceRecordSchema,
+    credited: z.object({ primary: z.number(), miscellaneous: z.number() })
+      .default(() => ({ ...blankSave.quarkLedger.credited })),
+    challengeCompletions: z.array(z.number()).default(() => [...blankSave.quarkLedger.challengeCompletions])
+  }).prefault(() => deepClone(blankSave.quarkLedger)),
   overfluxOrbs: z.number().default(() => blankSave.overfluxOrbs),
   overfluxOrbsAutoBuy: z.boolean().default(() => blankSave.overfluxOrbsAutoBuy),
   overfluxPowder: z.number().default(() => blankSave.overfluxPowder),
-  dailyPowderResetUses: z.number().default(() => blankSave.dailyPowderResetUses),
+  dailyWarpActive: z.boolean().default(() => blankSave.dailyWarpActive),
   autoWarpCheck: z.boolean().default(() => blankSave.autoWarpCheck),
   version: z.string().default(() => blankSave.version),
   rngCode: z.number().default(() => blankSave.rngCode),
-  promoCodeTiming: z.record(z.string(), z.number()).default(() => ({ time: Date.now() - 60 * 1000 * 15 })),
   singularityCount: z.number().default(() => blankSave.singularityCount),
   highestSingularityCount: z.number().default(() => blankSave.highestSingularityCount),
-  singularityCounter: z.number().default(() => blankSave.singularityCount),
+  singularityCounter: z.number().default(() => blankSave.singularityCounter),
   singularityElevatorTarget: z.number().default(() => blankSave.singularityElevatorTarget),
   singularityElevatorSlowClimb: z.boolean().default(() => blankSave.singularityElevatorSlowClimb),
   singularityElevatorLocked: z.boolean().default(() => blankSave.singularityElevatorLocked),
   goldenQuarks: z.number().default(() => blankSave.goldenQuarks),
+  goldenQuarkLedger: z.object({ base: goldenQuarkSourceRecordSchema, awarded: goldenQuarkSourceRecordSchema })
+    .prefault(() => deepClone(blankSave.goldenQuarkLedger)),
   quarksThisSingularity: z.number().nullable().default(() => blankSave.quarksThisSingularity),
   totalQuarksEver: z.number().default(() => blankSave.totalQuarksEver),
   hotkeys: z.record(integerStringSchema, z.string().array()).prefault(() => blankSave.hotkeys),
@@ -967,6 +981,9 @@ export const playerSchema = z.object({
     .prefault(() => ({ ...blankSave.ambrosiaUpgrades })),
 
   dailyCodeUsed: z.boolean().default(() => blankSave.dailyCodeUsed),
+  dailyExportClaimed: z.boolean().default(() => blankSave.dailyExportClaimed),
+  dailyTimeCodeUsed: z.boolean().default(() => blankSave.dailyTimeCodeUsed),
+  dailyExportAddCodeMult: z.number().default(() => blankSave.dailyExportAddCodeMult),
   hepteractAutoCraftPercentage: z.number().default(() => blankSave.hepteractAutoCraftPercentage),
   octeractTimer: z.number().default(() => blankSave.octeractTimer),
   insideSingularityChallenge: z.boolean().default(() => blankSave.insideSingularityChallenge),

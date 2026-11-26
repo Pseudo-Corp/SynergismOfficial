@@ -1,5 +1,5 @@
 {
-  "originHash" : "300c0a30b6ff17fceca986807b47ed121ff4a81bb8e1800ba4f3e83b8548b8c9",
+  "originHash" : "b9e2b82df570e2888273ec25e8f2dcdb428405bcb217c20a7c39b41b883f73ce",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -26,6 +26,15 @@
       "state" : {
         "revision" : "f1a8fadf1437c23b825c818fb6509c9dbbae2f61",
         "version" : "8.3.1"
+      }
+    },
+    {
+      "identity" : "ion-ios-filesystem",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ionic-team/ion-ios-filesystem.git",
+      "state" : {
+        "revision" : "0d81e26e828ff9582807e2339112cedf2e0fab85",
+        "version" : "1.1.2"
       }
     },
     {

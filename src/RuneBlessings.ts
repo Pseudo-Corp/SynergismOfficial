@@ -10,7 +10,7 @@ import { DOMCacheGetOrSet } from './Cache/DOM'
 import { calculateSalvageRuneEXPMultiplier } from './Calculate'
 import { resetTiers } from './Reset'
 import { getRuneTotalLevel, runes, RuneType } from './Runes'
-import { registerSpriteAlias, spritePlaceholder } from './SpriteSheets'
+import { spritePlaceholder } from './SpriteSheets'
 import { format, formatAsPercentIncrease, player } from './Synergism'
 import { Tabs } from './Tabs'
 import { getTalismanEffects } from './Talismans'
@@ -510,8 +510,6 @@ export const generateMobileRuneBlessingsHTML = () => {
     runeIcon.alt = `${key} Rune`
     runeIcon.src = spritePlaceholder
     runeIcon.loading = 'lazy'
-
-    registerSpriteAlias(runeIcon.id, runeIcon.id, 32)
 
     topRow.appendChild(runeIcon)
 

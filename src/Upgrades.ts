@@ -31,7 +31,7 @@ import {
 import type { upgradeAutos } from './Toggles'
 import { toggleShops } from './Toggles'
 import { CloseModal, Modal, revealStuff } from './UpdateHTML'
-import { isMobile, sumContents } from './Utility'
+import { digitCount, isMobile, sumContents } from './Utility'
 import { Globals as G, Upgrade } from './Variables'
 
 const crystalupgdesc: Record<number, () => Record<string, string>> = {
@@ -160,7 +160,7 @@ const upgradetexts = [
   () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
   () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
   () => format(calculateFirstSixCoinUpgradeMultiplier(), 2),
-  () => Math.min(4, 1 + Math.floor(Decimal.log(player.coinBuildings[CoinBuilding.Alchemies] + 1, 10))),
+  () => Math.min(4, digitCount(player.coinBuildings[CoinBuilding.Alchemies])),
   () => format(Math.floor(player.multipliers / 7), 0, true),
   () => format(Math.floor(player.accelerators / 10), 0, true),
   () => format(Decimal.pow(2, Math.min(50, player.coinBuildings[CoinBuilding.Investments] / 15)), 2),
@@ -271,7 +271,7 @@ const upgradetexts = [
   () => format(Decimal.min(1e50, Decimal.pow(player.prestigePoints.add(1), 1 / 50).dividedBy(2.5).add(1)), 2),
   () => format(Decimal.min(1e30, Decimal.pow(1.01, player.transcendCount)), 2),
   () => format(Decimal.min(1e6, Decimal.pow(1.01, player.transcendCount)), 2),
-  () => format(Math.min(2500, Math.floor(Decimal.log(player.transcendShards.add(1), 10)))),
+  () => format(Math.min(2500, digitCount(player.transcendShards))),
   () => null,
   () => format(Math.pow(1.01, achievementPoints) * (achievementPoints / 5 + 1), 2),
   () => null,

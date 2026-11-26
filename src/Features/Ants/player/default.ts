@@ -6,8 +6,7 @@ import { defaultAntImmortalELO } from '../AntSacrifice/Rewards/ELO/ImmortalELO/p
 import {
   defaultAntRebornELO,
   defaultHighestRebornELODaily,
-  defaultHighestRebornELOEver,
-  defaultQuarksGainedFromAnts
+  defaultHighestRebornELOEver
 } from '../AntSacrifice/Rewards/ELO/RebornELO/player/default'
 import { defaultAntUpgrades } from '../AntUpgrades/player/default'
 import { defaultCrumbs, defaultCrumbsEverMade, defaultCrumbsThisSacrifice } from '../Crumbs/player/default'
@@ -36,7 +35,6 @@ export const defaultPlayerAnts: PlayerAnts = {
   rebornELO: defaultAntRebornELO,
   highestRebornELODaily: [...defaultHighestRebornELODaily],
   highestRebornELOEver: [...defaultHighestRebornELOEver],
-  quarksGainedFromAnts: defaultQuarksGainedFromAnts,
   antSacrificeCount: defaultAntSacrificeCount,
   currentSacrificeId: defaultCurrentSacrificeId,
   toggles: {

@@ -1,4 +1,3 @@
-import { worlds } from '../../../../../../../../Quark'
 import { player } from '../../../../../../../../Synergism'
 import {
   calculateRebornELOThresholds,
@@ -13,12 +12,11 @@ export const quarksFromELOMult = () => {
   return 2 - Math.pow(0.8, numStages / 100)
 }
 
-export const availableQuarksFromELO = () => {
+export const antCycleBaseQuarks = () => {
   const totalELOValue = calculateLeaderboardValue(player.ants.highestRebornELODaily)
   let numStages = calculateRebornELOThresholds(totalELOValue)
   let baseQuarks = 0
-  const usedNumberStagesForMult = Math.min(numStages, 1000)
-  const stageMult = Math.pow(quarkMultiplierPerThreshold, usedNumberStagesForMult)
+  const stageMult = Math.pow(quarkMultiplierPerThreshold, Math.min(numStages, 1000))
   for (const tranch of thresholdTranches) {
     const stagesInThisTranche = Math.min(tranch.stages, numStages)
     baseQuarks += stagesInThisTranche * tranch.quarkPerStage
@@ -28,8 +26,5 @@ export const availableQuarksFromELO = () => {
     }
   }
 
-  let antQuarkMult = quarksFromELOMult()
-  antQuarkMult *= stageMult
-  antQuarkMult *= (player.autoWarpCheck) ? 1 + player.dailyPowderResetUses : 1
-  return Math.max(0, worlds.applyBonus(baseQuarks) * antQuarkMult - player.ants.quarksGainedFromAnts)
+  return baseQuarks * stageMult
 }

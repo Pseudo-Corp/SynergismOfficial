@@ -567,6 +567,13 @@ export const toggleMaxPlat = () => {
   player.maxPlatToggle = !player.maxPlatToggle
 }
 
+export const toggleShopSubTab = (indexStr: string) => {
+  const showLedger = indexStr === '2'
+  DOMCacheGetOrSet('shopWrapper').style.display = showLedger ? 'none' : ''
+  DOMCacheGetOrSet('quarkLedgerWrapper').style.display = showLedger ? 'block' : 'none'
+  createFitties()
+}
+
 export const toggleSingularityScreen = (indexStr: string) => {
   const index = Number(indexStr)
 

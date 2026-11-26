@@ -4,12 +4,13 @@ import * as z from 'zod'
 import type { ZodType } from 'zod'
 import { AchievementId } from '../Achievements'
 import type { AmbrosiaUpgradeNames } from '../BlueberryUpgrades'
+import { defaultHighestRebornELODaily } from '../Features/Ants/AntSacrifice/Rewards/ELO/RebornELO/player/default'
 import { AntProducers } from '../Features/Ants/structs/structs'
 import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { octeractUpgradeNames, octeractUpgrades } from '../Octeracts'
 import { runes, RuneType } from '../Runes'
-import { getGQUpgradeCumulativeCost, type SingularityDataKeys } from '../singularity'
+import { getGQUpgradeCumulativeCost, goldenQuarkUpgradeNames, type SingularityDataKeys } from '../singularity'
 import { blankSave, deepClone, format } from '../Synergism'
 import { talismanInvestmentForLevel } from '../Talismans'
 import { Alert } from '../UpdateHTML'
@@ -64,6 +65,37 @@ const resetLegacyCorruptions = (player: PlayerData) => {
     player.currentChallenge.ascension = 0
   }
 }
+
+const goldenQuarkUpgradeCostIncreases = {
+  singTalismanBonusRunes3: 50,
+  singCitadel: 50,
+  singOcteractGain5: 50,
+  singBonusTokens3: 50,
+  platonicDelta: 50,
+  potionBuff2: 50,
+  singAmbrosiaLuck3: 50,
+  singAmbrosiaGeneration3: 50,
+  singAscensionSpeed: 50,
+  singFastForward2: 100,
+  singAscensionSpeed2: 100,
+  wowPass4: 100,
+  platonicPhi: 100,
+  halfMind: 100,
+  oneMind: 100,
+  singBonusTokens4: 100,
+  singQuarkImprover1: 100,
+  singAmbrosiaLuck: 200,
+  singAmbrosiaGeneration: 200,
+  potionBuff3: 200,
+  singCitadel2: 200,
+  cookies5: 200,
+  singTalismanBonusRunes4: 200,
+  blueberries: 200,
+  singInfiniteShopUpgrades: 1000,
+  singAmbrosiaLuck4: 1000,
+  singAmbrosiaGeneration4: 2000,
+  wowPass5: 5000
+} satisfies Partial<Record<SingularityDataKeys, number>>
 
 const legacyRuneKeys = [
   'speed',
@@ -290,23 +322,16 @@ const migrations: Migration[] = [
       singularityUpgrades: z.record(z.string(), singularityUpgradeSchema('goldenQuarksInvested'))
     },
     migrate: (player, { singularityUpgrades }) => {
-      for (const key of Object.keys(singularityUpgrades)) {
-        // This is shit - the old SingularityUpgrades object had this upgrade that didn't do anything
-        if (key === 'WIP') {
-          continue
-        }
-
+      for (const key of goldenQuarkUpgradeNames) {
         // Older saves may predate some upgrades; keep their schema defaults.
         if (singularityUpgrades[key] === undefined) {
           continue
         }
 
-        const k = key as SingularityDataKeys
+        const freeLevel = singularityUpgrades[key].freeLevels ?? 0
+        const goldenQuarksInvested = getGQUpgradeCumulativeCost(key, singularityUpgrades[key].level)
 
-        const freeLevel = singularityUpgrades[k].freeLevels ?? 0
-        const goldenQuarksInvested = getGQUpgradeCumulativeCost(k, singularityUpgrades[k].level)
-
-        player.goldenQuarkUpgrades[k] = {
+        player.goldenQuarkUpgrades[key] = {
           freeLevel,
           goldenQuarksInvested
         }
@@ -528,6 +553,34 @@ const migrations: Migration[] = [
 
         void Alert(i18next.t('versionChangeAnnouncements.v4-4-1-BarCharging'))
       }
+    }
+  }),
+
+  migration({
+    requires: { cubeQuarkDaily: z.number() },
+    optional: {
+      goldenQuarkUpgrades: z.record(
+        z.string(),
+        z.object({ level: z.number().optional() })
+      ).optional().catch(undefined)
+    },
+    migrate: (player, { goldenQuarkUpgrades }) => {
+      for (const [key, multiplier] of Object.entries(goldenQuarkUpgradeCostIncreases)) {
+        const legacyUpgrade = goldenQuarkUpgrades?.[key]
+        if (legacyUpgrade !== undefined && legacyUpgrade.level === undefined) {
+          player.goldenQuarkUpgrades[key].goldenQuarksInvested *= multiplier
+        }
+      }
+      player.synthesisUpgrades.subatomicShavings.quarks *= 1e5
+
+      player.cubeOpenedDaily = 0
+      player.tesseractOpenedDaily = 0
+      player.hypercubeOpenedDaily = 0
+      player.platonicCubeOpenedDaily = 0
+      player.ants.highestRebornELODaily = [...defaultHighestRebornELODaily]
+      player.dailyCodeUsed = false
+
+      void Alert(i18next.t('versionChangeAnnouncements.v4-4-2-Quarks'))
     }
   })
 ]

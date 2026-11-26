@@ -1,15 +1,12 @@
 import Decimal from 'break_infinity.js'
-import { getAmbrosiaUpgradeEffects } from './BlueberryUpgrades'
 import {
   calculateAmbrosiaBarFills,
   calculateAmbrosiaGenerationSpeed,
   calculateAmbrosiaRewardLuck,
   calculateAscensionSpeedMult,
   calculateBarEXALTPurpleFillChance,
-  calculateBaseGoldenQuarks,
   calculateEncabulatorSpeed,
   calculateGlobalSpeedMult,
-  calculateGoldenQuarks,
   calculateOcteractMultiplier,
   calculatePurpleHoneyConversionFactor,
   calculatePurpleHoneyExtractionMultiplier,
@@ -32,10 +29,9 @@ import { sacrificeAnts } from './Features/Ants/AntSacrifice/sacrifice'
 import { canAutoSacrifice } from './Features/Ants/Automation/sacrifice'
 import { getLevelMilestone } from './Levels'
 import { getOcteractUpgradeEffect } from './Octeracts'
-import { getPurpleReactorUpgradeEffects } from './Purple'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
 import { PURPLE_REACTOR_TICK_INTERVAL } from './PurpleReactor'
-import { quarkHandler, worlds } from './Quark'
+import { addBaseQuarks } from './Quark'
 import { getRedAmbrosiaUpgradeEffects } from './RedAmbrosiaUpgrades'
 import { Seed, seededRandom } from './RNG'
 import { buyAllBlessingLevels } from './RuneBlessings'
@@ -55,14 +51,11 @@ type TimerInput =
   | 'transcension'
   | 'reincarnation'
   | 'ascension'
-  | 'quarks'
-  | 'goldenQuarks'
   | 'singularity'
   | 'octeracts'
   | 'autoPotion'
   | 'purpleReactor'
 
-const octeractGiveawayLevels = [160, 173, 185, 194, 204, 210, 219, 229, 240, 249]
 const redAmbrosiaAcceleratorMaxBarPoints = 80_000_000
 
 const stochasticRound = (value: number, roll: number) => {
@@ -307,11 +300,7 @@ export const runPurpleReactor = (
         player.stats.highestPurpleHoney,
         player.purpleReactor.purpleHoney
       )
-      if (player.singularityCounter >= 3600) {
-        const quarksToAdd = purpleHoneyGained
-          * getPurpleReactorUpgradeEffects('purpleQuarkGain', 'quarksPerPurpleHoney')
-        worlds.add(quarksToAdd, true, true)
-      }
+      addBaseQuarks('purpleReactor', purpleHoneyGained)
     }
   }
 
@@ -380,36 +369,15 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
       break
     }
     case 'singularity': {
-      const singularitySpeedMulti = getAmbrosiaUpgradeEffects('ambrosiaBrickOfLead', 'singularitySpeedMult')
       player.ascensionCounterRealReal += time
-      player.singularityCounter += time * timeMultiplier * singularitySpeedMulti
+      player.singularityCounter += time * timeMultiplier
 
       if (player.insideSingularityChallenge) {
-        player.singChallengeTimer += time * timeMultiplier * singularitySpeedMulti
+        player.singChallengeTimer += time * timeMultiplier
       } else {
         player.singChallengeTimer = 0
       }
 
-      break
-    }
-    case 'quarks': {
-      // First get maximum Quark Clock (25h, up to +25 from Research 8x20)
-      const maxQuarkTimer = quarkHandler().maxTime
-      player.quarkstimer += time * timeMultiplier
-      // Checks if this new time is greater than maximum, in which it will default to that time.
-      // Otherwise returns itself.
-      player.quarkstimer = player.quarkstimer > maxQuarkTimer ? maxQuarkTimer : player.quarkstimer
-      break
-    }
-    case 'goldenQuarks': {
-      if (getGQUpgradeEffect('goldenQuarks3', 'exportGQPerHour') === 0) {
-        return
-      } else {
-        player.goldenQuarksTimer += time * timeMultiplier
-        player.goldenQuarksTimer = player.goldenQuarksTimer > 3600 * 168
-          ? 3600 * 168
-          : player.goldenQuarksTimer
-      }
       break
     }
     case 'octeracts': {
@@ -425,28 +393,6 @@ export const addTimers = (input: TimerInput, time = 0, globalSpeedMult?: () => n
         const perSecond = calculateOcteractMultiplier()
         player.wowOcteracts += amountOfGiveaways * perSecond
         player.totalWowOcteracts += amountOfGiveaways * perSecond
-
-        if (player.highestSingularityCount >= 160) {
-          const frac = 1e-6
-          let actualLevel = 0
-          for (const sing of octeractGiveawayLevels) {
-            if (player.highestSingularityCount >= sing) {
-              actualLevel += 1
-            }
-          }
-
-          const quarkFraction = frac * actualLevel
-          const quarksBefore = player.quarksThisSingularity
-          const baseGoldenQuarks = calculateBaseGoldenQuarks(player.singularityCount)
-          const goldenQuarksPerBase = calculateGoldenQuarks() / baseGoldenQuarks
-          const baseWithoutQuarks = baseGoldenQuarks - quarksBefore / 1e5
-          player.quarksThisSingularity *= Math.pow(1 - quarkFraction, amountOfGiveaways)
-          const quarksConverted = quarksBefore - player.quarksThisSingularity
-          player.goldenQuarks += Math.min(
-            1e300,
-            goldenQuarksPerBase * (amountOfGiveaways * quarkFraction * baseWithoutQuarks + quarksConverted / 1e5)
-          )
-        }
       }
       break
     }

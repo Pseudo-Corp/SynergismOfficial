@@ -47,10 +47,20 @@ interface GameEvent {
   color: string[]
 }
 
+type EventBuffs = Omit<GameEvent, 'name' | 'url' | 'start' | 'end' | 'color'>
+type EventPageBuffs = EventBuffs & { end: number }
+
+type EventPageMessage =
+  | { type: 'synergism:token-request' }
+  | { type: 'synergism:bonus-updated' }
+  | { type: 'synergism:event-buffs'; buffs: EventPageBuffs | null }
+
 let nowEvent: GameEvent | null = null
 export const getEvent = () => nowEvent
 
 let eventPageUrl: string | null = null
+
+const eventPageBuffs = new Map<string, EventPageBuffs>()
 
 const openEventPage = (url: string) => {
   eventPageUrl = url
@@ -82,7 +92,7 @@ const renderEventPages = () => {
   }
 }
 
-export const eventPageMessageHandler = async (event: MessageEvent<{ type?: string } | null>) => {
+export const eventPageMessageHandler = async (event: MessageEvent<EventPageMessage | null>) => {
   if (eventPageUrl === null || event.origin !== new URL(eventPageUrl).origin) {
     return
   }
@@ -99,10 +109,26 @@ export const eventPageMessageHandler = async (event: MessageEvent<{ type?: strin
     event.ports[0].postMessage({ token })
   } else if (event.data?.type === 'synergism:bonus-updated') {
     await refreshQuarkBonus()
+  } else if (event.data?.type === 'synergism:event-buffs') {
+    if (event.data.buffs === null) {
+      eventPageBuffs.delete(event.origin)
+    } else {
+      eventPageBuffs.set(event.origin, event.data.buffs)
+    }
+
+    syncEventState()
   }
 }
 
 const syncEventState = () => {
+  const now = getTimePinnedToLoadDate()
+
+  for (const [origin, buffs] of eventPageBuffs) {
+    if (now > buffs.end) {
+      eventPageBuffs.delete(origin)
+    }
+  }
+
   renderEventPages()
 
   const updateIsEventCheck = G.isEvent
@@ -160,7 +186,7 @@ export const eventBuffType: (keyof typeof BuffType)[] = [
 ]
 
 export const calculateEventSourceBuff = (buff: BuffType): number => {
-  return getEventBuff(buff) + consumableEventBuff(buff)
+  return getEventBuff(buff) + consumableEventBuff(buff) + eventPageBuff(buff)
 }
 
 export const getEventBuff = (buff: BuffType): number => {
@@ -170,6 +196,23 @@ export const getEventBuff = (buff: BuffType): number => {
     return 0
   }
 
+  return getBuff(event, buff)
+}
+
+const eventPageBuff = (buff: BuffType) => {
+  const now = getTimePinnedToLoadDate()
+  let total = 0
+
+  for (const buffs of eventPageBuffs.values()) {
+    if (now <= buffs.end) {
+      total += getBuff(buffs, buff)
+    }
+  }
+
+  return total
+}
+
+const getBuff = (event: EventBuffs, buff: BuffType): number => {
   switch (buff) {
     case BuffType.Quark:
       return event.quark
@@ -274,5 +317,5 @@ const isConsumableActive = (name?: PseudoCoinConsumableNames) => {
 }
 
 export const updateGlobalsIsEvent = () => {
-  return G.isEvent = getEvent() !== null || isConsumableActive()
+  return G.isEvent = getEvent() !== null || isConsumableActive() || eventPageBuffs.size !== 0
 }

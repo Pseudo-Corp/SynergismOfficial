@@ -29,7 +29,6 @@ export interface PlayerAnts {
   rebornELO: number
   highestRebornELODaily: Array<{ elo: number; sacrificeId: number }>
   highestRebornELOEver: Array<{ elo: number; sacrificeId: number }>
-  quarksGainedFromAnts: number
   antSacrificeCount: number
   currentSacrificeId: number
   toggles: {

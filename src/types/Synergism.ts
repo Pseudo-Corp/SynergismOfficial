@@ -15,9 +15,11 @@ import type { Category, ResetHistoryEntryUnion } from '../History'
 import type { OcteractUpgrades } from '../Octeracts'
 import type { PurpleReactorNames } from '../Purple'
 import type { PurpleAmbrosiaNames } from '../PurpleAmbrosiaUpgrades'
+import type { QuarkLedger } from '../Quark'
 import type { RedAmbrosiaNames } from '../RedAmbrosiaUpgrades'
 import type { RuneType } from '../Runes'
 import type { ShopUpgradeNames } from '../Shop'
+import type { GoldenQuarkLedger } from '../singularity'
 import type { SingularityDataKeys } from '../singularity'
 import type { SingularityChallengeDataKeys } from '../SingularityChallenges'
 import type { SynthesisUpgrades } from '../Synthesis'
@@ -255,8 +257,6 @@ export interface Player {
   autoResearch: number
   autoSacrificeRune: RuneType | null
   sacrificeTimer: number
-  quarkstimer: number
-  goldenQuarksTimer: number
 
   antSacrificeTimer: number
   antSacrificeTimerReal: number
@@ -385,22 +385,15 @@ export interface Player {
   exporttest: string | boolean
 
   dayCheck: string | null
-  dayTimer: number
   cubeOpenedDaily: number
-  cubeQuarkDaily: number
   tesseractOpenedDaily: number
-  tesseractQuarkDaily: number
   hypercubeOpenedDaily: number
-  hypercubeQuarkDaily: number
   platonicCubeOpenedDaily: number
-  platonicCubeQuarkDaily: number
+  quarkLedger: QuarkLedger
 
   version: string
 
   rngCode: number
-  promoCodeTiming: {
-    time: number
-  }
 
   hepteracts: Record<HepteractKeys, HepteractValues>
 
@@ -417,7 +410,7 @@ export interface Player {
   overfluxOrbs: number
   overfluxOrbsAutoBuy: boolean
   overfluxPowder: number
-  dailyPowderResetUses: number
+  dailyWarpActive: boolean
   autoWarpCheck: boolean
 
   singularityCount: number
@@ -427,6 +420,7 @@ export interface Player {
   singularityElevatorSlowClimb: boolean
   singularityElevatorLocked: boolean
   goldenQuarks: number
+  goldenQuarkLedger: GoldenQuarkLedger
   quarksThisSingularity: number
   totalQuarksEver: number
   hotkeys: Record<number, string[]>
@@ -451,6 +445,9 @@ export interface Player {
   }>
 
   dailyCodeUsed: boolean
+  dailyExportClaimed: boolean
+  dailyTimeCodeUsed: boolean
+  dailyExportAddCodeMult: number
   hepteractAutoCraftPercentage: number
   octeractTimer: number
 

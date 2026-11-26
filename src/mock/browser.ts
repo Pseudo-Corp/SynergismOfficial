@@ -79,9 +79,6 @@ const timeSkipPurchases = new Map<string, string>()
 
 const buySchema = z.object({
   consumable: z.enum([
-    'SMALL_GLOBAL_TIMESKIP',
-    'LARGE_GLOBAL_TIMESKIP',
-    'JUMBO_GLOBAL_TIMESKIP',
     'SMALL_ASCENSION_TIMESKIP',
     'LARGE_ASCENSION_TIMESKIP',
     'JUMBO_ASCENSION_TIMESKIP',

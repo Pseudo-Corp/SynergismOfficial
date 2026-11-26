@@ -4,4 +4,5 @@
     <string name="title_activity_main">Synergism</string>
     <string name="package_name">cc.pseudocorp.synergism</string>
     <string name="custom_url_scheme">cc.pseudocorp.synergism</string>
+    <string name="asset_statements" translatable="false">[{\"include\": \"https://synergism.cc/.well-known/assetlinks.json\"}]</string>
 </resources>

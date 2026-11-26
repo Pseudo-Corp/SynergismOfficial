@@ -25,3 +25,5 @@ android/capacitor-cordova-android-plugins/build/
 src/mobile/websocket-plugin/android/build/
 
 steamworks_sdk
+
+xcuserdata/

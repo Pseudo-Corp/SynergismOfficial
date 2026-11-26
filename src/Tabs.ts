@@ -14,6 +14,7 @@ import {
   toggleChallengesScreen,
   toggleCubeSubTab,
   toggleRuneScreen,
+  toggleShopSubTab,
   toggleSingularityScreen
 } from './Toggles'
 import { CloseModal, createFitties, revealStuff, showCorruptionSubtab } from './UpdateHTML'
@@ -132,9 +133,13 @@ const tabInfo: Record<Tabs, TabInfo> = {
   },
   [Tabs.Shop]: {
     panelID: 'shop',
+    tabSwitcher: toggleShopSubTab,
     visualUpdater: () => visualUpdateShop(),
-    subTabList: [],
-    subtabIndex: 0
+    subtabIndex: 0,
+    subTabList: [
+      { subTabID: '1', unlocked: () => true, buttonID: 'switchShopSubTab1' },
+      { subTabID: '2', unlocked: () => true, buttonID: 'switchShopSubTab2' }
+    ]
   },
   [Tabs.Buildings]: {
     panelID: 'buildings',

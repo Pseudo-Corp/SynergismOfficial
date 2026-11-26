@@ -2,23 +2,22 @@ import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
-  calculateAutoWarpQuarkMultiplier,
   calculateBaseCubeQuarkMultiplier,
   calculateCubeMultFromPowder,
   calculateCubeQuarkMultiplier,
+  calculateDailyWarpQuarkMultiplier,
   calculateMaxBaseCubeQuarkMultiplier,
   calculatePowderConversion,
-  calculateQuarkMultFromPowder,
-  forcedDailyReset
+  calculateQuarkMultFromPowder
 } from './Calculate'
 import { cubes } from './CubeExperimental'
 import { getOcteractUpgradeEffect } from './Octeracts'
-import { worlds } from './Quark'
+import { type PrimaryQuarkResetMode, primaryQuarkResetMode, worlds } from './Quark'
 import { resetTiers } from './Reset'
 import { getShopUpgradeEffects } from './Shop'
 import { calculateSingularityDebuff, getGQUpgradeEffect } from './singularity'
 import { getSingularityChallengeEffect } from './SingularityChallenges'
-import { format, formatAsPercentIncrease, player } from './Synergism'
+import { format, formatAsPercentIncrease, player, scheduleDailyResetCheck } from './Synergism'
 import { Alert, Confirm, Prompt } from './UpdateHTML'
 import { Globals } from './Variables'
 
@@ -714,10 +713,6 @@ export const hepteractToOverfluxOrbDescription = () => {
   if (shopMult > 1) {
     breakdown.push(i18next.t('hepteracts.orbBreakdown.shop', { x: format(shopMult, 3, true) }))
   }
-  const warpMult = calculateAutoWarpQuarkMultiplier()
-  if (warpMult > 1) {
-    breakdown.push(i18next.t('hepteracts.orbBreakdown.warp', { x: format(warpMult) }))
-  }
   DOMCacheGetOrSet('hepteractOrbBreakdownText').style.display = 'block'
   DOMCacheGetOrSet('hepteractOrbBreakdownText').textContent = `[${breakdown.join(' ')}]`
   DOMCacheGetOrSet('hepteractBalanceText').textContent = i18next.t('hepteracts.orbsPurchasedToday', {
@@ -777,6 +772,7 @@ export const tradeHepteractToOverfluxOrb = async (buyMax?: boolean) => {
   const powderGain = getShopUpgradeEffects('powderAuto', 'automaticPowderFraction') * calculatePowderConversion()
     * buyAmount
   player.overfluxPowder += powderGain
+  scheduleDailyResetCheck(0)
 
   const powderText = (powderGain > 0) ? i18next.t('hepteracts.gainedPowder', { x: format(powderGain, 2) }) : ''
   if (player.toggles[35]) {
@@ -799,6 +795,14 @@ export const toggleAutoBuyOrbs = (newValue?: boolean, firstLoad = false) => {
   HTML.textContent = player.overfluxOrbsAutoBuy ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
   HTML.style.border = `2px solid ${player.overfluxOrbsAutoBuy ? 'var(--green-color)' : 'var(--red-color)'}`
 }
+
+const dailyWarpKeySuffixes: Record<PrimaryQuarkResetMode, string> = {
+  daily: '',
+  dailyOrSingularity: 'OrSingularity',
+  singularity: 'UntilSingularity'
+}
+
+const dailyWarpTextKey = (key: string) => `hepteracts.${key}${dailyWarpKeySuffixes[primaryQuarkResetMode()]}`
 
 /**
  * Generates the description at the bottom of the page for Overflux Powder Properties
@@ -830,69 +834,60 @@ export const overfluxPowderDescription = () => {
   DOMCacheGetOrSet('hepteractCostText').style.display = 'none'
 
   DOMCacheGetOrSet('powderDayWarpText').style.display = 'block'
-  DOMCacheGetOrSet('powderDayWarpText').textContent = i18next.t('hepteracts.dayWarpsRemaining', {
-    x: player.dailyPowderResetUses
-  })
+  DOMCacheGetOrSet('powderDayWarpText').textContent = player.dailyWarpActive
+    ? i18next.t(dailyWarpTextKey('dailyWarpActive'), { x: format(calculateDailyWarpQuarkMultiplier()) })
+    : i18next.t(dailyWarpTextKey('dailyWarpInactive'), { x: format(calculateDailyWarpQuarkMultiplier(true)) })
 }
 
-/**
- * Attempts to operate a 'Day Reset' which, if successful, resets Daily Cube counters for the player.
- * Note by Platonic: kinda rushed job but idk if it can be improved.
- * @returns Alert, either for success or failure of warping
- */
-export const overfluxPowderWarp = async (auto: boolean) => {
-  if (!auto) {
-    if (player.autoWarpCheck) {
-      return Alert(i18next.t('hepteracts.warpImpossible'))
-    }
-    if (player.dailyPowderResetUses <= 0) {
-      return Alert(i18next.t('hepteracts.machineCooldown'))
-    }
-    if (player.overfluxPowder < 25) {
-      return Alert(i18next.t('hepteracts.atleastPowder'))
-    }
-    const c = await Confirm(i18next.t('hepteracts.stumbleMachine'))
-    if (!c) {
-      if (player.toggles[35]) {
-        return Alert(i18next.t('hepteracts.walkAwayMachine'))
-      }
-    } else {
-      player.overfluxPowder -= 25
-      player.dailyPowderResetUses -= 1
-      forcedDailyReset()
-      if (player.toggles[35]) {
-        return Alert(i18next.t('hepteracts.useMachine'))
-      }
-    }
-  } else {
-    if (player.autoWarpCheck) {
-      const a = await Confirm(i18next.t('hepteracts.useAllWarpsPrompt'))
-      if (a) {
-        DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOffColon')
-        DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--red-color)'
-        player.autoWarpCheck = false
-        player.dailyPowderResetUses = 0
-        return Alert(i18next.t('hepteracts.machineCooldown'))
-      } else {
-        if (player.toggles[35]) {
-          return Alert(i18next.t('hepteracts.machineDidNotConsume'))
-        }
-      }
-    } else {
-      const a = await Confirm(i18next.t('hepteracts.boostQuarksPrompt'))
-      if (a) {
-        DOMCacheGetOrSet('warpAuto').textContent = i18next.t('general.autoOnColon')
-        DOMCacheGetOrSet('warpAuto').style.border = '2px solid var(--green-color)'
-        player.autoWarpCheck = true
-        if (player.dailyPowderResetUses === 0) {
-          return Alert(i18next.t('hepteracts.machineOverdrive'))
-        }
-        return Alert(i18next.t('hepteracts.machineInOverdrive'))
-      } else {
-        if (player.toggles[35]) {
-          return Alert(i18next.t('hepteracts.machineUsualContinue'))
-        }
-      }
-    }
+const dailyWarpPowderCost = 25
+
+const activateDailyWarp = () => {
+  player.overfluxPowder -= dailyWarpPowderCost
+  player.dailyWarpActive = true
+}
+
+export const overfluxPowderWarp = async () => {
+  if (player.dailyWarpActive) {
+    return Alert(i18next.t(dailyWarpTextKey('warpAlreadyActive')))
   }
+  if (player.overfluxPowder < dailyWarpPowderCost) {
+    return Alert(i18next.t('hepteracts.atleastPowder'))
+  }
+  const multiplier = format(calculateDailyWarpQuarkMultiplier(true))
+  const confirmed = await Confirm(i18next.t(dailyWarpTextKey('stumbleMachine'), { x: multiplier }))
+  if (!confirmed) {
+    if (player.toggles[35]) {
+      return Alert(i18next.t('hepteracts.walkAwayMachine'))
+    }
+    return
+  }
+  if (player.dailyWarpActive || player.overfluxPowder < dailyWarpPowderCost) {
+    return
+  }
+  activateDailyWarp()
+  if (player.toggles[35]) {
+    return Alert(i18next.t(dailyWarpTextKey('useMachine'), { x: multiplier }))
+  }
+}
+
+export const autoActivateDailyWarp = () => {
+  if (
+    player.autoWarpCheck
+    && !player.dailyWarpActive
+    && player.overfluxPowder >= dailyWarpPowderCost
+    && getShopUpgradeEffects('autoWarp', 'unlocked')
+  ) {
+    activateDailyWarp()
+  }
+}
+
+export const toggleAutoWarp = (firstLoad = false) => {
+  if (!firstLoad) {
+    player.autoWarpCheck = !player.autoWarpCheck
+    autoActivateDailyWarp()
+  }
+
+  const HTML = DOMCacheGetOrSet('warpAuto')
+  HTML.textContent = player.autoWarpCheck ? i18next.t('general.autoOnColon') : i18next.t('general.autoOffColon')
+  HTML.style.border = `2px solid ${player.autoWarpCheck ? 'var(--green-color)' : 'var(--red-color)'}`
 }

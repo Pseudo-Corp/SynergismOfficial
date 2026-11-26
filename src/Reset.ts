@@ -11,13 +11,7 @@ import {
 import { applyPendingAutoAscendProtocol, resetCubeRateTracking } from './AutoAscension'
 import { renderAutoAscendRules } from './AutoAscensionUI'
 import { lastBlueberryLoadout, setLastBlueberryLoadout } from './BlueberryUpgrades'
-import {
-  buyTesseractBuilding,
-  calculateTessBuildingsInBudget,
-  CoinBuilding,
-  grantBuildings
-} from './Buy'
-import type { TesseractBuildings } from './Buy'
+import { autoBuyTesseractBuildings, CoinBuilding, grantBuildings } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import {
   CalcCorruptionStuff,
@@ -58,13 +52,14 @@ import {
   type ResetHistoryEntryPrestige,
   type ResetHistoryEntryReincarnate,
   type ResetHistoryEntrySingularity,
-  type ResetHistoryEntryTranscend
+  type ResetHistoryEntryTranscend,
+  type ResetHistorySingularityExalt
 } from './History'
 import { codes, importSynergism } from './ImportExport'
 import { getLevelMilestone } from './Levels'
 import { autoBuyPlatonicUpgrades, updatePlatonicUpgradeBG } from './Platonic'
 import { getPurpleAmbrosiaUpgradeEffects } from './PurpleAmbrosiaUpgrades'
-import { worlds } from './Quark'
+import { resetPrimaryQuarks, settleQuarks, worlds } from './Quark'
 import { isResearchMaxed, researchData, setResearchRoombaHighlight, updateResearchBG } from './Research'
 import { resetRuneBlessings } from './RuneBlessings'
 import { resetOfferings, resetRunes, RuneType } from './Runes'
@@ -75,9 +70,10 @@ import {
   calculateMaxSingularityLookahead,
   calculateSingularityDebuff,
   getGQUpgradeEffect,
-  raiseHighestSingularity
+  raiseHighestSingularity,
+  settleGoldenQuarks
 } from './singularity'
-import { getSingularityChallengeEffect } from './SingularityChallenges'
+import { getSingularityChallengeEffect, singularityChallenges } from './SingularityChallenges'
 import {
   blankSave,
   calculatePrestigePointGain,
@@ -86,7 +82,8 @@ import {
   deepClone,
   format,
   player,
-  saveSynergy
+  saveSynergy,
+  scheduleDailyResetCheck
 } from './Synergism'
 import { changeSubTab, changeTab, resetAllSubTabs, Tabs, updateSubTabVisibility } from './Tabs'
 import { resetTalismanData, updateTalismanInventory } from './Talismans'
@@ -111,6 +108,8 @@ type ResetDetailsView = {
 }
 
 type AscensionRewardAmounts = ReturnType<typeof CalcCorruptionStuff>
+
+const singularityPersistentPromoCodes = new Set([1, 26])
 
 const ascensionRewardDisplays: Array<{
   icon: string
@@ -398,6 +397,7 @@ export const updatePrestigeCount = (count: number) => {
   let multiplier = 1
   multiplier *= getAchievementReward('prestigeCountMultiplier')
   multiplier *= 1 + 0.05 * player.challengecompletions[5]
+  multiplier *= getShopUpgradeEffects('shopPrestigeCount', 'prestigeCountMult')
 
   const prestigeToAdd = Math.floor(count * multiplier)
   if (prestigeToAdd > 0) {
@@ -410,6 +410,7 @@ export const updateTranscensionCount = (count: number) => {
   let multiplier = 1
   multiplier *= getAchievementReward('transcensionCountMultiplier')
   multiplier *= 1 + 0.15 * player.challengecompletions[7]
+  multiplier *= getShopUpgradeEffects('shopTranscensionCount', 'transcensionCountMult')
 
   const transcendToAdd = Math.floor(count * multiplier)
   if (transcendToAdd > 0) {
@@ -425,6 +426,7 @@ export const updateReincarnationCount = (count: number) => {
   let multiplier = 1
   multiplier *= getAchievementReward('reincarnationCountMultiplier')
   multiplier *= 1 + 0.2 * player.challengecompletions[12]
+  multiplier *= getShopUpgradeEffects('shopReincarnationCount', 'reincarnationCountMult')
 
   const reincarnationToAdd = Math.floor(count * multiplier)
   if (reincarnationToAdd > 0) {
@@ -783,6 +785,7 @@ export const reset = (
           player.overfluxPowder += getShopUpgradeEffects('powderAuto', 'automaticPowderFraction')
             * calculatePowderConversion() * orbsAmount
           player.wowAbyssals -= 250000 * orbsAmount
+          scheduleDailyResetCheck(0)
         }
         if (player.wowAbyssals < 0) {
           player.wowAbyssals = 0
@@ -795,24 +798,8 @@ export const reset = (
       player.researches[190] > 0 && player.tesseractAutoBuyerToggle
       && player.resetToggleModes.ascension === AutoAscensionModes.percentage
     ) {
-      const ownedBuildings: TesseractBuildings = [null, null, null, null, null]
-      for (let i = 1; i <= 5; i++) {
-        if (player.autoTesseracts[i]) {
-          ownedBuildings[i - 1] = player[`ascendBuilding${i as OneToFive}` as const].owned
-        }
-      }
       const percentageToSpend = 100 - Math.min(100, player.tesseractAutoBuyerAmount)
-      const budget = player.wowTesseracts * percentageToSpend / 100
-      const buyToBuildings = calculateTessBuildingsInBudget(ownedBuildings, budget)
-      // Prioritise buying buildings from highest tier to lowest,
-      // in case there are any off-by-ones or floating point errors.
-      for (let i = 5; i >= 1; i--) {
-        const buyFrom = ownedBuildings[i - 1]
-        const buyTo = buyToBuildings[i - 1]
-        if (buyFrom !== null && buyTo !== null && buyTo !== buyFrom) {
-          buyTesseractBuilding(i as OneToFive, buyTo - buyFrom)
-        }
-      }
+      autoBuyTesseractBuildings(player.wowTesseracts * percentageToSpend / 100)
     }
 
     // Automation Platonic Upgrades
@@ -1005,7 +992,7 @@ const updateSingularityMilestoneAwards = (singularityReset = true): void => {
   revealStuff()
 }
 
-export const singularity = (setSingNumber = -1) => {
+export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityExalt) => {
   if (player.runeLevels[RuneType.Antiquities] === 0 && setSingNumber === -1) {
     Alert(
       'You nearly triggered a double singularity bug! Oh no! Luckily, our staff prevented this from happening.'
@@ -1014,31 +1001,34 @@ export const singularity = (setSingNumber = -1) => {
   }
 
   const antiquitiesPurchased = player.runeLevels[RuneType.Antiquities] > 0
+  settleQuarks()
+  settleGoldenQuarks()
 
-  // setSingNumber is only not -1 when we are entering and exiting a challenge.
-  if (setSingNumber === -1) {
-    // get total cube blessings for history
-    const cubeArray = Object.values(player.cubeBlessings)
-    const tesseractArray = Object.values(player.tesseractBlessings)
-    const hypercubeArray = Object.values(player.hypercubeBlessings)
-    const platonicArray = Object.values(player.platonicBlessings)
-    // Update sing history
-    const historyEntry: ResetHistoryEntrySingularity = {
-      seconds: player.singularityCounter,
-      date: Date.now(),
-      singularityCount: player.singularityCount,
-      quarks: player.quarksThisSingularity,
-      c15Score: player.challenge15Exponent,
-      goldenQuarks: calculateGoldenQuarks(),
-      wowTribs: sumContents(cubeArray),
-      tessTribs: sumContents(tesseractArray),
-      hyperTribs: sumContents(hypercubeArray),
-      platTribs: sumContents(platonicArray),
-      octeracts: player.totalWowOcteracts,
-      quarkHept: player.hepteracts.quark.BAL,
-      kind: 'singularity'
-    }
-    resetHistoryAdd('singularity', historyEntry)
+  // get total cube blessings for history
+  const cubeArray = Object.values(player.cubeBlessings)
+  const tesseractArray = Object.values(player.tesseractBlessings)
+  const hypercubeArray = Object.values(player.hypercubeBlessings)
+  const platonicArray = Object.values(player.platonicBlessings)
+  // Update sing history
+  const historyEntry: ResetHistoryEntrySingularity = {
+    seconds: player.singularityCounter,
+    date: Date.now(),
+    singularityCount: player.singularityCount,
+    quarks: player.quarksThisSingularity,
+    c15Score: player.challenge15Exponent,
+    goldenQuarks: antiquitiesPurchased ? calculateGoldenQuarks() : 0,
+    wowTribs: sumContents(cubeArray),
+    tessTribs: sumContents(tesseractArray),
+    hyperTribs: sumContents(hypercubeArray),
+    platTribs: sumContents(platonicArray),
+    octeracts: player.totalWowOcteracts,
+    quarkHept: player.hepteracts.quark.BAL,
+    kind: 'singularity',
+    cleared: antiquitiesPurchased,
+    ...exalt
+  }
+  if (player.insideSingularityChallenge && G.currentSingChallenge !== undefined) {
+    historyEntry.nextExalt = singularityChallenges[G.currentSingChallenge].exaltNumber
   }
 
   resetRunes('singularity')
@@ -1080,6 +1070,9 @@ export const singularity = (setSingNumber = -1) => {
     }
   }
 
+  historyEntry.nextSingularity = player.singularityCount
+  resetHistoryAdd('singularity', historyEntry)
+
   player.totalQuarksEver += player.quarksThisSingularity
   const hold = playerSchema.parse(deepClone(blankSave))
 
@@ -1099,6 +1092,7 @@ export const singularity = (setSingNumber = -1) => {
   hold.singularityElevatorSlowClimb = player.singularityElevatorSlowClimb
   hold.singularityElevatorLocked = player.singularityElevatorLocked
   hold.goldenQuarks = player.goldenQuarks
+  hold.goldenQuarkLedger = player.goldenQuarkLedger
   hold.shopUpgrades = player.shopUpgrades
   hold.shopPotionsConsumed = player.shopPotionsConsumed
 
@@ -1159,6 +1153,11 @@ export const singularity = (setSingNumber = -1) => {
   hold.autoResearchToggle = player.autoResearchToggle
   hold.autoResearchMode = player.autoResearchMode
   hold.dailyCodeUsed = player.dailyCodeUsed
+  hold.dailyExportClaimed = player.dailyExportClaimed
+  hold.dailyTimeCodeUsed = player.dailyTimeCodeUsed
+  hold.dailyExportAddCodeMult = player.dailyExportAddCodeMult
+  resetPrimaryQuarks()
+  hold.quarkLedger = player.quarkLedger
   hold.runeBlessingBuyAmount = player.runeBlessingBuyAmount
   hold.runeSpiritBuyAmount = player.runeSpiritBuyAmount
   hold.prestigeamount = player.prestigeamount
@@ -1180,7 +1179,6 @@ export const singularity = (setSingNumber = -1) => {
   hold.openPlatonicsCubes = player.openPlatonicsCubes
   hold.historyShowPerSecond = player.historyShowPerSecond
   hold.exporttest = typeof player.exporttest === 'boolean' ? player.exporttest : player.exporttest === 'YES!'
-  hold.dayTimer = player.dayTimer
   hold.dayCheck = player.dayCheck
   hold.offlinetick = player.offlinetick
   hold.ascStatToggles = player.ascStatToggles
@@ -1232,14 +1230,13 @@ export const singularity = (setSingNumber = -1) => {
   hold.blueberryTime = player.blueberryTime
   hold.blueberryLoadouts = player.blueberryLoadouts
   hold.blueberryLoadoutMode = player.blueberryLoadoutMode
-  hold.goldenQuarksTimer = player.goldenQuarksTimer
-  hold.quarkstimer = player.quarkstimer
 
   hold.stats = player.stats
 
-  const saveCodes = player.codes.filter((code) => code >= 42 && code <= 49)
+  const saveCodes = player.codes.filter((code) =>
+    singularityPersistentPromoCodes.has(code) || (code >= 42 && code <= 49)
+  )
   const saveRngCode = player.rngCode
-  const savePromoCodeTime = player.promoCodeTiming.time
   const saveBlueberryLoadout = lastBlueberryLoadout
 
   importSynergism(btoa(JSON.stringify(hold)), true)
@@ -1250,7 +1247,6 @@ export const singularity = (setSingNumber = -1) => {
   updateSingularityMilestoneAwards()
 
   player.rngCode = Math.max(saveRngCode, DateNow())
-  player.promoCodeTiming.time = Math.max(savePromoCodeTime, DateNow())
   setLastBlueberryLoadout(saveBlueberryLoadout)
 
   updateTokens()
