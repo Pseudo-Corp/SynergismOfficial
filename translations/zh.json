@@ -2964,17 +2964,17 @@
       "name": "税收激增挑战 || 完成{{- completions}}次，次数上限为{{- max}}",
       "progressName": "税收激增挑战",
       "flavor": "祝您好运，税务局又归来了。",
-      "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. <br> ☆ Ant Speed <<gold|^num:((0.23))>> <br> ☆ Each Transcension and Reincarnation Challenge completed multiplies your tax burden by <<gold|num:((1.05))>> (completions awarded at the start of an Ascension do not count) <br> ☆ You can only complete at most one challenge per tick, to help avoid fatal mistakes",
+      "restrictions": "立即飞升，需要达到目标，但税收高得多，且随着挑战的完成次数增加而更高。<br>☆ 蚂蚁速度变为原来的<<gold|num:((0.23))次方>>。<br>☆ 每完成1次任意超越或转世挑战后，税负变为原来的<<gold|num:((1.05))>>倍，但飞升后初始完成的挑战不计入。<br>☆ 您每个时刻至多只能完成一次挑战，以避免致命失误。",
       "goal": "目标：在挑战中完成{{value}}次挑战10<虐待狂挑战 I>。",
       "per": {
-        "1": "Taxes xnum:((0.966))! Current: ",
+        "1": "使税收变为原来的num:((0.966))倍！当前效果：",
         "2": "护身符等级上限增加6级！当前效果：",
         "3": "魂灵强度增加3%！当前效果："
       },
       "first": "解锁15个研究，以及五阶立方的力量！",
       "start": "开始<[(税收激增挑战)]>",
       "current": {
-        "1": "Tax multiplier x{{value}}",
+        "1": "使税收变为原来的{{value}}倍",
         "2": "护身符等级上限增加{{value}}级",
         "3": "效果增加{{value}}%"
       }
@@ -3065,9 +3065,9 @@
     "hypercubeOneTimeBonus": "完成挑战后可以获得1个惊奇五阶立方(首次完成奖励)",
     "ascensionBankAdd": "完成挑战后方盒库的数量增加{{x}}。",
     "ascensionBankMultiply": "完成该挑战可以使方盒库变为原来的{{x}}倍。",
-    "dailyQuarks": "Each completion earns {{x}} base Primary Quarks every day!",
-    "singularityQuarks": "Each completion earns {{x}} base Primary Quarks once per Singularity!",
-    "completionQuarkMultiplier": "Each completion adds +{{x}}% to the Challenge Completions Quark multiplier!"
+    "dailyQuarks": "每完成1次该挑战，每天都能使主要夸克基础获取数量增加{{x}}！",
+    "singularityQuarks": "每完成1次该挑战，如果是本次奇点内首次完成相应次数，则使主要夸克基础获取数量增加{{x}}！",
+    "completionQuarkMultiplier": "每完成1次该挑战，使完成挑战的夸克获取数量倍率增加{{x}}%！"
   },
   "cubes": {
     "upgradeNames": {
@@ -3212,10 +3212,10 @@
       "57": "[Cx7]嚼嚼……就是这个味……吧。每级使方盒升级1x1，2x1，3x1，4x1，5x1的等级上限增加1。",
       "58": "[Cx8]再增添一些节日的气息！如果有活动，则使所有类型的方盒及立方获取数量乘以num:((1.25))。",
       "59": "[Cx9]很酸很酸。但它每级可以使飞升的速度增加num:((0.25))%，所以估计没什么人会抱怨了。",
-      "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the price of Golden Quark Stocks by num:((0.001))% per level.",
-      "61": "[Cx11] Edible but prone to mistakes. Adds 25 whole milliseconds to the tolerance of code 'time', and increases its rewards by +3% per level. When maxxed, code 'time' always gives its reward, even if you fail it!",
+      "60": "[Cx10]惊奇烘焙坊在圣诞特卖时有更多东西可以出售了。每级使金夸克股票的价格减少num:((0.001))%。",
+      "61": "[Cx11]吃起来是没啥问题，但容易出错。每级使输入“时间”代码的时间间隔容错增加25毫秒，且奖励增加3%。满级后，输入“时间”代码将永远成功，不会失败！",
       "62": "[Cx12]Platonic很喜欢太妃糖。使挑战15中难得素获取数量和祭品获取数量变为原来的8倍。",
-      "63": "[Cx13] Brownie Cookies, the best of both worlds. Multiply 3D Cube Gain by num:((1.03))x for every digit in your owned Hepteracts.",
+      "63": "[Cx13]布朗尼曲奇，两全其美。惊奇七阶立方每有一个数量级，就使惊奇方盒获取数量变为原来的num:((1.03))倍。",
       "64": "[Cx14]有人说这是蚁神的造物。当您开启PLATONIC方盒获得塑像时，使获取量翻倍。",
       "65": "[Cx15]爱意满满，碎屑多多！每购买1只工蚁，就使蚂蚁速度变为原来的num:((1.004))倍。",
       "66": "[Cx16]您永远吃不腻的饼干。在购买PLATONIC·欧米伽升级之前，使所有类型的方盒、立方和方块获取数量翻倍。",
@@ -3284,8 +3284,8 @@
       "23": "[1x23]每级使每个祭品增加的经验值再提升num:((0.3))。",
       "24": "[1x24]每级使基础祭品获取数量增加num:((0.4))。",
       "25": "[1x25]每级使基础祭品获取数量增加num:((0.6))。",
-      "26": "[2x1] Multiply all Crystal producer production by 2.5x per level.",
-      "27": "[2x2] Multiply all Crystal producer production by 2.5x per level.",
+      "26": "[2x1]每级使水晶生产者产量变为原来的2.5倍。",
+      "27": "[2x2]每级使水晶生产者产量变为原来的2.5倍。",
       "28": "[2x3]您知道水晶对金币产量的加成公式吗？每级使该公式的指数增加num:((0.08))！",
       "29": "[2x4]与[2x3]相同，每级使指数增加num:((0.08))！",
       "30": "[2x5]只有[2x3]的一半，每级使指数增加num:((0.04))！",
@@ -3310,10 +3310,10 @@
       "49": "[2x24]解锁转世升级11-15。[升级花费在num:((1e30))至num:((1e60))粒子之间]",
       "50": "[2x25]解锁转世升级16-20。[建议到能完成挑战8时再购买此升级！]",
       "51": "[3x1]每级使税负减少6%。",
-      "52": "[3x2] Reduces your tax burden by 5% per level.",
-      "53": "[3x3] Reduces your tax burden by 5% per level.",
-      "54": "[3x4] Reduces your tax burden by 5% per level.",
-      "55": "[3x5] Reduces your tax burden by 5% per level.",
+      "52": "[3x2]每级使税负减少5%。",
+      "53": "[3x3]每级使税负减少5%。",
+      "54": "[3x4]每级使税负减少5%。",
+      "55": "[3x5]每级使税负减少5%。",
       "56": "[3x6]每级使建造力增加num:((0.05))。研究3x6至研究3x10之间效果相互叠加。",
       "57": "[3x7]每级使建造力增加num:((0.05))。研究3x6至研究3x10之间效果相互叠加。",
       "58": "[3x8]每级使建造力增加num:((0.05))。研究3x6至研究3x10之间效果相互叠加。",
@@ -3329,7 +3329,7 @@
       "68": "[3x18]每级使[无碎片挑战]的次数上限增加5。",
       "69": "[3x19]每级使[花费增加挑战]的次数上限增加5。",
       "70": "[3x20]每级使[钻石减少挑战]的次数上限增加5。",
-      "71": "[3x21] While in a Reincarnation Challenge, automatically gain Challenge 1 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.25)).",
+      "71": "[3x21] 在转生挑战中，只要本次超越获得的金币达到下次挑战目标的num:((1.25))次方，就可以自动完成挑战1，且最多完成历史最高完成的次数。",
       "72": "[3x22] While in a Reincarnation Challenge, automatically gain Challenge 2 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.6)).",
       "73": "[3x23] While in a Reincarnation Challenge, automatically gain Challenge 3 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.7)).",
       "74": "[3x24] While in a Reincarnation Challenge, automatically gain Challenge 4 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.45)).",
@@ -6909,7 +6909,7 @@
       "transferFailed": "❌转移失败"
     },
     "quarkBonusSimple": "慷慨的赞助者使<<cyan|夸克获取数量>>增加<<gold|{{globalBonus}}%>>！",
-    "quarkBonusExtended": "Generous Subscribers grant you <<gold|{{globalBonus}}%>> more <<cyan|Quarks>>! <br> Your Subscriptions and Role Bonuses multiply this by <<gold|{{personalBonusMult}}>> <br> ↳ Total <<cyan|Quark>> bonus: <<gold|+{{totalBonus}}%>>",
+    "quarkBonusExtended": "慷慨的赞助者使<<cyan|夸克获取数量>>增加<<gold|{{globalBonus}}%>>！<br>您的赞助和身份组加成使它再乘以<<gold|{{personalBonusMult}}>><br>↳ 总<<cyan|夸克获取数量>>加成：<<gold|增加{{totalBonus}}%>>",
     "saveString": {
       "version": "使用<<cyan|$VERSION$>>来表示完整版本号，<<cyan|$VER$>>来表示版本号，",
       "time": "<<cyan|$TIME$>>来表示24小时制时间，<<cyan|$TIME12$>>来表示12小时制时间，",
