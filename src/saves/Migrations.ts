@@ -10,7 +10,7 @@ import { NUM_SACRIFICE_MODES } from '../Features/Ants/toggles/structs/sacrifice'
 import { type HepteractKeys, hepteracts } from '../Hepteracts'
 import { octeractUpgradeNames, octeractUpgrades } from '../Octeracts'
 import { runes, RuneType } from '../Runes'
-import { getGQUpgradeCumulativeCost, type SingularityDataKeys } from '../singularity'
+import { getGQUpgradeCumulativeCost, goldenQuarkUpgradeNames, type SingularityDataKeys } from '../singularity'
 import { blankSave, deepClone, format } from '../Synergism'
 import { talismanInvestmentForLevel } from '../Talismans'
 import { Alert } from '../UpdateHTML'
@@ -322,23 +322,16 @@ const migrations: Migration[] = [
       singularityUpgrades: z.record(z.string(), singularityUpgradeSchema('goldenQuarksInvested'))
     },
     migrate: (player, { singularityUpgrades }) => {
-      for (const key of Object.keys(singularityUpgrades)) {
-        // This is shit - the old SingularityUpgrades object had this upgrade that didn't do anything
-        if (key === 'WIP') {
-          continue
-        }
-
+      for (const key of goldenQuarkUpgradeNames) {
         // Older saves may predate some upgrades; keep their schema defaults.
         if (singularityUpgrades[key] === undefined) {
           continue
         }
 
-        const k = key as SingularityDataKeys
+        const freeLevel = singularityUpgrades[key].freeLevels ?? 0
+        const goldenQuarksInvested = getGQUpgradeCumulativeCost(key, singularityUpgrades[key].level)
 
-        const freeLevel = singularityUpgrades[k].freeLevels ?? 0
-        const goldenQuarksInvested = getGQUpgradeCumulativeCost(k, singularityUpgrades[k].level)
-
-        player.goldenQuarkUpgrades[k] = {
+        player.goldenQuarkUpgrades[key] = {
           freeLevel,
           goldenQuarksInvested
         }
