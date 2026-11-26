@@ -13980,6 +13980,23 @@ html[data-mobile="true"] #achievements {
         min-width: 0;
     }
 
+    #quarkLedgerWrapper {
+        padding: 0;
+    }
+
+    #quarkLedgerWrapper .quarkLedgerTable {
+        table-layout: auto;
+    }
+
+    .quarkLedgerTable thead th:first-child {
+        width: auto;
+    }
+
+    .quarkLedgerTable tfoot .fitText {
+        width: 100%;
+        contain: inline-size;
+    }
+
     #languagesubtab {
         flex-wrap: wrap;
         justify-content: center;
