@@ -72,6 +72,7 @@
     "ignoreEXALT": "[<<white|♔>>] Cette amélioration est active même si un EXALT dit le contraire !",
     "moduleActive": "<<gold|[Actif]>>",
     "moduleInactive": "<<gray|[Inactif]>>",
+    "moduleAugmented": "<<red|[Augmented]>>",
     "notUnlocked": "Terminez Pas d'Améliorations de Quarks Dorés, palier 1 !",
     "ambrosiaCost": "Coût pour le niveau suivant : <<orange | {{amount}}>> Ambroisie",
     "purpleAmbrosia": {
@@ -193,17 +194,17 @@
       },
       "ambrosiaObtainium1": {
         "name": "Amplificateur d'Obtainium basé sur la RNG",
-        "description": "Obtenez +num:((0.1))% d'Obtainium par chance d'Ambroisie !",
+        "description": "Gain +num:((0.1))% Obtainium per Ambrosia Luck per level!",
         "effect": "Ce module augmente les gains d'Obtainium de {{amount}}% !"
       },
       "ambrosiaOffering1": {
         "name": "Amélioration d'Offrande basée sur l'Aléatoire",
-        "description": "Gagnez +num:((0.1))% d'Offrandes par point de Chance d'Ambroisie !",
+        "description": "Gain +num:((0.1))% Offerings per Ambrosia Luck per level!",
         "effect": "Ce module augmente les gains d'Offrandes de {{amount}}% !"
       },
       "ambrosiaHyperflux": {
         "name": "Production Industrielle Hyperfluxée de Cubes Wow!",
-        "description": "Obtenez +1% (3-7D) Cubes par niveau, par niveau d'amélioration Platonique 4x4 achetés (multiplicatif!!!)",
+        "description": "Multiply (3-7D) Cubes by (1 + num:((0.01)) × level)x for every level of Platonic Upgrade 4x4 purchased!",
         "effect": "Ce module augmente le gain de Cubes de {{amount}}% !"
       },
       "ambrosiaBaseObtainium1": {
@@ -258,7 +259,7 @@
       },
       "ambrosiaSingReduction2": {
         "name": "Module Exo-Chromatique Cinétique Post-Modulé Stabilisateur de Singularité",
-        "description": "Modernisée avec… ce genre de stabilisateurs, vos Singularités EXALTÉES sont un peu plus agréables. Les pénalités de Singularité sont retardées de 1 Singularité par niveau, si vous être VRAIMENT! dans un EXALT.",
+        "description": "Retrofitted with... those kinds of Stabilizers, your EXALTED Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are ACTUALLY! in an EXALT.",
         "effect": "Les pénalités de Singularité sont comme si vous étiez {{amount}} Singularités plus basses."
       },
       "ambrosiaTalismanBonusRuneLevel": {
@@ -273,8 +274,8 @@
       },
       "ambrosiaBrickOfLead": {
         "name": "La Brique de Plomb",
-        "description": "Je la garde toujours sous mon chapeau. Elle réduit votre vitesse de génération de points de la Barre d'Ambroisie de 2% par niveau, mais donne de la Chance d'Ambroisie en compensation ! Elle ralentit aussi les Vitesses Globale, d'Ascension et de Singularité de 1% par niveau. <<lightgoldenrodyellow| <i>Ça pourrait être utile pour un certain EXALT...</i> >>",
-        "effect": "Points requis pour la Barre d'Ambroisie x{{blueberryGen}}, Chance d'Ambroisie +{{luckMult}}. Vitesses Globale, d'Ascension et de Singularité x{{singularitySpeed}}"
+        "description": "I always keep this under my hat. This reduces your Ambrosia Bar Point generation speed by 2% per level, but grants Ambrosia Luck to compensate! It also slows down Global and Ascension speed by 1% per level.",
+        "effect": "Ambrosia Bar Point Requirement x{{blueberryGen}}, Ambrosia Luck +{{luckMult}}. Global, Ascension Speed x{{speedMult}}"
       },
       "ambrosiaFreeLuckUpgrades": {
         "name": "L'herbe verte, si verte, de l'Ambroisie",
@@ -383,27 +384,27 @@
       },
       "freeTutorialLevels": {
         "name": "Plus de niveaux du module tutoriel de Myrtilles !",
-        "description": "Une sorte de méta-tutoriel. Une puissante capacité de l'Ambroisie Rouge est d'enrichir votre arbre de Myrtilles ! Augmente le niveau effectif du module tutoriel de Myrtille de 1 par niveau.",
+        "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level. These levels apply even if the Module is not activated.",
         "effect": "Cette amélioration augmente le niveau effectif du Module tutoriel d'Ambroisie de <<pink | {{amount}}>> !"
       },
       "freeLevelsRow2": {
         "name": "Plus de niveaux pour la ligne 2 de l'arbre de Myrtilles !",
-        "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la seconde ligne, par niveau.",
+        "description": "Add one effective level per level to all Blueberry Modules in the third row, excluding the first column, and to hybrid modules that grant Ambrosia Luck. These levels apply even if the Module is not activated.",
         "effect": "Cette amélioration augmente de <<pink|{{amount}}>> le niveau effectif des Modules de Myrtilles de la troisième rangée (hors première colonne) et des modules hybrides qui donnent de la Chance d'Ambroisie !"
       },
       "freeLevelsRow3": {
         "name": "Plus de niveaux pour la ligne 3 de l'arbre de Myrtilles !",
-        "description": "Sans exceptions, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la troisième ligne, par niveau.",
+        "description": "Add one effective level per level to all Blueberry Modules in rows 5 and 6, excluding the first column, the RNG-based Offerings Booster, and Singularity Stabilizer modules. These levels apply even if the Module is not activated.",
         "effect": "Cette amélioration augmente de <<pink|{{amount}}>> le niveau effectif des Modules de Myrtilles des rangées 5 et 6, hors première colonne, Amplificateur d'Offrandes basé sur la RNG et modules Stabilisateurs de Singularité !"
       },
       "freeLevelsRow4": {
         "name": "Plus de niveaux pour la ligne 4 de l'arbre de Myrtilles !",
-        "description": "Sans exceptions, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la quatrième ligne, par niveau.",
+        "description": "Add one effective level per level to all Blueberry Modules in the second row, excluding the first column, and to hybrid modules that grant cubes. These levels apply even if the Module is not activated.",
         "effect": "Cette amélioration augmente de <<pink|{{amount}}>> le niveau effectif des Modules de Myrtilles de la deuxième rangée (hors première colonne) et des modules hybrides qui donnent des Cubes !"
       },
       "freeLevelsRow5": {
         "name": "Plus de niveaux pour la ligne 5 de l'arbre de Myrtilles !",
-        "description": "À l'exception du Stabilisateur de Singularité, ajoute un niveau effectif à tous les modules de Myrtilles qui se trouvent sur la cinquième ligne, par niveau.",
+        "description": "Add one effective level per level to all Blueberry Modules in the first row, excluding the first column, and to hybrid modules that grant quarks. These levels apply even if the Module is not activated.",
         "effect": "Cette amélioration augmente de <<pink|{{amount}}>> le niveau effectif des Modules de Myrtilles de la première rangée (hors première colonne) et des modules hybrides qui donnent des Quarks !"
       },
       "blueberryGenerationSpeed": {
@@ -456,7 +457,7 @@
       },
       "viscount": {
         "name": "Vicomte du Gars Rubis",
-        "description": "Pour une quantité absurde d'Ambroisie Rouge, obtenez une petite portion de terre, ce qui fait de vous un \"vicomte\" de cette terre. Achetez ceci pour obtenir +10% de Quarks, +125 chance d'Ambroisie, +25 chance Rouge, et un rôle Discord !",
+        "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and become eligible for a role on our Discord server!",
         "effect": "📜 {{mark}}"
       },
       "infiniteShopUpgrades": {
@@ -704,8 +705,8 @@
           "flavor": "Ramassés directement par terre dans l'Encabulateur.",
           "cost": "Coût : <<var(--purple-text-color)|{{purpleAmbrosia}} Ambroisie Violette>> et <<cyan|{{quarks}} Quarks>>.",
           "purchaseAria": "Acheter {{amount}} niveaux de Copeaux Subatomiques pour {{purpleAmbrosia}} Ambroisie Violette et {{quarks}} Quarks.",
-          "effectNotMaxed": "À chaque Synthèse : gagnez <<silver|{{current}} →>> <<gold|{{next}}>> Quarks.",
-          "effectMaxed": "À chaque Synthèse : gagnez <<gold|{{value}}>> Quarks."
+          "effectNotMaxed": "Quarks from Synthesis: <<silver|x{{current}} →>> <<gold|x{{next}}>>",
+          "effectMaxed": "Quarks from Synthesis: <<gold|x{{value}}>>"
         },
         "exceptionalLieGroup": {
           "name": "Groupe de Lie exceptionnel",
@@ -909,9 +910,9 @@
       "purpleQuarkGain": {
         "name": "Quarks cultivés en laboratoire",
         "flavor": "A l'apparence, la texture, le goût d'un Quark, et <i>est</i> un Quark.",
-        "effectNotMaxed": "<<silver|+{{oldValue}} →>> <<gold|+{{newValue}}>> Quarks par Miel Violet extrait",
-        "effectMaxed": "<<gold|+{{maxValue}}>> Quarks par Miel Violet extrait",
-        "disclaimer": "<<gold | ⚠>> Ce bonus ne fonctionne que si votre Singularité actuelle dure depuis au moins 1 heure, et si vous n'êtes pas dans l'EXALT 'Recharge des Barres' ! Le labo a besoin de temps pour chauffer, après tout."
+        "effectNotMaxed": "Quarks from extracted Purple Honey: <<silver|x{{oldValue}} →>> <<gold|x{{newValue}}>>",
+        "effectMaxed": "Quarks from extracted Purple Honey: <<gold|x{{maxValue}}>>",
+        "disclaimer": "<<gold | ⚠>> This perk does not work in the 'Bar Charging' EXALT!"
       }
     }
   },
@@ -1562,7 +1563,7 @@
         "taxReduction": "Progression des impôts réduite de 5%"
       },
       "118": {
-        "taxReduction": "Progression des impôts réduite de num:((0.5))% par Défi de Réincarnation terminé (multiplicatif)"
+        "taxReduction": "Multiply Tax scaling by num:((0.9925))x for every Reincarnation Challenge completion"
       },
       "120": {
         "diamondUpgrade18": "Débloquez la 18e Amélioration de Diamants !"
@@ -1792,13 +1793,13 @@
         "antAutobuyers": "Achetez automatiquement des fourmis SAINT ESPRIT DU DIEU FOURMI !"
       },
       "437": {
-        "prestigeCountMultiplier": "Gagnez +100% de Prestiges en plus par chiffre de votre nombre de Prestiges (additif) !"
+        "prestigeCountMultiplier": "Gain +100% more Prestige Count per digit in your Prestige Count!"
       },
       "438": {
         "duplicationRuneUnlock": "Débloquez définitivement la Rune de Duplication !"
       },
       "439": {
-        "offeringBonus": "Gagnez +2% d'Offrandes en plus par chiffre de votre nombre de Prestiges (additif) !"
+        "offeringBonus": "Gain +2% more Offerings per digit in your Prestige Count!"
       },
       "442": {
         "transcendToPrestige": "Chaque Transcendance comptée vous rapporte 1 Prestige compté (soumis aux multiplicateurs du nombre de Prestiges)"
@@ -1807,7 +1808,7 @@
         "transcensionCountMultiplier": "Gagnez jusqu'à 4x plus de Transcendances selon votre chronomètre de Prestige (maximum à 10s)"
       },
       "452": {
-        "transcensionCountMultiplier": "Gagnez +100% de Transcendances en plus par chiffre de votre nombre de Transcendances (additif) !"
+        "transcensionCountMultiplier": "Gain +100% more Transcension Count per digit in your Transcension Count!"
       },
       "453": {
         "salvage": "Gagnez +2 Recyclage par chiffre de votre nombre de Transcendances !"
@@ -1822,11 +1823,11 @@
         "reincarnationCountMultiplier": "Gagnez jusqu'à 4x plus de Réincarnations selon votre chronomètre de Prestige (maximum à num:((1000))s)"
       },
       "467": {
-        "reincarnationCountMultiplier": "Gagnez +100% de Réincarnations en plus par chiffre de votre nombre de Réincarnations (additif) !",
+        "reincarnationCountMultiplier": "Gain +100% more Reincarnation Count per digit in your Reincarnation Count!",
         "obtainiumTimerMultiplier": "Gagnez +100% d'Obtainium en plus toutes les 10 secondes de votre Réincarnation en cours, en continu !"
       },
       "468": {
-        "obtainiumBonus": "Gagnez +2% d'Obtainium en plus par chiffre de votre nombre de Réincarnations (additif) !"
+        "obtainiumBonus": "Gain +2% more Obtainium per digit in your Reincarnation Count!"
       },
       "470": {
         "thriftRuneUnlock": "Débloquez définitivement la Rune de l'Épargne !"
@@ -2248,7 +2249,6 @@
     "totalPoints": "Points d'accomplissement : {{x}}/{{y}} [{{z}}%]",
     "achievementPoints": "Vous avez {{x}} Points de Succès (PS) !",
     "achievementPointsMobile": "Points de Succès (PS) : {{x}}",
-    "rewardGainMessage": "Récompense : {{x}} PS. {{y}} Quarks ! {{z}}",
     "completed": " OBTENU !",
     "notification": "Vous avez obtenu un succès : {{m}}",
     "quarkBonus": "Gagnez .01 de Multiplicateur de Quarks par tranche de 500 PS ! Multiplicateur de Quarks : <<cyan | x{{multiplier}}>>",
@@ -2591,6 +2591,7 @@
     },
     "leaderboard": {
       "toggleDaily": "Quotidien",
+      "toggleSingularity": "Singularity",
       "toggleAllTime": "Tous les temps",
       "value": "Valeur pondérée totale : <<gold|{{x}}>> (Étape <<gold|{{y}}>>)",
       "quarksGained": "Quarks gagnés grâce aux Étapes : <<cyan|{{x}}>>",
@@ -2601,13 +2602,14 @@
       "weight": "Poids",
       "stageModal": {
         "introDaily": "Votre classement quotidien est à l'Étape <<gold|{{x}}>>.",
+        "introSingularity": "Your Singularity leaderboard is at Stage <<gold|{{x}}>>.",
         "introAllTime": "Votre classement de tous les temps est à l'Étape <<gold|{{x}}>>.",
         "stageLine": "<<turquoise|{{x}}>> Étapes, valant <<#00DDFF|{{y}}>> de Valeur pondérée (<<gold|{{z}}>> par Étape)",
         "toNextStage": "Il vous faut <<gold|{{x}}>> de Valeur pondérée en plus pour atteindre l'Étape suivante.",
         "disclaimer": "Les Étapes de Valeur pondérée sont calculées <<gold|de la même façon>> que les Étapes d'ELO Renaissant. Formule de la Valeur pondérée : <<orchid | Somme(ELO_i * Poids_i)>>, où i est la place du Sacrifice de Fourmis dans le classement."
       },
       "dailyQuarkModal": {
-        "intro": "Vous avez gagné <<cyan|{{x}}>> Quarks grâce au Sacrifice de Fourmis aujourd'hui !",
+        "intro": "You've gained <<cyan|{{x}}>> Quarks from Ant Sacrifice!",
         "quarkLine": "<<turquoise|{{x}}>> Étapes, valant <<cyan|{{y}}>> Quarks (<<cyan|{{z}}>> par Étape)",
         "bonusMult": "Obtenez num:((1.002))x plus de Quarks par Étape, jusqu'à l'Étape num:((1000)). Actuellement : <<cyan|x{{x}}>>",
         "allTimeMult": "Multiplicateur de Quarks du classement de tous les temps : <<cyan|x{{x}}>>",
@@ -2667,7 +2669,7 @@
     "altarHeader": "Le Dieu Fourmi... <<crimson | Il a faim.>>",
     "altarDetails": "Sacrifiez-lui vos Fourmis contre de l'<<crimson | ELO Immortel>> et tout un tas d'autres choses de ce monde.",
     "compendiumHeader": "Le Dieu Fourmi apprécie vos donations.",
-    "compendiumDetails": "Il vous offre des Quarks en échange de vos meilleurs Sacrifices de chaque jour.",
+    "compendiumDetails": "She offers you some Quarks in exchange for your best Sacrifices.",
     "anthillAlive": "Votre Fourmilière est en vie depuis",
     "currentAnthill": "(C'est votre <<gold|{{ord}}>> Fourmilière)",
     "galacticCrumbCount": "Vous avez {{x}} Miettes Galactiques.",
@@ -2832,7 +2834,7 @@
       "restrictions": "Réincarnez-vous et atteignez l'objectif, sauf que vous payez plus d'impôts ! <br> ☆ Votre charge fiscale est multipliée par <<gold|3 * (1 + complétions / 25)^2>> <br> ☆ Votre production de Pièces est divisée par <<gold | num:((1e250))>>",
       "goal": "Objectif : obtenez {{value}} Éclats de Mythos dans le Défi.",
       "per": {
-        "1": "-num:((3.5))% d'impôts [Multiplicatif] ! Actuellement : ",
+        "1": "Taxes xnum:((0.965))! Current: ",
         "2": "+num:((0.3)) de Recyclage ! Actuellement : ",
         "3": "Offrandes +2% ! Actuellement : "
       },
@@ -2890,7 +2892,7 @@
       "goal": "Objectif : obtenir {{value}} Pièces dans le Défi.",
       "per": {
         "1": "+1 niveau gratuit de Fourmi ! Actuellement : ",
-        "2": "+10% de vitesse des Fourmis [Multiplicatif !] Actuellement : ",
+        "2": "Ant Speed xnum:((1.1))! Current: ",
         "3": "+num:((0.5)) de Recyclage ! Actuellement : "
       },
       "first": "Débloque les Talismans et les Bénédictions, dans l'onglet des runes. Une Amélioration de Diamants globale.",
@@ -2962,17 +2964,17 @@
       "name": "Défi 'Impôts+++' || {{- value}} Complétions",
       "progressName": "Défi Impôts+++",
       "flavor": "Bonne chance avec le fisc, camarade.",
-      "restrictions": "Effectuez une Ascension et atteignez l'objectif, mais les impôts sont bien plus élevés et augmentent avec les complétions de Défis. <br> ☆ Vitesse des Fourmis <<gold|^num:((0.23))>> <br> ☆ Chaque Défi de Transcendance et de Réincarnation terminé multiplie votre charge fiscale par <<gold|num:((1.05))>> (les complétions accordées au début d'une Ascension ne comptent pas)",
+      "restrictions": "Ascend and reach the goal, but taxes are much higher and grow with challenge completions. <br> ☆ Ant Speed <<gold|^num:((0.23))>> <br> ☆ Each Transcension and Reincarnation Challenge completed multiplies your tax burden by <<gold|num:((1.05))>> (completions awarded at the start of an Ascension do not count) <br> ☆ You can only complete at most one challenge per tick, to help avoid fatal mistakes",
       "goal": "Objectif : compléter le Défi 10 [Défi Sadique I] {{value}} fois.",
       "per": {
-        "1": "-num:((3.33))% d'impôts ! Multiplicatif ! Actuellement : ",
+        "1": "Taxes xnum:((0.966))! Current: ",
         "2": "+6 à la limite de niveau des Talismans ! Actuellement : ",
         "3": "+3% d'efficacité des pouvoirs des Esprits ! Actuellement : "
       },
       "first": "Débloque 15 Recherches et la puissance de l'Hypercube !",
       "start": "Commencer <[(Impôts+++)]>",
       "current": {
-        "1": "-{{value}}% de charge fiscale",
+        "1": "Tax multiplier x{{value}}",
         "2": "+{{value}} à la limite de niveau de Talismans",
         "3": "+{{value}}% d'efficacité"
       }
@@ -3063,8 +3065,9 @@
     "hypercubeOneTimeBonus": "Obtenez 1 HYPERCUBE Wow! pour avoir fini ce Défi (bonus de première complétion).",
     "ascensionBankAdd": "Compléter ce Défi ajoute {{x}} à la banque d'Ascension et augmente le score de base de {{y}}.",
     "ascensionBankMultiply": "Terminer le Défi multiplie la Banque de Cubes par x{{x}}.",
-    "firstTimeBonus": "Obtenez {{x}} pour avoir fini ce Défi [Bonus de première complétion] !",
-    "firstTimeBonusQuarks": "Obtenez {{x}} Quarks pour avoir fini de Défi [Bonus de première complétion] !"
+    "dailyQuarks": "Each completion earns {{x}} base Primary Quarks every day!",
+    "singularityQuarks": "Each completion earns {{x}} base Primary Quarks once per Singularity!",
+    "completionQuarkMultiplier": "Each completion adds +{{x}}% to the Challenge Completions Quark multiplier!"
   },
   "cubes": {
     "upgradeNames": {
@@ -3209,10 +3212,10 @@
       "57": "[Cx7] Miam miam ! Maintenant ça me parle… ou pas. Augmentez de 1 la limite des améliorations de Cube 1x1, 2x1, 3x1, 4x1 et 5x1.",
       "58": "[Cx8] Un peu festifs ! Quand il y a un évènement, les gains de tous les Cubes sont multipliés par num:((1.25)).",
       "59": "[Cx9] Plutôt acide pour un cookie. Mais il augmente votre Vitesse d'Ascension de +num:((0.25))% par niveau, alors qui s'en plaindrait ?",
-      "60": "[Cx10] Wow! La pâtisserie a des restes de gingembre de leur vente de Noël. Réduisez le prix d'achat des Quarks Dorés de num:((0.003))% par niveau.",
-      "61": "[Cx11] Comestible mais sujet aux erreurs. Ajoute 25 millisecondes entières à la tolérance du code 'time', et augmente sa récompense de +2% par niveau. Au maximum, le code 'time' donne toujours sa récompense, même en cas d'échec !",
+      "60": "[Cx10] Wow! Bakery had extra ginger from their christmas sale. Reduce the price of Golden Quark Stocks by num:((0.001))% per level.",
+      "61": "[Cx11] Edible but prone to mistakes. Adds 25 whole milliseconds to the tolerance of code 'time', and increases its rewards by +3% per level. When maxxed, code 'time' always gives its reward, even if you fail it!",
       "62": "[Cx12] Platonic adore le caramel. Votre gain d'Obtainium et d'Offrandes est multiplié par 8 dans le Défi 15.",
-      "63": "[Cx13] Les cookies brownie, le meilleur des deux mondes. Augmente le gain de Cubes 3D de 1% selon les Hepteracts possédés (+3% par ordre de grandeur).",
+      "63": "[Cx13] Brownie Cookies, the best of both worlds. Multiply 3D Cube Gain by num:((1.03))x for every digit in your owned Hepteracts.",
       "64": "[Cx14] Certains disent que le Dieu Fourmi a écrit lui-même ces fortunes. Quand vous obtenez une statue de Cubes Platonics, vous en obtenez deux à la place.",
       "65": "[Cx15] That's amore, mais ça fait plein de miettes ! Multiplie la Vitesse des Fourmis par num:((1.004)) par Fourmi Ouvrière achetée.",
       "66": "[Cx16] Vous aimeriez avoir juste un dernier biscuit cuisiné par elle. Obtenez le double de tous les Cubes avant d'avoir acheté OMEGA.",
@@ -3281,8 +3284,8 @@
       "23": "[1x23] Chaque Offrande utilisée augmente de num:((0.3)) l'EXP de Rune par niveau !",
       "24": "[1x24] Augmente vos Offrandes de base de num:((0.4)) par niveau.",
       "25": "[1x25] Augmente vos Offrandes de base de num:((0.6)) par niveau.",
-      "26": "[2x1] Augmente de 150% le rendement de tous les producteurs de Cristaux par niveau (multiplicatif).",
-      "27": "[2x2] Augmente de 150% le rendement de tous les producteurs de Cristaux par niveau (multiplicatif).",
+      "26": "[2x1] Multiply all Crystal producer production by 2.5x per level.",
+      "27": "[2x2] Multiply all Crystal producer production by 2.5x per level.",
       "28": "[2x3] Vous connaissez la formule du multiplicateur de Cristaux sur les Pièces ? Ajoutez num:((0.08)) à son Exposant par niveau !",
       "29": "[2x4] Pareil que pour [2x3]. Ajoutez num:((0.08)) à son Exposant par niveau !",
       "30": "[2x5] La moitié de [2x3]. Ajoutez num:((0.04)) à son Exposant par niveau !",
@@ -3307,10 +3310,10 @@
       "49": "[2x24] Débloque les améliorations de Réincarnation 11 à 15. [Le prix des améliorations varie entre num:((1e30)) et num:((1e60)) Particules]",
       "50": "[2x25] Débloque les améliorations de Réincarnation 16 à 20. [Vous devriez peut-être attendre de pouvoir compléter le Défi 8 !]",
       "51": "[3x1] Réduit le poids de tes impôts par 6% par niveau.",
-      "52": "[3x2] Réduit le poids de tes impôts de 5% par niveau (s'ajoute de manière multiplicative aux autres réductions d'impôts).",
-      "53": "[3x3] Réduit le poids de tes impôts de 5% par niveau (s'ajoute de manière multiplicative aux autres réductions d'impôts).",
-      "54": "[3x4] Réduit le poids de tes impôts de 5% par niveau (s'ajoute de manière multiplicative aux autres réductions d'impôts).",
-      "55": "[3x5] Réduit le poids de tes impôts de 5% par niveau (s'ajoute de manière multiplicative aux autres réductions d'impôts).",
+      "52": "[3x2] Reduces your tax burden by 5% per level.",
+      "53": "[3x3] Reduces your tax burden by 5% per level.",
+      "54": "[3x4] Reduces your tax burden by 5% per level.",
+      "55": "[3x5] Reduces your tax burden by 5% per level.",
       "56": "[3x6] L'augmentation des coûts des bâtiments est retardée de 0,5% par niveau.",
       "57": "[3x7] L'augmentation des coûts des bâtiments est retardée de 0,5% par niveau.",
       "58": "[3x8] L'augmentation des coûts des bâtiments est retardée de 0,5% par niveau.",
@@ -3326,11 +3329,11 @@
       "68": "[3x18] Augmente le nombre maximal de complétions de [Pas d'Éclats] de 5 par niveau.",
       "69": "[3x19] Augmente le nombre maximal de complétions de [Coûts+] de 5 par niveau.",
       "70": "[3x20] Augmente le nombre maximal de complétions de [Moins de Diamants] de 5 par niveau.",
-      "71": "[3x21] Obtenez automatiquement des complétions du Défi 1 lorsque vous êtes dans un Défi de Réincarnation",
-      "72": "[3x22] Obtenez automatiquement des complétions du Défi 2 lorsque vous êtes dans un Défi de Réincarnation",
-      "73": "[3x23] Obtenez automatiquement des complétions du Défi 3 lorsque vous êtes dans un Défi de Réincarnation",
-      "74": "[3x24] Obtenez automatiquement des complétions du Défi 4 lorsque vous êtes dans un Défi de Réincarnation",
-      "75": "[3x25] Obtenez automatiquement des complétions du Défi 5 lorsque vous êtes dans un Défi de Réincarnation",
+      "71": "[3x21] While in a Reincarnation Challenge, automatically gain Challenge 1 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.25)).",
+      "72": "[3x22] While in a Reincarnation Challenge, automatically gain Challenge 2 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.6)).",
+      "73": "[3x23] While in a Reincarnation Challenge, automatically gain Challenge 3 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.7)).",
+      "74": "[3x24] While in a Reincarnation Challenge, automatically gain Challenge 4 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((1.45)).",
+      "75": "[3x25] While in a Reincarnation Challenge, automatically gain Challenge 5 completions up to your highest ever, as long as your Coins this Transcension are at least the next completion's requirement to the power of num:((2)).",
       "76": "[4x1] Voici +10% d'Obtainium par niveau pour vous aider à acheter ces prochaines Recherches !",
       "77": "[4x2] Voici +1 Coefficient de Rune pour la Rune de l'Épargne, par niveau !",
       "78": "[4x3] Voici +1 Coefficient de Rune pour la Rune de Célérité, par niveau !",
@@ -3354,8 +3357,8 @@
       "96": "[4x21] Les Fourmis sont lentes ? Multipliez la Vitesse des Fourmis par (1 + 0.0002 * niveau) par Fourmi Ouvrière achetée.",
       "97": "[4x22] Ajoute +2 niveaux gratuits aux Améliorations de Fourmis par niveau ! Les niveaux gratuits nécessitent un niveau acheté correspondant pour fonctionner !",
       "98": "[4x23] Ajoute encore +2 niveaux gratuits aux Améliorations de Fourmis par niveau !",
-      "99": "[4x24] Les Améliorations de Quarks sont trop tentantes ? Obtenez +1 Quark par heure d'Exportation pour chaque niveau !",
-      "100": "[4x25] Bon, Platonic a perdu la boule. +1 Quark DE PLUS par heure d'Exportation pour chaque niveau !",
+      "99": "[4x24] Are the Quark Upgrades too hot to resist? +0.2x Quark multiplier for Exports and Code 'add' for each level!",
+      "100": "[4x25] Alright, Platonic is off his rocker. +0.2x MORE Quark multiplier for Exports and Code 'add' for each level!",
       "101": "[5x1] Et si on ajoutait +.001 à l'efficacité de la Fourmi Inceptus par niveau ?",
       "102": "[5x2] Gagnez +1 niveau gratuit pour TOUTES les Fourmis par niveau ! Une attaque arc-en-ciel !",
       "103": "[5x3] Priez au Dieu Fourmi pour +5% de récompenses de Sacrifice de Fourmis par niveau !",
@@ -3380,7 +3383,7 @@
       "122": "[5x22] +2% de récompenses de Sacrifice de Fourmis par niveau.",
       "123": "[5x23] +40 d'ELO de Fourmi par niveau.",
       "124": "[5x24] Débloque des options avancées pour Le Grand Automate ! Contrôlez le moment du Sacrifice selon votre ELO Renaissant.",
-      "125": "[5x25] Bonne chance, camarade. [+1 Quark/heure à l'export par niveau]",
+      "125": "[5x25] Good luck, buddy. [+0.2x Quark multiplier for Exports and Code 'add' per level]",
       "126": "[6x1] 6 rangées ? Impossible... (+1% d'Accélérateurs / niveau)",
       "127": "[6x2] Encore +1% de Renforts d'Accélérateur / niveau !",
       "128": "[6x3] Le tiercé gagnant ! +1% de Multiplicateurs / niveau.",
@@ -3414,7 +3417,7 @@
       "156": "[7x6] Quoi, encore ? D'accord. +num:((0.6))% d'Accélérateurs par niveau.",
       "157": "[7x7] Gas, gas, gas. +num:((0.6))% de Renforts d'Accélérateur par niveau.",
       "158": "[7x8] Dupli DUPLI DUPLI. +num:((0.6))% de Multiplicateurs par niveau.",
-      "159": "[7x9] Je ne saurais l'expliquer, mais vous réduisez vos impôts de 2% (multiplicatif), selon 3/5 * log10(Fragments Rares) !",
+      "159": "[7x9] Somehow, I can't explain why, you multiply your Taxes by num:((0.98))^(3/5 × log10(Rare Fragments))!",
       "160": "[7x10] Envie d'un bonus permanent de Bénédiction ? Je sais que oui. +25% de Puissance de Bénédiction, définitivement.",
       "161": "[7x11] SIGMA KAPPA : +num:((0.3))% de Puissance de Rune par niveau !",
       "162": "[7x12] Plus d'exponentiation ! +0,0001% de puissance d'Inceptus par niveau !",
@@ -3435,7 +3438,7 @@
       "177": "[8x2] +Log10(Miettes)% de Vitesse des Fourmis par niveau. Joli bonus, non ?",
       "178": "[8x3] +666 ELO de Fourmi de base par niveau ! Le sinistre nombre de la bête.",
       "179": "[8x4] +num:((0.04))% d'Offrandes en plus par niveau par niveau du Talisman de Midas !",
-      "180": "[8x5] +1 Quark à l'export par heure par niveau, encore une fois.",
+      "180": "[8x5] +0.2x Quark multiplier for Exports and Code 'add' per level, yet again.",
       "181": "[8x6] +num:((0.6))% de Vitesse Globale par niveau, parce que pourquoi pas ? Vous êtes déjà à la vitesse de la lumière.",
       "182": "[8x7] +num:((0.7))% de Cubes dans la banque d'Ascension par niveau, grâce aux dividendes des actions Wow!.",
       "183": "[8x8] Lorsque vous ouvrez un Hypercube, vous ouvrez également 100 Tesseracts ! (Si vous vous posiez la question, cela fonctionne avec 7x3.)",
@@ -3450,7 +3453,7 @@
       "192": "[8x17] Chaque niveau acheté de Mortuus Est (l'Amélioration de Fourmis) augmente aussi la récompense en Cubes Wow! de +num:((0.20))%",
       "193": "[8x18] +1% de récompense de Sacrifice de Fourmis par niveau.",
       "194": "[8x19] Augmente à la fois la Puissance d'Esprit ET la Puissance de Bénédiction de +2% par niveau.",
-      "195": "[8x20] Obtenez +1 Quark à l'export par niveau, et augmente la durée maximale pour réclamer les Quarks de 5 h à chaque fois !",
+      "195": "[8x20] +0.2x Quark multiplier for Exports and Code 'add' per level!",
       "196": "[8x21] +num:((0.3))% de Vitesse Globale par niveau. Plus vite que la lumière ?",
       "197": "[8x22] +num:((0.6))% de Cubes dans la Banque d'Ascension par niveau. Personne ne sait comment. Erreur de la banque, peut-être.",
       "198": "[8x23] +num:((0.06))% de Tributs des Cubes par niveau ! Wow! Cubes fait vraiment beaucoup d'erreurs de fabrication en votre faveur.",
@@ -3479,16 +3482,20 @@
   },
   "shop": {
     "upgradeDescriptions": {
-      "offeringPotion": "Obtiens instantanément 2 heures réelles d'Offrandes, calculées par rapport à ton meilleur rapport Offrandes/s et ta vitesse de jeu !",
-      "obtainiumPotion": "Obtiens instantanément 2 heures réelles d'Obtainium, calculées par rapport à ton meilleur rapport Obtainium/s et ta vitesse de jeu !",
+      "offeringPotion": "Instantly gain 2 real life hours of Offerings, based on your current Offerings/sec and speed acceleration!",
+      "obtainiumPotion": "Instantly gain 2 real life hours of Obtainium, based on your current Obtainium/sec and speed acceleration!",
       "offeringEX": "À chaque niveau, obtenez +10% d'Offrandes en plus ! Tous les 10 niveaux, l'effet de cette amélioration est multiplié par num:((1.12)).",
       "offeringAuto": "Verse automatiquement des Offrandes dans une Rune. Le premier niveau débloque la mécanique, et chaque niveau la rend 1% plus rapide !",
       "obtainiumEX": "À chaque niveau, obtenez +10% d'Obtainium en plus ! Tous les 10 niveaux, l'effet de cette amélioration est multiplié par num:((1.12)).",
       "obtainiumAuto": "Verse automatiquement de l'Obtainium dans une Recherche. Le premier niveau débloque la mécanique. Chaque niveau réduit aussi le coût des Recherches de num:((0.1))% ! (coût arrondi au supérieur)",
-      "instantChallenge": "Les défis T et R ne provoquent plus de réinitialisation si réessayer est activé et ils gagnent jusqu'à 10 complétions par tick. De plus, quand tu quittes un défi R, tu gagnes automatiquement le plus grand nombre de complétions déjà atteint pour les défis T.",
+      "instantChallenge": "Completing a T or R Challenge doesn't cause a reset.",
+      "instantChallengeExit": "Instantly gain T Challenge completions up to highest completed when exiting R Challenges.",
+      "instantChallengeExitAscension": "Instantly gain T Challenge completions up to highest completed when exiting R Challenges or Ascending.",
+      "instantChallengeCompletions": "Gain up to 11 T and R Challenge completions per tick, including those from Researches 3x21 to 3x25.",
       "antSpeed": "Chaque niveau donne +8 d'ELO de Fourmi. Ne demandez pas d'où ça vient.",
       "cashGrab": "C'est hors de prix mais ça donne quelques stats sympa. +1% de production d'Offrandes et d'Obtainium par niveau.",
       "shopTalisman": "Débloque définitivement un Talisman de la Boutique !",
+      "shopMindPalace": "There are buildings everywhere for those with the MIND to see! When you purchase any type of building, it no longer deducts resources from you.",
       "seasonPass": "Les Cubes Wow! te font une offre : achète ce Passe Saisonnier tout à fait honnête et obtiens +2.25% de Cubes et de Tesseracts par niveau lors des Ascensions !",
       "challengeExtension": "Par un incroyable tour de passe-passe, tu réussis à augmenter la limite de tes Défis de Réincarnation de 2 par niveau !",
       "challengeTome": "La version longue : ce cinquième tome oublié te donne une réduction supplémentaire de l'exposant de l'objectif du Défi 10 de 20 millions par niveau. Après 60 complétions des Défis 9 et 10, cela réduira également le facteur d'augmentation de 1% par niveau.",
@@ -3497,40 +3504,48 @@
       "hypercubeToQuark": "Vos gains de Quarks via les Hypercubes sont faiblards ? Achetez ceci pour +50% de Quarks à l'ouverture des Hypercubes Wow!, pour toujours ! Les niveaux suivants donnent jusqu'à +50% de plus, avec une décroissance exponentielle.",
       "seasonPass2": "Cinq fois plus cher, deux fois plus de fun ! +num:((1.5))% d'Hypercubes Wow! et de Cubes Platonics par niveau.",
       "seasonPass3": "Bon, là c'est juste abusé. +num:((1.5))% d'Hepteracts Wow! et d'Octeracts par niveau !",
+      "seasonPass3Locked": "Okay, now this is just ridiculous. +num:((1.5))% Wow! Hepteracts per level!",
+      "lockedCubeAllusion": "Also buffs a type of Cube you haven't yet unlocked...",
       "chronometer": "Ces Ascensions sont plutôt lentes, non ? Tu prendras bien +1.2% de temps d'Ascension supplémentaire par niveau ?",
       "infiniteAscent": "Bon, pour une somme exorbitante, vous pouvez obtenir la 6e rune, qui donne +num:((0.2))% de Quarks et +1% de tous les types de Cubes par niveau !",
       "calculator": "La PL-AT peut faire des additions plus vite que son ombre. Pas beaucoup plus par contre. +14% de Quarks en utilisant le code 'Addition' par niveau. Le premier niveau fournit les solutions et le dernier niveau les remplit automatiquement !",
       "calculator2": "La PL-AT X a une plus grande mémoire, ce qui vous permet de stocker 2 utilisations supplémentaires du code 'Addition' par niveau. Le dernier niveau augmente de 25% les Quarks obtenus en utilisant le code 'Addition' !",
       "calculator3": "La PL-AT Ω est infusée avec de l'Unobtainium, c'est épique ! Mais en plus, elle réduit la variance des Quarks obtenus avec le code 'Addition' de 10% par niveau, ce qui augmente les chances d'avoir le multiplicateur maximum. Elle peut aussi donner +60 secondes au temps d'ascension par niveau en utilisant ce code.",
       "calculator4": "La PL-AT δ tourne à num:((4096)) Hz, une énorme amélioration par rapport aux modèles précédents. Réduit l'intervalle entre les utilisations du code 'Add' de 4% par niveau ! Le dernier niveau permet de stocker 3 heures de plus (10,800 secondes) !",
-      "calculator5": "Le modèle PL-AT Γ, d'une façon ou d'une autre, réussit à faire des calculs plus 'puissants', peu importe ce que ça veut dire. +6 secondes au temps d'export pour les QO par niveau. +1 de capacité tous les 10 niveaux, avec 6 en plus au dernier niveau !",
+      "calculator5": "The PL-AT Γ model somehow performs more 'powerful' computations, whatever that means. Each use of Code 'add' increases today's Export Quark multiplier by +0.01% per level. You also store 1 extra minute per level (60 seconds) and 80 additional minutes when maxed (4,800 seconds)!",
       "calculator6": "Le modèle PL-AT _ a été créé par Derpsmith, avant qu'il ne se soit fait bannir de l'industrie pour toujours. Gagnez une seconde d'Octeracts par utilisation par niveau. Le dernier niveau donne 24 de capacité supplémentaire !",
       "calculator7": "Le modèle PL-AT ΩΩ a été conçu par Derpsmith Ω, avant qu'il ne soit banni de l'industrie pour toujours. Obtenez 1 seconde réelle de points de la barre d'Ambroisie par utilisation par niveau. Le niveau final donne augmente la capacité de 48 !",
       "constantEX": "Le marchand a un dernier tour dans son sac : il peut optimiser légèrement votre seconde amélioration de Constante, mais cela coûtera un bras et une jambe ! La limite ne sera plus de 10% (ou 11% avec les succès), mais sera à la place augmentée de 1% par niveau.",
       "powderEX": "Platonic lui-même améliore de 2% votre taux de conversion des Orbes de Surfusion en Poudre par niveau. Cette conversion s'active lorsque les Orbes expirent.",
-      "chronometer2": "Bon, d'accord. Voici +num:((0.6))% de vitesse d'Ascension supplémentaire par niveau, qui cumule multiplicativement avec la première amélioration !",
-      "chronometer3": "BON. D'ACCORD. Voilà ENCORE une augmentation de +num:((1.5))% de la vitesse d'Ascension par niveau, se cumulant de manière multiplicative comme toujours.",
+      "chronometer2": "Okay, fine. Here's another +num:((0.6))% Ascension Speed per level!",
+      "chronometer3": "OKAY. FINE. Here's yet ANOTHER +num:((1.5))% Ascension Speed per level.",
       "seasonPassY": "C'est encore plus dingue que le dernier, mais vous allez quand même l'acheter. +num:((0.75))% pour TOUS les cubes par niveau.",
       "seasonPassZ": "Celui-ci est sans aucun doute excellent. Obtenez +1% de TOUS les Cubes par niveau, par Singularité !",
       "challengeTome2": "Vous trouvez les dernières pages du tome perdu. Elles fonctionnent de la même manière que les autres pages, mais vous pouvez en avoir jusqu'à cinq de plus !",
-      "instantChallenge2": "Compléter un Défi d'Ascension ne réinitialise rien (si les Défis automatiques sont activés) et tu gagnes une complétion supplémentaire par tick par Singularité.",
+      "instantChallenge2": "Completing an Ascension Challenge other than Challenge 15 doesn't cause a reset.",
+      "instantChallenge2Reincarnation": "Gain every T and R Challenge completion you can afford each tick.",
+      "instantChallenge2Research": "Researches 3x21 to 3x25 gain every completion you can afford each tick.",
       "cubeToQuarkAll": "Pour commencer, pourquoi ne pas obtenir +num:((0.2))% de Quarks en ouvrant des Cubes par niveau ?",
+      "shopPrimaryQuarkClock": "When you buy this, your <<cyan|Primary Quarks>> no longer reset at midnight every day. To compensate, if your Singularity is longer than 24 hours, you gain a multiplier that continuously increases by <<gold|+1>> each day after that.",
+      "shopPrimaryQuarkClockRoots": "Augmented with <<pink|Roots of Unity>>, your <<cyan|Primary Quarks>> no longer reset at midnight every day. To compensate, <<cyan|Primary Quarks>> are multiplied based on your Singularity time. This multiplier continuously increases by <<gold|+{{perDay}}>> per day, with a minimum multiplier of <<gold|1>>.",
+      "shopPrimaryQuarkClockTimerReset": "<<gold|⚠>> Purchasing this will set your current Singularity timer to 1 day, if your current Singularity has taken longer than that!",
       "cashGrab2": "Celui-ci est loin d'être aussi bon que l'original. +num:((0.5))% d'Offrandes et d'Obtainium par niveau.",
       "chronometerZ": "Obtiens +num:((0.1))% de vitesse d'Ascension par niveau par Singularité. Il demande un paquet d'énergie pour démarrer.",
       "offeringEX2": "Obtiens +1% d'Offrandes par niveau par Singularité. L'industrie des pénalités de Singularité va mettre la clef sous la porte.",
       "powderAuto": "Tes grand-parents devaient atteindre une journée entière pour de la poudre, mais pas toi ! Pour chaque niveau, obtiens 1% de poudre selon le ratio de conversion des Orbes.",
       "seasonPassLost": "Il serait sage de ne pas toucher à ceci. +num:((0.1))% d'Octeracts par niveau, peu importe ce que c'est…",
       "challenge15Auto": "Tes grands-parents devaient tordre les dimensions pour obtenir leur score du Défi 15, mais pas toi ! Mets à jour automatiquement ton score du Défi 15 chaque tick lorsque tu es dedans !",
-      "extraWarp": "« Hé mec, entre dans ce portail que j'ai construit hier soir dans ma cabane ! » a dit le Marchand Coin-Coin. <<crimson | Avec ça, vous pouvez utiliser la Distorsion Quotidienne deux fois par jour... mais il faudra peut-être attendre le lendemain pour l'activer.>>",
-      "autoWarp": "Avec le pouvoir des Quarks, la machine de distorsion peut maintenant rentrer en surcharge.",
+      "extraWarp": "\"Hey dude, get in this portal I built up last night in my shed!\" said the Quack Merchant. <<crimson|Your Primary Quark Warp gives +1 more to its multiplier.>>",
+      "autoWarp": "With the power of Quacks, the Warp machine can now run itself.",
       "improveQuarkHept": "Cet exposant sur vos Hepteracts de Quarks est sympa, mais s'il était meilleur ? Gagnez +num:((0.01)) de puissance par niveau à l'exposant de l'Hept. de Quarks !",
       "improveQuarkHept2": "Vous voulez des Hepts. de Quarks encore plus forts ? Gagnez +num:((0.01)) de puissance par niveau à l'exposant de l'Hept. de Quarks !",
       "improveQuarkHept3": "Vous vous demandez sûrement pourquoi je vous vendrais ça au lieu de m'en servir moi-même. Eh bien... voici +num:((0.01)) de puissance par niveau !",
       "improveQuarkHept4": "+num:((0.01)) de puissance par niveau... Vous savez que 10^num:((0.01)) fait environ num:((1.023)), hein ?",
-      "shopImprovedDaily": "Hé vous. Oui, vous ! Les Quarks rendent heureux le Phoque marchant. Obtenez-en +5% supplémentaires du code 'quotidien' par niveau.",
-      "shopImprovedDaily2": "Gagnez 1 Amélioration de Quarks Dorés gratuite supplémentaire et 20% de Quarks Dorés en plus par utilisation de 'daily', par niveau !",
-      "shopImprovedDaily3": "Gagnez 1 Amélioration de Quarks Dorés gratuite supplémentaire et 15% de Quarks Dorés en plus par utilisation de 'daily', par niveau !",
-      "shopImprovedDaily4": "Gagnez 1 Amélioration de Quarks Dorés gratuite supplémentaire et 100% de Quarks Dorés en plus par utilisation de 'daily', par niveau !",
+      "shopImprovedDaily": "Hey you. Yeah, you! Quarks make seal merchant happy. Get +15% more of them from code 'daily' per level.",
+      "shopImprovedDaily2": "Gain 1 additional free Golden Quark Upgrade and 15% more Quarks from code 'daily' per level!",
+      "shopImprovedDaily3": "Gain 1 additional free Golden Quark Upgrade and 15% more Quarks from code 'daily' per level!",
+      "shopImprovedDaily4": "Gain 1 additional free Golden Quark Upgrade and 15% more Quarks from code 'daily' per level!",
+      "shopImprovedDaily5": "[Supplied by - Infinity CO.] Gain num:((0.02))% more free Golden Quark Upgrades and num:((0.05))% more Quarks from code 'daily' per level!",
       "offeringEX3": "[Fourni par - Infinité SARL] Obtenez num:((1.2))% d'Offrandes supplémentaires par niveau, de façon multiplicative ! (Le multiplicateur est de num:((1.012))^niveau). Tous les 25 niveaux, obtenez +1 Offrande de base !",
       "obtainiumEX3": "[Fourni par - Infinité SARL] Obtenez num:((1.2))% d'Obtainium supplémentaire par niveau, de façon multiplicative ! (Le multiplicateur est de num:((1.012))^niveau). Tous les 25 niveaux, obtenez 6% d'Obtainium immaculé multiplicatif ! (num:((1.06))^[niveau/25])",
       "chronometerInfinity": "[Fourni par - Infinité SARL] Obtenez num:((0.6))% de vitesse d'Ascension supplémentaire par niveau, de façon multiplicative ! (Le multiplicateur est de num:((1.006))^niveau). Tous les 40 niveaux, obtenez +num:((0.001)) de diffusion des modificateurs d'exposant de vitesse d'Ascension pour les vitesses plus grandes ou plus petites que 1 (allez voir les stats pour les nerds pour celui-ci) !",
@@ -3539,29 +3554,43 @@
       "obtainiumEX2": "Gagnez +1% d'Obtainium par niveau par Singularité !!!",
       "improveQuarkHept5": "[Fourni par - Infinity CO.] Ajoute +0.0001 à l'exposant de l'Hept. de Quarks par niveau. L'effet vaut 1% des originaux... pour des raisons d'équilibrage. Oui.",
       "shopAmbrosiaGeneration1": "Acheter ce porte-bonheur donne +1% de points de la Barre d'Ambroisie par niveau, pour plus d'Ambroisie !",
-      "shopAmbrosiaGeneration2": "Cette nouvelle poudre d'Obtainium renforcée rend votre breloque plus puissante, lui donnant +1% de points de la barre d'Ambroisie, se cumulant de façon multiplicative.",
-      "shopAmbrosiaGeneration3": "Il s'avère que rajouter plus de poudre d'Obtainium rend votre breloque encore plus puissante, va savoir. +1% de points de la barre d'Ambroisie par niveau, se cumulant de façon multiplicative.",
-      "shopAmbrosiaGeneration4": "Et si vous ajoutiez également de la poudre de Quarks ??? Vous allez le découvrir. +num:((0.1))% de points de la barre d'Ambroisie par niveau, se cumulant de façon multiplicative.",
+      "shopAmbrosiaGeneration2": "Newly fortified Obtainium Dust makes your charm more powerful, giving +1% more Ambrosia Bar Points per level.",
+      "shopAmbrosiaGeneration3": "It turns out adding more Obtainium Dust makes your charm more powerful, go figure. +1% more Ambrosia Bar Points per level.",
+      "shopAmbrosiaGeneration4": "What if you also added Quark Dust??? You will find out. +num:((0.1))% more Ambrosia Bar Points per level.",
       "shopAmbrosiaLuck1": "Acheter ce porte-bonheur donne +2 de Chance d'Ambroisie par niveau, pour plus d'Ambroisie !",
-      "shopAmbrosiaLuck2": "Vous obtenez un trèfle à quatre feuilles un peu plus grand, qui donne +2 de Chance d'Ambroisie par niveau, de façon additive.",
-      "shopAmbrosiaLuck3": "Vous obtenez un trèfle à quatre feuilles un peu plus vert, qui donne +2 de Chance d'Ambroisie par niveau, de façon additive.",
-      "shopAmbrosiaLuck4": "Vous obtenez un trèfle à quatre feuilles un peu « meilleur », peu importe ce que ça veut dire, qui donne +num:((0.6)) de Chance d'Ambroisie par niveau, de façon additive.",
+      "shopAmbrosiaLuck2": "You get a slightly larger four leaf clover, giving +2 Ambrosia luck per level.",
+      "shopAmbrosiaLuck3": "You get a slightly greener four leaf clover, giving +2 Ambrosia luck per level.",
+      "shopAmbrosiaLuck4": "You get a slightly 'better' four leaf clover, what ever that means, giving +num:((0.6)) Ambrosia luck per level.",
+      "shopAmbrosiaLuck5": "[Supplied by - Infinity CO.] Gain +num:((0.01))% Ambrosia Luck per level!",
       "shopRedLuck1": "Un petit dé de moindre qualité, offert par le tacticien du jeu en personne. +num:((0.05)) de Chance Rouge par niveau. Tous les 20 niveaux, réduit le ratio de conversion de la Chance d'Ambroisie en Chance Rouge de num:((0.01)).",
       "shopRedLuck2": "Celui-ci semble avoir un côté plus lourd. Je me demande bien pourquoi. +num:((0.075)) de Chance Rouge par niveau. Tous les 20 niveaux, réduit le ratio de conversion de la Chance d'Ambroisie en Chance Rouge de num:((0.01)).",
       "shopRedLuck3": "Quand vous ramassez ce dé, il disparaît puis revient, le six sur le dessus. +num:((0.1)) de Chance Rouge par niveau. Tous les 20 niveaux, réduit le ratio de conversion de la Chance d'Ambroisie en Chance Rouge de num:((0.01)).",
       "shopRedLuck4": "Inutile même de toucher ce dé. Il simule instantanément un monde où vous faites un six. +num:((0.2)) de Chance Rouge par niveau. Tous les 100 niveaux, réduit le ratio de conversion de la Chance d'Ambroisie en Chance Rouge de num:((0.01)).",
+      "shopPurpleHoneyLuck": "[Supplied by - Infinity CO.] Gain +num:((0.01)) Purple Honey Luck per level!",
+      "shopPurpleHoneyLuckFreeLevels": "+1 free level to all \"Purple Honey Luck\" Type Quark Upgrades per level!",
+      "shopFreeQuarkUpgrades": "Gain +0.1 Free Levels of \"Quark\" type Quark Upgrades per level!",
+      "shopCorruptionScalingReduction": "All of the lights! -1% difficulty scaling on all Corruptions.",
+      "shopPrestigeCount": "Gain +1% more <<cyan|Prestige Count>> per level!",
+      "shopTranscensionCount": "Gain +1% more <<orchid|Transcension Count>> per level!",
+      "shopReincarnationCount": "Gain +1% more <<green|Reincarnation Count>> per level!",
+      "shopAntSacrificeCount": "Gain +1% more <<orange|Anthill Count>> per level!",
+      "shopResetUpgradesImprover": "+1 free level to all \"Reset\" Type Quark Upgrades per level!",
       "shopAmbrosiaLuckMultiplier4": "Gagnez +1% de Chance d'Ambroisie par niveau ! Aussi simple que ça.",
       "shopOcteractAmbrosiaLuck": "Gagnez +1 de Chance d'Ambroisie par niveau, multiplié par le nombre de chiffres de vos Octeracts produits au total !",
       "shopCashGrabUltra": "Pour un prix symbolique, gagnez jusqu'à +15% de points de la Barre d'Ambroisie, +120% de Cubes et +8% de Quarks par niveau selon l'Ambroisie, avec une progression non linéaire jusqu'à num:((10000000)) gagnées au total.",
       "shopAmbrosiaAccelerator": "Pour chaque niveau de cet Accélérateur, réduit les points de la Barre d'Ambroisie requis pour générer de l'Ambroisie de num:((0.6))% par complétion de l'EXALT 6 - Pas d'Améliorations d'Ambroisie.",
-      "shopEXUltra": "Avec cette Amélioration EX, chaque tranche de num:((1000)) Ambroisies possédées ajoute +num:((0.1))% d'<<orchid|Obtainium>>, d'<<orange|Offrandes>> et de <<white|Cubes>> ! Cet effet plafonne à num:((125000)) * (niveau de l'amélioration) !",
-      "shopChronometerS": "Avec cette amélioration, gagnez +1% de Vitesse d'Ascension et de Vitesse Globale par numéro de Singularité au-delà de 200 !",
+      "shopEXUltra": "With this EX Upgrade, every num:((1000)) lifetime Ambrosia adds +num:((0.1))% <<orchid|Obtainium>>, <<orange|Offerings>> and <<white|Cubes>>! This effect caps at num:((125000)) * (level of shop upgrade)!",
+      "shopChronometerS": "Gain x1.01 Ascension Speed and Global Speed for every Singularity above 200!",
+      "shopChronometerSFormula": "Multiplier = 1.01^(Singularity - 200)",
       "shopAmbrosiaUltra": "Pour cette Amélioration EX absurdement chère, chaque complétion d'EXALT donne +2 de Chance d'Ambroisie permanente, par niveau.",
-      "shopSingularitySpeedup": "Vous connaissez tous ces Privilèges et Améliorations de Singularité liés au temps ? Maintenant, ils progressent 50 fois plus vite ! Grâce à cette horloge bizarre qui altère même le <<gray | Temps Singulier>>...",
+      "shopRootsOfUnity": "<<cyan|Primary Quark Clock of Infinitude>> grows the <<cyan|Primary Quarks>> multiplier by <<gold|+{{perDay}}>> per day instead of <<gold|+1>>, based on your total EXALT Tiers.",
+      "shopRootsOfUnityFormula": "Growth = <<gold|+24 × 1.05^(Total EXALT Tiers)>> per day, up to <<gold|+10,000>>.",
+      "shopSingularitySpeedup": "A weird clock that somehow alters your memory of <<gray | Time>>. You feel as though you can claim Miscellaneous Quark sources so many more times than before. <<gold|222>> times in particular.",
       "shopSingularityPotency": "Vous connaissez toutes ces Améliorations de Quarks Dorés gratuites ? La plupart (pas les Sabliers) sont désormais 266% plus efficaces (chacune vaut donc l'équivalent de num:((3.66)) niveaux, avant plafonds doux). Pourquoi ? Grâce à ce drôle de <<gray | Dispositif Rituel de Transmission de Singularité>> ! Ne posez pas de questions.",
       "shopSadisticRune": "Quelle rune étrange ; le marchand (qui, vous le savez, ne voit plus) vous dit par télépathie que c'est une rune d'Ascension Infinie imbibée de <<gray | Matière de Singularité>>. Y avait-il d'autres Ascensions ? Ou peut-être une <<gray | Descente ?>>",
       "shopInfiniteShopUpgrades": "Un Bon de Réduction, imprimé sur une tablette bleue. Chacun donne +num:((0.01)) niveau effectif des Améliorations de Quarks 'Infinity CO.', multiplié par la somme de vos complétions d'EXALT, le tout arrondi à l'inférieur.",
-      "shopHorseShoe": "Les fers à cheval protègent bien ! Ajoute 3 niveaux gratuits de la rune du Fer du Cheval, et chaque niveau de cette rune réduit les effets des pénalités de Singularité (sauf le Recyclage) de num:((0.1))% par niveau, de façon additive (max -30%) !",
+      "shopInfiniteShopUpgrades2": "A Shop Voucher, printed on a white tablet. Grants +num:((1)) effective level of the 'Infinity CO.' Quark shop upgrades every (51 - level) Synergism Levels.",
+      "shopHorseShoe": "Horse Shoes make good protection! Add 3 free levels of Horse Shoe rune, and each level of Horse Shoe rune decreases effects of Singularity Debuffs (except Salvage and Ant ELO) by num:((0.1))% per level (Max -30%)!",
       "shopPanthema": "Un as venu de l'espace !",
       "shopPurpleBarRebate": "Quand la Barre Violette de l'Encabulateur se remplit, gagnez <<var(--blueberry-text-color)|+num:((50000))>> points de la Barre d'Ambroisie et <<var(--red-text-color)|+num:((25))>> points de la Barre Rouge par niveau de cette amélioration !"
     },
@@ -3574,8 +3603,26 @@
     "plusForQuarks": "+ {{x}} pour {{y}} Quarks",
     "consume": "CONSOMMER",
     "buyPotion": "Acheter : 100 Quarks l'unité",
-    "singularityQuarkCost": "Acheter ! {{cost}} Quarks l'unité",
-    "singularityQuarkAmount": "Possédés : {{amount}}",
+    "goldenQuarkStockMarket": {
+      "name": "Golden Quark Stock Market",
+      "description": "Buy Golden Quark Stocks with Quarks. Each Stock is worth Golden Quarks equal to your Golden Quark Multiplier. Spending Quarks here does not reduce the Golden Quarks you get from your next Singularity.",
+      "bonus": "A Stock pays out its value in Golden Quarks as soon as you buy it. If your Golden Quark Multiplier grows before midnight, your Stocks gain value and you receive the difference. Stocks expire at midnight.",
+      "owned": "Golden Quarks: {{amount}}",
+      "buy": "Buy Stock: {{cost}} Quarks",
+      "stocksBought": "Stocks Bought Today",
+      "paidOut": "Golden Quarks Paid Out Today",
+      "stockValue": "Golden Quarks per Stock",
+      "appreciation": "If your Golden Quark Multiplier grows before midnight, your Stocks gain value and you receive the difference. Stocks expire at midnight.",
+      "prompt": {
+        "value": "Golden Quarks per Stock: {{amount}}",
+        "hint": "Enter Stocks or a Quark budget.",
+        "stocks": "Stocks to buy",
+        "quarks": "Quarks to spend",
+        "summary": "Buy {{levels}} Stocks for {{cost}} Quarks.",
+        "affordable": "You can afford {{levels}} Stocks for {{cost}} Quarks.",
+        "unavailable": "You can't purchase any Stocks with selected Stocks or budget."
+      }
+    },
     "buyYerPotions": "Achètes tes potions !",
     "header": "Bienvenue dans la boutique de Quarks. Tu es impressionné par le choix disponible !",
     "testingOnlyUpgrade": "⚠ Version de test : cette amélioration serait normalement cachée car vous ne l'avez pas encore débloquée.",
@@ -3597,11 +3644,15 @@
       "offeringEX": "Vous gagnerez <<goldenrod|{{amount}}>> d'Offrandes en plus !",
       "offeringAuto": "Rune auto : {{amount}}. Vitesse de la Rune auto +{{amount2}}",
       "obtainiumEX": "Vous gagnerez <<pink|{{amount}}>> d'Obtainium en plus !",
-      "obtainiumAuto": "Tente d'améliorer une Recherche à chaque Réincarnation, avec des coûts de Recherche de <<pink|{{amount}}>>.",
+      "obtainiumAuto": "Try to upgrade Research each tick, with <<pink|{{amount}}>> Research Costs.",
       "instantChallenge": "Même dans un magasin premium, c'est un peu évident, n'est-ce pas ?",
       "antSpeed": "L'ELO de Fourmi augmente de <<orchid|{{amount}}>>.",
       "cashGrab": "Vous gagnerez <<gold|{{amount}}>> d'Obtainium et d'Offrandes en plus !",
       "shopTalisman": "Même dans un magasin premium, c'est un peu évident, n'est-ce pas ?",
+      "shopMindPalace": {
+        "effectHave": "Buildings <<green|DON'T>> cost their nominal resource cost.",
+        "effectHaveNot": "Buildings <<red|DO>> cost their nominal resource cost."
+      },
       "seasonPass": "Les Ascensions donnent <<lightgoldenrodyellow|{{amount}}>> de Cubes et Tesseracts Wow! en plus.",
       "challengeExtension": "Les Défis de Réincarnation peuvent être complétés <<lime|{{amount}}>> fois supplémentaires.",
       "challengeTome": "Exposant requis du Défi 10 réduit de <<lightgoldenrodyellow|{{amount1}}>>. Au-delà de 25 complétions, les exigences des D9 et D10 progressent <<lightgoldenrodyellow|{{amount2}}%>> plus lentement",
@@ -3609,48 +3660,54 @@
       "tesseractToQuark": "Les Tesseracts Wow! donnent <<cyan|+{{amount}}>> de Quarks en plus !",
       "hypercubeToQuark": "Les Hypercubes Wow! donnent <<cyan|+{{amount}}>> de Quarks en plus !",
       "seasonPass2": "Les Ascensions donnent <<lightgoldenrodyellow|{{amount}}>> d'Hypercubes et de Cubes Platoniques en plus.",
-      "seasonPass3": "Les Ascensions donnent <<lightgoldenrodyellow|{{amount}}>> d'Hepteracts et d'Octeracts en plus.",
+      "seasonPass3": "Ascensions give <<lightgoldenrodyellow|{{amount}}>> more Hepteracts, and you generate <<lightgoldenrodyellow|{{amount}}>> more Wow! Octeracts per second.",
+      "seasonPass3Locked": "Ascensions give <<lightgoldenrodyellow|{{amount}}>> more Hepteracts.",
       "chronometer": "Le chronomètre d'Ascension avance <<orange|{{amount}}>> plus vite.",
       "infiniteAscent": "Le premier niveau donne <<cyan|+10%>> de Quarks, gratuitement !",
       "calculator": "Le code 'add' donne <<cyan|{{amount1}}>> de Quarks en plus. Réponse auto : <<orchid|{{bool1}}>>, Remplissage auto : <<orchid|{{bool2}}>>",
       "calculator2": "Le code 'add' peut stocker <<orchid|{{amount1}}>> secondes de plus. 'add' génère <<cyan|{{amount2}}>> de Quarks en plus.",
       "calculator3": "Les récompenses du code 'add' sont <<orchid|{{amount1}}>> moins aléatoires. 'add' ajoute <<orchid|{{amount2}}>> secondes au chronomètre d'Ascension.",
       "calculator4": "L'intervalle entre deux utilisations du code 'add' est <<orchid|{{amount1}}>> plus court. Capacité augmentée de <<orchid|+{{amount2}}>> secondes.",
-      "calculator5": "Le code 'add' génère <<orchid|{{amount1}}>> secondes de chronomètre d'export de QD. Capacité augmentée de <<orchid|+{{amount2}}>> secondes.",
+      "calculator5": "Code 'add' increases today's Export Quark multiplier by <<orchid|+{{amount1}}%>>. Capacity is increased by <<orchid|+{{amount2}}>> seconds.",
       "calculator6": "Le code 'add' génère <<orchid|{{amount1}}>> secondes d'Octeracts. Capacité augmentée de <<orchid|+{{amount2}}>> secondes.",
       "calculator7": "Le code 'add' génère <<orchid|{{amount1}}>> secondes de points de la Barre d'Ambroisie. Capacité augmentée de <<orchid|+{{amount2}}>> secondes.",
       "constantEX": "<<orange|+{{amount}}%>> au maximum de l'Amélioration de Constante 2",
       "powderEX": "Gagnez <<red|+{{amount}}>> de Poudre de Surfusion quand les Orbes de Surfusion expirent (à minuit, chaque jour).",
       "chronometer2": "Le chronomètre d'Ascension avance <<orange|{{amount}}>> plus vite !",
-      "chronometer3": "Le chronomètre d'Ascension avance <<orange|{{amount}}>> plus vite ! Celui-ci n'est <<red|jamais>> réinitialisé !",
-      "seasonPassY": "Les Ascensions donnent <<lightgoldenrodyellow|{{amount}}>> de Cubes (de <<orchid|tous>> types) en plus.",
-      "seasonPassZ": "Les Ascensions donnent <<lightgoldenrodyellow|{{amount}}>> de Cubes (de <<orchid|tous>> types) en plus. Celui-ci n'est <<red|jamais>> réinitialisé !",
+      "chronometer3": "Ascension timer increases <<orange|{{amount}}>> faster!",
+      "seasonPassY": "Ascensions give <<lightgoldenrodyellow|{{amount}}>> more cubes (of <<orchid|all>> types), and you generate <<lightgoldenrodyellow|{{amount}}>> more Wow! Octeracts per second.",
+      "seasonPassYLocked": "Ascensions give <<lightgoldenrodyellow|{{amount}}>> more cubes.",
+      "seasonPassZ": "Ascensions give <<lightgoldenrodyellow|{{amount}}>> more cubes (of <<orchid|all>> types), and you generate <<lightgoldenrodyellow|{{amount}}>> more Wow! Octeracts per second.",
+      "seasonPassZLocked": "Ascensions give <<lightgoldenrodyellow|{{amount}}>> more cubes.",
       "challengeTome2": "Exposant requis du Défi 10 réduit de <<lightgoldenrodyellow|{{amount1}}>>. Au-delà de 25 complétions, les exigences des D9 et D10 progressent <<lightgoldenrodyellow|{{amount2}}%>> plus lentement",
       "instantChallenge2": "Les Défis instantanés complètent <<orchid|+{{amount}}>> Défis supplémentaires par tick.",
       "cubeToQuarkAll": "L'effet de votre Orbe de Surfusion est multiplié par <<cyan|×{{amount}}>> !",
-      "cashGrab2": "Vous gagnerez <<gold|{{amount}}>> d'Obtainium et d'Offrandes en plus ! <<red|Moitié>> moins puissant que l'original.",
+      "shopPrimaryQuarkClock": "Your Singularity Timer multiplies <<cyan|Primary Quarks>> by <<gold|x{{x}}>>.",
+      "cashGrab2": "You will gain <<gold|{{amount}}>> more Obtainium and Offerings! <<red|Substantially weaker>> than the original.",
       "chronometerZ": "Le chronomètre d'Ascension avance <<orange|{{amount}}>> plus vite ! On dirait que ce modèle peut prendre de l'<<orchid|élan>>...",
       "offeringEX2": "Vous gagnerez <<goldenrod|{{amount}}>> d'Offrandes en plus ! Le premier fait pâle <<red|figure>> à côté...",
       "obtainiumEX2": "Vous gagnerez <<pink|{{amount}}>> d'Obtainium en plus ! Le premier fait pâle <<red|figure>> à côté...",
       "powderAuto": "Toutes les <<red|{{amount}}>> Orbes achetées donnent une poudre.",
+      "powderAutoNone": "Purchased orbs do not grant powder yet.",
       "seasonPassLost": "Vous générez <<lightgoldenrodyellow|{{amount}}>> d'Octeracts Wow! en plus par seconde.",
       "challenge15Auto": "Même dans un magasin premium, c'est un peu évident, n'est-ce pas ?",
-      "extraWarp": "Vous pouvez faire <<red|+{{amount}}>> Distorsion supplémentaire.",
-      "autoWarp": "Si tu achètes cette amélioration, tu peux activer la <<red|distorsion automatique>> dans l'onglet de la forge d'Hepteracts. Seulement si tu achètes ceci, cependant.",
+      "extraWarp": "Your Primary Quark Warp multiplier is increased by <<red|+{{amount}}>>.",
+      "autoWarp": "If you buy this upgrade, you can toggle <<red|Auto Warp>> in the Hepteract Forge tab. While on, the Primary Quark Warp activates by itself whenever you have 25 Powder.",
       "improveQuarkHept": "L'exposant de l'Hepteract de Quarks augmente de <<cyan|+{{amount}}>>.",
       "improveQuarkHept2": "L'exposant de l'Hepteract de Quarks augmente de <<cyan|+{{amount}}>>.",
       "improveQuarkHept3": "L'exposant de l'Hepteract de Quarks augmente de <<cyan|+{{amount}}>>.",
       "improveQuarkHept4": "L'exposant de l'Hepteract de Quarks augmente de <<cyan|+{{amount}}>>.",
       "improveQuarkHept5": "L'exposant de l'Hepteract de Quarks augmente de <<cyan|+{{amount}}>>.",
       "shopImprovedDaily": "Le code 'daily' donne <<cyan|+{{amount}}>> de Quarks en plus.",
-      "shopImprovedDaily2": "Le code 'daily' donne <<turquoise|+{{amount1}}>> Améliorations de Quarks Dorés gratuites et <<gold|+{{amount2}}>> de Quarks Dorés en plus.",
-      "shopImprovedDaily3": "Le code 'daily' donne <<turquoise|+{{amount1}}>> Améliorations de Quarks Dorés gratuites et <<gold|+{{amount2}}>> de Quarks Dorés en plus.",
-      "shopImprovedDaily4": "Le code 'daily' donne <<turquoise|+{{amount1}}>> Améliorations de Quarks Dorés gratuites et <<gold|+{{amount2}}>> de Quarks Dorés en plus.",
+      "shopImprovedDaily2": "Code 'daily' grants <<turquoise|+{{amount}}>> free Golden Quark Upgrades and <<cyan|+{{amount2}}>> more Quarks.",
+      "shopImprovedDaily3": "Code 'daily' grants <<turquoise|+{{amount}}>> free Golden Quark Upgrades and <<cyan|+{{amount2}}>> more Quarks.",
+      "shopImprovedDaily4": "Code 'daily' grants <<turquoise|+{{amount}}>> free Golden Quark Upgrades and <<cyan|+{{amount2}}>> more Quarks.",
+      "shopImprovedDaily5": "Code 'daily' grants <<turquoise|+{{amount}}>> more free Golden Quark Upgrades and <<cyan|+{{amount2}}>> more Quarks.",
       "offeringEX3": "Gagnez <<goldenrod|{{amount}}>> d'Offrandes en plus ! Et <<goldenrod|+{{amount2}}>> Offrandes de base en plus !",
       "obtainiumEX3": "Gagnez <<pink|{{amount}}>> d'Obtainium en plus, et <<cyan|{{amount2}}>> d'Obtainium Immaculé en plus !",
       "chronometerInfinity": "Le chronomètre d'Ascension avance <<orange|{{amount}}>> plus vite. L'écart d'exposant augmente de <<orange|{{amount2}}>>.",
       "seasonPassInfinity": "Les Ascensions donnent <<lightgoldenrodyellow|{{amount}}>> de Cubes (de <<orchid|tous>> types) en plus. La production d'Octeracts augmente plutôt de <<green | {{amount2}}>>.",
-      "shopSingularityPenaltyDebuff": "Lors de la Singularité <<pink|{{amount1}}>>, tes pénalités sont comme si c'était en fait la Singularité <<pink|{{amount2}}>>.",
+      "shopSingularityPenaltyDebuff": "Singularity Penalties are delayed by <<pink|{{amount}}>> Singularities.",
       "shopAmbrosiaLuckMultiplier4": "Gagnez <<green|+{{amount}}>> de Chance d'Ambroisie !",
       "shopOcteractAmbrosiaLuck": "Les Octeracts donnent <<green|+{{amount}}>> de Chance d'Ambroisie !",
       "shopAmbrosiaGeneration1": "Les points de la Barre d'Ambroisie sont générés <<lightblue|{{amount}}>> plus vite.",
@@ -3661,20 +3718,31 @@
       "shopAmbrosiaLuck2": "<<lime|+{{amount}} de Chance d'Ambroisie>>",
       "shopAmbrosiaLuck3": "<<lime|+{{amount}} de Chance d'Ambroisie>>",
       "shopAmbrosiaLuck4": "<<lime|+{{amount}} de Chance d'Ambroisie>>",
+      "shopAmbrosiaLuck5": "Gain <<lime|+{{amount}}>> Ambrosia Luck!",
       "shopRedLuck1": "<<red|+{{amount}} de Chance Rouge>>, <<crimson|-{{amount2}} au ratio de conversion de Chance>>",
       "shopRedLuck2": "<<red|+{{amount}} de Chance Rouge>>, <<crimson|-{{amount2}} au ratio de conversion de Chance>>",
       "shopRedLuck3": "<<red|+{{amount}} de Chance Rouge>>, <<crimson|-{{amount2}} au ratio de conversion de Chance>>",
       "shopRedLuck4": "<<red|+{{amount}} de Chance Rouge>>, <<crimson|-{{amount2}} au ratio de conversion de Chance>>",
+      "shopPurpleHoneyLuck": "<<var(--purple-text-color)|+{{amount}} Purple Honey Luck>>",
+      "shopPurpleHoneyLuckFreeLevels": "Purple Honey Luck Quark Upgrades gain <<var(--purple-text-color)|+{{amount}}>> free levels.",
+      "shopFreeQuarkUpgrades": "Upgrades of \"Quark\" type get <<cyan|+{{amount}}>> Free Levels!",
+      "shopCorruptionScalingReduction": "Corruptions scale <<gold|{{amount}}>> slower.",
+      "shopPrestigeCount": "<<cyan|Prestige Count>> gained is increased by <<cyan|+{{amount}}>>.",
+      "shopTranscensionCount": "<<orchid|Transcension Count>> gained is increased by <<orchid|+{{amount}}>>.",
+      "shopReincarnationCount": "<<green|Reincarnation Count>> gained is increased by <<green|+{{amount}}>>.",
+      "shopAntSacrificeCount": "<<orange|Anthill Count>> gained is increased by <<orange|+{{amount}}>>.",
+      "shopResetUpgradesImprover": "Reset Quark Upgrades gain <<var(--lightcoral-color)|+{{amount}}>> free levels.",
       "shopCashGrabUltra": "<<lightblue|+{{amount}} de points de la Barre d'Ambroisie>>. Aussi, <<white|+{{amount2}} de Cubes de toutes dimensions>> ! Et enfin, <<cyan|+{{amount3}} de Quarks>> !",
       "shopAmbrosiaAccelerator": "Les points de la Barre d'Ambroisie requis pour générer de l'Ambroisie sont réduits de <<lightblue|{{amount}}>>.",
       "shopEXUltra": "L'Ambroisie augmente les <<orange|Offrandes>>, l'<<orchid|Obtainium>> et les <<white|Cubes>> de <<gold|{{amount}}>>.",
       "shopChronometerS": "La Vitesse d'Ascension et la Vitesse Globale augmentent toutes deux de <<orange|{{amount}}>>",
       "shopAmbrosiaUltra": "Gagnez <<lime|+{{amount}} de Chance d'Ambroisie>> grâce à vos complétions d'EXALT !",
-      "shopSingularitySpeedup": "Les Privilèges et Améliorations de Singularité basés sur le chronomètre de Singularité se renforcent <<gray|{{amount}}>> fois plus vite !",
+      "shopRootsOfUnity": "The <<cyan|Primary Quarks>> multiplier from <<cyan|Primary Quark Clock of Infinitude>> grows by <<gold|+{{perDay}}>> per day.",
+      "shopSingularitySpeedup": "Miscellaneous Quarks are multiplied by <<gold|x{{x}}>>.",
       "shopSingularityPotency": "La plupart des Améliorations de Quarks Dorés gratuites (pas les Sabliers) comptent comme si vous en aviez <<gray|{{amount}}>>.",
       "shopSadisticRune": "Je ne sais même pas ce que fait cette rune. L'avez-vous achetée ? Je ne vous vois pas, vous savez.",
       "shopInfiniteShopUpgrades": "Les niveaux effectifs des Améliorations de Quarks 'Infinity CO.' augmentent de <<white|{{amount}}>>.",
-      "shopHorseShoe": "Niveaux gratuits du Fer du Cheval <<burlywood|+{{amount1}}>>, réduction des pénalités de Singularité <<pink|{{amount2}}>> (hors Recyclage)",
+      "shopHorseShoe": "Free Horse Shoe levels <<burlywood|+{{amount1}}>>, Singularity Penalty reductions <<pink|{{amount2}}>> (Excludes Salvage and Ant ELO)",
       "shopPanthema": "Obtenez des bonus pour tous les niveaux gratuits d'Améliorations de Quarks, selon leur type !",
       "shopPanthemaOffering": "+{{amount}} d'Offrandes ! (+{{amount2}} par niveau d'Offrandes)",
       "shopPanthemaObtainium": "+{{amount}} d'Obtainium ! (+{{amount2}} par niveau d'Obtainium)",
@@ -3685,6 +3753,8 @@
       "shopPanthemaAmbrosiaGeneration": "+{{amount}} de points de la Barre d'Ambroisie ! (+{{amount2}} par niveau de Génération d'Ambroisie)",
       "shopPanthemaAmbrosiaLuck": "+{{amount}} de Chance d'Ambroisie ! (+{{amount2}} par niveau de Chance d'Ambroisie)",
       "shopPanthemaRedLuck": "+{{amount}} de Chance Rouge ! (+{{amount2}} par niveau de Chance Rouge)",
+      "shopPanthemaPurpleHoneyLuck": "+{{amount}} Purple Honey Luck! (+{{amount2}} per Purple Honey Luck level)",
+      "shopPanthemaAscensionCount": "+{{amount}} Ascension Count! (+{{amount2}} per Reset level)",
       "shopPurpleBarRebate": "Au remplissage de la Barre Violette : gagnez <<var(--blueberry-text-color)|+{{ambrosiaBarPointsPerFill}}>> points de la Barre d'Ambroisie et <<red|+{{redAmbrosiaBarPointsPerFill}}>> points de la Barre Rouge."
     },
     "names": {
@@ -3698,6 +3768,7 @@
       "antSpeed": "Bonus d'ELO de Fourmi",
       "cashGrab": "Attrape-sous",
       "shopTalisman": "Le Talisman en Plastique",
+      "shopMindPalace": "The MIND Palace",
       "seasonPass": "Passe de saison",
       "challengeExtension": "Défis de Réincarnation EX",
       "challengeTome": "Réduction des exigences du Défi 10",
@@ -3724,6 +3795,7 @@
       "challengeTome2": "Réduction des exigences du Défi 10 2",
       "instantChallenge2": "Complétions instantanées de Défis 2",
       "cubeToQuarkAll": "Amélioration Cube du gain de Quarks 2",
+      "shopPrimaryQuarkClock": "Primary Quark Clock of Infinitude",
       "cashGrab2": "Attrape-sous 2",
       "chronometerZ": "Chronomètre Z",
       "obtainiumEX2": "Obtainium EX 2",
@@ -3741,6 +3813,7 @@
       "shopImprovedDaily2": "Code Daily amélioré 2",
       "shopImprovedDaily3": "Code Daily amélioré 3",
       "shopImprovedDaily4": "Code Daily amélioré 4",
+      "shopImprovedDaily5": "Improved Daily Code 5",
       "offeringEX3": "L'Amélioration d'Offrandes finale",
       "obtainiumEX3": "L'Amélioration d'Obtainium finale",
       "improveQuarkHept5": "L'Améliorateur d'Hepteract de Quarks final",
@@ -3757,19 +3830,31 @@
       "shopAmbrosiaLuck2": "Un autre Augmentateur de Chance d'Ambroisie",
       "shopAmbrosiaLuck3": "Un meilleur Augmentateur de Chance d'Ambroisie",
       "shopAmbrosiaLuck4": "Un ULTIME Augmentateur de Chance d'Ambroisie",
+      "shopAmbrosiaLuck5": "A MORE FINAL Ambrosia Luck Increaser",
       "shopRedLuck1": "Dé d'Asmodée bas de gamme",
       "shopRedLuck2": "Dé d'Asmodée",
       "shopRedLuck3": "Dé d'Asmodée haut de gamme",
       "shopRedLuck4": "Dé d'Asmodée d'élite",
+      "shopPurpleHoneyLuck": "Purple Honey Luck Improver",
+      "shopPurpleHoneyLuckFreeLevels": "Purple Honey Luck Improver Improver",
+      "shopFreeQuarkUpgrades": "Drum in the Earth",
+      "shopCorruptionScalingReduction": "Blinded by the Light",
+      "shopPrestigeCount": "Prestige Counter",
+      "shopTranscensionCount": "Transcension Counter",
+      "shopReincarnationCount": "Reincarnation Counter",
+      "shopAntSacrificeCount": "Anthill Counter",
+      "shopResetUpgradesImprover": "Reset Upgrades Improver",
       "shopCashGrabUltra": "C'est l'ULTIME ATTRAPE-SOUS !",
       "shopAmbrosiaAccelerator": "Un Accélérateur Ambroisien !",
       "shopEXUltra": "C'est l'ULTIME E X !",
       "shopChronometerS": "L'ULTIME Chronomètre",
       "shopAmbrosiaUltra": "L'ULTIME Exaltation d'Ambroisie... J'en sais fichtre rien !",
-      "shopSingularitySpeedup": "Accélération des Privilèges temporels de Singularité",
+      "shopRootsOfUnity": "Roots of Unity",
+      "shopSingularitySpeedup": "Singular Clockwork",
       "shopSingularityPotency": "Puissance des Passifs de Singularité",
       "shopSadisticRune": "Débloquez la Rune Sadique ! Ou pas ?",
       "shopInfiniteShopUpgrades": "Bon de Réduction Bleu de la Boutique Infinie",
+      "shopInfiniteShopUpgrades2": "White Infinity Shop Voucher",
       "shopHorseShoe": "Une Pénalité de Singularité au Fer à Cheval",
       "shopPanthema": "Le Touche-à-tout",
       "shopPurpleBarRebate": "Remises de la Barre Violette"
@@ -3798,18 +3883,100 @@
       "shopImprovedDaily": "Code Daily amélioré",
       "infiniteAscent": "Ascension Infinie",
       "powderEX": "Poudre de Surfusion",
-      "extraWarp": "Distorsions quotidiennes",
+      "extraWarp": "Primary Quark Warps",
       "shopAmbrosiaGeneration1": "Génération d'Ambroisie",
       "shopAmbrosiaLuck1": "Chance d'Ambroisie",
       "shopAmbrosiaLuckMultiplier4": "Amplificateurs de Chance d'Ambroisie",
-      "shopRedLuck1": "Dés d'Asmodée"
+      "shopRedLuck1": "Dés d'Asmodée",
+      "shopPrestigeCount": "Reset Counters"
+    },
+    "quarkLedger": {
+      "base": "Base",
+      "multiplier": "Multiplier",
+      "awarded": "Awarded",
+      "total": "Total",
+      "quarksRewarded": "Quarks Rewarded",
+      "multiplierValue": "x{{x}}",
+      "primaryReset": {
+        "daily": "Primary Quarks reset in <<gold|{{time}}>>.",
+        "dailyOrSingularity": "Primary Quarks reset in <<gold|{{time}}>>, or on your next Singularity.",
+        "singularity": "<<gold|{{time}}>> → <<gold|x{{x}}>> Primary Quarks. Resets on your next Singularity."
+      },
+      "miscellaneousReset": "Miscellaneous Quarks reset in <<gold|{{time}}>>.",
+      "goldenQuarkReset": "Golden Quarks reset in <<gold|{{time}}>>.",
+      "rules": {
+        "baseGain": "1) If you gain Base Quarks from a source, you will gain Quarks equal to that amount times the current Multiplier, no matter what.",
+        "multiplierGrowth": "2) If your Multiplier grows such that Base Quarks * Multiplier exceeds the Awarded value, then you will automatically gain the difference."
+      },
+      "goldenQuarkRules": {
+        "baseGain": "1) If you gain Base Golden Quarks from a source, you will gain Golden Quarks equal to that amount times the current Multiplier, no matter what.",
+        "multiplierGrowth": "2) If your Multiplier grows such that Base Golden Quarks * Multiplier exceeds the Awarded value, then you will automatically gain the difference."
+      },
+      "categories": {
+        "primary": "Primary",
+        "miscellaneous": "Miscellaneous",
+        "goldenQuarks": "Golden Quarks"
+      },
+      "multipliers": {
+        "cubeToQuark": "Quark-Enriched Wow! Cubes: <<cyan|x{{x}}>>",
+        "tesseractToQuark": "Quark-Enriched Wow! Tesseracts: <<cyan|x{{x}}>>",
+        "hypercubeToQuark": "Quark-Enriched Wow! Hypercubes: <<cyan|x{{x}}>>",
+        "overfluxOrbs": "Overflux Orb Effect: <<cyan|x{{x}}>>",
+        "allTimeLeaderboard": "All-Time Ant Leaderboard: <<cyan|x{{x}}>>",
+        "dailyWarp": "Primary Quark Warp: <<cyan|x{{x}}>>",
+        "basicProgression": "Basic Progression Multiplier: <<cyan|x{{x}}>>",
+        "singularityTime": "Singularity Timer (+{{perDay}} per day): <<cyan|x{{x}}>>",
+        "shopSingularitySpeedup": "Singular Clockwork: <<cyan|x{{x}}>>",
+        "subatomicShavings": "Subatomic Shavings: <<cyan|x{{x}}>>",
+        "purpleQuarkGain": "Lab-Grown Quarks: <<cyan|x{{x}}>>",
+        "highestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
+        "exportResearches": "Researches 4x24, 4x25, 5x25, 8x5 and 8x20: <<cyan|x{{x}}>>",
+        "octeractExportQuarks": "Improved Download Speeds: <<cyan|x{{x}}>>",
+        "calculator5": "PL-AT Γ calculator: <<cyan|x{{x}}>>",
+        "shopImprovedDaily": "Improved Daily Code 1: <<cyan|x{{x}}>>",
+        "shopImprovedDaily2": "Improved Daily Code 2: <<cyan|x{{x}}>>",
+        "shopImprovedDaily3": "Improved Daily Code 3: <<cyan|x{{x}}>>",
+        "shopImprovedDaily4": "Improved Daily Code 4: <<cyan|x{{x}}>>",
+        "shopImprovedDaily5": "Improved Daily Code 5: <<cyan|x{{x}}>>",
+        "calculator": "PL-AT calculator: <<cyan|x{{x}}>>",
+        "calculator2": "PL-AT X calculator: <<cyan|x{{x}}>>",
+        "timeCodeHighestSingularity": "Highest Singularity: <<cyan|x{{x}}>>",
+        "cookieUpgrade61": "Wow! A tin of Whoopie Pies: <<cyan|x{{x}}>>",
+        "reincarnationChallenges": "Reincarnation Challenge Completions: <<cyan|x{{x}}>>",
+        "ascensionChallenges": "Ascension Challenge Completions: <<cyan|x{{x}}>>",
+        "globalMultiplier": "Quark Multiplier: <<cyan|x{{x}}>>",
+        "goldenQuarks3": "Golden Quarks III: <<cyan|x{{x}}>>",
+        "goldenRevolution3": "Golden Revolution III: <<cyan|x{{x}}>>",
+        "goldenQuarkMultiplier": "Golden Quark Multiplier: <<cyan|x{{x}}>>",
+        "total": "Total: <<cyan|x{{x}}>>"
+      },
+      "sources": {
+        "cubes": "Opening Wow! Cubes",
+        "tesseracts": "Opening Wow! Tesseracts",
+        "hypercubes": "Opening Wow! Hypercubes",
+        "platonics": "Opening Platonic Cubes",
+        "ants": "Reborn Ant ELO",
+        "export": "Exporting the Game",
+        "dailyCode": "Code 'daily'",
+        "addCode": "Code 'add'",
+        "timeCode": "Code 'time'",
+        "promoCodes": "One-time Promotion Codes",
+        "challenges": "Challenge Completions",
+        "synthesis": "Synthesizing Purple Ambrosia",
+        "purpleReactor": "Creating Purple Honey"
+      },
+      "goldenQuarkSources": {
+        "export": "Exporting the Game",
+        "dailyCode": "Code 'daily'",
+        "timeCode": "Code 'time'",
+        "purchases": "Golden Quark Stock Market"
+      }
     }
   },
   "singularity": {
     "goldenQuarks": {
-      "transaction": "Achat de {{spent}} Quarks Dorés réussi ! [-{{cost}} Quarks]",
+      "transaction": "Bought {{stocks}} Stocks worth {{amount}} Golden Quarks each: +{{goldenQuarks}} Golden Quarks! [-{{cost}} Quarks]",
       "poor": "Désolé, je ne peux pas donner de crédit. Reviens quand tu seras un peu... mmm... plus riche !",
-      "buyPrompt": "Vous pouvez acheter des Quarks Dorés ici pour {{cost}} Quarks (réduction de {{discount}}) ! Vous pouvez en acheter jusqu'à {{max}}. Combien en voulez-vous ? Tapez -1 pour acheter le maximum !",
       "spendPrompt": "Combien de niveaux voulez-vous acheter ? Vous pouvez en acheter jusqu'à {{n}} !. Tapez -1 pour utiliser le maximum !",
       "hasUpgrade": "Hé ! Vous avez déjà atteint le maximum pour cette amélioration. :D",
       "notHighEnoughLevel": "Vous n'êtes pas assez puissant pour acheter cela.",
@@ -3944,7 +4111,7 @@
       },
       "itAllAddsUp": {
         "name": "L'addition, s'il vous plaît",
-        "default": "Les récompenses et le délai de l'action spéciale \"Addition\" sont divisés par {{div}} tandis que sa capacité maximale est multiplié par la même quantité ! (Arrondi au supérieur)."
+        "default": "The 'Add' Special Action cooldown and its non-Quark rewards are divided by <b><<gold|{{div}}>></b>. 'Add' also stores <b><<gold|{{seconds}}>></b> more seconds!"
       },
       "automagicalRunes": {
         "name": "Runes Automagiques",
@@ -4007,11 +4174,11 @@
       },
       "goldenRevolutionII": {
         "name": "Révolution Dorée II",
-        "default": "Les Quarks Dorés sont num:((0.2))% moins chers par Singularité. Actuellement : -{{current}}% (Max : -50%)"
+        "default": "Golden Quark Stocks are num:((0.1))% cheaper per Singularity past 100. Currently: -{{current}}%"
       },
       "goldenRevolutionIII": {
         "name": "Révolution Dorée III",
-        "default": "L'exportation donne 2% de Quarks Dorés supplémentaires par Singularité. Actuellement : +{{current}}% (Max : +500%)"
+        "default": "Export gives 2% more Golden Quarks per highest Singularity. Currently: +{{current}}% (MAX: +300%)"
       },
       "platonicClones": {
         "name": "Des Clones de Platonic qui Cliquent devant votre Bureau",
@@ -4025,10 +4192,6 @@
         "name": "L'Or millénaire de Midas",
         "default": "Chaque utilisation de l'action spéciale \" Addition \" donne num:((0.01)) niveau gratuits de QD1 et num:((0.05)) niveau gratuit de QD3."
       },
-      "goldenRevolution4": {
-        "name": "Révolution Dorée IV",
-        "default": "Chaque tic d'Octeract, transférez 1 QD sur {{gq}} que vous gagneriez cette Singularité sur votre solde automatiquement !"
-      },
       "octeractMetagenesis": {
         "name": "Métagenèse d'Octeracts",
         "hasLevel1": "Donne des niveaux gratuits de Cogenèse ET de Trigenèse d'Octeracts selon vos niveaux gratuits et achetés actuels : respectivement (niveau * gratuits / 640)^num:((0.5)) et (niveau^2 * gratuits/125000)^num:((0.333)) ",
@@ -4038,7 +4201,7 @@
         "name": "Alchimie Immaculée",
         "hasLevel2": "Après la Singularité 200, l'avancement rapide ne fonctionne plus ! À la place, multipliez vos gains de QD et votre prix d'achat des QD par 8.",
         "hasLevel1": "Après la Singularité 200, l'avancement rapide ne fonctionne plus ! À la place, multipliez vos gains de QD et votre prix d'achat des QD par 5.",
-        "default": "Multiplie le gain de Quarks Dorés et divise leur coût d'achat par {{ multiplier }} ! <br><b>Ce Privilège prend en compte votre Singularité actuelle, pas la plus haute !</b><br>Paliers : s50, s90, s130, s170, s200, s217, s235, s253, s271, s289</br>"
+        "default": "Multiply Golden Quark gain by {{ multiplier }}! <br><b>This perk takes into account your current, not highest Singularity!</b><br>Thresholds: s50, s90, s130, s170, s200, s217, s235, s253, s271, s289</br>"
       },
       "skrauQ": {
         "name": "skrauQ",
@@ -4133,18 +4296,18 @@
     "data": {
       "goldenQuarks1": {
         "name": "Quarks Dorés I",
-        "description": "Dans le futur, vous obtiendrez 10% de Quarks Dorés en plus par niveau !",
-        "effect": "Gagnez définitivement {{n}} Quarks Dorés de plus lors des Singularités."
+        "description": "Gain 10% more Golden Quarks per level!",
+        "effect": "Permanently gain {{n}} more Golden Quarks."
       },
       "goldenQuarks2": {
         "name": "Quarks Dorés II",
-        "description": "L'achat de QD est num:((0.2))% moins cher par niveau ! [Après 50%, l'effet augmente beaucoup plus lentement]",
-        "effect": "L’achat de Quarks Dorés dans la Boutique est {{n}}% moins cher."
+        "description": "Golden Quark Stocks are num:((0.1))% cheaper per level! [After 10%, effect grows much slower, approaching 20%]",
+        "effect": "Golden Quark Stocks are {{n}}% cheaper."
       },
       "goldenQuarks3": {
         "name": "Quarks Dorés III",
-        "description": "Si vous achetez ceci, vous obtiendrez des Quarks Dorés par heure lors de l'exportation. Améliorer ceci en donne (niveau) supplémentaires par heure !",
-        "effect": "Chaque heure, vous obtenez {{n}} Quarks Dorés en exportant."
+        "description": "Golden Quarks from Exports and Promotional Codes are increased by num:((0.1))% per level! [After 100%, effect grows much slower, approaching 200%]",
+        "effect": "Golden Quarks from Exports and Promotional Codes are increased by {{n}}."
       },
       "starterPack": {
         "name": "Paquet Débutant",
@@ -4190,7 +4353,7 @@
       },
       "ascensions": {
         "name": "Gain d'Ascensions amélioré",
-        "description": "En achetant ceci, vous gagnez +2% de nombre d’Ascensions pour toujours, par niveau ! Tous les 10 niveaux donnent un bonus multiplicatif supplémentaire au nombre d’Ascensions de +1%.",
+        "description": "Buying this, you will gain +2% Ascension Count forever per level, multiplied by (1 + num:((0.01)) × floor(level / 10))!",
         "effect": "Le nombre d'Ascensions augmente {{n}} plus vite."
       },
       "corruptionFourteen": {
@@ -4201,7 +4364,7 @@
       },
       "corruptionFifteen": {
         "name": "Corruptions de Niveau Quinze",
-        "description": "Ajoute +1 niveau de Corruption GRATUIT, quoi qu'il arrive. :)",
+        "description": "Adds +1 FREE Corruption level. :)",
         "effectHave": "Vous avez obtenu +1 niveau de Corruption gratuit. {{m}}",
         "effectHaveNot": "Vous n'avez pas obtenu +1 niveau de Corruption gratuit. {{m}}"
       },
@@ -4252,12 +4415,12 @@
       },
       "singCitadel": {
         "name": "Citadelle de la Singularité",
-        "description": "Quel phénomène structurel unique... mais il donne +2% d'Obtainium, d'Offrandes et de Cubes 3-7D par niveau ! +1% supplémentaire tous les 10 niveaux !",
+        "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level, multiplied by (1 + num:((0.01)) × floor(level / 10))!",
         "effect": "Obtainium, Offrandes et Cubes 3-7D +{{n}}, pour toujours !"
       },
       "singCitadel2": {
         "name": "Citadelle de la \"Singularité\" : La Vraie Édition",
-        "description": "Cette véritable Citadelle donne +2% d'Obtainium, d'Offrandes et de Cubes 3-7D par niveau ! +1% additionnel par tranche de 10 niveaux ! De plus, le niveau gratuit de la fausse citadelle est égal au niveau de celle-ci.",
+        "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level, multiplied by (1 + num:((0.01)) × floor(level / 10))! Also sets the free level of the fake citadel to whatever level this is.",
         "effect": "Obtainium, Offrandes et Cubes 3-7D +{{n}}, pour toujours !"
       },
       "octeractUnlock": {
@@ -4270,11 +4433,6 @@
         "name": "Platonic V€ndu !!!",
         "description": "Le Bonus Global des Abonnés et votre Bonus de Compte Personnel affectent maintenant la production d'Octeracts ! Youpi. Pensez à vous abonner pour soutenir le développement et augmenter ce bonus, pour vous et pour tous les joueurs de Synergism !",
         "effect": "Si vous possédez cette amélioration, la production d'Octeracts est {{n}}x plus rapide ! <br> <<turquoise | {{x}}x>> Bonus Global des Abonnés <br> * <<turquoise|{{y}}x>> Bonus de Compte Personnel"
-      },
-      "offeringAutomatic": {
-        "name": "Morceaux de Myrtilles !",
-        "description": "Les légendes sont vraies\nLes prophéties sont accomplies\nLe Dieu Fourmi a entendu vos prières\nQue les Myrtilles Soient !\nEt cela était bien.",
-        "effect": "Vous avez acheté {{n}} Myrtilles savoureuses."
       },
       "intermediatePack": {
         "name": "Paquet Intermédiaire",
@@ -4350,7 +4508,7 @@
       },
       "singQuarkImprover1": {
         "name": "Bidule d'amélioration marginale du gain de Quarks",
-        "description": "Un machin dont j'ai oublié à quoi il ressemblait. +num:((0.5))% de Quarks par niveau, multiplicatif avec tous les autres bonus ! Son coût semble augmenter bien plus vite que tout le reste, par contre. Au fait, saviez-vous que ces descriptions peuvent être arbitrairement longues ?",
+        "description": "A doohickey that I forgot what it looked like. +num:((0.5))% Quarks per level! Seems like it grows in cost a lot faster than anything else though. Also, did you know these descriptions can be arbitrarily long?",
         "effect": "Vous gagnez {{n}} Quarks de plus !"
       },
       "singQuarkHepteract": {
@@ -4407,25 +4565,25 @@
       },
       "platonicDelta": {
         "name": "Platonic DELTA",
-        "description": "Le temps vous suit vers le futur une fois que vous avez ce petit bijou. Gagnez +100% de Cubes en plus par jour passé dans votre Singularité actuelle, jusqu'à +900% au jour 9.",
+        "description": "Time for a massive <i>change...</i> Gain +900% more Cubes. Yup!",
         "effectHave": "Cette amélioration a été achetée",
         "effectHaveNot": "Cette amélioration n'a pas été achetée"
       },
       "platonicPhi": {
         "name": "Platonic PHI",
-        "description": "Le temps vous suit aussi vers le passé. Gagnez 5 Améliorations de Quarks Dorés gratuites supplémentaires par jour passé dans votre Singularité grâce au code 'daily', jusqu'à +50 après 10 jours.",
+        "description": "Gain 50 additional free Golden Quark Upgrades from code 'daily'. Yup!",
         "effectHave": "Cette amélioration a été achetée",
         "effectHaveNot": "Cette amélioration n'a pas été achetée"
       },
       "singFastForward": {
         "name": "Singularités d'Étherflux",
-        "description": "Les Quarks Dorés gagnés par Singularité augmentent de num:((2.5))% (additif), et vous pouvez « voir plus loin » d'une Singularité supplémentaire. Vous pouvez donc choisir (depuis l'Ascenseur) de sauter une Singularité si vous en faites une à votre record absolu !",
+        "description": "Increases Golden Quarks by num:((2.5))% (additive), and lets you 'look ahead' an extra Singularity. This means you can choose (from the Elevator) to skip a Singularity if you do one at your all time highest!",
         "effectHave": "Vous avez transformé l'Étherflux !",
         "effectHaveNot": "Vous n'avez pas transformé l'Étherflux !"
       },
       "singFastForward2": {
         "name": "Singularités d'Æthérflux",
-        "description": "Les Quarks Dorés gagnés par Singularité augmentent de num:((2.5))% (additif), et vous pouvez « voir plus loin » d'encore une Singularité !",
+        "description": "Increases Golden Quarks by num:((2.5))% (additive) and lets you 'look ahead' yet another Singularity!",
         "effectHave": "Vous avez transformé l'Æthérflux !",
         "effectHaveNot": "Vous n'avez pas transformé l'Æthérflux !"
       },
@@ -4442,11 +4600,12 @@
       "ultimatePen": {
         "name": "Le Stylo Ultime",
         "description": "Vous. C'est vous l'auteur de votre propre histoire !",
-        "effect": "Vous {{n}} le Stylo Ultime. {{m}}"
+        "effectHave": "You own the Ultimate Pen. However, the pen just ran out of ink. How will you get more?",
+        "effectHaveNot": "You do NOT own the Ultimate Pen."
       },
       "halfMind": {
         "name": "DEMI-ESPRIT",
-        "description": "Une note trouvée « par terre » : on dirait une publicité pour une secte. « Bloquez votre Vitesse Globale à num:((1000000))x, et multipliez tout l'Obtainium et les Offrandes selon la différence. » Hmm...",
+        "description": "A note, you found on the 'ground': seems like an advertisement for a cult. \"Lock the global speed of your Prestige, Transcension, Reincarnation and Ant Sacrifice timers to num:((1000000))x, and multiply all obtainium and offerings based on the difference.\" Hmm...",
         "effectHave": "Vous avez rejoint la secte !",
         "effectHaveNot": "Vous n'avez pas rejoint la secte !"
       },
@@ -4607,7 +4766,7 @@
       "invalidTarget": "Veuillez choisir une Singularité valide entre 1 et {{max}}.",
       "noTarget": "Veuillez d'abord choisir une Singularité cible.",
       "confirmTeleport": "Voulez-vous vraiment aller à la Singularité {{target}} ?",
-      "confirmTeleportHigher": "Comme vous vous dirigez vers une Singularité plus haute (ou réinitialisez l'actuelle), toute votre Singularité sera réinitialisée ! Confirmez à nouveau pour continuer.",
+      "confirmTeleportReset": "Your entire Singularity will reset! Please confirm again to continue.",
       "teleportSuccess": "Transporté à la Singularité {{target}} !",
       "inEXALTError": "Derpsmith hoche lentement la tête. « L'ascenseur est en panne... » déclare-t-il. Pourquoi ça arrive toujours quand vous êtes dans un EXALT ?",
       "lockedTitle": "Ascenseur de Singularité - EN PANNE",
@@ -4653,7 +4812,6 @@
       "zeroOrLess": "Seulement des nombres strictement positifs, svp !",
       "moreThanPlayerHas": "Vous n'avez pas encore les moyens !",
       "fraction": "Ouais, ce n'est pas un entier. On n'accepte pas les fractions ici !",
-      "goldenQuarksTooMany": "Désolé, je ne peux pas vous vendre autant de Quarks Dorés ! Essayez d'en acheter moins ou tapez -1 pour acheter le maximum !",
       "finiteInt": "La valeur doit être un nombre entier fini !",
       "invalidNumber": "Hé ! Ce n'est pas un nombre valide !"
     },
@@ -4730,12 +4888,12 @@
       "4": "Augmentez la production des Presses pour chaque producteur acheté.",
       "5": "Augmentez la production des Alchimies pour chaque producteur acheté.",
       "6": "Augmentez toute la production en fonction du nombre de producteurs achetés.",
-      "7": "Obtenez des Multiplicateurs gratuits en fonction des Alchimies achetées.",
+      "7": "Gain 1 free Multiplier per digit in your purchased Alchemies (max 4).",
       "8": "Obtenez 1 Accélérateur gratuit tous les 7 Multiplicateurs achetés.",
       "9": "Obtenez 1 Multiplicateur gratuit tous les 10 Accélérateurs achetés.",
       "10": "Améliorez les Ouvriers en fonctions des 750 premiers Investissements achetés.",
       "11": "Chaque Accélérateur améliore la génération de producteurs de 2%.",
-      "12": "Chaque Prestige multiplie la production par num:((1.01)), de façon multiplicative (max : num:((1e4))x).",
+      "12": "Each Prestige multiplies production by num:((1.01)) (Max: num:((1e4))x).",
       "13": "Les Amplifications optimisent la production des Investissements.",
       "14": "Les Accélérateurs gratuits optimisent la génération d'Imprimantes.",
       "15": "Les Accélérateurs gratuits optimisent la génération de Presses.",
@@ -4768,7 +4926,7 @@
       "42": "Multipliez la production d'Éclats de Mythos en fonction des Diamants possédés.",
       "43": "Multiplie la production de Pièces par num:((1.01)) par Transcendance (max : num:((1e30))x).",
       "44": "Multiplie le gain de Mythos à la Transcendance par num:((1.01)) par Transcendance (max : num:((1e6))x).",
-      "45": "Obtenez des Accélérateurs gratuits en fonction des Éclats de Mythos.",
+      "45": "Gain 1 free Accelerator per digit in your Mythos Shards (max num:((2500))).",
       "46": "Les Renforts d'Accélérateur sont 5% plus puissants et ne réinitialisent pas les fonctionnalités de Prestige.",
       "47": "Multipliez la production d'Éclats de Mythos en fonction de vos points de Succès.",
       "48": "Gagnez +num:((0.2)) de Construction, pour rendre les bâtiments et autres moins chers !",
@@ -4887,7 +5045,7 @@
       "5": "Multiplie la Vitesse des Fourmis par (1 + num:((0.1)) * niveau * log10(Constante + 1))",
       "6": "Ajoute jusqu'à num:((1000)) niveaux de Fourmis gratuits ! (Chaque niveau donne un peu moins que le précédent)",
       "7": "Donne 7 niveaux de runes gratuits par niveau, jusqu'à +num:((7000)).",
-      "8": "Augmente l'EXP des Runes de 10% par niveau [de façon additive].",
+      "8": "Increase the rune EXP given by Offerings by 10% per level",
       "9": "Une fois achetée, la Puissance de Rune augmente de Log4(Fragments de Talisman gagnés pendant cette Ascension +1) %",
       "10": "Lorsque acheté, les gains de Cubes Wow! et de Tesseracts lors de l'Ascension sont augmentés de 'Log4(Constante + 1)%'."
     },
@@ -5012,7 +5170,6 @@
     "owned": "Possédés : {{x}}",
     "bellActive": "{{amount}}x {{time}}",
     "codeNext": "Prochain : {{time}}",
-    "timeCodeMultiplier": "x{{x}}",
     "quarkBonus": "+{{x}}%",
     "perSecond": "{{x}}/s",
     "modules": {
@@ -5130,6 +5287,10 @@
       "khafraDiscord": "Écrire à Khafra sur Discord",
       "platonicDiscord": "Écrire à Platonic sur Discord",
       "agreeTOS": "Vous devez d'abord accepter les conditions d'utilisation !"
+    },
+    "shop": {
+      "shop": "Shop",
+      "quarkLedger": "Ledger"
     }
   },
   "offlineProgress": {
@@ -5145,14 +5306,13 @@
     "ingameAntSacTimer": "Durée en jeu du sacrifice : +<<var(--red-text-color);|{{value}}>> secondes",
     "realAntSacTimer": "Durée réelle du sacrifice : +<<var(--red-text-color);|{{value}}>> secondes",
     "currentAscensionTimer": "Durée de l'Ascension actuelle : +<<gold|{{value}}>> secondes",
-    "exportQuarks": "Quarks à l'export : <<goldenrod|{{value}}>>",
+    "currentSingularityTimer": "Current Singularity Timer: +<<lightgoldenrodyellow|{{value}}>> seconds",
     "ambrosia": "Ambroisie : +<<orange|{{value}}>> | Points de la barre d'Ambroisie +<<lightblue|{{value2}}>>",
     "redAmbrosia": "Ambroisie Rouge : +<<red|{{value}}>> | Points de la barre Rouge +<<red|{{value2}}>>",
     "purpleHoney": "Miel Violet : +<<var(--purple-text-color)|{{value}}>>"
   },
   "fastForward": {
-    "global": "Vos éléments globaux ont avancé de {{time}} secondes !",
-    "ascension": "Vos éléments d'Ascension ont avancé de {{time}} secondes !",
+    "ascension": "Your Global and Ascension stuff fast forwarded {{time}} seconds!",
     "ambrosia": "Vos affaires d'Ambroisie ont avancé le temps de {{time}} secondes !"
   },
   "campaigns": {
@@ -5249,7 +5409,7 @@
       "blunders": "L'ELO de Fourmi est réduit de (additif, l'ELO de Fourmi ne peut pas descendre sous 0)"
     },
     "modal": {
-      "scaling": "<<lime|Progression de la difficulté : ×{{scaling}} par niveau (Améliorations Platoniques au maximum)>>",
+      "scaling": "<<lime|Difficulty scaling: ×{{scaling}} per level>>",
       "levelFormula": "(N = Niveau) :",
       "currentMarker": "N = {{level}} ▶",
       "nextMarker": "◀ N = {{level}}",
@@ -5319,11 +5479,11 @@
       },
       "locked": "Verrouillé",
       "unlock": "Unlocks at level {{level}}.",
-      "source": "Source",
       "completions": "Complétions",
       "perCompletion": "Par complétion",
       "amount": "Quantité",
       "total": "Total",
+      "totalValue": "Total Value",
       "bankSources": {
         "transcensionChallenges": "Défis 1 à 5 (n°{{from}}-{{to}})",
         "transcensionChallengesFrom": "Défis 1 à 5 (n°{{from}}+)",
@@ -5879,27 +6039,27 @@
       },
       "octeractGQCostReduce": {
         "name": "Coûts des Quarks Dorés EXTRA CHÉTIFS !",
-        "description": "Réduit le coût des Quarks Dorés dans la boutique de 1% par niveau.",
-        "effect": "Les Quarks Dorés sont {{n}}% moins chers !"
+        "description": "Reduces the price of Golden Quark Stocks by 0.4% per level.",
+        "effect": "Golden Quark Stocks are {{n}}% cheaper!"
       },
       "octeractExportQuarks": {
         "name": "Vitesses de téléchargement améliorées",
-        "description": "Grâce à la technologie Ethernet, les Quarks d'exportation augmentent de 40% par niveau ! Seulement les normaux.",
-        "effect": "Quarks d'exportation +{{n}}%"
+        "description": "Thanks to ethernet technology, Quarks from Exports and Code 'add' are increased by 40% per level! Only normal ones.",
+        "effect": "Export and Code 'add' Quarks +{{n}}%"
       },
       "octeractImprovedDaily": {
         "name": "Code Daily DODU",
-        "description": "Derpsmith pirate le code source et ajoute +1 Amélioration de Quarks Dorés gratuite par jour via Daily.",
+        "description": "Derpsmith hacks into the source code, and adds +1 free Golden Quark upgrade per level per day from Daily.",
         "effect": "Le code 'daily' donne +{{n}} Améliorations de Quarks Dorés gratuites par utilisation."
       },
       "octeractImprovedDaily2": {
         "name": "Code Daily PLUS DODU",
-        "description": "Derpsmith a implémenté la multiplication hypervitesse. +1% d'Améliorations de Quarks Dorés gratuites en plus par jour via Daily !",
+        "description": "Derpsmith implemented hyperspeed multiplication. +1% more free Golden Quark upgrades per level per day from Daily!",
         "effect": "Le code 'daily' donne +{{n}} Améliorations de Quarks Dorés gratuites en plus par utilisation."
       },
       "octeractImprovedDaily3": {
         "name": "Code Daily LE PLUS DODU",
-        "description": "Derpsmith ne sera jamais satisfait. +1 +num:((0.5))% d'Améliorations de Quarks Dorés gratuites en plus par jour via Daily !",
+        "description": "It will never satisfy Derpsmith. +1 +num:((0.5))% more free Golden Quark upgrades per level per day from Daily!",
         "effect": "Le code 'daily' donne +{{n}} Améliorations de Quarks Dorés gratuites en plus par utilisation."
       },
       "octeractImprovedQuarkHept": {
@@ -5980,18 +6140,18 @@
       },
       "octeractAscensions": {
         "name": "Garantie annulée",
-        "description": "Gagnez +1% de nombre d'Ascensions par niveau, avec un bonus de 2% tous les 10 niveaux.",
+        "description": "Gain +1% Ascension Count per level, multiplied by (1 + num:((0.02)) × floor(level / 10)).",
         "effect": "Le nombre d'Ascensions augmente {{n}}% plus vite."
       },
       "octeractAscensions2": {
         "name": "Frais de retard cachés",
-        "description": "Gagnez +1% de nombre d'Ascensions par niveau, avec un bonus de 2% tous les 10 niveaux. Mais... le coût grimpe beaucoup plus vite. Sans doute ces frais de retard cachés.",
+        "description": "Gain +1% Ascension Count per level, multiplied by (1 + num:((0.02)) × floor(level / 10)).",
         "effect": "Le nombre d'Ascensions augmente {{n}}% plus vite."
       },
       "octeractAscensionsOcteractGain": {
         "name": "Accumulateur Numérique d'Octeracts",
-        "description": "Le gain d'Octeracts est 1% plus rapide pour chaque chiffre de votre nombre d'Ascensions !",
-        "effect": "Gain d'Octeracts par ordre de grandeur du nombre d'Ascensions +{{n}}% <br> Augmentation totale des Octeracts : +{{mult}}"
+        "description": "Multiply Octeract gain by (1 + num:((0.01)) × level)x for every digit in your Ascension count!",
+        "effect": "Multiply Octeract gain by {{x}}x for every digit in your Ascension count. <br> Total Octeract increase: +{{mult}}"
       },
       "octeractFastForward": {
         "name": "Embrouilleur de Singularité de Derpsmith",
@@ -6015,7 +6175,7 @@
       },
       "octeractAmbrosiaLuck2": {
         "name": "Canneberges Florentines",
-        "description": "Absolument pas une copie de la myrtille ! Ajoute +2 de Chance d'Ambroisie, ce qui peut augmenter la quantité d'Ambroisie obtenue quand les Myrtilles en génèrent.",
+        "description": "Totally not a reskin of the blueberry! Adds +2 Ambrosia Luck per level, which can increase Ambrosia drop amounts when Blueberries generate Ambrosia.",
         "effect": "+{{n}} de Chance d'Ambroisie !"
       },
       "octeractAmbrosiaLuck3": {
@@ -6030,7 +6190,7 @@
       },
       "octeractAmbrosiaLuck4": {
         "name": "Baies d'un Trèfle à Dix Feuilles",
-        "description": "Absolument pas une copie de la myrtille ! Ajoute +5 de Chance d'Ambroisie. Et c'est méga cher, allez savoir pourquoi.",
+        "description": "Totally not a reskin of the blueberry! Adds +5 Ambrosial Luck per level. And it's mega expensive somehow.",
         "effect": "+{{n}} de Chance d'Ambroisie !"
       },
       "octeractAmbrosiaGeneration2": {
@@ -6510,7 +6670,7 @@
     },
     "enterChallenge": {
       "lowSingularity": "Derpsmith vous interdit d'entrer dans ce Défi. Allez d'abord faire quelques Singularités de plus.",
-      "confirmation": "Vous êtes sur le point d'entrer dans {{name}}. Votre chronomètre de Singularité ne sera pas réinitialisé, mais vous serez renvoyé au début d'une Singularité. Continuer ?",
+      "confirmation": "You are about to enter {{name}}. You will be taken back to the beginning of a Singularity. Do you proceed?",
       "decline": "Derpsmith hoche la tête. Revenez quand vous serez prêt...",
       "acceptSuccess": "Vous tentez {{name}} #{{tier}} ! Vous avez été envoyé à la Singularité {{singReq}}. Achetez les Antiquités pour terminer le Défi !",
       "acceptFailure": "Derpsmith déclare que vous êtes déjà dans un Défi de Singularité et vous interdit de détruire le tissu de votre Réalité."
@@ -6547,8 +6707,9 @@
         "ScalingReward3": "15 Points de Succès !",
         "UniqueReward1": "1re - +3 au plafond des <<green|Défis de Réincarnation>> !",
         "UniqueReward2": "12th - +1 Free <<var(--red-text-color)|Corruption Level>>",
-        "UniqueReward3": "12e - Une nouvelle amélioration de <<orchid|Quarks>> !",
-        "UniqueReward4": "15e - +7 au plafond des <<green|Défis de Réincarnation>> ! Et +2 aux plafonds des Défis d'Ascension."
+        "UniqueReward3": "5th - A new <<orchid|Quark>> upgrade!",
+        "UniqueReward4": "12th - A new <<orchid|Quark>> upgrade!",
+        "UniqueReward5": "15th - +7 <<green|Reincarnation Challenge>> Cap! And +2 to Ascension Challenge caps."
       },
       "noOcteracts": {
         "name": "Pas d'effets des Octeracts",
@@ -6595,6 +6756,7 @@
         "timeMod1": "<<red|⏱ Limite de temps : {{time}} secondes>>",
         "timeMod2": "<<gold|⚠>> Après la limite de temps, votre production d'Obtainium, d'Offrandes et de Cubes est divisée par <<red|{{perSecondDivisor}}>> par seconde.",
         "timeMod3": "Derpsmith vous donne un petit coup de pouce : <<#00DDFF | Vitesse de création d'ELO Renaissant 5x plus rapide !>> Du moins jusqu'à ce que vous achetiez les Antiquités.",
+        "timeMod4": "Platonic DELTA is disabled.",
         "ScalingReward1": "+12% de <<orange|Vitesse Globale>> !",
         "ScalingReward2": "+12% de <<orange|Vitesse d'Ascension>> !",
         "ScalingReward3": "+2% de <<cyan|Quarks>> !",
@@ -6715,10 +6877,17 @@
     },
     "joinDiscord": "Cliquez sur l'image ci-dessous pour rejoindre le serveur Discord !",
     "joinPatreon": "Soutenez le développement sur Patreon !",
-    "exportQuark": "{{x}}s avant +{{y}} Quarks à l'exportation",
-    "exportGoldenQuark": "{{x}}s avant +{{y}} Quarks Dorés à l'exportation",
-    "quarksOnExport": "Quarks à l'exportation : {{x}} [Maximum {{y}}]",
-    "goldenQuarksOnExport": "Quarks Dorés à l'exportation : {{x}} [Maximum {{y}}]",
+    "platforms": {
+      "title": "Synergism is available on:",
+      "web": "Web",
+      "steam": "Steam",
+      "ios": "iOS",
+      "android": "Android",
+      "cloudSaves": "Log in to use your Cloud Saves on any of them."
+    },
+    "exportQuarks": "Exporting today gives {{x}} Quarks",
+    "exportGoldenQuarks": "Exporting today gives {{x}} Golden Quarks",
+    "exportClaimed": "Today's export reward is claimed. Next reward in {{x}}",
     "copyToClipboard": "Copier dans le presse-papiers",
     "exportHere": "Exportez le jeu ici",
     "currently": "Actuellement : {{x}}",
@@ -6790,7 +6959,7 @@
       "heptMult": "Multiplicateurs d'Hepteracts",
       "orbPowderMult": "Multiplicateurs Orbes en Poudre",
       "gqMult": "Multiplicateurs de Quarks Dorés",
-      "gqCost": "Coût des Quarks Dorés",
+      "gqCost": "Golden Quark Stock Price",
       "addStats": "Stats du code Add",
       "octMult": "Multiplicateurs d'Octeracts",
       "ambrosiaAdditiveLuckMult": "Multiplicateur de chance d'Ambroisie",
@@ -7458,6 +7627,7 @@
       "NoSingularityUpgrades": "EXALT - Pas d'Améliorations de Quarks Dorés :",
       "DilatedFiveLeaf": "Privilège de Singularité - Fourmis Irlandaises II :",
       "ShopUpgrade": "Multiplicateur de chance d'Ambroisie des EXALT :",
+      "ShopAmbrosiaLuck5": "Quark Upgrade: Ambrosia Luck Improver",
       "NoAmbrosiaUpgrades": "EXALT - Pas d'Améliorations d'Ambroisie :",
       "Cookie5": "Amélioration de Cookie 5 (Cx27) :",
       "BlueberryUpgrade": "Ambroisie - Le Trèfle des Huit Feuilles :",
@@ -7564,30 +7734,22 @@
       "FastForwards": "Anticipations de Singularité :",
       "ImmaculateAlchemy": "Alchimie Immaculée :",
       "Event": "Bonus d'Évènement :",
-      "GlobalSubscriber": "Bonus global de nos merveilleux Abonnés :",
-      "AccountBonus": "Bonus de Quarks personnel du compte Synergism :",
       "Total": "Quarks Dorés gagnés au total :"
     },
     "goldenQuarkPurchaseCostStats": {
-      "title": "Coût d'achat des Quarks Dorés",
-      "Base": "Coût de base :",
-      "PseudoCoins": "Amélioration PseudoCoin de Quarks Dorés :",
-      "AchievementPoints": "Points de Succès :",
+      "title": "Golden Quark Stock Price",
+      "Base": "Base Price:",
       "CubeUpgrade6x10": "Amélioration de Cubes 6x10 :",
       "GoldenQuarks2": "Amélioration de Quarks Dorés - Quarks Dorés II :",
       "OcteractCostReduce": "Octeracts - Coûts des Quarks Dorés EXTRA CHÉTIFS ! :",
       "GoldenRevolution2": "Révolution Dorée II :",
-      "ImmaculateAlchemy": "Alchimie Immaculée :",
-      "GlobalSubscriber": "1 / Bonus global de nos merveilleux Abonnés :",
-      "AccountBonus": "1 / Bonus de Quarks personnel du compte Synergism :",
-      "Event": "Évènement :",
-      "Total": "Coût final en Quarks par Quark Doré :"
+      "Total": "Quarks per Stock:"
     },
     "addCodeEffects": {
       "title": "Effets du code Add",
       "Quarks": "Valeur de Quarks de base (moyenne) :",
       "AscensionTime": "PL-AT Ω - Temps d'Ascension (secondes réelles) :",
-      "GoldenQuarks": "PL-AT Γ - Chronomètre des Quarks Dorés à l'export :",
+      "ExportQuarkMult": "PL-AT Γ - Export Quark Multiplier (%):",
       "Octeracts": "PL-AT _ - Gain d'Octeracts (secondes réelles) :",
       "Ambrosia": "PL-AT ΩΩ - Gain d'Ambroisie (secondes réelles) :"
     },
@@ -7631,8 +7793,6 @@
       "AscensionCount": "Nombre d'Ascensions :",
       "QuarksThisSingularity": "Quarks de cette Singularité :",
       "TotalQuarks": "Quarks gagnés au total :",
-      "QuarkTimer": "Chronomètre de Quarks :",
-      "QuarkTimerMax": "Maximum du chronomètre de Quarks :",
       "HighestPurpleHoney": "Record de Miel Violet stocké :",
       "PurpleHoneySpentUpgrades": "Miel Violet dépensé en améliorations :"
     },
@@ -7697,6 +7857,7 @@
       "Yellow": "Bons Jaunes [Quarks Dorés] :",
       "Green": "Bons Verts [Octeracts] :",
       "Blue": "Bons Bleus [Quarks] :",
+      "White": "White Vouchers [Quarks 2]:",
       "Indigo": "Bons Indigo [Ambroisie 1] :",
       "Violet": "Bons Violets [Ambroisie 2] :",
       "Periwinkle": "Bons Pervenche [Ambroisie 3] :",
@@ -7973,6 +8134,7 @@
       "SingularityUpgrade": "Amélioration de Quarks Dorés - Gain d'Ascensions amélioré :",
       "OcteractUpgrade1": "Octeracts - Garantie annulée :",
       "OcteractUpgrade2": "Octeracts - Frais de retard cachés :",
+      "Jack": "Quark Upgrade: The Jack of All Trades",
       "OneMind": "Modificateur UN SEUL ESPRIT :",
       "Total": "Nombre d'Ascensions gagné pendant cette Ascension :"
     },
@@ -8047,6 +8209,8 @@
       "PurpleHoneyUpgrade2": "Miel Violet - Chance du Miel Violet II",
       "PurpleHoneyUpgrade3": "Miel Violet - Chance du Miel Violet III",
       "PurpleHoneyUpgrade4": "Miel Violet - Chance du Miel Violet IV",
+      "ShopPurpleHoneyLuck": "Quark Upgrade: Purple Honey Luck Improver",
+      "Jack": "Quark Upgrade: The Jack of All Trades",
       "TaxmanLastStand": "EXALT - Le dernier combat du Percepteur :",
       "BarDependence": "EXALT - Recharge des Barres :",
       "HorseShoeRune": "Bonus de la Rune du Fer du Cheval :",
@@ -8077,19 +8241,15 @@
     "unlocked": "Débloqué !",
     "quarks": {
       "quarkTitle": "-=- Coin des Quarks de Cubes -=-",
-      "resetInfo": "Les récompenses de Quarks se réinitialisent à minuit !",
-      "cubeQuarksToday": "Quarks gagnés grâce aux Cubes : <<cyan|{{amount}}>>",
-      "cubeQuarksOpenRequirement": "Ouvrez {{amount}} Cubes pour le prochain Quark.",
-      "cubeQuarksOpenToday": "Cubes ouverts aujourd'hui : <<orchid|{{amount}}>>",
-      "tesseractQuarksToday": "Quarks gagnés grâce aux Tesseracts : <<cyan|{{amount}}>>",
-      "tesseractQuarksOpenRequirement": "Ouvrez {{amount}} Tesseracts pour le prochain Quark.",
-      "tesseractQuarksOpenToday": "Tesseracts ouverts aujourd'hui : <<orchid|{{amount}}>>",
-      "hypercubeQuarksToday": "Quarks gagnés grâce aux Hypercubes : <<cyan|{{amount}}>>",
-      "hypercubeQuarksOpenRequirement": "Ouvrez {{amount}} Hypercubes pour le prochain Quark.",
-      "hypercubeQuarksOpenToday": "Hypercubes ouverts aujourd'hui : <<orchid|{{amount}}>>",
-      "platonicCubeQuarksToday": "Quarks gagnés grâce aux Cubes Platoniques : <<cyan|{{amount}}>>",
-      "platonicCubeQuarksOpenRequirement": "Ouvrez {{amount}} Cubes Platonics pour le prochain Quark.",
-      "platonicCubeQuarksOpenToday": "Cubes Platonics ouverts aujourd'hui : <<orchid|{{amount}}>>"
+      "cubes": "Wow! Cubes",
+      "tesseracts": "Wow! Tesseracts",
+      "hypercubes": "Wow! Hypercubes",
+      "platonicCubes": "Platonic Cubes",
+      "nextReward": "Next Reward",
+      "nextRewardValue": "{{opened}}/{{target}}",
+      "quarksPerReward": "Quarks per Reward",
+      "quarksEarned": "Quarks Earned",
+      "rewardInfo": "Get +1 Reward per digit in the amount of Cubes you've opened!"
     },
     "cubes": {
       "intro": "Vous êtes envahis par un sentiment de fierté et d'accomplissement… et par une soif de pouvoir.",
@@ -8258,7 +8418,7 @@
         "12": "Au maximum, toutes les Corruptions progressent 2.5% plus lentement. Dans le Défi 15, gagnez +5% d'ELO de Fourmi en plus par niveau de cette amélioration ! (additif avec les autres sources). L'ELO Renaissant est créé 10% plus vite par niveau ! Et pour chaque complétion de Défi, gagnez +1% de Vitesse des Fourmis par niveau.",
         "13": "'Less Fruitful Harvests' reduces your <<green|Salvage>> by 50% less!",
         "14": "Multiplie l'exposant de pièces de Grande Dépression II par 1,55, mais uniquement dans le défi 15.",
-        "15": "Vous commencez à apercevoir le début de l'abîme. Exposant des Pièces +num:((0.10)) dans le Défi 15, Score du Défi 15 +25%, Vitesse d'Ascension +1% par niveau de Corruption niveaux gratuits inclus (max : +20%, toujours au maximum dans le Défi 15), +1% de Cubes 3D-7D (Cubes à Hepteracts) par complétion du D9 (multiplicatif), num:((1.15))x Quarks, num:((1e250))x au multiplicateur des Bâtiments de Tesseracts, 2x nombre d'Ascensions, +30 au plafond des Défis de Réincarnation, +20 au plafond des Défis d'Ascension, 6x Obtainium Immaculé et Offrandes, et +1 niveau de Corruption gratuit ! Une sacrée plongée.",
+        "15": "You begin to find the start of the abyss. Coin Exponent +num:((0.10)) in Challenge 15, Challenge 15 Score +25%, Ascension Speed +1% per Corruption level including free levels (Max: +20%, always maxed in Challenge 15), x1.01 3D-7D (Cube-Hepteracts) Cubes per C9 Completion, num:((1.15))x Quarks, num:((1e250))x Tesseract Building Multiplier, 2x Ascension Count, +30 Reincarnation Challenge Cap, +20 Ascension Challenge Cap, 6x Immaculate Obtainium and Offerings, and +1 free Corruption level! Talk about a deep dive.",
         "16": "Augmente le taux de conversion de Poudre de 1% par niveau, donne +2% de nombre d'Ascensions par niveau et jusqu'à 2% de plus par niveau selon la Poudre, jusqu'à num:((100000)). Multiplie aussi la production des Bâtiments de Tesseracts par (Poudre + 1)^(10 * niveau), sans plafond.",
         "17": "Si elle est achetée, gagnez +num:((0.2)) niveau de Corruption gratuit par niveau (jusqu'à +4).",
         "18": "Augmente le pourcentage de base de l'Amélioration de Constante 1 de num:((0.1))% et le plafond du pourcentage de base de l'Amélioration de Constante 2 de num:((0.3))% par niveau !",
@@ -8286,7 +8446,7 @@
       "orbs": "Orbes :",
       "effect": "Effet :",
       "powder": "Poudre :",
-      "warps": "Sauts temporels :",
+      "warps": "Warp:",
       "descriptions": {
         "chronos": {
           "effect": "Cet Hepteract courbe le temps en votre faveur. +num:((0.06))% de vitesse d'Ascension par Hepteract de Chronos.",
@@ -8359,8 +8519,7 @@
     "orbEffect": "Effet des Orbes : l'ouverture des Cubes donne {{x}}% plus de Quarks.",
     "orbBreakdown": {
       "base": "Orbes : ×{{base}} (max ×{{cap}})",
-      "shop": "× {{x}} grâce à Amélioration Cube du gain de Quarks 2",
-      "warp": "× {{x}} grâce à la Distorsion auto"
+      "shop": "× {{x}} grâce à Amélioration Cube du gain de Quarks 2"
     },
     "orbsPurchasedToday": "Orbes achetés aujourd'hui : {{x}}.",
     "amalgamate": "Vous pouvez fondre des Orbes de Surfusion ici. [REMARQUE : celles-ci expirent à la fin de la journée]",
@@ -8369,23 +8528,27 @@
     "hepteractInput": "Combien d'Orbes voulez-vous acheter ?\nVous pouvez en acheter jusqu'à {{x}} avec vos Hepteracts.",
     "gainedPowder": "Vous avez également obtenu {{x}} Poudre immédiatement, grâce à vos achats en boutique.",
     "purchasedOrbs": "Vous avez acheté {{x}} Orbes de Surfusion [+{{y}} à l'effet]. {{z}} Appréciez !",
-    "powderEffect": "Effet de la Poudre : gain de TOUS les Cubes +{{x}}% [multiplicatif], +{{y}}% de Quarks [multiplicatif]",
-    "powderEffectExtended": "Effet de la Poudre : gain de TOUS les Cubes +{{x}}% [multiplicatif], +{{y}}% de Quarks [multiplicatif], nombre d'Ascensions +{{z}}%, production des Bâtiments de Tesseracts x{{a}} [grâce à l'Amélioration Platonique 4x1]",
+    "powderEffect": "Powder effect: ALL Cube Gain +{{x}}%, +{{y}}% Quarks",
+    "powderEffectExtended": "Powder effect: ALL Cube Gain +{{x}}%, +{{y}}% Quarks, Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
     "powderLumps": "Vous avez {{x}} grumeaux de Poudre de Surfusion.",
     "expiredOrbs": "Les Orbes de Surfusion expirés deviennent de la Poudre à un taux de {{x}} Orbes par grumeau de Poudre !",
-    "dayWarpsRemaining": "Distorsions Temporelles restantes aujourd'hui : {{x}}",
-    "warpImpossible": "La Distorsion est impossible (vous obtenez à la place un multiplicateur de Quarks)",
-    "machineCooldown": "Désolé, mais cette machine se recharge.",
+    "dailyWarpActive": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until midnight.",
+    "dailyWarpActiveOrSingularity": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until midnight or your next Singularity.",
+    "dailyWarpActiveUntilSingularity": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until your next Singularity.",
+    "dailyWarpInactive": "Warp for 25 Powder to multiply Primary Quarks by ×{{x}} until midnight.",
+    "dailyWarpInactiveOrSingularity": "Warp for 25 Powder to multiply Primary Quarks by ×{{x}} until midnight or your next Singularity.",
+    "dailyWarpInactiveUntilSingularity": "Warp for 25 Powder to multiply Primary Quarks by ×{{x}} until your next Singularity.",
+    "warpAlreadyActive": "The Primary Quark Warp is already active. It wears off at midnight.",
+    "warpAlreadyActiveOrSingularity": "The Primary Quark Warp is already active. It wears off at midnight or on your next Singularity.",
+    "warpAlreadyActiveUntilSingularity": "The Primary Quark Warp is already active. It wears off on your next Singularity.",
     "atleastPowder": "Désolé, mais vous avez besoin de 25 Poudre pour faire fonctionner la machine temporelle.",
-    "stumbleMachine": "Vous trébuchez sur une mystérieuse machine. Un message joint explique que vous pouvez réinitialiser les ouvertures de Cubes quotidiennes pour 25 Poudre. Cependant, cela ne fonctionne qu'une fois par jour réel. Ça vous branche ?",
+    "stumbleMachine": "You stumble upon a mysterious machine. A note attached says that for 25 Powder, it multiplies your Primary Quarks by ×{{x}} until midnight. You in?",
+    "stumbleMachineOrSingularity": "You stumble upon a mysterious machine. A note attached says that for 25 Powder, it multiplies your Primary Quarks by ×{{x}} until midnight or your next Singularity. You in?",
+    "stumbleMachineUntilSingularity": "You stumble upon a mysterious machine. A note attached says that for 25 Powder, it multiplies your Primary Quarks by ×{{x}} until your next Singularity. You in?",
     "walkAwayMachine": "Vous vous éloignez de la machine, sans avoir touché à la Poudre.",
-    "useMachine": "Après avoir utilisé la machine, vos Cubes semblent juste un peu plus en valoir la peine. Le nombre quotidien de Cubes ouverts a été réinitialisé ! [-25 Poudre]",
-    "useAllWarpsPrompt": "Désactiver cette fonctionnalité consommera toutes les Distorsions Temporelles restantes (sans effectuer de saut).\nÊtes-vous certain ?",
-    "machineDidNotConsume": "La machine n'a pas consommé les Distorsions Temporelles.",
-    "boostQuarksPrompt": "La machine est maintenant capable d'augmenter les Quarks obtenus en ouvrant des Cubes, en fonction du nombre de Distorsions Temporelles disponibles. Si cette fonctionnalité est activée, effectuer une Distorsion Temporelle sera impossible, et la désactiver ne sera pas facile.\nÊtes-vous sûr de vouloir l'activer ?",
-    "machineOverdrive": "La machine va passer en mode surcharge dès que vous aurez des Distorsions Temporelles.",
-    "machineInOverdrive": "La machine est maintenant surcadencée.",
-    "machineUsualContinue": "La machine continue de fonctionner normalement, pour le moment."
+    "useMachine": "The machine hums to life. Primary Quarks are multiplied by ×{{x}} until midnight! [-25 Powder]",
+    "useMachineOrSingularity": "The machine hums to life. Primary Quarks are multiplied by ×{{x}} until midnight or your next Singularity! [-25 Powder]",
+    "useMachineUntilSingularity": "The machine hums to life. Primary Quarks are multiplied by ×{{x}} until your next Singularity! [-25 Powder]"
   },
   "importexport": {
     "copiedSave": "Sauvegarde copiée dans le presse-papiers !",
@@ -8409,7 +8572,6 @@
     "add1Uses": "{{x}} utilisation restante.",
     "add0Uses": "{{x}} utilisations restantes. Prochaine : dans {{y}} secondes.",
     "addUses": "{{x}} utilisations restantes.",
-    "timeMultiplier": "{{x}} utilisation(s) restante(s). Multiplicateur : x{{y}}",
     "promocodes": {
       "synergism2021": "Code promo 'synergism{{year}}' appliqué ! +25 Offrandes, +{{quarks}} Quarks",
       "unsmith": "C'est l'heure des spaghetti ! [Récompensé d'un succès !!!]",
@@ -8423,15 +8585,16 @@
       },
       "add": {
         "calculator3": "Grâce à la PL-AT Ω vous avez également obtenu {{x}} secondes réelles sur votre chronomètre d'ascension !",
-        "calculator5": "Grâce à la PL-AT Γ vous avez également obtenu {{x}} secondes réelles sur votre chronomètre de QO à l'export !",
+        "calculator5": "Thanks to PL-AT Γ, today's Export Quark multiplier increased by +{{x}}%!",
         "calculator6": "Enfin, grâce à la PL-AT _ vous avez obtenu {{x}} secondes de génération d'Octeract !",
         "calculator7": "Enfin, grâce à la PL-AT Ω, vous avez obtenu {{x}} secondes réelles de points de la barre d'Ambroisie !",
         "calculatorSolution": "Pour {{w}} Quarks ou rien : que font {{x}} + {{y}} ? La réponse est {{z}} selon votre calculatrice.",
         "calculatorPrompt": "Pour {{w}} Quarks ou rien : que font {{x}} + {{y}} ?",
-        "calculatorMaxed": "Votre calculatrice a trouvé toute seule que {{a}} + {{b}} = {{c}}, vous êtes donc récompensé de {{d}} Quarks ! {{e}} {{f}} {{g}} {{h}} {{i}} Vous avez {{j}} utilisations de 'Addition'. Vous en gagnerez une dans {{k}} secondes.",
+        "calculatorMaxedQuarks": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks!",
         "freeLevel": "De plus, gagnez {{x}} niveaux gratuits de QO1 et {{y}} niveaux gratuits de QO3 !!!",
         "cancelled": "Pas d'inquiétude, vous n'avez perdu aucune de vos utilisations ! Revenez plus tard !",
-        "reward": "Vous êtes récompensé de {{a}} Quarks ! {{b}} {{c}} {{d}} Vous avez {{e}} utilisations de 'Addition'. Vous en gagnerez une dans {{f}} secondes.",
+        "rewardQuarks": "You were awarded {{x}} Quarks!",
+        "usesRemaining": "You have {{x}} uses of Add. You will gain 1 in {{y}} seconds.",
         "wrong": "Vous avez répondu {{w}}, mais la bonne réponse était {{x}}. Vous avez {{y}} utilisations de 'Addition'. Vous en gagnerez une dans {{z}} secondes."
       },
       "sub": {
@@ -8439,13 +8602,15 @@
         "gave": "Je vous ai donné {{x}} Quarks pour pouvoir en reprendre {{y}}."
       },
       "time": {
-        "wait": "Vous devez attendre au moins 15 minutes entre chaque utilisation.",
-        "prepare": "Êtes-vous un vrai maître du temps ? Voyons ça. Si vous cliquez sur le bouton entre {{start}} et {{end}} secondes après avoir appuyé sur 'OK', vous gagnez {{quarks}} Quarks ! Vu le temps écoulé depuis votre dernière tentative, les récompenses sont multipliées par {{y}}.",
+        "wait": "You have already used Code 'time' today. Try again tomorrow.",
+        "prepare": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks!",
+        "prepareGoldenQuarks": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks and {{goldenQuarks}} Golden Quarks!",
         "confirm": "Appuyez sur le bouton quand vous sentez que c'est le bon moment. Entre {{start}} et {{end}} secondes, s'il vous plaît !",
         "maxedCookie": "Comme Cx11 est au maximum, vous obtiendrez toujours les récompenses de ce code. Amusez-vous simplement !",
         "cancelled": "Pas de souci ! Réessayez quand vous voulez.",
         "won": "Vous avez cliqué sur 'OK' en {{time}} secondes ! Félicitations ! [+{{x}} Quarkounets]",
-        "lost": "Vous avez cliqué sur 'OK' en {{time}} secondes ! Malheureusement, ce n'est pas gagné cette fois. Réessayez bientôt.",
+        "lost": "You clicked 'OK' in {{time}} seconds! Unfortunately, you did not win this time. You can try again at any time!",
+        "goldenQuarks": "[+{{x}} Golden Quarks]",
         "ambrosia": "Vos Myrtilles résonnent légèrement, vous donnant {{blueberryTime}} secondes réelles de points de barre d'Ambroisie."
       },
       "spoiler": {
@@ -8492,9 +8657,9 @@
     "singularityMessage1": "Vous avez atteint la fin du jeu, à la Singularité numéro {{x}}. Platonic et le Dieu Fourmi sont fiers de vous.",
     "singularityMessage2": "Vous pouvez vous reposer sur vos lauriers et considérer que vous avez fini le jeu, ou vous pouvez faire quelque chose de plus intéressant.",
     "singularityMessage3": "Vous êtes trop puissant cet univers. Le multivers de Synergism est vraiment infini, mais il y a des univers parallèles au vôtre qui vous mettront encore bien plus au défi.",
-    "singularityMessage4": "Reprenez du tout début, et entrez dans la Singularité numéro {{x}}. Votre prochain univers est plus dur que l'actuel, mais vous débloquez une bonification permanente de 10% pour les Quarks et le nombre d'Ascensions, et vous obtenez également {{y}} Quarks Dorés, qui peuvent être utilisés pour acheter des améliorations de fin de partie qui changent la donne. [Augmentés de {{z}}% grâce à la bonification de Patreon !]",
-    "singularityMessage5": "Cependant, toutes vos réussites passées disparaissent ! TOUT, sauf les Succès, le classement des Fourmis de tous les temps, les Améliorations de Quarks et les Hepteracts de Quarks, sera effacé.",
-    "singularityConfirm0": "Voulez-vous commencer la Singularité numéro {{x}} ? Votre prochain univers sera plus difficile mais vous obtiendrez {{y}} Quarks Dorés.",
+    "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades.",
+    "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, Quark Upgrades, and Quark Hepteracts will be wiped clean. In the Quark Ledger, Primary Quarks reset, but Miscellaneous Quarks do not.",
+    "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks. In the Quark Ledger, Primary Quarks reset, but Miscellaneous Quarks do not.",
     "singularityConfirm1": "Alors, qu'en dites-vous ? Voulez-vous entrer dans la Singularité ?",
     "singularityConfirm2": "Êtes-vous sûr·e de vouloir entrer dans la Singularité ?",
     "singularityConfirm3": "Êtes-vous VRAIMENT SÛR·E ? Vous ne pourrez pas retourner en arrière (sans une ancienne sauvegarde) ! Confirmez une dernière fois pour valider votre décision.",
@@ -8519,7 +8684,12 @@
     "challengeCompletions": "C{{challenge}}: {{completions}}",
     "challengeCompletionsTitle": "Challenge {{challenge}} completions after this Ascension",
     "challenge15Score": "C15: {{score}}",
-    "challenge15ScoreTitle": "Challenge 15 score from this Ascension"
+    "challenge15ScoreTitle": "Challenge 15 score from this Ascension",
+    "exalt": "E{{num}}x{{tier}}",
+    "stay": "Stay",
+    "goUp": "Go up to Sing {{sing}}",
+    "goDown": "Go down to Sing {{sing}}",
+    "enterExalt": "Enter EXALT {{num}}"
   },
   "event": {
     "aprilFools": {
@@ -8728,13 +8898,9 @@
       "globalEventSome": "Temps restant : <<#8f8|{{time}}>>"
     },
     "timeSkips": {
-      "GLOBAL": {
-        "title": "Sauts dans le temps P/T/R/Fourmis",
-        "description": "Avancez en accéléré le temps réel de vos chronomètres de Prestige, Transcendance, Réincarnation et Sacrifice de Fourmis !"
-      },
       "ASCENSION": {
-        "title": "Sauts dans le temps d'Ascension",
-        "description": "Avancez en accéléré le temps réel de votre chronomètre d'Ascension !"
+        "title": "Global and Ascension Time Skips",
+        "description": "Fast-forward real-life time on your Prestige, Transcension, Reincarnation, Ant Sacrifice and Ascension Timers!"
       },
       "AMBROSIA": {
         "title": "Sauts temporels d'Ambroisie",
@@ -8831,6 +8997,7 @@
     "ants": "Les Fourmis ont été profondément remaniées et rééquilibrées. Votre progression de Fourmilière a été ajustée en conséquence !",
     "sept13Refund": "Suite à la mise à jour de l'Ambroisie Violette, certaines de vos Améliorations de Quarks ont été remboursées ! Montant remboursé : <<cyan|+{{amount}}>>",
     "v4-4-1-Corruptions": "Because of a recent update, your Corruption progress has been adjusted. Your Corruption level is set to <<orange|{{level}}>>, with a Challenge 10 completion instantly awarded.",
-    "v4-4-1-BarCharging": "Because of balancing changes, your <<var(--purple-text-color)|Bar Charging>> EXALT completions have been set to <<orange|5>>."
+    "v4-4-1-BarCharging": "Because of balancing changes, your <<var(--purple-text-color)|Bar Charging>> EXALT completions have been set to <<orange|5>>.",
+    "v4-4-2-Quarks": "You've loaded into Version 4.4.2, which substantially changes Quark progression. You may want to check out the Ledger in the Quarks tab, and be on the lookout for new Quark Upgrades! Daily activities, such as the 'daily' code, have been reset as well!"
   }
 }
