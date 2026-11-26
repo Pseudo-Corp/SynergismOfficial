@@ -72,7 +72,7 @@
     "ignoreEXALT": "[<<white|♔>>]即使拔擢有相应限制，该升级仍然会生效！",
     "moduleActive": "<<gold|[已激活]>>",
     "moduleInactive": "<<gray|[未激活]>>",
-    "moduleAugmented": "<<red|[Augmented]>>",
+    "moduleAugmented": "<<red|[已附魔]>>",
     "notUnlocked": "首次完成无金夸克升级！",
     "ambrosiaCost": "下一级的花费：<<orange|{{amount}}>>神肴",
     "purpleAmbrosia": {
@@ -194,17 +194,17 @@
       },
       "ambrosiaObtainium1": {
         "name": "基于随机数的难得素加成",
-        "description": "Gain +num:((0.1))% Obtainium per Ambrosia Luck per level!",
+        "description": "每有1神肴之运，每级就使难得素获取数量增加num:((0.1))%！",
         "effect": "该模块使难得素获取数量增加{{amount}}%！"
       },
       "ambrosiaOffering1": {
         "name": "基于随机数的祭品加成",
-        "description": "Gain +num:((0.1))% Offerings per Ambrosia Luck per level!",
+        "description": "每有1神肴之运，每级就使祭品获取数量增加num:((0.1))%！",
         "effect": "该模块使祭品获取数量增加{{amount}}%！"
       },
       "ambrosiaHyperflux": {
         "name": "惊奇方盒终极工业生产",
-        "description": "Multiply (3-7D) Cubes by (1 + num:((0.01)) × level)x for every level of Platonic Upgrade 4x4 purchased!",
+        "description": "每购买1级PLATONIC方盒升级4x4，就使所有类型的方盒和立方获取数量变为原来的 (1 + num:((0.01)) × 等级 倍！",
         "effect": "该模块使(3-7阶)的方盒、立方和方块获取数量增加{{amount}}%！"
       },
       "ambrosiaBaseObtainium1": {
@@ -259,7 +259,7 @@
       },
       "ambrosiaSingReduction2": {
         "name": "超维色动后激奇点稳定模块",
-        "description": "Retrofitted with... those kinds of Stabilizers, your EXALTED Singularities are a bit smoother. Singularity Penalties are delayed by 1 singularity per level, if you are ACTUALLY! in an EXALT.",
+        "description": "装配……那种稳定器后，拔擢的奇点更加平滑。只要在拔擢中，每级该升级就使奇点相关惩罚视为减少1次奇点的惩罚。",
         "effect": "奇点相关惩罚视为减少{{amount}}次奇点的惩罚。"
       },
       "ambrosiaTalismanBonusRuneLevel": {
@@ -274,8 +274,8 @@
       },
       "ambrosiaBrickOfLead": {
         "name": "铅砖",
-        "description": "I always keep this under my hat. This reduces your Ambrosia Bar Point generation speed by 2% per level, but grants Ambrosia Luck to compensate! It also slows down Global and Ascension speed by 1% per level.",
-        "effect": "Ambrosia Bar Point Requirement x{{blueberryGen}}, Ambrosia Luck +{{luckMult}}. Global, Ascension Speed x{{speedMult}}"
+        "description": "我总将它藏在帽子里。每级使神肴进度条获取速度减少2%，但作为补偿可以获得神肴之运！每级还会使全局速度和飞升的速度减少1%。",
+        "effect": "神肴进度条点数需求×{{blueberryGen}}，神肴之运增加{{luckMult}}。全局速度和飞升的速度×{{speedMult}}"
       },
       "ambrosiaFreeLuckUpgrades": {
         "name": "绿而再绿的神肴绿草",
@@ -384,27 +384,27 @@
       },
       "freeTutorialLevels": {
         "name": "增加神肴教程模块的等级！",
-        "description": "A meta-tutorial of sorts. A powerful ability of Red Ambrosia is to power your Blueberry tree! Increase the effective level of Blueberry Tutorial Module by 1 per level. These levels apply even if the Module is not activated.",
+        "description": "某种元教程。红神肴的强大能力之一是为蓝莓树供能！每级可以使神肴教程模块的有效等级增加1。即使模块未激活，这些等级也仍然生效。",
         "effect": "该升级使神肴教程模块的有效等级增加<<pink | {{amount}}>>！"
       },
       "freeLevelsRow2": {
         "name": "增加神肴之运模块的等级！",
-        "description": "Add one effective level per level to all Blueberry Modules in the third row, excluding the first column, and to hybrid modules that grant Ambrosia Luck. These levels apply even if the Module is not activated.",
+        "description": "每级使第三行所有蓝莓模块(除了第一列的模块以外)，以及增加神肴之运的混合模块的有效等级增加1。即使模块未激活，这些等级也仍然生效。",
         "effect": "该升级使第三行所有蓝莓模块(除了第一列的模块以外)，以及增加神肴之运的混合模块的有效等级增加<<pink | {{amount}}>>！"
       },
       "freeLevelsRow3": {
         "name": "增加蓝莓资源和功能模块的等级！",
-        "description": "Add one effective level per level to all Blueberry Modules in rows 5 and 6, excluding the first column, the RNG-based Offerings Booster, and Singularity Stabilizer modules. These levels apply even if the Module is not activated.",
+        "description": "每级使第五行和第六行所有蓝莓模块(除了第一列的模块、基于随机数的祭品加成和奇点稳定模块以外)的有效等级增加1。即使模块未激活，这些等级也仍然生效。",
         "effect": "该升级使第五行和第六行所有蓝莓模块(除了第一列的模块、基于随机数的祭品加成和奇点稳定模块以外)的有效等级增加<<pink | {{amount}}>>！"
       },
       "freeLevelsRow4": {
         "name": "增加方盒模块的等级！",
-        "description": "Add one effective level per level to all Blueberry Modules in the second row, excluding the first column, and to hybrid modules that grant cubes. These levels apply even if the Module is not activated.",
+        "description": "每级使第二行所有蓝莓模块(除了第一列的模块以外)，以及增加所有类型的方盒、立方和方块获取数量的混合模块的有效等级增加1。即使模块未激活，这些等级也仍然生效。",
         "effect": "该升级使第二行所有蓝莓模块(除了第一列的模块以外)，以及增加所有类型的方盒、立方和方块获取数量的混合模块的有效等级增加<<pink | {{amount}}>>！"
       },
       "freeLevelsRow5": {
         "name": "增加夸克模块的等级！",
-        "description": "Add one effective level per level to all Blueberry Modules in the first row, excluding the first column, and to hybrid modules that grant quarks. These levels apply even if the Module is not activated.",
+        "description": "每级使第一行所有蓝莓模块(除了第一列的模块以外)，以及增加夸克获取数量的混合模块的有效等级增加1。即使模块未激活，这些等级也仍然生效。",
         "effect": "该升级使第一行所有蓝莓模块(除了第一列的模块以外)，以及增加夸克获取数量的混合模块的有效等级增加<<pink | {{amount}}>>！"
       },
       "blueberryGenerationSpeed": {
@@ -457,7 +457,7 @@
       },
       "viscount": {
         "name": "红宝石家伙子爵",
-        "description": "For a stupid amount of Red Ambrosia, obtain a small amount of land, becoming 'viscount' of this land. Purchase this to get +10% Quarks, +125 Ambrosia Luck, +25 Red Luck, and become eligible for a role on our Discord server!",
+        "description": "花费一大笔红神肴，获取一块土地，成为这片土地的“子爵”。购买后，夸克获取数量增加10%，神肴之运增加125，红运增加25，并有资格在Discord服务器中获得身份组！",
         "effect": "📜 {{mark}}"
       },
       "infiniteShopUpgrades": {
@@ -705,8 +705,8 @@
           "flavor": "刚从恩卡布器现场获取。",
           "cost": "花费：<<var(--purple-text-color)|{{purpleAmbrosia}}紫神肴>>和<<cyan|{{quarks}}夸克>>。",
           "purchaseAria": "花费{{purpleAmbrosia}}紫神肴和{{quarks}}夸克购买{{amount}}级亚原子碎屑。",
-          "effectNotMaxed": "Quarks from Synthesis: <<silver|x{{current}} →>> <<gold|x{{next}}>>",
-          "effectMaxed": "Quarks from Synthesis: <<gold|x{{value}}>>"
+          "effectNotMaxed": "合成时获得夸克：<<silver|x{{current}} →>> <<gold|x{{next}}>>",
+          "effectMaxed": "合成时获得夸克：<<gold|x{{value}}>>"
         },
         "exceptionalLieGroup": {
           "name": "例外李群",
@@ -910,9 +910,9 @@
       "purpleQuarkGain": {
         "name": "实验室培育的夸克",
         "flavor": "外观、触感、味道乃至<i>本质</i>，都是夸克。",
-        "effectNotMaxed": "Quarks from extracted Purple Honey: <<silver|x{{oldValue}} →>> <<gold|x{{newValue}}>>",
-        "effectMaxed": "Quarks from extracted Purple Honey: <<gold|x{{maxValue}}>>",
-        "disclaimer": "<<gold | ⚠>> This perk does not work in the 'Bar Charging' EXALT!"
+        "effectNotMaxed": "提取紫蜜时获得夸克：<<silver|x{{oldValue}} →>> <<gold|x{{newValue}}>>",
+        "effectMaxed": "提取紫蜜时获得夸克：<<gold|x{{maxValue}}>>",
+        "disclaimer": "<<gold | ⚠>>该特权在“填充进度条”拔擢中无效！"
       }
     }
   },
@@ -1563,7 +1563,7 @@
         "taxReduction": "使税收增长减少5%"
       },
       "118": {
-        "taxReduction": "Multiply Tax scaling by num:((0.9925))x for every Reincarnation Challenge completion"
+        "taxReduction": "每完成1次转世挑战，就使税收增长速度变为原来的num:((0.9925))倍"
       },
       "120": {
         "diamondUpgrade18": "解锁第18个钻石升级！"
@@ -1642,13 +1642,13 @@
         "antSpeed": "使蚂蚁速度乘以银河碎屑数值的对数"
       },
       "171": {
-        "antSpeed": "使蚂蚁速度变为num:((1.2))倍"
+        "antSpeed": "使蚂蚁速度变为原来的num:((1.2))倍"
       },
       "172": {
-        "antSpeed": "使蚂蚁速度变为num:((1.25))倍"
+        "antSpeed": "使蚂蚁速度变为原来的num:((1.25))倍"
       },
       "173": {
-        "antSpeed": "使蚂蚁速度变为num:((1.4))倍",
+        "antSpeed": "使蚂蚁速度变为原来的num:((1.4))倍",
         "antSacrificeUnlock": "解锁蚂蚁献祭！",
         "antAutobuyers": "解锁一个蚂蚁自动购买！"
       },
@@ -1793,13 +1793,13 @@
         "antAutobuyers": "自动购买蚁神圣灵蚁！"
       },
       "437": {
-        "prestigeCountMultiplier": "Gain +100% more Prestige Count per digit in your Prestige Count!"
+        "prestigeCountMultiplier": "转生次数每有一个数量级，就使转生次数获取数量增加100%！"
       },
       "438": {
         "duplicationRuneUnlock": "永久解锁重叠符文！"
       },
       "439": {
-        "offeringBonus": "Gain +2% more Offerings per digit in your Prestige Count!"
+        "offeringBonus": "转生次数每有一个数量级，就使祭品获取数量增加2%！"
       },
       "442": {
         "transcendToPrestige": "每获得1次超越，您就获得1次转生(受转生次数倍率影响)"
@@ -1808,7 +1808,7 @@
         "transcensionCountMultiplier": "基于转生时间，增加超越次数获取数量(在10秒时达到上限4倍)"
       },
       "452": {
-        "transcensionCountMultiplier": "Gain +100% more Transcension Count per digit in your Transcension Count!"
+        "transcensionCountMultiplier": "超越次数每有一个数量级，就使超越次数获取数量增加100%！"
       },
       "453": {
         "salvage": "超越次数每有一个数量级，就使回收增加2！"
@@ -1823,11 +1823,11 @@
         "reincarnationCountMultiplier": "基于转生时间，增加转世次数获取数量(在num:((1000))秒时达到上限4倍)"
       },
       "467": {
-        "reincarnationCountMultiplier": "Gain +100% more Reincarnation Count per digit in your Reincarnation Count!",
+        "reincarnationCountMultiplier": "转世次数每有一个数量级，就使转世次数获取数量增加100%！",
         "obtainiumTimerMultiplier": "本次转世每经过10秒，难得素获取数量就增加100%，它会持续增长下去！"
       },
       "468": {
-        "obtainiumBonus": "Gain +2% more Obtainium per digit in your Reincarnation Count!"
+        "obtainiumBonus": "转世次数每有一个数量级，就使难得素获取数量增加2%！"
       },
       "470": {
         "thriftRuneUnlock": "永久解锁节俭符文！"
@@ -2591,7 +2591,7 @@
     },
     "leaderboard": {
       "toggleDaily": "每日",
-      "toggleSingularity": "Singularity",
+      "toggleSingularity": "奇点",
       "toggleAllTime": "全局",
       "value": "总加权值：<<gold|{{x}}>> (阶段<<gold|{{y}}>>)",
       "quarksGained": "从阶段获取的夸克数量：<<cyan|{{x}}>>",
@@ -2602,14 +2602,14 @@
       "weight": "权重",
       "stageModal": {
         "introDaily": "每日排行榜位于阶段<<gold|{{x}}>>。",
-        "introSingularity": "Your Singularity leaderboard is at Stage <<gold|{{x}}>>.",
+        "introSingularity": "奇点排行榜位于阶段<<gold|{{x}}>>。",
         "introAllTime": "全局排行榜位于阶段<<gold|{{x}}>>。",
         "stageLine": "<<turquoise|{{x}}>>个阶段，价值<<#00DDFF|{{y}}>>加权值(每阶段<<gold|{{z}}>>)",
         "toNextStage": "您还需要<<gold|{{x}}>>加权值才能达到下个阶段。",
         "disclaimer": "计算加权值时，阶段的计算方式与重生强度分中的计算方式<<gold|相同>>。加权值公式：<<orchid|Sum(ELO_i * Weight_i)>>，i为该蚂蚁献祭在排行榜上的名次。"
       },
       "dailyQuarkModal": {
-        "intro": "You've gained <<cyan|{{x}}>> Quarks from Ant Sacrifice!",
+        "intro": "您通过蚂蚁献祭获得了<<cyan|{{x}}>>夸克！",
         "quarkLine": "<<turquoise|{{x}}>>个阶段，价值<<cyan|{{y}}>>夸克(每阶段<<cyan|{{z}}>>)",
         "bonusMult": "每个阶段使蚂蚁献祭时夸克获取数量变为原来的num:((1.002))倍，上限为阶段num:((1000))！当前效果：<<cyan|{{x}}倍>>",
         "allTimeMult": "全局排行榜蚂蚁献祭时夸克获取数量倍率：<<cyan|{{x}}倍>>",
@@ -2669,7 +2669,7 @@
     "altarHeader": "蚁神……<<crimson|渴望血食。>>",
     "altarDetails": "献祭蚂蚁，获得<<crimson|不朽强度分>>，以及其他俗物。",
     "compendiumHeader": "蚁神感谢您的捐赠。",
-    "compendiumDetails": "She offers you some Quarks in exchange for your best Sacrifices.",
+    "compendiumDetails": "蚁神会根据您最多的一次献祭给予您夸克。",
     "anthillAlive": "您的蚁丘存活了",
     "currentAnthill": "(这是您的第<<gold|{{ord}}>>个蚁丘)",
     "galacticCrumbCount": "您拥有{{x}}银河碎屑。",
@@ -2834,14 +2834,14 @@
       "restrictions": "立即转世，需要达到目标，但需要缴纳更多税收！<br>☆ 税负变为原来的 <<gold|3 * (1 + 该挑战完成次数 / 25)^2>> 倍<br>☆ 金币产量除以<<gold|num:((1e250))>>。",
       "goal": "目标：在挑战中达到{{value}}神话碎片。",
       "per": {
-        "1": "Taxes xnum:((0.965))! Current: ",
+        "1": "使税收变为原来的num:((0.965))倍！当前效果：",
         "2": "使回收增加num:((0.3))！当前效果：",
         "3": "祭品获取数量增加2%！当前效果："
       },
       "first": "税收减少num:((7.5))%！",
       "start": "开始<税收增加挑战>",
       "current": {
-        "1": "税收变为{{value}}倍",
+        "1": "使税收变为原来的{{value}}倍",
         "2": "使回收增加{{value}}",
         "3": "使祭品获取数量增加{{value}}%"
       }
@@ -2892,14 +2892,14 @@
       "goal": "目标：在挑战中达到{{value}}金币。",
       "per": {
         "1": "免费蚂蚁等级增加1！当前效果：",
-        "2": "Ant Speed xnum:((1.1))! Current: ",
+        "2": "使蚂蚁速度变为原来的num:((1.1))倍！当前效果：",
         "3": "使回收增加num:((0.5))！当前效果："
       },
       "first": "在符文选项卡下解锁护身符和祝福。一个全局钻石升级。",
       "start": "开始<无符文挑战>",
       "current": {
         "1": "免费等级增加{{value}}",
-        "2": "使蚂蚁速度变为{{value}}倍",
+        "2": "使蚂蚁速度变为原来的{{value}}倍",
         "3": "使回收增加{{value}}"
       }
     },
@@ -2937,7 +2937,7 @@
       "start": "开始<[(蚂蚁减少挑战)]>",
       "current": {
         "1": "免费蚂蚁等级增加{{value}}",
-        "2": "使蚂蚁速度变为{{value}}倍",
+        "2": "使蚂蚁速度变为原来的{{value}}倍",
         "3": "增加{{value}}"
       }
     },
@@ -4416,12 +4416,12 @@
       "singCitadel": {
         "name": "奇点堡垒",
         "description": "What a unique structural phenomenon... but it gives +2% Obtainium, Offerings, and 3-7D cubes per level, multiplied by (1 + num:((0.01)) × floor(level / 10))!",
-        "effect": "使难得素获取数量、祭品获取数量、所有3-7阶方盒和立方获取数量永久增加{{n}}！"
+        "effect": "使难得素获取数量、祭品获取数量、所有类型的方盒和立方获取数量增加{{n}}。"
       },
       "singCitadel2": {
         "name": "真·奇点堡垒",
         "description": "This actual Citadel gives +2% Obtainium, Offerings, and 3-7D cubes per level, multiplied by (1 + num:((0.01)) × floor(level / 10))! Also sets the free level of the fake citadel to whatever level this is.",
-        "effect": "使难得素获取数量、祭品获取数量、所有3-7阶方盒和立方获取数量永久增加{{n}}！"
+        "effect": "使难得素获取数量、祭品获取数量、所有类型的方盒和立方获取数量增加{{n}}。"
       },
       "octeractUnlock": {
         "name": "惊奇八阶方块",
@@ -5030,7 +5030,7 @@
       "2": "所有超立方建筑产量变为{{x}}倍",
       "3": "祭品获取数量变为{{x}}倍",
       "4": "难得素获取数量变为{{x}}倍",
-      "5": "使蚂蚁速度变为{{x}}倍",
+      "5": "使蚂蚁速度变为原来的{{x}}倍",
       "6": "免费蚂蚁等级增加{{x}}级",
       "7": "使免费符文等级增加{{x}}",
       "8": "祭品提供的符文经验值变为{{x}}倍",
@@ -6909,7 +6909,7 @@
       "transferFailed": "❌转移失败"
     },
     "quarkBonusSimple": "慷慨的赞助者使<<cyan|夸克获取数量>>增加<<gold|{{globalBonus}}%>>！",
-    "quarkBonusExtended": "慷慨的赞助者使<<cyan|夸克获取数量>>增加<<gold|{{globalBonus}}%>>！<br>您的赞助和角色加成使它再乘以<<gold|{{personalBonusMult}}>><br>↳ 总<<cyan|夸克获取数量>>加成：<<gold|增加{{totalBonus}}%>>",
+    "quarkBonusExtended": "Generous Subscribers grant you <<gold|{{globalBonus}}%>> more <<cyan|Quarks>>! <br> Your Subscriptions and Role Bonuses multiply this by <<gold|{{personalBonusMult}}>> <br> ↳ Total <<cyan|Quark>> bonus: <<gold|+{{totalBonus}}%>>",
     "saveString": {
       "version": "使用<<cyan|$VERSION$>>来表示完整版本号，<<cyan|$VER$>>来表示版本号，",
       "time": "<<cyan|$TIME$>>来表示24小时制时间，<<cyan|$TIME12$>>来表示12小时制时间，",
@@ -8718,11 +8718,11 @@
     "downloadComplete": "下载完毕",
     "deletedSave": "“{{name}}”已删除",
     "notDeleted": "您的存档删除失败。请查看控制台获取更多信息。",
-    "personalQuarkBonus": "由于订阅和Discord角色的效果，您获得了<<cyan|{{percent}}%>>的夸克获取数量加成！",
+    "personalQuarkBonus": "由于订阅和Discord身份组的效果，您获得了<<cyan|{{percent}}%>>的夸克获取数量加成！",
     "subscriptionBonuses": "订阅加成",
-    "eventBonuses": "Discord角色加成",
-    "eventBonusMulti": "<<cyan|♔>>您的角色加成与订阅加成相互<<gold|叠乘>>。",
-    "eventBonusLink": "将账户与Discord相互连接，以启用角色加成！",
+    "eventBonuses": "Discord身份组加成",
+    "eventBonusMulti": "<<cyan|♔>>您的身份组加成与订阅加成相互<<gold|叠乘>>。",
+    "eventBonusLink": "将账户与Discord相互连接，以启用身份组加成！",
     "lastButNotLeast": "最后还有……",
     "helloNoUser": "您好！",
     "helloUser": "您好，<<gold|{{username}}>>！",
