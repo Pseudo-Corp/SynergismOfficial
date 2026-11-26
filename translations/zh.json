@@ -3512,7 +3512,7 @@
       "calculator2": "PL-AT X提升了内存容量，每级使“增加”代码的时间上限增加30分钟。另外，最后一级可以使您使用“增加”代码获取的夸克数量增加25%！",
       "calculator3": "PL-AT Ω注入了难得素，这使它的性能进一步提升了！每级使您使用“增加”代码获得的夸克数量变化范围减少10%，因此您更有可能获得最高的数值。另外，每级可以使您使用“增加”代码时同时增加60秒飞升时间。",
       "calculator4": "PL-AT δ的主频为num:((4096))Hz，这是一项巨大的进步。每级使“增加”代码的使用时间间隔减少4%。另外，最后一级可以使“增加”代码的时间上限增加3小时！",
-      "calculator5": "PL-AT Γ可以进行“更强大”的计算。您每使用1次“增加”代码，每级就使今日导出的夸克获取数量倍率增加0.01%。另外，每级使“增加”代码的时间上限增加1分钟，且最后一级再使“增加”代码的时间上限增加80分钟！",
+      "calculator5": "PL-AT Γ可以进行“更强大”的计算。您每使用1次“增加”代码，每级就使今日导出游戏存档的夸克获取数量倍率增加0.01%。另外，每级使“增加”代码的时间上限增加1分钟，且最后一级再使“增加”代码的时间上限增加80分钟！",
       "calculator6": "PL-AT _由Derpsmith制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于1秒产量的惊奇八阶方块。另外，最后一级可以使“增加”代码的时间上限再增加3小时！",
       "calculator7": "PL-AT ΩΩ由Derpsmith Ω制造，之后他就被永远逐出了这个行业。每级使您使用“增加”代码时获得相当于现实时间1秒产量的神肴进度条点数。另外，最后一级可以使“增加”代码的时间上限再增加3小时！",
       "constantEX": "商人居然还留了一手……它可以使数学常数升级2的效果稍微再好一些，但它的价格也是天文数字了！之前的上限为10%(或者在获得特定成就后变为11%)，每级还可以使这个数字再增加1%。",
@@ -3668,7 +3668,7 @@
       "calculator2": "使“增加”代码的时间上限增加<<orchid|{{amount1}}>>秒。使用“增加”代码可以额外获取<<cyan|{{amount2}}>>的夸克。",
       "calculator3": "使“增加”代码的奖励变动范围减少<<orchid|{{amount1}}>>，使用“增加”代码时飞升时间同时增加<<orchid|{{amount2}}>>秒。",
       "calculator4": "使“增加”代码的使用时间间隔减少<<orchid|{{amount1}}>>，时间上限增加<<orchid|{{amount2}}>>秒。",
-      "calculator5": "“增加”代码使今日导出的夸克获取数量倍率<<orchid|增加{{amount1}}%>>。使“增加”代码的时间上限<<orchid|增加{{amount2}}>>秒。",
+      "calculator5": "“增加”代码使今日导出游戏存档的夸克获取数量倍率<<orchid|增加{{amount1}}%>>。使“增加”代码的时间上限<<orchid|增加{{amount2}}>>秒。",
       "calculator6": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒产量的惊奇八阶方块。使“增加”代码的时间上限增加<<orchid|{{amount2}}>>秒。",
       "calculator7": "使用“增加”代码时获得相当于<<orchid|{{amount1}}>>秒产量的神肴进度条点数。使“增加”代码的时间上限增加<<orchid|{{amount2}}>>秒。",
       "constantEX": "数学常数升级2的效果再增加<<orange|{{amount}}%>>。",
@@ -7749,7 +7749,7 @@
       "title": "“增加”代码效果",
       "Quarks": "基础夸克数量(平均值)：",
       "AscensionTime": "PL-AT Ω - 飞升时间(现实时间秒数)：",
-      "ExportQuarkMult": "PL-AT Γ - 导出的夸克获取数量倍率(%)：",
+      "ExportQuarkMult": "PL-AT Γ - 导出游戏存档的夸克获取数量倍率(%)：",
       "Octeracts": "PL-AT _ - 八阶方块获取数量(现实时间秒数)：",
       "Ambrosia": "PL-AT ΩΩ - 神肴进度条点数(现实时间秒数)："
     },
@@ -8446,7 +8446,7 @@
       "orbs": "超通量珠：",
       "effect": "效果：",
       "powder": "超通量粉：",
-      "warps": "Warp:",
+      "warps": "跃迁：",
       "descriptions": {
         "chronos": {
           "effect": "该惊奇七阶立方可以扭曲时间，为您所用。每个惊奇七阶立方·时光可以使飞升的速度增加num:((0.06))%。",
@@ -8528,27 +8528,27 @@
     "hepteractInput": "您要购买多少超通量珠？\n现有的七阶立方最多可以购买{{x}}。",
     "gainedPowder": "由于商店升级的效果，您还立即获得了{{x}}超通量粉。",
     "purchasedOrbs": "您购买了{{x}}超通量珠[效果增加{{y}}%]。{{z}}祝您开心！",
-    "powderEffect": "Powder effect: ALL Cube Gain +{{x}}%, +{{y}}% Quarks",
-    "powderEffectExtended": "Powder effect: ALL Cube Gain +{{x}}%, +{{y}}% Quarks, Ascension Count +{{z}}%, Tesseract Building Production x{{a}} [From Platonic Upgrade 4x1]",
+    "powderEffect": "超通量粉效果：所有类型的方盒、立方和方块获取数量增加{{x}}%，夸克获取数量增加{{y}}%",
+    "powderEffectExtended": "超通量粉效果：所有类型的方盒、立方和方块获取数量增加{{x}}%，夸克获取数量增加{{y}}%，飞升次数增加{{z}}%，超立方建筑产量变为{{a}}倍[Platonic方盒升级4x1的效果]",
     "powderLumps": "您拥有{{x}}超通量粉。",
     "expiredOrbs": "粉碎的超通量珠可以转换为超通量粉，比率为：每超通量粉需要{{x}}超通量珠！",
-    "dailyWarpActive": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until midnight.",
-    "dailyWarpActiveOrSingularity": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until midnight or your next Singularity.",
-    "dailyWarpActiveUntilSingularity": "The Primary Quark Warp is active: Primary Quarks are multiplied by ×{{x}} until your next Singularity.",
-    "dailyWarpInactive": "Warp for 25 Powder to multiply Primary Quarks by ×{{x}} until midnight.",
-    "dailyWarpInactiveOrSingularity": "Warp for 25 Powder to multiply Primary Quarks by ×{{x}} until midnight or your next Singularity.",
-    "dailyWarpInactiveUntilSingularity": "Warp for 25 Powder to multiply Primary Quarks by ×{{x}} until your next Singularity.",
-    "warpAlreadyActive": "The Primary Quark Warp is already active. It wears off at midnight.",
-    "warpAlreadyActiveOrSingularity": "The Primary Quark Warp is already active. It wears off at midnight or on your next Singularity.",
-    "warpAlreadyActiveUntilSingularity": "The Primary Quark Warp is already active. It wears off on your next Singularity.",
+    "dailyWarpActive": "主要夸克跃迁已经开启：主要夸克在午夜之前变为原来的{{x}}倍。",
+    "dailyWarpActiveOrSingularity": "主要夸克跃迁已经开启：主要夸克在午夜或下次进入奇点之前变为原来的{{x}}倍。",
+    "dailyWarpActiveUntilSingularity": "主要夸克跃迁已经开启：主要夸克在下次进入奇点之前变为原来的{{x}}倍。",
+    "dailyWarpInactive": "花费25超通量粉进行跃迁，使主要夸克在午夜之前变为原来的{{x}}倍。",
+    "dailyWarpInactiveOrSingularity": "花费25超通量粉进行跃迁，使主要夸克在午夜或下次进入奇点之前变为原来的{{x}}倍。",
+    "dailyWarpInactiveUntilSingularity": "花费25超通量粉进行跃迁，使主要夸克在下次进入奇点之前变为原来的{{x}}倍。",
+    "warpAlreadyActive": "主要夸克跃迁已经开启，午夜时将失效。",
+    "warpAlreadyActiveOrSingularity": "主要夸克跃迁已经开启，午夜或下次进入奇点时将失效。",
+    "warpAlreadyActiveUntilSingularity": "主要夸克跃迁已经开启，下次进入奇点时将失效。",
     "atleastPowder": "抱歉，您需要25超通量粉才可以进行时空跃迁。",
-    "stumbleMachine": "You stumble upon a mysterious machine. A note attached says that for 25 Powder, it multiplies your Primary Quarks by ×{{x}} until midnight. You in?",
-    "stumbleMachineOrSingularity": "You stumble upon a mysterious machine. A note attached says that for 25 Powder, it multiplies your Primary Quarks by ×{{x}} until midnight or your next Singularity. You in?",
-    "stumbleMachineUntilSingularity": "You stumble upon a mysterious machine. A note attached says that for 25 Powder, it multiplies your Primary Quarks by ×{{x}} until your next Singularity. You in?",
+    "stumbleMachine": "您偶然发现一台神秘的机器。上面贴着一张纸条，只要花费25超通量粉，就能在午夜之前使主要夸克变为原来的{{x}}倍。您要试试吗？",
+    "stumbleMachineOrSingularity": "您偶然发现一台神秘的机器。上面贴着一张纸条，只要花费25超通量粉，就能在午夜或下次进入奇点之前使主要夸克变为原来的{{x}}倍。您要试试吗？",
+    "stumbleMachineUntilSingularity": "您偶然发现一台神秘的机器。上面贴着一张纸条，只要花费25超通量粉，就能在下次进入奇点之前使主要夸克变为原来的{{x}}倍。您要试试吗？",
     "walkAwayMachine": "您离开了那台机器，超通量粉分毫未少。",
-    "useMachine": "The machine hums to life. Primary Quarks are multiplied by ×{{x}} until midnight! [-25 Powder]",
-    "useMachineOrSingularity": "The machine hums to life. Primary Quarks are multiplied by ×{{x}} until midnight or your next Singularity! [-25 Powder]",
-    "useMachineUntilSingularity": "The machine hums to life. Primary Quarks are multiplied by ×{{x}} until your next Singularity! [-25 Powder]"
+    "useMachine": "机器发出嗡鸣声启动开来。午夜之前，主要夸克变为原来的{{x}}倍！[超通量粉减少25]",
+    "useMachineOrSingularity": "机器发出嗡鸣声启动开来。午夜或下次进入奇点之前，主要夸克变为原来的{{x}}倍！[超通量粉减少25]",
+    "useMachineUntilSingularity": "机器发出嗡鸣声启动开来。下次进入奇点之前，主要夸克变为原来的{{x}}倍！[超通量粉减少25]"
   },
   "importexport": {
     "copiedSave": "存档已导出至剪贴板！",
@@ -8585,16 +8585,16 @@
       },
       "add": {
         "calculator3": "由于PL-AT Ω的效果，您同时获得了现实时间{{x}}秒的飞升时间！",
-        "calculator5": "Thanks to PL-AT Γ, today's Export Quark multiplier increased by +{{x}}%!",
+        "calculator5": "然后，由于PL-AT Γ的效果，今日导出游戏存档的夸克获取数量倍率增加{{x}}%！",
         "calculator6": "最后，由于PL-AT _的效果，您还获得了相当于{{x}}秒产量的惊奇八阶方块！",
         "calculator7": "最后，由于PL-AT Ω的效果，您还获得了相当于现实时间{{x}}秒产量的神肴进度条点数！",
         "calculatorSolution": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？根据计算器，答案应该为{{z}}。",
         "calculatorPrompt": "答对可以获得{{w}}夸克，答错则一无所有：{{x}}+{{y}}等于多少？",
-        "calculatorMaxedQuarks": "Your calculator figured out that {{a}} + {{b}} = {{c}} on its own, so you were awarded {{d}} Quarks!",
+        "calculatorMaxedQuarks": "计算器自己算出了 {{a}} + {{b}} = {{c}}，因此您获得了{{d}}夸克！",
         "freeLevel": "最后的最后，您还获得了{{x}}级的免费金夸克 I升级和{{y}}级的免费金夸克 III升级！！！",
         "cancelled": "您没有消耗任何代码次数，不必担心！下次再说吧！",
-        "rewardQuarks": "You were awarded {{x}} Quarks!",
-        "usesRemaining": "You have {{x}} uses of Add. You will gain 1 in {{y}} seconds.",
+        "rewardQuarks": "您获得了{{x}}夸克！",
+        "usesRemaining": "您目前剩余{{x}}次“增加”代码使用次数。{{y}}秒后可以再获得1次。",
         "wrong": "您输入的是{{w}}，但正确答案是{{x}}。您还有{{y}}次“增加”代码的使用机会。{{z}}秒后可以获得1次。"
       },
       "sub": {
@@ -8602,15 +8602,15 @@
         "gave": "我得先给您{{x}}夸克，这样我才能拿走{{y}}夸克。"
       },
       "time": {
-        "wait": "You have already used Code 'time' today. Try again tomorrow.",
-        "prepare": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks!",
-        "prepareGoldenQuarks": "Are you a bona fide time teller? Let's find out. If you can click the button between {{start}} and {{end}} seconds after pressing 'OK', You win {{quarks}} Quarks and {{goldenQuarks}} Golden Quarks!",
+        "wait": "您今日已经使用过“时间”代码。请明天再试。",
+        "prepare": "您是真正的时间估计高手吗？来试试吧。按下“好”以后，如果能在{{start}}秒至{{end}}秒之间点击按钮，就能赢得{{quarks}}夸克！",
+        "prepareGoldenQuarks": "您是真正的时间估计高手吗？来试试吧。按下“好”以后，如果能在{{start}}秒至{{end}}秒之间点击按钮，就能赢得{{quarks}}夸克和{{goldenQuarks}}金夸克！",
         "confirm": "在您觉得合适的时机按下按钮。一定要在{{start}}到{{end}}秒之间啊！",
         "maxedCookie": "因为饼干升级11[Cx11]已经满级，您一定可以获得奖励。不过还是可以玩玩看！",
         "cancelled": "别担心！您随时可以再次尝试。",
         "won": "您在{{time}}秒时点击了确定按钮！恭喜！[增加{{x}}夸克]",
-        "lost": "You clicked 'OK' in {{time}} seconds! Unfortunately, you did not win this time. You can try again at any time!",
-        "goldenQuarks": "[+{{x}} Golden Quarks]",
+        "lost": "您在{{time}}秒时点击了确定按钮！很不幸，这次没有赢。您可以随时再试一次！",
+        "goldenQuarks": "[+{{x}}金夸克]",
         "ambrosia": "您的蓝莓产生了微弱的共鸣，您获得了相当于现实时间{{blueberryTime}}秒的神肴进度条点数。"
       },
       "spoiler": {
@@ -8657,9 +8657,9 @@
     "singularityMessage1": "您到达了游戏终点，也就是第{{x}}次奇点。Platonic和蚁神都为您而感到骄傲。",
     "singularityMessage2": "您可以选择就此封盘，认为您已经“通关”了，又或着您还愿意做一些更有趣的事情。",
     "singularityMessage3": "这个宇宙已经容纳不了您的力量了。协同放置的多元宇宙可谓无穷无尽，比起现在这个宇宙，还有更多更具挑战性的平行宇宙。",
-    "singularityMessage4": "Start anew, and enter Singularity #{{x}}. Your next universe is harder than your current one, but unlock a permanent +10% Quark Bonus, +10% Ascension Count Bonus, and Gain {{y}} Golden Quarks, which can purchase game-changing endgame upgrades.",
-    "singularityMessage5": "However, all your past accomplishments are gone! EVERYTHING except for Achievements, the all-time Ant leaderboard, Quark Upgrades, and Quark Hepteracts will be wiped clean. In the Quark Ledger, Primary Quarks reset, but Miscellaneous Quarks do not.",
-    "singularityConfirm0": "Do you wish to start singularity #{{x}}? Your next universe is harder but you will gain {{y}} Golden Quarks. In the Quark Ledger, Primary Quarks reset, but Miscellaneous Quarks do not.",
+    "singularityMessage4": "让我们重新开始，进入第{{x}}次奇点吧。下一个宇宙比目前的宇宙要来得更艰难，但夸克获取数量永久增加10%，飞升次数永久增加10%，且您可以获得{{y}}金夸克，它可以用于购买游戏内最后阶段的升级。",
+    "singularityMessage5": "但是，您之前的一切成果都将离您而去！除了成就、蚂蚁全局排行榜、夸克升级，以及惊奇七阶立方·夸克以外，其他所有东西，一切的一切，都将成为过去。夸克账簿中，主要夸克将重置，但杂项夸克则不会重置。",
+    "singularityConfirm0": "您想要进入第{{x}}次奇点吗？下一个宇宙比目前的宇宙要来得更艰难，但您可以获得{{y}}金夸克。夸克账簿中，主要夸克将重置，但杂项夸克则不会重置。",
     "singularityConfirm1": "所以，您意下如何？您真的想要进入奇点吗？",
     "singularityConfirm2": "您……真的想要进入奇点吗？",
     "singularityConfirm3": "您是真的真的确定了吗？一旦这么做将再也无法反悔(除非您有旧的存档文件)！这是最后一次向您确认。",
@@ -8685,11 +8685,11 @@
     "challengeCompletionsTitle": "本次飞升后挑战{{challenge}}的完成次数",
     "challenge15Score": "C15：{{score}}",
     "challenge15ScoreTitle": "本次飞升后挑战15的分数",
-    "exalt": "E{{num}}x{{tier}}",
-    "stay": "Stay",
-    "goUp": "Go up to Sing {{sing}}",
-    "goDown": "Go down to Sing {{sing}}",
-    "enterExalt": "Enter EXALT {{num}}"
+    "exalt": "拔擢{{num}}×{{tier}}",
+    "stay": "停留",
+    "goUp": "增加至奇点{{sing}}",
+    "goDown": "减少至奇点{{sing}}",
+    "enterExalt": "进入拔擢{{num}}"
   },
   "event": {
     "aprilFools": {
@@ -8899,8 +8899,8 @@
     },
     "timeSkips": {
       "ASCENSION": {
-        "title": "Global and Ascension Time Skips",
-        "description": "Fast-forward real-life time on your Prestige, Transcension, Reincarnation, Ant Sacrifice and Ascension Timers!"
+        "title": "全局和飞升时间跳跃",
+        "description": "使转生、超越、转世、蚂蚁献祭和飞升时间的计时直接增加相应现实时间！"
       },
       "AMBROSIA": {
         "title": "神肴 - 时间跳跃",
@@ -8998,6 +8998,6 @@
     "sept13Refund": "由于紫神肴升级，您的部分夸克升级已经返还！返还数量：<<cyan|{{amount}}>>",
     "v4-4-1-Corruptions": "由于近期更新，您的腐化进度已进行调整。腐化等级已设为<<orange|{{level}}>>，挑战10也直接设为完成一次。",
     "v4-4-1-BarCharging": "由于平衡性调整，您的<<var(--purple-text-color)|填充进度条>>拔擢的阶层完成数已被设为<<orange|5>>。",
-    "v4-4-2-Quarks": "You've loaded into Version 4.4.2, which substantially changes Quark progression. You may want to check out the Ledger in the Quarks tab, and be on the lookout for new Quark Upgrades! Daily activities, such as the 'daily' code, have been reset as well!"
+    "v4-4-2-Quarks": "您已经进入4.4.2版本，夸克进度进行了重大调整。您可以查看夸克选项卡下的账簿，也别忘了留意新的夸克升级！日常相关内容，例如“每日”代码，也重置了！"
   }
 }
