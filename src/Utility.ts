@@ -4,7 +4,6 @@ import DOMPurify from 'dompurify'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { bus, SynEvent } from './events/bus'
 import { format } from './Synergism'
-import { Globals as G } from './Variables'
 
 /**
  * This function calculates the smallest integer increment/decrement that can be applied to a number that is
@@ -27,12 +26,13 @@ export const smallestInc = (x = 0): number => {
  * @param array {(number|string)[]}
  * @returns {number}
  */
-export const digitCount = (value: number | Decimal) =>
-  typeof value === 'number'
-    ? value < 1 ? 0 : Math.floor(Math.log10(value)) + 1
-    : value.lt(G.dOne)
-    ? 0
-    : Math.floor(value.log10()) + 1
+export const digitCount = (value: number | Decimal) => {
+  if (typeof value === 'number') {
+    return value < 1 ? 0 : Math.floor(Math.log10(value)) + 1
+  }
+  const log = value.log10()
+  return log >= 0 ? Math.floor(log) + 1 : 0
+}
 
 export const sumContents = (array: number[]): number => {
   assert(Array.isArray(array))
