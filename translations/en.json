@@ -3897,13 +3897,13 @@
       "total": "Total",
       "quarksRewarded": "Quarks Rewarded",
       "multiplierValue": "x{{x}}",
-    "primaryReset": {
-      "daily": "Primary Quarks reset in <<gold|{{time}}>>.",
-      "dailyOrSingularity": "Primary Quarks reset in <<gold|{{time}}>>, or on your next Singularity.",
-      "singularity": "<<gold|{{time}}>> → <<gold|x{{x}}>> Primary Quarks. Resets on your next Singularity."
-    },
-    "miscellaneousReset": "Miscellaneous Quarks reset in <<gold|{{time}}>>.",
-    "goldenQuarkReset": "Golden Quarks reset in <<gold|{{time}}>>.",
+      "primaryReset": {
+        "daily": "Primary Quarks reset in <<gold|{{time}}>>.",
+        "dailyOrSingularity": "Primary Quarks reset in <<gold|{{time}}>>, or on your next Singularity.",
+        "singularity": "<<gold|{{time}}>> → <<gold|x{{x}}>> Primary Quarks. Resets on your next Singularity."
+      },
+      "miscellaneousReset": "Miscellaneous Quarks reset in <<gold|{{time}}>>.",
+      "goldenQuarkReset": "Golden Quarks reset in <<gold|{{time}}>>.",
       "rules": {
         "baseGain": "1) If you gain Base Quarks from a source, you will gain Quarks equal to that amount times the current Multiplier, no matter what.",
         "multiplierGrowth": "2) If your Multiplier grows such that Base Quarks * Multiplier exceeds the Awarded value, then you will automatically gain the difference."
