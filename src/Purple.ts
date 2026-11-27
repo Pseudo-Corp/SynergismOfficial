@@ -104,6 +104,9 @@ type PurpleReactorUpgradeRewards = {
   purpleQuarkGain: {
     quarkMult: number
   }
+  indigoInk: {
+    nothing: void
+  }
 }
 
 export type PurpleReactorNames = keyof PurpleReactorUpgradeRewards
@@ -1133,6 +1136,27 @@ export const purpleReactorUpgradeData: PurpleReactorUpgradeData = {
     apValue: {
       perLevelAP: 2,
       maxLevelAP: 10
+    }
+  },
+  indigoInk: {
+    maxLevel: 1,
+    costFormula: (level: number) => 39_999_999 * level,
+    effects: () => {
+      return
+    },
+    notMaxedEffectsDescription: () => {
+      return i18next.t('purpleReactor.upgrades.indigoInk.effect', {
+        amount: purpleReactorUpgrades.indigoInk.apValue.maxLevelAP
+      })
+    },
+    maxedEffectsDescription: () => {
+      return i18next.t('purpleReactor.upgrades.indigoInk.effect', {
+        amount: purpleReactorUpgrades.indigoInk.apValue.maxLevelAP
+      })
+    },
+    apValue: {
+      perLevelAP: 0,
+      maxLevelAP: 50
     }
   }
 }

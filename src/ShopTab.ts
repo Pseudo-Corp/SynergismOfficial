@@ -223,6 +223,14 @@ const shopSections = [
       {
         id: 'shopFreeQuarkUpgrades',
         tiers: [{ key: 'shopFreeQuarkUpgrades', icon: 'Pictures/Default/ShopFreeQuarkUpgrades.png' }]
+      },
+      {
+        id: 'shopQuarkInk',
+        tiers: [{ key: 'shopQuarkInk', icon: 'Pictures/Default/ShopQuarkInk.png' }]
+      },
+      {
+        id: 'shopChromeInk',
+        tiers: [{ key: 'shopChromeInk', icon: 'Pictures/Default/ShopChromeInk.png' }]
       }
     ]
   },

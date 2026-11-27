@@ -66,6 +66,7 @@ type OcteractUpgradeRewards = {
   octeractTalismanLevelCap2: { talismanLevelCapIncrease: number }
   octeractTalismanLevelCap3: { talismanLevelCapIncrease: number }
   octeractTalismanLevelCap4: { talismanLevelCapIncrease: number }
+  octeractTurquoiseInk: { achievementPoints: number }
 }
 
 export type OcteractUpgrades = keyof OcteractUpgradeRewards
@@ -885,6 +886,23 @@ export const octeractUpgrades: {
     name: () => i18next.t('octeract.data.octeractTalismanLevelCap4.name'),
     description: () => i18next.t('octeract.data.octeractTalismanLevelCap4.description'),
     qualityOfLife: false
+  },
+  octeractTurquoiseInk: {
+    level: 0,
+    maxLevel: 1,
+    costFormula: (level: number) => {
+      return 1e170 * level
+    },
+    effect: (n: number) => {
+      return n > 0 ? 50 : 0 // achievementPoints
+    },
+    effectDescription: (n: number) =>
+      i18next.t('octeract.data.octeractTurquoiseInk.effect', {
+        amount: octeractUpgrades.octeractTurquoiseInk.effect(n, 'achievementPoints')
+      }),
+    name: () => i18next.t('octeract.data.octeractTurquoiseInk.name'),
+    description: () => i18next.t('octeract.data.octeractTurquoiseInk.description'),
+    qualityOfLife: true
   }
 }
 
@@ -948,7 +966,7 @@ const OCTERACT_UPGRADE_MAP_ROWS = [
     }
   },
   {
-    left: null,
+    left: { id: 'ink', upgrades: ['octeractTurquoiseInk'] },
     right: {
       id: 'ambrosiaGeneration',
       upgrades: [
@@ -1142,6 +1160,7 @@ export const dailyOcteractFreeUpgradeKeys = Object.keys(dailyOcteractFreeUpgrade
 
 export const maxOcteractUpgradeAP = 8 * octeractUpgradeNames.length
   + 8 * dailyOcteractFreeUpgradeKeys.filter((key) => dailyOcteractFreeUpgradeTable[key].freeLevelCap !== -1).length
+  + octeractUpgrades.octeractTurquoiseInk.effect(octeractUpgrades.octeractTurquoiseInk.maxLevel, 'achievementPoints')
 
 const hasOcteractFreeLevelCap = (key: OcteractUpgrades): key is DailyOcteractFreeUpgradeKey =>
   key in dailyOcteractFreeUpgradeTable
@@ -1156,6 +1175,7 @@ export const getOcteractUpgradeAP = (key: OcteractUpgrades): number =>
 
 export const calculateOcteractUpgradeAP = () =>
   octeractUpgradeNames.reduce((sum, key) => sum + getOcteractUpgradeAP(key), 0)
+  + getOcteractUpgradeEffect('octeractTurquoiseInk', 'achievementPoints')
 
 const getCurrentOcteractFreeLevelCap = (key: DailyOcteractFreeUpgradeKey): number => {
   const entry = dailyOcteractFreeUpgradeTable[key]

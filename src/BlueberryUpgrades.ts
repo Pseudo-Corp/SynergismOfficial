@@ -66,6 +66,7 @@ type AmbrosiaUpgradeRewards = {
   ambrosiaFreeGenerationUpgrades: { freeGenerationUpgrades: number }
   ambrosiaFreeRedLuckUpgrades: { freeRedLuckUpgrades: number }
   twoMind: { twoMindEnabled: number }
+  blueInk: { achievementPoints: number }
 }
 
 export type AmbrosiaUpgradeNames = keyof AmbrosiaUpgradeRewards
@@ -1560,6 +1561,33 @@ export const ambrosiaUpgrades: {
       maxLevel: 1,
       costFormula: (level: number) => 2222 * level
     }
+  },
+  blueInk: {
+    level: 0,
+    maxLevel: 1,
+    costPerLevel: 400_000_000,
+    blueberryCost: 44,
+    ignoreEXALT: false,
+    prerequisites: [],
+    costFormula: (_level: number, baseCost: number): number => {
+      return baseCost
+    },
+    effects: (n: number) => {
+      return 50 * n // achievementPoints
+    },
+    effectsDescription: function() {
+      return i18next.t('ambrosia.data.blueInk.effect', {
+        amount: ambrosiaUpgrades.blueInk.effects(1, 'achievementPoints')
+      })
+    },
+    name: () => i18next.t('ambrosia.data.blueInk.name'),
+    description: () => i18next.t('ambrosia.data.blueInk.description'),
+    unlockCriterion: 'Exalt1x1',
+    purpleAmbrosiaEnchantment: {
+      type: 'blueberryCostReduction',
+      maxLevel: 1,
+      costFormula: (level: number) => 10_000 * level
+    }
   }
 }
 
@@ -2033,6 +2061,7 @@ export const buyAmbrosiaUpgradeLevel = async (
   player.ambrosia -= purchase.cost
   player.ambrosiaUpgrades[upgradeKey].ambrosiaInvested += purchase.cost
   upgrade.level += purchase.levels
+  player.blueInkPurchased ||= ambrosiaUpgrades.blueInk.level > 0
 
   if (upgradeKey === 'twoMind') {
     resetAmbrosiaBarProgress()
@@ -2280,6 +2309,7 @@ const applyAmbrosiaEdit = (upgradeKey: AmbrosiaUpgradeNames) => {
     resetAmbrosiaBarProgress()
   }
   upgrade.level = pending
+  player.blueInkPurchased ||= ambrosiaUpgrades.blueInk.level > 0
 }
 
 export const ambrosiaEditAction = (upgradeKey: AmbrosiaUpgradeNames, action: string | undefined) => {
@@ -2480,6 +2510,7 @@ const createBlueberryTree = (modules: BlueberryOpt, giveAlert = true) => {
       ambrosiaUpgrades[k].level = val
     }
   }
+  player.blueInkPurchased ||= ambrosiaUpgrades.blueInk.level > 0
   if (giveAlert) {
     void Alert(i18next.t('ambrosia.importTree.success'))
   }

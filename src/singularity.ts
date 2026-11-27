@@ -163,6 +163,7 @@ type GoldenQuarkUpgradeRewards = {
   singTalismanBonusRunes3: { talismanRuneEffect: number }
   singTalismanBonusRunes4: { talismanRuneEffect: number }
   favoriteUpgrade: { quarkMult: number }
+  goldenInk: { achievementPoints: number }
 }
 
 export type SingularityDataKeys = keyof GoldenQuarkUpgradeRewards
@@ -2192,6 +2193,25 @@ export const goldenQuarkUpgrades: {
         n: formatAsPercentIncrease(bonus, 2)
       })
     }
+  },
+  goldenInk: {
+    level: 0,
+    maxLevel: 1,
+    canExceedCap: false,
+    qualityOfLife: true,
+    costPerLevel: 1e35,
+    minimumSingularity: 300,
+    specialCostForm: 'Default',
+    effect: (n: number) => {
+      return n > 0 ? 50 : 0 // achievementPoints
+    },
+    effectDescription: () => {
+      return i18next.t('singularity.data.goldenInk.effect', {
+        amount: getGQUpgradeEffect('goldenInk', 'achievementPoints')
+      })
+    },
+    name: () => i18next.t('singularity.data.goldenInk.name'),
+    description: () => i18next.t('singularity.data.goldenInk.description')
   }
 }
 
@@ -2336,6 +2356,7 @@ export const dailyFreeUpgradeKeys = Object.keys(dailyFreeUpgradeTable) as DailyF
 
 export const maxGoldenQuarkUpgradeAP = 6 * goldenQuarkUpgradeNames.length
   + 6 * dailyFreeUpgradeKeys.filter((key) => dailyFreeUpgradeTable[key].freeLevelCap !== -1).length
+  + goldenQuarkUpgrades.goldenInk.effect(goldenQuarkUpgrades.goldenInk.maxLevel, 'achievementPoints')
 
 const hasGQFreeLevelCap = (key: SingularityDataKeys): key is DailyFreeUpgradeKey =>
   key in dailyFreeUpgradeTable && dailyFreeUpgradeTable[key as DailyFreeUpgradeKey].freeLevelCap !== -1
@@ -2344,7 +2365,8 @@ export const getGQUpgradeAP = (key: SingularityDataKeys): number =>
   (goldenQuarkUpgrades[key].level >= goldenQuarkUpgrades[key].maxLevel ? 6 : 0)
   + (hasGQFreeLevelCap(key) && isDailyFreeUpgradeCapped(key) ? 6 : 0)
 
-export const calculateGQUpgradeAP = () => sumContents(goldenQuarkUpgradeNames.map(getGQUpgradeAP))
+export const calculateGQUpgradeAP = () =>
+  sumContents(goldenQuarkUpgradeNames.map(getGQUpgradeAP)) + getGQUpgradeEffect('goldenInk', 'achievementPoints')
 
 const getDailyFreeUpgradeRoom = (key: DailyFreeUpgradeKey): number => {
   const cap = dailyFreeUpgradeTable[key].freeLevelCap
@@ -3777,6 +3799,14 @@ export const singularityPerks: SingularityPerk[] = [
       return i18next.t('singularity.perks.evenMoreQuarks.bug')
     },
     ID: 'reactorSpeedup'
+  },
+  {
+    name: 'singularity.perks.rainbowInk.name',
+    levels: [300],
+    description: () => {
+      return i18next.t('singularity.perks.rainbowInk.default')
+    },
+    ID: 'rainbowInk'
   }
 ]
 
@@ -3857,7 +3887,9 @@ const SINGULARITY_PERK_TREE_PLACEMENTS: Record<string, SingularityPerkTreePlacem
   reactorSpeedup: { parentID: 'congealedblueberries', x: -4, y: 4 },
   irishAnt3: { parentID: 'irishAnt2', x: -5, y: 3 },
 
-  exaltedAchievements: { parentID: null, x: 0.5, y: 0.5 }
+  exaltedAchievements: { parentID: null, x: 0.5, y: 0.5 },
+
+  rainbowInk: { parentID: null, x: 4, y: 0 }
 }
 const SINGULARITY_PERK_TREE_BOUNDS = {
   minimumX: -6,

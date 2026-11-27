@@ -406,6 +406,7 @@ type SynergismLevelMilestones =
   | 'wowCubesAutobuyer'
   | 'ascensionScoreAutobuyer'
   | 'mortuus2Autobuyer'
+  | 'whiteInk'
 
 interface SynergismLevelMilestoneData {
   name: () => string
@@ -737,6 +738,15 @@ const synergismLevelMilestones: Record<SynergismLevelMilestones, SynergismLevelM
     },
     levelReq: 225,
     displayOrder: 19
+  },
+  whiteInk: {
+    name: () => i18next.t('achievements.levelMilestones.whiteInk.name'),
+    description: () => i18next.t('achievements.levelMilestones.whiteInk.description'),
+    effect: () => 1,
+    defaultValue: 0,
+    effectDescription: () => i18next.t('achievements.levelMilestones.whiteInk.effect'),
+    levelReq: 350,
+    displayOrder: 20
   }
 }
 

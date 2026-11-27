@@ -131,6 +131,8 @@ type QuarkShopUpgradeRewards = {
   shopInfiniteShopUpgrades: { infiniteVouchers: number }
   shopInfiniteShopUpgrades2: { infiniteVouchers: number }
   shopFreeQuarkUpgrades: { freeLevels: number }
+  shopQuarkInk: { achievementPoints: number }
+  shopChromeInk: { achievementPoints: number }
   shopSingularityPenaltyDebuff: { singularityPenaltyReducers: number }
   shopCashGrabUltra: { ambrosiaGenerationMult: number; cubesMult: number; quarkMult: number }
   shopEXUltra: { offeringMult: number; obtainiumMult: number; cubeMult: number }
@@ -2166,6 +2168,38 @@ export const shopUpgrades: { [K in ShopUpgradeNames]: IShopData<K, keyof QuarkSh
     type: shopUpgradeTypes.UPGRADE,
     upgradeTypes: [ShopUpgradeGroups.Utility]
   },
+  shopQuarkInk: {
+    name: () => i18next.t('shop.names.shopQuarkInk'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopQuarkInk'),
+    effects: (n) => 50 * n, // achievementPoints
+    effectDescription () {
+      return i18next.t('shop.upgradeEffects.shopQuarkInk', {
+        amount: getShopUpgradeEffects('shopQuarkInk', 'achievementPoints')
+      })
+    },
+    isUnlocked: () => getGQUpgradeEffect('wowPass5', 'unlocked'),
+    price: 1e34,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.Utility]
+  },
+  shopChromeInk: {
+    name: () => i18next.t('shop.names.shopChromeInk'),
+    description: () => i18next.t('shop.upgradeDescriptions.shopChromeInk'),
+    effects: (n) => 50 * n, // achievementPoints
+    effectDescription () {
+      return i18next.t('shop.upgradeEffects.shopChromeInk', {
+        amount: getShopUpgradeEffects('shopChromeInk', 'achievementPoints')
+      })
+    },
+    isUnlocked: () => getSingularityChallengeEffect('barDependence', 'chromeInk'),
+    price: 1,
+    priceIncrease: 0,
+    maxLevel: 1,
+    type: shopUpgradeTypes.UPGRADE,
+    upgradeTypes: [ShopUpgradeGroups.Utility]
+  },
   shopHorseShoe: {
     name: () => i18next.t('shop.names.shopHorseShoe'),
     description: () => i18next.t('shop.upgradeDescriptions.shopHorseShoe'),
@@ -2385,10 +2419,13 @@ export const quarkUpgradeAP = () => {
       points += 4
     }
   }
-  return points
+  return points + getShopUpgradeEffects('shopQuarkInk', 'achievementPoints')
+    + getShopUpgradeEffects('shopChromeInk', 'achievementPoints')
 }
 
 export const maxQuarkUpgradeAP = (shopUpgradeNames.length - 2) * 4
+  + shopUpgrades.shopQuarkInk.effects(shopUpgrades.shopQuarkInk.maxLevel, 'achievementPoints')
+  + shopUpgrades.shopChromeInk.effects(shopUpgrades.shopChromeInk.maxLevel, 'achievementPoints')
 
 const getBonusLevels = (upgradeKey: ShopUpgradeNames) => {
   if (player.shopUpgrades[upgradeKey] === 0) {

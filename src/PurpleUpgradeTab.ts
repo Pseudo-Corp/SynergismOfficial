@@ -201,6 +201,10 @@ const purpleUpgradeSections = [
       {
         id: 'paperweight',
         tiers: [{ key: 'paperweight', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurplePaperweight.png' }]
+      },
+      {
+        id: 'indigoInk',
+        tiers: [{ key: 'indigoInk', icon: 'Pictures/PurpleAmbrosia/Purple Upgrades/PurpleIndigoInk.png' }]
       }
     ]
   }

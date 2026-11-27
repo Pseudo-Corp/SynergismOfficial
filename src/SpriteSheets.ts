@@ -323,7 +323,7 @@ export const spriteSheets: SpriteSheet[] = [
       'octeractTalismanLevelCap3Image',
       'octeractTalismanLevelCap4Image',
       null,
-      null,
+      'octeractTurquoiseInkImage',
       'octeractBlueberriesImage',
       'octeractAmbrosiaLuck2Image',
       'octeractAmbrosiaLuck3Image',

@@ -1015,6 +1015,7 @@ export const playerSchema = z.object({
   lifetimePurpleAmbrosia: z.number().default(() => blankSave.lifetimePurpleAmbrosia),
   blueberryTime: z.number().default(() => blankSave.blueberryTime),
   spentBlueberries: z.number().default(() => blankSave.spentBlueberries),
+  blueInkPurchased: z.boolean().default(() => blankSave.blueInkPurchased),
   // TODO: what type?
   blueberryLoadouts: z.record(integerStringSchema, z.any()).prefault(() => blankSave.blueberryLoadouts),
   blueberryLoadoutMode: z.string().default(() => blankSave.blueberryLoadoutMode),

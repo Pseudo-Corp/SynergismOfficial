@@ -1128,6 +1128,7 @@ export const singularity = (setSingNumber = -1, exalt?: ResetHistorySingularityE
   hold.ambrosiaUpgrades = { ...player.ambrosiaUpgrades }
 
   hold.spentBlueberries = player.spentBlueberries
+  hold.blueInkPurchased = player.blueInkPurchased
   hold.autoChallengeToggles = player.autoChallengeToggles
   hold.autoChallengeTimer = player.autoChallengeTimer
   hold.saveString = player.saveString

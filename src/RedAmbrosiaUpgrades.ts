@@ -41,6 +41,7 @@ type RedAmbrosiaUpgradeRewards = {
   freeObtainiumUpgrades: { levels: number }
   freeCubeUpgrades: { levels: number }
   freeSpeedUpgrades: { levels: number }
+  redInk: { achievementPoints: number }
 }
 
 export type RedAmbrosiaNames = keyof RedAmbrosiaUpgradeRewards
@@ -598,6 +599,22 @@ export const redAmbrosiaUpgrades: {
     maxLevel: 5,
     name: () => i18next.t('redAmbrosia.data.freeSpeedUpgrades.name'),
     description: () => i18next.t('redAmbrosia.data.freeSpeedUpgrades.description')
+  },
+  redInk: {
+    level: 0,
+    costFormula: (n) => {
+      return 39_999_999 * n
+    },
+    effects: (n: number) => {
+      return 50 * n // achievementPoints
+    },
+    effectsDescription: (_n: number) => {
+      const achievementPoints = getRedAmbrosiaUpgradeEffects('redInk', 'achievementPoints')
+      return i18next.t('redAmbrosia.data.redInk.effect', { amount: achievementPoints })
+    },
+    maxLevel: 1,
+    name: () => i18next.t('redAmbrosia.data.redInk.name'),
+    description: () => i18next.t('redAmbrosia.data.redInk.description')
   }
 }
 
@@ -605,13 +622,14 @@ export const redAmbrosiaUpgradeNames = Object.keys(redAmbrosiaUpgrades) as RedAm
 
 export const maxRedAmbrosiaUpgradeAP = Object.values(redAmbrosiaUpgrades).reduce((acc) => {
   return acc + 10
-}, 0)
+}, 0) + redAmbrosiaUpgrades.redInk.effects(redAmbrosiaUpgrades.redInk.maxLevel, 'achievementPoints')
 
 const isRedAmbrosiaUpgradeMaxed = (key: RedAmbrosiaNames) =>
   redAmbrosiaUpgrades[key].level >= redAmbrosiaUpgrades[key].maxLevel
 
 export const calculateRedAmbrosiaUpgradeAP = () =>
   redAmbrosiaUpgradeNames.reduce((sum, key) => sum + (isRedAmbrosiaUpgradeMaxed(key) ? 10 : 0), 0)
+  + getRedAmbrosiaUpgradeEffects('redInk', 'achievementPoints')
 
 export const maximumAffordableLevel = (upgradeKey: RedAmbrosiaNames, redAmbrosiaAmount: number): number => {
   const upgrade = redAmbrosiaUpgrades[upgradeKey]

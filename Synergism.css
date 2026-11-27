@@ -8288,6 +8288,7 @@ html:not([data-mobile="true"]) #mainHeader:not(.headerEditMode) .ascensionStats:
 #octeractUpgradeContainer [data-octeract-line="blueberries"] { --octeract-line-color: #fb923c; }
 #octeractUpgradeContainer [data-octeract-line="ambrosiaLuck"] { --octeract-line-color: #fb923c; }
 #octeractUpgradeContainer [data-octeract-line="ambrosiaGeneration"] { --octeract-line-color: #fb923c; }
+#octeractUpgradeContainer [data-octeract-line="ink"] { --octeract-line-color: #40e0d0; }
 
 .octeractUpgradeSpine {
     position: relative;

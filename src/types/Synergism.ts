@@ -464,6 +464,7 @@ export interface Player {
 
   blueberryTime: number
   spentBlueberries: number
+  blueInkPurchased: boolean
 
   blueberryLoadouts: Record<number, BlueberryOpt>
   blueberryLoadoutMode: BlueberryLoadoutMode

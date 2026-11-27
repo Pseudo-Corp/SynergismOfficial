@@ -631,6 +631,8 @@ export const player: Player = {
     shopPurpleHoneyLuck: 0,
     shopPurpleHoneyLuckFreeLevels: 0,
     shopFreeQuarkUpgrades: 0,
+    shopQuarkInk: 0,
+    shopChromeInk: 0,
     shopPrestigeCount: 0,
     shopTranscensionCount: 0,
     shopReincarnationCount: 0,
@@ -1014,6 +1016,7 @@ export const player: Player = {
   lifetimePurpleAmbrosia: 0,
   blueberryTime: 0,
   spentBlueberries: 0,
+  blueInkPurchased: false,
 
   blueberryLoadouts: {
     1: {},

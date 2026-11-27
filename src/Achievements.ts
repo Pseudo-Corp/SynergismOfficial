@@ -1,6 +1,6 @@
 import Decimal from 'break_infinity.js'
 import i18next from 'i18next'
-import { calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
+import { ambrosiaUpgrades, calculatePurpleEnchantmentAP, maxPurpleEnchantmentAP } from './BlueberryUpgrades'
 import { CoinBuilding } from './Buy'
 import { DOMCacheGetOrSet } from './Cache/DOM'
 import { campaignTokens } from './Campaign'
@@ -396,11 +396,12 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.unlocks.talismans
   },
   singularityCount: {
-    maxPointValue: 3600,
+    maxPointValue: 3650,
     pointsAwarded: (_cached: number) => {
       return 9 * player.highestSingularityCount
         + 3 * Math.max(0, player.highestSingularityCount - 100)
         + 3 * Math.max(0, player.highestSingularityCount - 200)
+        + 50 * +(player.highestSingularityCount >= 300)
     },
     updateValue: () => {
       return player.highestSingularityCount
@@ -521,9 +522,11 @@ export const progressiveAchievements: Record<ProgressiveAchievements, Progressiv
     displayCondition: () => player.singularityChallenges.taxmanLastStand.completions > 0
   },
   purpleAmbrosiaUpgrades: {
-    maxPointValue: maxSynthesisUpgradeAP + maxPurpleAmbrosiaUpgradeAP + maxPurpleEnchantmentAP,
+    maxPointValue: maxSynthesisUpgradeAP + maxPurpleAmbrosiaUpgradeAP + maxPurpleEnchantmentAP
+      + ambrosiaUpgrades.blueInk.effects(1, 'achievementPoints'),
     pointsAwarded: () =>
-      calculateSynthesisUpgradeAP() + calculatePurpleAmbrosiaUpgradeAP() + calculatePurpleEnchantmentAP(),
+      calculateSynthesisUpgradeAP() + calculatePurpleAmbrosiaUpgradeAP() + calculatePurpleEnchantmentAP()
+      + ambrosiaUpgrades.blueInk.effects(Number(player.blueInkPurchased), 'achievementPoints'),
     updateValue: () => {
       return 0
     },

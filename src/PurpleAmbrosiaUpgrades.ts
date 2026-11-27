@@ -20,6 +20,7 @@ export type PurpleAmbrosiaUpgradeRewards = {
   capricorn: { horseshoeTalismanUnlocked: boolean; antiquitiesOfAntGodCoefficient: number }
   aquarius: { infiniteTranscriptionExponent: number }
   pisces: { platonicBetaAtStart: boolean }
+  purpleInk: { achievementPoints: number }
 }
 
 export type PurpleAmbrosiaNames = keyof PurpleAmbrosiaUpgradeRewards
@@ -347,6 +348,21 @@ const purpleAmbrosiaUpgradeData: PurpleAmbrosiaUpgradeData = {
     maxedEffectsDescription: () => i18next.t('purpleAmbrosia.data.pisces.effectMaxed'),
     name: () => i18next.t('purpleAmbrosia.data.pisces.name'),
     description: () => i18next.t('purpleAmbrosia.data.pisces.description')
+  },
+  purpleInk: {
+    maxLevel: 1,
+    costFormula: (level: number) => 100_000 * level,
+    effects: (level: number) => 50 * level,
+    notMaxedEffectsDescription: () =>
+      i18next.t('purpleAmbrosia.data.purpleInk.effect', {
+        amount: getPurpleAmbrosiaUpgradeNextLevelEffects('purpleInk', 'achievementPoints')
+      }),
+    maxedEffectsDescription: () =>
+      i18next.t('purpleAmbrosia.data.purpleInk.effect', {
+        amount: getPurpleAmbrosiaUpgradeEffects('purpleInk', 'achievementPoints')
+      }),
+    name: () => i18next.t('purpleAmbrosia.data.purpleInk.name'),
+    description: () => i18next.t('purpleAmbrosia.data.purpleInk.description')
   }
 }
 
@@ -372,12 +388,13 @@ export const purpleAmbrosiaUpgrades = createPurpleAmbrosiaUpgrades(purpleAmbrosi
 export const purpleAmbrosiaUpgradeNames = Object.keys(purpleAmbrosiaUpgrades) as PurpleAmbrosiaNames[]
 
 export const maxPurpleAmbrosiaUpgradeAP = 12 * purpleAmbrosiaUpgradeNames.length
+  + purpleAmbrosiaUpgrades.purpleInk.effects(purpleAmbrosiaUpgrades.purpleInk.maxLevel, 'achievementPoints')
 
 export const calculatePurpleAmbrosiaUpgradeAP = () =>
   purpleAmbrosiaUpgradeNames.reduce((sum, key) => {
     const upgrade = purpleAmbrosiaUpgrades[key]
     return sum + (player.purpleAmbrosiaUpgrades[key] >= upgrade.costFormula(upgrade.maxLevel) ? 12 : 0)
-  }, 0)
+  }, 0) + getPurpleAmbrosiaUpgradeEffects('purpleInk', 'achievementPoints')
 
 export const maximumAffordableLevel = (
   upgradeKey: PurpleAmbrosiaNames,

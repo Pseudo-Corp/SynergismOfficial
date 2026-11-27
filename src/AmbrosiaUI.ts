@@ -30,7 +30,8 @@ const blueberryUpgradeGroups = {
     'ambrosiaQuarks2',
     'ambrosiaQuarks3',
     'ambrosiaQuarks4',
-    'ambrosiaFreeQuarkUpgrades'
+    'ambrosiaFreeQuarkUpgrades',
+    'blueInk'
   ],
   cubes: [
     'ambrosiaCubes1',
@@ -95,7 +96,8 @@ const redAmbrosiaUpgradeGroups = {
     'conversionImprovement2',
     'conversionImprovement3',
     'regularLuck',
-    'regularLuck2'
+    'regularLuck2',
+    'redInk'
   ],
   barSpeed: [
     'blueberryGenerationSpeed',
