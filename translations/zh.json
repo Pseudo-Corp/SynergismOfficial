@@ -4752,7 +4752,7 @@
     },
     "elevator": {
       "title": "奇点电梯",
-      "description": "<b> <<gold | 奇点电梯可以让您在 1-{{limit}} 之间改变当前生效的奇点次数！ >> </b><br>您可以选择 1- <b> {{limit}}</b> 之间任意的奇点次数，但是选择比当前奇点相同或更高的奇点次数会强制进行奇点重置。",
+      "description": "<b><<gold|乘坐电梯，前往目标奇点！>></b><br>您可以选择1至<b>{{limit}}</b>之间任意的奇点次数。",
       "targetSingularity": "目标奇点：{{target}}",
       "selectTarget": "选择目标奇点",
       "teleportButton": "传送！",
